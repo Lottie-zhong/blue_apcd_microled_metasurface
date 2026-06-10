@@ -1,0 +1,40 @@
+﻿project_mode: blue_apcd_microled_metasurface
+wavelength_nm: 450
+
+routes:
+  A_K5_15deg:
+    description: "Blue 450 nm, K=5, target deflection 15 deg"
+    K: 5
+    target_angle_deg: 15
+    px_nm: 348
+    py_nm: 320
+    phase_bins_deg: [0, 72, 144, 216, 288]
+
+  B_K6_10deg:
+    description: "Blue 450 nm, K=6, target deflection 10 deg"
+    K: 6
+    target_angle_deg: 10
+    px_nm: 432
+    py_nm: 320
+    phase_bins_deg: [0, 60, 120, 180, 240, 300]
+
+materials:
+  primary: TiO2
+  backup: GaN
+
+height_scout_nm:
+  TiO2: [350, 450, 550]
+  GaN: [400, 500, 600, 700]
+
+first_stage:
+  task: single_pillar_lookup_scout
+  do_not_start_with: dimer_phase_library
+  metrics:
+    - tx_amp
+    - ty_amp
+    - phase_x_deg
+    - phase_y_deg
+    - retardance_deg
+    - common_phase_deg
+    - trans_mean
+    - amp_balance
