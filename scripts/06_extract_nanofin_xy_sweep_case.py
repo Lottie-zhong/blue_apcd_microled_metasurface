@@ -32,15 +32,16 @@ def main() -> int:
 
     for polarization in ("x", "y"):
         single_config = load_nanofin_single_config(row[f"{polarization}_config"])
+        fsp_path = _resolve_fsp_path(row, polarization)
         rows_out = SingleNanofinRunner.from_runtime_file(
             config=single_config,
             runtime_path=args.runtime,
             dry_run=False,
-            load_fsp=row[f"{polarization}_fsp"],
+            load_fsp=fsp_path,
             extract_only=True,
         ).run()
         write_single_nanofin_summary(rows_out, row[f"{polarization}_summary"])
-        print(f"extracted={args.case_id} polarization={polarization} status={rows_out[0]['status']}")
+        print(f"extracted={args.case_id} polarization={polarization} status={rows_out[0]['status']} fsp={fsp_path}")
 
     phase_delay_path = compute_xy_phase_delay_from_files(
         x_summary_path=row["x_summary"],
@@ -49,6 +50,15 @@ def main() -> int:
     )
     print(f"phase_delay={phase_delay_path}")
     return 0
+
+
+def _resolve_fsp_path(row: dict[str, object], polarization: str) -> Path:
+    planned_fsp = Path(row[f"{polarization}_fsp"])
+    if planned_fsp.exists():
+        return planned_fsp
+    case_id = str(row["case_id"])
+    cached_fsp = planned_fsp.parent.parent / "_saved_fsp" / case_id / f"{case_id}_{polarization}.fsp"
+    return cached_fsp
 
 
 if __name__ == "__main__":

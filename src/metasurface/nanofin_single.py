@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import cmath
 import math
+import traceback
 from dataclasses import dataclass
 from pathlib import Path
 from types import ModuleType
@@ -144,7 +145,7 @@ def run_single_nanofin_lumerical(
             transmission, phase_rad, farfield_peak, farfield_shape = _extract_single_nanofin_results(fdtd, config)
             status = "ok"
     except Exception as exc:  # Lumerical exceptions vary by installation.
-        note = f"{type(exc).__name__}: {exc}"
+        note = _format_exception_note(exc)
     finally:
         if fdtd is not None:
             try:
@@ -167,6 +168,11 @@ def run_single_nanofin_lumerical(
         "status": status,
         "note": note,
     }
+
+
+def _format_exception_note(exc: Exception) -> str:
+    details = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__)).strip()
+    return f"{type(exc).__name__}: {exc}\n{details}" if details else f"{type(exc).__name__}: {exc}"
 
 
 def _build_single_nanofin_model(fdtd: object, config: NanofinSingleConfig) -> None:
