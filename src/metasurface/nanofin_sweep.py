@@ -15,6 +15,7 @@ XY_SWEEP_PLAN_FIELDS = [
     "width_nm",
     "height_nm",
     "rotation_deg",
+    "metasurface_index",
     "x_config",
     "y_config",
     "x_fsp",
@@ -52,6 +53,7 @@ class NanofinXYSweepConfig:
     height_nm: list[float]
     rotation_deg: list[float]
     result_dir: Path
+    explicit_cases: list[dict[str, object]] | None = None
 
 
 def load_xy_sweep_config(path: Union[str, Path]) -> NanofinXYSweepConfig:
@@ -59,43 +61,66 @@ def load_xy_sweep_config(path: Union[str, Path]) -> NanofinXYSweepConfig:
     base_configs = _required_mapping(data, "base_configs")
     sweep = _required_mapping(data, "sweep")
     output = _required_mapping(data, "output")
+    explicit_cases = _case_list(sweep, "cases") if "cases" in sweep else None
     return NanofinXYSweepConfig(
         x_base_config=Path(base_configs["x"]),
         y_base_config=Path(base_configs["y"]),
-        length_nm=_number_list(sweep, "length_nm"),
-        width_nm=_number_list(sweep, "width_nm"),
-        height_nm=_number_list(sweep, "height_nm"),
-        rotation_deg=_number_list(sweep, "rotation_deg"),
+        length_nm=[] if explicit_cases is not None else _number_list(sweep, "length_nm"),
+        width_nm=[] if explicit_cases is not None else _number_list(sweep, "width_nm"),
+        height_nm=[] if explicit_cases is not None else _number_list(sweep, "height_nm"),
+        rotation_deg=[] if explicit_cases is not None else _number_list(sweep, "rotation_deg"),
         result_dir=Path(output["result_dir"]),
+        explicit_cases=explicit_cases,
     )
 
 
 def build_xy_sweep_plan_rows(config: NanofinXYSweepConfig) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
-    for height_nm in config.height_nm:
-        for rotation_deg in config.rotation_deg:
-            for length_nm in config.length_nm:
-                for width_nm in config.width_nm:
-                    case_id = _case_id(length_nm, width_nm, height_nm, rotation_deg)
-                    case_dir = config.result_dir / case_id
-                    rows.append(
-                        {
-                            "case_id": case_id,
-                            "length_nm": _format_number(length_nm),
-                            "width_nm": _format_number(width_nm),
-                            "height_nm": _format_number(height_nm),
-                            "rotation_deg": _format_number(rotation_deg),
-                            "x_config": case_dir / f"{case_id}_x.yaml",
-                            "y_config": case_dir / f"{case_id}_y.yaml",
-                            "x_fsp": case_dir / f"{case_id}_x.fsp",
-                            "y_fsp": case_dir / f"{case_id}_y.fsp",
-                            "x_summary": case_dir / f"{case_id}_x_summary.csv",
-                            "y_summary": case_dir / f"{case_id}_y_summary.csv",
-                            "phase_delay_summary": case_dir / f"{case_id}_phase_delay.csv",
-                            "status": "planned",
-                            "note": "",
-                        }
-                    )
+    if config.explicit_cases is not None:
+        case_specs = config.explicit_cases
+    else:
+        case_specs = [
+            {
+                "length_nm": length_nm,
+                "width_nm": width_nm,
+                "height_nm": height_nm,
+                "rotation_deg": rotation_deg,
+            }
+            for height_nm in config.height_nm
+            for rotation_deg in config.rotation_deg
+            for length_nm in config.length_nm
+            for width_nm in config.width_nm
+        ]
+
+    for spec in case_specs:
+        length_nm = float(spec["length_nm"])
+        width_nm = float(spec["width_nm"])
+        height_nm = float(spec["height_nm"])
+        rotation_deg = float(spec["rotation_deg"])
+        case_id = str(spec.get("case_id") or _case_id(length_nm, width_nm, height_nm, rotation_deg))
+        case_dir = config.result_dir / case_id
+        metasurface_index = spec.get("metasurface_index", "")
+        if metasurface_index != "":
+            metasurface_index = str(_typed_number(float(metasurface_index)))
+        rows.append(
+            {
+                "case_id": case_id,
+                "length_nm": _format_number(length_nm),
+                "width_nm": _format_number(width_nm),
+                "height_nm": _format_number(height_nm),
+                "rotation_deg": _format_number(rotation_deg),
+                "metasurface_index": metasurface_index,
+                "x_config": case_dir / f"{case_id}_x.yaml",
+                "y_config": case_dir / f"{case_id}_y.yaml",
+                "x_fsp": case_dir / f"{case_id}_x.fsp",
+                "y_fsp": case_dir / f"{case_id}_y.fsp",
+                "x_summary": case_dir / f"{case_id}_x_summary.csv",
+                "y_summary": case_dir / f"{case_id}_y_summary.csv",
+                "phase_delay_summary": case_dir / f"{case_id}_phase_delay.csv",
+                "status": "planned",
+                "note": "",
+            }
+        )
     return rows
 
 
@@ -117,8 +142,9 @@ def write_xy_case_configs(config: NanofinXYSweepConfig, rows: list[dict[str, obj
         width_nm = float(row["width_nm"])
         height_nm = float(row["height_nm"])
         rotation_deg = float(row["rotation_deg"])
-        _write_case_config(x_base, Path(row["x_config"]), length_nm, width_nm, height_nm, rotation_deg)
-        _write_case_config(y_base, Path(row["y_config"]), length_nm, width_nm, height_nm, rotation_deg)
+        metasurface_index = _optional_float(row.get("metasurface_index"))
+        _write_case_config(x_base, Path(row["x_config"]), length_nm, width_nm, height_nm, rotation_deg, metasurface_index)
+        _write_case_config(y_base, Path(row["y_config"]), length_nm, width_nm, height_nm, rotation_deg, metasurface_index)
 
 
 def collect_xy_sweep_result_rows(rows: list[dict[str, object]]) -> list[dict[str, object]]:
@@ -223,12 +249,15 @@ def _write_case_config(
     width_nm: float,
     height_nm: float,
     rotation_deg: float,
+    metasurface_index: float | None = None,
 ) -> None:
     data = _copy_mapping(base_config)
     data["geometry"]["length_nm"] = _typed_number(length_nm)
     data["geometry"]["width_nm"] = _typed_number(width_nm)
     data["geometry"]["height_nm"] = _typed_number(height_nm)
     data["geometry"]["rotation_deg"] = _typed_number(rotation_deg)
+    if metasurface_index is not None:
+        data["material"]["metasurface_index"] = _typed_number(metasurface_index)
     data["output"]["result_dir"] = str(output_path.parent)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8") as handle:
@@ -260,6 +289,39 @@ def _number_list(data: dict[str, Any], key: str) -> list[float]:
     return [float(value) for value in values]
 
 
+def _case_list(data: dict[str, Any], key: str) -> list[dict[str, object]]:
+    values = data.get(key)
+    if not isinstance(values, list) or not values:
+        raise ValueError(f"Expected non-empty list: {key}")
+    cases: list[dict[str, object]] = []
+    seen_case_ids: set[str] = set()
+    for index, value in enumerate(values):
+        if not isinstance(value, dict):
+            raise ValueError(f"Expected YAML mapping for {key}[{index}]")
+        try:
+            length_nm = float(value["length_nm"])
+            width_nm = float(value["width_nm"])
+            height_nm = float(value["height_nm"])
+            rotation_deg = float(value.get("rotation_deg", 0.0))
+        except KeyError as exc:
+            raise ValueError(f"Missing required key in {key}[{index}]: {exc}") from exc
+        case_id = str(value.get("case_id") or _case_id(length_nm, width_nm, height_nm, rotation_deg))
+        if case_id in seen_case_ids:
+            raise ValueError(f"Duplicate explicit case_id in {key}: {case_id}")
+        seen_case_ids.add(case_id)
+        case: dict[str, object] = {
+            "case_id": case_id,
+            "length_nm": length_nm,
+            "width_nm": width_nm,
+            "height_nm": height_nm,
+            "rotation_deg": rotation_deg,
+        }
+        if "metasurface_index" in value:
+            case["metasurface_index"] = float(value["metasurface_index"])
+        cases.append(case)
+    return cases
+
+
 def _copy_mapping(data: dict[str, Any]) -> dict[str, Any]:
     return yaml.safe_load(yaml.safe_dump(data, sort_keys=False))
 
@@ -279,3 +341,9 @@ def _format_number(value: float) -> str:
 
 def _typed_number(value: float) -> int | float:
     return int(value) if float(value).is_integer() else value
+
+
+def _optional_float(value: object) -> float | None:
+    if value is None or str(value).strip() == "":
+        return None
+    return float(value)
