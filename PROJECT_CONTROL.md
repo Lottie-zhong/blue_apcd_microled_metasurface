@@ -1,5 +1,16 @@
 # 2026-06 Current Frozen Baseline: Blue-10K6 APCD-ML-RCWA Directional Metagrating
 
+## 2026-06 update: CP-first and LP-APCD experimental branch
+
+The current route is refined to **Blue-10K6 APCD-ML-RCWA Polarization-Selective Directional Metagrating**. The frozen numerical baseline remains 450 nm, +10 deg, K=6, p_x approximately 432 nm, and phase states [0, 60, 120, 180, 240, 300].
+
+- CP-APCD remains the high-innovation capability proof. Track A should continue single-dimer CP selection, handedness-flip convention reporting, target/leakage ratio, P_CP/DoCP, total transmission, and geometry validity.
+- LP-APCD is promoted as the first experimental-friendly directional-emission branch. Track B targets x-LP selection followed by K=6 phase-ramp directional emission at +10 deg, without claiming the phase bins are physically realized before simulation evidence exists.
+- J1 for LP-APCD is identity-like/isotropic-like and can use circular, square, polygonal, near-square rectangle, or near-circle ellipse geometries. The J1 scan target is delta_y - delta_x approximately 0 deg or 360 deg with balanced amplitudes and useful common-phase coverage.
+- J2 remains HWP-like and existing compatible J2 data can be reused only when wavelength, p_x/p_y, height, material, and extraction convention match the frozen baseline. Older 633 nm, p_x approximately 348 nm, p_x approximately 518 nm, old material, or old-convention data are seed/reference only.
+- LP-APCD phase-gradient design should prioritize propagation phase, resonance phase, and J1/J2 matched common phase. Do not relabel this as photonic spin Hall effect, and do not default to pure PB phase for LP steering.
+- Do not run full K=6 FDTD, recreate the static generator, delete CP-APCD outputs/scripts, or revert to 633 nm, +15 deg, K=7, p_x approximately 348 nm, or p_x approximately 518 nm unless explicitly requested.
+
 ## Frozen Baseline
 
 - wavelength_nm = 450

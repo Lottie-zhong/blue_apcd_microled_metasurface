@@ -1,0 +1,31 @@
+# stage10lp_j1_identity_shape_scan setup-only configuration
+project:
+  name: blue_apcd_microled_metasurface
+  stage: stage10lp_j1_identity_shape_scan
+  mode: setup_only_no_lumerical_run
+baseline:
+  lambda_nm: 450
+  p_x_nm: 432
+  p_y_nm: [400, 432, 450]
+  material: GaN
+  height_nm: [500, 600, 650, 700]
+shape_types:
+  - circular_cylinder
+  - square_pillar
+  - regular_hexagon
+  - regular_octagon
+  - near_square_rectangle
+  - ellipse_near_circle
+selection_goal:
+  role: identity_like_isotropic_like_J1_for_LP_APCD
+  retardance_to_identity_deg_broad_pass: 30
+  retardance_to_identity_deg_strict_pass: 15
+  amp_balance_min: 0.75
+  T_mean_min: 0.30
+outputs:
+  plan_csv: D:/project/blue_apcd_microled_metasurface/outputs/blue10k6_lp_apcd_j1_identity_scan/j1_identity_plan.csv
+  result_csv: D:/project/blue_apcd_microled_metasurface/outputs/blue10k6_lp_apcd_j1_identity_scan/j1_identity_results.csv
+  summary_md: D:/project/blue_apcd_microled_metasurface/outputs/blue10k6_lp_apcd_j1_identity_scan/j1_identity_summary.md
+notes:
+  - This config intentionally does not launch Lumerical or FDTD.
+  - Polygonal/circular shapes may be approximated by the downstream geometry backend if native primitives are unavailable.
