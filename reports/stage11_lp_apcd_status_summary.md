@@ -37,18 +37,30 @@ The current evidence is real H500 dimer Jones/FDTD only. This is not K=6 steerin
 - actual_dimer_usable_strict = 20.
 - 240 deg is now loose usable through H500DIMER2E_025_B240_x_pair_swap_G90_O-25: ratio 7.561148, Tx 0.732110, phase error 8.016489 deg, matrix error 0.363672.
 
+## Stage11-2F
+
+- Continued H500 real-dimer APCD projection-phase quality improvement only; K=6 and metagrating work is deferred to a separate Stage12.
+- Selected 24 H500 source pairs for 120/240 refinement: 12 for 120 deg projection-selectivity rescue and 12 for 240 deg strict common-phase fine pull.
+- Generated 35 legal H500 dimer patch cases: 24 for 120 deg and 11 for 240 deg.
+- Ran 35 H500 dimer x/y normal-incidence FDTD cases successfully; failed = 0, skipped = 0.
+- Merged 2A + 2B + 2C + 2D + 2E + 2F: 186 total real H500 dimer cases.
+- actual_dimer_usable_loose_or_strict = 72.
+- actual_dimer_usable_strict = 21.
+- 240 deg improved from loose to strict through H500DIMER2F_026_B240_x_pair_swap_G90_O-28: ratio 7.675482, Tx 0.737551, phase error 7.365287 deg, matrix error 0.360953.
+- 120 deg remains loose: the best remains H500DIMER2C_004_B120_x_pair_swap_G60_O-20, ratio 4.500506, Tx 0.505730, phase error 3.736197 deg, matrix error 0.471387.
+
 ## Current Best Actual Dimer Bins
 
 - 0 deg: strict usable, H500DIMER2C_029_B240_x_pair_noswap_G60_O-20.
 - 60 deg: strict usable, H500DIMER2B_006_B180_x_pair_swap_G60_O-20.
 - 120 deg: loose usable, H500DIMER2C_004_B120_x_pair_swap_G60_O-20.
 - 180 deg: strict usable, H500DIMER2C_026_B240_x_pair_swap_G60_O-20.
-- 240 deg: loose usable, H500DIMER2E_025_B240_x_pair_swap_G90_O-25.
+- 240 deg: strict usable, H500DIMER2F_026_B240_x_pair_swap_G90_O-28.
 - 300 deg: strict usable, H500DIMER2D_006_B240_x_pair_swap_G80_O-30.
 
 ## Current Conclusion
 
-H500 real-dimer projection-phase 6-bin library candidate is formed at the real-dimer selected-channel common-phase level. This is still not K=6 steering, not a phase-gradient supercell result, and not LP steering completion.
+H500 real-dimer projection-phase 6-bin library candidate is formed at the real-dimer selected-channel common-phase level. After Stage11-2F, five bins are strict and 120 deg remains loose due to projection-selectivity limits. This is still not K=6 steering, not a phase-gradient supercell result, and not LP steering completion.
 
 ## Boundaries
 
