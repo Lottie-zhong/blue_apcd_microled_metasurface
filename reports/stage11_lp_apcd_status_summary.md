@@ -21,12 +21,21 @@ The current evidence is real H500 dimer Jones/FDTD only. This is not K=6 steerin
 
 ## Stage11-2D
 
-- Focused only on final H500 gaps: 240 and 300 deg.
-- Selected 24 source pairs and generated 48 legal H500 final-gap dimer cases.
+- Focused only on H500 gaps: 240 and 300 deg.
 - Ran 48 H500 dimer x/y normal-incidence FDTD cases successfully.
 - Merged 2A + 2B + 2C + 2D: 118 total real H500 dimer cases.
-- actual_dimer_usable_loose_or_strict = 43.
+- 300 deg became strict usable.
+- 240 deg remained a common-phase near miss: H500DIMER2D_018_B240_x_pair_swap_G80_O-30, ratio 8.253555, Tx 0.778501, phase error 15.788334 deg, matrix error 0.348093.
+
+## Stage11-2E
+
+- Focused only on H500 240 deg selected-channel common-phase fine pull.
+- Generated 36 legal fine-pull dimer cases around H500DIMER2D_018_B240_x_pair_swap_G80_O-30.
+- Ran 33 H500 dimer x/y normal-incidence FDTD cases successfully; 3 diag-pair backups remained uncompleted after runner abort, with no successful result rows written.
+- Merged 2A + 2B + 2C + 2D + 2E: 151 total real H500 dimer cases.
+- actual_dimer_usable_loose_or_strict = 65.
 - actual_dimer_usable_strict = 20.
+- 240 deg is now loose usable through H500DIMER2E_025_B240_x_pair_swap_G90_O-25: ratio 7.561148, Tx 0.732110, phase error 8.016489 deg, matrix error 0.363672.
 
 ## Current Best Actual Dimer Bins
 
@@ -34,8 +43,12 @@ The current evidence is real H500 dimer Jones/FDTD only. This is not K=6 steerin
 - 60 deg: strict usable, H500DIMER2B_006_B180_x_pair_swap_G60_O-20.
 - 120 deg: loose usable, H500DIMER2C_004_B120_x_pair_swap_G60_O-20.
 - 180 deg: strict usable, H500DIMER2C_026_B240_x_pair_swap_G60_O-20.
-- 240 deg: gap remains, common_phase_missed; best H500DIMER2D_018_B240_x_pair_swap_G80_O-30, phase error 15.788334 deg.
+- 240 deg: loose usable, H500DIMER2E_025_B240_x_pair_swap_G90_O-25.
 - 300 deg: strict usable, H500DIMER2D_006_B240_x_pair_swap_G80_O-30.
+
+## Current Conclusion
+
+H500 real-dimer projection-phase 6-bin library candidate is formed at the real-dimer selected-channel common-phase level. This is still not K=6 steering, not a phase-gradient supercell result, and not LP steering completion.
 
 ## Boundaries
 
