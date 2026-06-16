@@ -1,0 +1,193 @@
+{
+  "purpose": "+z plane-wave CP handedness and reciprocity control",
+  "method": "Run x/y linear plane-wave inputs for empty cell and frozen periodic dimer, then construct CP Jones matrix by superposition.",
+  "cp_convention": "R=(Ex-iEy)/sqrt(2), L=(Ex+iEy)/sqrt(2)",
+  "geometry": {
+    "period_x_nm": 431.907786,
+    "period_y_nm": 432.0,
+    "height_nm": 525.0,
+    "metasurface_plane": "x-y",
+    "height_axis": "z",
+    "source_z_nm": -250.0,
+    "monitor_z_nm": 875.0
+  },
+  "simulation_time_fs": 300.0,
+  "mesh_accuracy": 3,
+  "run_rows": [
+    {
+      "case_id": "EMPTY_XIN_ZPROP",
+      "structure": "empty",
+      "linear_input": "x",
+      "fdtd_status": "ok",
+      "result_fsp": "outputs\\blue_stage10_cp_zprop_validation\\planewave_control\\_saved_fsp\\EMPTY_XIN_ZPROP.fsp",
+      "note": "setup/save/load/run/save lifecycle complete"
+    },
+    {
+      "case_id": "EMPTY_YIN_ZPROP",
+      "structure": "empty",
+      "linear_input": "y",
+      "fdtd_status": "ok",
+      "result_fsp": "outputs\\blue_stage10_cp_zprop_validation\\planewave_control\\_saved_fsp\\EMPTY_YIN_ZPROP.fsp",
+      "note": "setup/save/load/run/save lifecycle complete"
+    },
+    {
+      "case_id": "DIMER_XIN_ZPROP",
+      "structure": "frozen_dimer",
+      "linear_input": "x",
+      "fdtd_status": "ok",
+      "result_fsp": "outputs\\blue_stage10_cp_zprop_validation\\planewave_control\\_saved_fsp\\DIMER_XIN_ZPROP.fsp",
+      "note": "setup/save/load/run/save lifecycle complete"
+    },
+    {
+      "case_id": "DIMER_YIN_ZPROP",
+      "structure": "frozen_dimer",
+      "linear_input": "y",
+      "fdtd_status": "ok",
+      "result_fsp": "outputs\\blue_stage10_cp_zprop_validation\\planewave_control\\_saved_fsp\\DIMER_YIN_ZPROP.fsp",
+      "note": "setup/save/load/run/save lifecycle complete"
+    }
+  ],
+  "field_extraction": {
+    "EMPTY_XIN_ZPROP": {
+      "monitor": "field_monitor",
+      "keys": [
+        "lambda",
+        "f",
+        "x",
+        "y",
+        "z",
+        "E",
+        "Lumerical_dataset"
+      ],
+      "Ex_shape": [
+        15,
+        15
+      ],
+      "Ey_shape": [
+        15,
+        15
+      ]
+    },
+    "EMPTY_YIN_ZPROP": {
+      "monitor": "field_monitor",
+      "keys": [
+        "lambda",
+        "f",
+        "x",
+        "y",
+        "z",
+        "E",
+        "Lumerical_dataset"
+      ],
+      "Ex_shape": [
+        15,
+        15
+      ],
+      "Ey_shape": [
+        15,
+        15
+      ]
+    },
+    "DIMER_XIN_ZPROP": {
+      "monitor": "field_monitor",
+      "keys": [
+        "lambda",
+        "f",
+        "x",
+        "y",
+        "z",
+        "E",
+        "Lumerical_dataset"
+      ],
+      "Ex_shape": [
+        36,
+        36
+      ],
+      "Ey_shape": [
+        36,
+        36
+      ]
+    },
+    "DIMER_YIN_ZPROP": {
+      "monitor": "field_monitor",
+      "keys": [
+        "lambda",
+        "f",
+        "x",
+        "y",
+        "z",
+        "E",
+        "Lumerical_dataset"
+      ],
+      "Ex_shape": [
+        36,
+        36
+      ],
+      "Ey_shape": [
+        36,
+        36
+      ]
+    }
+  },
+  "matrix_debug": {
+    "empty": {
+      "status": "ok",
+      "J_linear": [
+        [
+          "-0.99576396241-0.0123147618615j",
+          "-6.09729567017e-17-7.54069513381e-19j"
+        ],
+        [
+          "0+0j",
+          "-0.99576396241-0.0123147618615j"
+        ]
+      ],
+      "J_cp": [
+        [
+          "-0.99576396241-0.0123147618615j",
+          "0+3.12250225676e-17j"
+        ],
+        [
+          "0-3.03576608296e-17j",
+          "-0.99576396241-0.0123147618615j"
+        ]
+      ],
+      "power_table": {
+        "R_in_to_R_out": 0.991697522194169,
+        "R_in_to_L_out": 9.215875710446734e-34,
+        "L_in_to_R_out": 9.750020343460382e-34,
+        "L_in_to_L_out": 0.991697522194169
+      }
+    },
+    "frozen_dimer": {
+      "status": "ok",
+      "J_linear": [
+        [
+          "-0.193065175798-0.43185964113j",
+          "-0.401987710208+0.261555077016j"
+        ],
+        [
+          "-0.396548445533+0.266326036642j",
+          "0.284822280276+0.419967894199j"
+        ]
+      ],
+      "J_cp": [
+        [
+          "0.048264032052-0.008665505803j",
+          "0.024996828792-0.026645689794j"
+        ],
+        [
+          "-0.502884284866-0.825181845535j",
+          "0.043493072426-0.003226241128j"
+        ]
+      ],
+      "power_table": {
+        "R_in_to_R_out": 0.0024045077807383066,
+        "R_in_to_L_out": 0.9338176821657366,
+        "L_in_to_R_out": 0.0013348342342546361,
+        "L_in_to_L_out": 0.001902055980869281
+      }
+    }
+  },
+  "notation": "T_output,input; T_RL means L input to R output"
+}

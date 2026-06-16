@@ -1,0 +1,138 @@
+{
+  "adapted_from": [
+    "scripts/stage10_cp_microled_center_dipole_time_convergence.py",
+    "scripts/stage10_cp_microled_uniform_patch_setup_only.py",
+    "scripts/stage10_cp_microled_simplified_gan_clean_setup_only.py"
+  ],
+  "coordinate_change": "old +y x-z plane -> new +z x-y plane; old local/array z remapped to y; pillar height y -> z; rotation axis y -> z",
+  "setup_warnings": [],
+  "setup_fsp": "outputs\\blue_stage10_cp_zprop_validation\\cp_zprop_finite_patch_center_xy_t100_setup.fsp",
+  "field_monitor": "top_field_monitor_zprop",
+  "power_monitor": "top_power_monitor_zprop",
+  "case_debug": {
+    "CP_ZPROP_CENTER_X_T100FS": {
+      "farfieldvector3d": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31,
+            31,
+            3
+          ],
+          "dtype": "complex128",
+          "is_complex": true,
+          "size": 2883
+        }
+      },
+      "farfieldux": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31
+          ],
+          "dtype": "float64",
+          "is_complex": false,
+          "size": 31
+        }
+      },
+      "farfielduy": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31
+          ],
+          "dtype": "float64",
+          "is_complex": false,
+          "size": 31
+        }
+      },
+      "farfield3d": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31,
+            31
+          ],
+          "dtype": "float64",
+          "is_complex": false,
+          "size": 961
+        }
+      },
+      "farfieldpolar3d": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31,
+            31,
+            3
+          ],
+          "dtype": "complex128",
+          "is_complex": true,
+          "size": 2883
+        }
+      }
+    },
+    "CP_ZPROP_CENTER_Y_T100FS": {
+      "farfieldvector3d": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31,
+            31,
+            3
+          ],
+          "dtype": "complex128",
+          "is_complex": true,
+          "size": 2883
+        }
+      },
+      "farfieldux": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31
+          ],
+          "dtype": "float64",
+          "is_complex": false,
+          "size": 31
+        }
+      },
+      "farfielduy": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31
+          ],
+          "dtype": "float64",
+          "is_complex": false,
+          "size": 31
+        }
+      },
+      "farfield3d": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31,
+            31
+          ],
+          "dtype": "float64",
+          "is_complex": false,
+          "size": 961
+        }
+      },
+      "farfieldpolar3d": {
+        "ok": true,
+        "info": {
+          "shape": [
+            31,
+            31,
+            3
+          ],
+          "dtype": "complex128",
+          "is_complex": true,
+          "size": 2883
+        }
+      }
+    }
+  }
+}
