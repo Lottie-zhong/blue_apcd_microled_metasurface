@@ -7,20 +7,20 @@ from typing import Sequence
 
 from metasurface.stage12_k6_fdtd import flt, read_csv_rows, write_csv_rows
 
-OUTPUT_DIR_NAME = "stage13_0_h500_lp_k6_official_result_package"
+OUTPUT_DIR_NAME = "stage12_6_h500_lp_k6_official_result_package"
 OFFICIAL_RATIO_THRESHOLD = 6.0
 FIGURE_FILES = [
     ("figure_1_stage11_6bin_library", "Final H500 six-bin LP-APCD dimer library"),
     ("figure_2_k6_xgrad_layout_schematic", "Official K=6 x-gradient layout schematic"),
     ("figure_3_xgrad_order_power", "Official x-gradient order-resolved FDTD power"),
     ("figure_4_xgrad_vs_ygrad_comparison", "X-gradient official pass vs y-gradient diagnostic fail"),
-    ("figure_5_stage_flow_summary", "Stage11-Stage12 evidence flow summary"),
+    ("figure_5_stage_flow_summary", "Stage11-Stage12 LP result-package flow summary"),
 ]
 KEY_METRIC_FIELDS = ["metric", "value", "status", "notes"]
 MANIFEST_FIELDS = ["figure", "png", "svg", "source_data", "claim", "status"]
 
 @dataclass(frozen=True)
-class Stage13Paths:
+class Stage12_6Paths:
     stage11_dir: Path
     stage12_0_dir: Path
     stage12_1_dir: Path
@@ -65,7 +65,7 @@ def build_figure_manifest(output_dir: Path) -> list[dict[str, object]]:
 def metric_map(rows: Sequence[dict[str, str]]) -> dict[str, str]:
     return {row.get("metric", ""): row.get("value", "") for row in rows}
 
-def load_key_metrics(paths: Stage13Paths) -> dict[str, object]:
+def load_key_metrics(paths: Stage12_6Paths) -> dict[str, object]:
     official = metric_map(read_csv_rows(paths.stage12_5_dir / "stage12_5_official_metrics.csv"))
     x_results = read_csv_rows(paths.stage12_2_dir / "stage12_2_k6_forward_fdtd_results.csv")
     y_results = read_csv_rows(paths.stage12_4_dir / "stage12_4_ygrad_fdtd_results.csv")
@@ -118,7 +118,7 @@ def save_fig(fig, output_dir: Path, stem: str) -> None:
     fig.savefig(output_dir / f"{stem}.png", dpi=300, bbox_inches="tight")
     fig.savefig(output_dir / f"{stem}.svg", bbox_inches="tight")
 
-def generate_figures(paths: Stage13Paths, metrics: dict[str, object]) -> None:
+def generate_figures(paths: Stage12_6Paths, metrics: dict[str, object]) -> None:
     configure_matplotlib()
     import matplotlib.pyplot as plt
     from matplotlib.patches import Rectangle, Circle, FancyArrowPatch
@@ -235,9 +235,9 @@ def order_power_for(rows, pol: str, n: int, m: int) -> float:
 def write_summary(path: Path, metrics: dict[str, object]) -> None:
     official = metrics["official"]; y_diag = metrics["y_diag"]
     lines = [
-        "# Stage13-0 Official H500 LP-APCD K=6 Result Package",
+        "# Stage12-6 Official H500 LP-APCD K=6 Result Package",
         "",
-        "This package is for group meeting and manuscript planning. It is generated only from existing Stage11/Stage12 outputs: no FDTD was run, no optimization was performed, and no new .fsp was created.",
+        "This Stage12-6 package is for group meeting and manuscript planning. It is generated only from existing Stage11/Stage12 outputs: no FDTD was run, no optimization was performed, and no new .fsp was created. Stage12 remains the LP-APCD K=6 x-gradient metagrating validation and result-package stage; Stage13 is reserved for future dipole-source / MicroLED coupling.",
         "",
         "## Official Result",
         "",
@@ -273,21 +273,21 @@ def write_captions(path: Path) -> None:
         ("Figure 2", "Official K=6 x-gradient supercell schematic. The phase sequence progresses along x from 0 to 300 degrees, defining Lambda_x = K p_x, x-LP input, x-z steering and target x-order +1.", "官方 K=6 x 梯度超胞示意图。相位序列沿 x 方向从 0 到 300 度递进，定义 Lambda_x = K p_x、x-LP 入射、x-z 平面偏转和目标 x 级次 +1。"),
         ("Figure 3", "Order-resolved FDTD validation of the official x-gradient metagrating. x-LP input is dominated by the target +1 order, while y-LP target-order leakage is suppressed, giving a target-order selectivity ratio of 11.655.", "官方 x 梯度超构光栅的级次分辨 FDTD 验证。x-LP 入射由目标 +1 级主导，y-LP 在目标级次的泄漏被抑制，目标级次选择比为 11.655。"),
         ("Figure 4", "Comparison between the official x-gradient pass and the y-gradient coordinate-transfer diagnostic. The y-gradient keeps steering but increases target-order y-LP leakage and fails the selectivity criterion.", "官方 x 梯度通过结果与 y 梯度坐标转移诊断的对比。y 梯度保持了偏转，但显著增加 y-LP 在目标级次的泄漏，因此未通过选择性判据。"),
-        ("Figure 5", "Evidence flow for the official result. Stage11 freezes the six-bin library, Stage12 validates analytic and layout readiness, Stage12-2 provides the official x-gradient FDTD pass, and Stage12-5 freezes the convention; global y-LP blocking is not claimed.", "官方结果的证据链。Stage11 冻结六档库，Stage12 完成解析和版图验证，Stage12-2 给出官方 x 梯度 FDTD 通过结果，Stage12-5 冻结规范；不声称全局 y-LP 阻断。"),
+        ("Figure 5", "Evidence flow for the official Stage12 result package. Stage11 freezes the six-bin library, Stage12 validates analytic and layout readiness, Stage12-2 provides the official x-gradient FDTD pass, and Stage12-5 freezes the convention; global y-LP blocking is not claimed.", "官方结果的证据链。Stage11 冻结六档库，Stage12 完成解析和版图验证，Stage12-2 给出官方 x 梯度 FDTD 通过结果，Stage12-5 冻结规范；不声称全局 y-LP 阻断。"),
     ]
-    lines = ["# Stage13-0 Caption Drafts", ""]
+    lines = ["# Stage12-6 Caption Drafts", ""]
     for title, en, zh in captions:
         lines.extend([f"## {title}", "", en, "", zh, ""])
     path.write_text("\n".join(lines), encoding="utf-8")
 
-def run_stage13_0(paths: Stage13Paths) -> dict[str, object]:
+def run_stage12_6(paths: Stage12_6Paths) -> dict[str, object]:
     paths.output_dir.mkdir(parents=True, exist_ok=True)
     metrics = load_key_metrics(paths)
     key_rows = build_key_metric_rows(metrics)
     manifest = build_figure_manifest(paths.output_dir)
-    write_csv_rows(key_rows, paths.output_dir / "stage13_0_key_metrics.csv", KEY_METRIC_FIELDS)
-    write_csv_rows(manifest, paths.output_dir / "stage13_0_figure_manifest.csv", MANIFEST_FIELDS)
-    write_summary(paths.output_dir / "stage13_0_result_package_summary.md", metrics)
-    write_captions(paths.output_dir / "stage13_0_caption_drafts.md")
+    write_csv_rows(key_rows, paths.output_dir / "stage12_6_key_metrics.csv", KEY_METRIC_FIELDS)
+    write_csv_rows(manifest, paths.output_dir / "stage12_6_figure_manifest.csv", MANIFEST_FIELDS)
+    write_summary(paths.output_dir / "stage12_6_result_package_summary.md", metrics)
+    write_captions(paths.output_dir / "stage12_6_caption_drafts.md")
     generate_figures(paths, metrics)
     return {"output_dir": str(paths.output_dir), "figure_count": len(FIGURE_FILES), "official_pass": official_xgrad_pass(metrics["official"]), "ygrad_classification": ygrad_diagnostic_classification(metrics["y_diag"]), "figures": [stem for stem, _ in FIGURE_FILES], "official": metrics["official"]}
