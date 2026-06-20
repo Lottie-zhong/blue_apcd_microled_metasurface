@@ -1,0 +1,32 @@
+{
+  "task": "Stage10 CP Route-B closeout",
+  "read_only_simulation_policy": true,
+  "fdtd_runs_started": 0,
+  "new_simulations_started": 0,
+  "evidence_checkpoints": [
+    "baabf41 Stage10 CP x-line J1J2 asymmetry audit",
+    "19b87ee Stage10 CP route B1 d-theta plane-wave scout",
+    "e34f0e9 Stage10 CP route B2 D195T90 xplus finite-patch test",
+    "4a6ce18 Stage10 CP route B3 D195T90 x-line validation"
+  ],
+  "evidence_files": [
+    "outputs/blue_stage10_cp_zprop_validation/xline_asymmetry_audit/xline_j1j2_geometry_audit.csv",
+    "outputs/blue_stage10_cp_zprop_validation/xline_asymmetry_audit/xline_source_distance_audit.csv",
+    "outputs/blue_stage10_cp_zprop_validation/route_b1_dtheta_plane_wave_scout/route_b1_ranked_candidates.csv",
+    "outputs/blue_stage10_cp_zprop_validation/route_b2_finite_patch_xplus/route_b2_xplus_average_metrics.csv",
+    "outputs/blue_stage10_cp_zprop_validation/route_b2_finite_patch_xplus/route_b2_xplus_baseline_comparison.csv",
+    "outputs/blue_stage10_cp_zprop_validation/route_b3_d195t90_xline_validation/route_b3_position_averages.csv",
+    "outputs/blue_stage10_cp_zprop_validation/route_b3_d195t90_xline_validation/route_b3_baseline_comparison.csv",
+    "outputs/blue_stage10_cp_zprop_validation/route_b3_d195t90_xline_validation/route_b3_min_position_score.csv"
+  ],
+  "frozen_candidate": "RB1_J1J2_D195_T90_PSI97p5_H525",
+  "validation_scope": "periodic plane-wave screening plus finite-patch x-axis centerline center/+q/-q",
+  "limitations": [
+    "no full x-y source-position plane sweep",
+    "no DBR or RCLED",
+    "no independently validated absolute LEE",
+    "no K=6 or steering"
+  ],
+  "generated_files": 6,
+  "simulation_artifacts_committed": false
+}

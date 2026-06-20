@@ -1,0 +1,50 @@
+{
+  "status": "frozen_stage10_cp_route_b_robust_candidate",
+  "candidate_id": "RB1_J1J2_D195_T90_PSI97p5_H525",
+  "checkpoint": "4a6ce18",
+  "parameters": {
+    "wavelength_nm": 450.0,
+    "period_x_nm": 431.907786,
+    "period_y_nm": 432.0,
+    "material_index": 2.6,
+    "d_nm": 195.0,
+    "theta_deg": 90.0,
+    "psi_deg": 97.5,
+    "height_nm": 525.0,
+    "J1_length_nm": 230.0,
+    "J1_width_nm": 100.0,
+    "J2_length_nm": 180.0,
+    "J2_width_nm": 90.0
+  },
+  "cp_convention": {
+    "propagation_direction": "+z",
+    "R": "(Ex - 1j*Ey)/sqrt(2)",
+    "L": "(Ex + 1j*Ey)/sqrt(2)",
+    "DoCP_RminusL": "(IR - IL)/(IR + IL)",
+    "L_fraction": "IL/(IR + IL) = (1 - DoCP_RminusL)/2",
+    "negative_DoCP_label": "L-output dominant"
+  },
+  "periodic_plane_wave_R_in": {
+    "DoCP_RminusL": -0.992551,
+    "L_fraction": 0.996276,
+    "IL_Rin": 0.929634,
+    "dominant_opposite_ratio": 267.50,
+    "x_bias_abs_nm": 1.19403063e-14
+  },
+  "finite_patch_xline_at_20deg": {
+    "center": {"DoCP_RminusL": -0.5040428045068567, "L_fraction": 0.7520214022534284, "total_cone_power": 1.1108512170493637e-10},
+    "x_plus_qp": {"DoCP_RminusL": -0.39412574199224304, "L_fraction": 0.6970628709961215, "total_cone_power": 5.7292565843884056e-11},
+    "x_minus_qp": {"DoCP_RminusL": -0.4385052213202826, "L_fraction": 0.7192526106601412, "total_cone_power": 6.047622889930753e-11}
+  },
+  "minimal_xline_robustness": {
+    "positions": ["center", "x_plus_qp", "x_minus_qp"],
+    "cone_deg": 20.0,
+    "min_L_fraction": 0.6970628709961215,
+    "average_L_fraction": 0.7227789613032304,
+    "std_L_fraction": 0.02257485918942583,
+    "average_DoCP_RminusL": -0.44555792260646077,
+    "pass": true
+  },
+  "normalization_note": "Cone-power values are API-normalized extraction metrics; they are not independently validated absolute LEE.",
+  "scope_limit": "Validated only on the x-axis centerline at center, +q, and -q; no full x-y source-position sweep, DBR/RCLED, K=6, or steering is included."
+}
