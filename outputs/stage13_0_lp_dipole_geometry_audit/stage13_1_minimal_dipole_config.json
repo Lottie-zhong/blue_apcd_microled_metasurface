@@ -1,0 +1,63 @@
+{
+  "stage": "Stage13-1",
+  "candidate_id": "H500_LP_APCD_K6_XGRAD_FROZEN_STAGE12",
+  "design_state": "frozen_read_only",
+  "target_LP": "x",
+  "propagation_direction": "+z",
+  "farfield_monitor_direction": "+z",
+  "farfield_grid": 101,
+  "simulation_time_fs": 100,
+  "cone_deg_list": [
+    5,
+    10,
+    20
+  ],
+  "cone_30_deg": {
+    "enabled": false
+  },
+  "source_positions": [
+    "center",
+    "x_plus_qp",
+    "x_minus_qp"
+  ],
+  "dipole_orientations": [
+    "x",
+    "y"
+  ],
+  "run_fdtd": false,
+  "q_definition": "undefined: no frozen LP finite-patch/unit-cell source-position rule found",
+  "q_nm": null,
+  "q_status": "requires_manual_definition",
+  "source_center_z_nm": null,
+  "case_ids": [
+    "center_x",
+    "center_y",
+    "x_plus_qp_x",
+    "x_plus_qp_y",
+    "x_minus_qp_x",
+    "x_minus_qp_y"
+  ],
+  "polarization_model": {
+    "separate_dipole_cases": true,
+    "coherent_Ex_Ey_addition_across_dipole_orientations": false,
+    "unpolarized_intensity_sum": "I_unpol = I_xdip + I_ydip"
+  },
+  "lp_metrics": {
+    "target_LP_power": "x-LP projected far-field power",
+    "leakage_LP_power": "y-LP projected far-field power",
+    "LP_fraction": "target_LP_power / (target_LP_power + leakage_LP_power)",
+    "target_to_leakage_ratio": "target_LP_power / leakage_LP_power",
+    "DoCP_is_main_metric": false
+  },
+  "farfield_extraction": {
+    "required": "complex vector far field Ex/Ey/Ez from farfieldvector3d or equivalent",
+    "farfield3d_intensity_only_is_sufficient": false,
+    "reason": "LP projection requires complex vector field components"
+  },
+  "blocking_issues_before_fdtd": [
+    "frozen_stage12_artifact_is_periodic_supercell_not_finite_patch",
+    "finite_patch_Nx_Ny_and_replication_rule_missing",
+    "q_requires_manual_definition",
+    "source_center_z_requires_manual_definition"
+  ]
+}
