@@ -1,0 +1,351 @@
+{
+  "stage": "Stage13-2",
+  "scope": "finite-patch definition and q/source-z decision package only",
+  "run_fdtd": false,
+  "create_or_modify_fsp": false,
+  "frozen_stage12_supercell_modified": false,
+  "coordinate_convention": {
+    "metasurface_plane": "x-y",
+    "height_axis": "z",
+    "source_location": "below metasurface",
+    "target_emission": "+z",
+    "farfield_monitor_direction": "+z",
+    "gradient_axis": "x",
+    "target_LP": "x",
+    "K_definition": "six dimers per supercell, not six nanopillars"
+  },
+  "frozen_supercell": {
+    "candidate_id": "H500_LP_APCD_K6_XGRAD_FROZEN_STAGE12",
+    "source_files_used": [
+      "outputs/stage12_1_h500_lp_k6_forward_layout/stage12_1_k6_forward_layout_plan.csv",
+      "outputs/stage12_1_h500_lp_k6_forward_layout/stage12_1_k6_forward_geometry_audit.csv",
+      "outputs/stage12_6_h500_lp_k6_official_result_package/stage12_6_key_metrics.csv",
+      "outputs/stage13_0_lp_dipole_geometry_audit/geometry_audit.csv",
+      "src/metasurface/stage12_k6_layout.py",
+      "src/metasurface/stage12_k6_fdtd.py"
+    ],
+    "supercell_period_x_nm": 2591.446716,
+    "supercell_period_y_nm": 432.0,
+    "phase_bin_pitch_x_nm": 431.907786,
+    "y_pitch_nm": 432.0,
+    "six_phase_bin_dimer_centers": [
+      {
+        "supercell_index": 0,
+        "phase_bin_deg": 0,
+        "candidate_id": "H500DIMER2C_029_B240_x_pair_noswap_G60_O-20",
+        "dimer_center_x_nm": -1079.769465,
+        "dimer_center_y_nm": 0.0,
+        "j1_center_x_nm": -1184.769465,
+        "j1_center_y_nm": 0.0,
+        "j2_center_x_nm": -994.769465,
+        "j2_center_y_nm": 0.0
+      },
+      {
+        "supercell_index": 1,
+        "phase_bin_deg": 60,
+        "candidate_id": "H500DIMER2B_006_B180_x_pair_swap_G60_O-20",
+        "dimer_center_x_nm": -647.861679,
+        "dimer_center_y_nm": 0.0,
+        "j1_center_x_nm": -547.861679,
+        "j1_center_y_nm": 0.0,
+        "j2_center_x_nm": -767.861679,
+        "j2_center_y_nm": 0.0
+      },
+      {
+        "supercell_index": 2,
+        "phase_bin_deg": 120,
+        "candidate_id": "H500DIMER2D_040_B300_y_pair_noswap_G20_O-40",
+        "dimer_center_x_nm": -215.953893,
+        "dimer_center_y_nm": 0.0,
+        "j1_center_x_nm": -215.953893,
+        "j1_center_y_nm": -72.5,
+        "j2_center_x_nm": -215.953893,
+        "j2_center_y_nm": 32.5
+      },
+      {
+        "supercell_index": 3,
+        "phase_bin_deg": 180,
+        "candidate_id": "H500DIMER2C_026_B240_x_pair_swap_G60_O-20",
+        "dimer_center_x_nm": 215.953893,
+        "dimer_center_y_nm": 0.0,
+        "j1_center_x_nm": 295.953893,
+        "j1_center_y_nm": 0.0,
+        "j2_center_x_nm": 115.953893,
+        "j2_center_y_nm": 0.0
+      },
+      {
+        "supercell_index": 4,
+        "phase_bin_deg": 240,
+        "candidate_id": "H500DIMER2F_026_B240_x_pair_swap_G90_O-28",
+        "dimer_center_x_nm": 647.861679,
+        "dimer_center_y_nm": 0.0,
+        "j1_center_x_nm": 741.361679,
+        "j1_center_y_nm": 0.0,
+        "j2_center_x_nm": 526.361679,
+        "j2_center_y_nm": 0.0
+      },
+      {
+        "supercell_index": 5,
+        "phase_bin_deg": 300,
+        "candidate_id": "H500DIMER2D_006_B240_x_pair_swap_G80_O-30",
+        "dimer_center_x_nm": 1079.769465,
+        "dimer_center_y_nm": 0.0,
+        "j1_center_x_nm": 1164.769465,
+        "j1_center_y_nm": 0.0,
+        "j2_center_x_nm": 964.769465,
+        "j2_center_y_nm": 0.0
+      }
+    ],
+    "raw_footprint": {
+      "x_min_nm": -1239.769465,
+      "x_max_nm": 1224.769465,
+      "y_min_nm": -112.5,
+      "y_max_nm": 77.5
+    },
+    "frozen_min_gap_nm": 20.0
+  },
+  "J1_J2_centers_per_dimer": [
+    {
+      "supercell_index": 0,
+      "phase_bin_deg": 0,
+      "candidate_id": "H500DIMER2C_029_B240_x_pair_noswap_G60_O-20",
+      "dimer_center_x_nm": -1079.769465,
+      "dimer_center_y_nm": 0.0,
+      "j1_center_x_nm": -1184.769465,
+      "j1_center_y_nm": 0.0,
+      "j2_center_x_nm": -994.769465,
+      "j2_center_y_nm": 0.0
+    },
+    {
+      "supercell_index": 1,
+      "phase_bin_deg": 60,
+      "candidate_id": "H500DIMER2B_006_B180_x_pair_swap_G60_O-20",
+      "dimer_center_x_nm": -647.861679,
+      "dimer_center_y_nm": 0.0,
+      "j1_center_x_nm": -547.861679,
+      "j1_center_y_nm": 0.0,
+      "j2_center_x_nm": -767.861679,
+      "j2_center_y_nm": 0.0
+    },
+    {
+      "supercell_index": 2,
+      "phase_bin_deg": 120,
+      "candidate_id": "H500DIMER2D_040_B300_y_pair_noswap_G20_O-40",
+      "dimer_center_x_nm": -215.953893,
+      "dimer_center_y_nm": 0.0,
+      "j1_center_x_nm": -215.953893,
+      "j1_center_y_nm": -72.5,
+      "j2_center_x_nm": -215.953893,
+      "j2_center_y_nm": 32.5
+    },
+    {
+      "supercell_index": 3,
+      "phase_bin_deg": 180,
+      "candidate_id": "H500DIMER2C_026_B240_x_pair_swap_G60_O-20",
+      "dimer_center_x_nm": 215.953893,
+      "dimer_center_y_nm": 0.0,
+      "j1_center_x_nm": 295.953893,
+      "j1_center_y_nm": 0.0,
+      "j2_center_x_nm": 115.953893,
+      "j2_center_y_nm": 0.0
+    },
+    {
+      "supercell_index": 4,
+      "phase_bin_deg": 240,
+      "candidate_id": "H500DIMER2F_026_B240_x_pair_swap_G90_O-28",
+      "dimer_center_x_nm": 647.861679,
+      "dimer_center_y_nm": 0.0,
+      "j1_center_x_nm": 741.361679,
+      "j1_center_y_nm": 0.0,
+      "j2_center_x_nm": 526.361679,
+      "j2_center_y_nm": 0.0
+    },
+    {
+      "supercell_index": 5,
+      "phase_bin_deg": 300,
+      "candidate_id": "H500DIMER2D_006_B240_x_pair_swap_G80_O-30",
+      "dimer_center_x_nm": 1079.769465,
+      "dimer_center_y_nm": 0.0,
+      "j1_center_x_nm": 1164.769465,
+      "j1_center_y_nm": 0.0,
+      "j2_center_x_nm": 964.769465,
+      "j2_center_y_nm": 0.0
+    }
+  ],
+  "patch_options": [
+    {
+      "patch_option_id": "A_small",
+      "candidate_id": "H500_LP_APCD_K6_XGRAD_FROZEN_STAGE12",
+      "replication_rule": "whole frozen K=6 supercells at symmetric integer tile indices about x=0; odd y rows about y=0",
+      "N_supercells_x": 3,
+      "N_supercells_y": 19,
+      "expected_patch_width_nm": 7774.340148,
+      "expected_patch_height_nm": 8208.0,
+      "has_true_center_dimer": false,
+      "source_center_x_nm": 0.0,
+      "source_center_y_nm": 0.0,
+      "edge_symmetry_error_x_nm": 15.0,
+      "edge_symmetry_error_y_nm": 35.0,
+      "phase_ramp_preserved": true,
+      "center_alignment_note": "Optical origin remains at the patch coordinate center and lies between the two central dimers.",
+      "manufacturability_note": "Frozen sub-nm coordinates are preserved exactly; no fabrication rounding is applied.",
+      "max_coordinate_perturbation_nm": 0.0,
+      "min_gap_after_rounding_nm": null,
+      "estimated_geometry_count": "342 dimers; 684 nanopillars",
+      "recommended_for_first_FDTD": true,
+      "blocking_issues": "[\"manual_patch_option_approval_required\", \"manual_q_candidate_approval_required\", \"source_z_requires_manual_definition\"]",
+      "warnings": "[\"recommended geometry only; FDTD remains blocked until explicit manual approval\", \"no true center dimer\"]"
+    },
+    {
+      "patch_option_id": "A_medium",
+      "candidate_id": "H500_LP_APCD_K6_XGRAD_FROZEN_STAGE12",
+      "replication_rule": "whole frozen K=6 supercells at symmetric integer tile indices about x=0; odd y rows about y=0",
+      "N_supercells_x": 5,
+      "N_supercells_y": 31,
+      "expected_patch_width_nm": 12957.23358,
+      "expected_patch_height_nm": 13392.0,
+      "has_true_center_dimer": false,
+      "source_center_x_nm": 0.0,
+      "source_center_y_nm": 0.0,
+      "edge_symmetry_error_x_nm": 15.0,
+      "edge_symmetry_error_y_nm": 35.0,
+      "phase_ramp_preserved": true,
+      "center_alignment_note": "Optical origin remains between the two central dimers.",
+      "manufacturability_note": "Frozen sub-nm coordinates are preserved exactly.",
+      "max_coordinate_perturbation_nm": 0.0,
+      "min_gap_after_rounding_nm": null,
+      "estimated_geometry_count": "930 dimers; 1860 nanopillars",
+      "recommended_for_first_FDTD": false,
+      "blocking_issues": "[\"manual_patch_option_approval_required\", \"manual_q_candidate_approval_required\", \"source_z_requires_manual_definition\", \"defer_medium_patch_until_A_small_cost_and_boundary_behavior_are_reviewed\"]",
+      "warnings": "[\"larger geometry count than the first validation needs\"]"
+    },
+    {
+      "patch_option_id": "B_dimer_centered_small",
+      "candidate_id": "H500_LP_APCD_K6_XGRAD_FROZEN_STAGE12",
+      "replication_rule": "A_small whole-supercell replication translated by 215.953893000 nm so dimer index 2 is at x=0",
+      "N_supercells_x": 3,
+      "N_supercells_y": 19,
+      "expected_patch_width_nm": 7774.340148,
+      "expected_patch_height_nm": 8208.0,
+      "has_true_center_dimer": true,
+      "source_center_x_nm": 0.0,
+      "source_center_y_nm": 0.0,
+      "edge_symmetry_error_x_nm": 416.907786,
+      "edge_symmetry_error_y_nm": 35.0,
+      "phase_ramp_preserved": true,
+      "center_alignment_note": "Dimer index 2 (phase 120 deg) is centered; the nearest-center choice has a symmetric tie.",
+      "manufacturability_note": "Frozen internal geometry is unchanged, but the optical-axis/phase-origin registration shifts.",
+      "max_coordinate_perturbation_nm": 0.0,
+      "min_gap_after_rounding_nm": null,
+      "estimated_geometry_count": "342 dimers; 684 nanopillars",
+      "recommended_for_first_FDTD": false,
+      "blocking_issues": "[\"manual_patch_option_approval_required\", \"manual_q_candidate_approval_required\", \"source_z_requires_manual_definition\", \"nearest_center_dimer_tie_requires_manual_choice\", \"shifted_phase_origin_requires_edge_review\"]",
+      "warnings": "[\"edge symmetry changes after centering one dimer\", \"phase-bin origin relative to source is changed\"]"
+    },
+    {
+      "patch_option_id": "C_integer_fabrication_small",
+      "candidate_id": "H500_LP_APCD_K6_XGRAD_FROZEN_STAGE12",
+      "replication_rule": "A_small replication followed by nearest-integer-nm rounding of every J1/J2 center",
+      "N_supercells_x": 3,
+      "N_supercells_y": 19,
+      "expected_patch_width_nm": 7774.340148,
+      "expected_patch_height_nm": 8208.0,
+      "has_true_center_dimer": false,
+      "source_center_x_nm": 0.0,
+      "source_center_y_nm": 0.0,
+      "edge_symmetry_error_x_nm": 15.0,
+      "edge_symmetry_error_y_nm": 35.0,
+      "phase_ramp_preserved": false,
+      "center_alignment_note": "Optical origin remains fixed; no center dimer is forced.",
+      "manufacturability_note": "Integer centers are generated as an audit candidate only; dimensions/rotations remain frozen and integer-valued.",
+      "max_coordinate_perturbation_nm": 0.702050219,
+      "min_gap_after_rounding_nm": 19.0,
+      "estimated_geometry_count": "342 dimers; 684 nanopillars",
+      "recommended_for_first_FDTD": false,
+      "blocking_issues": "[\"manual_patch_option_approval_required\", \"manual_q_candidate_approval_required\", \"source_z_requires_manual_definition\", \"integer_rounding_tolerance_validation_required\"]",
+      "warnings": "[\"do not call fabrication-ready without optical/tolerance validation\"]"
+    }
+  ],
+  "recommended_patch_option_id": "A_small",
+  "recommended_patch_status": "geometry_recommendation_pending_manual_approval",
+  "q_decisions": [
+    {
+      "q_candidate_id": "q_candidate_1",
+      "q_definition": "phase_bin_pitch_x_nm / 4",
+      "q_nm": 107.9769465,
+      "evidence_source": "outputs/stage12_1_h500_lp_k6_forward_layout/stage12_1_k6_forward_layout_plan.csv; Lambda_x/6=431.907786000 nm",
+      "pros": "directly tied to the frozen LP phase-bin lattice; symmetric +/-x placement",
+      "cons": "quarter-pitch is a sampling choice, not an optimized emitter position",
+      "safe_to_use_for_stage13_minimal_xline": true,
+      "recommended": true,
+      "warnings": "Numerically equal to the historical CP q only because the independently parsed LP pitch is the same; no CP value was reused."
+    },
+    {
+      "q_candidate_id": "q_candidate_2",
+      "q_definition": "nearest center-to-neighbor dimer distance / 4",
+      "q_nm": 107.9769465,
+      "evidence_source": "parsed six LP dimer centers; nearest spacing=431.907786000 nm",
+      "pros": "independent center-list cross-check of q_candidate_1",
+      "cons": "redundant for this uniformly spaced frozen supercell",
+      "safe_to_use_for_stage13_minimal_xline": true,
+      "recommended": false,
+      "warnings": "Numerically equal to the historical CP q only because the independently parsed LP pitch is the same; no CP value was reused."
+    },
+    {
+      "q_candidate_id": "q_candidate_3",
+      "q_definition": "nearest local J1/J2 spacing based x-line offset",
+      "q_nm": null,
+      "evidence_source": "nearest local pair is dimer 2: distance=105.000000000 nm, dx=0.000000000 nm, dy=105.000000000 nm",
+      "pros": "would register the source to local pillar geometry if a physically justified rule existed",
+      "cons": "nearest pair is not a validated x-line source-position rule; converting it to q would be arbitrary",
+      "safe_to_use_for_stage13_minimal_xline": false,
+      "recommended": false,
+      "warnings": "Rejected rather than guessed."
+    }
+  ],
+  "recommended_q_candidate_id": "q_candidate_1",
+  "recommended_q_nm": 107.9769465,
+  "q_status": "safely_inferred_pending_manual_approval",
+  "source_z_decisions": [
+    {
+      "z_candidate_id": "z_candidate_1",
+      "z_definition": "MQW plane from an LP MicroLED vertical stack",
+      "source_z_nm": null,
+      "evidence_source": "No MQW/active-layer z metadata found in frozen Stage12 or Stage13 LP inputs.",
+      "safe_to_use": false,
+      "warnings": "Requires an explicit LP MicroLED stack and MQW-plane definition."
+    },
+    {
+      "z_candidate_id": "z_candidate_2",
+      "z_definition": "metasurface_bottom_z_nm (0) minus a user-approved source offset",
+      "source_z_nm": null,
+      "evidence_source": "Stage12 pillars use z_min=0; no LP dipole offset is frozen.",
+      "safe_to_use": false,
+      "warnings": "Do not silently import -200 nm; scripts/blue_stage10_cp_zprop_validation/run_cp_zprop_center_xy_t100.py uses GaN top z=0 and source z=-200 nm in the CP branch."
+    },
+    {
+      "z_candidate_id": "z_candidate_3",
+      "z_definition": "later sweep placeholder: metasurface_bottom_z_nm minus an approved list of offsets",
+      "source_z_nm": null,
+      "evidence_source": "No approved LP source-z sweep list exists.",
+      "safe_to_use": false,
+      "warnings": "Define the vertical stack, allowed source region, and offset list before simulation."
+    }
+  ],
+  "source_z_nm": null,
+  "source_z_status": "requires_manual_definition",
+  "case_ids": [
+    "center_x",
+    "center_y",
+    "x_plus_qp_x",
+    "x_plus_qp_y",
+    "x_minus_qp_x",
+    "x_minus_qp_y"
+  ],
+  "manual_approval_required_before_fdtd": true,
+  "fdtd_blocking_items": [
+    "approve one finite-patch option",
+    "approve q_candidate_1 or supply another LP-specific q",
+    "define and approve LP source_z_nm from a vertical stack"
+  ]
+}

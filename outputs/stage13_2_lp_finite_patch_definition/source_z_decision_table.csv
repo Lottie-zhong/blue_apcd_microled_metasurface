@@ -1,0 +1,4 @@
+z_candidate_id,z_definition,source_z_nm,evidence_source,safe_to_use,warnings
+z_candidate_1,MQW plane from an LP MicroLED vertical stack,,No MQW/active-layer z metadata found in frozen Stage12 or Stage13 LP inputs.,False,Requires an explicit LP MicroLED stack and MQW-plane definition.
+z_candidate_2,metasurface_bottom_z_nm (0) minus a user-approved source offset,,Stage12 pillars use z_min=0; no LP dipole offset is frozen.,False,Do not silently import -200 nm; scripts/blue_stage10_cp_zprop_validation/run_cp_zprop_center_xy_t100.py uses GaN top z=0 and source z=-200 nm in the CP branch.
+z_candidate_3,later sweep placeholder: metasurface_bottom_z_nm minus an approved list of offsets,,No approved LP source-z sweep list exists.,False,"Define the vertical stack, allowed source region, and offset list before simulation."
