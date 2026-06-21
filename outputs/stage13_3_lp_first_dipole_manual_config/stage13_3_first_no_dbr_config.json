@@ -1,0 +1,112 @@
+{
+  "stage": "Stage13-3",
+  "task": "LP first no-DBR dipole manual approval config",
+  "run_fdtd": false,
+  "create_or_modify_fsp": false,
+  "frozen_stage12_supercell_modified": false,
+  "coordinate_convention": {
+    "metasurface_plane": "x-y",
+    "nanopillar_height_axis": "z",
+    "source_location": "below metasurface",
+    "target_emission": "+z",
+    "farfield_monitor_direction": "+z",
+    "gradient_axis": "x",
+    "target_LP": "x",
+    "K_definition": "six dimers per supercell, not six nanopillars"
+  },
+  "manual_approvals": {
+    "finite_patch": {
+      "patch_option_id": "A_small",
+      "replication": {
+        "N_supercells_x": 3,
+        "N_supercells_y": 19
+      },
+      "estimated_geometry": {
+        "dimers": 342,
+        "nanopillars": 684
+      },
+      "approval_status": "manually_approved_for_first_no_dbr_diagnostic",
+      "reason": "preserves the frozen K=6 phase ramp and optical origin without forcing a center dimer"
+    },
+    "q": {
+      "q_nm": 107.9769465,
+      "q_definition": "LP phase-bin pitch / 4",
+      "evidence": "Lambda_x / 6 / 4 = 2591.446716 / 6 / 4",
+      "approval_status": "manually_approved_for_first_no_dbr_diagnostic",
+      "note": "Independently derived from the LP phase-bin pitch; numerical agreement with historical CP q is incidental and CP q was not reused."
+    },
+    "source_z": {
+      "source_z_nm": -200.0,
+      "source_z_status": "diagnostic_manual_placeholder",
+      "reference_plane": "Stage12 metasurface/pillar base plane z=0 nm; source_z=-200 nm is 200 nm below that plane",
+      "reference_plane_inferred": true,
+      "usage_boundary": "First no-DBR diagnostic depth inspired by CP-branch debugging only; not a final MicroLED MQW or DBR/RCLED device-stack position.",
+      "approval_status": "manually_approved_for_first_no_dbr_diagnostic"
+    }
+  },
+  "device_options": {
+    "DBR": "off",
+    "RCLED": "off"
+  },
+  "finite_patch": "A_small",
+  "farfield_grid": 101,
+  "simulation_time_fs": 100,
+  "cone_deg_list": [
+    5,
+    10,
+    20
+  ],
+  "full_xy_source_position_sweep": false,
+  "dipole_model": {
+    "orientations": [
+      "x",
+      "y"
+    ],
+    "separate_simulations_required": true,
+    "coherent_addition_between_orientations": false,
+    "unpolarized_combination": "I_unpol = I_xdip + I_ydip"
+  },
+  "farfield_extraction": {
+    "required": "complex vector Ex/Ey/Ez from farfieldvector3d or equivalent",
+    "intensity_only_farfield3d_is_sufficient": false
+  },
+  "lp_metrics": {
+    "target_LP": "x",
+    "leakage_LP": "y",
+    "LP_fraction": "target_LP_power / (target_LP_power + leakage_LP_power)",
+    "target_to_leakage_ratio": "target_LP_power / leakage_LP_power",
+    "also_record": [
+      "total_cone_power"
+    ]
+  },
+  "case_ids_prepared": [
+    "center_x",
+    "center_y",
+    "x_plus_qp_x",
+    "x_plus_qp_y",
+    "x_minus_qp_x",
+    "x_minus_qp_y"
+  ],
+  "next_fdtd_case_ids": [
+    "center_x",
+    "center_y"
+  ],
+  "later_case_ids": [
+    "x_plus_qp_x",
+    "x_plus_qp_y",
+    "x_minus_qp_x",
+    "x_minus_qp_y"
+  ],
+  "case_blocking_issues": [],
+  "global_notes": [
+    "source_z is a diagnostic_manual_placeholder, not a final device-stack source position",
+    "the next separately authorized FDTD task should run center_x and center_y only",
+    "do not add DBR/RCLED or a full source-position sweep to the first diagnostic"
+  ],
+  "source_evidence_paths": [
+    "D:/project/blue_apcd_microled_metasurface/outputs/stage13_2_lp_finite_patch_definition/finite_patch_options.csv",
+    "D:/project/blue_apcd_microled_metasurface/outputs/stage13_2_lp_finite_patch_definition/q_decision_table.csv",
+    "D:/project/blue_apcd_microled_metasurface/outputs/stage13_2_lp_finite_patch_definition/stage13_2_finite_patch_config_candidates.json",
+    "D:/project/blue_apcd_microled_metasurface/src/metasurface/stage12_k6_fdtd.py"
+  ]
+}
