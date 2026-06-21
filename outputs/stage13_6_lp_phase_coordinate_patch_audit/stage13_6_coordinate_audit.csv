@@ -1,0 +1,9 @@
+audit_item,value,status,evidence,notes
+stage12_target_order,order_n=+1; ux=+0.173648177762; theta=+10.000000 deg,explicit,stage12_2_k6_forward_order_power.csv,periodic grating-order extraction
+stage12_monitor_and_propagation,+z top z-normal monitor; forward source below pillars,resolved,src/metasurface/stage12_k6_fdtd.py,periodic x/y boundaries
+stage13_farfield_axes,"ux/uy approximately [-1,+1], 101x101; +ux plotted right",resolved_for_stage13_visualization,"Stage13-5 PNGs, extraction notes, and plotting code",CSV preserves farfieldux/farfielduy values
+api_sign_equivalence,gratingvector order sign versus farfieldux sign,unresolved,no common saved artifact directly checks both APIs,do not call sign failed
+expected_orders,"ux=0,+0.173648177762,-0.173648177762",resolved,450/2591.446716,|theta|=10.000000006 deg
+stage13_5_center_x_Ex_peak,ux=-0.34; uy=-0.12; theta_x=-19.88 deg,other,stage13_5_peak_metrics.csv,not within 3 deg of expected orders
+stage13_5_center_y_Ey_peak,ux=-0.58; uy=0; theta_x=-35.45 deg,other,stage13_5_peak_metrics.csv,large off-axis leakage
+coordinate_status,unresolved,unresolved,API-to-API sign bridge missing,Stage13-7A recommended
