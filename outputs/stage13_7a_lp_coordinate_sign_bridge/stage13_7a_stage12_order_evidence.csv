@@ -1,0 +1,8 @@
+evidence_id,source_path,line_or_function,observed_value,status,interpretation
+stage12_common_index_api,src/metasurface/apcd_diffraction.py,extract_fdtd_grating_orders lines 423/425,order_n=gratingn[index]; ux=gratingu1[index],direct_code_evidence,order label and direction cosine share one row/index
+stage12_plus1_numeric,outputs/stage12_2_h500_lp_k6_forward_minimal_fdtd/stage12_2_k6_forward_order_power.csv,x-LP order_n=+1 row,ux=0.17364817776172253; theta=10.000000005514977; power=0.35782382585849376,direct_numeric_evidence,+1 maps to positive ux
+stage12_minus1_numeric,outputs/stage12_2_h500_lp_k6_forward_minimal_fdtd/stage12_2_k6_forward_order_power.csv,x-LP order_n=-1 row,ux=-0.17364817776172253; theta=-10.000000005514977; power=0.01766997485647102,direct_numeric_evidence,-1 maps to negative ux
+stage12_zero_numeric,outputs/stage12_2_h500_lp_k6_forward_minimal_fdtd/stage12_2_k6_forward_order_power.csv,x-LP order_n=0 row,ux=0.0; theta=0.0,direct_numeric_evidence,zero order maps to ux=0
+stage12_official_claim,outputs/stage12_6_h500_lp_k6_official_result_package/stage12_6_result_package_summary.md,Official Result,x-order +1; +10 deg; +x steering plane,explicit_report_evidence,consistent with numeric CSV
+stage12_order_plot,outputs/stage12_6_h500_lp_k6_official_result_package/figure_3_xgrad_order_power.png,existing PNG,figure_3_xgrad_order_power.png,supporting_only,not used as the primary numeric bridge
+stage12_gui_fsp,outputs/stage12_3b_h500_lp_k6_gui_inspection/stage12_3b_h500_lp_k6_forward_gui_inspection.fsp,file presence,exists=True; size_bytes=475092,not_opened_not_needed,bridge resolved without FSP access

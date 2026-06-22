@@ -1,0 +1,7 @@
+audit_id,source_path,line_or_function,formula_or_operation,sign_effect,status,notes
+stage12_order_formula,src/metasurface/stage12_k6_fdtd.py,expected_theta_deg line 496,theta=asin(order*wavelength/period),positive order gives positive theta,plus_sign,no leading minus
+stage12_primary_theta,src/metasurface/stage12_k6_fdtd.py,normalize_order_rows line 310,theta=asin(ux) when gratingu1 is available,preserves extracted ux sign,direct_axis_sign,analytic order formula is fallback only
+stage12_order_axis,src/metasurface/apcd_diffraction.py,extract_fdtd_grating_orders,order_n=gratingn; ux=gratingu1,+1 and +ux explicitly paired,resolved,same index
+stage13_axis_source,src/metasurface/stage13_4_center_dipole.py,extract_from_session line 483,ux=farfieldux(...) without negation,preserves API sign,resolved,+z monitor
+phase_gradient,outputs/stage13_6_lp_phase_coordinate_patch_audit/stage13_6_phase_ramp_audit.csv,six monotonic rows,dphi/dx>0 along +x,repo empirical Stage12 result is +1/+ux,consistent,not used alone to infer API sign
+monitor_orientation,src/metasurface/stage13_4_center_dipole.py,add_monitors/resolved_setup,+z top z-normal monitor,no explicit x sign inversion in code,consistent,same top-monitor geometry as Stage12

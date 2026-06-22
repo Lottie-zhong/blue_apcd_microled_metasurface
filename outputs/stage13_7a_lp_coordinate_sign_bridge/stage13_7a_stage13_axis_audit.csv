@@ -1,0 +1,7 @@
+audit_id,source_path,line_or_function,operation,x_sign_effect,y_sign_effect,status,notes
+numeric_axes,src/metasurface/stage13_4_center_dipole.py,extract_from_session,farfieldux/farfielduy numeric arrays,none,none,pass,not image-pixel inference
+meshgrid,src/metasurface/stage13_5_order_diagnosis.py,direction_grid line 125,meshgrid indexing=ij,none,none,pass,axis values retained
+shape_transpose,src/metasurface/stage13_5_order_diagnosis.py,direction_grid,xx.T and yy.T together only if shape requires,none,none,pass,transpose is not sign reversal
+peak_csv,src/metasurface/stage13_5_order_diagnosis.py,peak_rows,peak_ux=float(xx[index]); peak_uy=float(yy[index]),none,none,pass,numeric coordinates
+png_map,src/metasurface/stage13_5_order_diagnosis.py,save_map line 362,"pcolormesh(xx,yy); no imshow/origin/invert_xaxis",none,none,pass,CSV and plot share xx/yy
+target_markers,src/metasurface/stage13_5_order_diagnosis.py,save_map,+target at +TARGET_UX; -target at -TARGET_UX,explicit,uy=0,pass,consistent with Stage12 bridge
