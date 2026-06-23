@@ -1,0 +1,59 @@
+{
+  "case_id": "a_small_xlp_plane_wave_plusz",
+  "lifecycle": [
+    "build_setup",
+    "verify_plane_wave_plusz",
+    "save_setup",
+    "close_setup",
+    "load_setup",
+    "save_configured_case",
+    "run",
+    "save_with_results",
+    "extract_complex_vector"
+  ],
+  "setup_preflight_errors": [],
+  "run_preflight_errors": [],
+  "extraction_debug": {
+    "vector": {
+      "shape": [
+        101,
+        101,
+        3
+      ],
+      "dtype": "complex128",
+      "is_complex": true,
+      "component_axis": -1
+    },
+    "ux_shape": [
+      101,
+      1
+    ],
+    "uy_shape": [
+      101,
+      1
+    ],
+    "raw_arrays_saved": false
+  },
+  "status": "ok",
+  "runtime_minutes": 5.391244465000152,
+  "decision": {
+    "case_id": "a_small_xlp_plane_wave_plusz",
+    "case_completed": true,
+    "complex_vector_extraction_successful": true,
+    "ex_peak_ux": 0.18000000000000005,
+    "ex_peak_uy": 0.0,
+    "ex_peak_distance_to_plus_target_deg": 0.36975979996266434,
+    "ex_peak_distance_to_minus_target_deg": 20.36975981099239,
+    "plus_target_power_5deg": 1.3319797551569398e-11,
+    "zero_order_power_5deg": 5.3654731003987365e-12,
+    "minus_target_power_5deg": 1.879968219348641e-12,
+    "meaningful_margin_threshold": 1.5,
+    "plus_exceeds_zero_and_minus": true,
+    "finite_patch_plane_wave_steering_pass": true,
+    "sign_or_gradient_mismatch_suspected": false,
+    "finite_patch_plane_wave_no_steering": false,
+    "dipole_specific_mismatch": true,
+    "recommended_next_step": "Plane-wave sanity passes: continue with dipole-specific illumination/source-coupling diagnosis; do not add DBR/RCLED yet",
+    "notes": "pass requires Ex global peak within 3 deg of +target and +target 5deg Ex power >=1.5x zero and minus"
+  }
+}

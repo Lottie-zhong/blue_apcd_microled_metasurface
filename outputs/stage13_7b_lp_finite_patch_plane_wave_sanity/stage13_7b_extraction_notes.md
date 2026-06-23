@@ -1,0 +1,12 @@
+# Stage13-7B extraction notes
+
+- Lifecycle: build finite patch, delete dipoles, add/verify plane wave, save setup, close, load configured case, verify source, save, run with heartbeat, save results, extract, close.
+- Plane wave: injection axis=z; direction=Forward; z=-250.0 nm; polarization angle=0 deg (x-LP); source below pillar base and propagating +z.
+- Monitor: `stage13_4_top_complex_field`, +z/top plane inherited from Stage13-4.
+- API: farfieldvector3d + farfieldux + farfielduy; intensity-only farfield3d not used for LP metrics.
+- Order centers: zero and ux=+/-0.1736481777617225; cone half-angles 3,5,10 deg.
+- Ez excluded from LP projection; included in total vector power.
+- Raw complex arrays saved: False.
+- Preflight history: an initial setup-only gate stopped before FDTD because the API returned `Z-AXIS` rather than `Z`; these are equivalent z-axis labels. The validator was corrected and the completed run reports empty setup/run preflight error lists.
+- FSP/log artifacts remain under ignored `_saved_fsp` and are not committed.
+- Runtime state: `{"case_id": "a_small_xlp_plane_wave_plusz", "lifecycle": ["build_setup", "verify_plane_wave_plusz", "save_setup", "close_setup", "load_setup", "save_configured_case", "run", "save_with_results", "extract_complex_vector"], "setup_preflight_errors": [], "run_preflight_errors": [], "extraction_debug": {"vector": {"shape": [101, 101, 3], "dtype": "complex128", "is_complex": true, "component_axis": -1}, "ux_shape": [101, 1], "uy_shape": [101, 1], "raw_arrays_saved": false}, "status": "ok", "runtime_minutes": 5.391244465000152, "decision": {"case_id": "a_small_xlp_plane_wave_plusz", "case_completed": true, "complex_vector_extraction_successful": true, "ex_peak_ux": 0.18000000000000005, "ex_peak_uy": 0.0, "ex_peak_distance_to_plus_target_deg": 0.36975979996266434, "ex_peak_distance_to_minus_target_deg": 20.36975981099239, "plus_target_power_5deg": 1.3319797551569398e-11, "zero_order_power_5deg": 5.3654731003987365e-12, "minus_target_power_5deg": 1.879968219348641e-12, "meaningful_margin_threshold": 1.5, "plus_exceeds_zero_and_minus": true, "finite_patch_plane_wave_steering_pass": true, "sign_or_gradient_mismatch_suspected": false, "finite_patch_plane_wave_no_steering": false, "dipole_specific_mismatch": true, "recommended_next_step": "Plane-wave sanity passes: continue with dipole-specific illumination/source-coupling diagnosis; do not add DBR/RCLED yet", "notes": "pass requires Ex global peak within 3 deg of +target and +target 5deg Ex power >=1.5x zero and minus"}}`.
