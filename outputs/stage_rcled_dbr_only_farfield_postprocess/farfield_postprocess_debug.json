@@ -1,0 +1,72 @@
+{
+  "no_fdtd_solve": true,
+  "monitor": "top_field_monitor_zprop",
+  "prop_axis": 3,
+  "cases": {
+    "dbr_only_x": {
+      "fsp_path": "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage10_cp_dbr_1_gan_dbr_only\\_saved_fsp\\GAN_DBR_ONLY_CENTER_X_T100FS.fsp",
+      "fsp_size_bytes": 102643746,
+      "monitor_type": "2D Z-normal",
+      "monitor_z_nm": 2316.0,
+      "farfield_shape": [
+        150,
+        150
+      ]
+    },
+    "dbr_only_y": {
+      "fsp_path": "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage10_cp_dbr_1_gan_dbr_only\\_saved_fsp\\GAN_DBR_ONLY_CENTER_Y_T100FS.fsp",
+      "fsp_size_bytes": 102643746,
+      "monitor_type": "2D Z-normal",
+      "monitor_z_nm": 2316.0,
+      "farfield_shape": [
+        150,
+        150
+      ]
+    },
+    "no_dbr_x": {
+      "fsp_path": "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage10_cp_dbr_0_planar_sanity\\_saved_fsp\\DBR0_NO_DBR_REFERENCE_CENTER_X_T100FS.fsp",
+      "fsp_size_bytes": 7275093,
+      "monitor_type": "2D Z-normal",
+      "monitor_z_nm": 1200.0,
+      "farfield_shape": [
+        150,
+        150
+      ]
+    },
+    "no_dbr_y": {
+      "fsp_path": "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage10_cp_dbr_0_planar_sanity\\_saved_fsp\\DBR0_NO_DBR_REFERENCE_CENTER_Y_T100FS.fsp",
+      "fsp_size_bytes": 7275093,
+      "monitor_type": "2D Z-normal",
+      "monitor_z_nm": 1200.0,
+      "farfield_shape": [
+        150,
+        150
+      ]
+    }
+  },
+  "exported_pngs": [
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_x_farfield_u_plane.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_x_xcut.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_x_ycut.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_y_farfield_u_plane.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_y_xcut.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_y_ycut.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_xy_incoherent_farfield_u_plane.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_xy_incoherent_xcut.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_dbr_only_xy_incoherent_ycut.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_no_dbr_xy_incoherent_farfield_u_plane.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_no_dbr_xy_incoherent_xcut.png",
+    "D:\\project\\blue_apcd_microled_metasurface\\outputs\\stage_rcled_dbr_only_farfield_postprocess\\rcled_no_dbr_xy_incoherent_ycut.png"
+  ],
+  "comparison": {
+    "comparison": "DBR-only versus no-DBR planar GaN reference",
+    "eta_5deg_ratio": 1.898851452204991,
+    "eta_10deg_ratio": 2.2357346109925635,
+    "eta_20deg_ratio": 1.1378574832275292,
+    "eta_30deg_ratio": 0.8083386022531682,
+    "x_fwhm_change_deg": -78.6963579978042,
+    "y_fwhm_change_deg": -41.773739700345374,
+    "narrowed_x": true,
+    "narrowed_y": true
+  }
+}
