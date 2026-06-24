@@ -1,0 +1,306 @@
+#######################################################
+# APCD / RCLED 3D Dipole Far-Field Postprocess Script
+# Default: xy-plane device, +z propagation
+# Purpose:
+#   1. Incoherently sum dipole/sweep far-field E2
+#   2. Plot 2D far field in direction-cosine plane
+#   3. Plot x-cut and y/z-cut angular far-field curves
+#   4. Calculate cone efficiency and FWHM
+#######################################################
+
+clear;
+
+#######################################################
+# 0. User settings
+#######################################################
+
+# Data source mode:
+# 1 = read from sweep result, e.g. getsweepresult(sweep_name,"far")
+# 2 = read directly from far-field monitor by farfield3d()
+data_mode = 2;
+
+# For sweep result mode
+sweep_name = "nolensmicro-distance3_5";
+sweep_result_name = "far";
+
+# For direct monitor mode
+monitor_name = "top_field_monitor_zprop";
+freq_index = 1;
+
+# Propagation axis:
+# 3 = +z propagation, our APCD/MicroLED main project setting
+# 2 = +y propagation, XZ-plane monitor / Y-prop setting
+prop_axis = 3;
+
+# Cone angles for energy ratio
+target_angles = [5, 10, 20, 30];
+
+# Export file prefix
+export_prefix = "mdc_blue_oujizi_center_x";
+
+# Plot settings
+theta_plot_min = -80;
+theta_plot_max = 80;
+
+#######################################################
+# 1. Load far-field data
+#######################################################
+
+if (data_mode == 1) {
+    Ri = getsweepresult(sweep_name, sweep_result_name);
+
+    raw_E2 = Ri.E2;
+    ux = pinch(Ri.ux);
+
+    # Important:
+    # For +z propagation, second coordinate is physical uy.
+    # For +y propagation / XZ plane, Lumerical may still name the second coordinate uy,
+    # but physically it corresponds to uz.
+    u2 = pinch(Ri.uy);
+
+    ?"Loaded far field from sweep result:";
+    ?"  sweep_name = " + sweep_name;
+    ?"  result_name = " + sweep_result_name;
+}
+
+if (data_mode == 2) {
+    raw_E2 = farfield3d(monitor_name, freq_index);
+    ux = farfieldux(monitor_name, freq_index);
+    u2 = farfielduy(monitor_name, freq_index);
+
+    ?"Loaded far field directly from monitor:";
+    ?"  monitor_name = " + monitor_name;
+    ?"  freq_index = " + num2str(freq_index);
+}
+
+if (prop_axis == 3) {
+    normal_label = "+z";
+    u2_label = "u_y";
+    cut2_name = "y-cut";
+    cut2_angle_label = "Angle from +z in y-cut (deg)";
+}
+
+if (prop_axis == 2) {
+    normal_label = "+y";
+    u2_label = "u_z";
+    cut2_name = "z-cut";
+    cut2_angle_label = "Angle from +y in z-cut (deg)";
+}
+
+?"raw_E2 size:";
+?size(raw_E2);
+?"length(ux) = " + num2str(length(ux));
+?"length(u2) = " + num2str(length(u2));
+
+#######################################################
+# 2. Incoherent summation over extra dimensions
+#######################################################
+# Assumption:
+#   First two dimensions are far-field coordinates.
+#   All trailing dimensions are frequency/source/sweep/dipole cases.
+#   They are summed incoherently as intensity.
+
+E2_total = raw_E2;
+E2_total = pinch(E2_total);
+
+dims = size(E2_total);
+
+while (length(dims) > 2) {
+    E2_total = sum(E2_total, length(dims));
+    E2_total = pinch(E2_total);
+    dims = size(E2_total);
+}
+
+# Ensure E2_total dimension is [length(ux), length(u2)]
+dims = size(E2_total);
+
+if ((dims(1) == length(u2)) & (dims(2) == length(ux))) {
+    E2_total = transpose(E2_total);
+    ?"E2_total was transposed to match [ux, u2].";
+}
+
+?"E2_total size after incoherent summation:";
+?size(E2_total);
+
+#######################################################
+# 3. Direction-cosine grid and angle definition
+#######################################################
+
+du1 = abs(ux(2) - ux(1));
+du2 = abs(u2(2) - u2(1));
+
+U1 = meshgridx(ux, u2);
+U2 = meshgridy(ux, u2);
+
+RSQ = U1^2 + U2^2;
+mask_light = (RSQ <= 1);
+
+# Normal direction cosine:
+# +z propagation: cos(theta)=uz=sqrt(1-ux^2-uy^2)
+# +y propagation: cos(theta)=uy=sqrt(1-ux^2-uz^2)
+COSN = sqrt(abs(1 - RSQ));
+COSN(RSQ > 1) = 1e-10;
+COSN(COSN < 1e-6) = 1e-6;
+
+Theta = asin(sqrt(RSQ)) * 180 / pi;
+Theta(RSQ > 1) = 90;
+
+#######################################################
+# 4. Solid-angle corrected integration
+#######################################################
+# Integral over direction-cosine plane:
+# dOmega = du1 du2 / cos(theta)
+
+Integrand = E2_total / COSN;
+Integrand = Integrand * mask_light;
+
+P_total = sum(Integrand) * du1 * du2;
+
+?" ";
+?"============= 3D Dipole Far-Field Result =============";
+?"Propagation normal = " + normal_label;
+?"P_total = " + num2str(P_total);
+
+for (ii = 1:length(target_angles)) {
+    a = target_angles(ii);
+    mask_win = (Theta <= a) & mask_light;
+    P_win = sum(Integrand * mask_win) * du1 * du2;
+    eta = P_win / P_total;
+
+    ?"eta_" + num2str(a) + "deg = " + num2str(eta * 100) + " %";
+}
+
+#######################################################
+# 5. Find center cuts
+#######################################################
+
+idx0_u2 = find(u2, 0);
+if (length(idx0_u2) == 0) {
+    idx0_u2 = round(length(u2) / 2);
+}
+if (length(idx0_u2) > 1) {
+    idx0_u2 = idx0_u2(1);
+}
+
+idx0_ux = find(ux, 0);
+if (length(idx0_ux) == 0) {
+    idx0_ux = round(length(ux) / 2);
+}
+if (length(idx0_ux) > 1) {
+    idx0_ux = idx0_ux(1);
+}
+
+# x-cut: second coordinate fixed at 0
+E2_xcut = pinch(E2_total(1:length(ux), idx0_u2));
+theta_x = asin(ux) * 180 / pi;
+E2_xcut_norm = E2_xcut / max(E2_xcut);
+
+# second cut:
+# +z propagation: y-cut, ux=0
+# +y propagation: z-cut, ux=0
+E2_2cut = pinch(E2_total(idx0_ux, 1:length(u2)));
+theta_2 = asin(u2) * 180 / pi;
+E2_2cut_norm = E2_2cut / max(E2_2cut);
+
+#######################################################
+# 6. Peak angle and FWHM for x-cut
+#######################################################
+
+peak_idx_x = 1;
+for (ii = 2:length(E2_xcut_norm)) {
+    if (E2_xcut_norm(ii) > E2_xcut_norm(peak_idx_x)) {
+        peak_idx_x = ii;
+    }
+}
+
+peak_angle_x = theta_x(peak_idx_x);
+
+first_x = 0;
+last_x = 0;
+
+for (ii = 1:length(E2_xcut_norm)) {
+    if (E2_xcut_norm(ii) >= 0.5) {
+        if (first_x == 0) {
+            first_x = ii;
+        }
+        last_x = ii;
+    }
+}
+
+if (first_x > 0) {
+    fwhm_x = theta_x(last_x) - theta_x(first_x);
+} else {
+    fwhm_x = -1;
+}
+
+#######################################################
+# 7. Peak angle and FWHM for second cut
+#######################################################
+
+peak_idx_2 = 1;
+for (ii = 2:length(E2_2cut_norm)) {
+    if (E2_2cut_norm(ii) > E2_2cut_norm(peak_idx_2)) {
+        peak_idx_2 = ii;
+    }
+}
+
+peak_angle_2 = theta_2(peak_idx_2);
+
+first_2 = 0;
+last_2 = 0;
+
+for (ii = 1:length(E2_2cut_norm)) {
+    if (E2_2cut_norm(ii) >= 0.5) {
+        if (first_2 == 0) {
+            first_2 = ii;
+        }
+        last_2 = ii;
+    }
+}
+
+if (first_2 > 0) {
+    fwhm_2 = theta_2(last_2) - theta_2(first_2);
+} else {
+    fwhm_2 = -1;
+}
+
+?" ";
+?"============= Angular Cut Metrics =============";
+?"x-cut peak angle = " + num2str(peak_angle_x) + " deg";
+?"x-cut FWHM       = " + num2str(fwhm_x) + " deg";
+?cut2_name + " peak angle = " + num2str(peak_angle_2) + " deg";
+?cut2_name + " FWHM       = " + num2str(fwhm_2) + " deg";
+
+#######################################################
+# 8. Export figures
+#######################################################
+
+E2_img = E2_total / max(E2_total);
+
+image(ux, u2, E2_img,
+      "u_x",
+      u2_label,
+      "Normalized far field |E|^2, normal " + normal_label);
+
+exportfigure(export_prefix + "_farfield_u_plane.png");
+
+plot(theta_x, E2_xcut_norm,
+     "Angle from " + normal_label + " in x-cut (deg)",
+     "Normalized intensity",
+     "Far-field angular pattern: x-cut");
+
+exportfigure(export_prefix + "_xcut.png");
+
+plot(theta_2, E2_2cut_norm,
+     cut2_angle_label,
+     "Normalized intensity",
+     "Far-field angular pattern: " + cut2_name);
+
+exportfigure(export_prefix + "_" + cut2_name + ".png");
+
+?" ";
+?"Exported figures:";
+?"  " + export_prefix + "_farfield_u_plane.png";
+?"  " + export_prefix + "_xcut.png";
+?"  " + export_prefix + "_" + cut2_name + ".png";
+?"============= Done =============";
