@@ -10,7 +10,21 @@ assert spec.loader is not None
 spec.loader.exec_module(mod)
 
 
-def test_planned_case_count_and_scope():
+def synthetic_templates() -> dict[str, dict[str, str]]:
+    return {
+        cid: {
+            "dimer_case_id": cid,
+            "candidate_id": cid,
+            "p_x_nm": "431.907786",
+            "p_y_nm": "432.000000",
+            "geometry_legal": "true",
+        }
+        for cid in mod.TEMPLATE_BY_BIN.values()
+    }
+
+
+def test_planned_case_count_and_scope(monkeypatch):
+    monkeypatch.setattr(mod, "load_template_rows", synthetic_templates)
     rows = mod.planned_case_rows()
     assert len(rows) == 42
     assert {int(float(r["height_nm"])) for r in rows} == {600, 650, 700}
