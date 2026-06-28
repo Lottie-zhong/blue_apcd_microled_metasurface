@@ -40,3 +40,10 @@ D:\project\blue_apcd_microled_metasurface\outputs
 ## Next planned stage
 
 R1C3_RCLED_C2_baseline_freeze_package
+
+## R1C3 freeze status
+
+- frozen primary baseline: R1C2_C2_cav230
+- backup: R1C2_C2_base
+- next stage: source-y robustness test around frozen baseline
+- APCD integration: not yet run

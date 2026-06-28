@@ -1,0 +1,76 @@
+{
+  "stage": "R1C3_RCLED_C2_baseline_freeze_package",
+  "primary_frozen_baseline": {
+    "candidate_id": "R1C2_C2_cav230",
+    "role": "primary",
+    "top_pair_count": 6,
+    "bottom_pair_count": 0,
+    "cavity_span_nm": 230,
+    "termination": "TiO2_50nm",
+    "validated_wavelengths": "450,453,456",
+    "avg_eta20": 0.6626666666666666,
+    "min_eta20": 0.587,
+    "max_peak_abs_angle_deg": 9.3
+  },
+  "primary_wavelength_results": [
+    {
+      "wavelength_nm": 450,
+      "eta10": 0.398,
+      "eta20": 0.587,
+      "eta30": 0.856,
+      "peak_abs_angle_deg": 9.3,
+      "dominant_zone": "abs_5_10"
+    },
+    {
+      "wavelength_nm": 453,
+      "eta10": 0.461,
+      "eta20": 0.682,
+      "eta30": 0.856,
+      "peak_abs_angle_deg": 9.01,
+      "dominant_zone": "abs_5_10"
+    },
+    {
+      "wavelength_nm": 456,
+      "eta10": 0.494,
+      "eta20": 0.719,
+      "eta30": 0.861,
+      "peak_abs_angle_deg": 6.81,
+      "dominant_zone": "abs_5_10"
+    }
+  ],
+  "backup_candidate": {
+    "candidate_id": "R1C2_C2_base",
+    "role": "backup",
+    "top_pair_count": 6,
+    "bottom_pair_count": 0,
+    "cavity_span_nm": 220,
+    "termination": "TiO2_50nm",
+    "validated_wavelengths": "450,453,456",
+    "avg_eta20": 0.6596666666666666,
+    "min_eta20": 0.634,
+    "max_peak_abs_angle_deg": 9.18
+  },
+  "backup_wavelength_results": [
+    {
+      "wavelength_nm": 450,
+      "eta20": 0.634,
+      "peak_abs_angle_deg": 9.18
+    },
+    {
+      "wavelength_nm": 453,
+      "eta20": 0.69,
+      "peak_abs_angle_deg": 6.92
+    },
+    {
+      "wavelength_nm": 456,
+      "eta20": 0.655,
+      "peak_abs_angle_deg": 7.27
+    }
+  ],
+  "old_route_rejected": "m8 + bottomDBR99 / R1B route produced symmetric off-normal 20-30 degree lobes",
+  "r1c0": "TMM redesign found top=6 bottom=0 family",
+  "r1c1": "validated top3 and selected C2",
+  "r1c2": "refined C2 and selected C2_cav230",
+  "source_y_sweep": "allowed as robustness test, not rescue",
+  "apcd_integration": "not yet run"
+}
