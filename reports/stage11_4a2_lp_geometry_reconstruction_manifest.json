@@ -1,0 +1,164 @@
+{
+  "stage": "Stage11-4A2",
+  "task": "LP fixed-height geometry reconstruction planning",
+  "planning_only": true,
+  "no_fdtd_run": true,
+  "no_lumerical_run": true,
+  "no_k6_metagrating": true,
+  "primary_height_nm": 600,
+  "secondary_optional_height_nm": 650,
+  "excluded_heights_nm": [
+    500,
+    700
+  ],
+  "wavelengths_nm": [
+    451,
+    452,
+    453
+  ],
+  "primary_bins_deg": [
+    240
+  ],
+  "secondary_bins_deg": [
+    300
+  ],
+  "coverage_bins_deg": [
+    0,
+    60,
+    120,
+    180
+  ],
+  "hard_future_case_budget": 96,
+  "planned_future_extraction_cases": 96,
+  "pass_thresholds_reused_from_stage11_4a1": {
+    "strict": {
+      "ratio_min": 6.0,
+      "Tx_min": 0.45,
+      "matrix_error_max": 0.5,
+      "phase_error_max_deg": 25.0
+    },
+    "loose": {
+      "ratio_min": 3.0,
+      "Tx_min": 0.1,
+      "matrix_error_max": 1.0,
+      "phase_error_max_deg": 35.0
+    }
+  },
+  "recommended_scope": "H600 first; H650 conditional only if H600 cannot cover enough phase diversity",
+  "stage11_4a1_facts": {
+    "height_summary": [
+      {
+        "height_nm": "600",
+        "planned_cases": "18",
+        "ok_cases": "18",
+        "failed_cases": "0",
+        "strict_cases": "0",
+        "loose_cases": "0",
+        "fail_cases": "18",
+        "complete_sixbin_451_452_453": "false",
+        "worst_ratio": "0.411377",
+        "worst_Tx": "0.346464",
+        "worst_matrix_error": "1.559151",
+        "max_phase_error_deg": "140.470709",
+        "bottleneck_bins": "0;60;120;180;240;300",
+        "recommendation": "refine H600"
+      },
+      {
+        "height_nm": "650",
+        "planned_cases": "18",
+        "ok_cases": "18",
+        "failed_cases": "0",
+        "strict_cases": "0",
+        "loose_cases": "0",
+        "fail_cases": "18",
+        "complete_sixbin_451_452_453": "false",
+        "worst_ratio": "0.008260",
+        "worst_Tx": "0.007644",
+        "worst_matrix_error": "11.002901",
+        "max_phase_error_deg": "161.170161",
+        "bottleneck_bins": "0;60;120;180;240;300",
+        "recommendation": "refine H650"
+      },
+      {
+        "height_nm": "700",
+        "planned_cases": "6",
+        "ok_cases": "6",
+        "failed_cases": "0",
+        "strict_cases": "0",
+        "loose_cases": "0",
+        "fail_cases": "6",
+        "complete_sixbin_451_452_453": "false",
+        "worst_ratio": "0.764872",
+        "worst_Tx": "0.760859",
+        "worst_matrix_error": "1.143419",
+        "max_phase_error_deg": "136.495370",
+        "bottleneck_bins": "240;300",
+        "recommendation": "scout H700 more only if H600/H650 fail"
+      }
+    ],
+    "h600_b300_best_ratio": 265880.34891,
+    "h600_b300_best_Tx": 1.019091,
+    "h600_b300_worst_phase_error": 99.860401,
+    "h600_b240_best_ratio": 1.037851,
+    "h600_b240_worst_phase_error": 40.346637,
+    "a1_recommendation": "# Stage11-4A1 Recommended Next\n\nStage11-4A2 recommendation: stop direct Hnew height-scaled template rescue; no H600/H650/H700 scout produced a viable 3-nm tuple. Use broader fixed-height geometry reconstruction before any K=6 work."
+  },
+  "run_groups": [
+    {
+      "group_id": "S11_4A2_H600_B240_ROLE_RECOMBINE",
+      "height_nm": "600",
+      "phase_bin_deg": "240",
+      "wavelengths_nm": "451;452;453",
+      "variants_per_bin": "8",
+      "planned_cases": "24",
+      "priority": "primary",
+      "candidate_family": "fixed_height_H600_J1J2_role_recombination",
+      "geometry_knobs": "J1/J2 role-pair recombination; swap/no-swap; x/y/diag orientation; gap 40-120 nm; J2 length/width local perturbation",
+      "purpose": "repair B240 first because A1 H600 B240 failed ratio, matrix, and phase",
+      "trigger": "always first",
+      "early_stop_rule": "stop this group after any candidate is strict at 451/452/453, else keep best leakage and matrix near-miss"
+    },
+    {
+      "group_id": "S11_4A2_H600_B300_PHASE_PULL",
+      "height_nm": "600",
+      "phase_bin_deg": "300",
+      "wavelengths_nm": "451;452;453",
+      "variants_per_bin": "6",
+      "planned_cases": "18",
+      "priority": "secondary",
+      "candidate_family": "fixed_height_H600_phase_pull_from_B300_high_ratio",
+      "geometry_knobs": "swap/no-swap; x_pair/diag_pair; gap 60-120 nm; center offset; small J2 length/width perturbation",
+      "purpose": "use H600 B300 high selectivity as phase-only repair seed",
+      "trigger": "run after B240 group or in parallel if budget is available",
+      "early_stop_rule": "stop after strict B300 or if phase error cannot be pulled below loose threshold in first half of variants"
+    },
+    {
+      "group_id": "S11_4A2_H600_COVERAGE_0_60_120_180",
+      "height_nm": "600",
+      "phase_bin_deg": "0;60;120;180",
+      "wavelengths_nm": "451;452;453",
+      "variants_per_bin": "3",
+      "planned_cases": "36",
+      "priority": "coverage",
+      "candidate_family": "fixed_height_H600_sixbin_coverage_reconstruction",
+      "geometry_knobs": "role-pair recombination; orientation family; gap ladder; local width/length perturbation around H600 templates",
+      "purpose": "only cover remaining bins after 240/300 show viable fixed-height behavior",
+      "trigger": "run only if B240 or B300 reaches at least loose at all wavelengths",
+      "early_stop_rule": "stop coverage once four bins have strict or loose candidates over 451/452/453"
+    },
+    {
+      "group_id": "S11_4A2_H650_ESCAPE_HATCH_240_300",
+      "height_nm": "650",
+      "phase_bin_deg": "240;300",
+      "wavelengths_nm": "451;452;453",
+      "variants_per_bin": "3",
+      "planned_cases": "18",
+      "priority": "conditional_secondary",
+      "candidate_family": "fixed_height_H650_bottleneck_escape_hatch",
+      "geometry_knobs": "same reconstruction knobs as H600, limited to 240/300",
+      "purpose": "test H650 only if H600 lacks enough phase diversity after bottleneck repair attempts",
+      "trigger": "run only if H600 B240 and B300 both fail loose gates",
+      "early_stop_rule": "stop immediately if H650 also fails loose gates for both 240 and 300"
+    }
+  ]
+}
