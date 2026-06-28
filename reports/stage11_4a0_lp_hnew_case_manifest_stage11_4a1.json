@@ -1,0 +1,88 @@
+{
+  "stage": "Stage11-4A0",
+  "created_by": "stage11_lp_hnew_height_wavelength_inventory_stage11_4a0.py",
+  "no_fdtd_run_in_stage11_4a0": true,
+  "hard_case_cap": 180,
+  "primary_heights": [
+    600,
+    650
+  ],
+  "secondary_heights": [
+    700
+  ],
+  "deferred_heights": [
+    550,
+    750
+  ],
+  "scout_wavelengths_nm": [
+    451,
+    452,
+    453
+  ],
+  "priority_bins_deg": [
+    240,
+    300
+  ],
+  "coverage_bins_deg": [
+    0,
+    60,
+    120,
+    180
+  ],
+  "fixed_height_rule": true,
+  "mixed_height_tuple_allowed": false,
+  "included_case_groups": [
+    {
+      "case_group_id": "S11_4A1_H600_ALL",
+      "height_nm": "600",
+      "wavelengths_nm": "451;452;453",
+      "phase_bins_deg": "0;60;120;180;240;300",
+      "priority": "highest",
+      "planned_action": "periodic_single_dimer_jones_extraction",
+      "reason": "H600 primary fixed-height scout",
+      "estimated_stage": "Stage11-4A1"
+    },
+    {
+      "case_group_id": "S11_4A1_H650_ALL",
+      "height_nm": "650",
+      "wavelengths_nm": "451;452;453",
+      "phase_bins_deg": "0;60;120;180;240;300",
+      "priority": "highest",
+      "planned_action": "periodic_single_dimer_jones_extraction",
+      "reason": "H650 primary fixed-height scout",
+      "estimated_stage": "Stage11-4A1"
+    },
+    {
+      "case_group_id": "S11_4A1_H700_240_300",
+      "height_nm": "700",
+      "wavelengths_nm": "451;452;453",
+      "phase_bins_deg": "240;300",
+      "priority": "medium_high",
+      "planned_action": "periodic_single_dimer_jones_extraction",
+      "reason": "H700 priority-bin-only scout",
+      "estimated_stage": "Stage11-4A1"
+    }
+  ],
+  "deferred_case_groups": [
+    {
+      "case_group_id": "DEFER_H550",
+      "height_nm": "550",
+      "wavelengths_nm": "451;452;453",
+      "phase_bins_deg": "0;60;120;180;240;300",
+      "priority": "deferred",
+      "planned_action": "no_run",
+      "reason": "H550 deferred unless H600/H650 fail",
+      "estimated_stage": "Stage11-4A1_deferred"
+    },
+    {
+      "case_group_id": "DEFER_H750",
+      "height_nm": "750",
+      "wavelengths_nm": "451;452;453",
+      "phase_bins_deg": "0;60;120;180;240;300",
+      "priority": "deferred",
+      "planned_action": "no_run",
+      "reason": "H750 deferred as simulation-only extension",
+      "estimated_stage": "Stage11-4A1_deferred"
+    }
+  ]
+}
