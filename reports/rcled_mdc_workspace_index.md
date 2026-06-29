@@ -47,3 +47,13 @@ R1C3_RCLED_C2_baseline_freeze_package
 - backup: R1C2_C2_base
 - next stage: source-y robustness test around frozen baseline
 - APCD integration: not yet run
+
+## R1C5 Source Module Handoff
+
+- Frozen source-module baseline: `R1C2_C2_cav230`
+- top_pair_count=6, bottom_pair_count=0, cavity_span_nm=230, termination=TiO2_50nm
+- Recommended source_y_offset_nm: 0
+- Backup source_y_offset_nm: -20
+- Full +/-40 nm source-y robustness did not pass; use center or near-center placement for APCD coupling.
+- APCD integration has not yet been run.
+- Handoff package: `outputs/r1c5_rcled_source_module_handoff_package`
