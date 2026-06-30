@@ -99,3 +99,11 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Candidates: R2_1_00227, R2_1_00223, R2_1_04067.
 - Planned wavelength/source: 453 nm, center source only, x/y dipoles separately.
 - Main validation target: narrow near-normal emission, not eta20/eta30 alone.
+
+## R2-2B Vertical Geometry Mapping Audit
+
+- Output: `outputs/r2_2b_rcled_fdtd_vertical_geometry_mapping_audit`
+- No FDTD run; no Lumerical launched; no `.fsp`/`.ldf` generated.
+- Selected first-smoke mapping: Option A literal spacer mapping, with explicit geometry audit before solve.
+- Selected first-smoke candidate: R2_1_00223, center x/y dipoles at 453 nm.
+- Main unresolved risk: TMM `cavity_span_nm` may include effective DBR penetration/phase, so FDTD results must be interpreted as a smoke validation before refined optical-phase fitting.
