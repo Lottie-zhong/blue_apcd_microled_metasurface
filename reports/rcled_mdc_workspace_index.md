@@ -90,3 +90,12 @@ R1C3_RCLED_C2_baseline_freeze_package
 - High-resolution proxy grid: wavelength 448-458 nm step 0.05 nm, theta 0-35 deg step 0.25 deg.
 - FDTD shortlist count: 5.
 - Main recommendation: validate top balanced true-cavity candidates first, keep top-filter and C2 rows as controls.
+
+## R2-2A FDTD Dipole Prepare-Only Package
+
+- Output: `outputs/r2_2a_rcled_fdtd_dipole_prepare_only`
+- No FDTD run; no Lumerical launched; no `.fsp`/`.ldf` generated.
+- Planned first-run cases: 3 R2 primary candidates x 2 dipole orientations = 6 cases.
+- Candidates: R2_1_00227, R2_1_00223, R2_1_04067.
+- Planned wavelength/source: 453 nm, center source only, x/y dipoles separately.
+- Main validation target: narrow near-normal emission, not eta20/eta30 alone.
