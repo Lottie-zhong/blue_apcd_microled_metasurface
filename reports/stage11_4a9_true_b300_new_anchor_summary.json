@@ -1,0 +1,112 @@
+{
+  "stage": "Stage11-4A9",
+  "planning_only": true,
+  "no_fdtd_lumerical": true,
+  "height_nm": 600,
+  "target_actual_bin_deg": 300,
+  "wavelengths_nm": [
+    451,
+    452,
+    453
+  ],
+  "max_future_cases": 36,
+  "future_total_cases": 36,
+  "excluded_b60_donor_family": {
+    "candidate_ids": [
+      "H600B300PULL_001_FROM_H500DIMER12D_002_B300_x_pair_swap_G80_O-30",
+      "H600B300PULL_002_FROM_H500DIMER12D_004_B300_x_pair_swap_G80_O-40",
+      "H600B300PULL_003_FROM_H500DIMER12D_005_B300_x_pair_swap_G80_O-20",
+      "H600B300PULL_004_FROM_H500DIMER12D_006_B300_x_pair_noswap_G80_O-30",
+      "H600B300PULL_005_FROM_H500DIMER12D_003_B300_x_pair_swap_G90_O-30",
+      "H600B300PULL_006_FROM_H500DIMER12D_007_B300_x_pair_noswap_G100_O-24"
+    ],
+    "source_candidate_ids": [
+      "H500DIMER12D_002_B300_x_pair_swap_G80_O-30",
+      "H500DIMER12D_003_B300_x_pair_swap_G90_O-30",
+      "H500DIMER12D_004_B300_x_pair_swap_G80_O-40",
+      "H500DIMER12D_005_B300_x_pair_swap_G80_O-20",
+      "H500DIMER12D_006_B300_x_pair_noswap_G80_O-30",
+      "H500DIMER12D_007_B300_x_pair_noswap_G100_O-24"
+    ],
+    "families": [
+      "B300_x_pair_noswap_G100_O-24",
+      "B300_x_pair_noswap_G80_O-30",
+      "B300_x_pair_swap_G80_O-20",
+      "B300_x_pair_swap_G80_O-30",
+      "B300_x_pair_swap_G80_O-40",
+      "B300_x_pair_swap_G90_O-30"
+    ]
+  },
+  "run_groups": [
+    {
+      "group_id": "S11_4A9_G1_TRUE_B300_DIFFERENT_ANCHOR_FAMILY",
+      "height_nm": 600,
+      "target_actual_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "planned_geometries": 6,
+      "planned_cases": 18,
+      "anchor_family": "non_x_pair_swap_G80_O40; prefer y_pair/diag_pair or different B240/B0 donors with actual phase closer to 300",
+      "seed_policy": "exclude A8 B60-promoted family except as negative reference",
+      "excluded_family": "B300_x_pair_noswap_G100_O-24;B300_x_pair_noswap_G80_O-30;B300_x_pair_swap_G80_O-20;B300_x_pair_swap_G80_O-30;B300_x_pair_swap_G80_O-40;B300_x_pair_swap_G90_O-30",
+      "purpose": "find a true B300 phase anchor without rediscovering B60",
+      "priority": "highest"
+    },
+    {
+      "group_id": "S11_4A9_G2_TRUE_B300_PHASE_OPPOSITE_FAMILY",
+      "height_nm": 600,
+      "target_actual_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "planned_geometries": 4,
+      "planned_cases": 12,
+      "anchor_family": "phase-opposite candidates whose 450 nm selected phase is near 240/300, not 0/60",
+      "seed_policy": "prefer sources not promoted by A8; reject if nearest actual bin is 0 or 60 at first wavelength",
+      "excluded_family": "B300_x_pair_noswap_G100_O-24;B300_x_pair_noswap_G80_O-30;B300_x_pair_swap_G80_O-20;B300_x_pair_swap_G80_O-30;B300_x_pair_swap_G80_O-40;B300_x_pair_swap_G90_O-30",
+      "purpose": "test whether a different resonance branch can land near actual B300",
+      "priority": "secondary"
+    },
+    {
+      "group_id": "S11_4A9_G3_TRUE_B300_MINI_ESCAPE",
+      "height_nm": 600,
+      "target_actual_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "planned_geometries": 2,
+      "planned_cases": 6,
+      "anchor_family": "minimal escape: one y_pair and one diag_pair control from non-promoted sources",
+      "seed_policy": "negative-reference A8 family only in analysis, not as refinement target",
+      "excluded_family": "B300_x_pair_noswap_G100_O-24;B300_x_pair_noswap_G80_O-30;B300_x_pair_swap_G80_O-20;B300_x_pair_swap_G80_O-30;B300_x_pair_swap_G80_O-40;B300_x_pair_swap_G90_O-30",
+      "purpose": "cheap sanity check before broader H600 redesign or stopping LP-Hnew path",
+      "priority": "fallback"
+    }
+  ],
+  "excluded_scope": [
+    "B60 donor refinement",
+    "coverage 0/60/120/180",
+    "H650",
+    "K=6",
+    "finite patch",
+    "dipole",
+    "DBR/RCLED"
+  ],
+  "decision_after_future_run": [
+    "if B300 loose/strict -> run coverage 0/120/180 next, keeping B60 donor and B240 loose evidence",
+    "if B300 high-selectivity but lands in another bin -> reassign again",
+    "if no selectivity -> redesign or stop H600 LP-Hnew six-bin path"
+  ],
+  "a8_best_reassigned_candidate": {
+    "candidate_id": "H600B300PULL_002_FROM_H500DIMER12D_004_B300_x_pair_swap_G80_O-40",
+    "bins": [
+      60
+    ],
+    "worst_ratio": 11.278722,
+    "worst_Tx": 0.75218,
+    "worst_matrix_error": 0.297811,
+    "max_phase_error_to_actual_bin_deg": 24.596581,
+    "levels": [
+      "strict"
+    ],
+    "promoted_bin": 60
+  },
+  "b300_still_unsolved": true,
+  "recommended_next_run_group": "S11_4A9_G1_TRUE_B300_DIFFERENT_ANCHOR_FAMILY",
+  "avoid_rediscovering_b60_rule": "exclude A8-promoted B60 donor family from true-B300 refinement; use it only as negative reference"
+}
