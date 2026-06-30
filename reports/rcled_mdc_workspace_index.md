@@ -107,3 +107,11 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Selected first-smoke mapping: Option A literal spacer mapping, with explicit geometry audit before solve.
 - Selected first-smoke candidate: R2_1_00223, center x/y dipoles at 453 nm.
 - Main unresolved risk: TMM `cavity_span_nm` may include effective DBR penetration/phase, so FDTD results must be interpreted as a smoke validation before refined optical-phase fitting.
+
+## R2-2C Setup-Only FDTD GUI Inspection Files
+
+- Output: `outputs/r2_2c_rcled_fdtd_smoke_setup_only`
+- Valid setup-only files: R2_1_00223 center_x and center_z_outofplane at 453 nm.
+- Invalid retained file: center_y is INVALID_DO_NOT_SOLVE because simulation_y is cavity-normal in the 2D x-y layout.
+- No FDTD solve, no analysis, no far-field extraction.
+- Solve remains blocked until manual GUI inspection passes.
