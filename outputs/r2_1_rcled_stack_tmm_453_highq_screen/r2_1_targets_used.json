@@ -1,0 +1,45 @@
+{
+  "stage": "R2-1 RCLED 453 nm STACK/TMM high-Q cavity redesign screening",
+  "abbreviations": {
+    "RCLED": "Resonant-Cavity LED, 谐振腔发光二极管",
+    "DBR": "Distributed Bragg Reflector, 分布式布拉格反射镜",
+    "FDTD": "Finite-Difference Time-Domain, 时域有限差分法",
+    "TMM": "Transfer Matrix Method, 传输矩阵法",
+    "STACK": "multilayer stack optical solver, 多层膜堆光学求解器",
+    "FWHM": "Full Width at Half Maximum, 半高全宽",
+    "Q": "Quality factor, 品质因子",
+    "APCD": "Arbitrary Polarization Conversion Dichroism, 任意偏振转换二色性",
+    "MQW": "Multiple Quantum Wells, 多量子阱",
+    "eta20_eta30": "±20°/±30° cone collection efficiency, ±20°/±30°锥角收集效率"
+  },
+  "scan_grid": {
+    "wavelength_nm": "445-461 step 0.5",
+    "theta_deg": "0-40 step 1",
+    "top_pair_count": [
+      6,
+      8,
+      10,
+      12
+    ],
+    "bottom_pair_count": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "cavity_span_nm": "180-320 step 10",
+    "termination": [
+      "TiO2_50nm",
+      "TiO2_25nm",
+      "SiO2_25nm",
+      "none"
+    ]
+  },
+  "pass_levels": {
+    "Level A": "spectral FWHM <=6 nm, angular FWHM <=10 deg, peak_abs<=5 deg, normal/offaxis>1.5",
+    "Level B": "spectral FWHM <=8 nm, angular FWHM <=25 deg, peak_abs<=10 deg, normal/offaxis>1.0",
+    "Level C": "fallback only"
+  },
+  "method_note": "Lightweight STACK/TMM-style proxy screen; no FDTD was run."
+}

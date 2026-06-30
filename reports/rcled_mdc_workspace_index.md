@@ -65,3 +65,20 @@ R1C3_RCLED_C2_baseline_freeze_package
 - R2 target: 453 nm high-Q RCLED/DBR source module, spectral_FWHM <= 6 nm, angular_FWHM <= 10 deg ideal / 10-25 deg acceptable, normal/off-axis ratio > 1.
 - R2 next stage: R2-1 STACK/TMM redesign before more FDTD.
 - Package: outputs/r2_0_rcled_r1_closeout_and_r2_target_package
+
+## R2-1 STACK/TMM High-Q Screen
+
+- Output: outputs/r2_1_rcled_stack_tmm_453_highq_screen
+- Method: lightweight STACK/TMM-style proxy, no FDTD.
+- Candidates screened: 4800
+- Level A count: 1637
+- Level B count: 511
+- Next: R2-2 2D FDTD dipole validation for top candidates only.
+
+## R2-1A Physical Sanity Audit
+
+- Output: outputs/r2_1a_rcled_stack_tmm_physical_sanity_audit
+- No FDTD run.
+- Cavity validity counts: true_two_mirror=2880, weak_bottom=960, top_filter_only=960.
+- Main warning: bottom_pair_count=0 rows are top-filter controls, not true high-Q RCLED cavities.
+- Next: R2-2 FDTD validation only for r2_1a_fdtd_shortlist.csv candidates.
