@@ -1,0 +1,90 @@
+{
+  "stage": "Stage11-4A7",
+  "planning_only": true,
+  "no_fdtd_lumerical": true,
+  "target": "H600 B300 phase-anchor diagnostic/refinement",
+  "a6_completed_cases": 18,
+  "b300_strict_loose_after_a6": false,
+  "b300_near_miss_count_after_a6": 5,
+  "best_a6_candidate": {
+    "candidate_id": "H600B300PULL_002_FROM_H500DIMER12D_004_B300_x_pair_swap_G80_O-40",
+    "source_candidate_id": "H500DIMER12D_004_B300_x_pair_swap_G80_O-40",
+    "geometry_family": "x_pair_swap_G80_O-40",
+    "min_phase_deg": 49.414944,
+    "max_phase_deg": 84.596581,
+    "phase_span_deg": 35.181637,
+    "nearest_bins": "60",
+    "phase_by_wavelength": "451:84.597->60;452:64.253->60;453:49.415->60",
+    "worst_ratio": 11.278722,
+    "worst_Tx": 0.75218,
+    "worst_matrix_error": 0.297811,
+    "max_phase_error_to_300_deg": 144.59658100000001,
+    "best_pass_level": "fail",
+    "near_miss": "true",
+    "failure_mode": "phase_only"
+  },
+  "phase_cluster": {
+    "high_selectivity_candidate_count": 4,
+    "nearest_bin_histogram": {
+      "0": 2,
+      "60": 4
+    },
+    "cluster_statement": "High-selectivity B300 candidates cluster away from 300 deg; phase anchor is wrong."
+  },
+  "future_groups": [
+    {
+      "group_id": "S11_4A7_G1_B300_PHASE_ANCHOR_SHIFT",
+      "height_nm": 600,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "planned_geometries": 6,
+      "planned_cases": 18,
+      "seed_candidate": "H500DIMER12D_004_B300_x_pair_swap_G80_O-40",
+      "geometry_knobs": "same high-selectivity x_pair family; gap/offset phase-anchor shift; keep projection matrix intact",
+      "purpose": "pull selected-channel phase toward 300 without sacrificing ratio/matrix",
+      "priority": "highest"
+    },
+    {
+      "group_id": "S11_4A7_G2_B300_ADJACENT_BIN_ANCHOR_RESCUE",
+      "height_nm": 600,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "planned_geometries": 4,
+      "planned_cases": 12,
+      "seed_candidate": "nearby 240/0 actual-phase donors from tracked B300/B240 families",
+      "geometry_knobs": "adjacent-bin donor relabel check; swap/no-swap; small gap changes",
+      "purpose": "find a better phase anchor if direct B300 pull remains offset",
+      "priority": "secondary"
+    },
+    {
+      "group_id": "S11_4A7_G3_B300_ORIENTATION_GAP_FALLBACK",
+      "height_nm": 600,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "planned_geometries": 2,
+      "planned_cases": 6,
+      "seed_candidate": "H500DIMER12D_004_B300_x_pair_swap_G80_O-40",
+      "geometry_knobs": "diag_pair fallback; one wider gap and one swapped control",
+      "purpose": "minimal check that orientation/gap can move phase without killing selectivity",
+      "priority": "fallback"
+    }
+  ],
+  "future_total_cases": 36,
+  "coverage_blocked_reason": "B300 has good selectivity but wrong selected-channel phase anchor; coverage 0/60/120/180 should wait until B300 reaches loose/strict or systematic phase-offset correction is proven.",
+  "decision_tree": [
+    "if B300 becomes loose/strict and B240 loose exists -> run H600 coverage 0/60/120/180 next",
+    "if B300 remains phase-only fail but phase offset becomes systematic -> run one focused phase-offset correction",
+    "if B300 loses selectivity -> redesign B300 search space",
+    "if no improvement -> reconsider LP-Hnew six-bin feasibility"
+  ],
+  "excluded": [
+    "B240 rerun",
+    "H650",
+    "coverage",
+    "K=6",
+    "finite patch",
+    "dipole",
+    "DBR/RCLED",
+    "H500 rescue"
+  ]
+}
