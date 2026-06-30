@@ -1,0 +1,74 @@
+{
+  "stage": "Stage11-4A14",
+  "planning_only": true,
+  "no_fdtd": true,
+  "height_nm": 600,
+  "target_bin_deg": 300,
+  "wavelengths_nm": [
+    451,
+    452,
+    453
+  ],
+  "max_future_cases": 24,
+  "total_future_cases": 24,
+  "bounded_distinct_plan_exists": true,
+  "excluded_b60_donor_families": [
+    "B300_x_pair_swap_G80_O-30",
+    "B300_x_pair_swap_G80_O-40",
+    "B300_x_pair_swap_G80_O-20",
+    "B300_x_pair_noswap_G80_O-30",
+    "B300_x_pair_swap_G90_O-30",
+    "B300_x_pair_noswap_G100_O-24"
+  ],
+  "groups": [
+    {
+      "group_id": "S11_4A14_G1_B300_SELECTIVITY_WITH_300_PHASE_HYBRID",
+      "future_case_count": 12,
+      "height_nm": 600,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "mechanism": "hybridize A10 moderate-selectivity geometry with A11 near-300 phase anchors",
+      "distinct_from_prior": "combines A10 selectivity source and A11 phase source instead of rerunning either family",
+      "purpose": "recover projection selectivity while keeping selected phase near 300",
+      "priority": "highest"
+    },
+    {
+      "group_id": "S11_4A14_G2_B300_MATRIX_REPAIR_NEAR_300",
+      "future_case_count": 6,
+      "height_nm": 600,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "mechanism": "small-gap and orientation repair around A11 near-300 but leaky family",
+      "distinct_from_prior": "uses A11 only as a phase-local anchor and changes matrix-repair knobs",
+      "purpose": "keep near-300 phase while reducing blocked-y leakage",
+      "priority": "high"
+    },
+    {
+      "group_id": "S11_4A14_G3_B300_NON_B60_ANCHOR_MICRO_ESCAPE",
+      "future_case_count": 6,
+      "height_nm": 600,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "mechanism": "non-B60 anchor micro-escape using diagonal/noswap candidates not in A8 donor family",
+      "distinct_from_prior": "excludes A8 B60 donor family and avoids A12 mini-escape geometries",
+      "purpose": "last bounded H600-only escape before H650 planning",
+      "priority": "medium"
+    }
+  ],
+  "decision_after_future_run": [
+    "if B300 loose/strict -> run coverage 0/120/180",
+    "if phase near 300 but selectivity weak -> one matrix-repair refinement only",
+    "if selectivity good but phase not 300 -> reassign donor, do not force",
+    "if no near-miss -> stop H600 B300 and plan H650 escape hatch"
+  ],
+  "do_not_run": [
+    "FDTD",
+    "coverage",
+    "H650",
+    "K=6",
+    "finite patch",
+    "dipole",
+    "DBR",
+    "RCLED"
+  ]
+}
