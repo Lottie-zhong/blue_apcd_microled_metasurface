@@ -82,3 +82,11 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Cavity validity counts: true_two_mirror=2880, weak_bottom=960, top_filter_only=960.
 - Main warning: bottom_pair_count=0 rows are top-filter controls, not true high-Q RCLED cavities.
 - Next: R2-2 FDTD validation only for r2_1a_fdtd_shortlist.csv candidates.
+
+## R2-1B High-Resolution Shortlist Verification
+
+- Output: outputs/r2_1b_rcled_highres_tmm_shortlist_verify
+- No FDTD run.
+- High-resolution proxy grid: wavelength 448-458 nm step 0.05 nm, theta 0-35 deg step 0.25 deg.
+- FDTD shortlist count: 5.
+- Main recommendation: validate top balanced true-cavity candidates first, keep top-filter and C2 rows as controls.
