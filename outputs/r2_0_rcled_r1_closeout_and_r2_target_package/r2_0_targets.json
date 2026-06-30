@@ -1,0 +1,43 @@
+{
+  "stage": "R2-0_RCLED_R1_closeout_and_R2_target_package",
+  "r1_fallback_candidate": {
+    "candidate_id": "R1C2_C2_cav230",
+    "top_pair_count": 6,
+    "bottom_pair_count": 0,
+    "cavity_span_nm": 230,
+    "termination": "TiO2_50nm",
+    "recommended_source_y_offset_nm": 0,
+    "validated_wavelengths_nm": [
+      450,
+      453,
+      456
+    ],
+    "level": "Level C fallback only"
+  },
+  "r2_target_specs": {
+    "center_wavelength_nm": "around 453",
+    "spectral_FWHM_nm_max": 6,
+    "angular_FWHM_deg_ideal_max": 10,
+    "angular_FWHM_deg_acceptable_range": "10-25",
+    "peak_abs_angle_deg_ideal_max": 5,
+    "peak_abs_angle_deg_acceptable_max": 10,
+    "normal_offaxis_resonance_ratio_min": 1,
+    "dipole_average_requirement": "x/y dipole incoherent average stable"
+  },
+  "screening_metrics": [
+    "I_proxy(lambda, theta)",
+    "normal_peak_strength theta 0-5 deg",
+    "offaxis_peak_strength theta 20-30 deg",
+    "normal/offaxis ratio",
+    "spectral_FWHM near theta=0",
+    "angular_FWHM at lambda=453 nm",
+    "peak_angle_abs"
+  ],
+  "candidate_families": [
+    "R2A_Taguchi2026_scaled_control",
+    "R2B_Khaidarov_hybrid_scaled_control",
+    "R2C_C2_medium_bottomR_upgrade",
+    "R2D_all_dielectric_highR_mediumR_scan"
+  ],
+  "no_fdtd_run": true
+}

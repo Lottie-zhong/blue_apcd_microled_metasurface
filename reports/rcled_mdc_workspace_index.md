@@ -57,3 +57,11 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Full +/-40 nm source-y robustness did not pass; use center or near-center placement for APCD coupling.
 - APCD integration has not yet been run.
 - Handoff package: `outputs/r1c5_rcled_source_module_handoff_package`
+
+## R2-0 Closeout and Target Package
+
+- R1 high-Q route status: m8 + bottomDBR99 rejected as main route because dipole FDTD showed symmetric 20-30 degree off-normal lobes.
+- R1 fallback: R1C2_C2_cav230, Level C fallback only.
+- R2 target: 453 nm high-Q RCLED/DBR source module, spectral_FWHM <= 6 nm, angular_FWHM <= 10 deg ideal / 10-25 deg acceptable, normal/off-axis ratio > 1.
+- R2 next stage: R2-1 STACK/TMM redesign before more FDTD.
+- Package: outputs/r2_0_rcled_r1_closeout_and_r2_target_package
