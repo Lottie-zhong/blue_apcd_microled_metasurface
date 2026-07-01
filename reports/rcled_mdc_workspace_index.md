@@ -115,3 +115,13 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Invalid retained file: center_y is INVALID_DO_NOT_SOLVE because simulation_y is cavity-normal in the 2D x-y layout.
 - No FDTD solve, no analysis, no far-field extraction.
 - Solve remains blocked until manual GUI inspection passes.
+
+
+
+## R2-2D FDTD smoke solve
+
+- Stage: R2-2D minimal 2D FDTD smoke solve.
+- Candidate: R2_1_00223 at 453 nm.
+- Valid solved pair: center_x + center_z_outofplane.
+- Invalid center_y was not solved.
+- Output folder: outputs/r2_2d_rcled_fdtd_smoke_solve.
