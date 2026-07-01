@@ -125,3 +125,9 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Valid solved pair: center_x + center_z_outofplane.
 - Invalid center_y was not solved.
 - Output folder: outputs/r2_2d_rcled_fdtd_smoke_solve.
+
+## R2-2E off-axis re-analysis
+
+- Re-analyzed R2-2D 453 nm angle cuts as an off-axis directional-emission seed.
+- No FDTD was run.
+- Output folder: outputs/r2_2e_rcled_offaxis_directional_reanalysis.
