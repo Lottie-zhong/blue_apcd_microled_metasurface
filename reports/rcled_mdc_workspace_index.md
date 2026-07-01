@@ -131,3 +131,9 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Re-analyzed R2-2D 453 nm angle cuts as an off-axis directional-emission seed.
 - No FDTD was run.
 - Output folder: outputs/r2_2e_rcled_offaxis_directional_reanalysis.
+
+## R2-2G off-axis far-field figures
+
+- Generated polar and Cartesian far-field plots from existing R2-2D/R2-2E CSV data.
+- No FDTD or Lumerical run.
+- Output folder: outputs/r2_2g_offaxis_farfield_polar_plot.
