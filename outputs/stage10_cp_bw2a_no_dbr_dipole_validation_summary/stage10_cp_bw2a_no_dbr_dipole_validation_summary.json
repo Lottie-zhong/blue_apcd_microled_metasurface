@@ -1,0 +1,93 @@
+{
+  "candidate_id": "BW2_J1J2_D194_T90_PSI99_H525",
+  "baseline_candidate_id": "BW2_J1J2_D194_T90_PSI97_H525",
+  "q_nm": 107.9769465,
+  "no_fDTD_run_for_summary": true,
+  "setup": {
+    "no_dbr": true,
+    "no_rcled": true,
+    "ordinary_microled_finite_patch": true,
+    "farfield_monitor": "+z top far field",
+    "extraction": "complex farfieldvector3d Ex/Ey",
+    "R": "(Ex - i Ey)/sqrt(2)",
+    "L": "(Ex + i Ey)/sqrt(2)",
+    "dipole_average": "x/y incoherent power summation"
+  },
+  "evidence_chain": [
+    {
+      "commit": "62a2397",
+      "title": "Stage10 CP BW2A center dipole smoke validation",
+      "scope": "453 nm center, PSI99 vs PSI97, x/y dipoles",
+      "case_count": "4 FDTD",
+      "conclusion": "PSI99 remains L_out dominant and is not worse than PSI97 at center."
+    },
+    {
+      "commit": "905c716",
+      "title": "Stage10 CP BW2A center spectral dipole scan",
+      "scope": "447/448/450/453/454 nm center, PSI99 vs PSI97",
+      "case_count": "16 FDTD plus reused 453 nm rows",
+      "conclusion": "Center spectral robustness validated over tested 447-454 nm points."
+    },
+    {
+      "commit": "8e9b652",
+      "title": "Stage10 CP BW2A PSI99 position dipole scan",
+      "scope": "453 nm center/+q/-q, PSI99 only",
+      "case_count": "6 FDTD",
+      "conclusion": "Source-position robustness validated at 453 nm; +q has lowest power/L_fraction."
+    },
+    {
+      "commit": "9f9ae1d",
+      "title": "Stage10 CP BW2A PSI99 edge-position dipole check",
+      "scope": "447/454 nm, +/-q, PSI99 only",
+      "case_count": "8 FDTD",
+      "conclusion": "Edge-wavelength off-center robustness validated; no CP flip."
+    }
+  ],
+  "worst_cases": {
+    "center_spectral": {
+      "section": "center_spectral",
+      "candidate_id": "BW2_J1J2_D194_T90_PSI99_H525",
+      "wavelength_nm": 447.0,
+      "source_position_label": "center",
+      "cone_half_angle_deg": 20,
+      "L_fraction": 0.7514639755838391,
+      "DoCP_RminusL": -0.5029279511676783,
+      "total_cone_power": 1.086223987839852e-10,
+      "source_file": "outputs\\stage10_cp_dipole_bw2a_no_dbr_microled_xline_center_spectral_run\\stage10_cp_dipole_bw2a_center_spectral_combined_summary.csv"
+    },
+    "position_scan": {
+      "section": "psi99_453_position",
+      "candidate_id": "BW2_J1J2_D194_T90_PSI99_H525",
+      "wavelength_nm": 453.0,
+      "source_position_label": "x_plus_q",
+      "cone_half_angle_deg": 20,
+      "L_fraction": 0.7006480820922395,
+      "DoCP_RminusL": -0.401296164184479,
+      "total_cone_power": 5.7078139086789034e-11,
+      "source_file": "outputs\\stage10_cp_dipole_bw2a_no_dbr_microled_xline_psi99_position_run\\stage10_cp_dipole_bw2a_psi99_position_incoherent_summary.csv"
+    },
+    "edge_offcenter": {
+      "section": "psi99_edge_offcenter",
+      "candidate_id": "BW2_J1J2_D194_T90_PSI99_H525",
+      "wavelength_nm": 454.0,
+      "source_position_label": "x_plus_q",
+      "cone_half_angle_deg": 20,
+      "L_fraction": 0.701878333151436,
+      "DoCP_RminusL": -0.403756666302872,
+      "total_cone_power": 5.7207914805089985e-11,
+      "source_file": "outputs\\stage10_cp_dipole_bw2a_no_dbr_microled_xline_psi99_edge_position_run\\stage10_cp_dipole_bw2a_psi99_edge_position_incoherent_summary.csv"
+    },
+    "overall_observed": {
+      "section": "psi99_453_position",
+      "candidate_id": "BW2_J1J2_D194_T90_PSI99_H525",
+      "wavelength_nm": 453.0,
+      "source_position_label": "x_plus_q",
+      "cone_half_angle_deg": 20,
+      "L_fraction": 0.7006480820922395,
+      "DoCP_RminusL": -0.401296164184479,
+      "total_cone_power": 5.7078139086789034e-11,
+      "source_file": "outputs\\stage10_cp_dipole_bw2a_no_dbr_microled_xline_psi99_position_run\\stage10_cp_dipole_bw2a_psi99_position_incoherent_summary.csv"
+    }
+  },
+  "conclusion": "PSI99 is the current CP BW2A no-DBR dipole-safe candidate; no handedness flip observed; remaining bottleneck is off-center cone-power reduction, especially +q."
+}
