@@ -137,3 +137,10 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Generated polar and Cartesian far-field plots from existing R2-2D/R2-2E CSV data.
 - No FDTD or Lumerical run.
 - Output folder: outputs/r2_2g_offaxis_farfield_polar_plot.
+
+## R2-3A normal-RCLED route reset
+
+- R2_1_00223 rejected for normal RCLED after symmetric +/-36 deg off-axis double-lobe result.
+- Off-axis route marked diagnostic only; R2-2H off-axis spectral FWHM validation canceled.
+- Next normal-RCLED smoke candidate selected: R2_1_04067.
+- Output folder: outputs/r2_3a_normal_rcled_route_reset_decision.

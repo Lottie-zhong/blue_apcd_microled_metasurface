@@ -1,0 +1,57 @@
+{
+  "decisions": [
+    {
+      "candidate_id": "R2_1_00223",
+      "role": "rejected_normal_rcled",
+      "decision": "reject_for_normal_rcled",
+      "reason": "R2-2D failed normal criteria; R2-2E/R2-2G show symmetric +/-36 deg off-axis double-lobe with ~4.45 deg lobe FWHM.",
+      "next_action": "diagnostic_only_no_offaxis_spectral_fwhm"
+    },
+    {
+      "candidate_id": "R2_1_00227",
+      "role": "deferred_similar_family",
+      "decision": "defer",
+      "reason": "Too similar to R2_1_00223; not the best next spend after the 00223 off-axis failure mode.",
+      "next_action": "hold_until_different_family_candidates_are_checked"
+    },
+    {
+      "candidate_id": "R2_1_04067",
+      "role": "next_normal_rcled_smoke_candidate",
+      "decision": "select_next",
+      "reason": "Different-family true two-mirror candidate; best chance to test whether the off-axis failure is specific to the 00223-like route.",
+      "next_action": "prepare minimal x_plus_z_outofplane 453 nm FDTD smoke when explicitly requested"
+    },
+    {
+      "candidate_id": "R2_1_00359",
+      "role": "top_filter_only_control",
+      "decision": "keep_as_control",
+      "reason": "Useful control for top-filter-only behavior, but not the main normal-RCLED source-module route.",
+      "next_action": "do_not_run_before_main_two_mirror_check"
+    },
+    {
+      "candidate_id": "R2_1_02653",
+      "role": "fallback_failed_angular_reference",
+      "decision": "keep_as_reference",
+      "reason": "Fallback/failed angular reference, not the next main candidate.",
+      "next_action": "use_for_comparison_only"
+    },
+    {
+      "candidate_id": "R2_1_02264",
+      "role": "deferred_high_extraction_risk",
+      "decision": "defer",
+      "reason": "High top-mirror extraction risk; postpone until a safer normal-RCLED check is completed.",
+      "next_action": "defer"
+    }
+  ],
+  "next": [
+    {
+      "stage": "R2-3B_or_next_explicit_smoke",
+      "candidate_id": "R2_1_04067",
+      "run_type": "minimal_2d_fdtd_smoke_when_requested",
+      "wavelength_nm": 453,
+      "dipole_pair": "simulation_x + simulation_z_outofplane",
+      "do_not_run_now": true,
+      "selection_reason": "Different-family true two-mirror candidate, unlike R2_1_00223/R2_1_00227."
+    }
+  ]
+}

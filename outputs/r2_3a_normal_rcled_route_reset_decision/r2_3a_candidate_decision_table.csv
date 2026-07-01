@@ -1,0 +1,7 @@
+candidate_id,role,decision,reason,next_action
+R2_1_00223,rejected_normal_rcled,reject_for_normal_rcled,R2-2D failed normal criteria; R2-2E/R2-2G show symmetric +/-36 deg off-axis double-lobe with ~4.45 deg lobe FWHM.,diagnostic_only_no_offaxis_spectral_fwhm
+R2_1_00227,deferred_similar_family,defer,Too similar to R2_1_00223; not the best next spend after the 00223 off-axis failure mode.,hold_until_different_family_candidates_are_checked
+R2_1_04067,next_normal_rcled_smoke_candidate,select_next,Different-family true two-mirror candidate; best chance to test whether the off-axis failure is specific to the 00223-like route.,prepare minimal x_plus_z_outofplane 453 nm FDTD smoke when explicitly requested
+R2_1_00359,top_filter_only_control,keep_as_control,"Useful control for top-filter-only behavior, but not the main normal-RCLED source-module route.",do_not_run_before_main_two_mirror_check
+R2_1_02653,fallback_failed_angular_reference,keep_as_reference,"Fallback/failed angular reference, not the next main candidate.",use_for_comparison_only
+R2_1_02264,deferred_high_extraction_risk,defer,High top-mirror extraction risk; postpone until a safer normal-RCLED check is completed.,defer
