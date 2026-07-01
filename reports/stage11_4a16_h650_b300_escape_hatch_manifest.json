@@ -1,0 +1,53 @@
+{
+  "stage": "Stage11-4A16",
+  "planning_only": true,
+  "no_fdtd": true,
+  "height_nm": 650,
+  "target_bin_deg": 300,
+  "wavelengths_nm": [
+    451,
+    452,
+    453
+  ],
+  "max_future_cases": 18,
+  "total_future_cases": 18,
+  "exclude_h600_b60_donor_forcing": true,
+  "bounded_escape_hatch_plan_exists": true,
+  "groups": [
+    {
+      "group_id": "S11_4A16_G1_H650_B300_DIRECT_ESCAPE",
+      "future_case_count": 12,
+      "height_nm": 650,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "purpose": "test whether H650 shifts selected-channel phase away from the H600 0/60 attractor while preserving LP projection",
+      "distinct_from_h600_failure": "new fixed height; excludes H600 B60-donor forcing and does not reuse H600 true-B300 blind search groups",
+      "priority": "highest"
+    },
+    {
+      "group_id": "S11_4A16_G2_H650_B300_MINI_REPAIR",
+      "future_case_count": 6,
+      "height_nm": 650,
+      "target_bin_deg": 300,
+      "wavelengths_nm": "451;452;453",
+      "purpose": "small repair set only if G1 has near-300 phase or near-miss projection evidence",
+      "distinct_from_h600_failure": "H650 matrix/phase repair, not H600 rerun; stops if G1 shows the same 0/60 attractor",
+      "priority": "conditional"
+    }
+  ],
+  "decision_after_future_run": [
+    "if H650 B300 loose/strict -> plan coverage 0/120/180 with B60/B240 kept",
+    "if high-selectivity but wrong bin -> reassign donor, do not force",
+    "if no near-miss -> stop LP-Hnew six-bin attempt and write LP route-positioning audit"
+  ],
+  "do_not_run": [
+    "FDTD",
+    "coverage",
+    "H600 rerun",
+    "H700",
+    "K=6",
+    "dipole",
+    "DBR",
+    "RCLED"
+  ]
+}
