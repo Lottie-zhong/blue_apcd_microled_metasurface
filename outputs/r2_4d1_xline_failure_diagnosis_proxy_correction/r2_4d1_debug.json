@@ -1,0 +1,24 @@
+{
+  "stage": "R2-4D1_xline_failure_diagnosis_proxy_correction",
+  "no_fdtd_run": true,
+  "no_lumerical_launch": true,
+  "inputs": [
+    "outputs\\r2_2d_rcled_fdtd_smoke_solve\\r2_2d_incoherent_average_metrics.csv",
+    "outputs\\r2_4b_normal_rcled_variable_dbr_tmm_optimize\\r2_4b_all_candidate_metrics.csv",
+    "outputs\\r2_4d0_variable_dbr_xline_xdipole_position_scout\\r2_4d0_xline_xdipole_average_metrics.csv",
+    "outputs\\r2_4d0_variable_dbr_xline_xdipole_position_scout\\r2_4d0_source_position_robustness.csv",
+    "outputs\\r2_4d0_variable_dbr_xline_xdipole_position_scout\\r2_4d0_proxy_vs_fdtd_comparison.csv"
+  ],
+  "negative_samples": [
+    "R2_1_00223",
+    "R2_4B_OPT_06361",
+    "R2_4B_OPT_06176"
+  ],
+  "recommended_next_stage": "R2-4D2 corrected TMM/STACK optimization with negative-sample-informed penalties",
+  "do_not_recommend": [
+    "z_outofplane for failed R2-4B candidates now",
+    "broadband spectral FWHM for failed candidates",
+    "blind R2-4B top5 backup continuation",
+    "reflectance-only or plane-wave-only optimization"
+  ]
+}

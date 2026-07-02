@@ -1,0 +1,8 @@
+term,purpose,priority
+penalize_20_60deg_response,suppress broad and narrow off-axis leakage beyond the old 20-30 deg window,required
+minimum_normal_window_power,reject candidates whose peak angle is near normal but integrated normal power is low,required
+narrow_offaxis_peak_penalty,catch high-Q off-axis lobes even when angular FWHM is small,required
+multi_peak_competition_penalty,reject competing normal and off-axis lobes,required
+30_40deg_resonance_signature_penalty,directly target the repeated failed lobe family,required
+top_mirror_extraction_risk_penalty,avoid too-low outcoupling masked by reflectance-like proxy scores,required
+xline_position_risk_surrogate,optional proxy for finite-aperture source-position sensitivity,optional

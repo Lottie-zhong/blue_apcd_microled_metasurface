@@ -175,3 +175,8 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Candidates: R2_4B_OPT_06361 and R2_4B_OPT_06176.
 - Dipole solved: x only. z_outofplane and center_y not solved.
 - Output folder: outputs/r2_4d0_variable_dbr_xline_xdipole_position_scout.
+
+## R2-4D1 x-line failure diagnosis
+- Output: `outputs/r2_4d1_xline_failure_diagnosis_proxy_correction`
+- Negative samples: R2_1_00223, R2_4B_OPT_06361, R2_4B_OPT_06176.
+- Decision: do not run z_outofplane or spectral FWHM for failed R2-4B candidates; next step is R2-4D2 corrected TMM/STACK optimization.
