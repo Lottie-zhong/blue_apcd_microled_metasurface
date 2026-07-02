@@ -200,3 +200,11 @@ R1C3_RCLED_C2_baseline_freeze_package
 - No FDTD/Lumerical/FSP/LDF/raw monitor data.
 - Output folder: outputs/r2_4d4_focused_cavity_phase_sweep
 - Purpose: explicit angle-dependent top/bottom reflection phase and round-trip phase maps before further FDTD.
+
+<!-- R2-4D5_FOCUSED_CAVITY_TERMINATION_PHASE_OPTIMIZATION -->
+
+- Stage: R2-4D5 focused cavity/termination phase-guided optimization.
+- No FDTD/Lumerical/FSP/LDF/raw monitor data.
+- Best candidate: `D5_BASE_13461`.
+- Robust TE/TM shortlist exists: `True`.
+- Output folder: outputs/r2_4d5_focused_cavity_termination_phase_optimization
