@@ -193,3 +193,10 @@ R1C3_RCLED_C2_baseline_freeze_package
 - FDTD/Lumerical/lumapi: not run.
 - Decision: R2-4D4 focused cavity-phase sweep around normal-mode condition
 - Stop: no R2-4D2 setup-only FSPs or FDTD for no-pass candidates.
+
+<!-- R2-4D4_FOCUSED_CAVITY_PHASE_SWEEP -->
+
+- Stage: R2-4D4 focused cavity-phase sweep.
+- No FDTD/Lumerical/FSP/LDF/raw monitor data.
+- Output folder: outputs/r2_4d4_focused_cavity_phase_sweep
+- Purpose: explicit angle-dependent top/bottom reflection phase and round-trip phase maps before further FDTD.
