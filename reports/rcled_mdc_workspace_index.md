@@ -158,3 +158,12 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Best proxy candidate: R2_4B_OPT_06361 with peak_abs_angle_453=7.0 deg, angular_FWHM_453=12.986 deg, normal/offaxis=21.030296, spectral_peak=452.25 nm, spectral_FWHM=5.462 nm.
 - Output folder: outputs/r2_4b_normal_rcled_variable_dbr_tmm_optimize
 - Next step: generate setup-only FSPs for the R2-4B top 3-5 shortlist, then solve only after GUI/model inspection.
+
+## R2-4C Variable DBR Setup-Only FSPs
+
+- Output: `outputs/r2_4c_variable_dbr_setup_only_fsp`
+- Runtime FSP files: 10 setup-only files for R2-4B top 5 candidates x center_x/center_z_outofplane.
+- FDTD solve: not run.
+- Lumerical/lumapi use: layout generation and save only.
+- GUI inspection is required before any R2-4D solve.
+- Manual GUI inspection: passed for priority candidates R2_4B_OPT_06361 and R2_4B_OPT_06176; no solve was performed.
