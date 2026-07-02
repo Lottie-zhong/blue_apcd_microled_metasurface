@@ -187,3 +187,9 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Corrected proxy passes: 0.
 - Best candidate: `R2_4D2_OPT_13003`.
 - Next step: R2-4D3 setup-only FSP generation for the corrected shortlist if approved.
+
+## R2-4D3 cavity-phase and design-space reset
+- Output: `outputs/r2_4d3_cavity_phase_design_space_reset`
+- FDTD/Lumerical/lumapi: not run.
+- Decision: R2-4D4 focused cavity-phase sweep around normal-mode condition
+- Stop: no R2-4D2 setup-only FSPs or FDTD for no-pass candidates.

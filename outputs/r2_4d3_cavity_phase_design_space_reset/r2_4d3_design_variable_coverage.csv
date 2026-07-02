@@ -1,0 +1,14 @@
+variable,range_min,range_max,all_mean,all_min,all_max,near_pass_mean,low_boundary_fraction,high_boundary_fraction,recommendation
+top_pair_count,4,10,7.1277,4.0,10.0,7.9,0.1363,0.1527,constrain only after next focused phase sweep
+bottom_pair_count,4,12,8.0601,4.0,12.0,8.2,0.1106,0.1231,constrain only after next focused phase sweep
+cavity_spacer_nm,180,360,271.4678,180.0,360.0,272.3,0.0504,0.0572,shift or expand cavity_spacer_nm; near-pass spectral peaks cluster away from 453
+top_termination_nm,0,90,45.4626,0.0,90.0,54.9333,0.0481,0.0537,allow independent termination material/thickness choices
+bottom_termination_nm,0,90,45.4688,0.0,90.0,52.6667,0.05,0.0511,allow independent termination material/thickness choices
+top_high_scale,0.75,1.25,0.9917,0.75,1.25,,0.0577,0.0468,keep scale bounds but add phase/source-position surrogate
+top_low_scale,0.75,1.25,0.9909,0.75,1.25,,0.0599,0.0503,keep scale bounds but add phase/source-position surrogate
+bottom_high_scale,0.75,1.25,0.9929,0.75,1.25,,0.055,0.0456,keep scale bounds but add phase/source-position surrogate
+bottom_low_scale,0.75,1.25,0.9919,0.75,1.25,,0.056,0.0479,keep scale bounds but add phase/source-position surrogate
+top_chirp,-0.15,0.15,0.0013,-0.15,0.15,,0.052,0.0581,allow stronger chirp/apodization only with off-axis guard
+bottom_chirp,-0.15,0.15,-0.0002,-0.15,0.15,,0.0469,0.0496,allow stronger chirp/apodization only with off-axis guard
+source_position_fraction,not included,not included,,,,,,,add as an optimization variable or surrogate before FDTD shortlist
+aperture/source-position surrogate,not included,not included,,,,,,,add explicit x-line source-position risk surrogate
