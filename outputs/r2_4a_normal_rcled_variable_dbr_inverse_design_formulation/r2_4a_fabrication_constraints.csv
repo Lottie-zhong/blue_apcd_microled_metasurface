@@ -1,0 +1,10 @@
+constraint,value,reason
+min_dielectric_layer_nm,20,avoid fragile or poorly controlled ultrathin layers
+max_dielectric_layer_nm,180,avoid impractical thick layers unless explicitly justified
+reported_thickness_quantization_nm,1 or 2,fabrication-friendly reporting
+source_interface_clearance,keep away from material interfaces,avoid unstable LDOS/interface artifacts
+avoid_ultra_high_q_low_extraction,penalize,narrow but dark cavities are not useful source modules
+multi_peak_penalty,penalize,avoid competing spectral peaks
+offaxis_power_20_to_60_deg,penalize,normal RCLED target rejects off-axis dominance
+top_vs_bottom_mirror,top weaker when needed,support upward extraction
+total_stack_thickness,reasonable,manufacturing and simulation cost

@@ -1,0 +1,15 @@
+tier,risk,variable,purpose,suggested_bounds
+1,low,top_pair_count,coarse top mirror strength and outcoupling control,0..12 pairs
+1,low,bottom_pair_count,coarse bottom mirror strength control,0..18 pairs
+1,low,cavity_spacer_nm,main cavity phase control,200..700 nm
+1,low,top_termination_nm,top reflection phase and extraction tuning,0..100 nm
+1,low,bottom_termination_nm,bottom reflection phase tuning,0..100 nm
+1,low,source_position_fraction_in_cavity,LDOS / standing-wave placement,0.2..0.8 away from interfaces
+2,medium,top_high_index_scale,top DBR phase/bandwidth tuning,0.75..1.25 of nominal
+2,medium,top_low_index_scale,top DBR phase/bandwidth tuning,0.75..1.25 of nominal
+2,medium,bottom_high_index_scale,bottom DBR phase tuning,0.75..1.25 of nominal
+2,medium,bottom_low_index_scale,bottom DBR phase tuning,0.75..1.25 of nominal
+2,medium,pairwise_chirp_or_apodization,reduce competing modes and shape stopband,limited monotonic or smooth factors
+3,high,independent_top_layer_thicknesses,non-periodic top reflector optimization,20..180 nm each
+3,high,independent_bottom_layer_thicknesses,non-periodic bottom reflector optimization,20..180 nm each
+3,high,non_quarter_wave_non_periodic_dbr,full 1D inverse design after lower tiers fail,fabrication constrained

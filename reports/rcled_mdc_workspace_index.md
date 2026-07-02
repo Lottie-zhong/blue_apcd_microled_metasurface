@@ -144,3 +144,10 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Off-axis route marked diagnostic only; R2-2H off-axis spectral FWHM validation canceled.
 - Next normal-RCLED smoke candidate selected: R2_1_04067.
 - Output folder: outputs/r2_3a_normal_rcled_route_reset_decision.
+
+## R2-4A variable-thickness DBR formulation
+
+- Formulated normal-RCLED variable-thickness DBR/cavity inverse-design route.
+- No FDTD, Lumerical, optimization, or adjoint run.
+- R2_1_04067 remains available, but R2-4B can supersede it with optimized candidates.
+- Output folder: outputs/r2_4a_normal_rcled_variable_dbr_inverse_design_formulation.
