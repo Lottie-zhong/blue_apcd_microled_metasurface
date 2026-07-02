@@ -151,3 +151,10 @@ R1C3_RCLED_C2_baseline_freeze_package
 - No FDTD, Lumerical, optimization, or adjoint run.
 - R2_1_04067 remains available, but R2-4B can supersede it with optimized candidates.
 - Output folder: outputs/r2_4a_normal_rcled_variable_dbr_inverse_design_formulation.
+## R2-4B Python-only variable DBR optimization
+
+- Stage: R2-4B normal RCLED variable-thickness DBR/cavity TMM-style proxy optimization.
+- FDTD/Lumerical: not run.
+- Best proxy candidate: R2_4B_OPT_06361 with peak_abs_angle_453=7.0 deg, angular_FWHM_453=12.986 deg, normal/offaxis=21.030296, spectral_peak=452.25 nm, spectral_FWHM=5.462 nm.
+- Output folder: outputs/r2_4b_normal_rcled_variable_dbr_tmm_optimize
+- Next step: generate setup-only FSPs for the R2-4B top 3-5 shortlist, then solve only after GUI/model inspection.
