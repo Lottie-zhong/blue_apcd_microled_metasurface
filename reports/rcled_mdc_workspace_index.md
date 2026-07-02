@@ -167,3 +167,11 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Lumerical/lumapi use: layout generation and save only.
 - GUI inspection is required before any R2-4D solve.
 - Manual GUI inspection: passed for priority candidates R2_4B_OPT_06361 and R2_4B_OPT_06176; no solve was performed.
+
+
+
+## R2-4D0 fast x-line x-dipole scout
+
+- Candidates: R2_4B_OPT_06361 and R2_4B_OPT_06176.
+- Dipole solved: x only. z_outofplane and center_y not solved.
+- Output folder: outputs/r2_4d0_variable_dbr_xline_xdipole_position_scout.
