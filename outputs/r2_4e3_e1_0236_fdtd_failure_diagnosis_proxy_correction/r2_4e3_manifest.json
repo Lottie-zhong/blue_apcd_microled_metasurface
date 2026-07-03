@@ -1,0 +1,83 @@
+{
+  "stage": "R2-4E3_E1_0236_FDTD_failure_diagnosis_proxy_correction",
+  "created_utc": "2026-07-03T07:42:07Z",
+  "python_only": true,
+  "no_lumerical": true,
+  "no_lumapi": true,
+  "no_fdtd_or_fsp_generated": true,
+  "candidate_id": "E1_0236",
+  "input_audit": [
+    {
+      "input_name": "e1_shortlist",
+      "path": "outputs\\r2_4e1_new_family_candidate_generator_proxy_scan\\r2_4e1_shortlist.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e1_scored",
+      "path": "outputs\\r2_4e1_new_family_candidate_generator_proxy_scan\\r2_4e1_proxy_scored_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 396,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e2_case_results",
+      "path": "outputs\\r2_4e2_e1_0236_tri_point_xdipole_fdtd_guard\\r2_4e2_case_results.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 3,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e2_average",
+      "path": "outputs\\r2_4e2_e1_0236_tri_point_xdipole_fdtd_guard\\r2_4e2_tri_point_incoherent_average.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e2_verdict",
+      "path": "outputs\\r2_4e2_e1_0236_tri_point_xdipole_fdtd_guard\\r2_4e2_pass_fail_verdict.md",
+      "exists": true,
+      "kind": "md",
+      "row_count": "n/a",
+      "status": "loaded"
+    },
+    {
+      "input_name": "e0_proxy_variables",
+      "path": "outputs\\r2_4e0_new_design_family_reset_after_d9_nopass\\r2_4e0_proxy_variables_v2.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 9,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_terms",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_proxy_redesign_terms.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 5,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d9_scored",
+      "path": "outputs\\r2_4d9_proxy_redesigned_stack_search_v2\\r2_4d9_proxy_scored_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 40,
+      "status": "loaded"
+    }
+  ],
+  "classification": [
+    "not_source_position_instability",
+    "stable_far_offaxis_peak",
+    "leaky/guided-mode-like offaxis channel suspected",
+    "proxy_false_positive"
+  ],
+  "recommended_E4_task": "R2-4E4_Python_only_candidate_generator_v3_faroffaxis_guard",
+  "stop_E1_0236": true
+}
