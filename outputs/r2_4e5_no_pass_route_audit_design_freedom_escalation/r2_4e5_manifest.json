@@ -1,0 +1,102 @@
+{
+  "stage": "R2-4E5_no_pass_route_audit_design_freedom_escalation",
+  "created_utc": "2026-07-03T07:55:03Z",
+  "python_only": true,
+  "no_lumerical": true,
+  "no_lumapi": true,
+  "no_fdtd_or_fsp_generated": true,
+  "input_audit": [
+    {
+      "input_name": "d7_case_metrics",
+      "path": "outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary\\r2_4d7_case_metrics.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 9,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d7_average",
+      "path": "outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary\\r2_4d7_xline_average_metrics.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_terms",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_proxy_redesign_terms.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 5,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d9_scored",
+      "path": "outputs\\r2_4d9_proxy_redesigned_stack_search_v2\\r2_4d9_proxy_scored_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 40,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e0_families",
+      "path": "outputs\\r2_4e0_new_design_family_reset_after_d9_nopass\\r2_4e0_new_design_family_table.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 4,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e1_shortlist",
+      "path": "outputs\\r2_4e1_new_family_candidate_generator_proxy_scan\\r2_4e1_shortlist.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e2_case_results",
+      "path": "outputs\\r2_4e2_e1_0236_tri_point_xdipole_fdtd_guard\\r2_4e2_case_results.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 3,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e2_average",
+      "path": "outputs\\r2_4e2_e1_0236_tri_point_xdipole_fdtd_guard\\r2_4e2_tri_point_incoherent_average.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e3_terms",
+      "path": "outputs\\r2_4e3_e1_0236_fdtd_failure_diagnosis_proxy_correction\\r2_4e3_proxy_correction_terms.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 8,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e4_manifest",
+      "path": "outputs\\r2_4e4_candidate_generator_v3_faroffaxis_guard\\r2_4e4_manifest.json",
+      "exists": true,
+      "kind": "json",
+      "row_count": "n/a",
+      "status": "loaded"
+    },
+    {
+      "input_name": "e4_scored",
+      "path": "outputs\\r2_4e4_candidate_generator_v3_faroffaxis_guard\\r2_4e4_proxy_scored_candidates_v3.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 480,
+      "status": "loaded"
+    }
+  ],
+  "recommended_F0_task": "R2-4F0_Python_only_expanded_design_space_spec_RCLED_MDC_angular_filter",
+  "immediate_FDTD_allowed": false,
+  "do_not_hard_pick_E4_no_pass": true,
+  "do_not_revive_D5_or_E1_0236": true
+}

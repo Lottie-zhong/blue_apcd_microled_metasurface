@@ -1,0 +1,6 @@
+gap_id,current_limitation,evidence,needed_design_freedom,priority
+G1,Python-only stack proxy cannot truly verify source-position stability,D5 and E1 show proxy/FDTD mismatch under x-line or tri-point source positions,finite-source-aware prefilter and minimal FDTD-in-loop gate only after stronger analytic filtering,P0
+G2,"candidate variables are mostly DBR pair count, termination, and cavity thickness",E4 no-pass after 480 candidates with far-offaxis guards,"top angular outcoupler/MDC concept, lateral aperture control, phase/absorbing terminations",P0
+G3,off-axis suppression is not explicitly designed as an angular stopband,E1_0236 stable 49-52 deg channel survived proxy,"explicit 30-40, 40-60, 45-55 angular stopband design objectives",P0
+G4,high-Q/center resonance proxies can create false positives,D5 and E1 both looked attractive in proxy/center metrics before FDTD failure,lower-Q variants and center-contrast caps with normal-cone lower-bound,P1
+G5,manufacturability and literature MDC constraints are not yet folded into expanded route,blind E-series scans exhausted local stack family,literature/experimental MDC constraints and simpler multilayer targets,P1
