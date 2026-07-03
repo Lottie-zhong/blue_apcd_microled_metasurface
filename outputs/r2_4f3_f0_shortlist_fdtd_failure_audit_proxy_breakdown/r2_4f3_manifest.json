@@ -1,0 +1,27 @@
+{
+  "stage": "R2-4F3 F0 shortlist FDTD failure audit and proxy breakdown",
+  "python_only": true,
+  "no_lumerical": true,
+  "no_lumapi": true,
+  "no_fdtd": true,
+  "inputs": {
+    "F0": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4f0_literature_seeded_relaxed_target_rcled_mdc_scan",
+    "F1": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4f1_f0_0781_tri_point_xdipole_fdtd_guard",
+    "F2": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4f2_f0_0204_tri_point_xdipole_fdtd_guard",
+    "E3": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4e3_e1_0236_fdtd_failure_diagnosis_proxy_correction",
+    "D8": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign"
+  },
+  "missing_inputs": [],
+  "outputs": [
+    "r2_4f3_summary.md",
+    "r2_4f3_f0_proxy_vs_fdtd_mismatch.csv",
+    "r2_4f3_failure_taxonomy.csv",
+    "r2_4f3_proxy_breakdown_diagnosis.md",
+    "r2_4f3_next_route_options.csv",
+    "r2_4f3_recommended_g0_plan.md",
+    "r2_4f3_stop_rules.md",
+    "r2_4f3_manifest.json"
+  ],
+  "recommended_next_task": "R2-4G0_dipole_aware_proxy_spec_and_minimal_validation_dataset_plan",
+  "immediate_fdtd_allowed": false
+}
