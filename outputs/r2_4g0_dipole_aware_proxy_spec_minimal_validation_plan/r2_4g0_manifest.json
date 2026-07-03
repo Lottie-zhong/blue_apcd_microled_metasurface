@@ -1,0 +1,37 @@
+{
+  "stage": "R2-4G0 dipole-aware proxy spec and minimal validation dataset plan",
+  "python_only": true,
+  "no_lumerical": true,
+  "no_lumapi": true,
+  "no_fdtd": true,
+  "no_fsp_generated": true,
+  "inputs": {
+    "D7": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary",
+    "D8": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign",
+    "E2": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4e2_e1_0236_tri_point_xdipole_fdtd_guard",
+    "E3": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4e3_e1_0236_fdtd_failure_diagnosis_proxy_correction",
+    "F0": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4f0_literature_seeded_relaxed_target_rcled_mdc_scan",
+    "F1": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4f1_f0_0781_tri_point_xdipole_fdtd_guard",
+    "F2": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4f2_f0_0204_tri_point_xdipole_fdtd_guard",
+    "F3": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4f3_f0_shortlist_fdtd_failure_audit_proxy_breakdown"
+  },
+  "missing_inputs": [],
+  "negative_samples": [
+    "D5_BASE_13461",
+    "E1_0236",
+    "F0_0781",
+    "F0_0204"
+  ],
+  "recommended_G1_task": "R2-4G1_python_only_negative_dataset_feature_table_for_dipole_aware_proxy",
+  "immediate_fdtd_allowed": false,
+  "outputs": [
+    "r2_4g0_summary.md",
+    "r2_4g0_existing_negative_dataset.csv",
+    "r2_4g0_proxy_gap_analysis.md",
+    "r2_4g0_dipole_aware_proxy_v0_spec.csv",
+    "r2_4g0_minimal_validation_dataset_plan.md",
+    "r2_4g0_next_stage_g1_g2_plan.md",
+    "r2_4g0_stop_allow_rules.md",
+    "r2_4g0_manifest.json"
+  ]
+}

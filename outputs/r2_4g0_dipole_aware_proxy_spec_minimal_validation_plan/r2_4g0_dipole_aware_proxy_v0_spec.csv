@@ -1,0 +1,9 @@
+term,v0_requirement,why_needed,status
+dipole_orientation,x/y initially; z optional later,dipole radiation and cavity coupling are orientation dependent,spec_only
+source_position_tri_point,"x=[-0.7,0,+0.7] um required before claiming stability",D5 proved center-only can be false positive,requires_calibration
+normal_cone_weight,track |theta|<=5 and <=10 deg energy,normal RCLED target needs energy in air cone,spec_only
+offaxis_window_weights,"20-30, 30-40, 40-60, 45-55, >60 deg windows",D5/E1/F0 failures appear in different off-axis windows,spec_only
+guided_leaky_channel_risk,penalize high-k or high-angle energy transfer risk,E1_0236 and F0_0204 revived far-offaxis channels,needs_physics_helper
+reciprocity_angle_weighting,use incident-angle weighting if Python helper supports it,reciprocity can approximate dipole-to-air angular extraction,optional_helper
+source_position_stability_score,output requires_tri_point_FDTD until calibrated,Python-only cannot honestly claim stability yet,do_not_claim_pass
+risk_score_not_pass_claim,"proxy emits risk ranking and FDTD entry flags, not final pass",all previous proxy passes produced FDTD failures,mandatory
