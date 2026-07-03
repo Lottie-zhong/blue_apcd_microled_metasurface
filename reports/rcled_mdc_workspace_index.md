@@ -225,3 +225,12 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Output: `outputs/r2_4d6_setup_only_fsp_d5_primary`.
 - Runtime FSPs: `outputs/r2_4d6_setup_only_fsp_d5_primary/runtime_fsp`; do not stage/commit.
 - FDTD solve: not run.
+
+<!-- R2-4D7_XLINE_XDIPOLE_FDTD_SCOUT_D5_PRIMARY -->
+
+- Stage: R2-4D7 x-line x-dipole FDTD scout for D5_BASE_13461.
+- Candidate: D5_BASE_13461 only; 9 x positions; x dipole only; 453 nm.
+- Output: `outputs/r2_4d7_xline_xdipole_fdtd_scout_d5_primary`.
+- X-line average verdict: `fail`.
+- Peak abs angle: 14.04 deg; angular FWHM: 8.234 deg; normal/offaxis: 0.1824.
+- Runtime solve FSPs are heavy and must not be staged/committed.
