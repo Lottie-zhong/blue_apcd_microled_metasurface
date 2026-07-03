@@ -1,0 +1,6 @@
+term,purpose,proxy_measure,why_needed_from_D7,priority
+source_position_stability_penalty,Reject candidates whose peak angle or normal/offaxis ratio varies strongly over x-line source positions.,std(peak_abs_angle over x positions) + penalty for min(normal/offaxis)<1,Center source looked near-normal but x-line ensemble failed.,P0
+edge_sensitivity_penalty,Penalize designs where near-edge source positions dominate or revive off-axis lobes.,max edge peak_abs angle and edge/center normal_offaxis degradation,x=+/-0.70 um revived about 38.9 deg peaks; edge/unstable flag true.,P0
+30_40_deg_lobe_penalty,Directly suppress the known 30-40 degree off-axis failure channel.,integrated response in |theta|=30-40 deg relative to 0-5 deg,Several source positions re-excited 30-40 deg lobes.,P0
+center_vs_xline_mismatch_penalty,Prevent a center-only proxy from overclaiming ensemble behavior.,abs(center peak_abs - xline-average peak_abs) + ratio(center normal/offaxis / xline normal/offaxis),"Center peak was ~0 deg, but x-line average peak was ~14 deg and normal/offaxis was 0.18.",P0
+TE_TM_offaxis_risk_guard,"Keep the existing TE/TM off-axis phase-risk guard as a prefilter, but do not let it replace source-position checks.",TE/TM phase error margin at 20-60 deg and especially 30-40 deg,"D5A risk looked localized enough, but FDTD source-position ensemble still failed.",P1

@@ -1,0 +1,45 @@
+{
+  "stage": "R2-4D8 source-position failure diagnosis / proxy redesign",
+  "candidate_id": "D5_BASE_13461",
+  "python_only": true,
+  "lumapi_used": false,
+  "fdtd_run": false,
+  "fsp_read": false,
+  "input_folder": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary",
+  "output_folder": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign",
+  "required_inputs": [
+    "r2_4d7_case_metrics.csv",
+    "r2_4d7_xline_average_metrics.csv",
+    "r2_4d7_source_position_robustness.csv",
+    "r2_4d7_summary.md"
+  ],
+  "center_vs_xline": {
+    "center_source_x_um": 0.0,
+    "center_peak_abs_angle_deg": 0.028662222062435815,
+    "xline_average_peak_abs_angle_deg": 14.041304042576005,
+    "delta_peak_abs_angle_deg": 14.012641820513569,
+    "center_normal_offaxis_ratio": 0.2304507616040059,
+    "xline_average_normal_offaxis_ratio": 0.18235750919538307,
+    "normal_offaxis_ratio_drop": 0.04809325240862283,
+    "xline_scout_verdict": "fail"
+  },
+  "instability": {
+    "peak_abs_min_deg": 0.028662222062435815,
+    "peak_abs_max_deg": 38.88902008351703,
+    "peak_abs_std_deg": 13.338528210504743,
+    "normal_offaxis_min": 0.044632783204338576,
+    "normal_offaxis_mean": 0.20589725689945976,
+    "edge_unstable_flag": "True",
+    "solved_case_count": "9",
+    "failed_case_count": "0"
+  },
+  "route_decision": "stop_D5_FDTD_expansion_and_redesign_proxy",
+  "generated_files": [
+    "r2_4d8_summary.md",
+    "r2_4d8_source_position_failure_table.csv",
+    "r2_4d8_center_vs_xline_failure_diagnosis.md",
+    "r2_4d8_proxy_redesign_terms.csv",
+    "r2_4d8_next_route_decision.md",
+    "r2_4d8_manifest.json"
+  ]
+}
