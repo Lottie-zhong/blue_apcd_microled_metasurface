@@ -215,3 +215,13 @@ R1C3_RCLED_C2_baseline_freeze_package
 - No FDTD/Lumerical/FSP/LDF/raw monitor data.
 - Backup decision: A_only_D5_BASE_13461.
 - Output folder: outputs/r2_4d5a_shortlist_te_tm_offaxis_risk_review
+
+<!-- R2-4D6_SETUP_ONLY_FSP_D5_PRIMARY -->
+
+- Stage: R2-4D6 setup-only FSP generation for D5_BASE_13461.
+- Worktree: `D:\project\worktrees\blue_apcd_rcled_mdc`.
+- Candidate: `D5_BASE_13461`, role `D5_PRIMARY`, 453 nm.
+- Generated: 9 x-line x-dipole setup-only FSP files at x = -1.4 to +1.4 um.
+- Output: `outputs/r2_4d6_setup_only_fsp_d5_primary`.
+- Runtime FSPs: `outputs/r2_4d6_setup_only_fsp_d5_primary/runtime_fsp`; do not stage/commit.
+- FDTD solve: not run.
