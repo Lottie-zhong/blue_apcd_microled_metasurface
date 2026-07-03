@@ -1,0 +1,85 @@
+{
+  "stage": "R2-4D9_proxy_redesigned_stack_search_v2",
+  "created_utc": "2026-07-03T06:50:51Z",
+  "python_only": true,
+  "no_lumerical": true,
+  "no_lumapi": true,
+  "no_fdtd_or_fsp_generated": true,
+  "input_audit": [
+    {
+      "input_name": "d2_top20",
+      "path": "outputs\\r2_4d2_corrected_risk_aware_tmm_optimize\\r2_4d2_top20_candidate_metrics.csv",
+      "exists": true,
+      "row_count": 20,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d2_all",
+      "path": "outputs\\r2_4d2_corrected_risk_aware_tmm_optimize\\r2_4d2_all_candidate_metrics.csv",
+      "exists": true,
+      "row_count": 13350,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d3_near_pass",
+      "path": "outputs\\r2_4d3_cavity_phase_design_space_reset\\r2_4d3_near_pass_candidates.csv",
+      "exists": true,
+      "row_count": 30,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d4_best_spacers",
+      "path": "outputs\\r2_4d4_focused_cavity_phase_sweep\\r2_4d4_best_phase_guided_spacers.csv",
+      "exists": true,
+      "row_count": 7,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5_top20",
+      "path": "outputs\\r2_4d5_focused_cavity_termination_phase_optimization\\r2_4d5_top20_phase_guided_candidates.csv",
+      "exists": true,
+      "row_count": 20,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5_shortlist",
+      "path": "outputs\\r2_4d5_focused_cavity_termination_phase_optimization\\r2_4d5_phase_guided_shortlist.csv",
+      "exists": true,
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5a_manifest",
+      "path": "outputs\\r2_4d5a_shortlist_te_tm_offaxis_risk_review\\r2_4d5a_candidate_manifest.csv",
+      "exists": true,
+      "row_count": 5,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5a_margin",
+      "path": "outputs\\r2_4d5a_shortlist_te_tm_offaxis_risk_review\\r2_4d5a_normal_vs_offaxis_margin.csv",
+      "exists": true,
+      "row_count": 10,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_terms",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_proxy_redesign_terms.csv",
+      "exists": true,
+      "row_count": 5,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_failure_table",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_source_position_failure_table.csv",
+      "exists": true,
+      "row_count": 9,
+      "status": "loaded"
+    }
+  ],
+  "candidate_inventory_count": 83,
+  "scored_candidate_count": 40,
+  "decision": "no-pass",
+  "shortlist_count": 0,
+  "d8_negative_sample_rule": "center-only near-normal proxy is insufficient; source-position stability, edge sensitivity, 30-40 deg lobe and center-vs-xline mismatch risks are required guards."
+}
