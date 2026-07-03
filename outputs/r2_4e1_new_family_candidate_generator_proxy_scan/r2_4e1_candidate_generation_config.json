@@ -1,0 +1,22 @@
+{
+  "stage": "R2-4E1_new_family_candidate_generator_proxy_scan",
+  "candidate_count": 396,
+  "families": [
+    "E0A_lower_Q_angle_stable_cavity",
+    "E0B_phase_balanced_DBR_30_40_reject",
+    "E0C_MQW_lateral_extent_robust_cavity",
+    "E0D_reduced_center_contrast_control"
+  ],
+  "target_wavelength_nm": 453,
+  "angle_grid_deg": "0:0.5:60",
+  "wavelength_grid_nm": "445:0.5:460",
+  "method": "Python-only analytic/TMM-style stack proxy; not FDTD-equivalent and not source-position validated",
+  "hard_guards": {
+    "offaxis_30_40_lobe_penalty_max": 0.33,
+    "offaxis_20_60_penalty_max": 0.52,
+    "te_tm_offaxis_risk_guard_max": 0.32,
+    "spectral_fwhm_nm_proxy_max": 8.0,
+    "angular_fwhm_deg_proxy_max": 25.0,
+    "normal_offaxis_proxy_min": 1.0
+  }
+}

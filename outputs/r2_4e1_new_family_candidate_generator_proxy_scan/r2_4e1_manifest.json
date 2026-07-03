@@ -1,0 +1,94 @@
+{
+  "stage": "R2-4E1_new_family_candidate_generator_proxy_scan",
+  "created_utc": "2026-07-03T07:28:25Z",
+  "python_only": true,
+  "no_lumerical": true,
+  "no_lumapi": true,
+  "no_fdtd_or_fsp_generated": true,
+  "input_audit": [
+    {
+      "input_name": "e0_family_table",
+      "path": "outputs\\r2_4e0_new_design_family_reset_after_d9_nopass\\r2_4e0_new_design_family_table.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 4,
+      "status": "loaded"
+    },
+    {
+      "input_name": "e0_proxy_variables",
+      "path": "outputs\\r2_4e0_new_design_family_reset_after_d9_nopass\\r2_4e0_proxy_variables_v2.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 9,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_terms",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_proxy_redesign_terms.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 5,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d9_scored",
+      "path": "outputs\\r2_4d9_proxy_redesigned_stack_search_v2\\r2_4d9_proxy_scored_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 40,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d9_decision",
+      "path": "outputs\\r2_4d9_proxy_redesigned_stack_search_v2\\r2_4d9_no_pass_or_shortlist_decision.md",
+      "exists": true,
+      "kind": "md",
+      "row_count": "n/a",
+      "status": "loaded"
+    },
+    {
+      "input_name": "d2_top20",
+      "path": "outputs\\r2_4d2_corrected_risk_aware_tmm_optimize\\r2_4d2_top20_candidate_metrics.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 20,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d3_near_pass",
+      "path": "outputs\\r2_4d3_cavity_phase_design_space_reset\\r2_4d3_near_pass_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 30,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d4_spacers",
+      "path": "outputs\\r2_4d4_focused_cavity_phase_sweep\\r2_4d4_best_phase_guided_spacers.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 7,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5_top20",
+      "path": "outputs\\r2_4d5_focused_cavity_termination_phase_optimization\\r2_4d5_top20_phase_guided_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 20,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5a_risk",
+      "path": "outputs\\r2_4d5a_shortlist_te_tm_offaxis_risk_review\\r2_4d5a_normal_vs_offaxis_margin.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 10,
+      "status": "loaded"
+    }
+  ],
+  "candidate_count": 396,
+  "hard_pass_count": 15,
+  "decision": "shortlist",
+  "shortlist_count": 1
+}
