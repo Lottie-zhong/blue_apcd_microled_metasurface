@@ -1,0 +1,25 @@
+{
+  "stage": "R2-4E4_candidate_generator_v3_faroffaxis_guard",
+  "candidate_count": 480,
+  "families": [
+    "E0A_lower_Q_angle_stable_cavity",
+    "E0B_phase_balanced_DBR_30_40_reject",
+    "E0C_MQW_lateral_extent_robust_cavity",
+    "E0D_reduced_center_contrast_control"
+  ],
+  "method": "Python-only analytic/TMM-style proxy; not FDTD-equivalent",
+  "excluded_negative_references": [
+    "E1_0236",
+    "D5_BASE_13461",
+    "D9 high-risk candidates"
+  ],
+  "hard_guards": {
+    "30_40_penalty_max": 0.28,
+    "45_55_penalty_max": 0.25,
+    "40_60_penalty_max": 0.32,
+    "normal_cone_lower_bound_min": 0.42,
+    "te_tm_guard_max": 0.3,
+    "normal_offaxis_min": 1.0,
+    "spectral_fwhm_max_nm": 8.0
+  }
+}
