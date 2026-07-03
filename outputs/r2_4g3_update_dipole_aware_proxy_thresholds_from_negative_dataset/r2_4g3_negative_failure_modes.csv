@@ -1,0 +1,5 @@
+candidate_id,failure_mode,proxy_red_flags,required_reject_rules,status
+D5_BASE_13461,center_only_false_positive / source_position_instability / 30-40_deg_lobe,center_only_false_positive_flag;source_position_instability_flag;thirty_forty_lobe_failure_flag,reject center-only verdict; require tri-point; reject dominant 30-40 lobe,stopped
+E1_0236,stable_faroffaxis_49_52deg / leaky_guided_like_channel / proxy_false_positive,stable_faroffaxis_channel_flag;proxy_false_positive_flag;fortyfive_fiftyfive_lobe_failure_flag,reject severe >45 deg peak risk; reject 45-55 lobe; flag guided/leaky channel risk,stopped
+F0_0781,stable_offnormal_around_26deg / broad_40_60_channel,near_normal_failure_flag;broad_40_60_failure_flag;top_MDC_angle_filter_false_positive_risk,reject offnormal 20-30 deg if final target; allow only as intermediate baseline label,stopped
+F0_0204,severe_faroffaxis_46_67deg / broad_FWHM / source_position_mismatch,severe_faroffaxis_gt45deg_risk;broad_fwhm_failure_flag;source_position_instability_flag,reject >45 deg peak; reject broad FWHM; reject center-vs-bilateral mismatch,stopped
