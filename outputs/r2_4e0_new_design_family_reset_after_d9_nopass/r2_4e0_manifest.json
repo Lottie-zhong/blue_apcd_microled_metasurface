@@ -1,0 +1,146 @@
+{
+  "stage": "R2-4E0_new_design_family_reset_after_D9_no_pass",
+  "created_utc": "2026-07-03T07:23:24Z",
+  "python_only": true,
+  "no_lumerical": true,
+  "no_lumapi": true,
+  "no_fdtd_or_fsp_generated": true,
+  "input_audit": [
+    {
+      "input_name": "d7_case_metrics",
+      "path": "outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary\\r2_4d7_case_metrics.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 9,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d7_average_metrics",
+      "path": "outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary\\r2_4d7_xline_average_metrics.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d7_robustness",
+      "path": "outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary\\r2_4d7_source_position_robustness.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 1,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d7_summary",
+      "path": "outputs\\r2_4d7_xline_xdipole_fdtd_scout_d5_primary\\r2_4d7_summary.md",
+      "exists": true,
+      "kind": "md",
+      "row_count": "n/a",
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_failure_table",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_source_position_failure_table.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 9,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_proxy_terms",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_proxy_redesign_terms.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 5,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d8_decision",
+      "path": "outputs\\r2_4d8_source_position_failure_diagnosis_proxy_redesign\\r2_4d8_next_route_decision.md",
+      "exists": true,
+      "kind": "md",
+      "row_count": "n/a",
+      "status": "loaded"
+    },
+    {
+      "input_name": "d9_scored",
+      "path": "outputs\\r2_4d9_proxy_redesigned_stack_search_v2\\r2_4d9_proxy_scored_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 40,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d9_shortlist",
+      "path": "outputs\\r2_4d9_proxy_redesigned_stack_search_v2\\r2_4d9_shortlist.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 0,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d9_decision",
+      "path": "outputs\\r2_4d9_proxy_redesigned_stack_search_v2\\r2_4d9_no_pass_or_shortlist_decision.md",
+      "exists": true,
+      "kind": "md",
+      "row_count": "n/a",
+      "status": "loaded"
+    },
+    {
+      "input_name": "d2_top20",
+      "path": "outputs\\r2_4d2_corrected_risk_aware_tmm_optimize\\r2_4d2_top20_candidate_metrics.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 20,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d3_near_pass",
+      "path": "outputs\\r2_4d3_cavity_phase_design_space_reset\\r2_4d3_near_pass_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 30,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d4_best_spacers",
+      "path": "outputs\\r2_4d4_focused_cavity_phase_sweep\\r2_4d4_best_phase_guided_spacers.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 7,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5_top20",
+      "path": "outputs\\r2_4d5_focused_cavity_termination_phase_optimization\\r2_4d5_top20_phase_guided_candidates.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 20,
+      "status": "loaded"
+    },
+    {
+      "input_name": "d5a_risk",
+      "path": "outputs\\r2_4d5a_shortlist_te_tm_offaxis_risk_review\\r2_4d5a_normal_vs_offaxis_margin.csv",
+      "exists": true,
+      "kind": "csv",
+      "row_count": 10,
+      "status": "loaded"
+    }
+  ],
+  "evidence_summary": {
+    "d7_xline_avg_peak_abs_angle_deg": "14.041304042576005",
+    "d7_xline_avg_angular_FWHM_deg": "8.234008464681507",
+    "d7_xline_avg_eta20": "0.5769653296309408",
+    "d7_xline_avg_normal_offaxis_ratio": "0.18235750919538307",
+    "d7_xline_avg_verdict": "missing",
+    "d7_peak_abs_min_deg": "missing",
+    "d7_peak_abs_max_deg": "missing",
+    "d7_peak_abs_std_deg": "missing",
+    "d7_edge_or_unstable_flag": "missing",
+    "d9_scored_candidate_count": 40,
+    "d9_hard_pass_count": 0
+  },
+  "family_count": 4,
+  "recommended_E1_task": "R2-4E1_Python_only_new_family_candidate_generator_proxy_scan",
+  "route_decision": "Do not continue old D9 no-pass candidates into FDTD; reset to new design-family generation with D8 guards baked in."
+}

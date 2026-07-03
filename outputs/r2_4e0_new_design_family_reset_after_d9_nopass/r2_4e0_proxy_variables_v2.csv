@@ -1,0 +1,10 @@
+proxy_variable,purpose,source,required
+normal_offaxis_lower_bound,Require normal response to beat off-axis response before FDTD.,D8/D9 rule,true
+offaxis_20_60_penalty,Penalize broad off-axis energy away from normal.,D9 scoring,true
+offaxis_30_40_lobe_penalty,High-priority suppression of the D7 failure lobe band.,D7/D8 negative sample,"true, higher weight than 20-60"
+TE_TM_offaxis_risk_guard,Reject TE/TM phase cases where either polarization can create an off-axis resonance.,D5A/D9,true
+angular_FWHM_guard,Avoid broad angular output even if peak is near normal.,R2 target,true
+spectral_FWHM_guard,Keep source-module spectrum compatible with 453 nm target.,R2 target,true
+center_only_false_positive_flag,Prevent center-only normal resonance from driving shortlist selection.,D8/D9,true
+source_position_stability_required,Mark unvalidated source-position stability as requiring tri-point FDTD; never pretend it is proven by Python-only proxy.,D8,true
+edge_sensitivity_penalty,Penalize expected off-center source degradation.,D7 source-position failure,true
