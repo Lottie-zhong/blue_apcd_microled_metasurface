@@ -208,3 +208,10 @@ R1C3_RCLED_C2_baseline_freeze_package
 - Best candidate: `D5_BASE_13461`.
 - Robust TE/TM shortlist exists: `True`.
 - Output folder: outputs/r2_4d5_focused_cavity_termination_phase_optimization
+
+<!-- R2-4D5A_SHORTLIST_TE_TM_OFFAXIS_RISK_REVIEW -->
+
+- Stage: R2-4D5A shortlist TE/TM off-axis risk review.
+- No FDTD/Lumerical/FSP/LDF/raw monitor data.
+- Backup decision: A_only_D5_BASE_13461.
+- Output folder: outputs/r2_4d5a_shortlist_te_tm_offaxis_risk_review
