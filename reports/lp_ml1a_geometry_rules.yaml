@@ -1,0 +1,21 @@
+# LP-ML1A geometry legality rules. Manifest-only; no FDTD.
+range_sources:
+  L1_nm: project_default
+  W1_nm: project_default
+  L2_nm: project_default
+  W2_nm: project_default
+  gap_or_dx_nm: observed_data_quantile_when_available_else_project_default
+  observed_complete_geometry_rows: 0
+min_feature_size_rule: minimum pillar dimension >= 40 nm
+max_feature_size_rule: maximum pillar dimension <= 360 nm
+minimum_gap_no_overlap_rule: minimum gap >= 20 nm; no-overlap required before LP-ML1B
+angle_periodicity_rule: theta encoded by sin(2theta), cos(2theta); theta modulo 180 deg
+H_allowed_set: [500, 600, 650, 700]
+duplicate_tolerance_rule: exact rounded geometry duplicates are penalized by priority_score and tagged by duplicate_group_id
+fabrication_caution_notes:
+  - Project-default geometry is a dry-run scaffold, not fabrication approval.
+  - Future Jones/phase extraction must use complex fields, not intensity-only farfield3d phase.
+  - Use farfieldvector3d, farfieldpolar3d, or equivalent complex-field monitor data.
+  - LP-ML1B is normal-incidence periodic plane-wave dimer simulation only.
+  - Later angled validation requires Bloch/BFAST, not plain periodic.
+  - Batch Lumerical script calls through lumapi.eval where appropriate.
