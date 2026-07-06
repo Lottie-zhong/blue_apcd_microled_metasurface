@@ -1,0 +1,23 @@
+# LP-ML0 schema draft. Audit only; no training is defined here.
+feature_columns:
+  geometry: [H_nm, L1_nm, W1_nm, theta1_deg, L2_nm, W2_nm, theta2_deg, gap_or_dx_nm]
+  context: [wavelength_nm, target_bin_deg, source_stage]
+target_columns:
+  projection_metrics: [Tx, leakage, conversion_to_leakage_ratio, matrix_error]
+  phase_metrics: [selected_phase_deg, nearest_bin_deg, phase_error_deg]
+spectral_encoding:
+  wavelength_nm: scalar input for future spectral Jones prediction
+  window_features: [min_Tx_450_454, max_leakage_450_454, min_ratio_450_454, bin_consistency_450_454]
+jones_encoding:
+  note: Re/Im Jones encoding is required for future ML targets.
+  fields: [Re_txx, Im_txx, Re_txy, Im_txy, Re_tyx, Im_tyx, Re_tyy, Im_tyy]
+loss_notes:
+  circular_phase_loss: Use sin/cos or wrapped angular distance; do not use naive phase MSE across 0/360.
+rules:
+  no_inverse_net_first: true
+  no_k6_before_sixbin_robust_library: true
+  no_intensity_only_farfield_phase_extraction: true
+  complex_fields_required: true
+  normal_incidence_periodic_setup_ok: true
+  angled_plane_wave_requires_bloch_or_bfast: true
+  prefer_lumapi_eval_batching: true
