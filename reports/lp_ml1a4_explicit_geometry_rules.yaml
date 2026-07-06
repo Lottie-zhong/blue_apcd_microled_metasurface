@@ -1,0 +1,26 @@
+# LP-ML1A4 explicit geometry rules
+period_rule:
+  period_x_nm: 431.907786
+  period_y_nm: 431.907786
+  source: project_default_lp_pitch_from_prior_stage_q_times_4
+  note: not experimentally optimized
+height_allowed_set: [500, 600, 650, 700]
+ranges:
+  L_nm: [100, 250]
+  W_nm: [60, 150]
+  theta_deg: [0, 180)
+  center_dx_nm: [120, 230]
+angle_periodicity_rule: theta modulo 180 deg; ML features use sin(2theta), cos(2theta)
+rotated_rectangle_legality_rule: direct Python vertices with separating-axis overlap check
+no_overlap_rule: rotated rectangles must not overlap; conservative bbox clearance >= 20 nm
+boundary_margin_rule: all vertices must stay within unit cell with >= 10 nm margin
+aspect_ratio_caution: H_nm / min(W1_nm, W2_nm) <= 10.5
+duplicate_tolerance: exact full-geometry duplicates rejected
+provenance: new explicit geometry, not recovered historical geometry
+fdtd_data_rules:
+  - Future Jones/phase extraction must use complex fields.
+  - farfield3d returns intensity |E|^2 and must not be used as Jones phase.
+  - Use farfieldvector3d, farfieldpolar3d, or equivalent complex-field monitor data.
+  - LP-ML1B pilot uses normal-incidence periodic plane-wave dimer simulations.
+  - Later angled validation requires Bloch/BFAST rather than plain periodic.
+  - Batch Lumerical script calls through lumapi.eval where appropriate.
