@@ -1,0 +1,5 @@
+rule,condition,allowed
+candidate_freeze_allowed,TMM_pass_flag=true AND FMM_pass_flag=true AND (FDTD_pass_flag=true OR not_failed_top_validation),only_if_all_conditions_met
+no_TMM_only_freeze,TMM_pass_flag=true but FMM/FDTD missing,False
+no_FMM_only_freeze,FMM_pass_flag=true but FDTD top validation missing or failed,False
+FDTD_final_required,finite mesa/final paper figures,FDTD remains required
