@@ -1,0 +1,38 @@
+geometry_inputs:
+  - H_nm
+  - period_x_nm
+  - period_y_nm
+  - L1_nm
+  - W1_nm
+  - theta1_deg
+  - L2_nm
+  - W2_nm
+  - theta2_deg
+  - center_dx_nm
+  - center_dy_nm
+wavelength_grid: [450, 450.5, 451, 451.5, 452, 452.5, 453, 453.5, 454]
+polarization_convention: inputs x,y; outputs x,y
+jones_matrix_ordering: [[txx, txy], [tyx, tyy]]
+transmission_normalization_convention: normalize transmitted complex amplitudes to incident plane-wave amplitude; compare energy balance separately
+phase_wrapping_convention: selected_phase_deg wrapped to [-180, 180); bin error uses circular angular distance
+lp_metrics:
+  - Tx
+  - leakage
+  - conversion_to_leakage_ratio
+  - selected_phase_deg
+  - nearest_bin_deg
+  - phase_error_deg
+  - matrix_error
+fourier_order_convergence_fields:
+  - fourier_order_x
+  - fourier_order_y
+  - convergence_delta_phase_deg
+  - convergence_delta_Tx
+  - convergence_delta_leakage
+fdtd_anchor_comparison_fields:
+  - fdtd_candidate_id
+  - fmm_minus_fdtd_phase_deg
+  - fmm_minus_fdtd_Tx
+  - fmm_minus_fdtd_leakage
+  - nearest_bin_consistent
+heavy_file_avoidance_policy: do not create or commit .fsp, .ldf, .h5, .mat, .npz, .npy, monitor, farfield, or raw outputs in LP-FMM0A
