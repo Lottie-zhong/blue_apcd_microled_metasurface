@@ -1,0 +1,68 @@
+{
+  "stage": "R2-4H1B read-only FSP audit existing Wan MDC",
+  "created_at": "2026-07-06T14:02:22",
+  "python_script": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\scripts\\stage_r2_4h1b_readonly_fsp_audit_existing_wan_mdc.py",
+  "output_dir": "D:\\project\\worktrees\\blue_apcd_rcled_mdc\\outputs\\r2_4h1b_readonly_fsp_audit_existing_wan_mdc",
+  "python_only": false,
+  "read_only_lumerical_metadata": true,
+  "no_fdtd_run": true,
+  "no_runanalysis": true,
+  "no_save_original_fsp": true,
+  "lumapi_available": true,
+  "lumapi_error": "",
+  "files": [
+    {
+      "file_path": "F:\\wc_312\\MDC_blue_oujizi.fsp",
+      "exists": true,
+      "size_bytes": 3273677,
+      "modified_time": "2026-06-24T19:03:20",
+      "load_succeeded": true,
+      "load_error": "",
+      "lumerical_version": "8.33.3999"
+    },
+    {
+      "file_path": "F:\\wc_312\\MDC_blue_qujizi.fsp",
+      "exists": false,
+      "size_bytes": "",
+      "modified_time": "",
+      "load_succeeded": false,
+      "load_error": "missing file",
+      "lumerical_version": ""
+    }
+  ],
+  "candidate_compare": [
+    {
+      "file_path": "F:\\wc_312\\MDC_blue_oujizi.fsp",
+      "exists": true,
+      "load_succeeded": true,
+      "source_kind": "no_source_detected_or_unavailable",
+      "object_count": 0,
+      "source_monitor_count": 0,
+      "material_geometry_count": 0,
+      "blue_453_hint_score": 1,
+      "sio2_tio2_hint_score": 0,
+      "wan_100_52_nm_hint": false,
+      "suitability": "ambiguous_or_failed_metadata",
+      "confidence_score": 3,
+      "load_error": ""
+    },
+    {
+      "file_path": "F:\\wc_312\\MDC_blue_qujizi.fsp",
+      "exists": false,
+      "load_succeeded": false,
+      "source_kind": "no_source_detected_or_unavailable",
+      "object_count": 0,
+      "source_monitor_count": 0,
+      "material_geometry_count": 0,
+      "blue_453_hint_score": 1,
+      "sio2_tio2_hint_score": 0,
+      "wan_100_52_nm_hint": false,
+      "suitability": "ambiguous_or_failed_metadata",
+      "confidence_score": 1,
+      "load_error": "missing file"
+    }
+  ],
+  "decision": "ambiguous_require_manual_gui_audit",
+  "recommended_baseline_audit_target": "F:\\wc_312\\MDC_blue_oujizi.fsp",
+  "immediate_fdtd_allowed": false
+}
