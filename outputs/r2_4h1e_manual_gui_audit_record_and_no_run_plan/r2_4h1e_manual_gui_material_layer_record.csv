@@ -1,0 +1,6 @@
+record_type,name,material_or_layer,property,value,units,notes
+material,tio22,TiO2-like sampled material,Re(index),2.5356558,around 450.8516 nm,Im(index)=0; sampled 3D data; anisotropy None; mesh order 2
+material,sio222,SiO2-like sampled material,Re(index),1.4261394,around 450.8516 nm,Im(index)=0; sampled 3D data; anisotropy None; mesh order 2
+layer,TiO2-like rectangle,tio22,geometry,x span 6000; y min 100; y max 152; y span 52; z span 5000,nm,52 nm TiO2 layer matches Wan blue MDC parameter
+layer,SiO2-like rectangle,sio222,geometry,x span 6000; y min 1216; y max 1316; y span 100; z span 5000,nm,100 nm SiO2 layer matches Wan blue MDC parameter
+inference,MDC stack,sio222/tio22,pair_count,m about 8 strongly inferred,,1316 nm top coordinate consistent with 9*100 nm SiO2 + 8*52 nm TiO2; exact object count still not recorded

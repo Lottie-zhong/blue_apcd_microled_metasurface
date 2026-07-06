@@ -1,0 +1,15 @@
+record_type,name,property,value,units,notes
+FDTD,FDTD,dimension,2D,,manual GUI observation
+FDTD,FDTD,simulation_time,1000,fs,manual GUI observation
+FDTD,FDTD,simulation_temperature,300,K,manual GUI observation
+FDTD,FDTD,background_material,Object defined dielectric,,background index 1.0
+FDTD,FDTD,x_span,20000,nm,"x min -10000 nm, x max 10000 nm"
+FDTD,FDTD,y_span,2900,nm,"y=-50 nm, y min -1500 nm, y max 1400 nm"
+FDTD,FDTD,z_span,1020,nm,"z min -510 nm, z max 510 nm"
+FDTD,FDTD,mesh,"auto non-uniform, accuracy 3, conformal variant 0",,"minimum mesh step 0.25 nm, dt stability factor 0.99"
+FDTD,FDTD,boundaries,x/y PML all sides,,"stretched-coordinate PML, standard profile, 8 layers"
+DFTMonitor,monitor,monitor_type,Linear X,,manual GUI observation
+DFTMonitor,monitor,x_span,200000,nm,"x min -100000 nm, x max 100000 nm"
+DFTMonitor,monitor,position,"x=0, y=1100, z=0",nm,relative coordinates checked
+DFTMonitor,monitor,fields,"Ex,Ey,Ez,Hx,Hy,Hz",,output power checked; apodization None
+DFTMonitor,monitor,existing_results,rawdata Ex/Ey 915 spectral samples; farfield result available,,do not use existing results as validation
