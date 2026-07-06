@@ -1,0 +1,6 @@
+route,installation_required,setup_difficulty,periodic_rcled_mdc_suitability,source_averaged_screening_suitability,risks,recommended_next_action
+Pure-Python RCWA/FMM package,yes,low_to_medium_if_package_available,good_for_angle_wavelength_sweeps,limited_without_dipole_coupling_model,API maturity; Windows compatibility; polarization/order conventions,install/select package only after user approval; then FMM2B minimal API probe
+MATLAB Reticolo,yes,medium_to_high,strong_if_MATLAB_and_Reticolo_available,limited_without_extra_dipole_mapping,license; path setup; Python integration overhead,confirm MATLAB/Reticolo availability before planning bridge
+S4,yes,high_on_windows_server,strong_for_RCWA_like_periodic_structures,limited_without_dipole_mapping,installation complexity; binary compatibility,consider only if install route is already known
+Custom minimal 1D/2D FMM prototype,no_or_small,medium,learning_calibration_only,not_reliable_for_ranking_without_validation,implementation errors; convention bugs; false confidence,do not use for candidate ranking
+Fallback TMM + limited FDTD,no,low,TMM_only_for_1D_stack_trends,requires_explicit_tri_position_FDTD_for_candidates,TMM proxy misses dipole/far-field coupling,continue H1K/H1L path while FMM remains unavailable

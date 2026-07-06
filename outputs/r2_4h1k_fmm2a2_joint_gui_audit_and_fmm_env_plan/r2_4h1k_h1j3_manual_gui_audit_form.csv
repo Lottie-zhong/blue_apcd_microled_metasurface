@@ -1,0 +1,27 @@
+section,item,expected,user_result,failure_decision_if_not_pass,notes
+bottom_dbr_group,group name,H1J3_bottom_DBR_QWexact453_10pair,pending,failed_requires_mesh_order_fix,Confirm group exists in GUI.
+bottom_dbr_group,layer count,20 layers,pending,failed_requires_mesh_order_fix,10 TiO2/SiO2 pairs.
+bottom_dbr_group,layer order from cavity side downward,TiO2 then SiO2 repeated 10 times,pending,failed_requires_mesh_order_fix,Visual stack check only.
+bottom_dbr_group,TiO2 thickness,about 44.7 nm,pending,failed_requires_mesh_order_fix,Quarter-wave at 453 nm.
+bottom_dbr_group,SiO2 thickness,about 79.4 nm,pending,failed_requires_mesh_order_fix,Quarter-wave at 453 nm.
+bottom_dbr_group,bottom DBR y range,about -2191 nm to -950 nm,pending,failed_requires_mesh_order_fix,Coordinates from H1J3 record.
+mesh_order_overlap,GaN overlap handling,DBR may overlap large GaN rectangle,pending,failed_requires_mesh_order_fix,Overlap is acceptable only if DBR mesh order override is verified.
+mesh_order_overlap,object-level mesh order override,true for all bottom DBR layers,pending,failed_requires_mesh_order_fix,No FDTD if not visually confirmed.
+mesh_order_overlap,mesh order value,1 for all bottom DBR layers,pending,failed_requires_mesh_order_fix,DBR must override GaN in overlap regions.
+source_setup,source_1 x,0 nm default,pending,failed_requires_source_fix,Later validation must not be center-only.
+source_setup,source_1 y,-800 nm,pending,failed_requires_source_fix,Inside cavity.
+source_setup,source_1 wavelength,453 nm start/stop,pending,failed_requires_source_fix,Single wavelength planning.
+source_setup,source type,electric dipole,pending,failed_requires_source_fix,x-polarized validation only.
+source_setup,theta,90 deg,pending,failed_requires_source_fix,Physical x dipole.
+source_setup,phi,0 deg,pending,failed_requires_source_fix,Physical x dipole.
+source_setup,source_1 enabled,true,pending,failed_requires_source_fix,PlaneSource must be disabled.
+source_setup,PlaneSource enabled,false,pending,failed_requires_source_fix,No plane-wave run.
+fdtd_region,y min,about -2800 nm,pending,failed_requires_manual_review,Bottom DBR inside FDTD.
+fdtd_region,y max,about 1400 nm,pending,failed_requires_manual_review,Top MDC and monitor inside FDTD.
+fdtd_region,PML margin below bottom DBR,visually reasonable,pending,failed_requires_manual_review,Do not run if cramped.
+monitor,monitor y,about 1100 nm,pending,failed_requires_monitor_fix,Do not compare to local group coordinates blindly.
+monitor,output side,visually above top MDC,pending,failed_requires_monitor_fix,Global/effective coordinate safety required.
+monitor,not inside layer stack,not inside TiO2/SiO2,pending,failed_requires_monitor_fix,"If ambiguous, fail to monitor fix."
+monitor,upper PML spacing,reasonable,pending,failed_requires_monitor_fix,Confirm visually.
+no_simulation,no FDTD run during GUI audit,confirmed,pending,failed_requires_process_restart,H1K is planning only.
+no_simulation,derived FSP not overwritten,confirmed,pending,failed_requires_process_restart,Keep runtime FSP uncommitted.

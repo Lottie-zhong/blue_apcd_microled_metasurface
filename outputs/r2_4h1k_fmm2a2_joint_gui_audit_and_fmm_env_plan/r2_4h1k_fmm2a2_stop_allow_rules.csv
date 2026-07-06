@@ -1,0 +1,10 @@
+action,allowed,reason
+Run FDTD immediately,no,H1J3 manual GUI audit pending
+Run FMM/RCWA immediately,no,no solver available from FMM2A
+Run heavy FMM sweep,no,environment not ready and no minimal probe
+Run y-dipole,no,current validation is x-only; XY deferred
+Run broadband FDTD,no,single-wavelength 453 nm gate first
+APCD coupling,no,RCLED/MDC source module not frozen
+Manual GUI audit of H1J3 runtime FSP,yes,required next user action
+H1L x-only three-position FDTD plan/run,only_after_explicit_user_approval_and_H1K_GUI_pass,no automatic simulation
+FMM2B minimal solver probe,only_after_solver_available_and_explicit_user_approval,FMM2A found no solver
