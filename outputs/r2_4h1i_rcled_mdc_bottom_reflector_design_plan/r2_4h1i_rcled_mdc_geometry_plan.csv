@@ -1,0 +1,10 @@
+item,planned_value,rationale,status
+top_mdc,preserve existing MDC_blue_oujizi top structure unchanged,Wan MDC baseline already provides limited source conditioning and blue filtering,frozen_for_first_bottom_DBR_plan
+existing_top_mdc_materials,"tio22 / sio222; TiO2-like 52 nm, SiO2-like 100 nm, m about 8 inferred",manual GUI audit H1E,inherited
+source_1,"electric dipole theta=90 deg phi=0 deg, 450 nm, x positions -2500/0/+2500 nm",preserve previous LED/source settings and x-only validation,inherited
+plane_source,disable PlaneSource named source for dipole validation,source-isolated dipole validation only,required_future_derived_FSP_rule
+bottom_DBR_location,place below LED/source region on negative-y side,create RCLED-MDC cavity using top MDC as output mirror,planned_not_created
+source_bottom_DBR_overlap,do not overlap source_1 at y=-800 nm,source must remain between bottom DBR and top MDC,hard_constraint
+estimated_primary_bottom_DBR_thickness_nm,1232.547,10*(44.4+78.9) nm approximately,requires_ymin_expansion
+fdtd_y_span,expand y-min downward in future derived FSP,current y-min about -1500 nm is likely insufficient for 10-pair bottom DBR plus PML margin,future_H1J_geometry_audit
+cavity_length,do not finalize in H1I,cavity spacing must be audited before any FDTD,follow_up_variable_not_sweep
