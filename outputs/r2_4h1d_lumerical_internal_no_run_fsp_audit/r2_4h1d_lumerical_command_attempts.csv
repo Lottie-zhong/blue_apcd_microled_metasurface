@@ -1,0 +1,16 @@
+attempt_name,category,command_or_api,succeeded,result_preview,error
+open_fdtd_hide_true,lumapi_constructor,lumapi.FDTD(hide=True),true,,
+load_fsp,lumapi_method,load(F:\wc_312\MDC_blue_oujizi.fsp),true,,
+version_method,lumapi_method,version(),true,8.33.3999,
+switch_to_layout_if_needed,lumerical_script,switchtolayout;,true,,
+script_version,lumerical_script,__h1d_version=version;,false,,LumApiError: 'Failed to evaluate code'
+script_selectall_names,lumerical_script,"selectall; __h1d_names=get(""name"");",false,,LumApiError: 'Failed to evaluate code'
+script_selectall_types,lumerical_script,"selectall; __h1d_types=get(""type"");",false,,LumApiError: 'Failed to evaluate code'
+script_getobjectnames,lumerical_script,__h1d_names=getobjectnames;,false,,LumApiError: 'Failed to evaluate code'
+script_getobjects,lumerical_script,__h1d_names=getobjects;,false,,LumApiError: 'Failed to evaluate code'
+script_getnumber,lumerical_script,__h1d_number=getnumber;,false,,LumApiError: 'Failed to evaluate code'
+script_model_selectall,lumerical_script,"groupscope(""::model""); selectall; __h1d_names=get(""name"");",false,,LumApiError: 'Failed to evaluate code'
+script_material_db,lumerical_script,__h1d_materials=getmaterial;,false,,LumApiError: 'Failed to evaluate code'
+api_getobjects,lumapi_method,getobjects(),false,,AttributeError: 'FDTD' object has no attribute 'getobjects'
+api_getobjectnames,lumapi_method,getobjectnames(),false,,AttributeError: 'FDTD' object has no attribute 'getobjectnames'
+api_getchildren,lumapi_method,getchildren(),false,,AttributeError: 'FDTD' object has no attribute 'getchildren'
