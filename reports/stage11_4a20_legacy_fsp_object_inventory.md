@@ -1,0 +1,32 @@
+# Stage11-4A20 legacy FSP object inventory
+
+Purpose: final low-cost legacy geometry recovery attempt after A19 found only partial_base_only evidence.
+
+FSP files indexed: 2735
+FSP files opened: 20
+FSP open failures: 20
+Object inventory count: 0
+Recovered run-ready geometry count: 0
+Partial geometry count: 0
+
+## Matched FSP examples
+- D:\project\blue_apcd_microled_metasurface\outputs\stage12_10d_h500_lp_300bin_single_dimer_refinement\fdtd_single_dimer_300bin\H500DIMER12D_001_B300_x_pair_swap_G70_O-30\H500DIMER12D_001_B300_x_pair_swap_G70_O-30_x.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\stage12_10d_h500_lp_300bin_single_dimer_refinement\fdtd_single_dimer_300bin\H500DIMER12D_001_B300_x_pair_swap_G70_O-30\H500DIMER12D_001_B300_x_pair_swap_G70_O-30_y.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\stage12_10d_h500_lp_300bin_single_dimer_refinement\fdtd_single_dimer_300bin\H500DIMER12D_004_B300_x_pair_swap_G80_O-40\H500DIMER12D_004_B300_x_pair_swap_G80_O-40_x.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\stage12_10d_h500_lp_300bin_single_dimer_refinement\fdtd_single_dimer_300bin\H500DIMER12D_004_B300_x_pair_swap_G80_O-40\H500DIMER12D_004_B300_x_pair_swap_G80_O-40_y.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\blue10k6_lp_apcd_stage11_2c_h500_dimer_alt_pairs\fdtd_h500_dimer_alt_patch\H500DIMER2C_026_B240_x_pair_swap_G60_O-20\H500DIMER2C_026_B240_x_pair_swap_G60_O-20_x.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\blue10k6_lp_apcd_stage11_2d_h500_dimer_final_gap\fdtd_h500_dimer_final_gap\H500DIMER2D_006_B240_x_pair_swap_G80_O-30\H500DIMER2D_006_B240_x_pair_swap_G80_O-30_x.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\blue10k6_lp_apcd_stage11_2d_h500_dimer_final_gap\fdtd_h500_dimer_final_gap\H500DIMER2D_006_B240_x_pair_swap_G80_O-30\H500DIMER2D_006_B240_x_pair_swap_G80_O-30_y.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\blue10k6_lp_apcd_stage11_2d_h500_dimer_final_gap\fdtd_h500_dimer_final_gap\H500DIMER2D_018_B240_x_pair_swap_G80_O-30\H500DIMER2D_018_B240_x_pair_swap_G80_O-30_x.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\blue10k6_lp_apcd_stage11_2d_h500_dimer_final_gap\fdtd_h500_dimer_final_gap\H500DIMER2D_018_B240_x_pair_swap_G80_O-30\H500DIMER2D_018_B240_x_pair_swap_G80_O-30_y.fsp
+- D:\project\blue_apcd_microled_metasurface\outputs\blue10k6_lp_apcd_stage11_2c_h500_dimer_alt_pairs\fdtd_h500_dimer_alt_patch\H500DIMER2C_026_B240_x_pair_swap_G60_O-20\H500DIMER2C_026_B240_x_pair_swap_G60_O-20_y.fsp
+
+## Decision
+No-Go for the legacy geometry route unless manual review finds geometry in the indexed FSPs.
+If run_ready_count == 0, stop legacy recovery and proceed with LP-ML1A4 -> LP-ML1B0/1B1.
+
+No FDTD simulation was run.
+No FSP was saved or modified.
+No Lumerical GUI was opened; hidden lumapi mode was attempted.
+No K=6 was attempted.
+No model was trained.
