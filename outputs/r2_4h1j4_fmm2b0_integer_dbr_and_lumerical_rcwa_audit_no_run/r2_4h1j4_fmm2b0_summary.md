@@ -1,0 +1,3 @@
+# R2-4H1J4 FMM2B0 Summary
+
+Derived FSP: `D:\project\worktrees\blue_apcd_rcled_mdc\runtime\r2_4h1j4_rcled_mdc_integer_dbr_derived_fsp_DO_NOT_COMMIT\MDC_blue_oujizi_RCLED_QWinteger453_10pair_H1J4.fsp`. H1J4 decision `integer_derived_runtime_fsp_created_requires_manual_gui_audit`. Bottom group `H1J4_bottom_DBR_QWinteger453_10pair`, layers `20`, TiO2/SiO2 `45.0/79.0` nm, y range `-2190.0` to `-950.0` nm, mesh `verified_all_20_mesh_order_1`, monitor safety `requires_manual_gui_audit`, far-field `requires_manual_gui_audit_accessible_0_of_7`, RCWA `lumerical_rcwa_available_for_minimal_probe`, FMM ready `true`. Manual GUI audit is required next.

@@ -1,0 +1,5 @@
+probe_name,probe_method,status,detail,classification
+open_lumerical_hidden,lumapi.FDTD(hide=True),ok,session opened,session_available
+addrcwa_object_creation,fdtd.addrcwa(),ok,RCWA object created; no solve called,rcwa_available_for_api_probe
+addrcwa_help_query,eval('?addrcwa;'),failed,LumApiError: 'Failed to evaluate code',rcwa_unknown_or_unavailable
+rcwa_help_query,eval('?rcwa;'),failed,LumApiError: 'Failed to evaluate code',rcwa_unknown_or_unavailable

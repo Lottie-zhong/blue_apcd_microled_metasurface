@@ -1,0 +1,3 @@
+# R2-4H1J4 Manual GUI Audit Checklist
+
+Open `D:\project\worktrees\blue_apcd_rcled_mdc\runtime\r2_4h1j4_rcled_mdc_integer_dbr_derived_fsp_DO_NOT_COMMIT\MDC_blue_oujizi_RCLED_QWinteger453_10pair_H1J4.fsp` and confirm group `H1J4_bottom_DBR_QWinteger453_10pair`, 20 layers, TiO2/SiO2 order, 45/79 nm thicknesses, y range about -2190 to -950 nm, mesh order override=true and mesh order=1, source_1 x=0 nm y=-800 nm z=0 nm wavelength 453 nm theta=90 phi=0 enabled=true, PlaneSource disabled, FDTD y range -2800 to +1400 nm, monitor y=1100 nm on output side and outside stack/PML, approved far-field settings, no simulation run, and FSP not overwritten.
