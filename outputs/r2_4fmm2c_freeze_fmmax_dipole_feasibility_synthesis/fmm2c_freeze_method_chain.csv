@@ -1,0 +1,8 @@
+step,method_step,api_or_chain,first_proved_in,evidence
+1,localized source / Gaussian source,"fmmax.sources.dirac_delta_source, fmmax.sources.gaussian_source",FMM2C1,localized-source Fourier amplitude API callable
+2,BZ / in-plane wavevector,fmmax.basis.brillouin_zone_in_plane_wavevector,FMM2C1,normal/zero-BZ vector path callable
+3,layer eigensolve,fmmax.fmm.eigensolve_isotropic_media,FMM2C2,uniform air/slab/SiO2/TiO2 layer solves callable
+4,scattering matrix,fmmax.scattering.stack_s_matrix,FMM2C2,top/source/bottom stack S-matrix construction works
+5,source amplitude injection,fmmax.sources.amplitudes_for_source,FMM2C2,localized current source converted to forward/backward amplitudes
+6,directional Poynting flux,fmmax.fields.directional_poynting_flux,FMM2C2,true Poynting-flux-like scalar extracted
+7,DBR/slab top-bottom flux table,same FMM2C2 chain,FMM2C3,DBR-like stack changes top/bottom flux distribution

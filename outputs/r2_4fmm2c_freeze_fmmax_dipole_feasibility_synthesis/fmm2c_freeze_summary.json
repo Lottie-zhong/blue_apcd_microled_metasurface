@@ -1,0 +1,41 @@
+{
+  "stage": "FMM2C-FREEZE",
+  "created_at": "2026-07-07T21:10:01",
+  "branch": "work/rcled-mdc-source-module",
+  "head_before_commit": "808b01d",
+  "no_run_synthesis": true,
+  "read_existing_lightweight_outputs_only": true,
+  "stages_synthesized": [
+    "FMM2C1",
+    "FMM2C2",
+    "FMM2C3"
+  ],
+  "evidence_commits": {
+    "FMM2C1": "e37d345",
+    "FMM2C2": "866cc9e",
+    "FMM2C3": "808b01d"
+  },
+  "main_conclusion": "FMMAX/JAX localized-source workflow feasibility proof is complete for tiny dipole-like source, layer eigensolve, scattering, source-amplitude injection, directional Poynting-flux extraction, and DBR/slab top-bottom flux labels.",
+  "frozen_decision": "fmmax_dipole_feasibility_proof_frozen_complete",
+  "recommended_stop": "stop_FMM2C_feasibility_track_here",
+  "future_restart_options": [
+    "FMM2C4 source-position/orientation incoherent averaging",
+    "FMM2C5 source-weight prototype w(lambda, theta, phi, pol)"
+  ],
+  "boundary_not_proven": [
+    "full H1J4 RCLED-MDC device validation",
+    "finite mesa / sidewall / off-center dipole validation",
+    "APCD coupling",
+    "full ML dataset generation",
+    "absolute physical calibration against FDTD",
+    "replacement of final FDTD validation"
+  ],
+  "fdtd_run_performed": false,
+  "h1j4_fsp_opened_or_modified": false,
+  "lumerical_rcwa_performed": false,
+  "new_fmmax_run_performed": false,
+  "broadband_performed": false,
+  "optimization_performed": false,
+  "ml_dataset_generated": false,
+  "push_performed": false
+}
