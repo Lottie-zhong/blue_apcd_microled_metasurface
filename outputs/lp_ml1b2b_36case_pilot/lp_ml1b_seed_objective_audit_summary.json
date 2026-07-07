@@ -1,0 +1,42 @@
+{
+  "a4_target_bin_source": "geometric_intent_sampling_group",
+  "a4_uses_previous_proxy_static_phasor": false,
+  "a4_uses_selectivity_first_gate": false,
+  "a4_uses_simulated_jones_phase_for_labels": false,
+  "audit_scope": "LP-ML1B seed objective audit; no FDTD run",
+  "b0_selection_basis": "sampling_balance_and_priority_score",
+  "b2b_ranking_status_gate": "mixed Tx/ratio/phase/matrix thresholds; status then ratio then phase sort",
+  "batch04_remains_recommended_if_next_fdtd_is_authorized": true,
+  "conclusion": "not_selectivity_first_seed_generation",
+  "nearest_bin_counts": {
+    "120": 1,
+    "180": 1,
+    "240": 1,
+    "300": 2,
+    "60": 1
+  },
+  "no_fdtd_run": true,
+  "no_fmm": true,
+  "no_gui": true,
+  "no_k6": true,
+  "no_training": true,
+  "old_status_counts": {
+    "phase_wrong": 5,
+    "weak": 1
+  },
+  "provisional_thresholds": {
+    "matrix_error_warning_threshold": 0.6,
+    "maximum_bin_instability_unique_bins": 1,
+    "maximum_phase_err_at_452nm_deg": 15.0,
+    "maximum_y_direct_leakage_relative_to_selected_Tx": "Tx/6 provisional budget",
+    "minimum_ratio_median": 6.0,
+    "minimum_selected_Tx": 0.45
+  },
+  "recommendation": "adjust_ranking_and_seed_logic_before_batch_02",
+  "recommended_next_batch_id": "LPML1B2A_BATCH_04",
+  "selectivity_first_class_counts": {
+    "high_Tx_but_nonselective": 3,
+    "phase_drifted_and_nonselective": 1,
+    "phase_near_but_nonselective": 2
+  }
+}
