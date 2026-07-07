@@ -1,0 +1,82 @@
+{
+  "stage": "LP-ML1B2A",
+  "planning_only_no_fdtd": true,
+  "pilot_candidate_count": 36,
+  "geometry_complete_count": 36,
+  "missing_geometry_count": 0,
+  "target_bin_distribution": {
+    "0": 2,
+    "60": 2,
+    "120": 3,
+    "180": 6,
+    "240": 8,
+    "300": 15
+  },
+  "sampling_group_distribution": {
+    "B240_exploration": 8,
+    "B300_exploration": 13,
+    "global_escape_lhs": 8,
+    "sixbin_balance": 7
+  },
+  "H_nm_distribution": {
+    "500": 17,
+    "600": 12,
+    "650": 6,
+    "700": 1
+  },
+  "wavelengths_nm": [
+    450,
+    450.5,
+    451,
+    451.5,
+    452,
+    452.5,
+    453,
+    453.5,
+    454
+  ],
+  "polarizations": [
+    "x",
+    "y"
+  ],
+  "planned_subruns": 648,
+  "batch_size_candidates": 6,
+  "batch_count": 6,
+  "runtime_basis_seconds": {
+    "LPML1A4_0028_B300_exploration_B300_H600": 340.82,
+    "LPML1A4_0234_B240_exploration_B240_H600": 296.46
+  },
+  "estimated_runtime_per_candidate_sec": 318.64,
+  "estimated_total_runtime_sec": 11471.04,
+  "estimated_total_runtime_hours": 3.19,
+  "b1a_decision": "template_ok_but_candidate_performance_poor_still_can_proceed_to_pilot",
+  "b1a_go_no_go": "Go",
+  "performance_caution": "B300 smoke had low Tx/ratio; B240 smoke shifted toward bin 120 and was phase-wrong; B2 is statistical exploration and seed filtering, not K=6 readiness.",
+  "result_schema_columns": [
+    "candidate_id",
+    "target_bin_deg",
+    "wavelength_nm",
+    "txx_re",
+    "txx_im",
+    "txy_re",
+    "txy_im",
+    "tyx_re",
+    "tyx_im",
+    "tyy_re",
+    "tyy_im",
+    "selected_Tx",
+    "leakage_xin_to_yout",
+    "leakage_yin_to_xout",
+    "y_direct_leakage",
+    "conversion_to_leakage_ratio",
+    "selected_phase_deg",
+    "nearest_bin_deg",
+    "phase_error_deg",
+    "matrix_error",
+    "spectral_pass",
+    "result_status",
+    "error_message",
+    "result_csv",
+    "fsp_path_untracked"
+  ]
+}
