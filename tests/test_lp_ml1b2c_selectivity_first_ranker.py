@@ -51,3 +51,14 @@ def test_next_action_and_report_boundary():
     text = REPORT.read_text(encoding="utf-8")
     assert "Hierarchy implemented" in text
     assert "No FDTD was run" in text
+
+
+def test_ranker_can_emit_batch04_names_after_results_exist():
+    batch04 = ROOT / "outputs" / "lp_ml1b2b_36case_pilot" / "batch_04"
+    if not (batch04 / "lp_ml1b2b_batch04_results.csv").exists():
+        return
+    report = ROOT / "reports" / "lp_ml1b2c_batch04_selectivity_first_ranking.md"
+    subprocess.run([sys.executable, str(SCRIPT), "--batch-dir", str(batch04), "--batch-name", "batch_04", "--report", str(report)], cwd=ROOT, check=True)
+    assert (OUT / "batch_04" / "lp_ml1b2c_batch04_selectivity_first_ranking.csv").exists()
+    assert (OUT / "batch_04" / "lp_ml1b2c_batch04_summary.json").exists()
+    assert report.exists()

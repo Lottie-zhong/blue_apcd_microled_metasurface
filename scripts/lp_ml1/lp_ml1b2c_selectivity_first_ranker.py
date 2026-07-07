@@ -11,7 +11,7 @@ from statistics import mean, median
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_BATCH_DIR = ROOT / "outputs" / "lp_ml1b2b_36case_pilot" / "batch_01"
 DEFAULT_OUT_ROOT = ROOT / "outputs" / "lp_ml1b2c_selectivity_first_ranking"
-REPORT = ROOT / "reports" / "lp_ml1b2c_selectivity_first_ranking.md"
+DEFAULT_REPORT = ROOT / "reports" / "lp_ml1b2c_selectivity_first_ranking.md"
 
 THRESHOLDS = {
     "selected_Tx_min": 0.45,
@@ -181,9 +181,15 @@ def summarize_candidate(rows: list[dict[str, str]]) -> dict[str, object]:
     }
 
 
-def rank_batch(batch_dir: Path, output_dir: Path) -> tuple[list[dict[str, object]], dict[str, object]]:
-    results_path = batch_dir / "lp_ml1b2b_batch01_results.csv"
-    if not results_path.exists():
+def batch_token(batch_name: str) -> str:
+    return batch_name.replace("_", "")
+
+
+def rank_batch(batch_dir: Path, output_dir: Path, batch_name: str = "batch_01") -> tuple[list[dict[str, object]], dict[str, object]]:
+    preferred = batch_dir / f"lp_ml1b2b_{batch_token(batch_name)}_results.csv"
+    if preferred.exists():
+        results_path = preferred
+    else:
         matches = sorted(batch_dir.glob("*_results.csv"))
         if not matches:
             raise FileNotFoundError(f"No results CSV found under {batch_dir}")
@@ -204,7 +210,8 @@ def rank_batch(batch_dir: Path, output_dir: Path) -> tuple[list[dict[str, object
         "schema_or_extraction_fail": 7,
     }
     ranked.sort(key=lambda r: (class_order.get(str(r["b2c_class"]), 99), -to_float(r["soft_rank_score"]), str(r["candidate_id"])))
-    write_csv(output_dir / "lp_ml1b2c_batch01_selectivity_first_ranking.csv", ranked, RANK_FIELDS)
+    token = batch_token(batch_name)
+    write_csv(output_dir / f"lp_ml1b2c_{token}_selectivity_first_ranking.csv", ranked, RANK_FIELDS)
     summary = {
         "batch_dir": str(batch_dir),
         "candidate_count": len(ranked),
@@ -218,11 +225,11 @@ def rank_batch(batch_dir: Path, output_dir: Path) -> tuple[list[dict[str, object
         "no_k6": True,
     }
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "lp_ml1b2c_batch01_summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (output_dir / f"lp_ml1b2c_{token}_summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return ranked, summary
 
 
-def write_global_outputs(ranked: list[dict[str, object]], summary: dict[str, object], out_root: Path) -> None:
+def write_global_outputs(ranked: list[dict[str, object]], summary: dict[str, object], out_root: Path, report_path: Path = DEFAULT_REPORT) -> None:
     out_root.mkdir(parents=True, exist_ok=True)
     (out_root / "lp_ml1b2c_thresholds.json").write_text(json.dumps(THRESHOLDS, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     recommendation = {
@@ -248,7 +255,7 @@ def write_global_outputs(ranked: list[dict[str, object]], summary: dict[str, obj
         "4. Hard gate 4: wavelength stability pass using nearest-bin mode count.",
         "5. Soft ranking: Tx, ratio, matrix_error, phase error, and stability.",
         "",
-        "## Batch-01 result",
+        "## Batch result",
         f"- candidate_count: {summary['candidate_count']}",
         f"- class_counts: `{summary['class_counts']}`",
         f"- strong_or_usable_count: {summary['strong_or_usable_count']}",
@@ -259,9 +266,9 @@ def write_global_outputs(ranked: list[dict[str, object]], summary: dict[str, obj
         "LPML1B2A_BATCH_04 remains the recommended next FDTD batch if another batch is authorized, because batch-02 is still B300 continuation / statistical failure mapping.",
         "Do not declare K=6 readiness. Do not modify the frozen B2A plan.",
         "",
-        "No FDTD was run. No GUI, FMM, ML training, K=6, coverage, or heavy output generation was performed.",
+        "No FDTD was run by this ranker. No GUI, FMM, ML training, K=6, coverage, or heavy output generation was performed by ranking.",
     ]
-    REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main() -> None:
@@ -269,12 +276,13 @@ def main() -> None:
     parser.add_argument("--batch-dir", default=str(DEFAULT_BATCH_DIR))
     parser.add_argument("--output-root", default=str(DEFAULT_OUT_ROOT))
     parser.add_argument("--batch-name", default="batch_01")
+    parser.add_argument("--report", default=str(DEFAULT_REPORT))
     args = parser.parse_args()
     batch_dir = Path(args.batch_dir)
     out_root = Path(args.output_root)
     output_dir = out_root / args.batch_name
-    ranked, summary = rank_batch(batch_dir, output_dir)
-    write_global_outputs(ranked, summary, out_root)
+    ranked, summary = rank_batch(batch_dir, output_dir, args.batch_name)
+    write_global_outputs(ranked, summary, out_root, Path(args.report))
     print(json.dumps(summary, indent=2, sort_keys=True))
 
 
