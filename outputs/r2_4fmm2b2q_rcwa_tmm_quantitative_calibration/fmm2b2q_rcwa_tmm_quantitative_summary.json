@@ -1,0 +1,50 @@
+{
+  "stage": "FMM2B2Q",
+  "previous_commit": "7aa6e67",
+  "created_at": "2026-07-07T19:49:18",
+  "branch": "work/rcled-mdc-source-module",
+  "root_hypothesis": "Remaining RCWA/TMM mismatch may be axis, explicit interface positions, material/index assignment, or RCWA region/span setup.",
+  "cases": [
+    "air_reference",
+    "single_SiO2_79nm",
+    "single_TiO2_45nm",
+    "TiO2_SiO2_10pair_QWinteger453_proxy"
+  ],
+  "variants": [
+    {
+      "variant_id": "axis_x_absolute_interfaces",
+      "axis": "x",
+      "material_mode": "object_defined_index",
+      "region_scale": 1.5
+    },
+    {
+      "variant_id": "axis_z_absolute_interfaces",
+      "axis": "z",
+      "material_mode": "object_defined_index",
+      "region_scale": 1.5
+    },
+    {
+      "variant_id": "index_grid_or_explicit_material_variant",
+      "axis": "x",
+      "material_mode": "direct_index_explicit_air_background",
+      "region_scale": 3.0
+    }
+  ],
+  "best_variant_by_dbr_reflection": {
+    "variant_id": "axis_z_absolute_interfaces",
+    "dbr_R_avg": 0.9999597100342542,
+    "dbr_ratio_to_tmm": 0.9999999999999917,
+    "single_layer_ratio_mean": 0.9999999999999963,
+    "ok_cases": 4,
+    "trend_ok_cases": 4,
+    "quantitative_close_cases": 4
+  },
+  "high_10pair_reflection_found_gt_0p8": true,
+  "decision": "rcwa_tmm_quantitative_pass",
+  "fdtd_run_performed": false,
+  "h1j4_fsp_opened_or_modified": false,
+  "sweep_performed": false,
+  "broadband_performed": false,
+  "apcd_coupling_performed": false,
+  "push_performed": false
+}
