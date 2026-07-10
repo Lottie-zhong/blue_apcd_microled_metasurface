@@ -1,0 +1,15 @@
+﻿database_path: data/lp_database/lp_apcd_database.sqlite
+
+active_material_set:
+  TiO2: APCD_TIO2_NATIVE_M1
+  SiO2: APCD_SIO2_NATIVE_M1
+
+historical_constant_models:
+  enabled_for_read_only_comparison: true
+  enabled_for_new_simulation: false
+
+simulation_defaults:
+  use_native_dispersion: true
+  use_native_loss: true
+  allow_constant_index_fallback: false
+  reject_out_of_range_wavelength: true
