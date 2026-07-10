@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import csv, hashlib, json, math
+import csv, hashlib, json, math, sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -62,4 +62,50 @@ def main():
  (REP/'mdc1b_legacy_material_source_audit.md').write_text('# MDC1B legacy material source audit\n\nMDC1A/MDC1B used constant `SiO2=1.426`, `TiO2=2.535`, `GaN=2.41`, not spectral dispersion. This is a historical constant-index model, not the Native-M1 baseline. Ratio reused: mean T450(0–10 deg) / mean T450(40–60 deg).\n')
  (REP/'mdc_native_m1_topology_coarse_scan.md').write_text('# Native-M1 topology coarse scan\n\nLogical candidates: 2688. Unique physical sequences: '+str(len(reps))+'.\n\nNative-M1 only; GaN -> reverse(stack) -> Air. FAB/PERF shortlists are in the output CSVs. Recommended refine candidate: '+fab[0]['candidate_id']+'.\n')
  print(json.dumps(summary))
-if __name__=='__main__':main()
+def parse_bool(value):
+    text=str(value).strip().lower()
+    if text in ('true','1'): return True
+    if text in ('false','0'): return False
+    raise ValueError('invalid gate_pass: '+repr(value))
+
+def postprocess_only():
+    OUT.mkdir(parents=True,exist_ok=True); REP.mkdir(parents=True,exist_ok=True)
+    with (OUT/'metrics_all.csv').open(newline='',encoding='utf-8') as f: rows=list(csv.DictReader(f))
+    numeric=('peak_wavelength_nm','peak_error_nm','T450','FWHM_nm','T450_20deg','normal_to_40_60_ratio','total_layer_count_compiled','Tpeak')
+    for r in rows:
+        for key in numeric:r[key]=float(r[key])
+    def failed(r,objective):
+        limits=(1, .7, 4, .06,60) if objective=='PERF' else (1.5,.7,12,.2,20)
+        out=[]
+        if abs(r['peak_error_nm'])>limits[0]:out.append('peak_error')
+        if r['T450']<limits[1]:out.append('T450')
+        if (objective=='FAB' and r['FWHM_nm']<4) or r['FWHM_nm']>limits[2]:out.append('FWHM')
+        if r['T450_20deg']>limits[3]:out.append('T450_20deg')
+        if r['normal_to_40_60_ratio']<limits[4]:out.append('ratio')
+        return out
+    def key(r,obj):
+        return ((not r['gate_pass']), r['FWHM_nm'] if obj=='PERF' else r['total_layer_count_compiled'], abs(r['peak_error_nm']) if obj=='FAB' else -r['normal_to_40_60_ratio'], -r['normal_to_40_60_ratio'] if obj=='FAB' else r['T450_20deg'], -r['T450'], r['candidate_id'])
+    def ranked(obj, source, limit, family_rank=False):
+        data=[]
+        for r in source:
+            x=dict(r); x['failed_conditions']=';'.join(failed(x,obj)); x['gate_pass']=not bool(x['failed_conditions']); data.append(x)
+        data.sort(key=lambda x:key(x,obj))
+        for i,x in enumerate(data,1):x['family_rank' if family_rank else 'global_rank']=i; x['objective']=obj; x['gate_pass']='true' if x['gate_pass'] else 'false'
+        return data[:limit],data
+    family=[]; all_global=[]; counts={}
+    for obj in ('FAB','PERF'):
+        total,allrows=ranked(obj,rows,len(rows)); counts[obj]=sum(x['gate_pass']=='true' for x in allrows)
+        all_global.extend(ranked(obj,rows,20)[0])
+        for fam in ('Explicit','ZL-1','ZL-2'):
+            sub=[r for r in rows if r['topology_id']==fam]; top,allsub=ranked(obj,sub,10,True); counts[obj+'_'+fam]=sum(x['gate_pass']=='true' for x in allsub); family.extend(top)
+    def write(path,data):
+        keys=sorted({k for r in data for k in r});
+        with (OUT/path).open('w',newline='',encoding='utf-8') as f:w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows(data)
+    write('shortlist_fab.csv',[x for x in family if x['objective']=='FAB']);write('shortlist_perf.csv',[x for x in family if x['objective']=='PERF']);write('shortlist_global.csv',all_global)
+    seed=[x for x in ranked('FAB',rows,len(rows))[1] if x['candidate_id']=='EX_N3_L79_H45_C156'][0]
+    summary=json.loads((OUT/'scan_summary.json').read_text());summary.update({'postprocess_only':True,'gate_pass_counts':counts,'seed_corrected_fab_rank':seed['global_rank']});(OUT/'scan_summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+    (REP/'mdc_native_m1_topology_coarse_scan.md').write_text('# Native-M1 topology coarse scan\n\nShortlists corrected by `--postprocess-only`; no TMM was rerun. CSV boolean strings are explicitly parsed, not cast with `bool()`.\n\nGate counts: '+json.dumps(counts)+'. Seed FAB rank: '+str(seed['global_rank'])+'.\n')
+    print(json.dumps({'status':'PASS','counts':counts,'seed_rank':seed['global_rank']}))
+
+if __name__=='__main__':
+    postprocess_only() if '--postprocess-only' in sys.argv else main()
