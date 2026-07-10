@@ -1,0 +1,19 @@
+﻿{
+  "policy_id": "MDC_NATIVE_M1",
+  "status": "active_engineering_default",
+  "formal_material_model": "native_sampled_complex_epsilon",
+  "materials": {
+    "APCD_TIO2_NATIVE_M1": {"source_material_name": "tio22", "roles": ["high_index_layer"]},
+    "APCD_SIO2_NATIVE_M1": {"source_material_name": "sio222", "roles": ["low_index_layer", "defect_layer"]}
+  },
+  "reference": {
+    "native_sampled_csv": "outputs/material_reference/mdc_blue_oujizi_m/material_ref_native_sampled.csv",
+    "blue_fine_csv": "outputs/material_reference/mdc_blue_oujizi_m/material_ref_448_453.csv",
+    "source_fsp": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+    "extraction_commit": "a272b10",
+    "import_commit": "6601a95"
+  },
+  "interpolation": {"source_quantity": "complex_epsilon", "independent_axis": "frequency_hz", "method": "linear", "complex_index_reconstruction": "physical_principal_square_root", "extrapolation": "forbidden"},
+  "legacy": {"tag": "legacy_constant_index", "formal_engineering_baseline": false, "implicit_fallback_allowed": false},
+  "formal_baseline_prefixes": ["MDC_NATIVE_M1", "MDC_APCD_NATIVE_TIO22_SIO222"]
+}
