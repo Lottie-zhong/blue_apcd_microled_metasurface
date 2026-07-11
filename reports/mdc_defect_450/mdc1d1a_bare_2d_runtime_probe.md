@@ -1,0 +1,18 @@
+# Bare 2D runtime probe
+
+Runtime/monitor closure only; mesh accuracy 1 and short window are not physical conclusions. No FAB run.
+{
+  "case_id": "BARE_GAN_AIR_2D_RUNTIME_PROBE",
+  "result_status": "runtime_probe_only",
+  "run_returned": true,
+  "monitor_fields": [
+    "lambda",
+    "f",
+    "T",
+    "Lumerical_dataset"
+  ],
+  "raw_monitor_power": 0.2419705725290247,
+  "angle_size": 2000,
+  "intensity_finite": true,
+  "normalization": "raw farfield intensity"
+}
