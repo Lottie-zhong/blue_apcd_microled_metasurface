@@ -1,0 +1,1529 @@
+{
+  "schema_version": "1.0.0",
+  "tables": {
+    "source_inventory.csv": {
+      "fields": {
+        "source_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "relative_path": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "file_type": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_stage": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "simulation_method": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "fidelity_level": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "row_count": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "size_bytes": {
+          "dtype": "float",
+          "unit": "bytes",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "sha256": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "git_commit": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "included_in_database": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "exclusion_reason": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "notes": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "geometry_master.csv": {
+      "fields": {
+        "geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_hash": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "candidate_id_primary": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "candidate_aliases": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "topology_family": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "N": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "M": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "H_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "L_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "C_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "added_defect_thickness_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "effective_central_L_thickness_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "compiled_sequence": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "compiled_sequence_json": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "layer_material_sequence": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "physical_layer_count": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "total_thickness_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "substrate_material": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "superstrate_material": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "propagation_direction": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "material_model": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tio2_material_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "sio2_material_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "is_nominal_geometry": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "parent_nominal_geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "provenance_count": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "quality_status": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "tmm_nominal_metrics.csv": {
+      "fields": {
+        "record_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_hash": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "simulation_method": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "fidelity_level": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "wavelength_range_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "polarization": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "angle_definition": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_peak_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_peak_T": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_FWHM_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "T448": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "T450": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "T453": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "blue_min_448_453": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "blue_mean_448_453": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_max_transmission_angle_448_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_max_transmission_angle_450_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_max_transmission_angle_453_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_angular_FWHM_448_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_angular_FWHM_450_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_angular_FWHM_453_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "strict_normal_450": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "near_normal_450": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "normal_to_40_60_ratio": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "FAB_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "PERF_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_target_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "angular_target_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "combined_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_FWHM_valid": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "angular_FWHM_valid": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "boundary_clipped": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "quality_status": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "usable_for_training": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "tolerance_samples.csv": {
+      "fields": {
+        "sample_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "sample_hash": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_hash": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "parent_nominal_geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "parent_nominal_geometry_hash": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "scan_mode": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "error_bound_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "random_seed": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "sample_index": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "delta_H_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "delta_L_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "delta_defect_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "layer_error_vector_json": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "perturbed_compiled_sequence": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_peak_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_FWHM_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "T448": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "T450": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "T453": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_max_transmission_angle_450_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "tmm_angular_FWHM_450_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "strict_normal_450": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "near_normal_450": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_target_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "angular_target_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "combined_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_FWHM_valid": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "angular_FWHM_valid": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_boundary_clipped": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "angular_boundary_clipped": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "quality_status": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "usable_for_training": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "usable_for_validation": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "fdtd_validation.csv": {
+      "fields": {
+        "record_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_hash": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "simulation_method": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "fidelity_level": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "dimensionality": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_model": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "dipole_orientation": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_x_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_y_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "wavelength_nm": {
+          "dtype": "float",
+          "unit": "nm",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "mesh_accuracy": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "simulation_time_fs": {
+          "dtype": "float",
+          "unit": "fs",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "farfield_peak_angle_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "farfield_peak_angle_abs_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "farfield_peak_is_normal": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "farfield_angular_FWHM_deg": {
+          "dtype": "float",
+          "unit": "deg",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "eta10": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "eta20": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "annulus10_20": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "leakage20_40": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "leakage40_60": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "residual60_plus": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "normal_to_40_60_ratio": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "raw_upward_monitor_power": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "normalized_upward_power": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "absolute_extraction_status": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "fraction_sum": {
+          "dtype": "float",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "native_material_registration_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "quality_status": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "usable_for_training": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "usable_for_validation": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "energy_sanity_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "material_policy_pass": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "normal_angle_valid": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "spectral_FWHM_valid": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "angular_FWHM_valid": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "notes": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "provenance_links.csv": {
+      "fields": {
+        "record_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_relative_path": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_row_identifier": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_candidate_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_commit": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "extraction_rule": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "dedup_action": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "conflict_status": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "notes": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "label_dictionary.csv": {
+      "fields": {
+        "label_name": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "table_name": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "dtype": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "unit": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "physical_definition": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "simulation_method": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "valid_range": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "missing_value_meaning": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "quality_requirements": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "training_usage": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "do_not_mix_with": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_stages": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "split_assignments.csv": {
+      "fields": {
+        "record_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "geometry_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "parent_group_id": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "split": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "simulation_method": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_stage": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "usable_for_training": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    },
+    "conflict_report.csv": {
+      "fields": {
+        "geometry_hash": {
+          "dtype": "string",
+          "unit": "",
+          "required": true,
+          "nullable": false,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "method": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "condition": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "conflict_status": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "source_ids": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        },
+        "notes": {
+          "dtype": "string",
+          "unit": "",
+          "required": false,
+          "nullable": true,
+          "enum": [],
+          "definition": "Normalized database field."
+        }
+      }
+    }
+  }
+}

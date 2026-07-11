@@ -1,0 +1,10 @@
+label_name,table_name,dtype,unit,physical_definition,simulation_method,valid_range,missing_value_meaning,quality_requirements,training_usage,do_not_mix_with,source_stages
+spectral_FWHM_nm,tmm_nominal_metrics,float,nm,normal-incidence pure-film spectral half-maximum width,TMM,finite positive,blank means clipped/unavailable,valid interpolation and no boundary clipping,training,fdtd_farfield_angular_FWHM_deg,coarse/refined TMM
+tmm_angular_FWHM_450_deg,tmm_nominal_metrics,float,deg,plane-wave TMM angular half-power width at 450 nm,TMM,finite nonnegative,blank means unavailable,angle definition recorded,training,fdtd_farfield_angular_FWHM_deg,TMM
+fdtd_farfield_angular_FWHM_deg,fdtd_validation,float,deg,dipole far-field angular FWHM,FDTD,finite nonnegative,blank means unavailable,fraction sum and far-field extraction required,external validation,tmm_angular_FWHM_450_deg,FDTD
+tmm_max_transmission_angle_450_deg,tmm_nominal_metrics,float,deg,plane-wave maximum transmission angle at 450 nm,TMM,-60..60,blank means unavailable,not a dipole peak,training,fdtd_farfield_peak_angle_deg,TMM
+fdtd_farfield_peak_angle_deg,fdtd_validation,float,deg,dipole far-field peak angle,FDTD,finite,blank means unavailable,far-field extraction required,external validation,tmm_max_transmission_angle_450_deg,FDTD
+raw_upward_monitor_power,fdtd_validation,float,arb.,"raw upward monitor power, not extraction efficiency",FDTD,finite nonnegative,blank means unavailable,absolute_extraction_status pending,external validation,normalized_upward_power,FDTD
+normalized_upward_power,fdtd_validation,float,fraction,source/dipole normalized upward power,FDTD,finite nonnegative,blank means unavailable,requires source power closure,external validation,raw_upward_monitor_power,FDTD
+combined_pass,tmm_nominal_metrics,bool,,spectral and angular screening gates,TMM,true/false,blank means unavailable,explicit gates,training,,TMM
+spectral_target_pass,tolerance_samples,bool,,spectral tolerance gate,TMM,true/false,false means fail,explicit gates,validation,,tolerance
