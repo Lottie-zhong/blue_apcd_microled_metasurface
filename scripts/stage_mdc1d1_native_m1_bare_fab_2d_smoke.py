@@ -33,7 +33,21 @@ def run(case,stack,lu,D):
   f.save(str(path));f.load(str(path));f.run();r=f.getresult('top_monitor','T');T=float(np.real(np.asarray(r['T']).squeeze()));ff=np.asarray(f.farfield2d('top_monitor',1)).squeeze();an=np.asarray(f.farfieldangle('top_monitor',1)).squeeze();q,an,ff=metrics(an,ff)
   return {'case_id':case,'raw_upward_monitor_power':T,'absolute_extraction_status':'pending','monitor_fields':';'.join(r.keys()),'sampled_tio2_count':ct,'sampled_sio2_count':cs,'layer_count':len(stack),'total_thickness_nm':sum(x[1] for x in stack),**q},an,ff
  finally:f.close()
+def postprocess_only():
+ src=O/'angular_spectrum.csv'; rows=list(csv.DictReader(src.open())); cases={r['case_id'] for r in rows}; out=[]; audit={}
+ for case in cases:
+  z=[(float(r['angle_deg']),float(r['normalized_intensity'])) for r in rows if r['case_id']==case]; z.sort(); ang=np.asarray([x[0] for x in z]); inten=np.asarray([x[1] for x in z]); th=np.radians(ang); finite=bool(np.all(np.isfinite(inten)) and np.all(np.isfinite(th))); total=float(np.trapz(inten,th)); norm=inten/total
+  def frac(lo,hi):
+   mids=np.degrees((th[:-1]+th[1:])/2);mask=(np.abs(mids)>lo)&(np.abs(mids)<=hi) if lo else (np.abs(mids)<=hi);return float(np.sum((th[1:]-th[:-1])*(norm[1:]+norm[:-1])*0.5*mask))
+  fractions={'eta10':frac(0,10),'eta20':frac(0,20),'annulus10_20':frac(10,20),'leakage20_40':frac(20,40),'leakage40_60':frac(40,60),'residual60_plus':frac(60,180)}; fractions['fraction_sum']=fractions['eta10']+fractions['annulus10_20']+fractions['leakage20_40']+fractions['leakage40_60']+fractions['residual60_plus']; mean10=float(inten[np.abs(ang)<=10].mean());mean4060=float(inten[(np.abs(ang)>=40)&(np.abs(ang)<=60)].mean()); ratio=mean10/mean4060
+  i=int(norm.argmax());half=norm[i]/2;left=next((th[j-1]+(half-norm[j-1])*(th[j]-th[j-1])/(norm[j]-norm[j-1]) for j in range(i,0,-1) if norm[j-1]<half<=norm[j]),th[0]);right=next((th[j]+(half-norm[j])*(th[j+1]-th[j])/(norm[j+1]-norm[j]) for j in range(i,len(norm)-1) if norm[j]>=half>norm[j+1]),th[-1]); audit[case]={'angle_min_deg':float(ang.min()),'angle_max_deg':float(ang.max()),'point_count':len(ang),'total_integral':total,'fractions':fractions,'normal_to_40_60_ratio':ratio,'peak_angle_deg':float(ang[i]),'angular_fwhm_deg':float(np.degrees(right-left)),'finite':finite}
+ with (O/'angular_metric_audit.json').open('w') as f:json.dump(audit,f,indent=2)
+ old={r['case_id']:r for r in csv.DictReader((O/'compact_results.csv').open())}; fields=list(old[next(iter(old))]);
+ for case,a in audit.items(): old[case].update(a['fractions']);old[case]['normal_to_40_60_ratio']=a['normal_to_40_60_ratio'];old[case]['peak_angle_deg']=a['peak_angle_deg'];old[case]['angular_fwhm_deg']=a['angular_fwhm_deg']
+ with (O/'compact_results.csv').open('w',newline='') as f:w=csv.DictWriter(f,fieldnames=list(next(iter(old.values())).keys()));w.writeheader();w.writerows(old.values())
+ report=REP.read_text();REP.write_text(report+'\n## Angular metric audit\n\nThe original implementation integrated over degree values and used overlapping/incorrect masks. Corrected fractions use radians, full-domain trapezoidal normalization, mutually exclusive masks, and ratio remains a separate mean-intensity metric.\n'+json.dumps(audit,indent=2))
 def main():
+ if '--postprocess-only' in sys.argv:return postprocess_only()
  O.mkdir(parents=True,exist_ok=True);RT.mkdir(parents=True,exist_ok=True);REP.parent.mkdir(parents=True,exist_ok=True);D=samples();lu=lumapi();all=[];ang=[]
  for c,s in [('BARE_GAN_AIR_450_XDIPOLE',[]),('EX_N3_L79_H45_C156_450_XDIPOLE',SEQ)]:
   x,a,i=run(c,s,lu,D);all.append(x);ang += [{'case_id':c,'angle_deg':float(u),'normalized_intensity':float(v)} for u,v in zip(a,i)]
