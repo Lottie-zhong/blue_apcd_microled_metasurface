@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "structures": 9,
+  "seeds": 3,
+  "controls": 3,
+  "asymmetric_probes": 6,
+  "formal_angular_pipeline": {
+    "angle_range_deg": [
+      -60,
+      60
+    ],
+    "angle_step_deg": 1,
+    "signed_grid": true,
+    "full_width_definition": "linear half-power crossings on -60..60 deg",
+    "unpolarized": "(TE+TM)/2",
+    "max_angle": "argmax on signed grid, report absolute and signed values"
+  },
+  "material_policy": {
+    "APCD_TIO2_NATIVE_M1": {
+      "material_id": "APCD_TIO2_NATIVE_M1",
+      "policy_id": "MDC_NATIVE_M1",
+      "sample_count": 101,
+      "wavelength_range_nm": [
+        199.97450000000003,
+        1033.2015000000001
+      ],
+      "interpolation_axis": "frequency_hz",
+      "interpolation_method": "linear_complex_epsilon",
+      "extrapolation": "forbidden"
+    },
+    "APCD_SIO2_NATIVE_M1": {
+      "material_id": "APCD_SIO2_NATIVE_M1",
+      "policy_id": "MDC_NATIVE_M1",
+      "sample_count": 101,
+      "wavelength_range_nm": [
+        199.97450000000003,
+        1033.2015000000001
+      ],
+      "interpolation_axis": "frequency_hz",
+      "interpolation_method": "linear_complex_epsilon",
+      "extrapolation": "forbidden"
+    }
+  },
+  "control_replay": "3/3 PASS",
+  "no_fallback": true,
+  "no_extrapolation": true,
+  "solver_invoked": false,
+  "finite_and_energy_checks": "PASS"
+}
