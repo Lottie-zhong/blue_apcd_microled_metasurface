@@ -1,0 +1,307 @@
+{
+  "audit_name": "MDC_DATABASE_NOMINAL_SEMANTIC_AUDIT_V1",
+  "head": "50cb7945c376bd14e025211d3c070e83a89447f9",
+  "database_manifest": {
+    "database_name": "mdc_ml_database",
+    "database_version": "1.0.0",
+    "schema_version": "1.0.0",
+    "generated_commit": "81371ba1b38368cfff3e4eb680f4be9d30f58ed6",
+    "seed": 20260711,
+    "relative_location": "datasets/mdc_ml_database_v1/",
+    "absolute_location": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\datasets\\mdc_ml_database_v1",
+    "table_counts": {
+      "source_inventory": 302,
+      "geometry_master": 8675,
+      "tmm_nominal_metrics": 2688,
+      "tolerance_samples": 8400,
+      "fdtd_validation": 11,
+      "provenance_links": 13802
+    }
+  },
+  "schema_version": "1.0.0",
+  "table_counts": {
+    "geometry_master_rows": 8675,
+    "geometry_master_unique_geometry_hashes": 8675,
+    "tmm_nominal_rows": 2688,
+    "tmm_nominal_unique_geometry_hashes": 2688,
+    "tolerance_rows": 8400,
+    "fdtd_rows": 11
+  },
+  "hash_join": {
+    "intersection": 2688,
+    "tmm_left_missing_from_geometry": 0,
+    "geometry_right_not_in_tmm": 5987,
+    "tmm_duplicate_hash_rows": 0,
+    "tmm_tolerance_hash_overlap": 462,
+    "tmm_fdtd_hash_overlap": 2
+  },
+  "is_nominal_geometry_all_geometry_master": {
+    "False": 2687,
+    "True": 5988
+  },
+  "reference_marker_scope": {
+    "geometry_master_true_rows": 5988,
+    "geometry_master_true_rows_with_tolerance_provenance": 5988
+  },
+  "is_nominal_geometry_among_tmm_join": {
+    "False": 2686,
+    "True": 2
+  },
+  "tmm_join": {
+    "id_matched": 2688,
+    "hash_matched": 2688,
+    "true_rows": [
+      {
+        "geometry_id": "GEO_d44569052e0f3a8a",
+        "geometry_hash": "d44569052e0f3a8a152560418bd816b72732300d993a080fe75186331599ebdf",
+        "candidate_id_primary": "EX_N3_L79_H45_C156",
+        "candidate_aliases": "EX_N3_L79_H45_C156",
+        "topology_family": "Explicit",
+        "N": "3",
+        "M": "",
+        "H_nm": "45",
+        "L_nm": "79",
+        "C_nm": "156",
+        "added_defect_thickness_nm": "",
+        "effective_central_L_thickness_nm": "",
+        "physical_layer_count": "13",
+        "total_thickness_nm": "900",
+        "is_nominal_geometry": "True",
+        "parent_nominal_geometry_id": "GEO_d44569052e0f3a8a",
+        "provenance_count": "11",
+        "quality_status": "accepted",
+        "tmm_record_id": "TMM_GEO_d44569052e0f3a8a",
+        "tmm_source_id": "tmm_refined",
+        "tmm_fidelity": "refined",
+        "split": "train",
+        "provenance_source_counts": {
+          "coarse_manifest": 1,
+          "tmm_coarse": 1,
+          "tmm_refined": 1,
+          "integer_design_basin": 1,
+          "integer_correlated_bias": 1,
+          "fdtd_single": 1,
+          "fdtd_broadband_angular": 3,
+          "fdtd_broadband_spectral": 1
+        }
+      },
+      {
+        "geometry_id": "GEO_ad8cbef5a96144d8",
+        "geometry_hash": "ad8cbef5a96144d8d7d0e2d9bdba185905a6250f90a83b945bfb99b967482af5",
+        "candidate_id_primary": "ZL1_N3_M3_L78_H46",
+        "candidate_aliases": "ZL1_N3_M3_L78_H46",
+        "topology_family": "ZL-1",
+        "N": "3",
+        "M": "3",
+        "H_nm": "46",
+        "L_nm": "78",
+        "C_nm": "",
+        "added_defect_thickness_nm": "234",
+        "effective_central_L_thickness_nm": "312",
+        "physical_layer_count": "12",
+        "total_thickness_nm": "978",
+        "is_nominal_geometry": "True",
+        "parent_nominal_geometry_id": "GEO_ad8cbef5a96144d8",
+        "provenance_count": "12",
+        "quality_status": "accepted",
+        "tmm_record_id": "TMM_GEO_ad8cbef5a96144d8",
+        "tmm_source_id": "tmm_refined",
+        "tmm_fidelity": "refined",
+        "split": "train",
+        "provenance_source_counts": {
+          "coarse_manifest": 1,
+          "tmm_coarse": 1,
+          "tmm_refined": 1,
+          "integer_design_basin": 1,
+          "integer_correlated_bias": 1,
+          "zl1_local_basin": 1,
+          "fdtd_single": 1,
+          "fdtd_broadband_angular": 3,
+          "fdtd_broadband_spectral": 1
+        }
+      }
+    ],
+    "false_distribution": {
+      "topology": {
+        "Explicit": 1847,
+        "ZL-1": 629,
+        "ZL-2": 210
+      },
+      "tmm_source": {
+        "tmm_coarse": 2673,
+        "tmm_refined": 13
+      },
+      "fidelity": {
+        "coarse": 2673,
+        "refined": 13
+      },
+      "split": {
+        "test": 338,
+        "train": 1992,
+        "validation": 356
+      },
+      "parent_nominal_geometry_id_blank": 2686,
+      "parent_nominal_geometry_id_nonblank": 0,
+      "provenance_source_counts": {
+        "coarse_manifest": 2686,
+        "tmm_coarse": 2686,
+        "integer_design_basin": 460,
+        "integer_correlated_bias": 436,
+        "tmm_refined": 13,
+        "zl1_local_basin": 10
+      }
+    }
+  },
+  "equivalent_fields": {
+    "geometry_master": [
+      "parent_nominal_geometry_id",
+      "is_nominal_geometry",
+      "provenance_count",
+      "quality_status"
+    ],
+    "tolerance_samples": [
+      "parent_nominal_geometry_id",
+      "parent_nominal_geometry_hash",
+      "sample_id",
+      "sample_hash",
+      "source_id",
+      "scan_mode",
+      "error_bound_nm",
+      "sample_index",
+      "layer_error_vector_json"
+    ],
+    "tmm_nominal_metrics": [
+      "record_id",
+      "source_id",
+      "fidelity_level",
+      "simulation_method",
+      "usable_for_training",
+      "quality_status"
+    ],
+    "split_assignments": [
+      "record_id",
+      "geometry_id",
+      "parent_group_id",
+      "split",
+      "simulation_method",
+      "source_stage",
+      "usable_for_training"
+    ]
+  },
+  "tolerance_boundary": {
+    "tmm_source_distribution": {
+      "tmm_coarse": 2673,
+      "tmm_refined": 15
+    },
+    "tmm_simulation_method_distribution": {
+      "TMM": 2688
+    },
+    "tmm_usable_distribution": {
+      "true": 2688
+    },
+    "tolerance_usable_distribution": {
+      "false": 8400
+    },
+    "tmm_record_id_overlap_tolerance_sample_id": 0,
+    "tmm_rows_with_tolerance_source_id": 0
+  },
+  "split_trace": {
+    "tmm_records_present": 2688,
+    "tmm_records_missing_from_split": 0,
+    "extra_split_records_matching_tmm": 0,
+    "tmm_split_counts": {
+      "test": 338,
+      "train": 1994,
+      "validation": 356
+    },
+    "tmm_source_stage_counts": {
+      "coarse": 2673,
+      "refined": 15
+    },
+    "global_split_audit": {
+      "split_strategy": "grouped_parent_geometry_v1",
+      "seed": 20260711,
+      "train_validation_test": "70/15/15",
+      "split_counts": {
+        "train": 10394,
+        "test": 338,
+        "validation": 356,
+        "external_high_fidelity_validation": 11
+      },
+      "geometry_hash_overlap": 0,
+      "parent_group_overlap": 0,
+      "fdtd_split": "external_high_fidelity_validation",
+      "topology_distribution": {
+        "Explicit": 3659,
+        "ZL-1": 4805,
+        "ZL-2": 210,
+        "Bare": 1
+      }
+    }
+  },
+  "label_dictionary_names": [
+    "spectral_FWHM_nm",
+    "tmm_angular_FWHM_450_deg",
+    "fdtd_farfield_angular_FWHM_deg",
+    "tmm_max_transmission_angle_450_deg",
+    "fdtd_farfield_peak_angle_deg",
+    "raw_upward_monitor_power",
+    "normalized_upward_power",
+    "combined_pass",
+    "spectral_target_pass"
+  ],
+  "quality_audit": {
+    "quality_status_counts": {
+      "accepted": 10430,
+      "accepted_refined": 15,
+      "boundary_clipped": 643,
+      "accepted_high_fidelity": 9,
+      "provisional_raw_spectrum": 2
+    },
+    "label_missing_count": 2,
+    "boundary_clipped_tolerance_count": 643,
+    "fdtd_provisional_raw_spectrum_count": 2
+  },
+  "generation_trace": {
+    "builder": "scripts/build_mdc_ml_database_v1.py",
+    "introducing_commit": "50cb7945c376bd14e025211d3c070e83a89447f9",
+    "is_nominal_write": {
+      "line": 77,
+      "condition": "candidate in NOMINAL_IDS",
+      "nominal_ids_line": 83,
+      "nominal_ids": [
+        "EX_N3_L79_H45_C156",
+        "ZL1_N3_M3_L78_H46",
+        "ZL1_N3_M3_L79_H44_C316",
+        "BARE_GAN_AIR_450_XDIPOLE"
+      ]
+    },
+    "canonical_tmm": {
+      "function": "build_tmm",
+      "lines": "109-119",
+      "input": "coarse metrics_all.csv plus refined metrics_refined.csv",
+      "canonicalization": "chosen[geometry_hash]; refined supersedes coarse",
+      "no_is_nominal_filter": true
+    },
+    "tolerance": {
+      "function": "build_tolerance",
+      "lines": "121-128",
+      "separate_table": "tolerance_samples.csv",
+      "usable_for_training": "false"
+    },
+    "split": {
+      "lines": "172-201",
+      "strategy": "grouped_parent_geometry_v1 constraint graph",
+      "tmm_assignment": "line 195, one assignment per canonical TMM record",
+      "tolerance_assignment": "line 196, separate rows usable_for_training=false",
+      "fdtd_assignment": "line 197, external_high_fidelity_validation"
+    },
+    "history": [
+      "50cb794 Build MDC machine learning database v1"
+    ]
+  },
+  "root_cause": {
+    "classification": "B intended, C implementation defect",
+    "finding": "is_nominal_geometry is assigned by candidate-id membership in a four-item reference list, not by simulation/sample role. build_tmm independently canonically emits all 2688 coarse/refined TMM scan records without filtering this flag. The field therefore means reference-candidate identity only when candidate naming is reliable; it also propagates to tolerance geometries carrying a reference candidate_id, so it is not a safe global nominal-sample flag."
+  }
+}
