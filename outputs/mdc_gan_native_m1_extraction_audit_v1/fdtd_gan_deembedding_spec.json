@@ -1,0 +1,23 @@
+{
+  "canonical_transmission": "stack-relative flux de-embedded at the stack entrance plane",
+  "formal_comparison_gate": "one of the two declared comparison branches must be selected explicitly",
+  "required_matched_homogeneous_gan_reference": {
+    "same_GaN_material": true,
+    "same_angle": true,
+    "same_boundaries": true,
+    "same_mesh": true,
+    "same_monitor_position": true,
+    "same_polarization": true,
+    "same_source_position": true
+  },
+  "requirements": [
+    "Do not attribute source-to-stack GaN propagation loss to MDC transmission.",
+    "Record reference-plane placement and propagation-loss treatment for reflection.",
+    "Keep bare GaN/Air as an independent control.",
+    "Do not substitute T_stack/T_bare for the full physical definition.",
+    "If TMM retains lossless n=2.41, label the comparison material_model_mismatch_present.",
+    "For formal cross-method comparison, either update TMM to the same dispersive complex GaN or compare only de-embedded stack-relative quantities."
+  ],
+  "scope": "rule only; no runner/configuration mutation",
+  "sourcepower_definition": "injected power at the source plane only"
+}

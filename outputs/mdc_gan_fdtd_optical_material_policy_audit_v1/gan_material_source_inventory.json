@@ -1,0 +1,138 @@
+{
+  "fsp_inspection": {
+    "error": "",
+    "fsp_path": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+    "gan_materials": [
+      {
+        "coverage_420_480_nm": true,
+        "extrapolation_policy": "unavailable_from_readonly_query",
+        "interpolation_policy": "unavailable_from_readonly_query",
+        "material_object_name": "GaN",
+        "model_type": "FDTD_material_query_getindex",
+        "n_k": {
+          "420": {
+            "k": 0.09466566831108154,
+            "n": 2.4664692814058395
+          },
+          "448": {
+            "k": 0.08468287446906603,
+            "n": 2.417746223656739
+          },
+          "450": {
+            "k": 0.08415346869326513,
+            "n": 2.4149464763535775
+          },
+          "453": {
+            "k": 0.08339183334098219,
+            "n": 2.4108839274125042
+          },
+          "480": {
+            "k": 0.07786828096441842,
+            "n": 2.3805013634416925
+          }
+        },
+        "sample_count": ""
+      }
+    ],
+    "objects": [
+      {
+        "material": "GaN",
+        "object_name": "GaN"
+      }
+    ],
+    "session_closed": true,
+    "session_started": true,
+    "source_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f",
+    "spectral_samples": []
+  },
+  "static_inventory": [
+    {
+      "blank_session_registration": "not_applicable",
+      "candidate_material_id": "N_GAN=2.41",
+      "existing_formal_fdtd": "no",
+      "extrapolation_policy": "not_applicable",
+      "formal_fdtd": false,
+      "geometry_objects": "",
+      "interpolation_policy": "none",
+      "material_object_name": "",
+      "missing_evidence": "dispersive optical material provenance",
+      "model_type": "constant_index",
+      "provenance": "existing TMM constant",
+      "reason": "not_allowed_for_formal_fdtd",
+      "reproducible": true,
+      "sample_count": "",
+      "source_path": "scripts/mdc_tmm_core.py:12",
+      "source_sha256": "",
+      "source_type": "legacy_TMM_constant",
+      "status": "legacy_constant_index_reference",
+      "substrate_role_consistent": "not a formal FDTD substrate mapping",
+      "usage_stage": "historical_reference",
+      "wavelength_range_nm": "not_dispersive"
+    },
+    {
+      "blank_session_registration": "not_applicable",
+      "candidate_material_id": "GaN_n2p41",
+      "existing_formal_fdtd": "no",
+      "extrapolation_policy": "not_applicable",
+      "formal_fdtd": false,
+      "geometry_objects": "GaN substrate rectangle",
+      "interpolation_policy": "none",
+      "material_object_name": "GaN_n2p41",
+      "missing_evidence": "dispersive optical material provenance",
+      "model_type": "constant_index",
+      "provenance": "existing dipole-FDTD helper",
+      "reason": "not_allowed_for_formal_fdtd",
+      "reproducible": true,
+      "sample_count": "",
+      "source_path": "scripts/stage_mdc1d1_native_m1_bare_fab_2d_smoke.py",
+      "source_sha256": "",
+      "source_type": "legacy_MDC_FDTD_script",
+      "status": "legacy_constant_index_reference",
+      "substrate_role_consistent": "not a formal FDTD substrate mapping",
+      "usage_stage": "historical_reference",
+      "wavelength_range_nm": "not_dispersive"
+    },
+    {
+      "blank_session_registration": "not_applicable",
+      "candidate_material_id": "GaN_450nm_n2p56_custom",
+      "existing_formal_fdtd": "no",
+      "extrapolation_policy": "not_applicable",
+      "formal_fdtd": false,
+      "geometry_objects": "RCLED GaN cavity",
+      "interpolation_policy": "none",
+      "material_object_name": "GaN_450nm_n2p56_custom",
+      "missing_evidence": "dispersive optical material provenance",
+      "model_type": "constant_index",
+      "provenance": "RCLED single-index helper",
+      "reason": "not_allowed_for_formal_fdtd",
+      "reproducible": true,
+      "sample_count": "",
+      "source_path": "scripts/stage_r1c4_rcled_c2_cav230_source_y_robustness.py:27,98",
+      "source_sha256": "",
+      "source_type": "legacy_RCLED_FDTD_script",
+      "status": "legacy_constant_index_reference",
+      "substrate_role_consistent": "not a formal FDTD substrate mapping",
+      "usage_stage": "historical_reference",
+      "wavelength_range_nm": "450 nm only / not dispersive"
+    },
+    {
+      "candidate_material_id": "FSP_PENDING_M1",
+      "extrapolation_policy": "",
+      "formal_fdtd": false,
+      "geometry_objects": "",
+      "interpolation_policy": "",
+      "material_object_name": "",
+      "model_type": "unresolved",
+      "provenance": "explicitly cited Native-M1 source FSP",
+      "reason": "static text cannot determine GaN object/material model",
+      "reproducible": true,
+      "sample_count": "",
+      "source_bytes": 34241853,
+      "source_path": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+      "source_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f",
+      "source_type": "targeted_FSP",
+      "status": "requires_readonly_lumapi_inspection",
+      "wavelength_range_nm": ""
+    }
+  ]
+}
