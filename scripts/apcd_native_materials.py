@@ -47,9 +47,10 @@ def _native_table() -> dict[str, dict[str, np.ndarray]]:
         frequency = np.asarray([float(row["frequency_hz"]) for row in group])
         wavelength = np.asarray([float(row["wavelength_nm"]) for row in group])
         epsilon = np.asarray([complex(float(row["epsilon_real"]), float(row["epsilon_imag"])) for row in group])
-        if len(group) != 101 or not np.all(np.isfinite(frequency)) or not np.all(np.isfinite(wavelength)):
+        expected_samples = int(policy["materials"][material_id].get("sample_count", 101))
+        if len(group) != expected_samples or not np.all(np.isfinite(frequency)) or not np.all(np.isfinite(wavelength)):
             raise ValueError(f"invalid native samples for {material_id}")
-        if not np.all(np.diff(frequency) > 0) or len(np.unique(frequency)) != 101:
+        if not np.all(np.diff(frequency) > 0) or len(np.unique(frequency)) != expected_samples:
             raise ValueError(f"frequency axis is invalid for {material_id}")
         if not np.all(np.isfinite(epsilon.real)) or not np.all(np.isfinite(epsilon.imag)):
             raise ValueError(f"epsilon is invalid for {material_id}")
@@ -119,4 +120,11 @@ def material_metadata(material_id: str) -> dict[str, Any]:
     policy = load_mdc_material_policy()
     canonical = resolve_material_id(material_id)
     data = _native_table()[canonical]
-    return {"material_id": canonical, "policy_id": policy["policy_id"], "sample_count": len(data["frequency_hz"]), "wavelength_range_nm": [float(data["wavelength_nm"].min()), float(data["wavelength_nm"].max())], "interpolation_axis": "frequency_hz", "interpolation_method": "linear_complex_epsilon", "extrapolation": "forbidden"}
+    return {"material_id": canonical, "policy_id": policy["policy_id"], "sample_count": len(data["frequency_hz"]), "wavelength_range_nm": [float(data["wavelength_nm"].min()), float(data["wavelength_nm"].max())], "interpolation_axis": "frequency_hz", "interpolation_method": "linear_complex_epsilon", "extrapolation": "forbidden", "source": policy["materials"][canonical], "loss_warning": "high_loss_warning_retained" if canonical == "APCD_GAN_NATIVE_M1" else None}
+
+
+def load_material(material_id: str) -> dict[str, Any]:
+    """Return canonical sampled complex material data; no constant-index fallback exists."""
+    canonical = resolve_material_id(material_id)
+    data = load_native_sampled_epsilon(canonical)
+    return {"canonical_id": canonical, "frequency_hz": data["frequency_hz"], "epsilon_complex": data["epsilon"], "n_complex": physical_principal_sqrt_epsilon(data["epsilon"]), "valid_frequency_hz": [float(data["frequency_hz"].min()), float(data["frequency_hz"].max())], "valid_wavelength_nm": [float(data["wavelength_nm"].min()), float(data["wavelength_nm"].max())], "source_provenance": material_metadata(canonical)["source"], "loss_warning": material_metadata(canonical)["loss_warning"]}

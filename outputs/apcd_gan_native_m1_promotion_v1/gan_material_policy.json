@@ -1,0 +1,53 @@
+{
+  "canonical_id": "APCD_GAN_NATIVE_M1",
+  "deembedding_requirements": {
+    "canonical_transmission": "stack-relative flux de-embedded at the stack entrance plane",
+    "formal_comparison_gate": "one of the two declared comparison branches must be selected explicitly",
+    "required_matched_homogeneous_gan_reference": {
+      "same_GaN_material": true,
+      "same_angle": true,
+      "same_boundaries": true,
+      "same_mesh": true,
+      "same_monitor_position": true,
+      "same_polarization": true,
+      "same_source_position": true
+    },
+    "requirements": [
+      "Do not attribute source-to-stack GaN propagation loss to MDC transmission.",
+      "Record reference-plane placement and propagation-loss treatment for reflection.",
+      "Keep bare GaN/Air as an independent control.",
+      "Do not substitute T_stack/T_bare for the full physical definition.",
+      "If TMM retains lossless n=2.41, label the comparison material_model_mismatch_present.",
+      "For formal cross-method comparison, either update TMM to the same dispersive complex GaN or compare only de-embedded stack-relative quantities."
+    ],
+    "scope": "rule only; no runner/configuration mutation",
+    "sourcepower_definition": "injected power at the source plane only"
+  },
+  "legacy_isolation": {
+    "canonical_id": "APCD_GAN_LEGACY_N241",
+    "k": 0.0,
+    "n": 2.41,
+    "status": "historical_only"
+  },
+  "material_class": "project_native_sampled_engineering_reference",
+  "limitations": [
+    "The TMM loader evaluates the raw sampled epsilon table by linear interpolation, while Lumerical evaluates its fitted material representation. The observed maximum |Δ(n+ik)| over 420–480 nm is 3.954e-4, including 1.447e-4 at 450 nm. This representation delta is retained as cross-method provenance and is not silently treated as zero."
+  ],
+  "policy_status": "active_engineering_default",
+  "registration": {
+    "constant_fallback": "prohibited",
+    "extrapolation": "forbidden",
+    "index_reconstruction": "physical_principal_square_root",
+    "interpolation_axis": "frequency_hz",
+    "sampled_complex_epsilon": true
+  },
+  "source": {
+    "material_name": "GaN",
+    "object_name": "GaN",
+    "promotion_date": "2026-07-13",
+    "raw_table_sha256": "906f2983665a51b748aa85ef85cd095550bb64a8ef77b8796e36a0b765407ef0",
+    "source_commit": "752cc517c2c6dd2a53a27f7cc47f467635e37ff5",
+    "source_fsp": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+    "source_fsp_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f"
+  }
+}
