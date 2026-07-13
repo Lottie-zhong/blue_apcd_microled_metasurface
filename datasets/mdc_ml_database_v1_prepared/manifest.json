@@ -1,0 +1,138 @@
+{
+  "prepared_schema_version": "1.0.0",
+  "source_database_version": "1.0.0",
+  "source_schema_version": "1.0.0",
+  "source_git_head": "16ff883920c9d539b08b88434b2edf62046b9a8d",
+  "input_files": {
+    "database_manifest.json": {
+      "path": "datasets/mdc_ml_database_v1/database_manifest.json",
+      "sha256": "5c17eb52c90971712d26773f92248eda5558184a4ddeb3ac9b241472e50824b7",
+      "bytes": 566
+    },
+    "schema.json": {
+      "path": "datasets/mdc_ml_database_v1/schema.json",
+      "sha256": "05f9fa91a6b6dcd56c5da5351b2d9dc9ffd2599252375d30a0c072b67ea4daf0",
+      "bytes": 43678
+    },
+    "README.md": {
+      "path": "datasets/mdc_ml_database_v1/README.md",
+      "sha256": "d5b2dcfb8e84f5d5947cfccba75a7ce26b4a8dc941386157e66bfd622efd7747",
+      "bytes": 875
+    },
+    "geometry_master.csv": {
+      "path": "datasets/mdc_ml_database_v1/geometry_master.csv",
+      "sha256": "77121fdb8cf271f031c9bb73d257ee7f10de7fc5fc9298f47f277947c95efe03",
+      "bytes": 6815605
+    },
+    "tmm_nominal_metrics.csv": {
+      "path": "datasets/mdc_ml_database_v1/tmm_nominal_metrics.csv",
+      "sha256": "7a57065ba9242e0450a75c8281b3e2c920684f55a78a4c8fbb81097ab9fe8af5",
+      "bytes": 1115860
+    },
+    "tolerance_samples.csv": {
+      "path": "datasets/mdc_ml_database_v1/tolerance_samples.csv",
+      "sha256": "9e28bae487bb597b16ddf0e2473104a59e16e73b7ab0deea8add4dc6902085e3",
+      "bytes": 5166231
+    },
+    "fdtd_validation.csv": {
+      "path": "datasets/mdc_ml_database_v1/fdtd_validation.csv",
+      "sha256": "11f440456c89fc6c75db8a0b0729124723bf54eb3ed41828728b7bf9e6c9f919",
+      "bytes": 6148
+    },
+    "split_assignments.csv": {
+      "path": "datasets/mdc_ml_database_v1/split_assignments.csv",
+      "sha256": "2559005462b6f18c9626e99eb6977e13dde9c3d86ea48dc33d1c4910a5fd2c00",
+      "bytes": 1365817
+    },
+    "label_dictionary.csv": {
+      "path": "datasets/mdc_ml_database_v1/label_dictionary.csv",
+      "sha256": "48e8dadfc79a2dc6c2942571c8ff1cf2290d0aeafd34ebee1d89d0f5acc36f9a",
+      "bytes": 2052
+    },
+    "quality_audit.json": {
+      "path": "datasets/mdc_ml_database_v1/quality_audit.json",
+      "sha256": "9c5b5909af6e4b9dd4b1c1664417d88ad8167ad51dbd82b31f94f8101c4206e4",
+      "bytes": 309
+    },
+    "split_audit.json": {
+      "path": "datasets/mdc_ml_database_v1/split_audit.json",
+      "sha256": "9381addaf9b1b7b12694ba104dee112aac8e5db205406e2f21645272a1beec0a",
+      "bytes": 476
+    }
+  },
+  "output_files": {
+    "datasets/mdc_ml_database_v1_prepared/tmm_canonical_spectral_labels.csv": {
+      "sha256": "200655d14dd5619ec9a128270649265dc7236b8ac24465ce82662ead54bc9a00",
+      "bytes": 1335299
+    },
+    "datasets/mdc_ml_database_v1_prepared/tmm_angular_sparse_labels.csv": {
+      "sha256": "8425643f6f9b2f75c5a69efc316177ec37356b9940479b2f4d313c7808c0108b",
+      "bytes": 1126196
+    },
+    "datasets/mdc_ml_database_v1_prepared/tolerance_robustness_labels.csv": {
+      "sha256": "b2e3f72b9a7435f2137a18b5cd9a57ba59e317db6e8e3d43298e0da68f9dc086",
+      "bytes": 8096443
+    },
+    "datasets/mdc_ml_database_v1_prepared/fdtd_external_reference_labels.csv": {
+      "sha256": "11ac0ded9559b17376aab5afc405c1759e29350d68ce94bba8094aea0493050d",
+      "bytes": 9576
+    },
+    "datasets/mdc_ml_database_v1_prepared/label_dictionary_extended.csv": {
+      "sha256": "e3c1bbf421be80e3c98fb4e80720e935e4725e185c6faa91f6bb0b0edd90de7a",
+      "bytes": 11603
+    },
+    "reports/mdc_ml_database_label_views_v1.md": {
+      "sha256": "9a0282abf590d18250c165416ce00b716ed42f783ed0ae97a9d10256b5fe2d12",
+      "bytes": 2952
+    },
+    "scripts/build_mdc_ml_label_views_v1.py": {
+      "sha256": "4c858da9e014b26e11b78fde3cb8c57e8a15946a64bb296161240eaecf43602c",
+      "bytes": 20768
+    },
+    "tests/test_mdc_ml_label_views_v1.py": {
+      "sha256": "6e9c65c7841436a2d3e8bc81b4a0bb73a67d07154cfc08be0b7624fe7a1585ef",
+      "bytes": 2817
+    }
+  },
+  "sample_roles": {
+    "canonical_tmm_sweep": "tmm_nominal_metrics fact table; no tolerance perturbation",
+    "tolerance_perturbation": "tolerance_samples validation/robustness",
+    "fdtd_external_high_fidelity_reference": "fdtd_validation external reference"
+  },
+  "view_counts": {
+    "tmm_canonical_spectral_labels": 2688,
+    "tmm_angular_sparse_labels": 2688,
+    "tolerance_robustness_labels": 8400,
+    "fdtd_external_reference_labels": 11,
+    "label_dictionary_extended": 22
+  },
+  "topology_distribution": {
+    "Explicit": 1848,
+    "ZL-1": 630,
+    "ZL-2": 210
+  },
+  "coarse_refined_distribution": {
+    "tmm_coarse": 2673,
+    "tmm_refined": 15
+  },
+  "label_coverage": {
+    "spectral_peak": 2688,
+    "spectral_FWHM": 2688,
+    "angular_FWHM": 15,
+    "maximum_angle": 2,
+    "tolerance": 8400,
+    "fdtd": 11
+  },
+  "tolerance_parent_join_counts": {
+    "unique_matched": 7157,
+    "geometry_matched_canonical_missing": 1243
+  },
+  "known_limitations": [
+    "angular FWHM is valid for 15 TMM rows; maximum angle is valid for 2",
+    "strict/near-normal are not extrapolated from two max-angle rows",
+    "FDTD single-wavelength rows have no spectral FWHM label",
+    "FAB/PERF/ratio thresholds are preserved, not redefined",
+    "6 tolerance parent hashes exist in geometry_master but not in canonical TMM; their paired deltas remain blank with explicit missing reason"
+  ],
+  "generator": "scripts/build_mdc_ml_label_views_v1.py"
+}
