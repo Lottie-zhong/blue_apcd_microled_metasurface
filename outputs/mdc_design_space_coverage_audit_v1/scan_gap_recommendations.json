@@ -1,0 +1,38 @@
+{
+  "status": "proposed_only_no_simulation_executed",
+  "definitions": {
+    "edge_stability": "min(T448,T453), conservative edge-band transmission; a derived metric only, not a weighted score.",
+    "global_high_dimensional_pareto": "non_actionable: all 2688 were non-dominated under the prior high-dimensional formulation, so it cannot select candidates."
+  },
+  "P1": {
+    "status": "not_scanned",
+    "candidate_count": 15,
+    "definition": "fixed total mirror-pair count 6; scan (N_GaN,N_Air)=(1,5),(2,4),(3,3),(4,2),(5,1) in GaN -> stack -> Air direction; defect remains between Bragg regions. This is discrete defect-position/asymmetric-mirror-strength, not per-layer motion.",
+    "method_order": [
+      "Native-M1 TMM spectral",
+      "Native-M1 TMM lambda-angle",
+      "2D plane-wave FDTD validation",
+      "2D dipole FDTD validation"
+    ]
+  },
+  "P2": {
+    "status": "not_scanned",
+    "candidate_count": 4,
+    "definition": "canonical order and full reversal control only; retain unique sequence hashes; keep within 20-30 TMM structures when expanded."
+  },
+  "P3": {
+    "status": "partially_scanned",
+    "candidate_count": 6,
+    "definition": "Explicit C boundary gaps only. ZL-1 effective centers remain constrained by (M+1)L; an independently variable center requires a new topology."
+  },
+  "P4": {
+    "status": "proposed_only",
+    "candidate_count": 9,
+    "definition": "outer/inner/center-adjacent grouped offsets, ±1 nm; no free per-layer sweep."
+  },
+  "P5": {
+    "status": "not_scanned",
+    "candidate_count": 0,
+    "definition": "fully independent per-layer nominal sweep is intentionally not proposed; reserve for tolerance/FDTD validation."
+  }
+}
