@@ -1,0 +1,30 @@
+{
+  "angle_ratio_closure": "postprocess_only_from_frozen_angle_spectra",
+  "comparison_source": "keyed_metric_rows_no_positional_subtraction",
+  "identity_key_fields": [
+    "structure_id",
+    "geometry_hash",
+    "canonical_sequence_hash",
+    "gan_material_id",
+    "gan_representation"
+  ],
+  "input_static": "outputs\\mdc_p1_asymmetric_scan_static_v1\\p1_asymmetric_structures.csv",
+  "outputs": [
+    "candidate_manifest.csv",
+    "complex_incident_normalization_audit.csv",
+    "final_three_core_metrics.csv",
+    "independent_oracle_comparison.csv",
+    "interface_power_validation.csv",
+    "legacy_control_replay.csv",
+    "legacy_vs_native_comparison.csv",
+    "manifest.json",
+    "ratio_replay_validation.csv",
+    "representation_delta_metrics.csv",
+    "spectra_long.csv",
+    "spectral_metrics.csv",
+    "validation.json"
+  ],
+  "promotion_manifest": "outputs\\apcd_gan_native_m1_promotion_v1\\manifest.json",
+  "solver": false,
+  "task": "MDC_GAN_NATIVE_M1_TMM_SPECTRAL_REBASELINE_V1"
+}
