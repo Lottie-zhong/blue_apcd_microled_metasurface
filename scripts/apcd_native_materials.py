@@ -128,3 +128,35 @@ def load_material(material_id: str) -> dict[str, Any]:
     canonical = resolve_material_id(material_id)
     data = load_native_sampled_epsilon(canonical)
     return {"canonical_id": canonical, "frequency_hz": data["frequency_hz"], "epsilon_complex": data["epsilon"], "n_complex": physical_principal_sqrt_epsilon(data["epsilon"]), "valid_frequency_hz": [float(data["frequency_hz"].min()), float(data["frequency_hz"].max())], "valid_wavelength_nm": [float(data["wavelength_nm"].min()), float(data["wavelength_nm"].max())], "source_provenance": material_metadata(canonical)["source"], "loss_warning": material_metadata(canonical)["loss_warning"]}
+
+
+def display_policy() -> dict[str, Any]:
+    """Return visualization-only colors; never part of optical material data."""
+    return load_mdc_material_policy().get("display_policy", {"version": 1, "units": "normalized_rgba_0_to_1", "materials": {}})
+
+
+def _lumerical_color(canonical_id: str) -> list[float] | None:
+    entry = display_policy().get("materials", {}).get(canonical_id)
+    return None if entry is None else [float(x) for x in entry["rgba"]]
+
+
+def register_lumerical_sampled_material(fdtd: Any, canonical_id: str, overwrite: bool = False, apply_display_style: bool = True) -> dict[str, Any]:
+    """Register one canonical Native-M1 sampled material in a blank session.
+
+    Optical sampled data and fitting settings are installed before the optional
+    visualization color. SiO2 intentionally has no display color override.
+    """
+    canonical = resolve_material_id(canonical_id)
+    material = load_material(canonical)
+    if overwrite and canonical in list(fdtd.getmaterial()):
+        fdtd.deletematerial(canonical)
+    created = fdtd.addmaterial("Sampled data")
+    fdtd.setmaterial(created, "name", canonical)
+    payload = np.column_stack((material["frequency_hz"], material["epsilon_complex"]))
+    fdtd.setmaterial(canonical, "sampled data", payload)
+    color = _lumerical_color(canonical) if apply_display_style else None
+    if color is not None:
+        if len(color) != 4 or any(x < 0.0 or x > 1.0 for x in color):
+            raise ValueError(f"invalid display RGBA for {canonical}")
+        fdtd.setmaterial(canonical, "color", np.asarray(color, dtype=float).reshape((4, 1)))
+    return {"canonical_id": canonical, "material_type": fdtd.getmaterial(canonical, "type"), "sampled_data_shape": list(np.asarray(fdtd.getmaterial(canonical, "sampled data")).shape), "display_color_applied": color is not None, "rgba": color}
