@@ -26,6 +26,17 @@ from scripts.audit_mdc_ml_inverse_design_spec_v1 import (
 from scripts.mdc_ml_structure_grammar_v1 import decode_canonical_structure, generate_dummy_candidates, validate_bounds
 
 
+EXPECTED_LF_ATTRIBUTE_PATHS = (
+    ".gitattributes",
+    *REQUIRED_IMMUTABLE_PAYLOAD,
+    "configs/mdc_ml_spec_freeze_manifest_v1.json",
+)
+
+
+def _lf_attributes_text() -> str:
+    return "".join(f"/{path} text eol=lf\n" for path in EXPECTED_LF_ATTRIBUTE_PATHS)
+
+
 def test_spec_contract_contains_required_policies():
     spec = load_spec()
     assert audit_spec(spec) == []
@@ -138,7 +149,14 @@ def _make_freeze_repo(root: Path) -> tuple[str, Path]:
         path = root / relative
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(f"frozen payload: {relative}\n", encoding="utf-8", newline="\n")
-    subprocess.run(["git", "add", *REQUIRED_IMMUTABLE_PAYLOAD], cwd=root, check=True)
+    (root / ".gitattributes").write_text(
+        _lf_attributes_text(), encoding="utf-8", newline="\n"
+    )
+    subprocess.run(
+        ["git", "add", ".gitattributes", *REQUIRED_IMMUTABLE_PAYLOAD],
+        cwd=root,
+        check=True,
+    )
     subprocess.run(["git", "commit", "-q", "-m", "freeze anchor"], cwd=root, check=True)
     anchor = _git(root, "rev-parse", "HEAD")
     manifest_path = root / "configs" / "mdc_ml_spec_freeze_manifest_v1.json"
@@ -235,6 +253,131 @@ def test_payload_drift_is_detected_and_extra_smoke_file_is_excluded(tmp_path):
     assert drift["payload_drift_count"] == 1
     failed = [row for row in drift["payloads"] if row["status"] == "FAIL"]
     assert [row["path"] for row in failed] == [REQUIRED_IMMUTABLE_PAYLOAD[1]]
+
+
+def test_crlf_checkout_bytes_are_diagnostic_when_git_canonical_content_matches(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    relative = REQUIRED_IMMUTABLE_PAYLOAD[0]
+    payload = tmp_path / relative
+    payload.write_bytes(payload.read_bytes().replace(b"\n", b"\r\n"))
+
+    result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    row = next(item for item in result["payloads"] if item["path"] == relative)
+    assert result["status"] == "PASS"
+    assert row["raw_matches_anchor"] is False
+    assert row["checkout_eol"] == "crlf"
+    assert row["eol_normalization_applied"] is True
+    assert row["git_canonical_matches_index"] is True
+    assert row["unstaged_semantic_diff"] is False
+
+
+def test_staged_payload_mutation_is_detected(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    relative = REQUIRED_IMMUTABLE_PAYLOAD[2]
+    payload = tmp_path / relative
+    payload.write_bytes(payload.read_bytes() + b"semantic drift\n")
+    subprocess.run(["git", "add", "--", relative], cwd=tmp_path, check=True)
+
+    result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    row = next(item for item in result["payloads"] if item["path"] == relative)
+    assert result["status"] == "FAIL"
+    assert row["staged_diff"] is True
+    assert row["index_sha256"] != row["expected_sha256"]
+
+
+def test_descendant_commit_may_not_change_payload(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    relative = REQUIRED_IMMUTABLE_PAYLOAD[3]
+    payload = tmp_path / relative
+    payload.write_bytes(payload.read_bytes() + b"committed drift\n")
+    subprocess.run(["git", "add", "--", relative], cwd=tmp_path, check=True)
+    subprocess.run(["git", "commit", "-q", "-m", "illegal payload drift"], cwd=tmp_path, check=True)
+
+    result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    row = next(item for item in result["payloads"] if item["path"] == relative)
+    assert result["anchor_is_ancestor"] is True
+    assert result["status"] == "FAIL"
+    assert row["head_sha256"] != row["expected_sha256"]
+
+
+def test_deleted_payload_is_detected(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    relative = REQUIRED_IMMUTABLE_PAYLOAD[4]
+    (tmp_path / relative).unlink()
+
+    result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    row = next(item for item in result["payloads"] if item["path"] == relative)
+    assert result["status"] == "FAIL"
+    assert row["regular_file"] is False
+
+
+def test_directory_replacement_is_detected_as_type_change(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    relative = REQUIRED_IMMUTABLE_PAYLOAD[5]
+    payload = tmp_path / relative
+    payload.unlink()
+    payload.mkdir()
+
+    result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    row = next(item for item in result["payloads"] if item["path"] == relative)
+    assert result["status"] == "FAIL"
+    assert row["regular_file"] is False
+
+
+def test_manifest_expected_sha_mutation_is_detected(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["immutable_payload"][0]["sha256"] = "f" * 64
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8", newline="\n")
+
+    result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    assert result["status"] == "FAIL"
+    assert result["payload_drift_count"] == 1
+    assert "manifest SHA-256 does not match freeze anchor payload" in "\n".join(
+        result["errors"]
+    )
+
+
+def test_exact_lf_attributes_cover_only_contract_files():
+    root = Path(__file__).resolve().parents[1]
+    attributes = (root / ".gitattributes").read_text(encoding="utf-8")
+    assert attributes == _lf_attributes_text()
+    for relative in EXPECTED_LF_ATTRIBUTE_PATHS:
+        result = _git(root, "check-attr", "text", "eol", "--", relative)
+        assert f"{relative}: text: set" in result
+        assert f"{relative}: eol: lf" in result
+
+
+def test_core_autocrlf_true_clone_checks_out_contract_payloads_as_lf(tmp_path):
+    source = tmp_path / "source"
+    clone = tmp_path / "clone"
+    source.mkdir()
+    anchor, manifest_path = _make_freeze_repo(source)
+    subprocess.run(
+        ["git", "-c", "core.autocrlf=true", "clone", "-q", str(source), str(clone)],
+        check=True,
+    )
+    clone_manifest = clone / manifest_path.relative_to(source)
+    clone_manifest.write_bytes(manifest_path.read_bytes())
+    result = audit_repository_freeze_contract(
+        root=clone, manifest_path=clone_manifest, expected_anchor=anchor
+    )
+    assert result["status"] == "PASS"
+    eol_inventory = _git(clone, "ls-files", "--eol", "--", *REQUIRED_IMMUTABLE_PAYLOAD)
+    assert len(eol_inventory.splitlines()) == len(REQUIRED_IMMUTABLE_PAYLOAD)
+    assert all("w/lf" in line for line in eol_inventory.splitlines())
 
 
 def test_manifest_hashes_are_anchor_derived_and_not_current_head_derived():

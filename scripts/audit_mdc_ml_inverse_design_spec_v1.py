@@ -6,8 +6,10 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import re
 import subprocess
+import tempfile
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, Callable
@@ -177,6 +179,92 @@ def git_payload_sha256(anchor: str, path: str, root: Path = ROOT) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def git_index_entry(path: str, root: Path = ROOT) -> dict[str, str]:
+    output = subprocess.check_output(
+        ["git", "ls-files", "--stage", "--", path], cwd=root, text=True
+    ).strip()
+    entries = [line for line in output.splitlines() if line]
+    if len(entries) != 1:
+        raise ValueError(f"expected one index entry for {path}, got {len(entries)}")
+    metadata, indexed_path = entries[0].split("\t", 1)
+    mode, object_id, stage = metadata.split()
+    if indexed_path != path or stage != "0":
+        raise ValueError(f"invalid index entry for {path}: {entries[0]}")
+    return {"mode": mode, "object_id": object_id, "stage": stage}
+
+
+def git_index_payload_sha256(path: str, root: Path = ROOT) -> str:
+    payload = subprocess.check_output(["git", "show", f":{path}"], cwd=root)
+    return hashlib.sha256(payload).hexdigest()
+
+
+def git_canonical_worktree_content(path: str, root: Path = ROOT) -> tuple[str, str]:
+    payload = (root / path).read_bytes()
+    result = subprocess.run(
+        ["git", "hash-object", f"--path={path}", "--stdin"],
+        cwd=root,
+        input=payload,
+        capture_output=True,
+        check=True,
+    )
+    object_id = result.stdout.decode("ascii").strip()
+    existing = subprocess.run(
+        ["git", "cat-file", "blob", object_id],
+        cwd=root,
+        capture_output=True,
+    )
+    if existing.returncode == 0:
+        return object_id, hashlib.sha256(existing.stdout).hexdigest()
+
+    # A genuinely modified clean-filtered blob may not exist in the repository.
+    # Materialize it only in a disposable object directory so the audit remains
+    # read-only with respect to the repository's own object database.
+    with tempfile.TemporaryDirectory(prefix="mdc_ml_p0d_git_objects_") as temp:
+        object_directory = Path(temp) / "objects"
+        object_directory.mkdir()
+        environment = os.environ.copy()
+        environment["GIT_OBJECT_DIRECTORY"] = str(object_directory)
+        written = subprocess.run(
+            ["git", "hash-object", "-w", f"--path={path}", "--stdin"],
+            cwd=root,
+            input=payload,
+            capture_output=True,
+            check=True,
+            env=environment,
+        )
+        written_object_id = written.stdout.decode("ascii").strip()
+        if written_object_id != object_id:
+            raise RuntimeError(f"non-deterministic Git canonicalization for {path}")
+        canonical = subprocess.check_output(
+            ["git", "cat-file", "blob", object_id], cwd=root, env=environment
+        )
+    return object_id, hashlib.sha256(canonical).hexdigest()
+
+
+def git_path_has_diff(path: str, root: Path = ROOT, *, cached: bool) -> bool:
+    command = ["git", "diff", "--quiet"]
+    if cached:
+        command.append("--cached")
+    command.extend(["--", path])
+    result = subprocess.run(command, cwd=root, capture_output=True)
+    if result.returncode not in (0, 1):
+        stderr = result.stderr.decode(errors="replace").strip()
+        raise RuntimeError(f"git diff failed for {path}: {stderr}")
+    return result.returncode == 1
+
+
+def checkout_eol(payload: bytes) -> str:
+    crlf_count = payload.count(b"\r\n")
+    lf_count = payload.count(b"\n")
+    if crlf_count and crlf_count == lf_count:
+        return "crlf"
+    if crlf_count and lf_count > crlf_count:
+        return "mixed"
+    if lf_count:
+        return "lf"
+    return "none"
+
+
 def audit_repository_freeze_contract(
     *,
     root: Path = ROOT,
@@ -187,7 +275,7 @@ def audit_repository_freeze_contract(
     ancestor_check: Callable[[str, str, Path], bool] = git_is_ancestor,
     anchor_payload_hash: Callable[[str, str, Path], str] = git_payload_sha256,
 ) -> dict[str, Any]:
-    """Verify anchor ancestry and byte identity of every immutable spec payload."""
+    """Verify immutable payload identity using Git-canonical content semantics."""
     path = root / "configs" / "mdc_ml_spec_freeze_manifest_v1.json" if manifest_path is None else manifest_path
     errors: list[str] = []
     if not path.exists():
@@ -258,26 +346,104 @@ def audit_repository_freeze_contract(
         if sha_pattern.fullmatch(expected) is None:
             errors.append(f"payload expected SHA-256 is invalid: {relative}")
         anchor_actual: str | None = None
+        head_actual: str | None = None
+        index_actual: str | None = None
+        index_object_id: str | None = None
+        index_mode: str | None = None
+        canonical_object_id: str | None = None
+        canonical_actual: str | None = None
+        raw_actual: str | None = None
+        raw_eol: str | None = None
+        unstaged_diff: bool | None = None
+        staged_diff: bool | None = None
         if anchor_exists and relative:
             try:
                 anchor_actual = anchor_payload_hash(anchor, relative, root)
             except (OSError, subprocess.CalledProcessError) as exc:
                 errors.append(f"cannot read payload from freeze anchor {relative}: {exc}")
         worktree_path = root / relative
-        actual = sha256(worktree_path) if worktree_path.is_file() else None
+        regular_file = bool(
+            worktree_path.exists()
+            and worktree_path.is_file()
+            and not worktree_path.is_symlink()
+        )
+        if head and relative:
+            try:
+                head_actual = git_payload_sha256(head, relative, root)
+            except (OSError, subprocess.CalledProcessError) as exc:
+                errors.append(f"cannot read payload from current HEAD {relative}: {exc}")
+        if relative:
+            try:
+                index_entry = git_index_entry(relative, root)
+                index_mode = index_entry["mode"]
+                index_object_id = index_entry["object_id"]
+                index_actual = git_index_payload_sha256(relative, root)
+            except (OSError, ValueError, subprocess.CalledProcessError) as exc:
+                errors.append(f"cannot read payload from index {relative}: {exc}")
+        if regular_file:
+            raw_payload = worktree_path.read_bytes()
+            raw_actual = hashlib.sha256(raw_payload).hexdigest()
+            raw_eol = checkout_eol(raw_payload)
+            try:
+                canonical_object_id, canonical_actual = git_canonical_worktree_content(
+                    relative, root
+                )
+                unstaged_diff = git_path_has_diff(relative, root, cached=False)
+                staged_diff = git_path_has_diff(relative, root, cached=True)
+            except (OSError, RuntimeError, subprocess.CalledProcessError) as exc:
+                errors.append(f"cannot canonicalize working-tree payload {relative}: {exc}")
         anchor_matches_manifest = anchor_actual == expected
-        worktree_matches_manifest = actual == expected
-        status = "PASS" if anchor_matches_manifest and worktree_matches_manifest else "FAIL"
+        head_matches_manifest = head_actual == expected
+        index_matches_manifest = index_actual == expected
+        canonical_matches_manifest = canonical_actual == expected
+        index_type_ok = bool(index_mode and index_mode.startswith("100"))
+        no_unstaged_diff = unstaged_diff is False
+        no_staged_diff = staged_diff is False
+        status = "PASS" if all((
+            anchor_matches_manifest,
+            head_matches_manifest,
+            index_matches_manifest,
+            canonical_matches_manifest,
+            regular_file,
+            index_type_ok,
+            no_unstaged_diff,
+            no_staged_diff,
+        )) else "FAIL"
         if status != "PASS":
             drift_count += 1
             if not anchor_matches_manifest:
                 errors.append(f"manifest SHA-256 does not match freeze anchor payload: {relative}")
-            if not worktree_matches_manifest:
-                errors.append(f"working-tree immutable payload drift: {relative}")
+            if not head_matches_manifest:
+                errors.append(f"current HEAD immutable payload drift: {relative}")
+            if not index_matches_manifest:
+                errors.append(f"index immutable payload drift: {relative}")
+            if not canonical_matches_manifest:
+                errors.append(f"Git-canonical working-tree immutable payload drift: {relative}")
+            if not regular_file:
+                errors.append(f"immutable payload is missing or not a regular file: {relative}")
+            if not index_type_ok:
+                errors.append(f"immutable payload index type is not a regular file: {relative}")
+            if not no_unstaged_diff:
+                errors.append(f"unstaged semantic payload diff: {relative}")
+            if not no_staged_diff:
+                errors.append(f"staged payload diff: {relative}")
         payloads.append({
             "path": relative, "role": entry.get("role"), "immutable": entry.get("immutable"),
             "expected_sha256": expected, "anchor_sha256": anchor_actual,
-            "actual_sha256": actual, "status": status,
+            "head_sha256": head_actual, "index_sha256": index_actual,
+            "canonical_worktree_sha256": canonical_actual,
+            "raw_worktree_sha256": raw_actual,
+            "raw_matches_anchor": raw_actual == anchor_actual,
+            "checkout_eol": raw_eol,
+            "eol_normalization_applied": bool(
+                raw_actual != canonical_actual and canonical_matches_manifest
+            ),
+            "index_mode": index_mode, "index_object_id": index_object_id,
+            "canonical_worktree_object_id": canonical_object_id,
+            "git_canonical_matches_index": canonical_object_id == index_object_id,
+            "regular_file": regular_file,
+            "unstaged_semantic_diff": unstaged_diff, "staged_diff": staged_diff,
+            "status": status,
         })
     passed = not errors
     return {
