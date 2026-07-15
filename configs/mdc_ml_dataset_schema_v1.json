@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mdc_ml_dataset_schema_v1.json",
+  "title": "MDC ML inverse-design lightweight sample record v1",
+  "description": "Metadata and scalar labels only. Full response arrays live in an external NPZ/HDF5 artifact referenced by hash.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["identity", "geometry", "simulation", "response_artifact", "labels", "objective_activation", "split"],
+  "properties": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sample_id", "structure_id", "canonical_geometry_hash", "canonical_geometry_hash_version", "physical_configuration_hash", "physical_configuration_hash_version", "sequence_hash", "topology_family", "fidelity", "parent_id", "legacy_geometry_hashes", "hash_lineage_note"],
+      "properties": {
+        "sample_id": {"type": "string", "minLength": 1},
+        "structure_id": {"type": "string", "minLength": 1},
+        "canonical_geometry_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "canonical_geometry_hash_version": {"type": "string", "const": "mdc_canonical_geometry_hash_v3"},
+        "physical_configuration_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "physical_configuration_hash_version": {"type": "string", "const": "mdc_physical_configuration_hash_v1"},
+        "sequence_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "topology_family": {
+          "type": "string",
+          "enum": ["symmetric_periodic", "asymmetric_pair_count", "off_center_defect", "grouped_chirped", "dual_defect", "termination_reversed", "locally_aperiodic", "hybrid_periodic_aperiodic"]
+        },
+        "fidelity": {"type": "string", "enum": ["F0", "F1", "F2", "F3_future_optional"]},
+        "parent_id": {"type": ["string", "null"]},
+        "legacy_geometry_hashes": {"type": "array", "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+        "hash_lineage_note": {"type": ["string", "null"]}
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_medium", "exit_medium", "material_tokens", "thickness_nm", "layer_count", "total_thickness_nm", "defect_indices", "defect_material", "defect_thickness_nm", "termination", "left_count", "right_count", "chirp_parameters"],
+      "properties": {
+        "source_medium": {"type": "string", "const": "APCD_GAN_NATIVE_M1"},
+        "exit_medium": {"type": "string", "const": "AIR"},
+        "material_tokens": {"type": "array", "minItems": 1, "items": {"type": "string", "enum": ["H", "L"]}},
+        "thickness_nm": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 1}},
+        "layer_count": {"type": "integer", "minimum": 1},
+        "total_thickness_nm": {"type": "integer", "minimum": 1},
+        "defect_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}},
+        "defect_material": {"type": "array", "minItems": 1, "items": {"type": "string", "enum": ["APCD_TIO2_NATIVE_M1", "APCD_SIO2_NATIVE_M1"]}},
+        "defect_thickness_nm": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 1}},
+        "termination": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gan_side", "air_side"],
+          "properties": {
+            "gan_side": {"type": "string", "enum": ["H", "L"]},
+            "air_side": {"type": "string", "enum": ["H", "L"]}
+          }
+        },
+        "left_count": {"type": "integer", "minimum": 1},
+        "right_count": {"type": "integer", "minimum": 1},
+        "chirp_parameters": {"type": "object"}
+      }
+    },
+    "simulation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["material_ids", "material_policy_id", "material_policy_version", "source_fsp_sha256", "gan_raw_table_sha256", "angle_convention_id", "wavelength_grid_id", "angle_grid_id", "solver", "solver_version", "polarization_contract_id", "numerical_settings_contract_id", "provenance_commit", "simulation_provenance_hash", "simulation_provenance_hash_version", "quality_flags"],
+      "properties": {
+        "material_ids": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source_medium", "H", "L", "exit_medium"],
+          "properties": {
+            "source_medium": {"type": "string", "const": "APCD_GAN_NATIVE_M1"},
+            "H": {"type": "string", "const": "APCD_TIO2_NATIVE_M1"},
+            "L": {"type": "string", "const": "APCD_SIO2_NATIVE_M1"},
+            "exit_medium": {"type": "string", "const": "AIR"}
+          }
+        },
+        "material_policy_id": {"type": "string", "const": "MDC_NATIVE_M1"},
+        "material_policy_version": {"type": "integer", "const": 5},
+        "source_fsp_sha256": {"type": "string", "const": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f"},
+        "gan_raw_table_sha256": {"type": "string", "const": "906f2983665a51b748aa85ef85cd095550bb64a8ef77b8796e36a0b765407ef0"},
+        "angle_convention_id": {"type": "string", "const": "air_side_far_field_conserved_real_kx_v1"},
+        "wavelength_grid_id": {"type": "string", "minLength": 1},
+        "angle_grid_id": {"type": "string", "minLength": 1},
+        "solver": {"type": "string", "enum": ["TMM", "FDTD_2D", "FDTD_3D_future"]},
+        "solver_version": {"type": "string", "minLength": 1},
+        "polarization_contract_id": {"type": "string", "const": "TE_TM_separate_unpolarized_arithmetic_mean_v1"},
+        "numerical_settings_contract_id": {"type": "string", "minLength": 1},
+        "provenance_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "simulation_provenance_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "simulation_provenance_hash_version": {"type": "string", "const": "mdc_simulation_provenance_hash_v2"},
+        "quality_flags": {
+          "type": "object",
+          "required": ["status", "response_complete", "power_balance_checked", "usable_for_training"],
+          "properties": {
+            "status": {"type": "string"},
+            "response_complete": {"type": "boolean"},
+            "power_balance_checked": {"type": "boolean"},
+            "usable_for_training": {"type": "boolean"},
+            "failure_reason": {"type": ["string", "null"]}
+          }
+        }
+      }
+    },
+    "response_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["response_artifact_path", "response_artifact_format", "response_artifact_sha256", "wavelength_grid_id", "angle_grid_id", "array_shape", "array_dtype", "field_inventory", "git_allowed"],
+      "properties": {
+        "response_artifact_path": {"type": ["string", "null"]},
+        "response_artifact_format": {"type": ["string", "null"], "enum": ["NPZ", "HDF5", null]},
+        "response_artifact_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "wavelength_grid_id": {"type": "string", "minLength": 1},
+        "angle_grid_id": {"type": "string", "minLength": 1},
+        "array_shape": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+        "array_dtype": {"type": ["string", "null"]},
+        "field_inventory": {
+          "type": "array",
+          "items": {"type": "string", "enum": ["r_TE", "t_TE", "r_TM", "t_TM", "R_TE", "T_TE", "R_TM", "T_TM", "power_entering_TE", "power_entering_TM", "A_stack_TE", "A_stack_TM", "far_field_balance_offset_TE", "far_field_balance_offset_TM"]}
+        },
+        "git_allowed": {"type": "boolean", "const": false}
+      }
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scalar_spectral_metrics", "scalar_angular_metrics", "tmm_apcd_ready_proxies", "tolerance_metrics", "failure_mechanism"],
+      "properties": {
+        "scalar_spectral_metrics": {
+          "type": "object",
+          "required": ["spectral_fwhm_normal_nm", "peak_wavelength_nm", "T450", "tmm_band_transmission_448_453_normal_proxy"],
+          "properties": {
+            "spectral_fwhm_normal_nm": {"type": ["number", "null"]},
+            "peak_wavelength_nm": {"type": ["number", "null"]},
+            "T450": {"type": ["number", "null"]},
+            "tmm_band_transmission_448_453_normal_proxy": {"type": ["number", "null"]}
+          }
+        },
+        "scalar_angular_metrics": {
+          "type": "object",
+          "required": ["angular_fwhm_450_deg", "peak_angle_deg", "sidelobe_power"],
+          "properties": {
+            "angular_fwhm_450_deg": {"type": ["number", "null"]},
+            "peak_angle_deg": {"type": ["number", "null"]},
+            "sidelobe_power": {"type": ["number", "null"]}
+          }
+        },
+        "tmm_apcd_ready_proxies": {
+          "type": "object",
+          "required": ["contract_id", "TE", "TM", "unpolarized_derived", "quality_status"],
+          "properties": {
+            "contract_id": {"type": "string", "const": "tmm_apcd_ready_in_plane_proxy_v1"},
+            "TE": {"$ref": "#/$defs/tmm_proxy_quad"},
+            "TM": {"$ref": "#/$defs/tmm_proxy_quad"},
+            "unpolarized_derived": {"$ref": "#/$defs/tmm_proxy_quad"},
+            "quality_status": {"type": "string"}
+          }
+        },
+        "tolerance_metrics": {
+          "type": "object",
+          "required": ["tolerance_parent_geometry_hash", "tolerance_mode", "tolerance_seed", "tolerance_scenario_id", "correlated_bias_H_nm", "correlated_bias_L_nm", "correlated_bias_defect_nm", "local_jitter_max_nm", "tolerance_robustness_penalty_pm3", "robustness_worst_case", "robustness_quantile", "minimum_stable_window_nm"],
+          "properties": {
+            "tolerance_parent_geometry_hash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+            "tolerance_mode": {"type": ["string", "null"], "enum": ["nominal", "correlated_material_deposition_bias_pm3", "layer_local_integer_jitter_pm3", "final_candidate_pm5", null]},
+            "tolerance_seed": {"type": ["integer", "null"]},
+            "tolerance_scenario_id": {"type": ["string", "null"]},
+            "correlated_bias_H_nm": {"type": ["integer", "null"], "enum": [-3, 0, 3, null]},
+            "correlated_bias_L_nm": {"type": ["integer", "null"], "enum": [-3, 0, 3, null]},
+            "correlated_bias_defect_nm": {"type": ["integer", "null"], "enum": [-3, 0, 3, null]},
+            "local_jitter_max_nm": {"type": ["integer", "null"], "enum": [3, 5, null]},
+            "tolerance_robustness_penalty_pm3": {"type": ["number", "null"]},
+            "robustness_worst_case": {"type": ["number", "null"]},
+            "robustness_quantile": {"type": ["number", "null"]},
+            "minimum_stable_window_nm": {"type": ["number", "null"]}
+          }
+        },
+        "failure_mechanism": {"type": ["string", "null"]}
+      }
+    },
+    "objective_activation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objective_activation_stage", "nominal_primary_objectives", "robust_primary_objectives", "required_labels_by_stage", "pareto_stage", "robustness_label_available", "robustness_evaluation_status"],
+      "properties": {
+        "objective_activation_stage": {"type": "string", "enum": ["nominal_search", "post_nominal_shortlist_pm3_complete"]},
+        "nominal_primary_objectives": {"type": "array", "items": {"type": "string"}},
+        "robust_primary_objectives": {"type": "array", "items": {"type": "string"}},
+        "required_labels_by_stage": {"type": "array", "items": {"type": "string"}},
+        "pareto_stage": {"type": "string", "enum": ["nominal", "robust_shortlist"]},
+        "robustness_label_available": {"type": "boolean"},
+        "robustness_evaluation_status": {"type": "string", "enum": ["not_evaluated", "scheduled", "running", "complete", "failed"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"pareto_stage": {"const": "robust_shortlist"}}},
+          "then": {"properties": {"robustness_label_available": {"const": true}, "robustness_evaluation_status": {"const": "complete"}}}
+        }
+      ]
+    },
+    "split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["split_name", "split_group_hash", "parent_split_group_hash", "ood_category", "inherits_parent_split"],
+      "properties": {
+        "split_name": {"type": "string", "enum": ["train", "validation", "interpolation_test", "topology_OOD_test", "tolerance_test", "FDTD_high_fidelity_test"]},
+        "split_group_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "parent_split_group_hash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "ood_category": {"type": ["string", "null"]},
+        "inherits_parent_split": {"type": "boolean"}
+      }
+    }
+  },
+  "$defs": {
+    "tmm_proxy_quad": {
+      "type": "object",
+      "required": ["tmm_apcd_ready_cone5_integral_proxy", "tmm_apcd_ready_cone10_integral_proxy", "tmm_apcd_ready_cone5_fraction_proxy", "tmm_apcd_ready_cone10_fraction_proxy"],
+      "properties": {
+        "tmm_apcd_ready_cone5_integral_proxy": {"type": ["number", "null"]},
+        "tmm_apcd_ready_cone10_integral_proxy": {"type": ["number", "null"]},
+        "tmm_apcd_ready_cone5_fraction_proxy": {"type": ["number", "null"]},
+        "tmm_apcd_ready_cone10_fraction_proxy": {"type": ["number", "null"]}
+      }
+    }
+  }
+}

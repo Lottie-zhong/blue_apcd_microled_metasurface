@@ -1,0 +1,386 @@
+{
+  "spec_version": "MDC_ML_INVERSE_DESIGN_SPEC_V1",
+  "contract_revision": "P0_B_HASH_OBJECTIVE_CONTRACT_V1",
+  "status": "static_contract_ready_for_f0_pilot",
+  "source_frozen_commit": "40dedf4098fa0ca19e0e5f0e3395e73fb4949c53",
+  "scope_guards": {
+    "solver_runs_allowed": false,
+    "model_training_allowed": false,
+    "large_dataset_generation_allowed": false,
+    "level_b_generation_allowed": false,
+    "dummy_structure_limit": 100
+  },
+  "baseline": {
+    "candidate": "ZL-1 alternative",
+    "authoritative_geometry_source": "outputs/mdc_p1_asymmetric_scan_static_v1/p1_asymmetric_structures.csv#P1_ZL1_ALTERNATIVE_G3_A3",
+    "authoritative_seed_resolution": "outputs/mdc_p1_asymmetric_scan_static_v1/p1_seed_resolution.json#zl1_alternative",
+    "source_topology_family": "ZL-1",
+    "grammar_topology_family": "off_center_defect",
+    "frozen_sequence_hash": "07a8ecbcb195f5620d693d95fb485c416395b380d1cb60b1e76aac0ef0127730",
+    "frozen_geometry_hash": "c38694d6f162c04322ae8a87def91622d4fd4f272e4ec286e85acc978f74d888",
+    "tmm_spectral_fwhm_nm": 3.3,
+    "tmm_angular_fwhm_deg": 14.996580,
+    "tmm_peak_angle_deg": 0.0,
+    "fdtd_r12_output_spectral_fwhm_nm": 18.7821,
+    "fdtd_in_plane_angular_fwhm_450_deg": 23.5924,
+    "fdtd_output_peak_nm": 447.8,
+    "fdtd_cone10_450": 0.632357,
+    "fdtd_integrated_r12_normalized_power": 0.5631879,
+    "target_tiers_deg": {
+      "baseline": 23.5924,
+      "first_success_max": 15.0,
+      "strong_max": 10.0,
+      "stretch_approximate": 5.0
+    }
+  },
+  "design_levels": {
+    "level_a": {
+      "name": "top_side_inverse_designed_defect_mdc",
+      "direction": "GaN_to_Air",
+      "stack": ["APCD_GAN_NATIVE_M1", "TiO2_SiO2_multilayer", "AIR"],
+      "enabled": true
+    },
+    "level_b": {
+      "name": "full_rcled_extension",
+      "enabled": false,
+      "schema_only_in_v1": true,
+      "activation": "only_after_level_a_no_go_after_2_to_3_active_learning_rounds",
+      "variables": {
+        "bottom_dbr_layer_count": {"type": "integer", "bounds": "deferred"},
+        "bottom_dbr_material_grammar": {"type": "grammar", "bounds": "deferred"},
+        "top_dbr_layer_count": {"type": "integer", "bounds": "deferred"},
+        "gan_cavity_thickness_nm": {"type": "integer", "bounds": "deferred"},
+        "cavity_order": {"type": "integer", "bounds": "deferred"},
+        "dipole_vertical_position_nm": {"type": "integer", "bounds": "deferred"},
+        "top_bottom_mirror_asymmetry": {"type": "mixed", "bounds": "deferred"},
+        "optional_spacer": {"type": "optional_layer", "bounds": "deferred"},
+        "top_termination": {"type": "token", "bounds": "deferred"},
+        "future_lp_mounting_gap_nm": {"type": "integer", "bounds": "deferred"}
+      }
+    }
+  },
+  "material_policy": {
+    "policy_id": "MDC_NATIVE_M1",
+    "policy_version": 5,
+    "canonical_source": "configs/mdc_defect_450_material_policy.json",
+    "source_medium": "APCD_GAN_NATIVE_M1",
+    "H": "APCD_TIO2_NATIVE_M1",
+    "L": "APCD_SIO2_NATIVE_M1",
+    "exit_medium": "AIR",
+    "formal_model": "native_sampled_complex_epsilon",
+    "source_material_name": "GaN",
+    "H_source_material_name": "tio22",
+    "L_source_material_name": "sio222",
+    "source_fsp_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f",
+    "gan_raw_table_sha256": "906f2983665a51b748aa85ef85cd095550bb64a8ef77b8796e36a0b765407ef0",
+    "complex_incident_power_convention": true,
+    "extrapolation": "forbidden"
+  },
+  "angle_convention": {
+    "id": "air_side_far_field_conserved_real_kx_v1",
+    "source_medium": "APCD_GAN_NATIVE_M1",
+    "reported_medium": "AIR",
+    "transverse_wavevector": "conserved_real_kx",
+    "polarizations": ["TE", "TM"],
+    "unpolarized": "derived_arithmetic_mean_only"
+  },
+  "hash_contracts": {
+    "canonical_geometry_hash": {
+      "id": "mdc_canonical_geometry_hash_v3",
+      "includes": [
+        "canonicalization_contract_version",
+        "source_medium_canonical_id",
+        "exit_medium_canonical_id",
+        "ordered_layer_canonical_material_ids",
+        "ordered_integer_nm_thicknesses"
+      ],
+      "excludes": [
+        "candidate_name", "topology_family", "sample_role", "source_file",
+        "material_policy_id", "material_policy_version", "source_fsp_sha256",
+        "material_raw_table_hashes", "solver", "wavelength_grid", "angle_grid",
+        "angle_convention", "mesh", "tolerance_seed"
+      ]
+    },
+    "physical_configuration_hash": {
+      "id": "mdc_physical_configuration_hash_v1",
+      "includes": [
+        "canonical_geometry_hash", "material_policy_id", "material_policy_version",
+        "source_fsp_sha256", "material_canonical_ids", "material_source_names",
+        "available_raw_table_hashes_or_version_contracts"
+      ],
+      "excludes": [
+        "solver", "solver_version", "wavelength_grid_id", "angle_grid_id",
+        "angle_convention_id", "polarization_contract_id", "numerical_settings_contract_id",
+        "split_name", "tolerance_seed"
+      ]
+    },
+    "simulation_provenance_hash": {
+      "id": "mdc_simulation_provenance_hash_v2",
+      "includes": [
+        "physical_configuration_hash", "solver_id", "solver_version",
+        "wavelength_grid_id", "angle_grid_id", "angle_convention_id",
+        "polarization_contract_id", "numerical_settings_contract_id"
+      ],
+      "excludes": ["candidate_name", "split_name", "tolerance_seed"]
+    },
+    "split_group_hash": {
+      "id": "mdc_split_group_hash_v1",
+      "nominal_payload": ["parent_canonical_geometry_hash"],
+      "tolerance_child_policy": "inherit_nominal_parent_split_group_hash",
+      "cross_version_policy": "same_parent_geometry_all_material_versions_and_simulation_grids_must_share_split",
+      "excludes": [
+        "physical_configuration_hash", "simulation_provenance_hash", "material_policy_version",
+        "all_simulation_grid_ids", "tolerance_child_canonical_geometry_hash"
+      ]
+    },
+    "legacy_lineage": {
+      "frozen_historical_geometry_hash": "c38694d6f162c04322ae8a87def91622d4fd4f272e4ec286e85acc978f74d888",
+      "p0a_material_bound_hash": "878c4c625432d1d3bcfb990b7e40038f129289e4eee1187b73738d6a25f8a221",
+      "p0a_mapping": "legacy_material_bound_physical_hash_not_pure_geometry",
+      "discard_legacy_values_allowed": false
+    }
+  },
+  "topology_grammar": {
+    "production": ["left_mirror", "defect_region", "right_mirror"],
+    "unconstrained_random_token_sequences_allowed": false,
+    "topology_families": [
+      "symmetric_periodic", "asymmetric_pair_count", "off_center_defect",
+      "grouped_chirped", "dual_defect", "termination_reversed",
+      "locally_aperiodic", "hybrid_periodic_aperiodic"
+    ],
+    "canonicalization": {
+      "direction": "GaN_to_Air_only",
+      "merge_adjacent_same_material": true,
+      "integer_nm_after_merge": true,
+      "zero_thickness_allowed": false,
+      "consecutive_duplicate_tokens_after_merge_allowed": false,
+      "sequence_hash_input": "normalized_ordered_token_thickness_sequence",
+      "mirror_reversal_is_distinct": true,
+      "defect_indices_reference": "post_canonicalization_zero_based"
+    }
+  },
+  "variable_bounds": {
+    "proposal_status": "v1_static_reachability_verified",
+    "layer_count": {"min": 9, "max": 25, "unit": "layer", "endpoints_reachable": true},
+    "H_thickness_nm": {"min": 25, "max": 100, "integer": true},
+    "L_thickness_nm": {"min": 40, "max": 180, "integer": true},
+    "defect_thickness_nm": {"min": 120, "max": 500, "integer": true},
+    "defect_count": {"min": 1, "max": 2, "integer": true},
+    "total_physical_thickness_nm": {"min": 500, "max": 2200, "integer": true, "endpoints_reachable": true},
+    "boundary_examples": {
+      "minimum": "DUMMY_REACHABLE_MIN_9_LAYERS_500_NM",
+      "maximum": "DUMMY_REACHABLE_MAX_25_LAYERS_2200_NM"
+    }
+  },
+  "manufacturing_constraints": {
+    "formal_geometry_unit": "integer_nm",
+    "minimum_H_thickness_nm": 25,
+    "minimum_L_thickness_nm": 40,
+    "single_layer_one_nm_unique_optimum_allowed": false,
+    "minimum_stable_window_required": true,
+    "formal_bounds_claim": "static_grammar_reachable_not_final_fabrication_limit"
+  },
+  "response_grids": {
+    "spectral": {"range_nm": [420.0, 480.0], "coarse_step_nm": 0.5, "refined_step_nm_candidates": [0.1, 0.2]},
+    "angular": {"range_deg": [-60.0, 60.0], "coarse_step_deg": 2.0, "refined_step_deg_candidates": [0.5, 1.0], "signed": true},
+    "stored_complex_fields": ["r_TE", "t_TE", "r_TM", "t_TM"],
+    "stored_power_fields": ["R", "T", "power_entering", "A_stack", "far_field_balance_offset"],
+    "inline_full_array_storage_allowed": false
+  },
+  "objective_definitions": {
+    "inventory_count": 14,
+    "aggregation_policy": "staged_pareto_no_single_arbitrary_score",
+    "nominal_search_primary": [
+      {"field": "angular_fwhm_450", "direction": "minimize", "unit": "deg", "meaning": "normal-centered 450 nm angular width"},
+      {"field": "spectral_fwhm_normal", "direction": "minimize", "unit": "nm", "meaning": "normal-incidence spectral width"},
+      {"field": "tmm_apcd_ready_cone5_integral_proxy", "direction": "maximize", "unit": "rad", "meaning": "flat-spectrum in-plane transmitted proxy integrated over 448-453 nm and +/-5 deg"},
+      {"field": "tmm_band_transmission_448_453_normal_proxy", "direction": "maximize", "unit": "fraction", "meaning": "flat-spectrum band-averaged normal-incidence TMM transmission"}
+    ],
+    "robust_shortlist_primary": [
+      {"field": "angular_fwhm_450", "direction": "minimize", "unit": "deg", "meaning": "normal-centered 450 nm angular width"},
+      {"field": "spectral_fwhm_normal", "direction": "minimize", "unit": "nm", "meaning": "normal-incidence spectral width"},
+      {"field": "tmm_apcd_ready_cone5_integral_proxy", "direction": "maximize", "unit": "rad", "meaning": "flat-spectrum in-plane transmitted proxy integrated over 448-453 nm and +/-5 deg"},
+      {"field": "tmm_band_transmission_448_453_normal_proxy", "direction": "maximize", "unit": "fraction", "meaning": "flat-spectrum band-averaged normal-incidence TMM transmission"},
+      {"field": "tolerance_robustness_penalty_pm3", "direction": "minimize", "unit": "metric_specific", "meaning": "worst/quantile degradation after shortlisted +/-3 nm evaluation"}
+    ],
+    "objective_activation_contract": {
+      "nominal": {
+        "objective_activation_stage": "nominal_search",
+        "pareto_stage": "nominal",
+        "required_labels_by_stage": [
+          "angular_fwhm_450", "spectral_fwhm_normal",
+          "tmm_apcd_ready_cone5_integral_proxy", "tmm_band_transmission_448_453_normal_proxy"
+        ],
+        "uses": ["F0_nominal_pilot", "first_forward_surrogate", "first_nominal_Pareto", "nominal_active_learning"]
+      },
+      "robust_shortlist": {
+        "objective_activation_stage": "post_nominal_shortlist_pm3_complete",
+        "pareto_stage": "robust_shortlist",
+        "required_labels_by_stage": [
+          "angular_fwhm_450", "spectral_fwhm_normal",
+          "tmm_apcd_ready_cone5_integral_proxy", "tmm_band_transmission_448_453_normal_proxy",
+          "tolerance_robustness_penalty_pm3"
+        ],
+        "all_activation_conditions": [
+          "nominal_screening_complete", "candidate_is_shortlisted",
+          "robustness_label_available_true", "robustness_evaluation_status_complete"
+        ]
+      },
+      "missing_robustness_label_behavior": "ineligible_for_robust_pareto_never_zero_or_imputed",
+      "first_nominal_surrogate_requires_robustness_prediction": false
+    },
+    "hard_constraints_or_gates": [
+      {"field": "abs_peak_angle_deg", "direction": "maximum", "threshold": 2.0, "unit": "deg"},
+      {"field": "abs_peak_wavelength_error_450_nm", "direction": "diagnostic_gate", "threshold_status": "defined_by_f0_screening_config"},
+      {"field": "T450", "direction": "minimum", "threshold": 0.5, "unit": "plane_wave_transmission"}
+    ],
+    "diagnostics_only": [
+      {"field": "sidelobe_power", "unit": "fraction"},
+      {"field": "total_thickness", "unit": "nm"},
+      {"field": "layer_count", "unit": "layer"},
+      {"field": "tmm_apcd_ready_cone5_fraction_proxy", "unit": "fraction"},
+      {"field": "tmm_apcd_ready_cone10_fraction_proxy", "unit": "fraction"},
+      {"field": "tolerance_robust_power", "unit": "plane_wave_transmission_proxy"}
+    ]
+  },
+  "tolerance_contract": {
+    "execution_order": [
+      "nominal_all_samples", "nominal_screening", "shortlisted_pm3",
+      "final_few_candidates_pm5"
+    ],
+    "correlated_material_deposition_bias": {
+      "mode": "correlated_material_deposition_bias_pm3",
+      "delta_H_nm": [-3, 0, 3],
+      "delta_L_nm": [-3, 0, 3],
+      "delta_defect_nm": [-3, 0, 3],
+      "semantics": "all layers of the same material share one bias; the designated defect shares correlated_bias_defect_nm instead of its base-material bias"
+    },
+    "layer_local_integer_jitter": {
+      "mode": "layer_local_integer_jitter_pm3",
+      "per_layer_independent": true,
+      "integer_nm": true,
+      "local_jitter_max_nm": 3,
+      "distribution": "future_configuration_required",
+      "fixed_seed_required": true,
+      "monte_carlo_count": "future_configuration_only_not_run_in_p0_a"
+    },
+    "strong_candidate_pm5": {
+      "mode": "final_candidate_pm5",
+      "local_jitter_max_nm": 5,
+      "scope": "final_few_candidates_only_not_all_pilot"
+    },
+    "required_fields": [
+      "tolerance_parent_geometry_hash", "tolerance_mode", "tolerance_seed",
+      "tolerance_scenario_id", "correlated_bias_H_nm", "correlated_bias_L_nm",
+      "correlated_bias_defect_nm", "local_jitter_max_nm", "robustness_worst_case",
+      "tolerance_robustness_penalty_pm3", "robustness_quantile", "minimum_stable_window_nm"
+    ],
+    "split_inheritance": "parent_and_all_tolerance_children_must_share_split"
+  },
+  "apcd_ready_proxy_contract": {
+    "id": "tmm_apcd_ready_in_plane_proxy_v1",
+    "fidelity": "F0_TMM_plane_wave",
+    "wavelength_interval_nm": [448.0, 453.0],
+    "angle_intervals_deg": {"cone5": [-5.0, 5.0], "cone10": [-10.0, 10.0], "fraction_denominator": [-60.0, 60.0]},
+    "wavelength_quadrature": "composite_trapezoidal_on_nm_grid",
+    "angular_quadrature": "composite_trapezoidal_after_degrees_to_radians",
+    "angular_weighting": "unit_weight_in_plane_dtheta; no_sin_theta_or_solid_angle_claim",
+    "source_spectrum_weighting": "uniform_normalized_S_lambda=1/(453-448)_per_nm",
+    "polarization_storage": "TE_and_TM_separate",
+    "unpolarized_derivation": "0.5*(TE+TM)_after_identical_quadrature",
+    "cone_integral_definition": "I_p(alpha)=integral_448^453 S(lambda)*integral_-alpha^alpha T_p(lambda,theta)dtheta_rad dlambda_nm",
+    "cone_integral_units": "rad",
+    "cone_fraction_definition": "F_p(alpha)=I_p(alpha)/I_p(60deg)",
+    "cone_fraction_units": "dimensionless_fraction",
+    "normal_band_proxy_definition": "B_p=integral_448^453 S(lambda)*T_p(lambda,0deg)dlambda_nm",
+    "normalization_denominator": "cone_fraction uses same-polarization transmitted integral over [-60,+60] deg; no incident-power or FDTD normalization substitution",
+    "missing_grid_behavior": "return_null_with_quality_flag_if_any_required_endpoint_or_domain_is_missing; interpolation_to_missing_endpoints_and_extrapolation_forbidden",
+    "fields": [
+      "tmm_apcd_ready_cone5_integral_proxy", "tmm_apcd_ready_cone10_integral_proxy",
+      "tmm_apcd_ready_cone5_fraction_proxy", "tmm_apcd_ready_cone10_fraction_proxy"
+    ],
+    "not_equivalent_to": [
+      "APCD_device_throughput", "polarization_selectivity", "absolute_extraction_efficiency",
+      "dipole_FDTD_cone5", "dipole_FDTD_cone10"
+    ]
+  },
+  "power_gates": {
+    "metric": "T450",
+    "exploratory": {"minimum": 0.2},
+    "viable": {"minimum": 0.5},
+    "strong": {"minimum": 0.7},
+    "terminology_guard": "TMM transmission is not device extraction efficiency"
+  },
+  "go_no_go_rules": {
+    "hard_gates_with_defined_thresholds": {
+      "tmm_angular_fwhm_450_max_deg": 10.0,
+      "abs_peak_angle_max_deg": 2.0,
+      "spectral_fwhm_normal_max_nm": 5.0,
+      "T450_min": 0.5,
+      "tolerance_pm3_angular_fwhm_max_deg": 15.0,
+      "canonical_and_legal_layers": true
+    },
+    "baseline_relative_threshold": {
+      "status": "pending_f0_baseline_recompute",
+      "fields": ["tmm_apcd_ready_cone5_integral_proxy", "tmm_apcd_ready_cone5_fraction_proxy", "tmm_apcd_ready_cone10_fraction_proxy"],
+      "executable_gate": false,
+      "reason": "frozen alternative must be recomputed with the same F0 integration contract before a threshold is set"
+    },
+    "diagnostics_not_hard_gates": ["sidelobe_power", "cone10_proxy", "total_thickness", "layer_count", "TE_TM_difference"],
+    "fdtd_entry_all_required": ["pareto_primary_front_member", "acceptable_uncertainty_or_high_active_learning_value", "not_single_point_fragile", "not_duplicate_of_existing_sample"],
+    "level_a_to_level_b_after_rounds": [2, 3],
+    "level_a_to_level_b_any_trigger": ["no_device_level_candidate_angular_fwhm_le_15_deg", "all_narrow_angle_candidates_have_severe_power_loss", "performance_collapses_under_pm3_nm_tolerance"]
+  },
+  "sampling_policy": {
+    "required_sources": [
+      "frozen_alternative_neighborhood", "frozen_nominal_neighborhood", "periodic_DBR_baselines",
+      "asymmetric_mirror_count_samples", "off_center_defect_samples", "grouped_chirp_samples",
+      "topology_boundary_samples", "latin_hypercube_thickness_samples", "grammar_random_samples",
+      "deliberate_low_high_reflectivity_controls"
+    ],
+    "budgets": {"pilot": [2000, 5000], "first_surrogate": [10000, 30000], "active_learning_additions_per_round": [500, 2000]},
+    "generated_in_v1": false
+  },
+  "split_policy": {
+    "random_row_split_allowed": false,
+    "group_keys": ["split_group_hash", "parent_split_group_hash"],
+    "rules": ["nominal_split_group_hash_from_parent_canonical_geometry", "parent_and_all_tolerance_children_share_split_group_hash", "same_geometry_all_material_versions_and_simulation_grids_share_split", "mirror_reversal_has_distinct_canonical_geometry_hash", "topology_holdout_set_required", "out_of_distribution_challenge_set_required"],
+    "split_names": ["train", "validation", "interpolation_test", "topology_OOD_test", "tolerance_test", "FDTD_high_fidelity_test"]
+  },
+  "storage_contract": {
+    "lightweight_sample_record": "identity_geometry_simulation_summary_labels_split_and_response_reference_only",
+    "external_response_array_artifact": {
+      "allowed_formats": ["NPZ", "HDF5"],
+      "required_fields": ["response_artifact_path", "response_artifact_format", "response_artifact_sha256", "wavelength_grid_id", "angle_grid_id", "array_shape", "array_dtype", "field_inventory"],
+      "git_allowed": false,
+      "inline_in_sample_json_allowed": false
+    },
+    "lightweight_manifest_reference": "path_format_sha256_grid_ids_shape_dtype_and_field_inventory",
+    "large_array_policy": "NPZ_HDF5_and_large_arrays_must_not_be_added_to_git"
+  },
+  "model_candidates": {
+    "comparison_required": ["ExtraTrees", "HistGradientBoosting", "padded_MLP", "sequence_or_set_encoder"],
+    "transformer_predeclared_winner": false,
+    "inputs": ["material_tokens", "thickness_vector", "layer_mask", "defect_index_count", "topology_family", "total_thickness", "optical_thickness_features", "left_right_asymmetry", "cavity_phase_features"],
+    "nominal_surrogate_outputs": ["angular_fwhm_450", "spectral_fwhm_normal", "tmm_apcd_ready_cone5_integral_proxy", "tmm_band_transmission_448_453_normal_proxy", "nominal_diagnostics"],
+    "robust_shortlist_model_outputs_optional_after_labels_exist": ["tolerance_robustness_penalty_pm3", "robustness_diagnostics"],
+    "first_nominal_surrogate_must_predict_tolerance_labels": false,
+    "curve_outputs": ["external_spectral_response_artifact", "external_angular_response_artifact", "TE_curves", "TM_curves"]
+  },
+  "inverse_search": {
+    "primary_route": ["forward_surrogate", "uncertainty_ensemble", "grammar_constrained_optimizer"],
+    "candidate_optimizers": ["NSGA-II", "mixed_variable_bayesian_optimization", "grammar_preserving_mutation_crossover", "local_integer_search"],
+    "direct_inverse_neural_network": "optional_later_experiment_not_primary_route"
+  },
+  "active_learning_policy": {
+    "priority": ["pareto_primary_front", "surrogate_disagreement", "high_uncertainty", "near_5_or_10_deg_boundary", "high_performance_manufacturing_robust", "anomalous_TMM_to_existing_FDTD_mapping"]
+  },
+  "fidelity_levels": {
+    "F0": {"solver": "TMM", "population": "all_candidates"},
+    "F1": {"solver": "2D_Native_M1_dipole_FDTD", "candidate_budget": [30, 50], "priority": "450_nm_angular"},
+    "F2": {"solver": "420_480_nm_2D_dipole_FDTD", "candidate_budget": [5, 10], "requirements": ["x_z", "R12", "28_nm_benchmark", "tolerance"]},
+    "F3_future_optional": {"solver": ["full_RCLED", "3D_FDTD", "MDC_LP_joint_validation"]},
+    "residual_learning": "delta_y = FDTD_metric - TMM_metric",
+    "few_FDTD_rows_for_large_inverse_model_allowed": false
+  }
+}
