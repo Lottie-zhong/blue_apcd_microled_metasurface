@@ -1,0 +1,51 @@
+{
+  "manifest_version": "mdc_ml_spec_freeze_manifest_v1",
+  "repository_contract_version": "mdc_ml_repository_freeze_contract_v1",
+  "spec_freeze_anchor_commit": "ba361fa39a5c04cccbaa55ad1d89b328c5a8d91b",
+  "head_policy": "descendant_or_equal",
+  "immutable_payload": [
+    {
+      "path": "configs/mdc_ml_inverse_design_spec_v1.yaml",
+      "role": "inverse_design_specification",
+      "sha256": "77fb2d136e7e235b829c9493b1a3eddcbedd9aa68a5a77f2ca2e86c5a32d5045",
+      "immutable": true
+    },
+    {
+      "path": "configs/mdc_ml_dataset_schema_v1.json",
+      "role": "dataset_schema",
+      "sha256": "af86d7a3ca77f6c25101eef9182ca5ec1c0b5d458bda7502fbcbea89b8d0aadf",
+      "immutable": true
+    },
+    {
+      "path": "scripts/mdc_ml_structure_grammar_v1.py",
+      "role": "structure_grammar_and_identity_contract",
+      "sha256": "289293e2edc7d12378c71eb92e16872115f067c857b0e69ac694ba16ee170064",
+      "immutable": true
+    },
+    {
+      "path": "reports/mdc_ml_inverse_design_spec_v1.md",
+      "role": "frozen_specification_report",
+      "sha256": "6a50737005e525b73de2bd7c8d444b11a2239bd833bc4a3a3e2382d7f83bdaab",
+      "immutable": true
+    },
+    {
+      "path": "reports/mdc_ml_inverse_design_spec_v1_p0_contract_audit.md",
+      "role": "p0_physics_and_data_contract_audit_report",
+      "sha256": "191add9010d6ca33dbb8e50652a2cc5cbb39b4e3ab70507f74b67d1d2e6f2824",
+      "immutable": true
+    },
+    {
+      "path": "reports/mdc_ml_inverse_design_spec_v1_p0b_hash_objective_audit.md",
+      "role": "p0b_hash_and_objective_audit_report",
+      "sha256": "06a85261087fb2e32d557159f94b5e32a99ed3214b6093a757dd7556d9031b38",
+      "immutable": true
+    }
+  ],
+  "mutable_maintenance_files": [
+    "scripts/audit_mdc_ml_inverse_design_spec_v1.py",
+    "tests/test_mdc_ml_inverse_design_spec_v1.py",
+    "tests/test_mdc_ml_structure_grammar_v1.py"
+  ],
+  "hash_source": "git_object_bytes_at_spec_freeze_anchor_commit",
+  "current_worktree_verification": "sha256_byte_equality_with_anchor_payload"
+}

@@ -1,13 +1,20 @@
 import csv
 import json
+import subprocess
+from pathlib import Path
 
 from scripts.audit_mdc_ml_inverse_design_spec_v1 import (
     STATIC_FILES,
+    REQUIRED_IMMUTABLE_PAYLOAD,
+    SPEC_FREEZE_ANCHOR_COMMIT,
+    audit_repository_freeze_contract,
     baseline_roundtrip_audit,
     audit_schema_inventory,
     audit_spec,
     build_static_examples,
     hash_behavior_audit,
+    git_payload_sha256,
+    load_freeze_manifest,
     load_schema,
     load_spec,
     make_schema_dummy,
@@ -79,6 +86,12 @@ def test_audit_passes_without_solver_or_training():
     assert result["hash_behavior_status"] == "PASS"
     assert result["objective_activation_status"] == "PASS"
     assert result["authoritative_baseline_roundtrip_status"] == "PASS"
+    assert result["repository_contract_status"] == "PASS"
+    assert result["spec_freeze_anchor_commit"] == SPEC_FREEZE_ANCHOR_COMMIT
+    assert result["freeze_anchor_exists"] is True
+    assert result["anchor_is_ancestor"] is True
+    assert result["immutable_payload_count"] == 6
+    assert result["payload_drift_count"] == 0
     assert result["f0_pilot_contract_ready"] is True
 
 
@@ -109,3 +122,150 @@ def test_static_builder_is_byte_stable_and_bounded(tmp_path):
     assert p0b["status"] == "PASS"
     assert p0b["staged_objectives"]["nominal_pareto_dimension"] == 4
     assert p0b["staged_objectives"]["robust_pareto_dimension"] == 5
+
+
+def _git(root: Path, *args: str) -> str:
+    return subprocess.check_output(
+        ["git", *args], cwd=root, text=True, encoding="utf-8"
+    ).strip()
+
+
+def _make_freeze_repo(root: Path) -> tuple[str, Path]:
+    subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+    subprocess.run(["git", "config", "user.name", "P0C Test"], cwd=root, check=True)
+    subprocess.run(["git", "config", "user.email", "p0c@example.invalid"], cwd=root, check=True)
+    for relative in REQUIRED_IMMUTABLE_PAYLOAD:
+        path = root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"frozen payload: {relative}\n", encoding="utf-8", newline="\n")
+    subprocess.run(["git", "add", *REQUIRED_IMMUTABLE_PAYLOAD], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-q", "-m", "freeze anchor"], cwd=root, check=True)
+    anchor = _git(root, "rev-parse", "HEAD")
+    manifest_path = root / "configs" / "mdc_ml_spec_freeze_manifest_v1.json"
+    manifest = {
+        "manifest_version": "mdc_ml_spec_freeze_manifest_v1",
+        "repository_contract_version": "mdc_ml_repository_freeze_contract_v1",
+        "spec_freeze_anchor_commit": anchor,
+        "head_policy": "descendant_or_equal",
+        "immutable_payload": [
+            {
+                "path": relative,
+                "role": f"test_role_{index}",
+                "sha256": git_payload_sha256(anchor, relative, root),
+                "immutable": True,
+            }
+            for index, relative in enumerate(REQUIRED_IMMUTABLE_PAYLOAD)
+        ],
+        "mutable_maintenance_files": [
+            "scripts/audit_mdc_ml_inverse_design_spec_v1.py",
+            "tests/test_mdc_ml_inverse_design_spec_v1.py",
+            "tests/test_mdc_ml_structure_grammar_v1.py",
+        ],
+    }
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    return anchor, manifest_path
+
+
+def test_freeze_anchor_itself_and_descendant_pass(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    at_anchor = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, current_head=anchor, expected_anchor=anchor
+    )
+    assert at_anchor["status"] == "PASS"
+    assert at_anchor["anchor_is_ancestor"] is True
+
+    smoke = tmp_path / "configs" / "mdc_ml_f0_smoke_v1.yaml"
+    smoke.write_text("smoke grid maintenance file\n", encoding="utf-8")
+    subprocess.run(["git", "add", str(smoke.relative_to(tmp_path))], cwd=tmp_path, check=True)
+    subprocess.run(["git", "commit", "-q", "-m", "legal descendant"], cwd=tmp_path, check=True)
+    descendant = _git(tmp_path, "rev-parse", "HEAD")
+    result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, current_head=descendant, expected_anchor=anchor
+    )
+    assert descendant != anchor
+    assert result["status"] == "PASS"
+    assert result["anchor_is_ancestor"] is True
+    assert result["payload_drift_count"] == 0
+    assert json.loads(manifest_path.read_text(encoding="utf-8"))["spec_freeze_anchor_commit"] == anchor
+
+
+def test_missing_anchor_and_unrelated_head_fail(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    missing = "0" * 40
+    manifest["spec_freeze_anchor_commit"] = missing
+    missing_manifest = tmp_path / "missing_manifest.json"
+    missing_manifest.write_text(json.dumps(manifest), encoding="utf-8")
+    missing_result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=missing_manifest, expected_anchor=missing
+    )
+    assert missing_result["status"] == "FAIL"
+    assert missing_result["freeze_anchor_exists"] is False
+
+    tree = _git(tmp_path, "rev-parse", "HEAD^{tree}")
+    unrelated = _git(tmp_path, "commit-tree", tree, "-m", "unrelated root")
+    unrelated_result = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, current_head=unrelated, expected_anchor=anchor
+    )
+    assert unrelated_result["status"] == "FAIL"
+    assert unrelated_result["freeze_anchor_exists"] is True
+    assert unrelated_result["anchor_is_ancestor"] is False
+
+
+def test_payload_drift_is_detected_and_extra_smoke_file_is_excluded(tmp_path):
+    anchor, manifest_path = _make_freeze_repo(tmp_path)
+    extra = tmp_path / "wavelength_grid_and_smoke.yaml"
+    extra.write_text("not immutable spec payload\n", encoding="utf-8")
+    clean = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    assert clean["status"] == "PASS"
+    assert clean["payload_drift_count"] == 0
+
+    changed = tmp_path / REQUIRED_IMMUTABLE_PAYLOAD[1]
+    changed.write_bytes(changed.read_bytes() + b"drift\n")
+    drift = audit_repository_freeze_contract(
+        root=tmp_path, manifest_path=manifest_path, expected_anchor=anchor
+    )
+    assert drift["status"] == "FAIL"
+    assert drift["payload_drift_count"] == 1
+    failed = [row for row in drift["payloads"] if row["status"] == "FAIL"]
+    assert [row["path"] for row in failed] == [REQUIRED_IMMUTABLE_PAYLOAD[1]]
+
+
+def test_manifest_hashes_are_anchor_derived_and_not_current_head_derived():
+    manifest = load_freeze_manifest()
+    assert manifest["spec_freeze_anchor_commit"] == SPEC_FREEZE_ANCHOR_COMMIT
+    assert tuple(row["path"] for row in manifest["immutable_payload"]) == REQUIRED_IMMUTABLE_PAYLOAD
+    roles = (
+        "inverse_design_specification",
+        "dataset_schema",
+        "structure_grammar_and_identity_contract",
+        "frozen_specification_report",
+        "p0_physics_and_data_contract_audit_report",
+        "p0b_hash_and_objective_audit_report",
+    )
+    rebuilt = [
+        {
+            "path": path,
+            "role": role,
+            "sha256": git_payload_sha256(SPEC_FREEZE_ANCHOR_COMMIT, path),
+            "immutable": True,
+        }
+        for path, role in zip(REQUIRED_IMMUTABLE_PAYLOAD, roles)
+    ]
+    assert rebuilt == manifest["immutable_payload"]
+    for row in rebuilt:
+        assert len(row["sha256"]) == 64
+        int(row["sha256"], 16)
+
+
+def test_legacy_verify_head_true_means_repository_contract_not_exact_equality():
+    result = run_audit(verify_head=True)
+    assert result["status"] == "PASS"
+    assert result["repository_contract_status"] == "PASS"
+    assert result["repository_contract"]["head_policy"] == "descendant_or_equal"

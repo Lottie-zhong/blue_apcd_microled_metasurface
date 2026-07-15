@@ -10,7 +10,7 @@ import re
 import subprocess
 from copy import deepcopy
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 try:
     from scripts.mdc_ml_structure_grammar_v1 import (
@@ -62,8 +62,19 @@ except ModuleNotFoundError:  # Direct execution from scripts/.
 ROOT = Path(__file__).resolve().parents[1]
 SPEC_PATH = ROOT / "configs" / "mdc_ml_inverse_design_spec_v1.yaml"
 SCHEMA_PATH = ROOT / "configs" / "mdc_ml_dataset_schema_v1.json"
+FREEZE_MANIFEST_PATH = ROOT / "configs" / "mdc_ml_spec_freeze_manifest_v1.json"
 OUTPUT_DIR = ROOT / "outputs" / "mdc_ml_inverse_design_spec_v1"
-FROZEN_COMMIT = "40dedf4098fa0ca19e0e5f0e3395e73fb4949c53"
+SPEC_FREEZE_ANCHOR_COMMIT = "ba361fa39a5c04cccbaa55ad1d89b328c5a8d91b"
+SPEC_SOURCE_FROZEN_COMMIT = "40dedf4098fa0ca19e0e5f0e3395e73fb4949c53"
+REPOSITORY_CONTRACT_VERSION = "mdc_ml_repository_freeze_contract_v1"
+REQUIRED_IMMUTABLE_PAYLOAD = (
+    "configs/mdc_ml_inverse_design_spec_v1.yaml",
+    "configs/mdc_ml_dataset_schema_v1.json",
+    "scripts/mdc_ml_structure_grammar_v1.py",
+    "reports/mdc_ml_inverse_design_spec_v1.md",
+    "reports/mdc_ml_inverse_design_spec_v1_p0_contract_audit.md",
+    "reports/mdc_ml_inverse_design_spec_v1_p0b_hash_objective_audit.md",
+)
 BASELINE_ID = "P1_ZL1_ALTERNATIVE_G3_A3"
 BASELINE_SOURCE = ROOT / "outputs" / "mdc_p1_asymmetric_scan_static_v1" / "p1_asymmetric_structures.csv"
 MATERIAL_POLICY_SOURCE = ROOT / "configs" / "mdc_defect_450_material_policy.json"
@@ -126,10 +137,159 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fields: list[str]) -> None
         writer.writerows(rows)
 
 
-def git_head() -> str:
+def git_head(root: Path = ROOT) -> str:
     return subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, encoding="utf-8"
+        ["git", "rev-parse", "HEAD"], cwd=root, text=True, encoding="utf-8"
     ).strip()
+
+
+def load_freeze_manifest(path: Path = FREEZE_MANIFEST_PATH) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("freeze manifest root must be an object")
+    return value
+
+
+def git_commit_exists(commit: str, root: Path = ROOT) -> bool:
+    result = subprocess.run(
+        ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
+        cwd=root,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    return result.returncode == 0
+
+
+def git_is_ancestor(anchor: str, head: str, root: Path = ROOT) -> bool:
+    result = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", anchor, head],
+        cwd=root,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    return result.returncode == 0
+
+
+def git_payload_sha256(anchor: str, path: str, root: Path = ROOT) -> str:
+    payload = subprocess.check_output(["git", "show", f"{anchor}:{path}"], cwd=root)
+    return hashlib.sha256(payload).hexdigest()
+
+
+def audit_repository_freeze_contract(
+    *,
+    root: Path = ROOT,
+    manifest_path: Path | None = None,
+    current_head: str | None = None,
+    expected_anchor: str = SPEC_FREEZE_ANCHOR_COMMIT,
+    commit_exists: Callable[[str, Path], bool] = git_commit_exists,
+    ancestor_check: Callable[[str, str, Path], bool] = git_is_ancestor,
+    anchor_payload_hash: Callable[[str, str, Path], str] = git_payload_sha256,
+) -> dict[str, Any]:
+    """Verify anchor ancestry and byte identity of every immutable spec payload."""
+    path = root / "configs" / "mdc_ml_spec_freeze_manifest_v1.json" if manifest_path is None else manifest_path
+    errors: list[str] = []
+    if not path.exists():
+        return {
+            "status": "FAIL", "repository_contract_version": REPOSITORY_CONTRACT_VERSION,
+            "errors": [f"freeze manifest is unavailable: {path}"], "payloads": [],
+            "payload_drift_count": 0, "immutable_payload_count": 0,
+            "freeze_anchor_exists": False, "anchor_is_ancestor": False,
+            "current_head": current_head,
+        }
+    try:
+        manifest = load_freeze_manifest(path)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        return {
+            "status": "FAIL", "repository_contract_version": REPOSITORY_CONTRACT_VERSION,
+            "errors": [f"invalid freeze manifest: {exc}"], "payloads": [],
+            "payload_drift_count": 0, "immutable_payload_count": 0,
+            "freeze_anchor_exists": False, "anchor_is_ancestor": False,
+            "current_head": current_head,
+        }
+
+    anchor = str(manifest.get("spec_freeze_anchor_commit", ""))
+    if manifest.get("manifest_version") != "mdc_ml_spec_freeze_manifest_v1":
+        errors.append("freeze manifest version mismatch")
+    if manifest.get("repository_contract_version") != REPOSITORY_CONTRACT_VERSION:
+        errors.append("repository contract version mismatch")
+    if manifest.get("head_policy") != "descendant_or_equal":
+        errors.append("head policy must be descendant_or_equal")
+    if anchor != expected_anchor:
+        errors.append(f"freeze anchor is {anchor}, expected immutable anchor {expected_anchor}")
+    try:
+        head = git_head(root) if current_head is None else current_head
+    except (OSError, subprocess.CalledProcessError) as exc:
+        head = None
+        errors.append(f"cannot resolve current HEAD: {exc}")
+    anchor_exists = bool(anchor) and commit_exists(anchor, root)
+    if not anchor_exists:
+        errors.append(f"freeze anchor commit does not exist: {anchor}")
+    anchor_is_ancestor = bool(anchor_exists and head and ancestor_check(anchor, head, root))
+    if anchor_exists and head and not anchor_is_ancestor:
+        errors.append(f"freeze anchor {anchor} is not an ancestor of HEAD {head}")
+
+    entries = manifest.get("immutable_payload")
+    if not isinstance(entries, list):
+        entries = []
+        errors.append("immutable_payload must be a list")
+    entry_paths = [entry.get("path") for entry in entries if isinstance(entry, dict)]
+    if tuple(entry_paths) != REQUIRED_IMMUTABLE_PAYLOAD:
+        errors.append("immutable payload inventory/order differs from the frozen v1 contract")
+    mutable = manifest.get("mutable_maintenance_files", [])
+    if set(entry_paths) & set(mutable if isinstance(mutable, list) else []):
+        errors.append("immutable payload overlaps mutable maintenance files")
+
+    payloads: list[dict[str, Any]] = []
+    drift_count = 0
+    sha_pattern = re.compile(r"^[0-9a-f]{64}$")
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            errors.append(f"immutable_payload[{index}] must be an object")
+            drift_count += 1
+            continue
+        relative = str(entry.get("path", ""))
+        expected = str(entry.get("sha256", ""))
+        if entry.get("immutable") is not True:
+            errors.append(f"payload is not marked immutable: {relative}")
+        if not entry.get("role"):
+            errors.append(f"payload role is missing: {relative}")
+        if sha_pattern.fullmatch(expected) is None:
+            errors.append(f"payload expected SHA-256 is invalid: {relative}")
+        anchor_actual: str | None = None
+        if anchor_exists and relative:
+            try:
+                anchor_actual = anchor_payload_hash(anchor, relative, root)
+            except (OSError, subprocess.CalledProcessError) as exc:
+                errors.append(f"cannot read payload from freeze anchor {relative}: {exc}")
+        worktree_path = root / relative
+        actual = sha256(worktree_path) if worktree_path.is_file() else None
+        anchor_matches_manifest = anchor_actual == expected
+        worktree_matches_manifest = actual == expected
+        status = "PASS" if anchor_matches_manifest and worktree_matches_manifest else "FAIL"
+        if status != "PASS":
+            drift_count += 1
+            if not anchor_matches_manifest:
+                errors.append(f"manifest SHA-256 does not match freeze anchor payload: {relative}")
+            if not worktree_matches_manifest:
+                errors.append(f"working-tree immutable payload drift: {relative}")
+        payloads.append({
+            "path": relative, "role": entry.get("role"), "immutable": entry.get("immutable"),
+            "expected_sha256": expected, "anchor_sha256": anchor_actual,
+            "actual_sha256": actual, "status": status,
+        })
+    passed = not errors
+    return {
+        "status": "PASS" if passed else "FAIL",
+        "repository_contract_version": REPOSITORY_CONTRACT_VERSION,
+        "manifest_path": path.relative_to(root).as_posix() if path.is_relative_to(root) else str(path),
+        "spec_freeze_anchor_commit": anchor, "head_policy": manifest.get("head_policy"),
+        "freeze_anchor_exists": anchor_exists, "current_head": head,
+        "anchor_is_ancestor": anchor_is_ancestor,
+        "immutable_payload_count": len(entries), "payload_drift_count": drift_count,
+        "payloads": payloads, "mutable_maintenance_files": mutable, "errors": errors,
+    }
 
 
 def _resolve_ref(root_schema: dict[str, Any], reference: str) -> dict[str, Any]:
@@ -285,7 +445,7 @@ def make_schema_dummy(canonical: dict[str, Any]) -> dict[str, Any]:
             "solver_version": "not_executed_static_contract",
             "polarization_contract_id": "TE_TM_separate_unpolarized_arithmetic_mean_v1",
             "numerical_settings_contract_id": "F0_TMM_static_contract_v1",
-            "provenance_commit": FROZEN_COMMIT,
+            "provenance_commit": SPEC_SOURCE_FROZEN_COMMIT,
             "simulation_provenance_hash": provenance_hash,
             "simulation_provenance_hash_version": SIMULATION_PROVENANCE_HASH_VERSION,
             "quality_flags": {
@@ -402,7 +562,7 @@ def audit_spec(spec: dict[str, Any]) -> list[str]:
     errors = [f"missing spec section {name}" for name in sorted(required - set(spec))]
     if spec.get("spec_version") != "MDC_ML_INVERSE_DESIGN_SPEC_V1":
         errors.append("unexpected spec_version")
-    if spec.get("source_frozen_commit") != FROZEN_COMMIT:
+    if spec.get("source_frozen_commit") != SPEC_SOURCE_FROZEN_COMMIT:
         errors.append("source_frozen_commit does not match the requested baseline")
     families = spec.get("topology_grammar", {}).get("topology_families", [])
     if tuple(families) != TOPOLOGY_FAMILIES:
@@ -799,7 +959,19 @@ def audit_material_and_hash_provenance(canonical: dict[str, Any]) -> list[str]:
     return errors
 
 
-def run_audit(*, verify_head: bool = True) -> dict[str, Any]:
+def run_audit(
+    *,
+    verify_repository_contract: bool = True,
+    verify_head: bool | None = None,
+) -> dict[str, Any]:
+    """Run the formal audit.
+
+    ``verify_head`` is a compatibility alias for ``verify_repository_contract``.
+    When true it means anchor ancestry plus immutable-payload verification; it
+    never means exact equality between HEAD and a fixed commit.
+    """
+    if verify_head is not None:
+        verify_repository_contract = verify_head
     spec = load_spec()
     schema = load_schema()
     candidates = generate_dummy_candidates()
@@ -855,9 +1027,19 @@ def run_audit(*, verify_head: bool = True) -> dict[str, Any]:
         for item in canonicals
     ]
     add("split_leakage_static_control", audit_split_leakage(split_records))
-    if verify_head:
-        head = git_head()
-        add("frozen_worktree_head", [] if head == FROZEN_COMMIT else [f"HEAD is {head}"])
+    repository_contract = (
+        audit_repository_freeze_contract()
+        if verify_repository_contract
+        else {
+            "status": "SKIPPED", "repository_contract_version": REPOSITORY_CONTRACT_VERSION,
+            "spec_freeze_anchor_commit": SPEC_FREEZE_ANCHOR_COMMIT,
+            "current_head": git_head(), "freeze_anchor_exists": None,
+            "anchor_is_ancestor": None, "immutable_payload_count": 0,
+            "payload_drift_count": 0, "payloads": [], "errors": [],
+        }
+    )
+    if verify_repository_contract:
+        add("repository_freeze_contract", repository_contract["errors"])
     passed = all(check["pass"] for check in checks)
     return {
         "status": "PASS" if passed else "FAIL",
@@ -871,6 +1053,14 @@ def run_audit(*, verify_head: bool = True) -> dict[str, Any]:
         "objective_activation_status": activation_audit["status"],
         "f0_pilot_contract_ready": passed,
         "authoritative_baseline_roundtrip_status": baseline["status"],
+        "repository_contract": repository_contract,
+        "repository_contract_status": repository_contract["status"],
+        "spec_freeze_anchor_commit": repository_contract["spec_freeze_anchor_commit"],
+        "current_head": repository_contract["current_head"],
+        "freeze_anchor_exists": repository_contract["freeze_anchor_exists"],
+        "anchor_is_ancestor": repository_contract["anchor_is_ancestor"],
+        "immutable_payload_count": repository_contract["immutable_payload_count"],
+        "payload_drift_count": repository_contract["payload_drift_count"],
         "solver_calls": 0,
         "model_training_runs": 0,
         "level_b_structures_generated": 0,
@@ -1099,7 +1289,7 @@ def build_static_examples(output_dir: Path = OUTPUT_DIR) -> dict[str, Any]:
     p0_contract = {
         "status": audit["status"],
         "spec_version": spec["spec_version"],
-        "source_frozen_commit": FROZEN_COMMIT,
+        "source_frozen_commit": spec["source_frozen_commit"],
         "authoritative_baseline_roundtrip_status": baseline["status"],
         "nominal_primary_objective_count": len(NOMINAL_PRIMARY_OBJECTIVES),
         "nominal_primary_objectives": list(NOMINAL_PRIMARY_OBJECTIVES),
@@ -1133,7 +1323,7 @@ def build_static_examples(output_dir: Path = OUTPUT_DIR) -> dict[str, Any]:
         "status": "PASS" if hash_audit["status"] == activation_audit["status"] == baseline["status"] == "PASS" else "FAIL",
         "spec_version": spec["spec_version"],
         "contract_revision": spec["contract_revision"],
-        "source_frozen_commit": FROZEN_COMMIT,
+        "source_frozen_commit": SPEC_SOURCE_FROZEN_COMMIT,
         "hash_identity_layers": spec["hash_contracts"],
         "baseline_hash_lineage": {
             "authoritative_source": baseline.get("authoritative_source"),
@@ -1189,7 +1379,7 @@ def build_static_examples(output_dir: Path = OUTPUT_DIR) -> dict[str, Any]:
     }
     manifest = {
         "spec_version": spec["spec_version"],
-        "source_frozen_commit": FROZEN_COMMIT,
+        "source_frozen_commit": SPEC_SOURCE_FROZEN_COMMIT,
         "generator": "scripts/audit_mdc_ml_inverse_design_spec_v1.py",
         "output_directory": "outputs/mdc_ml_inverse_design_spec_v1",
         "dummy_structure_count": len(candidates),
