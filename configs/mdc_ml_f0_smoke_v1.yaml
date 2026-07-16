@@ -1,0 +1,67 @@
+{
+  "contract_id": "MDC_ML_F0_SMOKE_V1",
+  "frozen_commit": "ba361fa39a5c04cccbaa55ad1d89b328c5a8d91b",
+  "seed": 20260715,
+  "structure_count": 17,
+  "nonbaseline_per_topology_family": 2,
+  "output_directory": "outputs/mdc_ml_f0_smoke_v1",
+  "response_format": "NPZ",
+  "maximum_output_bytes": 52428800,
+  "grids": {
+    "spectral": {
+      "id": "wl_normal_420_480_step_0p1_nm_v1",
+      "wavelength_start_nm": 420.0,
+      "wavelength_stop_nm": 480.0,
+      "wavelength_step_nm": 0.1,
+      "angle_air_deg": 0.0
+    },
+    "angular": {
+      "id": "angle_air_450_m60_p60_step_1_deg_v1",
+      "wavelength_nm": 450.0,
+      "angle_start_deg": -60.0,
+      "angle_stop_deg": 60.0,
+      "angle_step_deg": 1.0
+    },
+    "apcd_ready": {
+      "id": "apcd_ready_wl448_453_step0p5_angle_m60_p60_step1_v1",
+      "wavelength_start_nm": 448.0,
+      "wavelength_stop_nm": 453.0,
+      "wavelength_step_nm": 0.5,
+      "angle_start_deg": -60.0,
+      "angle_stop_deg": 60.0,
+      "angle_step_deg": 1.0
+    }
+  },
+  "physics": {
+    "source_material_id": "APCD_GAN_NATIVE_M1",
+    "high_index_material_id": "APCD_TIO2_NATIVE_M1",
+    "low_index_material_id": "APCD_SIO2_NATIVE_M1",
+    "exit_material_id": "AIR",
+    "angle_convention_id": "air_side_far_field_conserved_real_kx_v1",
+    "polarization_contract_id": "TE_TM_separate_unpolarized_arithmetic_mean_v1",
+    "solver_id": "mdc_tmm_complex_incident_power_v1",
+    "solver_version": "frozen_commit_ba361fa",
+    "numerical_settings_contract_id": "MDC_ML_F0_SMOKE_NUMERICS_V1"
+  },
+  "baseline": {
+    "sample_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+    "topology_family": "off_center_defect",
+    "material_tokens": ["H", "L", "H", "L", "H", "L", "H", "L", "H", "L", "H", "L"],
+    "thickness_nm": [44, 79, 44, 79, 44, 316, 44, 79, 44, 79, 44, 79],
+    "defect_index_zero_based": 5,
+    "canonical_geometry_hash": "b30dff7f757c1401a595ee448869f65b5e4535e28995afc3976585dcbf688ed0",
+    "physical_configuration_hash": "8a2672e4ce591031e4c092b90b4256a6477bc382f5dd3f8a9c4f8664f6a80d37",
+    "historical": {
+      "spectral_fwhm_nm": 3.3000000000007503,
+      "angular_fwhm_deg": 14.996580473442913,
+      "maximum_angle_set_deg": [0.0],
+      "center_is_global_max": true,
+      "ratio": 45.66660483135923
+    },
+    "acceptance": {
+      "spectral_fwhm_abs_tolerance_nm": 1e-9,
+      "angular_fwhm_abs_tolerance_deg": 1e-9,
+      "ratio_abs_tolerance": 1e-9
+    }
+  }
+}
