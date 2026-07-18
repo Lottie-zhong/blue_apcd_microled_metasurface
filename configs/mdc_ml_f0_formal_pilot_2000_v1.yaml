@@ -1,0 +1,130 @@
+{
+  "contract_id": "MDC_ML_F0_FORMAL_PILOT_2000_V1",
+  "formal_batch_id": "F0_FORMAL_2000_V1",
+  "expected_head": "143dd6a49a4eaa04a74fba03f195c4ebbedacfbd",
+  "spec_freeze_anchor": "ba361fa39a5c04cccbaa55ad1d89b328c5a8d91b",
+  "frozen_f0_smoke_commit": "8cc545785a1c73f99f31f8dc2ba21d72fc8684b8",
+  "frozen_pre1_commit": "143dd6a49a4eaa04a74fba03f195c4ebbedacfbd",
+  "seed": 20260718,
+  "formal_seed": 20260718,
+  "formal_candidate_count": 2000,
+  "formal_execution_config_sha256": "b7efde1a5fe76c7dc821f5e6fb276c1ecad2f339dc966a657d2a3184b6bbfa11",
+  "workers": 8,
+  "output_directory": "outputs/mdc_ml_f0_formal_pilot_2000_v1",
+  "pre1_output_directory": "outputs/mdc_ml_f0_pilot_calibration_v1",
+  "smoke_output_directory": "outputs/mdc_ml_f0_smoke_v1",
+  "maximum_output_bytes": 838860800,
+  "soft_output_bytes": 734003200,
+  "proposal_limits": {
+    "maximum_refills_per_target": 100,
+    "maximum_total_proposals": 200000
+  },
+  "source_quotas": {
+    "FAMILY_STRATIFIED_GLOBAL": 1250,
+    "ANCHOR_NEIGHBORHOOD": 375,
+    "FAMILY_CHALLENGE": 250,
+    "RARE_CROSS_FAMILY": 125
+  },
+  "family_quotas": {
+    "symmetric_periodic": {"FAMILY_STRATIFIED_GLOBAL": 157, "ANCHOR_NEIGHBORHOOD": 125, "FAMILY_CHALLENGE": 32, "RARE_CROSS_FAMILY": 16, "total": 330},
+    "asymmetric_pair_count": {"FAMILY_STRATIFIED_GLOBAL": 157, "ANCHOR_NEIGHBORHOOD": 0, "FAMILY_CHALLENGE": 32, "RARE_CROSS_FAMILY": 16, "total": 205},
+    "off_center_defect": {"FAMILY_STRATIFIED_GLOBAL": 156, "ANCHOR_NEIGHBORHOOD": 250, "FAMILY_CHALLENGE": 31, "RARE_CROSS_FAMILY": 16, "total": 453},
+    "grouped_chirped": {"FAMILY_STRATIFIED_GLOBAL": 156, "ANCHOR_NEIGHBORHOOD": 0, "FAMILY_CHALLENGE": 31, "RARE_CROSS_FAMILY": 16, "total": 203},
+    "dual_defect": {"FAMILY_STRATIFIED_GLOBAL": 156, "ANCHOR_NEIGHBORHOOD": 0, "FAMILY_CHALLENGE": 31, "RARE_CROSS_FAMILY": 16, "total": 203},
+    "termination_reversed": {"FAMILY_STRATIFIED_GLOBAL": 156, "ANCHOR_NEIGHBORHOOD": 0, "FAMILY_CHALLENGE": 31, "RARE_CROSS_FAMILY": 15, "total": 202},
+    "locally_aperiodic": {"FAMILY_STRATIFIED_GLOBAL": 156, "ANCHOR_NEIGHBORHOOD": 0, "FAMILY_CHALLENGE": 31, "RARE_CROSS_FAMILY": 15, "total": 202},
+    "hybrid_periodic_aperiodic": {"FAMILY_STRATIFIED_GLOBAL": 156, "ANCHOR_NEIGHBORHOOD": 0, "FAMILY_CHALLENGE": 31, "RARE_CROSS_FAMILY": 15, "total": 202}
+  },
+  "anchor_quotas": {
+    "P1_EXPLICIT_FAB_G3_A3": 125,
+    "P1_ZL1_NOMINAL_G3_A3": 125,
+    "P1_ZL1_ALTERNATIVE_G3_A3": 125
+  },
+  "anchors": {
+    "authority_file": "outputs/mdc_p1_asymmetric_scan_static_v1/p1_asymmetric_structures.csv",
+    "preferred": [
+      {"id": "P1_EXPLICIT_FAB_G3_A3", "family": "symmetric_periodic"},
+      {"id": "P1_ZL1_NOMINAL_G3_A3", "family": "off_center_defect"},
+      {"id": "P1_ZL1_ALTERNATIVE_G3_A3", "family": "off_center_defect"}
+    ]
+  },
+  "preflight": {"count": 32, "per_family": 4},
+  "quality": {
+    "low_T450_threshold": 0.05,
+    "low_band_proxy_threshold": 0.05,
+    "strong_secondary_peak_ratio": 0.5,
+    "peak_angle_zero_compatibility_tolerance_deg": 0.0,
+    "quality_mask_contract_id": "post_TMM_objective_eligibility_mask_v1",
+    "pre_solver_performance_filtering_allowed": false,
+    "transmission_power_balance_tolerance": 0.001,
+    "transmission_power_balance_tolerance_source": "PRE1_fixed_numerical_diagnostic_v1",
+    "cross_fidelity_absolute_tolerance": 1e-9,
+    "failure_retry_fraction": 0.02
+  },
+  "objective_redundancy": {
+    "warning_abs_pearson_threshold": 0.995,
+    "retain_frozen_nominal_4d_objectives": true,
+    "recompute_each_formal_pilot": true,
+    "sensitivity_analysis_policy": "diagnostic_only; never replaces frozen nominal 4D"
+  },
+  "training_eligibility": {
+    "contract_id": "post_TMM_training_eligibility_mask_v1",
+    "postprocess_path": "PATH_A",
+    "power_balance_tolerance": 0.001,
+    "raw_transmission_clipping_allowed": false,
+    "retain_all_legal_records_and_artifacts": true,
+    "validity_classification_uses_all_combined_records": true,
+    "continuous_regression_requires_power_balance_failure_false": true,
+    "nominal_4d_requires_power_balance_failure_false": true,
+    "shortlist_requires_power_balance_failure_false": true,
+    "pareto_requires_power_balance_failure_false": true,
+    "interesting_candidate_requires_power_balance_failure_false": true,
+    "invalid_fwhm_fill_value": null,
+    "failure_record_allowed_uses": [
+      "validity_classification",
+      "anomaly_detection",
+      "solver_quality_analysis"
+    ]
+  },
+  "training_readiness": {
+    "ready_shared_surrogate": true,
+    "need_5000_before_training": false,
+    "recommended_next_stage": "SHARED_SURROGATE_V1",
+    "model_topology": "shared_global_surrogate",
+    "family_encoding": "embedding_or_one_hot",
+    "heads": ["validity_classification", "masked_continuous_regression"],
+    "classification_population": 2512,
+    "continuous_regression_population": 737,
+    "independent_family_models_supported": false,
+    "five_thousand_decision_source": "first_model_validation_error_uncertainty_and_active_learning_coverage"
+  },
+  "grids": {
+    "spectral": {"id": "wl_normal_420_480_step_0p1_nm_v1", "wavelength_start_nm": 420.0, "wavelength_stop_nm": 480.0, "wavelength_step_nm": 0.1, "angle_air_deg": 0.0},
+    "angular": {"id": "angle_air_450_m60_p60_step_1_deg_v1", "wavelength_nm": 450.0, "angle_start_deg": -60.0, "angle_stop_deg": 60.0, "angle_step_deg": 1.0},
+    "apcd_ready": {"id": "apcd_ready_wl448_453_step0p5_angle_m60_p60_step1_v1", "wavelength_start_nm": 448.0, "wavelength_stop_nm": 453.0, "wavelength_step_nm": 0.5, "angle_start_deg": -60.0, "angle_stop_deg": 60.0, "angle_step_deg": 1.0}
+  },
+  "physics": {
+    "source_material_id": "APCD_GAN_NATIVE_M1",
+    "high_index_material_id": "APCD_TIO2_NATIVE_M1",
+    "low_index_material_id": "APCD_SIO2_NATIVE_M1",
+    "exit_material_id": "AIR",
+    "angle_convention_id": "air_side_far_field_conserved_real_kx_v1",
+    "polarization_contract_id": "TE_TM_separate_unpolarized_arithmetic_mean_v1",
+    "solver_id": "mdc_tmm_complex_incident_power_v1",
+    "solver_version": "frozen_commit_ba361fa",
+    "numerical_settings_contract_id": "MDC_ML_F0_SMOKE_NUMERICS_V1"
+  },
+  "pre1_contract": {
+    "candidate_count": 512,
+    "candidate_content_signature": "bcb97eef254334aa382be21ce3fd78f0704e5492275a50a8028b20b6c4bdb5f4",
+    "dataset_content_signature": "6b11358568fe27f9cde322e3fb214e0c9f053a2acd5d4bb2e88f51bb8e495c29"
+  },
+  "schema_sha256": "af86d7a3ca77f6c25101eef9182ca5ec1c0b5d458bda7502fbcbea89b8d0aadf",
+  "frozen_pre1_files_sha256": {
+    "configs/mdc_ml_f0_pilot_calibration_v1.yaml": "b09ab8582a262bb18a9e242b127e295b07b2d64737ea7c50dd49f4c2288f902f",
+    "scripts/build_mdc_ml_f0_pilot_candidates_v1.py": "929a85346b5f9903830133109b3e7daa12245ec3839a7de7a4522ed7aa85537d",
+    "scripts/run_mdc_ml_f0_pilot_calibration_v1.py": "05d0a21ed7f1368a510577ade4fccc5b2d2898f1ac57eb8677e7dcb86fe7c63b",
+    "tests/test_mdc_ml_f0_pilot_calibration_v1.py": "7c76e4d899c349361a970b60cc13f62dbf69fa2b39843474b748c5083def58aa",
+    "reports/mdc_ml_f0_pilot_calibration_v1.md": "8c9347fa7241f547bde246e9fd915f530185fce3348e6f804735aaa3142b221c"
+  }
+}
