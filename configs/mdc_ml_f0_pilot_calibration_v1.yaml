@@ -1,0 +1,129 @@
+{
+  "contract_id": "MDC_ML_F0_PILOT_CALIBRATION_V1",
+  "frozen_commit": "ba361fa39a5c04cccbaa55ad1d89b328c5a8d91b",
+  "expected_head": "8cc545785a1c73f99f31f8dc2ba21d72fc8684b8",
+  "repository_contract_commit": "b51e08ceaf141f21bc102f69d288686b1f78b865",
+  "spec_freeze_anchor": "ba361fa39a5c04cccbaa55ad1d89b328c5a8d91b",
+  "seed": 20260716,
+  "output_directory": "outputs/mdc_ml_f0_pilot_calibration_v1",
+  "maximum_output_bytes": 262144000,
+  "existing_output_contract": {
+    "candidate_count": 512,
+    "candidate_content_signature": "bcb97eef254334aa382be21ce3fd78f0704e5492275a50a8028b20b6c4bdb5f4",
+    "dataset_content_signature": "6b11358568fe27f9cde322e3fb214e0c9f053a2acd5d4bb2e88f51bb8e495c29",
+    "schema_pass_count": 512,
+    "artifact_pass_count": 512,
+    "solver_failure_count": 0,
+    "worker_metrics_content_signature": "c68a1701b639ee9f7ed2cc009ae14a08a9c7635cb6f86590aba0135c5fadc91e",
+    "worker_array_content_signature": "e7885a388cff3e14bac27308b6e0728148115d6987936ca7b45d1c635be4c767",
+    "worker_result_ordering_signature": "f0e37bbb1ffbe1aaa1f3b4573ff66b0c6a8023dbed9b2fbb7454d2edffd65dd7"
+  },
+  "proposal_limits": {
+    "maximum_refills_per_target": 50,
+    "maximum_total_proposals": 50000
+  },
+  "source_categories": [
+    {"id": "FAMILY_STRATIFIED_GLOBAL", "count": 320, "per_family": 40},
+    {"id": "ANCHOR_NEIGHBORHOOD", "count": 96, "per_anchor": 32},
+    {"id": "FAMILY_CHALLENGE", "count": 64, "per_family": 8},
+    {"id": "RARE_CROSS_FAMILY", "count": 32, "per_family": 4}
+  ],
+  "anchors": {
+    "authority_file": "outputs/mdc_p1_asymmetric_scan_static_v1/p1_asymmetric_structures.csv",
+    "preferred": [
+      {"id": "P1_EXPLICIT_FAB_G3_A3", "family": "symmetric_periodic"},
+      {"id": "P1_ZL1_NOMINAL_G3_A3", "family": "off_center_defect"},
+      {"id": "P1_ZL1_ALTERNATIVE_G3_A3", "family": "off_center_defect"}
+    ]
+  },
+  "benchmark": {
+    "subset_count": 64,
+    "per_family": 8,
+    "workers": [1, 2, 4, 8],
+    "timed_repeats": 2,
+    "warmup_count": 2,
+    "maximum_workers": 8
+  },
+  "quality": {
+    "low_T450_threshold": 0.05,
+    "low_band_proxy_threshold": 0.05,
+    "strong_secondary_peak_ratio": 0.5,
+    "peak_angle_zero_compatibility_tolerance_deg": 0.0,
+    "quality_mask_contract_id": "post_TMM_objective_eligibility_mask_v1",
+    "pre_solver_performance_filtering_allowed": false,
+    "transmission_power_balance_tolerance": 0.001,
+    "transmission_power_balance_tolerance_source": "PRE1_fixed_numerical_diagnostic_v1",
+    "cross_fidelity_absolute_tolerance": 1e-9,
+    "failure_retry_fraction": 0.02
+  },
+  "objective_redundancy": {
+    "warning_abs_pearson_threshold": 0.995,
+    "retain_frozen_nominal_4d_objectives": true,
+    "recompute_each_formal_pilot": true,
+    "sensitivity_analysis_policy": "report_original_4d_pareto_and_diagnostic_leave_one_highly_correlated_objective_out; diagnostic_never_replaces_frozen_4d"
+  },
+  "grids": {
+    "spectral": {
+      "id": "wl_normal_420_480_step_0p1_nm_v1",
+      "wavelength_start_nm": 420.0,
+      "wavelength_stop_nm": 480.0,
+      "wavelength_step_nm": 0.1,
+      "angle_air_deg": 0.0
+    },
+    "angular": {
+      "id": "angle_air_450_m60_p60_step_1_deg_v1",
+      "wavelength_nm": 450.0,
+      "angle_start_deg": -60.0,
+      "angle_stop_deg": 60.0,
+      "angle_step_deg": 1.0
+    },
+    "apcd_ready": {
+      "id": "apcd_ready_wl448_453_step0p5_angle_m60_p60_step1_v1",
+      "wavelength_start_nm": 448.0,
+      "wavelength_stop_nm": 453.0,
+      "wavelength_step_nm": 0.5,
+      "angle_start_deg": -60.0,
+      "angle_stop_deg": 60.0,
+      "angle_step_deg": 1.0
+    }
+  },
+  "physics": {
+    "source_material_id": "APCD_GAN_NATIVE_M1",
+    "high_index_material_id": "APCD_TIO2_NATIVE_M1",
+    "low_index_material_id": "APCD_SIO2_NATIVE_M1",
+    "exit_material_id": "AIR",
+    "angle_convention_id": "air_side_far_field_conserved_real_kx_v1",
+    "polarization_contract_id": "TE_TM_separate_unpolarized_arithmetic_mean_v1",
+    "solver_id": "mdc_tmm_complex_incident_power_v1",
+    "solver_version": "frozen_commit_ba361fa",
+    "numerical_settings_contract_id": "MDC_ML_F0_SMOKE_NUMERICS_V1"
+  },
+  "f0_cross_fidelity": {
+    "smoke_config": "configs/mdc_ml_f0_smoke_v1.yaml",
+    "smoke_response_manifest": "outputs/mdc_ml_f0_smoke_v1/response_manifest_v1.json",
+    "baseline_sample_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+    "expected_array_content_hash": "d1809afbec9fa2dc28e2f83fd90099b4ecb2f193d570319e15d8fc61094070f7",
+    "expected_metrics": {
+      "spectral_fwhm_normal_nm": 3.2999999999999545,
+      "angular_fwhm_450_deg": 14.996580473442913,
+      "ratio": 45.66660483135923,
+      "maximum_angle_set_deg": [0.0],
+      "tmm_apcd_ready_cone5_fraction_proxy": 0.45356109240238607,
+      "tmm_apcd_ready_cone10_fraction_proxy": 0.7857629454756327,
+      "tmm_band_transmission_448_453_normal_proxy": 0.6313084408788102
+    }
+  },
+  "frozen_files_sha256": {
+    ".gitattributes": "16e97b2319421e9cecbdd9c3a01e98389e6b04e8d9dcba9d7e3f5d8a46808558",
+    "configs/mdc_ml_inverse_design_spec_v1.yaml": "77fb2d136e7e235b829c9493b1a3eddcbedd9aa68a5a77f2ca2e86c5a32d5045",
+    "configs/mdc_ml_dataset_schema_v1.json": "af86d7a3ca77f6c25101eef9182ca5ec1c0b5d458bda7502fbcbea89b8d0aadf",
+    "scripts/mdc_ml_structure_grammar_v1.py": "289293e2edc7d12378c71eb92e16872115f067c857b0e69ac694ba16ee170064",
+    "reports/mdc_ml_inverse_design_spec_v1.md": "6a50737005e525b73de2bd7c8d444b11a2239bd833bc4a3a3e2382d7f83bdaab",
+    "reports/mdc_ml_inverse_design_spec_v1_p0_contract_audit.md": "191add9010d6ca33dbb8e50652a2cc5cbb39b4e3ab70507f74b67d1d2e6f2824",
+    "reports/mdc_ml_inverse_design_spec_v1_p0b_hash_objective_audit.md": "06a85261087fb2e32d557159f94b5e32a99ed3214b6093a757dd7556d9031b38",
+    "configs/mdc_ml_f0_smoke_v1.yaml": "27996af28c54913a22fa7c8bde1519369a99609e3b91b6139f5aaea018853bbe",
+    "scripts/run_mdc_ml_f0_smoke_v1.py": "ad856928e2f02b01a7695360ec3fdb510b65da6a05779572126b232d0e2b572d",
+    "tests/test_mdc_ml_f0_smoke_v1.py": "df8504bf6ae53c50b921e877d75239c3a7cb7107db29550185841c1ad471ac74",
+    "reports/mdc_ml_f0_smoke_v1.md": "4968497f9d3f2d1820065d6a48e7e803a2fd327544f88c5b4b228c059b2cf5fc"
+  }
+}
