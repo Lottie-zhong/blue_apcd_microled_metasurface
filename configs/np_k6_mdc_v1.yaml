@@ -28,6 +28,11 @@ fabrication_hard_gates:
 materials:
   source_fsp_read_only: F:\wc_312\MDC_blue_oujizi_m\m_1.fsp
   unified_reference_config: configs\material_reference_apcd_blue.yaml
+  material_reference_yaml: configs/material_reference_apcd_blue.yaml
+  material_reference_json: configs/material_reference_apcd_blue.json
+  material_policy_json: configs/mdc_defect_450_material_policy.json
+  material_loader_helper: scripts/apcd_native_materials.py
+  sampled_material_csv: outputs/material_reference/mdc_blue_oujizi_m/material_ref_native_sampled_mdc_native_m1.csv
   canonical_ids: {tio2: APCD_TIO2_NATIVE_M1, sio2: APCD_SIO2_NATIVE_M1, gan: APCD_GAN_NATIVE_M1}
   original_materials: {tio2: tio22, sio2: sio222, gan: Native-M1 project GaN}
   constant_index_fallback_forbidden: true

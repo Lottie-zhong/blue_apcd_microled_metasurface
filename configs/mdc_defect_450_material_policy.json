@@ -1,0 +1,89 @@
+{
+  "policy_id": "MDC_NATIVE_M1",
+  "status": "active_engineering_default",
+  "formal_material_model": "native_sampled_complex_epsilon",
+  "materials": {
+    "APCD_TIO2_NATIVE_M1": {
+      "source_material_name": "tio22",
+      "roles": [
+        "high_index_layer"
+      ]
+    },
+    "APCD_SIO2_NATIVE_M1": {
+      "source_material_name": "sio222",
+      "roles": [
+        "low_index_layer",
+        "defect_layer"
+      ]
+    },
+    "APCD_GAN_NATIVE_M1": {
+      "source_material_name": "GaN",
+      "sample_count": 500,
+      "material_class": "project_native_sampled_engineering_reference",
+      "roles": [
+        "tmm_gan_incident_medium",
+        "fdtd_gan_substrate",
+        "plane_wave_source_background",
+        "bloch_bfast_kx",
+        "sourcepower_reference_normalization",
+        "mdc_rcled_source_module_gan_background"
+      ],
+      "limitations": [
+        "optical_measurement_provenance_not_exposed",
+        "not_user_measured",
+        "high_loss_warning_retained",
+        "k450_approximately_0.084153",
+        "matched_reference_plane_deembedding_required_for_fdtd",
+        "The TMM loader evaluates the raw sampled epsilon table by linear interpolation, while Lumerical evaluates its fitted material representation. The observed maximum |Δ(n+ik)| over 420–480 nm is 3.954e-4, including 1.447e-4 at 450 nm. This representation delta is retained as cross-method provenance and is not silently treated as zero."
+      ]
+    }
+  },
+  "reference": {
+    "native_sampled_csv": "outputs/material_reference/mdc_blue_oujizi_m/material_ref_native_sampled_mdc_native_m1.csv",
+    "blue_fine_csv": "outputs/material_reference/mdc_blue_oujizi_m/material_ref_448_453.csv",
+    "source_fsp": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+    "extraction_commit": "a272b10",
+    "import_commit": "6601a95",
+    "gan_native_m1": {
+      "source_fsp": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+      "source_fsp_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f",
+      "object_name": "GaN",
+      "material_name": "GaN",
+      "raw_table_sha256": "906f2983665a51b748aa85ef85cd095550bb64a8ef77b8796e36a0b765407ef0",
+      "source_commit": "752cc517c2c6dd2a53a27f7cc47f467635e37ff5",
+      "promotion_date": "2026-07-13"
+    }
+  },
+  "interpolation": {
+    "source_quantity": "complex_epsilon",
+    "independent_axis": "frequency_hz",
+    "method": "linear",
+    "complex_index_reconstruction": "physical_principal_square_root",
+    "extrapolation": "forbidden"
+  },
+  "legacy": {
+    "tag": "legacy_constant_index",
+    "formal_engineering_baseline": false,
+    "implicit_fallback_allowed": false,
+    "gan_legacy": {
+      "canonical_id": "APCD_GAN_LEGACY_N241",
+      "n": 2.41,
+      "k": 0.0,
+      "status": "historical_only"
+    },
+    "gan_constant_fallback_allowed": false
+  },
+  "formal_baseline_prefixes": [
+    "MDC_NATIVE_M1",
+    "MDC_APCD_NATIVE_TIO22_SIO222"
+  ],
+  "material_policy_version": 5,
+  "display_policy": {
+    "version": 1,
+    "units": "normalized_rgba_0_to_1",
+    "materials": {
+      "APCD_GAN_NATIVE_M1": {"semantic_name": "high_contrast_blue", "rgba": [0.05, 0.30, 0.95, 1.0]},
+      "APCD_TIO2_NATIVE_M1": {"semantic_name": "high_contrast_yellow", "rgba": [1.0, 0.82, 0.05, 1.0]}
+    }
+  }
+}
