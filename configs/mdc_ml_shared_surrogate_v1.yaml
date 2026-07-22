@@ -1,0 +1,233 @@
+{
+  "contract_id": "mdc_ml_shared_surrogate_v1",
+  "source_registry": "outputs/mdc_ml_f0_formal_pilot_2000_v1/combined/combined_2512_registry_v1.jsonl",
+  "source_manifest": "outputs/mdc_ml_f0_formal_pilot_2000_v1/combined/combined_2512_manifest_v1.json",
+  "output_root": "outputs/mdc_ml_shared_surrogate_v1",
+  "combined_signature": "d14b0555e488516dcd94443386a283a0cb7d8de119ab069d9ec20b2b93c7591d",
+  "expected_total": 2512,
+  "expected_regression": 737,
+  "max_layers": 25,
+  "split_seed": 20260720,
+  "split_fractions": {
+    "train": 0.6,
+    "validation": 0.15,
+    "calibration": 0.1,
+    "test": 0.15
+  },
+  "training_seeds": [
+    20260720,
+    20260721,
+    20260722
+  ],
+  "device": "cpu",
+  "threads": 8,
+  "classification_targets": [
+    "spectral_fwhm_valid",
+    "angular_fwhm_valid",
+    "nominal_4d_objective_eligible",
+    "shortlist_quality_eligible"
+  ],
+  "regression_targets": [
+    "spectral_fwhm_normal_nm",
+    "angular_fwhm_450_deg",
+    "cone5_integral_proxy",
+    "normal_band_transmission_proxy"
+  ],
+  "material_tokens": {
+    "PAD": 0,
+    "APCD_TIO2_NATIVE_M1": 1,
+    "APCD_SIO2_NATIVE_M1": 2
+  },
+  "families": [
+    "asymmetric_pair_count",
+    "dual_defect",
+    "grouped_chirped",
+    "hybrid_periodic_aperiodic",
+    "locally_aperiodic",
+    "off_center_defect",
+    "symmetric_periodic",
+    "termination_reversed"
+  ],
+  "linear": {
+    "classification_C": [
+      0.1,
+      1.0,
+      10.0
+    ],
+    "ridge_alpha": [
+      0.1,
+      1.0,
+      10.0
+    ]
+  },
+  "extra_trees": {
+    "configs": [
+      {
+        "n_estimators": 256,
+        "min_samples_leaf": 1,
+        "max_features": 0.7
+      },
+      {
+        "n_estimators": 384,
+        "min_samples_leaf": 2,
+        "max_features": 1.0
+      }
+    ]
+  },
+  "hist_gradient_boosting": {
+    "configs": [
+      {
+        "max_iter": 180,
+        "learning_rate": 0.06,
+        "max_leaf_nodes": 15,
+        "l2_regularization": 0.0
+      },
+      {
+        "max_iter": 240,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "l2_regularization": 0.001
+      }
+    ]
+  },
+  "mlp": {
+    "hidden": [
+      256,
+      128
+    ],
+    "dropout": 0.1,
+    "learning_rate": 0.0007,
+    "weight_decay": 1e-05,
+    "batch_size": 128,
+    "max_epochs": 240,
+    "patience": 35
+  },
+  "conformal_coverages": [
+    0.8,
+    0.9
+  ],
+  "extreme_neighbor_distance": 0.05,
+  "output_soft_limit_bytes": 524288000,
+  "test_seal_contract": {
+    "test_seal_contract_id": "shared_surrogate_test_seal_v1",
+    "test_sealed": true,
+    "test_evaluation_count": 1,
+    "test_used_for_model_selection": false,
+    "test_used_for_hyperparameter_selection": false,
+    "test_used_for_threshold_selection": false,
+    "test_used_for_calibration_selection": false,
+    "test_used_for_early_stopping": false,
+    "test_used_for_target_transform_selection": false,
+    "post_test_model_modification_allowed": false,
+    "post_test_champion_change_allowed": false,
+    "post_test_threshold_change_allowed": false,
+    "post_test_calibrator_change_allowed": false,
+    "test_prediction_regeneration_allowed": false
+  },
+  "split_role_contract": {
+    "model_selection_split": "validation",
+    "hyperparameter_selection_split": "validation",
+    "threshold_selection_split": "validation",
+    "early_stopping_split": "validation",
+    "probability_calibration_split": "calibration",
+    "conformal_calibration_split": "calibration",
+    "final_reporting_split": "test"
+  },
+  "champion_artifact_contract": {
+    "champion_bundle_id": "mdc_ml_hybrid_champion_bundle_v1",
+    "classification_champion": "ExtraTrees-1",
+    "regression_champion": "shared_multitask_mlp_3seed_ensemble",
+    "hybrid_bundle": true,
+    "single_model_bundle": false,
+    "classification": {
+      "artifact_relative_path": "models/champion/classification_champion_v1.joblib",
+      "artifact_sha256": "75557a8582e506a15fde372e24d0cc404f7e3022c67e20e313a76f272bfc834d",
+      "calibrator_artifact_relative_path": "models/champion/classification_champion_v1.joblib",
+      "calibrator_artifact_sha256": "75557a8582e506a15fde372e24d0cc404f7e3022c67e20e313a76f272bfc834d",
+      "threshold_record_relative_path": "metrics/classification_metrics_v1.json",
+      "threshold_record_sha256": "063b763c2dea390290c4fee3aef6d148ea14c3041e320ca6dc173b741b54ffe1",
+      "prediction_reference_path": "predictions/test_predictions_v1.csv",
+      "prediction_content_signature": "0d3259bc757055dfb7793a1849b566b76b9d791077eea4b4c54a5eff14da5e7a",
+      "n_estimators": 384,
+      "min_samples_leaf": 2
+    },
+    "regression": {
+      "artifact_relative_path": "models/champion/regression_champion_v1.joblib",
+      "artifact_sha256": "69f3587d3d6f8ed95081d1c787be3349d4b72a165468bb6c42a04f4ddc00cd67",
+      "seed_artifact_relative_paths": [
+        "models/champion/regression_champion_v1.joblib",
+        "models/champion/regression_champion_v1.joblib",
+        "models/champion/regression_champion_v1.joblib"
+      ],
+      "seed_artifact_sha256": [
+        "69f3587d3d6f8ed95081d1c787be3349d4b72a165468bb6c42a04f4ddc00cd67",
+        "69f3587d3d6f8ed95081d1c787be3349d4b72a165468bb6c42a04f4ddc00cd67",
+        "69f3587d3d6f8ed95081d1c787be3349d4b72a165468bb6c42a04f4ddc00cd67"
+      ],
+      "scaler_artifact_relative_path": "models/champion/regression_champion_v1.joblib",
+      "scaler_artifact_sha256": "69f3587d3d6f8ed95081d1c787be3349d4b72a165468bb6c42a04f4ddc00cd67",
+      "conformal_artifact_relative_path": "uncertainty/conformal_intervals_v1.json",
+      "conformal_artifact_sha256": "1dd95e49c7a4fe1b3ec4582d5e068e7da234b7c728123cb38a176cc70e0d4551",
+      "prediction_reference_path": "predictions/test_predictions_v1.csv",
+      "prediction_content_signature": "0d3259bc757055dfb7793a1849b566b76b9d791077eea4b4c54a5eff14da5e7a",
+      "architecture": [
+        256,
+        128
+      ],
+      "ensemble_seeds": [
+        20260720,
+        20260721,
+        20260722
+      ]
+    },
+    "feature_signature": "cc49c7b99dcf486f373f1add526c4c23174069dc92bace0dae6b8fabbcc3cd69",
+    "split_signature": "8479d9712153b9b2e676231549f48a35e87207dd64cdbcd914eb39513528d42e"
+  },
+  "active_learning_contract": {
+    "active_learning_contract_id": "bounded_surrogate_guided_active_learning_v1",
+    "training_decision": "READY_ACTIVE_LEARNING_V1",
+    "ready_active_learning": true,
+    "need_5000_before_active_learning": false,
+    "recommended_next_stage": "BOUNDED_ACTIVE_LEARNING_PROPOSAL_V1",
+    "unconstrained_inverse_search_allowed": false,
+    "continuous_gradient_inverse_design_allowed": false,
+    "surrogate_only_acceptance_allowed": false,
+    "tmm_verification_required": true,
+    "family_coverage_required": true,
+    "diversity_constraint_required": true,
+    "explicit_fabrication_safeguard_required": true,
+    "ood_safeguard_required": true,
+    "random_control_required": true,
+    "raw_ensemble_dispersion_as_sole_acquisition": false,
+    "shortlist_probability_as_sole_acquisition": false,
+    "prediction_pareto_as_sole_acquisition": false,
+    "unseen_family_reliability_claim_allowed": false,
+    "allowed_acquisition_signals": [
+      "calibrated_4d_eligibility_probability",
+      "predicted_regression_objectives",
+      "conformal_interval_width",
+      "family_quota_deficit",
+      "geometric_diversity",
+      "feature_space_distance",
+      "explicit_anchor_distance",
+      "pareto_rank",
+      "random_control_indicator"
+    ],
+    "acquisition_score_requires_multiple_signals": true,
+    "minimum_distinct_signal_families": 3,
+    "iid_near_neighbor_count": 68,
+    "iid_test_count": 377,
+    "anchor_parent_cross_split": true,
+    "iid_metrics_may_be_optimistic": true,
+    "unseen_family_proposal_allowed": false,
+    "existing_family_only_for_active_learning_v1": true,
+    "explicit_anchor_minimum_quota_required": true,
+    "family_minimum_quota_required": true,
+    "ood_candidate_requires_manual_review": true,
+    "classification_probability_calibrated": true,
+    "regression_conformal_calibrated": true,
+    "ensemble_dispersion_calibrated_as_probability": false,
+    "ensemble_dispersion_reliable_for_all_targets": false,
+    "conformal_interval_is_risk_bound_not_point_accuracy": true
+  }
+}
