@@ -1,0 +1,17 @@
+{
+  "branch_id": "NP-K6-MDC-V1",
+  "stage_id": "NP-K6-MDC-P1-B",
+  "code_commit_before": "37aeec3931526ee99394d945c45b366c9ae17984",
+  "setup_only": true,
+  "solver_run": false,
+  "result_status": "not_run",
+  "config_path": "configs/np_k6_unitcell_setup_v1.yaml",
+  "config_hash": "0276B8CA89894F1E329E7E7B30526C71061583CA507E80E1FBD279D1D92750BE",
+  "materials": {"canonical_ids":{"pillar":"APCD_TIO2_NATIVE_M1","substrate":"APCD_SIO2_NATIVE_M1"},"policy_path":"configs/mdc_defect_450_material_policy.json","policy_hash":"CF9EA2303C91E71A4C92821EA4E88A10DCB9D1592F8401BD8B396A81C2CFB0C5","reference_yaml_path":"configs/material_reference_apcd_blue.yaml","reference_yaml_hash":"59FAB53B4261CF86B789681D80D7545BAABA70DCC6692A03E9CE543C71FE8FC4","reference_json_path":"configs/material_reference_apcd_blue.json","reference_json_hash":"CE174A40D8FB0F4380551F44F1B2D93351A579662F220458E057A298AFD5205F","sampled_csv_path":"outputs/material_reference/mdc_blue_oujizi_m/material_ref_native_sampled_mdc_native_m1.csv","sampled_csv_hash":"3F924764311CAB5FB824F229A26870ECA65F22F05419B985047F151529230EDB"},
+  "normalization": "blank_reference_direct_zero_order_complex_amplitude; cross-pol divided by same-input blank co-pol",
+  "phase_convention": "phase_rel = arg(t_candidate / t_blank)",
+  "physical_results": null,
+  "records": [
+    {"case_id":"blank","candidate_origin":"P1-B setup gate","H_nm":500,"D_nm":160,"pitch_x_nm":290,"period_y_nm":290,"integer_geometry":true,"geometry_hash":"blank_H500_D160_P290","wavelength_nm":450,"polarization":"x","propagation":"SiO2 -> Air, +z","boundary":{"x":"Periodic","y":"Periodic","z":"PML"},"source":{"z_nm":-500,"direction":"+z"},"monitors":{"R_fields_z_nm":-750,"T_fields_z_nm":900,"shared_with_pillar":true},"mesh":{"pillar_local_nm":null},"fabrication_gates":{"passed":true,"gap_nm":130,"aspect_ratio":3.125},"blank_reference":{"relationship":"reference"},"runtime_fsp_path":"runtime_fsp/np_k6_p1b_unitcell_v1/np_k6_blank_p290_wl450_polx.fsp","fsp_sha256":"3DABBB06E2148FFCEE8DA4B32107D401550EB9042FF38512CC9737C73BD167DC","fsp_size_bytes":474995,"provenance":"Native-M1 sampled data registration; setup-only","failure_mechanism":null},    {"case_id":"pillar","candidate_origin":"P1-B setup gate","H_nm":500,"D_nm":160,"pitch_x_nm":290,"period_y_nm":290,"integer_geometry":true,"geometry_hash":"pillar_H500_D160_P290","wavelength_nm":450,"polarization":"x","propagation":"SiO2 -> Air, +z","boundary":{"x":"Periodic","y":"Periodic","z":"PML"},"source":{"z_nm":-500,"direction":"+z"},"monitors":{"R_fields_z_nm":-750,"T_fields_z_nm":900,"shared_with_blank":true},"mesh":{"pillar_local_nm":5},"fabrication_gates":{"passed":true,"gap_nm":130,"aspect_ratio":3.125},"blank_reference":{"relationship":"normalized_against_blank_same_geometry_source_monitor_planes","case_id":"blank"},"runtime_fsp_path":"runtime_fsp/np_k6_p1b_unitcell_v1/np_k6_pillar_p290_H500_D160_wl450_polx.fsp","fsp_sha256":"AC7F746CA8166F9B7AEA8D40C7D29BED63AF2A72FADACBB373272DB986F297CE","fsp_size_bytes":478552,"provenance":"Native-M1 sampled data registration; setup-only","failure_mechanism":null}
+  ]
+}
