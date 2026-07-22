@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NP-K6-MDC-V1 candidate record",
+  "type": "object",
+  "required": ["candidate_id","stage_id","branch_id","candidate_origin","H_nm","D1_nm","D2_nm","D3_nm","D4_nm","D5_nm","D6_nm","pitch_supercell","pillar_coordinates_nm","material_canonical_ids","material_hashes","wavelength_nm","angle_convention","boundary_monitor_configuration","input_polarization","propagating_diffraction_orders","R","T","energy_residual","target_order_efficiency","zero_order_leakage","side_order_leakage","xy_consistency","main_lobe_angle_air_deg","fwhm_deg","minimum_gap_nm","aspect_ratio","manufacturing_flags","geometry_hash","config_hash","code_commit","failure_mechanism","provenance"],
+  "properties": {
+    "candidate_id":{"type":"string"},"stage_id":{"type":"string"},"branch_id":{"const":"NP-K6-MDC-V1"},"candidate_origin":{"type":"string"},
+    "H_nm":{"type":"integer"},"D1_nm":{"type":"integer"},"D2_nm":{"type":"integer"},"D3_nm":{"type":"integer"},"D4_nm":{"type":"integer"},"D5_nm":{"type":"integer"},"D6_nm":{"type":"integer"},
+    "pitch_supercell":{"type":"object","properties":{"local_pitch_x_nm":{"const":290},"period_y_nm":{"const":290},"supercell_period_x_nm":{"const":1740}}},
+    "pillar_coordinates_nm":{"type":"object","properties":{"x_nm":{"const":[-725,-435,-145,145,435,725]},"y_nm":{"const":[0,0,0,0,0,0]}}},
+    "material_canonical_ids":{"type":"object","properties":{"tio2":{"const":"APCD_TIO2_NATIVE_M1"},"sio2":{"const":"APCD_SIO2_NATIVE_M1"},"gan":{"const":"APCD_GAN_NATIVE_M1"}}},"material_hashes":{"type":"object"},
+    "wavelength_nm":{"const":450},"angle_convention":{"const":"air_side_far_field_conserved_real_kx_v1"},"boundary_monitor_configuration":{"type":"object"},"input_polarization":{"type":"object"},
+    "propagating_diffraction_orders":{"type":"array","items":{"type":"object","required":["order_x","order_y","complex_amplitude","power"],"properties":{"order_x":{"type":"integer"},"order_y":{"type":"integer"},"complex_amplitude":{"type":"object","required":["real","imag"]},"power":{"type":"number"}}}},
+    "R":{"type":"number"},"T":{"type":"number"},"energy_residual":{"type":"number"},"target_order_efficiency":{"type":"number"},"zero_order_leakage":{"type":"number"},"side_order_leakage":{"type":"number"},"xy_consistency":{"type":"object"},"main_lobe_angle_air_deg":{"type":"number"},"fwhm_deg":{"type":"number"},"minimum_gap_nm":{"type":"number"},"aspect_ratio":{"type":"number"},"manufacturing_flags":{"type":"object"},"geometry_hash":{"type":"string"},"config_hash":{"type":"string"},"code_commit":{"type":"string"},"failure_mechanism":{"type":["string","null"]},"provenance":{"type":"object"}
+  },
+  "additionalProperties":true
+}

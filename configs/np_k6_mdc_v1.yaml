@@ -1,0 +1,36 @@
+branch_id: NP-K6-MDC-V1
+branch_function: 450 nm non-polarized, polarization-insensitive specified-angle directional emission
+metasurface: TiO2 solid circular cylindrical nanopillars
+wavelength_nm: 450
+target_angle_air_deg: 15
+K: 6
+local_pitch_x_nm: 290
+period_y_nm: 290
+supercell_period_x_nm: 1740
+phase_seed_deg: [0, 60, 120, 180, 240, 300]
+gradient_direction: x
+propagation_direction: GaN/MDC -> Air
+angle_convention: air_side_far_field_conserved_real_kx_v1
+pillar_centers_nm:
+  x_nm: [-725, -435, -145, 145, 435, 725]
+  y_nm: [0, 0, 0, 0, 0, 0]
+design_variables: [H_nm, D1_nm, D2_nm, D3_nm, D4_nm, D5_nm, D6_nm]
+all_formal_candidate_dimensions_integer_nm: true
+v1_placement: TiO2 cylinders directly on the MDC outermost SiO2 termination layer
+independent_sio2_spacer_v1: forbidden
+single_cylinder_phase_library: warm-start only
+formal_optimization_object: complete periodic K=6 supercell containing D1...D6
+fabrication_hard_gates:
+  diameter_nm: {min: 100, max: 230}
+  height_nm: {min: 300, max: 700}
+  minimum_edge_to_edge_gap_nm: {min: 60}
+  maximum_H_over_min_Di: 5.5
+materials:
+  source_fsp_read_only: F:\wc_312\MDC_blue_oujizi_m\m_1.fsp
+  unified_reference_config: configs\material_reference_apcd_blue.yaml
+  canonical_ids: {tio2: APCD_TIO2_NATIVE_M1, sio2: APCD_SIO2_NATIVE_M1, gan: APCD_GAN_NATIVE_M1}
+  original_materials: {tio2: tio22, sio2: sio222, gan: Native-M1 project GaN}
+  constant_index_fallback_forbidden: true
+  extrapolation_forbidden: true
+  private_branch_material_model_forbidden: true
+simulation_execution: {fdtd_authorized: false, rcwa_authorized: false}
