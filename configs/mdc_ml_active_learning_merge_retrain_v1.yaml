@@ -1,0 +1,133 @@
+{
+  "classification_targets": [
+    "spectral_fwhm_valid",
+    "angular_fwhm_valid",
+    "nominal_4d_objective_eligible",
+    "shortlist_quality_eligible"
+  ],
+  "combined_registry": "outputs/mdc_ml_f0_formal_pilot_2000_v1/combined/combined_2512_registry_v1.jsonl",
+  "contract_id": "MDC_ML_BOUNDED_ACTIVE_LEARNING_MERGE_RETRAIN_V1",
+  "crossfit_seed": "20260722",
+  "development_promotion_contract": {
+    "bootstrap": {
+      "confidence_level": 0.8,
+      "grouping_priority": [
+        "parent_or_anchor",
+        "canonical_source_group",
+        "geometry_hash"
+      ],
+      "method": "paired_group_bootstrap",
+      "replicates": 2000,
+      "seed": 20260723
+    },
+    "calibration_conformal_guard": {
+      "maximum_coverage_drop": 0.05,
+      "maximum_median_interval_width_increase_fraction": 0.25,
+      "minimum_coverage": 0.85,
+      "nominal_coverage": 0.9
+    },
+    "decision_order": [
+      "PROMOTE_DEV_CHAMPION_V2",
+      "RETAIN_V1_FOR_NEXT_PROPOSAL",
+      "INCONCLUSIVE_NEED_MORE_ADAPTIVE_DATA",
+      "NEED_DATA_CONTRACT_REVIEW"
+    ],
+    "mandatory_gates": [
+      "validation_non_degradation",
+      "one_required_improvement",
+      "subgroup_guard",
+      "calibration_conformal",
+      "fresh_process_artifact_roundtrip",
+      "forbidden_feature_count_zero",
+      "fold_group_overlap_zero",
+      "sealed_test_non_use"
+    ],
+    "promotion_contract_id": "mdc_ml_merge_retrain_development_promotion_v1",
+    "required_improvement": {
+      "bootstrap_interval_must_be_favorable": true,
+      "brier": {
+        "direction": "lower",
+        "maximum_delta": -0.02
+      },
+      "mean_iqr_nmae": {
+        "direction": "lower",
+        "maximum_delta": -0.05
+      },
+      "mean_spearman": {
+        "direction": "higher",
+        "minimum_delta": 0.04
+      },
+      "pr_auc": {
+        "direction": "higher",
+        "minimum_delta": 0.03
+      }
+    },
+    "subgroup_guard": {
+      "classification_minimum_n": 8,
+      "higher_metric_maximum_drop": {
+        "balanced_accuracy": -0.08,
+        "mean_spearman": -0.08,
+        "pr_auc": -0.08
+      },
+      "insufficient_support_status": "INSUFFICIENT_SUBGROUP_SUPPORT",
+      "lower_metric_maximum_increase": {
+        "brier": 0.05,
+        "mean_iqr_nmae": 0.1
+      },
+      "regression_minimum_n": 6
+    },
+    "validation_non_degradation": {
+      "balanced_accuracy": {
+        "direction": "higher",
+        "minimum_delta": -0.02
+      },
+      "brier": {
+        "direction": "lower",
+        "maximum_delta": 0.015
+      },
+      "mean_iqr_nmae": {
+        "direction": "lower",
+        "maximum_delta": 0.05
+      },
+      "mean_spearman": {
+        "direction": "higher",
+        "minimum_delta": -0.03
+      },
+      "pr_auc": {
+        "direction": "higher",
+        "minimum_delta": -0.02
+      },
+      "roc_auc": {
+        "direction": "higher",
+        "minimum_delta": -0.02
+      }
+    }
+  },
+  "families": [
+    "asymmetric_pair_count",
+    "dual_defect",
+    "grouped_chirped",
+    "hybrid_periodic_aperiodic",
+    "locally_aperiodic",
+    "off_center_defect",
+    "symmetric_periodic",
+    "termination_reversed"
+  ],
+  "material_tokens": {
+    "APCD_SIO2_NATIVE_M1": 2,
+    "APCD_TIO2_NATIVE_M1": 1,
+    "PAD": 0
+  },
+  "max_layers": 25,
+  "original_split_records": "outputs/mdc_ml_shared_surrogate_v1/splits/split_records_v1.csv",
+  "output_root": "outputs/mdc_ml_active_learning_merge_retrain_v1",
+  "promotion_policy": "retain unless predeclared validation and adaptive evidence show no material degradation and at least one improvement",
+  "regression_targets": [
+    "spectral_fwhm_normal_nm",
+    "angular_fwhm_450_deg",
+    "cone5_integral_proxy",
+    "normal_band_transmission_proxy"
+  ],
+  "round1_labels": "outputs/mdc_ml_active_learning_round1_v1/tmm_labels_v1.jsonl",
+  "shared_feature_signature": "cc49c7b99dcf486f373f1add526c4c23174069dc92bace0dae6b8fabbcc3cd69"
+}
