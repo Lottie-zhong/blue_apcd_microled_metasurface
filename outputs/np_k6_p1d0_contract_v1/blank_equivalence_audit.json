@@ -1,0 +1,108 @@
+{
+  "audit_quality": "conservative_nonreuse_due_to_unknown_fields",
+  "audit_schema_version": 1,
+  "blank_strategy": "run_one_new_p1d_fixed_reference_blank_x",
+  "decision_reason": "P1-C solver time/autoshutoff cannot be reconstructed",
+  "equivalent": false,
+  "field_by_field_comparison": {
+    "unknown_fields": "different"
+  },
+  "non_equivalent_fields": [
+    "unknown solver-relevant P1-C fields"
+  ],
+  "p1c_blank_fsp_path": "runtime_fsp/np_k6_p1c_singlepoint_v1/post_run_blank_x.fsp",
+  "p1c_blank_fsp_sha256": "AC7AAEB588778CE0462DE4C6F6EFB19270D674FEB3374BEF3A3A845CADFFE6A7",
+  "p1c_blank_id": "P1-C blank_x",
+  "p1c_contract": {
+    "boundaries": [
+      "Periodic",
+      "Periodic",
+      "PML",
+      "PML"
+    ],
+    "contract_schema_version": 1,
+    "coordinates": {
+      "fdtd_z_max": 1200,
+      "fdtd_z_min": -1000,
+      "mesh_override_z_max": 720,
+      "mesh_override_z_min": -20,
+      "reflection_monitor_z": -750,
+      "source_z": -500,
+      "transmission_field_monitor_z": 900,
+      "transmission_power_monitor_z": 900
+    },
+    "materials": [
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ],
+    "mesh": {
+      "bounds": [
+        -20,
+        720
+      ],
+      "nm": 5
+    },
+    "normalization": "T_fields complex area average",
+    "phase_reference_plane": "T_fields_z_900nm_absolute",
+    "source": {
+      "direction": "Forward",
+      "polarization": "x",
+      "type": "plane",
+      "z": -500
+    },
+    "unknown_fields": [
+      "simulation_time",
+      "autoshutoff",
+      "power_monitor_object_not_recoverable"
+    ],
+    "wavelength_nm": 450
+  },
+  "p1c_contract_hash": "14ba8b58a7d091928ece31346b01396fb8c5597afeb8ee0d2fd424655d10fb7e",
+  "p1d_blank_id": "NP-P1D-blank_x",
+  "p1d_contract": {
+    "boundaries": [
+      "Periodic",
+      "Periodic",
+      "PML",
+      "PML"
+    ],
+    "contract_schema_version": 1,
+    "coordinates": {
+      "fdtd_z_max": 1200,
+      "fdtd_z_min": -1000,
+      "mesh_override_z_max": 720,
+      "mesh_override_z_min": -20,
+      "reflection_monitor_z": -750,
+      "source_z": -500,
+      "transmission_field_monitor_z": 900,
+      "transmission_power_monitor_z": 900
+    },
+    "materials": [
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ],
+    "mesh": {
+      "bounds": [
+        -20,
+        720
+      ],
+      "nm": 5
+    },
+    "normalization": "T_fields complex area average",
+    "phase_reference_plane": "T_fields_z_900nm_absolute",
+    "source": {
+      "direction": "Forward",
+      "polarization": "x",
+      "type": "plane",
+      "z": -500
+    },
+    "unknown_fields": [],
+    "wavelength_nm": 450
+  },
+  "p1d_contract_hash": "3a7490e1c47f2bf1f209b82dd5ee161d4404dea9543fa92caa854f4da946b0b4",
+  "unknown_fields": [
+    "simulation_time",
+    "autoshutoff",
+    "power_monitor_object_not_recoverable"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "all_fixed_coordinates_nm": {
+    "fdtd_z_max": 1200,
+    "fdtd_z_min": -1000,
+    "mesh_override_z_max": 720,
+    "mesh_override_z_min": -20,
+    "reflection_monitor_z": -750,
+    "source_z": -500,
+    "transmission_field_monitor_z": 900,
+    "transmission_power_monitor_z": 900
+  },
+  "candidate_invariant_fields": [
+    "all_fixed_coordinates_nm",
+    "pillar_base_z_nm"
+  ],
+  "candidate_variant_fields": [
+    "pillar_top_z_nm",
+    "diameter_nm"
+  ],
+  "contract_id": "NP-K6-P1D-fixed-absolute-reference-v1",
+  "coordinate_origin_definition": "substrate top at z=0 nm; pillar base at z=0 nm",
+  "maximum_supported_height_nm": 600,
+  "minimum_air_clearance_nm": 300,
+  "phase_deembedding_formula": null,
+  "phase_deembedding_used": false,
+  "phase_reference_plane_id": "T_fields_z_900nm_absolute",
+  "pillar_base_z_nm": 0,
+  "pillar_top_rule": "pillar_base_z_nm + H_nm",
+  "reference_plane_quality": "pass",
+  "source_file_hashes": {
+    "scripts/build_np_k6_unitcell_setup_v1.py": "e5c8e376721143f8d2d74a054388ee6d944c0d74afaaa8ad55a3cebe84f2e540"
+  },
+  "source_files": [
+    "scripts/build_np_k6_unitcell_setup_v1.py"
+  ],
+  "transmission_reference_z_nm": 900
+}

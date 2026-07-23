@@ -1,0 +1,131 @@
+{
+  "audits": [
+    {
+      "fdtd": {
+        "x_min_bc": "Periodic",
+        "x_span_m": 2.9000000000000003e-07,
+        "y_min_bc": "Periodic",
+        "y_span_m": 2.9000000000000003e-07,
+        "z_min_bc": "PML"
+      },
+      "materials": {
+        "pillar": null,
+        "substrate": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": {
+        "R_z_m": -7.5e-07,
+        "T_z_m": 9.000000000000001e-07
+      },
+      "objects": [
+        "FDTD",
+        "source",
+        "R_fields",
+        "T_fields",
+        "SiO2 substrate"
+      ],
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\runtime_fsp\\np_k6_p1d0_setup_v1\\blank_500_160_x_setup.fsp",
+      "pillar_count": 0,
+      "pillar_geometry": {
+        "diameter_m": null,
+        "height_m": null
+      },
+      "run_count": 0,
+      "sha256": "03bb59e4ef0aeab01e271314894cdf920be5fd4a6ee16915bd8e34542e611834",
+      "source": {
+        "direction": "Forward",
+        "polarization_angle_deg": 0.0,
+        "wavelength_start_m": 4.500000000000001e-07,
+        "z_m": -5.000000000000001e-07
+      }
+    },
+    {
+      "fdtd": {
+        "x_min_bc": "Periodic",
+        "x_span_m": 2.9000000000000003e-07,
+        "y_min_bc": "Periodic",
+        "y_span_m": 2.9000000000000003e-07,
+        "z_min_bc": "PML"
+      },
+      "materials": {
+        "pillar": "APCD_TIO2_NATIVE_M1",
+        "substrate": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": {
+        "R_z_m": -7.5e-07,
+        "T_z_m": 9.000000000000001e-07
+      },
+      "objects": [
+        "FDTD",
+        "source",
+        "R_fields",
+        "T_fields",
+        "SiO2 substrate",
+        "TiO2 pillar",
+        "pillar mesh override"
+      ],
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\runtime_fsp\\np_k6_p1d0_setup_v1\\pillar_600_110_x_setup.fsp",
+      "pillar_count": 1,
+      "pillar_geometry": {
+        "diameter_m": 1.1e-07,
+        "height_m": 6.000000000000001e-07
+      },
+      "run_count": 0,
+      "sha256": "aad1147c97152164411b93033680e9c2ca810b77d47c9e73a12955fa607fae24",
+      "source": {
+        "direction": "Forward",
+        "polarization_angle_deg": 0.0,
+        "wavelength_start_m": 4.500000000000001e-07,
+        "z_m": -5.000000000000001e-07
+      }
+    },
+    {
+      "fdtd": {
+        "x_min_bc": "Periodic",
+        "x_span_m": 2.9000000000000003e-07,
+        "y_min_bc": "Periodic",
+        "y_span_m": 2.9000000000000003e-07,
+        "z_min_bc": "PML"
+      },
+      "materials": {
+        "pillar": "APCD_TIO2_NATIVE_M1",
+        "substrate": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": {
+        "R_z_m": -7.5e-07,
+        "T_z_m": 9.000000000000001e-07
+      },
+      "objects": [
+        "FDTD",
+        "source",
+        "R_fields",
+        "T_fields",
+        "SiO2 substrate",
+        "TiO2 pillar",
+        "pillar mesh override"
+      ],
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\runtime_fsp\\np_k6_p1d0_setup_v1\\pillar_400_230_x_setup.fsp",
+      "pillar_count": 1,
+      "pillar_geometry": {
+        "diameter_m": 2.3000000000000002e-07,
+        "height_m": 4.0000000000000003e-07
+      },
+      "run_count": 0,
+      "sha256": "3df40ce191f7836a0ec19cbce3552386b63aa753abc89ed498c832c52683718d",
+      "source": {
+        "direction": "Forward",
+        "polarization_angle_deg": 0.0,
+        "wavelength_start_m": 4.500000000000001e-07,
+        "z_m": -5.000000000000001e-07
+      }
+    }
+  ],
+  "blank_setup_validated": true,
+  "boundary_gate": "pass",
+  "corner_setups_validated": 2,
+  "geometry_gate": "pass",
+  "material_gate": "pass",
+  "reference_plane_gate": "pass",
+  "setup_only": true,
+  "solver_run_count": 0,
+  "solver_save_postrun_count": 0
+}
