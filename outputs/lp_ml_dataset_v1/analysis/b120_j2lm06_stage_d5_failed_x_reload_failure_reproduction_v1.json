@@ -1,0 +1,10 @@
+{
+  "assertion": "len(matched) == 1 and matched[0]['checkpoint_sha256'] == checkpoint_hash",
+  "exception_type": "RuntimeError",
+  "expected": "one row in STAGING/subrun_records_v1.csv",
+  "function": "lp_legacy_h500_sixbin_formal_replay_450_v1.run_one",
+  "observed": "0 rows; only raw_runtime_adapter_events.csv contains row",
+  "reproduced": true,
+  "root_cause": "VALIDATOR_ORDERING_BUG + LEGACY_AND_V121_SCHEMA_COLLISION",
+  "source_line": 557
+}

@@ -1,0 +1,26 @@
+{
+  "checks": {
+    "config": true,
+    "geometry": true,
+    "identity": true,
+    "lineage": true,
+    "material_monitor": true,
+    "normalization": true,
+    "observable": true,
+    "solver_completed": true
+  },
+  "classification": [
+    "VALIDATOR_ORDERING_BUG",
+    "LEGACY_AND_V121_SCHEMA_COLLISION"
+  ],
+  "consumer": "legacy.run_one ML reload matcher",
+  "data_flow": "solver result -> weighted-G0 extraction -> checkpoint -> quarantined raw writer -> legacy formal-row matcher -> ML reload validator",
+  "expected_vs_observed": {
+    "checkpoint_sha256": "d92eaf7eac3e9d7151c71723faf2c52fcfa25cfccb12674acd7a11f9cae33e83",
+    "checkpoint_status": "PASS",
+    "formal_path": "STAGING/subrun_records_v1.csv absent",
+    "observed_raw_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_ml_dataset_v1\\staging\\b120_j2lm06_local_planar_size_jacobian_stage_d5_v1_attempt2_recovery_lp_ml_schema_v1_21\\raw_runtime_adapter_events.csv"
+  },
+  "producer": "legacy.run_one checkpoint serializer",
+  "status": "PASS"
+}

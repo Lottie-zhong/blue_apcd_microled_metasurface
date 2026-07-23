@@ -1,0 +1,102 @@
+{
+  "candidate_id": "LP_H500_D5_J2LM06_J2_width_nmP01",
+  "checkpoint_acceptance": "PASS",
+  "derived_normalization_audit": {
+    "complex_normalization_residual": 0.0,
+    "normalization_scale": 1.0458843021846278,
+    "normalized_Ex": {
+      "imag": 0.9948276891481223,
+      "real": 0.04718776865108476
+    },
+    "normalized_Ey": {
+      "imag": -5.723981621080642e-09,
+      "real": -4.109860197971464e-09
+    },
+    "power_closure_residual": 0.0,
+    "source_T": 0.9919088166060613,
+    "weighted_G0_power": 0.9919088166060613
+  },
+  "exact_geometry_hash": "56dc1195b84b5664e8de17645f0ee16b96d849ccffe8171d8b2b1335ca77c960",
+  "formal_observable": {
+    "H_nm": 500,
+    "background": "air n=1",
+    "boundaries": {
+      "x": "Periodic",
+      "y": "Periodic",
+      "z": "PML"
+    },
+    "incidence": "normal",
+    "integration": "coordinate-weighted periodic-closure 2D complex G0; duplicate endpoints removed and reclosed",
+    "material": "APCD_TIO2_NATIVE_M1",
+    "monitor": {
+      "name": "field_monitor",
+      "type": "2D Z-normal",
+      "z_nm": 1000
+    },
+    "normalization": "sqrt(T)/norm(weighted Ex, weighted Ey)",
+    "period_x_nm": 432,
+    "period_y_nm": 432,
+    "source": {
+      "direction": "Forward",
+      "inputs": [
+        "x",
+        "y"
+      ],
+      "type": "plane",
+      "z_nm": -250
+    },
+    "wavelength_nm": 450
+  },
+  "formal_subrun_key": [
+    "LP_H500_D5_J2LM06_J2_width_nmP01",
+    "x",
+    450,
+    "403866467fb3ec47d5bb8efb9d22f225d6e670caee2b51aaa29b470bf01b8d38",
+    "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+    "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+    "40f062ac9fad2be9f77022c8eff5ab9ba555dd6048b79a51f1988661032e7a8f"
+  ],
+  "input_polarization": "x",
+  "integration": {
+    "T": 0.9919088166060613,
+    "endpoint_flags": {
+      "x": true,
+      "y": true
+    },
+    "grid": {
+      "x_count": 26,
+      "y_count": 20
+    },
+    "hash": "fbf217e2a846787608f1eb740e7dc81e653058bb7eed9cca20a47867e6ad71ba",
+    "method": "coordinate-weighted periodic-closure 2D complex G0; duplicate endpoints removed and reclosed",
+    "normalization": "sqrt(T)/norm(weighted Ex, weighted Ey)",
+    "normalization_scale": 1.0458843021846278,
+    "normalized_Ex": {
+      "imag": 0.9948276891481223,
+      "real": 0.04718776865108476
+    },
+    "normalized_Ey": {
+      "imag": -5.723981621080642e-09,
+      "real": -4.109860197971464e-09
+    },
+    "raw_Ex": {
+      "imag": 0.9511833068630448,
+      "real": 0.04511757997755549
+    },
+    "raw_Ey": {
+      "imag": -5.472863116048757e-09,
+      "real": -3.92955529534849e-09
+    }
+  },
+  "physics_configuration_hash": "403866467fb3ec47d5bb8efb9d22f225d6e670caee2b51aaa29b470bf01b8d38",
+  "replay_idempotency": "PASS",
+  "salvage_label": "SALVAGED_FROM_COMPLETED_SOLVER_OUTPUT_NO_RERUN",
+  "schema_version": "LP_ML_SCHEMA_V1.21",
+  "source_attempt_id": "D5_ATTEMPT2_RECOVERY",
+  "source_checkpoint_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_b120_j2lm06_local_planar_size_jacobian_stage_d5_v1_attempt2_recovery\\subruns\\LP_H500_D5_J2LM06_J2_width_nmP01\\LP_H500_D5_J2LM06_J2_width_nmP01_x_85e389ce\\checkpoint.json",
+  "source_checkpoint_sha256": "d92eaf7eac3e9d7151c71723faf2c52fcfa25cfccb12674acd7a11f9cae33e83",
+  "source_run_id": "LP_H500_D5_J2LM06_J2_width_nmP01_x_85e389ce",
+  "status": "PASS",
+  "validator_version": "D5_FAILED_X_VALIDATOR_HARDENING_V1",
+  "wavelength_nm": 450
+}

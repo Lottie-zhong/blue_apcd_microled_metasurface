@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "attempt1_replay": true,
+    "dryrun_solver_calls_0": true,
+    "duplicate_identified": true,
+    "five_pairs": true,
+    "fourteen_rows_merge": true,
+    "idempotent_replay": true,
+    "incomplete_excluded": true,
+    "lock_blocks_second_runner": true,
+    "protected": true,
+    "source_unchanged": true,
+    "ten_unique": true
+  },
+  "design": {
+    "atomic_serializer": "temp+fsync+os.replace",
+    "authoritative_manifest": "checksum-valid validated checkpoints only",
+    "checkpoint_first": true,
+    "lock": "O_EXCL with stale-lock lineage rename",
+    "raw_event_separate": true,
+    "single_writer": true
+  },
+  "solver_calls": 0,
+  "status": "PASS"
+}
