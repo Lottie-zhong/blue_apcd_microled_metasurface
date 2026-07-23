@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, csv, hashlib, json, os, socket, sys, time
+import argparse, csv, hashlib, json, os, socket, subprocess, sys, time
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -79,12 +79,34 @@ def shared_fingerprint(root: Path) -> dict[str, Any]:
     manifest = root / "manifest_v1.json"
     return {"artifact_only":fp([x for x in files if x != manifest]),"full_tree":fp(files),"manifest_size":manifest.stat().st_size,"manifest":load(manifest)}
 
+def _git(args: list[str], repo: Path = ROOT, allow_false: bool = False) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(["git", *args], cwd=repo, text=True, capture_output=True, check=False)
+    if result.returncode and not allow_false: raise RuntimeError("git command failed: " + canon({"args": args, "stderr": result.stderr.strip()}))
+    return result
+def _commit(ref: str, repo: Path = ROOT) -> str:
+    return _git(["rev-parse", "--verify", f"{ref}^{{commit}}"], repo).stdout.strip()
+def _ancestor(older: str, newer: str, repo: Path = ROOT) -> bool:
+    result = _git(["merge-base", "--is-ancestor", older, newer], repo, allow_false=True)
+    if result.returncode not in (0, 1): raise RuntimeError("git ancestry check failed: " + result.stderr.strip())
+    return result.returncode == 0
+def git_provenance_audit(frozen: dict[str, Any], repo: Path = ROOT, required_branch: str = "work/mdc-ml-inverse-v1") -> dict[str, Any]:
+    generation_base_head = _commit(str(frozen["shared_freeze_commit"]), repo); round1_freeze_commit = _commit(str(frozen["round1_freeze_commit"]), repo); validation_head = _commit("HEAD", repo); branch = _git(["branch", "--show-current"], repo).stdout.strip()
+    checks = {"generation_base_to_round1_freeze_ancestor_or_self":_ancestor(generation_base_head,round1_freeze_commit,repo),"generation_base_to_validation_head_ancestor_or_self":_ancestor(generation_base_head,validation_head,repo),"round1_freeze_to_validation_head_ancestor_or_self":_ancestor(round1_freeze_commit,validation_head,repo),"branch":branch == required_branch}
+    if not all(checks.values()): raise RuntimeError("git provenance validation failed: " + canon(checks))
+    return {"status":"PASS","generation_base_head":generation_base_head,"round1_freeze_commit":round1_freeze_commit,"validation_head":validation_head,"branch":branch,"checks":checks}
+def immutable_output_audit(frozen: dict[str, Any], output_root: Path) -> dict[str, Any]:
+    snapshot=tree(output_root); checks={"outputs_tree":snapshot["tree_sha256"]==frozen["round1_output_tree_sha256"],"outputs_file_count":snapshot["file_count"]==frozen["round1_output_file_count"],"outputs_bytes":snapshot["bytes"]==frozen["round1_output_bytes"],"manifest_sha":sha(output_root/"manifest_v1.json")==frozen["round1_manifest_sha256"],"tmm_labels_csv_sha":sha(output_root/"tmm_labels_v1.csv")==frozen["round1_tmm_labels_csv_sha256"],"tmm_labels_jsonl_sha":sha(output_root/"tmm_labels_v1.jsonl")==frozen["round1_tmm_labels_jsonl_sha256"]}
+    if not all(checks.values()): raise RuntimeError("round1 frozen output drift: " + canon(checks))
+    return {"status":"PASS","checks":checks,"snapshot":snapshot}
+
 def frozen_audit(cfg: dict[str, Any]) -> dict[str, Any]:
     shared_cfg = load(ROOT / cfg["shared_config"]); shared_root = ROOT / cfg["shared_output_root"]
     combined = load(ROOT / cfg["combined_manifest"]); frozen = cfg["frozen"]
+    provenance = git_provenance_audit(frozen); output_audit = immutable_output_audit(frozen, ROOT / cfg["output_root"])
     sfp = shared_fingerprint(shared_root); contract = shared_cfg["champion_artifact_contract"]
     checks = {
-        "head": os.popen("git rev-parse HEAD").read().strip() == frozen["shared_freeze_commit"],
+        "git_provenance": provenance["status"] == "PASS",
+        "round1_outputs": output_audit["status"] == "PASS",
         "combined_signature": find_expected(combined, frozen["combined_signature"]),
         "feature_signature": contract["feature_signature"] == frozen["feature_signature"],
         "split_signature": contract["split_signature"] == frozen["split_signature"],
@@ -92,13 +114,17 @@ def frozen_audit(cfg: dict[str, Any]) -> dict[str, Any]:
         "classification_sha": sha(shared_root / contract["classification"]["artifact_relative_path"]) == frozen["classification_sha256"],
         "regression_sha": sha(shared_root / contract["regression"]["artifact_relative_path"]) == frozen["regression_sha256"],
         "conformal_sha": sha(shared_root / contract["regression"]["conformal_artifact_relative_path"]) == frozen["conformal_sha256"],
+        "shared_manifest_sha": sha(shared_root / "manifest_v1.json") == frozen["shared_manifest_sha256"],
+        "test_prediction_sha": sha(shared_root / contract["classification"]["prediction_reference_path"]) == frozen["test_prediction_sha256"],
+        "threshold_sha": sha(shared_root / contract["classification"]["threshold_record_relative_path"]) == frozen["threshold_sha256"],
+        "calibrator_sha": sha(shared_root / contract["classification"]["calibrator_artifact_relative_path"]) == frozen["calibrator_sha256"],
         "test_sealed": shared_cfg["test_seal_contract"]["test_sealed"] is True and shared_cfg["test_seal_contract"]["test_evaluation_count"] == 1,
         "test_not_used": all(not v for k,v in shared_cfg["test_seal_contract"].items() if k.startswith("test_used_")) and not shared_cfg["test_seal_contract"]["test_prediction_regeneration_allowed"],
         "training_decision": shared_cfg["active_learning_contract"]["training_decision"] == cfg["active_learning"]["training_decision"],
         "champion": contract["classification"]["n_estimators"] == 384 and contract["classification"]["min_samples_leaf"] == 2 and contract["regression"]["architecture"] == [256,128],
     }
     if not all(checks.values()): raise RuntimeError("frozen input drift: " + canon(checks))
-    return {"status":"PASS","checks":checks,"shared_fingerprint":sfp,"champion_artifacts":contract}
+    return {"status":"PASS","checks":checks,"provenance":provenance,"round1_outputs":output_audit,"shared_fingerprint":sfp,"champion_artifacts":contract}
 
 def feature_row(record: dict[str, Any]) -> dict[str, Any]:
     return {
