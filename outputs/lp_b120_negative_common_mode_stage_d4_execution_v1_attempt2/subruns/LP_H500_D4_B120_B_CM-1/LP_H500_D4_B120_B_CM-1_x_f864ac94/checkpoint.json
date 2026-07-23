@@ -1,0 +1,500 @@
+{
+  "build_gate": {
+    "boundary_readback": {
+      "background material": "<Object defined dielectric>",
+      "index": "1",
+      "x max bc": "Periodic",
+      "x min bc": "Periodic",
+      "x span": 4.32e-07,
+      "y max bc": "Periodic",
+      "y min bc": "Periodic",
+      "y span": 4.32e-07,
+      "z max bc": "PML",
+      "z min bc": "PML"
+    },
+    "checks": {
+      "J1_center": true,
+      "J2_center": true,
+      "background_air": true,
+      "both_native": true,
+      "boundaries": true,
+      "geometry_hash_reference": true,
+      "material_table": true,
+      "monitor_z": true,
+      "periods": true,
+      "source_450": true,
+      "static_gate": true
+    },
+    "gate": "PASS",
+    "inventory": {
+      "FDTD": {
+        "background material": "<Object defined dielectric>",
+        "index": "1",
+        "x max bc": "Periodic",
+        "x min bc": "Periodic",
+        "x span": 4.32e-07,
+        "y max bc": "Periodic",
+        "y min bc": "Periodic",
+        "y span": 4.32e-07,
+        "z max bc": "PML",
+        "z min bc": "PML"
+      },
+      "material": {
+        "duplicate_frequency_count": 0,
+        "epsilon_imag": 0.0,
+        "epsilon_matches_loader": 1,
+        "epsilon_real": 6.437868486542859,
+        "frequency_monotonic": 1,
+        "k_imag": 0.0,
+        "loader_epsilon_imag": 0.0,
+        "loader_epsilon_real": 6.437868486542859,
+        "loader_k_imag": 0.0,
+        "loader_n_real": 2.5372955063497944,
+        "material_name": "APCD_TIO2_NATIVE_M1",
+        "n_real": 2.5372955063497944,
+        "range_covers_450": 1,
+        "sample_count": 101,
+        "wavelength_nm": 450.0
+      },
+      "monitors": {
+        "T": {
+          "monitor type": "2D Z-normal",
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "z": 1e-06
+        },
+        "field_monitor": {
+          "monitor type": "2D Z-normal",
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "z": 1e-06
+        }
+      },
+      "pillar_1": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "primitive": "sharp_rectangle",
+        "radius": "UNAVAILABLE:LumApiError",
+        "rotation 1": 0.0,
+        "x": -1.005e-07,
+        "x span": 1.09e-07,
+        "y": 0.0,
+        "y span": 1.09e-07,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      "pillar_2": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "primitive": "sharp_rectangle",
+        "rotation 1": 0.0,
+        "x": 1.01e-07,
+        "x span": 1.14e-07,
+        "y": 0.0,
+        "y span": 1.01e-07,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      "source": {
+        "direction": "Forward",
+        "polarization angle": 0.0,
+        "wavelength start": 4.5e-07,
+        "wavelength stop": 4.5e-07,
+        "z": -2.5e-07
+      }
+    },
+    "material_readback": {
+      "duplicate_frequency_count": 0,
+      "epsilon_imag": 0.0,
+      "epsilon_matches_loader": true,
+      "epsilon_real": 6.437868486542859,
+      "frequency_monotonic": true,
+      "k_imag": 0.0,
+      "loader_epsilon_imag": 0.0,
+      "loader_epsilon_real": 6.437868486542859,
+      "loader_k_imag": 0.0,
+      "loader_n_real": 2.5372955063497944,
+      "material_name": "APCD_TIO2_NATIVE_M1",
+      "n_real": 2.5372955063497944,
+      "range_covers_450": true,
+      "sample_count": 101,
+      "wavelength_nm": 450.0
+    },
+    "monitor_readback": {
+      "T": {
+        "monitor type": "2D Z-normal",
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      },
+      "field_monitor": {
+        "monitor type": "2D Z-normal",
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      }
+    },
+    "object_readback": {
+      "J1": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "radius": "UNAVAILABLE:LumApiError",
+        "rotation 1": 0.0,
+        "x": -1.005e-07,
+        "x span": 1.0900000000000001e-07,
+        "y": 0.0,
+        "y span": 1.0900000000000001e-07,
+        "z max": 5.000000000000001e-07,
+        "z min": 0.0
+      },
+      "J2": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "rotation 1": 0.0,
+        "x": 1.01e-07,
+        "x span": 1.14e-07,
+        "y": 0.0,
+        "y span": 1.01e-07,
+        "z max": 5.000000000000001e-07,
+        "z min": 0.0
+      }
+    },
+    "reference_geometry_hash": "a1c148a431d3bbb9ea8be82a47198d4684d8f1712693fca52b72c32f52d013b2",
+    "requested_centers_nm": {
+      "J1": [
+        -100.5,
+        0.0
+      ],
+      "J2": [
+        101.0,
+        0.0
+      ]
+    },
+    "runtime_hashes": {
+      "boundary_hash": "cc10002f2844861edcfbb5c10d0d971fecf058efd234a909e45d001f3b98a532",
+      "geometry_hash": "3d17e736b8fcedeefe41d2a6eaa02445ea8d60a42f94c913aebc89b2acc72f12",
+      "material_hash": "74f7c15703f46926eab848a2790382cbd7b6e95db7ade8a596bf8c1646d2abc5",
+      "monitor_hash": "7f166708d99cad10497f7fd65343f64d587d85346f9ef0e66c4d140a14a9d5dd",
+      "object_inventory_hash": "0d9f4afeb67a9c5c246d25b54c8099635d8abb899d447c036525e7985ad5521f",
+      "source_common_hash": "bc09ab50aca6e9f0bb9e700c0f0b7ce65d1887dd7929ac1c420a9030278e3c13"
+    },
+    "source_readback": {
+      "direction": "Forward",
+      "polarization angle": 0.0,
+      "wavelength start": 4.500000000000001e-07,
+      "wavelength stop": 4.500000000000001e-07,
+      "z": -2.5000000000000004e-07
+    },
+    "stage": "build"
+  },
+  "candidate_id": "LP_H500_D4_B120_B_CM-1",
+  "checkpoint_reload": "PASS",
+  "cleanup_status": "ATTESTED_SEPARATELY",
+  "evidence_tier": "FORMAL_FULL_DIMER_450",
+  "formal_observable": {
+    "H_nm": 500,
+    "background": "air n=1",
+    "boundaries": {
+      "x": "Periodic",
+      "y": "Periodic",
+      "z": "PML"
+    },
+    "incidence": "normal",
+    "integration": "coordinate-weighted periodic-closure 2D complex G0; duplicate endpoints removed and reclosed",
+    "material": "APCD_TIO2_NATIVE_M1",
+    "monitor": {
+      "name": "field_monitor",
+      "type": "2D Z-normal",
+      "z_nm": 1000
+    },
+    "normalization": "sqrt(T)/norm(weighted Ex, weighted Ey)",
+    "period_x_nm": 432,
+    "period_y_nm": 432,
+    "source": {
+      "direction": "Forward",
+      "inputs": [
+        "x",
+        "y"
+      ],
+      "type": "plane",
+      "z_nm": -250
+    },
+    "wavelength_nm": 450
+  },
+  "input_basis": "x",
+  "integration": {
+    "T": 1.008040649110684,
+    "endpoint_flags": {
+      "x": true,
+      "y": true
+    },
+    "grid": {
+      "x_count": 26,
+      "y_count": 20
+    },
+    "hash": "fbf217e2a846787608f1eb740e7dc81e653058bb7eed9cca20a47867e6ad71ba",
+    "method": "coordinate-weighted periodic-closure 2D complex G0; duplicate endpoints removed and reclosed",
+    "normalization": "sqrt(T)/norm(weighted Ex, weighted Ey)",
+    "normalization_scale": 1.0458803670886287,
+    "normalized_Ex": {
+      "imag": 1.0038365434156782,
+      "real": -0.018784121324854325
+    },
+    "normalized_Ey": {
+      "imag": 8.020507166483437e-10,
+      "real": -4.264641563459449e-09
+    },
+    "raw_Ex": {
+      "imag": 0.9598005422073406,
+      "real": -0.01796010510948098
+    },
+    "raw_Ey": {
+      "imag": 7.668665957283212e-10,
+      "real": -4.077561543038373e-09
+    }
+  },
+  "legacy_case_id": "LP_H500_D4_B120_B_CM-1",
+  "legacy_nominal_bin_deg": 60,
+  "physics_configuration_hash": "403866467fb3ec47d5bb8efb9d22f225d6e670caee2b51aaa29b470bf01b8d38",
+  "reference_geometry_hash": "a1c148a431d3bbb9ea8be82a47198d4684d8f1712693fca52b72c32f52d013b2",
+  "run_id": "LP_H500_D4_B120_B_CM-1_x_f864ac94",
+  "runtime_hashes": {
+    "boundary_hash": "cc10002f2844861edcfbb5c10d0d971fecf058efd234a909e45d001f3b98a532",
+    "geometry_hash": "3d17e736b8fcedeefe41d2a6eaa02445ea8d60a42f94c913aebc89b2acc72f12",
+    "material_hash": "74f7c15703f46926eab848a2790382cbd7b6e95db7ade8a596bf8c1646d2abc5",
+    "monitor_hash": "7f166708d99cad10497f7fd65343f64d587d85346f9ef0e66c4d140a14a9d5dd",
+    "object_inventory_hash": "0d9f4afeb67a9c5c246d25b54c8099635d8abb899d447c036525e7985ad5521f",
+    "source_common_hash": "bc09ab50aca6e9f0bb9e700c0f0b7ce65d1887dd7929ac1c420a9030278e3c13"
+  },
+  "runtime_seconds": 20.813645124435425,
+  "save_load_gate": {
+    "boundary_readback": {
+      "background material": "<Object defined dielectric>",
+      "index": "1",
+      "x max bc": "Periodic",
+      "x min bc": "Periodic",
+      "x span": 4.32e-07,
+      "y max bc": "Periodic",
+      "y min bc": "Periodic",
+      "y span": 4.32e-07,
+      "z max bc": "PML",
+      "z min bc": "PML"
+    },
+    "checks": {
+      "J1_center": true,
+      "J2_center": true,
+      "background_air": true,
+      "both_native": true,
+      "boundaries": true,
+      "geometry_hash_reference": true,
+      "material_table": true,
+      "monitor_z": true,
+      "periods": true,
+      "source_450": true,
+      "static_gate": true
+    },
+    "gate": "PASS",
+    "inventory": {
+      "FDTD": {
+        "background material": "<Object defined dielectric>",
+        "index": "1",
+        "x max bc": "Periodic",
+        "x min bc": "Periodic",
+        "x span": 4.32e-07,
+        "y max bc": "Periodic",
+        "y min bc": "Periodic",
+        "y span": 4.32e-07,
+        "z max bc": "PML",
+        "z min bc": "PML"
+      },
+      "material": {
+        "duplicate_frequency_count": 0,
+        "epsilon_imag": 0.0,
+        "epsilon_matches_loader": 1,
+        "epsilon_real": 6.437868486542859,
+        "frequency_monotonic": 1,
+        "k_imag": 0.0,
+        "loader_epsilon_imag": 0.0,
+        "loader_epsilon_real": 6.437868486542859,
+        "loader_k_imag": 0.0,
+        "loader_n_real": 2.5372955063497944,
+        "material_name": "APCD_TIO2_NATIVE_M1",
+        "n_real": 2.5372955063497944,
+        "range_covers_450": 1,
+        "sample_count": 101,
+        "wavelength_nm": 450.0
+      },
+      "monitors": {
+        "T": {
+          "monitor type": "2D Z-normal",
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "z": 1e-06
+        },
+        "field_monitor": {
+          "monitor type": "2D Z-normal",
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "z": 1e-06
+        }
+      },
+      "pillar_1": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "primitive": "sharp_rectangle",
+        "radius": "UNAVAILABLE:LumApiError",
+        "rotation 1": 0.0,
+        "x": -1.005e-07,
+        "x span": 1.09e-07,
+        "y": 0.0,
+        "y span": 1.09e-07,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      "pillar_2": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "primitive": "sharp_rectangle",
+        "rotation 1": 0.0,
+        "x": 1.01e-07,
+        "x span": 1.14e-07,
+        "y": 0.0,
+        "y span": 1.01e-07,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      "source": {
+        "direction": "Forward",
+        "polarization angle": 0.0,
+        "wavelength start": 4.5e-07,
+        "wavelength stop": 4.5e-07,
+        "z": -2.5e-07
+      }
+    },
+    "material_readback": {
+      "duplicate_frequency_count": 0,
+      "epsilon_imag": 0.0,
+      "epsilon_matches_loader": true,
+      "epsilon_real": 6.437868486542859,
+      "frequency_monotonic": true,
+      "k_imag": 0.0,
+      "loader_epsilon_imag": 0.0,
+      "loader_epsilon_real": 6.437868486542859,
+      "loader_k_imag": 0.0,
+      "loader_n_real": 2.5372955063497944,
+      "material_name": "APCD_TIO2_NATIVE_M1",
+      "n_real": 2.5372955063497944,
+      "range_covers_450": true,
+      "sample_count": 101,
+      "wavelength_nm": 450.0
+    },
+    "monitor_readback": {
+      "T": {
+        "monitor type": "2D Z-normal",
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      },
+      "field_monitor": {
+        "monitor type": "2D Z-normal",
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      }
+    },
+    "object_readback": {
+      "J1": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "radius": "UNAVAILABLE:LumApiError",
+        "rotation 1": 0.0,
+        "x": -1.005e-07,
+        "x span": 1.09e-07,
+        "y": 0.0,
+        "y span": 1.0900000000000001e-07,
+        "z max": 5.000000000000001e-07,
+        "z min": 0.0
+      },
+      "J2": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "rotation 1": 0.0,
+        "x": 1.01e-07,
+        "x span": 1.1400000000000001e-07,
+        "y": 0.0,
+        "y span": 1.01e-07,
+        "z max": 5.000000000000001e-07,
+        "z min": 0.0
+      }
+    },
+    "reference_geometry_hash": "a1c148a431d3bbb9ea8be82a47198d4684d8f1712693fca52b72c32f52d013b2",
+    "requested_centers_nm": {
+      "J1": [
+        -100.5,
+        0.0
+      ],
+      "J2": [
+        101.0,
+        0.0
+      ]
+    },
+    "runtime_hashes": {
+      "boundary_hash": "cc10002f2844861edcfbb5c10d0d971fecf058efd234a909e45d001f3b98a532",
+      "geometry_hash": "3d17e736b8fcedeefe41d2a6eaa02445ea8d60a42f94c913aebc89b2acc72f12",
+      "material_hash": "74f7c15703f46926eab848a2790382cbd7b6e95db7ade8a596bf8c1646d2abc5",
+      "monitor_hash": "7f166708d99cad10497f7fd65343f64d587d85346f9ef0e66c4d140a14a9d5dd",
+      "object_inventory_hash": "0d9f4afeb67a9c5c246d25b54c8099635d8abb899d447c036525e7985ad5521f",
+      "source_common_hash": "bc09ab50aca6e9f0bb9e700c0f0b7ce65d1887dd7929ac1c420a9030278e3c13"
+    },
+    "source_readback": {
+      "direction": "Forward",
+      "polarization angle": 0.0,
+      "wavelength start": 4.500000000000001e-07,
+      "wavelength stop": 4.500000000000001e-07,
+      "z": -2.5000000000000004e-07
+    },
+    "stage": "save_load"
+  },
+  "schema_version": "LP_ML_SCHEMA_V1.20",
+  "solver_called": true,
+  "solver_runtime_seconds": 10.61569094657898,
+  "source_stage": "B120_NEGATIVE_COMMON_MODE_TRANSLATION_STAGE_D4_V1",
+  "status": "PASS",
+  "power_normalization_audit": {
+    "source_transmission_T": 1.008040649110684,
+    "weighted_G0_power": 1.0080406491106833,
+    "normalization_scale": 1.0458803670886287,
+    "power_closure_residual": -6.661338147750939e-16,
+    "complex_normalization_residual": 0.0,
+    "selected_power_above_one_flag": true,
+    "normalization_quality_status": "NUMERIC_POWER_OVERSHOOT"
+  },
+  "logical_candidate_id": "LP_H500_D4_B120_B_CM-1",
+  "candidate_instance_id": "LP_H500_D4_B120_B_CM-1",
+  "backbone_id": "LP_H500_D1_B120_J2WP02",
+  "candidate_origin": "NEGATIVE_COMMON_MODE_REVERSAL_FROM_D3",
+  "common_mode_operator_version": "D3_COMMON_MODE_OPERATOR_V1_SIGN_REVERSED",
+  "common_mode_delta_nm": "-1",
+  "evidence_neighbor_ids": "[\"LP_H500_D1_B120_J2WP02\"]",
+  "evidence_source": "CANONICAL_V1_19_BACKBONE",
+  "source_seed_id": "LP_H500_D1_B120_J2WP02",
+  "source_anchor_id": "LP_H500_D1_B120_J2WP02",
+  "execution_manifest_version": "B120_NEGATIVE_COMMON_MODE_TRANSLATION_STAGE_D4_V1",
+  "execution_manifest_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_ml_dataset_v1\\plans\\b120_negative_common_mode_translation_stage_d4_v1.json",
+  "execution_manifest_sha256": "5f9098518bad5ac6262e6e4666078557880fc21ffd9609acae6139a502f63d0e",
+  "source_seed_exact_geometry_hash": "6d00e4f15334f3cc08533371b89765898b395ed51ee68950fe6d3f4a8f119061",
+  "source_seed_450_source_row": 170,
+  "source_anchor_exact_geometry_hash": "6d00e4f15334f3cc08533371b89765898b395ed51ee68950fe6d3f4a8f119061",
+  "source_anchor_450_source_row": 170,
+  "execution_provenance": {
+    "logical_candidate_id": "LP_H500_D4_B120_B_CM-1",
+    "candidate_instance_id": "LP_H500_D4_B120_B_CM-1",
+    "backbone_id": "LP_H500_D1_B120_J2WP02",
+    "candidate_origin": "NEGATIVE_COMMON_MODE_REVERSAL_FROM_D3",
+    "common_mode_operator_version": "D3_COMMON_MODE_OPERATOR_V1_SIGN_REVERSED",
+    "common_mode_delta_nm": "-1",
+    "evidence_neighbor_ids": "[\"LP_H500_D1_B120_J2WP02\"]",
+    "evidence_source": "CANONICAL_V1_19_BACKBONE",
+    "source_seed_id": "LP_H500_D1_B120_J2WP02",
+    "source_anchor_id": "LP_H500_D1_B120_J2WP02",
+    "execution_manifest_version": "B120_NEGATIVE_COMMON_MODE_TRANSLATION_STAGE_D4_V1",
+    "execution_manifest_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_ml_dataset_v1\\plans\\b120_negative_common_mode_translation_stage_d4_v1.json",
+    "execution_manifest_sha256": "5f9098518bad5ac6262e6e4666078557880fc21ffd9609acae6139a502f63d0e",
+    "source_seed_exact_geometry_hash": "6d00e4f15334f3cc08533371b89765898b395ed51ee68950fe6d3f4a8f119061",
+    "source_seed_450_source_row": 170,
+    "source_anchor_exact_geometry_hash": "6d00e4f15334f3cc08533371b89765898b395ed51ee68950fe6d3f4a8f119061",
+    "source_anchor_450_source_row": 170
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "schema_version": "LP_ML_SCHEMA_V1.20",
+  "candidate_id": "LP_H500_D4_B120_A_CM-1",
+  "logical_candidate_id": "LP_H500_D4_B120_A_CM-1",
+  "status": "PASS",
+  "execution_provenance": {
+    "logical_candidate_id": "LP_H500_D4_B120_A_CM-1",
+    "candidate_instance_id": "LP_H500_D4_B120_A_CM-1",
+    "backbone_id": "LP_H500_D0_CTRL_B120_J2LP05",
+    "candidate_origin": "NEGATIVE_COMMON_MODE_REVERSAL_FROM_D3",
+    "common_mode_operator_version": "D3_COMMON_MODE_OPERATOR_V1_SIGN_REVERSED",
+    "common_mode_delta_nm": "-1",
+    "evidence_neighbor_ids": "[\"LP_H500_D0_CTRL_B120_J2LP05\"]",
+    "evidence_source": "CANONICAL_V1_19_BACKBONE",
+    "source_seed_id": "LP_H500_D0_CTRL_B120_J2LP05",
+    "source_anchor_id": "LP_H500_D0_CTRL_B120_J2LP05",
+    "execution_manifest_version": "B120_NEGATIVE_COMMON_MODE_TRANSLATION_STAGE_D4_V1",
+    "execution_manifest_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_ml_dataset_v1\\plans\\b120_negative_common_mode_translation_stage_d4_v1.json",
+    "execution_manifest_sha256": "5f9098518bad5ac6262e6e4666078557880fc21ffd9609acae6139a502f63d0e",
+    "source_seed_exact_geometry_hash": "938766aec59a9155723567e9fdb7ba0993279e79c7808ef9a911af2c44fc5de0",
+    "source_seed_450_source_row": 166,
+    "source_anchor_exact_geometry_hash": "938766aec59a9155723567e9fdb7ba0993279e79c7808ef9a911af2c44fc5de0",
+    "source_anchor_450_source_row": 166
+  },
+  "geometry_gate": {
+    "candidate_id": "LP_H500_D4_B120_A_CM-1",
+    "gate": "PASS",
+    "checks": {
+      "candidate_id": true,
+      "manifest_exact_hash": true,
+      "centers_exact": true,
+      "centers_half_grid": true,
+      "integer_dimensions": true,
+      "rotations_zero": true,
+      "direct_gap_match": true,
+      "periodic_gap_match": true,
+      "direct_gap_at_least_60": true,
+      "periodic_gap_at_least_92": true,
+      "no_overlap": true,
+      "primitive_valid": true
+    },
+    "requested": {
+      "J1": {
+        "name": "pillar_1",
+        "primitive": "sharp_rectangle",
+        "center_x_nm": -100.5,
+        "center_y_nm": 0.0,
+        "height_nm": 500.0,
+        "theta_deg": 0.0,
+        "length_nm": 109.0,
+        "width_nm": 109.0
+      },
+      "J2": {
+        "name": "pillar_2",
+        "primitive": "sharp_rectangle",
+        "center_x_nm": 101.0,
+        "center_y_nm": 0.0,
+        "height_nm": 500.0,
+        "theta_deg": 0.0,
+        "length_nm": 114.0,
+        "width_nm": 99.0
+      },
+      "H_nm": 500.0,
+      "period_nm": [
+        432.0,
+        432.0
+      ],
+      "material": "APCD_TIO2_NATIVE_M1",
+      "monitor_z_nm": 1000
+    },
+    "geometry": {
+      "direct_gap_nm": 90.0,
+      "periodic_gap_nm": 119.0,
+      "direct_overlap": false,
+      "periodic_overlap": false,
+      "periodic_pair": [
+        "J1",
+        "J2"
+      ],
+      "periodic_translation_nm": [
+        -432.0,
+        0.0
+      ],
+      "primitive_valid": true,
+      "fabrication_hard_pass": true,
+      "fabrication_preferred_pass": true
+    }
+  },
+  "subrun_checkpoints": [
+    "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_b120_negative_common_mode_stage_d4_execution_v1_attempt2\\subruns\\LP_H500_D4_B120_A_CM-1\\LP_H500_D4_B120_A_CM-1_x_30df92c8\\checkpoint.json",
+    "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_b120_negative_common_mode_stage_d4_execution_v1_attempt2\\subruns\\LP_H500_D4_B120_A_CM-1\\LP_H500_D4_B120_A_CM-1_y_85ac5bc2\\checkpoint.json"
+  ],
+  "provenance_pairing": {
+    "status": "PASS",
+    "checks": {
+      "candidate": true,
+      "xy": true,
+      "physics": true,
+      "runtime_hashes": true,
+      "integration": true
+    }
+  },
+  "weighted_G0_Jones": [
+    [
+      {
+        "real": 0.015613747928426012,
+        "imag": 0.9988141379495339
+      },
+      {
+        "real": -8.597191030994734e-09,
+        "imag": -5.702246970582672e-09
+      }
+    ],
+    [
+      {
+        "real": -9.627581776170025e-10,
+        "imag": -3.373920685542305e-09
+      },
+      {
+        "real": -0.34364224798449755,
+        "imag": 0.26859347924946847
+      }
+    ]
+  ],
+  "formal_metrics": {
+    "txx": {
+      "real": 0.015613747928426012,
+      "imag": 0.9988141379495339
+    },
+    "tyx": {
+      "real": -9.627581776170025e-10,
+      "imag": -3.373920685542305e-09
+    },
+    "txy": {
+      "real": -8.597191030994734e-09,
+      "imag": -5.702246970582672e-09
+    },
+    "tyy": {
+      "real": -0.34364224798449755,
+      "imag": 0.26859347924946847
+    },
+    "Txx": 0.9978734712922429,
+    "Tyx": 1.2310244100898668e-17,
+    "Txy": 1.0642731413693557e-16,
+    "Tyy": 0.19023245169517355,
+    "leakage_sum": 0.19023245169517367,
+    "ratio": 5.245548077628858,
+    "matrix_error": 0.43662094378637684,
+    "sigma1": 0.9989361697787517,
+    "sigma2": 0.43615645323114693,
+    "sigma2_over_sigma1": 0.43662094378637684,
+    "input_x_overlap": 1.0,
+    "output_x_overlap": 1.0000000000000004,
+    "x_projector_power_fraction": 0.8398859495482977,
+    "principal_input_stokes": {
+      "S1": 0.9999999999999999,
+      "S2": -1.5861225028821922e-08,
+      "S3": 1.7532418666934852e-08,
+      "aolp_deg": -4.543906260293818e-07,
+      "ellipticity_deg": 5.02266797135874e-07
+    },
+    "principal_output_stokes": {
+      "S1": 1.0,
+      "S2": -4.859040583762473e-09,
+      "S3": 8.319898085120447e-09,
+      "aolp_deg": -1.3920125896618673e-07,
+      "ellipticity_deg": 2.3834752312818849e-07
+    },
+    "dominant_leakage": "Tyy",
+    "phase_xx_deg": 89.10440895399822,
+    "projector_class": "failed",
+    "selected_Tx": 0.9978734712922429,
+    "cross_power": 1.1873755823783423e-16,
+    "reciprocity_residual": 7.981583068686507e-09,
+    "determinant_magnitude": 0.4356924568150071,
+    "condition_number": 2.290316152331127,
+    "rank_diagnostic": {
+      "sigma2_over_sigma1": 0.43662094378637684,
+      "condition_number": 2.290316152331127,
+      "interpretation": "continuous values only; no new rank threshold applied"
+    },
+    "element_amplitude_phase": {
+      "txx": {
+        "amplitude": 0.9989361697787517,
+        "phase_deg": 89.10440895399822
+      },
+      "tyx": {
+        "amplitude": 3.5085957448669786e-09,
+        "phase_deg": -105.92625287824625
+      },
+      "txy": {
+        "amplitude": 1.0316361477620662e-08,
+        "phase_deg": -146.44493219652986
+      },
+      "tyy": {
+        "amplitude": 0.4361564532311468,
+        "phase_deg": 141.9885375167746
+      }
+    },
+    "pauli": {
+      "a0": {
+        "real": -0.16401425002803577,
+        "imag": 0.6337038085995012
+      },
+      "abs_a0": 0.6545847471838709,
+      "phase_a0_deg": 104.51078780439089,
+      "az": {
+        "real": 0.17962799795646178,
+        "imag": 0.36511032935003274
+      },
+      "abs_az": 0.4069051120936379,
+      "phase_az_deg": 63.80360790306881,
+      "ax": {
+        "real": -4.779974604305869e-09,
+        "imag": -4.538083828062489e-09
+      },
+      "abs_ax": 6.591082008921702e-09,
+      "phase_ax_deg": -136.48702744573208,
+      "ay": {
+        "real": 1.1641631425201835e-09,
+        "imag": -3.817216426688866e-09
+      },
+      "abs_ay": 3.990791534343253e-09,
+      "phase_ay_deg": -73.03950075259804,
+      "identity_anisotropy_ratio": 1.608691382164883,
+      "identity_anisotropy_phase_error_deg": 40.70717990132209,
+      "off_axis_fraction": 9.996925977447074e-09
+    },
+    "polarization_states": {
+      "principal_input_stokes": {
+        "S1": 0.9999999999999999,
+        "S2": -1.5861225028821922e-08,
+        "S3": 1.7532418666934852e-08,
+        "aolp_deg": -4.543906260293818e-07,
+        "ellipticity_deg": 5.02266797135874e-07
+      },
+      "principal_output_stokes": {
+        "S1": 1.0,
+        "S2": -4.859040583762473e-09,
+        "S3": 8.319898085120447e-09,
+        "aolp_deg": -1.3920125896618673e-07,
+        "ellipticity_deg": 2.3834752312818849e-07
+      },
+      "input_AoLP_deg": -4.543906260293818e-07,
+      "output_AoLP_deg": -1.3920125896618673e-07,
+      "input_ellipticity_deg": 5.02266797135874e-07,
+      "output_ellipticity_deg": 2.3834752312818849e-07,
+      "input_x_overlap": 1.0,
+      "output_x_overlap": 1.0000000000000004,
+      "handedness_relation": "SAME_OR_ZERO"
+    },
+    "matrix_projection_error": 0.43662094378637684,
+    "metric_schema_adapter_version": "B120_D1_PROJECTOR_PHASE_REPAIR_METRIC_V1",
+    "matrix_projection_error_source_field": "matrix_error",
+    "R_total": 5.245548077628858,
+    "blocked_input_selectivity": 5.245548077628858,
+    "selected_polarization_purity": 1.0,
+    "actual_txx_phase_deg": 89.10440895399822,
+    "nearest_bin_deg": 60,
+    "phase_bin_error_deg": 29.104408953998217,
+    "rank_pass": true,
+    "axis_pass": true,
+    "leakage_pass": false,
+    "projector_shape_pass": true,
+    "selected_throughput_pass": true,
+    "phase_angle_pass": false,
+    "fabrication_pass": true,
+    "usable_projector": false,
+    "formal_library_eligible": false,
+    "audited_classification": "MIXED_RESPONSE"
+  },
+  "stage_d3_evaluation": {
+    "projectorization_pass": false,
+    "projector_preserved_from_backbone": false,
+    "phase_moved_toward_target": true,
+    "backbone_target_distance_deg": 22.432199079531586,
+    "candidate_target_distance_deg": 17.658802170321792,
+    "phase_target_improvement_deg": 4.773396909209794,
+    "absolute_60_bin_pass": false,
+    "primary_minus_candidate_phase_deg": 42.34119782967821,
+    "primary_relative_target_error_deg": 17.658802170321792,
+    "primary_relative_60_target_pass": false,
+    "primary_flat_60_projectorization_seed": false
+  },
+  "backbone_delta_diagnostics": {
+    "schema_version": "LP_ML_SCHEMA_V1.20",
+    "candidate_id": "LP_H500_D4_B120_A_CM-1",
+    "logical_candidate_id": "LP_H500_D4_B120_A_CM-1",
+    "backbone_id": "LP_H500_D0_CTRL_B120_J2LP05",
+    "candidate_class": "BACKBONE_A_NEGATIVE_COMMON_MODE",
+    "delta_Txx": -0.01194422870409284,
+    "delta_Tyy": 0.15711433672265093,
+    "delta_R_total": -25.245852197844496,
+    "delta_rank": 0.2555239190075612,
+    "phase_shift_from_backbone_deg": -4.773396909209794,
+    "phase_target_improvement_deg": 4.773396909209794,
+    "source_stage": "B120_NEGATIVE_COMMON_MODE_TRANSLATION_STAGE_D4_V1",
+    "candidate_instance_id": "LP_H500_D4_B120_A_CM-1",
+    "candidate_origin": "NEGATIVE_COMMON_MODE_REVERSAL_FROM_D3",
+    "common_mode_operator_version": "D3_COMMON_MODE_OPERATOR_V1_SIGN_REVERSED",
+    "common_mode_delta_nm": "-1",
+    "evidence_neighbor_ids": "[\"LP_H500_D0_CTRL_B120_J2LP05\"]",
+    "evidence_source": "CANONICAL_V1_19_BACKBONE",
+    "source_seed_id": "LP_H500_D0_CTRL_B120_J2LP05",
+    "source_anchor_id": "LP_H500_D0_CTRL_B120_J2LP05",
+    "execution_manifest_version": "B120_NEGATIVE_COMMON_MODE_TRANSLATION_STAGE_D4_V1",
+    "execution_manifest_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_ml_dataset_v1\\plans\\b120_negative_common_mode_translation_stage_d4_v1.json",
+    "execution_manifest_sha256": "5f9098518bad5ac6262e6e4666078557880fc21ffd9609acae6139a502f63d0e",
+    "source_seed_exact_geometry_hash": "938766aec59a9155723567e9fdb7ba0993279e79c7808ef9a911af2c44fc5de0",
+    "source_seed_450_source_row": 166,
+    "source_anchor_exact_geometry_hash": "938766aec59a9155723567e9fdb7ba0993279e79c7808ef9a911af2c44fc5de0",
+    "source_anchor_450_source_row": 166
+  },
+  "candidate_checkpoint_reload": "PASS"
+}

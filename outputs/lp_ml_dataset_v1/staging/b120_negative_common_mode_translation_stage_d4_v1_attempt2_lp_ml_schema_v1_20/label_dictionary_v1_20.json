@@ -1,0 +1,35 @@
+{
+  "schema_version": "LP_ML_SCHEMA_V1.20",
+  "formal_projector_field": "projector_preserved_from_backbone",
+  "forbidden_field": "projector_preserved_from_seed",
+  "observable": {
+    "wavelength_nm": 450,
+    "period_x_nm": 432,
+    "period_y_nm": 432,
+    "H_nm": 500,
+    "material": "APCD_TIO2_NATIVE_M1",
+    "background": "air n=1",
+    "incidence": "normal",
+    "boundaries": {
+      "x": "Periodic",
+      "y": "Periodic",
+      "z": "PML"
+    },
+    "source": {
+      "type": "plane",
+      "direction": "Forward",
+      "z_nm": -250,
+      "inputs": [
+        "x",
+        "y"
+      ]
+    },
+    "monitor": {
+      "name": "field_monitor",
+      "type": "2D Z-normal",
+      "z_nm": 1000
+    },
+    "integration": "coordinate-weighted periodic-closure 2D complex G0; duplicate endpoints removed and reclosed",
+    "normalization": "sqrt(T)/norm(weighted Ex, weighted Ey)"
+  }
+}
