@@ -89,3 +89,50 @@ def test_validate_only_path_does_not_call_build_function_or_serializers():
     assert "write_json" not in validate_source
     assert "write_jsonl" not in validate_source
     assert "write_csv" not in validate_source
+
+
+def test_training_execution_contract_is_complete_and_frozen():
+    cfg = ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml"
+    result = MODULE.validate_existing(cfg)
+    assert result["status"] == "PASS"
+    assert result["promotion_contract_sha256"] == "71b43c40035bb49a0a9647734b8aa4b42f7a089aa9c354de0b2a90f0c93def52"
+    assert len(result["training_execution_contract_sha256"]) == 64
+    assert all(result["checks"].values())
+
+
+def test_execution_contract_source_references_and_candidates_are_closed():
+    cfg = json.loads((ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml").read_text())
+    contract = MODULE.training_execution_contract(cfg)
+    assert all(MODULE.validate_source_references(contract))
+    allow = contract["model_candidate_allowlist"]
+    bounded = contract["bounded_recompetition_candidate_set"]
+    assert {"extra_trees_1"} <= set(bounded["classification_candidate_ids"])
+    assert {"multitask_mlp_3seed"} <= set(bounded["regression_candidate_ids"])
+    assert contract["fixed_v1_architecture_retrain"]["classification"]["candidate_id"] == "extra_trees_1"
+    assert contract["fixed_v1_architecture_retrain"]["regression"]["candidate_id"] == "multitask_mlp_3seed"
+    assert contract["training_seeds"]["regressor_ensemble_seeds"] == [20260720, 20260721, 20260722]
+    assert contract["target_transforms"]["canonical_4d_targets"] == cfg["regression_targets"]
+    assert not MODULE.has_unresolved_placeholder(contract)
+    assert len(allow["classification"]) == len({item["candidate_id"] for item in allow["classification"]})
+    assert len(allow["regression"]) == len({item["candidate_id"] for item in allow["regression"]})
+
+
+def test_execution_contract_rejects_unknown_drift_and_unsafe_rules(tmp_path: Path):
+    cfg = json.loads((ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml").read_text())
+    output = ROOT / cfg["output_root"]
+    for mutate in (
+        lambda value: value["bounded_recompetition_candidate_set"]["classification_candidate_ids"].append("unknown"),
+        lambda value: value["model_candidate_allowlist"]["classification"][0]["hyperparameters"].update({"strategy": "most_frequent"}),
+        lambda value: value["target_transforms"].update({"canonical_4d_targets": list(reversed(value["regression_targets"]))}),
+        lambda value: value["training_seeds"].update({"regressor_ensemble_seeds": [20260720, 20260721]}),
+        lambda value: value["early_stopping"].update({"validation_source": "original calibration"}),
+        lambda value: value["contract_revision"].update({"first_training_started": True}),
+    ):
+        altered = json.loads(json.dumps(cfg)); mutate(altered)
+        checks = MODULE.validate_training_execution_contract(altered, output)
+        assert not all(checks.values())
+    with pytest.raises(RuntimeError, match="unknown promotion decision"):
+        MODULE.resolve_route_rules(cfg["route_rules"], "unknown")
+    assert MODULE.resolve_route_rules(cfg["route_rules"], "RETAIN_V1_FOR_NEXT_PROPOSAL")["proposal_model"] == "v1"
+    assert MODULE.resolve_route_rules(cfg["route_rules"], "PROMOTE_DEV_CHAMPION_V2")["proposal_model"] == "v2"
+    assert MODULE.resolve_route_rules(cfg["route_rules"], "RETAIN_V1_FOR_NEXT_PROPOSAL", data_contract_failure=True)["routes"] == ["NEED_DATA_CONTRACT_REVIEW"]

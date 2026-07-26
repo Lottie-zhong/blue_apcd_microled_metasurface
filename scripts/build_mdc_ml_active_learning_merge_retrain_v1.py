@@ -4,6 +4,7 @@ import argparse
 import csv
 import hashlib
 import json
+import subprocess
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -123,8 +124,85 @@ def output_tree(path: Path) -> dict[str, object]:
     rows=[{'relative_path':item.relative_to(path).as_posix(),'size':item.stat().st_size,'sha256':digest(item),'mtime_ns':item.stat().st_mtime_ns} for item in sorted(path.rglob('*')) if item.is_file()]
     return {'files':rows,'file_count':len(rows),'bytes':sum(row['size'] for row in rows),'fingerprint':digest_bytes(canon(rows).encode())}
 
+TRAINING_EXECUTION_CONTRACT_KEYS=("contract_revision","model_candidate_allowlist","fixed_v1_architecture_retrain","bounded_recompetition_candidate_set","target_transforms","training_seeds","early_stopping","route_rules")
+
+
+def training_execution_contract(cfg: dict[str, Any]) -> dict[str, Any]:
+    return {key: cfg[key] for key in TRAINING_EXECUTION_CONTRACT_KEYS}
+
+
+SOURCE_BLOB_SHA256_CACHE: dict[tuple[str, str], str] = {}
+
+
+def source_blob_sha256(reference: dict[str, Any]) -> str:
+    key=(reference["source_commit"],reference["source_path"])
+    if key not in SOURCE_BLOB_SHA256_CACHE:
+        value=subprocess.run(["git","show",f"{key[0]}:{key[1]}"],cwd=ROOT,check=True,capture_output=True).stdout
+        SOURCE_BLOB_SHA256_CACHE[key]=digest_bytes(value)
+    return SOURCE_BLOB_SHA256_CACHE[key]
+
+
+def validate_source_references(value: Any) -> list[bool]:
+    checks=[]
+    if isinstance(value,dict):
+        if {"source_commit","source_path","source_key_or_symbol","source_sha256","resolved_value","resolved_value_sha256"} <= set(value):
+            checks.extend([source_blob_sha256(value)==value["source_sha256"],digest_bytes(canon(value["resolved_value"]).encode())==value["resolved_value_sha256"]])
+        if "source_reference" in value and isinstance(value["source_reference"],dict):
+            reference=value["source_reference"]
+            if reference.get("resolved_value_must_match") is True:
+                actual={key:item for key,item in value.items() if key not in {"source_reference","resolved_value_sha256","resolved_transform_signature"}}
+                checks.append(canon(actual)==canon(reference["resolved_value"]))
+        for item in value.values(): checks.extend(validate_source_references(item))
+    elif isinstance(value,list):
+        for item in value: checks.extend(validate_source_references(item))
+    return checks
+
+
+def has_unresolved_placeholder(value: Any) -> bool:
+    if isinstance(value,str): return any(token in value.lower() for token in ("same_as_v1","reuse_v1","use_existing_defaults","todo","tbd","unresolved"))
+    if isinstance(value,dict): return any(has_unresolved_placeholder(item) for item in value.values())
+    if isinstance(value,list): return any(has_unresolved_placeholder(item) for item in value)
+    return False
+
+
+def resolve_route_rules(route_rules: dict[str, Any], promotion_decision: str, data_contract_failure: bool=False) -> dict[str, Any]:
+    if data_contract_failure: return {"proposal_model":None,"routes":[route_rules["data_contract_failure_route"]]}
+    mapping=route_rules["promotion_mapping"]
+    if promotion_decision not in mapping: raise RuntimeError("unknown promotion decision: "+promotion_decision)
+    chosen=mapping[promotion_decision]
+    return {"proposal_model":chosen["proposal_model"],"routes":list(chosen["allowed_readiness"])}
+
+
+def validate_training_execution_contract(cfg: dict[str, Any], out: Path) -> dict[str, bool]:
+    contract=training_execution_contract(cfg)
+    allow=contract["model_candidate_allowlist"]
+    cls_ids=[item["candidate_id"] for item in allow["classification"]]; reg_ids=[item["candidate_id"] for item in allow["regression"]]
+    bounded=contract["bounded_recompetition_candidate_set"]
+    fixed=contract["fixed_v1_architecture_retrain"]
+    target=contract["target_transforms"]
+    seeds=contract["training_seeds"]
+    early=contract["early_stopping"]
+    artifacts=[item.relative_to(out).as_posix() for item in out.rglob("*") if item.is_file() and any(token in item.name.lower() for token in ("adaptive_oof","fold_classifier","fold_regressor","classifier_v2","regressor_v2","scaler","calibrator","conformal","promotion_decision","route_decision","training_execution","training_log","threshold"))]
+    source_checks=validate_source_references(contract)
+    return {
+        "training_fields_present":set(TRAINING_EXECUTION_CONTRACT_KEYS)<=set(cfg),
+        "first_training_not_started":contract["contract_revision"]["first_training_started"] is False,
+        "promotion_contract_preserved":digest_bytes(canon(cfg["development_promotion_contract"]).encode())=="71b43c40035bb49a0a9647734b8aa4b42f7a089aa9c354de0b2a90f0c93def52",
+        "source_references_valid":bool(source_checks) and all(source_checks),
+        "no_unresolved_placeholder":not has_unresolved_placeholder(contract),
+        "candidate_ids_unique":len(cls_ids)==len(set(cls_ids)) and len(reg_ids)==len(set(reg_ids)),
+        "bounded_is_allowlist_subset":set(bounded["classification_candidate_ids"])<=set(cls_ids) and set(bounded["regression_candidate_ids"])<=set(reg_ids),
+        "fixed_baselines_bounded":fixed["classification"]["candidate_id"] in bounded["classification_candidate_ids"] and fixed["regression"]["candidate_id"] in bounded["regression_candidate_ids"],
+        "target_transform_complete":target["canonical_4d_targets"]==cfg["regression_targets"] and target["feature_count"]==150 and len(target["physical_units"])==4,
+        "seed_contract_complete":seeds["regressor_ensemble_seeds"]==[20260720,20260721,20260722] and "derived_seed" in seeds["fold_seed_derivation"],
+        "early_stopping_safe":early["validation_source"].startswith("original validation") and not any(name in early["validation_source"] for name in ("calibration","sealed")),
+        "route_precedence_complete":resolve_route_rules(contract["route_rules"],"PROMOTE_DEV_CHAMPION_V2")["proposal_model"]=="v2" and resolve_route_rules(contract["route_rules"],"RETAIN_V1_FOR_NEXT_PROPOSAL")["proposal_model"]=="v1" and resolve_route_rules(contract["route_rules"],"INCONCLUSIVE_NEED_MORE_ADAPTIVE_DATA")["proposal_model"]=="v1",
+        "preexisting_training_artifacts_zero":not artifacts,
+    }
+
+
 def validate_existing(config_path: Path = CONFIG) -> dict[str, object]:
-    cfg=load(config_path); out=ROOT/cfg['output_root']
+    cfg=load(config_path); out=ROOT/cfg['output_root']; training_contract_checks=validate_training_execution_contract(cfg,out)
     required=['merged_registry_v1.jsonl','merged_registry_v1.csv','merge_audit_v1.json','eligibility_audit_v1.json','split_preservation_audit_v1.json','sealed_test_non_use_audit_v1.json','adaptive_crossfit_assignment_v1.jsonl','adaptive_crossfit_assignment_v1.csv','adaptive_crossfit_audit_v1.json','training_view_v1.npz']
     missing=[name for name in required if not (out/name).is_file()]
     if missing: raise RuntimeError('missing merged outputs: '+canon(missing))
@@ -142,7 +220,7 @@ def validate_existing(config_path: Path = CONFIG) -> dict[str, object]:
     with np.load(out/'training_view_v1.npz') as view:
         training_view_rows=len(view['candidate_ids'])
         training_view_shape=view['X'].shape[0]
-    checks={
+    checks={**training_contract_checks,
         'classification_2640':len(rows)==2640,
         'round1_128':sum(row['source_dataset']=='ROUND1' for row in rows)==128,
         'regression_837':sum(regression_mask)==837 and audit['regression_population']==837 and eligibility['regression_mask_count']==837,
@@ -161,7 +239,7 @@ def validate_existing(config_path: Path = CONFIG) -> dict[str, object]:
     }
     checks={key:bool(value) for key,value in checks.items()}
     if not all(checks.values()): raise RuntimeError('merged output validation failed: '+canon(checks))
-    return {'status':'PASS','checks':checks,'tree':output_tree(out),'promotion_contract_sha256':digest_bytes(canon(cfg['development_promotion_contract']).encode()),'config_sha256':digest(config_path)}
+    return {'status':'PASS','checks':checks,'tree':output_tree(out),'promotion_contract_sha256':digest_bytes(canon(cfg['development_promotion_contract']).encode()),'training_execution_contract_sha256':digest_bytes(canon(training_execution_contract(cfg)).encode()),'config_sha256':digest(config_path)}
 
 def main() -> None:
     parser = argparse.ArgumentParser(); parser.add_argument("--config", type=Path, default=CONFIG); parser.add_argument("--validate-only", action="store_true"); args = parser.parse_args()

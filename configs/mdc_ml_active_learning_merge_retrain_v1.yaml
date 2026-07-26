@@ -129,5 +129,2038 @@
     "normal_band_transmission_proxy"
   ],
   "round1_labels": "outputs/mdc_ml_active_learning_round1_v1/tmm_labels_v1.jsonl",
-  "shared_feature_signature": "cc49c7b99dcf486f373f1add526c4c23174069dc92bace0dae6b8fabbcc3cd69"
+  "shared_feature_signature": "cc49c7b99dcf486f373f1add526c4c23174069dc92bace0dae6b8fabbcc3cd69",
+  "contract_revision": {
+    "id": "mdc_ml_merge_retrain_training_execution_contract_v2",
+    "revision": 2,
+    "status": "frozen_before_first_training",
+    "supersedes_pretraining_freeze_commit": "afbd9eb526bf0003a693fdab6d1dbd1d9103c0cb",
+    "preserves_promotion_contract": true,
+    "shared_surrogate_source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+    "first_training_started": false
+  },
+  "model_candidate_allowlist": {
+    "classification": [
+      {
+        "candidate_id": "dummy_prevalence",
+        "estimator_family": "dummy_prevalence",
+        "estimator": "sklearn.dummy.DummyClassifier",
+        "hyperparameters": {
+          "constant": null,
+          "random_state": null,
+          "strategy": "prior"
+        },
+        "random_state_rule": "none",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:DummyClassifier(strategy='prior')",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "dummy_prevalence",
+            "estimator_family": "dummy_prevalence",
+            "estimator": "sklearn.dummy.DummyClassifier",
+            "hyperparameters": {
+              "constant": null,
+              "random_state": null,
+              "strategy": "prior"
+            },
+            "random_state_rule": "none",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "b02887383a07162fb0219e68243841a98aba9ff1c5b5fe23c1b610c6f42d86e9",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "81ec3ef605c99901e1df58a3be148c4dd282f713fc4686dcbc65a2bc55c04003"
+      },
+      {
+        "candidate_id": "dummy_stratified",
+        "estimator_family": "dummy_stratified",
+        "estimator": "sklearn.dummy.DummyClassifier",
+        "hyperparameters": {
+          "constant": null,
+          "random_state": 20260720,
+          "strategy": "stratified"
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:DummyClassifier(strategy='stratified', random_state=seed+target_index)",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "dummy_stratified",
+            "estimator_family": "dummy_stratified",
+            "estimator": "sklearn.dummy.DummyClassifier",
+            "hyperparameters": {
+              "constant": null,
+              "random_state": 20260720,
+              "strategy": "stratified"
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "442b7a0b1c6aa7ce85a86b8c0f9725a9fef78a34205aa03e771b2ae2c1c91ba0",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "aa1aec66405c0246e8e34739d71224f237f14570feb48e8051a3089470cdc776"
+      },
+      {
+        "candidate_id": "linear_C_0.1",
+        "estimator_family": "linear",
+        "estimator": "sklearn.linear_model.LogisticRegression",
+        "hyperparameters": {
+          "C": 0.1,
+          "class_weight": "balanced",
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 3000,
+          "multi_class": "deprecated",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 20260720,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:LogisticRegression",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "linear_C_0.1",
+            "estimator_family": "linear",
+            "estimator": "sklearn.linear_model.LogisticRegression",
+            "hyperparameters": {
+              "C": 0.1,
+              "class_weight": "balanced",
+              "dual": false,
+              "fit_intercept": true,
+              "intercept_scaling": 1,
+              "l1_ratio": null,
+              "max_iter": 3000,
+              "multi_class": "deprecated",
+              "n_jobs": null,
+              "penalty": "l2",
+              "random_state": 20260720,
+              "solver": "lbfgs",
+              "tol": 0.0001,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "01743e0ea54bae25a87e6cc68034d5f0c8b0b0b1d4d0b77753fd64b0ceb31cdb",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "60922d72048de5d36cb717158f1082830ada1f401f97410e8960207853b68480"
+      },
+      {
+        "candidate_id": "linear_C_1.0",
+        "estimator_family": "linear",
+        "estimator": "sklearn.linear_model.LogisticRegression",
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": "balanced",
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 3000,
+          "multi_class": "deprecated",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 20260720,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:LogisticRegression",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "linear_C_1.0",
+            "estimator_family": "linear",
+            "estimator": "sklearn.linear_model.LogisticRegression",
+            "hyperparameters": {
+              "C": 1.0,
+              "class_weight": "balanced",
+              "dual": false,
+              "fit_intercept": true,
+              "intercept_scaling": 1,
+              "l1_ratio": null,
+              "max_iter": 3000,
+              "multi_class": "deprecated",
+              "n_jobs": null,
+              "penalty": "l2",
+              "random_state": 20260720,
+              "solver": "lbfgs",
+              "tol": 0.0001,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "beeb13759e4d185f51a67b3beb8906bbfc4df2d0db066bf15f55ee052907fc16",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "9054d2e0d99899a604fb0a9f2da30a6cbdaa8a6054fb2d84a5923ab494766146"
+      },
+      {
+        "candidate_id": "linear_C_10.0",
+        "estimator_family": "linear",
+        "estimator": "sklearn.linear_model.LogisticRegression",
+        "hyperparameters": {
+          "C": 10.0,
+          "class_weight": "balanced",
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 3000,
+          "multi_class": "deprecated",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 20260720,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:LogisticRegression",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "linear_C_10.0",
+            "estimator_family": "linear",
+            "estimator": "sklearn.linear_model.LogisticRegression",
+            "hyperparameters": {
+              "C": 10.0,
+              "class_weight": "balanced",
+              "dual": false,
+              "fit_intercept": true,
+              "intercept_scaling": 1,
+              "l1_ratio": null,
+              "max_iter": 3000,
+              "multi_class": "deprecated",
+              "n_jobs": null,
+              "penalty": "l2",
+              "random_state": 20260720,
+              "solver": "lbfgs",
+              "tol": 0.0001,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "c8ba92da0c71424e09f053b31b20dc93d16eeec22f9dbe0b096acf6f5f38117f",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "cdc652277ca3e3b74221e9ecdf1d9062e2fc1dfb9225392f1cb92b65a2c0fa8c"
+      },
+      {
+        "candidate_id": "extra_trees_0",
+        "estimator_family": "extra_trees",
+        "estimator": "sklearn.ensemble.ExtraTreesClassifier",
+        "hyperparameters": {
+          "bootstrap": false,
+          "ccp_alpha": 0.0,
+          "class_weight": "balanced",
+          "criterion": "gini",
+          "max_depth": null,
+          "max_features": 0.7,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_samples_leaf": 1,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "monotonic_cst": null,
+          "n_estimators": 256,
+          "n_jobs": 8,
+          "oob_score": false,
+          "random_state": 20260720,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:ExtraTreesClassifier",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "extra_trees_0",
+            "estimator_family": "extra_trees",
+            "estimator": "sklearn.ensemble.ExtraTreesClassifier",
+            "hyperparameters": {
+              "bootstrap": false,
+              "ccp_alpha": 0.0,
+              "class_weight": "balanced",
+              "criterion": "gini",
+              "max_depth": null,
+              "max_features": 0.7,
+              "max_leaf_nodes": null,
+              "max_samples": null,
+              "min_impurity_decrease": 0.0,
+              "min_samples_leaf": 1,
+              "min_samples_split": 2,
+              "min_weight_fraction_leaf": 0.0,
+              "monotonic_cst": null,
+              "n_estimators": 256,
+              "n_jobs": 8,
+              "oob_score": false,
+              "random_state": 20260720,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "fc3f2690b01091fde28f3f70bf7b647c6a8678b6879fd927f4f78fc2e17667ac",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "6bf89f1a106e7114dc957b0a05286a5870fcd5f2f427f636ebf12551c353485d"
+      },
+      {
+        "candidate_id": "extra_trees_1",
+        "estimator_family": "extra_trees",
+        "estimator": "sklearn.ensemble.ExtraTreesClassifier",
+        "hyperparameters": {
+          "bootstrap": false,
+          "ccp_alpha": 0.0,
+          "class_weight": "balanced",
+          "criterion": "gini",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_samples_leaf": 2,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "monotonic_cst": null,
+          "n_estimators": 384,
+          "n_jobs": 8,
+          "oob_score": false,
+          "random_state": 20260720,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:ExtraTreesClassifier",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "extra_trees_1",
+            "estimator_family": "extra_trees",
+            "estimator": "sklearn.ensemble.ExtraTreesClassifier",
+            "hyperparameters": {
+              "bootstrap": false,
+              "ccp_alpha": 0.0,
+              "class_weight": "balanced",
+              "criterion": "gini",
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_leaf_nodes": null,
+              "max_samples": null,
+              "min_impurity_decrease": 0.0,
+              "min_samples_leaf": 2,
+              "min_samples_split": 2,
+              "min_weight_fraction_leaf": 0.0,
+              "monotonic_cst": null,
+              "n_estimators": 384,
+              "n_jobs": 8,
+              "oob_score": false,
+              "random_state": 20260720,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "1ea8b2c517a01060e2b5054c1af251467c883856b769b09ee1e88a461f3ea4ee",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "fd477a33200b7cadc3fa70ffca222d7201c15d1e01c185e3eda78d57e6517358"
+      },
+      {
+        "candidate_id": "hgb_0",
+        "estimator_family": "hist_gradient_boosting",
+        "estimator": "sklearn.ensemble.HistGradientBoostingClassifier",
+        "hyperparameters": {
+          "categorical_features": "from_dtype",
+          "class_weight": null,
+          "early_stopping": "auto",
+          "interaction_cst": null,
+          "l2_regularization": 0.0,
+          "learning_rate": 0.06,
+          "loss": "log_loss",
+          "max_bins": 255,
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_iter": 180,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 20,
+          "monotonic_cst": null,
+          "n_iter_no_change": 10,
+          "random_state": 20260720,
+          "scoring": "loss",
+          "tol": 1e-07,
+          "validation_fraction": 0.1,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "class_weighting": "sample_weight inverse class prevalence per target",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:HistGradientBoostingClassifier",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "hgb_0",
+            "estimator_family": "hist_gradient_boosting",
+            "estimator": "sklearn.ensemble.HistGradientBoostingClassifier",
+            "hyperparameters": {
+              "categorical_features": "from_dtype",
+              "class_weight": null,
+              "early_stopping": "auto",
+              "interaction_cst": null,
+              "l2_regularization": 0.0,
+              "learning_rate": 0.06,
+              "loss": "log_loss",
+              "max_bins": 255,
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_iter": 180,
+              "max_leaf_nodes": 15,
+              "min_samples_leaf": 20,
+              "monotonic_cst": null,
+              "n_iter_no_change": 10,
+              "random_state": 20260720,
+              "scoring": "loss",
+              "tol": 1e-07,
+              "validation_fraction": 0.1,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original train rows",
+            "class_weighting": "sample_weight inverse class prevalence per target"
+          },
+          "resolved_value_sha256": "cd5705d893f7e138fd000298a759d825ee0626ab11dba36078ce7ad4c0f0f56d",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "002b6487a275c267f77b32719bf9e6e295dd772fbf25242c78422700eb9bcc6e"
+      },
+      {
+        "candidate_id": "hgb_1",
+        "estimator_family": "hist_gradient_boosting",
+        "estimator": "sklearn.ensemble.HistGradientBoostingClassifier",
+        "hyperparameters": {
+          "categorical_features": "from_dtype",
+          "class_weight": null,
+          "early_stopping": "auto",
+          "interaction_cst": null,
+          "l2_regularization": 0.001,
+          "learning_rate": 0.04,
+          "loss": "log_loss",
+          "max_bins": 255,
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_iter": 240,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 20,
+          "monotonic_cst": null,
+          "n_iter_no_change": 10,
+          "random_state": 20260720,
+          "scoring": "loss",
+          "tol": 1e-07,
+          "validation_fraction": 0.1,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "class_weighting": "sample_weight inverse class prevalence per target",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:HistGradientBoostingClassifier",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "hgb_1",
+            "estimator_family": "hist_gradient_boosting",
+            "estimator": "sklearn.ensemble.HistGradientBoostingClassifier",
+            "hyperparameters": {
+              "categorical_features": "from_dtype",
+              "class_weight": null,
+              "early_stopping": "auto",
+              "interaction_cst": null,
+              "l2_regularization": 0.001,
+              "learning_rate": 0.04,
+              "loss": "log_loss",
+              "max_bins": 255,
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_iter": 240,
+              "max_leaf_nodes": 31,
+              "min_samples_leaf": 20,
+              "monotonic_cst": null,
+              "n_iter_no_change": 10,
+              "random_state": 20260720,
+              "scoring": "loss",
+              "tol": 1e-07,
+              "validation_fraction": 0.1,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original train rows",
+            "class_weighting": "sample_weight inverse class prevalence per target"
+          },
+          "resolved_value_sha256": "36bc4c5f31fab30b9ea105240793e53263080a8ac37124cd634bc998a69078a3",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "efa1e56c8446772e36d74f8f38fce5e60a31b5df69c98cc737df8160f6ac0a84"
+      },
+      {
+        "candidate_id": "multitask_mlp_3seed",
+        "estimator_family": "multitask_mlp",
+        "estimator": "SharedMLP/MLPBundle",
+        "hyperparameters": {
+          "architecture": "shared_multitask_mlp",
+          "hidden_layers": [
+            256,
+            128
+          ],
+          "activation": "ReLU",
+          "dropout": 0.1,
+          "embedding": {
+            "material_vocab_size": 3,
+            "embedding_dim": 4,
+            "padding_idx": 0,
+            "material_feature_indices": [
+              0,
+              5,
+              10,
+              15,
+              20,
+              25,
+              30,
+              35,
+              40,
+              45,
+              50,
+              55,
+              60,
+              65,
+              70,
+              75,
+              80,
+              85,
+              90,
+              95,
+              100,
+              105,
+              110,
+              115,
+              120
+            ]
+          },
+          "optimizer": {
+            "name": "AdamW",
+            "learning_rate": 0.0007,
+            "weight_decay": 1e-05,
+            "betas": [
+              0.9,
+              0.999
+            ],
+            "eps": 1e-08,
+            "amsgrad": false
+          },
+          "batch_size": 128,
+          "max_epochs": 240,
+          "loss": {
+            "classification": "BCEWithLogitsLoss(pos_weight=(n-pos)/max(pos,1))",
+            "regression": "SmoothL1Loss(beta=1.0)",
+            "classification_weight": 1.0,
+            "regression_weight": 1.0,
+            "regression_mask": "eligible rows only"
+          },
+          "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+          "target_transform": "per-target standardization fit on eligible training rows; std<1e-12 replaced by 1; inverse=y_std*prediction+y_mean",
+          "random_seeds": [
+            20260720,
+            20260721,
+            20260722
+          ]
+        },
+        "random_state_rule": "one model per frozen ensemble seed",
+        "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "SharedMLP; MLPBundle.fit",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "multitask_mlp_3seed",
+            "estimator_family": "multitask_mlp",
+            "estimator": "SharedMLP/MLPBundle",
+            "hyperparameters": {
+              "architecture": "shared_multitask_mlp",
+              "hidden_layers": [
+                256,
+                128
+              ],
+              "activation": "ReLU",
+              "dropout": 0.1,
+              "embedding": {
+                "material_vocab_size": 3,
+                "embedding_dim": 4,
+                "padding_idx": 0,
+                "material_feature_indices": [
+                  0,
+                  5,
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40,
+                  45,
+                  50,
+                  55,
+                  60,
+                  65,
+                  70,
+                  75,
+                  80,
+                  85,
+                  90,
+                  95,
+                  100,
+                  105,
+                  110,
+                  115,
+                  120
+                ]
+              },
+              "optimizer": {
+                "name": "AdamW",
+                "learning_rate": 0.0007,
+                "weight_decay": 1e-05,
+                "betas": [
+                  0.9,
+                  0.999
+                ],
+                "eps": 1e-08,
+                "amsgrad": false
+              },
+              "batch_size": 128,
+              "max_epochs": 240,
+              "loss": {
+                "classification": "BCEWithLogitsLoss(pos_weight=(n-pos)/max(pos,1))",
+                "regression": "SmoothL1Loss(beta=1.0)",
+                "classification_weight": 1.0,
+                "regression_weight": 1.0,
+                "regression_mask": "eligible rows only"
+              },
+              "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+              "target_transform": "per-target standardization fit on eligible training rows; std<1e-12 replaced by 1; inverse=y_std*prediction+y_mean",
+              "random_seeds": [
+                20260720,
+                20260721,
+                20260722
+              ]
+            },
+            "random_state_rule": "one model per frozen ensemble seed",
+            "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens"
+          },
+          "resolved_value_sha256": "c7ef00f9a012c57d731fcb1d4ed7fda6bed249a005528c7888e6e122a228955d",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "ba026795c10b7521e1947c08b1e02caf4511b3a2326e2366e6cf286df089e43e"
+      }
+    ],
+    "regression": [
+      {
+        "candidate_id": "dummy_mean",
+        "estimator_family": "dummy_mean",
+        "estimator": "sklearn.dummy.DummyRegressor",
+        "hyperparameters": {
+          "constant": null,
+          "quantile": null,
+          "strategy": "mean"
+        },
+        "random_state_rule": "none",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:DummyRegressor(strategy='mean')",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "dummy_mean",
+            "estimator_family": "dummy_mean",
+            "estimator": "sklearn.dummy.DummyRegressor",
+            "hyperparameters": {
+              "constant": null,
+              "quantile": null,
+              "strategy": "mean"
+            },
+            "random_state_rule": "none",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "c3eb68f2ae4ff7209ea8a5a8a4c24e213c9d91304b16e620cc6c29f43948590e",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "8df8a0918e620ac87fe479a4e5a481a1556b2cf85e79b83ba4afdbba86837272"
+      },
+      {
+        "candidate_id": "dummy_median",
+        "estimator_family": "dummy_median",
+        "estimator": "sklearn.dummy.DummyRegressor",
+        "hyperparameters": {
+          "constant": null,
+          "quantile": null,
+          "strategy": "median"
+        },
+        "random_state_rule": "none",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:DummyRegressor(strategy='median')",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "dummy_median",
+            "estimator_family": "dummy_median",
+            "estimator": "sklearn.dummy.DummyRegressor",
+            "hyperparameters": {
+              "constant": null,
+              "quantile": null,
+              "strategy": "median"
+            },
+            "random_state_rule": "none",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "83f0b2610b28ac5b68c37834bc6ae695c0a6173fc8810e8bf45f9d2eb9ffdfe6",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "946ab8008e22b98ce6697edec42b657021d2c936fa26cec807374d544fd8935c"
+      },
+      {
+        "candidate_id": "ridge_0.1",
+        "estimator_family": "linear",
+        "estimator": "sklearn.linear_model.Ridge",
+        "hyperparameters": {
+          "alpha": 0.1,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "positive": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.0001
+        },
+        "random_state_rule": "none",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:Ridge",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "ridge_0.1",
+            "estimator_family": "linear",
+            "estimator": "sklearn.linear_model.Ridge",
+            "hyperparameters": {
+              "alpha": 0.1,
+              "copy_X": true,
+              "fit_intercept": true,
+              "max_iter": null,
+              "positive": false,
+              "random_state": null,
+              "solver": "auto",
+              "tol": 0.0001
+            },
+            "random_state_rule": "none",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "043ea6107ffa03986e6c08140c46c93cde5860d09489d322964ce81f84ed0aee",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "d51c307430875b345a67ca59129135bdeb27eaa90cb081358bc21eb97500b13f"
+      },
+      {
+        "candidate_id": "ridge_1.0",
+        "estimator_family": "linear",
+        "estimator": "sklearn.linear_model.Ridge",
+        "hyperparameters": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "positive": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.0001
+        },
+        "random_state_rule": "none",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:Ridge",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "ridge_1.0",
+            "estimator_family": "linear",
+            "estimator": "sklearn.linear_model.Ridge",
+            "hyperparameters": {
+              "alpha": 1.0,
+              "copy_X": true,
+              "fit_intercept": true,
+              "max_iter": null,
+              "positive": false,
+              "random_state": null,
+              "solver": "auto",
+              "tol": 0.0001
+            },
+            "random_state_rule": "none",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "90f15ae4d6400f712bb44995b3d940aa740314017d74e8386d7cf8aca9198f50",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "e9c29a1b6262c3b7de904eed36ccbe454a67b24a971dc66fc57f014c6b67b5b2"
+      },
+      {
+        "candidate_id": "ridge_10.0",
+        "estimator_family": "linear",
+        "estimator": "sklearn.linear_model.Ridge",
+        "hyperparameters": {
+          "alpha": 10.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "positive": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.0001
+        },
+        "random_state_rule": "none",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:Ridge",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "ridge_10.0",
+            "estimator_family": "linear",
+            "estimator": "sklearn.linear_model.Ridge",
+            "hyperparameters": {
+              "alpha": 10.0,
+              "copy_X": true,
+              "fit_intercept": true,
+              "max_iter": null,
+              "positive": false,
+              "random_state": null,
+              "solver": "auto",
+              "tol": 0.0001
+            },
+            "random_state_rule": "none",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "5a06b4cabf199695f8988aa2628e148c79a6848f521f579fb494738394ef045a",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "a95b0bffa76d2d92f2f4f516430e4825e267a5709d0de5cfa698c751fe4d42eb"
+      },
+      {
+        "candidate_id": "extra_trees_0",
+        "estimator_family": "extra_trees",
+        "estimator": "sklearn.ensemble.ExtraTreesRegressor",
+        "hyperparameters": {
+          "bootstrap": false,
+          "ccp_alpha": 0.0,
+          "criterion": "squared_error",
+          "max_depth": null,
+          "max_features": 0.7,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_samples_leaf": 1,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "monotonic_cst": null,
+          "n_estimators": 256,
+          "n_jobs": 8,
+          "oob_score": false,
+          "random_state": 20260720,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:ExtraTreesRegressor",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "extra_trees_0",
+            "estimator_family": "extra_trees",
+            "estimator": "sklearn.ensemble.ExtraTreesRegressor",
+            "hyperparameters": {
+              "bootstrap": false,
+              "ccp_alpha": 0.0,
+              "criterion": "squared_error",
+              "max_depth": null,
+              "max_features": 0.7,
+              "max_leaf_nodes": null,
+              "max_samples": null,
+              "min_impurity_decrease": 0.0,
+              "min_samples_leaf": 1,
+              "min_samples_split": 2,
+              "min_weight_fraction_leaf": 0.0,
+              "monotonic_cst": null,
+              "n_estimators": 256,
+              "n_jobs": 8,
+              "oob_score": false,
+              "random_state": 20260720,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "fad60ab16e473a82da13faf2571f372f94469333700a9eccf44d19c26f9009de",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "b12a8394c170780aa425c25390730ed179247a22039cb9ba5491162ee7e2cc33"
+      },
+      {
+        "candidate_id": "extra_trees_1",
+        "estimator_family": "extra_trees",
+        "estimator": "sklearn.ensemble.ExtraTreesRegressor",
+        "hyperparameters": {
+          "bootstrap": false,
+          "ccp_alpha": 0.0,
+          "criterion": "squared_error",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_samples_leaf": 2,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "monotonic_cst": null,
+          "n_estimators": 384,
+          "n_jobs": 8,
+          "oob_score": false,
+          "random_state": 20260720,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:ExtraTreesRegressor",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "extra_trees_1",
+            "estimator_family": "extra_trees",
+            "estimator": "sklearn.ensemble.ExtraTreesRegressor",
+            "hyperparameters": {
+              "bootstrap": false,
+              "ccp_alpha": 0.0,
+              "criterion": "squared_error",
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_leaf_nodes": null,
+              "max_samples": null,
+              "min_impurity_decrease": 0.0,
+              "min_samples_leaf": 2,
+              "min_samples_split": 2,
+              "min_weight_fraction_leaf": 0.0,
+              "monotonic_cst": null,
+              "n_estimators": 384,
+              "n_jobs": 8,
+              "oob_score": false,
+              "random_state": 20260720,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "866bd80bb83ef1f0e70730e1ab7619b5e3fbf82f2713c1cc9285d6822496a546",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "7d78180748e991ede1f712256cf0449b526a06028da4987173f275fd29bbe200"
+      },
+      {
+        "candidate_id": "hgb_0",
+        "estimator_family": "hist_gradient_boosting",
+        "estimator": "sklearn.ensemble.HistGradientBoostingRegressor",
+        "hyperparameters": {
+          "categorical_features": "from_dtype",
+          "early_stopping": "auto",
+          "interaction_cst": null,
+          "l2_regularization": 0.0,
+          "learning_rate": 0.06,
+          "loss": "squared_error",
+          "max_bins": 255,
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_iter": 180,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 20,
+          "monotonic_cst": null,
+          "n_iter_no_change": 10,
+          "quantile": null,
+          "random_state": 20260720,
+          "scoring": "loss",
+          "tol": 1e-07,
+          "validation_fraction": 0.1,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:HistGradientBoostingRegressor",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "hgb_0",
+            "estimator_family": "hist_gradient_boosting",
+            "estimator": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "hyperparameters": {
+              "categorical_features": "from_dtype",
+              "early_stopping": "auto",
+              "interaction_cst": null,
+              "l2_regularization": 0.0,
+              "learning_rate": 0.06,
+              "loss": "squared_error",
+              "max_bins": 255,
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_iter": 180,
+              "max_leaf_nodes": 15,
+              "min_samples_leaf": 20,
+              "monotonic_cst": null,
+              "n_iter_no_change": 10,
+              "quantile": null,
+              "random_state": 20260720,
+              "scoring": "loss",
+              "tol": 1e-07,
+              "validation_fraction": 0.1,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "cfe0c8f2d5e1f69beb94587d14aea6a14d4c90807c9ef9cfe07e370724b29185",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "3c5b982eb4000845743a17e3aac2dc1c02969b3ddb51030f5d8616f223700be5"
+      },
+      {
+        "candidate_id": "hgb_1",
+        "estimator_family": "hist_gradient_boosting",
+        "estimator": "sklearn.ensemble.HistGradientBoostingRegressor",
+        "hyperparameters": {
+          "categorical_features": "from_dtype",
+          "early_stopping": "auto",
+          "interaction_cst": null,
+          "l2_regularization": 0.001,
+          "learning_rate": 0.04,
+          "loss": "squared_error",
+          "max_bins": 255,
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_iter": 240,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 20,
+          "monotonic_cst": null,
+          "n_iter_no_change": 10,
+          "quantile": null,
+          "random_state": 20260720,
+          "scoring": "loss",
+          "tol": 1e-07,
+          "validation_fraction": 0.1,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original regression-train eligible rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "RegressionBundle.fit:HistGradientBoostingRegressor",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "hgb_1",
+            "estimator_family": "hist_gradient_boosting",
+            "estimator": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "hyperparameters": {
+              "categorical_features": "from_dtype",
+              "early_stopping": "auto",
+              "interaction_cst": null,
+              "l2_regularization": 0.001,
+              "learning_rate": 0.04,
+              "loss": "squared_error",
+              "max_bins": 255,
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_iter": 240,
+              "max_leaf_nodes": 31,
+              "min_samples_leaf": 20,
+              "monotonic_cst": null,
+              "n_iter_no_change": 10,
+              "quantile": null,
+              "random_state": 20260720,
+              "scoring": "loss",
+              "tol": 1e-07,
+              "validation_fraction": 0.1,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original regression-train eligible rows"
+          },
+          "resolved_value_sha256": "fa282348f93d26f24e8e01fc01a421dd32a70bf1283d13cf6290cf04defd5930",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "c21b2ef69f312b6d7043a2dea73db005200c57e4c1d91f4978fb09ea511ffda3"
+      },
+      {
+        "candidate_id": "multitask_mlp_3seed",
+        "estimator_family": "multitask_mlp",
+        "estimator": "SharedMLP/MLPBundle",
+        "hyperparameters": {
+          "architecture": "shared_multitask_mlp",
+          "hidden_layers": [
+            256,
+            128
+          ],
+          "activation": "ReLU",
+          "dropout": 0.1,
+          "embedding": {
+            "material_vocab_size": 3,
+            "embedding_dim": 4,
+            "padding_idx": 0,
+            "material_feature_indices": [
+              0,
+              5,
+              10,
+              15,
+              20,
+              25,
+              30,
+              35,
+              40,
+              45,
+              50,
+              55,
+              60,
+              65,
+              70,
+              75,
+              80,
+              85,
+              90,
+              95,
+              100,
+              105,
+              110,
+              115,
+              120
+            ]
+          },
+          "optimizer": {
+            "name": "AdamW",
+            "learning_rate": 0.0007,
+            "weight_decay": 1e-05,
+            "betas": [
+              0.9,
+              0.999
+            ],
+            "eps": 1e-08,
+            "amsgrad": false
+          },
+          "batch_size": 128,
+          "max_epochs": 240,
+          "loss": {
+            "classification": "BCEWithLogitsLoss(pos_weight=(n-pos)/max(pos,1))",
+            "regression": "SmoothL1Loss(beta=1.0)",
+            "classification_weight": 1.0,
+            "regression_weight": 1.0,
+            "regression_mask": "eligible rows only"
+          },
+          "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+          "target_transform": "per-target standardization fit on eligible training rows; std<1e-12 replaced by 1; inverse=y_std*prediction+y_mean",
+          "random_seeds": [
+            20260720,
+            20260721,
+            20260722
+          ]
+        },
+        "random_state_rule": "one model per frozen ensemble seed",
+        "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "SharedMLP; MLPBundle.fit",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "multitask_mlp_3seed",
+            "estimator_family": "multitask_mlp",
+            "estimator": "SharedMLP/MLPBundle",
+            "hyperparameters": {
+              "architecture": "shared_multitask_mlp",
+              "hidden_layers": [
+                256,
+                128
+              ],
+              "activation": "ReLU",
+              "dropout": 0.1,
+              "embedding": {
+                "material_vocab_size": 3,
+                "embedding_dim": 4,
+                "padding_idx": 0,
+                "material_feature_indices": [
+                  0,
+                  5,
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40,
+                  45,
+                  50,
+                  55,
+                  60,
+                  65,
+                  70,
+                  75,
+                  80,
+                  85,
+                  90,
+                  95,
+                  100,
+                  105,
+                  110,
+                  115,
+                  120
+                ]
+              },
+              "optimizer": {
+                "name": "AdamW",
+                "learning_rate": 0.0007,
+                "weight_decay": 1e-05,
+                "betas": [
+                  0.9,
+                  0.999
+                ],
+                "eps": 1e-08,
+                "amsgrad": false
+              },
+              "batch_size": 128,
+              "max_epochs": 240,
+              "loss": {
+                "classification": "BCEWithLogitsLoss(pos_weight=(n-pos)/max(pos,1))",
+                "regression": "SmoothL1Loss(beta=1.0)",
+                "classification_weight": 1.0,
+                "regression_weight": 1.0,
+                "regression_mask": "eligible rows only"
+              },
+              "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+              "target_transform": "per-target standardization fit on eligible training rows; std<1e-12 replaced by 1; inverse=y_std*prediction+y_mean",
+              "random_seeds": [
+                20260720,
+                20260721,
+                20260722
+              ]
+            },
+            "random_state_rule": "one model per frozen ensemble seed",
+            "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens"
+          },
+          "resolved_value_sha256": "c7ef00f9a012c57d731fcb1d4ed7fda6bed249a005528c7888e6e122a228955d",
+          "resolved_value_must_match": true
+        },
+        "resolved_value_sha256": "ba026795c10b7521e1947c08b1e02caf4511b3a2326e2366e6cf286df089e43e"
+      }
+    ],
+    "source_reference": {
+      "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+      "source_path": "configs/mdc_ml_shared_surrogate_v1.yaml",
+      "source_key_or_symbol": "linear, extra_trees, hist_gradient_boosting, mlp, training_seeds",
+      "source_sha256": "3325bca7a236df40fc9044b4c95cdba62f44f1753fa567ff30217f503c0e5b38",
+      "resolved_value": {
+        "classification_candidate_ids": [
+          "dummy_prevalence",
+          "dummy_stratified",
+          "linear_C_0.1",
+          "linear_C_1.0",
+          "linear_C_10.0",
+          "extra_trees_0",
+          "extra_trees_1",
+          "hgb_0",
+          "hgb_1",
+          "multitask_mlp_3seed"
+        ],
+        "regression_candidate_ids": [
+          "dummy_mean",
+          "dummy_median",
+          "ridge_0.1",
+          "ridge_1.0",
+          "ridge_10.0",
+          "extra_trees_0",
+          "extra_trees_1",
+          "hgb_0",
+          "hgb_1",
+          "multitask_mlp_3seed"
+        ]
+      },
+      "resolved_value_sha256": "467389a8069e1cfad03221fef22a7d1adb03b9b5689aa74965c4cadc4af5b382"
+    }
+  },
+  "fixed_v1_architecture_retrain": {
+    "classification": {
+      "candidate_id": "extra_trees_1",
+      "resolved_candidate": {
+        "candidate_id": "extra_trees_1",
+        "estimator_family": "extra_trees",
+        "estimator": "sklearn.ensemble.ExtraTreesClassifier",
+        "hyperparameters": {
+          "bootstrap": false,
+          "ccp_alpha": 0.0,
+          "class_weight": "balanced",
+          "criterion": "gini",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_samples_leaf": 2,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "monotonic_cst": null,
+          "n_estimators": 384,
+          "n_jobs": 8,
+          "oob_score": false,
+          "random_state": 20260720,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "random_state_rule": "base_seed + target_index",
+        "preprocessing": "StandardScaler fit on original train rows",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "ClassificationBundle.fit:ExtraTreesClassifier",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "extra_trees_1",
+            "estimator_family": "extra_trees",
+            "estimator": "sklearn.ensemble.ExtraTreesClassifier",
+            "hyperparameters": {
+              "bootstrap": false,
+              "ccp_alpha": 0.0,
+              "class_weight": "balanced",
+              "criterion": "gini",
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_leaf_nodes": null,
+              "max_samples": null,
+              "min_impurity_decrease": 0.0,
+              "min_samples_leaf": 2,
+              "min_samples_split": 2,
+              "min_weight_fraction_leaf": 0.0,
+              "monotonic_cst": null,
+              "n_estimators": 384,
+              "n_jobs": 8,
+              "oob_score": false,
+              "random_state": 20260720,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "random_state_rule": "base_seed + target_index",
+            "preprocessing": "StandardScaler fit on original train rows"
+          },
+          "resolved_value_sha256": "1ea8b2c517a01060e2b5054c1af251467c883856b769b09ee1e88a461f3ea4ee"
+        },
+        "resolved_value_sha256": "fd477a33200b7cadc3fa70ffca222d7201c15d1e01c185e3eda78d57e6517358"
+      },
+      "raw_probability_output": true,
+      "calibration": {
+        "method_selection": "sigmoid vs isotonic minimum calibration Brier; isotonic allowed only when each class has at least 10 samples",
+        "fit_split": "original_calibration",
+        "forbidden_splits": [
+          "sealed_test",
+          "held_out_round1_fold"
+        ]
+      },
+      "threshold": {
+        "selection": "maximize (balanced_accuracy, f1, -abs(threshold-0.5)) over 97 quantiles 0.02..0.98",
+        "fit_split": "original_validation"
+      }
+    },
+    "regression": {
+      "candidate_id": "multitask_mlp_3seed",
+      "resolved_candidate": {
+        "candidate_id": "multitask_mlp_3seed",
+        "estimator_family": "multitask_mlp",
+        "estimator": "SharedMLP/MLPBundle",
+        "hyperparameters": {
+          "architecture": "shared_multitask_mlp",
+          "hidden_layers": [
+            256,
+            128
+          ],
+          "activation": "ReLU",
+          "dropout": 0.1,
+          "embedding": {
+            "material_vocab_size": 3,
+            "embedding_dim": 4,
+            "padding_idx": 0,
+            "material_feature_indices": [
+              0,
+              5,
+              10,
+              15,
+              20,
+              25,
+              30,
+              35,
+              40,
+              45,
+              50,
+              55,
+              60,
+              65,
+              70,
+              75,
+              80,
+              85,
+              90,
+              95,
+              100,
+              105,
+              110,
+              115,
+              120
+            ]
+          },
+          "optimizer": {
+            "name": "AdamW",
+            "learning_rate": 0.0007,
+            "weight_decay": 1e-05,
+            "betas": [
+              0.9,
+              0.999
+            ],
+            "eps": 1e-08,
+            "amsgrad": false
+          },
+          "batch_size": 128,
+          "max_epochs": 240,
+          "loss": {
+            "classification": "BCEWithLogitsLoss(pos_weight=(n-pos)/max(pos,1))",
+            "regression": "SmoothL1Loss(beta=1.0)",
+            "classification_weight": 1.0,
+            "regression_weight": 1.0,
+            "regression_mask": "eligible rows only"
+          },
+          "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+          "target_transform": "per-target standardization fit on eligible training rows; std<1e-12 replaced by 1; inverse=y_std*prediction+y_mean",
+          "random_seeds": [
+            20260720,
+            20260721,
+            20260722
+          ]
+        },
+        "random_state_rule": "one model per frozen ensemble seed",
+        "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+        "source_reference": {
+          "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+          "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+          "source_key_or_symbol": "SharedMLP; MLPBundle.fit",
+          "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+          "resolved_value": {
+            "candidate_id": "multitask_mlp_3seed",
+            "estimator_family": "multitask_mlp",
+            "estimator": "SharedMLP/MLPBundle",
+            "hyperparameters": {
+              "architecture": "shared_multitask_mlp",
+              "hidden_layers": [
+                256,
+                128
+              ],
+              "activation": "ReLU",
+              "dropout": 0.1,
+              "embedding": {
+                "material_vocab_size": 3,
+                "embedding_dim": 4,
+                "padding_idx": 0,
+                "material_feature_indices": [
+                  0,
+                  5,
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40,
+                  45,
+                  50,
+                  55,
+                  60,
+                  65,
+                  70,
+                  75,
+                  80,
+                  85,
+                  90,
+                  95,
+                  100,
+                  105,
+                  110,
+                  115,
+                  120
+                ]
+              },
+              "optimizer": {
+                "name": "AdamW",
+                "learning_rate": 0.0007,
+                "weight_decay": 1e-05,
+                "betas": [
+                  0.9,
+                  0.999
+                ],
+                "eps": 1e-08,
+                "amsgrad": false
+              },
+              "batch_size": 128,
+              "max_epochs": 240,
+              "loss": {
+                "classification": "BCEWithLogitsLoss(pos_weight=(n-pos)/max(pos,1))",
+                "regression": "SmoothL1Loss(beta=1.0)",
+                "classification_weight": 1.0,
+                "regression_weight": 1.0,
+                "regression_mask": "eligible rows only"
+              },
+              "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens",
+              "target_transform": "per-target standardization fit on eligible training rows; std<1e-12 replaced by 1; inverse=y_std*prediction+y_mean",
+              "random_seeds": [
+                20260720,
+                20260721,
+                20260722
+              ]
+            },
+            "random_state_rule": "one model per frozen ensemble seed",
+            "preprocessing": "StandardScaler fit on training rows; material-token indices restored to raw tokens"
+          },
+          "resolved_value_sha256": "c7ef00f9a012c57d731fcb1d4ed7fda6bed249a005528c7888e6e122a228955d"
+        },
+        "resolved_value_sha256": "ba026795c10b7521e1947c08b1e02caf4511b3a2326e2366e6cf286df089e43e"
+      },
+      "conformal": {
+        "method": "absolute calibration residual quantile with higher interpolation",
+        "coverages": [
+          0.8,
+          0.9
+        ],
+        "fit_split": "original_calibration eligible only"
+      }
+    },
+    "source_reference": {
+      "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+      "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+      "source_key_or_symbol": "model_selection_v1.json champions; train; calibrate",
+      "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+      "resolved_value": {
+        "classification_champion": "extra_trees_1",
+        "regression_champion": "multitask_mlp_3seed"
+      },
+      "resolved_value_sha256": "266d6fa4dd0447ddb2690e38fd95fc523b544a258f37c077dfbd51a95bcd40cd"
+    }
+  },
+  "bounded_recompetition_candidate_set": {
+    "classification_candidate_ids": [
+      "dummy_prevalence",
+      "dummy_stratified",
+      "linear_C_0.1",
+      "linear_C_1.0",
+      "linear_C_10.0",
+      "extra_trees_0",
+      "extra_trees_1",
+      "hgb_0",
+      "hgb_1",
+      "multitask_mlp_3seed"
+    ],
+    "regression_candidate_ids": [
+      "dummy_mean",
+      "dummy_median",
+      "ridge_0.1",
+      "ridge_1.0",
+      "ridge_10.0",
+      "extra_trees_0",
+      "extra_trees_1",
+      "hgb_0",
+      "hgb_1",
+      "multitask_mlp_3seed"
+    ],
+    "primary_selection_split": "original_validation",
+    "secondary_evidence": [
+      "round1_adaptive_oof",
+      "family_worst_case",
+      "random_control",
+      "explicit_anchor"
+    ],
+    "forbidden_selection_splits": [
+      "original_calibration",
+      "sealed_test"
+    ],
+    "source_reference": {
+      "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+      "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+      "source_key_or_symbol": "train: cls_specs, reg_specs, validation ranking",
+      "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+      "resolved_value": {
+        "classification_candidate_ids": [
+          "dummy_prevalence",
+          "dummy_stratified",
+          "linear_C_0.1",
+          "linear_C_1.0",
+          "linear_C_10.0",
+          "extra_trees_0",
+          "extra_trees_1",
+          "hgb_0",
+          "hgb_1",
+          "multitask_mlp_3seed"
+        ],
+        "regression_candidate_ids": [
+          "dummy_mean",
+          "dummy_median",
+          "ridge_0.1",
+          "ridge_1.0",
+          "ridge_10.0",
+          "extra_trees_0",
+          "extra_trees_1",
+          "hgb_0",
+          "hgb_1",
+          "multitask_mlp_3seed"
+        ]
+      },
+      "resolved_value_sha256": "467389a8069e1cfad03221fef22a7d1adb03b9b5689aa74965c4cadc4af5b382"
+    }
+  },
+  "target_transforms": {
+    "canonical_4d_targets": [
+      "spectral_fwhm_normal_nm",
+      "angular_fwhm_450_deg",
+      "cone5_integral_proxy",
+      "normal_band_transmission_proxy"
+    ],
+    "physical_units": {
+      "spectral_fwhm_normal_nm": "nm",
+      "angular_fwhm_450_deg": "deg",
+      "cone5_integral_proxy": "dimensionless_proxy",
+      "normal_band_transmission_proxy": "dimensionless_proxy"
+    },
+    "transform": {
+      "type": "per_target_standardization",
+      "fit_scope": "eligible training rows only",
+      "mean": "training eligible mean",
+      "std": "training eligible standard deviation",
+      "std_floor": 1e-12,
+      "std_floor_replacement": 1.0,
+      "inverse": "prediction*y_std+y_mean"
+    },
+    "input_scaler": {
+      "type": "StandardScaler",
+      "fit_scope": "training rows only",
+      "material_token_indices_restored": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        80,
+        85,
+        90,
+        95,
+        100,
+        105,
+        110,
+        115,
+        120
+      ]
+    },
+    "clipping": {
+      "target_clipping": "none",
+      "probability_clipping": [
+        1e-06,
+        0.999999
+      ]
+    },
+    "missing_target_behavior": "ineligible rows retain NaN targets and do not contribute regression loss",
+    "regression_eligibility": "continuous_regression_target_eligible/nominal_4d_objective_eligible AND all four targets finite",
+    "feature_count": 150,
+    "feature_signature": "cc49c7b99dcf486f373f1add526c4c23174069dc92bace0dae6b8fabbcc3cd69",
+    "source_reference": {
+      "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+      "source_path": "scripts/build_mdc_ml_shared_surrogate_dataset_v1.py",
+      "source_key_or_symbol": "feature_schema; encode_row; regression mask",
+      "source_sha256": "18a08757b53996de05bff92dd4729953075ee2d5c0ffb404ef7c83134e40c296",
+      "resolved_value": {
+        "canonical_4d_targets": [
+          "spectral_fwhm_normal_nm",
+          "angular_fwhm_450_deg",
+          "cone5_integral_proxy",
+          "normal_band_transmission_proxy"
+        ],
+        "physical_units": {
+          "spectral_fwhm_normal_nm": "nm",
+          "angular_fwhm_450_deg": "deg",
+          "cone5_integral_proxy": "dimensionless_proxy",
+          "normal_band_transmission_proxy": "dimensionless_proxy"
+        },
+        "transform": {
+          "type": "per_target_standardization",
+          "fit_scope": "eligible training rows only",
+          "mean": "training eligible mean",
+          "std": "training eligible standard deviation",
+          "std_floor": 1e-12,
+          "std_floor_replacement": 1.0,
+          "inverse": "prediction*y_std+y_mean"
+        },
+        "input_scaler": {
+          "type": "StandardScaler",
+          "fit_scope": "training rows only",
+          "material_token_indices_restored": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120
+          ]
+        },
+        "clipping": {
+          "target_clipping": "none",
+          "probability_clipping": [
+            1e-06,
+            0.999999
+          ]
+        },
+        "missing_target_behavior": "ineligible rows retain NaN targets and do not contribute regression loss",
+        "regression_eligibility": "continuous_regression_target_eligible/nominal_4d_objective_eligible AND all four targets finite",
+        "feature_count": 150,
+        "feature_signature": "cc49c7b99dcf486f373f1add526c4c23174069dc92bace0dae6b8fabbcc3cd69"
+      },
+      "resolved_value_sha256": "635b9f636c77ff406180c9c3d1b4245f9dcf69987c6a0f3364b09d8a8dcc4a03",
+      "resolved_value_must_match": true
+    },
+    "resolved_transform_signature": "635b9f636c77ff406180c9c3d1b4245f9dcf69987c6a0f3364b09d8a8dcc4a03"
+  },
+  "training_seeds": {
+    "classifier_candidate_seed": 20260720,
+    "classifier_final_retrain_seed": 20260720,
+    "regressor_ensemble_seeds": [
+      20260720,
+      20260721,
+      20260722
+    ],
+    "fold_seed_derivation": "derived_seed = base_seed + fold_index; per-target tree/HGB seed = derived_seed + target_index",
+    "data_loader_seed": 20260720,
+    "weight_initialization_seed": "regressor ensemble seed",
+    "bootstrap_seed_reference": "development_promotion_contract.bootstrap.seed",
+    "crossfit_assignment_signature_reference": "adaptive_crossfit_audit_v1.json.fold_signature",
+    "source_reference": {
+      "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+      "source_path": "configs/mdc_ml_shared_surrogate_v1.yaml",
+      "source_key_or_symbol": "training_seeds; split_seed",
+      "source_sha256": "3325bca7a236df40fc9044b4c95cdba62f44f1753fa567ff30217f503c0e5b38",
+      "resolved_value": {
+        "classifier_candidate_seed": 20260720,
+        "classifier_final_retrain_seed": 20260720,
+        "regressor_ensemble_seeds": [
+          20260720,
+          20260721,
+          20260722
+        ],
+        "fold_seed_derivation": "derived_seed = base_seed + fold_index; per-target tree/HGB seed = derived_seed + target_index",
+        "data_loader_seed": 20260720,
+        "weight_initialization_seed": "regressor ensemble seed",
+        "bootstrap_seed_reference": "development_promotion_contract.bootstrap.seed",
+        "crossfit_assignment_signature_reference": "adaptive_crossfit_audit_v1.json.fold_signature"
+      },
+      "resolved_value_sha256": "8c01302ae4192db3597fb7d3cc0276df2eae12638d9d795175d74baf87531cc2",
+      "resolved_value_must_match": true
+    }
+  },
+  "early_stopping": {
+    "enabled": true,
+    "monitor_metric": "combined validation BCEWithLogitsLoss plus masked SmoothL1Loss",
+    "metric_direction": "lower",
+    "patience": 35,
+    "minimum_delta": 1e-07,
+    "maximum_epochs": 240,
+    "checkpoint_rule": "retain state_dict only when validation loss < best - minimum_delta",
+    "restore_best_weights": true,
+    "validation_source": "original validation only; OOF fold uses original validation and never its held-out adaptive fold",
+    "fallback_behavior": "assert a best state exists; fail rather than fabricate completion",
+    "deterministic_tie_breaking": "strict improvement only; equal-within-delta increments patience",
+    "forbidden_sources": [
+      "calibration",
+      "sealed_test",
+      "held_out_round1_fold"
+    ],
+    "source_reference": {
+      "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+      "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+      "source_key_or_symbol": "MLPBundle.fit",
+      "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+      "resolved_value": {
+        "enabled": true,
+        "monitor_metric": "combined validation BCEWithLogitsLoss plus masked SmoothL1Loss",
+        "metric_direction": "lower",
+        "patience": 35,
+        "minimum_delta": 1e-07,
+        "maximum_epochs": 240,
+        "checkpoint_rule": "retain state_dict only when validation loss < best - minimum_delta",
+        "restore_best_weights": true,
+        "validation_source": "original validation only; OOF fold uses original validation and never its held-out adaptive fold",
+        "fallback_behavior": "assert a best state exists; fail rather than fabricate completion",
+        "deterministic_tie_breaking": "strict improvement only; equal-within-delta increments patience",
+        "forbidden_sources": [
+          "calibration",
+          "sealed_test",
+          "held_out_round1_fold"
+        ]
+      },
+      "resolved_value_sha256": "2cbc6c47c0b311cc1ee5bf95c006f2c28eb03d43afdc1bf9f745d4d521726169",
+      "resolved_value_must_match": true
+    }
+  },
+  "route_rules": {
+    "precedence": [
+      "NEED_DATA_CONTRACT_REVIEW",
+      "promotion_mapping",
+      "readiness"
+    ],
+    "data_contract_failure_route": "NEED_DATA_CONTRACT_REVIEW",
+    "data_contract_failure_conditions": [
+      "frozen_signature_drift",
+      "label_conflict",
+      "regression_eligibility_conflict",
+      "split_leakage",
+      "fold_leakage",
+      "sealed_test_target_use",
+      "sealed_test_prediction_generation",
+      "feature_leakage",
+      "schema_inconsistency"
+    ],
+    "promotion_mapping": {
+      "PROMOTE_DEV_CHAMPION_V2": {
+        "proposal_model": "v2",
+        "allowed_readiness": [
+          "READY_ACTIVE_LEARNING_ROUND2_V1"
+        ]
+      },
+      "RETAIN_V1_FOR_NEXT_PROPOSAL": {
+        "proposal_model": "v1",
+        "allowed_readiness": [
+          "RETAIN_SHARED_SURROGATE_V1",
+          "READY_FDTD_SHORTLIST_V1"
+        ]
+      },
+      "INCONCLUSIVE_NEED_MORE_ADAPTIVE_DATA": {
+        "proposal_model": "v1",
+        "allowed_readiness": [
+          "RETAIN_SHARED_SURROGATE_V1",
+          "READY_ACTIVE_LEARNING_ROUND2_V1",
+          "READY_FDTD_SHORTLIST_V1"
+        ]
+      }
+    },
+    "fdtd_shortlist": {
+      "maximum_candidates": 12,
+      "deterministic_ranking": true,
+      "family_diversity_required": true,
+      "selection_mode_diversity_required": true,
+      "surrogate_guided_only_forbidden": true,
+      "retain_random_control_and_anchor_guided_when_eligible": true,
+      "run_fdtd": false,
+      "hard_gates": [
+        "formally_tmm_verified",
+        "regression_eligible",
+        "valid",
+        "not_clipped",
+        "power_balance_failure_false",
+        "solver_execution_failure_false",
+        "nan_inf_failure_false",
+        "manufacturing_gate_true",
+        "complete_geometry_material_provenance"
+      ]
+    },
+    "round2": {
+      "requires_no_data_contract_review": true,
+      "requires_no_sealed_test_use": true,
+      "requires_no_frozen_signature_drift": true,
+      "proposal_model_must_follow_promotion_mapping": true,
+      "requires_independent_task_authorization": true,
+      "auto_start": false
+    },
+    "source_reference": {
+      "source_commit": "182b0c284959120b612d218f7dddb2b56903231d",
+      "source_path": "configs/mdc_ml_shared_surrogate_v1.yaml",
+      "source_key_or_symbol": "active_learning_contract plus execution-contract-v2 task mapping",
+      "source_sha256": "3325bca7a236df40fc9044b4c95cdba62f44f1753fa567ff30217f503c0e5b38",
+      "resolved_value": {
+        "precedence": [
+          "NEED_DATA_CONTRACT_REVIEW",
+          "promotion_mapping",
+          "readiness"
+        ],
+        "data_contract_failure_route": "NEED_DATA_CONTRACT_REVIEW",
+        "data_contract_failure_conditions": [
+          "frozen_signature_drift",
+          "label_conflict",
+          "regression_eligibility_conflict",
+          "split_leakage",
+          "fold_leakage",
+          "sealed_test_target_use",
+          "sealed_test_prediction_generation",
+          "feature_leakage",
+          "schema_inconsistency"
+        ],
+        "promotion_mapping": {
+          "PROMOTE_DEV_CHAMPION_V2": {
+            "proposal_model": "v2",
+            "allowed_readiness": [
+              "READY_ACTIVE_LEARNING_ROUND2_V1"
+            ]
+          },
+          "RETAIN_V1_FOR_NEXT_PROPOSAL": {
+            "proposal_model": "v1",
+            "allowed_readiness": [
+              "RETAIN_SHARED_SURROGATE_V1",
+              "READY_FDTD_SHORTLIST_V1"
+            ]
+          },
+          "INCONCLUSIVE_NEED_MORE_ADAPTIVE_DATA": {
+            "proposal_model": "v1",
+            "allowed_readiness": [
+              "RETAIN_SHARED_SURROGATE_V1",
+              "READY_ACTIVE_LEARNING_ROUND2_V1",
+              "READY_FDTD_SHORTLIST_V1"
+            ]
+          }
+        },
+        "fdtd_shortlist": {
+          "maximum_candidates": 12,
+          "deterministic_ranking": true,
+          "family_diversity_required": true,
+          "selection_mode_diversity_required": true,
+          "surrogate_guided_only_forbidden": true,
+          "retain_random_control_and_anchor_guided_when_eligible": true,
+          "run_fdtd": false,
+          "hard_gates": [
+            "formally_tmm_verified",
+            "regression_eligible",
+            "valid",
+            "not_clipped",
+            "power_balance_failure_false",
+            "solver_execution_failure_false",
+            "nan_inf_failure_false",
+            "manufacturing_gate_true",
+            "complete_geometry_material_provenance"
+          ]
+        },
+        "round2": {
+          "requires_no_data_contract_review": true,
+          "requires_no_sealed_test_use": true,
+          "requires_no_frozen_signature_drift": true,
+          "proposal_model_must_follow_promotion_mapping": true,
+          "requires_independent_task_authorization": true,
+          "auto_start": false
+        }
+      },
+      "resolved_value_sha256": "fc5208a9388e2b281f6c2a2c2b3c716a2c8c33d6858ed80f403190a02012c4a3",
+      "resolved_value_must_match": true
+    }
+  }
 }
