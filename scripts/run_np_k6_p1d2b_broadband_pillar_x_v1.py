@@ -20,9 +20,10 @@ BLANK_OUT = ROOT / "outputs" / "np_k6_p1d2a_broadband_blank_x_v1"
 
 def configure(diameter_nm: int) -> None:
     global CASE, DIAMETER_NM, OUT, PRE, POST
-    if diameter_nm not in {100, 105, 110, 115}: raise ValueError("only D100/D105/D110/D115 are runner-allowlisted")
+    allowed = set(range(100, 116, 5)) | set(range(120, 231, 5))
+    if diameter_nm not in allowed: raise ValueError("only the frozen D100-D115 or authorized D120-D230 5-nm cases are runner-allowlisted")
     DIAMETER_NM = diameter_nm; CASE = f"NP_P1D2_BROADBAND_PILLAR_H500_D{diameter_nm}_X"
-    stage = {100:"p1d2b0_broadband_d100_x_v1",105:"p1d2b1_broadband_d105_x_v1",110:"p1d2b2_broadband_d110_x_v1",115:"p1d2b3_broadband_d115_x_v1"}[diameter_nm]
+    stage = {100:"p1d2b0_broadband_d100_x_v1",105:"p1d2b1_broadband_d105_x_v1",110:"p1d2b2_broadband_d110_x_v1",115:"p1d2b3_broadband_d115_x_v1"}.get(diameter_nm, f"p1d2b_broadband_d{diameter_nm}_x_v1")
     OUT = ROOT/"outputs"/f"np_k6_{stage}"
     PRE, POST = RUNTIME/f"{CASE}_pre.fsp", RUNTIME/f"{CASE}_post.fsp"
 
@@ -30,7 +31,8 @@ def _json(path: Path) -> Any: return json.loads(path.read_text(encoding="utf-8")
 def _write(path: Path, value: Any) -> None: path.write_text(json.dumps(value, indent=2, sort_keys=True)+"\n", encoding="utf-8")
 def _hash(value: Any) -> str: return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(",",":")).encode()).hexdigest()
 
-def spec(case_id: str = CASE, diameter_nm: int = DIAMETER_NM) -> dict[str, Any]:
+def spec(case_id: str | None = None, diameter_nm: int | None = None) -> dict[str, Any]:
+    case_id = CASE if case_id is None else case_id; diameter_nm = DIAMETER_NM if diameter_nm is None else diameter_nm
     if case_id != CASE or diameter_nm != DIAMETER_NM: raise ValueError("only the configured H500/x allowlisted case is authorized")
     base.validate_geometry(HEIGHT_NM, DIAMETER_NM)
     return {"case_id": CASE, "geometry_type": "circular_tio2_pillar", "height_nm": HEIGHT_NM,
