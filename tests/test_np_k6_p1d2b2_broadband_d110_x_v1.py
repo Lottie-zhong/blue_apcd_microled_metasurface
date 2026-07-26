@@ -15,8 +15,9 @@ def test_d110_allowlisted_geometry_only():
     m.configure(110)
     s = m.spec("NP_P1D2_BROADBAND_PILLAR_H500_D110_X", 110)
     assert (s["diameter_nm"], s["radius_nm"], s["gap_nm"], s["aspect_ratio"]) == (110, 55, 180, 500 / 110)
+    m.configure(115)
     with pytest.raises(ValueError):
-        m.configure(115)
+        m.configure(120)
 
 
 def test_d105_d110_pair_and_cross_audit_schema():

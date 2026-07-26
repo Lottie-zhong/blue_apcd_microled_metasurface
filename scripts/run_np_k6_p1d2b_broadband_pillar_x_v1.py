@@ -20,9 +20,9 @@ BLANK_OUT = ROOT / "outputs" / "np_k6_p1d2a_broadband_blank_x_v1"
 
 def configure(diameter_nm: int) -> None:
     global CASE, DIAMETER_NM, OUT, PRE, POST
-    if diameter_nm not in {100, 105, 110}: raise ValueError("only D100/D105/D110 are runner-allowlisted")
+    if diameter_nm not in {100, 105, 110, 115}: raise ValueError("only D100/D105/D110/D115 are runner-allowlisted")
     DIAMETER_NM = diameter_nm; CASE = f"NP_P1D2_BROADBAND_PILLAR_H500_D{diameter_nm}_X"
-    stage = {100:"p1d2b0_broadband_d100_x_v1",105:"p1d2b1_broadband_d105_x_v1",110:"p1d2b2_broadband_d110_x_v1"}[diameter_nm]
+    stage = {100:"p1d2b0_broadband_d100_x_v1",105:"p1d2b1_broadband_d105_x_v1",110:"p1d2b2_broadband_d110_x_v1",115:"p1d2b3_broadband_d115_x_v1"}[diameter_nm]
     OUT = ROOT/"outputs"/f"np_k6_{stage}"
     PRE, POST = RUNTIME/f"{CASE}_pre.fsp", RUNTIME/f"{CASE}_post.fsp"
 
@@ -106,6 +106,10 @@ def audit(path: Path, s: dict[str, Any]) -> dict[str, Any]:
             actual={"case_id":{"D105":"NP_P1D2_BROADBAND_PILLAR_H500_D105_X","D110":CASE},"diameter_nm":{"D105":105,"D110":110},"radius_nm":{"D105":52.5,"D110":55},"gap_nm":{"D105":185,"D110":180},"aspect_ratio":{"D105":500/105,"D110":500/110},"geometry_hash":{"D105":"D105_frozen","D110":_hash({"diameter_nm":110,"radius_nm":55})},"output_paths":{"D105":"outputs/np_k6_p1d2b1_broadband_d105_x_v1","D110":str(OUT.relative_to(ROOT))}}
             if sorted(actual) != sorted(allowed): raise RuntimeError("D105/D110 contract diff failure")
             result["d105_d110_contract_diff"]={"allowed_contract_differences":allowed,"actual_differences":actual,"equivalence_gate":True,"comparison_hash":_hash(actual)}
+        if s["diameter_nm"] == 115:
+            allowed=["aspect_ratio","case_id","diameter_nm","gap_nm","geometry_hash","output_paths","radius_nm"]
+            actual={"case_id":{"D110":"NP_P1D2_BROADBAND_PILLAR_H500_D110_X","D115":CASE},"diameter_nm":{"D110":110,"D115":115},"radius_nm":{"D110":55,"D115":57.5},"gap_nm":{"D110":180,"D115":175},"aspect_ratio":{"D110":500/110,"D115":500/115},"geometry_hash":{"D110":"D110_frozen","D115":_hash({"diameter_nm":115,"radius_nm":57.5})},"output_paths":{"D110":"outputs/np_k6_p1d2b2_broadband_d110_x_v1","D115":str(OUT.relative_to(ROOT))}}
+            result["d110_d115_contract_diff"]={"allowed_contract_differences":allowed,"actual_differences":actual,"equivalence_gate":sorted(actual)==sorted(allowed),"comparison_hash":_hash(actual)}
     finally: fdtd.close()
     after=_fp(path)
     if before != after: raise RuntimeError("read-only FSP audit changed file")
@@ -131,13 +135,13 @@ def extract(path: Path) -> dict[str, Any]:
     return {"rows":rows,"fingerprint":after}
 
 def pair_dispersion(rows_new: list[dict[str,Any]], previous_diameter: int, current_diameter: int) -> dict[str,Any]:
-    previous=_json(ROOT/"outputs"/f"np_k6_p1d2b{'0' if previous_diameter==100 else '1'}_broadband_d{previous_diameter}_x_v1"/"results.json")["rows"]
+    stage={100:"0",105:"1",110:"2"}[previous_diameter]; previous=_json(ROOT/"outputs"/f"np_k6_p1d2b{stage}_broadband_d{previous_diameter}_x_v1"/"results.json")["rows"]
     if [round(r["wavelength_nm"]) for r in previous] != [round(r["wavelength_nm"]) for r in rows_new]: raise RuntimeError("adjacent-pair axis mismatch")
     p0=np.array([r["txx"]["phase_rad_wrapped"] for r in previous]); p1=np.array([r["txx"]["phase_rad_wrapped"] for r in rows_new])
     wrapped=np.degrees(np.angle(np.exp(1j*(p1-p0)))); unwrapped=np.degrees(np.unwrap(np.radians(wrapped)))
     a0=np.array([r["txx"]["amplitude"] for r in previous]); a1=np.array([r["txx"]["amplitude"] for r in rows_new]); td=np.array([r["T"] for r in rows_new])-np.array([r["T"] for r in previous])
     coeff=np.polyfit(shared.target_axis(),unwrapped,1); fit=np.polyval(coeff,shared.target_axis())
-    prior_slope=_json(ROOT/"outputs"/f"np_k6_p1d2b{'0' if previous_diameter==100 else '1'}_broadband_d{previous_diameter}_x_v1"/"spectral_metrics.json")["phase_linear_fit_slope_deg_per_nm"]
+    prior_slope=_json(ROOT/"outputs"/f"np_k6_p1d2b{stage}_broadband_d{previous_diameter}_x_v1"/"spectral_metrics.json")["phase_linear_fit_slope_deg_per_nm"]
     p2p=float(np.ptp(unwrapped)); stability="stable" if p2p<=3 else "mildly_dispersive" if p2p<=8 else "strongly_dispersive"
     prefix=f"delta_phase_{previous_diameter}_{current_diameter}"; ratio=f"txx_amplitude_ratio_{current_diameter}_to_{previous_diameter}"; delta=f"txx_amplitude_difference_{current_diameter}_minus_{previous_diameter}"; tdelta=f"T_difference_{current_diameter}_minus_{previous_diameter}"
     outrows=[{"wavelength_nm":float(w),f"{prefix}_wrapped_deg":float(a),f"{prefix}_unwrapped_deg":float(b),ratio:float(c),delta:float(d),tdelta:float(e)} for w,a,b,c,d,e in zip(shared.target_axis(),wrapped,unwrapped,a1/a0,a1-a0,td)]
@@ -150,6 +154,14 @@ def partial_three_diameter_line(rows110: list[dict[str,Any]]) -> dict[str,Any]:
         wrapped=np.array([results[d][i]["txx"]["phase_deg_wrapped"] for d in diam.astype(int)]); local=np.degrees(np.unwrap(np.radians(wrapped))); steps=np.diff(local)
         out.append({"wavelength_nm":float(w),"phase_deg_wrapped_by_diameter":{"D100":float(wrapped[0]),"D105":float(wrapped[1]),"D110":float(wrapped[2])},"phase_deg_local_unwrapped_by_diameter":{"D100":float(local[0]),"D105":float(local[1]),"D110":float(local[2])},"D100_D110_phase_span_deg":float(local[2]-local[0]),"local_phase_slope_deg_per_nm":float(np.polyfit(diam,local,1)[0]),"curvature_indicator_deg":float(local[2]-2*local[1]+local[0]),"pair_step_difference_deg":float(steps[1]-steps[0])})
     step=np.array([r["pair_step_difference_deg"] for r in out]); return {"provisional_three_diameter_broadband_line":True,"diameters_nm":[100,105,110],"rows":out,"summary":{"pair_step_difference_mean_deg":float(step.mean()),"pair_step_difference_std_deg":float(step.std()),"pair_step_difference_peak_to_peak_deg":float(np.ptp(step)),"no_phase_library_claim":True,"no_two_pi_claim":True,"no_six_bin_claim":True,"no_K6_claim":True}}
+
+def partial_four_diameter_line(rows115: list[dict[str,Any]]) -> dict[str,Any]:
+    stages={100:"0",105:"1",110:"2"}; data={d:_json(ROOT/"outputs"/f"np_k6_p1d2b{stages[d]}_broadband_d{d}_x_v1"/"results.json")["rows"] for d in stages}; data[115]=rows115; ds=np.array([100.,105.,110.,115.]); out=[]
+    for i,w in enumerate(shared.target_axis()):
+        wrap=np.array([data[int(d)][i]["txx"]["phase_deg_wrapped"] for d in ds]); un=np.degrees(np.unwrap(np.radians(wrap))); steps=np.diff(un); slopes=steps/5
+        out.append({"wavelength_nm":float(w),"wrapped_phase_by_diameter":{f"D{int(d)}":float(x) for d,x in zip(ds,wrap)},"provisional_unwrapped_phase_by_diameter":{f"D{int(d)}":float(x) for d,x in zip(ds,un)},"delta_phase_100_105":float(steps[0]),"delta_phase_105_110":float(steps[1]),"delta_phase_110_115":float(steps[2]),"D100_to_D115_phase_span":float(un[-1]-un[0]),"local_phase_steps":steps.tolist(),"local_phase_step_mean":float(steps.mean()),"local_phase_step_std":float(steps.std()),"local_phase_step_min":float(steps.min()),"local_phase_step_max":float(steps.max()),"slopes_deg_per_nm":slopes.tolist(),"curvature_at_D105":float(steps[1]-steps[0]),"curvature_at_D110":float(steps[2]-steps[1])})
+    c105=np.array([r["curvature_at_D105"] for r in out]); c110=np.array([r["curvature_at_D110"] for r in out]); allsteps=np.array([x for r in out for x in r["local_phase_steps"]]); progression="approximately_linear" if max(abs(c105).mean(),abs(c110).mean())<2 else "smoothly_accelerating" if (c105.mean()>0 and c110.mean()>0) else "smoothly_decelerating" if (c105.mean()<0 and c110.mean()<0) else "irregular"
+    return {"provisional_four_diameter_broadband_line":True,"diameters_nm":[100,105,110,115],"rows":out,"summary":{"local_phase_step_mean":float(allsteps.mean()),"local_phase_step_std":float(allsteps.std()),"curvature_at_D105":{"mean":float(c105.mean()),"std":float(c105.std()),"peak_to_peak":float(np.ptp(c105))},"curvature_at_D110":{"mean":float(c110.mean()),"std":float(c110.std()),"peak_to_peak":float(np.ptp(c110))},"local_phase_progression":progression,"no_phase_library_claim":True,"no_two_pi_claim":True,"no_six_bin_claim":True,"no_K6_claim":True}}
 
 def cross_contract_450_audit(rows110: list[dict[str,Any]]) -> dict[str,Any]:
     old=_json(ROOT/"outputs"/"np_k6_p1d1a0_h500_d110_v1"/"results.json"); new=next(r for r in rows110 if math.isclose(r["wavelength_nm"],450,abs_tol=1e-6))
@@ -167,7 +179,7 @@ def write_outputs(s:dict[str,Any], pre:dict[str,Any], post:dict[str,Any]) -> dic
     metrics={"phase_at_445_nm":float(phase_deg[0]),"phase_at_450_nm":float(phase_deg[i]),"phase_at_455_nm":float(phase_deg[-1]),"phase_shift_445_to_455_deg":float(phase_deg[-1]-phase_deg[0]),"phase_peak_to_peak_over_band":float(np.ptp(phase_deg)),"phase_linear_fit_slope_deg_per_nm":float(coef[0]),"phase_linear_fit_rms_residual_deg":float(np.sqrt(np.mean((phase_deg-fit)**2))),"txx_amplitude_min_over_band":float(amps.min()),"txx_amplitude_max_over_band":float(amps.max()),"txx_amplitude_peak_to_peak":float(np.ptp(amps)),"txx_amplitude_CV_over_band":float(amps.std()/amps.mean()),"T_min_over_band":min(r["T"] for r in rows),"T_max_over_band":max(r["T"] for r in rows),"T_peak_to_peak":max(r["T"] for r in rows)-min(r["T"] for r in rows),"R_total_min_over_band":min(r["R_total"] for r in rows),"R_total_max_over_band":max(r["R_total"] for r in rows),"cross_pol_max_over_band":max(r["tyx"]["amplitude"] for r in rows),"energy_residual_mean_over_band":float(energy.mean()),"energy_residual_max_over_band":float(energy.max()),"reconstruction_residual_mean_over_band":float(recon.mean()),"reconstruction_residual_max_over_band":float(recon.max())}
     quality="pass" if max(metrics["energy_residual_max_over_band"],metrics["reconstruction_residual_max_over_band"])<=.03 else "warning_valid" if max(metrics["energy_residual_max_over_band"],metrics["reconstruction_residual_max_over_band"])<=.08 else "fail_data_quality"
     contract={"case_id":CASE,"geometry_type":s["geometry_type"],"pillar_present":True,"pillar_geometry":{"height_nm":500,"diameter_nm":s["diameter_nm"],"radius_nm":s["radius_nm"],"base_nm":0,"top_nm":500,"material":"APCD_TIO2_NATIVE_M1"},"sampling_backend":shared.BACKEND,"target_axis_nm":shared.target_axis(),"monitor_mapping":s["monitor_mapping"],"pre_audit":pre,"blank_pillar_contract_diff_hash":pre["contract_diff"]["comparison_hash"],"interpolation_used":False,"nearest_neighbor_used":False}
-    formal_key={100:"P1D2B0_FORMAL_STATUS",105:"P1D2B1_FORMAL_STATUS",110:"P1D2B2_FORMAL_STATUS"}[s["diameter_nm"]]
+    formal_key={100:"P1D2B0_FORMAL_STATUS",105:"P1D2B1_FORMAL_STATUS",110:"P1D2B2_FORMAL_STATUS",115:"P1D2B3_FORMAL_STATUS"}[s["diameter_nm"]]
     summary={formal_key:"pass" if quality!="fail_data_quality" else "fail","finite_data_gate":True,"denominator_safety_gate":True,"blank_pillar_axis_match_gate":True,"post_fsp_readonly_gate":True,"individual_pillar_spectral_quality":quality,"metrics":metrics}
     manifest={"case_id":CASE,"created_utc":datetime.now(timezone.utc).isoformat(),"pre_fsp":pre["fingerprint"],"post_fsp":post["fingerprint"],"physical_contract_hash":_hash(contract),"new_solver_run_entered":1,"new_solver_run_completed":1}
     _write(OUT/"results.json",{"case_id":CASE,"rows":rows}); _write(OUT/"spectral_metrics.json",metrics); _write(OUT/"wavelength_axis_audit.json",{"target_axis":shared.target_axis(),"configured_axis":pre["configured_axis_nm"],"extracted_axis":axis,"exact_axis_gate":True,"interpolation_used":False,"nearest_neighbor_used":False,"sampling_backend":shared.BACKEND}); _write(OUT/"blank_pillar_contract_diff.json",pre["contract_diff"]); _write(OUT/"physical_contract.json",contract); _write(OUT/"run_manifest.json",manifest); _write(OUT/"verification_summary.json",summary)
@@ -194,10 +206,13 @@ def write_outputs(s:dict[str,Any], pre:dict[str,Any], post:dict[str,Any]) -> dic
         release=quality!="fail_data_quality" and cross["status"]!="inconsistent_investigate"
         progress={"P1D2B0_FORMAL_STATUS":"pass","P1D2B1_FORMAL_STATUS":"pass","P1D2B2_FORMAL_STATUS":summary[formal_key],"completed_broadband_pillars":["NP_P1D2_BROADBAND_PILLAR_H500_D100_X","NP_P1D2_BROADBAND_PILLAR_H500_D105_X",CASE],"completed_diameter_count":3,"remaining_diameter_count":24,"P1D2_BROADBAND_LIBRARY_STATUS":"in_progress","P1D2_NEXT_AUTHORIZED_ACTION":"BROADBAND_PILLAR_D115_X_ONLY" if release else None,"P1D2_D115_READY":release,"P1D2_CROSS_CONTRACT_450_STATUS":cross["status"]}
         report_extra=f"- D105 to D110 pair stability: {pair['summary']['pair_relative_phase_stability']}\n- Three-diameter line is provisional: {line['provisional_three_diameter_broadband_line']}\n- Historical D110 450 nm cross-contract status: {cross['status']}\n"
+    elif s["diameter_nm"] == 115:
+        pair=pair_dispersion(rows,110,115); line=partial_four_diameter_line(rows); _write(OUT/"pair_dispersion_d110_d115.json",pair); _write(OUT/"partial_line_d100_d105_d110_d115.json",line); _write(OUT/"d110_d115_contract_diff.json",pre["d110_d115_contract_diff"])
+        release=quality!="fail_data_quality"; progress={"P1D2B0_FORMAL_STATUS":"pass","P1D2B1_FORMAL_STATUS":"pass","P1D2B2_FORMAL_STATUS":"pass","P1D2B3_FORMAL_STATUS":summary[formal_key],"P1D2_BROADBAND_LIBRARY_STATUS":"in_progress","P1D2_CROSS_CONTRACT_450_STATUS":"warning_review","completed_broadband_pillars":["NP_P1D2_BROADBAND_PILLAR_H500_D100_X","NP_P1D2_BROADBAND_PILLAR_H500_D105_X","NP_P1D2_BROADBAND_PILLAR_H500_D110_X",CASE],"completed_diameter_count":4,"remaining_diameter_count":23,"P1D2_NEXT_AUTHORIZED_ACTION":"BROADBAND_PILLAR_D120_X_ONLY" if release else None,"P1D2_D120_READY":release}; report_extra=f"- D110 to D115 pair stability: {pair['summary']['pair_relative_phase_stability']}\n- Four-diameter line is provisional: {line['provisional_four_diameter_broadband_line']}\n- Inherited D110 cross-contract warning: warning_review\n"
     else:
         progress={"P1D2B0_FORMAL_STATUS":summary[formal_key],"completed_broadband_pillars":[CASE],"completed_diameter_count":1,"remaining_diameter_count":26,"P1D2_BROADBAND_LIBRARY_STATUS":"in_progress","P1D2_NEXT_AUTHORIZED_ACTION":"BROADBAND_PILLAR_D105_X_ONLY" if quality!="fail_data_quality" else None,"P1D2_D105_READY":quality!="fail_data_quality"}; report_extra=""
     _write(ROOT/"outputs"/"np_k6_p1d2_broadband_contract_v1"/"library_progress.json",progress)
-    label={100:"P1-D2B0",105:"P1-D2B1",110:"P1-D2B2"}[s["diameter_nm"]]; stage={100:"0",105:"1",110:"2"}[s["diameter_nm"]]
+    label={100:"P1-D2B0",105:"P1-D2B1",110:"P1-D2B2",115:"P1-D2B3"}[s["diameter_nm"]]; stage={100:"0",105:"1",110:"2",115:"3"}[s["diameter_nm"]]
     (ROOT/"docs"/f"np_k6_p1d2b{stage}_broadband_d{s['diameter_nm']}_x_report_v1.md").write_text(f"# NP-K6 {label} H500 D{s['diameter_nm']} x broadband pillar\n\n- Case: {CASE}\n- Axis: {shared.target_axis()} nm\n- Quality: {quality}\n- T range: {metrics['T_min_over_band']:.8g} to {metrics['T_max_over_band']:.8g}\n- Max energy/reconstruction residual: {metrics['energy_residual_max_over_band']:.8g} / {metrics['reconstruction_residual_max_over_band']:.8g}\n{report_extra}- This remains a local adjacent-pair result, not a phase library, 2pi, six-bin, or K6 claim.\n",encoding="utf-8")
     return summary
 

@@ -7,7 +7,8 @@ def test_d105_only_task_case():
  m.configure(105);s=m.spec("NP_P1D2_BROADBAND_PILLAR_H500_D105_X",105)
  assert(s["diameter_nm"],s["radius_nm"],s["gap_nm"])==(105,52.5,185)
  m.configure(110)
- with pytest.raises(ValueError):m.configure(115)
+ m.configure(115)
+ with pytest.raises(ValueError):m.configure(120)
 def test_pair_math_and_thresholds():
  m.configure(105)
  r100=json.loads((R/"outputs/np_k6_p1d2b0_broadband_d100_x_v1/results.json").read_text())["rows"]
