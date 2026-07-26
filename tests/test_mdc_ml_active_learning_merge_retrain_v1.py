@@ -3,12 +3,21 @@ from __future__ import annotations
 import importlib.util
 import json
 import shutil
+import sys
 from pathlib import Path
 
 import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+TRAINER_SCRIPT = ROOT / "scripts" / "train_mdc_ml_active_learning_merge_retrain_v1.py"
+TRAINER_SPEC = importlib.util.spec_from_file_location("merge_trainer", TRAINER_SCRIPT)
+TRAINER = importlib.util.module_from_spec(TRAINER_SPEC)
+assert TRAINER_SPEC and TRAINER_SPEC.loader
+sys.modules[TRAINER_SPEC.name] = TRAINER
+TRAINER_SPEC.loader.exec_module(TRAINER)
+
+
 SCRIPT = ROOT / "scripts" / "build_mdc_ml_active_learning_merge_retrain_v1.py"
 SPEC = importlib.util.spec_from_file_location("merge_builder", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -136,3 +145,31 @@ def test_execution_contract_rejects_unknown_drift_and_unsafe_rules(tmp_path: Pat
     assert MODULE.resolve_route_rules(cfg["route_rules"], "RETAIN_V1_FOR_NEXT_PROPOSAL")["proposal_model"] == "v1"
     assert MODULE.resolve_route_rules(cfg["route_rules"], "PROMOTE_DEV_CHAMPION_V2")["proposal_model"] == "v2"
     assert MODULE.resolve_route_rules(cfg["route_rules"], "RETAIN_V1_FOR_NEXT_PROPOSAL", data_contract_failure=True)["routes"] == ["NEED_DATA_CONTRACT_REVIEW"]
+
+
+def test_trainer_import_and_frozen_preflight_are_read_only():
+    cfg = json.loads((ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml").read_text())
+    output = ROOT / cfg["output_root"]
+    before = MODULE.output_tree(output)
+    result = TRAINER.preflight()
+    assert result["status"] == "PASS"
+    assert result["formal_training_started"] is False
+    assert MODULE.output_tree(output) == before
+
+
+def test_trainer_candidate_allowlist_rejects_unknown():
+    cfg = json.loads((ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml").read_text())
+    assert TRAINER.candidate(cfg, "classification", "extra_trees_1")["candidate_id"] == "extra_trees_1"
+    with pytest.raises(RuntimeError, match="UNKNOWN_OR_UNFROZEN_CANDIDATE"):
+        TRAINER.candidate(cfg, "classification", "not_frozen")
+
+
+def test_trainer_target_feature_and_resume_contract():
+    cfg = json.loads((ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml").read_text())
+    assert TRAINER.TARGETS == tuple(cfg["regression_targets"])
+    assert cfg["target_transforms"]["feature_count"] == 150
+    state = {"config_sha": TRAINER.sha(TRAINER.CONFIG), "feature_signature": cfg["shared_feature_signature"]}
+    TRAINER.resume_guard(state, cfg)
+    state["feature_signature"] = "drift"
+    with pytest.raises(RuntimeError, match="RESUME_SIGNATURE_MISMATCH"):
+        TRAINER.resume_guard(state, cfg)
