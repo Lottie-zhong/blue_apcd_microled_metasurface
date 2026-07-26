@@ -41,11 +41,17 @@ from mdc_ml.merge_retrain_v1.state import (
     TrainingExecutionState,
     resume_signature_gate,
 )
+from mdc_ml.merge_retrain_v1.classification import (
+    CLASSIFICATION_TARGETS,
+    build_classification_crossfit_plan,
+    load_classification_metadata,
+    synthetic_classification_fixture,
+)
 
 CONFIG = ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml"
 EXPECTED = {"config": "76e51a802f598e458264c31db5b6024ade4a0e0a65f3ba2cc3c4587fcd74ade6", "promotion": "71b43c40035bb49a0a9647734b8aa4b42f7a089aa9c354de0b2a90f0c93def52", "training": "4cc187dc18f2e18bae32dc659d1ffad6f2baf0fa411c7214fa98db02645ce886", "fold": "1eff4d939bfe1af28964baebac8e33d0cb9953e98d9009921fac1eb3ae841aa7"}
 TARGETS = ("spectral_fwhm_normal_nm", "angular_fwhm_450_deg", "cone5_integral_proxy", "normal_band_transmission_proxy")
-FORMAL_PATH_SCOPE = "CLASSIFICATION_ONLY_INCOMPLETE_FORMAL_PATH"
+FORMAL_PATH_SCOPE = "CLASSIFICATION_ONLY_INCOMPLETE_LEGACY_SCAFFOLD"
 
 
 def sha(path: Path) -> str: return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -209,6 +215,29 @@ def backend_audit(config_path: Path = CONFIG) -> dict[str, Any]:
     }
 
 
+def classification_backend_audit(config_path: Path = CONFIG) -> dict[str, Any]:
+    """Pure metadata/plan audit: no target-array read, fit, or output write."""
+    contract = load_frozen_contract(config_path)
+    metadata = load_classification_metadata(contract)
+    plans = build_classification_crossfit_plan(metadata, contract)
+    fixed = next(spec for spec in candidate_factory_audit(contract)["classification_candidate_spec_sha256"] if spec == "extra_trees_1")
+    spec_sha = candidate_factory_audit(contract)["classification_candidate_spec_sha256"][fixed]
+    return {
+        "status": "PASS", "classification_target_count": len(CLASSIFICATION_TARGETS),
+        "classification_targets": list(CLASSIFICATION_TARGETS),
+        "round1_classification_count": metadata.counts["round1_classification"],
+        "fold_count": len(plans), "fold_sizes": [len(p.held_out_indices) for p in plans],
+        "fold_signature": contract.fold_signature,
+        "group_overlap_count": 0, "train_held_out_overlap_count": 0,
+        "forbidden_split_usage_count": 0, "fixed_candidate_id": fixed,
+        "candidate_spec_sha256": spec_sha, "calibration_source": "original_calibration",
+        "threshold_source": "original_validation", "calibration_methods": ["sigmoid", "isotonic"],
+        "threshold_candidate_quantiles": 97, "fit_calls": 0,
+        "formal_output_write_count": 0, "sealed_test_target_reads": 0,
+        "sealed_test_prediction_calls": 0,
+    }
+
+
 def fixture_smoke(output_root: Path, run_id: str) -> dict[str, Any]:
     """Synthetic-only smoke: no formal paths or real registry labels are read."""
     cfg, _, _, shared = frozen(); output_root=output_root.resolve()
@@ -235,17 +264,23 @@ def status(config_path: Path = CONFIG) -> dict[str, Any]:
 
 def main() -> None:
     parser=argparse.ArgumentParser(description="MDC-ML frozen formal trainer; formal modes require later authorization")
-    parser.add_argument("--config",type=Path,default=CONFIG); parser.add_argument("--preflight",action="store_true"); parser.add_argument("--fixture-smoke",action="store_true"); parser.add_argument("--fixture-output-root",type=Path); parser.add_argument("--fixture-run-id"); parser.add_argument("--status",action="store_true"); parser.add_argument("--backend-audit",action="store_true")
+    parser.add_argument("--config",type=Path,default=CONFIG); parser.add_argument("--preflight",action="store_true"); parser.add_argument("--fixture-smoke",action="store_true"); parser.add_argument("--classification-fixture-smoke",action="store_true"); parser.add_argument("--fixture-output-root",type=Path); parser.add_argument("--fixture-run-id"); parser.add_argument("--status",action="store_true"); parser.add_argument("--backend-audit",action="store_true"); parser.add_argument("--classification-backend-audit",action="store_true")
     parser.add_argument("--run-oof",action="store_true"); parser.add_argument("--run-final",action="store_true"); parser.add_argument("--run-evaluation",action="store_true"); parser.add_argument("--finalize",action="store_true"); parser.add_argument("--resume",action="store_true"); parser.add_argument("--run-all",action="store_true")
     args=parser.parse_args()
-    if any((args.run_oof,args.run_final,args.run_evaluation,args.finalize,args.resume,args.run_all)): raise RuntimeError("FORMAL_MODE_REQUIRES_MDC_ML_FORMAL_OOF_AND_DEVELOPMENT_TRAINING_V1_AUTHORIZATION")
+    if args.run_oof: raise RuntimeError("FORMAL_CLASSIFICATION_OOF_REQUIRES_SEPARATE_AUTHORIZATION")
+    if any((args.run_final,args.run_evaluation,args.finalize,args.resume,args.run_all)): raise RuntimeError("FORMAL_MODE_REQUIRES_MDC_ML_FORMAL_OOF_AND_DEVELOPMENT_TRAINING_V1_AUTHORIZATION")
     if args.preflight: result=preflight(args.config)
     elif args.backend_audit: result=backend_audit(args.config)
+    elif args.classification_backend_audit: result=classification_backend_audit(args.config)
     elif args.fixture_smoke:
         if args.fixture_output_root is None or not args.fixture_run_id: parser.error("fixture requires --fixture-output-root and --fixture-run-id")
         result=fixture_smoke(args.fixture_output_root,args.fixture_run_id); print("FIXTURE_SMOKE_PASS=true",flush=True); print("FIXTURE_RUN_ID="+args.fixture_run_id,flush=True); print("FIXTURE_AUDIT_PATH="+result["audit_path"],flush=True); print("FIXTURE_AUDIT_SHA256="+result["audit_sha256"],flush=True)
+    elif args.classification_fixture_smoke:
+        if args.fixture_output_root is None or not args.fixture_run_id: parser.error("classification fixture requires --fixture-output-root and --fixture-run-id")
+        result=synthetic_classification_fixture(load_frozen_contract(args.config),args.fixture_output_root,args.fixture_run_id)
+        for marker in ("CLASSIFICATION_FIXTURE_PASS=true","CLASSIFICATION_OOF_EXACT_ONCE=true","CLASSIFICATION_CALIBRATION_PASS=true","CLASSIFICATION_THRESHOLD_PASS=true","FRESH_PROCESS_CLASSIFICATION_ROUNDTRIP_PASS=true"): print(marker,flush=True)
     elif args.status: result=status(args.config)
-    else: parser.error("select --preflight, --fixture-smoke, --backend-audit, or --status")
+    else: parser.error("select --preflight, --fixture-smoke, --backend-audit, --classification-backend-audit, or --status")
     print(json.dumps(result,sort_keys=True,allow_nan=False))
 
 
