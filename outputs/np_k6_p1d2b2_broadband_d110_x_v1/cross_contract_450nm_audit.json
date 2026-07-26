@@ -1,0 +1,58 @@
+{
+  "comparison": {
+    "R_total": {
+      "absolute_difference": 0.0003376566134473853,
+      "new": 0.015973653547624967,
+      "old": 0.015635996934177582
+    },
+    "T": {
+      "absolute_difference": 0.01711251427883953,
+      "new": 0.9840481792423891,
+      "old": 0.9669356649635495
+    },
+    "cross_pol_amplitude": {
+      "absolute_difference": 5.886828286265006e-10,
+      "new": 1.2994609626261646e-09,
+      "old": 1.888143791252665e-09
+    },
+    "energy_residual": {
+      "absolute_difference": 0.01740650531225883,
+      "new": 2.1832790014043174e-05,
+      "old": 0.017428338102272872
+    },
+    "reconstruction_residual": {
+      "absolute_difference": 0.010863344051267366,
+      "new": 0.03850517332315084,
+      "old": 0.027641829271883477
+    },
+    "txx_amplitude": {
+      "absolute_difference": 0.03692584106162888,
+      "new": 0.9844396926377326,
+      "old": 1.0213655336993614
+    },
+    "wrapped_phase_deg": {
+      "absolute_difference": 16.185359441920525,
+      "minimal_wrapped_difference_deg": -16.185359441920525,
+      "new": 75.04727899768095,
+      "old": 91.23263843960147
+    }
+  },
+  "expected_contract_differences": [
+    "source spectrum",
+    "monitor sampling backend",
+    "monitor priming implementation",
+    "matched broadband blank"
+  ],
+  "new_source": "results.json:450_nm",
+  "official_old_source": "outputs/np_k6_p1d1a0_h500_d110_v1/results.json",
+  "old_execution_mode": "readonly_recovery_after_existing_postrun_v1",
+  "status": "warning_review",
+  "strict_equality_not_required": true,
+  "thresholds": {
+    "R_total": 0.03,
+    "T": 0.03,
+    "phase_consistent_deg": 10,
+    "phase_inconsistent_deg": 20,
+    "txx_amplitude": 0.05
+  }
+}
