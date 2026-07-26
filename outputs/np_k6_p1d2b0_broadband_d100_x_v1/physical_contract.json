@@ -1,0 +1,359 @@
+{
+  "blank_pillar_contract_diff_hash": "e40ca1d2e9ef4156c6c4b23cd57ef3ae2e5893c4bd77bf8b6f233920c72372c6",
+  "case_id": "NP_P1D2_BROADBAND_PILLAR_H500_D100_X",
+  "geometry_type": "circular_tio2_pillar",
+  "interpolation_used": false,
+  "monitor_mapping": {
+    "445": {
+      "R_power": "R_POWER_L445",
+      "T_fields": "T_FIELDS_L445",
+      "T_power": "T_POWER_L445"
+    },
+    "446": {
+      "R_power": "R_POWER_L446",
+      "T_fields": "T_FIELDS_L446",
+      "T_power": "T_POWER_L446"
+    },
+    "447": {
+      "R_power": "R_POWER_L447",
+      "T_fields": "T_FIELDS_L447",
+      "T_power": "T_POWER_L447"
+    },
+    "448": {
+      "R_power": "R_POWER_L448",
+      "T_fields": "T_FIELDS_L448",
+      "T_power": "T_POWER_L448"
+    },
+    "449": {
+      "R_power": "R_POWER_L449",
+      "T_fields": "T_FIELDS_L449",
+      "T_power": "T_POWER_L449"
+    },
+    "450": {
+      "R_power": "R_POWER_L450",
+      "T_fields": "T_FIELDS_L450",
+      "T_power": "T_POWER_L450"
+    },
+    "451": {
+      "R_power": "R_POWER_L451",
+      "T_fields": "T_FIELDS_L451",
+      "T_power": "T_POWER_L451"
+    },
+    "452": {
+      "R_power": "R_POWER_L452",
+      "T_fields": "T_FIELDS_L452",
+      "T_power": "T_POWER_L452"
+    },
+    "453": {
+      "R_power": "R_POWER_L453",
+      "T_fields": "T_FIELDS_L453",
+      "T_power": "T_POWER_L453"
+    },
+    "454": {
+      "R_power": "R_POWER_L454",
+      "T_fields": "T_FIELDS_L454",
+      "T_power": "T_POWER_L454"
+    },
+    "455": {
+      "R_power": "R_POWER_L455",
+      "T_fields": "T_FIELDS_L455",
+      "T_power": "T_POWER_L455"
+    }
+  },
+  "nearest_neighbor_used": false,
+  "pillar_geometry": {
+    "base_nm": 0,
+    "diameter_nm": 100,
+    "height_nm": 500,
+    "material": "APCD_TIO2_NATIVE_M1",
+    "radius_nm": 50,
+    "top_nm": 500
+  },
+  "pillar_present": true,
+  "pre_audit": {
+    "case_id": "NP_P1D2_BROADBAND_PILLAR_H500_D100_X",
+    "configured_axis_nm": [
+      445.00000000000006,
+      445.99999999999994,
+      447.00000000000006,
+      447.99999999999994,
+      449.0,
+      450.00000000000006,
+      451.0,
+      452.0,
+      453.0,
+      453.99999999999994,
+      455.0
+    ],
+    "contract_diff": {
+      "actual_differences": {
+        "geometry_hash": {
+          "blank": "41e51d50e10dd6c62a8faf04c73f41feb8c78b88a462eda45553c805857a7329",
+          "pillar": "ae59e3b3836d351579095eada6b477be71a92633acc3db7e08aec7ac5cfd5cf9"
+        },
+        "pillar_geometry": {
+          "blank": null,
+          "pillar": {
+            "base_nm": 0,
+            "diameter_nm": 100,
+            "height_nm": 500,
+            "material": "APCD_TIO2_NATIVE_M1",
+            "mesh_override_nm": [
+              -20,
+              720,
+              5
+            ],
+            "radius_nm": 50,
+            "top_nm": 500
+          }
+        },
+        "pillar_present": {
+          "blank": false,
+          "pillar": true
+        }
+      },
+      "allowed_contract_differences": [
+        "geometry_hash",
+        "pillar_geometry",
+        "pillar_present"
+      ],
+      "blank_contract_hash": "f0e5e13fc33f5baf77132153e66ca7a8451019fb7a4b08c5f95407e510e8dc33",
+      "comparison_hash": "e40ca1d2e9ef4156c6c4b23cd57ef3ae2e5893c4bd77bf8b6f233920c72372c6",
+      "equivalence_gate": true
+    },
+    "fingerprint": {
+      "mtime_ns": 1785063027779139800,
+      "path": "runtime_fsp\\np_k6_p1d2_broadband_v1\\NP_P1D2_BROADBAND_PILLAR_H500_D100_X_pre.fsp",
+      "sha256": "38b9e76416a495b727cab20720409fb9dd62f082b42ee6c8cad4a583955dfdbc",
+      "size": 540195
+    },
+    "geometry": {
+      "auto_shutoff_min": 1e-05,
+      "material": "APCD_TIO2_NATIVE_M1",
+      "radius_nm": 50.0,
+      "simulation_time_s": 1e-12,
+      "source_angle_deg": 0.0,
+      "source_start_nm": 440.00000000000006,
+      "source_stop_nm": 460.0,
+      "source_z_nm": -500.00000000000006,
+      "z_max_nm": 500.00000000000006,
+      "z_min_nm": 0.0
+    },
+    "monitor_count": 33,
+    "monitor_inventory": [
+      {
+        "name": "T_POWER_L445",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 445.00000000000006,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L445",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 445.00000000000006,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L445",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 445.00000000000006,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L446",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 445.99999999999994,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L446",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 445.99999999999994,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L446",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 445.99999999999994,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L447",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 447.00000000000006,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L447",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 447.00000000000006,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L447",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 447.00000000000006,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L448",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 447.99999999999994,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L448",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 447.99999999999994,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L448",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 447.99999999999994,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L449",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 449.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L449",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 449.0,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L449",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 449.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L450",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 450.00000000000006,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L450",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 450.00000000000006,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L450",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 450.00000000000006,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L451",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 451.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L451",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 451.0,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L451",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 451.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L452",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 452.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L452",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 452.0,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L452",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 452.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L453",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 453.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L453",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 453.0,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L453",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 453.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L454",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 453.99999999999994,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L454",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 453.99999999999994,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L454",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 453.99999999999994,
+        "z_nm": 900.0
+      },
+      {
+        "name": "T_POWER_L455",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 455.0,
+        "z_nm": 900.0
+      },
+      {
+        "name": "R_POWER_L455",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 455.0,
+        "z_nm": -750.0
+      },
+      {
+        "name": "T_FIELDS_L455",
+        "priming_span_configuration": "verified_zero_span_after_priming",
+        "wavelength_nm": 455.0,
+        "z_nm": 900.0
+      }
+    ],
+    "sampling_backend": "eleven_single_wavelength_monitor_families_v1"
+  },
+  "sampling_backend": "eleven_single_wavelength_monitor_families_v1",
+  "target_axis_nm": [
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455
+  ]
+}
