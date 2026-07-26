@@ -16,6 +16,7 @@ import sys
 import datetime
 import platform
 import socket
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -25,9 +26,26 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from mdc_ml.merge_retrain_v1.artifacts import ARTIFACT_SCHEMA_VERSION
+from mdc_ml.merge_retrain_v1.candidates import candidate_factory_audit
+from mdc_ml.merge_retrain_v1.contracts import (
+    SignatureBundle,
+    load_frozen_contract,
+)
+from mdc_ml.merge_retrain_v1.state import (
+    STATE_SCHEMA_VERSION,
+    TrainingExecutionState,
+    resume_signature_gate,
+)
+
 CONFIG = ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml"
 EXPECTED = {"config": "76e51a802f598e458264c31db5b6024ade4a0e0a65f3ba2cc3c4587fcd74ade6", "promotion": "71b43c40035bb49a0a9647734b8aa4b42f7a089aa9c354de0b2a90f0c93def52", "training": "4cc187dc18f2e18bae32dc659d1ffad6f2baf0fa411c7214fa98db02645ce886", "fold": "1eff4d939bfe1af28964baebac8e33d0cb9953e98d9009921fac1eb3ae841aa7"}
 TARGETS = ("spectral_fwhm_normal_nm", "angular_fwhm_450_deg", "cone5_integral_proxy", "normal_band_transmission_proxy")
+FORMAL_PATH_SCOPE = "CLASSIFICATION_ONLY_INCOMPLETE_FORMAL_PATH"
 
 
 def sha(path: Path) -> str: return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -47,9 +65,10 @@ def imported() -> tuple[Any, Any, Any]:
 
 
 def frozen(config_path: Path = CONFIG) -> tuple[dict[str, Any], Any, Any, Any]:
-    merge, dataset, shared = imported(); cfg = json.loads(config_path.read_text(encoding="utf-8")); result = merge.validate_existing(config_path)
+    contract = load_frozen_contract(config_path)
+    merge, dataset, shared = imported(); cfg = json.loads(config_path.read_text(encoding="utf-8"))
     audit = json.loads((ROOT / cfg["output_root"] / "merge_audit_v1.json").read_text(encoding="utf-8"))
-    checks = {"config": sha(config_path) == EXPECTED["config"], "promotion": result["promotion_contract_sha256"] == EXPECTED["promotion"], "training": result["training_execution_contract_sha256"] == EXPECTED["training"], "fold": audit["fold_signature"] == EXPECTED["fold"], "first_training_started": cfg["contract_revision"]["first_training_started"] is False, "preexisting_training_artifacts": all(result["checks"].values()), "target_order": tuple(cfg["regression_targets"]) == TARGETS, "feature_count": cfg["target_transforms"]["feature_count"] == 150}
+    checks = {"config": contract.config_sha256 == EXPECTED["config"], "promotion": contract.promotion_contract_sha256 == EXPECTED["promotion"], "training": contract.training_contract_sha256 == EXPECTED["training"], "fold": audit["fold_signature"] == EXPECTED["fold"], "first_training_started": cfg["contract_revision"]["first_training_started"] is False, "target_order": tuple(cfg["regression_targets"]) == TARGETS, "feature_count": cfg["target_transforms"]["feature_count"] == 150}
     if not all(checks.values()): raise RuntimeError("FROZEN_GATE_FAILED: " + canon(checks))
     return cfg, merge, dataset, shared
 
@@ -89,7 +108,7 @@ def fit_three_seed(shared: Any, cfg: dict[str, Any], data: Data, train: np.ndarr
 
 
 def run_oof(cfg: dict[str, Any], shared: Any, data: Data, base_train: np.ndarray, validation: np.ndarray, calibration: np.ndarray, output_root: Path) -> dict[str, Any]:
-    """Formal OOF implementation; caller owns authorization and must provide non-test data."""
+    """CLASSIFICATION_ONLY_INCOMPLETE_FORMAL_PATH; authorization remains blocked."""
     rows: list[dict[str, Any]] = []; state = {"status": "RUNNING", "completed_folds": [], "config_sha": sha(CONFIG), "feature_signature": cfg["shared_feature_signature"]}
     for fold in range(4):
         held = np.where(data.folds == fold)[0]; train = np.r_[base_train, np.where((data.folds >= 0) & (data.folds != fold))[0]]; assert_partition(data, train, held)
@@ -104,8 +123,90 @@ def run_oof(cfg: dict[str, Any], shared: Any, data: Data, base_train: np.ndarray
 
 
 def resume_guard(state: dict[str, Any], cfg: dict[str, Any]) -> None:
-    expected = {"config_sha": sha(CONFIG), "feature_signature": cfg["shared_feature_signature"]}
-    if any(state.get(k) != v for k, v in expected.items()): raise RuntimeError("RESUME_SIGNATURE_MISMATCH")
+    contract = load_frozen_contract(CONFIG)
+    expected = SignatureBundle(
+        config_sha256=contract.config_sha256,
+        promotion_contract_sha256=contract.promotion_contract_sha256,
+        training_contract_sha256=contract.training_contract_sha256,
+        dataset_signature=contract.signatures.dataset_signature,
+        fold_signature=contract.fold_signature,
+        feature_signature=contract.feature_signature,
+        trainer_sha256=sha(Path(__file__)),
+        execution_code_commit=_execution_commit(),
+    )
+    if set(expected.as_resume_dict()) <= set(state):
+        resume_signature_gate(expected, state)
+        return
+    legacy = {
+        "config_sha": contract.config_sha256,
+        "feature_signature": contract.feature_signature,
+    }
+    if any(state.get(key) != value for key, value in legacy.items()):
+        raise RuntimeError("RESUME_SIGNATURE_MISMATCH")
+    resume_signature_gate(expected, expected)
+
+
+def _execution_commit() -> str:
+    return subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+
+
+def backend_audit(config_path: Path = CONFIG) -> dict[str, Any]:
+    contract = load_frozen_contract(config_path)
+    audit = candidate_factory_audit(contract)
+    signatures = SignatureBundle(
+        config_sha256=contract.config_sha256,
+        promotion_contract_sha256=contract.promotion_contract_sha256,
+        training_contract_sha256=contract.training_contract_sha256,
+        dataset_signature=contract.signatures.dataset_signature,
+        fold_signature=contract.fold_signature,
+        feature_signature=contract.feature_signature,
+        trainer_sha256=sha(Path(__file__)),
+        execution_code_commit=_execution_commit(),
+    )
+    state = TrainingExecutionState.new("backend-audit", signatures)
+    return {
+        "status": "PASS",
+        "config_sha256": contract.config_sha256,
+        "promotion_contract_sha256": contract.promotion_contract_sha256,
+        "training_contract_sha256": contract.training_contract_sha256,
+        "fold_signature": contract.fold_signature,
+        "feature_signature": contract.feature_signature,
+        "feature_count": contract.feature_count,
+        "classification_candidate_count": audit["classification_candidate_count"],
+        "regression_candidate_count": audit["regression_candidate_count"],
+        "classification_candidate_ids": audit["classification_candidate_ids"],
+        "regression_candidate_ids": audit["regression_candidate_ids"],
+        "classification_candidate_spec_sha256": audit["classification_candidate_spec_sha256"],
+        "regression_candidate_spec_sha256": audit["regression_candidate_spec_sha256"],
+        "classification_effective_parameter_sha256": audit["classification_effective_parameter_sha256"],
+        "regression_effective_parameter_sha256": audit["regression_effective_parameter_sha256"],
+        "fixed_classification_baseline": contract.fixed_classification_baseline,
+        "fixed_regression_baseline": contract.fixed_regression_baseline,
+        "mlp_hidden": audit["mlp_hidden"],
+        "mlp_dropout": audit["mlp_dropout"],
+        "mlp_classification_head": audit["mlp_classification_head"],
+        "mlp_regression_head": audit["mlp_regression_head"],
+        "mlp_seeds": audit["mlp_seeds"],
+        "state_schema_version": state.schema_version,
+        "artifact_schema_version": ARTIFACT_SCHEMA_VERSION,
+        "fit_calls": 0,
+        "formal_training_calls": 0,
+        "formal_output_write_count": 0,
+        "sealed_test_target_reads": 0,
+        "sealed_test_prediction_calls": 0,
+        "proposal_calls": 0,
+        "TMM_calls": 0,
+        "FDTD_calls": 0,
+        "Lumerical_calls": 0,
+        "fixture_evidence_scope": "INTERFACE_LEVEL_SYNTHETIC_EVIDENCE",
+        "formal_path_scope": FORMAL_PATH_SCOPE,
+    }
 
 
 def fixture_smoke(output_root: Path, run_id: str) -> dict[str, Any]:
@@ -134,16 +235,17 @@ def status(config_path: Path = CONFIG) -> dict[str, Any]:
 
 def main() -> None:
     parser=argparse.ArgumentParser(description="MDC-ML frozen formal trainer; formal modes require later authorization")
-    parser.add_argument("--config",type=Path,default=CONFIG); parser.add_argument("--preflight",action="store_true"); parser.add_argument("--fixture-smoke",action="store_true"); parser.add_argument("--fixture-output-root",type=Path); parser.add_argument("--fixture-run-id"); parser.add_argument("--status",action="store_true")
+    parser.add_argument("--config",type=Path,default=CONFIG); parser.add_argument("--preflight",action="store_true"); parser.add_argument("--fixture-smoke",action="store_true"); parser.add_argument("--fixture-output-root",type=Path); parser.add_argument("--fixture-run-id"); parser.add_argument("--status",action="store_true"); parser.add_argument("--backend-audit",action="store_true")
     parser.add_argument("--run-oof",action="store_true"); parser.add_argument("--run-final",action="store_true"); parser.add_argument("--run-evaluation",action="store_true"); parser.add_argument("--finalize",action="store_true"); parser.add_argument("--resume",action="store_true"); parser.add_argument("--run-all",action="store_true")
     args=parser.parse_args()
     if any((args.run_oof,args.run_final,args.run_evaluation,args.finalize,args.resume,args.run_all)): raise RuntimeError("FORMAL_MODE_REQUIRES_MDC_ML_FORMAL_OOF_AND_DEVELOPMENT_TRAINING_V1_AUTHORIZATION")
     if args.preflight: result=preflight(args.config)
+    elif args.backend_audit: result=backend_audit(args.config)
     elif args.fixture_smoke:
         if args.fixture_output_root is None or not args.fixture_run_id: parser.error("fixture requires --fixture-output-root and --fixture-run-id")
         result=fixture_smoke(args.fixture_output_root,args.fixture_run_id); print("FIXTURE_SMOKE_PASS=true",flush=True); print("FIXTURE_RUN_ID="+args.fixture_run_id,flush=True); print("FIXTURE_AUDIT_PATH="+result["audit_path"],flush=True); print("FIXTURE_AUDIT_SHA256="+result["audit_sha256"],flush=True)
     elif args.status: result=status(args.config)
-    else: parser.error("select --preflight, --fixture-smoke, or --status")
+    else: parser.error("select --preflight, --fixture-smoke, --backend-audit, or --status")
     print(json.dumps(result,sort_keys=True,allow_nan=False))
 
 
