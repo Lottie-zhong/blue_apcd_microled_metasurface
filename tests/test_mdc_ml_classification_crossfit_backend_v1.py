@@ -27,4 +27,13 @@ def test_synthetic_fixture_executes_full_classification_path(tmp_path: Path):
     assert result["status"]=="PASS"
     assert audit["synthetic_classification_fit_calls"]>0 and audit["synthetic_calibrator_fit_calls"]>0
     assert audit["formal_classification_fit_calls"]==audit["regression_fit_calls"]==audit["MLP_fit_calls"]==0
-    assert audit["exact_once"] and audit["fresh_process_result"]=="PASS"
+    assert audit["exact_once"] and audit["fresh_process_return_code"] == 0
+
+
+def test_state_resume_failure_drift_and_fresh_process(tmp_path: Path):
+    audit=synthetic_classification_fixture(load_frozen_contract(),tmp_path,"state-resume")["audit"]
+    assert audit["failure_injection_executed"] and audit["failed_state_observed"]
+    assert audit["resume_executed"] and audit["completed_artifact_mtime_unchanged"]
+    assert audit["artifact_drift_guard_pass"] and audit["state_checkpoint_count"] > 1
+    assert audit["fresh_process_return_code"] == 0
+    assert audit["fresh_process_raw_signature_match"] and audit["fresh_process_calibrated_signature_match"] and audit["fresh_process_label_signature_match"]

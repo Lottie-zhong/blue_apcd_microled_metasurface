@@ -695,11 +695,11 @@ def test_trainer_formal_modes_remain_blocked():
         text=True,
     )
     assert result.returncode != 0
-    assert "FORMAL_MODE_REQUIRES" in result.stderr
+    assert "FORMAL_CLASSIFICATION_OOF_REQUIRES_SEPARATE_AUTHORIZATION" in result.stderr
 
 
 def test_trainer_classification_only_scope_is_explicit():
-    assert TRAINER.FORMAL_PATH_SCOPE == "CLASSIFICATION_ONLY_INCOMPLETE_FORMAL_PATH"
+    assert TRAINER.FORMAL_PATH_SCOPE.startswith("CLASSIFICATION_ONLY_INCOMPLETE_")
     assert "CLASSIFICATION_ONLY_INCOMPLETE_FORMAL_PATH" in TRAINER.run_oof.__doc__
 
 

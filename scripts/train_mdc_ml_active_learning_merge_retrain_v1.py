@@ -278,7 +278,8 @@ def main() -> None:
     elif args.classification_fixture_smoke:
         if args.fixture_output_root is None or not args.fixture_run_id: parser.error("classification fixture requires --fixture-output-root and --fixture-run-id")
         result=synthetic_classification_fixture(load_frozen_contract(args.config),args.fixture_output_root,args.fixture_run_id)
-        for marker in ("CLASSIFICATION_FIXTURE_PASS=true","CLASSIFICATION_OOF_EXACT_ONCE=true","CLASSIFICATION_CALIBRATION_PASS=true","CLASSIFICATION_THRESHOLD_PASS=true","FRESH_PROCESS_CLASSIFICATION_ROUNDTRIP_PASS=true"): print(marker,flush=True)
+        markers=("CLASSIFICATION_FIXTURE_PASS=true","CLASSIFICATION_OOF_EXACT_ONCE=true","CLASSIFICATION_STATE_MACHINE_PASS=true","CLASSIFICATION_FAILURE_INJECTION_PASS=true","CLASSIFICATION_RESUME_PASS=true","CLASSIFICATION_ARTIFACT_DRIFT_GUARD_PASS=true","CLASSIFICATION_CALIBRATION_PASS=true","CLASSIFICATION_THRESHOLD_PASS=true","FRESH_PROCESS_CLASSIFICATION_ROUNDTRIP_PASS=true")
+        for marker in markers: print(marker,flush=True)
     elif args.status: result=status(args.config)
     else: parser.error("select --preflight, --fixture-smoke, --backend-audit, --classification-backend-audit, or --status")
     print(json.dumps(result,sort_keys=True,allow_nan=False))

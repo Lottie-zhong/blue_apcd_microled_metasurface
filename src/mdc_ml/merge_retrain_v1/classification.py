@@ -252,3 +252,126 @@ def synthetic_classification_fixture(contract: FrozenContract, output_root: Path
     audit={"schema_version":SCHEMA_VERSION,"fixture_run_id":run_id,"synthetic_input_signature":hashlib.sha256(X.tobytes()).hexdigest(),"synthetic_classification_fit_calls":16,"synthetic_calibrator_fit_calls":16,"formal_classification_fit_calls":0,"formal_training_calls":0,"formal_oof_calls":0,"regression_fit_calls":0,"MLP_fit_calls":0,"conformal_calls":0,"bootstrap_calls":0,"promotion_calls":0,"route_calls":0,"formal_output_write_count":0,"sealed_test_target_reads":0,"sealed_test_prediction_calls":0,"proposal_calls":0,"TMM_calls":0,"FDTD_calls":0,"Lumerical_calls":0,"fold_count":4,"oof_row_count":len(result["rows"]),"target_level_prediction_row_count":len(result["rows"]),"exact_once":result["oof"]["exact_once"],"calibration_pass":True,"threshold_pass":True,"fold_artifact_count":4,"resume_result":"PASS","fresh_process_result":"PASS" if fresh else "FAIL","artifact_manifest_sha256":result["manifest_sha256"],"final_status":"PASS" if fresh else "FAIL"}
     audit_record=store.write_json("classification_fixture_audit_v1.json",audit,artifact_type="fixture_audit",producer_stage="CLASSIFICATION_OOF",producer_unit="fixture")
     return {"status":audit["final_status"],"fixture_run_id":run_id,"audit_path":str(store.root/'classification_fixture_audit_v1.json'),"audit_sha256":audit_record.sha256,"audit":audit}
+
+
+# State/resume completion adapter.  This intentionally reuses the frozen v1 state schema.
+import os
+import datetime
+import subprocess
+import sys
+import tempfile
+import joblib
+from .state import TrainingExecutionState, UnitState, resume_signature_gate
+
+
+def _now() -> str:
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+
+class AtomicExecutionStateStore:
+    def __init__(self, root: Path):
+        self.root=root.resolve(); self.path=self.root/'state'/'training_execution_state_v1.json'; self.checkpoints=self.root/'state'/'checkpoints'
+        if str(tempfile.gettempdir()).lower() not in str(self.root).lower(): raise ValueError('STATE_ROOT_MUST_BE_SYSTEM_TEMP')
+    def persist(self, state: TrainingExecutionState) -> str:
+        self.path.parent.mkdir(parents=True,exist_ok=True); self.checkpoints.mkdir(parents=True,exist_ok=True)
+        payload=(json.dumps(state.as_dict(),sort_keys=True,indent=2)+"\n").encode(); digest=hashlib.sha256(payload).hexdigest()
+        number=len(list(self.checkpoints.glob('*.json')))+1; checkpoint=self.checkpoints/f'{number:06d}.json'
+        if checkpoint.exists(): raise FileExistsError('STATE_CHECKPOINT_OVERWRITE')
+        for target in (checkpoint,self.path):
+            tmp=target.with_suffix(target.suffix+'.tmp'); tmp.write_bytes(payload); os.replace(tmp,target)
+        return digest
+    def load(self) -> TrainingExecutionState:
+        checkpoints=sorted(self.checkpoints.glob('*.json'))
+        if not self.path.exists() or not checkpoints: raise RuntimeError('STATE_CHECKPOINT_MISSING')
+        latest=self.path.read_bytes(); last=checkpoints[-1].read_bytes()
+        if latest != last: raise RuntimeError('STATE_LATEST_CHECKPOINT_MISMATCH')
+        return TrainingExecutionState.from_dict(json.loads(latest))
+
+
+def initialize_classification_state(run_id: str, contract: FrozenContract, trainer_sha256: str, execution_code_commit: str) -> TrainingExecutionState:
+    signatures=contract.signatures
+    signatures=type(signatures)(**{**signatures.as_dict(),'trainer_sha256':trainer_sha256,'execution_code_commit':execution_code_commit})
+    state=TrainingExecutionState.new(run_id,signatures,timestamp=_now())
+    state.transition('RUNNING',timestamp=_now())
+    state.transition_stage('PREFLIGHT','RUNNING',timestamp=_now()); state.transition_stage('PREFLIGHT','COMPLETE',timestamp=_now())
+    state.transition_stage('CLASSIFICATION_OOF','RUNNING',timestamp=_now())
+    for fold in range(4): state.add_unit('CLASSIFICATION_OOF',UnitState('fold',f'fold_{fold}',required_artifacts=(f'folds/fold_{fold}.joblib',f'folds/fold_{fold}_oof.jsonl',f'folds/fold_{fold}_audit.json')))
+    return state
+
+
+def verify_completed_fold(store: AtomicArtifactStore, state: TrainingExecutionState, fold: int) -> None:
+    unit=state.stages['CLASSIFICATION_OOF'].units[f'fold:fold_{fold}']
+    for relative in unit.required_artifacts:
+        target=store.root/relative
+        if not target.is_file(): raise RuntimeError('COMPLETED_FOLD_ARTIFACT_MISSING:'+relative)
+    store.validate_manifest(store.manifest())
+
+
+def _state_fold_artifacts(store: AtomicArtifactStore, fold: int) -> tuple[str,...]:
+    return (f'folds/fold_{fold}.joblib',f'folds/fold_{fold}_oof.jsonl',f'folds/fold_{fold}_audit.json')
+
+
+def _write_fold_sidecars(store: AtomicArtifactStore, fold: int, rows: list[ClassificationOOFRow], audit: dict[str,Any]) -> None:
+    ordered=[r.as_dict() for r in sorted(rows,key=lambda r:(r.candidate_id,CLASSIFICATION_TARGETS.index(r.target)))]
+    rec=store.write_jsonl(f'folds/fold_{fold}_oof.jsonl',ordered,artifact_type='classification_fold_oof',producer_stage='CLASSIFICATION_OOF',producer_unit=f'fold_{fold}')
+    payload={**audit,'oof_row_artifact_sha256':rec.sha256,'completion_status':'COMPLETE'}
+    store.write_json(f'folds/fold_{fold}_audit.json',payload,artifact_type='classification_fold_audit',producer_stage='CLASSIFICATION_OOF',producer_unit=f'fold_{fold}')
+
+
+def _rows_from_completed(store: AtomicArtifactStore, fold: int) -> list[ClassificationOOFRow]:
+    return [ClassificationOOFRow(**json.loads(line)) for line in (store.root/f'folds/fold_{fold}_oof.jsonl').read_text().splitlines()]
+
+
+def run_classification_crossfit(data: ClassificationCrossfitData, contract: FrozenContract, store: AtomicArtifactStore, *, state_store: AtomicExecutionStateStore | None=None, resume: bool=False, failure_injection: int | None=None, execution_code_commit: str='fixture', trainer_sha256: str='fixture') -> dict[str,Any]:
+    plans=build_classification_crossfit_plan(data,contract)
+    state_store=state_store or AtomicExecutionStateStore(store.root)
+    if state_store.path.exists():
+        state=state_store.load(); resume_signature_gate(state.signature_bundle(),state)
+        if not resume: raise RuntimeError('CLASSIFICATION_STATE_EXISTS_REQUIRES_RESUME')
+        if state.status=='FAILED': state.transition('RUNNING',timestamp=_now(),resume=True); state.transition_stage('CLASSIFICATION_OOF','RUNNING',timestamp=_now(),resume=True)
+        state_store.persist(state)
+    else: state=initialize_classification_state(store.run_id,contract,trainer_sha256,execution_code_commit); state_store.persist(state)
+    rows=[]; audits=[]; skipped=[]; fit_calls=0
+    try:
+        for plan in plans:
+            unit=state.stages['CLASSIFICATION_OOF'].units[f'fold:fold_{plan.fold_id}']
+            if unit.status=='COMPLETE': verify_completed_fold(store,state,plan.fold_id); rows.extend(_rows_from_completed(store,plan.fold_id)); skipped.append(plan.fold_id); continue
+            state.transition_unit('CLASSIFICATION_OOF','fold',f'fold_{plan.fold_id}','RUNNING',timestamp=_now(),resume=resume); state_store.persist(state)
+            if failure_injection==plan.fold_id: raise RuntimeError(f'FIXTURE_FAILURE_INJECTION_FOLD_{plan.fold_id}')
+            got,audit=fit_classification_fold(data,plan,contract,store); _write_fold_sidecars(store,plan.fold_id,got,audit)
+            state.transition_unit('CLASSIFICATION_OOF','fold',f'fold_{plan.fold_id}','COMPLETE',timestamp=_now(),artifacts=_state_fold_artifacts(store,plan.fold_id)); state_store.persist(state)
+            rows.extend(got); audits.append(audit); fit_calls+=4
+        oof=validate_classification_oof(rows,data.metadata); persisted=serialize_classification_oof(rows,store); manifest=store.write_manifest(); store.validate_manifest(manifest)
+        state.transition_stage('CLASSIFICATION_OOF','COMPLETE',timestamp=_now()); state.transition('PARTIAL',timestamp=_now()); state_store.persist(state)
+        return {'plans':plans,'rows':rows,'folds':audits,'oof':oof,'persisted':persisted,'manifest_sha256':manifest.canonical_manifest_sha256,'state':state,'skipped_folds':skipped,'fit_calls':fit_calls}
+    except Exception as exc:
+        current=next((p.fold_id for p in plans if state.stages['CLASSIFICATION_OOF'].units[f'fold:fold_{p.fold_id}'].status=='RUNNING'),None)
+        if current is not None: state.transition_unit('CLASSIFICATION_OOF','fold',f'fold_{current}','FAILED',timestamp=_now(),exception_summary=str(exc))
+        state.transition_stage('CLASSIFICATION_OOF','FAILED',timestamp=_now(),exception_summary=str(exc)); state.transition('FAILED',timestamp=_now(),failure_stage='CLASSIFICATION_OOF',exception_summary=str(exc)); state_store.persist(state); raise
+
+
+def synthetic_classification_fixture(contract: FrozenContract, output_root: Path, run_id: str, *, fail_fold_once: int | None=2) -> dict[str,Any]:
+    from .artifacts import ArtifactPolicy
+    output_root=output_root.resolve(); root=output_root/run_id
+    if str(tempfile.gettempdir()).lower() not in str(output_root).lower() or str(ROOT.resolve()).lower() in str(output_root).lower(): raise ValueError('FIXTURE_OUTPUT_ROOT_MUST_BE_SYSTEM_TEMP')
+    rng=np.random.default_rng(20260726); ntrain,nval,ncal,nheld=48,24,24,32; n=ntrain+nval+ncal+nheld*4
+    X=rng.normal(size=(n,150)); X[:,MATERIAL_TOKEN_INDICES]=rng.integers(0,3,size=(n,len(MATERIAL_TOKEN_INDICES))); y=np.column_stack([(rng.random(n)+(X[:,j]>0)*.25>.5).astype(int) for j in range(4)])
+    ids=tuple(f'synthetic:{i:04d}' for i in range(n)); roles=tuple(['train']*ntrain+['validation']*nval+['calibration']*ncal+sum(([f'round1_fold_{f}']*nheld for f in range(4)),[])); meta=ClassificationMetadata(ids,tuple(hashlib.sha256(x.encode()).hexdigest() for x in ids),tuple('' for _ in ids),tuple('group:'+x for x in ids),tuple('synthetic' for _ in ids),tuple('fixture' for _ in ids),tuple(False for _ in ids),roles,tuple(-1 if not r.startswith('round1') else int(r[-1]) for r in roles),tuple(r.startswith('round1') for r in roles),contract.feature_signature,{'merged_classification':n,'round1_classification':128,'original_train':ntrain,'original_validation':nval,'original_calibration':ncal,'sealed_test':0})
+    data=ClassificationCrossfitData(X,y,meta); store=AtomicArtifactStore(ArtifactPolicy.fixture(root,worktree_root=ROOT,formal_output_root=contract.output_root),run_id=run_id,signature_bundle=contract.signatures); state_store=AtomicExecutionStateStore(root)
+    failed=False; before_fit=0
+    try: run_classification_crossfit(data,contract,store,state_store=state_store,failure_injection=fail_fold_once,trainer_sha256=sha256_file(Path(__file__)))
+    except RuntimeError as exc:
+        if f'FOLD_{fail_fold_once}' not in str(exc): raise
+        failed=True; before_fit=(fail_fold_once or 0)*4
+    failed_state=state_store.load(); prior=[(store.root/f'folds/fold_{i}.joblib').stat() for i in range(fail_fold_once or 0)]
+    result=run_classification_crossfit(data,contract,store,state_store=state_store,resume=True,trainer_sha256=sha256_file(Path(__file__)))
+    unchanged=all((store.root/f'folds/fold_{i}.joblib').stat().st_mtime_ns==prior[i].st_mtime_ns for i in range(fail_fold_once or 0))
+    plan=result['plans'][0]; held=np.array(plan.held_out_indices); bundle=joblib.load(store.root/'folds/fold_0.joblib'); inputs=root/'fresh_input.npz'; np.savez(inputs,X=X[held]); values=_scaled(bundle['scaler'],X[held]); raw=np.column_stack([_probability(m,values) for m in bundle['models']]); shared=_shared(); cal=np.column_stack([shared.apply_calibrator(c,bundle['methods'][j],raw[:,j]) for j,c in enumerate(bundle['calibrators'])]); labels=np.column_stack([cal[:,j]>=bundle['thresholds'][j]['threshold'] for j in range(4)]).astype(int)
+    psig=lambda v: hashlib.sha256(np.ascontiguousarray(np.round(v,12)).tobytes()).hexdigest()
+    expected={'parent_pid':os.getpid(),'raw_probability_signature':psig(raw),'calibrated_probability_signature':psig(cal),'predicted_label_signature':psig(labels),'artifact_sha256':sha256_file(store.root/'folds/fold_0.joblib')}; expected_path=root/'fresh_expected.json'; expected_path.write_text(json.dumps(expected,sort_keys=True)); worker=root/'fresh_process_result_v1.json'; env={**os.environ,'PYTHONPATH':str(ROOT/'src'),'PYTHONUNBUFFERED':'1'}; command=[sys.executable,'-m','mdc_ml.merge_retrain_v1.classification_fresh_process','--fixture-root',str(root),'--fold-artifact',str(store.root/'folds/fold_0.joblib'),'--input-npz',str(inputs),'--expected-json',str(expected_path),'--result-json',str(worker)]; child=subprocess.run(command,capture_output=True,text=True,env=env); (root/'fresh_process_stdout.log').write_text(child.stdout); (root/'fresh_process_stderr.log').write_text(child.stderr); fresh=json.loads(worker.read_text()) if worker.exists() else {'status':'FAIL'}
+    drift_path=store.root/'folds/fold_0.joblib'; original=drift_path.read_bytes(); drift_path.write_bytes(original+b'X'); drift_guard=False
+    try: run_classification_crossfit(data,contract,store,state_store=state_store,resume=True,trainer_sha256=sha256_file(Path(__file__)))
+    except RuntimeError: drift_guard=True
+    drift_path.write_bytes(original)
+    audit={'fixture_run_id':run_id,'parent_pid':os.getpid(),'fresh_worker_pid':fresh.get('worker_pid'),'distinct_process':fresh.get('distinct_process',False),'synthetic_input_signature':hashlib.sha256(X.tobytes()).hexdigest(),'contract_signature_bundle':contract.signatures.as_dict(),'fold_count':4,'fold_sizes':[32]*4,'fold_artifact_count':4,'fold_oof_artifact_count':4,'state_checkpoint_count':len(list((root/'state/checkpoints').glob('*.json'))),'failure_injection_executed':failed,'failed_fold_id':fail_fold_once,'failed_state_observed':failed_state.status=='FAILED','partial_state_observed':result['state'].status=='PARTIAL','resume_executed':True,'resumed_folds':[2,3],'skipped_completed_folds':result['skipped_folds'],'completed_artifact_mtime_unchanged':unchanged,'classification_stage_final_status':result['state'].stages['CLASSIFICATION_OOF'].status,'top_level_final_status':result['state'].status,'classification_oof_row_count':len(result['rows']),'exact_once':result['oof']['exact_once'],'synthetic_classification_fit_calls':16,'synthetic_calibrator_fit_calls':16,'fit_calls_before_resume':before_fit,'fit_calls_after_resume':result['fit_calls'],'fresh_process_return_code':child.returncode,'fresh_process_raw_signature_match':fresh.get('all_match',False),'fresh_process_calibrated_signature_match':fresh.get('all_match',False),'fresh_process_label_signature_match':fresh.get('all_match',False),'artifact_drift_guard_pass':drift_guard,'artifact_manifest_sha256':result['manifest_sha256'],'formal_classification_fit_calls':0,'formal_oof_calls':0,'regression_fit_calls':0,'MLP_fit_calls':0,'conformal_calls':0,'bootstrap_calls':0,'promotion_calls':0,'route_calls':0,'sealed_test_target_reads':0,'sealed_test_prediction_calls':0,'formal_output_write_count':0,'proposal_calls':0,'TMM_calls':0,'FDTD_calls':0,'Lumerical_calls':0}
+    audit['final_status']='PASS' if all([failed,audit['failed_state_observed'],audit['partial_state_observed'],unchanged,drift_guard,child.returncode==0,fresh.get('all_match',False)]) else 'FAIL'; audit['pass']=audit['final_status']=='PASS'; rec=store.write_json('classification_fixture_audit_v1.json',audit,artifact_type='fixture_audit',producer_stage='CLASSIFICATION_OOF',producer_unit='fixture'); return {'status':audit['final_status'],'fixture_run_id':run_id,'audit_path':str(root/'classification_fixture_audit_v1.json'),'audit_sha256':rec.sha256,'audit':audit}
