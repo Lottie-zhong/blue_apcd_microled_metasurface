@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 
 from mdc_ml.merge_retrain_v1.artifacts import ArtifactPolicy, AtomicArtifactStore
@@ -37,3 +38,5 @@ def test_state_resume_failure_drift_and_fresh_process(tmp_path: Path):
     assert audit["artifact_drift_guard_pass"] and audit["state_checkpoint_count"] > 1
     assert audit["fresh_process_return_code"] == 0
     assert audit["fresh_process_raw_signature_match"] and audit["fresh_process_calibrated_signature_match"] and audit["fresh_process_label_signature_match"]
+    expected_commit=subprocess.run(["git","-C",str(ROOT),"rev-parse","HEAD"],check=True,capture_output=True,text=True).stdout.strip()
+    assert audit["contract_signature_bundle"]["execution_code_commit"] == expected_commit
