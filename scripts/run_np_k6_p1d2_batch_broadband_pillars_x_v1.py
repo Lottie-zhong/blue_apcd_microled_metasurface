@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import run_np_k6_p1d2b_broadband_pillar_x_v1 as single
 
 AUTHORIZED_BATCH_DIAMETERS_NM = tuple(range(120, 231, 5))
+CONTINUATION_AFTER_D180_NM = tuple(range(185, 231, 5))
 PROTECTED_DIAMETERS_NM = (100, 105, 110, 115)
 OUT = ROOT / "outputs" / "np_k6_p1d2_batch_d120_d230_v1"
 
@@ -31,6 +32,8 @@ def case_out(d: int) -> Path:
     return ROOT / "outputs" / f"np_k6_p1d2b_broadband_d{d}_x_v1"
 def allowed(values: list[int]) -> bool:
     return values == list(AUTHORIZED_BATCH_DIAMETERS_NM)
+def continuation_allowed(values: list[int]) -> bool:
+    return values == list(CONTINUATION_AFTER_D180_NM)
 def contract() -> dict[str, Any]:
     return {"batch_mode":"sequential_checkpointed_foreground_v1", "authorized_diameters_nm":list(AUTHORIZED_BATCH_DIAMETERS_NM), "authorized_diameter_count":23, "maximum_new_solver_runs":23, "one_solver_run_max_per_diameter":True, "skip_trusted_completed_cases":True, "resume_from_checkpoint":True, "global_source_monitor_contract_frozen":True, "protected_evidence_diameters_nm":list(PROTECTED_DIAMETERS_NM), "polarization":"x", "normal_incidence":True, "wavelength_grid_nm":single.shared.target_axis(), "monitor_count":33, "sampling_backend":single.shared.BACKEND, "blank_id":"NP_P1D2_BROADBAND_FIXED_REFERENCE_BLANK_X"}
 def initial_progress(values: list[int]) -> dict[str, Any]:
@@ -38,12 +41,21 @@ def initial_progress(values: list[int]) -> dict[str, Any]:
 def trusted(d: int) -> bool:
     out=case_out(d); summary=read(out / "verification_summary.json", {})
     return (out / "results.json").exists() and summary.get("individual_pillar_spectral_quality") in {"pass", "warning_valid"} and any(v == "pass" for k,v in summary.items() if k.endswith("FORMAL_STATUS"))
-def checkpoint(progress: dict[str,Any], ledger_path: Path, heartbeat_path: Path, d: int, status: str, **more: Any) -> None:
-    row=progress["cases"][str(d)]; row.update(status=status, updated_utc=utc(), **more)
-    atomic(OUT / "batch_progress.json", progress)
-    with ledger_path.open("a", encoding="utf-8", newline="\n") as f: f.write(json.dumps({"timestamp_utc":utc(), "diameter_nm":d, "status":status, **more}, sort_keys=True)+"\n")
+def checkpoint(progress: dict[str,Any], ledger_path: Path, heartbeat_path: Path, d: int, status: str, progress_path: Path | None = None, **more: Any) -> None:
+    row=progress["cases"][str(d)]; previous_status=row.get("status"); stamp=utc(); row.update(status=status, updated_utc=stamp, **more)
+    atomic(progress_path or OUT / "batch_progress.json", progress)
+    with ledger_path.open("a", encoding="utf-8", newline="\n") as f: f.write(json.dumps({"timestamp_utc":stamp, "diameter_nm":d, "case_id":row["case_id"], "previous_status":previous_status, "status":status, **more}, sort_keys=True)+"\n")
     done=sum(x["status"] in {"formal_pass","trusted_recovered"} for x in progress["cases"].values())
     atomic(heartbeat_path, {"updated_utc":utc(), "current_diameter_nm":d, "current_stage":status, "completed_count":done, "remaining_count":len(progress["cases"])-done})
+def seal_failed_case_local(progress: dict[str,Any], ledger_path: Path, heartbeat_path: Path, d: int, failure_reason: str, forensic_note: str, progress_path: Path | None = None) -> bool:
+    """Atomically seal a locally failed case.  A seal is terminal and never retried."""
+    if d != 180: raise ValueError("only D180 is authorized for this sealed local-failure continuation")
+    row=progress["cases"][str(d)]
+    if row.get("status") == "sealed_failed_case_local": return False
+    if row.get("status") in {"formal_pass", "trusted_recovered"}: raise RuntimeError("completed evidence cannot be sealed as failed")
+    provenance={"failure_reason":failure_reason, "forensic_note":forensic_note, "attempt_count_at_seal":row.get("attempt_count",0), "solver_entered_count_at_seal":row.get("solver_entered_count",0), "solver_completed_count_at_seal":row.get("solver_completed_count",0), "sealed_utc":utc(), "retry_prohibited":True}
+    checkpoint(progress,ledger_path,heartbeat_path,d,"sealed_failed_case_local",progress_path,forensic_provenance=provenance)
+    return True
 def metrics(rows: list[dict[str,Any]]) -> dict[str,Any]:
     amps=np.array([r["txx"]["amplitude"] for r in rows]); energy=np.array([r["energy_residual"] for r in rows]); recon=np.array([r["x_input_reconstruction_residual"] for r in rows])
     phase=np.degrees(np.unwrap([r["txx"]["phase_rad_wrapped"] for r in rows])); fit=np.polyfit(single.shared.target_axis(), phase, 1)
@@ -67,6 +79,7 @@ def _solve_once() -> None:
     finally: fdtd.close()
 def execute_case(d: int, progress: dict[str,Any], ledger: Path, heartbeat: Path, permit_solver: bool) -> None:
     row=progress["cases"][str(d)]
+    if row.get("status") == "sealed_failed_case_local": return
     if trusted(d): checkpoint(progress,ledger,heartbeat,d,"trusted_recovered",reason="trusted lightweight result exists"); return
     if row.get("solver_entered_count",0) and not single.POST.exists(): checkpoint(progress,ledger,heartbeat,d,"blocked_global",failure_reason="solver entered without trusted post-FSP; automatic rerun prohibited"); raise RuntimeError(f"D{d} requires manual recovery")
     single.configure(d); s=single.spec(); post_exists=single.POST.exists()
@@ -78,10 +91,14 @@ def execute_case(d: int, progress: dict[str,Any], ledger: Path, heartbeat: Path,
     _solve_once(); checkpoint(progress,ledger,heartbeat,d,"solver_completed",solver_completed_count=row.get("solver_completed_count",0)+1)
     post=single.extract(single.POST); write_case(d,s,pre,post,(1,1)); checkpoint(progress,ledger,heartbeat,d,"formal_pass",post_fsp=post["fingerprint"],result_hash=sha(post["rows"]))
 def main() -> int:
-    p=argparse.ArgumentParser(); p.add_argument("--diameters-nm",required=True); p.add_argument("--resume",action="store_true"); p.add_argument("--checkpoint-path",type=Path,default=OUT/"batch_progress.json"); p.add_argument("--maximum-new-solver-runs",type=int,default=23); p.add_argument("--no-solver",action="store_true"); a=p.parse_args(); values=[int(x) for x in a.diameters_nm.split(",") if x]
-    if not allowed(values) or a.maximum_new_solver_runs != 23: raise ValueError("frozen batch is exactly D120-D230 in 5-nm order with solver maximum 23")
+    p=argparse.ArgumentParser(); p.add_argument("--diameters-nm",required=True); p.add_argument("--resume",action="store_true"); p.add_argument("--checkpoint-path",type=Path,default=OUT/"batch_progress.json"); p.add_argument("--maximum-new-solver-runs",type=int,default=23); p.add_argument("--no-solver",action="store_true"); p.add_argument("--seal-failed-case-local",type=int); p.add_argument("--failure-reason",default="D180 local failure sealed by authorized continuation"); p.add_argument("--forensic-note",default="") ; a=p.parse_args(); values=[int(x) for x in a.diameters_nm.split(",") if x]
+    continuation=a.seal_failed_case_local is not None
+    if continuation:
+        if a.seal_failed_case_local != 180 or not a.resume or not continuation_allowed(values) or a.maximum_new_solver_runs != 10: raise ValueError("sealed D180 continuation requires --resume, D185-D230 order, and maximum-new-solver-runs 10")
+    elif not allowed(values) or a.maximum_new_solver_runs != 23: raise ValueError("frozen batch is exactly D120-D230 in 5-nm order with solver maximum 23")
     OUT.mkdir(parents=True,exist_ok=True); atomic(OUT/"batch_execution_contract.json",contract()); progress=read(a.checkpoint_path,initial_progress(values)); ledger=OUT/"batch_case_ledger.jsonl"; heartbeat=OUT/"batch_heartbeat.json"
-    if progress.get("authorized_diameters_nm") != values: raise RuntimeError("checkpoint contract mismatch")
+    if progress.get("authorized_diameters_nm") != list(AUTHORIZED_BATCH_DIAMETERS_NM): raise RuntimeError("checkpoint contract mismatch")
+    if continuation: seal_failed_case_local(progress,ledger,heartbeat,180,a.failure_reason,a.forensic_note,a.checkpoint_path)
     single.blank_evidence()
     for d in values: execute_case(d,progress,ledger,heartbeat,not a.no_solver)
     return 0
