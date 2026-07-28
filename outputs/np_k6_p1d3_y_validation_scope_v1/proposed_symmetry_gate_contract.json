@@ -1,0 +1,37 @@
+{
+  "SYMMETRY_GATE_STATUS": "proposed_not_yet_frozen",
+  "engineering_acceptance_gate": {
+    "amplitude_abs_difference": 0.05,
+    "complex_response_difference": 0.1,
+    "crosspol_amplitude": 0.02,
+    "reflection_absolute_difference": 0.05,
+    "transmission_absolute_difference": 0.05,
+    "wrapped_phase_difference_deg": 5.0
+  },
+  "evidence": {
+    "crosspol_note": "observed ~1e-17 is numerical noise, not a guaranteed physical threshold",
+    "structure": "circular pillar on square pitch; expected x/y rotational symmetry",
+    "x_energy_residual_max": 0.03637333671814813,
+    "x_reconstruction_residual_max": 0.03985704668165824
+  },
+  "formal_contract_found": false,
+  "recommended_for_P1D3": "engineering_acceptance_gate",
+  "required_metrics": [
+    "amplitude_abs_difference",
+    "amplitude_relative_difference",
+    "wrapped_phase_difference_deg",
+    "transmission_absolute_difference",
+    "reflection_absolute_difference",
+    "crosspol_x_to_y",
+    "crosspol_y_to_x",
+    "complex_response_difference"
+  ],
+  "strict_numerical_gate": {
+    "amplitude_abs_difference": 0.02,
+    "complex_response_difference": 0.03,
+    "crosspol_amplitude": 0.01,
+    "reflection_absolute_difference": 0.02,
+    "transmission_absolute_difference": 0.02,
+    "wrapped_phase_difference_deg": 2.0
+  }
+}

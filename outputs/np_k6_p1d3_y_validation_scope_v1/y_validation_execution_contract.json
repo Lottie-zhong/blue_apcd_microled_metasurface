@@ -1,0 +1,49 @@
+{
+  "D180_permanently_excluded": true,
+  "K6_SUPERCELL_VALIDATION_STATUS": "not_run",
+  "allowlist_nm": [
+    100,
+    105,
+    110,
+    115,
+    120,
+    125,
+    130,
+    135,
+    145,
+    150,
+    155,
+    175,
+    185,
+    190,
+    195,
+    210
+  ],
+  "atomic_checkpoint_heartbeat_ledger": true,
+  "contract_version": "P1D3_y_validation_execution_contract_v1",
+  "geometry_material_boundary_mesh_monitor_reference_wavelength_contract": "unchanged_from_x",
+  "independent_session_per_diameter": true,
+  "one_fdtd_run_max_per_diameter": true,
+  "polarization": "y",
+  "post_fsp_independent_readonly_extract": true,
+  "runner_strategy": "independent_new_runner_required; existing x batch runner is x-specific",
+  "solver_budget": 16,
+  "solver_entered_no_post_no_retry": true,
+  "trusted_post_fsp_readonly_recovery": true,
+  "x_batch_runner_audit": {
+    "hardcoded_x_contract": true,
+    "path": "scripts/run_np_k6_p1d2_batch_broadband_pillars_x_v1.py",
+    "required_y_runner_invariants": [
+      "explicit y source setup",
+      "frozen allowlist only",
+      "one run max per diameter",
+      "independent session",
+      "atomic checkpoint",
+      "no retry after solver_entered_no_post",
+      "independent post-FSP readonly extract"
+    ],
+    "safe_to_relabel_as_y_without_new_explicit_polarization_setup": false,
+    "sha256": "3f781c5dd3a1af674a44b4a9352f7cfadf5bf539f08f15223d600fd3e5a5a03c"
+  },
+  "x_post_fsp_not_y_result": true
+}
