@@ -6,6 +6,7 @@ from pathlib import Path
 from .formal_authorization_v2 import Authorization, require
 from .formal_inputs_v2 import load
 from .formal_run_v2 import allocate, atomic_json, commit
+from .contracts import ROOT
 
 def readiness(contract, scope: str) -> dict:
     inputs=load(contract)
@@ -17,6 +18,15 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
     # this repair task calls it only with synthetic=True.
     run_id,root=allocate(stage,output_root=output_root,nonce="synthetic" if synthetic else None)
     plan=readiness(contract,authorization.scope); atomic_json(root/"input_snapshot.json",plan["inputs"]); atomic_json(root/"authorization.json",{"scope":authorization.scope})
-    state={"status":"COMPLETE" if synthetic else "READY","execution_code_commit":commit(),"stage":stage,"synthetic":synthetic,"fit_calls":0,"prediction_calls":0}
+    if synthetic and stage == "classification_oof":
+        from .artifacts import ArtifactPolicy, AtomicArtifactStore
+        from .classification import full_shape_synthetic_classification_data, run_classification_crossfit
+        data=full_shape_synthetic_classification_data(contract)
+        store=AtomicArtifactStore(ArtifactPolicy.fixture(root, worktree_root=ROOT, formal_output_root=contract.output_root), run_id=run_id, signature_bundle=contract.signatures)
+        result=run_classification_crossfit(data,contract,store)
+        if result["oof"]["row_count"] != 512: raise RuntimeError("DISPATCH_ZERO_OR_INCOMPLETE_PREDICTIONS")
+        state={"status":"COMPLETE","execution_code_commit":commit(),"stage":stage,"synthetic":True,"classifier_fit_calls":4,"calibrator_fit_calls":4,"threshold_materialization_calls":4,"prediction_count":128,"target_prediction_count":512,"exact_once":result["oof"]["exact_once"],"manifest_sha256":result["manifest_sha256"]}
+    else:
+        state={"status":"READY","execution_code_commit":commit(),"stage":stage,"synthetic":synthetic,"fit_calls":0,"prediction_calls":0}
     atomic_json(root/"execution_state.json",state); atomic_json(root/"artifact_manifest.json",{"execution_code_commit":commit(),"artifacts":[]})
     return {"run_id":run_id,"run_root":str(root),"status":state["status"],"execution_code_commit":commit(),"synthetic":synthetic}

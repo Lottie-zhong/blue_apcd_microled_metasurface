@@ -254,6 +254,16 @@ def synthetic_classification_fixture(contract: FrozenContract, output_root: Path
     return {"status":audit["final_status"],"fixture_run_id":run_id,"audit_path":str(store.root/'classification_fixture_audit_v1.json'),"audit_sha256":audit_record.sha256,"audit":audit}
 
 
+def full_shape_synthetic_classification_data(contract: FrozenContract) -> ClassificationCrossfitData:
+    """Fixture-only provider with the production Round1 shape and frozen split semantics."""
+    rng=np.random.default_rng(20260726); ntrain,nval,ncal,nheld=48,24,24,(31,34,39,24)
+    n=ntrain+nval+ncal+sum(nheld); X=rng.normal(size=(n,150)); X[:,MATERIAL_TOKEN_INDICES]=rng.integers(0,3,size=(n,len(MATERIAL_TOKEN_INDICES)))
+    y=np.column_stack([(rng.random(n)+(X[:,j]>.0)*.25>.5).astype(int) for j in range(4)])
+    ids=tuple(f"production-fixture:{i:04d}" for i in range(n)); roles=tuple(["train"]*ntrain+["validation"]*nval+["calibration"]*ncal+sum(([f"round1_fold_{f}"]*nheld[f] for f in range(4)),[]))
+    meta=ClassificationMetadata(ids,tuple(hashlib.sha256(x.encode()).hexdigest() for x in ids),tuple("" for _ in ids),tuple("group:"+x for x in ids),tuple("synthetic" for _ in ids),tuple("production_fixture" for _ in ids),tuple(False for _ in ids),roles,tuple(-1 if not r.startswith("round1") else int(r[-1]) for r in roles),tuple(r.startswith("round1") for r in roles),contract.feature_signature,{"merged_classification":n,"round1_classification":128,"original_train":ntrain,"original_validation":nval,"original_calibration":ncal,"sealed_test":0})
+    return ClassificationCrossfitData(X,y,meta)
+
+
 # State/resume completion adapter.  This intentionally reuses the frozen v1 state schema.
 import os
 import datetime
