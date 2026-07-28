@@ -163,7 +163,9 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         data = _synthetic_data(contract)
         policy = ArtifactPolicy.fixture(root, worktree_root=ROOT, formal_output_root=contract.output_root)
         store = AtomicArtifactStore(policy, run_id=run_id, signature_bundle=contract.signatures)
-        result = run_regression_crossfit(data, contract, store, fixture_max_epochs=3)
+        injected = failure_injection if isinstance(failure_injection, tuple) else None
+        result = run_regression_crossfit(data, contract, store, resume=resume,
+                                         failure_injection=injected, fixture_max_epochs=3)
         manifest = store.write_manifest("formal_regression_output_manifest.json")
         state = {"status": "COMPLETE", "execution_code_commit": commit(), "stage": stage,
                  "synthetic": True, "attestation": True, "canonical_loader_calls": 1,
