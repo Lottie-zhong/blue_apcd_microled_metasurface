@@ -74,6 +74,16 @@ class ArtifactPolicy:
             formal_authorized=authorized,
         )
 
+    @classmethod
+    def formal_run(
+        cls, root: Path, *, worktree_root: Path, formal_output_root: Path,
+        authorized: bool,
+    ) -> "ArtifactPolicy":
+        """Authorized formal artifacts live in the allocated run, never inputs."""
+        return cls(root=root, mode="formal_run", worktree_root=worktree_root,
+                   formal_output_root=formal_output_root,
+                   formal_authorized=authorized)
+
     def validate(self) -> None:
         root = self.root.resolve()
         if self.mode == "fixture":
@@ -87,6 +97,11 @@ class ArtifactPolicy:
         elif self.mode == "formal":
             if not _same_path(root, self.formal_output_root):
                 raise ValueError("FORMAL_ARTIFACT_ROOT_MISMATCH")
+            if not self.formal_authorized:
+                raise PermissionError("FORMAL_ARTIFACT_WRITE_NOT_AUTHORIZED")
+        elif self.mode == "formal_run":
+            if _within(root, self.worktree_root.resolve()) or _within(root, self.formal_output_root.resolve()):
+                raise ValueError("FORMAL_RUN_ARTIFACT_ROOT_INVALID")
             if not self.formal_authorized:
                 raise PermissionError("FORMAL_ARTIFACT_WRITE_NOT_AUTHORIZED")
         else:

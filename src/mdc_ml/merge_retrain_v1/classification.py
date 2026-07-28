@@ -264,6 +264,26 @@ def full_shape_synthetic_classification_data(contract: FrozenContract) -> Classi
     return ClassificationCrossfitData(X,y,meta)
 
 
+def load_formal_classification_data(contract: FrozenContract) -> ClassificationCrossfitData:
+    """Canonical, read-only adapter for the authorized classification OOF run.
+
+    The canonical training view is immutable; test-role rows are retained only
+    as metadata and are never present in any executor split.
+    """
+    metadata = load_classification_metadata(contract)
+    view = np.load(contract.output_root / "training_view_v1.npz", allow_pickle=False)
+    ids = tuple(str(value) for value in view["candidate_ids"])
+    if ids != metadata.sample_ids:
+        raise RuntimeError("CANONICAL_CLASSIFICATION_ID_ORDER_DRIFT")
+    X = np.asarray(view["X"], dtype=float)
+    y = np.asarray(view["y_classification"], dtype=int)
+    if X.shape != (2640, 150) or y.shape != (2640, 4):
+        raise RuntimeError("CANONICAL_CLASSIFICATION_SHAPE_DRIFT")
+    if any(role == "test" and flag for role, flag in zip(metadata.original_split, metadata.is_round1)):
+        raise RuntimeError("SEALED_TEST_ROUND1_DRIFT")
+    return ClassificationCrossfitData(X, y, metadata)
+
+
 # State/resume completion adapter.  This intentionally reuses the frozen v1 state schema.
 import os
 import datetime

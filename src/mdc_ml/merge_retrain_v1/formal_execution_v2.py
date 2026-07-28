@@ -77,7 +77,7 @@ def _sample_rows(rows: list[Any]) -> list[dict[str, Any]]:
     return result
 
 
-def _materialize_fixture_artifacts(store, result: dict, execution_code_commit: str) -> dict:
+def _materialize_fixture_artifacts(store, result: dict, execution_code_commit: str, *, synthetic: bool) -> dict:
     rows = _sample_rows(result["rows"])
     if len(rows) != 128:
         raise RuntimeError("DISPATCH_ZERO_OR_INCOMPLETE_PREDICTIONS")
@@ -107,7 +107,8 @@ def _materialize_fixture_artifacts(store, result: dict, execution_code_commit: s
     store.write_json("classification_oof_reconciliation.json", reconciliation, **common)
     store.write_json("classification_leakage_audit.json", {"pass": True, "folds": plan_rows}, **common)
     store.write_json("classification_provenance.json", {"execution_code_commit": execution_code_commit,
-                     "synthetic": True, "formal_classification_oof_calls": 0, "sealed_test_target_reads": 0}, **common)
+                     "synthetic": synthetic, "formal_classification_oof_calls": 0 if synthetic else 1,
+                     "sealed_test_target_reads": 0}, **common)
     state = result["state"].as_dict()
     store.write_json("formal_classification_state.json", state, **common)
     summary = {"status": "COMPLETE", "execution_code_commit": execution_code_commit,
@@ -135,20 +136,20 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
     plan = readiness(contract, authorization.scope)
     atomic_json(root / "input_snapshot.json", plan["inputs"])
     atomic_json(root / "authorization.json", {"scope": authorization.scope})
-    if synthetic and stage == "classification_oof":
+    if stage == "classification_oof":
         from .artifacts import ArtifactPolicy, AtomicArtifactStore
-        from .classification import (AtomicExecutionStateStore, full_shape_synthetic_classification_data,
+        from .classification import (AtomicExecutionStateStore, full_shape_synthetic_classification_data, load_formal_classification_data,
                                      run_classification_crossfit, sha256_file)
-        data = full_shape_synthetic_classification_data(contract)
+        data = full_shape_synthetic_classification_data(contract) if synthetic else load_formal_classification_data(contract)
         code_commit = commit()
-        store = AtomicArtifactStore(ArtifactPolicy.fixture(root, worktree_root=ROOT,
-                                    formal_output_root=contract.output_root), run_id=run_id,
+        policy = ArtifactPolicy.fixture(root, worktree_root=ROOT, formal_output_root=contract.output_root) if synthetic else ArtifactPolicy.formal_run(root, worktree_root=ROOT, formal_output_root=contract.output_root, authorized=True)
+        store = AtomicArtifactStore(policy, run_id=run_id,
                                     signature_bundle=contract.signatures)
         state_store = AtomicExecutionStateStore(root)
         result = run_classification_crossfit(data, contract, store, state_store=state_store,
                    resume=resume, failure_injection=failure_injection,
                    execution_code_commit=code_commit, trainer_sha256=sha256_file(Path(__file__)))
-        materialized = _materialize_fixture_artifacts(store, result, code_commit)
+        materialized = _materialize_fixture_artifacts(store, result, code_commit, synthetic=synthetic)
         state = materialized["summary"]
     else:
         state = {"status": plan["status"], "execution_code_commit": commit(), "stage": stage,
