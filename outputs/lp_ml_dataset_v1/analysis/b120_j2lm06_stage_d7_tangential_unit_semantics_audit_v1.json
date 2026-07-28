@@ -1,0 +1,50 @@
+{
+  "classification": "CASE_UNIT_LABEL_ONLY",
+  "consumer_audit": {
+    "actual_coordinate_rad_consistency": true,
+    "bias_denominator_rad": 0.010024978696435921,
+    "consumer_source_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_b120_j2lm06_stage_d6_five_variable_finalize_v2.py",
+    "consumer_source_sha256": "885c2d24d6cce7bc252d405d57fd22e146f846f023fa9b37144fea106f918b2c",
+    "degree_delta_directly_multiplied_by_per_rad": false,
+    "derivative_denominator_rad": 0.010024978696435921,
+    "derivative_json_denominator_unit": "rad",
+    "derivative_json_fields": [
+      "phase_method_A_rad_per_unit",
+      "phase_method_B_rad_per_unit",
+      "phase_method_A_deg_per_unit",
+      "phase_method_B_deg_per_unit",
+      "denominator_unit=rad"
+    ],
+    "phase_prediction_expression": "predicted = anchor + raw_jacobian @ delta",
+    "proposal_generator_actual_radian_expression": "actual_psi = atan2(dy, dx); delta[Psi] = actual_psi",
+    "proposal_geometry_unchanged": true,
+    "proposal_prediction_values_unchanged": true,
+    "proposal_source_sha256": "5bcae3237858259b496836b12503535b8c904900f4730d18808eafe0ec74350b",
+    "report_fields": [
+      "rad/rad",
+      "degree/rad",
+      "degree/degree"
+    ],
+    "step_normalized_psi_scale_is_rad": 0.005012489348217961,
+    "trust_region_delta_uses_actual_radian": true,
+    "uncertainty_propagation_unit": "degree_per_rad multiplied by actual delta_psi_rad"
+  },
+  "d6_physics_staging_modified": false,
+  "forbidden_mislabel": "-18.48540916 is degree/rad, not degree/degree",
+  "internal_arithmetic_unit": "radian",
+  "output_unit_semantics": [
+    "rad/rad",
+    "degree/rad",
+    "degree/degree"
+  ],
+  "schema_version": "LP_ML_SCHEMA_V1.23",
+  "status": "PASS",
+  "values": {
+    "dphi_dpsi_degree_per_degree_method_A": -0.3226312533531822,
+    "dphi_dpsi_degree_per_degree_method_B": -0.3229847436984018,
+    "dphi_dpsi_degree_per_rad_method_A": -18.485409156153327,
+    "dphi_dpsi_degree_per_rad_method_B": -18.505662661033035,
+    "dphi_dpsi_rad_per_rad_method_A": -0.32263125335318216,
+    "dphi_dpsi_rad_per_rad_method_B": -0.3229847436984018
+  }
+}
