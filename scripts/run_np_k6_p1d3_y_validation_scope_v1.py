@@ -44,7 +44,11 @@ def run(out: Path) -> dict[str, Any]:
     manifest=read(RANK/"exhaustive_search_manifest.json"); verify=read(RANK/"verification_summary.json"); summary=read(RANK/"ranking_summary.json")
     if sha(LIB/"library_long.csv") != manifest["input_sha256"] or verify["passing_sextet_count"] != 6: raise RuntimeError("frozen P1-D2 input gate failed")
     top=read(RANK/"candidate_top20_detailed.json"); passing_rows=list(csv.DictReader((RANK/"passing_combinations.csv").open(encoding="utf-8")))
-    passing=[list(map(int,row["diameters_nm"].split(","))) for row in passing_rows]
+    all_passing=[list(map(int,row["diameters_nm"].split(","))) for row in passing_rows]
+    ranked_top5=[list(map(int,row["diameters_nm"])) for row in read(RANK/"top_5_passing_sextets_detailed.json")["top_5"]]
+    extra=[row for row in all_passing if key(row) not in {key(x) for x in ranked_top5}]
+    if len(ranked_top5) != 5 or len(extra) != 1: raise RuntimeError("formal top-5/sixth passing sextet contract mismatch")
+    passing=ranked_top5 + extra  # sixth is read, not inferred, from the formal passing CSV
     phase=top["phase_error"][0]; runner=top["phase_error"][1]; amp=top["amplitude_uniformity"][0]; broadband=top["broadband_dispersion"][0]
     pareto=read(RANK/"pareto_front_detailed.json"); reps=choose_pareto(pareto)
     dump(out/"pareto_representative_sextets.json", {"method":"min-max normalized five-objective Euclidean distance to ideal for knee; lexicographic diameter tie-break", "roles":reps})

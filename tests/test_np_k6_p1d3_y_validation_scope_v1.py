@@ -12,7 +12,8 @@ def test_six_passing_and_exact_phase_champion():
 def test_sixth_passing_is_read_from_official_csv():
     import csv
     rows=list(csv.DictReader((ROOT/'outputs'/'np_k6_p1d2_sixbin_exhaustive_ranking_v1'/'passing_combinations.csv').open())); assert len(rows)==6
-    selected=j('selected_sextets_for_y_validation.json')['tier_1_mandatory']; assert any('passing_6' in x['source_roles'] for x in selected)
+    selected=j('selected_sextets_for_y_validation.json')['tier_1_mandatory']; sixth=next(x for x in selected if 'passing_6' in x['source_roles'])
+    assert sixth['diameters_nm'] == [110,125,135,155,175,195] and ','.join(map(str,sixth['diameters_nm'])) in {row['diameters_nm'] for row in rows}
 def test_pareto_representatives_are_deterministic_and_deduplicated_in_scope():
     a=j('pareto_representative_sextets.json'); b=mod.choose_pareto(j('pareto_representative_sextets.json')['roles'].values() if False else j('../np_k6_p1d2_sixbin_exhaustive_ranking_v1/pareto_front_detailed.json'))
     assert set(a['roles'])==set(b)
