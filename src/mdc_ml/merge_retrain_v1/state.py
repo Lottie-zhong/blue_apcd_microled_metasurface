@@ -263,9 +263,14 @@ class TrainingExecutionState:
             raise StateTransitionError(
                 f"ILLEGAL_STAGE_TRANSITION:{current.status}->{new_status}"
             )
-        index = STAGES.index(stage)
+        predecessors = STAGES[:STAGES.index(stage)]
+        # Synthetic regression backend validation is independent of the formal
+        # classification OOF stage.  It still requires PREFLIGHT, while formal
+        # stages retain their original total ordering.
+        if stage == "REGRESSION_OOF":
+            predecessors = ("PREFLIGHT",)
         if new_status in {"RUNNING", "COMPLETE"} and any(
-            self.stages[name].status != "COMPLETE" for name in STAGES[:index]
+            self.stages[name].status != "COMPLETE" for name in predecessors
         ):
             raise StateTransitionError("STAGE_PREDECESSOR_INCOMPLETE")
         if new_status == "COMPLETE" and any(
