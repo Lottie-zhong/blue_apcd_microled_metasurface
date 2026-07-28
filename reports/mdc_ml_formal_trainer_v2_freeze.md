@@ -13,3 +13,5 @@ Freeze A (`35089b3`) provided guards and a synthetic harness but not the canonic
 The v3 attestation repair binds the fixture route to the frozen classification crossfit executor, its atomic state/checkpoint store, and its artifact manifest writer. It materializes the 128 sample-level OOF artifacts from the 512 target-level backend rows. It does not start formal OOF, formal regression, or formal training; it does not access sealed targets or solvers. Regression production dispatch remains unproven, and `FULL_TRAINER_IMPLEMENTATION_FROZEN=false`.
 
 The durable synthetic attestation recorded four classifier fits, four calibrator fits, four threshold materializations, 128 exact-once sample predictions, artifact reload/replay validation, and failure/resume/drift rejection. These are fixture-only calls under a system temporary root and are not formal OOF calls.
+
+Final refreeze is bound by post-commit synthetic execution metadata; it is a classification-only readiness attestation.
