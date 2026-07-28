@@ -55,6 +55,7 @@ from mdc_ml.merge_retrain_v1.formal_trainer_v2 import (
     formal_execution_plan,
     synthetic_full_trainer_fixture,
 )
+from mdc_ml.merge_retrain_v1.formal_execution_v2 import readiness
 
 CONFIG = ROOT / "configs" / "mdc_ml_active_learning_merge_retrain_v1.yaml"
 EXPECTED = {"config": "76e51a802f598e458264c31db5b6024ade4a0e0a65f3ba2cc3c4587fcd74ade6", "promotion": "71b43c40035bb49a0a9647734b8aa4b42f7a089aa9c354de0b2a90f0c93def52", "training": "4cc187dc18f2e18bae32dc659d1ffad6f2baf0fa411c7214fa98db02645ce886", "fold": "1eff4d939bfe1af28964baebac8e33d0cb9953e98d9009921fac1eb3ae841aa7"}
@@ -273,11 +274,14 @@ def status(config_path: Path = CONFIG) -> dict[str, Any]:
 def main() -> None:
     parser=argparse.ArgumentParser(description="MDC-ML frozen formal trainer; formal modes require later authorization")
     parser.add_argument("--config",type=Path,default=CONFIG); parser.add_argument("--preflight",action="store_true"); parser.add_argument("--fixture-smoke",action="store_true"); parser.add_argument("--classification-fixture-smoke",action="store_true"); parser.add_argument("--regression-fixture-smoke",action="store_true"); parser.add_argument("--fixture-output-root",type=Path); parser.add_argument("--fixture-run-id"); parser.add_argument("--status",action="store_true"); parser.add_argument("--backend-audit",action="store_true"); parser.add_argument("--classification-backend-audit",action="store_true"); parser.add_argument("--regression-backend-audit",action="store_true")
-    parser.add_argument("--full-trainer-fixture",action="store_true"); parser.add_argument("--formal-execution-plan",action="store_true"); parser.add_argument("--run-oof",action="store_true"); parser.add_argument("--run-final",action="store_true"); parser.add_argument("--run-evaluation",action="store_true"); parser.add_argument("--finalize",action="store_true"); parser.add_argument("--resume",action="store_true"); parser.add_argument("--run-all",action="store_true")
+    parser.add_argument("--formal-execution-readiness-audit",action="store_true"); parser.add_argument("--formal-classification-oof-plan",action="store_true"); parser.add_argument("--formal-regression-oof-plan",action="store_true"); parser.add_argument("--full-trainer-fixture",action="store_true"); parser.add_argument("--formal-execution-plan",action="store_true"); parser.add_argument("--run-oof",action="store_true"); parser.add_argument("--run-final",action="store_true"); parser.add_argument("--run-evaluation",action="store_true"); parser.add_argument("--finalize",action="store_true"); parser.add_argument("--resume",action="store_true"); parser.add_argument("--run-all",action="store_true")
     args=parser.parse_args()
     if args.run_oof: raise RuntimeError("FORMAL_CLASSIFICATION_OOF_REQUIRES_SEPARATE_AUTHORIZATION")
     if any((args.run_final,args.run_evaluation,args.finalize,args.resume,args.run_all)): raise RuntimeError("FORMAL_MODE_REQUIRES_MDC_ML_FORMAL_OOF_AND_DEVELOPMENT_TRAINING_V1_AUTHORIZATION")
     if args.preflight: result=preflight(args.config)
+    elif args.formal_execution_readiness_audit: result=readiness(load_frozen_contract(args.config),"FORMAL_CLASSIFICATION_OOF_ONLY")
+    elif args.formal_classification_oof_plan: result=readiness(load_frozen_contract(args.config),"FORMAL_CLASSIFICATION_OOF_ONLY")
+    elif args.formal_regression_oof_plan: result=readiness(load_frozen_contract(args.config),"FORMAL_REGRESSION_OOF_ONLY")
     elif args.formal_execution_plan: result=asdict(formal_execution_plan())
     elif args.full_trainer_fixture:
         if args.fixture_output_root is None or not args.fixture_run_id: parser.error("full trainer fixture requires --fixture-output-root and --fixture-run-id")
