@@ -21,7 +21,7 @@ from .formal_run_v2 import allocate, atomic_json, commit
 
 def readiness(contract, scope: str) -> dict:
     inputs = load(contract)
-    if scope in {"FORMAL_CLASSIFICATION_OOF_ONLY", "REGRESSION_PRODUCTION_DISPATCH_ATTESTATION_ONLY"}:
+    if scope in {"FORMAL_CLASSIFICATION_OOF_ONLY", "REGRESSION_PRODUCTION_DISPATCH_ATTESTATION_ONLY", "FORMAL_REGRESSION_OOF_ONLY"}:
         status = "CANONICAL_INPUT_AND_RUNROOT_READY"
     else:
         status = "PRODUCTION_FOLD_EXECUTION_NOT_ATTESTED"
@@ -251,6 +251,7 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         state = {"status": "COMPLETE", "execution_code_commit": commit(), "stage": stage,
                  "synthetic": False, "attestation": False, "official_formal_run": True,
                  "authorization_scope": authorization.scope, "canonical_loader_calls": 1,
+                 "formal_regression_production_dispatch_ready": True,
                  "fold_executor_calls": 4, "seed_fit_calls": 12, "ensemble_fits": 4,
                  "conformal_fits": 4, **result["checks"], "manifest_sha256": manifest.canonical_manifest_sha256,
                  "canonical_input_fingerprint": canonical_input_fingerprint, "config_fingerprint": config_fingerprint,
