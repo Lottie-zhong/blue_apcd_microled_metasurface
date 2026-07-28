@@ -15,3 +15,5 @@ The v3 attestation repair binds the fixture route to the frozen classification c
 The durable synthetic attestation recorded four classifier fits, four calibrator fits, four threshold materializations, 128 exact-once sample predictions, artifact reload/replay validation, and failure/resume/drift rejection. These are fixture-only calls under a system temporary root and are not formal OOF calls.
 
 Final refreeze is bound by post-commit synthetic execution metadata; it is a classification-only readiness attestation.
+
+The durable completion adds a read-only canonical classification registry plan. It resolves the frozen crossfit executor and all four train/validation/calibration/held-out registries without fitting, prediction, formal writes, sealed-target reads, or solver calls.

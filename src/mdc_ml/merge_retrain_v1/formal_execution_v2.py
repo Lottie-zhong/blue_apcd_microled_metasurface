@@ -31,6 +31,35 @@ def readiness(contract, scope: str) -> dict:
             "solver_calls": 0}
 
 
+def canonical_classification_plan(contract) -> dict:
+    """Read-only canonical registry plan; deliberately opens no target arrays."""
+    from .classification import load_classification_metadata
+    metadata = load_classification_metadata(contract)
+    roles = metadata.original_split
+    folds = []
+    for fold_id in range(4):
+        held = [candidate_id for candidate_id, is_round1, fold in zip(metadata.sample_ids, metadata.is_round1, metadata.adaptive_fold)
+                if is_round1 and fold == fold_id]
+        train = [candidate_id for candidate_id, role in zip(metadata.sample_ids, roles) if role == "train"]
+        validation = [candidate_id for candidate_id, role in zip(metadata.sample_ids, roles) if role == "validation"]
+        calibration = [candidate_id for candidate_id, role in zip(metadata.sample_ids, roles) if role == "calibration"]
+        groups = [set(metadata.canonical_source_group[metadata.sample_ids.index(candidate_id)] for candidate_id in group)
+                  for group in (train, validation, calibration, held)]
+        if any(left & right for index, left in enumerate(groups) for right in groups[index + 1:]):
+            raise RuntimeError("CANONICAL_PLAN_GROUP_LEAKAGE")
+        folds.append({"fold_id": fold_id, "train_count": len(train), "validation_count": len(validation),
+                      "calibration_count": len(calibration), "held_out_count": len(held),
+                      "registry_buildable": True})
+    inputs = load(contract)
+    return {"status": "READY_FOR_AUTHORIZED_FORMAL_CLASSIFICATION_OOF", "classification_total": len(metadata.sample_ids),
+            "round1": sum(metadata.is_round1), "fold_sizes": [fold["held_out_count"] for fold in folds],
+            "feature_count": 150, "folds": folds, "production_route": "run_classification_crossfit",
+            "expected_artifacts": ["classification_oof_predictions.csv", "classification_oof_predictions.jsonl", "formal_classification_output_manifest.json"],
+            "canonical_output_root": str(contract.output_root), "fit_calls": 0, "prediction_calls": 0,
+            "formal_output_writes": 0, "sealed_target_reads": 0, "execution_code_commit": commit(),
+            "input_fingerprint": inputs["input_fingerprint"]}
+
+
 def _sample_rows(rows: list[Any]) -> list[dict[str, Any]]:
     grouped: dict[str, list[Any]] = defaultdict(list)
     for row in rows:
