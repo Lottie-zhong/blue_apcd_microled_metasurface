@@ -23,6 +23,13 @@ def test_attestation_scope_is_disjoint_from_official_oof(tmp_path: Path):
     assert not list(tmp_path.iterdir())
 
 
+def test_official_scope_rejects_synthetic_or_attestation_flags(tmp_path: Path):
+    contract = load_frozen_contract()
+    with pytest.raises(RuntimeError, match="OFFICIAL_REGRESSION_OOF_REQUIRES"):
+        dispatch(contract, Authorization("FORMAL_REGRESSION_OOF_ONLY"), "regression_oof",
+                 synthetic=True, output_root=tmp_path)
+
+
 def test_dispatch_failure_resume_drift_and_completed_noop(tmp_path: Path):
     with pytest.raises(RuntimeError, match="FIXTURE_FAILURE_INJECTION"):
         _dispatch(tmp_path, failure_injection=(1, 20260721))
