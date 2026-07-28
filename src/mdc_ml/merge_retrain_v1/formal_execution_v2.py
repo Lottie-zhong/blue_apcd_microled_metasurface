@@ -8,6 +8,7 @@ and artifact store as that route.
 """
 
 import json
+import hashlib
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -20,7 +21,7 @@ from .formal_run_v2 import allocate, atomic_json, commit
 
 def readiness(contract, scope: str) -> dict:
     inputs = load(contract)
-    if scope == "FORMAL_CLASSIFICATION_OOF_ONLY":
+    if scope in {"FORMAL_CLASSIFICATION_OOF_ONLY", "REGRESSION_PRODUCTION_DISPATCH_ATTESTATION_ONLY"}:
         status = "CANONICAL_INPUT_AND_RUNROOT_READY"
     else:
         status = "PRODUCTION_FOLD_EXECUTION_NOT_ATTESTED"
@@ -135,6 +136,22 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         if not root.is_dir():
             raise RuntimeError("RESUME_RUN_ROOT_MISSING")
     plan = readiness(contract, authorization.scope)
+    # Resume is fail-closed before any write.  In particular, a completed
+    # attestation is a strict no-op and a changed captured input plan is never
+    # allowed to reach a fit invocation.
+    if run_root is not None:
+        snapshot_path = root / "input_snapshot.json"
+        if snapshot_path.exists():
+            captured = json.loads(snapshot_path.read_text(encoding="utf8"))
+            if captured != plan["inputs"]:
+                raise RuntimeError("REGRESSION_DISPATCH_INPUT_DRIFT_GUARD")
+        existing_state_path = root / "execution_state.json"
+        if resume and existing_state_path.exists():
+            existing = json.loads(existing_state_path.read_text(encoding="utf8"))
+            if existing.get("status") == "COMPLETE":
+                return {"run_id": run_id, "run_root": str(root), "status": "COMPLETE",
+                        "execution_code_commit": existing["execution_code_commit"], "synthetic": synthetic,
+                        "summary": existing, "no_op": True}
     atomic_json(root / "input_snapshot.json", plan["inputs"])
     atomic_json(root / "authorization.json", {"scope": authorization.scope})
     if stage == "classification_oof":
@@ -152,7 +169,9 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
                    execution_code_commit=code_commit, trainer_sha256=sha256_file(Path(__file__)))
         materialized = _materialize_fixture_artifacts(store, result, code_commit, synthetic=synthetic)
         state = materialized["summary"]
-    elif stage == "regression_oof" and attestation:
+    elif stage == "regression_dispatch_attestation":
+        if not attestation:
+            raise RuntimeError("REGRESSION_DISPATCH_ATTESTATION_FLAG_REQUIRED")
         from .artifacts import ArtifactPolicy, AtomicArtifactStore
         from .regression import _synthetic_data, load_formal_regression_data, run_regression_crossfit
         # Read-only canonical validation is mandatory even though attestation uses
@@ -166,11 +185,34 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         injected = failure_injection if isinstance(failure_injection, tuple) else None
         result = run_regression_crossfit(data, contract, store, resume=resume,
                                          failure_injection=injected, fixture_max_epochs=3)
+        canonical_input_fingerprint = hashlib.sha256(json.dumps({
+            "feature_shape": list(canonical.X.shape), "target_shape": list(canonical.y.shape),
+            "sample_ids": list(canonical.metadata.sample_ids), "feature_signature": canonical.metadata.feature_signature,
+        }, sort_keys=True, separators=(",", ":")).encode("utf8")).hexdigest()
+        config_fingerprint = hashlib.sha256(json.dumps({
+            "fixture_max_epochs": 3, "coverage": 0.90, "seeds": [20260720, 20260721, 20260722],
+            "fold_count": 4, "target_count": 4, "run_kind": stage,
+        }, sort_keys=True, separators=(",", ":")).encode("utf8")).hexdigest()
+        store.write_json("regression_dispatch_attestation_provenance.json", {
+            "official_formal_run": False, "authorization_scope": authorization.scope, "run_kind": stage,
+            "execution_code_commit": commit(), "canonical_input_fingerprint": canonical_input_fingerprint,
+            "config_fingerprint": config_fingerprint,
+            "formal_regression_oof_calls": 0,
+        }, artifact_type="regression_dispatch_attestation_provenance", producer_stage="REGRESSION_OOF", producer_unit="dispatch")
         manifest = store.write_manifest("formal_regression_output_manifest.json")
+        run_fingerprint = hashlib.sha256(json.dumps({
+            "execution_code_commit": commit(), "canonical_input_fingerprint": canonical_input_fingerprint,
+            "config_fingerprint": config_fingerprint, "authorization_scope": authorization.scope,
+            "run_kind": stage, "artifact_manifest_sha": manifest.canonical_manifest_sha256,
+            "contract_signatures": contract.signatures.as_dict(),
+        }, sort_keys=True, separators=(",", ":")).encode("utf8")).hexdigest()
         state = {"status": "COMPLETE", "execution_code_commit": commit(), "stage": stage,
-                 "synthetic": True, "attestation": True, "canonical_loader_calls": 1,
+                 "synthetic": synthetic, "attestation": True, "official_formal_run": False,
+                 "authorization_scope": authorization.scope, "canonical_loader_calls": 1,
                  "fold_executor_calls": 4, "seed_fit_calls": 12, "ensemble_fits": 4,
                  "conformal_fits": 4, **result["checks"], "manifest_sha256": manifest.canonical_manifest_sha256,
+                 "canonical_input_fingerprint": canonical_input_fingerprint, "config_fingerprint": config_fingerprint,
+                 "run_fingerprint": run_fingerprint,
                  "formal_regression_oof_calls": 0, "sealed_test_target_reads": 0}
     else:
         state = {"status": plan["status"], "execution_code_commit": commit(), "stage": stage,
