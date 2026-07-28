@@ -143,10 +143,19 @@ def load_regression_metadata(contract: FrozenContract) -> RegressionMetadata:
     )
 
 
-def load_formal_regression_data(*_: Any, **kwargs: Any) -> RegressionData:
-    if not kwargs.get("formal_authorized", False):
+def load_formal_regression_data(contract: FrozenContract, *, formal_authorized: bool = False) -> RegressionData:
+    """Read-only canonical adapter; execution remains authorization-gated."""
+    if not formal_authorized:
         raise PermissionError("FORMAL_REGRESSION_OOF_REQUIRES_SEPARATE_AUTHORIZATION")
-    raise PermissionError("FORMAL_REGRESSION_DATA_NOT_ENABLED_IN_BACKEND_FREEZE")
+    metadata = load_regression_metadata(contract)
+    view = np.load(contract.output_root / "training_view_v1.npz", allow_pickle=False)
+    ids = tuple(str(value) for value in view["candidate_ids"])
+    if ids != metadata.sample_ids:
+        raise RuntimeError("CANONICAL_REGRESSION_ID_ORDER_DRIFT")
+    X = np.asarray(view["X"], dtype=float); y = np.asarray(view["y_regression"], dtype=float)
+    if X.shape != (2640, 150) or y.shape != (2640, 4):
+        raise RuntimeError("CANONICAL_REGRESSION_SHAPE_DRIFT")
+    return RegressionData(X, y, metadata)
 
 
 def build_regression_crossfit_plan(data: RegressionMetadata | RegressionData, contract: FrozenContract) -> tuple[RegressionFoldPlan, ...]:
