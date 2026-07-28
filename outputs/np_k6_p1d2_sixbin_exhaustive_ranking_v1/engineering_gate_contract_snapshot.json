@@ -1,0 +1,48 @@
+{
+  "K6_SUPERCELL_VALIDATION_STATUS": "not_run",
+  "contract_version": "engineering_gate_contract_snapshot_v1",
+  "cyclic_closure_threshold_status": "threshold_not_frozen",
+  "gates": {
+    "amplitude_CV_band_max": {
+      "op": "<=",
+      "source": "task_frozen_engineering_contract_v1",
+      "value": 0.1
+    },
+    "maximum_cross_pol_over_band": {
+      "op": "<=",
+      "source": "task_frozen_cross_pol_gate_v1",
+      "value": 1e-06
+    },
+    "maximum_phase_error_over_band_deg": {
+      "op": "<=",
+      "source": "task_frozen_engineering_contract_v1",
+      "value": 15.0
+    },
+    "minimum_T_over_band": {
+      "op": ">=",
+      "source": "formal_library_engineering_usable_gate",
+      "value": 0.7
+    },
+    "minimum_physical_gap_nm": {
+      "op": ">=",
+      "source": "task_frozen_manufacturing_gate_v1",
+      "value": 60.0
+    },
+    "minimum_txx_amplitude_over_band": {
+      "op": ">=",
+      "source": "formal_library_engineering_usable_gate",
+      "value": 0.8
+    },
+    "phase_fit_RMS_band_max_deg": {
+      "op": "<=",
+      "source": "task_frozen_engineering_contract_v1",
+      "value": 10.0
+    }
+  },
+  "legacy_only": true,
+  "non_numeric_gates": {
+    "contract_gate": "exact 26 x 11 x-only frozen input",
+    "finite_data_gate": "all library values finite",
+    "formal_quality_gate": "each included source summary is pass or warning_valid"
+  }
+}
