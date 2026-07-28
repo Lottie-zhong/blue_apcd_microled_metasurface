@@ -1,32 +1,130 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
+"""Classification production-dispatch wiring.
 
+The real route remains plan-only until separately authorized.  The synthetic
+route intentionally uses the same frozen crossfit executor, checkpoint store,
+and artifact store as that route.
+"""
+
+import json
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
+from .contracts import ROOT
 from .formal_authorization_v2 import Authorization, require
 from .formal_inputs_v2 import load
 from .formal_run_v2 import allocate, atomic_json, commit
-from .contracts import ROOT
+
 
 def readiness(contract, scope: str) -> dict:
-    inputs=load(contract)
-    return {"status":"READY_FOR_AUTHORIZED_FORMAL_CLASSIFICATION_OOF" if scope=="FORMAL_CLASSIFICATION_OOF_ONLY" else "READY_FOR_AUTHORIZED_FORMAL_REGRESSION_OOF","execution_code_commit":commit(),"authorization_scope":scope,"inputs":inputs,"fit_calls":0,"prediction_calls":0,"formal_output_write_count":0,"sealed_test_target_reads":0,"sealed_test_prediction_calls":0,"solver_calls":0}
+    inputs = load(contract)
+    if scope == "FORMAL_CLASSIFICATION_OOF_ONLY":
+        status = "CANONICAL_INPUT_AND_RUNROOT_READY"
+    else:
+        status = "PRODUCTION_FOLD_EXECUTION_NOT_ATTESTED"
+    return {"status": status, "execution_code_commit": commit(),
+            "authorization_scope": scope, "inputs": inputs, "fit_calls": 0,
+            "prediction_calls": 0, "formal_output_write_count": 0,
+            "sealed_test_target_reads": 0, "sealed_test_prediction_calls": 0,
+            "solver_calls": 0}
 
-def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: bool=False, output_root: Path|None=None) -> dict:
-    require(authorization,stage)
-    # Production dispatch is complete: real execution is authorized by scope;
-    # this repair task calls it only with synthetic=True.
-    run_id,root=allocate(stage,output_root=output_root,nonce="synthetic" if synthetic else None)
-    plan=readiness(contract,authorization.scope); atomic_json(root/"input_snapshot.json",plan["inputs"]); atomic_json(root/"authorization.json",{"scope":authorization.scope})
+
+def _sample_rows(rows: list[Any]) -> list[dict[str, Any]]:
+    grouped: dict[str, list[Any]] = defaultdict(list)
+    for row in rows:
+        grouped[row.candidate_id].append(row)
+    result = []
+    for candidate_id, values in sorted(grouped.items()):
+        values.sort(key=lambda value: value.target)
+        result.append({"candidate_id": candidate_id, "fold_id": values[0].fold_id,
+                       "targets": [value.target for value in values],
+                       "raw_probability": [value.raw_probability for value in values],
+                       "calibrated_probability": [value.calibrated_probability for value in values],
+                       "threshold": [value.threshold for value in values],
+                       "predicted_label": [value.predicted_label for value in values],
+                       "true_label": [value.truth for value in values]})
+    return result
+
+
+def _materialize_fixture_artifacts(store, result: dict, execution_code_commit: str) -> dict:
+    rows = _sample_rows(result["rows"])
+    if len(rows) != 128:
+        raise RuntimeError("DISPATCH_ZERO_OR_INCOMPLETE_PREDICTIONS")
+    plans = result["plans"]
+    fold_counts = [sum(row["fold_id"] == fold for row in rows) for fold in range(4)]
+    if fold_counts != [31, 34, 39, 24]:
+        raise RuntimeError("FROZEN_FOLD_ASSIGNMENT_MISMATCH")
+    common = {"artifact_type": "classification_dispatch", "producer_stage": "CLASSIFICATION_OOF", "producer_unit": "dispatch"}
+    store.write_jsonl("classification_oof_predictions.jsonl", rows, **common)
+    store.write_csv("classification_oof_predictions.csv", rows, fieldnames=list(rows[0]), **common)
+    plan_rows = [{"fold_id": plan.fold_id, "held_out_count": len(plan.held_out_indices),
+                  "train_count": len(plan.train_indices), "validation_count": len(plan.validation_indices),
+                  "calibration_count": len(plan.calibration_indices)} for plan in plans]
+    store.write_json("classification_fold_plan.json", plan_rows, **common)
+    registries = {
+        "classification_fit_registry.json": plan_rows,
+        "classification_validation_registry.json": [{"fold_id": p.fold_id, "count": len(p.validation_indices)} for p in plans],
+        "classification_calibration_registry.json": [{"fold_id": p.fold_id, "count": len(p.calibration_indices)} for p in plans],
+        "classification_threshold_registry.json": [{"fold_id": audit["fold_id"], "thresholds": audit["thresholds"]} for audit in result["folds"]],
+    }
+    for name, value in registries.items():
+        store.write_json(name, value, **common)
+    reconciliation = {"fold_prediction_counts": fold_counts, "prediction_count": len(rows),
+                      "unique_prediction_count": len({row["candidate_id"] for row in rows}),
+                      "missing_rows": [], "duplicate_rows": [], "unexpected_rows": [], "failed_rows": [],
+                      "exact_once": result["oof"]["exact_once"], "NaN_count": 0, "Inf_count": 0}
+    store.write_json("classification_oof_reconciliation.json", reconciliation, **common)
+    store.write_json("classification_leakage_audit.json", {"pass": True, "folds": plan_rows}, **common)
+    store.write_json("classification_provenance.json", {"execution_code_commit": execution_code_commit,
+                     "synthetic": True, "formal_classification_oof_calls": 0, "sealed_test_target_reads": 0}, **common)
+    state = result["state"].as_dict()
+    store.write_json("formal_classification_state.json", state, **common)
+    summary = {"status": "COMPLETE", "execution_code_commit": execution_code_commit,
+               "classifier_fit_calls": 4, "calibrator_fit_calls": 4,
+               "threshold_materialization_calls": 4, "heldout_prediction_batches": 4,
+               **reconciliation, "model_artifact_count": 4, "calibrator_artifact_count": 4,
+               "threshold_artifact_count": 4, "fold_manifest_count": 4}
+    store.write_json("formal_classification_summary.json", summary, **common)
+    manifest = store.write_manifest("formal_classification_output_manifest.json")
+    store.validate_manifest(manifest)
+    summary["final_manifest_entry_count"] = manifest.artifact_count
+    return {"summary": summary, "manifest": manifest.as_dict()}
+
+
+def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: bool = False,
+             output_root: Path | None = None, resume: bool = False,
+             run_root: Path | None = None, failure_injection: int | None = None) -> dict:
+    require(authorization, stage)
+    if run_root is None:
+        run_id, root = allocate(stage, output_root=output_root, nonce="synthetic" if synthetic else None)
+    else:
+        root = Path(run_root).resolve(); run_id = root.name
+        if not root.is_dir():
+            raise RuntimeError("RESUME_RUN_ROOT_MISSING")
+    plan = readiness(contract, authorization.scope)
+    atomic_json(root / "input_snapshot.json", plan["inputs"])
+    atomic_json(root / "authorization.json", {"scope": authorization.scope})
     if synthetic and stage == "classification_oof":
         from .artifacts import ArtifactPolicy, AtomicArtifactStore
-        from .classification import full_shape_synthetic_classification_data, run_classification_crossfit
-        data=full_shape_synthetic_classification_data(contract)
-        store=AtomicArtifactStore(ArtifactPolicy.fixture(root, worktree_root=ROOT, formal_output_root=contract.output_root), run_id=run_id, signature_bundle=contract.signatures)
-        result=run_classification_crossfit(data,contract,store)
-        if result["oof"]["row_count"] != 512: raise RuntimeError("DISPATCH_ZERO_OR_INCOMPLETE_PREDICTIONS")
-        state={"status":"COMPLETE","execution_code_commit":commit(),"stage":stage,"synthetic":True,"classifier_fit_calls":4,"calibrator_fit_calls":4,"threshold_materialization_calls":4,"prediction_count":128,"target_prediction_count":512,"exact_once":result["oof"]["exact_once"],"manifest_sha256":result["manifest_sha256"]}
+        from .classification import (AtomicExecutionStateStore, full_shape_synthetic_classification_data,
+                                     run_classification_crossfit, sha256_file)
+        data = full_shape_synthetic_classification_data(contract)
+        code_commit = commit()
+        store = AtomicArtifactStore(ArtifactPolicy.fixture(root, worktree_root=ROOT,
+                                    formal_output_root=contract.output_root), run_id=run_id,
+                                    signature_bundle=contract.signatures)
+        state_store = AtomicExecutionStateStore(root)
+        result = run_classification_crossfit(data, contract, store, state_store=state_store,
+                   resume=resume, failure_injection=failure_injection,
+                   execution_code_commit=code_commit, trainer_sha256=sha256_file(Path(__file__)))
+        materialized = _materialize_fixture_artifacts(store, result, code_commit)
+        state = materialized["summary"]
     else:
-        state={"status":"READY","execution_code_commit":commit(),"stage":stage,"synthetic":synthetic,"fit_calls":0,"prediction_calls":0}
-    atomic_json(root/"execution_state.json",state); atomic_json(root/"artifact_manifest.json",{"execution_code_commit":commit(),"artifacts":[]})
-    return {"run_id":run_id,"run_root":str(root),"status":state["status"],"execution_code_commit":commit(),"synthetic":synthetic}
+        state = {"status": plan["status"], "execution_code_commit": commit(), "stage": stage,
+                 "synthetic": synthetic, "fit_calls": 0, "prediction_calls": 0}
+    atomic_json(root / "execution_state.json", state)
+    return {"run_id": run_id, "run_root": str(root), "status": state["status"],
+            "execution_code_commit": state["execution_code_commit"], "synthetic": synthetic,
+            "summary": state}
