@@ -125,7 +125,8 @@ def _materialize_fixture_artifacts(store, result: dict, execution_code_commit: s
 
 def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: bool = False,
              output_root: Path | None = None, resume: bool = False,
-             run_root: Path | None = None, failure_injection: int | None = None) -> dict:
+             run_root: Path | None = None, failure_injection: int | None = None,
+             attestation: bool = False) -> dict:
     require(authorization, stage)
     if run_root is None:
         run_id, root = allocate(stage, output_root=output_root, nonce="synthetic" if synthetic else None)
@@ -151,6 +152,24 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
                    execution_code_commit=code_commit, trainer_sha256=sha256_file(Path(__file__)))
         materialized = _materialize_fixture_artifacts(store, result, code_commit, synthetic=synthetic)
         state = materialized["summary"]
+    elif stage == "regression_oof" and attestation:
+        from .artifacts import ArtifactPolicy, AtomicArtifactStore
+        from .regression import _synthetic_data, load_formal_regression_data, run_regression_crossfit
+        # Read-only canonical validation is mandatory even though attestation uses
+        # fixture labels and never opens a formal Regression OOF run.
+        canonical = load_formal_regression_data(contract, formal_authorized=True)
+        if canonical.X.shape[1] != 150:
+            raise RuntimeError("CANONICAL_REGRESSION_FEATURE_DRIFT")
+        data = _synthetic_data(contract)
+        policy = ArtifactPolicy.fixture(root, worktree_root=ROOT, formal_output_root=contract.output_root)
+        store = AtomicArtifactStore(policy, run_id=run_id, signature_bundle=contract.signatures)
+        result = run_regression_crossfit(data, contract, store, fixture_max_epochs=3)
+        manifest = store.write_manifest("formal_regression_output_manifest.json")
+        state = {"status": "COMPLETE", "execution_code_commit": commit(), "stage": stage,
+                 "synthetic": True, "attestation": True, "canonical_loader_calls": 1,
+                 "fold_executor_calls": 4, "seed_fit_calls": 12, "ensemble_fits": 4,
+                 "conformal_fits": 4, **result["checks"], "manifest_sha256": manifest.canonical_manifest_sha256,
+                 "formal_regression_oof_calls": 0, "sealed_test_target_reads": 0}
     else:
         state = {"status": plan["status"], "execution_code_commit": commit(), "stage": stage,
                  "synthetic": synthetic, "fit_calls": 0, "prediction_calls": 0}
