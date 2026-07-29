@@ -1,0 +1,76 @@
+{
+  "all_finite": true,
+  "baseline_depth_nm": -400,
+  "counts": {
+    "candidates": 2,
+    "depths_per_candidate": {
+      "BARE_GAN_AIR": 17,
+      "P1_ZL1_ALTERNATIVE_G3_A3": 17
+    },
+    "orientations": [
+      "avg",
+      "x",
+      "z"
+    ]
+  },
+  "grid_refinement": {
+    "angle": [
+      {
+        "angle_step_deg": 1.0,
+        "angular_fwhm_deg": 24.0,
+        "cone10_fraction": 0.6409704653196953
+      },
+      {
+        "angle_step_deg": 0.5,
+        "angular_fwhm_deg": 24.0,
+        "cone10_fraction": 0.6413226481052093
+      }
+    ],
+    "wavelength": [
+      {
+        "spectral_fwhm_nm": 8.199999999999534,
+        "wavelength_step_nm": 0.2
+      },
+      {
+        "spectral_fwhm_nm": 8.300000000001887,
+        "wavelength_step_nm": 0.1
+      }
+    ]
+  },
+  "limitations": [
+    "Relative reciprocal air channel only; no Sommerfeld integral.",
+    "No absolute extraction efficiency, total emitted power, LDOS, or Purcell claim.",
+    "Do not add source depth as a formal ML input from this invariant planar result alone."
+  ],
+  "minimal_fdtd_recommendation": [
+    "bare GaN/Air and P1_ZL1_ALTERNATIVE_G3_A3",
+    "depths -200, -400, -600 nm",
+    "x and z dipoles separately, then incoherent average"
+  ],
+  "ordinary_tmm_correlation": [
+    {
+      "candidate_id": "BARE_GAN_AIR",
+      "pearson_normal_channel_vs_ordinary_T": 0.9999999999999991
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "pearson_normal_channel_vs_ordinary_T": 1.0
+    }
+  ],
+  "polarization_delta_mean": 0.046599509832095876,
+  "rank_changes_by_depth": false,
+  "run_manifest_sha256": "468cf4adcd16a6c025070c2ca25d1035c43bcaed71535636d1a8e3173181fd25",
+  "run_root": "outputs\\mdc_dipole_tmm_v1\\dipole-tmm-20260729T084343Z-1a7d1224d189",
+  "stable_region_assessment": "Within this planar half-space relative-channel model, depth changes only reciprocal source phase; relative power and ranking are invariant. -400 nm is stable under this model, but not an actual-MQW claim.",
+  "validation": {
+    "angle_symmetry": "PASS",
+    "fresh_process_deterministic_replay": "PASS",
+    "homogeneous_reference": "PASS",
+    "no_nan_inf_branch_growth": "PASS",
+    "single_interface_fresnel": "PASS",
+    "smatrix_existing_ordinary_crosscheck": "PASS; lossy-GaN single-layer delta <=0.003",
+    "source_depth_phase_continuity": "PASS",
+    "te_tm_separation": "PASS",
+    "zero_thickness_identity": "PASS"
+  }
+}
