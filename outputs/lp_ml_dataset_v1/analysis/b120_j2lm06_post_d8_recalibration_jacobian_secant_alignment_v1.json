@@ -1,0 +1,135 @@
+{
+  "recalibration_gradient_normalized": [
+    0.5144941647821362,
+    -0.07321142571127329,
+    0.02128526966027953
+  ],
+  "recalibration_jones_gradient_normalized": {
+    "txx": {
+      "real": [
+        -0.008700114396948209,
+        0.0014206749352940525,
+        -0.00048469298396800945
+      ],
+      "imag": [
+        0.001891172027413113,
+        0.0010017391020160427,
+        -0.0007377288727752753
+      ]
+    },
+    "txy": {
+      "real": [
+        0.00023951145812192384,
+        0.0002741110443931674,
+        -0.0006590951528739588
+      ],
+      "imag": [
+        8.205186005640419e-05,
+        0.0006459147651675652,
+        0.000312006123715052
+      ]
+    },
+    "tyx": {
+      "real": [
+        0.0002363985088941103,
+        0.00028055531510227526,
+        -0.0006562990808852711
+      ],
+      "imag": [
+        7.045974326123659e-05,
+        0.0006224218515048693,
+        0.00029604401799279137
+      ]
+    },
+    "tyy": {
+      "real": [
+        0.0003001631924885582,
+        0.0023843230998195552,
+        0.0002023082245105086
+      ],
+      "imag": [
+        -0.016196642115775216,
+        -0.001566760139835089,
+        -0.0008252874792549999
+      ]
+    }
+  },
+  "metric_gradients_normalized": {
+    "Txx": [
+      0.001219519284697549,
+      0.002739386940277549,
+      -0.001518869759011853
+    ],
+    "Tyy": [
+      -0.006513131293215835,
+      0.001330746266972826,
+      0.0004076784572231695
+    ],
+    "sigma2_over_sigma1": [
+      -0.01044023299854111,
+      0.0016451015657890575,
+      0.0008490584003952004
+    ],
+    "projection_error": [
+      -0.00018354133375474428,
+      -0.0005847213824813947,
+      0.0009927035419694573
+    ]
+  },
+  "secant_alignment_summary": {
+    "phase_residual_mae_deg": 1.7025270898975013,
+    "phase_residual_max_abs_deg": 3.541906404082708,
+    "Jones_residual_mae_frobenius": 0.030243468816625804,
+    "Jones_residual_max_frobenius": 0.061791720102170114
+  },
+  "validation": {
+    "leave_one_stage_out": {
+      "S1_J2LM06_TO_D7": {
+        "n": 8,
+        "mae_deg": 2.694963563487899,
+        "max_abs_deg": 3.210176087586433,
+        "prediction_model": "anchor-centered phase secant"
+      },
+      "S2_D7_TO_D8": {
+        "n": 8,
+        "mae_deg": 0.7784882760039157,
+        "max_abs_deg": 1.7093217045664528,
+        "prediction_model": "anchor-centered phase secant"
+      },
+      "S3_D8_TO_RECALIBRATION": {
+        "n": 4,
+        "mae_deg": 16.841331351708973,
+        "max_abs_deg": 24.304519117940828,
+        "prediction_model": "anchor-centered phase secant"
+      },
+      "S4_D8_TO_D8_LOWEST_PHASE": {
+        "n": 1,
+        "mae_deg": 2.9435917307553923,
+        "max_abs_deg": 2.9435917307553923,
+        "prediction_model": "anchor-centered phase secant"
+      }
+    },
+    "D7_fit_to_D8_validation_from_frozen_audit": {
+      "mae_deg": 1.5730665523398049,
+      "max_abs_deg": 2.7748058679947576,
+      "source_audit_sha256": "0e3632d0421fd08d1d2a3edb9dc4ca28e84e1ab42805e1bf3b8ba1acb4ba9001"
+    },
+    "D7_plus_D8_fit_to_recalibration": {
+      "mae_deg": 25.042292686422748,
+      "max_abs_deg": 35.412322763287726,
+      "n": 4
+    },
+    "recalibration_leave_one_probe_out": {
+      "phase_mae_deg": 1.2002038102650294,
+      "Jones_max_frobenius": 0.0337840258297006
+    },
+    "recalibration_to_D8_lowest_phase_backcheck": {
+      "actual_delta_phase_deg": -0.8464050549580122,
+      "predicted_delta_phase_deg": -1.0499084572274204,
+      "phase_residual_deg": 0.20350340226940822,
+      "Jones_residual_frobenius": 0.007106757467758715
+    },
+    "training_validation_extrapolation_separated": true
+  },
+  "inactive_variable_policy": "J1_side/J2_length residuals retained and reported; not set to zero"
+}

@@ -1,0 +1,84 @@
+{
+  "family_gradients": {
+    "S1_J2LM06_TO_D7": {
+      "n": 8,
+      "phase_gradient_norm": [
+        1.9410618062144722,
+        269.6528427636956,
+        0.5071182815723045
+      ],
+      "effective_magnitude": 269.66030575601854,
+      "condition_number": 645.6371530734347,
+      "phase_gradient_cosine_to_recal": -0.13355942330802087,
+      "phase_sign": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "active_rank": 3
+    },
+    "S2_D7_TO_D8": {
+      "n": 8,
+      "phase_gradient_norm": [
+        1.021984626441933,
+        -12.212480300042627,
+        0.6135349392401265
+      ],
+      "effective_magnitude": 12.270515587263695,
+      "condition_number": 621.534174621232,
+      "phase_gradient_cosine_to_recal": 0.22452930541522562,
+      "phase_sign": [
+        1.0,
+        -1.0,
+        1.0
+      ],
+      "active_rank": 3
+    },
+    "S3_D8_TO_RECALIBRATION": {
+      "n": 4,
+      "phase_gradient_norm": [
+        0.5144941647821362,
+        -0.07321142571127329,
+        0.02128526966027953
+      ],
+      "effective_magnitude": 0.5201127004352576,
+      "condition_number": 1.5720224200572626,
+      "phase_gradient_cosine_to_recal": 1.0,
+      "phase_sign": [
+        1.0,
+        -1.0,
+        1.0
+      ],
+      "active_rank": 3
+    }
+  },
+  "pairwise_phase_gradient_angles": [
+    {
+      "family_a": "S1_J2LM06_TO_D7",
+      "family_b": "S2_D7_TO_D8",
+      "cosine": -0.9945492510484982,
+      "principal_angle_deg": 174.01501333900086
+    },
+    {
+      "family_a": "S1_J2LM06_TO_D7",
+      "family_b": "S3_D8_TO_RECALIBRATION",
+      "cosine": -0.13355942330802087,
+      "principal_angle_deg": 97.67532656787381
+    },
+    {
+      "family_a": "S2_D7_TO_D8",
+      "family_b": "S3_D8_TO_RECALIBRATION",
+      "cosine": 0.22452930541522562,
+      "principal_angle_deg": 77.02479881926014
+    }
+  ],
+  "recalibration_phase_gradient_norm": 0.5201127004352576,
+  "recalibration_raw_derivative": {
+    "J2_width_deg_per_nm": 0.5144941647821362,
+    "D_deg_per_nm": -0.14642285142254657,
+    "Psi_deg_per_degree": 0.07448597418347089
+  },
+  "active_basis_rotation_assessment": "DRIFT_PRESENT_BUT_NOT_A_HARD_BASIS_CONFLICT",
+  "projector_phase_direction": "projector remains PASS for all compared rows; metric response is not collinear with phase-only direction",
+  "anchor_drift_primary": "MIXED_SCALE_DRIFT_AND_CURVATURE"
+}
