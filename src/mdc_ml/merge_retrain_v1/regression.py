@@ -71,6 +71,14 @@ class RegressionData:
 
 
 @dataclass(frozen=True)
+class RegressionDevelopmentView:
+    data: RegressionData
+    ineligible_registry: tuple[dict[str, str], ...]
+    excluded_sealed_registry: tuple[dict[str, str], ...]
+    view_fingerprint: str
+
+
+@dataclass(frozen=True)
 class RegressionFoldPlan:
     fold_id: int
     train_indices: tuple[int, ...]
@@ -147,15 +155,34 @@ def load_formal_regression_data(contract: FrozenContract, *, formal_authorized: 
     """Read-only canonical adapter; execution remains authorization-gated."""
     if not formal_authorized:
         raise PermissionError("FORMAL_REGRESSION_OOF_REQUIRES_SEPARATE_AUTHORIZATION")
-    metadata = load_regression_metadata(contract)
-    view = np.load(contract.output_root / "training_view_v1.npz", allow_pickle=False)
-    ids = tuple(str(value) for value in view["candidate_ids"])
-    if ids != metadata.sample_ids:
-        raise RuntimeError("CANONICAL_REGRESSION_ID_ORDER_DRIFT")
+    return load_regression_development_view(contract).data
+
+
+def load_regression_development_view(contract: FrozenContract) -> RegressionDevelopmentView:
+    """Load only the versioned non-sealed development view and identity registries."""
+    root = contract.output_root
+    meta = json.loads((root / "regression_development_view_v1.json").read_text(encoding="utf8"))
+    if meta["development_rows"] != 726 or meta["excluded_sealed_identity_rows"] != 111:
+        raise RuntimeError("REGRESSION_DEVELOPMENT_VIEW_CONTRACT_DRIFT")
+    view = np.load(root / "regression_development_view_v1.npz", allow_pickle=False)
     X = np.asarray(view["X"], dtype=float); y = np.asarray(view["y_regression"], dtype=float)
-    if X.shape != (2640, 150) or y.shape != (2640, 4):
-        raise RuntimeError("CANONICAL_REGRESSION_SHAPE_DRIFT")
-    return RegressionData(X, y, metadata)
+    ids = tuple(str(v) for v in view["candidate_ids"]); roles = tuple(str(v) for v in view["roles"])
+    folds = tuple(int(v) for v in view["folds"]); round1 = tuple(role.startswith("round1_eligible_fold_") for role in roles)
+    if X.shape != (726, 150) or y.shape != (726, 4) or not np.isfinite(y).all():
+        raise RuntimeError("REGRESSION_DEVELOPMENT_VIEW_SHAPE_OR_TARGET_DRIFT")
+    counts = {"round1_count": 100, "round1_eligible_count": 100, "round1_ineligible_count": 28,
+              "original_train_eligible": 443, "original_validation_eligible": 111,
+              "original_calibration_eligible": 72, "sealed_test": 111}
+    metadata = RegressionMetadata(ids, tuple(str(v) for v in view["geometry_hashes"]), tuple(str(v) for v in view["groups"]),
+        roles, folds, round1, tuple(True for _ in ids), tuple("eligible" for _ in ids), tuple(str(v) for v in view["target_masks"]),
+        tuple(str(v) for v in view["provenance"]), contract.feature_signature, counts)
+    ineligible = tuple({key: row[key] for key in ("candidate_id","canonical_geometry_hash","source_dataset","source_row_id","original_split")}
+        for row in csv.DictReader((root / "merged_registry_v1.csv").open(encoding="utf8", newline=""))
+        if row["candidate_id"].startswith("ROUND1:") and row["continuous_regression_target_eligible"] == "False")
+    excluded = tuple(csv.DictReader((root / "regression_development_excluded_sealed_v1.csv").open(encoding="utf8", newline="")))
+    if len(ineligible) != 28 or len(excluded) != 377:
+        raise RuntimeError("REGRESSION_DEVELOPMENT_IDENTITY_REGISTRY_DRIFT")
+    return RegressionDevelopmentView(RegressionData(X, y, metadata), ineligible, excluded, meta["view_fingerprint"])
 
 
 def build_regression_crossfit_plan(data: RegressionMetadata | RegressionData, contract: FrozenContract) -> tuple[RegressionFoldPlan, ...]:

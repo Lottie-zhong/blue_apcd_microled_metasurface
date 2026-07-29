@@ -21,7 +21,16 @@ from .formal_run_v2 import allocate, atomic_json, commit
 
 def readiness(contract, scope: str) -> dict:
     inputs = load(contract)
-    if scope in {"FORMAL_CLASSIFICATION_OOF_ONLY", "REGRESSION_PRODUCTION_DISPATCH_ATTESTATION_ONLY", "FORMAL_REGRESSION_OOF_ONLY"}:
+    regression_ready = False
+    if scope == "FORMAL_REGRESSION_OOF_ONLY":
+        from .regression import build_regression_crossfit_plan, load_regression_development_view
+        development = load_regression_development_view(contract)
+        plans = build_regression_crossfit_plan(development.data, contract)
+        regression_ready = ([len(plan.train_indices) for plan in plans] == [519, 521, 509, 523]
+                            and [len(plan.validation_indices) for plan in plans] == [111] * 4
+                            and [len(plan.calibration_indices) for plan in plans] == [72] * 4)
+        status = "CANONICAL_INPUT_AND_RUNROOT_READY" if regression_ready else "CANONICAL_INPUT_NOT_READY"
+    elif scope in {"FORMAL_CLASSIFICATION_OOF_ONLY", "REGRESSION_PRODUCTION_DISPATCH_ATTESTATION_ONLY"}:
         status = "CANONICAL_INPUT_AND_RUNROOT_READY"
     else:
         status = "PRODUCTION_FOLD_EXECUTION_NOT_ATTESTED"
@@ -29,7 +38,10 @@ def readiness(contract, scope: str) -> dict:
             "authorization_scope": scope, "inputs": inputs, "fit_calls": 0,
             "prediction_calls": 0, "formal_output_write_count": 0,
             "sealed_test_target_reads": 0, "sealed_test_prediction_calls": 0,
-            "solver_calls": 0}
+            "solver_calls": 0,
+            "formal_regression_production_dispatch_implementation_ready": True,
+            "formal_regression_canonical_input_ready": regression_ready,
+            "formal_regression_production_dispatch_ready": regression_ready}
 
 
 def canonical_classification_plan(contract) -> dict:
@@ -220,7 +232,7 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         from .artifacts import ArtifactPolicy, AtomicArtifactStore
         from .regression import REGRESSION_TARGETS, SEEDS, load_formal_regression_data, run_regression_crossfit
         data = load_formal_regression_data(contract, formal_authorized=True)
-        if data.X.shape != (837, 150) or data.y.shape != (837, 4):
+        if data.X.shape != (726, 150) or data.y.shape != (726, 4):
             raise RuntimeError("CANONICAL_REGRESSION_INPUT_SHAPE_DRIFT")
         policy = ArtifactPolicy.formal_run(root, worktree_root=ROOT, formal_output_root=contract.output_root, authorized=True)
         store = AtomicArtifactStore(policy, run_id=run_id, signature_bundle=contract.signatures)
