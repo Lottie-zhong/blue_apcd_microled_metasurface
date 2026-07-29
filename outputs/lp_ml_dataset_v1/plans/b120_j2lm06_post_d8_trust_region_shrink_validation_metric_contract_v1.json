@@ -1,0 +1,26 @@
+{
+  "allowed_outcomes": [
+    "SHRUNK_REGION_LINEARITY_RECOVERED",
+    "SHRINK_REDUCES_CURVATURE_BUT_REMAINS_NONLINEAR",
+    "CURVATURE_REMAINS_DOMINANT_AT_QUANTIZATION_FLOOR",
+    "ACTIVE_DIRECTION_ROTATES_AFTER_SHRINK",
+    "HARD_GATE_DATA_CONFLICT"
+  ],
+  "contract_version": "POST_D8_TRUST_REGION_SHRINK_VALIDATION_METRIC_CONTRACT_V1",
+  "no_full_hessian_claim": true,
+  "required_metrics": [
+    "actual_normalized_displacement",
+    "effective_alpha_by_variable",
+    "norm_effective_alpha",
+    "ray_angle_error_deg",
+    "ray_preservation_cosine",
+    "predicted_phase_linear_deg",
+    "predicted_phase_curvature_deg",
+    "predicted_phase_even_over_odd",
+    "predicted_phase_total_change_deg",
+    "jones_curvature_linear_ratio",
+    "geometry_uniqueness",
+    "manufacturing_legality"
+  ],
+  "status": "HARD_GATE_QUANTIZATION_FLOOR_PREVENTS_MEANINGFUL_SHRINK"
+}
