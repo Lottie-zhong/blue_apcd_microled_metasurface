@@ -22,7 +22,7 @@ def main():
    fdtd.addrect(); fdtd.set('name','SiO2 substrate'); fdtd.set('x span',1740e-9); fdtd.set('y span',290e-9); fdtd.set('z min',-600e-9); fdtd.set('z max',0); fdtd.set('material',names['APCD_SIO2_NATIVE_M1'])
    for i,row in enumerate(rows):
     fdtd.addcircle(); fdtd.set('name',f'TiO2_pillar_{i}'); fdtd.set('x',row['x_position_nm']*1e-9); fdtd.set('y',0); fdtd.set('radius',row['diameter_nm']*0.5e-9); fdtd.set('z min',0); fdtd.set('z max',500e-9); fdtd.set('material',names['APCD_TIO2_NATIVE_M1'])
-   fdtd.addplane(); fdtd.set('name','source_x_forward'); fdtd.set('injection axis','z-axis'); fdtd.set('direction','Forward'); fdtd.set('polarization angle',0); fdtd.set('x span',1740e-9); fdtd.set('y span',290e-9); fdtd.set('z',700e-9); fdtd.set('wavelength start',445e-9); fdtd.set('wavelength stop',455e-9)
+   fdtd.addplane(); fdtd.set('name','source_x_forward'); fdtd.set('injection axis','z-axis'); fdtd.set('direction','Forward'); fdtd.set('polarization angle',0); fdtd.set('x span',1740e-9); fdtd.set('y span',290e-9); fdtd.set('z',-250e-9); fdtd.set('wavelength start',445e-9); fdtd.set('wavelength stop',455e-9)
    for name,z in [('reflection_monitor',-300e-9),('transmission_monitor',900e-9),('order_monitor',900e-9),('field_450_monitor',900e-9)]:
     fdtd.addpower(); fdtd.set('name',name); fdtd.set('monitor type','2D Z-normal'); fdtd.set('x span',1740e-9); fdtd.set('y span',290e-9); fdtd.set('z',z)
    fdtd.setglobalmonitor('use source limits',1); fdtd.setglobalmonitor('use wavelength spacing',1); fdtd.setglobalmonitor('frequency points',11); fdtd.save(str(p))

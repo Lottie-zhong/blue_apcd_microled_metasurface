@@ -1,0 +1,374 @@
+{
+  "old": [
+    {
+      "case_id": "K6_BLANK_FIXED_REFERENCE_X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": 700.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    },
+    {
+      "case_id": "TRANSMISSION_BALANCED_K6X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": 700.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    },
+    {
+      "case_id": "PHASE_ORIENTED_K6X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": 700.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    },
+    {
+      "case_id": "BROADBAND_PARETO_K6X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": 700.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    }
+  ],
+  "corrected": [
+    {
+      "case_id": "K6_BLANK_FIXED_REFERENCE_X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": -250.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    },
+    {
+      "case_id": "TRANSMISSION_BALANCED_K6X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": -250.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    },
+    {
+      "case_id": "PHASE_ORIENTED_K6X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": -250.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    },
+    {
+      "case_id": "BROADBAND_PARETO_K6X",
+      "source": {
+        "name": "source_x_forward",
+        "z_nm": -250.0,
+        "type": "PlaneSource",
+        "injection_axis": "z-axis",
+        "direction": "Forward",
+        "polarization_angle": 0.0,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0
+      },
+      "fdtd": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 1200.0,
+        "z_min_bc": "PML",
+        "z_max_bc": "PML"
+      },
+      "substrate": {
+        "z_min_nm": -600.0,
+        "z_max_nm": 0.0,
+        "material": "APCD_SIO2_NATIVE_M1"
+      },
+      "monitors": [
+        {
+          "name": "reflection_monitor",
+          "z_nm": -300.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "transmission_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "order_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        },
+        {
+          "name": "field_450_monitor",
+          "z_nm": 900.0,
+          "type": "DFTMonitor"
+        }
+      ]
+    }
+  ]
+}
