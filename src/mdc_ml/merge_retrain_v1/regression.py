@@ -161,6 +161,9 @@ def load_formal_regression_data(contract: FrozenContract, *, formal_authorized: 
 def load_regression_development_view(contract: FrozenContract) -> RegressionDevelopmentView:
     """Load only the versioned non-sealed development view and identity registries."""
     root = contract.output_root
+    development_contract = json.loads((ROOT / "configs" / "mdc_ml_regression_development_contract_v1.json").read_text(encoding="utf8"))
+    if development_contract["development_rows"] != 726 or development_contract["sealed_regression_rows_excluded"] != 111:
+        raise RuntimeError("REGRESSION_DEVELOPMENT_CONTRACT_DRIFT")
     meta = json.loads((root / "regression_development_view_v1.json").read_text(encoding="utf8"))
     if meta["development_rows"] != 726 or meta["excluded_sealed_identity_rows"] != 111:
         raise RuntimeError("REGRESSION_DEVELOPMENT_VIEW_CONTRACT_DRIFT")
