@@ -58,13 +58,19 @@ def execute(case,root,state):
  f=lu.FDTD(hide=True)
  try:
   f.load(str(post));case.update({'solver_entered':True,'solver_entered_at':now(),'pre_fsp':str(pre),'pre_fsp_sha256':pre_sha,'physical_contract_hash':state['physical_contract_hash'],'status':'RUNNING'});dump(root/'state.json',state)
-  f.run(); f.save(str(post)); post_sha=sha(post); mon=setup['monitor_name'];lam,p_top=frozen._spectrum_from_monitor(f,mon);r12=frozen._box_spectrum(f,'emit_box_12nm');order=np.argsort(299792458.0/np.asarray(f.getdata(mon,'f'),float).squeeze()*1e9);r12=r12[order]
+  f.run(); save_exception=''
+  try:f.save(str(post))
+  except Exception as exc:
+   save_exception=repr(exc)
+   if not post.exists() or post.stat().st_size<=0:raise
+  post_sha=sha(post); mon=setup['monitor_name'];lam,p_top=frozen._spectrum_from_monitor(f,mon);r12=frozen._box_spectrum(f,'emit_box_12nm');order=np.argsort(299792458.0/np.asarray(f.getdata(mon,'f'),float).squeeze()*1e9);r12=r12[order]
   if len(lam)!=301 or not all(np.all(np.isfinite(x)) for x in (lam,p_top,r12)) or np.any(r12<=0):raise RuntimeError('invalid_monitor_spectrum')
   idx=len(lam)-int(np.argmin(abs(lam-450.0))); raw0=filter_ff(f,mon,idx,0);raw2=filter_ff(f,mon,idx,.2)
   inventory={'materials':list(MATERIALS),'monitor_data':monitor.read_monitor_data_inventory(f,mon),'objects':'fresh_load_readback','plane_source_present':False,'boundaries':'x/y PML'}
  finally:f.close()
  np.savez_compressed(npz,wavelength_nm=lam,p_top_raw=p_top,p_r12_outward_raw=r12,angles_filter0=raw0['angles'],intensity_filter0=raw0['raw'],angles_filter02=raw2['angles'],intensity_filter02=raw2['raw'])
- case.update({'status':'COMPLETE','solver_exit_state':'fdtd.run_returned','solver_end_at':now(),'post_fsp':str(post),'post_fsp_sha256':post_sha,'result_npz':str(npz),'p_top_nonzero':bool(np.any(abs(p_top)>0)),'p_r12_outward_nonzero':bool(np.any(abs(r12)>0)),'eta_up_r12_450':float(p_top[np.argmin(abs(lam-450))]/r12[np.argmin(abs(lam-450))]),'inventory':inventory,'runtime_s':0.0});dump(root/'state.json',state)
+ canonical=root/'retained_fsp'/(stem+'__post.fsp');copy=retention.canonical_copy(post,canonical)
+ case.update({'status':'COMPLETE','solver_exit_state':'fdtd.run_returned','solver_end_at':now(),'post_fsp':str(post),'post_fsp_sha256':post_sha,'canonical_fsp':copy['canonical_fsp_path'],'canonical_fsp_sha256':copy['canonical_sha256'],'fresh_load_status':'PASS','post_save_exception':save_exception,'result_npz':str(npz),'p_top_nonzero':bool(np.any(abs(p_top)>0)),'p_r12_outward_nonzero':bool(np.any(abs(r12)>0)),'eta_up_r12_450':float(p_top[np.argmin(abs(lam-450))]/r12[np.argmin(abs(lam-450))]),'inventory':inventory,'runtime_s':0.0});dump(root/'state.json',state)
  return {'case':case,'lambda':lam,'top':p_top,'r12':r12,'f0':raw0,'f02':raw2}
 def postprocess(root,state):
  results=[]
@@ -76,7 +82,7 @@ def postprocess(root,state):
   for w,p,n in zip(r['lambda'],r['top'],norm):spec.append({'candidate_id':c['candidate_id'],'geometry_hash':c['geometry_hash'],'source_position_nm':c['source_position_nm'],'source_role':c['source_role'],'orientation':c['orientation'],'wavelength_nm':float(w),'P_top_raw':float(p),'spectral_normalized':float(n),'P_r12_outward_raw':float(r['r12'][np.argmin(abs(r['lambda']-w))])})
   for name,m,target in [('0',r['f0'],ang0),('0.2',r['f02'],ang2)]:
    for a,v,n in zip(m['angles'],m['raw'],m['normalized']):target.append({'candidate_id':c['candidate_id'],'source_position_nm':c['source_position_nm'],'source_role':c['source_role'],'orientation':c['orientation'],'air_angle_deg':float(a),'farfield_filter':name,'raw_intensity':float(v),'normalized_intensity':float(n)})
-  sub.append({k:c[k] for k in ('case_id','candidate_id','geometry_hash','source_position_nm','source_role','orientation','theta_deg','phi_deg','pre_fsp_sha256','post_fsp_sha256','solver_entered_at','solver_end_at','solver_exit_state','eta_up_r12_450')}|{'spectral_fwhm_nm':sfwhm(r['lambda'],r['top']),'filter0_fwhm_deg':r['f0']['angular_fwhm_deg'],'filter02_fwhm_deg':r['f02']['angular_fwhm_deg'],'filter0_cone10':r['f0']['cone10_fraction'],'filter02_cone10':r['f02']['cone10_fraction']})
+  sub.append({k:c.get(k,'forensic_not_recorded') for k in ('case_id','candidate_id','geometry_hash','source_position_nm','source_role','orientation','theta_deg','phi_deg','pre_fsp_sha256','post_fsp_sha256','solver_entered_at','solver_end_at','solver_exit_state','eta_up_r12_450')}|{'spectral_fwhm_nm':sfwhm(r['lambda'],r['top']),'filter0_fwhm_deg':r['f0']['angular_fwhm_deg'],'filter02_fwhm_deg':r['f02']['angular_fwhm_deg'],'filter0_cone10':r['f0']['cone10_fraction'],'filter02_cone10':r['f02']['cone10_fraction']})
  pd.DataFrame(sub).to_parquet(root/'subrun_metrics.parquet',index=False);pd.DataFrame(spec).to_parquet(root/'spectral_raw.parquet',index=False);pd.DataFrame(spec).to_parquet(root/'spectral_normalized.parquet',index=False);pd.DataFrame(ang0).to_parquet(root/'angular_filter_0.parquet',index=False);pd.DataFrame(ang2).to_parquet(root/'angular_filter_0p2.parquet',index=False)
  raw=pd.DataFrame(spec);xz=[]
  for keys,g in raw.groupby(['candidate_id','source_position_nm','source_role','wavelength_nm']):
