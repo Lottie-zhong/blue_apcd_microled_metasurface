@@ -1,0 +1,19 @@
+{
+  "schema_version": "mdc_ml_formal_regression_oof_726_v1",
+  "status": "PASS",
+  "formal_run_id": "regression_oof-20260729T055956Z-3109d794627e",
+  "formal_run_root": "C:\\Users\\DELL\\AppData\\Local\\Temp\\mdc-formal-regression-oof-726-20260729T055955Z\\regression_oof-20260729T055956Z-3109d794627e",
+  "execution_code_commit": "3109d794627e5d79cb23d2568b77036bb13b2960",
+  "run_kind": "regression_oof",
+  "authorization_scope": "FORMAL_REGRESSION_OOF_ONLY",
+  "official_formal_run": true,
+  "synthetic": false,
+  "attestation": false,
+  "fingerprints": {"canonical_input": "7769c95d8062a73133490463c330120ad9eb7e19d57b9a15bfea6b9eb3afe054", "config": "531fdff3dfb57d7233915c103a0e118369633a3e619eeb45092edef1f03b350d", "view": "dd4c85829bfc0d2b4b54c5e06b4362f8c4ccb2971084b8725177cf1b4ea0122c", "run": "4ba215d7d6584eca22de0cba4dfcfc3f7ebf797ce1950aeb27250f791ad4dbac", "manifest_sha256": "9d091f9b1548ea391edfda248154d7ec2bf23f25e6228ce1fc0f1cac4657da9e", "development_contract_sha256": "e4459941dc3b09ad57a31a09190e27f204a3fe6df2cd76fcf46440d88c05142b"},
+  "counts": {"folds_complete": 4, "seed_fit_calls": 12, "ensemble_fits": 4, "conformal_fits": 4, "sample_oof_rows": 100, "target_oof_rows": 400, "seed_target_rows": 1200, "interval_rows": 400, "ineligible_rows": 28, "ineligible_predictions": 0},
+  "fold_counts": {"train": [519, 521, 509, 523], "validation": [111, 111, 111, 111], "calibration": [72, 72, 72, 72], "held_out": [24, 22, 34, 20]},
+  "metrics": {"spectral_fwhm_normal_nm": {"mae": 2.227742, "rmse": 4.183299, "coverage": 0.91, "mean_interval_width": 14.979141}, "angular_fwhm_450_deg": {"mae": 7.841950, "rmse": 10.809938, "coverage": 0.95, "mean_interval_width": 47.267502}, "cone5_integral_proxy": {"mae": 0.027312, "rmse": 0.035422, "coverage": 0.93, "mean_interval_width": 0.143934}, "normal_band_transmission_proxy": {"mae": 0.156635, "rmse": 0.203544, "coverage": 0.94, "mean_interval_width": 0.843956}},
+  "durability": {"completed_seed_retrained": 0, "completed_run_rerun_new_fit_calls": 0, "completed_run_noop": "PASS", "fresh_process_replay": "PASS", "missing_duplicate_unexpected_failed_nan_inf": 0},
+  "classification_immutability": {"added": 0, "removed": 0, "modified": 0},
+  "safety": {"FORMAL_REGRESSION_OOF_STARTED": true, "FORMAL_REGRESSION_OOF_COMPLETE": true, "FORMAL_REGRESSION_OOF_CALLS": 1, "sealed_test_target_reads": 0, "sealed_test_prediction_calls": 0, "sealed_test_evaluation_count": 1, "TMM_calls": 0, "FDTD_calls": 0, "Lumerical_calls": 0, "FINAL_CLASSIFIER_CALLS": 0, "FINAL_REGRESSOR_CALLS": 0}
+}
