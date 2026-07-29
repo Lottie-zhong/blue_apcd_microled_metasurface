@@ -1,0 +1,202 @@
+{
+  "data_bundle_commit": "5bd69e01151ae501ba41e6f3fe9536affff40da2",
+  "dependencies": {
+    "already_present": [
+      "metasurface.apcd_material_library",
+      "numpy",
+      "pytest",
+      "yaml"
+    ],
+    "exact_recovered_from_06eb759": [],
+    "excluded_unrelated": [
+      "scripts/apcd_native_materials.py: legacy_not_authoritative"
+    ],
+    "required_but_missing": [],
+    "standard_library": [
+      "__future__",
+      "csv",
+      "functools",
+      "pathlib",
+      "sys",
+      "typing"
+    ],
+    "test_only": []
+  },
+  "extrapolation_allowed": false,
+  "fallback_allowed": false,
+  "implementation": [
+    {
+      "action": "already_exact",
+      "byte_exact": true,
+      "bytes": 4855,
+      "current_blob": "2ca9ce58b3360c3e954aa0cef49c0e690b623f20",
+      "exists_before": true,
+      "path": "src/metasurface/apcd_material_library.py",
+      "sha256": "48c2acc3a6edcc2fff63b82cb5793e9fef80842670900427d00df4db752c0edd",
+      "source_blob": "2ca9ce58b3360c3e954aa0cef49c0e690b623f20"
+    },
+    {
+      "action": "already_exact",
+      "byte_exact": true,
+      "bytes": 2138,
+      "current_blob": "3f7b7da4f840d1eda7fb3b47842f505f2f8d1f8d",
+      "exists_before": true,
+      "path": "src/metasurface/lumerical_native_materials.py",
+      "sha256": "5d440601fdc609a56aa02fece3f5613b7765209bfdf78907c0683d30f510911f",
+      "source_blob": "3f7b7da4f840d1eda7fb3b47842f505f2f8d1f8d"
+    },
+    {
+      "action": "already_exact",
+      "byte_exact": true,
+      "bytes": 2094,
+      "current_blob": "53b686a72194ca17536a4417d556825abcab115c",
+      "exists_before": true,
+      "path": "tests/test_apcd_material_library.py",
+      "sha256": "cab66cc9cdc1c4f589641d27a6b26fd9ce4937a9fdbb2bf0bb1405e3968e7822",
+      "source_blob": "53b686a72194ca17536a4417d556825abcab115c"
+    }
+  ],
+  "implementation_commit": "06eb759",
+  "interpolation_axis": "frequency_hz",
+  "material_data": {
+    "files": [
+      {
+        "bytes": 547,
+        "current_blob": "dd221601f28dbfd5ce108ad5811900fb14c3efcd",
+        "path": "configs/material_reference_apcd_blue.yaml",
+        "sha256": "59fab53b4261cf86b789681d80d7545baaba70dcc6692a03e9ce543c71fe8fc4",
+        "source_blob": "dd221601f28dbfd5ce108ad5811900fb14c3efcd",
+        "source_commit": "c5fd9990f7d5e9fa385ef71fdeff3f5791b8c06b",
+        "status": "exact"
+      },
+      {
+        "bytes": 1418,
+        "current_blob": "e95bfa1e2389a3aec87e63fe0acd6d443adc8053",
+        "path": "configs/material_reference_apcd_blue.json",
+        "sha256": "ce174a40d8fb0f4380551f44f1b2d93351a579662f220458e057a298afd5205f",
+        "source_blob": "e95bfa1e2389a3aec87e63fe0acd6d443adc8053",
+        "source_commit": "5bd69e01151ae501ba41e6f3fe9536affff40da2",
+        "status": "exact"
+      },
+      {
+        "bytes": 3264,
+        "current_blob": "7c3f22ba1795a5762e2f943c41e4d93968339cfe",
+        "path": "configs/mdc_defect_450_material_policy.json",
+        "sha256": "cf9ea2303c91e71a4c92821ea4e88a10dcb9d1592f8401bd8b396a81c2cfb0c5",
+        "source_blob": "7c3f22ba1795a5762e2f943c41e4d93968339cfe",
+        "source_commit": "5bd69e01151ae501ba41e6f3fe9536affff40da2",
+        "status": "exact"
+      },
+      {
+        "bytes": 63623,
+        "current_blob": "db736c466d3b1095503995cf47506f27999a1d55",
+        "path": "outputs/material_reference/mdc_blue_oujizi_m/material_ref_native_sampled_mdc_native_m1.csv",
+        "sha256": "3f924764311cab5fb824f229a26870eca65f22f05419b985047f151529230edb",
+        "source_blob": "db736c466d3b1095503995cf47506f27999a1d55",
+        "source_commit": "5bd69e01151ae501ba41e6f3fe9536affff40da2",
+        "status": "exact"
+      }
+    ],
+    "info": {
+      "canonical_ids": [
+        "APCD_TIO2_NATIVE_M1",
+        "APCD_SIO2_NATIVE_M1"
+      ],
+      "frequency_hz_max": 2297084192782163.0,
+      "frequency_hz_min": 290158752189190.56,
+      "gan_status": "not_in_native_m1_bundle_and_explicitly_unsupported_no_fallback",
+      "rows": 702,
+      "strictly_increasing_after_sort": false,
+      "windows_path_status": "resolved_by_PATH_relative_to_repo"
+    },
+    "legacy_csv_recovery": {
+      "action": "already_exact",
+      "path": "outputs/material_reference/mdc_blue_oujizi_m/material_ref_native_sampled.csv",
+      "sha256": "fe8b14986edcc5aee6ac06b25ce421efcc09a5d23f0eaad0c9b19a58894bd7c5",
+      "source_blob": "52750dd00df81920d4ac82210b7679d3ab8bddf8",
+      "source_commit": "c5fd9990f7d5e9fa385ef71fdeff3f5791b8c06b"
+    }
+  },
+  "p1_d2_identity": {
+    "background": "Air",
+    "pillar": "APCD_TIO2_NATIVE_M1",
+    "substrate": "APCD_SIO2_NATIVE_M1"
+  },
+  "schema": "np-p1d4b-native-m1-lineage-v1",
+  "setup_only_smoke": {
+    "controller_returned": 0,
+    "engine_completed": 0,
+    "external_fsp_used": false,
+    "lumapi_imported": true,
+    "materials": {
+      "APCD_SIO2_NATIVE_M1": {
+        "canonical_name": "APCD_SIO2_NATIVE_M1",
+        "frequency_hz_max": 1499153432062587.8,
+        "frequency_hz_min": 290158752189190.56,
+        "material_type": "Sampled 3D data",
+        "material_type_readback_errors": [],
+        "material_type_readback_property": "type",
+        "registered_via": "Sampled 3D data",
+        "sample_count": 101
+      },
+      "APCD_TIO2_NATIVE_M1": {
+        "canonical_name": "APCD_TIO2_NATIVE_M1",
+        "frequency_hz_max": 1499153432062587.8,
+        "frequency_hz_min": 290158752189190.56,
+        "material_type": "Sampled 3D data",
+        "material_type_readback_errors": [],
+        "material_type_readback_property": "type",
+        "registered_via": "Sampled 3D data",
+        "sample_count": 101
+      }
+    },
+    "performed": true,
+    "post_saved": 0,
+    "reload_pass": true,
+    "session_created": true,
+    "solver_entered": 0,
+    "solver_method_calls": [],
+    "solver_run_called": false,
+    "temporary_fsp_path": "C:\\Users\\DELL\\AppData\\Local\\Temp\\np_mat2_smoke_k68s4v8t\\material_smoke.fsp",
+    "temporary_fsp_sha256": "d014b1bdcad6053fe4778697bfb8648f5fbc3a4ce073fdc4e7efa7fa3727ad74"
+  },
+  "solver_zero": {
+    "controller_returned": 0,
+    "engine_completed": 0,
+    "external_fsp_used": false,
+    "post_saved": 0,
+    "solver_entered": 0,
+    "solver_run_called": false
+  },
+  "test_results": [
+    {
+      "command": [
+        "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_apcd_material_library.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "....                                                                     [100%]\n4 passed in 0.24s\n"
+    },
+    {
+      "command": [
+        "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+        "-m",
+        "pytest",
+        "tests\\test_np_k6_p1d4b_native_m1_material_lineage.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ".                                                                        [100%]\n1 passed in 0.21s\n"
+    }
+  ],
+  "wrapper": {
+    "path": "scripts/apcd_native_materials.py",
+    "status": "legacy_not_authoritative"
+  },
+  "yaml_fix_commit": "c5fd9990f7d5e9fa385ef71fdeff3f5791b8c06b"
+}
