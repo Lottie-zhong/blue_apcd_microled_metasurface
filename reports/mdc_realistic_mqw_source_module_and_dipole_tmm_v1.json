@@ -1,0 +1,74 @@
+{
+  "candidate_count": 2,
+  "candidate_ranking": [
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "rank": 1,
+      "ranking_metric": "cone10_relative_sum_450",
+      "score": 18.630221506046343
+    },
+    {
+      "candidate_id": "BARE_GAN_AIR",
+      "rank": 2,
+      "ranking_metric": "cone10_relative_sum_450",
+      "score": 17.388400156536825
+    }
+  ],
+  "centroid_vs_12well_relative_delta_normal": {
+    "max": 4.041708422146412e-16,
+    "mean": 5.497584148368572e-17,
+    "min": -3.2808176082922453e-16
+  },
+  "legacy_minus400_vs_12well_relative_delta_normal": {
+    "max": 4.041708422146412e-16,
+    "mean": 5.497584148368572e-17,
+    "min": -3.2808176082922453e-16
+  },
+  "limitations": [
+    "homogeneous_GaN_optical_approximation; no unverified InGaN/AlGaN/AlN/sapphire optical constants",
+    "relative air-channel radiation only; no absolute extraction, total emitted power, LDOS, or Purcell claim",
+    "strain-release wells are sensitivity-only and have formal primary-emission weight zero"
+  ],
+  "manifest_sha256": "0e2fd6bece57fc69449e912415c81272d956fa5ecb891de885ffad7576700bd8",
+  "primary_weight_sum": 1.0,
+  "primary_well_count": 12,
+  "recommended_fdtd_matrix": {
+    "candidates": [
+      "BARE_GAN_AIR",
+      "P1_ZL1_ALTERNATIVE_G3_A3"
+    ],
+    "combine": "separate runs; incoherent 0.5*x + 0.5*z",
+    "orientations": [
+      "x",
+      "z"
+    ],
+    "positions_nm": [
+      -171.5,
+      -276.0,
+      -380.5
+    ]
+  },
+  "run_root": "outputs\\mdc_realistic_mqw_dipole_tmm_v1\\mqw-dipole-tmm-20260729T085000Z-316c054b2ecc",
+  "safety_counters": {
+    "FDTD_calls": 0,
+    "Lumerical_calls": 0,
+    "RCWA_calls": 0,
+    "model_fit_calls": 0,
+    "prediction_calls": 0,
+    "sealed_test_target_reads": 0
+  },
+  "three_position_approximation": "Not accepted as a formal replacement in V1: use the full 12-well average. Three positions are an FDTD budget reduction only, pending direct high-fidelity validation.",
+  "validation": {
+    "all_finite": true,
+    "bare_and_angle_symmetry": "PASS",
+    "coordinate_contract": "PASS",
+    "deterministic_replay": "PASS",
+    "grid_refinement": "PASS (prior solver validation unchanged)",
+    "incoherent_average": "PASS",
+    "ordinary_tmm_smatrix_crosscheck": "PASS (inherited validated solver)",
+    "weights": "PASS",
+    "well_centers_centroid": "PASS"
+  },
+  "well_positions_change_ranking": false,
+  "x_z_mean_relative_difference": 0.12674319805870096
+}
