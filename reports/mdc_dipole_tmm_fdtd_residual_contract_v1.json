@@ -1,0 +1,325 @@
+{
+  "answers": {
+    "alternative_retains_angular_advantage": true,
+    "angular_fwhm_and_cone5_cone10_order_agreement": true,
+    "bare_advantage_is_relative_upward_power_only": true,
+    "fdtd_power_order": "Bare > nominal > alternative",
+    "formal_filter_0p2_frozen": true,
+    "next_active_learning_recommendation": "Add 12-16 geometries using 3 positions x 2 orientations (72-96 FDTD cases); select geometry-diverse points across TMM power, cone, angular-FWHM, and predicted residual extremes.",
+    "nominal_is_between_bare_and_alternative_for_fdtd_upward_power": true,
+    "paired_18_of_18": true,
+    "power_order_agreement": false,
+    "ranking_disagreements": [
+      "relative_upward_power",
+      "spectral_fwhm",
+      "composite_angle_power_tradeoff"
+    ],
+    "residual_model_training_supported": false,
+    "source_position_span_dominated_by_fdtd_bare": true,
+    "x_z_trend_agreement": false
+  },
+  "filter": {
+    "audit_filter": "0",
+    "formal_filter": "0.2",
+    "formal_frozen": true,
+    "max_abs_case_delta": 0.0061416099804813,
+    "max_abs_case_id": "zl1_alternative__bottom_primary_well__x__dtmm",
+    "mean_cone10_delta_filter02_minus_filter0": -0.0012186437894032287
+  },
+  "formal_residual_model_trained": false,
+  "largest_curve_residual": {
+    "curve_kind": "angular_filter_0p2",
+    "max_abs_error": 0.17107281759006893,
+    "pair_id": "bare__bottom_primary_well__x__dtmm"
+  },
+  "largest_scalar_residual": {
+    "pair_id": "bare__primary_mqw_centroid__z__dtmm",
+    "value": 60.000000000000114
+  },
+  "not_absolute_power_residual": true,
+  "not_purcell_claim": true,
+  "polarization_comparison": [
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "FDTD",
+      "source_position_nm": -380.5,
+      "x_value": 0.06777459862435263,
+      "xz_relative_difference": 0.5122402646361395,
+      "z_value": 0.04013641542695471
+    },
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "FDTD",
+      "source_position_nm": -276.0,
+      "x_value": 0.08737710100318882,
+      "xz_relative_difference": 0.5024596375446896,
+      "z_value": 0.0522888495556296
+    },
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "FDTD",
+      "source_position_nm": -171.5,
+      "x_value": 0.11797601222112065,
+      "xz_relative_difference": 0.5027969013180309,
+      "z_value": 0.07057466427842551
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "FDTD",
+      "source_position_nm": -380.5,
+      "x_value": 0.02480457002369041,
+      "xz_relative_difference": 0.6449676552942647,
+      "z_value": 0.012707525784423792
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "FDTD",
+      "source_position_nm": -276.0,
+      "x_value": 0.03236378061623587,
+      "xz_relative_difference": 0.6593985165675196,
+      "z_value": 0.016314565881464276
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "FDTD",
+      "source_position_nm": -171.5,
+      "x_value": 0.04012272992677621,
+      "xz_relative_difference": 0.6585626235617577,
+      "z_value": 0.020244822932328627
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "FDTD",
+      "source_position_nm": -380.5,
+      "x_value": 0.025488485234851564,
+      "xz_relative_difference": 0.6202784041069427,
+      "z_value": 0.013421098105455644
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "FDTD",
+      "source_position_nm": -276.0,
+      "x_value": 0.03337179092674477,
+      "xz_relative_difference": 0.6352839793642397,
+      "z_value": 0.017282015172430453
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "FDTD",
+      "source_position_nm": -171.5,
+      "x_value": 0.041643137017004485,
+      "xz_relative_difference": 0.637995385010855,
+      "z_value": 0.0215004715785551
+    },
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "Dipole-TMM",
+      "source_position_nm": -380.5,
+      "x_value": 0.8288111058642458,
+      "xz_relative_difference": 0.0,
+      "z_value": 0.8288111058642458
+    },
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "Dipole-TMM",
+      "source_position_nm": -276.0,
+      "x_value": 0.8288111058642458,
+      "xz_relative_difference": 0.0,
+      "z_value": 0.8288111058642458
+    },
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "Dipole-TMM",
+      "source_position_nm": -171.5,
+      "x_value": 0.8288111058642458,
+      "xz_relative_difference": 0.0,
+      "z_value": 0.8288111058642458
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "Dipole-TMM",
+      "source_position_nm": -380.5,
+      "x_value": 0.9866416377252086,
+      "xz_relative_difference": 1.0239816705265371e-14,
+      "z_value": 0.9866416377251985
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "Dipole-TMM",
+      "source_position_nm": -276.0,
+      "x_value": 0.9866416377252086,
+      "xz_relative_difference": 1.0239816705265371e-14,
+      "z_value": 0.9866416377251985
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "Dipole-TMM",
+      "source_position_nm": -171.5,
+      "x_value": 0.9866416377252086,
+      "xz_relative_difference": 1.0239816705265371e-14,
+      "z_value": 0.9866416377251985
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "Dipole-TMM",
+      "source_position_nm": -380.5,
+      "x_value": 0.994156977914453,
+      "xz_relative_difference": 9.604034598043116e-15,
+      "z_value": 0.9941569779144435
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "Dipole-TMM",
+      "source_position_nm": -276.0,
+      "x_value": 0.994156977914453,
+      "xz_relative_difference": 9.604034598043116e-15,
+      "z_value": 0.9941569779144435
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "Dipole-TMM",
+      "source_position_nm": -171.5,
+      "x_value": 0.994156977914453,
+      "xz_relative_difference": 9.604034598043116e-15,
+      "z_value": 0.9941569779144435
+    }
+  ],
+  "ranking_consistency": [
+    {
+      "dtmm_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "fdtd_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "metric": "angular_fwhm",
+      "rank_order_identical": true
+    },
+    {
+      "dtmm_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "fdtd_order": [
+        "P1_ZL1_NOMINAL_G3_A3",
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "metric": "composite_angle_power_tradeoff",
+      "rank_order_identical": false
+    },
+    {
+      "dtmm_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "fdtd_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "metric": "cone10",
+      "rank_order_identical": true
+    },
+    {
+      "dtmm_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "fdtd_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "metric": "cone5",
+      "rank_order_identical": true
+    },
+    {
+      "dtmm_order": [
+        "BARE_GAN_AIR_REFERENCE",
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3"
+      ],
+      "fdtd_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "metric": "relative_upward_power",
+      "rank_order_identical": false
+    },
+    {
+      "dtmm_order": [
+        "P1_ZL1_NOMINAL_G3_A3",
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "fdtd_order": [
+        "P1_ZL1_ALTERNATIVE_G3_A3",
+        "P1_ZL1_NOMINAL_G3_A3",
+        "BARE_GAN_AIR_REFERENCE"
+      ],
+      "metric": "spectral_fwhm",
+      "rank_order_identical": false
+    }
+  ],
+  "residual_interpretation": "model_discrepancy + numerical/device-domain_difference",
+  "solver_calls": 0,
+  "source_position_comparison": [
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "FDTD",
+      "three_position_max": 0.09427533824977308,
+      "three_position_mean": 0.07268794018494533,
+      "three_position_min": 0.05395550702565367,
+      "three_position_relative_span": 0.42768163946859616
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "FDTD",
+      "three_position_max": 0.030183776429552417,
+      "three_position_mean": 0.024426332527486532,
+      "three_position_min": 0.0187560479040571,
+      "three_position_relative_span": 0.3786049950431856
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "FDTD",
+      "three_position_max": 0.031571804297779796,
+      "three_position_mean": 0.02545116633917367,
+      "three_position_min": 0.019454791670153605,
+      "three_position_relative_span": 0.3837922126128942
+    },
+    {
+      "candidate_id": "BARE_GAN_AIR_REFERENCE",
+      "model": "Dipole-TMM",
+      "three_position_max": 0.8288111058642458,
+      "three_position_mean": 0.8288111058642458,
+      "three_position_min": 0.8288111058642458,
+      "three_position_relative_span": 0.0
+    },
+    {
+      "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "model": "Dipole-TMM",
+      "three_position_max": 0.9866416377252036,
+      "three_position_mean": 0.9866416377252035,
+      "three_position_min": 0.9866416377252036,
+      "three_position_relative_span": 0.0
+    },
+    {
+      "candidate_id": "P1_ZL1_NOMINAL_G3_A3",
+      "model": "Dipole-TMM",
+      "three_position_max": 0.9941569779144482,
+      "three_position_mean": 0.9941569779144482,
+      "three_position_min": 0.9941569779144482,
+      "three_position_relative_span": 0.0
+    }
+  ]
+}
