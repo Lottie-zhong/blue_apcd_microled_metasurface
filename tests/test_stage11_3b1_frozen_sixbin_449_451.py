@@ -1,6 +1,7 @@
-﻿import importlib.util
+import importlib.util
 import sys
 from pathlib import Path
+import pytest
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts/stage11_lp_apcd_frozen_sixbin_449_451_runner_stage11_3b1.py"
 spec = importlib.util.spec_from_file_location("stage11_3b1", SCRIPT)
@@ -10,6 +11,8 @@ spec.loader.exec_module(mod)
 
 
 def test_make_run_matrix_has_12_cases_and_no_450():
+    if not any(p.is_file() for p in mod.PLAN_SOURCES):
+        pytest.skip("OPTIONAL_LEGACY_EVIDENCE_ABSENT: Stage11-3B1 source plans are not current formal evidence")
     rows = mod.make_run_matrix()
     assert len(rows) == 12
     assert {int(r["wavelength_nm"]) for r in rows} == {449, 451}

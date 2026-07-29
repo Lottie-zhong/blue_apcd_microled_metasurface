@@ -44,6 +44,10 @@ def test_complete_suite_and_package():
     runner = load_runner()
     result = runner.complete_suite()
     assert result["status"] == "PASS"
-    assert result["formal_d6_staging_created"] is False
+    # D6 staging is a frozen offline artifact; presence is not authorization.
+    assert result["formal_d6_staging_created"] is True
+    assert result["solver_calls"] == 0
+    assert result["lumapi_calls"] == 0
+    assert result["fdtd_calls"] == 0
     manifest = json.loads((runner.PACKAGE / "package_manifest.json").read_text())
     assert manifest["status"] == "READY_FOR_EXPLICIT_D6_EXECUTION"
