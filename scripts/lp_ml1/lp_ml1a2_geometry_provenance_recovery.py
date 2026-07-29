@@ -42,6 +42,8 @@ def explicit_from_csv_json(path: Path, wanted: set[str]) -> dict[str, dict]:
             data=json.loads(path.read_text(encoding="utf-8")); rows = data if isinstance(data,list) else ([data] if isinstance(data,dict) else [])
     except Exception: return out
     for i,r in enumerate(rows, 2):
+        if not isinstance(r, dict):
+            continue
         cid = r.get("candidate_id") or r.get("case_id") or r.get("dimer_case_id") or r.get("source_candidate_id")
         if cid not in wanted: continue
         vals = {k: r.get(k, "") for k in GEOM}
