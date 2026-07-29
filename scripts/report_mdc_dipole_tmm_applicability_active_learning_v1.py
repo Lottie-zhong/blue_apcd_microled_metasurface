@@ -1,0 +1,17 @@
+from pathlib import Path
+import json
+import pandas as pd
+ROOT=Path(__file__).resolve().parents[1]
+OUT=ROOT/'outputs'/'mdc_dipole_tmm_applicability_active_learning_v1'/'applicability-al-20260729T161300Z-899dbc46288e'
+REP=ROOT/'reports'
+def dump(name,x): (REP/name).write_text(json.dumps(x,indent=2,sort_keys=True,allow_nan=False),encoding='utf-8')
+def main():
+ REP.mkdir(exist_ok=True);p=pd.read_parquet(OUT/'primary_geometry_matrix.parquet');r=pd.read_parquet(OUT/'reserve_geometry_matrix.parquet');cases=pd.read_parquet(OUT/'future_case_matrix_primary_72.parquet');rcases=pd.read_parquet(OUT/'future_case_matrix_reserve_24.parquet');metric=pd.read_parquet(OUT/'metric_evidence_table.parquet');budget=json.loads((OUT/'staged_budget_recommendation.json').read_text());contract=json.loads((OUT/'dipole_tmm_applicability_contract.json').read_text())
+ sel={'primary_ids_hashes':p[['candidate_id_primary','geometry_hash']].to_dict(orient='records'),'reserve_ids_hashes':r[['candidate_id_primary','geometry_hash']].to_dict(orient='records'),'stage_AL1_geometry_hashes':budget['stage_AL_1']['primary_geometries'],'coverage_by_stratum':p.selection_stratum.value_counts().to_dict(),'topology_coverage':p.topology_family.value_counts().to_dict(),'primary_cases':len(cases),'reserve_cases':len(rcases),'primary_status':cases.case_status.unique().tolist(),'reserve_status':rcases.case_status.unique().tolist(),'selection_rules':'contract filter, four Pareto strata, deterministic farthest-point coverage, disagreement/boundary/tolerance audit, geometry-hash tie-break','deterministic_replay':'PASS (five core selection parquet SHA256 values identical)','solver_calls':0,'sealed_test_access':0}
+ applicability={'contract_id':contract['contract_id'],'conditions':contract['conditions'],'exclusions':contract['exclusions'],'metric_status':metric.to_dict(orient='records'),'prohibited_proxy_use':contract['prohibited_selection_metrics'],'evidence_root':contract['evidence_root'],'solver_calls':0}
+ staged={'AL1_subruns':36,'AL1_status':'NOT_AUTHORIZED','AL2_subruns':36,'reserve_subruns':24,'total_primary_cases':72,'sample_sufficiency':budget['sample_sufficiency'],'continuation_gates':budget['stage_AL_1']['gates'],'no_auto_solver_authorization':True}
+ dump('mdc_dipole_tmm_applicability_contract_v1.json',applicability);dump('mdc_fdtd_active_learning_geometry_selection_v1.json',sel);dump('mdc_fdtd_staged_budget_plan_v1.json',staged)
+ (REP/'mdc_dipole_tmm_applicability_contract_v1.md').write_text('# Dipole-TMM applicability v1\n\nAngular FWHM, cone5 and cone10 are rank-screening evidence only in the stated planar homogeneous-GaN 2D-line-dipole scope. Relative upward power, x/z delta, source-depth sensitivity, absolute extraction, and Purcell/LDOS are prohibited as FDTD proxies.\n')
+ (REP/'mdc_fdtd_active_learning_geometry_selection_v1.md').write_text('# FDTD active-learning geometry selection v1\n\n12 unique primary and 4 disjoint reserve geometry hashes are frozen. Every selected geometry retains complete sequence/provenance, ordinary-TMM metrics, allowed Dipole-TMM angular metrics, direct tolerance audit, and distance/rationale evidence. Matrices are planned only.\n')
+ (REP/'mdc_fdtd_staged_budget_plan_v1.md').write_text('# Staged FDTD budget plan v1\n\nAL-1 is 6 geometries × 3 positions × 2 orientations = 36 unapproved subruns. Continue only after the recorded residual-identifiability, grouped-validation, angular-simplicity, and power-structure gates. AL-2 is another 36; reserve is 24, all unapproved.\n')
+if __name__=='__main__':main()

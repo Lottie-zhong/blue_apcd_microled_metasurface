@@ -1,0 +1,30 @@
+{
+  "AL1_status": "NOT_AUTHORIZED",
+  "AL1_subruns": 36,
+  "AL2_subruns": 36,
+  "continuation_gates": [
+    "geometry-dependent residual identifiable",
+    "leave-one-geometry-out stability",
+    "angular correction simplicity",
+    "power residual learnable structure"
+  ],
+  "no_auto_solver_authorization": true,
+  "reserve_subruns": 24,
+  "sample_sufficiency": {
+    "after_AL1": 9,
+    "after_primary": 15,
+    "current_independent_geometries": 3,
+    "identifiable_at_15": [
+      "low-dimensional linear residual with grouped validation"
+    ],
+    "identifiable_at_9": [
+      "global scalar correction",
+      "target-wise affine calibration only with grouped validation"
+    ],
+    "not_authorized_without_grouped_validation": [
+      "tree-based residual",
+      "neural residual surrogate"
+    ]
+  },
+  "total_primary_cases": 72
+}
