@@ -1,0 +1,59 @@
+{
+  "stage": "P1-D4B-PREFSP",
+  "contract": {
+    "K": 6,
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "height_nm": 500,
+    "base_z_nm": 0,
+    "x_positions_nm": [
+      -725,
+      -435,
+      -145,
+      145,
+      435,
+      725
+    ],
+    "source": {
+      "injection_axis": "z",
+      "direction": "Forward",
+      "polarization": "x"
+    },
+    "monitor": {
+      "plane": "XY",
+      "z_nm": 900,
+      "gratingn_axis": "x",
+      "gratingu1_axis": "u_x",
+      "target_gratingn": 1,
+      "target_u_x_sign": "positive"
+    },
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "materials": {
+      "pillar": "APCD_TIO2_NATIVE_M1",
+      "substrate": "APCD_SIO2_NATIVE_M1",
+      "background": "Air"
+    },
+    "aspect_ratio_limit": 5.0,
+    "cyclic_gap_limit_nm": 60
+  },
+  "contract_hash": "0d315f9ea962dfbdf3f9373ca508b8a5fdb08b5dde5ea81eb81858f0152ecdc9",
+  "cases": [
+    "K6_BLANK_FIXED_REFERENCE_X",
+    "TRANSMISSION_BALANCED_K6X",
+    "PHASE_ORIENTED_K6X",
+    "BROADBAND_PARETO_K6X"
+  ],
+  "solver_entered": 0
+}
