@@ -45,6 +45,7 @@ def main():
   cid=m['candidate_id']; cps=[x for x in subprov if x['probe_id']==cid]
   candidate={'candidate_id':cid,'parent_anchor':'D8_TRV_PLAN_d6f4911593b64495','x_checkpoint_sha256':next(x['checkpoint_sha256'] for x in cps if x['polarization']=='x'),'y_checkpoint_sha256':next(x['checkpoint_sha256'] for x in cps if x['polarization']=='y'),'x_y_checkpoint_reload_pass':all(x['checkpoint_reload_pass'] for x in cps),'complete_jones_rebuilt_after_acceptance':True,'Jones':{'txx':m['txx'],'txy':m['txy'],'tyx':m['tyx'],'tyy':m['tyy']},'derived_metrics':{k:m[k] for k in ('Txx','Tyy','cross_power','sigma2_over_sigma1','projection_error')},'physics_label':m['physics_label'],'prediction_label':m['prediction_label']}
   (ST/'candidate_checkpoints').mkdir(exist_ok=True);(ST/'candidate_checkpoints'/f'{cid}.json').write_text(json.dumps(candidate,indent=2))
+ (ST/'candidate_metrics.json').write_text(json.dumps(metrics,indent=2))
  (ANAL/'b120_j2lm06_post_d8_recalibration_actual_design_audit_v1.json').write_text(json.dumps(design,indent=2))
  (ANAL/'b120_j2lm06_post_d8_recalibration_local_jacobian_v1.json').write_text(json.dumps(jac,indent=2))
  with (ANAL/'b120_j2lm06_post_d8_recalibration_probe_metrics_v1.csv').open('w',newline='') as f:
