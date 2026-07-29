@@ -230,16 +230,19 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         if synthetic or attestation:
             raise RuntimeError("OFFICIAL_REGRESSION_OOF_REQUIRES_NON_SYNTHETIC_NON_ATTESTATION")
         from .artifacts import ArtifactPolicy, AtomicArtifactStore
-        from .regression import REGRESSION_TARGETS, SEEDS, load_formal_regression_data, run_regression_crossfit
-        data = load_formal_regression_data(contract, formal_authorized=True)
+        from .regression import REGRESSION_TARGETS, SEEDS, load_regression_development_view, run_regression_crossfit
+        development = load_regression_development_view(contract)
+        data = development.data
         if data.X.shape != (726, 150) or data.y.shape != (726, 4):
             raise RuntimeError("CANONICAL_REGRESSION_INPUT_SHAPE_DRIFT")
         policy = ArtifactPolicy.formal_run(root, worktree_root=ROOT, formal_output_root=contract.output_root, authorized=True)
         store = AtomicArtifactStore(policy, run_id=run_id, signature_bundle=contract.signatures)
-        result = run_regression_crossfit(data, contract, store, resume=resume, fixture_max_epochs=240, coverage=0.90)
+        result = run_regression_crossfit(data, contract, store, resume=resume, fixture_max_epochs=240, coverage=0.90,
+                                         ineligible_registry=development.ineligible_registry)
         canonical_input_fingerprint = hashlib.sha256(json.dumps({
             "feature_shape": list(data.X.shape), "target_shape": list(data.y.shape),
             "sample_ids": list(data.metadata.sample_ids), "feature_signature": data.metadata.feature_signature,
+            "development_view_fingerprint": development.view_fingerprint,
             "target_list": list(REGRESSION_TARGETS),
         }, sort_keys=True, separators=(",", ":")).encode("utf8")).hexdigest()
         config_fingerprint = hashlib.sha256(json.dumps({
@@ -249,7 +252,7 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         store.write_json("formal_regression_provenance.json", {
             "official_formal_run": True, "authorization_scope": authorization.scope, "run_kind": stage,
             "execution_code_commit": commit(), "canonical_input_fingerprint": canonical_input_fingerprint,
-            "config_fingerprint": config_fingerprint, "target_list": list(REGRESSION_TARGETS),
+            "development_view_fingerprint": development.view_fingerprint, "config_fingerprint": config_fingerprint, "target_list": list(REGRESSION_TARGETS),
             "seed_list": list(SEEDS), "formal_regression_oof_calls": 1,
         }, artifact_type="formal_regression_provenance", producer_stage="REGRESSION_OOF", producer_unit="dispatch")
         manifest = store.write_manifest("formal_regression_output_manifest.json")
@@ -266,7 +269,7 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
                  "formal_regression_production_dispatch_ready": True,
                  "fold_executor_calls": 4, "seed_fit_calls": 12, "ensemble_fits": 4,
                  "conformal_fits": 4, **result["checks"], "manifest_sha256": manifest.canonical_manifest_sha256,
-                 "canonical_input_fingerprint": canonical_input_fingerprint, "config_fingerprint": config_fingerprint,
+                 "canonical_input_fingerprint": canonical_input_fingerprint, "development_view_fingerprint": development.view_fingerprint, "config_fingerprint": config_fingerprint,
                  "run_fingerprint": run_fingerprint, "formal_regression_oof_calls": 1,
                  "sealed_test_target_reads": 0, "sealed_test_prediction_calls": 0}
     else:
