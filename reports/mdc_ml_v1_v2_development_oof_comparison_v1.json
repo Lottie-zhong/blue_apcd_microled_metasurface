@@ -1,0 +1,14 @@
+{
+  "schema_version": "mdc_ml_v1_v2_development_oof_comparison_v1",
+  "status": "PASS",
+  "comparison_scope": "READ_ONLY_V1_PROSPECTIVE_VS_V2_FORMAL_OOF_DEVELOPMENT",
+  "provenance": {"v1_selected_batch_sha256": "3578f8be74bd41bd114315451ba1cfd8203bc4f7643a2bd6699a47cbe7a8d773", "v1_selected_precedes_round1_labels": true, "classification_manifest_sha256": "4f76e6e37a1ce60329531a88bdade4fd6465ac5c13c1854bf6b3b0687c4bc7ad", "classification_run_fingerprint": "7256061c7fc4366dd451374a32224b800fd1fdc0c09290b90f8435dd1fceaba3", "regression_manifest_sha256": "9d091f9b1548ea391edfda248154d7ec2bf23f25e6228ce1fc0f1cac4657da9e"},
+  "alignment": {"classification_matched_rows": 128, "regression_matched_rows": 100, "regression_matched_target_rows": 400, "ineligible_regression_rows_excluded": 28, "missing_duplicate_unexpected_nan_inf": 0, "classification_group_signature": "0f8f6e0900bfc305bcb13d016423abe1ae7720a5030804da655e6ebfb5cf27ef", "regression_group_signature": "a694bfb39b2aed5cd2fe99e1becb01a19d18f85359c23259002868320c4da0b0"},
+  "bootstrap": {"method": "paired-group bootstrap", "repetitions": 2000, "seed": 20260723, "confidence_interval": 0.80},
+  "classification": {"primary_metric": "Brier lower is better", "v1": 0.1643836648, "v2": 0.1739794706, "delta_v2_minus_v1": 0.0095958058, "delta_ci80": [-0.0010677468, 0.0200356061], "probability_quality": {"roc_auc_v1_v2": [0.7073214286, 0.6669642857], "ece_v1_v2": [0.1483963741, 0.1491777463]}, "threshold_balanced_accuracy_v1_v2": [0.610, 0.605], "conclusion": "inconclusive"},
+  "regression": {"primary_metric": "target MAE lower is better; aggregate mean targetwise MAE normalized by frozen v1 training IQR", "aggregate": {"v1": 0.3834588799, "v2": 0.3536619922, "delta_v2_minus_v1": -0.0297968877, "delta_ci80": [-0.0402341630, -0.0197327299]}, "per_target_delta_ci80": {"spectral_fwhm_normal_nm": [-0.4436218899, -0.6141232181, -0.2813232088], "angular_fwhm_450_deg": [-0.6776517312, -1.0676208035, -0.2796631716], "cone5_integral_proxy": [-0.0010407016, -0.0022904799, 0.0001874852], "normal_band_transmission_proxy": [-0.0044921188, -0.0114313186, 0.0022751915]}},
+  "subgroups": {"classification_minimum": 8, "regression_minimum": 6, "families_analyzed": 8, "classification_inconclusive_except": ["off_center_defect", "grouped_chirped"], "regression_inconclusive_families": ["asymmetric_pair_count", "hybrid_periodic_aperiodic", "off_center_defect", "termination_reversed"]},
+  "immutability": {"classification_added_removed_modified": [0,0,0], "regression_added_removed_modified": [0,0,0]},
+  "safety": {"new_model_fits": 0, "new_prediction_calls": 0, "formal_classification_oof_calls_added": 0, "formal_regression_oof_calls": 1, "sealed_test_target_reads": 0, "sealed_test_prediction_calls": 0, "sealed_test_evaluation_count_before_after": [1,1], "solver_calls": 0, "final_model_calls": 0},
+  "promotion_or_route_decision": "NOT_EXECUTED"
+}
