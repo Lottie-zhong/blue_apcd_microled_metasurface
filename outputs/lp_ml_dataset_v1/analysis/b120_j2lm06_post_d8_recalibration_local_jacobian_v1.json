@@ -1,0 +1,144 @@
+{
+  "phase_deg_per_unit": {
+    "J2_width_nm": 0.5144941647821362,
+    "D_nm": -0.07321142571127329,
+    "Psi_deg": 0.02128526966027953
+  },
+  "units": "degree per nm for J2_width/D; degree per degree for Psi",
+  "variable_order": [
+    "J2_width_nm",
+    "D_nm",
+    "Psi_deg"
+  ],
+  "complex_jones_derivatives": {
+    "txx": {
+      "real": [
+        -0.008700114396948209,
+        0.0014206749352940525,
+        -0.00048469298396800945
+      ],
+      "imag": [
+        0.001891172027413113,
+        0.0010017391020160427,
+        -0.0007377288727752753
+      ]
+    },
+    "txy": {
+      "real": [
+        0.00023951145812192384,
+        0.0002741110443931674,
+        -0.0006590951528739588
+      ],
+      "imag": [
+        8.205186005640419e-05,
+        0.0006459147651675652,
+        0.000312006123715052
+      ]
+    },
+    "tyx": {
+      "real": [
+        0.0002363985088941103,
+        0.00028055531510227526,
+        -0.0006562990808852711
+      ],
+      "imag": [
+        7.045974326123659e-05,
+        0.0006224218515048693,
+        0.00029604401799279137
+      ]
+    },
+    "tyy": {
+      "real": [
+        0.0003001631924885582,
+        0.0023843230998195552,
+        0.0002023082245105086
+      ],
+      "imag": [
+        -0.016196642115775216,
+        -0.001566760139835089,
+        -0.0008252874792549999
+      ]
+    }
+  },
+  "anchor_phase_deg": 81.83209368524963,
+  "phase_residuals_deg": [
+    0.15667688849652073,
+    0.3188868453140841,
+    0.15707151889406867,
+    0.3184922149165359
+  ],
+  "phase_residual_mae_deg": 0.23778186690530234,
+  "phase_residual_max_abs_deg": 0.3188868453140841,
+  "leave_one_probe_out_phase": [
+    {
+      "held_out": "POSTD8_CAL_PROBE_WP_DP_PP",
+      "phase_error_deg": 1.6106090881365351,
+      "predicted_delta_deg": -0.992562902770779
+    },
+    {
+      "held_out": "POSTD8_CAL_PROBE_WP_DM_PM",
+      "phase_error_deg": 0.7913315466647919,
+      "predicted_delta_deg": 0.021129335768280293
+    },
+    {
+      "held_out": "POSTD8_CAL_PROBE_WM_DP_PM",
+      "phase_error_deg": 1.6065625537347437,
+      "predicted_delta_deg": -2.0581167529972326
+    },
+    {
+      "held_out": "POSTD8_CAL_PROBE_WM_DM_PP",
+      "phase_error_deg": 0.7923120525240475,
+      "predicted_delta_deg": -0.8948109992075015
+    }
+  ],
+  "leave_one_probe_out_jones": [
+    {
+      "held_out": "POSTD8_CAL_PROBE_WP_DP_PP",
+      "frobenius_error": 0.0337840258297006
+    },
+    {
+      "held_out": "POSTD8_CAL_PROBE_WP_DM_PM",
+      "frobenius_error": 0.016598916279127518
+    },
+    {
+      "held_out": "POSTD8_CAL_PROBE_WM_DP_PM",
+      "frobenius_error": 0.033699146001468026
+    },
+    {
+      "held_out": "POSTD8_CAL_PROBE_WM_DM_PP",
+      "frobenius_error": 0.01661948330282015
+    }
+  ],
+  "projector_residual_max": 0.0029309667474329013,
+  "derivative_sign_consistency": {
+    "phase": {
+      "J2_width": false,
+      "D": false,
+      "Psi": false
+    },
+    "status": "PARTIAL"
+  },
+  "jacobian_covariance": {
+    "phase_covariance": [
+      [
+        1.3333333333333333,
+        0.33330016831248105,
+        -0.0033247382073752587
+      ],
+      [
+        0.33330016831248105,
+        0.9100830849851216,
+        -0.32335210057120156
+      ],
+      [
+        -0.0033247382073752587,
+        -0.32335210057120156,
+        1.3333001650300356
+      ]
+    ],
+    "equivalent_bootstrap": "NOT_RUN_SMALL_N_EXACT_TETRAHEDRAL"
+  },
+  "active_basis_rotation": "LOW_DIMENSIONAL_SIGN_TETRAHEDRAL; no stable D7/D8 basis rotation estimate",
+  "d7_d8_secant_consistency": "PARTIAL_DIRECT_SECANT_NOT_IDENTICAL_VARIABLES",
+  "unified_scale_bias": "RESIDUAL_BIAS_REDUCED_ONLY_LOCALLY"
+}
