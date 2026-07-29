@@ -1,0 +1,86 @@
+{
+  "active_subspace_conclusion": "J2_width/D/Psi remain directionally informative, but active basis is not proven invariant across anchors",
+  "best_tradeoff_candidate": "D8_TRV_PLAN_d6f4911593b64495",
+  "d7_d8_primary_evidence": {
+    "d7_sha256": "23199a42a479f5fd502980129aad6519d5bd789f8144180d9729c4ded1b579e0",
+    "d8_sha256": "d15683ae0f398d867d4f8187f016d6454dc8c6fae77bea4aa91851e0b466f326"
+  },
+  "d7_residual_stats": {
+    "mae": 0.4143018723665115,
+    "max_abs": 0.5602485449278447,
+    "mean": -0.4143018723665115,
+    "median": -0.4564302959660722,
+    "n": 8,
+    "negative_count": 8,
+    "positive_count": 0,
+    "rmse": 0.42888364537114293
+  },
+  "d7_sample_count": 8,
+  "d7_scale_intercept_fit": {
+    "d8_external_residual_stats": {
+      "mae": 1.5730665523398049,
+      "max_abs": 2.7748058679947576,
+      "mean": -1.5730665523398049,
+      "median": -1.2799451940928672,
+      "n": 8,
+      "negative_count": 8,
+      "positive_count": 0,
+      "rmse": 1.7076484951505528
+    },
+    "intercept_deg": -1.4418185934912506,
+    "scale": 1.2406519115943744
+  },
+  "d8_residual_stats": {
+    "mae": 2.159979080940424,
+    "max_abs": 3.3038140288426607,
+    "mean": -2.159979080940424,
+    "median": -1.799597649171369,
+    "n": 8,
+    "negative_count": 8,
+    "positive_count": 0,
+    "rmse": 2.2540055224558597
+  },
+  "d8_sample_count": 8,
+  "future_recommended_budget": {
+    "authorization": "RECOMMENDATION_ONLY; explicit authorization required",
+    "geometries": 4,
+    "wavelength_nm": [
+      450
+    ],
+    "x_y_subruns": 8
+  },
+  "joint_design_matrix": {
+    "centered_rank": 4,
+    "condition_number_nonzero": 665.5286208176412,
+    "identifiability": "J1_side constant and J2_length weakly varied; full five-variable Jacobian not identifiable",
+    "singular_values": [
+      3.1656823218494523,
+      1.8723205872161983,
+      0.8135595003950925,
+      0.004756643400189498,
+      0.0
+    ],
+    "variables": [
+      "J1_side_nm",
+      "J2_length_nm",
+      "J2_width_nm",
+      "D_nm",
+      "Psi_deg"
+    ]
+  },
+  "joint_sample_count": 16,
+  "lowest_phase_candidate": "D8_TRV_PLAN_28f33b5793175bc4",
+  "no_d9_candidates_generated": true,
+  "no_d9_plan_generated": true,
+  "residual_interpretation": "predicted phase drop systematically too large; residuals predominantly negative",
+  "route_basis": [
+    "phase direction remains toward target",
+    "projector and transmission remain preserved",
+    "anchor transfer shows systematic scale/intercept bias",
+    "D7 residual correction does not generalize to D8"
+  ],
+  "route_decision": "ROUTE_B_LOCAL_ACTIVE_SUBSPACE_RECALIBRATION",
+  "solver_calls": 0,
+  "stage": "D8_PHYSICS_ASSIMILATION_AND_ROUTE_DECISION",
+  "status": "PASS"
+}

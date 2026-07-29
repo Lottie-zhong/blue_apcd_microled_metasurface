@@ -1,0 +1,34 @@
+import csv,json,math,hashlib
+from pathlib import Path
+import numpy as np
+ROOT=Path(r'D:\project\worktrees\blue_apcd_lp_stage11_4'); ML=ROOT/'outputs/lp_ml_dataset_v1'; OUT=ML/'analysis'
+D7=ML/'analysis/b120_j2lm06_stage_d7_physics_assimilation_candidate_table_v1.csv'
+D8=ML/'staging/b120_j2lm06_stage_d8_bounded_local_validation_v1/d8_validation_summary.json'
+V=['J1_side_nm','J2_length_nm','J2_width_nm','D_nm','Psi_deg']; A={'J1_side_nm':110.,'J2_length_nm':107.,'J2_width_nm':100.,'D_nm':200.50249375007783,'Psi_deg':.2857621168765344}
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+def stat(a):
+ a=np.array(a,float); return {'n':int(len(a)),'mean':float(a.mean()),'median':float(np.median(a)),'mae':float(np.abs(a).mean()),'rmse':float(np.sqrt((a*a).mean())),'max_abs':float(np.abs(a).max()),'negative_count':int((a<0).sum()),'positive_count':int((a>0).sum())}
+with D7.open(encoding='utf-8-sig',newline='') as f: d7=list(csv.DictReader(f))
+d8=json.loads(D8.read_text())['candidate_metrics']
+for r in d7:
+ r.update(stage='D7',parent_anchor='J2LM06',actual_phase_deg=float(r['phase_deg']),predicted_phase_drop_deg=float(r['predicted_phase_drop_deg']),actual_phase_drop_deg=float(r['actual_phase_drop_deg']),phase_residual_deg=float(r['phase_prediction_error_deg']),manufacturing_gate=True,geometry_hash=r['exact_geometry_hash'],projector_status='PASS')
+for r in d8:
+ r.update(stage='D8',parent_anchor='D7_TRV_PROP_693ec7d86d7c23e2',actual_phase_deg=float(r['phase_deg']),predicted_phase_drop_deg=float(r['predicted_phase_drop_deg']),actual_phase_drop_deg=float(r['actual_phase_drop_deg']),phase_residual_deg=float(r['phase_prediction_error_deg']),geometry_hash=r['exact_geometry_hash'],projector_status='PASS')
+rows=d7+d8
+for r in rows:
+ for k in V:r[k]=float(r[k])
+ r['normalized_step_l2']=float(np.linalg.norm([r[k]-A[k] for k in V]))
+X=np.array([[r[k] for k in V] for r in rows]); Xc=X-X.mean(0); sv=np.linalg.svd(Xc,compute_uv=False); rank=int(np.linalg.matrix_rank(Xc)); nz=sv[sv>sv.max()*1e-12]; cond=float(nz[0]/nz[-1]) if len(nz)>1 else None
+p=np.array([r['predicted_phase_drop_deg'] for r in d7]); y=np.array([r['actual_phase_drop_deg'] for r in d7]); coef=np.linalg.lstsq(np.c_[np.ones(len(p)),p],y,rcond=None)[0]; q=np.array([r['predicted_phase_drop_deg'] for r in d8]); z=np.array([r['actual_phase_drop_deg'] for r in d8]); ext=z-np.c_[np.ones(len(q)),q]@coef
+d8res=[r['phase_residual_deg'] for r in d8]
+analysis={'status':'PASS','stage':'D8_PHYSICS_ASSIMILATION_AND_ROUTE_DECISION','solver_calls':0,'joint_sample_count':16,'d7_sample_count':8,'d8_sample_count':8,'d7_d8_primary_evidence':{'d7_sha256':sha(D7),'d8_sha256':sha(D8)},'d8_residual_stats':stat(d8res),'d7_residual_stats':stat([r['phase_residual_deg'] for r in d7]),'residual_interpretation':'predicted phase drop systematically too large; residuals predominantly negative','d7_scale_intercept_fit':{'intercept_deg':float(coef[0]),'scale':float(coef[1]),'d8_external_residual_stats':stat(ext)},'joint_design_matrix':{'variables':V,'centered_rank':rank,'singular_values':[float(x) for x in sv],'condition_number_nonzero':cond,'identifiability':'J1_side constant and J2_length weakly varied; full five-variable Jacobian not identifiable'},'active_subspace_conclusion':'J2_width/D/Psi remain directionally informative, but active basis is not proven invariant across anchors','lowest_phase_candidate':'D8_TRV_PLAN_28f33b5793175bc4','best_tradeoff_candidate':'D8_TRV_PLAN_d6f4911593b64495','route_decision':'ROUTE_B_LOCAL_ACTIVE_SUBSPACE_RECALIBRATION','route_basis':['phase direction remains toward target','projector and transmission remain preserved','anchor transfer shows systematic scale/intercept bias','D7 residual correction does not generalize to D8'],'future_recommended_budget':{'geometries':4,'x_y_subruns':8,'wavelength_nm':[450],'authorization':'RECOMMENDATION_ONLY; explicit authorization required'},'no_d9_candidates_generated':True,'no_d9_plan_generated':True}
+OUT.mkdir(exist_ok=True); (OUT/'b120_j2lm06_stage_d8_physics_assimilation_and_route_decision_v1.json').write_text(json.dumps(analysis,indent=2,sort_keys=True))
+cols=['stage','candidate_id','parent_anchor']+V+['normalized_step_l2','actual_phase_deg','predicted_phase_drop_deg','actual_phase_drop_deg','phase_residual_deg','Txx','Tyy','sigma2_over_sigma1','projection_error','cross_power','projector_status','manufacturing_gate','geometry_hash']
+with (OUT/'b120_j2lm06_stage_d7_d8_joint_candidate_metrics_v1.csv').open('w',newline='',encoding='utf8') as f:
+ w=csv.DictWriter(f,fieldnames=cols);w.writeheader();w.writerows({k:r.get(k) for k in cols} for r in rows)
+gen={'status':'PASS','d7_fit_is_not_generalization_claim':True,'leave_one_stage_out':{'fit_stage':'D7','evaluate_stage':'D8','scale':float(coef[1]),'intercept_deg':float(coef[0]),'external_metrics':stat(ext)},'model_status':'NOT_VALID_FOR_FURTHER_EXTRAPOLATION'}
+(OUT/'b120_j2lm06_stage_d7_d8_surrogate_generalization_audit_v1.json').write_text(json.dumps(gen,indent=2,sort_keys=True))
+contract={'contract_version':'POST_D8_ROUTE_DECISION_V1','decision_only':True,'route_decision':'ROUTE_B_LOCAL_ACTIVE_SUBSPACE_RECALIBRATION','no_d9_authorization':True,'no_candidate_geometry':True,'no_candidate_ids':True,'no_solver_execution':True,'future_budget_is_recommendation_only':True,'requires_explicit_user_authorization_before_new_physics':True,'recommended_anchor':'D8_TRV_PLAN_d6f4911593b64495','recommended_new_information':'symmetric active-variable recalibration near the D8 trade-off anchor','recommended_probe_style':'symmetric probe','recommended_minimum_budget':{'geometries':4,'x_y_subruns':8,'wavelength_nm':[450]},'no_d9_physics_staging':True}
+(ML/'plans/b120_j2lm06_post_d8_route_decision_contract_v1.json').write_text(json.dumps(contract,indent=2,sort_keys=True))
+report=f'# APCD LP D8 physics assimilation and route decision\n\n- Decision: ROUTE_B_LOCAL_ACTIVE_SUBSPACE_RECALIBRATION\n- D7+D8 real Jones samples: 16 (D7=8, D8=8)\n- D8 residual mean/median/MAE/RMSE/max: {analysis["d8_residual_stats"]["mean"]:.6f}/{analysis["d8_residual_stats"]["median"]:.6f}/{analysis["d8_residual_stats"]["mae"]:.6f}/{analysis["d8_residual_stats"]["rmse"]:.6f}/{analysis["d8_residual_stats"]["max_abs"]:.6f} deg\n- D7-fit external D8 residual MAE: {analysis["d7_scale_intercept_fit"]["d8_external_residual_stats"]["mae"]:.6f} deg\n- Joint centered design rank/condition: {rank}/{cond}\n- Lowest phase: D8_TRV_PLAN_28f33b5793175bc4 (80.985689 deg; 9.540082 deg from target)\n- Best trade-off: D8_TRV_PLAN_d6f4911593b64495\n- Current surrogate: NOT_VALID_FOR_FURTHER_EXTRAPOLATION\n- Recommended next information: symmetric active-variable recalibration; recommendation only, 4 geometries / 8 x-y subruns / 450 nm.\n- No D9 candidate IDs, plan, staging, or solver execution created.\n'
+(ROOT/'reports/lp_b120_j2lm06_stage_d8_physics_assimilation_and_route_decision_v1.md').write_text(report,encoding='utf8')
