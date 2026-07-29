@@ -338,9 +338,9 @@ def _materialize_fold(data: RegressionData, plan: RegressionFoldPlan, store: Ato
     return samples, targets, seed_rows, intervals, calibration_rows
 
 
-def _validate(rows: list[dict[str, Any]], targets: list[dict[str, Any]], seed_rows: list[dict[str, Any]], ineligible: list[dict[str, Any]], metadata: RegressionMetadata) -> dict[str, Any]:
+def _validate(rows: list[dict[str, Any]], targets: list[dict[str, Any]], seed_rows: list[dict[str, Any]], ineligible: list[dict[str, Any]], metadata: RegressionMetadata, *, expected_ineligible_ids: set[str] | None = None) -> dict[str, Any]:
     eligible_ids = {metadata.sample_ids[index] for index, flag in enumerate(metadata.is_round1) if flag and metadata.eligible[index]}
-    ineligible_ids = {metadata.sample_ids[index] for index, flag in enumerate(metadata.is_round1) if flag and not metadata.eligible[index]}
+    ineligible_ids = expected_ineligible_ids if expected_ineligible_ids is not None else {metadata.sample_ids[index] for index, flag in enumerate(metadata.is_round1) if flag and not metadata.eligible[index]}
     if len(rows) != len(eligible_ids) or {row["candidate_id"] for row in rows} != eligible_ids: raise RuntimeError("REGRESSION_SAMPLE_OOF_EXACT_ONCE_FAILED")
     if len(targets) != len(eligible_ids) * 4 or len({(row["candidate_id"], row["target"]) for row in targets}) != len(targets): raise RuntimeError("REGRESSION_TARGET_OOF_EXACT_ONCE_FAILED")
     if len(seed_rows) != len(eligible_ids) * 4 * 3 or len({(row["candidate_id"], row["target"], row["seed"]) for row in seed_rows}) != len(seed_rows): raise RuntimeError("REGRESSION_SEED_OOF_EXACT_ONCE_FAILED")
@@ -348,7 +348,7 @@ def _validate(rows: list[dict[str, Any]], targets: list[dict[str, Any]], seed_ro
     return {"sample_rows": len(rows), "target_rows": len(targets), "seed_target_rows": len(seed_rows), "ineligible_rows": len(ineligible), "exact_once": True, "ineligible_prediction_count": 0}
 
 
-def run_regression_crossfit(data: RegressionData, contract: FrozenContract, store: AtomicArtifactStore, *, state_store: AtomicExecutionStateStore | None = None, resume: bool = False, failure_injection: tuple[int, int] | None = None, fixture_max_epochs: int = 3, coverage: float = FIXTURE_COVERAGE) -> dict[str, Any]:
+def run_regression_crossfit(data: RegressionData, contract: FrozenContract, store: AtomicArtifactStore, *, state_store: AtomicExecutionStateStore | None = None, resume: bool = False, failure_injection: tuple[int, int] | None = None, fixture_max_epochs: int = 3, coverage: float = FIXTURE_COVERAGE, ineligible_registry: tuple[dict[str, str], ...] | None = None) -> dict[str, Any]:
     if contract.fixed_regression_baseline != "multitask_mlp_3seed" or data.X.shape[1] != 150 or data.y.shape[1] != 4: raise RuntimeError("REGRESSION_FROZEN_CONTRACT_DRIFT")
     plans = build_regression_crossfit_plan(data, contract); state_store = state_store or AtomicExecutionStateStore(store.root); trainer_sha = sha256_file(Path(__file__)); commit = _execution_code_commit()
     if state_store.path.exists():
@@ -385,8 +385,8 @@ def run_regression_crossfit(data: RegressionData, contract: FrozenContract, stor
             rows = _materialize_fold(data, plan, store, state, coverage=coverage)
             for target, values in zip((sample_rows, target_rows, seed_rows, intervals, calibration_rows), rows): target.extend(values)
             state_store.persist(state)
-        ineligible = [{"candidate_id": data.metadata.sample_ids[index], "geometry_hash": data.metadata.geometry_hashes[index], "canonical_source_group": data.metadata.groups[index], "fold": data.metadata.folds[index], "regression_eligible": False, "classification_label": None, "exclusion_reason": data.metadata.exclusion_reason[index], "target_validity_mask": data.metadata.target_validity_masks[index], "failure_stage": "metadata_eligibility", "failure_reason": data.metadata.exclusion_reason[index], "provenance": data.metadata.provenance[index]} for index, flag in enumerate(data.metadata.is_round1) if flag and not data.metadata.eligible[index]]
-        checks = _validate(sample_rows, target_rows, seed_rows, ineligible, data.metadata)
+        ineligible = list(ineligible_registry) if ineligible_registry is not None else [{"candidate_id": data.metadata.sample_ids[index], "geometry_hash": data.metadata.geometry_hashes[index], "canonical_source_group": data.metadata.groups[index], "fold": data.metadata.folds[index], "regression_eligible": False, "classification_label": None, "exclusion_reason": data.metadata.exclusion_reason[index], "target_validity_mask": data.metadata.target_validity_masks[index], "failure_stage": "metadata_eligibility", "failure_reason": data.metadata.exclusion_reason[index], "provenance": data.metadata.provenance[index]} for index, flag in enumerate(data.metadata.is_round1) if flag and not data.metadata.eligible[index]]
+        checks = _validate(sample_rows, target_rows, seed_rows, ineligible, data.metadata, expected_ineligible_ids={str(row["candidate_id"]) for row in ineligible} if ineligible_registry is not None else None)
         fieldnames = lambda rows: list(rows[0]) if rows else []
         store.write_csv("regression_oof_sample_predictions.csv", sample_rows, fieldnames=fieldnames(sample_rows), artifact_type="regression_oof_samples", producer_stage="REGRESSION_OOF", producer_unit="all")
         store.write_csv("regression_oof_target_predictions.csv", target_rows, fieldnames=fieldnames(target_rows), artifact_type="regression_oof_targets", producer_stage="REGRESSION_OOF", producer_unit="all")

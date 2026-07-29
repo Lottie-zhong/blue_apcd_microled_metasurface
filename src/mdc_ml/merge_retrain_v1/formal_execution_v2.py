@@ -185,30 +185,30 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
         if not attestation:
             raise RuntimeError("REGRESSION_DISPATCH_ATTESTATION_FLAG_REQUIRED")
         from .artifacts import ArtifactPolicy, AtomicArtifactStore
-        from .regression import _synthetic_data, load_formal_regression_data, run_regression_crossfit
-        # Read-only canonical validation is mandatory even though attestation uses
-        # fixture labels and never opens a formal Regression OOF run.
-        canonical = load_formal_regression_data(contract, formal_authorized=True)
-        if canonical.X.shape[1] != 150:
+        from .regression import load_regression_development_view, run_regression_crossfit
+        development = load_regression_development_view(contract)
+        data = development.data
+        if data.X.shape != (726, 150) or data.y.shape != (726, 4):
             raise RuntimeError("CANONICAL_REGRESSION_FEATURE_DRIFT")
-        data = _synthetic_data(contract)
         policy = ArtifactPolicy.fixture(root, worktree_root=ROOT, formal_output_root=contract.output_root)
         store = AtomicArtifactStore(policy, run_id=run_id, signature_bundle=contract.signatures)
         injected = failure_injection if isinstance(failure_injection, tuple) else None
         result = run_regression_crossfit(data, contract, store, resume=resume,
-                                         failure_injection=injected, fixture_max_epochs=3)
+                                         failure_injection=injected, fixture_max_epochs=3,
+                                         ineligible_registry=development.ineligible_registry)
         canonical_input_fingerprint = hashlib.sha256(json.dumps({
-            "feature_shape": list(canonical.X.shape), "target_shape": list(canonical.y.shape),
-            "sample_ids": list(canonical.metadata.sample_ids), "feature_signature": canonical.metadata.feature_signature,
+            "feature_shape": list(data.X.shape), "target_shape": list(data.y.shape),
+            "sample_ids": list(data.metadata.sample_ids), "feature_signature": data.metadata.feature_signature,
+            "development_view_fingerprint": development.view_fingerprint,
         }, sort_keys=True, separators=(",", ":")).encode("utf8")).hexdigest()
         config_fingerprint = hashlib.sha256(json.dumps({
-            "fixture_max_epochs": 3, "coverage": 0.90, "seeds": [20260720, 20260721, 20260722],
+            "attestation_max_epochs": 3, "coverage": 0.90, "seeds": [20260720, 20260721, 20260722],
             "fold_count": 4, "target_count": 4, "run_kind": stage,
         }, sort_keys=True, separators=(",", ":")).encode("utf8")).hexdigest()
         store.write_json("regression_dispatch_attestation_provenance.json", {
             "official_formal_run": False, "authorization_scope": authorization.scope, "run_kind": stage,
             "execution_code_commit": commit(), "canonical_input_fingerprint": canonical_input_fingerprint,
-            "config_fingerprint": config_fingerprint,
+            "development_view_fingerprint": development.view_fingerprint, "config_fingerprint": config_fingerprint,
             "formal_regression_oof_calls": 0,
         }, artifact_type="regression_dispatch_attestation_provenance", producer_stage="REGRESSION_OOF", producer_unit="dispatch")
         manifest = store.write_manifest("formal_regression_output_manifest.json")
@@ -223,7 +223,7 @@ def dispatch(contract, authorization: Authorization, stage: str, *, synthetic: b
                  "authorization_scope": authorization.scope, "canonical_loader_calls": 1,
                  "fold_executor_calls": 4, "seed_fit_calls": 12, "ensemble_fits": 4,
                  "conformal_fits": 4, **result["checks"], "manifest_sha256": manifest.canonical_manifest_sha256,
-                 "canonical_input_fingerprint": canonical_input_fingerprint, "config_fingerprint": config_fingerprint,
+                 "canonical_input_fingerprint": canonical_input_fingerprint, "development_view_fingerprint": development.view_fingerprint, "config_fingerprint": config_fingerprint,
                  "run_fingerprint": run_fingerprint,
                  "formal_regression_oof_calls": 0, "sealed_test_target_reads": 0}
     elif stage == "regression_oof":
