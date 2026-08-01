@@ -1,0 +1,15 @@
+# mdc_ml_fixed_v1_model_contract_v1
+
+```json
+{
+  "bounded_recompetition_candidate_set": [],
+  "bounded_recompetition_enabled": false,
+  "classification_allowlist": [
+    "MDC_CLASSIFICATION_EXTRATREES_CALIBRATED_V1"
+  ],
+  "regression_allowlist": [
+    "MDC_REGRESSION_MULTITASK_MLP_3SEED_V1"
+  ],
+  "selection_mode": "FIXED_V1_RETRAIN_ONLY"
+}
+```

@@ -1,0 +1,27 @@
+# mdc_ml_non_hf15_training_readiness_v2
+
+```json
+{
+  "ambiguous_rows": 0,
+  "classification_full_rows": 2263,
+  "classification_non_hf15_rows": 2263,
+  "classification_provenance": "DIRECT_PROVENANCE",
+  "counters": {
+    "FDTD_calls": 0,
+    "Lumerical_calls": 0,
+    "RCWA_calls": 0,
+    "backward_calls": 0,
+    "new_TMM_calculations": 0,
+    "optimizer_steps": 0,
+    "sealed_test_reads": 0,
+    "training_runs": 0
+  },
+  "dry_run": "PASS",
+  "hf15_overlap": 0,
+  "regression_full_rows": 726,
+  "regression_non_hf15_rows": 726,
+  "regression_provenance": "DIRECT_PROVENANCE",
+  "status": "TRAINING_CONTRACT_READY_NO_RUN",
+  "unmatched_rows": 0
+}
+```
