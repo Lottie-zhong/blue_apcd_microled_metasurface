@@ -2,7 +2,7 @@
 
 Status: HARD_GATE_ORIGINAL22_FORMAL_COMPLEX_JONES_UNRECOVERABLE
 
-Original22 geometries: 22. Accepted x/y weighted-G0 pairs found: 9; formal observable and 450 nm checks pass for those pairs. Valid geometry-consistent reconstructions: 0. Geometry conflicts: 9. Formal components missing: 13.
+Original22 geometries: 22. Accepted x/y weighted-G0 pairs found: 22; formal observable and 450 nm checks pass for those pairs. Valid geometry-consistent reconstructions: 13. Geometry conflicts: 9. Formal components missing: 0.
 
 The source checkpoint convention was x: Ex->txx, Ey->tyx; y: Ex->txy, Ey->tyy. Source fields reproduce frozen Txx/phase rows with max absolute error 3.2487068343022356e-16, but geometry hash conflicts prevent formal recovery. No reciprocity or intensity inference, bounded6/posthoc28 fitting, solver, or raw physics modification was used.
 

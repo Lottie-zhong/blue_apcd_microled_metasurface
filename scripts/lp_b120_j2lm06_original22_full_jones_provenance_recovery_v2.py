@@ -19,12 +19,18 @@ checked=[str(A/x) for x in ['b120_j2lm06_post_d8_27coordinate_metrics_v2.csv','b
 rows=[]; tc=[]
 for r in source_rows:
  cid=r['candidate_id']; sid=r.get('source_candidate_id'); cand=[]; cps={}
- if sid:
-  cand=[p for p in files if p.name==sid+'.json' and 'candidates' in p.parts and 'candidate_checkpoints' not in p.parts] or [p for p in files if p.name==sid+'.json']
+ lookup=[sid] if sid else []
+ if cid not in lookup: lookup.append(cid)
+ for key in lookup:
+  cand=[p for p in files if p.name==key+'.json' and 'candidates' in p.parts and 'candidate_checkpoints' not in p.parts] or [p for p in files if p.name==key+'.json']
+  cps={}
   for p in files:
-   if p.name=='checkpoint.json' and sid in str(p):
+   if p.name=='checkpoint.json' and key in str(p):
     try:cps[json.loads(p.read_text())['input_polarization']]=p
     except:pass
+  if cand or cps:
+   sid = sid or key
+   break
  cp=cand[0] if cand else None; cd=json.loads(cp.read_text()) if cp else {}; xp,yp=cps.get('x'),cps.get('y'); x=json.loads(xp.read_text()) if xp else {}; y=json.loads(yp.read_text()) if yp else {}
  complete=all(k in cd for k in ['txx','txy','tyx','tyy']); contract=bool(xp and yp and x.get('input_polarization')=='x' and y.get('input_polarization')=='y' and x.get('wavelength_nm')==450 and y.get('wavelength_nm')==450 and x.get('weighted_G0_version')==y.get('weighted_G0_version')=='LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1')
  rec={'txx':zz(x['weighted_G0_Ex']),'tyx':zz(x['weighted_G0_Ey']),'txy':zz(y['weighted_G0_Ex']),'tyy':zz(y['weighted_G0_Ey'])} if contract else {}
@@ -35,7 +41,7 @@ for r in source_rows:
  else: st='RECONSTRUCTED_FROM_ACCEPTED_XY_WEIGHTED_G0'; reason='accepted x/y weighted-G0 reconstruction under frozen convention'; miss=[]
  if rec and cid in met:
   e=complex(math.sqrt(ff(met[cid]['Txx']))*math.cos(math.radians(ff(met[cid]['phase_deg']))),math.sqrt(ff(met[cid]['Txx']))*math.sin(math.radians(ff(met[cid]['phase_deg'])))); tc.append(abs(rec['txx']-e))
- rows.append({'index':r.get('execution_order'),'candidate_id':cid,'source_candidate_id':sid or '','normalized_coordinate':json.dumps(r.get('normalized_coordinate')),'manifest_geometry':json.dumps(r.get('geometry'),sort_keys=True),'manifest_exact_hash':mh,'source_exact_hash':shash,'exact_hash_match':match,'source_stage':('D7' if sid and sid.startswith('D7_') else 'D8' if sid and sid.startswith('D8_') else 'POST_D8_CURVATURE' if sid and 'CURV' in sid else 'POST_D8_RECALIBRATION' if sid and 'CAL_' in sid else ''),'source_paths':json.dumps([str(p) for p in [cp,xp,yp] if p]),'source_hashes':json.dumps({k:sh(v) for k,v in [('candidate',cp),('x',xp),('y',yp)] if v},sort_keys=True),'source_history':json.dumps([hist(p) for p in [cp,xp,yp] if p]),'x_checkpoint':str(xp) if xp else '','y_checkpoint':str(yp) if yp else '','x_polarization':x.get('input_polarization',''),'y_polarization':y.get('input_polarization',''),'wavelength_x_nm':x.get('wavelength_nm',''),'wavelength_y_nm':y.get('wavelength_nm',''),'weighted_g0_version':x.get('weighted_G0_version',''),'candidate_json_complete_jones':complete,'candidate_checkpoint_max_abs_error':cerr,'txx_real':rec.get('txx').real if rec else '','txx_imag':rec.get('txx').imag if rec else '','txy_real':rec.get('txy').real if rec else '','txy_imag':rec.get('txy').imag if rec else '','tyx_real':rec.get('tyx').real if rec else '','tyx_imag':rec.get('tyx').imag if rec else '','tyy_real':rec.get('tyy').real if rec else '','tyy_imag':rec.get('tyy').imag if rec else '','status':st,'status_reason':reason,'missing_components':json.dumps(miss),'checked_paths':json.dumps(checked),'bounded6_used':False,'posthoc28_used':False})
+ rows.append({'index':r.get('execution_order'),'candidate_id':cid,'source_candidate_id':sid or '','normalized_coordinate':json.dumps(r.get('normalized_coordinate')),'manifest_geometry':json.dumps(r.get('geometry'),sort_keys=True),'manifest_exact_hash':mh,'source_exact_hash':shash,'exact_hash_match':match,'source_stage':('D7' if sid and sid.startswith('D7_') else 'D8' if sid and sid.startswith('D8_') else 'POST_D8_CURVATURE' if sid and 'CURV' in sid else 'POST_D8_RECALIBRATION' if sid and 'CAL_' in sid else 'POST_D8_REVISED_QUADRATIC_MAP' if cid.startswith('POSTD8_QMAP_') and sid==cid else ''),'source_paths':json.dumps([str(p) for p in [cp,xp,yp] if p]),'source_hashes':json.dumps({k:sh(v) for k,v in [('candidate',cp),('x',xp),('y',yp)] if v},sort_keys=True),'source_history':json.dumps([hist(p) for p in [cp,xp,yp] if p]),'x_checkpoint':str(xp) if xp else '','y_checkpoint':str(yp) if yp else '','x_polarization':x.get('input_polarization',''),'y_polarization':y.get('input_polarization',''),'wavelength_x_nm':x.get('wavelength_nm',''),'wavelength_y_nm':y.get('wavelength_nm',''),'weighted_g0_version':x.get('weighted_G0_version',''),'candidate_json_complete_jones':complete,'candidate_checkpoint_max_abs_error':cerr,'txx_real':rec.get('txx').real if rec else '','txx_imag':rec.get('txx').imag if rec else '','txy_real':rec.get('txy').real if rec else '','txy_imag':rec.get('txy').imag if rec else '','tyx_real':rec.get('tyx').real if rec else '','tyx_imag':rec.get('tyx').imag if rec else '','tyy_real':rec.get('tyy').real if rec else '','tyy_imag':rec.get('tyy').imag if rec else '','status':st,'status_reason':reason,'missing_components':json.dumps(miss),'checked_paths':json.dumps(checked),'bounded6_used':False,'posthoc28_used':False})
 with OC.open('w',newline='',encoding='utf8') as f:
  w=csv.DictWriter(f,fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
 cnt={k:sum(r['status']==k for r in rows) for k in ['RECONSTRUCTED_FROM_ACCEPTED_XY_WEIGHTED_G0','DATA_CONFLICT','FORMAL_COMPLEX_COMPONENTS_MISSING']}
