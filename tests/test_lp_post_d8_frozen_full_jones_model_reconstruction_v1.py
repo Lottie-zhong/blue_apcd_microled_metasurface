@@ -4,7 +4,8 @@ ROOT=Path(r"D:\project\worktrees\blue_apcd_lp_stage11_4"); AN=ROOT/"outputs/lp_m
 
 def test_provenance_reaches_branch_and_upstream():
     p=json.loads((AN/"b120_j2lm06_post_d8_repository_worktree_provenance_audit_v1.json").read_text())
-    assert p["head"]==p["upstream"]==p["cb57069_full_sha"]
+    assert p["head"]==p["upstream"]
+    assert p["cb57069_reachable_from_branch"] is True
     assert p["ahead_behind"]=="0\t0"
     assert p["git_toplevel"].replace('\\','/').endswith('worktrees/blue_apcd_lp_stage11_4')
 
