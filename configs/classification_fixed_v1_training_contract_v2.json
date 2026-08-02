@@ -1,0 +1,85 @@
+{
+  "schema_version": "mdc_ml_classification_fixed_v1_training_contract_v2",
+  "contract_id": "MDC_CLASSIFICATION_FIXED_V1_SEEDS_V2",
+  "status": "FROZEN",
+  "source": {
+    "formal_run_id": "classification_oof-20260728T090527Z-bde782dfd70c",
+    "execution_code_commit": "bde782dfd70c7d4d1fd00b64f4b096731529a26a",
+    "source_path": "src/mdc_ml/merge_retrain_v1/classification.py",
+    "source_sha256": "8d81cecaec27ce16fbaf4a2f0ae838e6f88c9ef9f0f4bf2bd404e85ea33fdb9f",
+    "seed_evidence": "fit_classification_fold: base_seed + plan.fold_id",
+    "calibration_source": {
+      "path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+      "lines": "220-225",
+      "commit": "bde782dfd70c7d4d1fd00b64f4b096731529a26a"
+    },
+    "threshold_source": {
+      "path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+      "lines": "71-73",
+      "commit": "bde782dfd70c7d4d1fd00b64f4b096731529a26a"
+    }
+  },
+  "fold_contract": {
+    "split_unit": "geometry_hash",
+    "canonical_fold_order": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "fold_ordinal_rule": "zero-based ordinal of ascending fold_id",
+    "base_estimator_seed": 20260720,
+    "estimator_seed_rule": "base_estimator_seed + fold_ordinal",
+    "estimator_seed_by_fold": {
+      "0": 20260720,
+      "1": 20260721,
+      "2": 20260722,
+      "3": 20260723
+    },
+    "final_fit_estimator_seed": 20260720,
+    "held_out_counts": [
+      31,
+      34,
+      39,
+      24
+    ],
+    "original_train_count": 1507,
+    "original_validation_count": 377,
+    "original_calibration_count": 251
+  },
+  "estimator": {
+    "candidate_id": "MDC_CLASSIFICATION_EXTRATREES_CALIBRATED_V1",
+    "class": "ExtraTreesClassifier",
+    "n_estimators": 384,
+    "min_samples_leaf": 2,
+    "min_samples_split": 2,
+    "max_features": 1.0,
+    "class_weight": "balanced",
+    "criterion": "gini",
+    "bootstrap": false,
+    "n_jobs": 8
+  },
+  "calibration": {
+    "fit_membership": "original_calibration_only",
+    "method_selection": "Brier score between sigmoid and isotonic",
+    "randomness_status": "NOT_APPLICABLE_DETERMINISTIC",
+    "sigmoid_solver": "sklearn LogisticRegression(C=1e6,max_iter=2000) without random_state",
+    "isotonic": "IsotonicRegression(out_of_bounds=clip)"
+  },
+  "threshold": {
+    "fit_membership": "original_validation_only",
+    "candidate_count": 97,
+    "objective": "balanced_accuracy then F1 then -abs(threshold-0.5)",
+    "randomness_status": "NOT_APPLICABLE_DETERMINISTIC"
+  },
+  "class_mapping": {
+    "targets": [
+      "spectral_fwhm_valid",
+      "angular_fwhm_valid",
+      "nominal_4d_objective_eligible",
+      "shortlist_quality_eligible"
+    ],
+    "positive_class": 1,
+    "negative_class": 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "training_execution_contract_v2",
+  "status": "NO_RUN_CONTRACT_READY",
+  "classification_contract_id": "MDC_CLASSIFICATION_FIXED_V1_SEEDS_V2",
+  "regression_contract_id": "MDC_REGRESSION_MULTITASK_MLP_3SEED_V2",
+  "allowed_candidates": {
+    "classification": [
+      "MDC_CLASSIFICATION_EXTRATREES_CALIBRATED_V1"
+    ],
+    "regression": [
+      "MDC_REGRESSION_MULTITASK_MLP_3SEED_V2"
+    ]
+  },
+  "hyperparameter_search_runs": 0,
+  "architecture_comparison_runs": 0,
+  "hf15_evaluation_runs": 0,
+  "forbidden_operations": [
+    "HF15 formal-label reads",
+    "sealed-test reads",
+    "solver calls",
+    "estimator.fit during static tests",
+    "optimizer.step during static tests",
+    "backward during static tests"
+  ]
+}

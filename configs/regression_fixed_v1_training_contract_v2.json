@@ -1,0 +1,117 @@
+{
+  "schema_version": "mdc_ml_regression_fixed_v1_training_contract_v2",
+  "contract_id": "MDC_REGRESSION_MULTITASK_MLP_3SEED_V2",
+  "status": "FROZEN",
+  "source": {
+    "formal_run_id": "regression_oof-20260729T055956Z-3109d794627e",
+    "execution_code_commit": "3109d794627e5d79cb23d2568b77036bb13b2960",
+    "source_path": "scripts/train_mdc_ml_shared_surrogate_v1.py",
+    "source_sha256": "3ef3193c8339a7fc8eba08f7fece259037b1772f3a69b8952f3e1f7c53a1eafe",
+    "formal_report": "reports/mdc_ml_formal_regression_oof_726_v1.json"
+  },
+  "fold_contract": {
+    "split_unit": "geometry_hash",
+    "canonical_fold_order": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "train_rows_by_fold": [
+      519,
+      521,
+      509,
+      523
+    ],
+    "validation_rows_by_fold": [
+      111,
+      111,
+      111,
+      111
+    ],
+    "calibration_rows_by_fold": [
+      72,
+      72,
+      72,
+      72
+    ],
+    "held_out_rows_by_fold": [
+      24,
+      22,
+      34,
+      20
+    ]
+  },
+  "batch_contract": {
+    "regression_batch_contract": "MINIBATCH_128",
+    "data_materialization": "FULL_FOLD_TENSOR_IN_MEMORY",
+    "effective_batch_size": "min(128, remaining_rows)",
+    "iterator": "range(0, len(permuted_train_rows), 128)",
+    "shuffle_rule": "numpy.default_rng(model_seed).permutation(train_rows) once per epoch",
+    "data_loader": "NOT_USED",
+    "drop_last": false,
+    "expected_batches_per_epoch_formula": "ceil(train_rows/128)",
+    "expected_optimizer_steps_per_epoch": [
+      5,
+      5,
+      4,
+      5
+    ],
+    "last_batch_rows_by_fold": [
+      7,
+      9,
+      125,
+      11
+    ],
+    "true_full_batch": false
+  },
+  "architecture": {
+    "input_dimension": 150,
+    "hidden_layers": [
+      256,
+      128
+    ],
+    "activation": "ReLU",
+    "dropout": 0.1,
+    "output_dimension": 4,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0007,
+    "weight_decay": 1e-05,
+    "loss": "SmoothL1 beta=1.0",
+    "max_epochs": 240,
+    "patience": 35,
+    "min_delta": 1e-07,
+    "restore_best_weights": true
+  },
+  "seeds": {
+    "model_seeds": [
+      20260720,
+      20260721,
+      20260722
+    ],
+    "model_initialization_seed": "model_seed",
+    "epoch_shuffle_seed": "model_seed",
+    "cuda_rng": "not_used_cpu_contract",
+    "dataloader_seed": "NOT_APPLICABLE_NO_DATALOADER"
+  },
+  "preprocessing": {
+    "feature_scaler": "StandardScaler fold-train-only with material token indices restored",
+    "target_transform": "per-target train eligible mean/std; zero std -> 1; inverse yhat*std+mean",
+    "missing_label_mask": "masked regression loss only"
+  },
+  "early_stopping": {
+    "validation_membership": "original validation only",
+    "forbidden_membership": [
+      "calibration",
+      "held_out_round1_fold",
+      "HF15",
+      "sealed-test"
+    ]
+  },
+  "ensemble": {
+    "rule": "mean of exactly 3 seed predictions",
+    "fit_count": 12,
+    "coverage_target": 0.9,
+    "alpha": 0.1
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "random_seed_contract_v3",
+  "contract_id": "MDC_ML_FIXED_V1_DETERMINISM_V3",
+  "source": "NEW_V2_DETERMINISM_DECISION",
+  "classification": {
+    "split_unit": "geometry_hash",
+    "canonical_fold_order": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "fold_ordinal_rule": "zero-based ordinal of ascending fold_id",
+    "base_estimator_seed": 20260720,
+    "estimator_seed_rule": "base_estimator_seed + fold_ordinal",
+    "estimator_seed_by_fold": {
+      "0": 20260720,
+      "1": 20260721,
+      "2": 20260722,
+      "3": 20260723
+    },
+    "final_fit_estimator_seed": 20260720,
+    "held_out_counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "original_train_count": 1507,
+    "original_validation_count": 377,
+    "original_calibration_count": 251
+  },
+  "regression": {
+    "model_seeds": [
+      20260720,
+      20260721,
+      20260722
+    ],
+    "model_initialization_seed": "model_seed",
+    "epoch_shuffle_seed": "model_seed",
+    "cuda_rng": "not_used_cpu_contract",
+    "dataloader_seed": "NOT_APPLICABLE_NO_DATALOADER"
+  },
+  "other_randomness": {
+    "classification_calibrator": "NOT_APPLICABLE_DETERMINISTIC",
+    "classification_threshold": "NOT_APPLICABLE_DETERMINISTIC",
+    "conformal_quantile": "NOT_APPLICABLE_DETERMINISTIC",
+    "report_bootstrap": "NOT_USED_IN_TRAINING",
+    "library_default_rng": "FORBIDDEN"
+  },
+  "replay_rule": "same frozen inputs and fold/seed identity must produce same artifact and prediction fingerprints"
+}
