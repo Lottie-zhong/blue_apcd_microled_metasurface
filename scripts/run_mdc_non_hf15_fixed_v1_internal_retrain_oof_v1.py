@@ -30,11 +30,14 @@ def thr(y,p):
  for t in np.unique(np.quantile(p,np.linspace(.01,.99,97))):
   k=(balanced_accuracy_score(y,p>=t),f1_score(y,p>=t,zero_division=0),-abs(t-.5)); best=(k,t) if best is None or k>best[0] else best
  return float(best[1])
+def applycal(name,obj,p):
+ a=np.clip(p,1e-6,1-1e-6)
+ return obj.predict_proba(np.log(a/(1-a))[:,None])[:,1] if name=='sigmoid' else obj.predict(a)
 rows=[]
 for f in range(4):
  tr=C.split_role.eq('train'); va=C.split_role.eq('validation'); ca=C.split_role.eq('calibration'); ho=C.fold.eq(f)&C.split_role.str.contains('adaptive'); seed=20260720+f
  for j,t in enumerate(CT):
-  m=ExtraTreesClassifier(n_estimators=384,min_samples_leaf=2,class_weight='balanced',max_features=1.0,n_jobs=8,random_state=seed).fit(CX[tr],Y[tr,j]); name,cp,bs,cc=cal(m.predict_proba(CX[ca])[:,1],Y[ca,j]); tt=thr(Y[va,j],calibrate_p:=cal(m.predict_proba(CX[ca])[:,1],Y[ca,j])[1]); hp=m.predict_proba(CX[ho])[:,1]
+  m=ExtraTreesClassifier(n_estimators=384,min_samples_leaf=2,class_weight='balanced',max_features=1.0,n_jobs=8,random_state=seed).fit(CX[tr],Y[tr,j]); name,cp,bs,cc=cal(m.predict_proba(CX[ca])[:,1],Y[ca,j]); tt=thr(Y[va,j],applycal(name,cc,m.predict_proba(CX[va])[:,1])); hp=m.predict_proba(CX[ho])[:,1]
   for cid,p in zip(C.loc[ho,'candidate_id'],hp): rows.append({'candidate_id':cid,'fold':f,'target':t,'raw_probability':float(p),'calibration_method':name,'threshold':tt,'prediction':int(p>=tt)})
   joblib.dump({'estimator':m,'calibrator':cc,'threshold':tt},O/f'classification_oof/fold{f}_{t}.joblib')
  pd.DataFrame(rows).to_parquet(O/'classification_oof/raw_calibrated_oof.parquet',index=False); ev({'task':'classification_oof','fold':f,'fits':4})
