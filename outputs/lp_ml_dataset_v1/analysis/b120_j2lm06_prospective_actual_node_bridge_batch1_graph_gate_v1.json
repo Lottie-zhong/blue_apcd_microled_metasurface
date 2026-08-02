@@ -1,0 +1,286 @@
+{
+  "analysis_version": "BATCH1_ACTUAL_NODE_GRAPH_GATE_V1",
+  "status": "PASS",
+  "candidate_ids": [
+    "PDBG_PHASE_EXIT_01",
+    "PDBG_PROJECTOR_EXIT_03",
+    "PDBG_CUT_SPLITTER_05",
+    "PDBG_ALT_PATH_07"
+  ],
+  "actual_nodes_added": 4,
+  "pre_batch1_node_count": 34,
+  "post_batch1_node_count": 38,
+  "pre_batch1_edge_count": 84,
+  "post_batch1_edge_count": 92,
+  "thresholds": {
+    "1.00": {
+      "component_count": 11,
+      "component_sizes": [
+        18,
+        9,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "new_nodes_singleton": true,
+      "new_node_component_ids": {
+        "PDBG_PHASE_EXIT_01": 5,
+        "PDBG_PROJECTOR_EXIT_03": 6,
+        "PDBG_CUT_SPLITTER_05": 4,
+        "PDBG_ALT_PATH_07": 3
+      },
+      "phase_anchor_component_id": 0,
+      "projector_anchor_component_id": 1,
+      "formal_path_exists": false,
+      "nearest_cross_component_pair": [
+        1,
+        1.0,
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ]
+    },
+    "0.75": {
+      "component_count": 13,
+      "component_sizes": [
+        18,
+        6,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "new_nodes_singleton": true,
+      "new_node_component_ids": {
+        "PDBG_PHASE_EXIT_01": 6,
+        "PDBG_PROJECTOR_EXIT_03": 7,
+        "PDBG_CUT_SPLITTER_05": 5,
+        "PDBG_ALT_PATH_07": 4
+      },
+      "phase_anchor_component_id": 0,
+      "projector_anchor_component_id": 1,
+      "formal_path_exists": false,
+      "nearest_cross_component_pair": [
+        1,
+        1.0,
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ]
+    },
+    "0.50": {
+      "component_count": 19,
+      "component_sizes": [
+        9,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "new_nodes_singleton": true,
+      "new_node_component_ids": {
+        "PDBG_PHASE_EXIT_01": 11,
+        "PDBG_PROJECTOR_EXIT_03": 12,
+        "PDBG_CUT_SPLITTER_05": 10,
+        "PDBG_ALT_PATH_07": 9
+      },
+      "phase_anchor_component_id": 0,
+      "projector_anchor_component_id": 3,
+      "formal_path_exists": false,
+      "nearest_cross_component_pair": [
+        3,
+        2.23606797749979,
+        "D8_TRV_PLAN_d6f4911593b64495",
+        "POSTD8_BOUNDED_PROJECTOR_03"
+      ]
+    }
+  },
+  "anchor_connectivity": {
+    "1.00": {
+      "phase_anchor": "POSTD8_BOUNDED_PHASE_01",
+      "projector_anchor": "POSTD8_BOUNDED_DIAG_06",
+      "connected": false,
+      "path": null,
+      "frontier": [
+        1,
+        1.0,
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ]
+    },
+    "0.75": {
+      "phase_anchor": "POSTD8_BOUNDED_PHASE_01",
+      "projector_anchor": "POSTD8_BOUNDED_DIAG_06",
+      "connected": false,
+      "path": null,
+      "frontier": [
+        1,
+        1.0,
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ]
+    },
+    "0.50": {
+      "phase_anchor": "POSTD8_BOUNDED_PHASE_01",
+      "projector_anchor": "POSTD8_BOUNDED_DIAG_06",
+      "connected": false,
+      "path": null,
+      "frontier": [
+        3,
+        2.23606797749979,
+        "D8_TRV_PLAN_d6f4911593b64495",
+        "POSTD8_BOUNDED_PROJECTOR_03"
+      ]
+    }
+  },
+  "per_node_component_merge": {
+    "1.00": {
+      "PDBG_PHASE_EXIT_01": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_PROJECTOR_EXIT_03": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_CUT_SPLITTER_05": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_ALT_PATH_07": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      }
+    },
+    "0.75": {
+      "PDBG_PHASE_EXIT_01": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_PROJECTOR_EXIT_03": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_CUT_SPLITTER_05": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_ALT_PATH_07": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      }
+    },
+    "0.50": {
+      "PDBG_PHASE_EXIT_01": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_PROJECTOR_EXIT_03": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_CUT_SPLITTER_05": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      },
+      "PDBG_ALT_PATH_07": {
+        "pre_component": "NEW_SINGLETON",
+        "post_component_size": 1,
+        "merge_realized": false
+      }
+    }
+  },
+  "expected_gain_claim": "No formal connectivity gain was realized by the four actual Batch-1 nodes; all four remain singleton components at each threshold.",
+  "outcome": "BATCH1_DIAGNOSTIC_NO_FORMAL_CONNECTIVITY_GAIN",
+  "batch2_authorized": false,
+  "d9_generated": false,
+  "batch1_phase_floor": {
+    "phase_deg": 81.28828049975944,
+    "candidate_id": "PDBG_PHASE_EXIT_01",
+    "refreshes_global_floor": false
+  },
+  "pre_batch1_threshold_component_counts": {
+    "1.00": {
+      "components": 7,
+      "sizes": [
+        18,
+        9,
+        3,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "0.75": {
+      "components": 9,
+      "sizes": [
+        18,
+        6,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "0.50": {
+      "components": 15,
+      "sizes": [
+        9,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}
