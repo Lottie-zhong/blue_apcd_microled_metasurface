@@ -10,7 +10,12 @@ OFFLINE_ONLY_PASS_CANDIDATE_DATA_PRESERVED
 Previous formal floor: 80.985688630292 deg. New prospective formal floor: 80.218717084878 deg (PDBX_PHASE_L2_M01), improvement 0.766971545414 deg; remaining to B120 target 8.773110084878 deg.
 
 ## Projector guard
-All four nodes have complete formal weighted-G0 Jones and remain usable only with independent projector guard. No new absolute threshold was invented; unspecified absolute guard semantics remain INDETERMINATE_CONTRACT_DEFINITION. Shorter L2 is a phase descent with projector penalty.
+Absolute Txx/Tyy/txy/tyx/combined-leakage/sigma/projection thresholds are absent from the frozen contract, so the authoritative node conclusion is PROJECTOR_GATE_INDETERMINATE; no threshold was invented. Existing local step checks and complete-Jones/manufacturing provenance are recorded separately:
+PDBX_PHASE_L2_M01: PROJECTOR_GATE_INDETERMINATE (relative local-step status PROJECTOR_FORMALLY_PRESERVED)
+PDBX_PHASE_L2_P01: PROJECTOR_GATE_INDETERMINATE (relative local-step status PROJECTOR_FORMALLY_PRESERVED)
+PDBX_PROJECTOR_L2_M01: PROJECTOR_GATE_INDETERMINATE (relative local-step status PROJECTOR_FORMALLY_PRESERVED)
+PDBX_PROJECTOR_L2_P01: PROJECTOR_GATE_INDETERMINATE (relative local-step status PROJECTOR_FORMALLY_PRESERVED)
+Shorter L2 is a phase descent with a relative projector penalty.
 
 ## Graph
 A separate 4D post-canonical actual-node view appends four Batch-A nodes to the corrected graph. Canonical v1.21 and the source graph remain unchanged. No formal phase-to-projector bridge was claimed.

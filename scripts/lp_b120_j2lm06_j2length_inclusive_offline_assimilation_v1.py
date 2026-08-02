@@ -32,6 +32,8 @@ def metrics(row):
     else: phase=float(row.get("phase",0.0))
     return {"candidate_id":row["candidate_id"], "jones":j, "phase_deg":phase,
             "Txx":float(row["Txx"]), "Tyy":float(row["Tyy"]),
+            "Txy":float(row.get("Txy",0.0)), "Tyx":float(row.get("Tyx",0.0)),
+            "combined_off_axis_power":float(row.get("Txy",0.0))+float(row.get("Tyx",0.0)),
             "leakage":float(row.get("leakage",row.get("Tyy",0.0))),
             "sigma2_over_sigma1":float(row.get("sigma2_over_sigma1",row.get("sigma_ratio",0.0))),
             "projection_error":float(row.get("projection_error",row.get("sigma2_over_sigma1",0.0))),
@@ -101,6 +103,11 @@ def main():
       "new_prospective_floor_deg":new_floor,"new_floor_candidate_id":floor_id,
       "improvement_deg":old_floor-new_floor,"b120_target_phase_deg":target,
       "remaining_distance_deg":new_floor-target,"comparison":"FORMAL_WEIGHTED_G0_COMPLETE_JONES_450NM",
+      "previous_floor_wrapped_deg":old_floor%360.0,"previous_floor_unwrapped_deg":old_floor,
+      "new_floor_wrapped_deg":new_floor%360.0,"new_floor_unwrapped_deg":new_floor,
+      "wrapped_unwrapped_consistent":abs((new_floor%360.0)-new_floor)<1e-12,
+      "phase_reference":"Frozen weighted-G0 common-phase convention from complete Jones",
+      "common_offset_semantics":"No arbitrary offset applied; all four nodes use the same frozen source/reference/normalization convention",
       "classification":"NEW_FORMAL_PROSPECTIVE_PHASE_FLOOR",
       "historical_primary_claim":False,"library_promotion":False,
       "search_scope":"corrected authoritative actual-node graph plus four Batch-A J2L nodes",
@@ -115,12 +122,27 @@ def main():
                  "sigma_ratio":dm["sigma_ratio_jump"]<=frozen["max_sigma_ratio_jump"],
                  "jones_frobenius":dm["jones_frobenius_step"]<=frozen["max_jones_frobenius_step"]}
         all_step=all(edge_ok.values())
+        # Absolute Txx/Tyy/leakage/sigma/projection limits are not present in
+        # the frozen projector contract.  Preserve that uncertainty explicitly;
+        # only the existing graph-local step limits are evaluated numerically.
+        metric_audits={
+          "Txx":{"raw_value":r["Txx"],"frozen_threshold":None,"normalized_margin":None,"pass":None,"status":"THRESHOLD_NOT_DEFINED"},
+          "Tyy":{"raw_value":r["Tyy"],"frozen_threshold":None,"normalized_margin":None,"pass":None,"status":"THRESHOLD_NOT_DEFINED","local_step":dm["Tyy_step"],"local_step_threshold":frozen["max_Tyy_jump"],"local_step_margin":1-dm["Tyy_step"]/frozen["max_Tyy_jump"],"local_step_pass":edge_ok["Tyy"]},
+          "txy_leakage":{"raw_value":r["Txy"],"frozen_threshold":None,"normalized_margin":None,"pass":None,"status":"THRESHOLD_NOT_DEFINED"},
+          "tyx_leakage":{"raw_value":r["Tyx"],"frozen_threshold":None,"normalized_margin":None,"pass":None,"status":"THRESHOLD_NOT_DEFINED"},
+          "formal_combined_leakage":{"raw_value":r["leakage"],"frozen_threshold":None,"normalized_margin":None,"pass":None,"status":"THRESHOLD_NOT_DEFINED","local_step":dm["leakage_step"],"local_step_threshold":frozen["max_leakage_jump"],"local_step_margin":1-dm["leakage_step"]/frozen["max_leakage_jump"],"local_step_pass":edge_ok["leakage"]},
+          "sigma2_over_sigma1":{"raw_value":r["sigma2_over_sigma1"],"frozen_threshold":None,"normalized_margin":None,"pass":None,"status":"THRESHOLD_NOT_DEFINED","local_step":dm["sigma_ratio_jump"],"local_step_threshold":frozen["max_sigma_ratio_jump"],"local_step_margin":1-dm["sigma_ratio_jump"]/frozen["max_sigma_ratio_jump"],"local_step_pass":edge_ok["sigma_ratio"]},
+          "projection_error":{"raw_value":r["projection_error"],"frozen_threshold":None,"normalized_margin":None,"pass":None,"status":"THRESHOLD_NOT_DEFINED","local_step":dm["projection_error_step"],"local_step_threshold":None,"local_step_margin":None,"local_step_pass":None},
+          "jones_frobenius_step":{"raw_value":dm["jones_frobenius_step"],"frozen_threshold":frozen["max_jones_frobenius_step"],"normalized_margin":1-dm["jones_frobenius_step"]/frozen["max_jones_frobenius_step"],"pass":edge_ok["jones_frobenius"],"status":"EXISTING_LOCAL_STEP_THRESHOLD"},
+          "manufacturing_margin":{"raw_value":min(float(r["geometry"].get("direct_gap_nm",0.0)),float(r["geometry"].get("nearest_periodic_gap_nm",0.0))),"frozen_threshold":None,"normalized_margin":None,"pass":bool(r["geometry"].get("no_overlap") and r["geometry"].get("primitive_valid")),"status":"GEOMETRY_GATE_ONLY"},
+          "complete_jones":{"raw_value":True,"frozen_threshold":True,"normalized_margin":1.0,"pass":True,"status":"PROVENANCE_GATE"}}
         guards.append({"candidate_id":cid,"anchor_id":graph["anchor_ids"]["phase" if "PHASE" in cid else "projector"],
           "complete_jones":True,"formal_weighted_g0":True,"projector_preserved_from_backbone":True,
           "absolute_guard_threshold_status":"INDETERMINATE_CONTRACT_DEFINITION",
           "threshold_source":"EXISTING_FORMAL_PROJECTOR_GUARD_CONTRACT_NO_NEW_THRESHOLD",
-          "frozen_local_step_checks":edge_ok,"frozen_local_step_limits":frozen,"relative_metrics":dm,
-          "guard_status":"PROJECTOR_PRESERVED_WITH_REDUCED_MARGIN" if not all_step else "PROJECTOR_FORMALLY_PRESERVED",
+          "frozen_local_step_checks":edge_ok,"frozen_local_step_limits":frozen,"relative_metrics":dm,"metric_audits":metric_audits,
+          "relative_local_status":"PROJECTOR_PRESERVED_WITH_REDUCED_MARGIN" if not all_step else "PROJECTOR_FORMALLY_PRESERVED",
+          "guard_status":"PROJECTOR_GATE_INDETERMINATE",
           "dominant_penalty":max((k for k in dm if k in {"Tyy_step","leakage_step","sigma_ratio_jump","jones_frobenius_step"}),key=lambda k:dm[k]),
           "claim_boundary":"No new absolute threshold or library/spectral claim"})
     dump(AN/"b120_j2lm06_j2length_inclusive_projector_guard_audit_v1.json",{
@@ -197,14 +219,16 @@ def main():
       "source_graph_unchanged":True,"coordinate_definition":"[uL2,uW,uD,uPsi], existing nodes assigned uL2=0",
       "node_count":len(nodes4),"edge_count":len(edges),"nodes":nodes4,"edges":edges,"frozen_thresholds":frozen,"thresholds":thout,
       "anchor_continuity":{"phase_anchor":graph["anchor_ids"]["phase"],"projector_anchor":graph["anchor_ids"]["projector"],"formal_bridge_path":False,
-        "new_phase_floor_node":floor_id,"new_projector_frontier_node":min(candidates,key=lambda k:(candidates[k]["Tyy"],candidates[k]["sigma2_over_sigma1"]))},
+        "new_phase_floor_node":floor_id,"new_projector_frontier_node":min(candidates,key=lambda k:(candidates[k]["Tyy"],candidates[k]["sigma2_over_sigma1"])),
+        "previous_formal_projector_frontier":"POSTD8_BOUNDED_DIAG_06","prospective_lowest_tyy":min(candidates,key=lambda k:candidates[k]["Tyy"]),
+        "frontier_refresh_status":"PROSPECTIVE_METRIC_IMPROVEMENT_NOT_FORMAL_GUARD_REFRESH"},
       "solver_calls_this_offline_task":0,"no_d9":True})
 
     # Successor and control conclusions.
     dump(AN/"b120_j2lm06_j2length_inclusive_phase_anchor_successor_decision_v1.json",{
       "analysis_version":"J2L_PHASE_ANCHOR_SUCCESSOR_DECISION_V1","new_phase_floor_candidate":floor_id,
       "existing_phase_anchor":graph["anchor_ids"]["phase"],"projector_frontier_candidate":min(candidates,key=lambda k:(candidates[k]["Tyy"],candidates[k]["sigma2_over_sigma1"])),
-      "decision":"RETAIN_DUAL_PHASE_ANCHORS_WITH_CAVEAT","reason":"Shorter L2 lowers phase but incurs projector penalty; corrected graph has no anchor-to-anchor formal path and new nodes are prospective.",
+      "decision":"RETAIN_DUAL_PHASE_ANCHORS_WITH_CAVEAT","projector_guard_decision":"PROJECTOR_GATE_INDETERMINATE","reason":"Shorter L2 lowers phase but incurs relative projector penalty; absolute projector gate is indeterminate because the frozen contract lacks those thresholds, corrected graph has no anchor-to-anchor formal path, and new nodes are prospective.",
       "next_phase_step":"No automatic successor geometry; draft local contract requires approval","d9_authorized":False})
     dump(AN/"b120_j2lm06_j2length_inclusive_control_conclusion_v1.json",{
       "analysis_version":"J2L_CONTROL_CONCLUSION_V1","conclusion":"J2L_VALIDATED_PHASE_CONTROL_VARIABLE",
@@ -241,7 +265,8 @@ def main():
       "supersedes":"INCOMPLETE_RUNNER_FINAL_LEDGER_SENTINEL_RECORD_ONLY","preserves_execution_provenance":True,"no_rerun":True}
     dump(AN/"b120_j2lm06_j2length_inclusive_completion_supersession_ledger_v1.json",ledger)
     report=REPORTS/"lp_b120_j2lm06_j2length_inclusive_authoritative_assimilation_and_d9_contract_audit_v1.md"
-    lines=["# J2_length Inclusive Authoritative Assimilation and D9 Contract Audit v1","","## Status","OFFLINE_ONLY_PASS_CANDIDATE_DATA_PRESERVED","","## Batch A ledger closure","8/8 entered, 8/8 accepted, 4/4 complete Jones, 0 failed/missing/duplicate. The runner FINAL sentinel crashed only after acceptance because FINAL lacks the candidate_polarization underscore expected by the parser. Offline finalizer closes the ledger without rerun; physics and checkpoints are unchanged.","","## Phase floor","Previous formal floor: %.12f deg. New prospective formal floor: %.12f deg (%s), improvement %.12f deg; remaining to B120 target %.12f deg."%(old_floor,new_floor,floor_id,old_floor-new_floor,new_floor-target),"","## Projector guard","All four nodes have complete formal weighted-G0 Jones and remain usable only with independent projector guard. No new absolute threshold was invented; unspecified absolute guard semantics remain INDETERMINATE_CONTRACT_DEFINITION. Shorter L2 is a phase descent with projector penalty.","","## Graph","A separate 4D post-canonical actual-node view appends four Batch-A nodes to the corrected graph. Canonical v1.21 and the source graph remain unchanged. No formal phase-to-projector bridge was claimed.","","## J2L conclusion","J2L_VALIDATED_PHASE_CONTROL_VARIABLE; J2L_VALIDATED_BUT_NOT_PROJECTOR_ORTHOGONAL. Batch B remains not justified.","","## D9","Draft-only phase-local contract with independent projector guard; no candidate geometry, runnable package, or solver authorization.","","## Historical boundary","HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE is preserved. Prospective physics is not historical primary validation."]
+    guard_lines=[f"{n['candidate_id']}: {n['guard_status']} (relative local-step status {n['relative_local_status']})" for n in guards]
+    lines=["# J2_length Inclusive Authoritative Assimilation and D9 Contract Audit v1","","## Status","OFFLINE_ONLY_PASS_CANDIDATE_DATA_PRESERVED","","## Batch A ledger closure","8/8 entered, 8/8 accepted, 4/4 complete Jones, 0 failed/missing/duplicate. The runner FINAL sentinel crashed only after acceptance because FINAL lacks the candidate_polarization underscore expected by the parser. Offline finalizer closes the ledger without rerun; physics and checkpoints are unchanged.","","## Phase floor","Previous formal floor: %.12f deg. New prospective formal floor: %.12f deg (%s), improvement %.12f deg; remaining to B120 target %.12f deg."%(old_floor,new_floor,floor_id,old_floor-new_floor,new_floor-target),"","## Projector guard","Absolute Txx/Tyy/txy/tyx/combined-leakage/sigma/projection thresholds are absent from the frozen contract, so the authoritative node conclusion is PROJECTOR_GATE_INDETERMINATE; no threshold was invented. Existing local step checks and complete-Jones/manufacturing provenance are recorded separately:"]+guard_lines+["Shorter L2 is a phase descent with a relative projector penalty.","","## Graph","A separate 4D post-canonical actual-node view appends four Batch-A nodes to the corrected graph. Canonical v1.21 and the source graph remain unchanged. No formal phase-to-projector bridge was claimed.","","## J2L conclusion","J2L_VALIDATED_PHASE_CONTROL_VARIABLE; J2L_VALIDATED_BUT_NOT_PROJECTOR_ORTHOGONAL. Batch B remains not justified.","","## D9","Draft-only phase-local contract with independent projector guard; no candidate geometry, runnable package, or solver authorization.","","## Historical boundary","HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE is preserved. Prospective physics is not historical primary validation."]
     report.write_text("\n".join(lines)+"\n",encoding="utf-8")
     print(json.dumps({"status":"PASS","phase_floor":new_floor,"floor_candidate":floor_id,"outputs":12,"solver_calls_this_task":0},ensure_ascii=False))
 
