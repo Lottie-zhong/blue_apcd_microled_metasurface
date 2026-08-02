@@ -1,0 +1,30 @@
+{
+  "Jones": "[[txx,txy],[tyx,tyy]]",
+  "batch_a_budget": {
+    "geometries": 4,
+    "wavelength_nm": [
+      450
+    ],
+    "xy_subruns": 8
+  },
+  "batch_b_budget": {
+    "conditional": true,
+    "geometries": 2,
+    "status": "UNFROZEN_PENDING_BATCH_A_PHYSICS",
+    "xy_subruns": 4
+  },
+  "entered_accounting": "record solver_entered=true before invocation",
+  "material": "APCD_TIO2_NATIVE_M1",
+  "no_D9": true,
+  "no_old_batch2": true,
+  "no_runnable_package": true,
+  "no_staging": true,
+  "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+  "observable": "transmission-side full-period coordinate-weighted complex-field G0; duplicate endpoint removal; periodic reclosure",
+  "per_geometry_order": "x -> checkpoint -> reload -> formal acceptance -> y -> checkpoint -> reload -> formal acceptance",
+  "retry": "FORBIDDEN without explicit budget expansion",
+  "schema_version": "LP_J2LENGTH_FUTURE_SOLVER_CONTRACT_V1",
+  "solver_authorized": false,
+  "solver_calls": 0,
+  "status": "PLANNED_NOT_RUN"
+}

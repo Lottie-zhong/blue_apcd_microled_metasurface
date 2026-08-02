@@ -1,0 +1,33 @@
+{
+  "authorized": false,
+  "max_geometries": 2,
+  "max_xy_subruns": 4,
+  "schema_version": "LP_J2LENGTH_DUAL_ANCHOR_BATCH_B_CONDITIONAL_PLAN_V1",
+  "selection_rule": "only after Batch A outcome A or B with formal W/D/Psi compensation direction; no component-gain estimator; no J1_side",
+  "slots": [
+    {
+      "allowed_compensation_variables": [
+        "J2_width_nm",
+        "D_nm",
+        "Psi_deg"
+      ],
+      "candidate_id": null,
+      "geometry": null,
+      "required_delta_J2_length_nonzero": true,
+      "slot": "PHASE_ANCHOR_COMPENSATION_SLOT"
+    },
+    {
+      "allowed_compensation_variables": [
+        "J2_width_nm",
+        "D_nm",
+        "Psi_deg"
+      ],
+      "candidate_id": null,
+      "geometry": null,
+      "required_delta_J2_length_nonzero": true,
+      "slot": "PROJECTOR_ANCHOR_COMPENSATION_SLOT"
+    }
+  ],
+  "solver_calls": 0,
+  "status": "UNFROZEN_PENDING_BATCH_A_PHYSICS"
+}

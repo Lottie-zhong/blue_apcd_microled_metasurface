@@ -1,0 +1,307 @@
+{
+  "batch_b_status": "UNFROZEN_PENDING_BATCH_A_PHYSICS",
+  "candidate_count": 4,
+  "candidate_order": [
+    "PDBX_PHASE_L2_M01",
+    "PDBX_PHASE_L2_P01",
+    "PDBX_PROJECTOR_L2_M01",
+    "PDBX_PROJECTOR_L2_P01"
+  ],
+  "candidates": [
+    {
+      "anchor_id": "POSTD8_BOUNDED_PHASE_01",
+      "anchor_role": "PHASE_ANCHOR",
+      "candidate_id": "PDBX_PHASE_L2_M01",
+      "delta_D_nm": 0.0,
+      "delta_J2_length_nm": -1.0,
+      "delta_J2_width_nm": 0.0,
+      "delta_Psi_deg": 0.0,
+      "direct_gap_nm": 94.0,
+      "geometry": {
+        "D_nm": 201.5,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.5,
+          -0.5
+        ],
+        "J2_length_nm": 105.0,
+        "J2_width_nm": 100.0,
+        "Psi_deg": 0.0,
+        "candidate_id": "PDBX_PHASE_L2_M01",
+        "canonical_relative_geometry_hash_sha256": "276625cf617829951d91eed2cd28d1aa891b27fbc966bf5d5ca4c2695fa49375",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 94.0,
+        "exact_geometry_hash_sha256": "a58013184d897904d46fa6c2dbeae136fa3492dbb86e6b50dfc727f5b6609105",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "nearest_periodic_gap_nm": 123.0,
+        "no_overlap": true,
+        "period_nm": 432.0,
+        "primitive_valid": true,
+        "symmetry_equivalence_hash_sha256": "276625cf617829951d91eed2cd28d1aa891b27fbc966bf5d5ca4c2695fa49375"
+      },
+      "manufacturing_margin_direct_nm": 34.0,
+      "manufacturing_margin_periodic_nm": 63.0,
+      "nearest_periodic_gap_nm": 123.0,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "predicted_metrics": {
+        "Txx_nominal": 0.9750378123065335,
+        "Txy_nominal": 3.865018324880622e-10,
+        "Tyx_nominal": 4.0820559256214054e-10,
+        "Tyy_nominal": 0.10164064846426536,
+        "jones_frobenius_step_nominal": 0.023407580129961497,
+        "leakage_nominal": 7.947074250502027e-10,
+        "phase_deg_nominal": 80.4850595679022,
+        "projection_error_nominal": null,
+        "sigma2_over_sigma1_nominal": 0.3228664984404102
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "prediction_provenance": {
+        "applicability": "planning prior only; current anchor J2_length=106 nm; no comparable non-106 formal node found",
+        "source_anchor": "LP_H500_D2_B120_J2LM06; J2_length=109 nm (not either current anchor)",
+        "source_contract": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_stage_d5_derivative_contract_v1.json",
+        "source_derivative": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d5_central_difference_jacobian_v1.json",
+        "source_plan": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_local_planar_size_jacobian_stage_d5_v1.json",
+        "uncertainty": {
+          "jones_frobenius_max_from_D8_secant": 0.061791720102170114,
+          "metric_specific": "NOT_CALIBRATED_FOR_CURRENT_ANCHORS",
+          "phase_max_abs_deg_from_D8_secant": 3.541906404082708,
+          "projection_error": "NOT_PREDICTED"
+        }
+      },
+      "status": "PLANNED_NOT_RUN",
+      "wavelength_nm": 450.0
+    },
+    {
+      "anchor_id": "POSTD8_BOUNDED_PHASE_01",
+      "anchor_role": "PHASE_ANCHOR",
+      "candidate_id": "PDBX_PHASE_L2_P01",
+      "delta_D_nm": 0.0,
+      "delta_J2_length_nm": 1.0,
+      "delta_J2_width_nm": 0.0,
+      "delta_Psi_deg": 0.0,
+      "direct_gap_nm": 93.0,
+      "geometry": {
+        "D_nm": 201.5,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.5,
+          -0.5
+        ],
+        "J2_length_nm": 107.0,
+        "J2_width_nm": 100.0,
+        "Psi_deg": 0.0,
+        "candidate_id": "PDBX_PHASE_L2_P01",
+        "canonical_relative_geometry_hash_sha256": "49560ed34c391863df2da284752f367302c1e198ff2e8505eff911532c843d81",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 93.0,
+        "exact_geometry_hash_sha256": "f8003e8240679c74240667ef5ff87f356b3679eb60b545a932894a9029811db3",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "nearest_periodic_gap_nm": 122.0,
+        "no_overlap": true,
+        "period_nm": 432.0,
+        "primitive_valid": true,
+        "symmetry_equivalence_hash_sha256": "49560ed34c391863df2da284752f367302c1e198ff2e8505eff911532c843d81"
+      },
+      "manufacturing_margin_direct_nm": 33.0,
+      "manufacturing_margin_periodic_nm": 62.0,
+      "nearest_periodic_gap_nm": 122.0,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "predicted_metrics": {
+        "Txx_nominal": 0.9784984262956262,
+        "Txy_nominal": 3.865077250707136e-10,
+        "Tyx_nominal": 4.0843200956204903e-10,
+        "Tyy_nominal": 0.10173163135795568,
+        "jones_frobenius_step_nominal": 0.02340758012996151,
+        "leakage_nominal": 7.949397346327626e-10,
+        "phase_deg_nominal": 83.18040443832359,
+        "projection_error_nominal": null,
+        "sigma2_over_sigma1_nominal": 0.3224392764126329
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "prediction_provenance": {
+        "applicability": "planning prior only; current anchor J2_length=106 nm; no comparable non-106 formal node found",
+        "source_anchor": "LP_H500_D2_B120_J2LM06; J2_length=109 nm (not either current anchor)",
+        "source_contract": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_stage_d5_derivative_contract_v1.json",
+        "source_derivative": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d5_central_difference_jacobian_v1.json",
+        "source_plan": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_local_planar_size_jacobian_stage_d5_v1.json",
+        "uncertainty": {
+          "jones_frobenius_max_from_D8_secant": 0.061791720102170114,
+          "metric_specific": "NOT_CALIBRATED_FOR_CURRENT_ANCHORS",
+          "phase_max_abs_deg_from_D8_secant": 3.541906404082708,
+          "projection_error": "NOT_PREDICTED"
+        }
+      },
+      "status": "PLANNED_NOT_RUN",
+      "wavelength_nm": 450.0
+    },
+    {
+      "anchor_id": "POSTD8_BOUNDED_DIAG_06",
+      "anchor_role": "PROJECTOR_ANCHOR",
+      "candidate_id": "PDBX_PROJECTOR_L2_M01",
+      "delta_D_nm": 0.0,
+      "delta_J2_length_nm": -1.0,
+      "delta_J2_width_nm": 0.0,
+      "delta_Psi_deg": 0.0,
+      "direct_gap_nm": 93.50995000248122,
+      "geometry": {
+        "D_nm": 201.00995000248122,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.0,
+          1.5
+        ],
+        "J2_length_nm": 105.0,
+        "J2_width_nm": 102.0,
+        "Psi_deg": 0.5700884449988864,
+        "candidate_id": "PDBX_PROJECTOR_L2_M01",
+        "canonical_relative_geometry_hash_sha256": "0bf863e124d3946de4a283959ec7b2755f5d30139992623452af860b76bb2b00",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 93.50995000248122,
+        "exact_geometry_hash_sha256": "935d4a6c163908b63df056f70232872a8ff545233a5d3c4c869f90cebb161cc9",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "nearest_periodic_gap_nm": 123.49004999751878,
+        "no_overlap": true,
+        "period_nm": 432.0,
+        "primitive_valid": true,
+        "symmetry_equivalence_hash_sha256": "0bf863e124d3946de4a283959ec7b2755f5d30139992623452af860b76bb2b00"
+      },
+      "manufacturing_margin_direct_nm": 33.50995000248122,
+      "manufacturing_margin_periodic_nm": 63.49004999751878,
+      "nearest_periodic_gap_nm": 123.49004999751878,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "predicted_metrics": {
+        "Txx_nominal": 0.987025005967857,
+        "Txy_nominal": 4.291825325299343e-05,
+        "Tyx_nominal": 4.424500116211057e-05,
+        "Tyy_nominal": 0.08332111492518678,
+        "jones_frobenius_step_nominal": 0.023407580129961515,
+        "leakage_nominal": 8.7163254415104e-05,
+        "phase_deg_nominal": 82.48038598046166,
+        "projection_error_nominal": null,
+        "sigma2_over_sigma1_nominal": 0.2904896764954642
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "prediction_provenance": {
+        "applicability": "planning prior only; current anchor J2_length=106 nm; no comparable non-106 formal node found",
+        "source_anchor": "LP_H500_D2_B120_J2LM06; J2_length=109 nm (not either current anchor)",
+        "source_contract": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_stage_d5_derivative_contract_v1.json",
+        "source_derivative": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d5_central_difference_jacobian_v1.json",
+        "source_plan": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_local_planar_size_jacobian_stage_d5_v1.json",
+        "uncertainty": {
+          "jones_frobenius_max_from_D8_secant": 0.061791720102170114,
+          "metric_specific": "NOT_CALIBRATED_FOR_CURRENT_ANCHORS",
+          "phase_max_abs_deg_from_D8_secant": 3.541906404082708,
+          "projection_error": "NOT_PREDICTED"
+        }
+      },
+      "status": "PLANNED_NOT_RUN",
+      "wavelength_nm": 450.0
+    },
+    {
+      "anchor_id": "POSTD8_BOUNDED_DIAG_06",
+      "anchor_role": "PROJECTOR_ANCHOR",
+      "candidate_id": "PDBX_PROJECTOR_L2_P01",
+      "delta_D_nm": 0.0,
+      "delta_J2_length_nm": 1.0,
+      "delta_J2_width_nm": 0.0,
+      "delta_Psi_deg": 0.0,
+      "direct_gap_nm": 92.50995000248122,
+      "geometry": {
+        "D_nm": 201.00995000248122,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.0,
+          1.5
+        ],
+        "J2_length_nm": 107.0,
+        "J2_width_nm": 102.0,
+        "Psi_deg": 0.5700884449988864,
+        "candidate_id": "PDBX_PROJECTOR_L2_P01",
+        "canonical_relative_geometry_hash_sha256": "71409f8d10e49e3693b867a3d777be49b974d5907c18157b1e7075e52e5482e9",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 92.50995000248122,
+        "exact_geometry_hash_sha256": "ec8e6ae4d77e3db13981e918ad9f7d117bed99ab2716cd57cdb8197549df4ae4",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "nearest_periodic_gap_nm": 122.49004999751878,
+        "no_overlap": true,
+        "period_nm": 432.0,
+        "primitive_valid": true,
+        "symmetry_equivalence_hash_sha256": "71409f8d10e49e3693b867a3d777be49b974d5907c18157b1e7075e52e5482e9"
+      },
+      "manufacturing_margin_direct_nm": 32.50995000248122,
+      "manufacturing_margin_periodic_nm": 62.49004999751878,
+      "nearest_periodic_gap_nm": 122.49004999751878,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "predicted_metrics": {
+        "Txx_nominal": 0.9937109450156011,
+        "Txy_nominal": 4.291824885622014e-05,
+        "Tyx_nominal": 4.424492492671278e-05,
+        "Tyy_nominal": 0.0838059474387247,
+        "jones_frobenius_step_nominal": 0.023407580129961515,
+        "leakage_nominal": 8.716317378293291e-05,
+        "phase_deg_nominal": 85.15206696673587,
+        "projection_error_nominal": null,
+        "sigma2_over_sigma1_nominal": 0.2903551457594795
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "prediction_provenance": {
+        "applicability": "planning prior only; current anchor J2_length=106 nm; no comparable non-106 formal node found",
+        "source_anchor": "LP_H500_D2_B120_J2LM06; J2_length=109 nm (not either current anchor)",
+        "source_contract": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_stage_d5_derivative_contract_v1.json",
+        "source_derivative": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d5_central_difference_jacobian_v1.json",
+        "source_plan": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_local_planar_size_jacobian_stage_d5_v1.json",
+        "uncertainty": {
+          "jones_frobenius_max_from_D8_secant": 0.061791720102170114,
+          "metric_specific": "NOT_CALIBRATED_FOR_CURRENT_ANCHORS",
+          "phase_max_abs_deg_from_D8_secant": 3.541906404082708,
+          "projection_error": "NOT_PREDICTED"
+        }
+      },
+      "status": "PLANNED_NOT_RUN",
+      "wavelength_nm": 450.0
+    }
+  ],
+  "phase_anchor_id": "POSTD8_BOUNDED_PHASE_01",
+  "projector_anchor_id": "POSTD8_BOUNDED_DIAG_06",
+  "schema_version": "LP_J2LENGTH_INCLUSIVE_DUAL_ANCHOR_LOCAL_MAP_PLAN_V1",
+  "solver_calls": 0,
+  "source_hashes": {
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_phase_local_jacobian_v1.json": "29af5518f5ed89a3fe8886636e796e03a787b70617b713bd87cc70a6a17fb0cb",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_projector_local_jacobian_v1.json": "af1da89ab42e2db71ecccdb5e86dcde8e89cc1a90d001c773e5aae1bcb85abff",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_recalibration_jacobian_secant_alignment_v1.json": "6ccb0a7853a4213416bbdececc10a4896dc63428fa2f475b9fc910c720528615",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_revised_coordinate_manifest_v2.json": "e85750acee2364ed7704a4149de382825b5c06b7fb621af0ff28227b293df45e",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_prospective_actual_node_bridge_batch1_graph_gate_v1.json": "c74ac41e4a953157e4163e240590cf6edff6a558c900dfb92ab867146dc7043a",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_prospective_actual_node_bridge_batch2_readiness_v1.json": "3a3e7c114203274d9cbdcfa5aae0c29f20604d711be8a79ea55b65d307fd7560",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d5_central_difference_jacobian_v1.json": "dcbd5c8452d9ada32fbf71d7c9a98bd10b7073b223d99e106d4775a9058ed66e",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d6_five_variable_jacobian_v1.json": "ca0124d8e7900db868c90c9d4d13143151c635dcce62171e6cbb664b3b18717d",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d6_route_decision_v1.json": "c4e82d5026c2e3e24c326b6226a726f1da91b2ad10446662e162e7b2495a5a99",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d7_physics_assimilation_v1.json": "c34e057c48f5b56caefb200b83aeb227227e54f0c7726b37dfae0d332c913f00",
+    "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_local_planar_size_jacobian_stage_d5_v1.json": "40f062ac9fad2be9f77022c8eff5ab9ba555dd6048b79a51f1988661032e7a8f",
+    "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_stage_d5_derivative_contract_v1.json": "890a876e7d3ac8e06c981ef91d2eb22e5be9fd94c83a315722d111f8297401cc",
+    "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_stage_d8_execution_contract_v1.json": "c9ef2cedbb62ed38cbc4b146e04d01c4c07fff54e459903249bb1c4ec0be3852",
+    "outputs/lp_ml_dataset_v1/staging/b120_j2lm06_post_d8_bounded_physics_validation_v1/candidates/POSTD8_BOUNDED_DIAG_06.json": "5d207976a2ff4b655b6b0063f6400e45cf2bf1f78f8b396015bb43a1d4f281f0",
+    "outputs/lp_ml_dataset_v1/staging/b120_j2lm06_post_d8_bounded_physics_validation_v1/candidates/POSTD8_BOUNDED_PHASE_01.json": "3a471b2805d16ac7b922bff19aeef15ac697ae2d7700021e142137e068d7d472"
+  },
+  "status": "PLANNED_NOT_RUN",
+  "subrun_count": 8
+}

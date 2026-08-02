@@ -1,0 +1,37 @@
+{
+  "batch_a_candidate_count": 4,
+  "batch_a_subrun_ceiling": 8,
+  "decision_rules": {
+    "hard_gate": "provenance/acceptance/accounting failure; stop",
+    "not_identifiable": "response below residual/quantization uncertainty; no Batch B",
+    "penalty": "phase identifiable but projector worsens; Batch B only with measured W/D/Psi compensation",
+    "redundant": "response within existing span within residual envelope; no Batch B",
+    "validated": "J2_length response exceeds residual envelope and has component outside W/D/Psi span"
+  },
+  "no_auto_authorization": [
+    "Batch B",
+    "D9",
+    "new bridge solver",
+    "six-phase promotion"
+  ],
+  "outcomes": [
+    "J2L_NEW_CONTROL_DIRECTION_VALIDATED",
+    "J2L_PHASE_LEVERAGE_WITH_PROJECTOR_PENALTY",
+    "J2L_LOCALLY_REDUNDANT_WITH_W_D_PSI",
+    "J2L_EFFECT_NOT_IDENTIFIABLE",
+    "J2L_PROSPECTIVE_PHYSICS_HARD_GATE"
+  ],
+  "requirements": {
+    "central_difference_if_both_legal": true,
+    "formal_weighted_G0": true,
+    "four_complete_Jones": true,
+    "geometry_hash_and_absolute_provenance": true,
+    "label_separation": true,
+    "no_global_connectivity_primary_gate": true,
+    "one_sided_secant_if_needed": true,
+    "projector_guard_unchanged": true,
+    "x_y_complete_before_metrics": true
+  },
+  "schema_version": "LP_J2LENGTH_BATCH_A_OUTCOME_GATE_V1",
+  "status": "PLANNED_NOT_RUN"
+}

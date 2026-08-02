@@ -1,0 +1,97 @@
+{
+  "active_variables": [
+    "J2_length_nm",
+    "J2_width_nm",
+    "D_nm",
+    "Psi_deg"
+  ],
+  "batch_a": {
+    "construction": "each anchor J2_length +/-1nm; W/D/Psi and all other fields fixed to that anchor",
+    "count": 4,
+    "ids": [
+      "PDBX_PHASE_L2_M01",
+      "PDBX_PHASE_L2_P01",
+      "PDBX_PROJECTOR_L2_M01",
+      "PDBX_PROJECTOR_L2_P01"
+    ],
+    "status": "PLANNED_NOT_RUN",
+    "xy_subruns": 8
+  },
+  "batch_b": {
+    "geometry_frozen": false,
+    "max_count": 2,
+    "max_xy_subruns": 4,
+    "slots": [
+      "PHASE_ANCHOR_COMPENSATION_SLOT",
+      "PROJECTOR_ANCHOR_COMPENSATION_SLOT"
+    ],
+    "status": "UNFROZEN_PENDING_BATCH_A_PHYSICS"
+  },
+  "d9_authorized": false,
+  "execution_package_created": false,
+  "fixed_variables": {
+    "H_nm": 500.0,
+    "J1_side_nm": 110.0,
+    "Jones": "[[txx,txy],[tyx,tyy]]",
+    "boundary": "x/y periodic; z PML",
+    "material": "APCD_TIO2_NATIVE_M1",
+    "monitor": "field monitor z=1000 nm",
+    "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+    "observable": "transmission-side full-period coordinate-weighted complex-field G0; duplicate endpoint removal; periodic reclosure",
+    "period_nm": [
+      432.0,
+      432.0
+    ],
+    "reference_plane": "frozen transmission-side plane",
+    "source": "frozen x/y inputs"
+  },
+  "forbidden": [
+    "FDTD/solver",
+    "D9",
+    "old Batch2",
+    "spectrum",
+    "training",
+    "canonical merge",
+    "J1_side variation",
+    "graph change",
+    "projector guard change",
+    "constituent additive prediction",
+    "monitor-center",
+    "arithmetic mean",
+    "legacy normalization",
+    "txy=tyx assumption"
+  ],
+  "hash_policy": {
+    "alias_reuse": "only exact absolute geometry plus fixed contract plus complete 450nm weighted-G0 Jones",
+    "canonical_relative": "J1/J2 dimensions plus relative D/Psi payload",
+    "duplicate_policy": "exclude exact/canonical/symmetry duplicates",
+    "exact": "existing geometry hash over geometry payload including candidate_id",
+    "symmetry": "existing symmetry-equivalence hash rule"
+  },
+  "local_coordinates": {
+    "absolute_geometry_authority": "formal anchor records",
+    "independent_origins": true,
+    "no_subgrid": true,
+    "phase_anchor_origin": "POSTD8_BOUNDED_PHASE_01",
+    "projector_anchor_origin": "POSTD8_BOUNDED_DIAG_06",
+    "qD_rule": "existing center-lattice-induced D rule",
+    "qL_nm": 1.0,
+    "qPsi_rule": "existing center-lattice-induced Psi rule",
+    "qW_rule": "existing integer width rule",
+    "u4_order": [
+      "delta_J2_length_nm",
+      "delta_J2_width_nm",
+      "delta_D_nm",
+      "delta_Psi_deg"
+    ]
+  },
+  "max_geometries": 4,
+  "max_xy_subruns": 8,
+  "old_batch2_authorized": false,
+  "physics_staging_created": false,
+  "schema_version": "LP_J2LENGTH_INCLUSIVE_DUAL_ANCHOR_LOCAL_MAP_CONTRACT_V1",
+  "solver_authorized": false,
+  "solver_calls": 0,
+  "status": "PLANNED_NOT_RUN",
+  "wavelength_nm": 450.0
+}
