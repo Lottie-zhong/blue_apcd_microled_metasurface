@@ -1,0 +1,50 @@
+{
+  "batch_1": {
+    "candidate_ids": [
+      "PDBG_PHASE_EXIT_01",
+      "PDBG_PROJECTOR_EXIT_03",
+      "PDBG_CUT_SPLITTER_05",
+      "PDBG_ALT_PATH_07"
+    ],
+    "geometry_count": 4,
+    "xy_subruns": 8
+  },
+  "batch_2": {
+    "candidate_ids": [
+      "PDBG_PHASE_EXIT_02",
+      "PDBG_PROJECTOR_EXIT_04",
+      "PDBG_CUT_SPLITTER_06",
+      "PDBG_BASIS_TEST_08"
+    ],
+    "geometry_count_max": 4,
+    "xy_subruns_max": 8
+  },
+  "candidate_count": 8,
+  "caveats": [
+    "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+    "NOT_D9",
+    "NO_SOLVER_AUTHORIZATION",
+    "NO_PHYSICS_LABEL",
+    "HISTORICAL_FULL_JONES_GATE_REMAINS_BLOCKED",
+    "CURRENT_FORMAL_GRAPH_NOT_CONNECTED",
+    "CANDIDATE_GRAPH_EDGES_ARE_PREDICTED_NOT_PHYSICS"
+  ],
+  "contract_version": "PROSPECTIVE_ACTUAL_NODE_BRIDGE_EXECUTION_CONTRACT_V1",
+  "execution_order": "x -> checkpoint/reload/acceptance -> y -> checkpoint/reload/acceptance -> complete Jones",
+  "formal_observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+  "material": "APCD_TIO2_NATIVE_M1",
+  "no_additional_solver_authorization": true,
+  "no_d9": true,
+  "no_dynamic_replacement": true,
+  "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+  "plan_path": "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_prospective_actual_node_bridge_diagnostic_plan_v1.json",
+  "plan_sha256": "b317a9e92ae5909575938115bf45dd71c46933c956e72b978be2b9a1013ab67a",
+  "status": "NOT_SOLVER_AUTHORIZED",
+  "subrun_budget": {
+    "geometries": 8,
+    "wavelength_nm": [
+      450
+    ],
+    "xy_subruns": 16
+  }
+}

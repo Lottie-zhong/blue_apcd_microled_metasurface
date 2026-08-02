@@ -1,0 +1,41 @@
+{
+  "analysis_version": "PROSPECTIVE_ACTUAL_NODE_BRIDGE_BARRIER_DIAGNOSIS_V1",
+  "barrier_diagnosis": "MIXED_JONES_PROJECTOR_BRIDGE_BARRIER",
+  "basis": {
+    "anchor_components_are_disconnected": true,
+    "candidate_edges_are_predictions_not_physics": true,
+    "frontier_failure_metrics_source": "actual-node pair metrics in cut-set audit; not inserted as formal graph edges",
+    "nearest_frontier_pair": [
+      1,
+      1.0,
+      "PDCB_BRIDGE_13",
+      "PDCB_BRIDGE_18"
+    ],
+    "nearest_frontier_pair_by_threshold": {
+      "0.50": [
+        3,
+        2.23606797749979,
+        "POSTD8_BOUNDED_DIAG_05",
+        "PDCB_BRIDGE_17"
+      ],
+      "0.75": [
+        1,
+        1.0,
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ],
+      "1.00": [
+        1,
+        1.0,
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ]
+    },
+    "no_missing_manufacturing_legality": true,
+    "projector_guard_is_evaluated_at_actual_endpoints": true
+  },
+  "diagnostic_interpretation": "The nearest actual frontier pair is geometrically adjacent but fails one or more frozen continuity/projector guards; proposed nodes localize whether intermediate actual sampling can split the jump or whether the barrier persists.",
+  "formal_graph_status": "CURRENT_FORMAL_GRAPH_NOT_CONNECTED",
+  "historical_hard_gate": "HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE",
+  "solver_calls": 0
+}

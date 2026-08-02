@@ -1,0 +1,797 @@
+{
+  "candidate_count": 8,
+  "candidate_order": [
+    "PDBG_PHASE_EXIT_01",
+    "PDBG_PHASE_EXIT_02",
+    "PDBG_PROJECTOR_EXIT_03",
+    "PDBG_PROJECTOR_EXIT_04",
+    "PDBG_CUT_SPLITTER_05",
+    "PDBG_CUT_SPLITTER_06",
+    "PDBG_ALT_PATH_07",
+    "PDBG_BASIS_TEST_08"
+  ],
+  "candidates": [
+    {
+      "adjacent_component_ids": [
+        0
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_PHASE_LOCAL_01",
+        "PDCB_PHASE_LOCAL_04"
+      ],
+      "candidate_id": "PDBG_PHASE_EXIT_01",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 201.50248137429972,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.5,
+          -1.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 99.0,
+        "Psi_deg": -0.28434396594244415,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_PHASE_EXIT_01",
+        "canonical_relative_geometry_hash_sha256": "6830a2cc818a8809e6ac5411c898ded86a3c0910955db4e52f3aca8145e56780",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 93.50248137429972,
+        "exact_geometry_hash_sha256": "631bbced68a8d8536933f15b6202d1a9753f30eae21462ea88eaae093979ae5d",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 122.49751862570028,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          -1,
+          2,
+          -2
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "6830a2cc818a8809e6ac5411c898ded86a3c0910955db4e52f3aca8145e56780"
+      },
+      "normalized_coordinate": [
+        -1,
+        2,
+        -2
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          0
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_PHASE_LOCAL_01",
+          "PDCB_PHASE_LOCAL_04"
+        ],
+        "component_merging_potential": 0,
+        "creates_one_node_bridge": false,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.2952852175796211,
+        "leverage": 0.06666666666666667,
+        "predicted_Txx": 0.9782378202149704,
+        "predicted_Tyy": 0.10410868942374213,
+        "predicted_jones_step_reduction": 0.009396904640588967,
+        "predicted_leakage": 0.10410879472811407,
+        "predicted_phase_deg": 81.54627257698755,
+        "predicted_projection_error": 0.10410868942374213,
+        "predicted_projector_margin": 0.01986485379330427,
+        "predicted_projector_risk": 0.3301351462066957,
+        "predicted_sigma2_over_sigma1": 0.32619328154520655,
+        "prediction_uncertainty": 0.29529333918763434
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_PHASE_EXIT_01",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    },
+    {
+      "adjacent_component_ids": [
+        0
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_PHASE_LOCAL_01",
+        "PDCB_PHASE_LOCAL_03"
+      ],
+      "candidate_id": "PDBG_PHASE_EXIT_02",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 202.0,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          102.0,
+          -0.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 99.0,
+        "Psi_deg": 0.0,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_PHASE_EXIT_02",
+        "canonical_relative_geometry_hash_sha256": "0cd8bb6831790852b3af9a5c11e5341222f0fc1ef1598f0c8ac2d4d985679cbf",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 94.0,
+        "exact_geometry_hash_sha256": "b51f621e0b88966994726fd07da810607382ee27aa275333617d5688d829ed91",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 122.0,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          -1,
+          3,
+          -1
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "0cd8bb6831790852b3af9a5c11e5341222f0fc1ef1598f0c8ac2d4d985679cbf"
+      },
+      "normalized_coordinate": [
+        -1,
+        3,
+        -1
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          0
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_PHASE_LOCAL_01",
+          "PDCB_PHASE_LOCAL_03"
+        ],
+        "component_merging_potential": 0,
+        "creates_one_node_bridge": false,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.30593580372732265,
+        "leverage": 0.07692307692307693,
+        "predicted_Txx": 0.9771492687987366,
+        "predicted_Tyy": 0.10382808314004352,
+        "predicted_jones_step_reduction": 0.008407574936759102,
+        "predicted_leakage": 0.10382808512839484,
+        "predicted_phase_deg": 81.41534774704657,
+        "predicted_projection_error": 0.10382808314004352,
+        "predicted_projector_margin": 0.01986485379330427,
+        "predicted_projector_risk": 0.3301351462066957,
+        "predicted_sigma2_over_sigma1": 0.32592594555342,
+        "prediction_uncertainty": 0.16463584523843355
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_PHASE_EXIT_02",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    },
+    {
+      "adjacent_component_ids": [
+        1,
+        2
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_PROJECTOR_LOCAL_07",
+        "POSTD8_BOUNDED_PROJECTOR_03"
+      ],
+      "candidate_id": "PDBG_PROJECTOR_EXIT_03",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 200.50997481422215,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          100.5,
+          1.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 103.0,
+        "Psi_deg": 0.571510017763747,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_PROJECTOR_EXIT_03",
+        "canonical_relative_geometry_hash_sha256": "eec2babaa2d8ae200ee6d4a2b1c5285d1f8e2b1064fc3ab11cb5e59171abac47",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 92.50997481422215,
+        "exact_geometry_hash_sha256": "738671a557aae308ca903160f301c3177a4adad817f5627b6943f9b9e0358c4b",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 123.49002518577785,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          3,
+          0,
+          1
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "eec2babaa2d8ae200ee6d4a2b1c5285d1f8e2b1064fc3ab11cb5e59171abac47"
+      },
+      "normalized_coordinate": [
+        3,
+        0,
+        1
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          1,
+          2
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_PROJECTOR_LOCAL_07",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        "component_merging_potential": 1,
+        "creates_one_node_bridge": true,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.458903705590984,
+        "leverage": 0.16666666666666666,
+        "predicted_Txx": 0.9868927929795615,
+        "predicted_Tyy": 0.07493052509307246,
+        "predicted_jones_step_reduction": 0.01992853921607786,
+        "predicted_leakage": 0.075122492806771,
+        "predicted_phase_deg": 84.10519321053158,
+        "predicted_projection_error": 0.032854304688444275,
+        "predicted_projector_margin": 0.05817675006535511,
+        "predicted_projector_risk": 0.29182324993464487,
+        "predicted_sigma2_over_sigma1": 0.27492943292777317,
+        "prediction_uncertainty": 0.3177618725345087
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_PROJECTOR_EXIT_03",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    },
+    {
+      "adjacent_component_ids": [
+        1
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_PROJECTOR_LOCAL_12"
+      ],
+      "candidate_id": "PDBG_PROJECTOR_EXIT_04",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 200.52244263423484,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          100.5,
+          2.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 103.0,
+        "Psi_deg": 0.85722949091513,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_PROJECTOR_EXIT_04",
+        "canonical_relative_geometry_hash_sha256": "20624a255117c978a8d16dfd6becd558b1b4eec7ec5bd9375c4969ebe720257e",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 92.52244263423484,
+        "exact_geometry_hash_sha256": "3a3e8cf71aba6d69a770e62c5ab4811d255eb2b92fd679361734d9e36ceba8c5",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 123.47755736576516,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          3,
+          0,
+          2
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "20624a255117c978a8d16dfd6becd558b1b4eec7ec5bd9375c4969ebe720257e"
+      },
+      "normalized_coordinate": [
+        3,
+        0,
+        2
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          1
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_PROJECTOR_LOCAL_12"
+        ],
+        "component_merging_potential": 0,
+        "creates_one_node_bridge": false,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.2694522072738212,
+        "leverage": 0.14285714285714285,
+        "predicted_Txx": 0.989108150190706,
+        "predicted_Tyy": 0.07659571098011965,
+        "predicted_jones_step_reduction": null,
+        "predicted_leakage": 0.07659829453357879,
+        "predicted_phase_deg": 84.57455176916594,
+        "predicted_projection_error": 0.07659571098011965,
+        "predicted_projector_margin": 0.07172303859528928,
+        "predicted_projector_risk": 0.2782769614047107,
+        "predicted_sigma2_over_sigma1": 0.2782769614047107,
+        "prediction_uncertainty": 0.0
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_PROJECTOR_EXIT_04",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    },
+    {
+      "adjacent_component_ids": [
+        0,
+        1
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_BRIDGE_15",
+        "PDCB_PROJECTOR_LOCAL_12"
+      ],
+      "candidate_id": "PDBG_CUT_SPLITTER_05",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 200.52244263423484,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          100.5,
+          2.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 101.0,
+        "Psi_deg": 0.85722949091513,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_CUT_SPLITTER_05",
+        "canonical_relative_geometry_hash_sha256": "71ea245bc47c96497188f04c8b6aaee1cdc60f2552883c3b1b1aebd7b76bae94",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 92.52244263423484,
+        "exact_geometry_hash_sha256": "ac18e0ec2951459590da51397e10f0d7fcff85c2bd611bb09e1d450ae4e256ee",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 123.47755736576516,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          1,
+          0,
+          2
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "71ea245bc47c96497188f04c8b6aaee1cdc60f2552883c3b1b1aebd7b76bae94"
+      },
+      "normalized_coordinate": [
+        1,
+        0,
+        2
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          0,
+          1
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_BRIDGE_15",
+          "PDCB_PROJECTOR_LOCAL_12"
+        ],
+        "component_merging_potential": 1,
+        "creates_one_node_bridge": true,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.4634129172862026,
+        "leverage": 0.3333333333333333,
+        "predicted_Txx": 0.988704151717211,
+        "predicted_Tyy": 0.08493681650053653,
+        "predicted_jones_step_reduction": 0.022925486605077892,
+        "predicted_leakage": 0.0849702321274238,
+        "predicted_phase_deg": 83.82470942984682,
+        "predicted_projection_error": 0.08493681650053653,
+        "predicted_projector_margin": 0.042842111868603094,
+        "predicted_projector_risk": 0.3071578881313969,
+        "predicted_sigma2_over_sigma1": 0.2927174247680538,
+        "prediction_uncertainty": 0.7642828026824591
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_CUT_SPLITTER_05",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    },
+    {
+      "adjacent_component_ids": [
+        0,
+        1
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_BRIDGE_14",
+        "PDCB_BRIDGE_15",
+        "PDCB_PROJECTOR_LOCAL_08"
+      ],
+      "candidate_id": "PDBG_CUT_SPLITTER_06",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 201.5223312687703,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.5,
+          2.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 101.0,
+        "Psi_deg": 0.8529758803824378,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_CUT_SPLITTER_06",
+        "canonical_relative_geometry_hash_sha256": "89a6d53bf360eb5bf05d34e471e6a01f6564af8339d1dfa732dc92a6198a7125",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 93.5223312687703,
+        "exact_geometry_hash_sha256": "690bec255712c1382b3e03b858b519f8420294b80456f217c5fa6d71c75ade08",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 122.4776687312297,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          1,
+          2,
+          2
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "89a6d53bf360eb5bf05d34e471e6a01f6564af8339d1dfa732dc92a6198a7125"
+      },
+      "normalized_coordinate": [
+        1,
+        2,
+        2
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          0,
+          1
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_BRIDGE_14",
+          "PDCB_BRIDGE_15",
+          "PDCB_PROJECTOR_LOCAL_08"
+        ],
+        "component_merging_potential": 1,
+        "creates_one_node_bridge": true,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.5089638313203225,
+        "leverage": 0.3333333333333333,
+        "predicted_Txx": 0.9830660824342216,
+        "predicted_Tyy": 0.08748435955126067,
+        "predicted_jones_step_reduction": 0.031409259339029945,
+        "predicted_leakage": 0.0875145433546471,
+        "predicted_phase_deg": 83.23077159807262,
+        "predicted_projection_error": 0.08748435955126067,
+        "predicted_projector_margin": 0.03774775655413315,
+        "predicted_projector_risk": 0.31225224344586683,
+        "predicted_sigma2_over_sigma1": 0.29786048266758275,
+        "prediction_uncertainty": 0.9596196567271835
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_CUT_SPLITTER_06",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    },
+    {
+      "adjacent_component_ids": [
+        0,
+        1
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_BRIDGE_18",
+        "PDCB_PHASE_LOCAL_02"
+      ],
+      "candidate_id": "PDBG_ALT_PATH_07",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 201.5,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.5,
+          -0.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 102.0,
+        "Psi_deg": 0.0,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_ALT_PATH_07",
+        "canonical_relative_geometry_hash_sha256": "24649d645fed51a3226870ee6602d5ba60370cf7d31e9238e88a8ef9e4623b93",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 93.5,
+        "exact_geometry_hash_sha256": "abff4fc20c7ebf8ca01ccb448d357b4ccc030c135fbc093459e4b6ea1a09f62f",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 122.5,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          2,
+          2,
+          -1
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "24649d645fed51a3226870ee6602d5ba60370cf7d31e9238e88a8ef9e4623b93"
+      },
+      "normalized_coordinate": [
+        2,
+        2,
+        -1
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          0,
+          1
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_BRIDGE_18",
+          "PDCB_PHASE_LOCAL_02"
+        ],
+        "component_merging_potential": 1,
+        "creates_one_node_bridge": true,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.5729490168751578,
+        "leverage": 0.14285714285714285,
+        "predicted_Txx": 0.9761000405012581,
+        "predicted_Tyy": 0.09066382935263242,
+        "predicted_jones_step_reduction": 0.01470152815212911,
+        "predicted_leakage": 0.09066723274828456,
+        "predicted_phase_deg": 82.33981471318057,
+        "predicted_projection_error": 0.09066382935263242,
+        "predicted_projector_margin": 0.03476947979478612,
+        "predicted_projector_risk": 0.31523052020521386,
+        "predicted_sigma2_over_sigma1": 0.3046240834611388,
+        "prediction_uncertainty": 0.17569748098967458
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_ALTERNATIVE_PATH_07",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    },
+    {
+      "adjacent_component_ids": [
+        1,
+        2
+      ],
+      "adjacent_frontier_node_ids": [
+        "PDCB_BRIDGE_18",
+        "PDCB_PROJECTOR_LOCAL_10",
+        "PDCB_PROJECTOR_LOCAL_11"
+      ],
+      "candidate_id": "PDBG_BASIS_TEST_08",
+      "evidence_label": "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+      "execution_status": "NOT_SOLVER_AUTHORIZED",
+      "geometry": {
+        "D_nm": 201.50248137429972,
+        "H_nm": 500.0,
+        "J1_center_nm": [
+          -100.0,
+          -0.5
+        ],
+        "J1_side_nm": 110.0,
+        "J2_center_nm": [
+          101.5,
+          0.5
+        ],
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 103.0,
+        "Psi_deg": 0.28434396594244415,
+        "boundary": "xy_periodic_z_pml",
+        "candidate_id": "PDBG_BASIS_TEST_08",
+        "canonical_relative_geometry_hash_sha256": "9e986d2c297793f863296ba1897825540c7db61b482e31257acba95896b4e771",
+        "center_grid": "INTEGER_OR_EXACT_HALF_NM",
+        "direct_gap_nm": 93.50248137429972,
+        "exact_geometry_hash_sha256": "f6a9482dc7a718d6b3a5cb02f3aa0be5345585e868cf6bb4299b3c7ce57213d2",
+        "material": "APCD_TIO2_NATIVE_M1",
+        "mesh": "FROZEN_CROSS_BRANCH_MAP_MESH",
+        "nearest_periodic_gap_nm": 122.49751862570028,
+        "no_overlap": true,
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "normalized_coordinate": [
+          3,
+          2,
+          0
+        ],
+        "observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "primitive_valid": true,
+        "reference_plane": "field_monitor_z_1000_nm",
+        "source": "PLANNED_ONLY_NO_SOLVER",
+        "symmetry_equivalence_hash_sha256": "9e986d2c297793f863296ba1897825540c7db61b482e31257acba95896b4e771"
+      },
+      "normalized_coordinate": [
+        3,
+        2,
+        0
+      ],
+      "not_d9": true,
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "prediction": {
+        "adjacent_component_ids": [
+          1,
+          2
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_BRIDGE_18",
+          "PDCB_PROJECTOR_LOCAL_10",
+          "PDCB_PROJECTOR_LOCAL_11"
+        ],
+        "component_merging_potential": 1,
+        "creates_one_node_bridge": true,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.5089638313203225,
+        "leverage": 0.14285714285714285,
+        "predicted_Txx": 0.9818379571662418,
+        "predicted_Tyy": 0.07315451233712729,
+        "predicted_jones_step_reduction": 0.027783292782150512,
+        "predicted_leakage": 0.07326809382968862,
+        "predicted_phase_deg": 83.26014205059833,
+        "predicted_projection_error": 0.07315451233712729,
+        "predicted_projector_margin": 0.05598235328293627,
+        "predicted_projector_risk": 0.2940176467170637,
+        "predicted_sigma2_over_sigma1": 0.2724797867140188,
+        "prediction_uncertainty": 0.7318664419272417
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "role": "BRIDGE_GAP_ACTIVE_BASIS_DISCRIMINATOR_08",
+      "selection_basis": "deterministic role coverage + frontier/cut relevance + coordinate lexical tie-break",
+      "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC"
+    }
+  ],
+  "expected_head": "cafeb6bd6469f14c45aa810bd654b599bfebb8bc",
+  "forbidden": [
+    "D9 candidate/geometry/package/staging",
+    "solver/lumapi/FDTD",
+    "spectrum",
+    "tolerance",
+    "K6/K7",
+    "canonical merge",
+    "training"
+  ],
+  "future_batch_1": {
+    "candidate_ids": [
+      "PDBG_PHASE_EXIT_01",
+      "PDBG_PROJECTOR_EXIT_03",
+      "PDBG_CUT_SPLITTER_05",
+      "PDBG_ALT_PATH_07"
+    ],
+    "gate_required_before_batch_2": true,
+    "geometry_count": 4,
+    "order": "phase exit -> projector exit -> cut splitter -> alternative/high-information diagnostic",
+    "subrun_count": 8
+  },
+  "future_batch_2": {
+    "candidate_ids": [
+      "PDBG_PHASE_EXIT_02",
+      "PDBG_PROJECTOR_EXIT_04",
+      "PDBG_CUT_SPLITTER_06",
+      "PDBG_BASIS_TEST_08"
+    ],
+    "execution_condition": "only after Batch 1 gate",
+    "geometry_count_max": 4,
+    "subrun_count_max": 8
+  },
+  "future_budget_ceiling": {
+    "geometries": 8,
+    "wavelength_nm": [
+      450
+    ],
+    "xy_subruns": 16
+  },
+  "historical_hard_gate": "HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE",
+  "labels": [
+    "PROSPECTIVE_DIAGNOSTIC_PLAN_ONLY",
+    "NOT_D9",
+    "NO_SOLVER_AUTHORIZATION",
+    "NO_PHYSICS_LABEL",
+    "HISTORICAL_FULL_JONES_GATE_REMAINS_BLOCKED",
+    "CURRENT_FORMAL_GRAPH_NOT_CONNECTED",
+    "CANDIDATE_GRAPH_EDGES_ARE_PREDICTED_NOT_PHYSICS"
+  ],
+  "node_policy": "actual formal weighted-G0 nodes only",
+  "outcome": "PROSPECTIVE_ACTUAL_NODE_BRIDGE_PLAN_READY",
+  "plan_version": "PROSPECTIVE_ACTUAL_NODE_BRIDGE_DIAGNOSTIC_PLAN_V1",
+  "solver_calls": 0,
+  "source_hashes": {
+    "barrier": "0ccb503edaa0460cde6a7d7122ddc5510ba2d84615440fb4e7450188fd0d196c",
+    "candidate_pool": "a2dbcffcab2e0f4f2184c2e90dc2e68a0faacf82e57d5ead8ea8ec0e3132be85",
+    "cutset": "19d2a8b90b35895381d6bbf8e33341f3cf63803b6121204b41a23cc82cfed9e1",
+    "formal_graph": "a81c9547ccfcddd3efff61e30a1e584639a47ef397e24c6cee3a29ad889e7e8a",
+    "geometry_gate": "3fa8a973c89cdd2c9012638b46d976fc8aa53c986f4a916e8e08e5ebe1905303"
+  },
+  "status": "PLANNED_PROSPECTIVE_BRIDGE_DIAGNOSTIC",
+  "subruns": 16,
+  "wavelength_nm": [
+    450
+  ]
+}
