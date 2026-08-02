@@ -1,0 +1,33 @@
+{
+  "edge_features": [
+    "gap_j",
+    "D_next_minus_D_j",
+    "abs_t_next_minus_t_j",
+    "periodic_edge_flag",
+    "fabrication_margin_placeholder"
+  ],
+  "node_features": [
+    "D_j_over_p",
+    "Re_t_single_j",
+    "Im_t_single_j",
+    "abs_t_single_j",
+    "sin_ideal_phase_j",
+    "cos_ideal_phase_j",
+    "wavelength_normalization",
+    "polarization_encoding"
+  ],
+  "schema_version": "k6_model_feature_contract_v1",
+  "status": "schema_only_not_trained",
+  "target_definition": "A_m_HF=A_m_LF+Delta_A_m",
+  "target_fields": [
+    "Re_Delta_A_m",
+    "Im_Delta_A_m",
+    "Re_A_m_HF",
+    "Im_A_m_HF",
+    "order_efficiencies",
+    "T",
+    "R",
+    "closure_quality_auxiliary_head"
+  ],
+  "training_status": "not_trained_no_production_HF_labels"
+}
