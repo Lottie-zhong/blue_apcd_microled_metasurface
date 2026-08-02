@@ -10,16 +10,16 @@
   "expected_head": "cafeb6bd6469f14c45aa810bd654b599bfebb8bc",
   "files": {
     "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_actual_node_bridge_barrier_diagnosis_v1.json": {
-      "bytes": 1430,
-      "sha256": "0ccb503edaa0460cde6a7d7122ddc5510ba2d84615440fb4e7450188fd0d196c"
+      "bytes": 2696,
+      "sha256": "c527932c788259d2f2f997485324a3bb97873b145f655b9503f22874d2e3c2df"
     },
     "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_actual_node_bridge_cutset_audit_v1.json": {
-      "bytes": 25349,
-      "sha256": "19d2a8b90b35895381d6bbf8e33341f3cf63803b6121204b41a23cc82cfed9e1"
+      "bytes": 26850,
+      "sha256": "e0ef23f6ad7cd6ba4f75f9b086c7b3dca8f7d29e97e08faadcce063db71a53dc"
     },
     "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_actual_node_formal_graph_components_v1.json": {
-      "bytes": 217541,
-      "sha256": "a81c9547ccfcddd3efff61e30a1e584639a47ef397e24c6cee3a29ad889e7e8a"
+      "bytes": 267706,
+      "sha256": "c319ffbbd73fdf285b9653058a940792627c1cac8b6b2acdf018f076f1065493"
     },
     "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_prospective_bridge_gap_candidate_pool_v1.csv": {
       "bytes": 3969,
@@ -30,32 +30,32 @@
       "sha256": "3fa8a973c89cdd2c9012638b46d976fc8aa53c986f4a916e8e08e5ebe1905303"
     },
     "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_prospective_bridge_gap_selection_audit_v1.json": {
-      "bytes": 1276,
-      "sha256": "f7a4fb0b1644e6f536faf2fb38134325008bcbdb4191d7e83b6f8a9c6588ccbc"
+      "bytes": 1699,
+      "sha256": "917f218c86a332e40b02f8ef9818c75d350f91c0e7ba9eedbf7ebc3d321f2b60"
     },
     "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_prospective_actual_node_bridge_diagnostic_plan_v1.csv": {
       "bytes": 5122,
       "sha256": "b8c29a2d87a6c810a66baca2c8aca0f930f08384ac5ce8828a0dd142f5e10cfb"
     },
     "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_prospective_actual_node_bridge_diagnostic_plan_v1.json": {
-      "bytes": 28617,
-      "sha256": "b317a9e92ae5909575938115bf45dd71c46933c956e72b978be2b9a1013ab67a"
+      "bytes": 28744,
+      "sha256": "4bdde0aededb6d7fcb9fa06c69e8e8ae0860f24f1043482521aecf3751b23f83"
     },
     "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_prospective_actual_node_bridge_execution_contract_v1.json": {
-      "bytes": 1572,
-      "sha256": "966568eef3a9127ea2cd2fc0192dd96e8aa1fbf97ba5798960f243acd682190c"
+      "bytes": 1570,
+      "sha256": "4521eb639b4ec6907bb0a080af28bb615d10d53cf8ef6125c31e922e43a89ac5"
     },
     "outputs/lp_ml_dataset_v1/plans/b120_j2lm06_prospective_actual_node_bridge_validation_contract_v1.json": {
-      "bytes": 1214,
-      "sha256": "cdbfbe6d0f9ef79f2e921c0c57bbca8629db64b15a38deacfd28ddbc469839d9"
+      "bytes": 1212,
+      "sha256": "1cc9781765f10df1093cb64159fab13a0f5293aab8772165c8d78e75b9521c97"
     },
     "reports/lp_b120_j2lm06_prospective_actual_node_bridge_gap_plan_v1.md": {
-      "bytes": 4154,
-      "sha256": "57b1f901b21c9f3eed1bcc394c02ca2a98e004559bdd9976a647882ad03ad2e9"
+      "bytes": 4118,
+      "sha256": "366978083bdd7ad119c8de0c93d288828b3c1e84aa64f6e938dd50201cdbf192"
     },
     "tests/test_lp_b120_j2lm06_prospective_actual_node_bridge_gap_plan_v1.py": {
       "bytes": 1279,
-      "sha256": "8b7c585b5c4bafa71beb7dc07bf07d6a4034360f0b9f0bd88510455e6f2c7a28"
+      "sha256": "b9e3a7d99e90dc3b613fadcfbe63877b11e375488b1da71b13bc5b80dae2f214"
     }
   },
   "historical_hard_gate": "HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE",
@@ -74,5 +74,15 @@
   },
   "protected_unchanged": true,
   "solver_calls": 0,
-  "status": "PASS"
+  "status": "PASS",
+  "formal_graph_completion_audit": {
+    "node_count": 34,
+    "edge_count": 84,
+    "included_same_route_formal_nodes": 10,
+    "excluded_inactive_variable_nodes": [
+      "D8_TRV_PLAN_9cf1d115c3f947b9",
+      "D8_TRV_PLAN_b90dc117dcee89fd"
+    ],
+    "solver_calls": 0
+  }
 }

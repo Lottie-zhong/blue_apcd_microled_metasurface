@@ -6,6 +6,89 @@
   },
   "bottleneck_frontier_edges": [
     {
+      "threshold": 1.0,
+      "pair": [
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ],
+      "pair_metrics": {
+        "Txx_step": 0.006678992595170241,
+        "Tyy_step": 0.011527881363966722,
+        "edge_origin": "L1_DISTANCE_1",
+        "endpoint_projector_margin": 0.035539955754994024,
+        "jones_frobenius_step": 0.02874586361668721,
+        "leakage_step": 0.011523081766826843,
+        "manufacturing_margin_nm": 33.250035415246586,
+        "normalized_coordinate_displacement": [
+          1,
+          0,
+          0
+        ],
+        "normalized_l1_distance": 1,
+        "phase_step_deg": 0.3318773393531842,
+        "phase_unwrapped_step_deg": 0.3318773393531842,
+        "projection_error_step": 0.011527881363966722,
+        "raw_geometry_displacement": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "sigma_ratio_jump": 0.020442397527942247,
+        "thresholds": {
+          "0.50": {
+            "checks": {
+              "Tyy": false,
+              "jones_frobenius": false,
+              "leakage": false,
+              "phase": true,
+              "projector_endpoints": true,
+              "sigma_ratio": false
+            },
+            "failure_reasons": [
+              "jones_frobenius",
+              "sigma_ratio",
+              "Tyy",
+              "leakage"
+            ],
+            "pass": false
+          },
+          "0.75": {
+            "checks": {
+              "Tyy": false,
+              "jones_frobenius": false,
+              "leakage": false,
+              "phase": true,
+              "projector_endpoints": true,
+              "sigma_ratio": false
+            },
+            "failure_reasons": [
+              "jones_frobenius",
+              "sigma_ratio",
+              "Tyy",
+              "leakage"
+            ],
+            "pass": false
+          },
+          "1.00": {
+            "checks": {
+              "Tyy": false,
+              "jones_frobenius": true,
+              "leakage": false,
+              "phase": true,
+              "projector_endpoints": true,
+              "sigma_ratio": false
+            },
+            "failure_reasons": [
+              "sigma_ratio",
+              "Tyy",
+              "leakage"
+            ],
+            "pass": false
+          }
+        },
+        "u": "PDCB_BRIDGE_13",
+        "v": "PDCB_BRIDGE_18"
+      },
       "edge_metrics": {
         "Txx_step": 0.006678992595170241,
         "Tyy_step": 0.011527881363966722,
@@ -84,6 +167,10 @@
         "u": "PDCB_BRIDGE_13",
         "v": "PDCB_BRIDGE_18"
       },
+      "status": "FAIL_FORMAL_THRESHOLD"
+    },
+    {
+      "threshold": 0.75,
       "pair": [
         "PDCB_BRIDGE_13",
         "PDCB_BRIDGE_18"
@@ -91,6 +178,7 @@
       "pair_metrics": {
         "Txx_step": 0.006678992595170241,
         "Tyy_step": 0.011527881363966722,
+        "edge_origin": "L1_DISTANCE_1",
         "endpoint_projector_margin": 0.035539955754994024,
         "jones_frobenius_step": 0.02874586361668721,
         "leakage_step": 0.011523081766826843,
@@ -102,6 +190,7 @@
         ],
         "normalized_l1_distance": 1,
         "phase_step_deg": 0.3318773393531842,
+        "phase_unwrapped_step_deg": 0.3318773393531842,
         "projection_error_step": 0.011527881363966722,
         "raw_geometry_displacement": [
           1.0,
@@ -160,12 +249,10 @@
             ],
             "pass": false
           }
-        }
+        },
+        "u": "PDCB_BRIDGE_13",
+        "v": "PDCB_BRIDGE_18"
       },
-      "status": "FAIL_FORMAL_THRESHOLD",
-      "threshold": 1.0
-    },
-    {
       "edge_metrics": {
         "Txx_step": 0.006678992595170241,
         "Tyy_step": 0.011527881363966722,
@@ -244,560 +331,67 @@
         "u": "PDCB_BRIDGE_13",
         "v": "PDCB_BRIDGE_18"
       },
-      "pair": [
-        "PDCB_BRIDGE_13",
-        "PDCB_BRIDGE_18"
-      ],
-      "pair_metrics": {
-        "Txx_step": 0.006678992595170241,
-        "Tyy_step": 0.011527881363966722,
-        "endpoint_projector_margin": 0.035539955754994024,
-        "jones_frobenius_step": 0.02874586361668721,
-        "leakage_step": 0.011523081766826843,
-        "manufacturing_margin_nm": 33.250035415246586,
-        "normalized_coordinate_displacement": [
-          1,
-          0,
-          0
-        ],
-        "normalized_l1_distance": 1,
-        "phase_step_deg": 0.3318773393531842,
-        "projection_error_step": 0.011527881363966722,
-        "raw_geometry_displacement": [
-          1.0,
-          0.0,
-          0.0
-        ],
-        "sigma_ratio_jump": 0.020442397527942247,
-        "thresholds": {
-          "0.50": {
-            "checks": {
-              "Tyy": false,
-              "jones_frobenius": false,
-              "leakage": false,
-              "phase": true,
-              "projector_endpoints": true,
-              "sigma_ratio": false
-            },
-            "failure_reasons": [
-              "jones_frobenius",
-              "sigma_ratio",
-              "Tyy",
-              "leakage"
-            ],
-            "pass": false
-          },
-          "0.75": {
-            "checks": {
-              "Tyy": false,
-              "jones_frobenius": false,
-              "leakage": false,
-              "phase": true,
-              "projector_endpoints": true,
-              "sigma_ratio": false
-            },
-            "failure_reasons": [
-              "jones_frobenius",
-              "sigma_ratio",
-              "Tyy",
-              "leakage"
-            ],
-            "pass": false
-          },
-          "1.00": {
-            "checks": {
-              "Tyy": false,
-              "jones_frobenius": true,
-              "leakage": false,
-              "phase": true,
-              "projector_endpoints": true,
-              "sigma_ratio": false
-            },
-            "failure_reasons": [
-              "sigma_ratio",
-              "Tyy",
-              "leakage"
-            ],
-            "pass": false
-          }
-        }
-      },
-      "status": "FAIL_FORMAL_THRESHOLD",
-      "threshold": 0.75
+      "status": "FAIL_FORMAL_THRESHOLD"
     },
     {
-      "edge_metrics": null,
+      "threshold": 0.5,
       "pair": [
-        "PDCB_BRIDGE_17",
-        "POSTD8_BOUNDED_DIAG_05"
+        "D8_TRV_PLAN_d6f4911593b64495",
+        "POSTD8_BOUNDED_PROJECTOR_03"
       ],
       "pair_metrics": {
-        "Txx_step": 0.009624250746965601,
-        "Tyy_step": 0.01878292785412715,
-        "endpoint_projector_margin": 0.02769345875622964,
-        "jones_frobenius_step": 0.06312067990889078,
-        "leakage_step": 0.018659889911538982,
-        "manufacturing_margin_nm": 33.00635727270395,
+        "Txx_step": 0.007889245298979386,
+        "Tyy_step": 0.019625546668312913,
+        "edge_origin": "L1_DISTANCE_1",
+        "endpoint_projector_margin": 0.024570321609663937,
+        "jones_frobenius_step": 0.06142473613842008,
+        "leakage_step": 0.019541360696819804,
+        "manufacturing_margin_nm": 32.50249375007783,
         "normalized_coordinate_displacement": [
-          -2,
+          2,
           0,
-          -1
+          1
         ],
         "normalized_l1_distance": 3,
-        "phase_step_deg": 1.9539848102621562,
-        "projection_error_step": 0.08255866235603142,
+        "phase_step_deg": 1.9722314697543055,
+        "phase_unwrapped_step_deg": 1.9722314697543055,
+        "projection_error_step": 4.17987803885767e-05,
         "raw_geometry_displacement": [
-          -2.0,
-          -0.007443939566627478,
-          -0.2843299605465748
+          2.0,
+          0.007481064144315042,
+          0.2857479008872126
         ],
-        "sigma_ratio_jump": 0.03289134332406163,
-        "thresholds": {
-          "0.50": {
-            "checks": {
-              "Tyy": false,
-              "jones_frobenius": false,
-              "leakage": false,
-              "phase": false,
-              "projector_endpoints": true,
-              "sigma_ratio": false
-            },
-            "failure_reasons": [
-              "jones_frobenius",
-              "phase",
-              "sigma_ratio",
-              "Tyy",
-              "leakage"
-            ],
-            "pass": false
-          },
-          "0.75": {
-            "checks": {
-              "Tyy": false,
-              "jones_frobenius": false,
-              "leakage": false,
-              "phase": false,
-              "projector_endpoints": true,
-              "sigma_ratio": false
-            },
-            "failure_reasons": [
-              "jones_frobenius",
-              "phase",
-              "sigma_ratio",
-              "Tyy",
-              "leakage"
-            ],
-            "pass": false
-          },
-          "1.00": {
-            "checks": {
-              "Tyy": false,
-              "jones_frobenius": false,
-              "leakage": false,
-              "phase": false,
-              "projector_endpoints": true,
-              "sigma_ratio": false
-            },
-            "failure_reasons": [
-              "jones_frobenius",
-              "phase",
-              "sigma_ratio",
-              "Tyy",
-              "leakage"
-            ],
-            "pass": false
-          }
-        }
+        "sigma_ratio_jump": 0.03360642845569117,
+        "u": "D8_TRV_PLAN_d6f4911593b64495",
+        "v": "POSTD8_BOUNDED_PROJECTOR_03"
       },
-      "status": "NOT_FORMAL_EDGE_PAIR_METRICS_REPORTED",
-      "threshold": 0.5
+      "edge_metrics": null,
+      "status": "NOT_FORMAL_EDGE_PAIR_METRICS_REPORTED"
     }
   ],
   "cut_set_definition": "already-disconnected graph has minimum vertex/edge cut size zero; bottleneck set is reported as nearest cross-component frontier failures, not as an invented formal edge",
   "formal_graph_status": "CURRENT_FORMAL_GRAPH_NOT_CONNECTED",
-  "solver_calls": 0,
   "thresholds": {
-    "0.50": {
-      "alternative_near_path_count": 64,
-      "component_count": 9,
-      "component_sizes": [
-        6,
-        3,
-        3,
-        3,
-        3,
-        2,
-        2,
-        1,
-        1
-      ],
-      "components": [
-        [
-          "PDCB_PHASE_LOCAL_03",
-          "PDCB_PHASE_LOCAL_04",
-          "PDCB_PHASE_LOCAL_06",
-          "POSTD8_BOUNDED_DIAG_05",
-          "POSTD8_BOUNDED_PHASE_01",
-          "POSTD8_BOUNDED_PHASE_02"
-        ],
-        [
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_14",
-          "PDCB_PHASE_LOCAL_02"
-        ],
-        [
-          "PDCB_BRIDGE_16",
-          "PDCB_BRIDGE_18",
-          "POSTD8_BOUNDED_PROJECTOR_04"
-        ],
-        [
-          "PDCB_BRIDGE_17",
-          "POSTD8_BOUNDED_DIAG_06",
-          "POSTD8_BOUNDED_PROJECTOR_03"
-        ],
-        [
-          "PDCB_PROJECTOR_LOCAL_08",
-          "PDCB_PROJECTOR_LOCAL_09",
-          "PDCB_PROJECTOR_LOCAL_12"
-        ],
-        [
-          "PDCB_PHASE_LOCAL_01",
-          "PDCB_PHASE_LOCAL_05"
-        ],
-        [
-          "PDCB_PROJECTOR_LOCAL_07",
-          "PDCB_PROJECTOR_LOCAL_10"
-        ],
-        [
-          "PDCB_BRIDGE_15"
-        ],
-        [
-          "PDCB_PROJECTOR_LOCAL_11"
-        ]
-      ],
-      "formal_graph_connected": false,
-      "minimum_edge_cut_size": 0,
-      "minimum_missing_lattice_nodes_needed": 2,
-      "minimum_vertex_cut_size": 0,
-      "multiplier": 0.5,
-      "nearest_cross_component_pairs": [
-        [
-          1,
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_18"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_13",
-          "POSTD8_BOUNDED_DIAG_05"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_14",
-          "PDCB_BRIDGE_17"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_15",
-          "PDCB_PROJECTOR_LOCAL_09"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_16",
-          "PDCB_PROJECTOR_LOCAL_11"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_16",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_17",
-          "PDCB_BRIDGE_18"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_17",
-          "PDCB_PROJECTOR_LOCAL_08"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_17",
-          "PDCB_PROJECTOR_LOCAL_10"
-        ],
-        [
-          1,
-          "PDCB_PHASE_LOCAL_01",
-          "POSTD8_BOUNDED_PHASE_01"
-        ],
-        [
-          1,
-          "PDCB_PHASE_LOCAL_02",
-          "POSTD8_BOUNDED_PHASE_01"
-        ],
-        [
-          1,
-          "PDCB_PHASE_LOCAL_05",
-          "POSTD8_BOUNDED_DIAG_05"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_07",
-          "PDCB_PROJECTOR_LOCAL_11"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_07",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_09",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_12",
-          "POSTD8_BOUNDED_PROJECTOR_03"
-        ],
-        [
-          1,
-          "POSTD8_BOUNDED_PROJECTOR_03",
-          "POSTD8_BOUNDED_PROJECTOR_04"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_16"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_17"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_13",
-          "PDCB_PHASE_LOCAL_05"
-        ]
-      ],
-      "phase_anchor_component_id": 0,
-      "phase_anchor_component_nodes": [
-        "PDCB_PHASE_LOCAL_03",
-        "PDCB_PHASE_LOCAL_04",
-        "PDCB_PHASE_LOCAL_06",
-        "POSTD8_BOUNDED_DIAG_05",
-        "POSTD8_BOUNDED_PHASE_01",
-        "POSTD8_BOUNDED_PHASE_02"
-      ],
-      "projector_anchor_component_id": 3,
-      "projector_anchor_component_nodes": [
-        "PDCB_BRIDGE_17",
-        "POSTD8_BOUNDED_DIAG_06",
-        "POSTD8_BOUNDED_PROJECTOR_03"
-      ],
-      "shortest_geometric_separation": [
-        3,
-        2.23606797749979,
-        "POSTD8_BOUNDED_DIAG_05",
-        "PDCB_BRIDGE_17"
-      ]
-    },
-    "0.75": {
-      "alternative_near_path_count": 39,
-      "component_count": 5,
-      "component_sizes": [
-        12,
-        6,
-        3,
-        2,
-        1
-      ],
-      "components": [
-        [
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_14",
-          "PDCB_BRIDGE_15",
-          "PDCB_PHASE_LOCAL_01",
-          "PDCB_PHASE_LOCAL_02",
-          "PDCB_PHASE_LOCAL_03",
-          "PDCB_PHASE_LOCAL_04",
-          "PDCB_PHASE_LOCAL_05",
-          "PDCB_PHASE_LOCAL_06",
-          "POSTD8_BOUNDED_DIAG_05",
-          "POSTD8_BOUNDED_PHASE_01",
-          "POSTD8_BOUNDED_PHASE_02"
-        ],
-        [
-          "PDCB_BRIDGE_16",
-          "PDCB_BRIDGE_17",
-          "PDCB_BRIDGE_18",
-          "POSTD8_BOUNDED_DIAG_06",
-          "POSTD8_BOUNDED_PROJECTOR_03",
-          "POSTD8_BOUNDED_PROJECTOR_04"
-        ],
-        [
-          "PDCB_PROJECTOR_LOCAL_08",
-          "PDCB_PROJECTOR_LOCAL_09",
-          "PDCB_PROJECTOR_LOCAL_12"
-        ],
-        [
-          "PDCB_PROJECTOR_LOCAL_07",
-          "PDCB_PROJECTOR_LOCAL_10"
-        ],
-        [
-          "PDCB_PROJECTOR_LOCAL_11"
-        ]
-      ],
-      "formal_graph_connected": false,
-      "minimum_edge_cut_size": 0,
-      "minimum_missing_lattice_nodes_needed": 0,
-      "minimum_vertex_cut_size": 0,
-      "multiplier": 0.75,
-      "nearest_cross_component_pairs": [
-        [
-          1,
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_18"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_14",
-          "PDCB_BRIDGE_17"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_15",
-          "PDCB_PROJECTOR_LOCAL_09"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_16",
-          "PDCB_PROJECTOR_LOCAL_11"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_17",
-          "PDCB_PROJECTOR_LOCAL_08"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_17",
-          "PDCB_PROJECTOR_LOCAL_10"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_07",
-          "PDCB_PROJECTOR_LOCAL_11"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_07",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_09",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_12",
-          "POSTD8_BOUNDED_PROJECTOR_03"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_16"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_13",
-          "PDCB_BRIDGE_17"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_14",
-          "PDCB_BRIDGE_18"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_14",
-          "PDCB_PROJECTOR_LOCAL_08"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_14",
-          "PDCB_PROJECTOR_LOCAL_10"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_14",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_15",
-          "PDCB_PROJECTOR_LOCAL_08"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_15",
-          "PDCB_PROJECTOR_LOCAL_12"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_15",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_16",
-          "PDCB_PROJECTOR_LOCAL_07"
-        ]
-      ],
-      "phase_anchor_component_id": 0,
-      "phase_anchor_component_nodes": [
-        "PDCB_BRIDGE_13",
-        "PDCB_BRIDGE_14",
-        "PDCB_BRIDGE_15",
-        "PDCB_PHASE_LOCAL_01",
-        "PDCB_PHASE_LOCAL_02",
-        "PDCB_PHASE_LOCAL_03",
-        "PDCB_PHASE_LOCAL_04",
-        "PDCB_PHASE_LOCAL_05",
-        "PDCB_PHASE_LOCAL_06",
-        "POSTD8_BOUNDED_DIAG_05",
-        "POSTD8_BOUNDED_PHASE_01",
-        "POSTD8_BOUNDED_PHASE_02"
-      ],
-      "projector_anchor_component_id": 1,
-      "projector_anchor_component_nodes": [
-        "PDCB_BRIDGE_16",
-        "PDCB_BRIDGE_17",
-        "PDCB_BRIDGE_18",
-        "POSTD8_BOUNDED_DIAG_06",
-        "POSTD8_BOUNDED_PROJECTOR_03",
-        "POSTD8_BOUNDED_PROJECTOR_04"
-      ],
-      "shortest_geometric_separation": [
-        1,
-        1.0,
-        "PDCB_BRIDGE_13",
-        "PDCB_BRIDGE_18"
-      ]
-    },
     "1.00": {
-      "alternative_near_path_count": 27,
-      "component_count": 3,
+      "alternative_near_path_count": 230,
+      "component_count": 7,
       "component_sizes": [
-        12,
+        18,
         9,
-        3
+        3,
+        1,
+        1,
+        1,
+        1
       ],
       "components": [
         [
+          "D8_TRV_PLAN_2709798bc19d7b76",
+          "D8_TRV_PLAN_28f33b5793175bc4",
+          "D8_TRV_PLAN_2c6c4edac3638079",
+          "D8_TRV_PLAN_3f9495af463cc07b",
+          "D8_TRV_PLAN_c011ef1be0120947",
+          "D8_TRV_PLAN_d6f4911593b64495",
           "PDCB_BRIDGE_13",
           "PDCB_BRIDGE_14",
           "PDCB_BRIDGE_15",
@@ -826,6 +420,18 @@
           "PDCB_PROJECTOR_LOCAL_07",
           "PDCB_PROJECTOR_LOCAL_10",
           "PDCB_PROJECTOR_LOCAL_11"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WM_DM_PP"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WM_DP_PM"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WP_DM_PM"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WP_DP_PP"
         ]
       ],
       "formal_graph_connected": false,
@@ -850,21 +456,6 @@
           "PDCB_PROJECTOR_LOCAL_09"
         ],
         [
-          1,
-          "PDCB_BRIDGE_16",
-          "PDCB_PROJECTOR_LOCAL_11"
-        ],
-        [
-          1,
-          "PDCB_BRIDGE_17",
-          "PDCB_PROJECTOR_LOCAL_10"
-        ],
-        [
-          1,
-          "PDCB_PROJECTOR_LOCAL_07",
-          "POSTD8_BOUNDED_DIAG_06"
-        ],
-        [
           2,
           "PDCB_BRIDGE_13",
           "PDCB_BRIDGE_16"
@@ -883,11 +474,6 @@
           2,
           "PDCB_BRIDGE_14",
           "PDCB_PROJECTOR_LOCAL_08"
-        ],
-        [
-          2,
-          "PDCB_BRIDGE_14",
-          "PDCB_PROJECTOR_LOCAL_10"
         ],
         [
           2,
@@ -911,32 +497,58 @@
         ],
         [
           2,
-          "PDCB_BRIDGE_16",
-          "PDCB_PROJECTOR_LOCAL_07"
+          "PDCB_PHASE_LOCAL_02",
+          "PDCB_BRIDGE_18"
         ],
         [
           2,
-          "PDCB_BRIDGE_17",
-          "PDCB_PROJECTOR_LOCAL_07"
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "POSTD8_BOUNDED_PROJECTOR_04"
         ],
         [
           2,
-          "PDCB_BRIDGE_18",
-          "PDCB_PHASE_LOCAL_02"
+          "POSTD8_BOUNDED_DIAG_05",
+          "PDCB_BRIDGE_18"
         ],
         [
-          2,
-          "PDCB_BRIDGE_18",
-          "PDCB_PROJECTOR_LOCAL_10"
+          3,
+          "PDCB_BRIDGE_13",
+          "POSTD8_BOUNDED_DIAG_06"
         ],
         [
-          2,
-          "PDCB_BRIDGE_18",
-          "PDCB_PROJECTOR_LOCAL_11"
+          3,
+          "PDCB_BRIDGE_14",
+          "PDCB_BRIDGE_16"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_14",
+          "PDCB_PROJECTOR_LOCAL_09"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_15",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_15",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          3,
+          "PDCB_PHASE_LOCAL_02",
+          "PDCB_BRIDGE_16"
         ]
       ],
       "phase_anchor_component_id": 0,
       "phase_anchor_component_nodes": [
+        "D8_TRV_PLAN_2709798bc19d7b76",
+        "D8_TRV_PLAN_28f33b5793175bc4",
+        "D8_TRV_PLAN_2c6c4edac3638079",
+        "D8_TRV_PLAN_3f9495af463cc07b",
+        "D8_TRV_PLAN_c011ef1be0120947",
+        "D8_TRV_PLAN_d6f4911593b64495",
         "PDCB_BRIDGE_13",
         "PDCB_BRIDGE_14",
         "PDCB_BRIDGE_15",
@@ -968,6 +580,437 @@
         "PDCB_BRIDGE_13",
         "PDCB_BRIDGE_18"
       ]
+    },
+    "0.75": {
+      "alternative_near_path_count": 230,
+      "component_count": 9,
+      "component_sizes": [
+        18,
+        6,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "components": [
+        [
+          "D8_TRV_PLAN_2709798bc19d7b76",
+          "D8_TRV_PLAN_28f33b5793175bc4",
+          "D8_TRV_PLAN_2c6c4edac3638079",
+          "D8_TRV_PLAN_3f9495af463cc07b",
+          "D8_TRV_PLAN_c011ef1be0120947",
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "PDCB_BRIDGE_13",
+          "PDCB_BRIDGE_14",
+          "PDCB_BRIDGE_15",
+          "PDCB_PHASE_LOCAL_01",
+          "PDCB_PHASE_LOCAL_02",
+          "PDCB_PHASE_LOCAL_03",
+          "PDCB_PHASE_LOCAL_04",
+          "PDCB_PHASE_LOCAL_05",
+          "PDCB_PHASE_LOCAL_06",
+          "POSTD8_BOUNDED_DIAG_05",
+          "POSTD8_BOUNDED_PHASE_01",
+          "POSTD8_BOUNDED_PHASE_02"
+        ],
+        [
+          "PDCB_BRIDGE_16",
+          "PDCB_BRIDGE_17",
+          "PDCB_BRIDGE_18",
+          "POSTD8_BOUNDED_DIAG_06",
+          "POSTD8_BOUNDED_PROJECTOR_03",
+          "POSTD8_BOUNDED_PROJECTOR_04"
+        ],
+        [
+          "PDCB_PROJECTOR_LOCAL_08",
+          "PDCB_PROJECTOR_LOCAL_09",
+          "PDCB_PROJECTOR_LOCAL_12"
+        ],
+        [
+          "PDCB_PROJECTOR_LOCAL_07",
+          "PDCB_PROJECTOR_LOCAL_10"
+        ],
+        [
+          "PDCB_PROJECTOR_LOCAL_11"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WM_DM_PP"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WM_DP_PM"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WP_DM_PM"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WP_DP_PP"
+        ]
+      ],
+      "formal_graph_connected": false,
+      "minimum_edge_cut_size": 0,
+      "minimum_missing_lattice_nodes_needed": 0,
+      "minimum_vertex_cut_size": 0,
+      "multiplier": 0.75,
+      "nearest_cross_component_pairs": [
+        [
+          1,
+          "PDCB_BRIDGE_13",
+          "PDCB_BRIDGE_18"
+        ],
+        [
+          1,
+          "PDCB_BRIDGE_14",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          2,
+          "PDCB_BRIDGE_13",
+          "PDCB_BRIDGE_16"
+        ],
+        [
+          2,
+          "PDCB_BRIDGE_13",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          2,
+          "PDCB_BRIDGE_14",
+          "PDCB_BRIDGE_18"
+        ],
+        [
+          2,
+          "PDCB_BRIDGE_14",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          2,
+          "PDCB_BRIDGE_15",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          2,
+          "PDCB_PHASE_LOCAL_02",
+          "PDCB_BRIDGE_18"
+        ],
+        [
+          2,
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "POSTD8_BOUNDED_PROJECTOR_04"
+        ],
+        [
+          2,
+          "POSTD8_BOUNDED_DIAG_05",
+          "PDCB_BRIDGE_18"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_13",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_14",
+          "PDCB_BRIDGE_16"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_15",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_15",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          3,
+          "PDCB_PHASE_LOCAL_02",
+          "PDCB_BRIDGE_16"
+        ],
+        [
+          3,
+          "D8_TRV_PLAN_3f9495af463cc07b",
+          "POSTD8_BOUNDED_PROJECTOR_04"
+        ],
+        [
+          3,
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "PDCB_BRIDGE_16"
+        ],
+        [
+          3,
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_13",
+          "POSTD8_BOUNDED_PROJECTOR_04"
+        ],
+        [
+          3,
+          "PDCB_BRIDGE_14",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ]
+      ],
+      "phase_anchor_component_id": 0,
+      "phase_anchor_component_nodes": [
+        "D8_TRV_PLAN_2709798bc19d7b76",
+        "D8_TRV_PLAN_28f33b5793175bc4",
+        "D8_TRV_PLAN_2c6c4edac3638079",
+        "D8_TRV_PLAN_3f9495af463cc07b",
+        "D8_TRV_PLAN_c011ef1be0120947",
+        "D8_TRV_PLAN_d6f4911593b64495",
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_14",
+        "PDCB_BRIDGE_15",
+        "PDCB_PHASE_LOCAL_01",
+        "PDCB_PHASE_LOCAL_02",
+        "PDCB_PHASE_LOCAL_03",
+        "PDCB_PHASE_LOCAL_04",
+        "PDCB_PHASE_LOCAL_05",
+        "PDCB_PHASE_LOCAL_06",
+        "POSTD8_BOUNDED_DIAG_05",
+        "POSTD8_BOUNDED_PHASE_01",
+        "POSTD8_BOUNDED_PHASE_02"
+      ],
+      "projector_anchor_component_id": 1,
+      "projector_anchor_component_nodes": [
+        "PDCB_BRIDGE_16",
+        "PDCB_BRIDGE_17",
+        "PDCB_BRIDGE_18",
+        "POSTD8_BOUNDED_DIAG_06",
+        "POSTD8_BOUNDED_PROJECTOR_03",
+        "POSTD8_BOUNDED_PROJECTOR_04"
+      ],
+      "shortest_geometric_separation": [
+        1,
+        1.0,
+        "PDCB_BRIDGE_13",
+        "PDCB_BRIDGE_18"
+      ]
+    },
+    "0.50": {
+      "alternative_near_path_count": 230,
+      "component_count": 15,
+      "component_sizes": [
+        9,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "components": [
+        [
+          "D8_TRV_PLAN_3f9495af463cc07b",
+          "D8_TRV_PLAN_c011ef1be0120947",
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "PDCB_PHASE_LOCAL_03",
+          "PDCB_PHASE_LOCAL_04",
+          "PDCB_PHASE_LOCAL_06",
+          "POSTD8_BOUNDED_DIAG_05",
+          "POSTD8_BOUNDED_PHASE_01",
+          "POSTD8_BOUNDED_PHASE_02"
+        ],
+        [
+          "PDCB_BRIDGE_13",
+          "PDCB_BRIDGE_14",
+          "PDCB_PHASE_LOCAL_02"
+        ],
+        [
+          "PDCB_BRIDGE_16",
+          "PDCB_BRIDGE_18",
+          "POSTD8_BOUNDED_PROJECTOR_04"
+        ],
+        [
+          "PDCB_BRIDGE_17",
+          "POSTD8_BOUNDED_DIAG_06",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          "PDCB_PROJECTOR_LOCAL_08",
+          "PDCB_PROJECTOR_LOCAL_09",
+          "PDCB_PROJECTOR_LOCAL_12"
+        ],
+        [
+          "D8_TRV_PLAN_2709798bc19d7b76",
+          "D8_TRV_PLAN_2c6c4edac3638079"
+        ],
+        [
+          "PDCB_PHASE_LOCAL_01",
+          "PDCB_PHASE_LOCAL_05"
+        ],
+        [
+          "PDCB_PROJECTOR_LOCAL_07",
+          "PDCB_PROJECTOR_LOCAL_10"
+        ],
+        [
+          "D8_TRV_PLAN_28f33b5793175bc4"
+        ],
+        [
+          "PDCB_BRIDGE_15"
+        ],
+        [
+          "PDCB_PROJECTOR_LOCAL_11"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WM_DM_PP"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WM_DP_PM"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WP_DM_PM"
+        ],
+        [
+          "POSTD8_CURV_MIRROR_WP_DP_PP"
+        ]
+      ],
+      "formal_graph_connected": false,
+      "minimum_edge_cut_size": 0,
+      "minimum_missing_lattice_nodes_needed": 2,
+      "minimum_vertex_cut_size": 0,
+      "multiplier": 0.5,
+      "nearest_cross_component_pairs": [
+        [
+          3,
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          3,
+          "POSTD8_BOUNDED_DIAG_05",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          4,
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          4,
+          "PDCB_PHASE_LOCAL_06",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          4,
+          "POSTD8_BOUNDED_DIAG_05",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          4,
+          "D8_TRV_PLAN_3f9495af463cc07b",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          4,
+          "POSTD8_BOUNDED_PHASE_01",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          5,
+          "D8_TRV_PLAN_3f9495af463cc07b",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          5,
+          "D8_TRV_PLAN_d6f4911593b64495",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          5,
+          "PDCB_PHASE_LOCAL_03",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          5,
+          "PDCB_PHASE_LOCAL_06",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          5,
+          "POSTD8_BOUNDED_DIAG_05",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          5,
+          "POSTD8_BOUNDED_PHASE_01",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          5,
+          "D8_TRV_PLAN_c011ef1be0120947",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          5,
+          "PDCB_PHASE_LOCAL_04",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          5,
+          "POSTD8_BOUNDED_PHASE_02",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          6,
+          "D8_TRV_PLAN_3f9495af463cc07b",
+          "PDCB_BRIDGE_17"
+        ],
+        [
+          6,
+          "PDCB_PHASE_LOCAL_03",
+          "POSTD8_BOUNDED_DIAG_06"
+        ],
+        [
+          6,
+          "POSTD8_BOUNDED_PHASE_01",
+          "POSTD8_BOUNDED_PROJECTOR_03"
+        ],
+        [
+          6,
+          "D8_TRV_PLAN_c011ef1be0120947",
+          "POSTD8_BOUNDED_DIAG_06"
+        ]
+      ],
+      "phase_anchor_component_id": 0,
+      "phase_anchor_component_nodes": [
+        "D8_TRV_PLAN_3f9495af463cc07b",
+        "D8_TRV_PLAN_c011ef1be0120947",
+        "D8_TRV_PLAN_d6f4911593b64495",
+        "PDCB_PHASE_LOCAL_03",
+        "PDCB_PHASE_LOCAL_04",
+        "PDCB_PHASE_LOCAL_06",
+        "POSTD8_BOUNDED_DIAG_05",
+        "POSTD8_BOUNDED_PHASE_01",
+        "POSTD8_BOUNDED_PHASE_02"
+      ],
+      "projector_anchor_component_id": 3,
+      "projector_anchor_component_nodes": [
+        "PDCB_BRIDGE_17",
+        "POSTD8_BOUNDED_DIAG_06",
+        "POSTD8_BOUNDED_PROJECTOR_03"
+      ],
+      "shortest_geometric_separation": [
+        3,
+        2.23606797749979,
+        "D8_TRV_PLAN_d6f4911593b64495",
+        "POSTD8_BOUNDED_PROJECTOR_03"
+      ]
     }
-  }
+  },
+  "solver_calls": 0
 }

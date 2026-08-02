@@ -9,5 +9,5 @@ def test_bridge_gap_plan_contract():
     assert all('D9' not in c['candidate_id'] for c in p['candidates'])
     assert len({c['geometry']['exact_geometry_hash_sha256'] for c in p['candidates']})==8
     g=json.loads((ANA/'b120_j2lm06_actual_node_formal_graph_components_v1.json').read_text())
-    assert g['node_count']==24 and g['edge_count']==74 and all(m['component_count']>1 for m in g['thresholds'].values())
+    assert g['node_count']==34 and g['edge_count']==84 and all(m['component_count']>1 for m in g['thresholds'].values())
     assert json.loads((ANA/'b120_j2lm06_actual_node_bridge_barrier_diagnosis_v1.json').read_text())['barrier_diagnosis'] in {'SPARSE_ACTUAL_NODE_SAMPLING_GAP_DOMINANT','JONES_CONTINUITY_THRESHOLD_BARRIER_DOMINANT','PROJECTOR_GUARD_BARRIER_DOMINANT','MIXED_JONES_PROJECTOR_BRIDGE_BARRIER','MANUFACTURING_TOPOLOGY_BARRIER','ACTIVE_VARIABLE_INSUFFICIENCY_SUSPECTED'}
