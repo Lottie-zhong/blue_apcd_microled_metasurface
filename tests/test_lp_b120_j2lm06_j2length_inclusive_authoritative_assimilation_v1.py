@@ -32,6 +32,17 @@ def test_four_actual_nodes_and_graph():
     assert g["anchor_continuity"]["frontier_refresh_status"].startswith("PROSPECTIVE_METRIC")
     assert all(g["thresholds"][q]["formal_graph_connected"] is False for q in ("1.00","0.75","0.50"))
 
+def test_xy_checkpoint_provenance_and_no_batch_followups():
+    a=load(AN/"b120_j2lm06_j2length_inclusive_batch_a_subrun_accounting_v1.json")
+    grouped={}
+    for r in a["records"]:
+        assert r["accepted"] and r["checkpoint_reload"]=="PASS" and r["formal_acceptance"]=="PASS"
+        assert r["wavelength_nm"]==450.0 and r["weighted_G0_version"]=="LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1"
+        grouped.setdefault(r["candidate_id"],[]).append(r)
+    assert len(grouped)==4 and all({r["polarization"] for r in rs}=={"x","y"} for rs in grouped.values())
+    o=load(AN/"b120_j2lm06_j2length_inclusive_batch_a_outcome_v1.json")
+    assert o["batch_b_readiness"]=="BATCH_B_NOT_JUSTIFIED" and o["no_d9"] is True
+
 def test_projector_guard_no_invented_threshold():
     g=load(AN/"b120_j2lm06_j2length_inclusive_projector_guard_audit_v1.json")
     assert len(g["nodes"])==4 and g["thresholds_invented"] is False
@@ -44,3 +55,11 @@ def test_d9_draft_only_and_no_d9_package():
     d=load(PL/"b120_j2lm06_j2length_inclusive_d9_phase_local_contract_amendment_draft_v1.json")
     assert d["status"]=="DRAFT_FOR_APPROVAL" and d["solver_authorized"] is False and d["candidate_geometry_count"]==0
     assert not list((ROOT/"outputs/lp_ml_dataset_v1/execution_packages").glob("*j2length*D9*"))
+
+def test_route_matrix_has_required_comparison_columns():
+    import csv
+    with open(AN/"b120_j2lm06_j2length_inclusive_future_route_decision_matrix_v1.csv",encoding="utf-8") as f:
+        rows=list(csv.DictReader(f))
+    assert len(rows)==4
+    required={"current_evidence","unresolved_risk","minimum_new_solver_estimate","information_gain","relevance_to_six_phase_broadband_library","contract_change_required","known_failure_repeat_likelihood"}
+    assert required <= set(rows[0])

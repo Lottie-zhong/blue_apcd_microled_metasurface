@@ -250,12 +250,12 @@ def main():
       "historical_hard_gate_preserved":"HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE"})
 
     routes=[
-      ["R1","Phase-local D9 with independent projector guard","DRAFT_PHASE_LOCAL_D9_CONTRACT_FOR_APPROVAL","SUPPORTED_WITH_CAVEAT","2-4 geometries / 4-8 x-y subruns planning estimate only","Highest relevance; requires contract approval"],
-      ["R2","Search another projector compensation variable","DEFERRED_BATCH_B_NOT_JUSTIFIED","INSUFFICIENT_EVIDENCE","Not frozen","Would require new solver authorization"],
-      ["R3","Spectral pilot","NOT_READY","NO_SPECTRAL_EVIDENCE","Not frozen","Outside current contract"],
-      ["R4","Global bridge redesign","NOT_RECOMMENDED","ANCHORS_DISCONNECTED","Not frozen","Repeats known graph risk"]]
+      ["R1","Phase-local D9 with independent projector guard","J2L phase leverage is formally prospective; no formal global bridge; projector absolute gate is indeterminate","absolute projector thresholds and local extrapolation risk","2-4 geometries / 4-8 x-y subruns planning estimate only","High: resolves phase-local continuation eligibility","High: directly advances phase branch, not broadband validation","Amendment draft approval; no geometry frozen","Medium: mitigated by independent per-node guard"],
+      ["R2","Search another projector compensation variable","Batch B is not justified; J2L has phase leverage but is not projector-orthogonal","unknown control response and added solver cost","Not frozen; new authorization required","Medium: tests missing projector degree of freedom","Medium: informs eventual library but not spectral robustness","New control contract required","High: repeats branch-expansion risk"],
+      ["R3","Pause 450-nm continuation and start unified spectral pilot","No spectral evidence in this task; current result is 450 nm only","spectral normalization/reference and budget not frozen","Not frozen; new spectral authorization required","Medium for wavelength robustness, none for current local phase gate","High eventual relevance, but outside current evidence","New spectral contract required","High: changes scope before local gate is defined"],
+      ["R4","Continue global bridge redesign","Corrected graph anchors remain disconnected at all threshold scales","global continuity and threshold sensitivity remain unresolved","Not frozen; new bridge solver authorization required","Low-to-medium; may diagnose topology but not local phase floor","Medium eventual relevance","New bridge contract required","High: repeats known disconnected-bridge failure mode"]]
     with open(AN/"b120_j2lm06_j2length_inclusive_future_route_decision_matrix_v1.csv","w",newline="",encoding="utf-8") as f:
-        w=csv.writer(f); w.writerow(["route_id","route","decision","evidence","future_budget","note"]); w.writerows(routes)
+        w=csv.writer(f); w.writerow(["route_id","route","current_evidence","unresolved_risk","minimum_new_solver_estimate","information_gain","relevance_to_six_phase_broadband_library","contract_change_required","known_failure_repeat_likelihood"]); w.writerows(routes)
 
     # authoritative offline completion/supersession ledger; never alter runner/package/checkpoints.
     ledger={"analysis_version":"J2L_BATCH_A_COMPLETION_SUPERSESSION_LEDGER_V1","status":"OFFLINE_FINALIZED_AFTER_RUNNER_SENTINEL_FAILURE",
