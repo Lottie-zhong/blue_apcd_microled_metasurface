@@ -1,0 +1,80 @@
+{
+  "case_id": "RUN3C_N1_CONFORMAL_SINGLE_VARIABLE_DIAGNOSTIC",
+  "attempt_id": "attempt_001",
+  "source_prefsp_path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d4b_k6x_fullwave_v1\\runtime_prefsp_run3c_n1_conformal_single_variable_diagnostic_v1\\RUN3C_N1_CONFORMAL_SINGLE_VARIABLE_DIAGNOSTIC.fsp",
+  "source_prefsp_sha256": "b9942309eea42a63574e3a2745eb1615105626e064a75efdc4000ec9082340d0",
+  "baseline_source_path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d4b_k6x_fullwave_v1\\runtime_prefsp_run3c_n1_minimal_boundary_diagnostic_v1\\RUN3C_N1_MINIMAL_BOUNDARY_DIAGNOSTIC.fsp",
+  "baseline_source_sha256": "982057c2d0112644bcf22c5927a53858328fbf1f3b6c23b5ae251aa9c772b63c",
+  "checks": {
+    "source_exists": true,
+    "source_sha_match": true,
+    "source_sha256": "b9942309eea42a63574e3a2745eb1615105626e064a75efdc4000ec9082340d0",
+    "independent_reload": true,
+    "target_mesh_refinement": "conformal variant 1",
+    "only_mesh_refinement_changed": true,
+    "non_mesh_readback_equal": true,
+    "run_dir_absent": true,
+    "scheduler_absent": true,
+    "post_absent": true,
+    "objective_hash_note": "objective text contains a 63-character digest; authoritative checksum JSON and actual SHA256 are 64 characters",
+    "preflight_pass": true
+  },
+  "readback_base": {
+    "FDTD.mesh accuracy": 4.0,
+    "FDTD.dt stability factor": 0.99,
+    "FDTD.simulation time": 1e-12,
+    "FDTD.auto shutoff min": 1e-05,
+    "FDTD.x min bc": "Periodic",
+    "FDTD.x max bc": "Periodic",
+    "FDTD.y min bc": "Periodic",
+    "FDTD.y max bc": "Periodic",
+    "FDTD.z min bc": "PML",
+    "FDTD.z max bc": "PML",
+    "RUN3C_FIXED_NESTED_N1.x": 0.0,
+    "RUN3C_FIXED_NESTED_N1.x span": 1.74e-06,
+    "RUN3C_FIXED_NESTED_N1.y": 0.0,
+    "RUN3C_FIXED_NESTED_N1.y span": 2.9e-07,
+    "RUN3C_FIXED_NESTED_N1.z": 2.5e-07,
+    "RUN3C_FIXED_NESTED_N1.z span": 7e-07,
+    "RUN3C_FIXED_NESTED_N1.dx": 1e-08,
+    "RUN3C_FIXED_NESTED_N1.dy": 1e-08,
+    "RUN3C_FIXED_NESTED_N1.dz": 1e-08
+  },
+  "readback_target": {
+    "FDTD.mesh accuracy": 4.0,
+    "FDTD.dt stability factor": 0.99,
+    "FDTD.simulation time": 1e-12,
+    "FDTD.auto shutoff min": 1e-05,
+    "FDTD.x min bc": "Periodic",
+    "FDTD.x max bc": "Periodic",
+    "FDTD.y min bc": "Periodic",
+    "FDTD.y max bc": "Periodic",
+    "FDTD.z min bc": "PML",
+    "FDTD.z max bc": "PML",
+    "RUN3C_FIXED_NESTED_N1.x": 0.0,
+    "RUN3C_FIXED_NESTED_N1.x span": 1.74e-06,
+    "RUN3C_FIXED_NESTED_N1.y": 0.0,
+    "RUN3C_FIXED_NESTED_N1.y span": 2.9e-07,
+    "RUN3C_FIXED_NESTED_N1.z": 2.5e-07,
+    "RUN3C_FIXED_NESTED_N1.z span": 7e-07,
+    "RUN3C_FIXED_NESTED_N1.dx": 1e-08,
+    "RUN3C_FIXED_NESTED_N1.dy": 1e-08,
+    "RUN3C_FIXED_NESTED_N1.dz": 1e-08
+  },
+  "setup_diff": {
+    "modified_solver_properties": [
+      {
+        "object": "FDTD",
+        "property": "mesh refinement",
+        "before": "conformal variant 0",
+        "after": "conformal variant 1"
+      }
+    ],
+    "added_objects": [],
+    "deleted_objects": [],
+    "diff_is_exactly_one_field": true,
+    "reload_equal": true
+  },
+  "error": null,
+  "solver_entered": 0
+}
