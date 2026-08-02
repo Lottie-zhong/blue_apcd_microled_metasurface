@@ -1,0 +1,121 @@
+{
+  "key_finding": "fixing J2_length removed a non-negligible phase-control direction; fixing both J1_side and J2_length makes the current W/D/Psi bridge a restricted slice, while the D8 local slice remains valid only locally",
+  "provenance_policy": "existing formal evidence only; no historical Jacobian is relabeled as new physics",
+  "routes": {
+    "R1_W_D_Psi_fixed_J1_side_J2_length": {
+      "drift_curvature": {
+        "D7_D8_model_status": "NOT_VALID_FOR_FURTHER_EXTRAPOLATION",
+        "D7_to_D8_external_mae_deg": "CONSTRAINED_ACTIVE_SUBSPACE_RESIDUAL_CORRECTED_LOCAL_SURROGATE",
+        "curvature_phase_deg_per_norm2": [
+          -1.5054734361993596,
+          -2.290816192254342,
+          -1.5373588587444922,
+          -1.5118075895401033
+        ]
+      },
+      "identifiability": {
+        "phase_condition": 1.8827835405592055,
+        "phase_local_rank": 3,
+        "projector_condition": 1.6550639444839754,
+        "projector_local_rank": 3
+      },
+      "minimum_prospective_evidence": "new comparable local full-Jones points that test cross-component projector barriers; do not infer a global bridge from surrogates",
+      "new_dof": false,
+      "projector_compensation": "D6 planning and D7/D8 prospective data support a local projector-preserving tangent, but bridge edges fail on sigma/Tyy/leakage in several cross-component pairs",
+      "provenance": "D7/D8 prospective formal weighted-G0 plus D5/D6 finite-difference formal evidence",
+      "quantization_limits": "integer/half-grid and actual quantized steps; no sub-grid relaxation",
+      "supported_phase_directions": {
+        "D5_phase_rad_per_nm": {
+          "J1_side_nm": {
+            "dTxx_d_nm": -0.015854350664220418,
+            "dTyy_d_nm": -0.09592569452174524,
+            "phase_rad_per_nm_unwrap": 0.07300420000864746,
+            "phase_status": "PASS"
+          },
+          "J2_length_nm": {
+            "dTxx_d_nm": 0.005827394576498945,
+            "dTyy_d_nm": 8.070858178011592e-05,
+            "phase_rad_per_nm_unwrap": 0.023285619797713496,
+            "phase_status": "PASS"
+          },
+          "J2_width_nm": {
+            "dTxx_d_nm": 0.007282195232607203,
+            "dTyy_d_nm": -0.006751942662249946,
+            "phase_rad_per_nm_unwrap": 0.00881348826280935,
+            "phase_status": "PASS"
+          }
+        },
+        "D7_D8_active_model": "J2_width/D/Psi only"
+      }
+    },
+    "R2_W_D_Psi_J2_length": {
+      "drift_curvature": "D8 recalibration secant residual MAE 1.7025 deg and max 3.5419 deg; D8-to-recalibration validation MAE 16.8413 deg indicates extrapolation drift",
+      "identifiability": {
+        "D6_planning_status": "CASE_A_FIVE_VARIABLE_PROJECTOR_TANGENT_FOUND",
+        "D6_variables": [
+          "J1_side_nm",
+          "J2_length_nm",
+          "J2_width_nm",
+          "D_nm",
+          "Psi_rad"
+        ],
+        "new_comparable_map": "not yet acquired"
+      },
+      "minimum_prospective_evidence": "4-6 geometry local paired probes (8-12 x/y subruns) with J2_length varied and W/D/Psi held or matched, complete formal weighted-G0 Jones, independent projector guard and leave-one-probe-out check",
+      "new_dof": true,
+      "projector_compensation": "D6 five-variable planning found controllability_improved=true and Psi orthogonal fraction 0.668793; D column is nearly redundant versus D5 (3.45e-7 orthogonal fraction)",
+      "provenance": "D5/D6 formal finite-difference/Jacobian artifacts; no new R2 physics in this offline task",
+      "quantization_limits": "J2_length integer/half-grid steps must be reused; slices cannot be merged as graph edges",
+      "supported_phase_directions": {
+        "J2_length_phase_rad_per_nm": {
+          "dTxx_d_nm": 0.005827394576498945,
+          "dTyy_d_nm": 8.070858178011592e-05,
+          "phase_rad_per_nm_unwrap": 0.023285619797713496,
+          "phase_status": "PASS"
+        },
+        "relative_to_width": "J2_length phase derivative 0.0232856 rad/nm versus width 0.0088135 rad/nm"
+      }
+    },
+    "R3_J1_side_J2_length_W_D_Psi": {
+      "drift_curvature": "joint 22/28 historical replay hard gate remains failed; D8 active basis is rotated and extrapolation invalid",
+      "identifiability": {
+        "D6_design_status": "planning only",
+        "conditioning": "must be measured prospectively",
+        "cost": "at least 6-10 geometries / 12-20 x/y subruns for rank/conditioning audit"
+      },
+      "minimum_prospective_evidence": "rank/condition/LOO study with at least one paired perturbation per axis and full formal Jones; audit only before any route execution",
+      "new_dof": true,
+      "projector_compensation": "D6 five-variable complex-Jones planning indicates extra directions, but no bounded prospective identifiability for a five-variable local map is established here",
+      "provenance": "D5/D6 only; do not treat historical coefficients as new physics",
+      "quantization_limits": "two added integer/half-grid variables increase lattice and manufacturing audit cost",
+      "supported_phase_directions": {
+        "J1_side_phase_rad_per_nm": {
+          "dTxx_d_nm": -0.015854350664220418,
+          "dTyy_d_nm": -0.09592569452174524,
+          "phase_rad_per_nm_unwrap": 0.07300420000864746,
+          "phase_status": "PASS"
+        },
+        "J2_length_phase_rad_per_nm": {
+          "dTxx_d_nm": 0.005827394576498945,
+          "dTyy_d_nm": 8.070858178011592e-05,
+          "phase_rad_per_nm_unwrap": 0.023285619797713496,
+          "phase_status": "PASS"
+        }
+      }
+    }
+  },
+  "schema_version": "LP_POST_D8_CONTROL_BASIS_COMPARISON_V1",
+  "source_hashes": {
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_curvature_actual_central_symmetry_audit_v1.json": "f618f22d5ed111774e9f8f309b15ac43e0170254416e50ab116bafb72705a4ac",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_local_basis_comparison_v1.json": "aec90008a98b49bd8bd3bd9a66c2303d43e82922e2ae4b15adab59f27e9c7e0c",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_phase_local_jacobian_v1.json": "29af5518f5ed89a3fe8886636e796e03a787b70617b713bd87cc70a6a17fb0cb",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_projector_local_jacobian_v1.json": "af1da89ab42e2db71ecccdb5e86dcde8e89cc1a90d001c773e5aae1bcb85abff",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_recalibration_jacobian_secant_alignment_v1.json": "6ccb0a7853a4213416bbdececc10a4896dc63428fa2f475b9fc910c720528615",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d5_central_difference_jacobian_v1.json": "dcbd5c8452d9ada32fbf71d7c9a98bd10b7073b223d99e106d4775a9058ed66e",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d5_route_decision_v1.json": "ea11c606d93d01064ee936eb23f1fb2f997438a2a8b5588f35fb6a80a3f63167",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d6_five_variable_jacobian_v1.json": "ca0124d8e7900db868c90c9d4d13143151c635dcce62171e6cbb664b3b18717d",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d6_route_decision_v1.json": "c4e82d5026c2e3e24c326b6226a726f1da91b2ad10446662e162e7b2495a5a99",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d7_d8_surrogate_generalization_audit_v1.json": "0e3632d0421fd08d1d2a3edb9dc4ca28e84e1ab42805e1bf3b8ba1acb4ba9001",
+    "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_stage_d7_physics_assimilation_v1.json": "c34e057c48f5b56caefb200b83aeb227227e54f0c7726b37dfae0d332c913f00"
+  }
+}
