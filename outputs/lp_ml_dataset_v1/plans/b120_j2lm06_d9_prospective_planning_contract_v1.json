@@ -1,0 +1,46 @@
+{
+  "contract_version": "D9_PROSPECTIVE_PLANNING_CONTRACT_V1",
+  "status": "FUTURE_D9_PLANNING_BUDGET_ONLY",
+  "solver_authorized": false,
+  "solver_calls": 0,
+  "no_D9_geometry_in_this_task": true,
+  "no_D9_candidate_in_this_task": true,
+  "no_execution_package_or_staging_in_this_task": true,
+  "wavelength_nm": [
+    450.0
+  ],
+  "max_geometries": 8,
+  "max_xy_subruns": 16,
+  "roles": {
+    "phase_anchor_local_max": 2,
+    "projector_anchor_local_max": 2,
+    "graph_bridge_guided_max": 2,
+    "diagnostic_max": 2
+  },
+  "batches": {
+    "batch_1": {
+      "max_geometries": 4,
+      "max_xy_subruns": 8
+    },
+    "batch_2": {
+      "max_geometries": 4,
+      "max_xy_subruns": 8,
+      "gate": "only if Batch 1 physical gate passes"
+    }
+  },
+  "primary_method": "PIECEWISE_DUAL_ANCHOR_LOCAL_LINEAR",
+  "fallback_method": "MORE_PROSPECTIVE_DIAGNOSTIC_REQUIRED",
+  "retained_anchor_set": [
+    "POSTD8_BOUNDED_PHASE_01",
+    "POSTD8_BOUNDED_DIAG_06"
+  ],
+  "route_review_outcome": "MORE_PROSPECTIVE_DIAGNOSTIC_REQUIRED",
+  "labels": [
+    "PROSPECTIVE_DIAGNOSTIC_EVIDENCE",
+    "HISTORICAL_FULL_JONES_GATE_REMAINS_BLOCKED",
+    "NO_HISTORICAL_PRIMARY_REPLAY_CLAIM",
+    "ROUTE_DECISION_ONLY",
+    "NO_D9_CANDIDATE_PLAN",
+    "NO_ADDITIONAL_SOLVER_AUTHORIZATION"
+  ]
+}

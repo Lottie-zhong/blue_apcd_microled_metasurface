@@ -1,0 +1,80 @@
+{
+  "analysis_version": "D9_BRIDGE_THRESHOLD_SENSITIVITY_V1",
+  "node_policy": "actual formal graph nodes only; no virtual/model nodes",
+  "node_count": 20,
+  "edge_count": 65,
+  "neighbor_rule": "normalized L1 <= 2",
+  "projector_guard": {
+    "sigma2_over_sigma1_lt": 0.35,
+    "source": "existing formal cross-branch projector_pass condition"
+  },
+  "frozen_threshold_source": {
+    "base_path": [
+      "POSTD8_BOUNDED_PHASE_01",
+      "PDCB_BRIDGE_15",
+      "PDCB_BRIDGE_13",
+      "PDCB_BRIDGE_14",
+      "PDCB_BRIDGE_16",
+      "PDCB_BRIDGE_18",
+      "PDCB_BRIDGE_17",
+      "POSTD8_BOUNDED_DIAG_06"
+    ],
+    "base_thresholds": {
+      "max_jones_frobenius_step": 0.035198562561738596,
+      "max_phase_step_deg": 1.2872845211413306,
+      "max_sigma_ratio_jump": 0.015573222790015273,
+      "max_Tyy_jump": 0.009068247345973321,
+      "max_leakage_jump": 0.009069599020801192
+    },
+    "semantics": "maximum edge metric on accepted actual-node path; one accepted path edge has L1=3 and is retained only as threshold source, not as a new graph edge"
+  },
+  "base_path_metrics": {
+    "min_projector_margin": 0.02726888907858782,
+    "max_jones_frobenius_step": 0.035198562561738596,
+    "max_phase_step_deg": 1.2872845211413306,
+    "max_sigma_ratio_jump": 0.015573222790015273,
+    "max_Tyy_jump": 0.009068247345973321,
+    "max_leakage_jump": 0.009069599020801192,
+    "bottleneck_edge": {
+      "u": "POSTD8_BOUNDED_PHASE_01",
+      "v": "PDCB_BRIDGE_15",
+      "l1": 5.0,
+      "jones_frobenius_step": 0.035198562561738596,
+      "phase_step_deg": 1.2409411914632926,
+      "sigma_ratio_jump": 0.015573222790015273,
+      "Tyy_jump": 0.008401368331932571,
+      "leakage_jump": 0.008337120631617151
+    }
+  },
+  "thresholds": {
+    "1": {
+      "multiplier": 1,
+      "connected": false,
+      "shortest_path": null,
+      "shortest_path_coordinates": [],
+      "alternative_valid_paths": [],
+      "alternative_path_count": 0,
+      "path_metrics": null
+    },
+    "0.75": {
+      "multiplier": 0.75,
+      "connected": false,
+      "shortest_path": null,
+      "shortest_path_coordinates": [],
+      "alternative_valid_paths": [],
+      "alternative_path_count": 0,
+      "path_metrics": null
+    },
+    "0.5": {
+      "multiplier": 0.5,
+      "connected": false,
+      "shortest_path": null,
+      "shortest_path_coordinates": [],
+      "alternative_valid_paths": [],
+      "alternative_path_count": 0,
+      "path_metrics": null
+    }
+  },
+  "classification": "NOT_CONNECTED_UNDER_FORMAL_GUARD",
+  "solver_calls": 0
+}
