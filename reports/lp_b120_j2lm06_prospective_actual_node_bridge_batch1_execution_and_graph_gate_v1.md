@@ -11,10 +11,10 @@
 ## GRAPH_GATE
 
 - Existing graph 34 nodes / 84 edges; post-Batch-1 graph 38 nodes / 92 edges.
-- Threshold 1.00: 11 components; 0.75: 13 components; 0.50: 19 components.
-- All four new actual nodes remain singleton components at all three thresholds.
-- Phase/projector anchors remain disconnected; nearest frontier remains PDCB_BRIDGE_13 ??PDCB_BRIDGE_18.
-- No formal connectivity gain; no Batch 2 or D9 was authorized or generated.
+- Threshold 1.00: 7 components; 0.75: 9 components; 0.50: 15 components after recomputing Batch-1 edge predicates from the accepted phase values.
+- The earlier singleton interpretation was caused by stale temporary phase=0 edge metrics and is superseded by the corrected post-Batch-1 graph.
+- Phase/projector anchors remain disconnected. Batch-1 nodes make local same-component or one-sided frontier connections, but no cross-anchor component merge.
+- No Batch 2 or D9 was authorized or generated.
 
 ## OUTCOME
 

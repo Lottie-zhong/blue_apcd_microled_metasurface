@@ -1,0 +1,493 @@
+{
+  "analysis_version": "BATCH2_READINESS_REVIEW_V1",
+  "solver_calls": 0,
+  "plan_unchanged": true,
+  "candidate_readiness": [
+    {
+      "candidate_id": "PDBG_PHASE_EXIT_02",
+      "normalized_coordinate": [
+        -1,
+        3,
+        -1
+      ],
+      "geometry_hash": "b51f621e0b88966994726fd07da810607382ee27aa275333617d5688d829ed91",
+      "role": "phase exit",
+      "evidence_label": "BATCH2_NODE_LIKELY_SINGLETON",
+      "distinct_hypothesis_assessment": "same-route continuation after PDBG_PHASE_EXIT_01 singleton; adjacent component remains phase-only",
+      "nearest_existing_actual_nodes": [
+        {
+          "candidate_id": "PDCB_PHASE_LOCAL_01",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              0,
+              1,
+              0
+            ]
+          },
+          "component_id_1x": 0
+        },
+        {
+          "candidate_id": "PDCB_PHASE_LOCAL_03",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              -1,
+              0,
+              0
+            ]
+          },
+          "component_id_1x": 0
+        },
+        {
+          "candidate_id": "PDBG_PHASE_EXIT_01",
+          "distance": {
+            "l1": 2,
+            "l2": 1.4142135623730951,
+            "delta": [
+              0,
+              1,
+              1
+            ]
+          },
+          "component_id_1x": 0
+        }
+      ],
+      "predicted_observables": {
+        "adjacent_component_ids": [
+          0
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_PHASE_LOCAL_01",
+          "PDCB_PHASE_LOCAL_03"
+        ],
+        "component_merging_potential": 0,
+        "creates_one_node_bridge": false,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.30593580372732265,
+        "leverage": 0.07692307692307693,
+        "predicted_Txx": 0.9771492687987366,
+        "predicted_Tyy": 0.10382808314004352,
+        "predicted_jones_step_reduction": 0.008407574936759102,
+        "predicted_leakage": 0.10382808512839484,
+        "predicted_phase_deg": 81.41534774704657,
+        "predicted_projection_error": 0.10382808314004352,
+        "predicted_projector_margin": 0.01986485379330427,
+        "predicted_projector_risk": 0.3301351462066957,
+        "predicted_sigma2_over_sigma1": 0.32592594555342,
+        "prediction_uncertainty": 0.16463584523843355
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "conservative_stress": {
+        "batch1_residual_summary": {
+          "Txx": {
+            "count": 4,
+            "mae": 0.0033248685929498645,
+            "max_abs": 0.005317936264963907
+          },
+          "Tyy": {
+            "count": 4,
+            "mae": 0.006310807833615463,
+            "max_abs": 0.008802794691637944
+          },
+          "leakage": {
+            "count": 4,
+            "mae": 0.006316561755407516,
+            "max_abs": 0.008866388929985855
+          },
+          "sigma2_over_sigma1": {
+            "count": 4,
+            "mae": 0.011218333926419424,
+            "max_abs": 0.01593797514271239
+          },
+          "phase_deg": {
+            "count": 4,
+            "mae": 0.33565738258040767,
+            "max_abs": 0.6493620242043647
+          },
+          "projector_margin": {
+            "count": 4,
+            "mae": 0.013595138208037177,
+            "max_abs": 0.031903211668968645
+          }
+        },
+        "full_jones_prediction_available": false,
+        "edge_predicates_evaluable_from_prediction": false,
+        "plausible_legal_edge_under_supported_envelope": false,
+        "reason": "Frozen plan has scalar predicted observables but no predicted complex Jones or edge-level predicate values; Batch-1 residuals are therefore not converted into physics."
+      },
+      "solver_calls": 0,
+      "plan_unchanged": true,
+      "not_d9": true
+    },
+    {
+      "candidate_id": "PDBG_PROJECTOR_EXIT_04",
+      "normalized_coordinate": [
+        3,
+        0,
+        2
+      ],
+      "geometry_hash": "3a3e8cf71aba6d69a770e62c5ab4811d255eb2b92fd679361734d9e36ceba8c5",
+      "role": "projector exit",
+      "evidence_label": "BATCH2_NODE_LIKELY_SINGLETON",
+      "distinct_hypothesis_assessment": "same-route continuation after PDBG_PROJECTOR_EXIT_03 singleton; no component merge predicted",
+      "nearest_existing_actual_nodes": [
+        {
+          "candidate_id": "PDBG_PROJECTOR_EXIT_03",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              0,
+              0,
+              1
+            ]
+          },
+          "component_id_1x": 2
+        },
+        {
+          "candidate_id": "PDCB_PROJECTOR_LOCAL_12",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              1,
+              0,
+              0
+            ]
+          },
+          "component_id_1x": 1
+        },
+        {
+          "candidate_id": "PDCB_PROJECTOR_LOCAL_07",
+          "distance": {
+            "l1": 2,
+            "l2": 1.4142135623730951,
+            "delta": [
+              0,
+              -1,
+              1
+            ]
+          },
+          "component_id_1x": 2
+        }
+      ],
+      "predicted_observables": {
+        "adjacent_component_ids": [
+          1
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_PROJECTOR_LOCAL_12"
+        ],
+        "component_merging_potential": 0,
+        "creates_one_node_bridge": false,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.2694522072738212,
+        "leverage": 0.14285714285714285,
+        "predicted_Txx": 0.989108150190706,
+        "predicted_Tyy": 0.07659571098011965,
+        "predicted_jones_step_reduction": null,
+        "predicted_leakage": 0.07659829453357879,
+        "predicted_phase_deg": 84.57455176916594,
+        "predicted_projection_error": 0.07659571098011965,
+        "predicted_projector_margin": 0.07172303859528928,
+        "predicted_projector_risk": 0.2782769614047107,
+        "predicted_sigma2_over_sigma1": 0.2782769614047107,
+        "prediction_uncertainty": 0.0
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "conservative_stress": {
+        "batch1_residual_summary": {
+          "Txx": {
+            "count": 4,
+            "mae": 0.0033248685929498645,
+            "max_abs": 0.005317936264963907
+          },
+          "Tyy": {
+            "count": 4,
+            "mae": 0.006310807833615463,
+            "max_abs": 0.008802794691637944
+          },
+          "leakage": {
+            "count": 4,
+            "mae": 0.006316561755407516,
+            "max_abs": 0.008866388929985855
+          },
+          "sigma2_over_sigma1": {
+            "count": 4,
+            "mae": 0.011218333926419424,
+            "max_abs": 0.01593797514271239
+          },
+          "phase_deg": {
+            "count": 4,
+            "mae": 0.33565738258040767,
+            "max_abs": 0.6493620242043647
+          },
+          "projector_margin": {
+            "count": 4,
+            "mae": 0.013595138208037177,
+            "max_abs": 0.031903211668968645
+          }
+        },
+        "full_jones_prediction_available": false,
+        "edge_predicates_evaluable_from_prediction": false,
+        "plausible_legal_edge_under_supported_envelope": false,
+        "reason": "Frozen plan has scalar predicted observables but no predicted complex Jones or edge-level predicate values; Batch-1 residuals are therefore not converted into physics."
+      },
+      "solver_calls": 0,
+      "plan_unchanged": true,
+      "not_d9": true
+    },
+    {
+      "candidate_id": "PDBG_CUT_SPLITTER_06",
+      "normalized_coordinate": [
+        1,
+        2,
+        2
+      ],
+      "geometry_hash": "690bec255712c1382b3e03b858b519f8420294b80456f217c5fa6d71c75ade08",
+      "role": "cut split",
+      "evidence_label": "BATCH2_NODE_LIKELY_SINGLETON",
+      "distinct_hypothesis_assessment": "same cut-split branch as PDBG_CUT_SPLITTER_05, whose realized node was singleton; prediction uncertainty is high",
+      "nearest_existing_actual_nodes": [
+        {
+          "candidate_id": "PDCB_BRIDGE_14",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              0,
+              0,
+              1
+            ]
+          },
+          "component_id_1x": 0
+        },
+        {
+          "candidate_id": "PDCB_BRIDGE_15",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              0,
+              1,
+              0
+            ]
+          },
+          "component_id_1x": 0
+        },
+        {
+          "candidate_id": "PDCB_PROJECTOR_LOCAL_08",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              -1,
+              0,
+              0
+            ]
+          },
+          "component_id_1x": 1
+        }
+      ],
+      "predicted_observables": {
+        "adjacent_component_ids": [
+          0,
+          1
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_BRIDGE_14",
+          "PDCB_BRIDGE_15",
+          "PDCB_PROJECTOR_LOCAL_08"
+        ],
+        "component_merging_potential": 1,
+        "creates_one_node_bridge": true,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.5089638313203225,
+        "leverage": 0.3333333333333333,
+        "predicted_Txx": 0.9830660824342216,
+        "predicted_Tyy": 0.08748435955126067,
+        "predicted_jones_step_reduction": 0.031409259339029945,
+        "predicted_leakage": 0.0875145433546471,
+        "predicted_phase_deg": 83.23077159807262,
+        "predicted_projection_error": 0.08748435955126067,
+        "predicted_projector_margin": 0.03774775655413315,
+        "predicted_projector_risk": 0.31225224344586683,
+        "predicted_sigma2_over_sigma1": 0.29786048266758275,
+        "prediction_uncertainty": 0.9596196567271835
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "conservative_stress": {
+        "batch1_residual_summary": {
+          "Txx": {
+            "count": 4,
+            "mae": 0.0033248685929498645,
+            "max_abs": 0.005317936264963907
+          },
+          "Tyy": {
+            "count": 4,
+            "mae": 0.006310807833615463,
+            "max_abs": 0.008802794691637944
+          },
+          "leakage": {
+            "count": 4,
+            "mae": 0.006316561755407516,
+            "max_abs": 0.008866388929985855
+          },
+          "sigma2_over_sigma1": {
+            "count": 4,
+            "mae": 0.011218333926419424,
+            "max_abs": 0.01593797514271239
+          },
+          "phase_deg": {
+            "count": 4,
+            "mae": 0.33565738258040767,
+            "max_abs": 0.6493620242043647
+          },
+          "projector_margin": {
+            "count": 4,
+            "mae": 0.013595138208037177,
+            "max_abs": 0.031903211668968645
+          }
+        },
+        "full_jones_prediction_available": false,
+        "edge_predicates_evaluable_from_prediction": false,
+        "plausible_legal_edge_under_supported_envelope": false,
+        "reason": "Frozen plan has scalar predicted observables but no predicted complex Jones or edge-level predicate values; Batch-1 residuals are therefore not converted into physics."
+      },
+      "solver_calls": 0,
+      "plan_unchanged": true,
+      "not_d9": true
+    },
+    {
+      "candidate_id": "PDBG_BASIS_TEST_08",
+      "normalized_coordinate": [
+        3,
+        2,
+        0
+      ],
+      "geometry_hash": "f6a9482dc7a718d6b3a5cb02f3aa0be5345585e868cf6bb4299b3c7ce57213d2",
+      "role": "active-basis rotation",
+      "evidence_label": "BATCH2_NODE_INDETERMINATE",
+      "distinct_hypothesis_assessment": "distinct active-basis hypothesis, but no predicted full Jones/edge predicates and high residual uncertainty",
+      "nearest_existing_actual_nodes": [
+        {
+          "candidate_id": "PDCB_BRIDGE_18",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              1,
+              0,
+              0
+            ]
+          },
+          "component_id_1x": 1
+        },
+        {
+          "candidate_id": "PDCB_PROJECTOR_LOCAL_10",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              0,
+              0,
+              -1
+            ]
+          },
+          "component_id_1x": 2
+        },
+        {
+          "candidate_id": "PDCB_PROJECTOR_LOCAL_11",
+          "distance": {
+            "l1": 1,
+            "l2": 1.0,
+            "delta": [
+              0,
+              1,
+              0
+            ]
+          },
+          "component_id_1x": 2
+        }
+      ],
+      "predicted_observables": {
+        "adjacent_component_ids": [
+          1,
+          2
+        ],
+        "adjacent_frontier_node_ids": [
+          "PDCB_BRIDGE_18",
+          "PDCB_PROJECTOR_LOCAL_10",
+          "PDCB_PROJECTOR_LOCAL_11"
+        ],
+        "component_merging_potential": 1,
+        "creates_one_node_bridge": true,
+        "creates_two_node_bridge": true,
+        "information_gain": 0.5089638313203225,
+        "leverage": 0.14285714285714285,
+        "predicted_Txx": 0.9818379571662418,
+        "predicted_Tyy": 0.07315451233712729,
+        "predicted_jones_step_reduction": 0.027783292782150512,
+        "predicted_leakage": 0.07326809382968862,
+        "predicted_phase_deg": 83.26014205059833,
+        "predicted_projection_error": 0.07315451233712729,
+        "predicted_projector_margin": 0.05598235328293627,
+        "predicted_projector_risk": 0.2940176467170637,
+        "predicted_sigma2_over_sigma1": 0.2724797867140188,
+        "prediction_uncertainty": 0.7318664419272417
+      },
+      "prediction_label": "MODEL_PREDICTION_NOT_PHYSICS_LABEL",
+      "physics_fields": "ABSENT_NOT_SIMULATED",
+      "conservative_stress": {
+        "batch1_residual_summary": {
+          "Txx": {
+            "count": 4,
+            "mae": 0.0033248685929498645,
+            "max_abs": 0.005317936264963907
+          },
+          "Tyy": {
+            "count": 4,
+            "mae": 0.006310807833615463,
+            "max_abs": 0.008802794691637944
+          },
+          "leakage": {
+            "count": 4,
+            "mae": 0.006316561755407516,
+            "max_abs": 0.008866388929985855
+          },
+          "sigma2_over_sigma1": {
+            "count": 4,
+            "mae": 0.011218333926419424,
+            "max_abs": 0.01593797514271239
+          },
+          "phase_deg": {
+            "count": 4,
+            "mae": 0.33565738258040767,
+            "max_abs": 0.6493620242043647
+          },
+          "projector_margin": {
+            "count": 4,
+            "mae": 0.013595138208037177,
+            "max_abs": 0.031903211668968645
+          }
+        },
+        "full_jones_prediction_available": false,
+        "edge_predicates_evaluable_from_prediction": false,
+        "plausible_legal_edge_under_supported_envelope": false,
+        "reason": "Frozen plan has scalar predicted observables but no predicted complex Jones or edge-level predicate values; Batch-1 residuals are therefore not converted into physics."
+      },
+      "solver_calls": 0,
+      "plan_unchanged": true,
+      "not_d9": true
+    }
+  ],
+  "overall_recommendation": "DO_NOT_AUTHORIZE_BATCH2_UNCHANGED",
+  "basis": "All four Batch-1 predicted bridge gains realized as singleton nodes; phase/projector/cut-split remaining nodes repeat failed local routes or lack edge-level complex-Jones support.",
+  "no_batch2_physics_claim": true
+}

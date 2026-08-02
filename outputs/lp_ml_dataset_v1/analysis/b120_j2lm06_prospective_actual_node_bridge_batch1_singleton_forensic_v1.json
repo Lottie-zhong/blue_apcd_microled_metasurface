@@ -1,0 +1,1751 @@
+{
+  "analysis_version": "BATCH1_SINGLETON_FORENSIC_V1",
+  "solver_calls": 0,
+  "candidate_ids": [
+    "PDBG_PHASE_EXIT_01",
+    "PDBG_PROJECTOR_EXIT_03",
+    "PDBG_CUT_SPLITTER_05",
+    "PDBG_ALT_PATH_07"
+  ],
+  "nodes": [
+    {
+      "candidate_id": "PDBG_PHASE_EXIT_01",
+      "geometry_hash": "631bbced68a8d8536933f15b6202d1a9753f30eae21462ea88eaae093979ae5d",
+      "canonical_relative_geometry_hash": "6830a2cc818a8809e6ac5411c898ded86a3c0910955db4e52f3aca8145e56780",
+      "symmetry_equivalence_hash": "6830a2cc818a8809e6ac5411c898ded86a3c0910955db4e52f3aca8145e56780",
+      "normalized_coordinate": [
+        -1,
+        2,
+        -2
+      ],
+      "complete_jones_provenance": {
+        "physics_origin": "PROSPECTIVE_CROSS_BRANCH_DIAGNOSTIC_PHYSICS",
+        "source_path": "outputs/lp_ml_dataset_v1/staging/b120_j2lm06_prospective_actual_node_bridge_batch1_v1/candidates/PDBG_PHASE_EXIT_01.json",
+        "formal_observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "x_y_complete": true,
+        "acceptance": "PASS"
+      },
+      "nearest_actual_by_coordinate": {
+        "candidate_id": "PDCB_PHASE_LOCAL_01",
+        "distance": {
+          "l1": 1,
+          "l2": 1.0,
+          "delta": [
+            0,
+            0,
+            -1
+          ]
+        }
+      },
+      "nearest_actual_by_jones_frobenius": {
+        "candidate_id": "PDCB_PHASE_LOCAL_01",
+        "distance": 0.0017933288365315743
+      },
+      "nearest_pre_batch1_components": [
+        {
+          "pre_batch1_component_id": 0,
+          "nearest_coordinate": {
+            "candidate_id": "PDCB_PHASE_LOCAL_01",
+            "distance": {
+              "l1": 1,
+              "l2": 1.0,
+              "delta": [
+                0,
+                0,
+                -1
+              ]
+            }
+          },
+          "nearest_jones": {
+            "candidate_id": "PDCB_PHASE_LOCAL_01",
+            "distance": 0.0017933288365315743
+          }
+        }
+      ],
+      "incident_l1_edge_count": 2,
+      "incident_edges": [
+        {
+          "other_node_id": "PDCB_PHASE_LOCAL_01",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.0017933288365315743,
+          "phase_step_deg": 0.03335939729802817,
+          "Tyy_step": 0.00017428744885031322,
+          "leakage_step": 0.00017167040409604706,
+          "sigma_ratio_jump": 0.000194645700178242,
+          "endpoint_projector_margin": 0.01986485379330427,
+          "manufacturing_margin_nm": 33.5,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.0017933288365315743,
+                "limit": 0.03519856256,
+                "ratio": 0.05094892251564646,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.03335939729802817,
+                "limit": 1.287284521,
+                "ratio": 0.025914548612853375,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.00017428744885031322,
+                "limit": 0.00906824734597,
+                "ratio": 0.019219529662230478,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.00017167040409604706,
+                "limit": 0.0090695990208,
+                "ratio": 0.018928113988539327,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.000194645700178242,
+                "limit": 0.01557322279,
+                "ratio": 0.012498742412086305,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.01986485379330427,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.5,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.0017933288365315743,
+                "limit": 0.02639892192,
+                "ratio": 0.06793189668752861,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.03335939729802817,
+                "limit": 0.9654633907499999,
+                "ratio": 0.03455273148380451,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.00017428744885031322,
+                "limit": 0.0068011855094775005,
+                "ratio": 0.025626039549640635,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.00017167040409604706,
+                "limit": 0.0068021992656,
+                "ratio": 0.025237485318052432,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.000194645700178242,
+                "limit": 0.0116799170925,
+                "ratio": 0.016664989882781738,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.01986485379330427,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.5,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.0017933288365315743,
+                "limit": 0.01759928128,
+                "ratio": 0.10189784503129291,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.03335939729802817,
+                "limit": 0.6436422605,
+                "ratio": 0.05182909722570675,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.00017428744885031322,
+                "limit": 0.004534123672985,
+                "ratio": 0.038439059324460956,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.00017167040409604706,
+                "limit": 0.0045347995104,
+                "ratio": 0.03785622797707865,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.000194645700178242,
+                "limit": 0.007786611395,
+                "ratio": 0.02499748482417261,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.01986485379330427,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.5,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        },
+        {
+          "other_node_id": "PDCB_PHASE_LOCAL_04",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.018154799004682497,
+          "phase_step_deg": 0.5493435517542622,
+          "Tyy_step": 0.005434304724442604,
+          "leakage_step": 0.005436717763315432,
+          "sigma_ratio_jump": 0.00768908362280013,
+          "endpoint_projector_margin": 0.020059499493482513,
+          "manufacturing_margin_nm": 33.25499813328946,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.018154799004682497,
+                "limit": 0.03519856256,
+                "ratio": 0.5157823980378617,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.5493435517542622,
+                "limit": 1.287284521,
+                "ratio": 0.42674602451330357,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.005434304724442604,
+                "limit": 0.00906824734597,
+                "ratio": 0.5992673685569077,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.005436717763315432,
+                "limit": 0.0090695990208,
+                "ratio": 0.5994441155388451,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.00768908362280013,
+                "limit": 0.01557322279,
+                "ratio": 0.4937374701746067,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.020059499493482513,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.25499813328946,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.018154799004682497,
+                "limit": 0.02639892192,
+                "ratio": 0.6877098640504823,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.5493435517542622,
+                "limit": 0.9654633907499999,
+                "ratio": 0.5689946993510715,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.005434304724442604,
+                "limit": 0.0068011855094775005,
+                "ratio": 0.7990231580758769,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.005436717763315432,
+                "limit": 0.0068021992656,
+                "ratio": 0.7992588207184602,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.00768908362280013,
+                "limit": 0.0116799170925,
+                "ratio": 0.6583166268994756,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.020059499493482513,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.25499813328946,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.018154799004682497,
+                "limit": 0.01759928128,
+                "ratio": 1.0315647960757235,
+                "pass": false
+              },
+              "phase": {
+                "raw": 0.5493435517542622,
+                "limit": 0.6436422605,
+                "ratio": 0.8534920490266071,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.005434304724442604,
+                "limit": 0.004534123672985,
+                "ratio": 1.1985347371138153,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.005436717763315432,
+                "limit": 0.0045347995104,
+                "ratio": 1.1988882310776903,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.00768908362280013,
+                "limit": 0.007786611395,
+                "ratio": 0.9874749403492133,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.020059499493482513,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.25499813328946,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        }
+      ],
+      "dominant_barrier_at_1x": "NONE",
+      "secondary_barriers_at_1x": [],
+      "classification": "CONNECTED_WITHIN_EXISTING_COMPONENT",
+      "all_incident_edges_pass_1x": true,
+      "formal_local_connection_at_1x": true
+    },
+    {
+      "candidate_id": "PDBG_PROJECTOR_EXIT_03",
+      "geometry_hash": "738671a557aae308ca903160f301c3177a4adad817f5627b6943f9b9e0358c4b",
+      "canonical_relative_geometry_hash": "eec2babaa2d8ae200ee6d4a2b1c5285d1f8e2b1064fc3ab11cb5e59171abac47",
+      "symmetry_equivalence_hash": "eec2babaa2d8ae200ee6d4a2b1c5285d1f8e2b1064fc3ab11cb5e59171abac47",
+      "normalized_coordinate": [
+        3,
+        0,
+        1
+      ],
+      "complete_jones_provenance": {
+        "physics_origin": "PROSPECTIVE_CROSS_BRANCH_DIAGNOSTIC_PHYSICS",
+        "source_path": "outputs/lp_ml_dataset_v1/staging/b120_j2lm06_prospective_actual_node_bridge_batch1_v1/candidates/PDBG_PROJECTOR_EXIT_03.json",
+        "formal_observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "x_y_complete": true,
+        "acceptance": "PASS"
+      },
+      "nearest_actual_by_coordinate": {
+        "candidate_id": "PDCB_PROJECTOR_LOCAL_07",
+        "distance": {
+          "l1": 1,
+          "l2": 1.0,
+          "delta": [
+            0,
+            -1,
+            0
+          ]
+        }
+      },
+      "nearest_actual_by_jones_frobenius": {
+        "candidate_id": "PDCB_PROJECTOR_LOCAL_07",
+        "distance": 0.004085974888268234
+      },
+      "nearest_pre_batch1_components": [
+        {
+          "pre_batch1_component_id": 1,
+          "nearest_coordinate": {
+            "candidate_id": "POSTD8_BOUNDED_PROJECTOR_03",
+            "distance": {
+              "l1": 1,
+              "l2": 1.0,
+              "delta": [
+                1,
+                0,
+                0
+              ]
+            }
+          },
+          "nearest_jones": {
+            "candidate_id": "PDCB_PROJECTOR_LOCAL_08",
+            "distance": 0.01815792505327957
+          }
+        },
+        {
+          "pre_batch1_component_id": 2,
+          "nearest_coordinate": {
+            "candidate_id": "PDCB_PROJECTOR_LOCAL_07",
+            "distance": {
+              "l1": 1,
+              "l2": 1.0,
+              "delta": [
+                0,
+                -1,
+                0
+              ]
+            }
+          },
+          "nearest_jones": {
+            "candidate_id": "PDCB_PROJECTOR_LOCAL_07",
+            "distance": 0.004085974888268234
+          }
+        }
+      ],
+      "incident_l1_edge_count": 2,
+      "incident_edges": [
+        {
+          "other_node_id": "PDCB_PROJECTOR_LOCAL_07",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.004085974888268234,
+          "phase_step_deg": 0.005105418974366671,
+          "Tyy_step": 0.0012241762853382743,
+          "leakage_step": 0.0011628910648454338,
+          "sigma_ratio_jump": 0.0018844223447747055,
+          "endpoint_projector_margin": 0.09007996173432375,
+          "manufacturing_margin_nm": 32.50016105985807,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.004085974888268234,
+                "limit": 0.03519856256,
+                "ratio": 0.116083572484053,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.005105418974366671,
+                "limit": 1.287284521,
+                "ratio": 0.003966037725988217,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0012241762853382743,
+                "limit": 0.00906824734597,
+                "ratio": 0.13499590809929857,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0011628910648454338,
+                "limit": 0.0090695990208,
+                "ratio": 0.12821857528414293,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.0018844223447747055,
+                "limit": 0.01557322279,
+                "ratio": 0.12100400605485112,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.09007996173432375,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.50016105985807,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.004085974888268234,
+                "limit": 0.02639892192,
+                "ratio": 0.154778096645404,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.005105418974366671,
+                "limit": 0.9654633907499999,
+                "ratio": 0.0052880503013176235,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0012241762853382743,
+                "limit": 0.0068011855094775005,
+                "ratio": 0.17999454413239807,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0011628910648454338,
+                "limit": 0.0068021992656,
+                "ratio": 0.17095810037885723,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.0018844223447747055,
+                "limit": 0.0116799170925,
+                "ratio": 0.16133867473980149,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.09007996173432375,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.50016105985807,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.004085974888268234,
+                "limit": 0.01759928128,
+                "ratio": 0.232167144968106,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.005105418974366671,
+                "limit": 0.6436422605,
+                "ratio": 0.007932075451976434,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0012241762853382743,
+                "limit": 0.004534123672985,
+                "ratio": 0.26999181619859713,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0011628910648454338,
+                "limit": 0.0045347995104,
+                "ratio": 0.25643715056828587,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.0018844223447747055,
+                "limit": 0.007786611395,
+                "ratio": 0.24200801210970224,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.09007996173432375,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.50016105985807,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        },
+        {
+          "other_node_id": "POSTD8_BOUNDED_PROJECTOR_03",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.036694373710393045,
+          "phase_step_deg": 0.6068415300296408,
+          "Tyy_step": 0.01730608978898622,
+          "leakage_step": 0.0171518115250682,
+          "sigma_ratio_jump": 0.031903211668968645,
+          "endpoint_projector_margin": 0.05817675006535511,
+          "manufacturing_margin_nm": 32.50997481422215,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.036694373710393045,
+                "limit": 0.03519856256,
+                "ratio": 1.0424963703515808,
+                "pass": false
+              },
+              "phase": {
+                "raw": 0.6068415300296408,
+                "limit": 1.287284521,
+                "ratio": 0.47141212383896974,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.01730608978898622,
+                "limit": 0.00906824734597,
+                "ratio": 1.9084271887088722,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.0171518115250682,
+                "limit": 0.0090695990208,
+                "ratio": 1.8911322855324308,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.031903211668968645,
+                "limit": 0.01557322279,
+                "ratio": 2.048594057837186,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.05817675006535511,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.50997481422215,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.036694373710393045,
+                "limit": 0.02639892192,
+                "ratio": 1.3899951604687744,
+                "pass": false
+              },
+              "phase": {
+                "raw": 0.6068415300296408,
+                "limit": 0.9654633907499999,
+                "ratio": 0.6285494984519597,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.01730608978898622,
+                "limit": 0.0068011855094775005,
+                "ratio": 2.544569584945163,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.0171518115250682,
+                "limit": 0.0068021992656,
+                "ratio": 2.521509714043241,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.031903211668968645,
+                "limit": 0.0116799170925,
+                "ratio": 2.7314587437829148,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.05817675006535511,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.50997481422215,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.036694373710393045,
+                "limit": 0.01759928128,
+                "ratio": 2.0849927407031617,
+                "pass": false
+              },
+              "phase": {
+                "raw": 0.6068415300296408,
+                "limit": 0.6436422605,
+                "ratio": 0.9428242476779395,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.01730608978898622,
+                "limit": 0.004534123672985,
+                "ratio": 3.8168543774177444,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.0171518115250682,
+                "limit": 0.0045347995104,
+                "ratio": 3.7822645710648617,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.031903211668968645,
+                "limit": 0.007786611395,
+                "ratio": 4.097188115674372,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.05817675006535511,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.50997481422215,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        }
+      ],
+      "dominant_barrier_at_1x": "sigma_ratio",
+      "secondary_barriers_at_1x": [
+        "Tyy",
+        "leakage",
+        "jones_frobenius"
+      ],
+      "classification": "MIXED_BARRIER_WITH_LOCAL_CONNECTION",
+      "all_incident_edges_pass_1x": false,
+      "formal_local_connection_at_1x": true
+    },
+    {
+      "candidate_id": "PDBG_CUT_SPLITTER_05",
+      "geometry_hash": "ac18e0ec2951459590da51397e10f0d7fcff85c2bd611bb09e1d450ae4e256ee",
+      "canonical_relative_geometry_hash": "71ea245bc47c96497188f04c8b6aaee1cdc60f2552883c3b1b1aebd7b76bae94",
+      "symmetry_equivalence_hash": "71ea245bc47c96497188f04c8b6aaee1cdc60f2552883c3b1b1aebd7b76bae94",
+      "normalized_coordinate": [
+        1,
+        0,
+        2
+      ],
+      "complete_jones_provenance": {
+        "physics_origin": "PROSPECTIVE_CROSS_BRANCH_DIAGNOSTIC_PHYSICS",
+        "source_path": "outputs/lp_ml_dataset_v1/staging/b120_j2lm06_prospective_actual_node_bridge_batch1_v1/candidates/PDBG_CUT_SPLITTER_05.json",
+        "formal_observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "x_y_complete": true,
+        "acceptance": "PASS"
+      },
+      "nearest_actual_by_coordinate": {
+        "candidate_id": "PDCB_BRIDGE_15",
+        "distance": {
+          "l1": 1,
+          "l2": 1.0,
+          "delta": [
+            0,
+            -1,
+            0
+          ]
+        }
+      },
+      "nearest_actual_by_jones_frobenius": {
+        "candidate_id": "PDCB_BRIDGE_15",
+        "distance": 0.003618790701957797
+      },
+      "nearest_pre_batch1_components": [
+        {
+          "pre_batch1_component_id": 0,
+          "nearest_coordinate": {
+            "candidate_id": "PDCB_BRIDGE_15",
+            "distance": {
+              "l1": 1,
+              "l2": 1.0,
+              "delta": [
+                0,
+                -1,
+                0
+              ]
+            }
+          },
+          "nearest_jones": {
+            "candidate_id": "PDCB_BRIDGE_15",
+            "distance": 0.003618790701957797
+          }
+        },
+        {
+          "pre_batch1_component_id": 1,
+          "nearest_coordinate": {
+            "candidate_id": "PDCB_PROJECTOR_LOCAL_12",
+            "distance": {
+              "l1": 1,
+              "l2": 1.0,
+              "delta": [
+                -1,
+                0,
+                0
+              ]
+            }
+          },
+          "nearest_jones": {
+            "candidate_id": "POSTD8_BOUNDED_PROJECTOR_04",
+            "distance": 0.02107920181859602
+          }
+        }
+      ],
+      "incident_l1_edge_count": 2,
+      "incident_edges": [
+        {
+          "other_node_id": "PDCB_BRIDGE_15",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.003618790701957797,
+          "phase_step_deg": 0.1004803151147513,
+          "Tyy_step": 0.0004616891712210802,
+          "leakage_step": 0.0004944513361408442,
+          "sigma_ratio_jump": 0.0014975117793692982,
+          "endpoint_projector_margin": 0.041344600089233796,
+          "manufacturing_margin_nm": 32.27464174196017,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.003618790701957797,
+                "limit": 0.03519856256,
+                "ratio": 0.10281075245016474,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.1004803151147513,
+                "limit": 1.287284521,
+                "ratio": 0.07805602683445248,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0004616891712210802,
+                "limit": 0.00906824734597,
+                "ratio": 0.0509127236616741,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0004944513361408442,
+                "limit": 0.0090695990208,
+                "ratio": 0.054517441731093234,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.0014975117793692982,
+                "limit": 0.01557322279,
+                "ratio": 0.09615940127247728,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.041344600089233796,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.27464174196017,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.003618790701957797,
+                "limit": 0.02639892192,
+                "ratio": 0.13708100326688635,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.1004803151147513,
+                "limit": 0.9654633907499999,
+                "ratio": 0.10407470244593665,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0004616891712210802,
+                "limit": 0.0068011855094775005,
+                "ratio": 0.0678836315488988,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0004944513361408442,
+                "limit": 0.0068021992656,
+                "ratio": 0.07268992230812431,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.0014975117793692982,
+                "limit": 0.0116799170925,
+                "ratio": 0.1282125350299697,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.041344600089233796,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.27464174196017,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.003618790701957797,
+                "limit": 0.01759928128,
+                "ratio": 0.2056215049003295,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.1004803151147513,
+                "limit": 0.6436422605,
+                "ratio": 0.15611205366890496,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0004616891712210802,
+                "limit": 0.004534123672985,
+                "ratio": 0.1018254473233482,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0004944513361408442,
+                "limit": 0.0045347995104,
+                "ratio": 0.10903488346218647,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.0014975117793692982,
+                "limit": 0.007786611395,
+                "ratio": 0.19231880254495456,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.041344600089233796,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 32.27464174196017,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        },
+        {
+          "other_node_id": "PDCB_PROJECTOR_LOCAL_12",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.0457555803128797,
+          "phase_step_deg": 1.3992043635234808,
+          "Tyy_step": 0.01714390021205482,
+          "leakage_step": 0.017238326523830866,
+          "sigma_ratio_jump": 0.030378438506055483,
+          "endpoint_projector_margin": 0.041344600089233796,
+          "manufacturing_margin_nm": 31.765367573751632,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.0457555803128797,
+                "limit": 0.03519856256,
+                "ratio": 1.2999275250199223,
+                "pass": false
+              },
+              "phase": {
+                "raw": 1.3992043635234808,
+                "limit": 1.287284521,
+                "ratio": 1.0869425839413793,
+                "pass": false
+              },
+              "Tyy": {
+                "raw": 0.01714390021205482,
+                "limit": 0.00906824734597,
+                "ratio": 1.8905417505703241,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.017238326523830866,
+                "limit": 0.0090695990208,
+                "ratio": 1.900671295864007,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.030378438506055483,
+                "limit": 0.01557322279,
+                "ratio": 1.9506841272162576,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.041344600089233796,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 31.765367573751632,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.0457555803128797,
+                "limit": 0.02639892192,
+                "ratio": 1.7332367000265632,
+                "pass": false
+              },
+              "phase": {
+                "raw": 1.3992043635234808,
+                "limit": 0.9654633907499999,
+                "ratio": 1.449256778588506,
+                "pass": false
+              },
+              "Tyy": {
+                "raw": 0.01714390021205482,
+                "limit": 0.0068011855094775005,
+                "ratio": 2.5207223340937657,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.017238326523830866,
+                "limit": 0.0068021992656,
+                "ratio": 2.5342283944853428,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.030378438506055483,
+                "limit": 0.0116799170925,
+                "ratio": 2.600912169621677,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.041344600089233796,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 31.765367573751632,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.0457555803128797,
+                "limit": 0.01759928128,
+                "ratio": 2.5998550500398445,
+                "pass": false
+              },
+              "phase": {
+                "raw": 1.3992043635234808,
+                "limit": 0.6436422605,
+                "ratio": 2.1738851678827587,
+                "pass": false
+              },
+              "Tyy": {
+                "raw": 0.01714390021205482,
+                "limit": 0.004534123672985,
+                "ratio": 3.7810835011406483,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.017238326523830866,
+                "limit": 0.0045347995104,
+                "ratio": 3.801342591728014,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.030378438506055483,
+                "limit": 0.007786611395,
+                "ratio": 3.9013682544325152,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.041344600089233796,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 31.765367573751632,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        }
+      ],
+      "dominant_barrier_at_1x": "sigma_ratio",
+      "secondary_barriers_at_1x": [
+        "leakage",
+        "Tyy",
+        "jones_frobenius"
+      ],
+      "classification": "MIXED_BARRIER_WITH_LOCAL_CONNECTION",
+      "all_incident_edges_pass_1x": false,
+      "formal_local_connection_at_1x": true
+    },
+    {
+      "candidate_id": "PDBG_ALT_PATH_07",
+      "geometry_hash": "abff4fc20c7ebf8ca01ccb448d357b4ccc030c135fbc093459e4b6ea1a09f62f",
+      "canonical_relative_geometry_hash": "24649d645fed51a3226870ee6602d5ba60370cf7d31e9238e88a8ef9e4623b93",
+      "symmetry_equivalence_hash": "24649d645fed51a3226870ee6602d5ba60370cf7d31e9238e88a8ef9e4623b93",
+      "normalized_coordinate": [
+        2,
+        2,
+        -1
+      ],
+      "complete_jones_provenance": {
+        "physics_origin": "PROSPECTIVE_CROSS_BRANCH_DIAGNOSTIC_PHYSICS",
+        "source_path": "outputs/lp_ml_dataset_v1/staging/b120_j2lm06_prospective_actual_node_bridge_batch1_v1/candidates/PDBG_ALT_PATH_07.json",
+        "formal_observable": "LP_WEIGHTED_G0_COORDINATE_PERIODIC_G0_V1",
+        "normalization": "LP_WEIGHTED_G0_SQRT_T_NORM_V1",
+        "x_y_complete": true,
+        "acceptance": "PASS"
+      },
+      "nearest_actual_by_coordinate": {
+        "candidate_id": "PDCB_BRIDGE_18",
+        "distance": {
+          "l1": 1,
+          "l2": 1.0,
+          "delta": [
+            0,
+            0,
+            -1
+          ]
+        }
+      },
+      "nearest_actual_by_jones_frobenius": {
+        "candidate_id": "PDCB_BRIDGE_18",
+        "distance": 0.002696773333276341
+      },
+      "nearest_pre_batch1_components": [
+        {
+          "pre_batch1_component_id": 0,
+          "nearest_coordinate": {
+            "candidate_id": "PDCB_PHASE_LOCAL_02",
+            "distance": {
+              "l1": 1,
+              "l2": 1.0,
+              "delta": [
+                1,
+                0,
+                0
+              ]
+            }
+          },
+          "nearest_jones": {
+            "candidate_id": "PDCB_BRIDGE_15",
+            "distance": 0.024294780141629075
+          }
+        },
+        {
+          "pre_batch1_component_id": 1,
+          "nearest_coordinate": {
+            "candidate_id": "PDCB_BRIDGE_18",
+            "distance": {
+              "l1": 1,
+              "l2": 1.0,
+              "delta": [
+                0,
+                0,
+                -1
+              ]
+            }
+          },
+          "nearest_jones": {
+            "candidate_id": "PDCB_BRIDGE_18",
+            "distance": 0.002696773333276341
+          }
+        }
+      ],
+      "incident_l1_edge_count": 2,
+      "incident_edges": [
+        {
+          "other_node_id": "PDCB_BRIDGE_18",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.002696773333276341,
+          "phase_step_deg": 0.03578908985844009,
+          "Tyy_step": 0.0002013672222840046,
+          "leakage_step": 0.0001945617046320014,
+          "sigma_ratio_jump": 0.00042768980451762806,
+          "endpoint_projector_margin": 0.05555466347841864,
+          "manufacturing_margin_nm": 33.250035415246586,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.002696773333276341,
+                "limit": 0.03519856256,
+                "ratio": 0.07661600750540254,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.03578908985844009,
+                "limit": 1.287284521,
+                "ratio": 0.027802004354591393,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0002013672222840046,
+                "limit": 0.00906824734597,
+                "ratio": 0.022205748762851484,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0001945617046320014,
+                "limit": 0.0090695990208,
+                "ratio": 0.021452073480403958,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.00042768980451762806,
+                "limit": 0.01557322279,
+                "ratio": 0.027463153278219302,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.05555466347841864,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.250035415246586,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.002696773333276341,
+                "limit": 0.02639892192,
+                "ratio": 0.10215467667387006,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.03578908985844009,
+                "limit": 0.9654633907499999,
+                "ratio": 0.03706933913945519,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0002013672222840046,
+                "limit": 0.0068011855094775005,
+                "ratio": 0.029607665017135316,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0001945617046320014,
+                "limit": 0.0068021992656,
+                "ratio": 0.02860276464053861,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.00042768980451762806,
+                "limit": 0.0116799170925,
+                "ratio": 0.0366175377042924,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.05555466347841864,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.250035415246586,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.002696773333276341,
+                "limit": 0.01759928128,
+                "ratio": 0.15323201501080508,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.03578908985844009,
+                "limit": 0.6436422605,
+                "ratio": 0.055604008709182785,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.0002013672222840046,
+                "limit": 0.004534123672985,
+                "ratio": 0.04441149752570297,
+                "pass": true
+              },
+              "leakage": {
+                "raw": 0.0001945617046320014,
+                "limit": 0.0045347995104,
+                "ratio": 0.042904146960807917,
+                "pass": true
+              },
+              "sigma_ratio": {
+                "raw": 0.00042768980451762806,
+                "limit": 0.007786611395,
+                "ratio": 0.054926306556438605,
+                "pass": true
+              },
+              "projector_margin": {
+                "raw": 0.05555466347841864,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.250035415246586,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        },
+        {
+          "other_node_id": "PDCB_PHASE_LOCAL_02",
+          "normalized_l1_distance": 1,
+          "jones_frobenius_step": 0.028909093681805845,
+          "phase_step_deg": 0.2943929986327589,
+          "Tyy_step": 0.01174030972869157,
+          "leakage_step": 0.011740310068478296,
+          "sigma_ratio_jump": 0.020785183683632524,
+          "endpoint_projector_margin": 0.03476947979478612,
+          "manufacturing_margin_nm": 33.5,
+          "thresholds": {
+            "1.0": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.028909093681805845,
+                "limit": 0.03519856256,
+                "ratio": 0.8213146100079219,
+                "pass": true
+              },
+              "phase": {
+                "raw": 0.2943929986327589,
+                "limit": 1.287284521,
+                "ratio": 0.22869303081813327,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.01174030972869157,
+                "limit": 0.00906824734597,
+                "ratio": 1.2946613916424605,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.011740310068478296,
+                "limit": 0.0090695990208,
+                "ratio": 1.294468481082058,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.020785183683632524,
+                "limit": 0.01557322279,
+                "ratio": 1.334674522025028,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.03476947979478612,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.5,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.75": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.028909093681805845,
+                "limit": 0.02639892192,
+                "ratio": 1.0950861466772295,
+                "pass": false
+              },
+              "phase": {
+                "raw": 0.2943929986327589,
+                "limit": 0.9654633907499999,
+                "ratio": 0.30492404109084437,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.01174030972869157,
+                "limit": 0.0068011855094775005,
+                "ratio": 1.726215188856614,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.011740310068478296,
+                "limit": 0.0068021992656,
+                "ratio": 1.7259579747760772,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.020785183683632524,
+                "limit": 0.0116799170925,
+                "ratio": 1.779566029366704,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.03476947979478612,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.5,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            },
+            "0.5": {
+              "coordinate_comparability": {
+                "raw": 1,
+                "limit": 1.0,
+                "ratio": 1,
+                "pass": true,
+                "detail": {
+                  "l1_distance": 1,
+                  "fixed_route_fields_equal": true
+                }
+              },
+              "jones_frobenius": {
+                "raw": 0.028909093681805845,
+                "limit": 0.01759928128,
+                "ratio": 1.6426292200158439,
+                "pass": false
+              },
+              "phase": {
+                "raw": 0.2943929986327589,
+                "limit": 0.6436422605,
+                "ratio": 0.45738606163626655,
+                "pass": true
+              },
+              "Tyy": {
+                "raw": 0.01174030972869157,
+                "limit": 0.004534123672985,
+                "ratio": 2.589322783284921,
+                "pass": false
+              },
+              "leakage": {
+                "raw": 0.011740310068478296,
+                "limit": 0.0045347995104,
+                "ratio": 2.588936962164116,
+                "pass": false
+              },
+              "sigma_ratio": {
+                "raw": 0.020785183683632524,
+                "limit": 0.007786611395,
+                "ratio": 2.669349044050056,
+                "pass": false
+              },
+              "projector_margin": {
+                "raw": 0.03476947979478612,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              },
+              "manufacturing_geometry_legality": {
+                "raw": 33.5,
+                "limit": 0.0,
+                "ratio": null,
+                "pass": true
+              }
+            }
+          }
+        }
+      ],
+      "dominant_barrier_at_1x": "sigma_ratio",
+      "secondary_barriers_at_1x": [
+        "Tyy",
+        "leakage"
+      ],
+      "classification": "MIXED_BARRIER_WITH_LOCAL_CONNECTION",
+      "all_incident_edges_pass_1x": false,
+      "formal_local_connection_at_1x": true
+    }
+  ],
+  "frozen_predicate_thresholds": {
+    "base": {
+      "jones_frobenius": 0.03519856256,
+      "phase": 1.287284521,
+      "Tyy": 0.00906824734597,
+      "leakage": 0.0090695990208,
+      "sigma_ratio": 0.01557322279
+    },
+    "multipliers": [
+      1.0,
+      0.75,
+      0.5
+    ]
+  },
+  "status": "PASS"
+}

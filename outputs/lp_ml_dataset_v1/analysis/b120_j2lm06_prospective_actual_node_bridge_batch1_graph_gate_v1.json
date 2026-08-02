@@ -14,26 +14,22 @@
   "post_batch1_edge_count": 92,
   "thresholds": {
     "1.00": {
-      "component_count": 11,
+      "component_count": 7,
       "component_sizes": [
-        18,
-        9,
-        3,
-        1,
-        1,
-        1,
-        1,
+        20,
+        10,
+        4,
         1,
         1,
         1,
         1
       ],
-      "new_nodes_singleton": true,
+      "new_nodes_singleton": false,
       "new_node_component_ids": {
-        "PDBG_PHASE_EXIT_01": 5,
-        "PDBG_PROJECTOR_EXIT_03": 6,
-        "PDBG_CUT_SPLITTER_05": 4,
-        "PDBG_ALT_PATH_07": 3
+        "PDBG_PHASE_EXIT_01": 0,
+        "PDBG_PROJECTOR_EXIT_03": 2,
+        "PDBG_CUT_SPLITTER_05": 0,
+        "PDBG_ALT_PATH_07": 1
       },
       "phase_anchor_component_id": 0,
       "projector_anchor_component_id": 1,
@@ -41,33 +37,29 @@
       "nearest_cross_component_pair": [
         1,
         1.0,
-        "PDCB_BRIDGE_13",
-        "PDCB_BRIDGE_18"
+        "PDBG_CUT_SPLITTER_05",
+        "PDCB_PROJECTOR_LOCAL_12"
       ]
     },
     "0.75": {
-      "component_count": 13,
+      "component_count": 9,
       "component_sizes": [
-        18,
-        6,
+        20,
+        7,
         3,
-        2,
-        1,
-        1,
-        1,
-        1,
+        3,
         1,
         1,
         1,
         1,
         1
       ],
-      "new_nodes_singleton": true,
+      "new_nodes_singleton": false,
       "new_node_component_ids": {
-        "PDBG_PHASE_EXIT_01": 6,
-        "PDBG_PROJECTOR_EXIT_03": 7,
-        "PDBG_CUT_SPLITTER_05": 5,
-        "PDBG_ALT_PATH_07": 4
+        "PDBG_PHASE_EXIT_01": 0,
+        "PDBG_PROJECTOR_EXIT_03": 2,
+        "PDBG_CUT_SPLITTER_05": 0,
+        "PDBG_ALT_PATH_07": 1
       },
       "phase_anchor_component_id": 0,
       "projector_anchor_component_id": 1,
@@ -80,21 +72,17 @@
       ]
     },
     "0.50": {
-      "component_count": 19,
+      "component_count": 15,
       "component_sizes": [
         9,
+        4,
+        3,
         3,
         3,
         3,
         3,
         2,
         2,
-        2,
-        1,
-        1,
-        1,
-        1,
-        1,
         1,
         1,
         1,
@@ -102,15 +90,15 @@
         1,
         1
       ],
-      "new_nodes_singleton": true,
+      "new_nodes_singleton": false,
       "new_node_component_ids": {
-        "PDBG_PHASE_EXIT_01": 11,
-        "PDBG_PROJECTOR_EXIT_03": 12,
-        "PDBG_CUT_SPLITTER_05": 10,
-        "PDBG_ALT_PATH_07": 9
+        "PDBG_PHASE_EXIT_01": 2,
+        "PDBG_PROJECTOR_EXIT_03": 3,
+        "PDBG_CUT_SPLITTER_05": 8,
+        "PDBG_ALT_PATH_07": 1
       },
       "phase_anchor_component_id": 0,
-      "projector_anchor_component_id": 3,
+      "projector_anchor_component_id": 5,
       "formal_path_exists": false,
       "nearest_cross_component_pair": [
         3,
@@ -129,8 +117,8 @@
       "frontier": [
         1,
         1.0,
-        "PDCB_BRIDGE_13",
-        "PDCB_BRIDGE_18"
+        "PDBG_CUT_SPLITTER_05",
+        "PDCB_PROJECTOR_LOCAL_12"
       ]
     },
     "0.75": {
@@ -161,72 +149,108 @@
   "per_node_component_merge": {
     "1.00": {
       "PDBG_PHASE_EXIT_01": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          0
+        ],
+        "post_component_size": 20,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_PROJECTOR_EXIT_03": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          2
+        ],
+        "post_component_size": 4,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_CUT_SPLITTER_05": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          0
+        ],
+        "post_component_size": 20,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_ALT_PATH_07": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          1
+        ],
+        "post_component_size": 10,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       }
     },
     "0.75": {
       "PDBG_PHASE_EXIT_01": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          0
+        ],
+        "post_component_size": 20,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_PROJECTOR_EXIT_03": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          3
+        ],
+        "post_component_size": 3,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_CUT_SPLITTER_05": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          0
+        ],
+        "post_component_size": 20,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_ALT_PATH_07": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          1
+        ],
+        "post_component_size": 7,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       }
     },
     "0.50": {
       "PDBG_PHASE_EXIT_01": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          6
+        ],
+        "post_component_size": 3,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_PROJECTOR_EXIT_03": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          7
+        ],
+        "post_component_size": 3,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_CUT_SPLITTER_05": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          9
+        ],
+        "post_component_size": 2,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       },
       "PDBG_ALT_PATH_07": {
-        "pre_component": "NEW_SINGLETON",
-        "post_component_size": 1,
-        "merge_realized": false
+        "pre_component": [
+          2
+        ],
+        "post_component_size": 4,
+        "merge_realized": true,
+        "distinct_old_components_connected": false
       }
     }
   },
-  "expected_gain_claim": "No formal connectivity gain was realized by the four actual Batch-1 nodes; all four remain singleton components at each threshold.",
+  "expected_gain_claim": "Predicted cross-component bridge gain was not realized; actual nodes make local same-component connections or one-sided frontier connections, but no phase/projector anchor component merges.",
   "outcome": "BATCH1_DIAGNOSTIC_NO_FORMAL_CONNECTIVITY_GAIN",
   "batch2_authorized": false,
   "d9_generated": false,

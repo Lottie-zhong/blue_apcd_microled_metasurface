@@ -7,47 +7,50 @@
     "POSTD8_BOUNDED_DIAG_06"
   ],
   "frontier_pair": [
-    "PDCB_BRIDGE_13",
-    "PDCB_BRIDGE_18"
+    "PDBG_CUT_SPLITTER_05",
+    "PDCB_PROJECTOR_LOCAL_12"
   ],
   "threshold_1x_metrics": {
-    "Txx_step": 0.006678992595170241,
-    "Tyy_step": 0.011527881363966722,
+    "Txx_step": 0.005721934738458834,
+    "Tyy_step": 0.01714390021205482,
     "edge_origin": "L1_DISTANCE_1",
-    "endpoint_projector_margin": 0.035539955754994024,
-    "jones_frobenius_step": 0.02874586361668721,
-    "leakage_step": 0.011523081766826843,
-    "manufacturing_margin_nm": 33.250035415246586,
+    "endpoint_projector_margin": 0.041344600089233796,
+    "jones_frobenius_step": 0.0457555803128797,
+    "leakage_step": 0.017238326523830866,
+    "manufacturing_margin_nm": 31.765367573751632,
     "normalized_coordinate_displacement": [
       1,
       0,
       0
     ],
     "normalized_l1_distance": 1,
-    "phase_step_deg": 0.3318773393531842,
-    "phase_unwrapped_step_deg": 0.3318773393531842,
-    "projection_error_step": 0.011527881363966722,
+    "phase_step_deg": 1.3992043635234808,
+    "phase_unwrapped_step_deg": 1.3992043635234808,
+    "projection_error_step": 0.01714390021205482,
     "raw_geometry_displacement": [
       1.0,
       0.0,
       0.0
     ],
-    "sigma_ratio_jump": 0.020442397527942247,
+    "sigma_ratio_jump": 0.030378438506055483,
+    "u": "PDBG_CUT_SPLITTER_05",
+    "v": "PDCB_PROJECTOR_LOCAL_12",
     "thresholds": {
-      "0.50": {
+      "1.00": {
         "checks": {
           "Tyy": false,
           "jones_frobenius": false,
           "leakage": false,
-          "phase": true,
+          "phase": false,
           "projector_endpoints": true,
           "sigma_ratio": false
         },
         "failure_reasons": [
-          "jones_frobenius",
-          "sigma_ratio",
           "Tyy",
-          "leakage"
+          "jones_frobenius",
+          "leakage",
+          "phase",
+          "sigma_ratio"
         ],
         "pass": false
       },
@@ -56,42 +59,43 @@
           "Tyy": false,
           "jones_frobenius": false,
           "leakage": false,
-          "phase": true,
+          "phase": false,
           "projector_endpoints": true,
           "sigma_ratio": false
         },
         "failure_reasons": [
-          "jones_frobenius",
-          "sigma_ratio",
           "Tyy",
-          "leakage"
+          "jones_frobenius",
+          "leakage",
+          "phase",
+          "sigma_ratio"
         ],
         "pass": false
       },
-      "1.00": {
+      "0.50": {
         "checks": {
           "Tyy": false,
-          "jones_frobenius": true,
+          "jones_frobenius": false,
           "leakage": false,
-          "phase": true,
+          "phase": false,
           "projector_endpoints": true,
           "sigma_ratio": false
         },
         "failure_reasons": [
-          "sigma_ratio",
           "Tyy",
-          "leakage"
+          "jones_frobenius",
+          "leakage",
+          "phase",
+          "sigma_ratio"
         ],
         "pass": false
       }
-    },
-    "u": "PDCB_BRIDGE_13",
-    "v": "PDCB_BRIDGE_18"
+    }
   },
   "diagnosis_basis": {
     "geometry_legal": true,
     "endpoint_projector_margin_positive": true,
-    "jones_threshold_failure": false,
+    "jones_threshold_failure": true,
     "projector_metric_failure": true,
     "missing_lattice_samples_not_excluded": true
   },

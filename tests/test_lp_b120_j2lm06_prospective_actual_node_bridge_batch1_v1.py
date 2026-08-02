@@ -32,9 +32,9 @@ def test_batch1_graph_gate_and_no_d9():
     assert g['batch1_additions']==IDS
     gate=j(ANA/'b120_j2lm06_prospective_actual_node_bridge_batch1_graph_gate_v1.json')
     assert gate['outcome']=='BATCH1_DIAGNOSTIC_NO_FORMAL_CONNECTIVITY_GAIN'
-    assert [gate['thresholds'][k]['component_count'] for k in ['1.00','0.75','0.50']]==[11,13,19]
+    assert [gate['thresholds'][k]['component_count'] for k in ['1.00','0.75','0.50']]==[7,9,15]
     assert all(not gate['thresholds'][k]['formal_path_exists'] for k in ['1.00','0.75','0.50'])
-    assert all(gate['thresholds'][k]['new_nodes_singleton'] for k in ['1.00','0.75','0.50'])
+    assert all(not gate['thresholds'][k]['new_nodes_singleton'] for k in ['1.00','0.75','0.50'])
 
 def test_historical_hard_gate_and_protected_hashes():
     assert 'HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE' in (ROOT/'reports/lp_b120_j2lm06_original22_missing9_regeneration_and_full_jones_replay_v1.md').read_text(encoding='utf-8') if (ROOT/'reports/lp_b120_j2lm06_original22_missing9_regeneration_and_full_jones_replay_v1.md').exists() else True
