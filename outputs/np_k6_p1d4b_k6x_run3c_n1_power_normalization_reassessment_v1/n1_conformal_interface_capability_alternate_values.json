@@ -1,0 +1,100 @@
+{
+  "property": "FDTD.mesh refinement",
+  "before": {
+    "mesh refinement": "conformal variant 0",
+    "mesh accuracy": 4.0,
+    "dt stability factor": 0.99,
+    "simulation time": 1e-12,
+    "auto shutoff min": 1e-05
+  },
+  "alternate_value_probes": [
+    {
+      "attempted_value": "conformal variant 0",
+      "set_success": true,
+      "readback": {
+        "mesh refinement": "conformal variant 0",
+        "mesh accuracy": 4.0,
+        "dt stability factor": 0.99,
+        "simulation time": 1e-12,
+        "auto shutoff min": 1e-05
+      },
+      "changed_other_fields": {
+        "mesh accuracy": false,
+        "dt stability factor": false,
+        "simulation time": false,
+        "auto shutoff min": false
+      }
+    },
+    {
+      "attempted_value": "conformal variant 1",
+      "set_success": true,
+      "readback": {
+        "mesh refinement": "conformal variant 1",
+        "mesh accuracy": 4.0,
+        "dt stability factor": 0.99,
+        "simulation time": 1e-12,
+        "auto shutoff min": 1e-05
+      },
+      "changed_other_fields": {
+        "mesh accuracy": false,
+        "dt stability factor": false,
+        "simulation time": false,
+        "auto shutoff min": false
+      }
+    },
+    {
+      "attempted_value": "conformal variant 2",
+      "set_success": true,
+      "readback": {
+        "mesh refinement": "conformal variant 2",
+        "mesh accuracy": 4.0,
+        "dt stability factor": 0.99,
+        "simulation time": 1e-12,
+        "auto shutoff min": 1e-05
+      },
+      "changed_other_fields": {
+        "mesh accuracy": false,
+        "dt stability factor": false,
+        "simulation time": false,
+        "auto shutoff min": false
+      }
+    },
+    {
+      "attempted_value": "conformal variant 3",
+      "set_success": false,
+      "error": "'in set, the value supplied is not acceptable for the property \\'mesh refinement\\', it may be out of range, have incorrect dimensions or not be found in the list of choices\\n  Expected type is String from this list:\\n# \"staircase\"\\n# \"conformal variant 0\"\\n# \"conformal variant 1\"\\n# \"conformal variant 2\"\\n# \"dielectric volume average\"\\n# \"volume average\"\\n# \"Yu-Mittra method 1\"\\n# \"Yu-Mittra method 2\"\\n# \"precise volume average\"'"
+    },
+    {
+      "attempted_value": "staircase",
+      "set_success": true,
+      "readback": {
+        "mesh refinement": "staircase",
+        "mesh accuracy": 4.0,
+        "dt stability factor": 0.99,
+        "simulation time": 1e-12,
+        "auto shutoff min": 1e-05
+      },
+      "changed_other_fields": {
+        "mesh accuracy": false,
+        "dt stability factor": false,
+        "simulation time": false,
+        "auto shutoff min": false
+      }
+    },
+    {
+      "attempted_value": "staircase mesh",
+      "set_success": false,
+      "error": "'in set, the value supplied is not acceptable for the property \\'mesh refinement\\', it may be out of range, have incorrect dimensions or not be found in the list of choices\\n  Expected type is String from this list:\\n# \"staircase\"\\n# \"conformal variant 0\"\\n# \"conformal variant 1\"\\n# \"conformal variant 2\"\\n# \"dielectric volume average\"\\n# \"volume average\"\\n# \"Yu-Mittra method 1\"\\n# \"Yu-Mittra method 2\"\\n# \"precise volume average\"'"
+    }
+  ],
+  "after_last_probe": {
+    "mesh refinement": "staircase",
+    "mesh accuracy": 4.0,
+    "dt stability factor": 0.99,
+    "simulation time": 1e-12,
+    "auto shutoff min": 1e-05
+  },
+  "save_called": false,
+  "run_called": false,
+  "supported_values_are_runtime_observed": true
+}
