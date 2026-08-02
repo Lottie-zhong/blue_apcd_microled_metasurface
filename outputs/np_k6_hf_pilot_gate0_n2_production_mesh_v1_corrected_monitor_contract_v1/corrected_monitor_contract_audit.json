@@ -1,0 +1,1029 @@
+{
+  "all_pass": true,
+  "cases": {
+    "RUN3A_N2_NATIVE_M1_X_PRODUCTION_GATE": {
+      "checks": {
+        "material_contract": true,
+        "mesh_contract": true,
+        "power_contract": true,
+        "power_spans": true,
+        "power_z": true,
+        "required_objects": true,
+        "xz_contract": true
+      },
+      "materials": {
+        "APCD_SIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        }
+      },
+      "mesh": {
+        "dx": 5e-09,
+        "dy": 5e-09,
+        "dz": 5e-09,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 2.9e-07,
+        "z": 2.5e-07,
+        "z span": 7e-07
+      },
+      "object_names": [
+        "FDTD",
+        "SiO2 substrate",
+        "TiO2_pillar_0",
+        "TiO2_pillar_1",
+        "TiO2_pillar_2",
+        "TiO2_pillar_3",
+        "TiO2_pillar_4",
+        "TiO2_pillar_5",
+        "source_x_forward",
+        "reflection_monitor",
+        "transmission_monitor",
+        "order_monitor",
+        "field_450_monitor",
+        "RUN3C_FIXED_NESTED_N2",
+        "N1_DIAG_LOWER_INSIDE",
+        "N1_DIAG_LOWER_OUTSIDE",
+        "N1_DIAG_UPPER_INSIDE",
+        "N1_DIAG_UPPER_OUTSIDE",
+        "N1_DIAG_PML_LOWER",
+        "N1_DIAG_PML_UPPER",
+        "N1_DIAG_XZ_INDEX_449"
+      ],
+      "pass": true,
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\runtime_prefsp\\RUN3A_N2_NATIVE_M1_X_PRODUCTION_GATE.fsp",
+      "power_monitors": {
+        "N1_DIAG_LOWER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -9e-08
+        },
+        "N1_DIAG_LOWER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -1.1e-07
+        },
+        "N1_DIAG_PML_LOWER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -5e-07
+        },
+        "N1_DIAG_PML_UPPER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 1.1e-06
+        },
+        "N1_DIAG_UPPER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 5.9e-07
+        },
+        "N1_DIAG_UPPER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 6.1e-07
+        }
+      },
+      "sha256": "3158b6082aa2803ac08d8411425f5e2fc46b6f09acb744bee9035fa8b8384215",
+      "source": {
+        "direction": "Forward",
+        "injection axis": "z-axis",
+        "polarization angle": 0.0,
+        "wavelength start": 4.45e-07,
+        "wavelength stop": 4.55e-07
+      },
+      "xz_monitor": {
+        "down sample X": 1.0,
+        "down sample Z": 1.0,
+        "frequency center": 667689216035634.8,
+        "frequency points": 1.0,
+        "frequency span": 0.0,
+        "monitor type": "2D Y-normal",
+        "spatial interpolation": "none",
+        "use source limits": 0.0,
+        "use wavelength spacing": 1.0,
+        "wavelength center": 4.49e-07,
+        "wavelength span": 0.0,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 0.0,
+        "z": 3e-07,
+        "z span": 1.8e-06
+      }
+    },
+    "RUN3A_N2_NATIVE_M1_Y_PRODUCTION_GATE": {
+      "checks": {
+        "material_contract": true,
+        "mesh_contract": true,
+        "power_contract": true,
+        "power_spans": true,
+        "power_z": true,
+        "required_objects": true,
+        "xz_contract": true
+      },
+      "materials": {
+        "APCD_SIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        }
+      },
+      "mesh": {
+        "dx": 5e-09,
+        "dy": 5e-09,
+        "dz": 5e-09,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 2.9e-07,
+        "z": 2.5e-07,
+        "z span": 7e-07
+      },
+      "object_names": [
+        "FDTD",
+        "SiO2 substrate",
+        "TiO2_pillar_0",
+        "TiO2_pillar_1",
+        "TiO2_pillar_2",
+        "TiO2_pillar_3",
+        "TiO2_pillar_4",
+        "TiO2_pillar_5",
+        "source_x_forward",
+        "reflection_monitor",
+        "transmission_monitor",
+        "order_monitor",
+        "field_450_monitor",
+        "RUN3C_FIXED_NESTED_N2",
+        "N1_DIAG_LOWER_INSIDE",
+        "N1_DIAG_LOWER_OUTSIDE",
+        "N1_DIAG_UPPER_INSIDE",
+        "N1_DIAG_UPPER_OUTSIDE",
+        "N1_DIAG_PML_LOWER",
+        "N1_DIAG_PML_UPPER",
+        "N1_DIAG_XZ_INDEX_449"
+      ],
+      "pass": true,
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\runtime_prefsp\\RUN3A_N2_NATIVE_M1_Y_PRODUCTION_GATE.fsp",
+      "power_monitors": {
+        "N1_DIAG_LOWER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -9e-08
+        },
+        "N1_DIAG_LOWER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -1.1e-07
+        },
+        "N1_DIAG_PML_LOWER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -5e-07
+        },
+        "N1_DIAG_PML_UPPER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 1.1e-06
+        },
+        "N1_DIAG_UPPER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 5.9e-07
+        },
+        "N1_DIAG_UPPER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 6.1e-07
+        }
+      },
+      "sha256": "75e792cd84362c4eb28a186c0013cd85fa8b80ed4aa9bfde1f96d86393c1c14a",
+      "source": {
+        "direction": "Forward",
+        "injection axis": "z-axis",
+        "polarization angle": 90.0,
+        "wavelength start": 4.45e-07,
+        "wavelength stop": 4.55e-07
+      },
+      "xz_monitor": {
+        "down sample X": 1.0,
+        "down sample Z": 1.0,
+        "frequency center": 667689216035634.8,
+        "frequency points": 1.0,
+        "frequency span": 0.0,
+        "monitor type": "2D Y-normal",
+        "spatial interpolation": "none",
+        "use source limits": 0.0,
+        "use wavelength spacing": 1.0,
+        "wavelength center": 4.49e-07,
+        "wavelength span": 0.0,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 0.0,
+        "z": 3e-07,
+        "z span": 1.8e-06
+      }
+    },
+    "RUN3B_N2_NATIVE_M1_X_PRODUCTION_GATE": {
+      "checks": {
+        "material_contract": true,
+        "mesh_contract": true,
+        "power_contract": true,
+        "power_spans": true,
+        "power_z": true,
+        "required_objects": true,
+        "xz_contract": true
+      },
+      "materials": {
+        "APCD_SIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        }
+      },
+      "mesh": {
+        "dx": 5e-09,
+        "dy": 5e-09,
+        "dz": 5e-09,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 2.9e-07,
+        "z": 2.5e-07,
+        "z span": 7e-07
+      },
+      "object_names": [
+        "FDTD",
+        "SiO2 substrate",
+        "TiO2_pillar_0",
+        "TiO2_pillar_1",
+        "TiO2_pillar_2",
+        "TiO2_pillar_3",
+        "TiO2_pillar_4",
+        "TiO2_pillar_5",
+        "source_x_forward",
+        "reflection_monitor",
+        "transmission_monitor",
+        "order_monitor",
+        "field_450_monitor",
+        "RUN3C_FIXED_NESTED_N2",
+        "N1_DIAG_LOWER_INSIDE",
+        "N1_DIAG_LOWER_OUTSIDE",
+        "N1_DIAG_UPPER_INSIDE",
+        "N1_DIAG_UPPER_OUTSIDE",
+        "N1_DIAG_PML_LOWER",
+        "N1_DIAG_PML_UPPER",
+        "N1_DIAG_XZ_INDEX_449"
+      ],
+      "pass": true,
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\runtime_prefsp\\RUN3B_N2_NATIVE_M1_X_PRODUCTION_GATE.fsp",
+      "power_monitors": {
+        "N1_DIAG_LOWER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -9e-08
+        },
+        "N1_DIAG_LOWER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -1.1e-07
+        },
+        "N1_DIAG_PML_LOWER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -5e-07
+        },
+        "N1_DIAG_PML_UPPER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 1.1e-06
+        },
+        "N1_DIAG_UPPER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 5.9e-07
+        },
+        "N1_DIAG_UPPER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 6.1e-07
+        }
+      },
+      "sha256": "97bfb885688fcb805c2128efaf73da4bd28f69faea84f5d6679f6697f80b76fe",
+      "source": {
+        "direction": "Forward",
+        "injection axis": "z-axis",
+        "polarization angle": 0.0,
+        "wavelength start": 4.45e-07,
+        "wavelength stop": 4.55e-07
+      },
+      "xz_monitor": {
+        "down sample X": 1.0,
+        "down sample Z": 1.0,
+        "frequency center": 667689216035634.8,
+        "frequency points": 1.0,
+        "frequency span": 0.0,
+        "monitor type": "2D Y-normal",
+        "spatial interpolation": "none",
+        "use source limits": 0.0,
+        "use wavelength spacing": 1.0,
+        "wavelength center": 4.49e-07,
+        "wavelength span": 0.0,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 0.0,
+        "z": 3e-07,
+        "z span": 1.8e-06
+      }
+    },
+    "RUN3B_N2_NATIVE_M1_Y_PRODUCTION_GATE": {
+      "checks": {
+        "material_contract": true,
+        "mesh_contract": true,
+        "power_contract": true,
+        "power_spans": true,
+        "power_z": true,
+        "required_objects": true,
+        "xz_contract": true
+      },
+      "materials": {
+        "APCD_SIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        }
+      },
+      "mesh": {
+        "dx": 5e-09,
+        "dy": 5e-09,
+        "dz": 5e-09,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 2.9e-07,
+        "z": 2.5e-07,
+        "z span": 7e-07
+      },
+      "object_names": [
+        "FDTD",
+        "SiO2 substrate",
+        "TiO2_pillar_0",
+        "TiO2_pillar_1",
+        "TiO2_pillar_2",
+        "TiO2_pillar_3",
+        "TiO2_pillar_4",
+        "TiO2_pillar_5",
+        "source_x_forward",
+        "reflection_monitor",
+        "transmission_monitor",
+        "order_monitor",
+        "field_450_monitor",
+        "RUN3C_FIXED_NESTED_N2",
+        "N1_DIAG_LOWER_INSIDE",
+        "N1_DIAG_LOWER_OUTSIDE",
+        "N1_DIAG_UPPER_INSIDE",
+        "N1_DIAG_UPPER_OUTSIDE",
+        "N1_DIAG_PML_LOWER",
+        "N1_DIAG_PML_UPPER",
+        "N1_DIAG_XZ_INDEX_449"
+      ],
+      "pass": true,
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\runtime_prefsp\\RUN3B_N2_NATIVE_M1_Y_PRODUCTION_GATE.fsp",
+      "power_monitors": {
+        "N1_DIAG_LOWER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -9e-08
+        },
+        "N1_DIAG_LOWER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -1.1e-07
+        },
+        "N1_DIAG_PML_LOWER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -5e-07
+        },
+        "N1_DIAG_PML_UPPER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 1.1e-06
+        },
+        "N1_DIAG_UPPER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 5.9e-07
+        },
+        "N1_DIAG_UPPER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 6.1e-07
+        }
+      },
+      "sha256": "304bf591afd2ad8a419256c7827ae0e4b6d36a1f0fa72878e14e9971df4ee22c",
+      "source": {
+        "direction": "Forward",
+        "injection axis": "z-axis",
+        "polarization angle": 90.0,
+        "wavelength start": 4.45e-07,
+        "wavelength stop": 4.55e-07
+      },
+      "xz_monitor": {
+        "down sample X": 1.0,
+        "down sample Z": 1.0,
+        "frequency center": 667689216035634.8,
+        "frequency points": 1.0,
+        "frequency span": 0.0,
+        "monitor type": "2D Y-normal",
+        "spatial interpolation": "none",
+        "use source limits": 0.0,
+        "use wavelength spacing": 1.0,
+        "wavelength center": 4.49e-07,
+        "wavelength span": 0.0,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 0.0,
+        "z": 3e-07,
+        "z span": 1.8e-06
+      }
+    },
+    "RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE": {
+      "checks": {
+        "material_contract": true,
+        "mesh_contract": true,
+        "power_contract": true,
+        "power_spans": true,
+        "power_z": true,
+        "required_objects": true,
+        "xz_contract": true
+      },
+      "materials": {
+        "APCD_SIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        }
+      },
+      "mesh": {
+        "dx": 5e-09,
+        "dy": 5e-09,
+        "dz": 5e-09,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 2.9e-07,
+        "z": 2.5e-07,
+        "z span": 7e-07
+      },
+      "object_names": [
+        "FDTD",
+        "SiO2 substrate",
+        "TiO2_pillar_0",
+        "TiO2_pillar_1",
+        "TiO2_pillar_2",
+        "TiO2_pillar_3",
+        "TiO2_pillar_4",
+        "TiO2_pillar_5",
+        "source_x_forward",
+        "reflection_monitor",
+        "transmission_monitor",
+        "order_monitor",
+        "field_450_monitor",
+        "RUN3C_FIXED_NESTED_N2",
+        "N1_DIAG_LOWER_INSIDE",
+        "N1_DIAG_LOWER_OUTSIDE",
+        "N1_DIAG_UPPER_INSIDE",
+        "N1_DIAG_UPPER_OUTSIDE",
+        "N1_DIAG_PML_LOWER",
+        "N1_DIAG_PML_UPPER",
+        "N1_DIAG_XZ_INDEX_449"
+      ],
+      "pass": true,
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\runtime_prefsp\\RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE.fsp",
+      "power_monitors": {
+        "N1_DIAG_LOWER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -9e-08
+        },
+        "N1_DIAG_LOWER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -1.1e-07
+        },
+        "N1_DIAG_PML_LOWER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -5e-07
+        },
+        "N1_DIAG_PML_UPPER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 1.1e-06
+        },
+        "N1_DIAG_UPPER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 5.9e-07
+        },
+        "N1_DIAG_UPPER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 6.1e-07
+        }
+      },
+      "sha256": "887d8b89fc8b2cfaefc8d20eb72b9dd33958837c930d0085721a8a3d12f5574a",
+      "source": {
+        "direction": "Forward",
+        "injection axis": "z-axis",
+        "polarization angle": 0.0,
+        "wavelength start": 4.45e-07,
+        "wavelength stop": 4.55e-07
+      },
+      "xz_monitor": {
+        "down sample X": 1.0,
+        "down sample Z": 1.0,
+        "frequency center": 667689216035634.8,
+        "frequency points": 1.0,
+        "frequency span": 0.0,
+        "monitor type": "2D Y-normal",
+        "spatial interpolation": "none",
+        "use source limits": 0.0,
+        "use wavelength spacing": 1.0,
+        "wavelength center": 4.49e-07,
+        "wavelength span": 0.0,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 0.0,
+        "z": 3e-07,
+        "z span": 1.8e-06
+      }
+    },
+    "RUN3C_N2_NATIVE_M1_Y_PRODUCTION_GATE": {
+      "checks": {
+        "material_contract": true,
+        "mesh_contract": true,
+        "power_contract": true,
+        "power_spans": true,
+        "power_z": true,
+        "required_objects": true,
+        "xz_contract": true
+      },
+      "materials": {
+        "APCD_SIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "sampled_rows": 101,
+          "type": "Sampled 3D data"
+        }
+      },
+      "mesh": {
+        "dx": 5e-09,
+        "dy": 5e-09,
+        "dz": 5e-09,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 2.9e-07,
+        "z": 2.5e-07,
+        "z span": 7e-07
+      },
+      "object_names": [
+        "FDTD",
+        "SiO2 substrate",
+        "TiO2_pillar_0",
+        "TiO2_pillar_1",
+        "TiO2_pillar_2",
+        "TiO2_pillar_3",
+        "TiO2_pillar_4",
+        "TiO2_pillar_5",
+        "source_x_forward",
+        "reflection_monitor",
+        "transmission_monitor",
+        "order_monitor",
+        "field_450_monitor",
+        "RUN3C_FIXED_NESTED_N2",
+        "N1_DIAG_LOWER_INSIDE",
+        "N1_DIAG_LOWER_OUTSIDE",
+        "N1_DIAG_UPPER_INSIDE",
+        "N1_DIAG_UPPER_OUTSIDE",
+        "N1_DIAG_PML_LOWER",
+        "N1_DIAG_PML_UPPER",
+        "N1_DIAG_XZ_INDEX_449"
+      ],
+      "pass": true,
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\runtime_prefsp\\RUN3C_N2_NATIVE_M1_Y_PRODUCTION_GATE.fsp",
+      "power_monitors": {
+        "N1_DIAG_LOWER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -9e-08
+        },
+        "N1_DIAG_LOWER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -1.1e-07
+        },
+        "N1_DIAG_PML_LOWER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": -5e-07
+        },
+        "N1_DIAG_PML_UPPER": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 1.1e-06
+        },
+        "N1_DIAG_UPPER_INSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 5.9e-07
+        },
+        "N1_DIAG_UPPER_OUTSIDE": {
+          "frequency points": 11.0,
+          "monitor type": "2D Z-normal",
+          "spatial interpolation": "nearest mesh cell",
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "x span": 1.74e-06,
+          "y span": 2.9e-07,
+          "z": 6.1e-07
+        }
+      },
+      "sha256": "7a872d6e33f25872bb9bd7b38ea6de1c2a6e663b6cf40133ed3af44de208196e",
+      "source": {
+        "direction": "Forward",
+        "injection axis": "z-axis",
+        "polarization angle": 90.0,
+        "wavelength start": 4.45e-07,
+        "wavelength stop": 4.55e-07
+      },
+      "xz_monitor": {
+        "down sample X": 1.0,
+        "down sample Z": 1.0,
+        "frequency center": 667689216035634.8,
+        "frequency points": 1.0,
+        "frequency span": 0.0,
+        "monitor type": "2D Y-normal",
+        "spatial interpolation": "none",
+        "use source limits": 0.0,
+        "use wavelength spacing": 1.0,
+        "wavelength center": 4.49e-07,
+        "wavelength span": 0.0,
+        "x": 0.0,
+        "x span": 1.74e-06,
+        "y": 0.0,
+        "y span": 0.0,
+        "z": 3e-07,
+        "z span": 1.8e-06
+      }
+    }
+  },
+  "corrected_source": {
+    "checks": {
+      "material_contract": true,
+      "mesh_contract": true,
+      "power_contract": true,
+      "power_spans": true,
+      "power_z": true,
+      "required_objects": true,
+      "xz_contract": true
+    },
+    "materials": {
+      "APCD_SIO2_NATIVE_M1": {
+        "sampled_rows": 101,
+        "type": "Sampled 3D data"
+      },
+      "APCD_TIO2_NATIVE_M1": {
+        "sampled_rows": 101,
+        "type": "Sampled 3D data"
+      }
+    },
+    "mesh": {
+      "dx": 5e-09,
+      "dy": 5e-09,
+      "dz": 5e-09,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": 2.5e-07,
+      "z span": 7e-07
+    },
+    "object_names": [
+      "FDTD",
+      "SiO2 substrate",
+      "TiO2_pillar_0",
+      "TiO2_pillar_1",
+      "TiO2_pillar_2",
+      "TiO2_pillar_3",
+      "TiO2_pillar_4",
+      "TiO2_pillar_5",
+      "source_x_forward",
+      "reflection_monitor",
+      "transmission_monitor",
+      "order_monitor",
+      "field_450_monitor",
+      "RUN3C_FIXED_NESTED_N2",
+      "N1_DIAG_LOWER_INSIDE",
+      "N1_DIAG_LOWER_OUTSIDE",
+      "N1_DIAG_UPPER_INSIDE",
+      "N1_DIAG_UPPER_OUTSIDE",
+      "N1_DIAG_PML_LOWER",
+      "N1_DIAG_PML_UPPER",
+      "N1_DIAG_XZ_INDEX_449"
+    ],
+    "pass": true,
+    "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\BROADBAND_PARETO_K6X_FIXED_NESTED_N2_WITH_N1_DIAGNOSTIC_MONITORS.fsp",
+    "power_monitors": {
+      "N1_DIAG_LOWER_INSIDE": {
+        "frequency points": 11.0,
+        "monitor type": "2D Z-normal",
+        "spatial interpolation": "nearest mesh cell",
+        "use source limits": 1.0,
+        "use wavelength spacing": 1.0,
+        "x span": 1.74e-06,
+        "y span": 2.9e-07,
+        "z": -9e-08
+      },
+      "N1_DIAG_LOWER_OUTSIDE": {
+        "frequency points": 11.0,
+        "monitor type": "2D Z-normal",
+        "spatial interpolation": "nearest mesh cell",
+        "use source limits": 1.0,
+        "use wavelength spacing": 1.0,
+        "x span": 1.74e-06,
+        "y span": 2.9e-07,
+        "z": -1.1e-07
+      },
+      "N1_DIAG_PML_LOWER": {
+        "frequency points": 11.0,
+        "monitor type": "2D Z-normal",
+        "spatial interpolation": "nearest mesh cell",
+        "use source limits": 1.0,
+        "use wavelength spacing": 1.0,
+        "x span": 1.74e-06,
+        "y span": 2.9e-07,
+        "z": -5e-07
+      },
+      "N1_DIAG_PML_UPPER": {
+        "frequency points": 11.0,
+        "monitor type": "2D Z-normal",
+        "spatial interpolation": "nearest mesh cell",
+        "use source limits": 1.0,
+        "use wavelength spacing": 1.0,
+        "x span": 1.74e-06,
+        "y span": 2.9e-07,
+        "z": 1.1e-06
+      },
+      "N1_DIAG_UPPER_INSIDE": {
+        "frequency points": 11.0,
+        "monitor type": "2D Z-normal",
+        "spatial interpolation": "nearest mesh cell",
+        "use source limits": 1.0,
+        "use wavelength spacing": 1.0,
+        "x span": 1.74e-06,
+        "y span": 2.9e-07,
+        "z": 5.9e-07
+      },
+      "N1_DIAG_UPPER_OUTSIDE": {
+        "frequency points": 11.0,
+        "monitor type": "2D Z-normal",
+        "spatial interpolation": "nearest mesh cell",
+        "use source limits": 1.0,
+        "use wavelength spacing": 1.0,
+        "x span": 1.74e-06,
+        "y span": 2.9e-07,
+        "z": 6.1e-07
+      }
+    },
+    "sha256": "887d8b89fc8b2cfaefc8d20eb72b9dd33958837c930d0085721a8a3d12f5574a",
+    "source": {
+      "direction": "Forward",
+      "injection axis": "z-axis",
+      "polarization angle": 0.0,
+      "wavelength start": 4.45e-07,
+      "wavelength stop": 4.55e-07
+    },
+    "xz_monitor": {
+      "down sample X": 1.0,
+      "down sample Z": 1.0,
+      "frequency center": 667689216035634.8,
+      "frequency points": 1.0,
+      "frequency span": 0.0,
+      "monitor type": "2D Y-normal",
+      "spatial interpolation": "none",
+      "use source limits": 0.0,
+      "use wavelength spacing": 1.0,
+      "wavelength center": 4.49e-07,
+      "wavelength span": 0.0,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 0.0,
+      "z": 3e-07,
+      "z span": 1.8e-06
+    }
+  },
+  "old_n2_unchanged": true,
+  "solver_entered": 0
+}
