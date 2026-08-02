@@ -23,6 +23,10 @@ def sha256(p):
 def arr(x):
     return np.asarray(x).reshape(-1)
 
+def array_hash(x):
+    a = np.asarray(x)
+    return hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest()
+
 def trapz2(a, x, y):
     a = np.asarray(a)
     try:
@@ -92,7 +96,7 @@ def main():
             # Lumerical P result is the un-halved E x H flux; time-averaged
             # normalized power uses 0.5 * integral(P) / sourcepower.
             raw_norm = 0.5 * raw_int / src
-            b_meta[name] = {'z_m': z, 'x_points': int(len(x)), 'y_points': int(len(y)), 'x_min_m': float(x.min()), 'x_max_m': float(x.max()), 'y_min_m': float(y.min()), 'y_max_m': float(y.max()), 'dx_median_m': float(np.median(np.diff(x))), 'dy_median_m': float(np.median(np.diff(y))), 'time_averaged_poynting_factor': 0.5}
+            b_meta[name] = {'z_m': z, 'x_points': int(len(x)), 'y_points': int(len(y)), 'x_min_m': float(x.min()), 'x_max_m': float(x.max()), 'y_min_m': float(y.min()), 'y_max_m': float(y.max()), 'dx_median_m': float(np.median(np.diff(x))), 'dy_median_m': float(np.median(np.diff(y))), 'x_coordinate_sha256': array_hash(x), 'y_coordinate_sha256': array_hash(y), 'time_averaged_poynting_factor': 0.5}
             for i in range(n):
                 b_rows.append({'monitor': name, 'z_nm': z * 1e9, 'wavelength_nm': float(lam[i]), 'signed_T_result': float(bt[i]), 'raw_Pz_integral_W': float(raw_int[i]), 'sourcepower_W': float(src[i]), 'raw_Pz_over_sourcepower': float(raw_norm[i]), 'raw_vs_T_difference': float(raw_norm[i] - bt[i])})
         write_csv(case_dir / 'boundary_flux_11points.csv', b_rows, list(b_rows[0].keys()))
@@ -102,7 +106,7 @@ def main():
         xz = {k: np.asarray(v) for k, v in idx.items() if k in ('x','y','z','index_x','index_y','index_z')}
         raw_npz = run_dir / 'N1_DIAG_XZ_INDEX_449_449nm_raw.npz'
         np.savez_compressed(raw_npz, **xz)
-        idx_summary = {'keys': list(idx.keys()), 'shape_index_x': list(np.asarray(idx['index_x']).shape), 'shape_index_y': list(np.asarray(idx['index_y']).shape), 'shape_index_z': list(np.asarray(idx['index_z']).shape), 'x_points': int(np.asarray(idx['x']).size), 'z_points': int(np.asarray(idx['z']).size), 'y_m': float(np.asarray(idx['y']).reshape(-1)[0]), 'x_min_nm': float(np.min(idx['x']) * 1e9), 'x_max_nm': float(np.max(idx['x']) * 1e9), 'z_min_nm': float(np.min(idx['z']) * 1e9), 'z_max_nm': float(np.max(idx['z']) * 1e9), 'raw_npz_sha256': sha256(raw_npz), 'raw_npz_path': str(raw_npz)}
+        idx_summary = {'keys': list(idx.keys()), 'shape_index_x': list(np.asarray(idx['index_x']).shape), 'shape_index_y': list(np.asarray(idx['index_y']).shape), 'shape_index_z': list(np.asarray(idx['index_z']).shape), 'x_points': int(np.asarray(idx['x']).size), 'z_points': int(np.asarray(idx['z']).size), 'y_m': float(np.asarray(idx['y']).reshape(-1)[0]), 'x_min_nm': float(np.min(idx['x']) * 1e9), 'x_max_nm': float(np.max(idx['x']) * 1e9), 'z_min_nm': float(np.min(idx['z']) * 1e9), 'z_max_nm': float(np.max(idx['z']) * 1e9), 'x_coordinate_sha256': array_hash(idx['x']), 'y_coordinate_sha256': array_hash(idx['y']), 'z_coordinate_sha256': array_hash(idx['z']), 'raw_npz_sha256': sha256(raw_npz), 'raw_npz_path': str(raw_npz)}
         Path(case_dir / 'xz_index_summary.json').write_text(json.dumps(idx_summary, indent=2), encoding='utf-8')
 
         post_sha = sha256(post)

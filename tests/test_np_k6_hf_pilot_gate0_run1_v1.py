@@ -10,5 +10,9 @@ def test_gate0_run1_evidence():
  assert (a['entered'],a['run_invocation_count'],a['engine_completed'],a['post_saved'],a['controller_returned'])==(True,1,True,True,True)
  b=json.loads((E/'solver_budget_audit.json').read_text())
  assert b['entered_total_corrected_root']==1 and b['attempt_002_count']==0
+ d=json.loads((E/'gate0_sequence_decision.json').read_text())
+ assert d['state']=='NP_K6_HF_PILOT_GATE0_BLOCKED_BY_NUMERICAL_FIDELITY' and d['cases_started']==1
+ summary=list(csv.DictReader((E/'gate0_case_execution_summary.csv').open()))
+ assert len(summary)==6 and sum(r['entered']=='True' for r in summary)==1
  rows=list(csv.DictReader((C/'results_11points.csv').open()))
  assert len(rows)==11 and max(abs(float(r['order_sum_relative_error'])) for r in rows)<=1e-8
