@@ -1,39 +1,13 @@
-# NP_K6_ML_D0_DATABASE_FOUNDATION_V1
+# NP K6 ML D0 database foundation v1
 
-状态: NP_K6_ML_D0_DATABASE_FOUNDATION_V1_COMPLETE
+Status: `NP_K6_ML_D0_DATABASE_FOUNDATION_V1_COMPLETE`
 
-本阶段仅构建离线数据库、合同、确定性 split、pilot 清单和未来 HF task ledger；没有调用 solver。
+- Design space: 296010 canonical K6 geometries from D100–D230 in 5 nm steps; strict diameter ordering and deterministic geometry hashes.
+- LF prior: 3,256,110 geometry-wavelength rows (296010 × 11), x-only, `LOW_FIDELITY_SINGLE_PILLAR_DFT_PROXY`, chunked NPZ arrays with explicit axis/dtype/hash manifest.
+- Regression: frozen DFT convention is `exp(-2*pi*i*m*j/K)`, m = -3..+3, target +1; ideal increasing phase maps to +1 and rejects the opposite sign. Eight legacy passing sextets and RUN3A/B/C anchors are linked by canonical geometry hash.
+- Pilot: 48 development + 12 sealed-test geometries; 120 potential x/y HF tasks; all task ledgers remain `entered=false`, `run_invocation_count=0`, `solver_authorized=false`.
+- Contracts: HF dataset contract and model feature contract are schema-only; Native-M1 remains the production material contract; production mesh is `PENDING_NUMERICAL_FIDELITY_FREEZE`.
+- Large CSV/NPZ artifacts remain in the remote outputs directory and are indexed by checksum; they are intentionally not staged in Git.
+- The legacy 26-point dataset contract is preserved and explicitly superseded for this database by the 27-point library manifest/verification evidence; the original file is unmodified.
 
-## 数据库
-
-- K6 geometry master: 296010 rows, diameters D100–D230 at 5 nm, strict increasing sextets.
-- LF spectral records: 3256110 geometry×wavelength rows; m=-3..+3 DFT proxy arrays in 60 compressed NPZ chunks.
-- Wavelength grid: 445–455 nm, 1 nm; polarization: x-only.
-- LF labels are explicitly `LOW_FIDELITY_SINGLE_PILLAR_DFT_PROXY`, not coupled K6 truth or production labels.
-
-## Split and pilot
-
-- Split counts: development=236808, validation=29601, sealed_test=29601.
-- Pilots: 48 development + 12 sealed-test.
-- Future HF tasks: 120 (60 geometries × x/y), all blocked by production mesh.
-- Sealed-test geometry hashes are isolated from development selection.
-
-## Contracts
-
-- Native-M1 material IDs remain APCD_TIO2_NATIVE_M1 / APCD_SIO2_NATIVE_M1.
-- production_mesh_id=PENDING_NUMERICAL_FIDELITY_FREEZE.
-- Existing RUN3A/B/C and material diagnostics remain diagnostic-only; TiO2-only/SiO2-only numerical forensics are deferred.
-- No HF labels, DOE execution, or model training was performed.
-
-## Evidence paths
-
-- Database root: `D:\project\worktrees\blue_apcd_np_k6_mdc_v1\outputs\np_k6_ml_d0_database_foundation_v1`
-- Design master: `k6_design_space_master.csv.gz`
-- LF manifest: `k6_lf_arrays_manifest.json`
-- Pilot manifest: `k6_hf_pilot_geometry_manifest.csv/.json`
-- HF ledger: `k6_hf_task_ledger.csv/.json`
-- Dataset contract: `k6_hf_dataset_contract_v1.json`
-- Model feature contract: `k6_model_feature_contract_v1.json`
-- Checksum manifest: `database_checksum_manifest.json`
-
-Next action: AUTHORIZE_PRODUCTION_MESH_GATE_FOR_K6_HF_PILOT.
+Solver calls: 0. No HF labels or training labels were generated.
