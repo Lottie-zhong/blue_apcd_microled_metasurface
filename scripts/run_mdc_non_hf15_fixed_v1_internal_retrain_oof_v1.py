@@ -46,9 +46,9 @@ class M(nn.Module):
 def fit(A,B,V,W,s,f):
  np.random.seed(s); torch.manual_seed(s); sc=StandardScaler().fit(A); a=sc.transform(A).astype('float32'); v=sc.transform(V).astype('float32'); mu=np.nanmean(B,0); sd=np.nanstd(B,0); sd=np.where(sd<1e-12,1,sd); b=((B-mu)/sd).astype('float32'); w=((W-mu)/sd).astype('float32'); m=M(); op=torch.optim.AdamW(m.parameters(),lr=7e-4,weight_decay=1e-5); best=1e99; state=None; bad=0; rng=np.random.default_rng(s)
  for e in range(240):
-  m.train(); losses=[]
-  for st in range(0,len(a),128):
-   ix=rng.permutation(len(a))[st:st+128]; pred=m(torch.from_numpy(a[ix])); mask=torch.isfinite(torch.from_numpy(b[ix])); loss=nn.SmoothL1Loss()(pred[mask],torch.from_numpy(b[ix])[mask]); op.zero_grad(); loss.backward(); op.step(); losses.append(float(loss))
+  m.train(); losses=[]; order=rng.permutation(len(a))
+  for st in range(0,len(order),128):
+   ix=order[st:st+128]; pred=m(torch.from_numpy(a[ix])); mask=torch.isfinite(torch.from_numpy(b[ix])); loss=nn.SmoothL1Loss()(pred[mask],torch.from_numpy(b[ix])[mask]); op.zero_grad(); loss.backward(); op.step(); losses.append(float(loss))
   m.eval(); val=float(torch.mean(torch.abs(m(torch.from_numpy(v))-torch.from_numpy(w))))
   if val<best-1e-7: best=val; state={k:x.detach().clone() for k,x in m.state_dict().items()}; bad=0
   else: bad+=1
