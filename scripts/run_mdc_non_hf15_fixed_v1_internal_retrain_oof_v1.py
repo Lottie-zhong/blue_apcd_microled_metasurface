@@ -35,7 +35,7 @@ def applycal(name,obj,p):
  return obj.predict_proba(np.log(a/(1-a))[:,None])[:,1] if name=='sigmoid' else obj.predict(a)
 rows=[]
 for f in range(4):
- tr=C.split_role.eq('train'); va=C.split_role.eq('validation'); ca=C.split_role.eq('calibration'); ho=C.fold.eq(f)&C.split_role.str.contains('adaptive'); seed=20260720+f
+ tr=C.split_role.eq('train'); va=C.split_role.eq('validation'); ca=C.split_role.eq('calibration'); ho=C.fold.astype(str).eq(str(f))&C.split_role.str.contains('adaptive'); seed=20260720+f
  for j,t in enumerate(CT):
   m=ExtraTreesClassifier(n_estimators=384,min_samples_leaf=2,class_weight='balanced',max_features=1.0,n_jobs=8,random_state=seed).fit(CX[tr],Y[tr,j]); name,cp,bs,cc=cal(m.predict_proba(CX[ca])[:,1],Y[ca,j]); tt=thr(Y[va,j],applycal(name,cc,m.predict_proba(CX[va])[:,1])); hp=m.predict_proba(CX[ho])[:,1]
   for cid,p in zip(C.loc[ho,'candidate_id'],hp): rows.append({'candidate_id':cid,'fold':f,'target':t,'raw_probability':float(p),'calibration_method':name,'threshold':tt,'prediction':int(p>=tt)})
@@ -59,7 +59,7 @@ def fit(A,B,V,W,s,f):
  m.load_state_dict(state); torch.save(m.state_dict(),O/f'checkpoints/regression_{f}_{s}.pt'); joblib.dump({'scaler':sc,'mean':mu,'std':sd,'state':m.state_dict()},O/f'checkpoints/regression_{f}_{s}.joblib'); return m,sc,mu,sd
 rf=[]
 for f in range(4):
- ho=G.fold.eq(f)&G.split_role.str.contains('round1_eligible'); va=G.split_role.eq('validation'); tr=G.split_role.eq('train')|(G.split_role.str.contains('round1_eligible')&~G.fold.eq(f)); preds=[]
+ ho=G.fold.astype(str).eq(str(f))&G.split_role.str.contains('round1_eligible'); va=G.split_role.eq('validation'); tr=G.split_role.eq('train')|(G.split_role.str.contains('round1_eligible')&~G.fold.astype(str).eq(str(f))); preds=[]
  for s in [20260720,20260721,20260722]:
   m,sc,mu,sd=fit(RX[tr],RY[tr],RX[va],RY[va],s,f); m.eval(); withx=torch.from_numpy(sc.transform(RX[ho]).astype('float32')); hp=m(withx).detach().numpy()*sd+mu; preds.append(hp)
   for cid,row in zip(G.loc[ho,'candidate_id'],hp): rf.append({'candidate_id':cid,'fold':f,'seed':s,**{RT[j]:float(row[j]) for j in range(4)}})
