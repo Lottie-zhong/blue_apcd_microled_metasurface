@@ -1,0 +1,86 @@
+{
+  "formal_n1": {
+    "wavelength_nm": "449.0",
+    "T_total": "0.747012992285637",
+    "R_total": "0.3037701700332879",
+    "closure": "1.050783162318925",
+    "residual": "-0.05078316231892488",
+    "transmitted_fraction_sum": "1.0",
+    "order_normalization_residual": "0.0",
+    "absolute_order_sum": "0.747012992285637",
+    "absolute_order_sum_minus_T": "0.0",
+    "eta_plus1_abs": "0.6085453573441088",
+    "eta_0_abs": "0.06747189416047103",
+    "eta_minus1_abs": "0.004994594044721895",
+    "non_target_efficiency": "0.13846763494152825",
+    "directionality": "0.9837187650668356",
+    "plus_minus_ratio": "121.84080465702658",
+    "plus1_u_x": "0.25804597701149423",
+    "dominant_order": "1"
+  },
+  "diagnostic_formal": {
+    "wavelength_nm": 449.0,
+    "T_formal_diagnostic": 0.6245991117111378,
+    "R_formal_diagnostic": 0.34825246897499496,
+    "closure": 0.9728515806861328,
+    "residual": 0.027148419313867245,
+    "eta_plus1_abs": 0.527479239187249,
+    "eta_0_abs": 0.05267299543543387,
+    "eta_minus1_abs": 0.003770767662966551,
+    "order_sum_minus_T": 1.1102230246251565e-16,
+    "dominant_order": 1,
+    "plus1_u_x": 0.25804597701149423
+  },
+  "constant_eps_v2_449": [
+    {
+      "interval": "lower_source_slab",
+      "lower_monitor": "N1_DIAG_PML_LOWER",
+      "upper_monitor": "N1_DIAG_LOWER_OUTSIDE",
+      "wavelength_nm": 449.0,
+      "lower_flux": -0.3480476943707771,
+      "upper_flux": 0.6506185347280187,
+      "signed_jump": 0.9986662290987958,
+      "relative_jump": 2.869337292707106
+    },
+    {
+      "interval": "lower_fixed_mesh_transition",
+      "lower_monitor": "N1_DIAG_LOWER_OUTSIDE",
+      "upper_monitor": "N1_DIAG_LOWER_INSIDE",
+      "wavelength_nm": 449.0,
+      "lower_flux": 0.6506185347280187,
+      "upper_flux": 0.6505609101025307,
+      "signed_jump": -5.762462548797309e-05,
+      "relative_jump": -8.85689884504477e-05
+    },
+    {
+      "interval": "structure_region",
+      "lower_monitor": "N1_DIAG_LOWER_INSIDE",
+      "upper_monitor": "N1_DIAG_UPPER_INSIDE",
+      "wavelength_nm": 449.0,
+      "lower_flux": 0.6505609101025307,
+      "upper_flux": 0.6244962569621676,
+      "signed_jump": -0.026064653140363103,
+      "relative_jump": -0.04006489282649218
+    },
+    {
+      "interval": "upper_fixed_mesh_transition",
+      "lower_monitor": "N1_DIAG_UPPER_INSIDE",
+      "upper_monitor": "N1_DIAG_UPPER_OUTSIDE",
+      "wavelength_nm": 449.0,
+      "lower_flux": 0.6244962569621676,
+      "upper_flux": 0.6244823018731381,
+      "signed_jump": -1.395508902946041e-05,
+      "relative_jump": -2.2346153197689732e-05
+    },
+    {
+      "interval": "upper_pml_propagation",
+      "lower_monitor": "N1_DIAG_UPPER_OUTSIDE",
+      "upper_monitor": "N1_DIAG_PML_UPPER",
+      "wavelength_nm": 449.0,
+      "lower_flux": 0.6244823018731381,
+      "upper_flux": 0.6246432492000912,
+      "signed_jump": 0.0001609473269530426,
+      "relative_jump": 0.00025772920460720856
+    }
+  ]
+}
