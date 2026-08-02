@@ -1,0 +1,29 @@
+{
+  "single_variable_audit": "FAIL",
+  "hard_gate": "HARD_GATE_MATERIAL_CONTROL_NOT_SINGLE_VARIABLE",
+  "reason": "control FSP uses Sampled 3D data clones with full native spectral samples, not nondispersive constant-complex-epsilon materials",
+  "required_control": "449 nm canonical complex epsilon held constant for TiO2 and SiO2",
+  "observed_clone_materials": {
+    "APCD_SIO2_NATIVE_M1": "APCD_SIO2_NATIVE_M1_CONTROL_CLONE",
+    "APCD_TIO2_NATIVE_M1": "APCD_TIO2_NATIVE_M1_CONTROL_CLONE"
+  },
+  "canonical_449nm_values": {
+    "APCD_SIO2_NATIVE_M1": {
+      "epsilon_449nm_real": 2.034121524760185,
+      "epsilon_449nm_imag": 0.0,
+      "nk_449nm_real": 1.4262263231199266,
+      "nk_449nm_imag": 0.0,
+      "sample_count": 101
+    },
+    "APCD_TIO2_NATIVE_M1": {
+      "epsilon_449nm_real": 6.447676439940916,
+      "epsilon_449nm_imag": 0.0,
+      "nk_449nm_real": 2.5392275281945325,
+      "nk_449nm_imag": 0.0,
+      "sample_count": 101
+    }
+  },
+  "geometry_mesh_source_boundary_monitor_conformal_unchanged": true,
+  "solver_already_entered": true,
+  "no_rerun_authorized": true
+}
