@@ -1,0 +1,46 @@
+{
+  "schema_version": "np_k6_material_representation_factorial_v1",
+  "SS": {
+    "TiO2": "canonical Native-M1 sampled/dispersive",
+    "SiO2": "canonical Native-M1 sampled/dispersive",
+    "status": "completed baseline"
+  },
+  "CS": {
+    "TiO2": "449 nm constant Dielectric",
+    "SiO2": "canonical Native-M1 sampled/dispersive",
+    "status": "setup_ready",
+    "solver_entered": false,
+    "evidence": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d4b_k6x_run3c_n1_material_representation_tio2_constant_only_setup_v1"
+  },
+  "SC": {
+    "TiO2": "canonical Native-M1 sampled/dispersive",
+    "SiO2": "449 nm constant Dielectric",
+    "status": "setup_ready",
+    "solver_entered": false,
+    "evidence": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d4b_k6x_run3c_n1_material_representation_sio2_constant_only_setup_v1"
+  },
+  "CC": {
+    "TiO2": "449 nm constant Dielectric",
+    "SiO2": "449 nm constant Dielectric",
+    "status": "completed diagnostic",
+    "solver_entered": true,
+    "evidence": "outputs/np_k6_p1d4b_k6x_run3c_n1_material_representation_constant_eps_v2_diagnostic_v1"
+  },
+  "observables": [
+    "signed_residual_449nm",
+    "absolute_closure_449nm",
+    "structure_interval_gain_449nm",
+    "T",
+    "R",
+    "eta_plus1",
+    "order_sum_mismatch"
+  ],
+  "effects": {
+    "E_T|S": "Y_CS - Y_SS",
+    "E_T|C": "Y_CC - Y_SC",
+    "E_S|S": "Y_SC - Y_SS",
+    "E_S|C": "Y_CC - Y_CS",
+    "interaction": "Y_CC - Y_CS - Y_SC + Y_SS"
+  },
+  "setup_only_no_missing_effects_computed": true
+}
