@@ -1,4 +1,4 @@
-﻿# LP_ML_DATASET_V1 Round-2 Targeted Active Learning
+# LP_ML_DATASET_V1 Round-2 Targeted Active Learning
 
 ## Provenance exception
 
@@ -44,7 +44,7 @@ Evaluation was completed before merged-data retraining, with bounded geometry 05
 
 ## Readiness and constraints
 
-- Outcome: LP_ML_ROUND2_FORWARD_SURROGATE_READY_FOR_INVERSE_DESIGN_PLANNING.
+- Outcome: LP_ML_ROUND2_HARD_GATE (UNRESOLVED_POST_START_PROTECTED_EVIDENCE_DRIFT).
 - This is forward-surrogate readiness only. No inverse-design FDTD, Round-3, six-bin promotion, K6, D9, Batch B, or old Batch2 was executed.
 - Geometry 054 remains excluded with zero admitted rows and no retry.
 - Quality audit confirms complete Jones, duplicate geometry hashes/rows=0, model_filled_rows=0, wavelengths valid, and no later solver authorization.
@@ -60,4 +60,3 @@ Evaluation was completed before merged-data retraining, with bounded geometry 05
 - Physics staging: outputs/lp_ml_dataset_v1/staging/lp_ml_dataset_v1_round2_active_learning_attempt1_v1/.
 - Merge/metrics: outputs/lp_ml_dataset_v1/lp_ml_dataset_v1_round2_complete_319_geometry_2871_rows.csv and outputs/lp_ml_dataset_v1/analysis/lp_ml_round2_*.
 - Report: reports/lp_ml_round2_active_learning_and_readiness_v1.md.
-
