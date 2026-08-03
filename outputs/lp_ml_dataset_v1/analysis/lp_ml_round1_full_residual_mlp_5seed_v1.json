@@ -1,0 +1,104 @@
+{
+  "architecture": "7->256 + 4 residual blocks width256 SiLU LayerNorm dropout0.03 -> 8",
+  "cuda_available": true,
+  "cuda_name": "NVIDIA GeForce RTX 3080",
+  "device": "cuda",
+  "ensemble_test": {
+    "Txx_mae": 0.1137481612193426,
+    "Tyy_mae": 0.07773863524198532,
+    "frobenius_mean": 0.18361849679119271,
+    "frobenius_median": 0.1781062322731714,
+    "frobenius_p90": 0.24990246032258953,
+    "frobenius_p95": 0.2810828453947149,
+    "mae": 0.05100821014418923,
+    "max_abs": 0.3151043653488159,
+    "phase_circular_deg_mae": 4.0186444624589575,
+    "rmse": 0.06791744150073521
+  },
+  "from_scratch": true,
+  "loss": "1.0 raw SmoothL1 + .25 relative Jones + .10 power + .05 rank + .05 projection + .05 amplitude-masked circular phase; rank/projection terms represented by power/projector proxies",
+  "runtime_s": 18.41552472114563,
+  "seeds": [
+    {
+      "epochs": 220,
+      "seed": 11,
+      "test": {
+        "Txx_mae": 0.24582191123546693,
+        "Tyy_mae": 0.14850039780139923,
+        "frobenius_mean": 0.3609546517839023,
+        "frobenius_median": 0.35173382349479787,
+        "frobenius_p90": 0.5195422637460396,
+        "frobenius_p95": 0.5718573979238012,
+        "mae": 0.10102227945697248,
+        "max_abs": 0.7727157473564148,
+        "phase_circular_deg_mae": 7.941752924260866,
+        "rmse": 0.134505507355663
+      }
+    },
+    {
+      "epochs": 220,
+      "seed": 22,
+      "test": {
+        "Txx_mae": 0.23248797171633528,
+        "Tyy_mae": 0.1517038494348526,
+        "frobenius_mean": 0.3669919876778129,
+        "frobenius_median": 0.34886528892332985,
+        "frobenius_p90": 0.5150546763385662,
+        "frobenius_p95": 0.6202542851802431,
+        "mae": 0.10241937551747166,
+        "max_abs": 0.8009802103042603,
+        "phase_circular_deg_mae": 8.045435257267934,
+        "rmse": 0.13736514451253684
+      }
+    },
+    {
+      "epochs": 220,
+      "seed": 33,
+      "test": {
+        "Txx_mae": 0.2568798395878591,
+        "Tyy_mae": 0.1747046262025833,
+        "frobenius_mean": 0.39408532832341253,
+        "frobenius_median": 0.3743341817536062,
+        "frobenius_p90": 0.5852736463548289,
+        "frobenius_p95": 0.6441676645982652,
+        "mae": 0.11100150931224562,
+        "max_abs": 0.6177631616592407,
+        "phase_circular_deg_mae": 8.484385550950961,
+        "rmse": 0.14704105132895984
+      }
+    },
+    {
+      "epochs": 220,
+      "seed": 44,
+      "test": {
+        "Txx_mae": 0.23627032476903428,
+        "Tyy_mae": 0.17697475850582123,
+        "frobenius_mean": 0.39737325649570554,
+        "frobenius_median": 0.36770232009591386,
+        "frobenius_p90": 0.5977599608749279,
+        "frobenius_p95": 0.6778236132528965,
+        "mae": 0.11208199433566703,
+        "max_abs": 0.8913457989692688,
+        "phase_circular_deg_mae": 8.879737351511896,
+        "rmse": 0.15000563712260728
+      }
+    },
+    {
+      "epochs": 220,
+      "seed": 55,
+      "test": {
+        "Txx_mae": 0.24802416497800703,
+        "Tyy_mae": 0.174935445189476,
+        "frobenius_mean": 0.4142231788231159,
+        "frobenius_median": 0.393298733173552,
+        "frobenius_p90": 0.6095548266613607,
+        "frobenius_p95": 0.6756228884329604,
+        "mae": 0.11575652475259328,
+        "max_abs": 0.881155252456665,
+        "phase_circular_deg_mae": 8.881642583903313,
+        "rmse": 0.15478449251774998
+      }
+    }
+  ],
+  "warm_start": false
+}

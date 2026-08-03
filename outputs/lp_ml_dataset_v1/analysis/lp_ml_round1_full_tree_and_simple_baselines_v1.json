@@ -1,0 +1,56 @@
+{
+  "feature_order": [
+    "J1_side_nm",
+    "J2_length_nm",
+    "J2_width_nm",
+    "D_nm",
+    "sin_Psi",
+    "cos_Psi",
+    "wavelength_nm"
+  ],
+  "from_scratch": true,
+  "models": {
+    "ExtraTreesRegressor": {
+      "test": {
+        "Txx_mae": 0.00697377092481393,
+        "Tyy_mae": 0.007721121196698537,
+        "frobenius_mean": 0.035569482182026484,
+        "frobenius_median": 0.02469819225469242,
+        "frobenius_p90": 0.07244883518454742,
+        "frobenius_p95": 0.09903798444055976,
+        "mae": 0.0076444888144009855,
+        "max_abs": 0.17662468283652033,
+        "phase_circular_deg_mae": 1.603781574881723,
+        "rmse": 0.017600654445553223
+      }
+    },
+    "HistGradientBoosting": {
+      "test": {
+        "Txx_mae": 0.008551468915032999,
+        "Tyy_mae": 0.006679712725175184,
+        "frobenius_mean": 0.02672284050080759,
+        "frobenius_median": 0.023452029589797113,
+        "frobenius_p90": 0.04629238023666925,
+        "frobenius_p95": 0.05972752350826115,
+        "mae": 0.00566284299816345,
+        "max_abs": 0.08542452589213062,
+        "phase_circular_deg_mae": 1.1209986774789578,
+        "rmse": 0.01130826677560605
+      }
+    },
+    "SimpleMLP": {
+      "test": {
+        "Txx_mae": 0.029333662934480156,
+        "Tyy_mae": 0.015642676092458542,
+        "frobenius_mean": 0.043332310921104816,
+        "frobenius_median": 0.04068334359180349,
+        "frobenius_p90": 0.06609882140035654,
+        "frobenius_p95": 0.07385178207425606,
+        "mae": 0.012343924218273137,
+        "max_abs": 0.08963630535244704,
+        "phase_circular_deg_mae": 0.88692493496871,
+        "rmse": 0.016431021418533864
+      }
+    }
+  }
+}
