@@ -3,7 +3,7 @@
 ## Provenance exception
 
 - Accepted exception: UNRECOVERABLE_DERIVED_REPORT_BYTE_IDENTITY_EXCEPTION_ACCEPTED.
-- Protected report was not modified by this task. Task-start SHA256 was 171033e0d2c73865d0f8610e81d5a33de56d7deb79d8d38aa2f925f7e17e8321; final audit observed 9E46A7BD1927D65ADC3A9CF9192040E7D239B839ED516ADCD96870BF64BFCD02. This unresolved post-start drift was not overwritten.
+- Protected report was not modified by this task. Task-start SHA256 was 171033e0d2c73865d0f8610e81d5a33de56d7deb79d8d38aa2f925f7e17e8321; final audit observed 9E46A7BD1927D65ADC3A9CF9192040E7D239B839ED516ADCD96870BF64BFCD02. This unresolved post-start drift was not overwritten. NTFS USN records attribute the writes to the existing script scripts/lp_ml1/lp_ml1a3_git_history_geometry_reconstruction.py, which calls REPORT.write_text; no such writer was active at final audit.
 - This is a governance exception, not a physics/data exception.
 
 ## Frozen pool and plan
@@ -15,7 +15,7 @@
 ## Solver accounting
 
 - Planned/entered/accepted: 64 geometries / 128 x-y subruns / 128 / 128.
-- Spectral rows: 576 at 450.0鈥?54.0 nm, 0.5 nm spacing (9 wavelengths).
+- Spectral rows: 576 at 450.0閳?54.0 nm, 0.5 nm spacing (9 wavelengths).
 - Failed/quarantined/duplicate: 0/0/0. Geometry 054 generated/retried: no/no.
 - No solver was run after the completed 128-subrun execution.
 
@@ -35,7 +35,7 @@ Evaluation was completed before merged-data retraining, with bounded geometry 05
 - Merged complete dataset: 319 geometries / 2871 rows.
 - Round-1 split was retained; Round-2 was grouped as 48 train / 8 validation / 8 permanent external test geometries.
 - HGB, ExtraTrees, SimpleMLP, and five residual-MLP seeds were trained from scratch; warm_start=false.
-- Residual-MLP architecture: 7鈫?56, four residual SiLU/LayerNorm blocks, dropout=0.03, output=8.
+- Residual-MLP architecture: 7閳?56, four residual SiLU/LayerNorm blocks, dropout=0.03, output=8.
 - Loss/config frozen from Round-1: raw SmoothL1 + 0.25 relative-Jones + 0.10 power + 0.05 rank + 0.05 projection + 0.05 circular-phase; AdamW lr=3e-4, weight_decay=1e-4, batch=64, max_epochs=500, patience=50, gradient_clip=1.0.
 - Fresh 5-seed ensemble combined test (414 rows): element MAE=0.01459611, RMSE=0.02634404, max=0.22381583; Frobenius MAE=0.06453597, max=0.23239295; phase MAE=1.36557681 deg.
 - Round-1 test subset (342 rows): element MAE=0.01251213, RMSE=0.02291597, max=0.22381583; Frobenius MAE=0.05620735, max=0.23239295; phase MAE=1.10384838 deg.
