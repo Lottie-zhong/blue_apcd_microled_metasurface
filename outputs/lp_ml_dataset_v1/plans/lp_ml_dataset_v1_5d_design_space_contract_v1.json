@@ -1,0 +1,46 @@
+{
+  "conflicts_recorded": [
+    "legacy canonical broad D/J2 dimensions exceed active D7-D8 local family; conservative active-family envelope selected",
+    "Psi center-derived from half-grid centers"
+  ],
+  "envelope_basis": "conservative common range recovered from canonical_v1.21/D5-D8/bounded/Batch-A/manufacturing contracts",
+  "fixed": {
+    "H_nm": 500.0,
+    "background": "air",
+    "boundaries": "x/y_periodic_z_PML",
+    "endpoint_handling": "duplicate_endpoint_remove_then_periodic_reclosure",
+    "field_monitor_z_nm": 1000.0,
+    "jones_convention": "[[txx,txy],[tyx,tyy]]",
+    "material": "APCD_TIO2_NATIVE_M1",
+    "mesh": "frozen_mesh_contract",
+    "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+    "observable": "coordinate_weighted_full_period_G0",
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0,
+    "reference_plane": "field_monitor_z_1000_nm",
+    "source": "normal_incidence_plane_wave"
+  },
+  "no_arbitrary_expansion": true,
+  "ranges": {
+    "D_nm": [
+      196.0,
+      204.0
+    ],
+    "J1_side_nm": [
+      108,
+      112
+    ],
+    "J2_length_nm": [
+      106,
+      110
+    ],
+    "J2_width_nm": [
+      98,
+      102
+    ],
+    "Psi_deg": [
+      -1.2,
+      1.2
+    ]
+  }
+}

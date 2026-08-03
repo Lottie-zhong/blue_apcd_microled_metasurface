@@ -1,0 +1,153 @@
+{
+  "broadband_smoke": {
+    "entered_accounting_before_run": true,
+    "geometry_count": 16,
+    "lifecycle": "x->checkpoint->reload->acceptance->9 wavelengths; y->checkpoint->reload->acceptance->9 wavelengths",
+    "no_auto_rerun": true,
+    "solver_entries_max": 32,
+    "spectral_rows_expected": 144,
+    "wavelengths_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ]
+  },
+  "contract_version": "LP_ML_DATASET_V1",
+  "d9_closeout": {
+    "D9_status": "CONTRACT_EVIDENCE_GAP",
+    "absolute_projector_guard": "NOT_IDENTIFIABLE",
+    "bridge_status": "PAUSED",
+    "candidate_generation_authorized": false,
+    "historical_hard_gate": "HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE",
+    "old_batch_2_authorized": false,
+    "old_batch_B_authorized": false,
+    "phase_anchor_retained": true,
+    "solver_authorized": false
+  },
+  "derived_labels": {
+    "continuous_metric": "projection_error_apcd_v1",
+    "manufacturing": [
+      "direct_gap_nm",
+      "periodic_gap_nm",
+      "primitive_valid",
+      "manufacturing_pass"
+    ],
+    "phase": "wrapped_and_unwrapped_txx_phase_deg",
+    "powers": [
+      "Txx",
+      "Tyy",
+      "Txy",
+      "Tyx",
+      "cross_power_xy_yx",
+      "combined_leakage",
+      "target_transmission",
+      "orthogonal_rejection"
+    ],
+    "singular_values": [
+      "sigma1",
+      "sigma2",
+      "sigma2_over_sigma1"
+    ]
+  },
+  "fixed_physics": {
+    "H_nm": 500.0,
+    "background": "air",
+    "boundaries": "x/y_periodic_z_PML",
+    "endpoint_handling": "duplicate_endpoint_remove_then_periodic_reclosure",
+    "field_monitor_z_nm": 1000.0,
+    "jones_convention": "[[txx,txy],[tyx,tyy]]",
+    "material": "APCD_TIO2_NATIVE_M1",
+    "mesh": "frozen_mesh_contract",
+    "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+    "observable": "coordinate_weighted_full_period_G0",
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0,
+    "reference_plane": "field_monitor_z_1000_nm",
+    "source": "normal_incidence_plane_wave"
+  },
+  "historical_seed_audit": {
+    "450_nm_only_not_broadband": true,
+    "aliases_do_not_weight": true,
+    "batch_a_4_allowed_as_post_canonical_prospective_physics": true,
+    "contaminated_historical_geometry_or_observable": "excluded_or_quarantined",
+    "dedupe_key": "exact_geometry_hash_sha256",
+    "plans_predictions_excluded_from_physics": true
+  },
+  "input_features": [
+    "J1_side_nm",
+    "J2_length_nm",
+    "J2_width_nm",
+    "D_nm",
+    "Psi_deg",
+    "sin_Psi",
+    "cos_Psi"
+  ],
+  "labels": {
+    "d9_approval": "FORBIDDEN",
+    "model_fill": "FORBIDDEN",
+    "phase_library_promotion": "FORBIDDEN",
+    "projector_pass_fail": "FORBIDDEN"
+  },
+  "projection_error_apcd_v1": {
+    "absolute_guard": false,
+    "continuous_metric_only": true,
+    "formula": "1 - abs(vdot(J_target,J))^2/(norm_F(J_target)^2*norm_F(J)^2), with best complex scalar removed analytically",
+    "not_equivalent_to_historical_projection_error_fields": true,
+    "scalar_phase_invariant": true,
+    "target_jones_real_imag": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "unit_test_required": true
+  },
+  "raw_labels": {
+    "complete_xy_required": true,
+    "complex_jones": [
+      "txx",
+      "txy",
+      "tyx",
+      "tyy"
+    ],
+    "no_symmetry_assumption": true,
+    "representation": "real_imag_per_element"
+  },
+  "round1": {
+    "composition": {
+      "BOUNDARY_FAILURE": 32,
+      "GLOBAL_SOBOL": 128,
+      "PHASE_REGION": 64,
+      "PROJECTOR_REGION": 32
+    },
+    "full_plan_count": 256,
+    "no_existing_formal_geometry_duplicates": true,
+    "selection_not_model_best": true,
+    "smoke_composition": {
+      "BOUNDARY_FAILURE": 2,
+      "GLOBAL_SOBOL": 8,
+      "PHASE_REGION": 4,
+      "PROJECTOR_REGION": 2
+    },
+    "smoke_count": 16
+  },
+  "solver_ceiling": {
+    "no_process_termination": true,
+    "planned_subruns": 32,
+    "wavelength_nm_only": [
+      450.0,
+      454.0
+    ]
+  },
+  "status": "FROZEN_FOR_ROUND1_SMOKE"
+}

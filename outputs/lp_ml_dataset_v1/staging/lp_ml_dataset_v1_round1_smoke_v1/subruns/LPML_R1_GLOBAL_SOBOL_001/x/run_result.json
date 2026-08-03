@@ -1,0 +1,83 @@
+{
+  "candidate_id": "LPML_R1_GLOBAL_SOBOL_001",
+  "configuration_gate": {
+    "checks": {
+      "FDTD_x_span": 4.32e-07,
+      "FDTD_y_span": 4.32e-07,
+      "T_z": 1.0000000000000002e-06,
+      "material_1": "APCD_TIO2_NATIVE_M1",
+      "material_2": "APCD_TIO2_NATIVE_M1",
+      "monitor_z": 1.0000000000000002e-06,
+      "source_pol": 0.0,
+      "source_start": 4.500000000000001e-07,
+      "source_stop": 4.5399999999999996e-07
+    },
+    "expected_wavelengths_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "input_polarization": "x",
+    "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+    "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+    "observable": "coordinate_weighted_full_period_G0",
+    "pass": true
+  },
+  "error": "RuntimeError: T transmission length 5 != 9",
+  "failure_stage": "SOLVER",
+  "input_polarization": "x",
+  "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+  "runtime_seconds": 21.345174074172974,
+  "setup_before_save": {
+    "config_readback": {
+      "FDTD": {
+        "x max bc": "Periodic",
+        "x min bc": "Periodic",
+        "x span": 4.32e-07,
+        "y max bc": "Periodic",
+        "y min bc": "Periodic",
+        "y span": 4.32e-07,
+        "z max": 1.2000000000000002e-06,
+        "z max bc": "PML",
+        "z min": -5.000000000000001e-07,
+        "z min bc": "PML"
+      },
+      "T": {
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      },
+      "field_monitor": {
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      },
+      "source": {
+        "direction": "Forward",
+        "polarization angle": 0.0,
+        "wavelength start": 4.500000000000001e-07,
+        "wavelength stop": 4.5399999999999996e-07,
+        "z": -2.5000000000000004e-07
+      }
+    },
+    "geometry_readback": {
+      "J1_center_x_nm": -9.8e-08,
+      "J1_center_y_nm": 2e-09,
+      "J1_material": "APCD_TIO2_NATIVE_M1",
+      "J2_center_x_nm": 9.8e-08,
+      "J2_center_y_nm": -2e-09,
+      "J2_material": "APCD_TIO2_NATIVE_M1"
+    },
+    "material_name": "APCD_TIO2_NATIVE_M1"
+  },
+  "solver_entered": true,
+  "status": "FAILED",
+  "subrun_id": "LPML_R1_GLOBAL_SOBOL_001_x",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_broadband_smoke.py\", line 92, in run_subrun\n    f.run(); rows,grid=extract_broadband(f); f.close(); f=None\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_broadband_smoke.py\", line 70, in extract_broadband\n    if len(T)!=len(WLS): raise RuntimeError(f'T transmission length {len(T)} != 9')\nRuntimeError: T transmission length 5 != 9\n"
+}
