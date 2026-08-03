@@ -1,0 +1,64 @@
+{
+  "architecture": "7->256 + 4 residual blocks width256 SiLU LayerNorm dropout0.03 -> 8",
+  "cuda_name": "NVIDIA GeForce RTX 3080",
+  "dataset_path": "outputs/lp_ml_dataset_v1/lp_ml_dataset_v1_round1_complete_255_geometry_2295_rows.csv",
+  "dataset_sha256": "4a122ba8a8c81a332e1679e8d400d0087a79bd888b28bf2d26aad06d4762039a",
+  "device": "cuda",
+  "feature_order": [
+    "J1_side_nm",
+    "J2_length_nm",
+    "J2_width_nm",
+    "D_nm",
+    "sin_Psi",
+    "cos_Psi",
+    "wavelength_nm"
+  ],
+  "freeze_version": "LP_ML_ROUND1_MODEL_FREEZE_V1",
+  "from_scratch": true,
+  "geometry_054_excluded": true,
+  "mlp_json_path": "outputs/lp_ml_dataset_v1/analysis/lp_ml_round1_full_residual_mlp_5seed_v1.json",
+  "mlp_json_sha256": "80bb8c0a19f45ba7d2c2b63dc98a6692d5811a5f9db1292f66eea60e7b0e2f07",
+  "normalization_path": "outputs/lp_ml_dataset_v1/analysis/lp_ml_dataset_v1_round1_train_only_normalization_v1.json",
+  "normalization_sha256": "ff6a7f59d1c426f9d78138b62b8869026e2d9beda626609e66dcce7e0f071544",
+  "seeds": [
+    {
+      "checkpoint_path": "outputs/lp_ml_dataset_v1/model_runtime_round1_frozen_v1/residual_mlp_seed_11.pt",
+      "checkpoint_sha256": "99aa86916ce5580cba67afd5895c597dac32d1a7e3fafc9cacc4093b2b877371",
+      "seed": 11
+    },
+    {
+      "checkpoint_path": "outputs/lp_ml_dataset_v1/model_runtime_round1_frozen_v1/residual_mlp_seed_22.pt",
+      "checkpoint_sha256": "896befc809c7da3123b13f11c519f2ceda1e45ebb3798a78d17c1e8c82aec70c",
+      "seed": 22
+    },
+    {
+      "checkpoint_path": "outputs/lp_ml_dataset_v1/model_runtime_round1_frozen_v1/residual_mlp_seed_33.pt",
+      "checkpoint_sha256": "1f12861a2413dad421d9f6d72790849e7fb69206745c3c77fbc0cd5784ff4ad1",
+      "seed": 33
+    },
+    {
+      "checkpoint_path": "outputs/lp_ml_dataset_v1/model_runtime_round1_frozen_v1/residual_mlp_seed_44.pt",
+      "checkpoint_sha256": "7e8101b29d62c8565837ba3c1dbec02c435025afdf8e0ddb3abc5b21692d5af2",
+      "seed": 44
+    },
+    {
+      "checkpoint_path": "outputs/lp_ml_dataset_v1/model_runtime_round1_frozen_v1/residual_mlp_seed_55.pt",
+      "checkpoint_sha256": "1d78ad98861e9f9a1f9430b7cfe6248e72ba70f95526a07b805ed3d3c1173d71",
+      "seed": 55
+    }
+  ],
+  "selection_frozen_before_solver": true,
+  "target_order": [
+    "txx_real",
+    "txx_imag",
+    "txy_real",
+    "txy_imag",
+    "tyx_real",
+    "tyx_imag",
+    "tyy_real",
+    "tyy_imag"
+  ],
+  "train_geometry_count": 179,
+  "validation_geometry_count": 38,
+  "warm_start": false
+}
