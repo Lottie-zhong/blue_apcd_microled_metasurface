@@ -1,0 +1,48 @@
+{
+  "authorization_sha256": "DB0808DD31935CDE7A995CA694D2F22212A1F375E8D29B47BB447C523FF10697",
+  "authorization_source": "goal-objective:a92dfe02-9bd5-4b77-bcb3-d1882d8adf94",
+  "exact_entered_ceiling": 389,
+  "execution_contract_version": "LP_ML_ROUND1_RECOVERY_EXECUTION_V1",
+  "first_gate": {
+    "candidate_id": "LPML_R1_GLOBAL_SOBOL_054",
+    "must_accept_before_continue": true,
+    "on_failure": "STOP_NO_RETRY_NO_CONTINUATION",
+    "polarization": "y"
+  },
+  "forbidden": [
+    "abs(T)",
+    "clipping",
+    "interpolation",
+    "model_fill",
+    "candidate_replacement",
+    "plan_expansion",
+    "D9",
+    "K6",
+    "Batch B",
+    "active learning"
+  ],
+  "old_attempt_preservation": {
+    "old_accepted_x_not_rerun": true,
+    "old_failed_record_retained": true,
+    "old_staging_read_only": true
+  },
+  "physics_contract": "reuse frozen broadband weighted-G0 Native-M1 contract",
+  "plan_csv_path": "outputs/lp_ml_dataset_v1/plans/lp_ml_dataset_v1_round1_recovery_389_plan_v1.csv",
+  "plan_csv_sha256": "90112122b9ffb7b6118923a0af0877def49842acc0d14a6f3b4ab2527c9a98de",
+  "recovery_attempt_id": "LP_ML_ROUND1_RECOVERY_ATTEMPT1_V1",
+  "sampling": {
+    "frequency_points": 9,
+    "source_start_nm": 450.0,
+    "source_stop_nm": 454.0,
+    "step_nm": 0.5
+  },
+  "solver_calls_at_freeze": 0,
+  "untouched_continuation": {
+    "geometries": 194,
+    "polarizations_per_geometry": [
+      "x",
+      "y"
+    ],
+    "subruns": 388
+  }
+}
