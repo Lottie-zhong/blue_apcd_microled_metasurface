@@ -1,0 +1,62 @@
+{
+  "schema_version": "np_k6_hf_pilot_gate0a_boundary_flux_449nm_audit_v1",
+  "wavelength_nm": 449,
+  "planes_low_to_high": [
+    {
+      "monitor": "N1_DIAG_PML_LOWER",
+      "z_nm": -500.0,
+      "signed_flux": -0.3615108374595619,
+      "monitor_result": -0.3615108374595605,
+      "raw_vs_monitor_abs": 1.4432899320127035e-15
+    },
+    {
+      "monitor": "N1_DIAG_LOWER_OUTSIDE",
+      "z_nm": -110.0,
+      "signed_flux": 0.6376242250590446,
+      "monitor_result": 0.6376242250590469,
+      "raw_vs_monitor_abs": 2.3314683517128287e-15
+    },
+    {
+      "monitor": "N1_DIAG_LOWER_INSIDE",
+      "z_nm": -90.0,
+      "signed_flux": 0.6375706431667261,
+      "monitor_result": 0.6375706431667272,
+      "raw_vs_monitor_abs": 1.1102230246251565e-15
+    },
+    {
+      "monitor": "N1_DIAG_UPPER_INSIDE",
+      "z_nm": 590.0,
+      "signed_flux": 0.6328667999982199,
+      "monitor_result": 0.6328667999982172,
+      "raw_vs_monitor_abs": 2.7755575615628914e-15
+    },
+    {
+      "monitor": "N1_DIAG_UPPER_OUTSIDE",
+      "z_nm": 610.0,
+      "signed_flux": 0.6328510759509949,
+      "monitor_result": 0.6328510759509939,
+      "raw_vs_monitor_abs": 9.992007221626409e-16
+    },
+    {
+      "monitor": "N1_DIAG_PML_UPPER",
+      "z_nm": 1100.0,
+      "signed_flux": 0.6325567413427456,
+      "monitor_result": 0.6325567413427461,
+      "raw_vs_monitor_abs": 4.440892098500626e-16
+    }
+  ],
+  "source_slab_injection": {
+    "formula": "F_lower_outside - F_PML_lower",
+    "value": 0.9991350625186065,
+    "source_included": true,
+    "formal_sourcepower_not_assumed_unity": true
+  },
+  "interval_jumps": {
+    "lower_transition_inside_minus_outside": -5.358189231852162e-05,
+    "structure_upper_inside_minus_lower_inside": -0.004703843168506139,
+    "upper_transition_outside_minus_inside": -1.572404722505194e-05,
+    "upper_to_pml": -0.00029433460824923596
+  },
+  "order_sum_closes_to_T": true,
+  "normalization_paths_match": true
+}
