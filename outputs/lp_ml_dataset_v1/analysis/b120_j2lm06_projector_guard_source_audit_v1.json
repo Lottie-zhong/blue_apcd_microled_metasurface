@@ -1,0 +1,166 @@
+{
+  "audit_version": "J2LM06_PROJECTOR_GUARD_SOURCE_AUDIT_V1",
+  "batch_a_excluded_from_calibration": true,
+  "canonical_modified": false,
+  "created_utc": "2026-08-03T04:01:41.723400+00:00",
+  "historical_hard_gate_preserved": true,
+  "protected_reports_unchanged_by_scope": true,
+  "solver_calls": 0,
+  "source_precedence": {
+    "batch_a_leakage": 0,
+    "calibration_exclusions": [
+      {
+        "reason": "strict holdout; excluded before threshold freeze",
+        "source": "j2length_inclusive_batch_a_complete_jones_v1.csv"
+      },
+      {
+        "reason": "ABSENT_NOT_SIMULATED/model prediction",
+        "source": "post_d8_bounded_outer_shell_candidate_pool_v1.csv"
+      },
+      {
+        "reason": "prediction/planning, not independent physics",
+        "source": "D7/D8 models and route plans"
+      },
+      {
+        "reason": "HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE and not legally reconstructed",
+        "source": "historical original22 full-Jones artifacts"
+      },
+      {
+        "reason": "contract comparability not proven",
+        "source": "legacy/canonical rows lacking frozen observable/material/reference provenance"
+      }
+    ],
+    "order": [
+      "formal complete weighted-G0 Jones with exact/canonical/symmetry hash, native M1, 450 nm, checkpoint/reload provenance",
+      "formal complete weighted-G0 Jones with geometry hash and explicit stage provenance",
+      "formal labels without complete provenance (supporting only)",
+      "model predictions/plans/graph interpolations (never calibration)"
+    ]
+  },
+  "sources": [
+    {
+      "exists": true,
+      "note": "authoritative absolute/local guard status",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_j2length_inclusive_projector_guard_audit_v1.json",
+      "schema_or_keys": [
+        "all_nodes_complete_jones",
+        "all_nodes_formal_weighted_g0",
+        "analysis_version",
+        "guard_conclusion",
+        "nodes",
+        "projector_lineage",
+        "thresholds_invented"
+      ],
+      "sha256": "c5a79fcf1ae00210fc504e1c75555efdd17bc20e555ad4e75cea336f0c191fa0",
+      "source_id": "authoritative_guard_audit"
+    },
+    {
+      "exists": true,
+      "note": "empirical guard; threshold_invented=false",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_bounded_projector_empirical_guard_v1.json",
+      "schema_or_keys": [
+        "candidate_guards",
+        "method",
+        "model_partial_acknowledged",
+        "status",
+        "threshold_invented"
+      ],
+      "sha256": "8b2fab60a91c52b9f7d578711858540f28d80fab09b296c8a8791d0cab83d6df",
+      "source_id": "empirical_guard"
+    },
+    {
+      "exists": true,
+      "note": "6/6 empirical agreement",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_bounded_empirical_guard_audit_v1.json",
+      "schema_or_keys": [
+        "actual_projector_pass",
+        "false_risk_count",
+        "false_safe_count",
+        "frozen_guard",
+        "guard_accuracy"
+      ],
+      "sha256": "65f57f8e6c2249f09149a55720a521b83d71c93b220a0a61a9b07aee554f61b4",
+      "source_id": "empirical_guard_audit"
+    },
+    {
+      "exists": false,
+      "note": "local continuity thresholds only",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_prospective_actual_node_bridge_batch1_formal_graph_components_v1.json",
+      "sha256": null,
+      "source_id": "formal_graph"
+    },
+    {
+      "exists": true,
+      "note": "formal D0 configuration/provenance",
+      "path": "outputs/lp_ml_dataset_v1/staging/primary_flat_carrier_projectorization_stage_d0_v1/dataset_manifest_v1_12.json",
+      "schema_or_keys": [
+        "schema_version",
+        "ML_DATA_CONTRACT_VERSION",
+        "source_stage",
+        "evidence_tier",
+        "creation_timestamp",
+        "append_only",
+        "canonical_v1_11_overwritten",
+        "retired_staging_used",
+        "formal_physics_configuration",
+        "physics_configuration_hash",
+        "execution_manifest",
+        "row_counts",
+        "updated_dataset_counts",
+        "split_policy",
+        "source_files",
+        "code_sha256"
+      ],
+      "sha256": "35937905339c91ee74cf50430cf249d1c565bc01013606efcbd3f37af7e06f0e",
+      "source_id": "d0_manifest"
+    },
+    {
+      "exists": true,
+      "note": "formal full Jones",
+      "path": "outputs/lp_ml_dataset_v1/staging/primary_flat_carrier_projectorization_stage_d0_v1/candidate_wavelength_jones_delta_v1_12.csv",
+      "sha256": "a38818c99af68824b8834f8b81995fa7e86fe374572355bfc990445c7f0534b3",
+      "source_id": "d0_jones"
+    },
+    {
+      "exists": true,
+      "note": "formal projector classifications",
+      "path": "outputs/lp_ml_dataset_v1/staging/primary_flat_carrier_projectorization_stage_d0_v1/projectorization_route_outcomes_v1_12.csv",
+      "sha256": "816976265e4339ef75055c9fb10597134390b63646b795a5103a150891c5df48",
+      "source_id": "d0_routes"
+    },
+    {
+      "exists": true,
+      "note": "strict post-freeze holdout; excluded from calibration",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_j2length_inclusive_batch_a_complete_jones_v1.csv",
+      "sha256": "6865d8e034395771ec96ca0f2ae2b69540a259ca802656340afdd3edf44240e3",
+      "source_id": "batch_a_holdout"
+    },
+    {
+      "exists": true,
+      "note": "pre-Batch-A prospective positive reference",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_bounded_candidate_metrics_v1.csv",
+      "sha256": "6286e40b64fd6240b442d6175ba4b0c3dbf92d6bee4720c88eee914c896839ab",
+      "source_id": "bounded_positive"
+    },
+    {
+      "exists": true,
+      "note": "pre-Batch-A formal positive reference",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_post_d8_curvature_probe_metrics_v1.csv",
+      "sha256": "c82d2ccf62dbee9a4b55dbbedde768f9ebe38bb2ab221c5bf3eb4112930baff6",
+      "source_id": "curvature_positive"
+    },
+    {
+      "exists": true,
+      "note": "historical full-Jones hard gate",
+      "path": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_original22_txx_reproduction_after_regeneration_v1.json",
+      "schema_or_keys": [
+        "coefficient_max_abs_error",
+        "mechanism",
+        "status",
+        "tolerance"
+      ],
+      "sha256": "1c43bab0456674867cb94dc4eae6111629bddfdf4a3814369ee8977fc8451b65",
+      "source_id": "historical_hard_gate"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "contract_version": "J2LM06_PROJECTOR_GUARD_ABSOLUTE_CONTRACT_PROPOSAL_V1",
+  "layer1_absolute_screen": {
+    "decision": "No absolute PASS/FAIL may be emitted from these provisional bounds.",
+    "metrics": {
+      "Tyy": {
+        "bound": 0.11233482537887696,
+        "source": "core cohort max positive / min negative interval",
+        "status": "OBSERVED_SEPARATION_NOT_FROZEN"
+      },
+      "combined_leakage": {
+        "bound": 0.11233482588631272,
+        "source": "core cohort max positive / min negative interval",
+        "status": "OBSERVED_SEPARATION_NOT_FROZEN"
+      },
+      "projection_metric": {
+        "bound": 0.34058948205690126,
+        "source": "core cohort max positive / min negative interval",
+        "status": "OBSERVED_SEPARATION_NOT_FROZEN"
+      },
+      "sigma2_over_sigma1": {
+        "bound": 0.34058948205690126,
+        "source": "core cohort max positive / min negative interval",
+        "status": "OBSERVED_SEPARATION_NOT_FROZEN"
+      }
+    }
+  },
+  "layer2_cross_metric": {
+    "reason": "cross-power and Txx do not independently separate projector failure; projection-error semantics unresolved",
+    "required": "complete Jones plus simultaneous Txx/Tyy/cross_power/sigma2/projection and valid target semantics",
+    "status": "NOT_IDENTIFIABLE"
+  },
+  "layer3_local_continuation": {
+    "not_absolute_projector_quality": true,
+    "source": "formal graph component audit",
+    "status": "FROZEN_FOR_RELATIVE_CONTINUATION_ONLY",
+    "thresholds": {
+      "max_Tyy_jump": 0.009068247345973321,
+      "max_jones_frobenius_step": 0.035198562561738596,
+      "max_leakage_jump": 0.009069599020801192,
+      "max_phase_step_deg": 1.2872845211413306,
+      "max_sigma_ratio_jump": 0.015573222790015273
+    }
+  },
+  "no_new_threshold_invented": true,
+  "projector_lineage": "projector_preserved_from_backbone",
+  "status": "EVIDENCE_GAP_NOT_FROZEN"
+}

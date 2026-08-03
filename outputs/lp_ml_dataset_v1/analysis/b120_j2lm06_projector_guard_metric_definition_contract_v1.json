@@ -1,0 +1,34 @@
+{
+  "contract_version": "J2LM06_PROJECTOR_GUARD_METRIC_DEFINITION_V1",
+  "definitions": {
+    "Txx": "abs(txx)^2",
+    "Txy": "abs(txy)^2",
+    "Tyx": "abs(tyx)^2",
+    "Tyy": "abs(tyy)^2",
+    "combined_leakage": "Tyy + Txy + Tyx (formal row convention)",
+    "cross_power": "Txy + Tyx",
+    "local_continuation": "edge/secant deltas, not absolute projector quality",
+    "manufacturing_gate": "independent geometry validity/no-overlap/margin gate; not an optical projector guard",
+    "matrix_projection_error": "Use only when source explicitly names matrix_projection_error; never silently alias to projection_error",
+    "projection_error": "UNRESOLVED: projection_error and matrix_projection_error lack one traceable invariant target-Jones formula across all cohorts",
+    "sigma2_over_sigma1": "second/first singular value of complete complex Jones"
+  },
+  "formula_audit": {
+    "arithmetic_mean_or_center_sample_allowed": false,
+    "combined_leakage_reproduced_from_formal_rows": true,
+    "complex_jones_required": true,
+    "projection_error_formula_identifiable": false,
+    "reciprocity_inference_allowed": false
+  },
+  "observable": {
+    "background": "air n=1",
+    "boundary": "x/y periodic; z PML; normal incidence",
+    "endpoint_handling": "duplicate periodic endpoints removed and periodic closure re-applied",
+    "field": "transmission-side full-period coordinate-weighted complex-field G0",
+    "jones_convention": "J=[[txx,txy],[tyx,tyy]]; x-input Ex=txx/Ey=tyx; y-input Ex=txy/Ey=tyy",
+    "material": "APCD_TIO2_NATIVE_M1",
+    "monitor": "field_monitor z=1000 nm",
+    "normalization": "sqrt(T)/norm(weighted Ex, weighted Ey)",
+    "wavelength_nm": 450
+  }
+}

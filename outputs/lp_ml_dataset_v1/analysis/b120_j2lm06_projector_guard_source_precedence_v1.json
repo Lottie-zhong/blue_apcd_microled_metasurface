@@ -1,0 +1,31 @@
+{
+  "batch_a_leakage": 0,
+  "calibration_exclusions": [
+    {
+      "reason": "strict holdout; excluded before threshold freeze",
+      "source": "j2length_inclusive_batch_a_complete_jones_v1.csv"
+    },
+    {
+      "reason": "ABSENT_NOT_SIMULATED/model prediction",
+      "source": "post_d8_bounded_outer_shell_candidate_pool_v1.csv"
+    },
+    {
+      "reason": "prediction/planning, not independent physics",
+      "source": "D7/D8 models and route plans"
+    },
+    {
+      "reason": "HARD_GATE_FROZEN_TXX_REPRODUCTION_FAILURE and not legally reconstructed",
+      "source": "historical original22 full-Jones artifacts"
+    },
+    {
+      "reason": "contract comparability not proven",
+      "source": "legacy/canonical rows lacking frozen observable/material/reference provenance"
+    }
+  ],
+  "order": [
+    "formal complete weighted-G0 Jones with exact/canonical/symmetry hash, native M1, 450 nm, checkpoint/reload provenance",
+    "formal complete weighted-G0 Jones with geometry hash and explicit stage provenance",
+    "formal labels without complete provenance (supporting only)",
+    "model predictions/plans/graph interpolations (never calibration)"
+  ]
+}
