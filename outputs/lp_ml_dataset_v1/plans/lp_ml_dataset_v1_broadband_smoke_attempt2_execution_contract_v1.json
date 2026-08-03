@@ -1,0 +1,85 @@
+{
+  "attempt_id": "LP_ML_ROUND1_SMOKE_ATTEMPT2_V1",
+  "authorization": {
+    "automatic_continue_after_first_x_acceptance": true,
+    "geometries": 16,
+    "new_subruns_max": 32,
+    "wavelengths_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ]
+  },
+  "execution_contract_version": "LP_ML_BROADBAND_SMOKE_ATTEMPT2_EXECUTION_V1",
+  "forbidden": [
+    "D9",
+    "Batch B",
+    "old Batch2",
+    "remaining 240 geometries",
+    "model training",
+    "inverse design",
+    "new candidate selection"
+  ],
+  "lifecycle": "preflight build/save/reload gate -> entered ledger -> solver -> extraction -> checkpoint reload -> acceptance",
+  "new_runtime_temp": "%TEMP%\\lp_ml_dataset_v1_round1_smoke_attempt2_runtime",
+  "new_staging_path": "outputs/lp_ml_dataset_v1/staging/lp_ml_dataset_v1_round1_smoke_attempt2_v1",
+  "no_auto_retry_entered_case": true,
+  "no_five_point_fallback": true,
+  "no_interpolation_from_five_points": true,
+  "sampling_fix": {
+    "global_calls": [
+      {
+        "property": "frequency points",
+        "value": 9
+      },
+      {
+        "property": "use wavelength spacing",
+        "value": true
+      },
+      {
+        "property": "use source limits",
+        "value": true
+      }
+    ],
+    "local_monitor_calls": [
+      {
+        "property": "override global monitor settings",
+        "value": true
+      },
+      {
+        "property": "use wavelength spacing",
+        "value": true
+      },
+      {
+        "property": "frequency points",
+        "value": 9
+      },
+      {
+        "property": "use source limits",
+        "value": true
+      }
+    ],
+    "root_cause": "monitor local/global settings left at default five-point sampling; source start/stop alone did not freeze monitor grid",
+    "target_domain": "wavelength",
+    "target_vector_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ]
+  },
+  "smoke_plan_sha256": "d5de33d67d24e8d4a5effe2d07616d66f55880ccf629fd8926757098275e04e4",
+  "source_contract_sha256": "ca7f60b5a8ce1d67e6b59b10a696edd0f65832cc5599cbed551a49688b91e9c2",
+  "supersedes_attempt_id": "LP_ML_ROUND1_SMOKE_ATTEMPT1_V1"
+}
