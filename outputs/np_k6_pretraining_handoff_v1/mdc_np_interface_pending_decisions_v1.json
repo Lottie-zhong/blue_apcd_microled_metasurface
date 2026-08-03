@@ -1,0 +1,100 @@
+{
+  "schema_version": "np_k6_mdc_np_interface_pending_decisions_v1",
+  "status": "PENDING_MDC_DECISION",
+  "pending_decision_count": 8,
+  "decisions": [
+    {
+      "id": "coupling_level",
+      "status": "PENDING_MDC_DECISION",
+      "options": [
+        "one_way_incoherent_power",
+        "bidirectional_complex_amplitude",
+        "staged_level_1_to_level_2"
+      ]
+    },
+    {
+      "id": "final_integration_stack",
+      "status": "PENDING_MDC_DECISION",
+      "fields": [
+        "K6_lower_material_and_stack",
+        "MDC_top_termination",
+        "GaN_SiO2_TiO2_interface",
+        "spacer_material",
+        "spacer_thickness",
+        "K6_reference_plane"
+      ]
+    },
+    {
+      "id": "wavelength_range",
+      "status": "PENDING_MDC_DECISION",
+      "current_np_provisional_nm": [
+        445,
+        455
+      ],
+      "decision": "MDC_peak_FWHM_tolerance_range"
+    },
+    {
+      "id": "angular_input_range",
+      "status": "PENDING_MDC_DECISION",
+      "current_np_provisional_theta_deg": [
+        0
+      ],
+      "fields": [
+        "80_90_percent_power_span",
+        "signed_theta_convention",
+        "angle_samples"
+      ]
+    },
+    {
+      "id": "polarization_source_basis",
+      "status": "PENDING_MDC_DECISION",
+      "options": [
+        "x_y",
+        "s_p",
+        "x_y_dipole_incoherent",
+        "z_dipole_contribution",
+        "averaging_timing"
+      ]
+    },
+    {
+      "id": "mdc_output_tensor",
+      "status": "PENDING_MDC_DECISION",
+      "fields": [
+        "P_lambda",
+        "P_lambda_theta",
+        "P_lambda_theta_polarization",
+        "complex_Ex_Ey",
+        "upward_angular_spectrum_amplitude",
+        "complex_reflection_transmission",
+        "summary_metrics"
+      ]
+    },
+    {
+      "id": "common_conventions",
+      "status": "PENDING_CROSS_BRANCH_FREEZE",
+      "fields": [
+        "plus_z_upward",
+        "plus_x_K6_target",
+        "air_side_angle",
+        "conserved_real_kx",
+        "diffraction_order_sign",
+        "time_harmonic_convention",
+        "complex_phase_convention",
+        "power_normalization",
+        "reference_planes",
+        "units"
+      ]
+    },
+    {
+      "id": "formal_label_compatibility",
+      "status": "PENDING_MDC_DECISION",
+      "fields": [
+        "FDTD_labels",
+        "TMM_labels",
+        "direct_NP_FDTD_coupling",
+        "low_fidelity_screening_only"
+      ]
+    }
+  ],
+  "no_decision_inferred": true
+}

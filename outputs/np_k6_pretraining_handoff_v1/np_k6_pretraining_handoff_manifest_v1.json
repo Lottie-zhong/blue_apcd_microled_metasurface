@@ -1,0 +1,86 @@
+{
+  "schema_version": "np_k6_pretraining_handoff_manifest_v1",
+  "status": "NP_K6_PRETRAINING_HANDOFF_COMPLETE_MDC_INTERFACE_DECISION_PENDING",
+  "branch": "work/np-k6-mdc-v1",
+  "head": "67ac81b998e891c0b9670b947f3bdd90c1ba446f",
+  "upstream_divergence": "0 0",
+  "phase_solver_budget": {
+    "run_invocation": 0,
+    "lumapi_engine": 0,
+    "new_attempt": 0,
+    "new_fsp": 0,
+    "model_training": 0,
+    "active_learning_acquisition": 0,
+    "sealed_test_access": 0
+  },
+  "gate0a": {
+    "state": "NP_K6_HF_PILOT_GATE0A_BLOCKED_BY_NUMERICAL_FIDELITY",
+    "case_id": "RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE0A",
+    "attempt_id": "attempt_001",
+    "entered_engine_controller_post_save_run": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "post_fsp_sha256": "7ab701698d0351e3c11163ec712f68cb33994687d85ea93de41ff4772484bb1b",
+    "production_mesh_frozen": false,
+    "diagnostic_only": true,
+    "formal_hf_label": false,
+    "hard_gates": [
+      "HARD_GATE_RUN3C_N2_NOT_STRICTLY_NESTED",
+      "N2_NATIVE_M1_CLOSURE_GATE_FAILED"
+    ]
+  },
+  "d0_authority": {
+    "geometry_count": 296010,
+    "lf_rows": 3256110,
+    "lf_shape": [
+      296010,
+      11
+    ],
+    "current_database_manifest_sha256": "bf35d1511ecd2cf45e1499d6a6f5d3dfad29adcae74ee849ead1f2aac3d56369",
+    "current_lf_manifest_sha256": "d571b3e8b7e99e4f54eafcc2d27346179f4d929b1014cad18b6d527465087d44",
+    "authority": "27-point",
+    "legacy_26point_isolated": true
+  },
+  "pilot_split_task_ledger": {
+    "development_pool": 236808,
+    "validation_pool": 29601,
+    "sealed_test_pool": 29601,
+    "development_pilots": 48,
+    "sealed_test_pilots": 12,
+    "potential_hf_tasks": 120,
+    "task_ledger_counts": {
+      "planned": 120,
+      "entered": 0,
+      "run_invocations": 0,
+      "solver_authorized": 0,
+      "training_label": 0,
+      "candidate_performance_label": 0
+    },
+    "all_120_unentered": true
+  },
+  "training_policy": {
+    "formal_label_source": "FDTD_ONLY",
+    "RCWA_formal_labels": "DISABLED",
+    "LF_DFT_proxy_role": "DOE_AND_CANDIDATE_SELECTION_ONLY",
+    "formal_hf_label_count": 0,
+    "model_training_started": false,
+    "model_artifact_count": 0
+  },
+  "deferred_forensics_path": "outputs/np_k6_pretraining_handoff_v1/deferred_numerical_forensics_registry.json",
+  "mdc_pending_decisions_path": "outputs/np_k6_pretraining_handoff_v1/mdc_np_interface_pending_decisions_v1.json",
+  "training_gate_path": "outputs/np_k6_pretraining_handoff_v1/np_k6_mainline_training_start_gate_v1.json",
+  "exact_next_allowed_action": "WAIT_FOR_MDC_INTERFACE_DECISION",
+  "forbidden_automatic_actions": [
+    "solver",
+    "FDTD_batch",
+    "model_training",
+    "RCWA_labels",
+    "LF_formal_training",
+    "sealed_test_access",
+    "numerical_forensics_continuation"
+  ]
+}
