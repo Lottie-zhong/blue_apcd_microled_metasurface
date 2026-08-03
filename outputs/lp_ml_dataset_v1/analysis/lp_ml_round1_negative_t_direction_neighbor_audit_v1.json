@@ -1,0 +1,364 @@
+{
+  "accepted_failed_geometry_x": {
+    "T_vector": [
+      0.9664177086147828,
+      0.9602390999850076,
+      0.9462295916544677,
+      0.9612982965802136,
+      0.9761702668368452,
+      0.9674965434914864,
+      0.9623023696761125,
+      0.9748730374476073,
+      0.980984798339938
+    ],
+    "input_polarization": "x",
+    "max_T": 0.980984798339938,
+    "min_T": 0.9462295916544677,
+    "wavelengths_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ]
+  },
+  "builder_comparison": {
+    "T_monitor_z_nm": 1000.0,
+    "boundary": "x/y Periodic, z PML",
+    "local_monitor_frequency_points": 9,
+    "material": "APCD_TIO2_NATIVE_M1",
+    "monitor_type": "2D Z-normal",
+    "monitor_z_nm": 1000.0,
+    "source_direction": "Forward",
+    "source_wavelength_start_stop_nm": [
+      450.0,
+      454.0
+    ],
+    "source_z_nm": -250.0,
+    "use_source_limits": true,
+    "use_wavelength_spacing": true,
+    "x_polarization_angle_deg": 0.0,
+    "x_y_geometry_fields_same": true,
+    "y_polarization_angle_deg": 90.0
+  },
+  "failed_case": "LPML_R1_GLOBAL_SOBOL_054_y",
+  "failed_configuration_gate": {
+    "checks": {
+      "FDTD_x_span": 4.32e-07,
+      "FDTD_y_span": 4.32e-07,
+      "T_frequency_points": 9.0,
+      "T_override_global": 1.0,
+      "T_use_source_limits": 1.0,
+      "T_use_wavelength_spacing": 1.0,
+      "T_z": 1.0000000000000002e-06,
+      "field_frequency_points": 9.0,
+      "field_override_global": 1.0,
+      "field_use_source_limits": 1.0,
+      "field_use_wavelength_spacing": 1.0,
+      "material_1": "APCD_TIO2_NATIVE_M1",
+      "material_2": "APCD_TIO2_NATIVE_M1",
+      "monitor_z": 1.0000000000000002e-06,
+      "source_pol": 90.0,
+      "source_start": 4.500000000000001e-07,
+      "source_stop": 4.5399999999999996e-07
+    },
+    "expected_wavelengths_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "input_polarization": "y",
+    "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+    "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+    "observable": "coordinate_weighted_full_period_G0",
+    "pass": true,
+    "sampling_mode": "wavelength_domain_uniform_via_source_limits"
+  },
+  "failed_raw_T_available": false,
+  "failed_raw_metadata_available": false,
+  "failed_setup": {
+    "config_readback": {
+      "FDTD": {
+        "x max bc": "Periodic",
+        "x min bc": "Periodic",
+        "x span": 4.32e-07,
+        "y max bc": "Periodic",
+        "y min bc": "Periodic",
+        "y span": 4.32e-07,
+        "z max": 1.2000000000000002e-06,
+        "z max bc": "PML",
+        "z min": -5.000000000000001e-07,
+        "z min bc": "PML"
+      },
+      "T": {
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      },
+      "field_monitor": {
+        "x span": 4.32e-07,
+        "y span": 4.32e-07,
+        "z": 1.0000000000000002e-06
+      },
+      "source": {
+        "direction": "Forward",
+        "polarization angle": 90.0,
+        "wavelength start": 4.500000000000001e-07,
+        "wavelength stop": 4.5399999999999996e-07,
+        "z": -2.5000000000000004e-07
+      }
+    },
+    "geometry_readback": {
+      "J1_center_x_nm": -9.9e-08,
+      "J1_center_y_nm": 0.0,
+      "J1_material": "APCD_TIO2_NATIVE_M1",
+      "J2_center_x_nm": 9.9e-08,
+      "J2_center_y_nm": 0.0,
+      "J2_material": "APCD_TIO2_NATIVE_M1"
+    },
+    "material_name": "APCD_TIO2_NATIVE_M1"
+  },
+  "neighbor_cases": {
+    "LPML_R1_GLOBAL_SOBOL_050": [
+      {
+        "T_vector": [
+          0.9877489586173703,
+          0.9969485059498706,
+          0.9884546251752788,
+          0.9833629134336571,
+          0.9957312151371679,
+          0.9985392383928743,
+          0.9858341982361449,
+          0.989024456741956,
+          1.0026882049950556
+        ],
+        "input_polarization": "x",
+        "max_T": 1.0026882049950556,
+        "min_T": 0.9833629134336571,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      {
+        "T_vector": [
+          0.12354654111979665,
+          0.17338876130332012,
+          0.21806927290214634,
+          0.2731315203920401,
+          0.33328342473144434,
+          0.3784186753096637,
+          0.42123820577597965,
+          0.47539584870437623,
+          0.5186499436117339
+        ],
+        "input_polarization": "y",
+        "max_T": 0.5186499436117339,
+        "min_T": 0.12354654111979665,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      }
+    ],
+    "LPML_R1_GLOBAL_SOBOL_051": [
+      {
+        "T_vector": [
+          0.9667636580965397,
+          0.9697164883953999,
+          0.9789726445052406,
+          0.9773927747882406,
+          0.9717796933416704,
+          0.9799466574942074,
+          0.9867556496038814,
+          0.9776726068616088,
+          0.9768887029267935
+        ],
+        "input_polarization": "x",
+        "max_T": 0.9867556496038814,
+        "min_T": 0.9667636580965397,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      {
+        "T_vector": [
+          0.04923989253088449,
+          0.08073521107088151,
+          0.11990284939896578,
+          0.16922881608378915,
+          0.21652806834102375,
+          0.26149744959820737,
+          0.3144444695475527,
+          0.36524933693054623,
+          0.4054250958161934
+        ],
+        "input_polarization": "y",
+        "max_T": 0.4054250958161934,
+        "min_T": 0.04923989253088449,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      }
+    ],
+    "LPML_R1_GLOBAL_SOBOL_052": [
+      {
+        "T_vector": [
+          0.9784944210135756,
+          1.0024758700289629,
+          1.0034557723529163,
+          0.9853019436992739,
+          0.9913145880533049,
+          1.006126976202826,
+          0.9970113658380244,
+          0.9883554096722709,
+          1.00061740976626
+        ],
+        "input_polarization": "x",
+        "max_T": 1.006126976202826,
+        "min_T": 0.9784944210135756,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      {
+        "T_vector": [
+          0.2114193902225916,
+          0.2689007408668687,
+          0.32427673978679494,
+          0.3826137624349819,
+          0.43738927157563084,
+          0.4826088597708529,
+          0.5267640337328139,
+          0.5715957425823734,
+          0.6065758724982804
+        ],
+        "input_polarization": "y",
+        "max_T": 0.6065758724982804,
+        "min_T": 0.2114193902225916,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      }
+    ],
+    "LPML_R1_GLOBAL_SOBOL_053": [
+      {
+        "T_vector": [
+          1.0027442194480733,
+          1.0039103272487444,
+          0.9662933811752967,
+          0.9796739466603757,
+          1.0122059408505932,
+          0.990719573775779,
+          0.9701864960852001,
+          1.0004519583260552,
+          1.0092704938404435
+        ],
+        "input_polarization": "x",
+        "max_T": 1.0122059408505932,
+        "min_T": 0.9662933811752967,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      {
+        "T_vector": [
+          0.09160295003092118,
+          0.14116245142452657,
+          0.18981726568208834,
+          0.2435425343061814,
+          0.30372375580072203,
+          0.35645072453013,
+          0.4023935233012685,
+          0.4543676367232829,
+          0.5032716239185612
+        ],
+        "input_polarization": "y",
+        "max_T": 0.5032716239185612,
+        "min_T": 0.09160295003092118,
+        "wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      }
+    ]
+  },
+  "sign_convention_audit": {
+    "abs_T_fallback": "FORBIDDEN_AND_NOT_USED",
+    "failed_case_sign_resolution": "INDETERMINATE_WITHOUT_RAW_T",
+    "forward_source_and_transmission_side_geometry": "CONSISTENT_IN_SAVED_SETUP",
+    "monitor_normal_explicitly_overridden": "NO_IN_RUNNER",
+    "transmission_is_raw_lumerical_directional_power": "YES"
+  }
+}
