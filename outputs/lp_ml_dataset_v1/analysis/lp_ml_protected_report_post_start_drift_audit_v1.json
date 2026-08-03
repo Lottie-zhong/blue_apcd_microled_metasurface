@@ -1,0 +1,30 @@
+{
+  "audit_version": "LP_ML_PROTECTED_REPORT_POST_START_DRIFT_AUDIT_V1",
+  "affected_artifact": "reports/lp_ml1a3_git_history_geometry_reconstruction.md",
+  "task_start_sha256": "171033e0d2c73865d0f8610e81d5a33de56d7deb79d8d38aa2f925f7e17e8321",
+  "accepted_exception_attestation_sha256": "171033e0d2c73865d0f8610e81d5a33de56d7deb79d8d38aa2f925f7e17e8321",
+  "post_start_observed_sha256": "9E46A7BD1927D65ADC3A9CF9192040E7D239B839ED516ADCD96870BF64BFCD02",
+  "post_start_drift_detected": true,
+  "second_protected_report": {
+    "path": "reports/stage11_4a20_legacy_fsp_object_inventory.md",
+    "observed_sha256": "AE3B13341547E13CA85CA763ED8265591C100AC1A78C555DE1C8378816A33708"
+  },
+  "last_write_time_local_observed": "2026-08-03 23:35",
+  "round2_final_sentinel_last_write_time_local_observed": "2026-08-03 23:10",
+  "active_process_audit": {
+    "writer_process_referencing_affected_report": [],
+    "unrelated_python_pid": 33312,
+    "unrelated_python_command": "run_mdc_hf_surrogate_v2_doe96_joint_profile_v1.py --continue-run --batch 4",
+    "active_fdtd_scope": "blue_apcd_mdc_hf_surrogate_v2",
+    "termination_performed": false
+  },
+  "task_write_scope": {
+    "affected_report_modified": false,
+    "affected_report_restored": false,
+    "affected_report_staged": false,
+    "solver_started_after_round2_completion": false
+  },
+  "writer_source_identified": false,
+  "classification": "UNRESOLVED_POST_START_PROTECTED_EVIDENCE_DRIFT",
+  "required_next_action": "Audit external writer provenance before any further LP solver or protected-report mutation"
+}
