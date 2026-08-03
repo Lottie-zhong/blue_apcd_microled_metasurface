@@ -1,104 +1,168 @@
 {
+  "amp_enabled": true,
   "architecture": "7->256 + 4 residual blocks width256 SiLU LayerNorm dropout0.03 -> 8",
+  "batch_size": 64,
+  "cosine_to": 1e-06,
   "cuda_available": true,
   "cuda_name": "NVIDIA GeForce RTX 3080",
   "device": "cuda",
+  "ensemble_mean_l2_std": 0.02338957445347431,
   "ensemble_test": {
-    "Txx_mae": 0.1137481612193426,
-    "Tyy_mae": 0.07773863524198532,
-    "frobenius_mean": 0.18361849679119271,
-    "frobenius_median": 0.1781062322731714,
-    "frobenius_p90": 0.24990246032258953,
-    "frobenius_p95": 0.2810828453947149,
-    "mae": 0.05100821014418923,
-    "max_abs": 0.3151043653488159,
-    "phase_circular_deg_mae": 4.0186444624589575,
-    "rmse": 0.06791744150073521
+    "Txx_mae": 0.013468356917192476,
+    "Tyy_mae": 0.024041609838604927,
+    "frobenius_mean": 0.04520755064985274,
+    "frobenius_median": 0.036701919638630995,
+    "frobenius_p90": 0.08148921976837746,
+    "frobenius_p95": 0.09526959336812275,
+    "leakage_fraction_mae": 3.168925832142122e-05,
+    "mae": 0.010252661305352833,
+    "max_abs": 0.23098689317703247,
+    "phase_circular_deg_mae": 0.8401661174463495,
+    "projection_error_proxy_mae": 3.168925832142122e-05,
+    "rmse": 0.018935062031146345
   },
   "from_scratch": true,
-  "loss": "1.0 raw SmoothL1 + .25 relative Jones + .10 power + .05 rank + .05 projection + .05 amplitude-masked circular phase; rank/projection terms represented by power/projector proxies",
-  "runtime_s": 18.41552472114563,
+  "gradient_clip": 1.0,
+  "loss": "1.00 Huber raw + 0.25 relative Jones + 0.10 power + 0.05 rank + 0.05 projection + 0.05 amplitude-masked circular phase",
+  "max_epochs": 500,
+  "patience": 50,
+  "runtime_s": 1160.010695695877,
   "seeds": [
     {
-      "epochs": 220,
+      "best_validation_raw_smoothl1": 0.0002475908549968153,
+      "epochs": 268,
       "seed": 11,
       "test": {
-        "Txx_mae": 0.24582191123546693,
-        "Tyy_mae": 0.14850039780139923,
-        "frobenius_mean": 0.3609546517839023,
-        "frobenius_median": 0.35173382349479787,
-        "frobenius_p90": 0.5195422637460396,
-        "frobenius_p95": 0.5718573979238012,
-        "mae": 0.10102227945697248,
-        "max_abs": 0.7727157473564148,
-        "phase_circular_deg_mae": 7.941752924260866,
-        "rmse": 0.134505507355663
+        "Txx_mae": 0.014407791640487297,
+        "Tyy_mae": 0.03202469274401665,
+        "frobenius_mean": 0.06188799167145624,
+        "frobenius_median": 0.05118057022075699,
+        "frobenius_p90": 0.10850253991618333,
+        "frobenius_p95": 0.12258802493703488,
+        "leakage_fraction_mae": 0.00040769370389170945,
+        "mae": 0.016158345908466234,
+        "max_abs": 0.2598028779029846,
+        "phase_circular_deg_mae": 1.1582286172419571,
+        "projection_error_proxy_mae": 0.00040769370389170945,
+        "rmse": 0.02529772425134869
       }
     },
     {
-      "epochs": 220,
+      "best_validation_raw_smoothl1": 0.00013019800826441497,
+      "epochs": 500,
       "seed": 22,
       "test": {
-        "Txx_mae": 0.23248797171633528,
-        "Tyy_mae": 0.1517038494348526,
-        "frobenius_mean": 0.3669919876778129,
-        "frobenius_median": 0.34886528892332985,
-        "frobenius_p90": 0.5150546763385662,
-        "frobenius_p95": 0.6202542851802431,
-        "mae": 0.10241937551747166,
-        "max_abs": 0.8009802103042603,
-        "phase_circular_deg_mae": 8.045435257267934,
-        "rmse": 0.13736514451253684
+        "Txx_mae": 0.017332782516787198,
+        "Tyy_mae": 0.02316524088382721,
+        "frobenius_mean": 0.04510642307276377,
+        "frobenius_median": 0.03803857895111691,
+        "frobenius_p90": 0.07520306844469421,
+        "frobenius_p95": 0.09889321840983925,
+        "leakage_fraction_mae": 2.095186209771782e-05,
+        "mae": 0.009996512641034648,
+        "max_abs": 0.23907935619354248,
+        "phase_circular_deg_mae": 0.8320769663213595,
+        "projection_error_proxy_mae": 2.095186209771782e-05,
+        "rmse": 0.019180196908810326
       }
     },
     {
-      "epochs": 220,
+      "best_validation_raw_smoothl1": 0.0001831508125178516,
+      "epochs": 405,
       "seed": 33,
       "test": {
-        "Txx_mae": 0.2568798395878591,
-        "Tyy_mae": 0.1747046262025833,
-        "frobenius_mean": 0.39408532832341253,
-        "frobenius_median": 0.3743341817536062,
-        "frobenius_p90": 0.5852736463548289,
-        "frobenius_p95": 0.6441676645982652,
-        "mae": 0.11100150931224562,
-        "max_abs": 0.6177631616592407,
-        "phase_circular_deg_mae": 8.484385550950961,
-        "rmse": 0.14704105132895984
+        "Txx_mae": 0.018370571149758663,
+        "Tyy_mae": 0.0257594995200634,
+        "frobenius_mean": 0.05237021970793976,
+        "frobenius_median": 0.04593550951431084,
+        "frobenius_p90": 0.08964354038368276,
+        "frobenius_p95": 0.1071851115196964,
+        "leakage_fraction_mae": 9.324112033937126e-05,
+        "mae": 0.01280232967440774,
+        "max_abs": 0.23222416639328003,
+        "phase_circular_deg_mae": 1.1942327785501246,
+        "projection_error_proxy_mae": 9.324112033937126e-05,
+        "rmse": 0.021221944204511532
       }
     },
     {
-      "epochs": 220,
+      "best_validation_raw_smoothl1": 0.00017527476302348077,
+      "epochs": 486,
       "seed": 44,
       "test": {
-        "Txx_mae": 0.23627032476903428,
-        "Tyy_mae": 0.17697475850582123,
-        "frobenius_mean": 0.39737325649570554,
-        "frobenius_median": 0.36770232009591386,
-        "frobenius_p90": 0.5977599608749279,
-        "frobenius_p95": 0.6778236132528965,
-        "mae": 0.11208199433566703,
-        "max_abs": 0.8913457989692688,
-        "phase_circular_deg_mae": 8.879737351511896,
-        "rmse": 0.15000563712260728
+        "Txx_mae": 0.015061254771827367,
+        "Tyy_mae": 0.02661973610520363,
+        "frobenius_mean": 0.04795509274654655,
+        "frobenius_median": 0.041407459283231356,
+        "frobenius_p90": 0.0786387864196745,
+        "frobenius_p95": 0.0937009474456946,
+        "leakage_fraction_mae": 2.5935800294973888e-05,
+        "mae": 0.010792190637706275,
+        "max_abs": 0.22811982035636902,
+        "phase_circular_deg_mae": 0.8158271645962518,
+        "projection_error_proxy_mae": 2.5935800294973888e-05,
+        "rmse": 0.01959844686626502
       }
     },
     {
-      "epochs": 220,
+      "best_validation_raw_smoothl1": 0.00012155380682088435,
+      "epochs": 500,
       "seed": 55,
       "test": {
-        "Txx_mae": 0.24802416497800703,
-        "Tyy_mae": 0.174935445189476,
-        "frobenius_mean": 0.4142231788231159,
-        "frobenius_median": 0.393298733173552,
-        "frobenius_p90": 0.6095548266613607,
-        "frobenius_p95": 0.6756228884329604,
-        "mae": 0.11575652475259328,
-        "max_abs": 0.881155252456665,
-        "phase_circular_deg_mae": 8.881642583903313,
-        "rmse": 0.15478449251774998
+        "Txx_mae": 0.014101898313135207,
+        "Tyy_mae": 0.024599621072411537,
+        "frobenius_mean": 0.04316619250547264,
+        "frobenius_median": 0.035503361812144224,
+        "frobenius_p90": 0.07529634648723554,
+        "frobenius_p95": 0.10004297018704654,
+        "leakage_fraction_mae": 2.321909778402187e-05,
+        "mae": 0.009563880845991711,
+        "max_abs": 0.1957082748413086,
+        "phase_circular_deg_mae": 0.8101770698597932,
+        "projection_error_proxy_mae": 2.321909778402187e-05,
+        "rmse": 0.01802202919088811
       }
     }
   ],
-  "warm_start": false
+  "uncertainty_calibration_bins": [
+    {
+      "bin": [
+        0,
+        0.25
+      ],
+      "count": 6,
+      "mean_error": 0.02911965827181287,
+      "mean_uncertainty": 0.01196651595334212
+    },
+    {
+      "bin": [
+        0.25,
+        0.5
+      ],
+      "count": 236,
+      "mean_error": 0.03665302257430128,
+      "mean_uncertainty": 0.019786685567065063
+    },
+    {
+      "bin": [
+        0.5,
+        0.75
+      ],
+      "count": 86,
+      "mean_error": 0.0600853494349922,
+      "mean_uncertainty": 0.03087337299921485
+    },
+    {
+      "bin": [
+        0.75,
+        1.01
+      ],
+      "count": 14,
+      "mean_error": 0.10491507097673769,
+      "mean_uncertainty": 0.043047678257737844
+    }
+  ],
+  "uncertainty_error_correlation": 0.6252277494284436,
+  "warm_start": false,
+  "warmup_epochs": 10
 }
