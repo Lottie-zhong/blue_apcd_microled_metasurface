@@ -1,0 +1,31 @@
+{
+  "contract_id": "joint_profile_export_contract_resolved_v1",
+  "export_fields": [
+    "geometry_hash",
+    "case_hash",
+    "source_position",
+    "dipole_orientation",
+    "wavelength_grid",
+    "angle_grid",
+    "joint_tensor_raw",
+    "spectral_marginal_raw",
+    "angular_marginal_raw",
+    "raw_upward_relative_power",
+    "normalization_denominator",
+    "filter_identity",
+    "monitor_identity",
+    "validity_flags",
+    "quality_flags",
+    "builder/material/FSP/extraction SHA"
+  ],
+  "forbidden_shortcuts": [
+    "spectral_marginal_x_angular_marginal",
+    "450_nm_copy_to_other_wavelengths",
+    "interpolation_fabrication",
+    "TMM_angular_substitution",
+    "normalized_profile_backsolve"
+  ],
+  "resampling": "none; all Pilot4 cases must share exact native grids",
+  "solver_authorized": true,
+  "source_of_truth": "actual farfield2d export from post-FSP"
+}

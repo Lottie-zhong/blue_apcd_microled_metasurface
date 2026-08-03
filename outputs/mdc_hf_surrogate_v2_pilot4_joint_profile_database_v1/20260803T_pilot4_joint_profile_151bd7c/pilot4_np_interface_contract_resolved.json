@@ -1,0 +1,21 @@
+{
+  "contract_id": "pilot4_np_interface_contract_resolved_v1",
+  "extrapolation": "forbidden",
+  "fixture": "synthetic frozen NP eta response; no NP solver",
+  "grid_alignment": "exact same grid SHA",
+  "input_fields": [
+    "wavelength_grid",
+    "angle_grid",
+    "channel/orientation convention",
+    "normalized joint MDC weight",
+    "relative total power",
+    "geometry_id/hash",
+    "profile SHA"
+  ],
+  "interpolation_policy": "none",
+  "low_reflection_caveat": "modular interface only in weak-reflection regime; full-wave validation required if NP alters MDC cavity",
+  "target_direction_deg": 15.0,
+  "target_order": "+1",
+  "uses_joint_profile": true,
+  "weighted_integration": "integral W_MDC(lambda,theta)*eta_NP,+1 over lambda/theta"
+}

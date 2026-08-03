@@ -1,0 +1,30 @@
+{
+  "angular_projection": "native farfieldangle per wavelength; no marginal product or wavelength copy",
+  "contract_id": "joint_profile_monitor_contract_resolved_v1",
+  "export_code_sha256": "343051a9fb82e79a70e6369c22152a59a84c375700c5fd519abd0888cc1585f0",
+  "farfield_export": "farfield2d(upward_monitor, wavelength_index)",
+  "frequency_domain_monitor": "upward_monitor",
+  "invalid_policy": "reject nonfinite; reject negative intensity beyond tolerance",
+  "monitor_config_sha256": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+  "monitor_name": "upward_monitor",
+  "power_box": "emit_box_12nm_{top,bottom,left,right}",
+  "preserved_inputs": [
+    "geometry",
+    "Native-M1 materials",
+    "source",
+    "source position",
+    "dipole orientation",
+    "2D simulation region",
+    "PML",
+    "mesh policy",
+    "420-480 nm source range",
+    "raw-power convention"
+  ],
+  "raw_power_denominator": "p_box_raw and p_up_raw retained separately",
+  "solver_authorized": true,
+  "tensor_axis_order": [
+    "wavelength_index",
+    "angle_index"
+  ],
+  "tensor_units": "raw farfield intensity in native Lumerical export units"
+}

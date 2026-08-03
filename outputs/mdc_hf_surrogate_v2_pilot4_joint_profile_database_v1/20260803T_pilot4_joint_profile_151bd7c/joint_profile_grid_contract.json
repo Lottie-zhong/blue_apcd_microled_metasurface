@@ -1,0 +1,22 @@
+{
+  "air_side": "+y",
+  "angle_grid_match_tolerance_deg": 1e-06,
+  "angle_grid_policy": "first-case native farfieldangle grid frozen; all cases must match within 1e-6 deg (native export floating quantization)",
+  "angular_convention": "farfieldangle radians converted to degrees; +theta toward +x from upward +y air-side normal",
+  "contract_id": "joint_profile_grid_contract_v1",
+  "filter_definition": "raw unfiltered farfield2d intensity; no wavelength-independent angular substitution",
+  "marginal_closure_policy": "recompute both marginals from raw joint tensor using radians for both theta and wavelength quadrature",
+  "marginal_closure_tolerance": 1e-12,
+  "mask_policy": "reject nonfinite bins; no silent clipping; intensity negatives below -1e-15 reject",
+  "raw_power_denominator": "retain p_box_raw and p_up_raw; no pre-normalization",
+  "solver_authorized": true,
+  "tensor_axis_order": [
+    "wavelength_index",
+    "angle_index"
+  ],
+  "tensor_units": "native farfield intensity",
+  "wavelength_grid_id": "lambda_420_480_301_v1",
+  "wavelength_points": 301,
+  "wavelength_start_nm": 420.0,
+  "wavelength_stop_nm": 480.0
+}
