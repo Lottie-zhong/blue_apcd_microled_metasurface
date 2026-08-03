@@ -1,0 +1,78 @@
+{
+  "attempt_id": "LP_ML_ROUND1_PRODUCTION_ATTEMPT1_V1",
+  "authorized_geometries": 240,
+  "authorized_new_subruns_max": 480,
+  "execution_contract_version": "LP_ML_ROUND1_PRODUCTION_EXECUTION_V1",
+  "forbidden": [
+    "D9",
+    "Batch B",
+    "old Batch2",
+    "new candidate selection",
+    "plan expansion",
+    "active-learning solver",
+    "inverse design",
+    "K6"
+  ],
+  "full_plan_sha256": "0c6e127570914bbd0c20d0fc28f7c153a17ed80f6dd689e5c8471152e71511a5",
+  "geometry_alias_policy": {
+    "canonical_equivalence_groups": {
+      "025b263796744ac85809ca94228734d625e440a8b0ae211b55d4fd64a8b5cacd": [
+        "LPML_R1_GLOBAL_SOBOL_123",
+        "LPML_R1_PHASE_REGION_169"
+      ],
+      "27443ce193465796de77349dcf0f7707ea3a3f60409dea6a93b802137f89a3a5": [
+        "LPML_R1_GLOBAL_SOBOL_117",
+        "LPML_R1_PHASE_REGION_150"
+      ],
+      "9c3dcc14d05b525879aa1493d3e98f6ee7ff2ac9710e7703995b62ea808bf991": [
+        "LPML_R1_GLOBAL_SOBOL_121",
+        "LPML_R1_PHASE_REGION_141"
+      ]
+    },
+    "no_alias_leakage": true,
+    "same_split_required": true,
+    "symmetry_equivalence_groups": {
+      "094ef0a47c06821f18c943cb93b7eff43fa712a37302120f7e6fde88df3cf0f9": [
+        "LPML_R1_GLOBAL_SOBOL_117",
+        "LPML_R1_PHASE_REGION_150"
+      ],
+      "0c1ef69ef32c172d866967a38b125e5d37250d5898db4bacd85c28ef1c6d726d": [
+        "LPML_R1_GLOBAL_SOBOL_121",
+        "LPML_R1_PHASE_REGION_141"
+      ],
+      "9cfae5773b7064dee5086668a5e59c2a92c2e92e89138f3c219437f7c509acff": [
+        "LPML_R1_GLOBAL_SOBOL_123",
+        "LPML_R1_PHASE_REGION_169"
+      ]
+    }
+  },
+  "lifecycle": "x->checkpoint->reload->acceptance->9-point weighted-G0; y->checkpoint->reload->acceptance->9-point weighted-G0",
+  "monitor_settings": {
+    "global_frequency_points": 9,
+    "global_use_source_limits": true,
+    "global_use_wavelength_spacing": true,
+    "local_frequency_points": 9,
+    "local_override_global": true,
+    "local_use_source_limits": true,
+    "local_use_wavelength_spacing": true
+  },
+  "no_retry_entered_case": true,
+  "old_attempts_excluded": [
+    "LP_ML_ROUND1_SMOKE_ATTEMPT1_V1"
+  ],
+  "sampling_mode": "wavelength_domain_uniform_via_source_limits",
+  "smoke_attempt2_sentinel_sha256": "feccb5b00531e913ed37812af865ca52d5ae7adab76b8ad04e57233d6f6f7168",
+  "smoke_not_rerun": true,
+  "source_plan_sha256": "74a6ae3c6eb5a39874e9bb66f9777f228484a1db64c25d41a60d84efc9344b10",
+  "wavelengths_nm": [
+    450.0,
+    450.5,
+    451.0,
+    451.5,
+    452.0,
+    452.5,
+    453.0,
+    453.5,
+    454.0
+  ]
+}
