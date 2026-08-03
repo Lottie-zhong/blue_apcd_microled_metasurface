@@ -1,0 +1,968 @@
+{
+  "actual_solver_grid_equality_proven": false,
+  "attempt_id": "attempt_001",
+  "auto_shutoff_min": 1e-05,
+  "candidate_performance_label": false,
+  "case_id": "RUN3C_P_PILOT_HF_SIMTIME_2PS_CONTROL_V1",
+  "contract_hash": "829ca10683205f8322d1cbaf11c9ae1c97de1b84d5314714f7c2939c87740522",
+  "entered": false,
+  "expected_single_variable_change": {
+    "from_s": 1e-12,
+    "object": "FDTD",
+    "property": "simulation time",
+    "to_s": 2e-12
+  },
+  "material_readback": {
+    "APCD_SIO2_NATIVE_M1": {
+      "sampled_rows": 101,
+      "type": "Sampled 3D data"
+    },
+    "APCD_TIO2_NATIVE_M1": {
+      "sampled_rows": 101,
+      "type": "Sampled 3D data"
+    }
+  },
+  "object_names": {
+    "FDTD": {
+      "name": "FDTD",
+      "type": "FDTD"
+    },
+    "N1_DIAG_LOWER_INSIDE": {
+      "name": "N1_DIAG_LOWER_INSIDE",
+      "type": "DFTMonitor"
+    },
+    "N1_DIAG_LOWER_OUTSIDE": {
+      "name": "N1_DIAG_LOWER_OUTSIDE",
+      "type": "DFTMonitor"
+    },
+    "N1_DIAG_PML_LOWER": {
+      "name": "N1_DIAG_PML_LOWER",
+      "type": "DFTMonitor"
+    },
+    "N1_DIAG_PML_UPPER": {
+      "name": "N1_DIAG_PML_UPPER",
+      "type": "DFTMonitor"
+    },
+    "N1_DIAG_UPPER_INSIDE": {
+      "name": "N1_DIAG_UPPER_INSIDE",
+      "type": "DFTMonitor"
+    },
+    "N1_DIAG_UPPER_OUTSIDE": {
+      "name": "N1_DIAG_UPPER_OUTSIDE",
+      "type": "DFTMonitor"
+    },
+    "N1_DIAG_XZ_INDEX_449": {
+      "name": "N1_DIAG_XZ_INDEX_449",
+      "type": "IndexMonitor"
+    },
+    "RUN3C_FIXED_NESTED_N2": {
+      "name": "RUN3C_FIXED_NESTED_N2",
+      "type": "Mesh"
+    },
+    "SiO2 substrate": {
+      "name": "SiO2 substrate",
+      "type": "Rectangle"
+    },
+    "TiO2_pillar_0": {
+      "name": "TiO2_pillar_0",
+      "type": "Circle"
+    },
+    "TiO2_pillar_1": {
+      "name": "TiO2_pillar_1",
+      "type": "Circle"
+    },
+    "TiO2_pillar_2": {
+      "name": "TiO2_pillar_2",
+      "type": "Circle"
+    },
+    "TiO2_pillar_3": {
+      "name": "TiO2_pillar_3",
+      "type": "Circle"
+    },
+    "TiO2_pillar_4": {
+      "name": "TiO2_pillar_4",
+      "type": "Circle"
+    },
+    "TiO2_pillar_5": {
+      "name": "TiO2_pillar_5",
+      "type": "Circle"
+    },
+    "field_450_monitor": {
+      "name": "field_450_monitor",
+      "type": "DFTMonitor"
+    },
+    "order_monitor": {
+      "name": "order_monitor",
+      "type": "DFTMonitor"
+    },
+    "reflection_monitor": {
+      "name": "reflection_monitor",
+      "type": "DFTMonitor"
+    },
+    "source_x_forward": {
+      "name": "source_x_forward",
+      "type": "PlaneSource"
+    },
+    "transmission_monitor": {
+      "name": "transmission_monitor",
+      "type": "DFTMonitor"
+    }
+  },
+  "object_readback": {
+    "FDTD": {
+      "auto shutoff min": 1e-05,
+      "down sample X": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample X' was not found\")"
+      },
+      "down sample Y": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample Y' was not found\")"
+      },
+      "down sample Z": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample Z' was not found\")"
+      },
+      "dx": 1e-07,
+      "dy": 1e-07,
+      "dz": 1e-07,
+      "frequency points": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'frequency points' was not found\")"
+      },
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": 4.0,
+      "mesh refinement": "conformal variant 0",
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": 2e-12,
+      "spatial interpolation": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'spatial interpolation' was not found\")"
+      },
+      "type": "FDTD",
+      "use auto shutoff": 1.0,
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 3e-07,
+      "z max": 1.2e-06,
+      "z min": -6e-07,
+      "z span": 1.8e-06
+    },
+    "N1_DIAG_LOWER_INSIDE": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": -9e-08,
+      "z max": -9e-08,
+      "z min": -9e-08,
+      "z span": 0.0
+    },
+    "N1_DIAG_LOWER_OUTSIDE": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": -1.1e-07,
+      "z max": -1.1e-07,
+      "z min": -1.1e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_PML_LOWER": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": -5e-07,
+      "z max": -5e-07,
+      "z min": -5e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_PML_UPPER": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 1.1e-06,
+      "z max": 1.1e-06,
+      "z min": 1.1e-06,
+      "z span": 0.0
+    },
+    "N1_DIAG_UPPER_INSIDE": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 5.9e-07,
+      "z max": 5.9e-07,
+      "z min": 5.9e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_UPPER_OUTSIDE": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 6.1e-07,
+      "z max": 6.1e-07,
+      "z min": 6.1e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_XZ_INDEX_449": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 1.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "none",
+      "type": "IndexMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 0.0,
+      "y min": 0.0,
+      "y span": 0.0,
+      "z": 3e-07,
+      "z max": 1.2e-06,
+      "z min": -6e-07,
+      "z span": 1.8e-06
+    },
+    "RUN3C_FIXED_NESTED_N2": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample X' was not found\")"
+      },
+      "down sample Y": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample Y' was not found\")"
+      },
+      "down sample Z": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample Z' was not found\")"
+      },
+      "dx": 5e-09,
+      "dy": 5e-09,
+      "dz": 5e-09,
+      "frequency points": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'frequency points' was not found\")"
+      },
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'spatial interpolation' was not found\")"
+      },
+      "type": "Mesh",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 2.5e-07,
+      "z max": 6e-07,
+      "z min": -1e-07,
+      "z span": 7e-07
+    },
+    "field_450_monitor": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 9e-07,
+      "z max": 9e-07,
+      "z min": 9e-07,
+      "z span": 0.0
+    },
+    "order_monitor": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 9e-07,
+      "z max": 9e-07,
+      "z min": 9e-07,
+      "z span": 0.0
+    },
+    "reflection_monitor": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": -3e-07,
+      "z max": -3e-07,
+      "z min": -3e-07,
+      "z span": 0.0
+    },
+    "source_x_forward": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample X' was not found\")"
+      },
+      "down sample Y": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample Y' was not found\")"
+      },
+      "down sample Z": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'down sample Z' was not found\")"
+      },
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'frequency points' was not found\")"
+      },
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": 0.0,
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'spatial interpolation' was not found\")"
+      },
+      "type": "PlaneSource",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": 4.45e-07,
+      "wavelength stop": 4.55e-07,
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": -2.5e-07,
+      "z max": -2.5e-07,
+      "z min": -2.5e-07,
+      "z span": 0.0
+    },
+    "transmission_monitor": {
+      "auto shutoff min": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'auto shutoff min' was not found\")"
+      },
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "dx": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dx' was not found\")"
+      },
+      "dy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dy' was not found\")"
+      },
+      "dz": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'dz' was not found\")"
+      },
+      "frequency points": 11.0,
+      "material": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'material' was not found\")"
+      },
+      "mesh accuracy": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh accuracy' was not found\")"
+      },
+      "mesh refinement": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'mesh refinement' was not found\")"
+      },
+      "polarization angle": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'polarization angle' was not found\")"
+      },
+      "radius": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'radius' was not found\")"
+      },
+      "simulation time": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'simulation time' was not found\")"
+      },
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use auto shutoff": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'use auto shutoff' was not found\")"
+      },
+      "wavelength start": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength start' was not found\")"
+      },
+      "wavelength stop": {
+        "UNAVAILABLE": "LumApiError(\"in getnamed, the requested property 'wavelength stop' was not found\")"
+      },
+      "x": 0.0,
+      "x max": 8.7e-07,
+      "x min": -8.7e-07,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y max": 1.45e-07,
+      "y min": -1.45e-07,
+      "y span": 2.9e-07,
+      "z": 9e-07,
+      "z max": 9e-07,
+      "z min": 9e-07,
+      "z span": 0.0
+    }
+  },
+  "parent_case_id": "RUN3C_P_PILOT_HF_V1",
+  "parent_post_fsp_sha256": "d45634ef54359c80cd38f88d6353845cf60315c4cac35c5381ee1a9dd2c60b56",
+  "parent_source_prefsp_path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_p0_label_generator_recovery_v1\\runtime_prefsp\\RUN3C_P_PILOT_HF_V1.fsp",
+  "parent_source_prefsp_sha256": "887d8b89fc8b2cfaefc8d20eb72b9dd33958837c930d0085721a8a3d12f5574a",
+  "provisional_hf_label": true,
+  "run_invocation_count": 0,
+  "setup_only": true,
+  "simulation_time_s": 2e-12,
+  "solver_entered": 0,
+  "source_prefsp_path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p0_simulation_time_extension_control_v1\\runtime_prefsp\\RUN3C_P_PILOT_HF_SIMTIME_2PS_CONTROL_V1.fsp",
+  "source_prefsp_sha256": "76d23a8961267fb6a720ad875ba016b56aed5c65e8c7379ce09b0cea6029ef1f",
+  "supersedes_for_generator_evaluation": true,
+  "training_label": false,
+  "unexpected_differences": [],
+  "wavelengths_nm": [
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455
+  ]
+}
