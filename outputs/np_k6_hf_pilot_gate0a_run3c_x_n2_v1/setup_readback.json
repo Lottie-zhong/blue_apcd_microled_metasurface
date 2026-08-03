@@ -1,0 +1,377 @@
+{
+  "fdtd": {
+    "auto shutoff min": 1e-05,
+    "mesh accuracy": 4.0,
+    "simulation time": 1e-12,
+    "x": 0.0,
+    "x max bc": "Periodic",
+    "x min bc": "Periodic",
+    "x span": 1.74e-06,
+    "y": 0.0,
+    "y max bc": "Periodic",
+    "y min bc": "Periodic",
+    "y span": 2.9e-07,
+    "z": 3e-07,
+    "z max bc": "PML",
+    "z min bc": "PML",
+    "z span": 1.8e-06
+  },
+  "materials": {
+    "APCD_SIO2_NATIVE_M1": {
+      "sampled_data_rows": 101,
+      "type": "Sampled 3D data"
+    },
+    "APCD_TIO2_NATIVE_M1": {
+      "sampled_data_rows": 101,
+      "type": "Sampled 3D data"
+    }
+  },
+  "mesh": {
+    "dx": 5e-09,
+    "dy": 5e-09,
+    "dz": 5e-09,
+    "set mesh multiplier": 0.0,
+    "x": 0.0,
+    "x span": 1.74e-06,
+    "y": 0.0,
+    "y span": 2.9e-07,
+    "z": 2.5e-07,
+    "z span": 7e-07
+  },
+  "mesh_name": "RUN3C_FIXED_NESTED_N2",
+  "monitors": {
+    "N1_DIAG_LOWER_INSIDE": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": -9e-08,
+      "z span": 0.0
+    },
+    "N1_DIAG_LOWER_OUTSIDE": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": -1.1e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_PML_LOWER": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": -5e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_PML_UPPER": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": 1.1e-06,
+      "z span": 0.0
+    },
+    "N1_DIAG_UPPER_INSIDE": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": 5.9e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_UPPER_OUTSIDE": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": 6.1e-07,
+      "z span": 0.0
+    },
+    "N1_DIAG_XZ_INDEX_449": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 1.0,
+      "monitor type": "2D Y-normal",
+      "spatial interpolation": "none",
+      "type": "IndexMonitor",
+      "wavelength center": 4.49e-07,
+      "wavelength span": 0.0,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 0.0,
+      "z": 3e-07,
+      "z span": 1.8e-06
+    },
+    "field_450_monitor": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": 9e-07,
+      "z span": 0.0
+    },
+    "order_monitor": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": 9e-07,
+      "z span": 0.0
+    },
+    "reflection_monitor": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": -3e-07,
+      "z span": 0.0
+    },
+    "transmission_monitor": {
+      "down sample X": 1.0,
+      "down sample Y": 1.0,
+      "down sample Z": 1.0,
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "spatial interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "wavelength center": 4.5e-07,
+      "wavelength span": 1.000000000000001e-08,
+      "x": 0.0,
+      "x span": 1.74e-06,
+      "y": 0.0,
+      "y span": 2.9e-07,
+      "z": 9e-07,
+      "z span": 0.0
+    }
+  },
+  "names": [
+    {
+      "name": "FDTD",
+      "type": "FDTD"
+    },
+    {
+      "name": "SiO2 substrate",
+      "type": "Rectangle"
+    },
+    {
+      "name": "TiO2_pillar_0",
+      "type": "Circle"
+    },
+    {
+      "name": "TiO2_pillar_1",
+      "type": "Circle"
+    },
+    {
+      "name": "TiO2_pillar_2",
+      "type": "Circle"
+    },
+    {
+      "name": "TiO2_pillar_3",
+      "type": "Circle"
+    },
+    {
+      "name": "TiO2_pillar_4",
+      "type": "Circle"
+    },
+    {
+      "name": "TiO2_pillar_5",
+      "type": "Circle"
+    },
+    {
+      "name": "source_x_forward",
+      "type": "PlaneSource"
+    },
+    {
+      "name": "reflection_monitor",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "transmission_monitor",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "order_monitor",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "field_450_monitor",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "RUN3C_FIXED_NESTED_N2",
+      "type": "Mesh"
+    },
+    {
+      "name": "N1_DIAG_LOWER_INSIDE",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "N1_DIAG_LOWER_OUTSIDE",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "N1_DIAG_UPPER_INSIDE",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "N1_DIAG_UPPER_OUTSIDE",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "N1_DIAG_PML_LOWER",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "N1_DIAG_PML_UPPER",
+      "type": "DFTMonitor"
+    },
+    {
+      "name": "N1_DIAG_XZ_INDEX_449",
+      "type": "IndexMonitor"
+    }
+  ],
+  "pillars": [
+    {
+      "height": "UNAVAILABLE:LumApiError(\"in getnamed, the requested property 'height' was not found\")",
+      "material": "APCD_TIO2_NATIVE_M1",
+      "radius": 6.5e-08,
+      "x": -7.25e-07,
+      "y": 0.0,
+      "z": 2.5e-07
+    },
+    {
+      "height": "UNAVAILABLE:LumApiError(\"in getnamed, the requested property 'height' was not found\")",
+      "material": "APCD_TIO2_NATIVE_M1",
+      "radius": 7.250000000000001e-08,
+      "x": -4.35e-07,
+      "y": 0.0,
+      "z": 2.5e-07
+    },
+    {
+      "height": "UNAVAILABLE:LumApiError(\"in getnamed, the requested property 'height' was not found\")",
+      "material": "APCD_TIO2_NATIVE_M1",
+      "radius": 7.75e-08,
+      "x": -1.4500000000000001e-07,
+      "y": 0.0,
+      "z": 2.5e-07
+    },
+    {
+      "height": "UNAVAILABLE:LumApiError(\"in getnamed, the requested property 'height' was not found\")",
+      "material": "APCD_TIO2_NATIVE_M1",
+      "radius": 9.000000000000001e-08,
+      "x": 1.4500000000000001e-07,
+      "y": 0.0,
+      "z": 2.5e-07
+    },
+    {
+      "height": "UNAVAILABLE:LumApiError(\"in getnamed, the requested property 'height' was not found\")",
+      "material": "APCD_TIO2_NATIVE_M1",
+      "radius": 9.75e-08,
+      "x": 4.35e-07,
+      "y": 0.0,
+      "z": 2.5e-07
+    },
+    {
+      "height": "UNAVAILABLE:LumApiError(\"in getnamed, the requested property 'height' was not found\")",
+      "material": "APCD_TIO2_NATIVE_M1",
+      "radius": 1.1500000000000001e-07,
+      "x": 7.25e-07,
+      "y": 0.0,
+      "z": 2.5e-07
+    }
+  ],
+  "source": {
+    "direction": "Forward",
+    "injection axis": "z-axis",
+    "polarization angle": 0.0,
+    "wavelength start": 4.45e-07,
+    "wavelength stop": 4.55e-07,
+    "x": 0.0,
+    "y": 0.0,
+    "z": -2.5e-07
+  }
+}

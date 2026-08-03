@@ -1,0 +1,49 @@
+{
+  "added_diagnostic_objects": [
+    "N1_DIAG_LOWER_INSIDE",
+    "N1_DIAG_LOWER_OUTSIDE",
+    "N1_DIAG_UPPER_INSIDE",
+    "N1_DIAG_UPPER_OUTSIDE",
+    "N1_DIAG_PML_LOWER",
+    "N1_DIAG_PML_UPPER",
+    "N1_DIAG_XZ_INDEX_449"
+  ],
+  "baseline_n1_prefsp": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d4b_k6x_fullwave_v1\\runtime_prefsp_run3c_fixed_nested_mesh_v1\\N1\\BROADBAND_PARETO_K6X_FIXED_NESTED_N1.fsp",
+  "baseline_n1_sha256": "10d6b57bb7bc383a3abe1741034eb7688207c7e4c4d7516a077b672bfe0f32bf",
+  "derived_template": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\BROADBAND_PARETO_K6X_FIXED_NESTED_N2_WITH_N1_DIAGNOSTIC_MONITORS.fsp",
+  "derived_template_sha256": "887d8b89fc8b2cfaefc8d20eb72b9dd33958837c930d0085721a8a3d12f5574a",
+  "expected_inherited_diagnostic_objects": [
+    "N1_DIAG_LOWER_INSIDE",
+    "N1_DIAG_LOWER_OUTSIDE",
+    "N1_DIAG_UPPER_INSIDE",
+    "N1_DIAG_UPPER_OUTSIDE",
+    "N1_DIAG_PML_LOWER",
+    "N1_DIAG_PML_UPPER",
+    "N1_DIAG_XZ_INDEX_449"
+  ],
+  "modified_properties": {
+    "mesh": {
+      "object_from": "RUN3C_FIXED_NESTED_N1",
+      "object_to": "RUN3C_FIXED_NESTED_N2",
+      "properties": {
+        "dx": {
+          "from_nm": 10,
+          "to_nm": 5
+        },
+        "dy": {
+          "from_nm": 10,
+          "to_nm": 5
+        },
+        "dz": {
+          "from_nm": 10,
+          "to_nm": 5
+        }
+      }
+    }
+  },
+  "new_setup": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0a_run3c_x_n2_v1\\runtime_prefsp\\RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE0A.fsp",
+  "new_setup_sha256": "887d8b89fc8b2cfaefc8d20eb72b9dd33958837c930d0085721a8a3d12f5574a",
+  "note": "diagnostic monitors are inherited frozen contract objects; actual grid equality remains a post-run gate",
+  "removed_objects": [],
+  "unexpected_differences": []
+}
