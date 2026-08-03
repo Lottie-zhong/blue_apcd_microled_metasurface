@@ -1,0 +1,17 @@
+{
+  "contract_id": "fixed_v2_aggregation_contract_v1",
+  "fwhm_cone_policy": "auxiliary only",
+  "geometry_aggregation": "raw_geometry = (raw_top + raw_centroid + raw_bottom) / 3",
+  "missing_policy": "any missing required case blocks geometry-level label",
+  "nan_policy": "reject geometry label",
+  "normalization_denominator": "sum over lambda,theta,channel of raw_geometry; denominator must be finite and >0",
+  "order": [
+    "raw case aggregation",
+    "raw geometry aggregation",
+    "normalization",
+    "marginalization",
+    "derived scalar labels"
+  ],
+  "position_aggregation": "raw_position = 0.5 * raw_x + 0.5 * raw_z for each source position",
+  "relative_upward_power_denominator": "source-normalization denominator exported per case and provenance-bound"
+}

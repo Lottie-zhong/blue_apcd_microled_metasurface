@@ -1,0 +1,33 @@
+{
+  "contract_id": "fixed_v2_loss_contract_v1",
+  "definitions": {
+    "L_JS": "Jensen-Shannon divergence on normalized profile",
+    "L_angular_CDF": "angular marginal cumulative-distribution loss",
+    "L_auxiliary": "standardized SmoothL1 for peak/FWHM/cone labels",
+    "L_log_power": "SmoothL1 on log(relative upward power + epsilon)",
+    "L_profile": "log-domain SmoothL1 on normalized joint profile",
+    "L_spectral_CDF": "spectral marginal cumulative-distribution loss"
+  },
+  "epsilon": {
+    "js": 1e-12,
+    "profile_log": 1e-12,
+    "relative_power_log": 1e-08
+  },
+  "fwhm_cone_not_primary": true,
+  "loss_component_logging": "each component logged independently",
+  "masking": "invalid/missing profile blocks the case; no imputation",
+  "normalization": "raw-before-normalization per aggregation contract",
+  "post_test_weight_change_forbidden": true,
+  "profile_is_primary": true,
+  "smooth_l1_beta": 1.0,
+  "total_loss": "0.35 L_profile + 0.20 L_JS + 0.15 L_spectral_CDF + 0.15 L_angular_CDF + 0.10 L_log_power + 0.05 L_auxiliary",
+  "training_authorized": false,
+  "weights": {
+    "JS": 0.2,
+    "angular_CDF": 0.15,
+    "auxiliary": 0.05,
+    "log_power": 0.1,
+    "profile": 0.35,
+    "spectral_CDF": 0.15
+  }
+}

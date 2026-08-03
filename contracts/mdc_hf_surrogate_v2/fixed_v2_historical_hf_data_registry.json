@@ -1,0 +1,49 @@
+{
+  "combined_status": "DEVELOPMENT_ONLY",
+  "contract_id": "fixed_v2_historical_hf_data_registry_v1",
+  "datasets": {
+    "HF15": {
+      "allowed_uses": [
+        "schema_audit",
+        "profile_extractor_development",
+        "compression_smoke",
+        "fixed_v2_development_seed"
+      ],
+      "case_count": 90,
+      "formal_values_read_in_this_task": false,
+      "geometry_count": 15,
+      "independent_test": false,
+      "promotion_evidence": false,
+      "status": "EXPOSED_DEVELOPMENT_ONLY"
+    },
+    "replacement_R12": {
+      "allowed_uses": [
+        "schema_audit",
+        "profile_extractor_development",
+        "compression_smoke",
+        "fixed_v2_development_seed"
+      ],
+      "case_count": 72,
+      "formal_values_read_in_this_task": false,
+      "geometry_count": 12,
+      "independent_test": false,
+      "promotion_evidence": false,
+      "status": "CONSUMED_EXTERNAL_DEVELOPMENT_ONLY"
+    }
+  },
+  "diagnostics_value_reads": 0,
+  "formal_label_value_reads": 0,
+  "historical_cases": 162,
+  "historical_geometries": 27,
+  "identity_preserved": true,
+  "prohibited_uses": [
+    "fixed_v2_independent_validation",
+    "sealed_test",
+    "promotion_evidence"
+  ],
+  "read_policy": "manifest/schema/role metadata only; no row-level formal label or diagnostic values",
+  "source_metadata_paths": [
+    "outputs/mdc_fdtd_hf15_canonical_label_view_v1",
+    "outputs/mdc_replacement_hf_external_r12_solver_evaluation_v1"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "candidates": [
+    {
+      "components": 16,
+      "id": "NMF16",
+      "method": "NMF"
+    },
+    {
+      "components": 32,
+      "id": "NMF32",
+      "method": "NMF"
+    },
+    {
+      "components": 16,
+      "id": "PCA16",
+      "method": "PCA"
+    },
+    {
+      "components": 32,
+      "id": "PCA32",
+      "method": "PCA"
+    }
+  ],
+  "contract_id": "profile_compression_candidate_contract_v1",
+  "fit_population": "development only, geometry_hash grouped",
+  "independent_test_used_for_fit": false,
+  "no_neural_network_training_in_compression_stage": true,
+  "selection_priority": "NMF preferred unless PCA is clearly better on frozen metrics"
+}

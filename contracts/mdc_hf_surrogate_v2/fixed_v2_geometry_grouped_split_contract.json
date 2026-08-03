@@ -1,0 +1,22 @@
+{
+  "cases_per_geometry": 6,
+  "compression_fit_membership": "development only",
+  "contract_id": "fixed_v2_geometry_grouped_split_contract_v1",
+  "development_membership": [
+    "historical_development_only",
+    "DOE96"
+  ],
+  "folds": 5,
+  "independent_test_membership": "test40 only",
+  "leakage_checks": [
+    "geometry_hash",
+    "case_hash",
+    "split_group_hash",
+    "source_condition family"
+  ],
+  "model_selection_membership": "development OOF only",
+  "rule": "all six source-condition cases stay in one fold",
+  "solver_authorized": false,
+  "test_opening": "once after architecture/compression/training contract freeze",
+  "unit_of_split": "geometry_hash"
+}

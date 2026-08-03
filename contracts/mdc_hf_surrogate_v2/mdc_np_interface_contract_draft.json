@@ -1,0 +1,14 @@
+{
+  "contract_id": "mdc_np_interface_contract_draft_v1",
+  "equation": "P_order_m = sum_lambda,theta,channel W_MDC(lambda,theta,channel) * eta_NP,m(lambda,theta,channel)",
+  "full_wave_trigger": "material NP back-reflection or phase coupling changes MDC cavity distribution",
+  "grid_alignment": "same wavelength/angle/channel grids or explicitly versioned conservative remap",
+  "input": "W_MDC(lambda,theta,channel|geometry)",
+  "normalization": "W_MDC normalized only after raw case aggregation; NP efficiency remains separately provenance-tracked",
+  "np_efficiency_input": "eta_NP,m(lambda,theta,channel)",
+  "order_target": "+1",
+  "output": "P_order_m",
+  "status": "DRAFT_INTERFACE_CONTRACT_NO_SOLVER",
+  "target_direction_deg": 15.0,
+  "weak_feedback_scope": "module only within low NP-reflection regime"
+}

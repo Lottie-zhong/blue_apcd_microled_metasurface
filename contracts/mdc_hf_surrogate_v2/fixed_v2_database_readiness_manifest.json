@@ -1,0 +1,39 @@
+{
+  "bulk_authorized": false,
+  "contract_id": "fixed_v2_database_readiness_manifest_v1",
+  "counts": {
+    "doe_cases": 576,
+    "doe_geometries": 96,
+    "external_test_cases": 240,
+    "external_test_geometries": 40,
+    "historical_cases": 162,
+    "historical_geometries": 27,
+    "pilot_cases": 24,
+    "pilot_geometries": 4
+  },
+  "pilot_authorized_next": "4 geometries / 24 cases only after monitor/export upgrade approval",
+  "profile_capability": "ONLY_SEPARATE_SPECTRAL_AND_SINGLE_WAVELENGTH_ANGULAR_AVAILABLE",
+  "required_prebulk_gates": [
+    "24/24 accepted",
+    "4/4 geometry labels complete",
+    "joint profile complete",
+    "no missing/NaN",
+    "aggregation audit pass",
+    "two fresh extraction SHAs identical",
+    "NP interface consumption test pass",
+    "solver/label provenance complete"
+  ],
+  "safety_counts": {
+    "HF15_diagnostics_value_reads": 0,
+    "HF15_formal_value_reads": 0,
+    "fdtd_lumerical_calls": 0,
+    "model_fits": 0,
+    "new_tmm_calls": 0,
+    "optimizer_backward": 0,
+    "sealed_test_reads": 0,
+    "solver_calls": 0
+  },
+  "solver_authorized": false,
+  "status": "MDC_HF_SURROGATE_V2_DATABASE_PILOT_REQUIRED_FOR_PROFILE_CONTRACT",
+  "training_authorized": false
+}

@@ -1,0 +1,21 @@
+{
+  "contract_id": "profile_compression_metric_contract_v1",
+  "independent_test_read": false,
+  "metrics": [
+    "reconstruction_error",
+    "non_negative_physical_consistency",
+    "spectral_marginal_error",
+    "angular_marginal_error",
+    "cone5_reconstruction_error",
+    "peak_fwhm_reconstruction_error"
+  ],
+  "selection_data": "development only",
+  "tie_break": [
+    "lower joint reconstruction error",
+    "lower spectral/angular marginal error",
+    "lower cone5 error",
+    "lower peak/FWHM error",
+    "NMF before PCA",
+    "lower component count"
+  ]
+}

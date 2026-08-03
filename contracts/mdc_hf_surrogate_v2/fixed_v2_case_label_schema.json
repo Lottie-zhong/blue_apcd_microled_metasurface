@@ -1,0 +1,35 @@
+{
+  "case_count_per_geometry": 6,
+  "contract_id": "fixed_v2_case_label_schema_v1",
+  "joint_profile_field_policy": "required for v2 pilot/bulk; absent in historical records only",
+  "nan_policy": "invalid record; no silent imputation",
+  "orientations": [
+    "x",
+    "z"
+  ],
+  "raw_before_normalization": true,
+  "required_fields": [
+    "geometry_hash",
+    "case_hash",
+    "source_position",
+    "dipole_orientation",
+    "raw_spectral_power",
+    "raw_angular_power",
+    "joint_lambda_theta_power",
+    "raw_upward_relative_power",
+    "wavelength_grid",
+    "angle_grid",
+    "monitor_filter_identity",
+    "validity_flags",
+    "numerical_quality_flags",
+    "builder_sha256",
+    "material_sha256",
+    "fsp_sha256",
+    "extraction_sha256"
+  ],
+  "source_positions_nm": {
+    "bottom": -380.5,
+    "centroid": -276.0,
+    "top": -171.5
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "candidates": [
+    {
+      "id": "M1_GEOMETRY_CASE_CONDITIONED_RESIDUAL_MLP",
+      "input": "geometry + source condition",
+      "status": "preferred_first_version"
+    },
+    {
+      "id": "M2_GEOMETRY_PLUS_DIRECT_TMM_FEATURES_RESIDUAL_MLP",
+      "input": "geometry + source condition + frozen direct TMM descriptors",
+      "status": "candidate_only"
+    },
+    {
+      "id": "M3_TMM_TO_FDTD_RESIDUAL_PROFILE_MODEL",
+      "input": "TMM representation to FDTD residual profile",
+      "status": "candidate_only"
+    }
+  ],
+  "competition_policy": "no model competition or training in current readiness task; architecture freeze precedes any authorized fit",
+  "contract_id": "fixed_v2_model_candidate_contract_v1",
+  "maximum_candidate_count": 3
+}

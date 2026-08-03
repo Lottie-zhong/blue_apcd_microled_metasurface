@@ -1,0 +1,47 @@
+{
+  "contract_id": "fixed_v2_training_contract_v1",
+  "feature_transform_policy": "fit on development training groups only",
+  "model": {
+    "backbone": {
+      "activation": "GELU",
+      "dropout": 0.05,
+      "heads": [
+        "profile_coefficient_head",
+        "log_power_head",
+        "auxiliary_scalar_head"
+      ],
+      "input": "features",
+      "latent_width": 128,
+      "linear_width": 256,
+      "residual_blocks": 3,
+      "residual_width": 256
+    },
+    "batch_definition": "16 geometry groups = 96 case records; six cases of a geometry never cross split",
+    "development_seed_count": 3,
+    "early_stopping_patience": 50,
+    "fit_count_this_task": 0,
+    "formal_ensemble_after_freeze": {
+      "seed_count": 5,
+      "status": "planned_not_authorized"
+    },
+    "gradient_clipping": 1.0,
+    "initial_learning_rate": 0.0003,
+    "input_groups": [
+      "canonical geometry features",
+      "source position encoding",
+      "dipole orientation encoding",
+      "optional direct TMM descriptors"
+    ],
+    "max_epochs": 400,
+    "min_delta": 1e-06,
+    "minimum_learning_rate": 1e-06,
+    "optimizer": "AdamW",
+    "scheduler": "cosine_decay",
+    "training_authorized": false,
+    "warmup_epochs": 10,
+    "weight_decay": 0.0001
+  },
+  "no_training_this_task": true,
+  "preferred_first_version": "M1_GEOMETRY_CASE_CONDITIONED_RESIDUAL_MLP",
+  "split_policy": "geometry_hash grouped 5-fold OOF; no six-case split"
+}

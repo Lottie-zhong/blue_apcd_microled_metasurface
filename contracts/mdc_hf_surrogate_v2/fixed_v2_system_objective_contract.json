@@ -1,0 +1,43 @@
+{
+  "aggregation_required_before_NP": true,
+  "angle_grid": {
+    "grid_id": "case_native_farfield_theta_v1",
+    "policy": "export exact native far-field theta grid and hash it per case; no interpolation before contract validation"
+  },
+  "case_output": "S_case(lambda, theta | source_position, dipole_orientation)",
+  "contract_id": "fixed_v2_system_objective_contract_v1",
+  "dimensionality_boundary": "2D surrogate is not a complete 3D pixel surrogate",
+  "dipole_orientations": [
+    "x",
+    "z"
+  ],
+  "geometry_output": "W_MDC(lambda, theta, channel | geometry)",
+  "joint_profile_required_for_bulk": true,
+  "joint_profile_required_for_pilot": true,
+  "joint_validation_trigger": "if NP reflection materially changes MDC cavity response, require full MDC+NP wave validation",
+  "module_assumption": "valid only in NP weak-reflection / weak-feedback regime",
+  "primary_considerations": [
+    "spectral profile",
+    "angular profile",
+    "relative power",
+    "manufacturability"
+  ],
+  "source_positions_nm": {
+    "bottom": -380.5,
+    "centroid": -276.0,
+    "top": -171.5
+  },
+  "target": "raw high-fidelity emission distribution, not standalone FWHM prediction",
+  "target_direction_deg": 15.0,
+  "target_order": "NP +1",
+  "target_wavelength_nm": 450.0,
+  "wavelength_grid": {
+    "construction": "linspace(420,480,301)",
+    "grid_id": "lambda_420_480_301_v1",
+    "points": 301
+  },
+  "wavelength_window_nm": [
+    420.0,
+    480.0
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "angle_grid": {
+      "evidence": "angles_filter0 and angles_filter02",
+      "status": "AVAILABLE"
+    },
+    "angle_resolved_far_field": {
+      "evidence": [
+        "angular_filter_0.parquet",
+        "angular_filter_0p2.parquet"
+      ],
+      "status": "AVAILABLE"
+    },
+    "channel_orientation_resolved_information": {
+      "evidence": "orientation and source position encoded in case_id; no explicit channel-resolved joint tensor",
+      "status": "PARTIAL"
+    },
+    "formal_farfield_filter": {
+      "evidence": [
+        "angular_filter_0",
+        "angular_filter_0p2"
+      ],
+      "status": "AVAILABLE"
+    },
+    "joint_wavelength_angle_power_distribution": {
+      "evidence": [
+        "no joint lambda-theta artifact in retained outputs",
+        "source export writes spectral and angular arrays separately"
+      ],
+      "status": "ABSENT"
+    },
+    "normalization_denominator": {
+      "evidence": [
+        "p_r12_outward_raw",
+        "power reference outputs"
+      ],
+      "status": "SEPARATE_FIELDS_AVAILABLE"
+    },
+    "raw_unnormalized_power": {
+      "evidence": [
+        "p_top_raw",
+        "spectral_raw"
+      ],
+      "status": "AVAILABLE"
+    },
+    "source_position_identity": {
+      "evidence": "top/centroid/bottom case identities",
+      "status": "AVAILABLE"
+    },
+    "wavelength_grid": {
+      "evidence": "wavelength_nm, existing builder uses 420-480 nm/301 points",
+      "status": "AVAILABLE"
+    },
+    "wavelength_resolved_upward_raw_power": {
+      "evidence": [
+        "spectral_raw.parquet",
+        "source script wavelength_nm/p_top_raw"
+      ],
+      "status": "AVAILABLE"
+    }
+  },
+  "classification": "ONLY_SEPARATE_SPECTRAL_AND_SINGLE_WAVELENGTH_ANGULAR_AVAILABLE",
+  "contract_id": "existing_fsp_profile_capability_audit_v1",
+  "existing_retained_fsp_count": 102,
+  "historical_metadata_only": true,
+  "new_solver_calls": 0,
+  "read_mode": "metadata_and_source_only",
+  "solver_authorized": false,
+  "source_sha256": {
+    "scripts/mdc_fdtd_2d_monitor_contract_v1.py": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+    "scripts/run_mdc_stage_al1_2d_fdtd_v1.py": "4d9986549bc9a496885db10533ae1b239572329b0f88a659d81c84a4590dfc4d",
+    "scripts/run_mdc_stage_al2_2d_fdtd_v1.py": "19b82cee70a6d648e8a03acedcf5d02b3ec54e9f15ad3fe6028be10d32d418d6"
+  },
+  "upgrade_required_before_pilot": true
+}
