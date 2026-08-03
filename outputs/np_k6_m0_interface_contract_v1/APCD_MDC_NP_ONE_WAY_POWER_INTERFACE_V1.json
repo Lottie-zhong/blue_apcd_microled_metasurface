@@ -1,0 +1,11 @@
+{
+  "schema_version":"APCD_MDC_NP_ONE_WAY_POWER_INTERFACE_V1",
+  "coupling_level":"LEVEL1_ONE_WAY_INCOHERENT_POWER",
+  "dimensionality":{"MDC":"2D_STEERING_PLANE_ONLY","MDC_plane":"x-z","NP":"FULL_3D_K6_SUPERCELL","common_channel":"k_y=0"},
+  "coordinates":{"primary":"u_x=k_x/k_0","derived":"theta_air_deg=asin(u_x)","plus_z":"LED_to_MDC_to_spacer_to_K6_to_air","plus_x":"K6_phase_gradient_and_target_plus1","plus_y":"transverse"},
+  "diffraction":{"m_plus1":"physical_plus_x","positive_u_x":"physical_plus_x","DFT_sign":"exp(-2*pi*i*m*j/K)"},
+  "formal_fidelity":{"MDC":"2D_FDTD_ONLY","NP":"FULL_SUPERCELL_3D_FDTD_ONLY","complex_feedback":"NOT_SUPPORTED_IN_V1"},
+  "final_integrated_stack":"NOT_YET_FROZEN",
+  "joint_formula":"relative_power_plus1 = relative_upward_power_MDC * sum(W_MDC(lambda,u_x,channel)*eta_NP_plus1(lambda,u_x,polarization))",
+  "gates":{"W_MDC_nonnegative":true,"W_MDC_normalized":true,"joint_lambda_ux_profile_required":true,"spectral_or_450nm_outer_product_forbidden":true}
+}

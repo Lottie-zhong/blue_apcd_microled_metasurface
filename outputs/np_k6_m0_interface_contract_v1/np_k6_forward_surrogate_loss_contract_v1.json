@@ -1,0 +1,7 @@
+{
+  "schema_version":"np_k6_forward_surrogate_loss_contract_v1",
+  "terms":{"L_total":"w_order*L_order+w_TR*L_TR+w_target*L_plus1+w_physics*L_physics+w_complex*L_complex_optional","L_order":"Huber_all_transmitted_and_reflected_orders","L_TR":"Huber_T_plus_R","L_target":"eta_plus1_directionality_non_target","L_physics":"nonnegative_powers_and_order_closure","L_complex_optional":"disabled_until_formal_complex_labels"},
+  "complex_weight_default":0.0,
+  "structured_outputs_required":true,
+  "physics_penalty_must_not_mask_untrusted_labels":true
+}

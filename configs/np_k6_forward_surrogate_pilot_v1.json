@@ -1,0 +1,9 @@
+{
+  "schema_version":"np_k6_forward_surrogate_pilot_v1",
+  "architecture":"CIRCULAR_1D_CNN_CONTEXT_CONDITIONED_V1",
+  "circular_encoder":{"nodes":6,"kernel_size":3,"layers":3,"padding":"circular","hidden_channels_candidates":[32,48],"activation":["GELU","SiLU"],"global_pooling":true},
+  "context":["normalized_wavelength","u_x","p_s_encoding","interface_stack_embedding"],
+  "heads":["T_R","transmitted_order_fraction","reflected_order_fraction","optional_complex_order","optional_quality"],
+  "baseline":["small_MLP","analytic_LF_DFT"],
+  "optimizer":"AdamW","learning_rate_candidates":[0.0003,0.001,0.003],"default_learning_rate":0.001,"weight_decay_candidates":[0.00001,0.0001,0.001],"default_weight_decay":0.0001,"batch_size_candidates":[64,128],"max_epochs":300,"early_stopping_patience":25,"fixed_seeds":[11,23,37],"training_enabled":false
+}
