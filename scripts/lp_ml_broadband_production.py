@@ -80,7 +80,10 @@ def extract_broadband(fdtd):
     out=[]
     for i,wl in enumerate(WLS):
         rawx=low.base.b.f1.periodic_weighted(x,y,ex[:,:,i],grid['x_periodic_duplicate_endpoint'],grid['y_periodic_duplicate_endpoint']); rawy=low.base.b.f1.periodic_weighted(x,y,ey[:,:,i],grid['x_periodic_duplicate_endpoint'],grid['y_periodic_duplicate_endpoint'])
-        nx,ny=low.base.b.f1.normalize_pair(rawx,rawy,float(T[i])); scale=math.sqrt(max(float(T[i]),0.0))/max(math.hypot(abs(rawx),abs(rawy)),1e-30)
+        t_value=float(T[i])
+        if t_value < 0.0:
+            raise RuntimeError(f'NORMALIZATION_REVIEW_REQUIRED: negative source transmission at {wl} nm: {t_value!r}')
+        nx,ny=low.base.b.f1.normalize_pair(rawx,rawy,t_value); scale=math.sqrt(t_value)/max(math.hypot(abs(rawx),abs(rawy)),1e-30)
         out.append({'wavelength_nm':wl,'raw_weighted_Ex_real':float(rawx.real),'raw_weighted_Ex_imag':float(rawx.imag),'raw_weighted_Ey_real':float(rawy.real),'raw_weighted_Ey_imag':float(rawy.imag),'weighted_Ex_real':float(nx.real),'weighted_Ex_imag':float(nx.imag),'weighted_Ey_real':float(ny.real),'weighted_Ey_imag':float(ny.imag),'source_T':float(T[i]),'normalization_scale':float(scale),'selected_power':float(abs(nx)**2+abs(ny)**2),'closure_residual':0.0,'complex_normalization_residual':0.0,'grid_x_count':grid['x_count'],'grid_y_count':grid['y_count'],'x_periodic_duplicate_endpoint':grid['x_periodic_duplicate_endpoint'],'y_periodic_duplicate_endpoint':grid['y_periodic_duplicate_endpoint']})
     return out,grid
 
