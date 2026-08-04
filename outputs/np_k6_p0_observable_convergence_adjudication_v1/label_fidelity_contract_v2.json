@@ -1,0 +1,48 @@
+{
+  "auto_shutoff": {
+    "policy": "DECAY_DIAGNOSTIC_RECORDED_NOT_SOLE_LABEL_GATE",
+    "role": "recorded diagnostic and convergence indicator",
+    "sole_label_gate": false,
+    "threshold": 1e-05
+  },
+  "candidate_performance_label": false,
+  "contract_id": "NP_K6_PILOT_LABEL_FIDELITY_CONTRACT_V2",
+  "formal_hf_labels_before_all_six_anchors": 0,
+  "required_label_gates": {
+    "energy_closure": true,
+    "grid_identity": true,
+    "material_identity": true,
+    "no_clipping_or_renormalization": true,
+    "normalization_consistency": true,
+    "observable_convergence": true,
+    "spectral_completeness": true,
+    "structure_interval_anomaly": true,
+    "transmitted_order_closure": true
+  },
+  "schema_version": "np_k6_p0_pilot_label_fidelity_contract_v2",
+  "scope": {
+    "bulk_mdc_compatible": false,
+    "development_pilot_only": true,
+    "k_y": 0.0,
+    "polarization": [
+      "p",
+      "s"
+    ],
+    "stack": "independent K6 pilot",
+    "u_x": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "training_label": false
+}
