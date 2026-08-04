@@ -1,0 +1,23 @@
+{
+  "manifest_version": "LP_PROTECTED_ARTIFACT_MANIFEST_V1",
+  "worktree_relative_root": ".",
+  "artifacts": [
+    {
+      "path": "reports/lp_ml1a3_git_history_geometry_reconstruction.md",
+      "artifact_class": "protected_derived_report",
+      "expected_handling": "read_only",
+      "allowed_operations": ["read", "hash", "stat", "inspect"],
+      "write_authorized": false
+    },
+    {
+      "path": "reports/stage11_4a20_legacy_fsp_object_inventory.md",
+      "artifact_class": "protected_legacy_inventory_report",
+      "expected_handling": "read_only",
+      "allowed_operations": ["read", "hash", "stat", "inspect"],
+      "write_authorized": false
+    }
+  ],
+  "temporary_replace_policy": "replace_targets_must_pass_the_same_write_guard",
+  "case_policy": "case_insensitive_windows_path",
+  "symlink_policy": "resolve_realpath_before_comparison"
+}

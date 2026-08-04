@@ -1,0 +1,69 @@
+{
+  "classification": "UNRESOLVED_POST_START_PROTECTED_EVIDENCE_DRIFT",
+  "earlier_accepted_exception": {
+    "attestation": "outputs/lp_ml_dataset_v1/analysis/lp_ml_provenance_exception_attestation_v1.json",
+    "distinct_from_new_incident": true,
+    "task_start_sha256": "171033e0d2c73865d0f8610e81d5a33de56d7deb79d8d38aa2f925f7e17e8321"
+  },
+  "incident_id": "LP_PROTECTED_REPORT_POST_EXCEPTION_WRITE_INCIDENT_V1",
+  "new_incident": {
+    "affected_reports": [
+      {
+        "exists": true,
+        "git_blob_hash": "d9280cfcb4fb9bb028f64e3628d1d29b2e3262d6",
+        "git_tracked": true,
+        "mtime": "2026-08-03T23:35:35",
+        "path": "reports/lp_ml1a3_git_history_geometry_reconstruction.md",
+        "sha256": "9e46a7bd1927d65adc3a9cf9192040e7d239b839ed516adcd96870bf64bfcd02",
+        "size_bytes": 1191,
+        "write_authorized": false
+      },
+      {
+        "exists": true,
+        "git_blob_hash": "e278a525cd446754f5b49b94c5a4527ce62f35be",
+        "git_tracked": true,
+        "mtime": "2026-08-03T23:37:06",
+        "path": "reports/stage11_4a20_legacy_fsp_object_inventory.md",
+        "sha256": "ae3b13341547e13ca85ca763ed8265591c100ac1a78c555de1c8378816a33708",
+        "size_bytes": 2927,
+        "write_authorized": false
+      }
+    ],
+    "first_report_usn_events": [
+      "2026-08-03 23:35:24",
+      "2026-08-03 23:35:27",
+      "2026-08-03 23:35:31",
+      "2026-08-03 23:35:35"
+    ],
+    "second_report_usn_events": [
+      "2026-08-03 23:37:04",
+      "2026-08-03 23:37:05",
+      "2026-08-03 23:37:06"
+    ],
+    "solver_calls_after_incident": 0,
+    "unrelated_pid_preserved": 33312,
+    "writers": [
+      {
+        "commit": "69b75c1b540347cd3ee98efc5a58be0b03b35fdd",
+        "path": "scripts/lp_ml1/lp_ml1a3_git_history_geometry_reconstruction.py",
+        "sha256": "87c042319d4cae89feb6a01370e5eced7181d6755601dc42d578ddcd01692438",
+        "write_tokens": [
+          "write_text",
+          "open(",
+          "replace("
+        ]
+      },
+      {
+        "commit": "d35a89a6d8175cd683f3957472d867d29d2c92b8",
+        "path": "scripts/stage11_4a20_legacy_fsp_object_inventory.py",
+        "sha256": "f0b36855f6af2e2781f99b2e17a68f72233193594aac79c398dc6f8540462856",
+        "write_tokens": [
+          "write_text",
+          "open(",
+          "replace("
+        ]
+      }
+    ]
+  },
+  "protected_content_not_restored_or_modified_by_this_task": true
+}

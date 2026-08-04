@@ -1,0 +1,43 @@
+{
+  "aggregate": {
+    "deselected": 334,
+    "exit_code": 0,
+    "failed": 0,
+    "passed": 97,
+    "timed_out": false
+  },
+  "manifest_version": "LP_ML_SHARDED_PYTEST_MANIFEST_V1",
+  "shards": {
+    "external_outputs": {
+      "command": "pytest -q tests/test_lp_ml1a3b_external_outputs_geometry_recovery.py",
+      "exit_code": 0,
+      "solver_calls": 0,
+      "summary": "4 passed"
+    },
+    "legacy_geometry": {
+      "command": "pytest -q tests/test_lp_ml1a3_git_history_geometry_reconstruction.py tests/test_stage11_4a20_legacy_fsp_object_inventory.py",
+      "exit_code": 0,
+      "solver_calls": 0,
+      "summary": "7 passed"
+    },
+    "lp_governance_shard": {
+      "command": "pytest -q tests -k 'lp_ml or protected_artifact or stage11_4a20'",
+      "duration_seconds": 111.6,
+      "exit_code": 0,
+      "summary": "78 passed, 334 deselected"
+    },
+    "round2": {
+      "command": "pytest -q tests/test_lp_ml_round2_active_learning_v1.py",
+      "exit_code": 0,
+      "solver_calls": 0,
+      "summary": "2 passed"
+    },
+    "targeted_governance": {
+      "command": "pytest -q tests/test_lp_protected_artifact_governance_v1.py",
+      "exit_code": 0,
+      "solver_calls": 0,
+      "summary": "6 passed"
+    }
+  },
+  "solver_calls": 0
+}

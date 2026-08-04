@@ -1,15 +1,21 @@
-﻿from __future__ import annotations
-import csv, json, re, subprocess
+from __future__ import annotations
+import argparse, csv, json, re, subprocess, sys
 from collections import Counter
 from pathlib import Path
+
+SCRIPT_ROOT = Path(__file__).resolve().parents[1]
+if str(SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_ROOT))
+from lp_protected_artifact_guard_v1 import assert_not_protected_write_target, guarded_write_text
 
 ROOT = Path(__file__).resolve().parents[2]
 ML0 = ROOT / "outputs" / "lp_ml0_existing_data_audit"
 ML1A = ROOT / "outputs" / "lp_ml1a_seed_manifest_dryrun"
 ML1A2 = ROOT / "outputs" / "lp_ml1a2_geometry_provenance_recovery"
 OUT = ROOT / "outputs" / "lp_ml1a3_git_history_geometry_reconstruction"
-REPORT = ROOT / "reports" / "lp_ml1a3_git_history_geometry_reconstruction.md"
-DECISION = ROOT / "reports" / "lp_ml1a3_next_action_decision.md"
+DERIVED_REPORT_DIR = OUT / "derived_reports"
+REPORT = DERIVED_REPORT_DIR / "git_history_geometry_reconstruction.md"
+DECISION = DERIVED_REPORT_DIR / "next_action_decision.md"
 GEOM = ["H_nm","L1_nm","W1_nm","theta1_deg","L2_nm","W2_nm","theta2_deg","gap_or_dx_nm"]
 REC_COLS = ["candidate_id",*GEOM,"pitch_nm","period_nm","pairing_rule","J1_id","J2_id","evidence_label","confidence_level","source_commit","source_file","source_line_or_record","run_ready_geometry","notes"]
 RUN_COLS = ["candidate_id","source_candidate_id","target_bin_deg","sampling_group","source_diagnosis_category",*GEOM,"pitch_nm","period_nm","evidence_label","confidence_level","source_commit","source_file","source_line_or_record","priority_score","notes"]
@@ -26,6 +32,7 @@ def read_csv(p):
     with p.open("r", encoding="utf-8-sig", newline="") as f: return list(csv.DictReader(f))
 
 def write_csv(p, rows, fields):
+    assert_not_protected_write_target(p, "write", __file__)
     p.parent.mkdir(parents=True, exist_ok=True)
     with p.open("w", encoding="utf-8", newline="") as f:
         w=csv.DictWriter(f, fieldnames=fields, extrasaction="ignore"); w.writeheader(); w.writerows(rows)
@@ -132,7 +139,19 @@ def table(rows):
     if not rows: return "No rows."
     return "\n".join(["| "+" | ".join(cols)+" |","| "+" | ".join(["---"]*len(cols))+" |"]+["| "+" | ".join(str(r.get(c,"")) for c in cols)+" |" for r in rows[:10]])
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--report-output", default=str(REPORT))
+    parser.add_argument("--decision-output", default=str(DECISION))
+    args = parser.parse_args(argv)
+    report_path = Path(args.report_output)
+    decision_path = Path(args.decision_output)
+    assert_not_protected_write_target(report_path, "write", __file__)
+    assert_not_protected_write_target(decision_path, "write", __file__)
+    if args.dry_run:
+        print(json.dumps({"dry_run": True, "report_output": str(report_path), "decision_output": str(decision_path)}, sort_keys=True))
+        return 0
     ensure_inputs(); OUT.mkdir(parents=True, exist_ok=True)
     ids=target_ids(); manifest=read_csv(ML1A/"lp_ml1a_seed_manifest.csv")
     idx=history_index(); write_csv(OUT/"lp_ml1a3_history_file_index.csv", idx, INDEX_COLS)
@@ -142,10 +161,10 @@ def main():
     write_csv(OUT/"lp_ml1a3_unresolved_sources.csv", [{"candidate_id":u["candidate_id"],"source_candidate_id":u["candidate_id"],"unresolved_reason":u["notes"],**u} for u in unresolved], ["candidate_id","source_candidate_id","unresolved_reason",*REC_COLS])
     labels=Counter(r["evidence_label"] for r in recovered); conflict=sum(1 for u in unresolved if u["notes"]=="conflicting_evidence")
     summary={"unique_target_ids_searched":len(ids),"commits_scanned":len({r['commit'] for r in idx}),"files_scanned":len(idx),"recovered_by_evidence_label":dict(labels),"exact_candidate_csv_json":labels.get("exact_candidate_csv_json",0),"exact_candidate_script_dict":labels.get("exact_candidate_script_dict",0),"exact_candidate_lsf_assignment":labels.get("exact_candidate_lsf_assignment",0),"generator_rule_candidate_specific":labels.get("generator_rule_candidate_specific",0),"unresolved_count":len(unresolved),"conflicting_evidence_count":conflict,"run_ready_count":len(ready),"recovered_count_by_H_nm":dict(Counter(r.get("H_nm","") for r in recovered)),"recovered_count_by_target_bin_deg":dict(Counter(r.get("target_bin_deg","") for r in ready)),"no_fdtd_run":True}
-    (OUT/"lp_ml1a3_summary.json").write_text(json.dumps(summary,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+    guarded_write_text(OUT/"lp_ml1a3_summary.json", json.dumps(summary,indent=2,sort_keys=True)+"\n", encoding="utf-8", caller=__file__)
     b300=[r for r in ready if r.get("target_bin_deg")=="300"]; b240=[r for r in ready if r.get("target_bin_deg")=="240"]
-    REPORT.write_text("\n".join(["# LP-ML1A3 Git History Geometry Reconstruction","","Purpose: recover LP dimer numeric geometry from git history and original generator scripts before any LP-ML1B full-wave run.","","LP-ML1B is blocked because LP-ML1A2 found zero run-ready source candidates and LP-ML1A rows are default-range-only scaffold rows.","","Git-history search method: git log --all --name-only indexed lightweight historical files; current indexed files were grepped for exact candidate IDs and accepted only if the same line contained complete numeric geometry. No checkout was performed.","",f"Unique target IDs searched: {summary['unique_target_ids_searched']}",f"Commits scanned: {summary['commits_scanned']}",f"Files scanned: {summary['files_scanned']}",f"Recovered exact_candidate_csv_json count: {summary['exact_candidate_csv_json']}",f"Recovered exact_candidate_script_dict count: {summary['exact_candidate_script_dict']}",f"Recovered exact_candidate_lsf_assignment count: {summary['exact_candidate_lsf_assignment']}",f"Recovered generator_rule_candidate_specific count: {summary['generator_rule_candidate_specific']}",f"Unresolved count: {summary['unresolved_count']}",f"Conflicting evidence count: {summary['conflicting_evidence_count']}",f"Run-ready count: {summary['run_ready_count']}","","## Recovered count by H_nm","```json\n"+json.dumps(summary['recovered_count_by_H_nm'],indent=2,sort_keys=True)+"\n```","## Recovered count by target_bin_deg","```json\n"+json.dumps(summary['recovered_count_by_target_bin_deg'],indent=2,sort_keys=True)+"\n```","## Top recovered B300 sources",table(b300),"","## Top recovered B240 sources",table(b240),"","No FDTD was run.","No Lumerical GUI was opened.","No model was trained.","No K=6 was attempted."]),encoding="utf-8")
+    guarded_write_text(report_path, "\n".join(["# LP-ML1A3 Git History Geometry Reconstruction","","Purpose: recover LP dimer numeric geometry from git history and original generator scripts before any LP-ML1B full-wave run.","","LP-ML1B is blocked because LP-ML1A2 found zero run-ready source candidates and LP-ML1A rows are default-range-only scaffold rows.","","Git-history search method: git log --all --name-only indexed lightweight historical files; current indexed files were grepped for exact candidate IDs and accepted only if the same line contained complete numeric geometry. No checkout was performed.","",f"Unique target IDs searched: {summary['unique_target_ids_searched']}",f"Commits scanned: {summary['commits_scanned']}",f"Files scanned: {summary['files_scanned']}",f"Recovered exact_candidate_csv_json count: {summary['exact_candidate_csv_json']}",f"Recovered exact_candidate_script_dict count: {summary['exact_candidate_script_dict']}",f"Recovered exact_candidate_lsf_assignment count: {summary['exact_candidate_lsf_assignment']}",f"Recovered generator_rule_candidate_specific count: {summary['generator_rule_candidate_specific']}",f"Unresolved count: {summary['unresolved_count']}",f"Conflicting evidence count: {summary['conflicting_evidence_count']}",f"Run-ready count: {summary['run_ready_count']}","","## Recovered count by H_nm","```json\n"+json.dumps(summary['recovered_count_by_H_nm'],indent=2,sort_keys=True)+"\n```","## Recovered count by target_bin_deg","```json\n"+json.dumps(summary['recovered_count_by_target_bin_deg'],indent=2,sort_keys=True)+"\n```","## Top recovered B300 sources",table(b300),"","## Top recovered B240 sources",table(b240),"","No FDTD was run.","No Lumerical GUI was opened.","No model was trained.","No K=6 was attempted."]),encoding="utf-8")
     decision="Go" if len(ready)>=20 else "No-Go"; nxt="Recommend LP-ML1B pilot with 20-40 highest-priority run-ready rows." if decision=="Go" else "Recommend LP-ML1A4 explicit new geometry seed generator."
-    DECISION.write_text(f"# LP-ML1A3 Next Action Decision\n\nDecision: {decision} for LP-ML1B pilot.\n\nRun-ready count: {len(ready)}.\n\n{nxt}\n\nWarning: Do not run LP-ML1B from default-range-only manifest rows.\n",encoding="utf-8")
+    guarded_write_text(decision_path, f"# LP-ML1A3 Next Action Decision\n\nDecision: {decision} for LP-ML1B pilot.\n\nRun-ready count: {len(ready)}.\n\n{nxt}\n\nWarning: Do not run LP-ML1B from default-range-only manifest rows.\n",encoding="utf-8")
     print(json.dumps(summary,sort_keys=True)); return 0
 if __name__ == "__main__": raise SystemExit(main())

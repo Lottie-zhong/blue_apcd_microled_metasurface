@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import csv
@@ -8,9 +8,14 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+SCRIPT_ROOT = Path(__file__).resolve().parents[0]
+if str(SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_ROOT))
+from lp_protected_artifact_guard_v1 import assert_not_protected_write_target, guarded_write_text
+
 WORKTREE = Path(__file__).resolve().parents[1]
 OUT = WORKTREE / "outputs" / "stage11_4a20_legacy_fsp_object_inventory"
-REPORTS = WORKTREE / "reports"
+REPORTS = OUT / "derived_reports"
 SEARCH_ROOTS = [
     Path(r"D:\project\blue_apcd_microled_metasurface\outputs"),
     Path(r"D:\project\blue_apcd_microled_metasurface\scripts"),
@@ -66,6 +71,7 @@ def index_fsp_files() -> list[dict[str, str]]:
 
 
 def write_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None:
+    assert_not_protected_write_target(path, "write", __file__)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fields)
@@ -133,7 +139,17 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--index-only", action="store_true")
     parser.add_argument("--max-open", type=int, default=20)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--report-output", default=str(REPORTS / "legacy_fsp_object_inventory.md"))
+    parser.add_argument("--decision-output", default=str(REPORTS / "next_action_decision.md"))
     args = parser.parse_args(argv)
+    report_path = Path(args.report_output)
+    decision_path = Path(args.decision_output)
+    assert_not_protected_write_target(report_path, "write", __file__)
+    assert_not_protected_write_target(decision_path, "write", __file__)
+    if args.dry_run:
+        print(json.dumps({"dry_run": True, "report_output": str(report_path), "decision_output": str(decision_path)}, sort_keys=True))
+        return 0
 
     OUT.mkdir(parents=True, exist_ok=True)
     REPORTS.mkdir(exist_ok=True)
@@ -175,7 +191,7 @@ def main(argv: list[str] | None = None) -> int:
         "no_heavy_created_in_outputs": no_heavy_created(),
         "legacy_geometry_route_go": False,
     }
-    (OUT / "stage11_4a20_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    guarded_write_text(OUT / "stage11_4a20_summary.json", json.dumps(summary, indent=2), encoding="utf-8", caller=__file__)
 
     gui_line = "No Lumerical GUI was opened; hidden lumapi mode was attempted." if hidden_mode else f"No Lumerical GUI was opened; lumapi hidden mode was not used ({lumapi_status})."
     report = [
@@ -205,7 +221,7 @@ def main(argv: list[str] | None = None) -> int:
         "No K=6 was attempted.",
         "No model was trained.",
     ]
-    (REPORTS / "stage11_4a20_legacy_fsp_object_inventory.md").write_text("\n".join(report) + "\n", encoding="utf-8")
+    guarded_write_text(report_path, "\n".join(report) + "\n", encoding="utf-8", caller=__file__)
     decision = [
         "# Stage11-4A20 next action decision",
         "",
@@ -214,7 +230,7 @@ def main(argv: list[str] | None = None) -> int:
         "",
         "No FDTD simulation was run. No FSP was saved or modified. No K=6 was attempted. No model was trained.",
     ]
-    (REPORTS / "stage11_4a20_next_action_decision.md").write_text("\n".join(decision) + "\n", encoding="utf-8")
+    guarded_write_text(decision_path, "\n".join(decision) + "\n", encoding="utf-8", caller=__file__)
     print(json.dumps(summary, indent=2))
     return 0
 
