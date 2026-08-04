@@ -1,0 +1,94 @@
+{
+  "case_id": "RUN3C_P_PILOT_HF_SIMTIME_3PS_CONTROL_V1",
+  "effective_tail_window_method": "last 10%, 20%, and 30% of real 3 ps engine samples; no points removed",
+  "fit_reliability_gate": {
+    "crossing_consistency_fraction": 0.1,
+    "min_points": 10,
+    "monotonic_fraction_min": 0.8,
+    "r2_min": 0.95,
+    "slope_negative": true
+  },
+  "outlier_policy": "no deletion or reweighting",
+  "reliable_window_count": 0,
+  "schema_version": "np_k6_p0_decay_tail_fit_windows_v1",
+  "source_off_time_s": null,
+  "source_off_time_status": "not_available_from_post_fsp_or_runtime_log",
+  "threshold_auto_shutoff": 1e-05,
+  "windows": [
+    {
+      "confidence_interval_95_ps": [
+        -15.914954265232463,
+        28.054331026446942
+      ],
+      "criteria": {
+        "min_points": true,
+        "monotonic_fraction_ge_0_8": false,
+        "r2_ge_0_95": false,
+        "slope_negative": true
+      },
+      "effective_decay_start_ps": 2.7183200000000003,
+      "final_sample_time_ps": 2.99012,
+      "fit_space": "log10(auto_shutoff_value)",
+      "intercept": -3.47418350261605,
+      "monotonic_fraction": 0.4444444444444444,
+      "predicted_threshold_crossing_ps": 6.069688380607239,
+      "r2": 0.03531048496889544,
+      "reliable": false,
+      "residual_max_abs_log10": 0.1650981054734224,
+      "residual_rms_log10": 0.11397556836571004,
+      "sample_count": 10,
+      "slope": -0.251383003822562,
+      "window": "last_10_percent"
+    },
+    {
+      "confidence_interval_95_ps": [
+        -6.959648850931752,
+        22.489502106827597
+      ],
+      "criteria": {
+        "min_points": true,
+        "monotonic_fraction_ge_0_8": false,
+        "r2_ge_0_95": false,
+        "slope_negative": true
+      },
+      "effective_decay_start_ps": 2.41632,
+      "final_sample_time_ps": 2.99012,
+      "fit_space": "log10(auto_shutoff_value)",
+      "intercept": -3.7280435005923924,
+      "monotonic_fraction": 0.47368421052631576,
+      "predicted_threshold_crossing_ps": 7.764926627947923,
+      "r2": 0.05602590268340302,
+      "reliable": false,
+      "residual_max_abs_log10": 0.18374479443442127,
+      "residual_rms_log10": 0.11709093598957106,
+      "sample_count": 20,
+      "slope": -0.16380792251526452,
+      "window": "last_20_percent"
+    },
+    {
+      "confidence_interval_95_ps": [
+        0.3092222827030229,
+        14.300988725018705
+      ],
+      "criteria": {
+        "min_points": true,
+        "monotonic_fraction_ge_0_8": false,
+        "r2_ge_0_95": false,
+        "slope_negative": true
+      },
+      "effective_decay_start_ps": 2.1143199999999998,
+      "final_sample_time_ps": 2.99012,
+      "fit_space": "log10(auto_shutoff_value)",
+      "intercept": -3.679506759312224,
+      "monotonic_fraction": 0.4827586206896552,
+      "predicted_threshold_crossing_ps": 7.305105503860864,
+      "r2": 0.1301297177708215,
+      "reliable": false,
+      "residual_max_abs_log10": 0.22703823931016487,
+      "residual_rms_log10": 0.12216445413918882,
+      "sample_count": 30,
+      "slope": -0.1807630622158536,
+      "window": "last_30_percent"
+    }
+  ]
+}
