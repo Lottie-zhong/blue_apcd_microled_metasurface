@@ -16,6 +16,10 @@ Clean-v3 contains 377 geometries / 3393 rows (319 clean-v2 + 58 complete Round-3
 
 C5 used five random seeds from scratch on the RTX 3080. Validation-only selection chose `OLD_C5_BLEND_0.95` with score 0.315115799; frozen tests were evaluated afterward on Round-1, Round-2, and Round-3 domains.
 
+## Prospective calibration
+
+Across 522 accepted rows, selected-model error mean=0.058198, dispersion/error correlation=0.356, disagreement/error correlation=0.434, and overconfident p90-error rows below median dispersion=27. This does not satisfy the stronger >0.4 dispersion-correlation target globally.
+
 ## Six-bin surrogate search
 
 The repeated offline search returned `LP_ML_SIX_BIN_INVERSE_PARTIAL_COVERAGE_ROUND3_RECOMMENDED` with 508 candidates, 103 tuple-front entries, and per-bin counts {'0': 59, '1': 263, '2': 55, '3': 45, '4': 46, '5': 40}. Planning weights are C0=0.9025, C1=0.0475, C5=0.05. Solver calls in this search: 0.
