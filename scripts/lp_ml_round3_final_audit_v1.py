@@ -19,7 +19,7 @@ def main():
     # Frozen pre-retrain calibration against accepted physics only; no model or search changes.
     pred=json.loads((A/'lp_ml_round3_pre_retrain_prospective_predictions_v1.json').read_text())['rows']; actual=rd(S/'candidate_wavelength_jones_v1.csv'); amap={(r['candidate_id'],float(r['wavelength_nm'])):r for r in actual}; cal=[]
     for r in pred:
-        a=amap.get((r['candidate_id'],float(r['wavelength_nm']))); 
+        a=amap.get((r['candidate_id'],float(r['wavelength_nm'])));
         if a is None: continue
         y=np.array([float(a[k]) for k in ['txx_real','txx_imag','txy_real','txy_imag','tyx_real','tyx_imag','tyy_real','tyy_imag']])
         p=np.array(r['selected_blend']); c0=np.array(r['C0']); ens=np.stack([r['C1'],r['C2'],r['C3'],r['C4']])
