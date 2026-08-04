@@ -1,0 +1,558 @@
+{
+  "failed_cases": [
+    {
+      "candidate_id": "LPML_R3_003",
+      "error": "LumApiError: 'Error:  line -1:'",
+      "failure_stage": "PREFLIGHT",
+      "input_polarization": "x",
+      "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+      "runtime_seconds": 10.141815662384033,
+      "setup_before_save": {
+        "config_readback": {
+          "FDTD": {
+            "background material": "<Object defined dielectric>",
+            "index": "1",
+            "x max bc": "Periodic",
+            "x min bc": "Periodic",
+            "x span": 4.32e-07,
+            "y max bc": "Periodic",
+            "y min bc": "Periodic",
+            "y span": 4.32e-07,
+            "z max": 1.2000000000000002e-06,
+            "z max bc": "PML",
+            "z min": -5.000000000000001e-07,
+            "z min bc": "PML"
+          },
+          "T": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "field_monitor": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "source": {
+            "direction": "Forward",
+            "polarization angle": 0.0,
+            "wavelength start": 4.500000000000001e-07,
+            "wavelength stop": 4.5399999999999996e-07,
+            "z": -2.5000000000000004e-07
+          }
+        },
+        "geometry_readback": {
+          "J1_center_x_nm": -1.0099015492493974e-07,
+          "J1_center_y_nm": -1.4101802142536726e-09,
+          "J1_material": "APCD_TIO2_NATIVE_M1",
+          "J1_rotation_deg": 0.0,
+          "J2_center_x_nm": 1.0099015492493974e-07,
+          "J2_center_y_nm": 1.4101802142536726e-09,
+          "J2_material": "APCD_TIO2_NATIVE_M1",
+          "J2_rotation_deg": 0.8
+        },
+        "material_name": "APCD_TIO2_NATIVE_M1"
+      },
+      "solver_entered": false,
+      "status": "FAILED",
+      "subrun_id": "LPML_R3_003_x",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 94, in run_subrun\n    f=runtime.lumapi.FDTD(hide=getattr(runtime,'hide_gui',True)); f.load(str(fsp)); gate=build_gate(f,r,pol)\n  File \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\api\\python\\lumapi.py\", line 1257, in <lambda>\n    method = (lambda x: lambda self, *args: appCall(self, x, args))(name)\n  File \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\api\\python\\lumapi.py\", line 899, in appCall\n    raise LumApiError(message)\nlumapi.LumApiError: 'Error:  line -1:'\n"
+    },
+    {
+      "candidate_id": "LPML_R3_009",
+      "configuration_gate": {
+        "checks": {
+          "FDTD_x_span": 4.32e-07,
+          "FDTD_y_span": 4.32e-07,
+          "J2_rotation_deg": 1.2,
+          "T_frequency_points": 9.0,
+          "T_override_global": 1.0,
+          "T_use_source_limits": 1.0,
+          "T_use_wavelength_spacing": 1.0,
+          "T_z": 1.0000000000000002e-06,
+          "background_index": "1",
+          "background_material": "<Object defined dielectric>",
+          "field_frequency_points": 9.0,
+          "field_override_global": 1.0,
+          "field_use_source_limits": 1.0,
+          "field_use_wavelength_spacing": 1.0,
+          "material_1": "APCD_TIO2_NATIVE_M1",
+          "material_2": "APCD_TIO2_NATIVE_M1",
+          "monitor_z": 1.0000000000000002e-06,
+          "source_pol": 90.0,
+          "source_start": 4.500000000000001e-07,
+          "source_stop": 4.5399999999999996e-07
+        },
+        "expected_wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ],
+        "input_polarization": "y",
+        "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+        "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+        "observable": "coordinate_weighted_full_period_G0",
+        "pass": true,
+        "sampling_mode": "wavelength_domain_uniform_via_source_limits"
+      },
+      "error": "RuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -0.00010440734314648366",
+      "failure_stage": "SOLVER",
+      "input_polarization": "y",
+      "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+      "runtime_seconds": 20.794378995895386,
+      "setup_before_save": {
+        "config_readback": {
+          "FDTD": {
+            "background material": "<Object defined dielectric>",
+            "index": "1",
+            "x max bc": "Periodic",
+            "x min bc": "Periodic",
+            "x span": 4.32e-07,
+            "y max bc": "Periodic",
+            "y min bc": "Periodic",
+            "y span": 4.32e-07,
+            "z max": 1.2000000000000002e-06,
+            "z max bc": "PML",
+            "z min": -5.000000000000001e-07,
+            "z min bc": "PML"
+          },
+          "T": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "field_monitor": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "source": {
+            "direction": "Forward",
+            "polarization angle": 90.0,
+            "wavelength start": 4.500000000000001e-07,
+            "wavelength stop": 4.5399999999999996e-07,
+            "z": -2.5000000000000004e-07
+          }
+        },
+        "geometry_readback": {
+          "J1_center_x_nm": -9.797850698053487e-08,
+          "J1_center_y_nm": -2.0523571485689817e-09,
+          "J1_material": "APCD_TIO2_NATIVE_M1",
+          "J1_rotation_deg": 0.0,
+          "J2_center_x_nm": 9.797850698053487e-08,
+          "J2_center_y_nm": 2.0523571485689817e-09,
+          "J2_material": "APCD_TIO2_NATIVE_M1",
+          "J2_rotation_deg": 1.2
+        },
+        "material_name": "APCD_TIO2_NATIVE_M1"
+      },
+      "solver_entered": true,
+      "status": "FAILED",
+      "subrun_id": "LPML_R3_009_y",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 100, in run_subrun\n    f.run(); rows,grid=extract_broadband(f); f.close(); f=None\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 85, in extract_broadband\n    raise RuntimeError(f'NORMALIZATION_REVIEW_REQUIRED: negative source transmission at {wl} nm: {t_value!r}')\nRuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -0.00010440734314648366\n"
+    },
+    {
+      "candidate_id": "LPML_R3_026",
+      "configuration_gate": {
+        "checks": {
+          "FDTD_x_span": 4.32e-07,
+          "FDTD_y_span": 4.32e-07,
+          "J2_rotation_deg": 1.2,
+          "T_frequency_points": 9.0,
+          "T_override_global": 1.0,
+          "T_use_source_limits": 1.0,
+          "T_use_wavelength_spacing": 1.0,
+          "T_z": 1.0000000000000002e-06,
+          "background_index": "1",
+          "background_material": "<Object defined dielectric>",
+          "field_frequency_points": 9.0,
+          "field_override_global": 1.0,
+          "field_use_source_limits": 1.0,
+          "field_use_wavelength_spacing": 1.0,
+          "material_1": "APCD_TIO2_NATIVE_M1",
+          "material_2": "APCD_TIO2_NATIVE_M1",
+          "monitor_z": 1.0000000000000002e-06,
+          "source_pol": 90.0,
+          "source_start": 4.500000000000001e-07,
+          "source_stop": 4.5399999999999996e-07
+        },
+        "expected_wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ],
+        "input_polarization": "y",
+        "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+        "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+        "observable": "coordinate_weighted_full_period_G0",
+        "pass": true,
+        "sampling_mode": "wavelength_domain_uniform_via_source_limits"
+      },
+      "error": "RuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -1.2300330606891177e-05",
+      "failure_stage": "SOLVER",
+      "input_polarization": "y",
+      "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+      "runtime_seconds": 20.53853130340576,
+      "setup_before_save": {
+        "config_readback": {
+          "FDTD": {
+            "background material": "<Object defined dielectric>",
+            "index": "1",
+            "x max bc": "Periodic",
+            "x min bc": "Periodic",
+            "x span": 4.32e-07,
+            "y max bc": "Periodic",
+            "y min bc": "Periodic",
+            "y span": 4.32e-07,
+            "z max": 1.2000000000000002e-06,
+            "z max bc": "PML",
+            "z min": -5.000000000000001e-07,
+            "z min bc": "PML"
+          },
+          "T": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "field_monitor": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "source": {
+            "direction": "Forward",
+            "polarization angle": 90.0,
+            "wavelength start": 4.500000000000001e-07,
+            "wavelength stop": 4.5399999999999996e-07,
+            "z": -2.5000000000000004e-07
+          }
+        },
+        "geometry_readback": {
+          "J1_center_x_nm": -9.89782876640097e-08,
+          "J1_center_y_nm": -2.073299568452339e-09,
+          "J1_material": "APCD_TIO2_NATIVE_M1",
+          "J1_rotation_deg": 0.0,
+          "J2_center_x_nm": 9.89782876640097e-08,
+          "J2_center_y_nm": 2.073299568452339e-09,
+          "J2_material": "APCD_TIO2_NATIVE_M1",
+          "J2_rotation_deg": 1.2
+        },
+        "material_name": "APCD_TIO2_NATIVE_M1"
+      },
+      "solver_entered": true,
+      "status": "FAILED",
+      "subrun_id": "LPML_R3_026_y",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 100, in run_subrun\n    f.run(); rows,grid=extract_broadband(f); f.close(); f=None\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 85, in extract_broadband\n    raise RuntimeError(f'NORMALIZATION_REVIEW_REQUIRED: negative source transmission at {wl} nm: {t_value!r}')\nRuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -1.2300330606891177e-05\n"
+    },
+    {
+      "candidate_id": "LPML_R3_029",
+      "configuration_gate": {
+        "checks": {
+          "FDTD_x_span": 4.32e-07,
+          "FDTD_y_span": 4.32e-07,
+          "J2_rotation_deg": 1.0,
+          "T_frequency_points": 9.0,
+          "T_override_global": 1.0,
+          "T_use_source_limits": 1.0,
+          "T_use_wavelength_spacing": 1.0,
+          "T_z": 1.0000000000000002e-06,
+          "background_index": "1",
+          "background_material": "<Object defined dielectric>",
+          "field_frequency_points": 9.0,
+          "field_override_global": 1.0,
+          "field_use_source_limits": 1.0,
+          "field_use_wavelength_spacing": 1.0,
+          "material_1": "APCD_TIO2_NATIVE_M1",
+          "material_2": "APCD_TIO2_NATIVE_M1",
+          "monitor_z": 1.0000000000000002e-06,
+          "source_pol": 90.0,
+          "source_start": 4.500000000000001e-07,
+          "source_stop": 4.5399999999999996e-07
+        },
+        "expected_wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ],
+        "input_polarization": "y",
+        "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+        "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+        "observable": "coordinate_weighted_full_period_G0",
+        "pass": true,
+        "sampling_mode": "wavelength_domain_uniform_via_source_limits"
+      },
+      "error": "RuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.5 nm: -3.484254057834727e-05",
+      "failure_stage": "SOLVER",
+      "input_polarization": "y",
+      "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+      "runtime_seconds": 20.671022176742554,
+      "setup_before_save": {
+        "config_readback": {
+          "FDTD": {
+            "background material": "<Object defined dielectric>",
+            "index": "1",
+            "x max bc": "Periodic",
+            "x min bc": "Periodic",
+            "x span": 4.32e-07,
+            "y max bc": "Periodic",
+            "y min bc": "Periodic",
+            "y span": 4.32e-07,
+            "z max": 1.2000000000000002e-06,
+            "z max bc": "PML",
+            "z min": -5.000000000000001e-07,
+            "z min bc": "PML"
+          },
+          "T": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "field_monitor": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "source": {
+            "direction": "Forward",
+            "polarization angle": 90.0,
+            "wavelength start": 4.500000000000001e-07,
+            "wavelength stop": 4.5399999999999996e-07,
+            "z": -2.5000000000000004e-07
+          }
+        },
+        "geometry_readback": {
+          "J1_center_x_nm": -9.998476951563913e-08,
+          "J1_center_y_nm": -1.7452406437283514e-09,
+          "J1_material": "APCD_TIO2_NATIVE_M1",
+          "J1_rotation_deg": 0.0,
+          "J2_center_x_nm": 9.998476951563913e-08,
+          "J2_center_y_nm": 1.7452406437283514e-09,
+          "J2_material": "APCD_TIO2_NATIVE_M1",
+          "J2_rotation_deg": 1.0
+        },
+        "material_name": "APCD_TIO2_NATIVE_M1"
+      },
+      "solver_entered": true,
+      "status": "FAILED",
+      "subrun_id": "LPML_R3_029_y",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 100, in run_subrun\n    f.run(); rows,grid=extract_broadband(f); f.close(); f=None\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 85, in extract_broadband\n    raise RuntimeError(f'NORMALIZATION_REVIEW_REQUIRED: negative source transmission at {wl} nm: {t_value!r}')\nRuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.5 nm: -3.484254057834727e-05\n"
+    },
+    {
+      "candidate_id": "LPML_R3_031",
+      "configuration_gate": {
+        "checks": {
+          "FDTD_x_span": 4.32e-07,
+          "FDTD_y_span": 4.32e-07,
+          "J2_rotation_deg": 1.2,
+          "T_frequency_points": 9.0,
+          "T_override_global": 1.0,
+          "T_use_source_limits": 1.0,
+          "T_use_wavelength_spacing": 1.0,
+          "T_z": 1.0000000000000002e-06,
+          "background_index": "1",
+          "background_material": "<Object defined dielectric>",
+          "field_frequency_points": 9.0,
+          "field_override_global": 1.0,
+          "field_use_source_limits": 1.0,
+          "field_use_wavelength_spacing": 1.0,
+          "material_1": "APCD_TIO2_NATIVE_M1",
+          "material_2": "APCD_TIO2_NATIVE_M1",
+          "monitor_z": 1.0000000000000002e-06,
+          "source_pol": 90.0,
+          "source_start": 4.500000000000001e-07,
+          "source_stop": 4.5399999999999996e-07
+        },
+        "expected_wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ],
+        "input_polarization": "y",
+        "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+        "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+        "observable": "coordinate_weighted_full_period_G0",
+        "pass": true,
+        "sampling_mode": "wavelength_domain_uniform_via_source_limits"
+      },
+      "error": "RuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -4.059686341527731e-05",
+      "failure_stage": "SOLVER",
+      "input_polarization": "y",
+      "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+      "runtime_seconds": 20.64119052886963,
+      "setup_before_save": {
+        "config_readback": {
+          "FDTD": {
+            "background material": "<Object defined dielectric>",
+            "index": "1",
+            "x max bc": "Periodic",
+            "x min bc": "Periodic",
+            "x span": 4.32e-07,
+            "y max bc": "Periodic",
+            "y min bc": "Periodic",
+            "y span": 4.32e-07,
+            "z max": 1.2000000000000002e-06,
+            "z max bc": "PML",
+            "z min": -5.000000000000001e-07,
+            "z min bc": "PML"
+          },
+          "T": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "field_monitor": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "source": {
+            "direction": "Forward",
+            "polarization angle": 90.0,
+            "wavelength start": 4.500000000000001e-07,
+            "wavelength stop": 4.5399999999999996e-07,
+            "z": -2.5000000000000004e-07
+          }
+        },
+        "geometry_readback": {
+          "J1_center_x_nm": -1.0047795868922199e-07,
+          "J1_center_y_nm": -2.1047131982773745e-09,
+          "J1_material": "APCD_TIO2_NATIVE_M1",
+          "J1_rotation_deg": 0.0,
+          "J2_center_x_nm": 1.0047795868922199e-07,
+          "J2_center_y_nm": 2.1047131982773745e-09,
+          "J2_material": "APCD_TIO2_NATIVE_M1",
+          "J2_rotation_deg": 1.2
+        },
+        "material_name": "APCD_TIO2_NATIVE_M1"
+      },
+      "solver_entered": true,
+      "status": "FAILED",
+      "subrun_id": "LPML_R3_031_y",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 100, in run_subrun\n    f.run(); rows,grid=extract_broadband(f); f.close(); f=None\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 85, in extract_broadband\n    raise RuntimeError(f'NORMALIZATION_REVIEW_REQUIRED: negative source transmission at {wl} nm: {t_value!r}')\nRuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -4.059686341527731e-05\n"
+    },
+    {
+      "candidate_id": "LPML_R3_062",
+      "configuration_gate": {
+        "checks": {
+          "FDTD_x_span": 4.32e-07,
+          "FDTD_y_span": 4.32e-07,
+          "J2_rotation_deg": -0.1,
+          "T_frequency_points": 9.0,
+          "T_override_global": 1.0,
+          "T_use_source_limits": 1.0,
+          "T_use_wavelength_spacing": 1.0,
+          "T_z": 1.0000000000000002e-06,
+          "background_index": "1",
+          "background_material": "<Object defined dielectric>",
+          "field_frequency_points": 9.0,
+          "field_override_global": 1.0,
+          "field_use_source_limits": 1.0,
+          "field_use_wavelength_spacing": 1.0,
+          "material_1": "APCD_TIO2_NATIVE_M1",
+          "material_2": "APCD_TIO2_NATIVE_M1",
+          "monitor_z": 1.0000000000000002e-06,
+          "source_pol": 90.0,
+          "source_start": 4.500000000000001e-07,
+          "source_stop": 4.5399999999999996e-07
+        },
+        "expected_wavelengths_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ],
+        "input_polarization": "y",
+        "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+        "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+        "observable": "coordinate_weighted_full_period_G0",
+        "pass": true,
+        "sampling_mode": "wavelength_domain_uniform_via_source_limits"
+      },
+      "error": "RuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -0.0001867060983352381",
+      "failure_stage": "SOLVER",
+      "input_polarization": "y",
+      "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+      "runtime_seconds": 20.42368793487549,
+      "setup_before_save": {
+        "config_readback": {
+          "FDTD": {
+            "background material": "<Object defined dielectric>",
+            "index": "1",
+            "x max bc": "Periodic",
+            "x min bc": "Periodic",
+            "x span": 4.32e-07,
+            "y max bc": "Periodic",
+            "y min bc": "Periodic",
+            "y span": 4.32e-07,
+            "z max": 1.2000000000000002e-06,
+            "z max bc": "PML",
+            "z min": -5.000000000000001e-07,
+            "z min bc": "PML"
+          },
+          "T": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "field_monitor": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "source": {
+            "direction": "Forward",
+            "polarization angle": 90.0,
+            "wavelength start": 4.500000000000001e-07,
+            "wavelength stop": 4.5399999999999996e-07,
+            "z": -2.5000000000000004e-07
+          }
+        },
+        "geometry_readback": {
+          "J1_center_x_nm": -9.999984769132878e-08,
+          "J1_center_y_nm": 1.7453283658983088e-10,
+          "J1_material": "APCD_TIO2_NATIVE_M1",
+          "J1_rotation_deg": 0.0,
+          "J2_center_x_nm": 9.999984769132878e-08,
+          "J2_center_y_nm": -1.7453283658983088e-10,
+          "J2_material": "APCD_TIO2_NATIVE_M1",
+          "J2_rotation_deg": -0.1
+        },
+        "material_name": "APCD_TIO2_NATIVE_M1"
+      },
+      "solver_entered": true,
+      "status": "FAILED",
+      "subrun_id": "LPML_R3_062_y",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 100, in run_subrun\n    f.run(); rows,grid=extract_broadband(f); f.close(); f=None\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_round3_targeted_active_learning_runner_v1.py\", line 85, in extract_broadband\n    raise RuntimeError(f'NORMALIZATION_REVIEW_REQUIRED: negative source transmission at {wl} nm: {t_value!r}')\nRuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -0.0001867060983352381\n"
+    }
+  ],
+  "policy": "isolated entered failures quarantined; no retry; untouched continuation completed"
+}

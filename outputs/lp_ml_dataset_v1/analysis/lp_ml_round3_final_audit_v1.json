@@ -1,0 +1,232 @@
+{
+  "c5_training": {
+    "candidate": "C5_ROUND3_TARGETED_RETRAIN",
+    "checkpoint_hashes": [
+      "8f83d208856be3c245633abb2900da4d4efa3a974413f01d878fa58e084d022a",
+      "124a09f1c0cb72cce59eb9dd185b2cc2b69507d2255595c4020bcbab93224adc",
+      "e0e9afafff8a85fcba7732849c867a3d13f5fd5f0e89c41a0d22809bdb120c13",
+      "d1fcedda1c215d26a167146bf8d4f8c9defd780fc47a351e38dc68dbe08e969a",
+      "f4182c80ce6013b016fc75062dcd2da5f1d8c20bde441ec786a0927c8c442913"
+    ],
+    "cuda_name": "NVIDIA GeForce RTX 3080",
+    "device": "cuda",
+    "from_scratch": true,
+    "merged_clean_v3_sha256": "197372f2a5c49a16d6667c37554cfe4b811eca3955b28cd5ac3e70b4c8d6baa9",
+    "normalization_sha256": "9d9c9228d48e0b1a63252a2cc5852247b54167635387cc557d60ecbf3113be10",
+    "seed_list": [
+      11,
+      22,
+      33,
+      44,
+      55
+    ],
+    "seed_results": [
+      {
+        "best_validation_smooth_l1": 0.00018332796753384173,
+        "checkpoint_sha256": "8f83d208856be3c245633abb2900da4d4efa3a974413f01d878fa58e084d022a",
+        "epochs": 500,
+        "runtime_s": 429.0870852470398,
+        "seed": 11
+      },
+      {
+        "best_validation_smooth_l1": 0.00016905345546547323,
+        "checkpoint_sha256": "124a09f1c0cb72cce59eb9dd185b2cc2b69507d2255595c4020bcbab93224adc",
+        "epochs": 500,
+        "runtime_s": 422.6400456428528,
+        "seed": 22
+      },
+      {
+        "best_validation_smooth_l1": 0.00015118258306756616,
+        "checkpoint_sha256": "e0e9afafff8a85fcba7732849c867a3d13f5fd5f0e89c41a0d22809bdb120c13",
+        "epochs": 476,
+        "runtime_s": 413.1762249469757,
+        "seed": 33
+      },
+      {
+        "best_validation_smooth_l1": 0.0002433185582049191,
+        "checkpoint_sha256": "d1fcedda1c215d26a167146bf8d4f8c9defd780fc47a351e38dc68dbe08e969a",
+        "epochs": 467,
+        "runtime_s": 411.77580666542053,
+        "seed": 44
+      },
+      {
+        "best_validation_smooth_l1": 0.00014212769747246057,
+        "checkpoint_sha256": "f4182c80ce6013b016fc75062dcd2da5f1d8c20bde441ec786a0927c8c442913",
+        "epochs": 500,
+        "runtime_s": 428.6944303512573,
+        "seed": 55
+      }
+    ],
+    "solver_calls": 0,
+    "training_geometry_count": 275,
+    "validation_geometry_count": 54,
+    "warm_start": false
+  },
+  "clean_v3": {
+    "coverage_complete_geometry_count": 58,
+    "coverage_gap": 6,
+    "dataset_sha256": "197372f2a5c49a16d6667c37554cfe4b811eca3955b28cd5ac3e70b4c8d6baa9",
+    "duplicate_rows": 0,
+    "geometry_054_rows": 0,
+    "geometry_count": 377,
+    "normalization_sha256": "9d9c9228d48e0b1a63252a2cc5852247b54167635387cc557d60ecbf3113be10",
+    "rows": 3393,
+    "rows_per_geometry": 9,
+    "split_sha256": "5265e1a771a7c9e6d8df3cb7d1020cb5420607a36beb8aa237acbed0ddb33418"
+  },
+  "constraints": {
+    "geometry054_generated": false,
+    "inverse_fdtd": false,
+    "model_filled_rows": 0,
+    "no_k6": true,
+    "no_new_dof": true,
+    "no_round3_solver_after_completion": true,
+    "round4": false,
+    "solver_calls_after_physics": 0
+  },
+  "contract": "LP_ML_ROUND3_TARGETED_ACTIVE_LEARNING_FINAL_AUDIT_V1",
+  "environment": {
+    "ahead_behind": "0\t0",
+    "branch": "work/lp-stage11-4",
+    "head": "e178fbcd5e73f007371faa73507dce26cc13be59",
+    "upstream": "origin/work/lp-stage11-4"
+  },
+  "freeze": {
+    "category_counts": {
+      "B0_TARGETED_ACTIVE_LEARNING": 8,
+      "B1_TARGETED_ACTIVE_LEARNING": 8,
+      "B2_TARGETED_ACTIVE_LEARNING": 8,
+      "B3_TARGETED_ACTIVE_LEARNING": 12,
+      "B4_TARGETED_ACTIVE_LEARNING": 12,
+      "B5_TARGETED_ACTIVE_LEARNING": 12,
+      "LOW_DISAGREEMENT_MAXIMIN_CONTROL": 2,
+      "TUPLE_NEIGHBOR_CONTROL": 2
+    },
+    "contract_sha256": "5bfc6194de31e8a6f95832ef84aafd9ab017a99495e763b278974be16ce84ff2",
+    "plan_json_sha256": "7452e15e80ea4207c13f0c5a3a529f024ca1bc175081bc4b341709c594eedb17",
+    "plan_sha256": "f31056c3b3b552f27c186cb2fed09daa33ded91dcea27d304cf84eb931370d68",
+    "planned_geometries": 64,
+    "predictions_sha256": "ce47568b6d20bcb19f53a03707e86e2cc38be8b83beca6e881c489fd048dbcc5"
+  },
+  "outcome": "LP_ML_ROUND3_SIX_BIN_PARTIAL_COVERAGE_ROUND4_RECOMMENDED",
+  "physics_accounting": {
+    "accepted_spectral_rows": 522,
+    "complete_recovery_geometries": 58,
+    "coverage_gap": 6,
+    "duplicate_invocations": 1,
+    "failed_subruns": 6,
+    "planned_geometries": 64,
+    "planned_subruns": 128,
+    "quarantined_cases": [
+      "LPML_R3_003_x",
+      "LPML_R3_009_y",
+      "LPML_R3_026_y",
+      "LPML_R3_029_y",
+      "LPML_R3_031_y",
+      "LPML_R3_062_y"
+    ],
+    "solver_entered": 127,
+    "successful_accepted_subruns": 121,
+    "unique_subruns": 126
+  },
+  "protected_report_sha256": {
+    "reports\\lp_ml1a3_git_history_geometry_reconstruction.md": "9e46a7bd1927d65adc3a9cf9192040e7d239b839ed516adcd96870bf64bfcd02",
+    "reports\\stage11_4a20_legacy_fsp_object_inventory.md": "ae3b13341547e13ca85ca763ed8265591c100ac1a78c555de1c8378816a33708"
+  },
+  "route": {
+    "coverage_ready_for_inverse_fdtd": false,
+    "reason": "isolated six missing geometries and one duplicate entered accounting require coverage repair/audit before any inverse-FDTD authorization",
+    "recommended": "ROUND4_RECOMMENDED_FOR_6_MISSING_GEOMETRIES_BEFORE_INVERSE_FDTD"
+  },
+  "six_bin_search": {
+    "candidate_count": 508,
+    "candidate_generation": true,
+    "clean_v3_dataset_sha256": "197372f2a5c49a16d6667c37554cfe4b811eca3955b28cd5ac3e70b4c8d6baa9",
+    "clean_v3_normalization_sha256": "9d9c9228d48e0b1a63252a2cc5852247b54167635387cc557d60ecbf3113be10",
+    "contract_version": "LP_ML_ROUND3_SIX_BIN_INVERSE_EXECUTION_MANIFEST_V1",
+    "dataset_sha256": "ca2fd154eed8e9b2f41b92c2f2aaa95f77d451c7047e4056f84a430c56e67336",
+    "frozen_test_used_for_tuning": false,
+    "geometry_054_rows": 0,
+    "known_control_geometries": 319,
+    "known_control_rows": 2871,
+    "manufacturing_design_space_sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da",
+    "new_physics": false,
+    "normalization_sha256": "13c7855b48d8c34e674ea67cb343df9414306cf43a943efdec6bba001f864167",
+    "objective_contract_sha256": "1fbdaf317bf9ae1af6d7af21677f88f476880885234a60e7582b10bb5ae4aedd",
+    "optimization_code_sha256": "c48f20b7c6425c7c510152aea72e8fa6568b71df4da72869d9731527997ad9b4",
+    "per_bin_candidate_count": {
+      "0": 59,
+      "1": 263,
+      "2": 55,
+      "3": 45,
+      "4": 46,
+      "5": 40
+    },
+    "planning_model": "OLD_C5_BLEND_0.95",
+    "planning_weights": {
+      "C0": 0.9025,
+      "C1": 0.0475,
+      "C5": 0.05
+    },
+    "random_seeds": {
+      "derivative_free": 33000,
+      "sobol_coarse_base": 10000,
+      "sobol_fine_base": 20000
+    },
+    "runtime_s": 291.99434757232666,
+    "selected_blend_alpha": 0.95,
+    "solver_authorized": false,
+    "solver_calls": 0,
+    "split_sha256": "2a4223f802204e870cc7d28d956f5c705f9442ccdbad2ad9bd10fecab07ce661",
+    "status": "LP_ML_SIX_BIN_INVERSE_PARTIAL_COVERAGE_ROUND3_RECOMMENDED",
+    "target_projector_sha256": "bb575391319f97e417ccac16be95c3e1d3569dece2363a9d1d338d2d7c1e74e5",
+    "train_validation_only_for_tuning": true,
+    "tuple_count": 103,
+    "validation_selection_sha256": "e139129bd05edaf1580f02565c9b9922d4d941b2761859d7872443829b6330ad"
+  },
+  "validation_selection": {
+    "outcome": "C5_SELECTED_VALIDATION_ONLY",
+    "selected_model": "OLD_C5_BLEND_0.95",
+    "selected_test_metrics": {
+      "ROUND1:test": {
+        "Txx_mae": 0.02094256446613351,
+        "Tyy_mae": 0.03242641124601129,
+        "frobenius_mean": 0.05180108963802237,
+        "frobenius_p95": 0.11052323929708832,
+        "leakage_mae": 2.1131853165267764e-05,
+        "phase_mae_deg": 0.9527907412962944,
+        "raw_jones_mae": 0.01124243848477553,
+        "raw_jones_max": 0.18907247334718702,
+        "raw_jones_rmse": 0.021133428544930624,
+        "rows": 342
+      },
+      "ROUND2:test": {
+        "Txx_mae": 0.011648323264869401,
+        "Tyy_mae": 0.10770061968234788,
+        "frobenius_mean": 0.10288120038725446,
+        "frobenius_p95": 0.1485345502055917,
+        "leakage_mae": 5.042707503130785e-05,
+        "phase_mae_deg": 2.1315808345979486,
+        "raw_jones_mae": 0.02339546266169129,
+        "raw_jones_max": 0.13411109745502472,
+        "raw_jones_rmse": 0.03794634387554364,
+        "rows": 72
+      },
+      "ROUND3:test": {
+        "Txx_mae": 0.024171989689985574,
+        "Tyy_mae": 0.021428708972172146,
+        "frobenius_mean": 0.03920881451906219,
+        "frobenius_p95": 0.051963076244272155,
+        "leakage_mae": 3.3241393653993804e-05,
+        "phase_mae_deg": 0.564653623080408,
+        "raw_jones_mae": 0.008909049093079428,
+        "raw_jones_max": 0.050211575627326976,
+        "raw_jones_rmse": 0.014231597122064014,
+        "rows": 18
+      }
+    },
+    "selection_sha256": "e139129bd05edaf1580f02565c9b9922d4d941b2761859d7872443829b6330ad",
+    "test_used_for_selection": false,
+    "validation_score": 0.3151157986968476
+  }
+}
