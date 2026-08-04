@@ -1,7 +1,7 @@
 import argparse, json, os, subprocess
 from datetime import datetime, timezone
 from pathlib import Path
-ROOT=Path(r'D:\project\worktrees\blue_apcd_np_k6_mdc_v1'); STAGE=ROOT/'outputs'/'np_k6_p0_runtime_launcher_recovery_setup_v1'; MANIFEST=STAGE/'launcher_manifest.json'; PIDFILE=STAGE/'dummy.pid.json'; HEARTBEAT=STAGE/'dummy.heartbeat.json'; STATUS=STAGE/'launcher_status.json'; STDOUT=STAGE/'dummy.stdout.log'; STDERR=STAGE/'dummy.stderr.log'; COMPLETED=STAGE/'dummy.completed.json'; WORKER=ROOT/'scripts'/'np_k6_p0_dummy_worker_v1.py'
+ROOT=Path(r'D:\project\worktrees\blue_apcd_np_k6_mdc_v1'); STAGE=ROOT/'outputs'/'np_k6_p0_runtime_launcher_recovery_setup_v1'; MANIFEST=STAGE/'launcher_manifest.json'; PIDFILE=STAGE/'dummy.pid.json'; HEARTBEAT=STAGE/'dummy.heartbeat.json'; STATUS=STAGE/'launcher_status.json'; STDOUT=STAGE/'dummy.stdout.log'; STDERR=STAGE/'dummy.stderr.log'; COMPLETED=STAGE/'dummy.completed.json'; WORKER=ROOT/'scripts'/'np_k6_p0_dummy_worker_v1.py'; RECOVERY_STAGE=ROOT/'outputs'/'np_k6_p0_simtime_2ps_recovery_v2_runtime'; RECOVERY_MANIFEST=RECOVERY_STAGE/'launcher_manifest.json'; RECOVERY_PID=RECOVERY_STAGE/'recovery.pid.json'; RECOVERY_STATUS=RECOVERY_STAGE/'launcher_status.json'; RECOVERY_STDOUT=RECOVERY_STAGE/'recovery.stdout.log'; RECOVERY_STDERR=RECOVERY_STAGE/'recovery.stderr.log'; RECOVERY_HEARTBEAT=RECOVERY_STAGE/'runtime_runs'/'RUN3C_P_PILOT_HF_SIMTIME_2PS_RECOVERY_V2'/'attempt_001'/'heartbeat.json'; RECOVERY_RUNNER=ROOT/'scripts'/'np_k6_p0_simtime_recovery_v2_runner.py'; RECOVERY_LEDGER=ROOT/'outputs'/'np_k6_p0_simtime_2ps_recovery_v2_setup'/'attempt_ledger.json'; RECOVERY_SETUP=ROOT/'outputs'/'np_k6_p0_simtime_2ps_recovery_v2_setup'/'runtime_prefsp'/'RUN3C_P_PILOT_HF_SIMTIME_2PS_RECOVERY_V2.fsp'
 def now():return datetime.now(timezone.utc).isoformat()
 def atomic(p,o):
  p=Path(p);p.parent.mkdir(parents=True,exist_ok=True);t=p.with_name(p.name+'.tmp');t.write_text(json.dumps(o,indent=2,sort_keys=True,default=str),encoding='utf-8');t.replace(p)
@@ -17,6 +17,18 @@ def pid_alive(pid):
  try:
   os.kill(int(pid),0); return True
  except Exception: return False
+def start_recovery():
+ RECOVERY_STAGE.mkdir(parents=True,exist_ok=True); m=load(RECOVERY_MANIFEST,{}) or {}; l=load(RECOVERY_LEDGER,{}) or {}
+ if m.get('launch_count',0)>0: raise RuntimeError('recovery launcher already consumed; repeat refused')
+ if l.get('entered') or l.get('run_invocation_count',0)!=0: raise RuntimeError('recovery ledger already entered')
+ if not RECOVERY_SETUP.exists(): raise RuntimeError('recovery setup missing')
+ if RECOVERY_PID.exists() and pid_alive((load(RECOVERY_PID,{}) or {}).get('pid')): raise RuntimeError('recovery PID alive; duplicate start refused')
+ launch_id='NP_K6_P0_RECOVERY_V2_001'; started=now(); out=RECOVERY_STDOUT.open('ab'); err=RECOVERY_STDERR.open('ab'); flags=getattr(subprocess,'DETACHED_PROCESS',0)|getattr(subprocess,'CREATE_NEW_PROCESS_GROUP',0)|getattr(subprocess,'CREATE_BREAKAWAY_FROM_JOB',0)
+ p=subprocess.Popen([r'N:\anaconda_envs\RCP_LCP\python.exe',str(RECOVERY_RUNNER),'--launch-id',launch_id],cwd=str(ROOT),stdout=out,stderr=err,creationflags=flags,close_fds=True); out.close(); err.close()
+ atomic(RECOVERY_PID,{'pid':p.pid,'parent_pid':os.getpid(),'start_timestamp_utc':started,'interactive_session_dependency':False,'case_id':'RUN3C_P_PILOT_HF_SIMTIME_2PS_RECOVERY_V2','attempt_id':'attempt_001'})
+ m={'schema_version':'np_k6_p0_recovery_launcher_v2','case_id':'RUN3C_P_PILOT_HF_SIMTIME_2PS_RECOVERY_V2','attempt_id':'attempt_001','launch_id':launch_id,'launch_count':1,'pid':p.pid,'python_executable':r'N:\anaconda_envs\RCP_LCP\python.exe','runner':str(RECOVERY_RUNNER),'worktree':str(ROOT),'setup_path':str(RECOVERY_SETUP),'stdout_path':str(RECOVERY_STDOUT),'stderr_path':str(RECOVERY_STDERR),'heartbeat_path':str(RECOVERY_HEARTBEAT),'interactive_session_dependency':False,'automatic_retry':False,'controller_timeout_kill':False,'solver_launch_authorized':True,'solver_call_budget':1,'entered_before_run_required':True,'start_timestamp_utc':started}; atomic(RECOVERY_MANIFEST,m); atomic(RECOVERY_STATUS,{'state':'RECOVERY_STARTED','timestamp_utc':now(),'pid':p.pid,'launch_id':launch_id,'case_id':m['case_id'],'attempt_id':'attempt_001','entered':False,'run_invocation_count':0,'post_save_allowed':False}); print(json.dumps({'state':'RECOVERY_STARTED','pid':p.pid,'launch_id':launch_id,'stdout_path':str(RECOVERY_STDOUT),'stderr_path':str(RECOVERY_STDERR),'heartbeat_path':str(RECOVERY_HEARTBEAT)},indent=2)); return 0
+def recovery_status():
+ m=load(RECOVERY_MANIFEST); l=load(RECOVERY_LEDGER); pid=load(RECOVERY_PID); hb=load(RECOVERY_HEARTBEAT); st=load(RECOVERY_STATUS); alive=pid_alive((pid or {}).get('pid')) if pid else False; o={'state':'RECOVERY_STATUS_ONLY','timestamp_utc':now(),'process_alive':alive,'pid':pid,'heartbeat':hb,'controller_status':st,'ledger':l,'launch_manifest':m,'post_save_allowed':False}; atomic(RECOVERY_STATUS,o); print(json.dumps(o,indent=2,default=str)); return 0
 def start(duration):
  m=ensure()
  if m.get('entered') or m.get('run_invocation_count',0)!=0 or m.get('solver_calls',0)!=0:raise RuntimeError('zero-run launcher invariant failed')
@@ -35,5 +47,5 @@ def status():
 def recover(mode):
  m=ensure();o=write_status(mode.upper(),manifest=m,pid=load(PIDFILE),completed=load(COMPLETED),post_save_allowed=False);print(json.dumps(o,indent=2));return 0
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--mode',choices=['dummy-start','status-only','recover-controller-only','recover-post-save-only'],required=True);ap.add_argument('--duration',type=float,default=65);a=ap.parse_args();return start(a.duration) if a.mode=='dummy-start' else status() if a.mode=='status-only' else recover(a.mode)
+ ap=argparse.ArgumentParser();ap.add_argument('--mode',choices=['dummy-start','status-only','recover-controller-only','recover-post-save-only','recovery-start','recovery-status'],required=True);ap.add_argument('--duration',type=float,default=65);a=ap.parse_args();return start(a.duration) if a.mode=='dummy-start' else status() if a.mode=='status-only' else start_recovery() if a.mode=='recovery-start' else recovery_status() if a.mode=='recovery-status' else recover(a.mode)
 if __name__=='__main__':raise SystemExit(main())
