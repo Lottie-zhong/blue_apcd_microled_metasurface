@@ -1,0 +1,113 @@
+{
+  "audit_id": "LP_ML_ROUND2_RECOMPETITION_INPUT_CONFLICT_AUDIT_V1",
+  "timestamp": "2026-08-04T13:07:00+08:00",
+  "status": "LP_ML_ROUND2_RECOMPETITION_HARD_GATE",
+  "failure_class": "DATA_BOUNDARY_CONFLICT",
+  "expected_baseline": {
+    "merged_geometries": 319,
+    "merged_rows": 2871,
+    "geometry_054": "QUARANTINED_ZERO_ROWS"
+  },
+  "observed": {
+    "merged_candidate_054_rows": 9,
+    "plan_candidate_054_rows": 1,
+    "staging_candidate_054_rows": 9,
+    "merged_total_rows": 2871
+  },
+  "candidate_054_merged_field_values": {
+    "model_fill": [
+      "NONE"
+    ],
+    "physics_origin": [
+      "PROSPECTIVE_LP_ML_ROUND2_ACTIVE_LEARNING_FORMAL_WEIGHTED_G0"
+    ],
+    "geometry_054_excluded": [
+      "False"
+    ],
+    "solver_status": [
+      "PLANNED_NOT_RUN"
+    ],
+    "physics_status": [
+      "ABSENT_NOT_SIMULATED"
+    ],
+    "prediction_status": [
+      "NONE_PHYSICS_OBSERVED"
+    ]
+  },
+  "candidate_054_plan_field_values": {
+    "geometry_054_excluded": [
+      "True"
+    ],
+    "solver_status": [
+      "PLANNED_NOT_RUN"
+    ],
+    "physics_status": [
+      "ABSENT_NOT_SIMULATED"
+    ],
+    "prediction_status": [
+      "MODEL_PREDICTION_NOT_PHYSICS_LABEL"
+    ]
+  },
+  "candidate_054_staging_field_values": {
+    "model_fill": [
+      "NONE"
+    ],
+    "physics_origin": [
+      "PROSPECTIVE_LP_ML_ROUND2_ACTIVE_LEARNING_FORMAL_WEIGHTED_G0"
+    ]
+  },
+  "candidate_054_wavelengths_merged": [
+    450.0,
+    450.5,
+    451.0,
+    451.5,
+    452.0,
+    452.5,
+    453.0,
+    453.5,
+    454.0
+  ],
+  "candidate_054_exact_geometry_hashes": [
+    "2e07d48ba61d315bc1f13ae407cd25ba2d8b825a7de07c1f830c9bfb8b04d069"
+  ],
+  "files": {
+    "outputs\\lp_ml_dataset_v1\\lp_ml_dataset_v1_round2_complete_319_geometry_2871_rows.csv": {
+      "exists": true,
+      "sha256": "7aa3ec38a50ce5a88e7a31fb2cabbf7414bf746917e62f281fbc556a36cd9db7",
+      "size": 3586296
+    },
+    "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_round2_64_candidate_plan_v1.csv": {
+      "exists": true,
+      "sha256": "21ceb983b6495b70d09408aedb7c0f0276725b34bac2a4284b6ba7828563c6f4",
+      "size": 49720
+    },
+    "outputs\\lp_ml_dataset_v1\\staging\\lp_ml_dataset_v1_round2_active_learning_attempt1_v1\\candidate_wavelength_jones_v1.csv": {
+      "exists": true,
+      "sha256": "51079fcfef556f5b5a2cdbfccba80c937d567e9f7f106457e0307ea136e72b87",
+      "size": 496090
+    }
+  },
+  "git": {
+    "branch": "work/lp-stage11-4",
+    "head": "a1e5f12fdd559d5fa23a4eaed584aeaa1497ab0b",
+    "upstream_count": "0\t0"
+  },
+  "protected_reports": [
+    {
+      "path": "reports/lp_ml1a3_git_history_geometry_reconstruction.md",
+      "sha256": "9e46a7bd1927d65adc3a9cf9192040e7d239b839ed516adcd96870bf64bfcd02"
+    },
+    {
+      "path": "reports/stage11_4a20_legacy_fsp_object_inventory.md",
+      "sha256": "ae3b13341547e13ca85ca763ed8265591c100ac1a78c555de1c8378816a33708"
+    }
+  ],
+  "interpretation": [
+    "The 054 candidate is marked excluded in the frozen plan but is present in staging and the merged dataset.",
+    "All nine merged rows are PLANNED_NOT_RUN and ABSENT_NOT_SIMULATED with model_fill NONE; they are not valid physics rows or model-filled predictions.",
+    "The observed 9 rows contradict the stated quarantined/zero-row input boundary and must not be silently deleted or rewritten in this task."
+  ],
+  "training_authorized": false,
+  "solver_calls": 0,
+  "required_resolution": "Reconcile the frozen dataset boundary/hash and authoritative 054 quarantine artifact before model recompetition."
+}
