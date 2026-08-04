@@ -22,6 +22,7 @@ The single authorized `RUN3C_P_PILOT_HF_SIMTIME_2PS_RECOVERY_V2/attempt_001` com
 - 450 nm: `T=0.7395719671897157`, `R=0.26067433158527137`, `eta(+1)=0.6216787417275325`.
 - 448 nm structure-interval flux jump: `-0.019825876414615418`; lower/upper transition jumps are `-1.57027e-05` and `-9.71118e-06`.
 - Maximum transmitted-order sum mismatch: `2.220446049250313e-16`; no order-normalization failure.
+- Direct `getdata(power)` readback is available for transmission/reflection monitors; sourcepower normalization mismatches are `1.11e-16` (T) and `2.78e-17` (R). Actual monitor coordinate hashes are recorded for x/y and the 449 nm XZ z-axis; solver-core grid equality remains unclaimed.
 
 ## Comparison with 1 ps
 
