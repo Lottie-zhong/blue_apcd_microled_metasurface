@@ -1,0 +1,29 @@
+{
+  "amplitude_policy": "rho_k is continuous and scored for uniformity; no fixed amplitude is assumed",
+  "bin_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "closure": {
+    "adjacent_phase_error": "circular_distance(delta_phi,60deg)",
+    "six_bin_closure": "circular_distance(sum(delta_phi),360deg)"
+  },
+  "complex_scalar": "rho_k*exp(i*(phi_offset + k*60deg))",
+  "contract_version": "LP_ML_SIX_BIN_TARGET_CONVENTION_V1",
+  "offset_invariance": "subtract one common fitted phi_offset before phase-closure scoring",
+  "phase_step_deg": 60.0,
+  "phi_offset": {
+    "domain_deg": [
+      -30.0,
+      30.0
+    ],
+    "kind": "free_common_offset",
+    "periodic_equivalence_deg": 60.0
+  },
+  "projector_policy": "one frozen P_APCD shape for all bins; no per-bin projector redefinition",
+  "solver_calls": 0
+}

@@ -1,0 +1,27 @@
+{
+  "contract_version": "LP_ML_SIX_BIN_OPTIMIZATION_METHOD_PLAN_V1",
+  "method_1": {
+    "candidate_generation_executed": false,
+    "model": "selected_blend",
+    "name": "differentiable_multistart",
+    "quantize_then_rescore": true,
+    "trajectories_per_bin_min": 100
+  },
+  "method_2": {
+    "algorithm": "CMA-ES_or_equivalent_bounded_method",
+    "candidate_generation_executed": false,
+    "name": "bounded_derivative_free",
+    "role": "local-gradient miss and sensitivity diagnostic"
+  },
+  "no_direct_target_to_geometry_network": true,
+  "no_runnable_solver_package": true,
+  "retention_proposal": {
+    "pareto_shortlist_per_bin": [
+      10,
+      20
+    ],
+    "raw_candidates_per_bin_min": 20
+  },
+  "solver_calls": 0,
+  "status": "PLANNED_NOT_RUN"
+}

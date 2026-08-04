@@ -1,0 +1,28 @@
+{
+  "background": "air_n=1",
+  "boundary": "x/y_periodic_z_PML_normal_incidence",
+  "contract_version": "LP_ML_SIX_BIN_INVERSE_PHYSICAL_TARGET_V1",
+  "explicitly_not": [
+    "PHASE_ONLY",
+    "TXX_ONLY",
+    "CONSTITUENT_ADDITIVE_K6",
+    "RECIPROCITY_ASSUMPTION"
+  ],
+  "jones_convention": "J=[[txx,txy],[tyx,tyy]]; x-input Ex=txx/Ey=tyx; y-input Ex=txy/Ey=tyy",
+  "material": "APCD_TIO2_NATIVE_M1",
+  "normalization": "sqrt(T)/norm(weighted Ex,weighted Ey)",
+  "observable": "transmission-side coordinate-weighted full-period complex-field G0 with duplicate endpoint removal/reclosure and sqrt(T)/norm(weighted Ex,Ey)",
+  "projector": {
+    "resolution_rule": "Use the frozen APCD projector definition without redefining absolute PASS/FAIL thresholds; no numerical projector is invented here.",
+    "shape_error": "min_c ||J-c*P_APCD||_F / (||J||_F + epsilon)",
+    "source_contract": "outputs/lp_ml_dataset_v1/analysis/b120_j2lm06_projector_guard_metric_definition_contract_v1.json",
+    "source_sha256": "bb575391319f97e417ccac16be95c3e1d3569dece2363a9d1d338d2d7c1e74e5",
+    "symbol": "P_APCD"
+  },
+  "reference_plane": "field_monitor_z_1000_nm",
+  "scalar_definition": "complex_scalar_k = rho_k * exp(i*(phi_offset + 60*k degrees)), rho_k > 0",
+  "solver_calls": 0,
+  "status": "FROZEN_PLANNING_CONTRACT_ONLY",
+  "target_jones": "J_target,k = complex_scalar_k * P_APCD",
+  "target_type": "COMPLETE_COMPLEX_JONES"
+}

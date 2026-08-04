@@ -1,0 +1,57 @@
+{
+  "checkpoint_sha256": {
+    "C0": {
+      "11": "99aa86916ce5580cba67afd5895c597dac32d1a7e3fafc9cacc4093b2b877371",
+      "22": "896befc809c7da3123b13f11c519f2ceda1e45ebb3798a78d17c1e8c82aec70c",
+      "33": "1f12861a2413dad421d9f6d72790849e7fb69206745c3c77fbc0cd5784ff4ad1",
+      "44": "7e8101b29d62c8565837ba3c1dbec02c435025afdf8e0ddb3abc5b21692d5af2",
+      "55": "1d78ad98861e9f9a1f9430b7cfe6248e72ba70f95526a07b805ed3d3c1173d71"
+    },
+    "C1": {
+      "11": "5a7521cc588e31bbbb30ef45284b35242cd9ef1e77301d188ec5e32bab23653b",
+      "22": "dedfdefa19305836311e9fdbdfe3ad09a27d8b1cf920eea5bbe1e028271739d6",
+      "33": "ff613a4fa82c16a53df308c4ff2f82d5af9c9fcb8ba5e693e3e2a742e0bb79a2",
+      "44": "c912c9a5b51b2294e7c85f373988c22ca6d3196c5e970936abad2c27d98a7d0b",
+      "55": "d176cdfed713ca53daa69999e336ba10cb55ad54c4fb0816bd283d483d2065a5"
+    },
+    "C2": {
+      "11": "871d459085ab202555d5b8997a8347e7444769fa96819b83b15eb3836c39985e",
+      "22": "ae84b02f7102eca9864720257128f206b4c0d3084636660cb097b2b66877ca2a",
+      "33": "a692925350ee42c46dec636b3c4fd2f68b823607a5558a479e537a4fe71c6e0c",
+      "44": "0dd743e8842a8f5e39de82d2a89970e7e2919e65cc6e44654008693063aafbec",
+      "55": "fc11747056c7eac4694ce315f3481d5dfa1ea928f3c90ea897b9765e1ed0bb68"
+    },
+    "C3": {
+      "11": "f15cb67fa67903872cfe550d2d4667b3cd52a78b31ef62d175f8d915358e163e",
+      "22": "35b5c3efd15c44b47dbafeb613ac36ee71fbe3a140a679746b57fa84c81a5135",
+      "33": "dc7fd891fd82f3fd5a144482f65674da64b62d75f35ca7854f5ad0067d9e95a2",
+      "44": "c5c032da261f2cd24a93407a40f91afb9f176252df390f3060d6cf27096f1c0c",
+      "55": "86614ecc3c6adb5c1dab2a70f4769beeceadd10a8e067d52544672f3ed2e9047"
+    },
+    "C4": {
+      "11": "86268df62b31fe6672d846b0fab434caf41508061b467a2f3cfba5af523d6f65",
+      "22": "da0ddcb66d1d8e8b767c84cb7cd0e125ae98288795a2a4dde60e1e0b1179d1d1",
+      "33": "9e1497444e3988781ccde48c703e212a60c7c4969871d6607961cb06dd29435e",
+      "44": "f79ac5cb715d4aa17bd4c9d40968211d3c0b4ba1e37edabfde31a72a00abf710",
+      "55": "b9ebb30eda097e406e9dce65e2c3f6e671defbc4615562573637845d5d49045e"
+    }
+  },
+  "contract_version": "LP_ML_SIX_BIN_MODEL_ROLE_AND_CONSENSUS_V1",
+  "dataset_sha256": "ca2fd154eed8e9b2f41b92c2f2aaa95f77d451c7047e4056f84a430c56e67336",
+  "high_risk_policy": "high-risk candidates cannot be sole representative of a phase bin",
+  "risk_classes": {
+    "CONSENSUS_LOW_RISK": "all required models finite and disagreement <= validation-derived q50 scale",
+    "CONSENSUS_MODERATE_RISK": "disagreement above validation q50 and <= validation q90 scale",
+    "MODEL_DISAGREEMENT_HIGH_RISK": "disagreement > validation q90, outside clean training hull, or any model non-finite"
+  },
+  "roles": {
+    "C0": "CURRENT_CHAMPION_GLOBAL_DOMAIN_GUARD",
+    "C0_blend_disagreement": "EXTRAPOLATION_RISK_SIGNAL",
+    "C1_to_C4": "ENSEMBLE_DISPERSION_AND_ALTERNATIVE_MODEL_SENSITIVITY_ONLY",
+    "ensemble_dispersion": "EPISTEMIC_UNCERTAINTY_PROXY_NOT_A_CONFIDENCE_INTERVAL",
+    "selected_blend": "PRIMARY_CONTINUOUS_GRADIENT_SCORER_ALPHA_0P95_C0_PLUS_0P05_C1"
+  },
+  "solver_calls": 0,
+  "test_guided_selection": false,
+  "threshold_source": "clean Round-1 and Round-2 train/validation residual distributions only"
+}

@@ -1,0 +1,29 @@
+{
+  "candidate_list": "ABSENT_BY_CONTRACT",
+  "contract_version": "LP_ML_SIX_BIN_PARETO_SELECTION_V1",
+  "diversity_policy": "retain multiple geometry families and non-dominated manufacturing margins where available",
+  "hard_gates": [
+    "manufacturing_valid",
+    "gap_valid",
+    "within_clean_design_bounds",
+    "finite_complete_Jones_prediction",
+    "not_geometry_054",
+    "not_duplicate_training_geometry"
+  ],
+  "objectives": [
+    "phase_accuracy",
+    "projector_shape",
+    "throughput",
+    "leakage",
+    "sigma_ratio",
+    "spectral_stability",
+    "consensus",
+    "uncertainty",
+    "manufacturing_margin",
+    "geometric_diversity"
+  ],
+  "per_bin": true,
+  "risk_policy": "high-risk model-disagreement candidates may remain diagnostic but cannot be sole bin representative",
+  "selection_data": "training/validation only; frozen tests are one-time post-selection evaluation",
+  "solver_calls": 0
+}

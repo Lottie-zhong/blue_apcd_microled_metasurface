@@ -1,0 +1,39 @@
+{
+  "components": [
+    "adjacent_phase_step_errors",
+    "six_bin_phase_closure",
+    "projector_shape_consistency",
+    "amplitude_uniformity",
+    "leakage_uniformity",
+    "sigma_ratio_uniformity",
+    "spectral_ordering_stability",
+    "manufacturing_diversity",
+    "model_uncertainty",
+    "C0_blend_consensus"
+  ],
+  "contract_version": "LP_ML_SIX_BIN_TUPLE_OBJECTIVE_V1",
+  "forbidden": [
+    "all_bins_same_geometry_family",
+    "one_champion_only",
+    "phase_proximity_only",
+    "uncertainty_coverage_by_high_risk_only",
+    "geometry_054",
+    "constituent_additive_K6"
+  ],
+  "offset_invariance": true,
+  "pareto_axes": [
+    "phase_accuracy",
+    "projector_shape",
+    "throughput",
+    "leakage",
+    "sigma_ratio",
+    "spectral_stability",
+    "consensus",
+    "uncertainty",
+    "manufacturing_margin",
+    "geometric_diversity"
+  ],
+  "scope": "PLANNING_AND_RANKING_ONLY",
+  "selection_policy": "retain a Pareto set per bin; no single weighted champion is authoritative",
+  "solver_calls": 0
+}

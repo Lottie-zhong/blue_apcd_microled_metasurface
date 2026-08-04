@@ -1,0 +1,83 @@
+{
+  "allowed_validation_only_adjustment": "each soft weight 0.5x to 2.0x; manufacturing remains hard; no adjustment from frozen tests",
+  "bounds": {
+    "D_nm": [
+      196,
+      204
+    ],
+    "J1_side_nm": [
+      108,
+      112
+    ],
+    "J2_length_nm": [
+      106,
+      110
+    ],
+    "J2_width_nm": [
+      98,
+      102
+    ],
+    "Psi_deg": [
+      -1.2,
+      1.2
+    ]
+  },
+  "bounds_source": "outputs/lp_ml_dataset_v1/plans/lp_ml_dataset_v1_5d_design_space_contract_v1.json",
+  "contract_version": "LP_ML_SIX_BIN_INVERSE_OBJECTIVE_V1",
+  "fixed": {
+    "H_nm": 500.0,
+    "material": "APCD_TIO2_NATIVE_M1",
+    "period_nm": [
+      432.0,
+      432.0
+    ],
+    "wavelength_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ]
+  },
+  "forbidden": [
+    "projector_BCE",
+    "ambiguous_projection_error_apcd_v1_alias",
+    "txy_equals_tyx",
+    "test_guided_weight_selection",
+    "D9_label"
+  ],
+  "normalization": "each continuous term divided by max(pooled R1/R2 validation median absolute residual, validation IQR, epsilon); tests excluded",
+  "recommended_initial_weights": {
+    "consensus": 1.0,
+    "leakage": 1.0,
+    "phase": 1.0,
+    "projector": 1.0,
+    "rank": 1.0,
+    "spectral": 1.0,
+    "throughput": 0.5,
+    "uncertainty": 0.5
+  },
+  "solver_calls": 0,
+  "terms": {
+    "consensus": "C0 versus selected-blend disagreement",
+    "leakage": "Tyy+Txy+Tyx from complete raw complex J",
+    "manufacturing": "hard infeasibility gate; not a soft optical score",
+    "phase_target_error": "circular_distance(arg(<P_APCD,J>_F), arg(complex_scalar_target))",
+    "projector_shape_error": "min_c ||J-c*P_APCD||_F/(||J||_F+epsilon)",
+    "rank": "sigma2/sigma1 from complete raw complex J",
+    "spectral_instability": "endpoint phase drift + phase slope + phase curvature + bin-order instability + throughput variation",
+    "throughput_penalty": "normalized shortfall of selected-channel Txx against clean-training reference",
+    "uncertainty": "ensemble dispersion proxy"
+  },
+  "variables": [
+    "J1_side_nm",
+    "J2_length_nm",
+    "J2_width_nm",
+    "D_nm",
+    "Psi_deg"
+  ]
+}
