@@ -1,0 +1,104 @@
+{
+  "audit_id": "LP_ML_ROUND2_RECOMPETITION_INPUT_CONFLICT_AUDIT_V2",
+  "supersedes": {
+    "path": "outputs/lp_ml_dataset_v1/analysis/lp_ml_round2_recompetition_input_conflict_audit_v1.json",
+    "sha256": "ca920bfe6e957561516e3ce0473c7cff2f1161078d4fa4a086362fc9b88ab176"
+  },
+  "status": "LP_ML_ROUND2_RECOMPETITION_HARD_GATE",
+  "failure_class": "DATA_BOUNDARY_CONFLICT_AND_STATUS_MISMATCH",
+  "expected_baseline": {
+    "merged_geometries": 319,
+    "merged_rows": 2871,
+    "geometry_054": "QUARANTINED_ZERO_ROWS"
+  },
+  "observed": {
+    "merged_total_rows": 2871,
+    "merged_unique_geometries": 319,
+    "merged_054_rows": 9,
+    "merged_054_jones_complete_rows": 9,
+    "staging_054_rows": 9,
+    "staging_054_jones_complete_rows": 9,
+    "staging_candidate_checkpoint_status": "ACCEPTED",
+    "staging_subrun_statuses": [
+      [
+        "x",
+        "ACCEPTED",
+        "True"
+      ],
+      [
+        "y",
+        "ACCEPTED",
+        "True"
+      ]
+    ],
+    "staging_run_result_statuses": [
+      [
+        "x",
+        "ACCEPTED",
+        true
+      ],
+      [
+        "y",
+        "ACCEPTED",
+        true
+      ]
+    ],
+    "staging_entered_accounting_rows": 2,
+    "staging_entered_accounting_solver_entered": 2,
+    "plan_exclusion": "True",
+    "plan_solver_status": "PLANNED_NOT_RUN",
+    "plan_physics_status": "ABSENT_NOT_SIMULATED",
+    "manifest_split": "validation",
+    "merged_054_fields": {
+      "geometry_054_excluded": [
+        "False"
+      ],
+      "solver_status": [
+        "PLANNED_NOT_RUN"
+      ],
+      "physics_status": [
+        "ABSENT_NOT_SIMULATED"
+      ],
+      "prediction_status": [
+        "NONE_PHYSICS_OBSERVED"
+      ],
+      "model_fill": [
+        "NONE"
+      ],
+      "Jones_complete": [
+        "True"
+      ]
+    }
+  },
+  "root_cause_evidence": {
+    "postprocess_script": "scripts/lp_ml_round2_postprocess_and_retrain_v1.py",
+    "postprocess_script_sha256": "d63230647d4d523c5fabd45e83e64e9fc02bcf145799c6bfda83c98206528edb",
+    "mechanism": "postprocess loads all staging candidate_wavelength_jones rows without filtering excluded candidate 054 and unconditionally assigns geometry_054_excluded=False to Round-2 rows before writing merged CSV",
+    "physics_provenance": "054 staging contains accepted x/y solver records and complete Jones rows; the merged status fields are inconsistent with the plan exclusion and cannot be treated as a zero-row quarantine."
+  },
+  "files": {
+    "outputs/lp_ml_dataset_v1/lp_ml_dataset_v1_round2_complete_319_geometry_2871_rows.csv": "7aa3ec38a50ce5a88e7a31fb2cabbf7414bf746917e62f281fbc556a36cd9db7",
+    "outputs/lp_ml_dataset_v1/plans/lp_ml_dataset_v1_round2_64_candidate_plan_v1.csv": "21ceb983b6495b70d09408aedb7c0f0276725b34bac2a4284b6ba7828563c6f4",
+    "outputs/lp_ml_dataset_v1/staging/lp_ml_dataset_v1_round2_active_learning_attempt1_v1/candidate_wavelength_jones_v1.csv": "51079fcfef556f5b5a2cdbfccba80c937d567e9f7f106457e0307ea136e72b87",
+    "outputs/lp_ml_dataset_v1/analysis/lp_ml_dataset_v1_round2_complete_319_geometry_manifest_v1.csv": "c29b581ab499a7e850fb045e4b7e61b1e9862d54d23a2b7a686733b4a11560a2",
+    "scripts/lp_ml_round2_postprocess_and_retrain_v1.py": "d63230647d4d523c5fabd45e83e64e9fc02bcf145799c6bfda83c98206528edb"
+  },
+  "git": {
+    "branch": "work/lp-stage11-4",
+    "head": "74412e093d7f12ed2b55e759c0b8c8559baf5529",
+    "upstream_count": "0\t0"
+  },
+  "protected_reports": [
+    {
+      "path": "reports/lp_ml1a3_git_history_geometry_reconstruction.md",
+      "sha256": "9e46a7bd1927d65adc3a9cf9192040e7d239b839ed516adcd96870bf64bfcd02"
+    },
+    {
+      "path": "reports/stage11_4a20_legacy_fsp_object_inventory.md",
+      "sha256": "ae3b13341547e13ca85ca763ed8265591c100ac1a78c555de1c8378816a33708"
+    }
+  ],
+  "solver_calls_this_audit": 0,
+  "training_authorized": false,
+  "required_resolution": "Reconcile authoritative 054 quarantine, accepted staging physics lineage, merged dataset hash, and split manifest before C1-C4 training."
+}
