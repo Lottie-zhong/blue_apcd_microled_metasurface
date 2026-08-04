@@ -1,0 +1,19 @@
+{
+  "auxiliary_ensemble": "mean(auxiliary_seed)",
+  "log_power_ensemble": "mean(log_power_seed)",
+  "no_peak_renormalization": true,
+  "no_seed_selection": true,
+  "power_ensemble": "exp(log_power_ensemble)",
+  "q_ensemble": "mean(q_seed) then closure normalization only",
+  "seed_output_steps": [
+    "standardized PCA latent",
+    "inverse target scaling",
+    "PCA32 inverse transform",
+    "max(raw,0)",
+    "frozen quadrature normalization",
+    "inverse log-power scaling",
+    "inverse auxiliary scaling"
+  ],
+  "seed_weighting": "uniform",
+  "status": "PASS"
+}

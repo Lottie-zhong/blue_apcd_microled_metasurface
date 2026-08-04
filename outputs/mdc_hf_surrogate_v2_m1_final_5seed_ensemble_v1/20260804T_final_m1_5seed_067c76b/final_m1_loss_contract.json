@@ -1,0 +1,50 @@
+{
+  "JS": {
+    "domain": "full joint probability mass"
+  },
+  "angular_CDF": {
+    "domain": "angular marginal from joint profile"
+  },
+  "auxiliary": {
+    "names": [
+      "peak_wavelength_nm",
+      "spectral_fwhm_nm",
+      "peak_angle_deg",
+      "angular_fwhm_deg",
+      "cone5",
+      "cone10",
+      "cone20"
+    ],
+    "smoothL1_beta": 1.0,
+    "standardized": true
+  },
+  "contract_id": "final_m1_loss_contract_v1",
+  "log_power": {
+    "smoothL1_beta": 1.0,
+    "standardized": true
+  },
+  "profile": {
+    "beta": 1.0,
+    "domain": "physical-projected normalized joint profile",
+    "epsilon": 1e-12,
+    "full_grid": true,
+    "grid": [
+      301,
+      2000
+    ],
+    "random_pixel_sampling": false,
+    "smoothL1": "log-domain"
+  },
+  "same_all_seeds": true,
+  "spectral_CDF": {
+    "domain": "spectral marginal from joint profile"
+  },
+  "weights": {
+    "JS": 0.2,
+    "angular_CDF": 0.15,
+    "auxiliary": 0.05,
+    "log_power": 0.1,
+    "profile": 0.35,
+    "spectral_CDF": 0.15
+  }
+}

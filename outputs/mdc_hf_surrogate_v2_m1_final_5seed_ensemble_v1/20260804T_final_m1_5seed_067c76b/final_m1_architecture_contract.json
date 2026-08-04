@@ -1,0 +1,75 @@
+{
+  "backbone": {
+    "activation": "GELU",
+    "dropout": 0.05,
+    "input_dim": 23,
+    "input_to_hidden": 256,
+    "latent_hidden": 128,
+    "residual_blocks": 3,
+    "residual_width": 256
+  },
+  "base_oof_model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_V1",
+  "forbidden": {
+    "CNN": true,
+    "M2_M3_inputs": true,
+    "architecture_widening": true,
+    "attention": true,
+    "latent_relu": true,
+    "latent_sigmoid": true,
+    "latent_softmax": true
+  },
+  "heads": {
+    "auxiliary": {
+      "activation": "linear",
+      "layers": [
+        128,
+        7
+      ]
+    },
+    "latent": {
+      "activation": "linear",
+      "layers": [
+        128,
+        32
+      ]
+    },
+    "log_power": {
+      "activation": "linear",
+      "layers": [
+        128,
+        1
+      ]
+    }
+  },
+  "inputs": {
+    "case_conditioning": [
+      "source_top",
+      "source_centroid",
+      "source_bottom",
+      "dipole_x",
+      "dipole_z"
+    ],
+    "direct_tmm_features": false,
+    "geometry_features": [
+      "asymmetric_pair_count",
+      "dual_defect",
+      "grouped_chirped",
+      "hybrid_periodic_aperiodic",
+      "locally_aperiodic",
+      "off_center_defect",
+      "symmetric_periodic",
+      "termination_reversed",
+      "N",
+      "H_nm",
+      "L_nm",
+      "C_nm",
+      "M",
+      "defect_thickness_nm",
+      "total_thickness_nm",
+      "layer_count",
+      "has_C",
+      "has_M"
+    ]
+  },
+  "model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_FINAL_5SEED_V1"
+}
