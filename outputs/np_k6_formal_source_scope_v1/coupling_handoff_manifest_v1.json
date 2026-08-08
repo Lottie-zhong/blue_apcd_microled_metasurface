@@ -1,0 +1,61 @@
+{
+  "schema_version": "np_k6_mdc_coupling_handoff_v1",
+  "handoff_id": "NP_K6_FORMAL_SOURCE_SCOPE_TO_MDC_HANDOFF_V1",
+  "np_source_branch": "work/np-k6-mdc-v1",
+  "np_source_commit": "9128dfb85a268398d1fee56fcb7543982b075d84",
+  "package_id": "NP_K6_P1D4_K6X_V1",
+  "package_sha256": "0b7b45e838a0d73b92d63f8a45459bc46206677a91821fa474dacf4bd9028eaa",
+  "formal_scope_artifact": "outputs/np_k6_formal_source_scope_v1/formal_source_scope_v1.json",
+  "formal_scope_artifact_sha256": "f034240634365f2c81a78feb0c8df4bc2ecc17db074734236d48c13deaffc7de",
+  "candidate_id": "NP_K6X_125_135_150_175_190_210",
+  "wavelength_scope_nm": [
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455
+  ],
+  "kx_scope_over_k0": [
+    0.0
+  ],
+  "polarization_scope": [
+    "x"
+  ],
+  "interface_stack_scope": {
+    "interface_stack_id": "NP_K6_INDEPENDENT_STACK_PILOT_V1",
+    "stack": "SiO2 substrate -> Native-M1 TiO2 K6 pillars -> Air",
+    "standalone_np_only": true,
+    "final_mdc_joint_stack": "NOT_VALIDATED",
+    "finite_sio2_termination_transfer": "NOT_VALIDATED"
+  },
+  "use_scope": {
+    "normalized_scope_enum": "EXPLORATORY_ONLY",
+    "standalone_np_response": "QUANTITATIVE_WITHIN_FROZEN_STANDALONE_SCOPE",
+    "mdc_coupling": "EXPLORATORY_INTERFACE_REGISTRATION_ONLY",
+    "ranking_use": "NOT_AUTHORIZED",
+    "quantitative_joint_power_use": "NOT_AUTHORIZED",
+    "surrogate_or_offline_screening": "NOT_AUTHORIZED"
+  },
+  "coupling_read_matrix": {
+    "450nm_xpol_normal_incidence_direct_geometry": "ALLOWED_FOR_EXPLORATORY_INTERFACE_REGISTRATION_ONLY",
+    "standalone_order_sign_and_u_x_mapping": "ALLOWED_FOR_CONVENTION_REGISTRATION_ONLY",
+    "surrogate_or_offline_ranking": "NOT_ALLOWED",
+    "quantitative_joint_power_prediction": "NOT_ALLOWED",
+    "x_y_averaging": "NOT_ALLOWED",
+    "oblique_kx": "NOT_ALLOWED",
+    "final_integrated_stack_transfer": "NOT_ALLOWED"
+  },
+  "known_coupling_gates": [
+    "MDC final stack freeze",
+    "common wavelength/kx/polarization convention freeze",
+    "external validation decision",
+    "formal y or averaging evidence"
+  ],
+  "no_solver_or_training_this_turn": true
+}

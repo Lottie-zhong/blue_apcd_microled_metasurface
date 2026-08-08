@@ -1,0 +1,131 @@
+{
+  "schema_version": "np_k6_formal_source_scope_v1",
+  "scope_id": "NP_K6_FORMAL_SOURCE_SCOPE_V1",
+  "state": "NP_SOURCE_SCOPE_FROZEN_CONSERVATIVE",
+  "freeze_timestamp_utc": "2026-08-08T07:23:34.362176+00:00",
+  "source_branch": "work/np-k6-mdc-v1",
+  "source_commit": "9128dfb85a268398d1fee56fcb7543982b075d84",
+  "source_package_locked_commit": "6493fae1f9acc636722ae1705c58b208c5cbdbe6",
+  "package_id": "NP_K6_P1D4_K6X_V1",
+  "package_sha256": "0b7b45e838a0d73b92d63f8a45459bc46206677a91821fa474dacf4bd9028eaa",
+  "candidate_id": "NP_K6X_125_135_150_175_190_210",
+  "geometry_scope": {
+    "K": 6,
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "pillar_height_nm": 500,
+    "diameters_nm": [
+      125,
+      135,
+      150,
+      175,
+      190,
+      210
+    ],
+    "canonical_geometry_hash": "aaaa5bfab2f727cca9c07754e4449cbadf70b91cdac90e6fbdd87f136a6e4b80",
+    "target_order": 1,
+    "target_physical_direction": "+x"
+  },
+  "wavelength_scope": {
+    "values_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "step_nm": 1,
+    "exact_points_only": true,
+    "interpolation": false,
+    "extrapolation": false
+  },
+  "kx_over_k0_scope": {
+    "allowed_values": [
+      0.0
+    ],
+    "normal_incidence_only": true,
+    "ky_over_k0": 0.0,
+    "oblique_support": "NOT_VALIDATED"
+  },
+  "polarization_scope": {
+    "formally_validated": [
+      "x"
+    ],
+    "basis": "x-polarized standalone NP response; p-at-normal-incidence source lineage",
+    "y_polarization": "NOT_VALIDATED_FOR_SCOPE_FREEZE",
+    "xy_averaging": "NOT_JUSTIFIED",
+    "mapping_note": "The +1 physical +x sign is independently confirmed by RUN3A audit; no y equivalence is inferred."
+  },
+  "interface_stack_scope": {
+    "interface_stack_id": "NP_K6_INDEPENDENT_STACK_PILOT_V1",
+    "stack": "SiO2 substrate -> Native-M1 TiO2 K6 pillars -> Air",
+    "standalone_np_only": true,
+    "final_mdc_joint_stack": "NOT_VALIDATED",
+    "finite_sio2_termination_transfer": "NOT_VALIDATED"
+  },
+  "response_scope": {
+    "supported_fields": [
+      "T_total",
+      "R_total",
+      "closure",
+      "eta_t_order[m]",
+      "eta_r_order[m]",
+      "eta_plus1",
+      "eta_0",
+      "eta_minus1",
+      "directionality",
+      "u_x",
+      "order_sign"
+    ],
+    "order_convention": "absolute_efficiency = T_total * transmitted_fraction; enumerate all open orders",
+    "sign_convention": "physical m=+1 maps to +x and u_x>0 at normal incidence"
+  },
+  "use_scope": {
+    "normalized_scope_enum": "EXPLORATORY_ONLY",
+    "standalone_np_response": "QUANTITATIVE_WITHIN_FROZEN_STANDALONE_SCOPE",
+    "mdc_coupling": "EXPLORATORY_INTERFACE_REGISTRATION_ONLY",
+    "ranking_use": "NOT_AUTHORIZED",
+    "quantitative_joint_power_use": "NOT_AUTHORIZED",
+    "surrogate_or_offline_screening": "NOT_AUTHORIZED"
+  },
+  "known_exclusions": [
+    "y-polarization full-K6 response not validated for this source freeze",
+    "x/y equivalence not validated",
+    "polarization averaging not justified",
+    "oblique kx not validated",
+    "+/-5 degree and +/-10 degree not validated",
+    "finite SiO2 termination transfer not validated",
+    "MDC-NP integrated stack not validated",
+    "Micro-LED dipole-source integrated response not validated",
+    "no quantitative claim outside 445-455 nm, u_x=0, x-polarization, standalone stack",
+    "no extrapolation or interpolation",
+    "production mesh/training label promotion not implied"
+  ],
+  "coupling_transfer_status": "SOURCE_SCOPE_FROZEN_CONSERVATIVE; JOINT_MDC_SCOPE_REMAINS_EXPLORATORY_ONLY",
+  "evidence_paths": {
+    "outputs/np_k6_p1d4_k6x_candidate_freeze_v1/candidate_freeze_manifest.json": "0b7b45e838a0d73b92d63f8a45459bc46206677a91821fa474dacf4bd9028eaa",
+    "outputs/np_k6_p1d4_k6x_execution_package_v1/wavelength_monitor_contract.json": "17c374ee3d14e39a7e659833635276b2a69527433fcc58e17559fb079013a2c2",
+    "outputs/np_k6_p1d4b_k6x_phase_candidate_run3a_audit_v1/run3a_metric_summary.json": "ef5a437b04d6367dc85e57a05a7d95ad1c86349d72c9b585c470d0bece9482b5",
+    "outputs/np_k6_p1d4b_k6x_phase_candidate_run3a_audit_v1/run3a_order_sign_audit.json": "065c6dcf449777d7eef0cbe1bd50afb3ff9c417e62f34106e08e9af401269902",
+    "outputs/np_k6_p1d4b_k6x_phase_candidate_run3a_audit_v1/canonical_hash_identity_audit.json": "f704c6484c9c45af5099bb2d2aeb0c4c28f87d6d3b23e4d731e4b2e43c3f0998",
+    "outputs/np_k6_hf_pilot_dataset_v1/hf_task_registry.csv": "333725c94be6c914b1bc984d70c2bcaf1bdfd9ddd1c295ff9a2b1f1b71ad6540",
+    "outputs/np_k6_hf_pilot_dataset_v1/pilot_training_state.json": "f9b9c09fc299125cf59882a99767215068474c52e815687023f4f5b950397ef6",
+    "outputs/np_k6_m0_interface_contract_v1/np_k6_pilot_scope_v1.json": "0ba7edc9bc4c5b8457ba0874655877d696307be46684ad86a5257f0b2c1a03ac",
+    "outputs/np_k6_m0_interface_contract_v1/APCD_MDC_NP_ONE_WAY_POWER_INTERFACE_V1.json": "940835989584e4a691e0a5f8fe07bfeb5f09dcba4e37ff4ca91eeae06adac950",
+    "outputs/np_k6_pretraining_handoff_v1/np_k6_pretraining_handoff_manifest_v1.json": "b06dd995555aeae33c7e561cef45a16b5a4196ec255608106fbd7453473abe38"
+  },
+  "solver_and_training_audit": {
+    "FDTD": 0,
+    "RCWA": 0,
+    "TMM": 0,
+    "FEM": 0,
+    "training": 0,
+    "sealed_test_reads": 0
+  }
+}
