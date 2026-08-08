@@ -1,0 +1,133 @@
+{
+  "allowed_discrete_levels": {
+    "Explicit": {
+      "N": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "ZL1": {
+      "M": [
+        1,
+        3,
+        5
+      ],
+      "N": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "ZL2": {
+      "N": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "boundary_rule": "continuous r=(x-training_min)/(training_max-training_min); boundary if r<=0.10 or r>=0.90; ordered discrete N/M boundary at min/max; zero range ignored and audited",
+  "contract_id": "MDC_HF_SURROGATE_V2_TEST40_BOUNDARY_CLASSIFICATION_V1",
+  "counts": {
+    "Explicit_boundary": 1560,
+    "Explicit_interior": 279,
+    "ZL1_boundary": 569,
+    "ZL1_interior": 58,
+    "ZL2_boundary": 149,
+    "ZL2_interior": 59
+  },
+  "quota": {
+    "Explicit_boundary": 4,
+    "Explicit_interior": 10,
+    "ZL1_boundary": 4,
+    "ZL1_interior": 9,
+    "ZL2_boundary": 4,
+    "ZL2_interior": 9
+  },
+  "topology_support": {
+    "Explicit": {
+      "features": [
+        "N",
+        "H_nm",
+        "L_nm",
+        "C_nm"
+      ],
+      "ranges": {
+        "C_nm": [
+          152,
+          162
+        ],
+        "H_nm": [
+          42,
+          47
+        ],
+        "L_nm": [
+          76,
+          82
+        ],
+        "N": [
+          2,
+          5
+        ]
+      }
+    },
+    "ZL1": {
+      "allowed_M": [
+        1,
+        3,
+        5
+      ],
+      "features": [
+        "N",
+        "H_nm",
+        "L_nm",
+        "M"
+      ],
+      "ranges": {
+        "H_nm": [
+          42,
+          47
+        ],
+        "L_nm": [
+          76,
+          82
+        ],
+        "M": [
+          1,
+          5
+        ],
+        "N": [
+          2,
+          6
+        ]
+      }
+    },
+    "ZL2": {
+      "features": [
+        "N",
+        "H_nm",
+        "L_nm"
+      ],
+      "ranges": {
+        "H_nm": [
+          42,
+          47
+        ],
+        "L_nm": [
+          76,
+          82
+        ],
+        "N": [
+          2,
+          6
+        ]
+      }
+    }
+  }
+}
