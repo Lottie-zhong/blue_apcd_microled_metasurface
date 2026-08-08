@@ -1,0 +1,67 @@
+{
+  "lf_authority_reconciled": true,
+  "lf_authority_sources": [
+    "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d2_sixbin_exhaustive_ranking_27point_v1\\passing_top8_detailed.json",
+    "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d2_sixbin_exhaustive_ranking_27point_v1\\pareto_front_detailed.json"
+  ],
+  "near_duplicate_threshold": 0.47999522965329555,
+  "no_all_lf_passing_or_pareto_only": true,
+  "no_top6_single_score": true,
+  "representation_gate": {
+    "disagreement_slots": 1,
+    "diversity_slots": 2,
+    "performance_slots": 1,
+    "uncertainty_slots": 2
+  },
+  "schema_version": "np_k6_m2_batch1_selection_rationale_v1",
+  "sealed_access": 0,
+  "selected_geometry_count": 6,
+  "selection_is_acquisition_only": true,
+  "selection_order": [
+    "U1",
+    "U2",
+    "D1",
+    "D2",
+    "X1",
+    "P1"
+  ],
+  "slots": [
+    {
+      "fallback_near_duplicate_relaxed": false,
+      "metric": "highest CNN epistemic uncertainty",
+      "rank_position": 1,
+      "slot": "U1"
+    },
+    {
+      "fallback_near_duplicate_relaxed": false,
+      "metric": "highest committee uncertainty after U1 near-duplicate exclusion",
+      "rank_position": 2,
+      "slot": "U2"
+    },
+    {
+      "fallback_near_duplicate_relaxed": false,
+      "metric": "farthest from current three formal HF geometries",
+      "rank_position": 5,
+      "slot": "D1"
+    },
+    {
+      "fallback_near_duplicate_relaxed": false,
+      "metric": "maximin coverage against existing HF and selected set",
+      "rank_position": 1,
+      "slot": "D2"
+    },
+    {
+      "fallback_near_duplicate_relaxed": false,
+      "metric": "highest CNN/MLP eta/order disagreement",
+      "rank_position": 7,
+      "slot": "X1"
+    },
+    {
+      "fallback_near_duplicate_relaxed": false,
+      "metric": "highest predicted eta(+1), excluding nearby selected candidates",
+      "rank_position": 2,
+      "slot": "P1"
+    }
+  ],
+  "solver_calls": 0
+}
