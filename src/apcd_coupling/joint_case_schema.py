@@ -18,7 +18,7 @@ def _number(value: Any, name: str) -> float:
     return result
 
 def validate_joint_case(case: dict[str, Any]) -> dict[str, Any]:
-    required = {"case_id", "mdc_candidate", "np_candidate", "spacer_nm", "wavelength_nm", "polarization", "kx_over_k0", "objects", "coordinates"}
+    required = {"case_id", "control_group", "mdc_candidate", "interface_candidate", "np_candidate", "spacer_nm", "wavelength_nm", "polarization", "kx_over_k0", "objects", "coordinates"}
     missing = sorted(required - set(case))
     if missing:
         raise ValueError(f"joint case missing fields: {missing}")
@@ -33,6 +33,13 @@ def validate_joint_case(case: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"non-canonical material in joint case: {sorted(materials - NATIVE_MATERIALS - {'Air'})}")
     if case["spacer_nm"] == 0 and any(obj.get("role") == "extra_spacer" for obj in case["objects"]):
         raise ValueError("t_extra=0 must not create an extra spacer object")
-    if case["coordinates"]["np_pillar_bottom_nm"] != case["coordinates"]["mdc_top_nm"] + case["spacer_nm"]:
-        raise ValueError("NP pillar bottom is not at MDC top plus t_extra")
+    if case["coordinates"]["np_pillar_bottom_nm"] != case["coordinates"]["stack_top_nm"]:
+        raise ValueError("NP pillar bottom is not at stack top")
+    roles = [obj.get("role") for obj in case["objects"]]
+    if case["control_group"] == "B0" and any(role in roles for role in ("mdc_layer", "interface_support_layer", "np_pillar", "extra_spacer")):
+        raise ValueError("B0 must be bare GaN/Air")
+    if case["control_group"] == "B1" and ("np_pillar" in roles or "interface_support_layer" in roles or "extra_spacer" in roles):
+        raise ValueError("B1 must contain MDC only")
+    if case["control_group"] == "B2" and ("mdc_layer" in roles or len([r for r in roles if r == "interface_support_layer"]) != 1):
+        raise ValueError("B2 must contain only the 79 nm interface support plus NP")
     return case

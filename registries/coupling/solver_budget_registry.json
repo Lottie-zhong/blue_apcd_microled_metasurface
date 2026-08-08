@@ -1,25 +1,87 @@
 {
   "schema_version": "solver_budget_registry_v1",
-  "status": "STAGE_A_SINGLE_CASE_COMPLETED",
+  "status": "STAGE_A_CONTROL_GROUPS_ALL_COMPLETED",
   "budgets": {
-    "FDTD": 1,
+    "FDTD": 3,
     "TMM": 0,
     "RCWA": 0,
     "FEM": 0,
-    "NP_solver": 0,
     "training": 0
   },
   "authorized_case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
   "entered_case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
   "entered_attempt_id": "attempt_001",
-  "entered_runs": 1,
-  "engine_completed": 1,
-  "controller_returned": 1,
-  "post_saved": 1,
+  "entered_runs": 3,
+  "engine_completed": 3,
+  "controller_returned": 3,
+  "post_saved": 3,
   "pre_fsp_sha256": "5b348658f3ba3acb5f48fe95ab861d97a57722f7fe3caee3c3285d05115d0643",
   "post_fsp_sha256": "cfda69e11338ec90ac3a13cc185710c9910567e3dc8fcac0216699925c6b0269",
   "source_worktree_writes": 0,
   "sealed_test_reads": 0,
   "formal_joint_screening_runs": 0,
-  "next_solver_requires_new_authorization": true
+  "next_solver_requires_new_authorization": true,
+  "authorized_control_cases": [
+    "STAGE_A_B0_450NM_X_UX0",
+    "STAGE_A_B1_450NM_X_UX0",
+    "STAGE_A_B2_450NM_X_UX0"
+  ],
+  "authorized_at": "2026-08-08T00:00:00Z",
+  "entered_case_ids": [
+    "STAGE_A_B0_450NM_X_UX0",
+    "STAGE_A_B1_450NM_X_UX0",
+    "STAGE_A_B2_450NM_X_UX0"
+  ],
+  "completed_case_ids": [
+    "STAGE_A_B0_450NM_X_UX0",
+    "STAGE_A_B1_450NM_X_UX0",
+    "STAGE_A_B2_450NM_X_UX0"
+  ],
+  "entered_attempts": [
+    {
+      "case_id": "STAGE_A_B0_450NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "entered_timestamp": "2026-08-08T15:35:01.319433+00:00",
+      "pre_fsp_entry_sha256": "c66ec93427783a36e1cf04d2581b23aea58778ce9ded27eeeab1334f5cfbba65"
+    },
+    {
+      "case_id": "STAGE_A_B1_450NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "entered_timestamp": "2026-08-08T15:36:55.223817+00:00",
+      "pre_fsp_entry_sha256": "7a97d9dd485b0c90c10c9dfde56876d5396dc2ce881ba80f6139babd96e18fdc"
+    },
+    {
+      "case_id": "STAGE_A_B2_450NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "entered_timestamp": "2026-08-08T15:38:35.317739+00:00",
+      "pre_fsp_entry_sha256": "05f79c7e03d11b1addae2a3edc7a906d395f359b71b98b7e6251a01e847e5992"
+    }
+  ],
+  "completed_attempts": [
+    {
+      "case_id": "STAGE_A_B0_450NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "post_fsp_sha256": "397d9a5c71c56f8faefa0bb00bba5850975c5670cf7a2dfad23a482a13e8a586",
+      "completed_timestamp": "2026-08-08T15:36:32.387636+00:00",
+      "recovered_post_save": true
+    },
+    {
+      "case_id": "STAGE_A_B1_450NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "post_fsp_sha256": "3eb9365d0ad59b85e35b672e8f255a556565ff471f291e2af71b464d5650b5b7",
+      "completed_timestamp": "2026-08-08T15:38:25.683629+00:00"
+    },
+    {
+      "case_id": "STAGE_A_B2_450NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "post_fsp_sha256": "828d40828d7167050f5bf225d3b4b43ed03f72eeed79888007294bb24aa65825",
+      "completed_timestamp": "2026-08-08T15:39:25.546939+00:00"
+    }
+  ],
+  "prior_b3_golden_fixture": {
+    "case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
+    "solver_entered": true,
+    "solver_completed": true,
+    "coupling_commit": "d3df67137a6d1dccd859bbbdbd32ce93f63ac54e"
+  }
 }

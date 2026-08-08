@@ -1,10 +1,10 @@
 {
   "schema_version": "stage_a_direct_fullwave_contract_v1",
   "contract_id": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
-  "status": "STAGE_A_GOLDEN_FIXTURE_COMPLETE",
+  "status": "STAGE_A_CONTROL_GROUPS_COMPLETE",
   "joint_scope": "EXPLORATORY_ONLY",
   "route": "DIRECT_STAGE_A_FULLWAVE_VALIDATION",
-  "solver_authorized": true,
+  "solver_authorized": false,
   "training_authorized": false,
   "offline_screening_authorized": false,
   "t_extra_policy": {
@@ -95,7 +95,7 @@
     "surrogate/offline ranking",
     "wavelength interpolation or extrapolation"
   ],
-  "required_authorization_action": "COMPLETED_CURRENT_TASK",
+  "required_authorization_action": "AUTHORIZED_BY_CURRENT_TASK",
   "safety": {
     "solver_runs_this_freeze": 0,
     "training_runs_this_freeze": 0,
@@ -118,7 +118,7 @@
     "np_handoff_sha256": "4fcf8b5cbefb37ba8153ffadbf7bb4a141d6cbbb4fb296fe9fd2211e44226934"
   },
   "authorized_case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
-  "authorized_at": "2026-08-08T08:14:47.127213+00:00",
+  "authorized_at": "2026-08-08T00:00:00Z",
   "completed_case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
   "completed_at": "2026-08-08T08:16:31.613952+00:00",
   "execution": {
@@ -128,5 +128,17 @@
     "post_fsp_sha256": "cfda69e11338ec90ac3a13cc185710c9910567e3dc8fcac0216699925c6b0269",
     "result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_450nm_xpol_normal_textra0_golden_fixture_v1\\results\\result.json",
     "post_identity_audit_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_450nm_xpol_normal_textra0_golden_fixture_v1\\post_fsp_identity_audit.json"
-  }
+  },
+  "authorized_case_ids": [
+    "STAGE_A_B0_450NM_X_UX0",
+    "STAGE_A_B1_450NM_X_UX0",
+    "STAGE_A_B2_450NM_X_UX0"
+  ],
+  "next_solver_requires_new_authorization": true,
+  "completed_case_ids": [
+    "STAGE_A_B0_450NM_X_UX0",
+    "STAGE_A_B1_450NM_X_UX0",
+    "STAGE_A_B2_450NM_X_UX0"
+  ],
+  "next_authorization_action": "REQUEST_STAGE_A_SPACER_SENSITIVITY_AUTHORIZATION"
 }
