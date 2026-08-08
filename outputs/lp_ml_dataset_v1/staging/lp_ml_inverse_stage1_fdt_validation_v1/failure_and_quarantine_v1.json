@@ -1,0 +1,96 @@
+{
+  "failed_cases": [
+    {
+      "candidate_id": "LPML_INV_B2_DER_b29eb0a30d37",
+      "configuration_gate": {
+        "checks": {
+          "FDTD_x_span": 4.32e-07,
+          "FDTD_y_span": 4.32e-07,
+          "J2_rotation_deg": 1.1,
+          "T_frequency_points": 1.0,
+          "T_override_global": 1.0,
+          "T_use_source_limits": 1.0,
+          "T_use_wavelength_spacing": 1.0,
+          "T_z": 1.0000000000000002e-06,
+          "background_index": "1",
+          "background_material": "<Object defined dielectric>",
+          "field_frequency_points": 1.0,
+          "field_override_global": 1.0,
+          "field_use_source_limits": 1.0,
+          "field_use_wavelength_spacing": 1.0,
+          "material_1": "APCD_TIO2_NATIVE_M1",
+          "material_2": "APCD_TIO2_NATIVE_M1",
+          "monitor_z": 1.0000000000000002e-06,
+          "source_pol": 90.0,
+          "source_start": 4.500000000000001e-07,
+          "source_stop": 4.500000000000001e-07
+        },
+        "expected_wavelengths_nm": [
+          450.0
+        ],
+        "input_polarization": "y",
+        "normalization": "sqrt(T)/norm(weighted Ex,Ey)",
+        "objects": "ERROR:AttributeError:'FDTD' object has no attribute 'getobjectnames'",
+        "observable": "coordinate_weighted_full_period_G0",
+        "pass": true,
+        "sampling_mode": "wavelength_domain_uniform_via_source_limits"
+      },
+      "error": "RuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -0.00010628560305458944",
+      "failure_stage": "SOLVER",
+      "input_polarization": "y",
+      "retained_data_status": "checkpoint_or_failure_evidence_preserved",
+      "runtime_seconds": 20.616721153259277,
+      "setup_before_save": {
+        "config_readback": {
+          "FDTD": {
+            "background material": "<Object defined dielectric>",
+            "index": "1",
+            "x max bc": "Periodic",
+            "x min bc": "Periodic",
+            "x span": 4.32e-07,
+            "y max bc": "Periodic",
+            "y min bc": "Periodic",
+            "y span": 4.32e-07,
+            "z max": 1.2000000000000002e-06,
+            "z max bc": "PML",
+            "z min": -5.000000000000001e-07,
+            "z min bc": "PML"
+          },
+          "T": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "field_monitor": {
+            "x span": 4.32e-07,
+            "y span": 4.32e-07,
+            "z": 1.0000000000000002e-06
+          },
+          "source": {
+            "direction": "Forward",
+            "polarization angle": 90.0,
+            "wavelength start": 4.500000000000001e-07,
+            "wavelength stop": 4.500000000000001e-07,
+            "z": -2.5000000000000004e-07
+          }
+        },
+        "geometry_readback": {
+          "J1_center_x_nm": -1.0148129478034689e-07,
+          "J1_center_y_nm": -1.9485404035685015e-09,
+          "J1_material": "APCD_TIO2_NATIVE_M1",
+          "J1_rotation_deg": 0.0,
+          "J2_center_x_nm": 1.0148129478034689e-07,
+          "J2_center_y_nm": 1.9485404035685015e-09,
+          "J2_material": "APCD_TIO2_NATIVE_M1",
+          "J2_rotation_deg": 1.1
+        },
+        "material_name": "APCD_TIO2_NATIVE_M1"
+      },
+      "solver_entered": true,
+      "status": "FAILED",
+      "subrun_id": "LPML_INV_B2_DER_b29eb0a30d37_y",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_inverse_stage1_fdt_validation_runner_v1.py\", line 100, in run_subrun\n    f.run(); rows,grid=extract_broadband(f); f.close(); f=None\n  File \"D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\scripts\\lp_ml_inverse_stage1_fdt_validation_runner_v1.py\", line 85, in extract_broadband\n    raise RuntimeError(f'NORMALIZATION_REVIEW_REQUIRED: negative source transmission at {wl} nm: {t_value!r}')\nRuntimeError: NORMALIZATION_REVIEW_REQUIRED: negative source transmission at 450.0 nm: -0.00010628560305458944\n"
+    }
+  ],
+  "policy": "isolated entered failures quarantined; no retry; untouched continuation completed"
+}
