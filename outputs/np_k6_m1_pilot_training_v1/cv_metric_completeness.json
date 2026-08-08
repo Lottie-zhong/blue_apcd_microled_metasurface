@@ -1,0 +1,55 @@
+{
+  "cnn_macro": {
+    "R_MAE": 0.047744631146391235,
+    "T_MAE": 0.048956496020158134,
+    "all_order_weighted_MAE": 0.015572338365018368,
+    "directionality_MAE": 0.093914279093345,
+    "eta_plus1_MAE": 0.08538100868463516,
+    "eta_plus1_RMSE": 0.09944898635149002,
+    "non_target_leakage_MAE": 0.04410391363004843
+  },
+  "folds": [
+    "A",
+    "B",
+    "C"
+  ],
+  "lf_dft_macro": {
+    "R_MAE": 0.06878936624565295,
+    "T_MAE": 0.06912599896468151,
+    "all_order_weighted_MAE": 0.047054578037751794,
+    "directionality_MAE": 0.4821011803934991,
+    "eta_plus1_MAE": 0.34683905127433823,
+    "eta_plus1_RMSE": 0.3569269357079154,
+    "non_target_leakage_MAE": 0.34683905127433806
+  },
+  "mlp_macro": {
+    "R_MAE": 0.09240186276535194,
+    "T_MAE": 0.08507273408273856,
+    "all_order_weighted_MAE": 0.018748434570928414,
+    "directionality_MAE": 0.1908779889345169,
+    "eta_plus1_MAE": 0.07100243866443634,
+    "eta_plus1_RMSE": 0.08977320045232773,
+    "non_target_leakage_MAE": 0.1209122861425082
+  },
+  "models": [
+    "CNN",
+    "MLP",
+    "LF_DFT"
+  ],
+  "required_metrics": [
+    "eta_plus1_MAE",
+    "eta_plus1_RMSE",
+    "eta_plus1_Spearman",
+    "all_order_weighted_MAE",
+    "T_MAE",
+    "R_MAE",
+    "directionality_MAE",
+    "non_target_leakage_MAE",
+    "wavelength_stratified",
+    "polarization_stratified",
+    "geometry_stratified",
+    "worst_wavelength",
+    "worst_output_channel"
+  ],
+  "schema_version": "np_k6_m1_metric_completeness_v1"
+}
