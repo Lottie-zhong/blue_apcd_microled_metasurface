@@ -45,3 +45,10 @@ def test_m1_gate_flags_and_no_solver():
     assert gate["sealed_test_untouched"] is True
     assert gate["acquisition_ensemble_checkpoints"] == 3
     assert gate["final_performance_model"] is False
+
+
+def test_m1_mdc_level1_adapter_contract():
+    audit = json.loads((ROOT / "outputs/np_k6_m1_pilot_training_v1/mdc_level1_adapter_audit.json").read_text(encoding="utf-8"))
+    assert audit["compatibility_pass"] is True
+    assert audit["extrapolation_fraction"] == 0.0
+    assert audit["solver_calls"] == 0

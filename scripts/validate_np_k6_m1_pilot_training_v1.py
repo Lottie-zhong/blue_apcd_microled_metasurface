@@ -19,7 +19,7 @@ REQUIRED = [
     "cnn_cv_metrics.csv", "mlp_cv_metrics.csv", "lf_dft_baseline_metrics.csv", "cv_fold_summary.json",
     "training_history_summary.csv", "physics_constraint_audit.json", "architecture_comparison.json",
     "acquisition_ensemble_manifest.json", "training_gate_summary.json", "checksum_manifest.json",
-    "cv_stratified_metrics.json",
+    "cv_stratified_metrics.json", "mdc_level1_adapter_audit.json",
 ]
 
 
@@ -57,6 +57,7 @@ def validate() -> dict:
     ensemble = load_json("acquisition_ensemble_manifest.json")
     physics = load_json("physics_constraint_audit.json")
     strat = load_json("cv_stratified_metrics.json")
+    adapter = load_json("mdc_level1_adapter_audit.json")
     hist_rows = rows("training_history_summary.csv")
     hist_groups = {}
     for r in hist_rows:
@@ -82,6 +83,7 @@ def validate() -> dict:
         "metric_fields_complete": all(all(k in r for k in ["eta_plus1_MAE", "eta_plus1_RMSE", "eta_plus1_Spearman", "all_order_weighted_MAE", "T_MAE", "R_MAE", "directionality_MAE", "non_target_leakage_MAE", "nan_inf_count"]) for r in rows("cnn_cv_metrics.csv") + rows("mlp_cv_metrics.csv") + rows("lf_dft_baseline_metrics.csv")),
         "metric_finite": all(finite(r[k]) for fn in ["cnn_cv_metrics.csv", "mlp_cv_metrics.csv", "lf_dft_baseline_metrics.csv"] for r in rows(fn) for k in ["eta_plus1_MAE", "eta_plus1_RMSE", "eta_plus1_Spearman", "all_order_weighted_MAE", "T_MAE", "R_MAE", "directionality_MAE", "non_target_leakage_MAE"]),
         "stratified_metrics_complete": len(strat.get("folds", [])) == 6 and strat.get("aggregate", {}).get("worst_wavelength_present") is True and strat.get("aggregate", {}).get("worst_output_channel_present") is True,
+        "mdc_level1_adapter": adapter.get("compatibility_pass") is True and adapter.get("extrapolation_fraction") == 0.0 and adapter.get("solver_calls") == 0 and adapter.get("sealed_test_access") == 0,
         "physics_clean": physics.get("nan_inf_all_zero") is True and physics.get("nonnegative_power_enforced") is True and physics.get("all_order_heads") is True,
         "history_gpu": len(hist_rows) > 0 and all(r.get("batch_device") == "cuda:0" and r.get("model_device") == "cuda:0" for r in hist_rows),
         "history_loss_decreases": history_decreased,
