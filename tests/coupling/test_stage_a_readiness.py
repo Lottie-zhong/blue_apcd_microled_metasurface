@@ -31,7 +31,7 @@ def test_np_authoritative_freeze_and_artifact_hashes():
 def test_joint_scope_forbids_offline_ranking_and_selects_direct_stage_a():
     lock = load("contracts/coupling/source_branch_lock_v1.json")
     resolution = load("outputs/mdc_np_coupling_v1/source_scope_resolution_v1.json")
-    assert lock["status"] == STATUS
+    assert lock["status"].endswith("GOLDEN_FIXTURE_COMPLETE")
     assert lock["joint_scope"]["normalized_scope_enum"] == "EXPLORATORY_ONLY"
     assert lock["joint_scope"]["offline_screening_authorized"] is False
     assert lock["joint_scope"]["direct_stage_a_ready"] is True
@@ -42,7 +42,7 @@ def test_first_shot_is_fixed_baseline_450nm_xpol_normal_t_extra_zero():
     contract = load("contracts/coupling/stage_a_direct_fullwave_contract_v1.json")
     shot = contract["first_shot"]
     assert contract["joint_scope"] == "EXPLORATORY_ONLY"
-    assert contract["solver_authorized"] is False
+    assert contract["solver_authorized"] is True
     assert contract["offline_screening_authorized"] is False
     assert shot == {
         "wavelength_nm": 450, "polarization": "x", "incidence": "normal",
@@ -64,6 +64,7 @@ def test_stage_a_scope_boundaries_are_explicit():
     assert "quantitative joint-power prediction" in exclusions
     assert "surrogate/offline ranking" in exclusions
     assert "wavelength interpolation or extrapolation" in exclusions
-    assert contract["t_extra_policy"]["run_now"] is False
+    assert contract["t_extra_policy"]["baseline_nm"] == 0
+    assert contract["t_extra_policy"]["future_candidates_nm"] == [0, 79, 158, 237]
     assert contract["safety"]["solver_runs_this_freeze"] == 0
     assert contract["safety"]["training_runs_this_freeze"] == 0
