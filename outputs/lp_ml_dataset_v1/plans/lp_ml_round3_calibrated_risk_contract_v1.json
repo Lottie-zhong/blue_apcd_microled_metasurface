@@ -1,0 +1,24 @@
+{
+  "calibration": "BOUNDED_LINEAR_RANK_CALIBRATION",
+  "calibration_data": "Round-3 complete train+validation geometries only",
+  "contract": "LP_ML_ROUND3_CALIBRATED_RISK_V1",
+  "features": [
+    "seed_dispersion",
+    "raw_jones_disagreement",
+    "nearest_training_distance",
+    "local_density_gap",
+    "local_gradient_norm",
+    "quantization_sensitivity",
+    "wavelength_endpoint_disagreement",
+    "manufacturing_boundary_proximity"
+  ],
+  "frozen_tests_used_for_tuning": false,
+  "not_probability": true,
+  "risk_labels": [
+    "CALIBRATED_LOW_RISK",
+    "CALIBRATED_MODERATE_RISK",
+    "CALIBRATED_HIGH_RISK"
+  ],
+  "solver_calls": 0,
+  "target": "relative_frobenius_error"
+}
