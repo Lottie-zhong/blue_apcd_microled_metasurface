@@ -1,9 +1,11 @@
-# Test40 selection conflict resolution and manifest freeze
+# Test40 external evaluation completion
 
-Status: `MDC_HF_SURROGATE_V2_TEST40_POST_MODEL_LOCK_OUTCOME_BLIND_MANIFEST_FROZEN_READY_TO_RESUME_EXTERNAL_EVALUATION`
+Status: MDC_HF_SURROGATE_V2_TEST40_EXTERNAL_EVALUATION_COMPLETED_RANKING_SCREENING_ONLY
 
-The sole authoritative contract is `MDC_HF_SURROGATE_V2_TEST40_POST_MODEL_LOCK_SELECTION_V1` using `STRATIFIED_DETERMINISTIC_HASH_RANDOM_V1` with seed `20260808`, applied post-model-lock and before labels or predictions. The prior Gower-maximin draft is explicitly deprecated and superseded before test-set materialization with zero selected geometries and zero generated cases.
+Case identity remained test_case_uid; all 240 cases across 40 geometries completed with 0 failed cases. Predictions were frozen before label generation and extraction was replayed in two fresh processes with identical case/tensor/profile/grid hashes.
 
-The canonical 8,675-row geometry master yielded 2,688 frozen-support candidates and 2,674 eligible candidates after the hash-only formal-FDTD exclusion union. Fixed quotas selected 40 unique geometries (Explicit 10+4, ZL1 9+4, ZL2 9+4), materialized as 240 deterministic case UIDs.
+Scope: MDC_HF_SURROGATE_V2_TEST40_RANKING_SCREENING_ONLY. No frozen quantitative acceptance threshold was available for post-lock Test40. Raw FDTD upward-power values are not on the M1 source-normalized power scale; therefore absolute-power/profile results are descriptive and no quantitative external acceptance claim is made.
 
-Two independent fresh Python processes reproduced support membership, forbidden set, boundary classes, selection order, human IDs, all case UIDs, geometry-manifest SHA, and case-matrix SHA exactly. HF15 formal-label reads, diagnostics reads, Test40 labels/predictions, sealed-test reads, solver calls, FDTD/TMM/RCWA calls, and model fitting were all zero. External evaluation was not started; return to Chart for the next authorized step.
+Measured summaries: case profile JS mean 0.267155, geometry profile JS mean 0.231131, case power rank Spearman 0.112941, geometry power rank Spearman 0.12833, log-power MAE/RMSE/bias 21.5355 / 21.819 / 21.5355.
+
+Safety counters: HF15 formal/diagnostic reads 0, sealed-test reads 0, TMM/RCWA/NP solver calls 0, new fits 0. Test40 label reads occurred only after prediction lock.
