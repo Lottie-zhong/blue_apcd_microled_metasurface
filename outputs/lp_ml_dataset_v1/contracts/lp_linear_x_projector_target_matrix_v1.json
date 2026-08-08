@@ -1,0 +1,68 @@
+{
+  "canonical_gauge": "P=|x><x|; no exp(i gamma) equivalence for common phase",
+  "column_meaning": {
+    "col0": "input x",
+    "col1": "input y"
+  },
+  "formal_phase_definition": "arg(c(J))",
+  "formal_scalar_definition": "c(J)=sum(conj(P_ij)*J_ij)/||P||_F^2",
+  "frobenius_norm": 1.0,
+  "global_phase_gauge": {
+    "Im_P_xx": 0.0,
+    "P_xx": "positive real +1",
+    "arg_P_xx_deg": 0.0
+  },
+  "jones_convention": "J=[[txx,txy],[tyx,tyy]]",
+  "matrix": {
+    "Im": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "Re": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "complex": [
+      [
+        "1+0j",
+        "0+0j"
+      ],
+      [
+        "0+0j",
+        "0+0j"
+      ]
+    ]
+  },
+  "matrix_basis": "linear_xy",
+  "matrix_sha256": "accd073c7d27086debc80e21056dade6b534080bc6e5d4fbb7025821587348f0",
+  "projection_error_definition": "min_c ||J-cP||_F/(||J||_F+eps)",
+  "rank": 1,
+  "row_meaning": {
+    "row0": "output x",
+    "row1": "output y"
+  },
+  "singular_values": [
+    1.0,
+    0.0
+  ],
+  "solver_calls": 0,
+  "source_authority": {
+    "internal_contract_path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs\\lp_ml_dataset_v1\\analysis\\b120_j2lm06_projector_guard_metric_definition_contract_v1.json",
+    "internal_contract_sha256": "bb575391319f97e417ccac16be95c3e1d3569dece2363a9d1d338d2d7c1e74e5",
+    "literature_reference": "Wang et al. APCD Eq.5; specialization psi=0 deg, chi=0 deg",
+    "target_operator": "J_target approximately t*exp(i phi)*|x><x|"
+  },
+  "target_id": "LP_APCD_LINEAR_X_PROJECTOR_V1"
+}
