@@ -1,0 +1,120 @@
+{
+  "schema_version": "stage_a_direct_fullwave_contract_v1",
+  "contract_id": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
+  "status": "FROZEN_FOR_AUTHORIZATION_ONLY",
+  "joint_scope": "EXPLORATORY_ONLY",
+  "route": "DIRECT_STAGE_A_FULLWAVE_VALIDATION",
+  "solver_authorized": false,
+  "training_authorized": false,
+  "offline_screening_authorized": false,
+  "t_extra_policy": {
+    "baseline_nm": 0,
+    "future_candidates_nm": [
+      0,
+      79,
+      158,
+      237
+    ],
+    "run_now": false
+  },
+  "stack_bottom_to_top": [
+    "APCD_GAN_NATIVE_M1 continuous GaN",
+    "ZL-1 alternative MDC",
+    "MDC final 79nm SiO2",
+    "no extra spacer",
+    "RUN3A TiO2 K6 pillars",
+    "Air"
+  ],
+  "geometry": {
+    "np_candidate": "NP_K6X_125_135_150_175_190_210",
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "pillar_height_nm": 500,
+    "material": "APCD_TIO2_NATIVE_M1",
+    "t_extra_nm": 0
+  },
+  "coordinate_contract": {
+    "plus_z": "GaN -> MDC -> K6 -> Air",
+    "plus_x": "RUN3A phase-gradient",
+    "diffraction_order_m_plus_1": "physical +x",
+    "joint_z_zero": "GaN/MDC first interface",
+    "reference_plane": "NP pillar bottom"
+  },
+  "first_shot": {
+    "wavelength_nm": 450,
+    "polarization": "x",
+    "incidence": "normal",
+    "u_x": 0.0,
+    "ky_over_k0": 0.0,
+    "t_extra_nm": 0,
+    "source_scope": "NP formal standalone x-pol exact-point scope; joint result remains exploratory"
+  },
+  "required_outputs": [
+    "R_total",
+    "T_total",
+    "all_open_transmitted_orders",
+    "all_open_reflected_orders",
+    "eta_t(+1)",
+    "eta_t(0)",
+    "eta_t(-1)",
+    "physical_angle_m_plus_1_deg",
+    "directionality",
+    "power_closure",
+    "provenance_aware_comparison_to_standalone_RUN3A_450nm_xpol"
+  ],
+  "comparison_groups": {
+    "B0": {
+      "label": "MDC-only reference",
+      "status": "PRESERVED_NOT_RUN"
+    },
+    "B1": {
+      "label": "RUN3A standalone x-pol reference",
+      "status": "FIRST_PRIORITY_REFERENCE_NOT_RUN"
+    },
+    "B2": {
+      "label": "NP standalone x-pol reference",
+      "status": "PRESERVED_NOT_RUN"
+    },
+    "B3": {
+      "label": "MDC-NP joint fixed-baseline stack",
+      "status": "FIRST_PRIORITY_JOINT_NOT_RUN"
+    }
+  },
+  "comparison_priority": [
+    "B3",
+    "B1"
+  ],
+  "known_exclusions": [
+    "y-polarization",
+    "x/y averaging",
+    "oblique incidence and ?5/?10 degree samples",
+    "finite-SiO2 transfer",
+    "final MDC-NP stack transfer",
+    "Micro-LED dipole integration",
+    "quantitative joint-power prediction",
+    "surrogate/offline ranking",
+    "wavelength interpolation or extrapolation"
+  ],
+  "required_authorization_action": "REQUEST_STAGE_A_450NM_XPOL_NORMAL_TEXTRA0_FDTD_AUTHORIZATION",
+  "safety": {
+    "solver_runs_this_freeze": 0,
+    "training_runs_this_freeze": 0,
+    "offline_screening_runs_this_freeze": 0,
+    "sealed_test_reads_this_freeze": 0,
+    "test40_reads_this_freeze": 0,
+    "source_worktree_writes_this_freeze": 0
+  },
+  "provenance": {
+    "mdc_commit": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
+    "mdc_model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_FINAL_5SEED_V1",
+    "mdc_model_sha256": "8153fcb0846d5bb644c1eef0aa04db46f447e05d00addd704fa050d1a334351a",
+    "mdc_scope_artifact_sha256": "ecb7d1bc7668c849799d11bf6d62ae535743718786a2ad6459512788dbeb1b52",
+    "np_authoritative_freeze_commit": "7a8588f6b5a1c96d88813f60406d418b488135fd",
+    "np_embedded_source_snapshot_commit": "9128dfb85a268398d1fee56fcb7543982b075d84",
+    "np_package_locked_commit": "6493fae1f9acc636722ae1705c58b208c5cbdbe6",
+    "np_package_id": "NP_K6_P1D4_K6X_V1",
+    "np_package_sha256": "0b7b45e838a0d73b92d63f8a45459bc46206677a91821fa474dacf4bd9028eaa",
+    "np_formal_scope_sha256": "f034240634365f2c81a78feb0c8df4bc2ecc17db074734236d48c13deaffc7de",
+    "np_handoff_sha256": "4fcf8b5cbefb37ba8153ffadbf7bb4a141d6cbbb4fb296fe9fd2211e44226934"
+  }
+}

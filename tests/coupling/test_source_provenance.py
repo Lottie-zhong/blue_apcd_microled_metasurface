@@ -12,9 +12,13 @@ def test_source_lock_is_exact_and_read_only():
     lock = load_source_lock(ROOT/"contracts/coupling/source_branch_lock_v1.json")
     validate_source_lock(lock)
     assert lock["sources"]["mdc"]["commit"] == "489b54e43bbf2c08ce030a945b9d4b70ee7550f2"
-    assert lock["sources"]["np"]["commit"] == "6493fae1f9acc636722ae1705c58b208c5cbdbe6"
+    assert lock["sources"]["np"]["commit"] == "7a8588f6b5a1c96d88813f60406d418b488135fd"
     assert lock["sources"]["mdc"]["observed_clean"] is True
     assert lock["sources"]["np"]["pre_existing_dirty_changes_preserved"] is True
+    assert lock["sources"]["np"]["scope_frozen"] is True
+    assert lock["joint_scope"]["normalized_scope_enum"] == "EXPLORATORY_ONLY"
+    assert lock["joint_scope"]["offline_screening_authorized"] is False
+    assert lock["joint_scope"]["direct_stage_a_ready"] is True
 
 def test_canonical_provenance_replay_is_stable():
     lock = load_source_lock(ROOT/"contracts/coupling/source_branch_lock_v1.json")

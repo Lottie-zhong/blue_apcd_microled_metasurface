@@ -1,1 +1,25 @@
-{"schema_version":"integrated_validation_contract_v1","status":"INTERFACE_ONLY","required_checks":["coordinate_contract","grid_conservation","no_extrapolation","power_normalization","np_order_sign","source_provenance","fresh_process_replay"],"fixture_policy":"synthetic deterministic fixtures only","solver_runs_required":0,"training_runs_required":0,"expected_blocked_conditions":["source scope not frozen","NP polarization averaging not justified","support overlap requires extrapolation"],"completion_state":"APCD_MDC_NP_COUPLING_V1_INTERFACE_ONLY_AWAITING_SOURCE_SCOPE_FREEZE"}
+{
+  "schema_version": "integrated_validation_contract_v1",
+  "status": "STAGE_A_CONTRACT_FROZEN_AWAITING_SOLVER_AUTHORIZATION",
+  "required_checks": [
+    "coordinate_contract",
+    "grid_conservation",
+    "no_extrapolation",
+    "power_normalization",
+    "np_order_sign",
+    "source_provenance",
+    "fresh_process_replay"
+  ],
+  "fixture_policy": "synthetic deterministic fixtures only",
+  "solver_runs_required": 0,
+  "training_runs_required": 0,
+  "expected_blocked_conditions": [
+    "source scope not frozen",
+    "NP polarization averaging not justified",
+    "support overlap requires extrapolation"
+  ],
+  "completion_state": "APCD_MDC_NP_COUPLING_V1_EXPLORATORY_DIRECT_STAGE_A_READY_AWAITING_SOLVER_AUTHORIZATION",
+  "stage_a_contract": "contracts/coupling/stage_a_direct_fullwave_contract_v1.json",
+  "solver_runs_required_this_freeze": 0,
+  "next_route": "DIRECT_STAGE_A_FULLWAVE_VALIDATION"
+}

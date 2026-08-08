@@ -1,1 +1,36 @@
-{"schema_version":"objective_contract_v1","task_id":"APCD_MDC_NP_COUPLING_V1_WORKTREE_BOOTSTRAP_AND_INTERFACE_FREEZE","formal_status":"APCD_MDC_NP_COUPLING_V1_INTERFACE_ONLY_AWAITING_SOURCE_SCOPE_FREEZE","offline_screening_authorized":false,"authorized_now":["worktree bootstrap","source provenance lock","interface contracts","synthetic adapter tests"],"not_authorized":["FDTD","TMM","RCWA","FEM","NP solver","training","formal joint screening","joint ML","complex-amplitude feedback"],"solver_budget":{"FDTD":0,"TMM":0,"RCWA":0,"FEM":0,"NP_solver":0},"training_budget":0}
+{
+  "schema_version": "objective_contract_v1",
+  "task_id": "APCD_MDC_NP_COUPLING_V1_WORKTREE_BOOTSTRAP_AND_INTERFACE_FREEZE",
+  "formal_status": "APCD_MDC_NP_COUPLING_V1_EXPLORATORY_DIRECT_STAGE_A_READY_AWAITING_SOLVER_AUTHORIZATION",
+  "offline_screening_authorized": false,
+  "authorized_now": [
+    "worktree bootstrap",
+    "source provenance lock",
+    "interface contracts",
+    "synthetic adapter tests",
+    "Stage-A fixed-baseline contract freeze",
+    "requesting explicit solver authorization"
+  ],
+  "not_authorized": [
+    "FDTD execution before explicit authorization",
+    "TMM",
+    "RCWA",
+    "FEM",
+    "NP solver",
+    "training",
+    "offline joint screening",
+    "joint ML",
+    "complex-amplitude feedback",
+    "extrapolation"
+  ],
+  "solver_budget": {
+    "FDTD": 0,
+    "TMM": 0,
+    "RCWA": 0,
+    "FEM": 0,
+    "NP_solver": 0
+  },
+  "training_budget": 0,
+  "stage_a_contract": "contracts/coupling/stage_a_direct_fullwave_contract_v1.json",
+  "next_action": "REQUEST_STAGE_A_450NM_XPOL_NORMAL_TEXTRA0_FDTD_AUTHORIZATION"
+}
