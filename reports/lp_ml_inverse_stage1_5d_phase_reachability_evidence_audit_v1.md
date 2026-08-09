@@ -2,6 +2,7 @@
 
 - Outcome: `LP_5D_PHASE_REACHABILITY_PROBE_PLANNING_READY`
 - Evidence level: `LEVEL_1_CURRENT_PHASE_SUPPORT_NARROW_DESIGN_SPACE_UNDEREXPLORED`
+- Creation code commit: `6c32c8e7d6687cb2279e6cff815b9d0ea54be55e`
 - Solver calls: `0`
 - Formal phase: `arg(txx)` under `P_APCD=diag(1,0)`
 - Matrix payload SHA256: `accd073c7d27086debc80e21056dade6b534080bc6e5d4fbb7025821587348f0` (expected `accd073c7d27086debc80e21056dade6b534080bc6e5d4fbb7025821587348f0`)
