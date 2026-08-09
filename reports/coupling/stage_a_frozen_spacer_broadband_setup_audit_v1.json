@@ -359,7 +359,31 @@
     "outcome": "TIMEOUT_NO_SUCCESS_MARKER",
     "solver_run_called": false,
     "automatic_retry": false,
-    "process_recovery": "read-only tasklist inspection only; no process termination"
+    "process_recovery": "read-only tasklist inspection only; no process termination",
+    "preflight_attempts": [
+      {
+        "attempt_id": "APP_OPEN_PREFLIGHT_001",
+        "timeout_seconds": 45,
+        "outcome": "TIMEOUT_NO_SUCCESS_MARKER",
+        "solver_run_called": false
+      },
+      {
+        "attempt_id": "APP_OPEN_PREFLIGHT_002",
+        "timeout_seconds": 60,
+        "outcome": "TIMEOUT_NO_SUCCESS_MARKER",
+        "solver_run_called": false
+      }
+    ],
+    "latest_attempt_timestamp_utc": "2026-08-09T13:58:38.924642+00:00",
+    "repeated_timeout_count": 2,
+    "post_timeout_process_observation": {
+      "python_exe_present": false,
+      "fdtd_solutions_present": false,
+      "ansysedt_present": true,
+      "ansysedt_pid_observed": 32640,
+      "inspection": "read-only tasklist",
+      "termination_performed": false
+    }
   },
   "matrix_gate": {
     "x0_reuse_valid": true,
@@ -369,5 +393,5 @@
     "formal_stage_a_broadband_validated": false
   },
   "decision": "HARD_GATE_BROADBAND_ENGINE_PREFLIGHT_TIMEOUT",
-  "next_action": "recover_or_verify Lumerical license/messaging externally, then re-audit current registry authorization and XP5 prior-entry identity before any solver entry"
+  "next_action": "recover_or_verify Lumerical license/messaging externally; repeated app-open preflight timeout prevents safe solver entry"
 }
