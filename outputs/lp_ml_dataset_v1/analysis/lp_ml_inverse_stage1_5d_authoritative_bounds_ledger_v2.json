@@ -1,0 +1,146 @@
+{
+  "authoritative_sources": {
+    "outputs\\lp_ml_dataset_v1\\clean_v3\\lp_ml_dataset_v1_merged_clean_v3_round3_377_geometry_3393_rows.csv": {
+      "role": "ADMITTED_PHYSICS_SOURCE",
+      "sha256": "197372f2a5c49a16d6667c37554cfe4b811eca3955b28cd5ac3e70b4c8d6baa9"
+    },
+    "outputs\\lp_ml_dataset_v1\\contracts\\lp_linear_x_projector_target_matrix_v1.json": {
+      "role": "FORMAL_P_APCD_SOURCE",
+      "sha256": "7f3ecb0468bb29a86f5bd5ff1da4cd833ee057acf9fb41fc6ad0346e630ff926"
+    },
+    "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_5d_design_space_contract_v1.json": {
+      "role": "DESIGN_RANGE",
+      "sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da"
+    },
+    "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_input_schema_v1.json": {
+      "role": "QUANTIZATION_SCHEMA",
+      "sha256": "a4648f918fd698d7d69224eed1e3a6dcc3d5970663e8dabf5b0668f79ab69136"
+    },
+    "scripts\\lp_ml_contract_plan.py": {
+      "role": "GEOMETRY_CONSTRUCTION",
+      "sha256": "365e35e49fa784e70947ca2d73ddd440e6aee8bc527379f72e981fecf608432c"
+    },
+    "tests\\test_lp_ml_dataset_v1_contract.py": {
+      "role": "GAP_AND_VALIDATION_TEST",
+      "sha256": "ee23c34deee55c77f174c745cbbee9b865e5bd5728f8469f7cab89bc9744a941"
+    }
+  },
+  "bounds": {
+    "D_nm": {
+      "exclusive": false,
+      "inclusive": true,
+      "lower": 196.0,
+      "precedence_rank": 1,
+      "source_path": "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_5d_design_space_contract_v1.json",
+      "source_sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da",
+      "unit": "nm",
+      "upper": 204.0
+    },
+    "J1_side_nm": {
+      "exclusive": false,
+      "inclusive": true,
+      "lower": 108,
+      "precedence_rank": 1,
+      "source_path": "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_5d_design_space_contract_v1.json",
+      "source_sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da",
+      "unit": "nm",
+      "upper": 112
+    },
+    "J2_length_nm": {
+      "exclusive": false,
+      "inclusive": true,
+      "lower": 106,
+      "precedence_rank": 1,
+      "source_path": "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_5d_design_space_contract_v1.json",
+      "source_sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da",
+      "unit": "nm",
+      "upper": 110
+    },
+    "J2_width_nm": {
+      "exclusive": false,
+      "inclusive": true,
+      "lower": 98,
+      "precedence_rank": 1,
+      "source_path": "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_5d_design_space_contract_v1.json",
+      "source_sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da",
+      "unit": "nm",
+      "upper": 102
+    },
+    "Psi_deg": {
+      "exclusive": false,
+      "inclusive": true,
+      "lower": -1.2,
+      "precedence_rank": 1,
+      "source_path": "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_5d_design_space_contract_v1.json",
+      "source_sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da",
+      "unit": "deg",
+      "upper": 1.2
+    }
+  },
+  "created_utc": "2026-08-09T06:01:52.477615Z",
+  "creation_code_commit": "ad84f26db70df4758f2b6e48c0826d775e8f82ab",
+  "fixed_contract": {
+    "H_nm": 500.0,
+    "background": "air",
+    "boundaries": "x/y_periodic_z_PML",
+    "endpoint_handling": "duplicate_endpoint_remove_then_periodic_reclosure",
+    "field_monitor_z_nm": 1000.0,
+    "jones_convention": "[[txx,txy],[tyx,tyy]]",
+    "material": "APCD_TIO2_NATIVE_M1",
+    "mesh": "frozen_mesh_contract",
+    "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+    "observable": "coordinate_weighted_full_period_G0",
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0,
+    "reference_plane": "field_monitor_z_1000_nm",
+    "source": "normal_incidence_plane_wave"
+  },
+  "geometry_formula": {
+    "cell_containment": "cx+max(J1_side,J2_length)/2<216 and abs(cy)+max(J2_width,J2_length)/2<216",
+    "center_grid": "2*center coordinate must be integer",
+    "direct_gap": "2*hypot(cx,cy)-max(J1_side,J2_width)>=60",
+    "periodic_gap": "min(432-2*abs(cx)-max(J1_side,J2_width),432-2*abs(cy)-max(J1_side,J2_length))>=60",
+    "precedence_rank": 2,
+    "source_path": "scripts\\lp_ml_contract_plan.py",
+    "source_sha256": "365e35e49fa784e70947ca2d73ddd440e6aee8bc527379f72e981fecf608432c"
+  },
+  "minimum_gap_rule": {
+    "direct_gap_nm": {
+      "inclusive": true,
+      "lower": 60.0
+    },
+    "periodic_gap_nm": {
+      "inclusive": true,
+      "lower": 60.0
+    },
+    "precedence_rank": 3,
+    "source_path": "tests\\test_lp_ml_dataset_v1_contract.py",
+    "source_sha256": "ee23c34deee55c77f174c745cbbee9b865e5bd5728f8469f7cab89bc9744a941"
+  },
+  "observed_support_is_not_design_bounds": true,
+  "precedence": [
+    "latest frozen LP-ML design-space contract",
+    "canonical geometry builder/input schema",
+    "executable validation tests",
+    "older planning report",
+    "historical exploratory artifact"
+  ],
+  "psi_canonicalization": {
+    "definition": "atan2(cy,cx) from half-grid centers; no independent sub-grid Psi",
+    "range_deg": [
+      -1.2,
+      1.2
+    ],
+    "source_path": "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_5d_design_space_contract_v1.json",
+    "source_sha256": "ad47b66aa5b3bea41e7048a9998016e29150771a9a74633e66bbc98d7b25c2da",
+    "symmetry_canonicalization": "canonical-relative and symmetry-equivalence hashes are audit keys; no alias/ID collapse"
+  },
+  "quantization": {
+    "centers": "integer_or_exact_half_nm",
+    "dimensions": "integer",
+    "precedence_rank": 2,
+    "source_path": "outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_input_schema_v1.json",
+    "source_sha256": "a4648f918fd698d7d69224eed1e3a6dcc3d5970663e8dabf5b0668f79ab69136",
+    "sub_grid": false
+  }
+}
