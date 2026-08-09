@@ -1,0 +1,66 @@
+{
+  "algorithm": "piecewise-constant source density with exact theta-overlap integration after inverse-sine target-edge mapping",
+  "contract_id": "MDC_THETA_TO_UX_CONSERVATIVE_REMAP_V1",
+  "coordinate_transform": "u_x=sin(theta_rad); theta_rad=asin(u_x); dtheta_du=1/sqrt(1-u_x^2)",
+  "fixture": {
+    "expected_target_mass": [
+      1.5707963267948966,
+      1.5707963267948966
+    ],
+    "expected_total_mass": 3.141592653589793,
+    "source_density": [
+      1.0,
+      2.0,
+      1.0
+    ],
+    "target_u_edges": [
+      -0.8660254037844386,
+      0.0,
+      0.8660254037844386
+    ],
+    "theta_cell_edges_deg": [
+      -60.0,
+      -30.0,
+      30.0,
+      60.0
+    ],
+    "theta_nodes_deg": [
+      -60.0,
+      0.0,
+      60.0
+    ],
+    "tolerance": 1e-12
+  },
+  "grid_evidence": {
+    "angle_grid_sha256": "d3efc0cd4cd5ef58c9f6cb0ebfdce3365572727adfbf5d114c6b0e07a5d1a243",
+    "angle_points": 2000,
+    "combined_grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9"
+  },
+  "requirements": {
+    "angular_ux_marginal_closure": true,
+    "fresh_process_determinism": true,
+    "monotonic_mapping": true,
+    "no_extrapolation": true,
+    "no_negative_weights": true,
+    "spectral_marginal_closure": true,
+    "total_mass_closure": true
+  },
+  "source_cell_edges": "native theta node endpoints with interior midpoint edges",
+  "source_density": "W_theta(lambda,theta) per radian",
+  "status": "RESOLVED_CONSERVATIVE_MONOTONIC_REMAP",
+  "support": {
+    "air_side_propagating_domain": "|u_x|<=1",
+    "native_theta_deg": [
+      -90.0,
+      90.0
+    ],
+    "native_u_x": [
+      -1.0,
+      1.0
+    ],
+    "out_of_support_mass": "reported and not silently discarded",
+    "target_support_must_be_subset_of_native": true
+  },
+  "target_cell_edges": "declared monotonic u_x edges; inverse-sine mapped into theta before overlap",
+  "target_density": "W_u(lambda,u_x) per u_x"
+}

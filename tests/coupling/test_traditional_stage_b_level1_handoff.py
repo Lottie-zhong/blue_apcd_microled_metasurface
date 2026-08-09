@@ -20,7 +20,7 @@ def load(name: str) -> dict:
 
 def test_handoff_is_hard_gated_and_stage_a_identity_is_frozen():
     handoff = load("traditional_stage_b_level1_handoff_v1.json")
-    assert handoff["status"] == "TRADITIONAL_STAGE_B_LEVEL1_HANDOFF_BLOCKED_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT"
+    assert handoff["status"] == "USER_DECISION_REQUIRED_LEVEL1_POLARIZATION_SCOPE"
     assert handoff["coupling_level"] == "ONE_WAY_INCOHERENT_POWER_COUPLING"
     stage_a = handoff["stage_a_baseline_immutable"]
     assert stage_a["mdc_candidate_id"] == "P1_ZL1_ALTERNATIVE_G3_A3"
@@ -83,17 +83,18 @@ def test_reference_plane_and_grid_contracts_are_explicit():
 
 def test_polarization_mapping_is_not_inferred_and_quadrature_is_raw_first():
     mapping = load("level1_polarization_mapping_v1.json")
-    assert mapping["status"] == "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT"
-    assert mapping["direct_mapping_allowed"] is False
-    assert "x_dipole_to_P_XLIKE" in mapping["prohibited_mappings"]
-    assert "z_dipole_to_S_YLIKE" in mapping["prohibited_mappings"]
+    assert mapping["status"] == "TRADITIONAL_STAGE_B_LEVEL1_POLARIZATION_MAPPING_RESOLVED"
+    assert mapping["direct_mapping_allowed"] is True
+    assert mapping["resolved_mappings"] == {"x_dipole": "P_XLIKE", "z_dipole": "S_YLIKE"}
+    assert "x_dipole_to_S_YLIKE" in mapping["prohibited_mappings"]
+    assert "z_dipole_to_P_XLIKE" in mapping["prohibited_mappings"]
     quadrature = load("level1_quadrature_contract_v1.json")
     assert quadrature["raw_first"] is True
     assert "same-position P_position=0.5*P_x+0.5*P_z" in quadrature["aggregation_order"]
     assert "geometry P_geometry=(P_top+P_centroid+P_bottom)/3" in quadrature["aggregation_order"]
     assert quadrature["case_normalize_before_average"] is False
     assert quadrature["numerical_consumption_allowed"] is False
-    assert quadrature["status"] == "BLOCKED_UNRESOLVED_MDC_WEIGHT_SEMANTICS"
+    assert quadrature["status"] == "RESOLVED_NATIVE_TRAPEZOID_DENSITY_IN_LAMBDA_THETA"
 
 
 def test_power_contract_is_one_way_and_does_not_claim_absolute_metrics():

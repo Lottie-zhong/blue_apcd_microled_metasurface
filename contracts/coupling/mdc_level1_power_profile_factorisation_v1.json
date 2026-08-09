@@ -1,0 +1,38 @@
+{
+  "absolute_claims_forbidden": [
+    "absolute LEE",
+    "EQE",
+    "Purcell",
+    "absolute optical power"
+  ],
+  "contract_id": "MDC_LEVEL1_POWER_PROFILE_FACTORISATION_V1",
+  "factor_chain": [
+    "MDC provider ends at z=975",
+    "237 nm homogeneous SiO2 propagation",
+    "NP scattering provider starts at pillar bottom z=1212"
+  ],
+  "formula_theta": "P_plus1_relative=P_MDC_up_FDTD*SUM[W_theta(lambda,theta,channel)*T_prop(lambda,u_x,pol)*eta_NP_plus1(lambda,u_x,pol)*d_lambda_nm*d_theta_rad]",
+  "formula_ux": "P_plus1_relative=P_MDC_up_FDTD*SUM[W_u(lambda,u_x,channel)*T_prop(lambda,u_x,pol)*eta_NP_plus1(lambda,u_x,pol)*d_lambda_nm*d_u_x]",
+  "no_double_counting": [
+    "Stage-A integrated matrix is not multiplied by W_MDC",
+    "237 nm spacer is not embedded in NP operator",
+    "P_MDC_up_FDTD is not normalized again by W",
+    "phase is not reintroduced into incoherent power sum"
+  ],
+  "normalization_order": [
+    "raw readback",
+    "source orientation aggregation",
+    "geometry aggregation",
+    "source/near-field normalization",
+    "joint profile normalization",
+    "propagation and NP weighted sum"
+  ],
+  "p_mdc_definition": "source-normalized, raw-first, orientation-aggregated relative upward MDC output scalar; p_up_raw and p_box_raw remain separate until declared normalization",
+  "profile_conversion": "W_theta -> W_u by MDC_THETA_TO_UX_CONSERVATIVE_REMAP_V1 before NP join",
+  "source_aggregation": {
+    "geometry": "(raw_top+raw_centroid+raw_bottom)/3",
+    "meaning": "incoherent source-orientation aggregation, not P/S averaging",
+    "same_position": "0.5*raw_x+0.5*raw_z"
+  },
+  "status": "RESOLVED_CONDITIONAL_ON_FORMAL_ZL1_MDC_PROFILE_AND_SCOPE_OPTION"
+}

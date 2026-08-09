@@ -6,22 +6,28 @@
     "quadrature",
     "power"
   ],
-  "grid_status": "PARTIAL_ALIGNMENT_NO_EXTRAPOLATION",
+  "grid_status": "RESOLVED_NATIVE_THETA_WITH_CONSERVATIVE_UX_REMAP",
   "mdc_provider_status": "REQUIRES_DIRECT_SOLVER",
-  "next_action": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
+  "next_action": "USER_DECISION_REQUIRED_LEVEL1_POLARIZATION_SCOPE",
   "np_provider_status": "PARTIAL_EXISTING_ASSET",
-  "polarization_mapping_status": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
-  "quadrature_status": "BLOCKED_UNRESOLVED_MDC_WEIGHT_SEMANTICS",
-  "reference_plane_status": "FROZEN_CONCEPTUAL_MAPPING_PROVIDER_INPUT_PENDING",
+  "physics_contracts": {
+    "basis": "contracts/coupling/mdc_interface_polarization_basis_v1.json",
+    "factorisation": "contracts/coupling/mdc_level1_power_profile_factorisation_v1.json",
+    "np_operator": "contracts/coupling/level1_np_scattering_operator_v1.json",
+    "propagation": "contracts/coupling/level1_interface_propagation_v1.json",
+    "quadrature": "contracts/coupling/mdc_level1_quadrature_semantics_v1.json",
+    "remap": "contracts/coupling/mdc_theta_to_ux_conservative_remap_v1.json"
+  },
+  "polarization_mapping_status": "TRADITIONAL_STAGE_B_LEVEL1_POLARIZATION_MAPPING_RESOLVED",
+  "quadrature_status": "RESOLVED_NATIVE_TRAPEZOID_DENSITY_IN_LAMBDA_THETA",
+  "reference_plane_status": "RESOLVED_INTERFACE_PROPAGATION_FACTORISATION",
   "safety": {
     "FDTD": 0,
     "FEM": 0,
     "ML_inference": 0,
     "RCWA": 0,
     "TMM": 0,
-    "integrated_level1_numerical_result": 0,
     "m1_model_consumption": 0,
-    "sealed_reads": 0,
     "source_worktree_writes": 0,
     "stage_a_reruns": 0,
     "this_turn_solver_entries": 0,
@@ -29,25 +35,39 @@
   },
   "schema_version": "traditional_stage_b_level1_readiness_v1",
   "solver_budget_plan": {
-    "budget_not_authorized_until": [
-      "polarization mapping hard gate resolved",
-      "NP reference stack/plane transfer decision resolved",
-      "formal MDC six-case source contract accepted"
+    "authorization_blockers": [
+      "user selects P/TM-only or full P/S scope",
+      "formal ZL1 six-case MDC profile exists",
+      "exact ZL1 u_x support derived before NP grid approval"
     ],
     "current_turn_entries": 0,
     "do_not_count": [
       "Stage-A integrated 110 rows",
+      "DOE96 historical 576 FDTD calls",
       "DOE96 576 historical solver calls",
       "legacy -400 nm diagnostics"
     ],
     "mdc_missing_formal_cases": 6,
-    "np_case_definition": "one broadband direct response case per (u_x, polarization) over exact 445-455 nm points",
+    "minimum": {
+      "MDC_formal_FDTD_cases": 6,
+      "NP_option_A_new_states": "max(N_ux_required_P-1,0)",
+      "NP_option_B_new_states": "max(N_ux_required_P-1,0)+N_ux_required_S",
+      "N_ux_required_definition": "distinct exact remapped u_x support points declared by the formal ZL1 profile; no numeric grid invented before ZL1 profile exists"
+    },
+    "minimum_authorization_unit": "one entered run per direct solver case; no authorization in this turn",
     "np_existing_formal_states": 1,
     "np_full_stage_a_target_states": 10,
     "np_missing_full_stage_a_states": 9,
+    "optional": "integrated MDC+NP full-wave validation after one-way contract passes",
+    "recommended": "minimum plus independently justified support-edge/grid-convergence response points; count only after scope decision",
+    "reusable_np_state": "P_XLIKE at u_x=0 over exact 445-455 nm",
+    "scope_options": {
+      "A": "TRADITIONAL_LEVEL1_P_TM_ONLY",
+      "B": "TRADITIONAL_LEVEL1_FULL_P_S_SOURCE_SCOPE_EXTENSION"
+    },
     "status": "CONDITIONAL_NOT_AUTHORIZED"
   },
   "stage_a_closure_head": "25e78936afca7387f71bda244545efed64cbe702",
-  "status": "TRADITIONAL_STAGE_B_LEVEL1_HANDOFF_BLOCKED_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
-  "status_class": "HARD_GATE"
+  "status": "USER_DECISION_REQUIRED_LEVEL1_POLARIZATION_SCOPE",
+  "status_class": "USER_DECISION_REQUIRED"
 }

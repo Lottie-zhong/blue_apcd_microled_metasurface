@@ -1,0 +1,145 @@
+{
+  "branch_basis": {
+    "P_XLIKE": {
+      "E_components": [
+        "E_x",
+        "E_z"
+      ],
+      "H_components": [
+        "H_y"
+      ]
+    },
+    "S_YLIKE": {
+      "E_components": [
+        "E_y"
+      ],
+      "H_components": [
+        "H_x",
+        "H_z"
+      ]
+    }
+  },
+  "contract_id": "MDC_INTERFACE_POLARIZATION_BASIS_V1",
+  "coordinate_mapping": {
+    "x_p": "x_L",
+    "y_p": "z_L",
+    "z_p": "y_L"
+  },
+  "cross_family_mappings_forbidden": [
+    "x_dipole_to_S_YLIKE",
+    "z_dipole_to_P_XLIKE"
+  ],
+  "evidence": [
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\scripts\\run_mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1.py",
+      "required": true,
+      "role": "traditional MDC dipole setup and source contract",
+      "sha256": "8c91889a8572fb8bf963b91e2cf539dfdff6509a37cb07b614b8080bfe111c7f",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\scripts\\mdc_fdtd_2d_monitor_contract_v1.py",
+      "required": true,
+      "role": "traditional MDC 2D monitor coordinate contract",
+      "sha256": "1a50ff1de522981cc339d79ce8812a5691d90b311be7e363ce8ac2a8309f4eb7",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_native_m1_2d_dipole_device_comparison_v1\\dipole_field_channel_validation.csv",
+      "required": false,
+      "role": "existing field-family audit record; readback status remains unresolved",
+      "sha256": "37c24310e2685d673fe63ea48eb9ffe3e585e565a8b00cb8b43f8e6bbd32f45d",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\zl1_alternative_x_x+1000_a1_20260715_163849.fsp",
+      "required": true,
+      "role": "read-only FSP metadata sample for x source",
+      "sha256": "f84ccbe5bfcd3e73271209cf4167d660c67624300477db09bad9dd5a14993b8f",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\zl1_alternative_z_x+1000_a1_20260715_163925.fsp",
+      "required": true,
+      "role": "read-only FSP metadata sample for z source",
+      "sha256": "39fdbe850063742873b08cd6aa0ea412d1ff15f8bc9b8a69e18092f3042fd79d",
+      "status": "READ_ONLY_HASHED"
+    }
+  ],
+  "field_component_readback": "NOT_AVAILABLE_IN_EXISTING_FSP_ASSETS; analytic 2D decoupling is the authoritative classification",
+  "field_families_project": {
+    "P_TM_like": [
+      "E_x",
+      "E_z",
+      "H_y"
+    ],
+    "S_TE_like": [
+      "E_y",
+      "H_x",
+      "H_z"
+    ]
+  },
+  "field_families_solver": {
+    "P_TM_like": [
+      "E_x",
+      "E_y",
+      "H_z"
+    ],
+    "S_TE_like": [
+      "E_z",
+      "H_x",
+      "H_y"
+    ]
+  },
+  "lumerical_dipole_readback": {
+    "x": {
+      "axis": "solver_x",
+      "phi_deg": 0.0,
+      "project_axis": "project_x",
+      "theta_deg": 90.0
+    },
+    "z": {
+      "axis": "solver_z invariant",
+      "phi_deg": 0.0,
+      "project_axis": "project_y invariant",
+      "theta_deg": 0.0
+    }
+  },
+  "official_api_reference": "https://optics.ansys.com/hc/en-us/articles/360034382794-Dipole-source-Simulation-object",
+  "project_coordinates": {
+    "in_plane": [
+      "x_p",
+      "z_p"
+    ],
+    "invariant_axis": "y_p",
+    "vertical_axis": "z_p"
+  },
+  "propagation": {
+    "ky_over_k0_project": 0.0,
+    "project_k": "(kx,0,kz)",
+    "solver_k": "(kx,ky,0)",
+    "theta_air": "asin(u_x) in radians; display labels may be degrees",
+    "u_x": "kx/k0"
+  },
+  "simulation_plane": "Lumerical solver x-y plane; project physical x-z plane",
+  "six_case_contains_independent_p_and_s": true,
+  "solver_coordinates": {
+    "in_plane": [
+      "x_L",
+      "y_L"
+    ],
+    "invariant_axis": "z_L",
+    "vertical_axis": "y_L"
+  },
+  "source_orientation_is_not_polarization_label": true,
+  "source_orientation_to_interface_branch": {
+    "x_dipole": "P_XLIKE",
+    "z_dipole": "S_YLIKE"
+  },
+  "source_position_semantics": {
+    "project_axis": "project_z",
+    "setup_axis": "solver_y",
+    "source_z_nm_means": "vertical project-z position, not solver-z orientation"
+  },
+  "status": "RESOLVED_BY_2D_SETUP_AND_ANALYTIC_MAXWELL_DECOMPOSITION"
+}

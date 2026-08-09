@@ -1,13 +1,5 @@
 {
-  "aggregation_order": [
-    "raw power readback",
-    "same-position P_position=0.5*P_x+0.5*P_z",
-    "geometry P_geometry=(P_top+P_centroid+P_bottom)/3",
-    "normalization",
-    "derived metrics"
-  ],
   "case_normalize_before_aggregation": false,
-  "case_normalize_before_average": false,
   "complex_field_interference": false,
   "contract_id": "MDC_LEVEL1_QUADRATURE_SEMANTICS_V1",
   "density_semantics": "normalized density W(lambda,theta) with integral measure d_lambda_nm*d_theta_rad",
@@ -83,7 +75,6 @@
       "status": "READ_ONLY_HASHED"
     }
   ],
-  "integration_formula": "P_plus1_relative=P_MDC_up_FDTD*SUM[W_theta(lambda,theta,channel)*T_prop(lambda,u_x,pol)*eta_NP_plus1(lambda,u_x,pol)*d_lambda_nm*d_theta_rad]",
   "marginals": {
     "angular": "trapz_lambda(raw_joint,lambda_nm,axis=0)",
     "spectral": "trapz_theta(raw_joint,theta_rad,axis=1)"
@@ -98,7 +89,6 @@
     "profile": "W_theta=raw_joint/Z",
     "tolerance": 1e-12
   },
-  "numerical_consumption_allowed": false,
   "numerical_consumption_authorized": false,
   "raw_aggregation_order": [
     "raw x/z average at each position",
@@ -107,10 +97,8 @@
     "single normalization denominator",
     "derived metrics"
   ],
-  "raw_first": true,
   "raw_geometry_weight": 0.3333333333333333,
   "raw_xz_weight": 0.5,
-  "schema_version": "level1_quadrature_contract_v2",
   "source_profile": {
     "angle_deg": [
       -90.0,

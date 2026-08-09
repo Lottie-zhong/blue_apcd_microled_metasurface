@@ -1,0 +1,220 @@
+{
+  "contracts": {
+    "field_basis_audit": "contracts/coupling/mdc_2d_field_basis_audit_v1.json",
+    "grid_alignment": "contracts/coupling/level1_grid_alignment_v1.json",
+    "interface_polarization_basis": "contracts/coupling/mdc_interface_polarization_basis_v1.json",
+    "interface_propagation": "contracts/coupling/level1_interface_propagation_v1.json",
+    "np_scattering_operator": "contracts/coupling/level1_np_scattering_operator_v1.json",
+    "polarization_mapping": "contracts/coupling/level1_polarization_mapping_v1.json",
+    "power": "contracts/coupling/level1_power_contract_v1.json",
+    "power_profile_factorisation": "contracts/coupling/mdc_level1_power_profile_factorisation_v1.json",
+    "quadrature": "contracts/coupling/level1_quadrature_contract_v1.json",
+    "quadrature_semantics": "contracts/coupling/mdc_level1_quadrature_semantics_v1.json",
+    "reference_plane": "contracts/coupling/level1_reference_plane_mapping_v1.json",
+    "theta_to_ux_remap": "contracts/coupling/mdc_theta_to_ux_conservative_remap_v1.json"
+  },
+  "decisions": {
+    "invariant_axis": "z_L",
+    "native_ux_support": [
+      -1.0,
+      1.0
+    ],
+    "profile_semantics": "normalized density W(lambda,theta) with integral measure d_lambda_nm*d_theta_rad",
+    "required_ux_support": "derive exact ZL1 mass support before fixing NP grid",
+    "simulation_plane": "Lumerical solver x-y plane; project physical x-z plane",
+    "six_case_has_P_and_S": true,
+    "spacer_237nm_role": "interface propagation operator",
+    "stage_a_matrix_np_provider": false,
+    "standalone_np_operator": "VALID_STANDALONE_OPERATOR_PARTIAL_GRID_POLARIZATION_COVERAGE",
+    "theta_to_ux": "RESOLVED_CONSERVATIVE_MONOTONIC_REMAP",
+    "x_source_family": "P_TM_like",
+    "x_z_aggregation": "incoherent source-orientation aggregation, not P/S averaging",
+    "z_source_family": "S_TE_like"
+  },
+  "ml_inference_entries_this_turn": 0,
+  "next_action": "USER_DECISION_REQUIRED_LEVEL1_POLARIZATION_SCOPE",
+  "safety": {
+    "FDTD": 0,
+    "FEM": 0,
+    "ML_inference": 0,
+    "RCWA": 0,
+    "TMM": 0,
+    "m1_model_consumption": 0,
+    "source_worktree_writes": 0,
+    "stage_a_reruns": 0,
+    "this_turn_solver_entries": 0,
+    "training": 0
+  },
+  "schema_version": "traditional_stage_b_level1_physics_resolution_v1",
+  "solver_budget_plan": {
+    "authorization_blockers": [
+      "user selects P/TM-only or full P/S scope",
+      "formal ZL1 six-case MDC profile exists",
+      "exact ZL1 u_x support derived before NP grid approval"
+    ],
+    "current_turn_entries": 0,
+    "do_not_count": [
+      "Stage-A integrated 110 rows",
+      "DOE96 historical 576 FDTD calls",
+      "DOE96 576 historical solver calls",
+      "legacy -400 nm diagnostics"
+    ],
+    "mdc_missing_formal_cases": 6,
+    "minimum": {
+      "MDC_formal_FDTD_cases": 6,
+      "NP_option_A_new_states": "max(N_ux_required_P-1,0)",
+      "NP_option_B_new_states": "max(N_ux_required_P-1,0)+N_ux_required_S",
+      "N_ux_required_definition": "distinct exact remapped u_x support points declared by the formal ZL1 profile; no numeric grid invented before ZL1 profile exists"
+    },
+    "minimum_authorization_unit": "one entered run per direct solver case; no authorization in this turn",
+    "np_existing_formal_states": 1,
+    "np_full_stage_a_target_states": 10,
+    "np_missing_full_stage_a_states": 9,
+    "optional": "integrated MDC+NP full-wave validation after one-way contract passes",
+    "recommended": "minimum plus independently justified support-edge/grid-convergence response points; count only after scope decision",
+    "reusable_np_state": "P_XLIKE at u_x=0 over exact 445-455 nm",
+    "scope_options": {
+      "A": "TRADITIONAL_LEVEL1_P_TM_ONLY",
+      "B": "TRADITIONAL_LEVEL1_FULL_P_S_SOURCE_SCOPE_EXTENSION"
+    },
+    "status": "CONDITIONAL_NOT_AUTHORIZED"
+  },
+  "solver_entries_this_turn": 0,
+  "source_evidence": [
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\scripts\\run_mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1.py",
+      "required": true,
+      "role": "traditional MDC dipole setup and source contract",
+      "sha256": "8c91889a8572fb8bf963b91e2cf539dfdff6509a37cb07b614b8080bfe111c7f",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\scripts\\mdc_fdtd_2d_monitor_contract_v1.py",
+      "required": true,
+      "role": "traditional MDC 2D monitor coordinate contract",
+      "sha256": "1a50ff1de522981cc339d79ce8812a5691d90b311be7e363ce8ac2a8309f4eb7",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_native_m1_2d_dipole_device_comparison_v1\\dipole_field_channel_validation.csv",
+      "required": false,
+      "role": "existing field-family audit record; readback status remains unresolved",
+      "sha256": "37c24310e2685d673fe63ea48eb9ffe3e585e565a8b00cb8b43f8e6bbd32f45d",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\zl1_alternative_x_x+1000_a1_20260715_163849.fsp",
+      "required": true,
+      "role": "read-only FSP metadata sample for x source",
+      "sha256": "f84ccbe5bfcd3e73271209cf4167d660c67624300477db09bad9dd5a14993b8f",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\zl1_alternative_z_x+1000_a1_20260715_163925.fsp",
+      "required": true,
+      "role": "read-only FSP metadata sample for z source",
+      "sha256": "39fdbe850063742873b08cd6aa0ea412d1ff15f8bc9b8a69e18092f3042fd79d",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\scripts\\run_mdc_hf_surrogate_v2_doe96_joint_profile_v1.py",
+      "required": true,
+      "role": "fixed-v2 native joint profile exporter",
+      "sha256": "fa933222de1fa85823b7b5efcbc55ec593a5bf92a63d4d24637f4dd6a827d7ff",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\scripts\\extract_mdc_hf_surrogate_v2_doe96_labels_v1.py",
+      "required": true,
+      "role": "fixed-v2 raw aggregation and quadrature implementation",
+      "sha256": "c35f631d8c581bc3af1675e064d750a0e21e43f713443773efe3ea8ffdd8f1e7",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\joint_profile_grid_contract.json",
+      "required": true,
+      "role": "fixed-v2 grid contract",
+      "sha256": "e47f21d6266924f134b2f1ce998f1559e5115692017ac7f6fce959eba4f6139d",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\joint_profile_monitor_contract_resolved.json",
+      "required": true,
+      "role": "fixed-v2 monitor/export contract",
+      "sha256": "0f3c31b3d1ad2d07c292170d8f873c7adc536a3dd06f5fb1f8747409d2ffe638",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\joint_profile_export_contract_resolved.json",
+      "required": true,
+      "role": "fixed-v2 raw joint export contract",
+      "sha256": "f3935c5ed38abe35f59eb3281b8c31e543da81503d8769eccc1850e6ee33175a",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\profile_quadrature_and_flattening_contract.json",
+      "required": true,
+      "role": "fixed-v2 quadrature and flattening contract",
+      "sha256": "549b6903f8f9701d54de2999fcce05f1df331ebbc75dc313832adcbac21d665a",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_monitor_grid_lock.json",
+      "required": true,
+      "role": "fixed-v2 native grid lock",
+      "sha256": "a8abe1a2c3b543aac2a217f0b35e15dc928e3f24e0628e2870c34d5e8fedf932",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_grid_consistency_audit.json",
+      "required": true,
+      "role": "fixed-v2 grid consistency audit",
+      "sha256": "cc5c438d4a8fe9a20f3bb5fd4a28f05102d72d72c6082d15441b50655bdf29e7",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_aggregation_audit_v1.json",
+      "required": true,
+      "role": "fixed-v2 raw-first aggregation audit",
+      "sha256": "6302cb53346beaa4cf41f6bd5c0d00dd88aceafe4d82bcdfb01c19a71c9bf202",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_joint_profile_quality_audit.json",
+      "required": true,
+      "role": "fixed-v2 profile quality audit",
+      "sha256": "a43fb58409cf5df898e7c67210807b3f1d02e8b22af3d074bcd5a81a32fc8a9b",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\material_reference\\mdc_blue_oujizi_m\\material_ref_native_sampled.csv",
+      "required": true,
+      "role": "Native-M1 SiO2 material samples",
+      "sha256": "fe8b14986edcc5aee6ac06b25ce421efcc09a5d23f0eaad0c9b19a58894bd7c5",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\configs\\material_reference_apcd_blue.yaml",
+      "required": true,
+      "role": "Native-M1 material policy",
+      "sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\contracts\\coupling\\source_branch_lock_v1.json",
+      "required": true,
+      "role": "coupling source branch lock",
+      "sha256": "fea2bdc3671d7f5b744be9dec800e58b2080f2f1af1dd0afee3306980c18d203",
+      "status": "READ_ONLY_HASHED"
+    }
+  ],
+  "source_heads": {
+    "coupling_head_before_resolution": "6d5e979f5b42668a2da5bbb6c33999154b3d9131",
+    "frozen_hf_source_lock_commit": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
+    "mdc_hf_current_head": "069ebcd09f810e2495c3faa1b166788ebe6f9247",
+    "traditional_mdc_current_head": "40dedf4098fa0ca19e0e5f0e3395e73fb4949c53"
+  },
+  "status": "USER_DECISION_REQUIRED_LEVEL1_POLARIZATION_SCOPE",
+  "status_class": "USER_DECISION_REQUIRED",
+  "training_entries_this_turn": 0
+}

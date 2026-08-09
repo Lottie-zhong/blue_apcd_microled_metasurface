@@ -1,0 +1,58 @@
+{
+  "contract_id": "LEVEL1_INTERFACE_PROPAGATION_V1",
+  "distance_nm": 237,
+  "from_plane": {
+    "id": "MDC_TOP_UPWARD_OUTPUT_PLANE",
+    "medium": "APCD_SIO2_NATIVE_M1",
+    "project_z_nm": 975
+  },
+  "material": {
+    "audit": {
+      "epsilon_imag_max_400_500_nm": 0.0,
+      "focus_samples_442_460_nm": [
+        {
+          "k_imag": 0.0,
+          "n_real": 1.425763,
+          "wavelength_nm": 459.20070000000004
+        },
+        {
+          "k_imag": 0.0,
+          "n_real": 1.4261394,
+          "wavelength_nm": 450.85159999999996
+        },
+        {
+          "k_imag": 0.0,
+          "n_real": 1.4265226,
+          "wavelength_nm": 442.80069999999995
+        }
+      ],
+      "interpolation_rule": "linear complex epsilon versus frequency within native range; no extrapolation",
+      "k_imag_max_400_500_nm": 0.0,
+      "lossless_over_445_455_by_native_samples": true,
+      "material_name": "sio222",
+      "sample_count_400_500_nm": 12,
+      "sample_count_total": 101
+    },
+    "material_id": "APCD_SIO2_NATIVE_M1",
+    "native_material_csv": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\material_reference\\mdc_blue_oujizi_m\\material_ref_native_sampled.csv",
+    "source_config": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\configs\\material_reference_apcd_blue.yaml"
+  },
+  "no_np_finite_spacer_double_count": true,
+  "no_solver_required": true,
+  "operator": {
+    "amplitude": "exp(i*kz_sio2*d)",
+    "k0": "2*pi/lambda",
+    "kz_sio2": "k0*sqrt(n_sio2(lambda)^2-u_x^2)",
+    "lossless_445_455_power_factor": 1.0,
+    "phase_ignored_by_incoherent_power_level1": true,
+    "phase_retained_for_field_operator": true,
+    "power_factor": "abs(amplitude)^2"
+  },
+  "role": "interface propagation operator, not MDC provider and not NP scattering provider",
+  "status": "RESOLVED_HOMOGENEOUS_NATIVE_M1_SIO2_FACTOR",
+  "to_plane": {
+    "id": "NP_PILLAR_BOTTOM",
+    "medium": "APCD_SIO2_NATIVE_M1",
+    "project_z_nm": 1212
+  }
+}

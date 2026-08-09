@@ -1,312 +1,145 @@
 {
   "contracts": {
-    "grid_alignment": {
-      "alignment_rules": [
-        "use conserved u_x, not theta_air, as the primary join coordinate",
-        "intersect exact source support before integration",
-        "no interpolation or extrapolation of NP data",
-        "no spectrum-times-angular-cut outer product for a joint MDC tensor",
-        "theta labels are derived metadata only"
-      ],
-      "canonical_stage_a_ux": [
-        -0.17364817766693033,
-        -0.08715574274765817,
-        0.0,
-        0.08715574274765817,
-        0.17364817766693033
-      ],
-      "canonical_wavelength_nm": [
-        445,
-        446,
-        447,
-        448,
-        449,
-        450,
-        451,
-        452,
-        453,
-        454,
-        455
-      ],
-      "current_consumable_intersection": {
-        "polarization": [
-          "x"
-        ],
-        "status": "NP_STANDALONE_ONLY; MDC FORMAL PROVIDER MISSING",
-        "u_x": [
-          0.0
-        ],
-        "wavelength_nm": [
-          445,
-          446,
-          447,
-          448,
-          449,
-          450,
-          451,
-          452,
-          453,
-          454,
-          455
-        ]
-      },
-      "existing_np_polarization": [
-        "x"
-      ],
-      "existing_np_ux": [
-        0.0
-      ],
-      "full_stage_a_validation_requires": {
-        "new_np_state_count": 9,
-        "state_count": 10,
-        "state_definition": "5 u_x values x 2 P/S branches"
-      },
-      "mdc_native_joint_tensor_axis_order": [
-        "wavelength_index",
-        "angle_index"
-      ],
-      "mdc_native_joint_tensor_shape_observed_elsewhere": [
-        301,
-        2000
-      ],
-      "schema_version": "level1_grid_alignment_v1",
-      "stage_a_closure_head": "25e78936afca7387f71bda244545efed64cbe702",
-      "status": "PARTIAL_ALIGNMENT_NO_EXTRAPOLATION",
-      "wavelength_policy": "exact 1 nm points only"
-    },
-    "polarization_mapping": {
-      "direct_mapping_allowed": false,
-      "evidence_gap": [
-        "legacy MDC assets provide scalar raw upward monitor power, not polarization-resolved interface fields",
-        "formal ZL1 six-case raw profile is absent",
-        "NP y/S response is not validated in the frozen NP source scope"
-      ],
-      "mdc_channel_type": "2D emission-source channels",
-      "mdc_channels": [
-        "x_dipole",
-        "z_dipole"
-      ],
-      "np_channel_type": "incident plane-wave polarization branches",
-      "np_channels": [
-        "P_XLIKE",
-        "S_YLIKE"
-      ],
-      "prohibited_mappings": [
-        "x_dipole_to_P_XLIKE",
-        "z_dipole_to_S_YLIKE",
-        "x_dipole_to_S_YLIKE",
-        "z_dipole_to_P_XLIKE"
-      ],
-      "required_resolution": [
-        "formal TE-like/TM-like or equivalent interface-polarization-resolved MDC power channels",
-        "a documented transformation to NP P/S branches",
-        "formal similarity evidence before any P/S aggregation"
-      ],
-      "schema_version": "level1_polarization_mapping_v1",
-      "status": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
-      "x_y_averaging": "NOT_JUSTIFIED"
-    },
-    "power": {
-      "forbidden_labels": [
-        "absolute LEE",
-        "EQE",
-        "Purcell",
-        "absolute optical power",
-        "3D extraction efficiency"
-      ],
-      "formal_mdc_metric_name": "2D fixed-near-source-surface-normalized relative upward-output metric",
-      "formal_p_mdc": "P_MDC_up_FDTD",
-      "formal_provider_required": true,
-      "legacy_status": {
-        "absolute_LEE_EQE_Purcell": "forbidden",
-        "absolute_extraction": "forbidden",
-        "source_normalized_power": "pending_no_verified_dipolepower_readback"
-      },
-      "no_case_normalize_then_average": true,
-      "raw_power_first": true,
-      "relative_normalization": "fixed physical R12 nm box / project-canonical equivalent, only after formal provider declaration",
-      "schema_version": "level1_power_contract_v1",
-      "status": "PARTIAL_LEGACY_DIAGNOSTIC_NOT_FORMAL"
-    },
-    "quadrature": {
-      "aggregation_order": [
-        "raw power readback",
-        "same-position P_position=0.5*P_x+0.5*P_z",
-        "geometry P_geometry=(P_top+P_centroid+P_bottom)/3",
-        "normalization",
-        "derived metrics"
-      ],
-      "allowed_weight_semantics": [
-        "raw density requiring explicit d_lambda*d_u_x quadrature",
-        "raw probability mass already including quadrature"
-      ],
-      "blocking_reason": "formal ZL1 profile asset must declare whether W contains Jacobian/quadrature or is a normalized density",
-      "case_normalize_before_average": false,
-      "integration_formula": "P_plus1_relative=P_MDC_up_FDTD*SUM[W_MDC_FDTD(lambda,u_x,channel)*eta_NP_plus1(lambda,u_x,polarization)*quadrature]",
-      "joint_tensor_policy": "integrate the native joint tensor after exact axis readback; never synthesize an outer product",
-      "numerical_consumption_allowed": false,
-      "raw_first": true,
-      "required_identity": "sum(W_MDC_FDTD(lambda,u_x,channel)*quadrature)=1 per normalized profile",
-      "resolved_weight_semantics": null,
-      "schema_version": "level1_quadrature_contract_v1",
-      "status": "BLOCKED_UNRESOLVED_MDC_WEIGHT_SEMANTICS",
-      "y_dipole_auto_addition": false
-    },
-    "reference_plane": {
-      "conserved_variable": {
-        "ky_over_k0": 0.0,
-        "no_internal_theta_substitution": true,
-        "primary": "u_x=kx/k0",
-        "theta_air": "derived label only"
-      },
-      "consumption_gate": "blocked until formal MDC profile and polarization mapping are available",
-      "mdc_reference_plane": {
-        "coordinate_system": "coupling_stage_a_coordinate_convention_v1",
-        "id": "MDC_TOP_UPWARD_OUTPUT_PLANE",
-        "legacy_monitor_transfer_allowed": false,
-        "medium_above": "APCD_SIO2_NATIVE_M1",
-        "role": "raw upward MDC power enters the continuous SiO2 separation region",
-        "z_nm": 975
-      },
-      "normalization": "eta_NP,+1 is normalized to incident power at the NP pillar-bottom reference plane; absolute LEE/EQE claims are forbidden.",
-      "np_reference_plane": {
-        "id": "NP_PILLAR_BOTTOM",
-        "incident_medium": "APCD_SIO2_NATIVE_M1",
-        "output_medium": "Air",
-        "reference_medium": "APCD_SIO2_NATIVE_M1",
-        "role": "NP modular response input plane at the pillar bottom",
-        "z_nm": 1212
-      },
-      "provider_classes": {
-        "A": "standalone semi-infinite SiO2 NP response",
-        "B": "finite-support NP response",
-        "C": "integrated MDC+NP Stage-A response",
-        "mixing_forbidden": true
-      },
-      "schema_version": "level1_reference_plane_mapping_v1",
-      "status": "FROZEN_CONCEPTUAL_MAPPING_PROVIDER_INPUT_PENDING"
-    }
+    "field_basis_audit": "contracts/coupling/mdc_2d_field_basis_audit_v1.json",
+    "grid_alignment": "contracts/coupling/level1_grid_alignment_v1.json",
+    "interface_polarization_basis": "contracts/coupling/mdc_interface_polarization_basis_v1.json",
+    "interface_propagation": "contracts/coupling/level1_interface_propagation_v1.json",
+    "np_scattering_operator": "contracts/coupling/level1_np_scattering_operator_v1.json",
+    "polarization_mapping": "contracts/coupling/level1_polarization_mapping_v1.json",
+    "power": "contracts/coupling/level1_power_contract_v1.json",
+    "power_profile_factorisation": "contracts/coupling/mdc_level1_power_profile_factorisation_v1.json",
+    "quadrature": "contracts/coupling/level1_quadrature_contract_v1.json",
+    "quadrature_semantics": "contracts/coupling/mdc_level1_quadrature_semantics_v1.json",
+    "reference_plane": "contracts/coupling/level1_reference_plane_mapping_v1.json",
+    "theta_to_ux_remap": "contracts/coupling/mdc_theta_to_ux_conservative_remap_v1.json"
   },
   "coupling_level": "ONE_WAY_INCOHERENT_POWER_COUPLING",
   "evidence_assets": [
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\contracts\\coupling\\source_branch_lock_v1.json",
-      "role": "coupling source identity lock",
-      "sha256": "fea2bdc3671d7f5b744be9dec800e58b2080f2f1af1dd0afee3306980c18d203",
-      "status": "READ_ONLY"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\scripts\\run_mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1.py",
+      "required": true,
+      "role": "traditional MDC dipole setup and source contract",
+      "sha256": "8c91889a8572fb8bf963b91e2cf539dfdff6509a37cb07b614b8080bfe111c7f",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\contracts\\coupling\\traditional_stage_a_baseline_lock_v1.json",
-      "role": "immutable Stage-A baseline lock",
-      "sha256": "fcc59b201a688100e2105c6461ee9ce4672db2a581a10337a4ce58f84b4a6a2e",
-      "status": "READ_ONLY"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\scripts\\mdc_fdtd_2d_monitor_contract_v1.py",
+      "required": true,
+      "role": "traditional MDC 2D monitor coordinate contract",
+      "sha256": "1a50ff1de522981cc339d79ce8812a5691d90b311be7e363ce8ac2a8309f4eb7",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\reports\\coupling\\stage_a_frozen_spacer_polarization_angle_broadband_matrix_v1.json",
-      "role": "immutable Stage-A integrated matrix",
-      "sha256": "d400c51cfa557aeffdefb09567dbe20705c50d915bc9a5ddd570281535265bf6",
-      "status": "READ_ONLY"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_native_m1_2d_dipole_device_comparison_v1\\dipole_field_channel_validation.csv",
+      "required": false,
+      "role": "existing field-family audit record; readback status remains unresolved",
+      "sha256": "37c24310e2685d673fe63ea48eb9ffe3e585e565a8b00cb8b43f8e6bbd32f45d",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\manifest.json",
-      "role": "legacy MDC diagnostic manifest",
-      "sha256": "aac59f9eaecf376a01fe6b5aeea3dc351519da5bf852da67788df185c73e2f29",
-      "status": "LEGACY_DIAGNOSTIC"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\zl1_alternative_x_x+1000_a1_20260715_163849.fsp",
+      "required": true,
+      "role": "read-only FSP metadata sample for x source",
+      "sha256": "f84ccbe5bfcd3e73271209cf4167d660c67624300477db09bad9dd5a14993b8f",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\existing_data_audit.json",
-      "role": "legacy MDC diagnostic audit",
-      "sha256": "615a0dc7519f881e7732f99614e271e96cff3c34ee8cd52a14d89f02d7526c0e",
-      "status": "LEGACY_DIAGNOSTIC"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\zl1_alternative_z_x+1000_a1_20260715_163925.fsp",
+      "required": true,
+      "role": "read-only FSP metadata sample for z source",
+      "sha256": "39fdbe850063742873b08cd6aa0ea412d1ff15f8bc9b8a69e18092f3042fd79d",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\source_cases.csv",
-      "role": "legacy MDC source cases",
-      "sha256": "5a9fae5e30f371f18622f51ce18e277e3766c1fcbe7235da350814c7cb13e746",
-      "status": "LEGACY_DIAGNOSTIC"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\scripts\\run_mdc_hf_surrogate_v2_doe96_joint_profile_v1.py",
+      "required": true,
+      "role": "fixed-v2 native joint profile exporter",
+      "sha256": "fa933222de1fa85823b7b5efcbc55ec593a5bf92a63d4d24637f4dd6a827d7ff",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_zl1_alternative_dipole_x5_incoherent_output_448_452_v1\\validation.json",
-      "role": "legacy MDC validation",
-      "sha256": "e72a452ce4947eb581d6efdbad1c03e65210a796203607e8b89c141619606c79",
-      "status": "LEGACY_DIAGNOSTIC"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\scripts\\extract_mdc_hf_surrogate_v2_doe96_labels_v1.py",
+      "required": true,
+      "role": "fixed-v2 raw aggregation and quadrature implementation",
+      "sha256": "c35f631d8c581bc3af1675e064d750a0e21e43f713443773efe3ea8ffdd8f1e7",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_native_m1_2d_dipole_device_comparison_v1\\simulation_manifest.csv",
-      "role": "center MDC dipole simulation manifest",
-      "sha256": "9c10ce48063f09c3457f4a33e7f9e0611b9339ed603ebfa76c2d48358e480d8e",
-      "status": "LEGACY_DIAGNOSTIC"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\joint_profile_grid_contract.json",
+      "required": true,
+      "role": "fixed-v2 grid contract",
+      "sha256": "e47f21d6266924f134b2f1ce998f1559e5115692017ac7f6fce959eba4f6139d",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_native_m1_2d_dipole_device_comparison_v1\\dipole_orientation_readback.csv",
-      "role": "center dipole orientation readback",
-      "sha256": "24c0c4d344858be2eba4ae7d8c7456164aef72dcac03245731d138714bf365b8",
-      "status": "LEGACY_DIAGNOSTIC"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\joint_profile_monitor_contract_resolved.json",
+      "required": true,
+      "role": "fixed-v2 monitor/export contract",
+      "sha256": "0f3c31b3d1ad2d07c292170d8f873c7adc536a3dd06f5fb1f8747409d2ffe638",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc1d2_native_m1_zl1_2d_validation\\run_manifest.json",
-      "role": "978 nm single x-dipole validation",
-      "sha256": "2999a6d418b898573019ebbdceef0381ce35e40e66cf69a35eacc5560fb902eb",
-      "status": "EXCLUDED_WRONG_GEOMETRY"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\joint_profile_export_contract_resolved.json",
+      "required": true,
+      "role": "fixed-v2 raw joint export contract",
+      "sha256": "f3935c5ed38abe35f59eb3281b8c31e543da81503d8769eccc1850e6ee33175a",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc1d2_native_m1_zl1_2d_validation\\three_case_comparison.csv",
-      "role": "978 nm comparison",
-      "sha256": "eb7edec5b05c0e358035aadae2d98ef93b75efeea9e6321626c211634f9a6d4e",
-      "status": "EXCLUDED_WRONG_GEOMETRY"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\profile_quadrature_and_flattening_contract.json",
+      "required": true,
+      "role": "fixed-v2 quadrature and flattening contract",
+      "sha256": "549b6903f8f9701d54de2999fcce05f1df331ebbc75dc313832adcbac21d665a",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_zl1_alternative_2d_fdtd_transmission_448_452_v1\\manifest.json",
-      "role": "ZL1 plane-wave transmission",
-      "sha256": "13b06f772921168cec39e9e6a79ce275ccd750fe3e071ac5d99cb5a656064a7a",
-      "status": "EXCLUDED_NOT_DIPOLE_INPUT"
-    },
-    {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_completion_manifest.json",
-      "role": "DOE96 joint tensor completion",
-      "sha256": "d236fa6602b1b7c14c158f5477f1e5e2de7efb090fe8e9d2853aaf9af90c4a2c",
-      "status": "EXCLUDED_WRONG_GEOMETRY"
-    },
-    {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_joint_profile_quality_audit.json",
-      "role": "DOE96 raw/aggregation quality audit",
-      "sha256": "a43fb58409cf5df898e7c67210807b3f1d02e8b22af3d074bcd5a81a32fc8a9b",
-      "status": "EXCLUDED_WRONG_GEOMETRY"
-    },
-    {
-      "notes": "",
       "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_monitor_grid_lock.json",
-      "role": "DOE96 native grid lock",
+      "required": true,
+      "role": "fixed-v2 native grid lock",
       "sha256": "a8abe1a2c3b543aac2a217f0b35e15dc928e3f24e0628e2870c34d5e8fedf932",
-      "status": "EXCLUDED_WRONG_GEOMETRY"
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_formal_source_scope_v1\\formal_source_scope_v1.json",
-      "role": "NP formal source scope",
-      "sha256": "f034240634365f2c81a78feb0c8df4bc2ecc17db074734236d48c13deaffc7de",
-      "status": "PARTIAL_FORMAL_ASSET"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_grid_consistency_audit.json",
+      "required": true,
+      "role": "fixed-v2 grid consistency audit",
+      "sha256": "cc5c438d4a8fe9a20f3bb5fd4a28f05102d72d72c6082d15441b50655bdf29e7",
+      "status": "READ_ONLY_HASHED"
     },
     {
-      "notes": "",
-      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_formal_source_scope_v1\\coupling_handoff_manifest_v1.json",
-      "role": "NP coupling handoff",
-      "sha256": "4fcf8b5cbefb37ba8153ffadbf7bb4a141d6cbbb4fb296fe9fd2211e44226934",
-      "status": "PARTIAL_FORMAL_ASSET"
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_aggregation_audit_v1.json",
+      "required": true,
+      "role": "fixed-v2 raw-first aggregation audit",
+      "sha256": "6302cb53346beaa4cf41f6bd5c0d00dd88aceafe4d82bcdfb01c19a71c9bf202",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_doe96_joint_profile_database_v1\\20260803T_doe96_joint_profile_6b6d7e2\\doe96_joint_profile_quality_audit.json",
+      "required": true,
+      "role": "fixed-v2 profile quality audit",
+      "sha256": "a43fb58409cf5df898e7c67210807b3f1d02e8b22af3d074bcd5a81a32fc8a9b",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\material_reference\\mdc_blue_oujizi_m\\material_ref_native_sampled.csv",
+      "required": true,
+      "role": "Native-M1 SiO2 material samples",
+      "sha256": "fe8b14986edcc5aee6ac06b25ce421efcc09a5d23f0eaad0c9b19a58894bd7c5",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\configs\\material_reference_apcd_blue.yaml",
+      "required": true,
+      "role": "Native-M1 material policy",
+      "sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+      "status": "READ_ONLY_HASHED"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\contracts\\coupling\\source_branch_lock_v1.json",
+      "required": true,
+      "role": "coupling source branch lock",
+      "sha256": "fea2bdc3671d7f5b744be9dec800e58b2080f2f1af1dd0afee3306980c18d203",
+      "status": "READ_ONLY_HASHED"
     }
   ],
   "formula": "P_plus1_relative=P_MDC_up_FDTD*SUM[W_MDC_FDTD(lambda,u_x,channel)*eta_NP_plus1(lambda,u_x,polarization)*quadrature]",
@@ -316,7 +149,15 @@
     "model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_FINAL_5SEED_V1",
     "status": "NOT_ACTIVATED_TRADITIONAL_STAGE_B"
   },
-  "next_action": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
+  "next_action": "USER_DECISION_REQUIRED_LEVEL1_POLARIZATION_SCOPE",
+  "physics_resolution": {
+    "237nm_factorisation": "RESOLVED_INTERFACE_PROPAGATION",
+    "2d_plane": "RESOLVED_SOLVER_XY_PROJECT_XZ",
+    "np_operator": "VALID_STANDALONE_PARTIAL_SCOPE",
+    "quadrature": "RESOLVED_NATIVE_TRAPEZOID_DENSITY",
+    "six_case_polarization": "P_AND_S_PRESENT",
+    "theta_to_ux": "RESOLVED_CONSERVATIVE_REMAP"
+  },
   "providers": {
     "mdc": {
       "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
@@ -547,9 +388,7 @@
     "ML_inference": 0,
     "RCWA": 0,
     "TMM": 0,
-    "integrated_level1_numerical_result": 0,
     "m1_model_consumption": 0,
-    "sealed_reads": 0,
     "source_worktree_writes": 0,
     "stage_a_reruns": 0,
     "this_turn_solver_entries": 0,
@@ -557,23 +396,43 @@
   },
   "schema_version": "traditional_stage_b_level1_handoff_v1",
   "solver_budget_plan": {
-    "budget_not_authorized_until": [
-      "polarization mapping hard gate resolved",
-      "NP reference stack/plane transfer decision resolved",
-      "formal MDC six-case source contract accepted"
+    "authorization_blockers": [
+      "user selects P/TM-only or full P/S scope",
+      "formal ZL1 six-case MDC profile exists",
+      "exact ZL1 u_x support derived before NP grid approval"
     ],
     "current_turn_entries": 0,
     "do_not_count": [
       "Stage-A integrated 110 rows",
+      "DOE96 historical 576 FDTD calls",
       "DOE96 576 historical solver calls",
       "legacy -400 nm diagnostics"
     ],
     "mdc_missing_formal_cases": 6,
-    "np_case_definition": "one broadband direct response case per (u_x, polarization) over exact 445-455 nm points",
+    "minimum": {
+      "MDC_formal_FDTD_cases": 6,
+      "NP_option_A_new_states": "max(N_ux_required_P-1,0)",
+      "NP_option_B_new_states": "max(N_ux_required_P-1,0)+N_ux_required_S",
+      "N_ux_required_definition": "distinct exact remapped u_x support points declared by the formal ZL1 profile; no numeric grid invented before ZL1 profile exists"
+    },
+    "minimum_authorization_unit": "one entered run per direct solver case; no authorization in this turn",
     "np_existing_formal_states": 1,
     "np_full_stage_a_target_states": 10,
     "np_missing_full_stage_a_states": 9,
+    "optional": "integrated MDC+NP full-wave validation after one-way contract passes",
+    "recommended": "minimum plus independently justified support-edge/grid-convergence response points; count only after scope decision",
+    "reusable_np_state": "P_XLIKE at u_x=0 over exact 445-455 nm",
+    "scope_options": {
+      "A": "TRADITIONAL_LEVEL1_P_TM_ONLY",
+      "B": "TRADITIONAL_LEVEL1_FULL_P_S_SOURCE_SCOPE_EXTENSION"
+    },
     "status": "CONDITIONAL_NOT_AUTHORIZED"
+  },
+  "source_heads": {
+    "coupling_head_before_resolution": "6d5e979f5b42668a2da5bbb6c33999154b3d9131",
+    "frozen_hf_source_lock_commit": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
+    "mdc_hf_current_head": "069ebcd09f810e2495c3faa1b166788ebe6f9247",
+    "traditional_mdc_current_head": "40dedf4098fa0ca19e0e5f0e3395e73fb4949c53"
   },
   "stage_a_baseline_immutable": {
     "closure_head": "25e78936afca7387f71bda244545efed64cbe702",
@@ -588,7 +447,7 @@
     "prohibited": true,
     "reason": "Stage-A integrated matrix includes MDC reflection, MDC transmission, MDC-NP interference, and joint feedback; multiplying it by W_MDC would double count physics."
   },
-  "status": "TRADITIONAL_STAGE_B_LEVEL1_HANDOFF_BLOCKED_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
-  "status_class": "HARD_GATE",
+  "status": "USER_DECISION_REQUIRED_LEVEL1_POLARIZATION_SCOPE",
+  "status_class": "USER_DECISION_REQUIRED",
   "task_id": "APCD_MDC_NP_COUPLING_V1_TRADITIONAL_STAGE_B_LEVEL1_HANDOFF_AND_INPUT_AUDIT"
 }

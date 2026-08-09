@@ -1,32 +1,23 @@
 {
-  "direct_mapping_allowed": false,
-  "evidence_gap": [
-    "legacy MDC assets provide scalar raw upward monitor power, not polarization-resolved interface fields",
-    "formal ZL1 six-case raw profile is absent",
-    "NP y/S response is not validated in the frozen NP source scope"
-  ],
-  "mdc_channel_type": "2D emission-source channels",
-  "mdc_channels": [
-    "x_dipole",
-    "z_dipole"
-  ],
+  "direct_mapping_allowed": true,
+  "field_readback_status": "NOT_AVAILABLE; setup plus analytic 2D Maxwell decomposition resolves the family",
+  "mapping_basis_contract": "MDC_INTERFACE_POLARIZATION_BASIS_V1",
+  "mdc_channel_type": "2D emission-source channels classified by exact solver-axis field family",
+  "new_source_contract_required": false,
   "np_channel_type": "incident plane-wave polarization branches",
-  "np_channels": [
-    "P_XLIKE",
-    "S_YLIKE"
-  ],
   "prohibited_mappings": [
-    "x_dipole_to_P_XLIKE",
-    "z_dipole_to_S_YLIKE",
     "x_dipole_to_S_YLIKE",
-    "z_dipole_to_P_XLIKE"
+    "z_dipole_to_P_XLIKE",
+    "source_orientation_as_unqualified_polarization_label"
   ],
-  "required_resolution": [
-    "formal TE-like/TM-like or equivalent interface-polarization-resolved MDC power channels",
-    "a documented transformation to NP P/S branches",
-    "formal similarity evidence before any P/S aggregation"
-  ],
-  "schema_version": "level1_polarization_mapping_v1",
-  "status": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
-  "x_y_averaging": "NOT_JUSTIFIED"
+  "resolved_mappings": {
+    "x_dipole": "P_XLIKE",
+    "z_dipole": "S_YLIKE"
+  },
+  "schema_version": "level1_polarization_mapping_v2",
+  "six_case_contains_independent_p_and_s": true,
+  "six_case_contains_independent_p_s": true,
+  "source_aggregation_is_not_polarization_average": true,
+  "status": "TRADITIONAL_STAGE_B_LEVEL1_POLARIZATION_MAPPING_RESOLVED",
+  "x_y_averaging": "NOT_APPLICABLE_TO_FROZEN_X/Z_SOURCE_CONTRACT; no automatic y source addition"
 }

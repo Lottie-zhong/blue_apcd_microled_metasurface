@@ -6,6 +6,7 @@
     "theta_air": "derived label only"
   },
   "consumption_gate": "blocked until formal MDC profile and polarization mapping are available",
+  "factorisation_contract": "MDC_LEVEL1_POWER_PROFILE_FACTORISATION_V1",
   "mdc_reference_plane": {
     "coordinate_system": "coupling_stage_a_coordinate_convention_v1",
     "id": "MDC_TOP_UPWARD_OUTPUT_PLANE",
@@ -15,6 +16,7 @@
     "z_nm": 975
   },
   "normalization": "eta_NP,+1 is normalized to incident power at the NP pillar-bottom reference plane; absolute LEE/EQE claims are forbidden.",
+  "np_operator_contract": "LEVEL1_NP_SCATTERING_OPERATOR_V1",
   "np_reference_plane": {
     "id": "NP_PILLAR_BOTTOM",
     "incident_medium": "APCD_SIO2_NATIVE_M1",
@@ -23,6 +25,8 @@
     "role": "NP modular response input plane at the pillar bottom",
     "z_nm": 1212
   },
+  "polarization_basis_contract": "MDC_INTERFACE_POLARIZATION_BASIS_V1",
+  "propagation_operator_contract": "LEVEL1_INTERFACE_PROPAGATION_V1",
   "provider_classes": {
     "A": "standalone semi-infinite SiO2 NP response",
     "B": "finite-support NP response",
@@ -30,5 +34,6 @@
     "mixing_forbidden": true
   },
   "schema_version": "level1_reference_plane_mapping_v1",
-  "status": "FROZEN_CONCEPTUAL_MAPPING_PROVIDER_INPUT_PENDING"
+  "source_z_coordinate_meaning": "project vertical coordinate mapped to solver y; solver z is invariant source orientation",
+  "status": "RESOLVED_INTERFACE_PROPAGATION_FACTORISATION"
 }
