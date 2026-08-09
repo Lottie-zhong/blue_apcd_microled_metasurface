@@ -3,14 +3,14 @@
   "coupling_branch": "work/mdc-np-coupling-v1",
   "coupling_worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1",
   "joint_scope": {
-    "status": "STAGE_A_SPACER_SENSITIVITY_COMPLETE",
+    "status": "STAGE_A_BROADBAND_XPOL_NORMAL_SPACER_FROZEN",
     "normalized_scope_enum": "EXPLORATORY_ONLY",
     "authorized_level": "DIRECT_STAGE_A_FULLWAVE_VALIDATION_ONLY",
     "offline_screening_authorized": false,
     "direct_stage_a_ready": false,
-    "next_route": "REQUEST_STAGE_A_445_455_XPOL_SPACER_CONFIRMATION_AUTHORIZATION",
+    "next_route": "REQUEST_STAGE_A_FROZEN_SPACER_POLARIZATION_ANGLE_VALIDATION_AUTHORIZATION",
     "rule": "weaker(mdc_scope,np_scope)",
-    "reason": "S79/S158/S237 completed once each; t_extra=0 reused read-only; next solver requires new explicit authorization."
+    "reason": "Three exact 445-455 nm broadband candidates completed once each; T237 won the within-broadband ranking. The frozen scope is x-polarization, normal incidence, kx/k0=0 only; new solver work requires explicit authorization."
   },
   "mdc": {
     "current_head": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
@@ -299,7 +299,7 @@
     "spacer_result_registry": "registries/coupling/stage_a_spacer_sensitivity_result_registry_v1.json"
   },
   "scope_resolution_status": "MDC_LOCKED_NP_FROZEN_EXPLORATORY_ONLY",
-  "next_action": "REQUEST_STAGE_A_450NM_XPOL_NORMAL_TEXTRA0_FDTD_AUTHORIZATION",
+  "next_action": "REQUEST_STAGE_A_FROZEN_SPACER_POLARIZATION_ANGLE_VALIDATION_AUTHORIZATION",
   "stage_a_contract": {
     "schema_version": "stage_a_direct_fullwave_contract_v1",
     "contract_id": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
@@ -627,7 +627,7 @@
     "verdict": "EXTERNAL_UNRELATED_DIRTY_STATE",
     "source_worktree_writes_this_turn": 0
   },
-  "formal_stage_a_state": "APCD_MDC_NP_COUPLING_V1_STAGE_A_450NM_XPOL_NORMAL_TEXTRA0_GOLDEN_FIXTURE_COMPLETE",
+  "formal_stage_a_state": "APCD_MDC_NP_COUPLING_V1_STAGE_A_BROADBAND_XPOL_NORMAL_SPACER_FROZEN",
   "physical_case_executed_count": 1,
   "solver_entered": 1,
   "solver_completed": 1,
@@ -670,5 +670,16 @@
       "reason": "This is a 450 nm single-point interface sensitivity screen; non-monotonic response requires 445-455 nm x-pol narrowband confirmation before any production freeze."
     },
     "comparison_artifact": "outputs/coupling/stage_a_spacer_sensitivity_comparison_v1/spacer_matrix.json"
+  },
+  "spacer_freeze": {
+    "status": "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL",
+    "winner_control_group": "NB_T237",
+    "frozen_spacer_nm": 237,
+    "frozen_total_sio2_separation_nm": 316.0,
+    "interface_candidate_id": "SUPPORT_NONE",
+    "provider_status": "FROZEN_FOR_STAGE_A_XPOL_NORMAL_ONLY",
+    "selection_artifact": "reports/coupling/stage_a_broadband_spacer_selection_v1.json",
+    "selection_artifact_sha256": "cb2a6ec5b5a4ad3da308fe5bcb1bf2ca32713c7830cb9048fcd11e7b76223f4a",
+    "scope": "x-polarization, normal incidence, kx/k0=0 only"
   }
 }

@@ -1,9 +1,11 @@
 # APCD MDC-NP Coupling V1 interface freeze
 
-Status: APCD_MDC_NP_COUPLING_V1_INTERFACE_ONLY_AWAITING_SOURCE_SCOPE_FREEZE
+Status: FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL
 
-The coupling worktree is based on MDC commit 489b54e43bbf2c08ce030a945b9d4b70ee7550f2. MDC is a frozen five-seed M1 2D joint wavelength-angle relative-upward-power surrogate and is not externally validated. The NP source is branch commit 6493fae1f9acc636722ae1705c58b208c5cbdbe6; its authoritative handoff records pilot-only scope, pending interface decisions, zero formal HF labels, and no model training.
+The one-way power interface is frozen for the Stage-A x-polarization, normal-incidence, kx/k0=0 scope. The interface provider is SUPPORT_NONE with no additional support layers and Air as the reference medium.
 
-The interface is limited to one-way incoherent power records keyed by wavelength_nm and kx_over_k0. The coordinate contract fixes +z from GaN through MDC to K6 and Air, physical +x as positive kx and m=+1. MDC x/z dipole channels are not mapped to NP x/y polarization. Extra spacer baseline is 0 nm; 79/158/237 nm remain future Stage A diagnostic candidates.
+The fixed MDC is the ZL-1 alternative with a 79 nm top SiO2 termination. The final broadband spacer comparison evaluated t_extra = 0, 79, and 237 nm on the exact 445-455 nm, 1 nm grid. T237 is frozen: extra SiO2 = 237 nm and total SiO2 separation = 316 nm. Evidence is recorded in reports/coupling/stage_a_broadband_spacer_selection_v1.json and its accompanying Markdown report.
 
-No FDTD, TMM, RCWA, FEM, or NP solver was run. No model was trained. No source worktree was modified. No large artifact is committed.
+All three broadband solver cases entered and completed exactly once. Post-FSP identity, native-material provenance, exact-grid extraction, order closure, power closure, and m=+1 physical +x sign audits passed. The 450 nm monochromatic comparisons remain diagnostic-only because no formal cross-acquisition numerical tolerance exists.
+
+This freeze does not authorize y-polarization, oblique incidence, nonzero kx, interpolation, unrun spacers, production transfer, or Micro-LED dipole integration. Any new solver run requires explicit authorization.

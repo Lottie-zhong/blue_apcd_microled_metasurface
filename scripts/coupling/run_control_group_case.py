@@ -17,13 +17,14 @@ def atomic(p,obj):
  p.parent.mkdir(parents=True,exist_ok=True); tmp=p.with_suffix(p.suffix+'.tmp'); tmp.write_text(json.dumps(obj,indent=2,ensure_ascii=False)+'\n',encoding='utf-8'); tmp.replace(p)
 def main():
  ap=argparse.ArgumentParser(); ap.add_argument('--output-dir',type=Path,required=True); args=ap.parse_args(); out=args.output_dir.resolve(); case=read(out/'joint_case.json'); setup=read(out/'setup_manifest.json'); group=case['control_group']; case_id=case['case_id']; pre=Path(setup['pre_fsp_path']); pre=(ROOT/pre).resolve() if not pre.is_absolute() else pre; entry_sha=setup['pre_fsp_sha256']
+ budget_path=ROOT/'registries/coupling/solver_budget_registry.json'; budget=read(budget_path); authorized=budget.get('authorized_control_cases',[])+budget.get('authorized_spacer_cases',[])+budget.get('authorized_broadband_cases',[])
+ if group in ('NB_T0','NB_T79','NB_T237') and budget.get('status') in ('BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY','FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL','NO_ROBUST_BROADBAND_WINNER'): raise RuntimeError('broadband solver execution is locked after spacer freeze; new authorization required')
  if not setup['setup_gate']['pass']: raise RuntimeError('setup gate not PASS')
  if sha(pre)!=entry_sha: raise RuntimeError('pre-FSP hash mismatch before solver entry')
- budget_path=ROOT/'registries/coupling/solver_budget_registry.json'; budget=read(budget_path); authorized=budget.get('authorized_control_cases',[])+budget.get('authorized_spacer_cases',[])+budget.get('authorized_broadband_cases',[])
- if group in ('NB_T0','NB_T79','NB_T237') and budget.get('status')=='BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY': raise RuntimeError('broadband solver execution requires new authorization after diagnostic policy freeze')
  if case_id not in authorized: raise RuntimeError(f'case not authorized: {case_id}')
  if budget.get('entered_runs',0)>=budget.get('budgets',{}).get('FDTD',0): raise RuntimeError('FDTD budget exhausted')
  completed=set(budget.get('completed_case_ids',[]));
+ if group=='NB_T0' and 'STAGE_A_NB_T237_445_455NM_X_UX0' not in completed: raise RuntimeError('NB_T237 must complete before NB_T0')
  if case_id in completed: raise RuntimeError('case already completed; replay forbidden')
  stage=read(ROOT/'contracts/coupling/stage_a_direct_fullwave_contract_v1.json'); physical_hash=canonical_hash({'case':case,'stage_contract':stage}); commit=subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(); attempt='attempt_001'; runtime_dir=out/'runtime'/attempt; runtime_dir.mkdir(parents=True,exist_ok=True); ledger_path=runtime_dir/'entered_ledger.json'; post=(runtime_dir/f'{case_id}_{attempt}_post.fsp').resolve(); log=runtime_dir/'solver_controller.log'
  entered={'schema_version':'solver_entered_ledger_v1','case_id':case_id,'control_group':group,'attempt_id':attempt,'solver_entered':True,'entered_timestamp':now(),'pre_fsp_path':str(pre),'pre_fsp_entry_sha256':entry_sha,'physical_contract_hash':physical_hash,'joint_geometry_hash':case['joint_geometry_hash'],'source_commits':setup['source_commits'],'coupling_commit':commit,'automatic_replay_forbidden':True}; atomic(ledger_path,entered); log.write_text(f"{entered['entered_timestamp']} solver_entered=true control_group={group} case_id={case_id} pre_fsp_entry_sha256={entry_sha}\n",encoding='utf-8')

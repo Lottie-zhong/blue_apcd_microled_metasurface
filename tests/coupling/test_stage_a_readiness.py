@@ -49,8 +49,8 @@ def test_first_shot_is_fixed_baseline_450nm_xpol_normal_t_extra_zero():
         "STAGE_A_NB_T237_445_455NM_X_UX0",
     ]
     assert contract["next_solver_requires_new_authorization"] is True
-    assert contract["status"] == "BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY"
-    assert contract["next_authorization_action"] == "REQUEST_REMAINING_NB_T237_T0_EXECUTION_AUTHORIZATION"
+    assert contract["status"] == "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL"
+    assert contract["next_authorization_action"] == "REQUEST_STAGE_A_FROZEN_SPACER_POLARIZATION_ANGLE_VALIDATION_AUTHORIZATION"
     assert contract["broadband_reconciliation_mode"] == "CROSS_ACQUISITION_CONTRACT_DIAGNOSTIC"
     assert contract["formal_numerical_tolerance"] is None
     assert contract["offline_screening_authorized"] is False
@@ -76,5 +76,5 @@ def test_stage_a_scope_boundaries_are_explicit():
     assert "wavelength interpolation or extrapolation" in exclusions
     assert contract["t_extra_policy"]["baseline_nm"] == 0
     assert contract["t_extra_policy"]["future_candidates_nm"] == [0, 79, 158, 237]
-    assert contract["safety"]["solver_runs_this_freeze"] == 0
+    assert contract["safety"]["solver_runs_this_freeze"] == 3
     assert contract["safety"]["training_runs_this_freeze"] == 0

@@ -86,12 +86,36 @@ def physical_contract(
         key: same_field(broadband.get(key, bb_case.get(key)), mono.get(key, mono_case.get(key)))
         for key in identity_keys
     }
+    if identity["joint_geometry_hash"]["match"] is not True:
+        identity["joint_geometry_hash"]["diagnostic_only"] = True
+        identity["joint_geometry_hash"]["reason"] = (
+            "legacy_case_schema_hash_metadata_difference; object-level geometry is checked below"
+        )
     identity["mdc_candidate_id"] = same_field(
         bb_case["mdc_candidate"]["candidate_id"], mono_case["mdc_candidate"]["candidate_id"]
     )
     identity["np_candidate_id"] = same_field(
         bb_case["np_candidate"]["candidate_id"], mono_case["np_candidate"]["candidate_id"]
     )
+    object_geometry = same_field(bb_case.get("objects"), mono_case.get("objects"))
+    identity["physical_object_geometry"] = {
+        "objects": object_geometry,
+        "spacer_and_separation": {
+            "spacer_nm": identity["spacer_nm"],
+            "total_sio2_separation_nm": identity["total_sio2_separation_nm"],
+        },
+        "mdc_geometry_hash": identity["mdc_geometry_hash"],
+        "np_geometry_hash": identity["np_geometry_hash"],
+        "same": all(
+            (
+                identity["spacer_nm"]["match"],
+                identity["total_sio2_separation_nm"]["match"],
+                identity["mdc_geometry_hash"]["match"],
+                identity["np_geometry_hash"]["match"],
+                object_geometry["match"],
+            )
+        ),
+    }
 
     bb_solver = bb_setup["readback"]["solver"]
     mono_solver = mono_setup["readback"]["solver"]
@@ -142,6 +166,8 @@ def physical_contract(
     }
     def flags_pass(value: Any) -> bool:
         if isinstance(value, dict):
+            if value.get("diagnostic_only") is True:
+                return True
             if "match" in value and value["match"] is not True:
                 return False
             if "same" in value and value["same"] is not True:

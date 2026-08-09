@@ -1,6 +1,6 @@
 {
   "schema_version": "solver_budget_registry_v1",
-  "status": "BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY",
+  "status": "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL",
   "budgets": {
     "FDTD": 3,
     "TMM": 0,
@@ -11,10 +11,10 @@
   "authorized_case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
   "entered_case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
   "entered_attempt_id": "attempt_001",
-  "entered_runs": 1,
-  "engine_completed": 1,
-  "controller_returned": 1,
-  "post_saved": 1,
+  "entered_runs": 3,
+  "engine_completed": 3,
+  "controller_returned": 3,
+  "post_saved": 3,
   "pre_fsp_sha256": "5b348658f3ba3acb5f48fe95ab861d97a57722f7fe3caee3c3285d05115d0643",
   "post_fsp_sha256": "cfda69e11338ec90ac3a13cc185710c9910567e3dc8fcac0216699925c6b0269",
   "source_worktree_writes": 0,
@@ -28,10 +28,14 @@
   ],
   "authorized_at": "2026-08-09T00:00:00Z",
   "entered_case_ids": [
-    "STAGE_A_NB_T79_445_455NM_X_UX0"
+    "STAGE_A_NB_T79_445_455NM_X_UX0",
+    "STAGE_A_NB_T237_445_455NM_X_UX0",
+    "STAGE_A_NB_T0_445_455NM_X_UX0"
   ],
   "completed_case_ids": [
-    "STAGE_A_NB_T79_445_455NM_X_UX0"
+    "STAGE_A_NB_T79_445_455NM_X_UX0",
+    "STAGE_A_NB_T237_445_455NM_X_UX0",
+    "STAGE_A_NB_T0_445_455NM_X_UX0"
   ],
   "entered_attempts": [
     {
@@ -39,6 +43,18 @@
       "attempt_id": "attempt_001",
       "entered_timestamp": "2026-08-09T05:50:40.198329+00:00",
       "pre_fsp_entry_sha256": "77d957cc8444fb7a44df7f2feb9e51ab5f579b95aa3245fc2a1b266404bc4098"
+    },
+    {
+      "case_id": "STAGE_A_NB_T237_445_455NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "entered_timestamp": "2026-08-09T07:24:57.925142+00:00",
+      "pre_fsp_entry_sha256": "76750488a3c7a7a173bbf43be8ddfe1f55f72e6233ba6f5b5ad6ea1dbedb2796"
+    },
+    {
+      "case_id": "STAGE_A_NB_T0_445_455NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "entered_timestamp": "2026-08-09T07:28:15.077465+00:00",
+      "pre_fsp_entry_sha256": "87055bfd257758bb01e2965e3a493d0ac3e3c9d2865af02a8b6f7066b5253627"
     }
   ],
   "completed_attempts": [
@@ -47,6 +63,18 @@
       "attempt_id": "attempt_001",
       "post_fsp_sha256": "3e910e0b60ad354c6515164ef7bf839455a948a8ee32e235d063b8bec168bca3",
       "completed_timestamp": "2026-08-09T05:52:28.781874+00:00"
+    },
+    {
+      "case_id": "STAGE_A_NB_T237_445_455NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "post_fsp_sha256": "07e5b6b5a3ce7b1ea09aad812ce76cdb783a561581036fd83db117d3550ebff2",
+      "completed_timestamp": "2026-08-09T07:26:53.068219+00:00"
+    },
+    {
+      "case_id": "STAGE_A_NB_T0_445_455NM_X_UX0",
+      "attempt_id": "attempt_001",
+      "post_fsp_sha256": "40ad922c95401bfc8c9c7df866084d34bbd7398d5d10e16e7bf097c9e8f76be8",
+      "completed_timestamp": "2026-08-09T07:30:04.204961+00:00"
     }
   ],
   "prior_b3_golden_fixture": {
@@ -83,5 +111,25 @@
   "formal_numerical_tolerance": null,
   "broadband_ranking_basis": "WITHIN_BROADBAND_CONTRACT_ONLY",
   "monochromatic_reference_role": "DIAGNOSTIC_ONLY",
-  "post_hoc_tolerance_creation": false
+  "post_hoc_tolerance_creation": false,
+  "authorized_remaining_broadband_cases": [],
+  "remaining_case_order": [],
+  "broadband_selection_artifact": "reports/coupling/stage_a_broadband_spacer_selection_v1.json",
+  "broadband_selection_artifact_sha256": "cb2a6ec5b5a4ad3da308fe5bcb1bf2ca32713c7830cb9048fcd11e7b76223f4a",
+  "final_spacer_freeze": {
+    "status": "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL",
+    "winner_control_group": "NB_T237",
+    "frozen_spacer_nm": 237,
+    "frozen_total_sio2_separation_nm": 316.0,
+    "interface_candidate_id": "SUPPORT_NONE",
+    "provider_status": "FROZEN_FOR_STAGE_A_XPOL_NORMAL_ONLY",
+    "selection_artifact": "reports/coupling/stage_a_broadband_spacer_selection_v1.json",
+    "selection_artifact_sha256": "cb2a6ec5b5a4ad3da308fe5bcb1bf2ca32713c7830cb9048fcd11e7b76223f4a",
+    "scope": "x-polarization, normal incidence, kx/k0=0 only"
+  },
+  "broadband_reconciliation_results": [
+    "outputs/coupling/stage_a_nb_t79_445_455_xpol_normal_v1/reconciliation_450nm.json",
+    "outputs/coupling/stage_a_nb_t237_445_455_xpol_normal_v1/reconciliation_450nm.json",
+    "outputs/coupling/stage_a_nb_t0_445_455_xpol_normal_v1/reconciliation_450nm.json"
+  ]
 }

@@ -106,10 +106,11 @@ def test_policy_freeze_requires_new_authorization_before_remaining_solver():
     contract = load("contracts/coupling/stage_a_direct_fullwave_contract_v1.json")
     budget = load("registries/coupling/solver_budget_registry.json")
     runner = (ROOT / "scripts/coupling/run_control_group_case.py").read_text(encoding="utf-8")
-    assert contract["status"] == "BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY"
+    assert contract["status"] == "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL"
     assert contract["solver_authorized"] is False
-    assert contract["next_authorization_action"] == "REQUEST_REMAINING_NB_T237_T0_EXECUTION_AUTHORIZATION"
+    assert contract["next_authorization_action"] == "REQUEST_STAGE_A_FROZEN_SPACER_POLARIZATION_ANGLE_VALIDATION_AUTHORIZATION"
     assert budget["next_solver_requires_new_authorization"] is True
-    assert "broadband solver execution requires new authorization" in runner
-    assert budget["entered_case_ids"] == ["STAGE_A_NB_T79_445_455NM_X_UX0"]
+    assert "broadband solver execution is locked after spacer freeze" in runner
+    assert len(budget["entered_case_ids"]) == 3
     assert budget["completed_case_ids"] == budget["entered_case_ids"]
+    assert contract["final_spacer_freeze"]["frozen_spacer_nm"] == 237

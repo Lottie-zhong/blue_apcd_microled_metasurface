@@ -1,7 +1,7 @@
 {
   "schema_version": "stage_a_direct_fullwave_contract_v1",
   "contract_id": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
-  "status": "BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY",
+  "status": "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL",
   "joint_scope": "EXPLORATORY_ONLY",
   "route": "DIRECT_STAGE_A_FULLWAVE_VALIDATION",
   "solver_authorized": false,
@@ -15,7 +15,9 @@
       158,
       237
     ],
-    "run_now": true
+    "run_now": false,
+    "frozen_nm": 237,
+    "frozen_total_sio2_separation_nm": 316
   },
   "stack_bottom_to_top": [
     "APCD_GAN_NATIVE_M1 continuous GaN",
@@ -97,7 +99,7 @@
   ],
   "required_authorization_action": "AUTHORIZED_BY_CURRENT_TASK",
   "safety": {
-    "solver_runs_this_freeze": 0,
+    "solver_runs_this_freeze": 3,
     "training_runs_this_freeze": 0,
     "offline_screening_runs_this_freeze": 0,
     "sealed_test_reads_this_freeze": 0,
@@ -140,7 +142,7 @@
     "STAGE_A_B1_450NM_X_UX0",
     "STAGE_A_B2_450NM_X_UX0"
   ],
-  "next_authorization_action": "REQUEST_REMAINING_NB_T237_T0_EXECUTION_AUTHORIZATION",
+  "next_authorization_action": "REQUEST_STAGE_A_FROZEN_SPACER_POLARIZATION_ANGLE_VALIDATION_AUTHORIZATION",
   "authorized_spacer_case_ids": [
     "STAGE_A_S79_450NM_X_UX0",
     "STAGE_A_S158_450NM_X_UX0",
@@ -157,7 +159,9 @@
     "STAGE_A_NB_T237_445_455NM_X_UX0"
   ],
   "completed_broadband_case_ids": [
-    "STAGE_A_NB_T79_445_455NM_X_UX0"
+    "STAGE_A_NB_T79_445_455NM_X_UX0",
+    "STAGE_A_NB_T237_445_455NM_X_UX0",
+    "STAGE_A_NB_T0_445_455NM_X_UX0"
   ],
   "broadband_reconciliation_result": "outputs/coupling/stage_a_nb_t79_445_455_xpol_normal_v1/results/reconciliation_450nm.json",
   "selection_policy": "contracts/coupling/stage_a_broadband_selection_policy_v1.json",
@@ -166,5 +170,25 @@
   "formal_numerical_tolerance": null,
   "broadband_ranking_basis": "WITHIN_BROADBAND_CONTRACT_ONLY",
   "monochromatic_reference_role": "DIAGNOSTIC_ONLY",
-  "post_hoc_tolerance_creation": false
+  "post_hoc_tolerance_creation": false,
+  "authorized_remaining_broadband_case_ids": [],
+  "remaining_case_order": [],
+  "broadband_selection_artifact": "reports/coupling/stage_a_broadband_spacer_selection_v1.json",
+  "broadband_selection_artifact_sha256": "cb2a6ec5b5a4ad3da308fe5bcb1bf2ca32713c7830cb9048fcd11e7b76223f4a",
+  "final_spacer_freeze": {
+    "status": "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL",
+    "winner_control_group": "NB_T237",
+    "frozen_spacer_nm": 237,
+    "frozen_total_sio2_separation_nm": 316.0,
+    "interface_candidate_id": "SUPPORT_NONE",
+    "provider_status": "FROZEN_FOR_STAGE_A_XPOL_NORMAL_ONLY",
+    "selection_artifact": "reports/coupling/stage_a_broadband_spacer_selection_v1.json",
+    "selection_artifact_sha256": "cb2a6ec5b5a4ad3da308fe5bcb1bf2ca32713c7830cb9048fcd11e7b76223f4a",
+    "scope": "x-polarization, normal incidence, kx/k0=0 only"
+  },
+  "broadband_reconciliation_results": [
+    "outputs/coupling/stage_a_nb_t79_445_455_xpol_normal_v1/reconciliation_450nm.json",
+    "outputs/coupling/stage_a_nb_t237_445_455_xpol_normal_v1/reconciliation_450nm.json",
+    "outputs/coupling/stage_a_nb_t0_445_455_xpol_normal_v1/reconciliation_450nm.json"
+  ]
 }
