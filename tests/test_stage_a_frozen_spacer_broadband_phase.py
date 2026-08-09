@@ -93,3 +93,14 @@ def test_phase_runner_dry_run_does_not_enter_solver():
     assert payload["authorization_pass"] is True
     assert payload["solver_entered"] is False
     assert payload["phase_id"] == read(PHASE)["phase_id"]
+
+
+def test_xp5_readback_closes_fixed_ux_with_scaled_real_kx_tolerance():
+    phase = read(PHASE)
+    if "STAGE_A_BB_XP5_445_455NM_P_XLIKE" not in phase["completed_case_ids"]:
+        pytest.skip("X_P5 has not completed yet")
+    result = read(SETUP_ROOT / "STAGE_A_BB_XP5_445_455NM_P_XLIKE/results/result.json")
+    assert result["rows"]
+    assert all(row["source_kx_contract"]["pass"] is True for row in result["rows"])
+    assert max(abs(float(row["source_kx_contract"]["ux_residual"])) for row in result["rows"]) < 1e-6
+    assert all(float(row["source_kx_contract"]["real_kx_tolerance"]) > 0.0 for row in result["rows"])

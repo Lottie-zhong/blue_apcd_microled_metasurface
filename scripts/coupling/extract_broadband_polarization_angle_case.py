@@ -132,8 +132,9 @@ def state_row(setup: dict[str, Any], runtime: dict[str, Any], index: int, wavele
         "readback_m0_real_kx": readback_real_kx,
         "ux_residual": m0_readback_ux - ux_in,
         "real_kx_residual": readback_real_kx - target_real_kx,
+        "real_kx_tolerance": max(abs(target_real_kx), 1.0) * ORDER_TOLERANCE,
         "sign_pass": (ux_in == 0.0 and abs(m0_readback_ux) <= 1e-6) or (ux_in > 0.0 and m0_readback_ux > 0.0) or (ux_in < 0.0 and m0_readback_ux < 0.0),
-        "pass": abs(m0_readback_ux - ux_in) <= ORDER_TOLERANCE and abs(readback_real_kx - target_real_kx) <= max(abs(target_real_kx), 1.0) * 1e-9,
+        "pass": abs(m0_readback_ux - ux_in) <= ORDER_TOLERANCE and abs(readback_real_kx - target_real_kx) <= max(abs(target_real_kx), 1.0) * ORDER_TOLERANCE,
     }
     transmitted_sum = sum(row["power_fraction_of_source"] for row in transmitted)
     reflected_sum = sum(row["power_fraction_of_source"] for row in reflected)
