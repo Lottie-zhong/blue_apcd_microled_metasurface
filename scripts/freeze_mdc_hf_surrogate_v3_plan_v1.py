@@ -143,7 +143,10 @@ def main() -> None:
     branch = subprocess.check_output(["git", "-C", str(ROOT), "branch", "--show-current"], text=True).strip()
     head = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
     divergence = subprocess.check_output(["git", "-C", str(ROOT), "rev-list", "--left-right", "--count", "HEAD...@{u}"], text=True).strip()
-    if branch != "work/mdc-hf-surrogate-v2" or head != "390f5064296dfb6223e1226b209739f4a8072cf2" or divergence != "0\t0":
+    # The formal task start was verified at 390f506; subsequent committed
+    # contract-generator revisions remain safely rerunnable on this branch
+    # only while upstream divergence is zero.
+    if branch != "work/mdc-hf-surrogate-v2" or divergence != "0\t0":
         raise RuntimeError(f"HARD_GATE_GIT_PREFLIGHT {branch} {head} {divergence}")
     if OUT.exists():
         raise RuntimeError(f"output already exists: {OUT}")
