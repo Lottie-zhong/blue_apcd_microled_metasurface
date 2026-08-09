@@ -1,0 +1,50 @@
+{
+  "captured_utc": "2026-08-09T13:58:42.952476+00:00",
+  "target_pid": 9228,
+  "source_port": 54018,
+  "source_executable": "N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe",
+  "before": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "所在位置 行:1 字符: 540\n+ ... ject LocalAddress,LocalPort,RemoteAddress,RemotePort,State)}}|Convert ...\n+                                                                 ~\n表达式或语句中包含意外的标记“}”。\n所在位置 行:1 字符: 541\n+ ... ect LocalAddress,LocalPort,RemoteAddress,RemotePort,State)}}|ConvertT ...\n+                                                                 ~\n不允许使用空管道元素。\n    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException\n    + FullyQualifiedErrorId : UnexpectedToken\n \n"
+  },
+  "normal_stop": {
+    "returncode": 0,
+    "stdout": "normal_stop_issued\n",
+    "stderr": ""
+  },
+  "after_normal": {
+    "returncode": 0,
+    "stdout": "{\n    \"exists\":  false,\n    \"pid\":  9228\n}\n",
+    "stderr": ""
+  },
+  "force_stop": null,
+  "port_free_after_stop": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "restart_launch": {
+    "returncode": 0,
+    "stdout": "{\n    \"pid\":  5148,\n    \"path\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\",\n    \"started\":  true\n}\n",
+    "stderr": ""
+  },
+  "port_54018_owner_after": {
+    "returncode": 0,
+    "stdout": "{\n    \"local\":  \"0.0.0.0\",\n    \"port\":  54018,\n    \"state\":  2,\n    \"pid\":  5148,\n    \"name\":  \"ansyscl\",\n    \"path\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\",\n    \"cmd\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl DESKTOP-NNE313K_DELL_251 -nodaemon -aclport 54018 -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.repair.log \",\n    \"parent\":  3556\n}\n",
+    "stderr": ""
+  },
+  "localhost_tcp_smoke": {
+    "returncode": 0,
+    "stdout": "{\n    \"ComputerName\":  \"127.0.0.1\",\n    \"RemotePort\":  54018,\n    \"TcpTestSucceeded\":  true\n}\n",
+    "stderr": ""
+  },
+  "shared_flexnet_1055_after": {
+    "returncode": 0,
+    "stdout": "\nDESKTOP-NNE313K: license server UP (MASTER) v11.19.5\nUsers of lumerical_gui:  (Total of 100 licenses issued;  Total of 0 licenses in use)\nUsers of lum_fdtd_gui:  (Total of 100 licenses issued;  Total of 0 licenses in use)\nUsers of lumerical_solve:  (Total of 100 licenses issued;  Total of 0 licenses in use)\n\n\n",
+    "stderr": ""
+  },
+  "shared_license_service_restarted": false,
+  "other_processes_terminated": false,
+  "solver_run_called": false
+}

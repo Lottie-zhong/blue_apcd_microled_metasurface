@@ -1,0 +1,33 @@
+{
+  "captured_utc": "2026-08-09T13:56:28.983635+00:00",
+  "port_54018_get_net_tcp": {
+    "returncode": 0,
+    "stdout": "{\n    \"LocalAddress\":  \"0.0.0.0\",\n    \"LocalPort\":  54018,\n    \"RemoteAddress\":  \"0.0.0.0\",\n    \"RemotePort\":  0,\n    \"State\":  2,\n    \"OwningProcess\":  9228,\n    \"CreationTime\":  \"\\/Date(1785841667000)\\/\"\n}\n",
+    "stderr": ""
+  },
+  "port_54018_netstat": {
+    "returncode": 0,
+    "stdout": "\n  TCP    0.0.0.0:54018          0.0.0.0:0              LISTENING       9228\n\n\n\n",
+    "stderr": ""
+  },
+  "process_cim_inventory": {
+    "returncode": 0,
+    "stdout": "[\n    {\n        \"pid\":  9228,\n        \"name\":  \"ansyscl\",\n        \"path\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\",\n        \"cmd\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl DESKTOP-NNE313K_DELL_251 -nodaemon -aclport 54018 -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log\",\n        \"parent\":  21060,\n        \"session\":  1,\n        \"start\":  \"2026-08-04T11:07:46.6761460Z\",\n        \"cpu\":  2505.671875\n    },\n    {\n        \"pid\":  22012,\n        \"name\":  \"ansyscl\",\n        \"path\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\",\n        \"cmd\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl 32640.94610 -nodaemon -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.32640.94610.log\",\n        \"parent\":  32640,\n        \"session\":  1,\n        \"start\":  \"2026-08-07T01:37:03.1473280Z\",\n        \"cpu\":  1952.328125\n    },\n    {\n        \"pid\":  32640,\n        \"name\":  \"ansysedt\",\n        \"path\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\AnsysEM\\\\ansysedt.exe\",\n        \"cmd\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\AnsysEM\\\\ansysedt.exe\\\" \\\"N:\\\\ZBB\\\\ansysxuexi\\\\ansysxuexi\\\\200um pingpurefang\\\\200um pingpurefang.aedt\\\"\",\n        \"parent\":  31304,\n        \"session\":  1,\n        \"start\":  \"2026-08-07T01:36:51.1911078Z\",\n        \"cpu\":  752.5625\n    }\n]\n",
+    "stderr": ""
+  },
+  "dependency_process_tree": {
+    "returncode": 0,
+    "stdout": "[\n    {\n        \"root\":  9228,\n        \"name\":  \"ansyscl.exe\",\n        \"cmd\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl DESKTOP-NNE313K_DELL_251 -nodaemon -aclport 54018 -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log\",\n        \"parent\":  21060,\n        \"children\":  [\n\n                     ]\n    },\n    {\n        \"root\":  22012,\n        \"name\":  \"ansyscl.exe\",\n        \"cmd\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl 32640.94610 -nodaemon -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.32640.94610.log\",\n        \"parent\":  32640,\n        \"children\":  [\n\n                     ]\n    },\n    {\n        \"root\":  32640,\n        \"name\":  \"ansysedt.exe\",\n        \"cmd\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\AnsysEM\\\\ansysedt.exe\\\" \\\"N:\\\\ZBB\\\\ansysxuexi\\\\ansysxuexi\\\\200um pingpurefang\\\\200um pingpurefang.aedt\\\"\",\n        \"parent\":  31304,\n        \"children\":  [\n                         {\n                             \"ProcessId\":  22012,\n                             \"Name\":  \"ansyscl.exe\",\n                             \"CommandLine\":  \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl 32640.94610 -nodaemon -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.32640.94610.log\",\n                             \"ParentProcessId\":  32640\n                         }\n                     ]\n    }\n]\n",
+    "stderr": ""
+  },
+  "services": {
+    "returncode": 0,
+    "stdout": "{\n    \"Name\":  \"SolidWorks Flexnet Server\",\n    \"DisplayName\":  \"SolidWorks Flexnet Server\",\n    \"Status\":  4,\n    \"StartType\":  2\n}\n",
+    "stderr": ""
+  },
+  "license_environment": {
+    "returncode": 0,
+    "stdout": "[\n    {\n        \"Name\":  \"ANSYS_LOCK\",\n        \"Value\":  \"OFF\"\n    },\n    {\n        \"Name\":  \"ANSYS_SYSDIR\",\n        \"Value\":  \"winx64\"\n    },\n    {\n        \"Name\":  \"ANSYS202_DIR\",\n        \"Value\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v202\\\\ANSYS\"\n    },\n    {\n        \"Name\":  \"ANSYS251_DIR\",\n        \"Value\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\ANSYS\"\n    },\n    {\n        \"Name\":  \"ANSYSEM_ROOT251\",\n        \"Value\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\AnsysEM\"\n    },\n    {\n        \"Name\":  \"ANSYSLMD_LICENSE_FILE\",\n        \"Value\":  \"1055@DESKTOP-NNE313K\"\n    },\n    {\n        \"Name\":  \"AWP_LOCALE202\",\n        \"Value\":  \"en-us\"\n    },\n    {\n        \"Name\":  \"AWP_LOCALE251\",\n        \"Value\":  \"zh\"\n    },\n    {\n        \"Name\":  \"AWP_ROOT202\",\n        \"Value\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v202\"\n    },\n    {\n        \"Name\":  \"AWP_ROOT251\",\n        \"Value\":  \"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\"\n    },\n    {\n        \"Name\":  \"INTEL_LICENSE_FILE\",\n        \"Value\":  \"C:\\\\Program Files (x86)\\\\Common Files\\\\Intel\\\\Licenses\"\n    },\n    {\n        \"Name\":  \"LSTC_LICENSE\",\n        \"Value\":  \"ANSYS\"\n    },\n    {\n        \"Name\":  \"LSTC_LICENSE_server\",\n        \"Value\":  \"ANSYS\"\n    }\n]\n",
+    "stderr": ""
+  }
+}
