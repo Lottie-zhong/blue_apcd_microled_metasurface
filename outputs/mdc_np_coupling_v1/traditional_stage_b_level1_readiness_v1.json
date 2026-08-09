@@ -1,0 +1,53 @@
+{
+  "contract_paths": [
+    "reference_plane",
+    "polarization_mapping",
+    "grid_alignment",
+    "quadrature",
+    "power"
+  ],
+  "grid_status": "PARTIAL_ALIGNMENT_NO_EXTRAPOLATION",
+  "mdc_provider_status": "REQUIRES_DIRECT_SOLVER",
+  "next_action": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
+  "np_provider_status": "PARTIAL_EXISTING_ASSET",
+  "polarization_mapping_status": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
+  "quadrature_status": "BLOCKED_UNRESOLVED_MDC_WEIGHT_SEMANTICS",
+  "reference_plane_status": "FROZEN_CONCEPTUAL_MAPPING_PROVIDER_INPUT_PENDING",
+  "safety": {
+    "FDTD": 0,
+    "FEM": 0,
+    "ML_inference": 0,
+    "RCWA": 0,
+    "TMM": 0,
+    "integrated_level1_numerical_result": 0,
+    "m1_model_consumption": 0,
+    "sealed_reads": 0,
+    "source_worktree_writes": 0,
+    "stage_a_reruns": 0,
+    "this_turn_solver_entries": 0,
+    "training": 0
+  },
+  "schema_version": "traditional_stage_b_level1_readiness_v1",
+  "solver_budget_plan": {
+    "budget_not_authorized_until": [
+      "polarization mapping hard gate resolved",
+      "NP reference stack/plane transfer decision resolved",
+      "formal MDC six-case source contract accepted"
+    ],
+    "current_turn_entries": 0,
+    "do_not_count": [
+      "Stage-A integrated 110 rows",
+      "DOE96 576 historical solver calls",
+      "legacy -400 nm diagnostics"
+    ],
+    "mdc_missing_formal_cases": 6,
+    "np_case_definition": "one broadband direct response case per (u_x, polarization) over exact 445-455 nm points",
+    "np_existing_formal_states": 1,
+    "np_full_stage_a_target_states": 10,
+    "np_missing_full_stage_a_states": 9,
+    "status": "CONDITIONAL_NOT_AUTHORIZED"
+  },
+  "stage_a_closure_head": "25e78936afca7387f71bda244545efed64cbe702",
+  "status": "TRADITIONAL_STAGE_B_LEVEL1_HANDOFF_BLOCKED_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
+  "status_class": "HARD_GATE"
+}

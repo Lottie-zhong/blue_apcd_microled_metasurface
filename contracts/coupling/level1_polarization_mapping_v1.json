@@ -1,0 +1,32 @@
+{
+  "direct_mapping_allowed": false,
+  "evidence_gap": [
+    "legacy MDC assets provide scalar raw upward monitor power, not polarization-resolved interface fields",
+    "formal ZL1 six-case raw profile is absent",
+    "NP y/S response is not validated in the frozen NP source scope"
+  ],
+  "mdc_channel_type": "2D emission-source channels",
+  "mdc_channels": [
+    "x_dipole",
+    "z_dipole"
+  ],
+  "np_channel_type": "incident plane-wave polarization branches",
+  "np_channels": [
+    "P_XLIKE",
+    "S_YLIKE"
+  ],
+  "prohibited_mappings": [
+    "x_dipole_to_P_XLIKE",
+    "z_dipole_to_S_YLIKE",
+    "x_dipole_to_S_YLIKE",
+    "z_dipole_to_P_XLIKE"
+  ],
+  "required_resolution": [
+    "formal TE-like/TM-like or equivalent interface-polarization-resolved MDC power channels",
+    "a documented transformation to NP P/S branches",
+    "formal similarity evidence before any P/S aggregation"
+  ],
+  "schema_version": "level1_polarization_mapping_v1",
+  "status": "HARD_GATE_LEVEL1_POLARIZATION_MAPPING_INPUT_INSUFFICIENT",
+  "x_y_averaging": "NOT_JUSTIFIED"
+}

@@ -1,0 +1,71 @@
+{
+  "candidate_id": "NP_K6X_125_135_150_175_190_210",
+  "existing_scope": {
+    "ky_over_k0": 0.0,
+    "polarization": [
+      "x"
+    ],
+    "response": [
+      "T_total",
+      "R_total",
+      "closure",
+      "eta_t_order[m]",
+      "eta_r_order[m]",
+      "eta_plus1",
+      "eta_0",
+      "eta_minus1",
+      "directionality",
+      "u_x",
+      "order_sign"
+    ],
+    "stack": "SiO2 substrate -> Native-M1 TiO2 K6 pillars -> Air",
+    "u_x": [
+      0.0
+    ],
+    "wavelength_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "formal_outcome": "NP_LEVEL1_PROVIDER_PARTIAL_NORMAL_X_ONLY",
+  "geometry": {
+    "K": 6,
+    "canonical_geometry_hash": "aaaa5bfab2f727cca9c07754e4449cbadf70b91cdac90e6fbdd87f136a6e4b80",
+    "diameters_nm": [
+      125,
+      135,
+      150,
+      175,
+      190,
+      210
+    ],
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "pillar_height_nm": 500,
+    "target_order": 1,
+    "target_physical_direction": "+x"
+  },
+  "handoff_manifest_sha256": "4fcf8b5cbefb37ba8153ffadbf7bb4a141d6cbbb4fb296fe9fd2211e44226934",
+  "missing_for_full_stage_a_target": [
+    "P/X-like response at u_x=sin(-10), sin(-5), sin(+5), sin(+10)",
+    "S/Y-like response at u_x=0 and the four oblique u_x values",
+    "formal finite-SiO2 termination transfer to the frozen MDC interface",
+    "formal polarization mapping from MDC x/z source channels to NP P/S inputs"
+  ],
+  "no_extrapolation": true,
+  "provider_id": "NP_LEVEL1_TRADITIONAL_RUN3A_MODULAR_RESPONSE",
+  "provider_status": "PARTIAL_EXISTING_ASSET",
+  "reference_stack_class": "STANDALONE_SEMI_INFINITE_SIO2_NP_RESPONSE",
+  "source_scope_sha256": "f034240634365f2c81a78feb0c8df4bc2ecc17db074734236d48c13deaffc7de",
+  "stage_a_integrated_matrix_is_not_eta_provider": true,
+  "stage_a_matrix_exclusion_reason": "Integrated MDC+spacer+NP response already includes reflection, interference, and joint feedback."
+}

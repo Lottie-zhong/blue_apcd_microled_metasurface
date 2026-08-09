@@ -1,0 +1,24 @@
+{
+  "aggregation_order": [
+    "raw power readback",
+    "same-position P_position=0.5*P_x+0.5*P_z",
+    "geometry P_geometry=(P_top+P_centroid+P_bottom)/3",
+    "normalization",
+    "derived metrics"
+  ],
+  "allowed_weight_semantics": [
+    "raw density requiring explicit d_lambda*d_u_x quadrature",
+    "raw probability mass already including quadrature"
+  ],
+  "blocking_reason": "formal ZL1 profile asset must declare whether W contains Jacobian/quadrature or is a normalized density",
+  "case_normalize_before_average": false,
+  "integration_formula": "P_plus1_relative=P_MDC_up_FDTD*SUM[W_MDC_FDTD(lambda,u_x,channel)*eta_NP_plus1(lambda,u_x,polarization)*quadrature]",
+  "joint_tensor_policy": "integrate the native joint tensor after exact axis readback; never synthesize an outer product",
+  "numerical_consumption_allowed": false,
+  "raw_first": true,
+  "required_identity": "sum(W_MDC_FDTD(lambda,u_x,channel)*quadrature)=1 per normalized profile",
+  "resolved_weight_semantics": null,
+  "schema_version": "level1_quadrature_contract_v1",
+  "status": "BLOCKED_UNRESOLVED_MDC_WEIGHT_SEMANTICS",
+  "y_dipole_auto_addition": false
+}

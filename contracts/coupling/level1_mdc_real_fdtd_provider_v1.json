@@ -1,0 +1,151 @@
+{
+  "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+  "existing_assets": {
+    "doe96_joint_database": {
+      "case_count": 576,
+      "exclusion_reason": "DOE96 geometry database is not the frozen P1_ZL1_ALTERNATIVE_G3_A3 geometry; no ZL1 geometry hash match.",
+      "geometry_count": 96,
+      "joint_tensor_available": true,
+      "joint_tensor_shape": [
+        301,
+        2000
+      ],
+      "quality_status": "PASS",
+      "raw_before_normalization": true,
+      "usable_as_zl1_formal_provider": false,
+      "z_l1_geometry_hash_match": false
+    },
+    "legacy_zl1_x5": {
+      "dipoles": [
+        "x",
+        "z"
+      ],
+      "formal_case_membership": false,
+      "formal_outcome": "MDC_LEVEL1_PROVIDER_REQUIRES_FORMAL_SIX_CASE_FDTD",
+      "legacy_diagnostic_only": true,
+      "normalization": "frozen source y=-400nm, P_top direct Re(Py) line integral, R12 direct outward box flux",
+      "positions_nm": [
+        -1000.0,
+        -500.0,
+        0.0,
+        500.0,
+        1000.0
+      ],
+      "provider_status": "REQUIRES_DIRECT_SOLVER",
+      "reason": "Legacy source plane is y=-400 nm with x-offset positions, not the formal top/centroid/bottom z contract; source-normalized dipole power is not formally verified.",
+      "source_y_nm": -400,
+      "wavelength_scope": {
+        "points": 41,
+        "start_nm": 448.0,
+        "step_nm": 0.1,
+        "stop_nm": 452.0
+      }
+    },
+    "single_x_dipole_978nm_stack": {
+      "compiled_sequence": [
+        [
+          "H",
+          46
+        ],
+        [
+          "L",
+          78
+        ],
+        [
+          "H",
+          46
+        ],
+        [
+          "L",
+          78
+        ],
+        [
+          "H",
+          46
+        ],
+        [
+          "L",
+          312
+        ],
+        [
+          "H",
+          46
+        ],
+        [
+          "L",
+          78
+        ],
+        [
+          "H",
+          46
+        ],
+        [
+          "L",
+          78
+        ],
+        [
+          "H",
+          46
+        ],
+        [
+          "L",
+          78
+        ]
+      ],
+      "formal_case_membership": false,
+      "layers": 12,
+      "reason": "978 nm stack and x-dipole-only; not the frozen 975 nm six-case source contract.",
+      "thickness_nm": 978
+    }
+  },
+  "formal_outcome": "MDC_LEVEL1_PROVIDER_REQUIRES_FORMAL_SIX_CASE_FDTD",
+  "m1_model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_FINAL_5SEED_V1",
+  "m1_surrogate_prohibited": true,
+  "missing_dimensions": [
+    "six formal cases at z=-171.5/-276.0/-380.5 nm with x/z dipoles",
+    "975 nm P1_ZL1_ALTERNATIVE_G3_A3 exact geometry",
+    "raw upward-power and source-normalization contract for the formal cases",
+    "native joint tensor/profile identity for the ZL1 geometry"
+  ],
+  "provider_id": "MDC_LEVEL1_TRADITIONAL_ZL1_REAL_FDTD",
+  "provider_status": "REQUIRES_DIRECT_SOLVER",
+  "required_outputs": [
+    "raw_upward_power(lambda,u_x,position,dipole)",
+    "P_MDC_up_FDTD(lambda,u_x)",
+    "W_MDC_FDTD(lambda,u_x,channel)",
+    "native joint tensor S(lambda,u_x) or an explicitly equivalent raw-power profile",
+    "exact source/grid/provenance identity"
+  ],
+  "required_source_cases": [
+    {
+      "dipole": "x",
+      "position": "top",
+      "source_z_nm": -171.5
+    },
+    {
+      "dipole": "z",
+      "position": "top",
+      "source_z_nm": -171.5
+    },
+    {
+      "dipole": "x",
+      "position": "centroid",
+      "source_z_nm": -276.0
+    },
+    {
+      "dipole": "z",
+      "position": "centroid",
+      "source_z_nm": -276.0
+    },
+    {
+      "dipole": "x",
+      "position": "bottom",
+      "source_z_nm": -380.5
+    },
+    {
+      "dipole": "z",
+      "position": "bottom",
+      "source_z_nm": -380.5
+    }
+  ]
+}

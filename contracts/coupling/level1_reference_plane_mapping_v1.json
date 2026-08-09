@@ -1,0 +1,34 @@
+{
+  "conserved_variable": {
+    "ky_over_k0": 0.0,
+    "no_internal_theta_substitution": true,
+    "primary": "u_x=kx/k0",
+    "theta_air": "derived label only"
+  },
+  "consumption_gate": "blocked until formal MDC profile and polarization mapping are available",
+  "mdc_reference_plane": {
+    "coordinate_system": "coupling_stage_a_coordinate_convention_v1",
+    "id": "MDC_TOP_UPWARD_OUTPUT_PLANE",
+    "legacy_monitor_transfer_allowed": false,
+    "medium_above": "APCD_SIO2_NATIVE_M1",
+    "role": "raw upward MDC power enters the continuous SiO2 separation region",
+    "z_nm": 975
+  },
+  "normalization": "eta_NP,+1 is normalized to incident power at the NP pillar-bottom reference plane; absolute LEE/EQE claims are forbidden.",
+  "np_reference_plane": {
+    "id": "NP_PILLAR_BOTTOM",
+    "incident_medium": "APCD_SIO2_NATIVE_M1",
+    "output_medium": "Air",
+    "reference_medium": "APCD_SIO2_NATIVE_M1",
+    "role": "NP modular response input plane at the pillar bottom",
+    "z_nm": 1212
+  },
+  "provider_classes": {
+    "A": "standalone semi-infinite SiO2 NP response",
+    "B": "finite-support NP response",
+    "C": "integrated MDC+NP Stage-A response",
+    "mixing_forbidden": true
+  },
+  "schema_version": "level1_reference_plane_mapping_v1",
+  "status": "FROZEN_CONCEPTUAL_MAPPING_PROVIDER_INPUT_PENDING"
+}
