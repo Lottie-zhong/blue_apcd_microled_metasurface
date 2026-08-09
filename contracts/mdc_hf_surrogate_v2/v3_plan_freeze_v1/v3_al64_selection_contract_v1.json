@@ -1,0 +1,90 @@
+{
+  "algorithm": "STRATIFIED_METADATA_ONLY_MAXIMIN_V1",
+  "base_pool_geometry_count": 136,
+  "candidate_universe": {
+    "eligible_after_formal_exclusion": 2674,
+    "raw_geometry_master": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\datasets\\mdc_ml_database_v1\\geometry_master.csv",
+    "raw_geometry_master_sha256": "77121fdb8cf271f031c9bb73d257ee7f10de7fc5fc9298f47f277947c95efe03",
+    "source": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_test40_selection_conflict_resolution_v1\\20260808T_test40_selection_conflict_resolution_489b54e\\test40_supported_candidate_universe_v1.csv",
+    "source_commit": "50cb7945c376bd14e025211d3c070e83a89447f9",
+    "source_sha256": "c56c96ac7dfcc2b466a9b6cd4c49670f93316643c92636e16fc81d9e84e0797c",
+    "supported_count": 2688
+  },
+  "contract_id": "MDC_HF_SURROGATE_V3_AL64_SELECTION_CONTRACT_V1",
+  "distance_contract": {
+    "feature_order": [
+      "physical_layer_count",
+      "total_thickness_nm"
+    ],
+    "features": [
+      "physical_layer_count",
+      "total_thickness_nm"
+    ],
+    "max": {
+      "physical_layer_count": 25,
+      "total_thickness_nm": 1958
+    },
+    "min": {
+      "physical_layer_count": 7,
+      "total_thickness_nm": 476
+    },
+    "normalization": "frozen min/max over candidate universe plus current 136 metadata anchors",
+    "outcome_free": true,
+    "span": {
+      "physical_layer_count": 18.0,
+      "total_thickness_nm": 1482.0
+    }
+  },
+  "formal_exclusion": {
+    "formal_numerical_value_reads": 0,
+    "hash_only": true,
+    "ledger": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_test40_selection_conflict_resolution_v1\\20260808T_test40_selection_conflict_resolution_489b54e\\test40_formal_fdtd_exclusion_ledger_hash_only.csv",
+    "ledger_sha256": "2f17f4d21de8e1376b699fdd221afa53613392612910a641a6feabe99f4846aa"
+  },
+  "future_case_order": [
+    [
+      "top",
+      "x"
+    ],
+    [
+      "top",
+      "z"
+    ],
+    [
+      "centroid",
+      "x"
+    ],
+    [
+      "centroid",
+      "z"
+    ],
+    [
+      "bottom",
+      "x"
+    ],
+    [
+      "bottom",
+      "z"
+    ]
+  ],
+  "future_cases_per_geometry": 6,
+  "manifest_status": "FROZEN",
+  "priority": "ZL1 N=4-5 interior and largest metadata distance to current 136 geometry pool",
+  "quotas": {
+    "Explicit": 16,
+    "ZL1": 32,
+    "ZL2": 16
+  },
+  "selection_seed": 20260810,
+  "solver_calls": 0,
+  "strata": {
+    "Explicit_boundary": 8,
+    "Explicit_interior": 8,
+    "ZL1_boundary": 4,
+    "ZL1_interior_other": 4,
+    "ZL1_priority_interior_N4_5": 24,
+    "ZL2_boundary": 8,
+    "ZL2_interior": 8
+  },
+  "training_authorized": false
+}

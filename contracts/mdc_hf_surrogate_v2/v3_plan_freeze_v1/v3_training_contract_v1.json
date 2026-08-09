@@ -1,0 +1,47 @@
+{
+  "candidate_count": 3,
+  "contract_id": "MDC_HF_SURROGATE_V3_TRAINING_CONTRACT_V1",
+  "development_membership": {
+    "DOE96": 96,
+    "V2_Test40_reclassified": 40,
+    "cases_per_geometry": 6,
+    "future_AL64": 64,
+    "total_cases": 1200,
+    "total_geometries": 200
+  },
+  "duration": {
+    "early_stopping_metric": "inner_stop_mean_profile_selection_score",
+    "epoch_source_excludes_V2_Test40_and_V3_Test40": true,
+    "final_epoch_3_inherited": false,
+    "max_epochs": 400,
+    "min_delta": 1e-06,
+    "min_epochs": 50,
+    "patience": 50,
+    "warmup_epochs": 10
+  },
+  "gradient_clipping": 1.0,
+  "learning_rate": 0.0003,
+  "maximum_unique_neural_fits": 45,
+  "minimum_learning_rate": 1e-06,
+  "no_training_this_task": true,
+  "optimizer": "AdamW",
+  "scheduler": "cosine_decay",
+  "seeds_per_candidate": [
+    20260810,
+    20260811,
+    20260812
+  ],
+  "split": {
+    "all_six_cases_together": true,
+    "inner_stop": {
+      "contract_id": "MDC_HF_SURROGATE_V3_INNER_STOP_V1",
+      "inner_stop_seed": 20260813,
+      "inner_train_and_stop_frozen_before_fit": true,
+      "method": "deterministic_hash_stratified_20_percent_of_outer_train_geometries"
+    },
+    "method": "geometry_hash_grouped_5_fold",
+    "outer_folds": 5,
+    "outer_held_out_never_used_for_early_stopping": true
+  },
+  "training_authorized": false
+}

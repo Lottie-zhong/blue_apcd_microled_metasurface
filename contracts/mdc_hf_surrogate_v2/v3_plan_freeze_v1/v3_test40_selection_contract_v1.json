@@ -1,0 +1,41 @@
+{
+  "algorithm": "STRATIFIED_DETERMINISTIC_HASH_RANDOM_V1",
+  "candidate_universe": {
+    "formal_exclusion_ledger_sha256": "2f17f4d21de8e1376b699fdd221afa53613392612910a641a6feabe99f4846aa",
+    "source": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2\\outputs\\mdc_hf_surrogate_v2_test40_selection_conflict_resolution_v1\\20260808T_test40_selection_conflict_resolution_489b54e\\test40_supported_candidate_universe_v1.csv",
+    "source_commit": "50cb7945c376bd14e025211d3c070e83a89447f9",
+    "source_sha256": "c56c96ac7dfcc2b466a9b6cd4c49670f93316643c92636e16fc81d9e84e0797c"
+  },
+  "case_count": 240,
+  "contract_id": "MDC_HF_SURROGATE_V3_TEST40_SELECTION_CONTRACT_V1",
+  "exclusions": [
+    "DOE96",
+    "V2_Test40",
+    "AL64",
+    "Pilot4",
+    "HF15",
+    "R12",
+    "all historical formal FDTD exposure"
+  ],
+  "external_validation_after_model_freeze_only": true,
+  "freeze_timing": "before any V3 training",
+  "geometry_count": 40,
+  "labels_read": 0,
+  "labels_status": "NOT_GENERATED",
+  "manifest_status": "FROZEN",
+  "quotas": {
+    "Explicit": 14,
+    "ZL1": 13,
+    "ZL2": 13,
+    "boundary_per_topology": {
+      "Explicit": 4,
+      "ZL1": 4,
+      "ZL2": 4
+    }
+  },
+  "selection_key_expression": "SHA256(UTF8('APCD_MDC_V3_TEST40_V1|20260810|' + lowercase(canonical_geometry_hash)))",
+  "selection_seed": 20260810,
+  "solver_calls": 0,
+  "sort_order": "ascending selection_key then geometry_hash within topology x boundary/interior stratum",
+  "test_id": "MDC_HF_SURROGATE_V3_TEST40_V1"
+}

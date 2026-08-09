@@ -1,0 +1,52 @@
+{
+  "PCA32_retained": true,
+  "auxiliary_scalar_head": "NOT_LOAD_BEARING",
+  "candidate_count": 3,
+  "candidates": [
+    {
+      "backbone": "M1",
+      "dropout": 0.05,
+      "id": "V3-A",
+      "input_width": 23,
+      "latent_width": 128,
+      "profile_head_width": 32,
+      "purpose": "undertraining_or_power_interference_test",
+      "regularization": "fixed_v2_current",
+      "residual_blocks": 3,
+      "residual_width": 256,
+      "weight_decay": 0.0001
+    },
+    {
+      "backbone": "M1",
+      "dropout": 0.0,
+      "id": "V3-B",
+      "input_width": 23,
+      "latent_width": 128,
+      "profile_head_width": 32,
+      "purpose": "regularization_collapse_test",
+      "regularization": "reduced",
+      "residual_blocks": 3,
+      "residual_width": 256,
+      "weight_decay": 0.0
+    },
+    {
+      "backbone": "moderately_widened_MLP",
+      "dropout": 0.0,
+      "id": "V3-C",
+      "input_width": 23,
+      "latent_width": 192,
+      "profile_head_width": 32,
+      "purpose": "capacity_limitation_test",
+      "regularization": "reduced",
+      "residual_blocks": 3,
+      "residual_width": 384,
+      "weight_decay": 0.0
+    }
+  ],
+  "contract_id": "MDC_HF_SURROGATE_V3_PROFILE_ONLY_MODEL_CANDIDATES_V1",
+  "derived_peak_fwhm_cone": "deterministic from decoded profile",
+  "no_post_oof_candidate_addition": true,
+  "power_head": "REMOVED_FROM_PRIMARY_V3_SHARED_LOSS",
+  "primary_target": "geometry + source condition -> PCA32 latent -> native_301x2000_joint_profile",
+  "training_authorized": false
+}

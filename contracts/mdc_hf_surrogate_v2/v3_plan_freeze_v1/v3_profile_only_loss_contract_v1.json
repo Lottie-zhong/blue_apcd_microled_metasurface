@@ -1,0 +1,29 @@
+{
+  "auxiliary_loss": "REMOVED_FROM_SHARED_BACKBONE",
+  "components": {
+    "L_JS": {
+      "definition": "Jensen-Shannon divergence on normalized profile",
+      "weight": 0.23529411764705882
+    },
+    "L_angular_CDF": {
+      "definition": "angular marginal CDF loss",
+      "weight": 0.17647058823529413
+    },
+    "L_profile": {
+      "definition": "log-domain SmoothL1 on normalized native joint profile",
+      "weight": 0.4117647058823529
+    },
+    "L_spectral_CDF": {
+      "definition": "spectral marginal CDF loss",
+      "weight": 0.17647058823529413
+    }
+  },
+  "contract_id": "MDC_HF_SURROGATE_V3_PROFILE_ONLY_LOSS_CONTRACT_V1",
+  "exact_weights_frozen_before_training": true,
+  "missing_policy": "invalid_or_missing_profile_blocks_case; no_imputation",
+  "normalization": "raw-before-normalization per frozen aggregation contract",
+  "power_loss": "REMOVED",
+  "profile_is_primary": true,
+  "training_authorized": false,
+  "weight_derivation": "frozen fixed-v2 profile/JS/spectral/angular weights renormalized after removing power and auxiliary components; no outcome-based tuning"
+}
