@@ -15,3 +15,8 @@ Status: `NP_K6_M2_G04P_ENGINE_COMPLETED_RESULT_NOT_PERSISTED_UNRECOVERABLE`
 Evidence: `D:\project\worktrees\blue_apcd_np_k6_mdc_v1\outputs\np_k6_m2_g04p_local_license_proxy_repair_v1`
 
 Captured UTC: `2026-08-09T14:03:23.540488+00:00`
+
+
+## Current dependency gate
+
+After the two successful smokes, a separate non-NP coupling job acquired port 54018 (ansyscl PID 33916, MPI/FDTD PIDs 7560, 14648, 32604, 34284, 16096). No process was terminated and no further proxy action was taken. This current environment is recorded as `HARD_GATE_LOCAL_PROXY_SHARED_WITH_ACTIVE_NON_NP_JOB`; the G04-P result remains `NP_K6_M2_G04P_ENGINE_COMPLETED_RESULT_NOT_PERSISTED_UNRECOVERABLE`.
