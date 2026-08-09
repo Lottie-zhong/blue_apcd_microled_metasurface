@@ -42,7 +42,12 @@ def test_first_shot_is_fixed_baseline_450nm_xpol_normal_t_extra_zero():
     contract = load("contracts/coupling/stage_a_direct_fullwave_contract_v1.json")
     shot = contract["first_shot"]
     assert contract["joint_scope"] == "EXPLORATORY_ONLY"
-    assert contract["solver_authorized"] is False
+    assert contract["solver_authorized"] is True
+    assert contract["authorized_broadband_case_ids"] == [
+        "STAGE_A_NB_T0_445_455NM_X_UX0",
+        "STAGE_A_NB_T79_445_455NM_X_UX0",
+        "STAGE_A_NB_T237_445_455NM_X_UX0",
+    ]
     assert contract["next_solver_requires_new_authorization"] is True
     assert contract["offline_screening_authorized"] is False
     assert shot == {

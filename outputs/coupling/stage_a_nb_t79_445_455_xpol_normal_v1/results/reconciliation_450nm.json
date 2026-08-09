@@ -1,0 +1,127 @@
+{
+  "broadband_case_id": "STAGE_A_NB_T79_445_455NM_X_UX0",
+  "closure": {
+    "broadband_order_closure": {
+      "pass": true,
+      "reflected_order_sum": 0.055074473629488724,
+      "reflected_residual": 6.938893903907228e-18,
+      "tolerance": 1e-08,
+      "transmitted_order_sum": 0.4310312067611548,
+      "transmitted_residual": -1.1102230246251565e-16
+    },
+    "broadband_power_closure": {
+      "R_plus_T": 0.4861056803906436,
+      "absorption_accounted": true,
+      "formal_R_plus_T_pass": false,
+      "formal_R_plus_T_tolerance": 0.02,
+      "pass": true
+    },
+    "monochromatic_order_closure": {
+      "pass": true,
+      "reflected_order_sum": 0.054772508789056346,
+      "reflected_residual": 0.0,
+      "tolerance": 1e-08,
+      "transmitted_order_sum": 0.4324512535285379,
+      "transmitted_residual": 5.551115123125783e-17
+    },
+    "monochromatic_power_closure": {
+      "R_total_plus_T_total": 0.48722376231759423,
+      "absorption_accounted": true,
+      "estimated_native_material_absorption": 0.5127762376824058,
+      "formal_R_plus_T_pass": false,
+      "formal_R_plus_T_tolerance": 0.02,
+      "interpretation": "Native-M1 GaN is lossy; residual is reported and not forced to zero.",
+      "pass": true,
+      "residual_1_minus_R_minus_T": 0.5127762376824058
+    }
+  },
+  "decision": "HARD_GATE",
+  "extrapolation_used": false,
+  "hard_gate": "HARD_GATE_NUMERICAL_RECONCILIATION_TOLERANCE_UNDEFINED",
+  "identity": {
+    "coordinate_contract_id": {
+      "broadband": "coordinate_convention_v1",
+      "match": true,
+      "monochromatic": "coordinate_convention_v1"
+    },
+    "joint_geometry_hash": {
+      "broadband": "271305eacead79acc645c1f45cd07af821896f95626db9f6af84f2f5a406d933",
+      "match": true,
+      "monochromatic": "271305eacead79acc645c1f45cd07af821896f95626db9f6af84f2f5a406d933"
+    },
+    "material_contract_id": {
+      "broadband": "MDC_NATIVE_M1",
+      "match": true,
+      "monochromatic": "MDC_NATIVE_M1"
+    },
+    "mdc_geometry_hash": {
+      "broadband": "2743ba872a6865519e555f99131220415afb076d653db11f1fe2ef658286c7d8",
+      "match": true,
+      "monochromatic": "2743ba872a6865519e555f99131220415afb076d653db11f1fe2ef658286c7d8"
+    },
+    "mesh_contract_id": {
+      "broadband": "RUN3A_NATIVE_M1_FDTD_SETTINGS_INHERITED_V1",
+      "match": true,
+      "monochromatic": "RUN3A_NATIVE_M1_FDTD_SETTINGS_INHERITED_V1"
+    },
+    "np_geometry_hash": {
+      "broadband": "57c4f101401efed0be1e8137a99b59f0eeacfc0a3f19dcc2fb89dec92f246cfe",
+      "match": true,
+      "monochromatic": "57c4f101401efed0be1e8137a99b59f0eeacfc0a3f19dcc2fb89dec92f246cfe"
+    },
+    "same_geometry_material_source_mesh_readback": true,
+    "source_contract_id": {
+      "broadband": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
+      "match": true,
+      "monochromatic": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE"
+    },
+    "spacer_nm": {
+      "broadband": 79.0,
+      "match": true,
+      "monochromatic": 79
+    }
+  },
+  "interpolation_used": false,
+  "metrics": {
+    "R_total": {
+      "broadband": 0.05507447362948872,
+      "delta_broadband_minus_monochromatic": 0.0003019648404323713,
+      "monochromatic": 0.054772508789056346
+    },
+    "T_total": {
+      "broadband": 0.4310312067611549,
+      "delta_broadband_minus_monochromatic": -0.0014200467673829431,
+      "monochromatic": 0.43245125352853786
+    },
+    "directionality": {
+      "broadband": 0.999100872790331,
+      "delta_broadband_minus_monochromatic": 0.0002001992862854518,
+      "monochromatic": 0.9989006735040455
+    },
+    "eta_minus1": {
+      "broadband": 0.00033519477875347255,
+      "delta_broadband_minus_monochromatic": -7.748941128864851e-05,
+      "monochromatic": 0.00041268419004212106
+    },
+    "eta_plus1": {
+      "broadband": 0.3724649775982622,
+      "delta_broadband_minus_monochromatic": -0.002519630609211343,
+      "monochromatic": 0.37498460820747354
+    },
+    "eta_zero": {
+      "broadband": 0.0022880454562150725,
+      "delta_broadband_minus_monochromatic": 0.00023282471957920565,
+      "monochromatic": 0.002055220736635867
+    },
+    "residual": {
+      "broadband": 0.5138943196093564,
+      "delta_broadband_minus_monochromatic": 0.0011180819269506204,
+      "monochromatic": 0.5127762376824058
+    }
+  },
+  "monochromatic_case_id": "STAGE_A_S79_450NM_X_UX0",
+  "reason": "Exact discrepancies and order-closure evidence are recorded, but the repository does not define a formal broadband-versus-monochromatic numerical tolerance; numerical equivalence cannot be safely decided without inventing one.",
+  "schema_version": "stage_a_broadband_mono_reconciliation_v1",
+  "tolerance_status": "NO_SEPARATE_FORMAL_BROADBAND_VS_MONO_TOLERANCE_FOUND_IN_CURRENT_REPO",
+  "wavelength_nm": 450.0
+}
