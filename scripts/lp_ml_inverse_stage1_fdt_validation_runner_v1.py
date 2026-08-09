@@ -3,7 +3,7 @@ import argparse, csv, hashlib, importlib.util, json, math, os, shutil, socket, s
 from pathlib import Path
 import numpy as np
 
-ROOT=Path(r"D:\project\worktrees\blue_apcd_lp_stage11_4")
+ROOT=Path(__file__).resolve().parents[1]
 PLAN=ROOT/'outputs/lp_ml_dataset_v1/plans/lp_ml_inverse_stage1_36_candidate_manifest_v1.csv'
 CONTRACT=ROOT/'outputs/lp_ml_dataset_v1/plans/lp_ml_inverse_stage1_execution_contract_v1.json'
 ECONTRACT=CONTRACT
@@ -11,6 +11,11 @@ ATTEMPT_ID='LP_ML_INVERSE_STAGE1_FDTD_VALIDATION_V1'
 STAGE=ROOT/'outputs/lp_ml_dataset_v1/staging/lp_ml_inverse_stage1_fdt_validation_v1'
 TMP=Path(tempfile.gettempdir())/'lp_ml_inverse_stage1_fdt_validation_v1_runtime'
 MID='APCD_TIO2_NATIVE_M1'; NM=1e-9; WLS=[450.0]
+FORMAL_PERIOD_NM=432.0
+FORMAL_FDTD_Z_MIN_NM=-500.0
+FORMAL_FDTD_Z_MAX_NM=1200.0
+FORMAL_SOURCE_Z_NM=-250.0
+FORMAL_MONITOR_Z_NM=1000.0
 
 def mod(path,name):
     s=importlib.util.spec_from_file_location(name,path); m=importlib.util.module_from_spec(s); assert s and s.loader; s.loader.exec_module(m); return m
@@ -43,20 +48,43 @@ def safe_get(f,n,k):
         x=f.getnamed(n,k); a=np.asarray(x); return a.item() if a.shape==() else a.tolist()
     except Exception as e:return f"UNAVAILABLE:{type(e).__name__}:{e}"
 
-def build(fdtd,r,pol):
+def unified_h_geometry_contract(height_nm=500.0):
+    """Return fixed-plane formal geometry parameters for a unified global H."""
+    height = float(height_nm)
+    if not math.isfinite(height) or height <= 0.0:
+        raise ValueError("height_nm must be finite and positive")
+    if height >= FORMAL_MONITOR_Z_NM:
+        raise ValueError("height_nm must remain below the fixed monitor plane")
+    return {
+        "height_nm": height,
+        "J1_H_nm": height,
+        "J2_H_nm": height,
+        "bottom_plane_nm": 0.0,
+        "period_x_nm": FORMAL_PERIOD_NM,
+        "period_y_nm": FORMAL_PERIOD_NM,
+        "fdtd_z_min_nm": FORMAL_FDTD_Z_MIN_NM,
+        "fdtd_z_max_nm": FORMAL_FDTD_Z_MAX_NM,
+        "source_z_nm": FORMAL_SOURCE_Z_NM,
+        "monitor_z_nm": FORMAL_MONITOR_Z_NM,
+    }
+
+
+def build(fdtd,r,pol,height_nm=None):
     fdtd.switchtolayout(); fdtd.deleteall(); ensure_apcd_native_materials(fdtd)
-    px=py=432*NM; H=500*NM; mat=get_lumerical_material_name(MID)
+    requested_height = r.get('H_global_nm', r.get('H_nm', 500.0)) if height_nm is None else height_nm
+    contract = unified_h_geometry_contract(requested_height)
+    px=py=contract['period_x_nm']*NM; H=contract['height_nm']*NM; mat=get_lumerical_material_name(MID)
     fdtd.addfdtd(); fdtd.set('dimension','3D')
-    for k,v in [('x span',px),('y span',py),('z min',-500*NM),('z max',1200*NM),('x min bc','Periodic'),('x max bc','Periodic'),('y min bc','Periodic'),('y max bc','Periodic'),('z min bc','PML'),('z max bc','PML'),('mesh accuracy',2),('simulation time',1000e-15),('background material','<Object defined dielectric>'),('index',1.0)]: fdtd.set(k,v)
+    for k,v in [('x span',px),('y span',py),('z min',contract['fdtd_z_min_nm']*NM),('z max',contract['fdtd_z_max_nm']*NM),('x min bc','Periodic'),('x max bc','Periodic'),('y min bc','Periodic'),('y max bc','Periodic'),('z min bc','PML'),('z max bc','PML'),('mesh accuracy',2),('simulation time',1000e-15),('background material','<Object defined dielectric>'),('index',1.0)]: fdtd.set(k,v)
     # Lumerical defaults to five monitor points unless both global and local
     # wavelength-domain settings are explicitly frozen.
     fdtd.setglobalmonitor('frequency points',1); fdtd.setglobalmonitor('use wavelength spacing',True); fdtd.setglobalmonitor('use source limits',True)
     cx=fval(r,'J2_center_x_nm')*NM; cy=fval(r,'J2_center_y_nm')*NM
     fdtd.addrect(); fdtd.set('name','pillar_1'); fdtd.set('x span',fval(r,'J1_side_nm')*NM); fdtd.set('y span',fval(r,'J1_side_nm')*NM); fdtd.set('x',-cx); fdtd.set('y',-cy); fdtd.set('z min',0); fdtd.set('z max',H); fdtd.set('first axis','z'); fdtd.set('rotation 1',0); fdtd.set('material',mat)
     fdtd.addrect(); fdtd.set('name','pillar_2'); fdtd.set('x span',fval(r,'J2_length_nm')*NM); fdtd.set('y span',fval(r,'J2_width_nm')*NM); fdtd.set('x',cx); fdtd.set('y',cy); fdtd.set('z min',0); fdtd.set('z max',H); fdtd.set('first axis','z'); fdtd.set('rotation 1',fval(r,'Psi_deg')); fdtd.set('material',mat)
-    fdtd.addplane(); fdtd.set('name','source'); fdtd.set('injection axis','z'); fdtd.set('direction','Forward'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',-250*NM); fdtd.set('wavelength start',450*NM); fdtd.set('wavelength stop',450*NM); fdtd.set('polarization angle',0 if pol=='x' else 90)
-    fdtd.addpower(); fdtd.set('name','T'); fdtd.set('monitor type','2D Z-normal'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',1000*NM); fdtd.set('override global monitor settings',True); fdtd.set('use wavelength spacing',True); fdtd.set('frequency points',1); fdtd.set('use source limits',True)
-    fdtd.addprofile(); fdtd.set('name','field_monitor'); fdtd.set('monitor type','2D Z-normal'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',1000*NM); fdtd.set('override global monitor settings',True); fdtd.set('use wavelength spacing',True); fdtd.set('frequency points',1); fdtd.set('use source limits',True)
+    fdtd.addplane(); fdtd.set('name','source'); fdtd.set('injection axis','z'); fdtd.set('direction','Forward'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',contract['source_z_nm']*NM); fdtd.set('wavelength start',450*NM); fdtd.set('wavelength stop',450*NM); fdtd.set('polarization angle',0 if pol=='x' else 90)
+    fdtd.addpower(); fdtd.set('name','T'); fdtd.set('monitor type','2D Z-normal'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',contract['monitor_z_nm']*NM); fdtd.set('override global monitor settings',True); fdtd.set('use wavelength spacing',True); fdtd.set('frequency points',1); fdtd.set('use source limits',True)
+    fdtd.addprofile(); fdtd.set('name','field_monitor'); fdtd.set('monitor type','2D Z-normal'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',contract['monitor_z_nm']*NM); fdtd.set('override global monitor settings',True); fdtd.set('use wavelength spacing',True); fdtd.set('frequency points',1); fdtd.set('use source limits',True)
     return {'material_name':mat,'geometry_readback':{'J1_center_x_nm':safe_get(fdtd,'pillar_1','x'),'J1_center_y_nm':safe_get(fdtd,'pillar_1','y'),'J2_center_x_nm':safe_get(fdtd,'pillar_2','x'),'J2_center_y_nm':safe_get(fdtd,'pillar_2','y'),'J1_material':safe_get(fdtd,'pillar_1','material'),'J2_material':safe_get(fdtd,'pillar_2','material'),'J1_rotation_deg':safe_get(fdtd,'pillar_1','rotation 1'),'J2_rotation_deg':safe_get(fdtd,'pillar_2','rotation 1')},'config_readback':{'FDTD':{k:safe_get(fdtd,'FDTD',k) for k in ['x span','y span','z min','z max','x min bc','x max bc','y min bc','y max bc','z min bc','z max bc','background material','index']},'source':{k:safe_get(fdtd,'source',k) for k in ['z','wavelength start','wavelength stop','polarization angle','direction']},'T':{k:safe_get(fdtd,'T',k) for k in ['z','x span','y span']},'field_monitor':{k:safe_get(fdtd,'field_monitor',k) for k in ['z','x span','y span']}}}
 
 def finite(z): return bool(np.isfinite(np.real(z)) and np.isfinite(np.imag(z)))

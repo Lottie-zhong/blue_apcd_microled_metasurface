@@ -1,0 +1,292 @@
+{
+  "anchor_manifest": "reports\\stage_h0_global_h\\anchor_manifest.json",
+  "audit_version": "LP_GLOBAL_H_H0_V1",
+  "baseline": {
+    "accepted_full_jones_unique_geometry_count": 409,
+    "accepted_phase_only_unique_geometry_count": 409,
+    "committed_readiness_phase_envelope": {
+      "circular_coverage_deg": 44.84420599964932,
+      "count": 409,
+      "geometry054_r1_hash_rows": 0,
+      "label": "OBSERVED_PHYSICS_PHASE_ENVELOPE_V2",
+      "largest_uncovered_circular_arc_deg": 315.1557940003507,
+      "legal_suffix_054_rows_retained": 2,
+      "max_phase_deg": 106.89783294848239,
+      "min_phase_deg": 62.053626948833056,
+      "not_true_5d_phase_limit": true,
+      "source_counts": {
+        "clean_v3": {
+          "path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs/lp_ml_dataset_v1/clean_v3/lp_ml_dataset_v1_merged_clean_v3_round3_377_geometry_3393_rows.csv",
+          "r1_hash_rows_excluded": 0,
+          "rows_450_admitted": 377,
+          "rows_total": 3393,
+          "sha256": "197372f2a5c49a16d6667c37554cfe4b811eca3955b28cd5ac3e70b4c8d6baa9"
+        },
+        "stage1_prospective": {
+          "path": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4\\outputs/lp_ml_dataset_v1/staging/lp_ml_inverse_stage1_fdt_validation_v1/candidate_wavelength_jones_v1.csv",
+          "r1_hash_rows_excluded": 0,
+          "rows_450_admitted": 35,
+          "rows_total": 35,
+          "sha256": "c1ae7a1fd29adf5e3d35c29d1c1137607613b44a014aabb2b168b64c10f4a284"
+        }
+      },
+      "span_deg": 44.84420599964933
+    },
+    "dedicated_probe_projector_compatible": {
+      "circular_coverage_deg": 18.557501177497556,
+      "count": 12,
+      "largest_uncovered_circular_arc_deg": 341.44249882250244,
+      "max_phase_deg": 98.50239984119824,
+      "min_phase_deg": 79.94489866370067,
+      "span_deg": 18.55750117749757
+    },
+    "full_jones_scope_requires_xy": true,
+    "geometry054_exact_hash_admitted_rows": 0,
+    "historical_projector_quantile_best50": {
+      "circular_coverage_deg": 27.845019017638037,
+      "count": 205,
+      "display_unwrapped_deg": [
+        79.052813930844,
+        106.897832948482
+      ],
+      "largest_circular_gap_deg": 332.15498098236196,
+      "raw_max_deg": 106.89783294848239,
+      "raw_min_deg": 79.05281393084377,
+      "raw_span_deg": 27.84501901763862,
+      "unique_wrapped_count": 205
+    },
+    "historical_real_phase": {
+      "circular_coverage_deg": 44.844205999649034,
+      "count": 409,
+      "display_unwrapped_deg": [
+        62.053626948833,
+        106.897832948482
+      ],
+      "largest_circular_gap_deg": 315.15579400035097,
+      "raw_max_deg": 106.89783294848239,
+      "raw_min_deg": 62.053626948833056,
+      "raw_span_deg": 44.84420599964933,
+      "unique_wrapped_count": 409
+    },
+    "legal_054_suffix_rows_retained": 2,
+    "raw_eligible_rows": 412,
+    "source": {
+      "exact_quarantine_hash": "f6bcfd429f3cd1b722f520bc67dbc62501854a686b17d8deae492cc66e950b21",
+      "quarantine_manifest_sha256": "4056f330fa2c39afbcaed211a10475696cd77daf1f46204e05e1f4c077714b2a",
+      "raw_eligible_rows": 412,
+      "source_counts": {
+        "clean_v3": {
+          "exact_quarantine_rows_excluded": 0,
+          "legal_suffix_054_rows_retained": 2,
+          "path": "outputs\\lp_ml_dataset_v1\\clean_v3\\lp_ml_dataset_v1_merged_clean_v3_round3_377_geometry_3393_rows.csv",
+          "rows_450_admitted": 377,
+          "rows_total": 3393,
+          "sha256": "197372f2a5c49a16d6667c37554cfe4b811eca3955b28cd5ac3e70b4c8d6baa9"
+        },
+        "d6": {
+          "exact_quarantine_rows_excluded": 0,
+          "legal_suffix_054_rows_retained": 0,
+          "path": "outputs\\lp_ml_dataset_v1\\staging\\b120_j2lm06_positional_jacobian_stage_d6_v1_attempt1_lp_ml_schema_v1_22\\candidate_wavelength_jones_v1_22.csv",
+          "rows_450_admitted": 0,
+          "rows_total": 4,
+          "sha256": "0d5658c503b55dff612c110a9819391d408059a2594ddc89715cc9036c78d6ff"
+        },
+        "stage1_prospective": {
+          "exact_quarantine_rows_excluded": 0,
+          "legal_suffix_054_rows_retained": 0,
+          "path": "outputs\\lp_ml_dataset_v1\\staging\\lp_ml_inverse_stage1_fdt_validation_v1\\candidate_wavelength_jones_v1.csv",
+          "rows_450_admitted": 35,
+          "rows_total": 35,
+          "sha256": "c1ae7a1fd29adf5e3d35c29d1c1137607613b44a014aabb2b168b64c10f4a284"
+        }
+      },
+      "unique_geometry_rows": 409
+    },
+    "x_only_admitted_to_ml": false
+  },
+  "branch": "work/lp-global-h-manifold-v1",
+  "circular_phase_span_tests": {
+    "expected_wrap_case_deg": 20.0,
+    "implementation": "circular_phase_span",
+    "test_command": "python -m pytest tests/test_lp_global_h_h0.py"
+  },
+  "created_utc": "2026-08-09T08:44:36.242528+00:00",
+  "entered_true_new": 0,
+  "global_h_builder_evidence": {
+    "fixed_bottom_plane_nm": 0.0,
+    "fixed_monitor_z_nm": 1000.0,
+    "fixed_period_nm": [
+      432.0,
+      432.0
+    ],
+    "fixed_source_z_nm": -250.0,
+    "no_solver_run": true,
+    "safe_height_domain_nm": "0 < H < 1000",
+    "same_height_fields": [
+      "J1_H_nm",
+      "J2_H_nm"
+    ]
+  },
+  "global_h_builder_verdict": "UNIFIED_GLOBAL_H_CODE_FIXED_AND_TESTED",
+  "head": "208059092011c18628be859e6caaa9d14120f198",
+  "legacy_lp_dirty_worktree_provenance": {
+    "categories": {
+      "outputs_or_runtime": 7,
+      "reports": 97,
+      "root": 5,
+      "scripts": 101,
+      "src": 2,
+      "tests": 9
+    },
+    "classification": {
+      "COMMITTED_AUTHORITATIVE": "baseline uses committed artifacts in new worktree",
+      "UNCOMMITTED_DERIVED_OR_RUNTIME": "outputs/runtime/staging and generated files",
+      "UNCOMMITTED_POTENTIALLY_RELEVANT": "dirty LP H500/phase/Jones files remain read-only",
+      "UNKNOWN_PROVENANCE": "none admitted to physics"
+    },
+    "dirty_tracked_count": 17,
+    "modified_old_worktree": false,
+    "physics_admitted_from_dirty": false,
+    "provenance_uncertainty": false,
+    "staged_count": 0,
+    "status_branch": [
+      "# branch.oid 208059092011c18628be859e6caaa9d14120f198",
+      "# branch.head work/lp-stage11-4",
+      "# branch.upstream origin/work/lp-stage11-4"
+    ],
+    "untracked_count": 204,
+    "worktree": "D:\\project\\worktrees\\blue_apcd_lp_stage11_4"
+  },
+  "level3_baseline_reproduction_verdict": "REPRODUCED_WITH_EXPLICIT_SCOPE_SPLIT",
+  "np_active_runner_isolation": {
+    "engine_fsp_paths_all_np": true,
+    "processes": [
+      {
+        "fsp": null,
+        "lp_overlap": false,
+        "name": "fdtd-solutions.exe",
+        "np_path": false,
+        "pid": 21060
+      },
+      {
+        "fsp": "D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m2_batch1_hf_acquisition_v1/runtime_runs/NP_K6_M2_BATCH1_G03_P/attempt_001/NP_K6_M2_BATCH1_G03_P_attempt_001_run.fsp",
+        "lp_overlap": false,
+        "name": "mpiexec.exe",
+        "np_path": true,
+        "pid": 22472
+      },
+      {
+        "fsp": "D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m2_batch1_hf_acquisition_v1/runtime_runs/NP_K6_M2_BATCH1_G03_P/attempt_001/NP_K6_M2_BATCH1_G03_P_attempt_001_run.fsp",
+        "lp_overlap": false,
+        "name": "fdtd-engine-msmpi.exe",
+        "np_path": true,
+        "pid": 31996
+      },
+      {
+        "fsp": "D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m2_batch1_hf_acquisition_v1/runtime_runs/NP_K6_M2_BATCH1_G03_P/attempt_001/NP_K6_M2_BATCH1_G03_P_attempt_001_run.fsp",
+        "lp_overlap": false,
+        "name": "fdtd-engine-msmpi.exe",
+        "np_path": true,
+        "pid": 21808
+      },
+      {
+        "fsp": "D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m2_batch1_hf_acquisition_v1/runtime_runs/NP_K6_M2_BATCH1_G03_P/attempt_001/NP_K6_M2_BATCH1_G03_P_attempt_001_run.fsp",
+        "lp_overlap": false,
+        "name": "fdtd-engine-msmpi.exe",
+        "np_path": true,
+        "pid": 22756
+      },
+      {
+        "fsp": "D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m2_batch1_hf_acquisition_v1/runtime_runs/NP_K6_M2_BATCH1_G03_P/attempt_001/NP_K6_M2_BATCH1_G03_P_attempt_001_run.fsp",
+        "lp_overlap": false,
+        "name": "fdtd-engine-msmpi.exe",
+        "np_path": true,
+        "pid": 16704
+      }
+    ],
+    "runner_untouched": true,
+    "status": "PASS"
+  },
+  "phase_reference_verdict": {
+    "builder_path": "scripts\\lp_ml_inverse_stage1_fdt_validation_runner_v1.py",
+    "builder_sha256": "bca7b82e75fd252ba5f2afcd4d3c338165ebc1d9f8d29c1db4cfd0de2054861a",
+    "explicit_deembedding": false,
+    "fixed_reference": [
+      {
+        "line": 17,
+        "text": "FORMAL_SOURCE_Z_NM=-250.0"
+      },
+      {
+        "line": 18,
+        "text": "FORMAL_MONITOR_Z_NM=1000.0"
+      },
+      {
+        "line": 56,
+        "text": "if height >= FORMAL_MONITOR_Z_NM:"
+      },
+      {
+        "line": 67,
+        "text": "\"source_z_nm\": FORMAL_SOURCE_Z_NM,"
+      },
+      {
+        "line": 68,
+        "text": "\"monitor_z_nm\": FORMAL_MONITOR_Z_NM,"
+      },
+      {
+        "line": 85,
+        "text": "fdtd.addplane(); fdtd.set('name','source'); fdtd.set('injection axis','z'); fdtd.set('direction','Forward'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',contract['source_z_nm']*NM); fdtd.set('wavelength start',450*NM); fdtd.set('wavelength stop',450*NM); fdtd.set('polarization angle',0 if pol=='x' else 90)"
+      },
+      {
+        "line": 86,
+        "text": "fdtd.addpower(); fdtd.set('name','T'); fdtd.set('monitor type','2D Z-normal'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',contract['monitor_z_nm']*NM); fdtd.set('override global monitor settings',True); fdtd.set('use wavelength spacing',True); fdtd.set('frequency points',1); fdtd.set('use source limits',True)"
+      },
+      {
+        "line": 87,
+        "text": "fdtd.addprofile(); fdtd.set('name','field_monitor'); fdtd.set('monitor type','2D Z-normal'); fdtd.set('x span',px); fdtd.set('y span',py); fdtd.set('z',contract['monitor_z_nm']*NM); fdtd.set('override global monitor settings',True); fdtd.set('use wavelength spacing',True); fdtd.set('frequency points',1); fdtd.set('use source limits',True)"
+      }
+    ],
+    "geometry_z": [
+      {
+        "line": 60,
+        "text": "\"J1_H_nm\": height,"
+      },
+      {
+        "line": 61,
+        "text": "\"J2_H_nm\": height,"
+      },
+      {
+        "line": 83,
+        "text": "fdtd.addrect(); fdtd.set('name','pillar_1'); fdtd.set('x span',fval(r,'J1_side_nm')*NM); fdtd.set('y span',fval(r,'J1_side_nm')*NM); fdtd.set('x',-cx); fdtd.set('y',-cy); fdtd.set('z min',0); fdtd.set('z max',H); fdtd.set('first axis','z'); fdtd.set('rotation 1',0); fdtd.set('material',mat)"
+      },
+      {
+        "line": 84,
+        "text": "fdtd.addrect(); fdtd.set('name','pillar_2'); fdtd.set('x span',fval(r,'J2_length_nm')*NM); fdtd.set('y span',fval(r,'J2_width_nm')*NM); fdtd.set('x',cx); fdtd.set('y',cy); fdtd.set('z min',0); fdtd.set('z max',H); fdtd.set('first axis','z'); fdtd.set('rotation 1',fval(r,'Psi_deg')); fdtd.set('material',mat)"
+      }
+    ],
+    "reason": "Both pillar bottoms stay at z=0; only the shared top H changes. Source z=-250 nm and monitor z=1000 nm stay fixed, so no trivial H-dependent propagation phase is introduced.",
+    "reference_plane_verdict": "PHASE_REFERENCE_SAFE_AS_IS",
+    "weighted_g0_and_normalization": [
+      {
+        "line": 110,
+        "text": "rawx=low.base.b.f1.periodic_weighted(x,y,ex[:,:,i],grid['x_periodic_duplicate_endpoint'],grid['y_periodic_duplicate_endpoint']); rawy=low.base.b.f1.periodic_weighted(x,y,ey[:,:,i],grid['x_periodic_duplicate_endpoint'],grid['y_periodic_duplicate_endpoint'])"
+      },
+      {
+        "line": 114,
+        "text": "nx,ny=low.base.b.f1.normalize_pair(rawx,rawy,t_value); scale=math.sqrt(t_value)/max(math.hypot(abs(rawx),abs(rawy)),1e-30)"
+      },
+      {
+        "line": 159,
+        "text": "return {'pass':bool(ok),'checks':checks,'objects':objects,'expected_wavelengths_nm':WLS,'sampling_mode':'wavelength_domain_uniform_via_source_limits','input_polarization':pol,'observable':'coordinate_weighted_full_period_G0','normalization':'sqrt(T)/norm(weighted Ex,Ey)'}"
+      }
+    ]
+  },
+  "provenance": {
+    "formal_contract": "outputs\\lp_ml_dataset_v1\\contracts\\lp_linear_x_projector_target_matrix_v1.json",
+    "formal_contract_matrix_sha256": "accd073c7d27086debc80e21056dade6b534080bc6e5d4fbb7025821587348f0",
+    "formal_contract_sha256": "7f3ecb0468bb29a86f5bd5ff1da4cd833ee057acf9fb41fc6ad0346e630ff926",
+    "quarantine_manifest": "outputs\\lp_ml_dataset_v1\\clean_v2\\quarantine_manifest_v2.json",
+    "quarantine_manifest_sha256": "4056f330fa2c39afbcaed211a10475696cd77daf1f46204e05e1f4c077714b2a"
+  },
+  "solver_runs_new": 0,
+  "worktree": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1"
+}
