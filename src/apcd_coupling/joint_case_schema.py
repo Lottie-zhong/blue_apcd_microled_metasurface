@@ -29,8 +29,8 @@ def validate_joint_case(case: dict[str, Any]) -> dict[str, Any]:
     kx_over_k0 = _number(case["kx_over_k0"], "kx_over_k0")
     incident_state = case.get("incident_state")
     if kx_over_k0 != 0:
-        if case.get("control_group") != "POL_ANGLE_MATRIX" or not isinstance(incident_state, dict):
-            raise ValueError("nonzero kx requires the POL_ANGLE_MATRIX incident-state contract")
+        if case.get("control_group") not in {"POL_ANGLE_MATRIX", "POL_ANGLE_BROADBAND"} or not isinstance(incident_state, dict):
+            raise ValueError("nonzero kx requires the polarization-angle incident-state contract")
         if incident_state.get("polarization_branch") not in {"P_XLIKE", "S_YLIKE"}:
             raise ValueError("invalid incident polarization branch")
         if abs(float(incident_state.get("ux", float("nan"))) - kx_over_k0) > 1e-12:

@@ -1,0 +1,48 @@
+{
+  "schema_version": "stage_a_polarization_angle_broadband_445_455_v1",
+  "fixture_id": "APCD_MDC_NP_COUPLING_V1_STAGE_A_FROZEN_SPACER_445_455_POLARIZATION_ANGLE_BROADBAND",
+  "source_contract_id": "BROADBAND_FIXED_UX_SOURCE_CONTRACT_V1",
+  "source_contract_path": "configs/coupling/broadband_fixed_ux_source_contract_v1.json",
+  "wavelength_start_nm": 445.0,
+  "wavelength_stop_nm": 455.0,
+  "frequency_points": 11,
+  "exact_wavelength_grid_nm": [445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455],
+  "angle_convention_id": "air_side_far_field_conserved_real_kx_v1",
+  "kx_definition": "real_kx(lambda) = (2*pi/lambda)*ux; ky/k0 = 0",
+  "frozen_spacer_nm": 237.0,
+  "total_sio2_separation_nm": 316.0,
+  "mdc_candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+  "np_candidate_id": "NP_K6X_125_135_150_175_190_210",
+  "new_solver_case_order": [
+    "STAGE_A_BB_Y0_445_455NM_S_YLIKE_UX0",
+    "STAGE_A_BB_XP5_445_455NM_P_XLIKE",
+    "STAGE_A_BB_XM5_445_455NM_P_XLIKE",
+    "STAGE_A_BB_YP5_445_455NM_S_YLIKE",
+    "STAGE_A_BB_YM5_445_455NM_S_YLIKE",
+    "STAGE_A_BB_XP10_445_455NM_P_XLIKE",
+    "STAGE_A_BB_XM10_445_455NM_P_XLIKE",
+    "STAGE_A_BB_YP10_445_455NM_S_YLIKE",
+    "STAGE_A_BB_YM10_445_455NM_S_YLIKE"
+  ],
+  "states": [
+    {"case_id":"STAGE_A_BB_Y0_445_455NM_S_YLIKE_UX0","label":"Y0","theta_air_in_deg":0.0,"ux":0.0,"uy":0.0,"polarization_branch":"S_YLIKE"},
+    {"case_id":"STAGE_A_BB_XP5_445_455NM_P_XLIKE","label":"X_P5","theta_air_in_deg":5.0,"ux":0.08715574274765817,"uy":0.0,"polarization_branch":"P_XLIKE"},
+    {"case_id":"STAGE_A_BB_XM5_445_455NM_P_XLIKE","label":"X_M5","theta_air_in_deg":-5.0,"ux":-0.08715574274765817,"uy":0.0,"polarization_branch":"P_XLIKE"},
+    {"case_id":"STAGE_A_BB_YP5_445_455NM_S_YLIKE","label":"Y_P5","theta_air_in_deg":5.0,"ux":0.08715574274765817,"uy":0.0,"polarization_branch":"S_YLIKE"},
+    {"case_id":"STAGE_A_BB_YM5_445_455NM_S_YLIKE","label":"Y_M5","theta_air_in_deg":-5.0,"ux":-0.08715574274765817,"uy":0.0,"polarization_branch":"S_YLIKE"},
+    {"case_id":"STAGE_A_BB_XP10_445_455NM_P_XLIKE","label":"X_P10","theta_air_in_deg":10.0,"ux":0.17364817766693033,"uy":0.0,"polarization_branch":"P_XLIKE"},
+    {"case_id":"STAGE_A_BB_XM10_445_455NM_P_XLIKE","label":"X_M10","theta_air_in_deg":-10.0,"ux":-0.17364817766693033,"uy":0.0,"polarization_branch":"P_XLIKE"},
+    {"case_id":"STAGE_A_BB_YP10_445_455NM_S_YLIKE","label":"Y_P10","theta_air_in_deg":10.0,"ux":0.17364817766693033,"uy":0.0,"polarization_branch":"S_YLIKE"},
+    {"case_id":"STAGE_A_BB_YM10_445_455NM_S_YLIKE","label":"Y_M10","theta_air_in_deg":-10.0,"ux":-0.17364817766693033,"uy":0.0,"polarization_branch":"S_YLIKE"}
+  ],
+  "x0_reuse": {
+    "case_id": "STAGE_A_NB_T237_445_455NM_X_UX0",
+    "artifact": "outputs/coupling/stage_a_nb_t237_445_455_xpol_normal_v1",
+    "read_only": true,
+    "rerun": false,
+    "required_identity": "frozen spacer 237 nm, total SiO2 316 nm, P_XLIKE, ux=0, exact 11-point grid, native materials, geometry, monitors, normalization and order convention"
+  },
+  "no_averaging": true
+  ,"bfast_effective_n_eff_override": 2.413663265496122
+  ,"bfast_effective_n_eff_override_status": "DIAGNOSTIC_FROM_COMPLETED_XP5_M0_READBACK_REQUIRES_REPLAY_AUTHORIZATION"
+}

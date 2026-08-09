@@ -11,6 +11,10 @@ POLARIZATION_RESULT_FIELDS = {
     "polarization_branch", "theta_air_in_deg", "ux_in", "uy_in", "real_kx_in", "incident_state", "incident_state_hash", "source_kx_contract", "source_polarization_readback", "order_equation_audit", "provenance_hashes", "sign_audit",
 }
 
+BROADBAND_RESULT_FIELDS = {
+    "broadband_grid_nm", "spectrum_index", "broadband_state_id", "no_interpolation", "no_extrapolation",
+}
+
 
 def _finite(result: dict[str, Any], keys: tuple[str, ...]) -> None:
     for key in keys:
@@ -24,11 +28,22 @@ def validate_result(result: dict[str, Any]) -> dict[str, Any]:
     if missing:
         raise ValueError(f"result schema missing fields: {missing}")
     _finite(result, ("R_total", "T_total"))
-    if result.get("control_group") == "POL_ANGLE_MATRIX":
+    if result.get("control_group") in {"POL_ANGLE_MATRIX", "POL_ANGLE_BROADBAND"}:
         missing = sorted(POLARIZATION_RESULT_FIELDS - set(result))
         if missing:
             raise ValueError(f"polarization-angle result schema missing fields: {missing}")
-        if float(result["wavelength_nm"]) != 450.0:
+        if result.get("control_group") == "POL_ANGLE_BROADBAND":
+            missing = sorted(BROADBAND_RESULT_FIELDS - set(result))
+            if missing:
+                raise ValueError(f"broadband polarization result schema missing fields: {missing}")
+            expected_grid = [float(value) for value in range(445, 456)]
+            if [float(value) for value in result["broadband_grid_nm"]] != expected_grid:
+                raise ValueError("broadband result must declare exact 445-455 nm grid")
+            if not any(abs(float(result["wavelength_nm"]) - value) <= 1e-6 for value in expected_grid):
+                raise ValueError("broadband wavelength is outside exact grid")
+            if result["no_interpolation"] is not True or result["no_extrapolation"] is not True:
+                raise ValueError("broadband result cannot use interpolation or extrapolation")
+        elif float(result["wavelength_nm"]) != 450.0:
             raise ValueError("polarization-angle matrix is exact 450 nm only")
         if result["polarization_branch"] not in {"P_XLIKE", "S_YLIKE"}:
             raise ValueError("invalid incident polarization branch")

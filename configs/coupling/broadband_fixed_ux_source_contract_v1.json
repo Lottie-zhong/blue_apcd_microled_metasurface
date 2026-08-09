@@ -1,0 +1,49 @@
+{
+  "schema_version": "broadband_fixed_ux_source_contract_v1",
+  "contract_id": "BROADBAND_FIXED_UX_SOURCE_CONTRACT_V1",
+  "scope": "Stage-A frozen spacer 445-455 nm exact 1 nm polarization-angle matrix",
+  "reference_medium": "Air",
+  "wavelength_grid_nm": [445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455],
+  "target_definition": {
+    "ux": "sin(theta_air)",
+    "uy": 0.0,
+    "real_kx_lambda": "(2*pi/lambda)*ux",
+    "positive_sign": "physical +x",
+    "fixed_quantity": "air-side conserved real kx/k0 = ux"
+  },
+  "source_medium_identity": "APCD_GAN_NATIVE_M1",
+  "source_implementation": "single BFAST plane-wave source at z=-250 nm inside lossy native GaN; internal theta is calibrated at 450 nm from authoritative GaN readback and BFAST preserves the broadband injection angle",
+  "boundary_implementation": "BFAST built-in transverse boundary for x; periodic y for ky/k0=0; longitudinal z PML; explicit FDTD x/y properties are read back and recorded but BFAST owns the oblique transverse phase",
+  "bfast_settings": {
+    "plane_wave_type": "BFAST",
+    "bfast_alpha": 1.0,
+    "dt_multiplier": "solver default; readback if exposed",
+    "single_plane_wave_only": true,
+    "source_bandwidth_nm": [445, 455]
+  },
+  "polarization": {
+    "P_XLIKE": "polarization angle 0 deg; E in x-z plane with k dot E = 0 and continuous normal-incidence +x limit",
+    "S_YLIKE": "polarization angle 90 deg; E parallel physical y with k dot E = 0"
+  },
+  "transversality_rule": "evaluate native GaN n(lambda) with getfdtdindex at each exact wavelength; P uses E proportional to (kz,0,-kx), S uses (0,1,0); record normalized k dot E residual",
+  "readback_requirements": [
+    "case id and incident state",
+    "exact 11-point wavelength grid",
+    "target ux and real_kx(lambda)",
+    "BFAST source type and source angle",
+    "source z inside native GaN",
+    "BFAST alpha",
+    "source/boundary phase convention",
+    "per-wavelength transmitted m=0 air-side ux readback",
+    "source-kx closure and sign",
+    "P/S polarization and transversality",
+    "geometry, spacer and native materials",
+    "power/order closure and FSP provenance"
+  ],
+  "hard_gate_if_unresolved": "HARD_GATE_BROADBAND_FIXED_UX_IMPLEMENTATION_UNRESOLVED",
+  "order_equation": "u_out,m(lambda) = ux_in + m*lambda/Lambda_x",
+  "no_interpolation": true,
+  "no_extrapolation": true,
+  "no_polarization_averaging": true,
+  "solver_entry_policy": "one broadband solver entry per incident state; replay requires explicit new authorization"
+}

@@ -258,5 +258,26 @@
     "completed_at": "2026-08-09T09:31:28.700581+00:00"
   },
   "current_matrix_decision": "POLARIZATION_ANGLE_450NM_MATRIX_VALIDATED",
-  "post_matrix_next_authorization_action": "REQUEST_STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_AUTHORIZATION"
+  "post_matrix_next_authorization_action": "REQUEST_STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_AUTHORIZATION",
+  "broadband_polarization_angle": {
+    "status": "HARD_GATE",
+    "decision": "HARD_GATE_BROADBAND_FIXED_UX_IMPLEMENTATION_UNRESOLVED",
+    "control_group": "POL_ANGLE_BROADBAND",
+    "source_contract_id": "BROADBAND_FIXED_UX_SOURCE_CONTRACT_V1",
+    "source_contract_path": "configs/coupling/broadband_fixed_ux_source_contract_v1.json",
+    "config_path": "configs/coupling/stage_a_polarization_angle_broadband_445_455_v1.json",
+    "wavelength_grid_nm": [445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455],
+    "frozen_spacer_nm": 237,
+    "total_sio2_separation_nm": 316,
+    "x0_reuse_case_id": "STAGE_A_NB_T237_445_455NM_X_UX0",
+    "x0_reuse_rerun": false,
+    "no_polarization_averaging": true,
+    "solver_entries": 2,
+    "valid_completed_case_ids": ["STAGE_A_BB_Y0_445_455NM_S_YLIKE_UX0"],
+    "hard_gate_case_ids": ["STAGE_A_BB_XP5_445_455NM_P_XLIKE"],
+    "unentered_case_ids": ["STAGE_A_BB_XM5_445_455NM_P_XLIKE", "STAGE_A_BB_YP5_445_455NM_S_YLIKE", "STAGE_A_BB_YM5_445_455NM_S_YLIKE", "STAGE_A_BB_XP10_445_455NM_P_XLIKE", "STAGE_A_BB_XM10_445_455NM_P_XLIKE", "STAGE_A_BB_YP10_445_455NM_S_YLIKE", "STAGE_A_BB_YM10_445_455NM_S_YLIKE"],
+    "hard_gate_report": "reports/coupling/stage_a_polarization_angle_broadband_hard_gate_v1.json",
+    "hard_gate_report_sha256": "9583cbfefdd7d47d84c1e50960cc16d8a1ac3c2ea722eb809e5b91ef4e753c53",
+    "next_authorization_action": "REQUEST_BROADBAND_XP5_REPLAY_AUTHORIZATION_AFTER_BFAST_SOURCE_CALIBRATION_CORRECTION"
+  }
 }

@@ -1,0 +1,39 @@
+{
+  "schema_version": "stage_a_broadband_fixed_ux_hard_gate_report_v1",
+  "decision": "HARD_GATE_BROADBAND_FIXED_UX_IMPLEMENTATION_UNRESOLVED",
+  "task": "APCD_MDC_NP_COUPLING_V1_STAGE_A_FROZEN_SPACER_445_455_POLARIZATION_ANGLE_BROADBAND",
+  "frozen_spacer_nm": 237.0,
+  "total_sio2_separation_nm": 316.0,
+  "source_contract_id": "BROADBAND_FIXED_UX_SOURCE_CONTRACT_V1",
+  "exact_wavelength_grid_nm": [445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455],
+  "setup_gates": {
+    "new_cases_setup_only_passed": 9,
+    "bfast_source_readback": true,
+    "bfast_alpha": 1.0,
+    "native_gan_source": true,
+    "transversality": true
+  },
+  "evidence_case_id": "STAGE_A_BB_XP5_445_455NM_P_XLIKE",
+  "evidence_case_status": "solver_completed_once_post_fsp_saved",
+  "pre_fsp_sha256": "b39a53716e98e08c159f6ad96c54b9685bf38ee01afaf461f98edef0683c3f7b",
+  "post_fsp_sha256": "695705378cfcb5732ed681bd0b807bc2720b4f49aeca6cd5679748604a8dbfd2",
+  "post_identity_audit_path": "outputs/coupling/stage_a_polarization_angle_broadband_445_455_v1/STAGE_A_BB_XP5_445_455NM_P_XLIKE/post_fsp_identity_audit.json",
+  "replay": false,
+  "target_ux": 0.08715574274765817,
+  "target_real_kx_rule": "(2*pi/lambda)*ux",
+  "transmitted_m0_air_ux_readback": [0.08714498277941772, 0.08714498277941773, 0.08714498277941773, 0.08714498277941773, 0.08714498277941772, 0.08714498277941773, 0.08714498277941772, 0.08714498277941773, 0.08714498277941772, 0.08714498277941773, 0.08714498277941773],
+  "ux_residual_min": -0.00001075996824044961,
+  "ux_residual_max": -0.00001075996824043573,
+  "ux_closure_tolerance": 0.000001,
+  "source_kx_closure_pass": false,
+  "interpretation": "The BFAST setup gate and post-FSP identity are valid, but the transmitted m=0 air-side readback is offset from the requested conserved real-kx/k0 target by about 1.076e-5 at every exact wavelength. This is a source calibration mismatch, not permission to reinterpret the run as fixed-kx.",
+  "corrective_diagnostic": {
+    "observed_bfast_effective_n_eff_from_xp5_m0": 2.413663265496122,
+    "current_setup_calibration_n_eff": 2.41396119790668,
+    "required_action": "correct BFAST internal-angle calibration, rebuild setup-only artifacts, then request explicit replay authorization for X_P5 before any further broadband solver entry"
+  },
+  "valid_completed_cases": ["STAGE_A_BB_Y0_445_455NM_S_YLIKE_UX0"],
+  "hard_gate_cases": ["STAGE_A_BB_XP5_445_455NM_P_XLIKE"],
+  "unentered_cases": ["STAGE_A_BB_XM5_445_455NM_P_XLIKE", "STAGE_A_BB_YP5_445_455NM_S_YLIKE", "STAGE_A_BB_YM5_445_455NM_S_YLIKE", "STAGE_A_BB_XP10_445_455NM_P_XLIKE", "STAGE_A_BB_XM10_445_455NM_P_XLIKE", "STAGE_A_BB_YP10_445_455NM_S_YLIKE", "STAGE_A_BB_YM10_445_455NM_S_YLIKE"],
+  "next_authorization_action": "REQUEST_BROADBAND_XP5_REPLAY_AUTHORIZATION_AFTER_BFAST_SOURCE_CALIBRATION_CORRECTION"
+}
