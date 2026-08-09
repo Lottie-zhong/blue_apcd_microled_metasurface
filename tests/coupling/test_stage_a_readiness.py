@@ -42,13 +42,17 @@ def test_first_shot_is_fixed_baseline_450nm_xpol_normal_t_extra_zero():
     contract = load("contracts/coupling/stage_a_direct_fullwave_contract_v1.json")
     shot = contract["first_shot"]
     assert contract["joint_scope"] == "EXPLORATORY_ONLY"
-    assert contract["solver_authorized"] is True
+    assert contract["solver_authorized"] is False
     assert contract["authorized_broadband_case_ids"] == [
         "STAGE_A_NB_T0_445_455NM_X_UX0",
         "STAGE_A_NB_T79_445_455NM_X_UX0",
         "STAGE_A_NB_T237_445_455NM_X_UX0",
     ]
     assert contract["next_solver_requires_new_authorization"] is True
+    assert contract["status"] == "BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY"
+    assert contract["next_authorization_action"] == "REQUEST_REMAINING_NB_T237_T0_EXECUTION_AUTHORIZATION"
+    assert contract["broadband_reconciliation_mode"] == "CROSS_ACQUISITION_CONTRACT_DIAGNOSTIC"
+    assert contract["formal_numerical_tolerance"] is None
     assert contract["offline_screening_authorized"] is False
     assert shot == {
         "wavelength_nm": 450, "polarization": "x", "incidence": "normal",

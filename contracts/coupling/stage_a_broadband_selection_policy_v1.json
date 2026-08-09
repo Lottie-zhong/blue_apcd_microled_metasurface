@@ -47,7 +47,8 @@
     "NO_ROBUST_BROADBAND_WINNER"
   ],
   "reconciliation_gate": {
-    "reference_rows": "existing monochromatic direct joint results at exact 450 nm; do not populate broadband values from them",
+    "mode": "CROSS_ACQUISITION_CONTRACT_DIAGNOSTIC",
+    "reference_rows": "existing monochromatic direct joint results at exact 450 nm; never populate broadband spectrum or broadband score",
     "metrics": [
       "R_total",
       "T_total",
@@ -57,13 +58,42 @@
       "eta_minus1",
       "directionality"
     ],
-    "tolerance_status": "NO_SEPARATE_FORMAL_BROADBAND_VS_MONO_TOLERANCE_FOUND_IN_CURRENT_REPO",
-    "decision_rule": "Report exact 450 nm broadband-minus-monochromatic discrepancies and compare against same geometry/material/source/mesh/readback and order-closure evidence. Do not invent a numeric tolerance; if numerical equivalence cannot be safely decided, use HARD_GATE_NUMERICAL_RECONCILIATION_TOLERANCE_UNDEFINED.",
+    "formal_numerical_tolerance": null,
+    "tolerance_status": "NO_AUTHORITATIVE_TOLERANCE_FOUND",
+    "verdict_without_tolerance": "MEASURED_NO_FORMAL_TOLERANCE",
+    "post_hoc_tolerance_creation": false,
+    "physical_contract_requirements": [
+      "same candidate and geometry identity",
+      "same material identity and native-material contract",
+      "same mesh and boundary-condition contract",
+      "same normal x-polarization and kx=0 spatial source contract",
+      "same normalization definition power_fraction_of_source",
+      "same reference medium",
+      "same diffraction-order sign convention",
+      "PASS order/power closure and deterministic exact-grid extraction"
+    ],
+    "allowed_acquisition_contract_difference": [
+      "broadband source spectral range and exact 445-455 nm grid versus monochromatic exact 450 nm",
+      "broadband monitor frequency-point count versus monochromatic one-point monitor",
+      "time-domain broadband acquisition versus monochromatic acquisition"
+    ],
+    "ranking_basis": "WITHIN_BROADBAND_CONTRACT_ONLY",
+    "monochromatic_reference_role": "DIAGNOSTIC_ONLY",
+    "ranking_blocked_by_missing_tolerance": false,
+    "hard_gate_conditions": [
+      "HARD_GATE_BROADBAND_IMPLEMENTATION_CONTRACT_REQUIRED",
+      "HARD_GATE_BROADBAND_MONO_PHYSICAL_CONTRACT_MISMATCH"
+    ],
     "interpolation_forbidden": true,
     "extrapolation_forbidden": true
   },
   "frozen_reference_artifacts": {
     "np_exact_grid": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_p1d4b_k6x_phase_candidate_run3a_audit_v1\\run3a_key_metrics_11points.csv",
     "np_exact_grid_sha256": "1246f9dadfd151dab66142c3bf3f0bafa34d567f169952dfe40a740cb342bd66"
-  }
+  },
+  "reconciliation_mode": "CROSS_ACQUISITION_CONTRACT_DIAGNOSTIC",
+  "formal_numerical_tolerance": null,
+  "post_hoc_tolerance_creation": false,
+  "monochromatic_reference_role": "DIAGNOSTIC_ONLY",
+  "broadband_ranking_basis": "WITHIN_BROADBAND_CONTRACT_ONLY"
 }

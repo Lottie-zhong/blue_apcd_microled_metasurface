@@ -1,5 +1,41 @@
 {
+  "acquisition_contract": {
+    "broadband": {
+      "exact_grid_nm": [
+        445.0,
+        446.0,
+        447.0,
+        448.0,
+        449.0,
+        450.0,
+        451.0,
+        452.0,
+        453.0,
+        454.0,
+        455.0
+      ],
+      "frequency_points": 11,
+      "wavelength_start_nm": 445.0,
+      "wavelength_stop_nm": 455.0
+    },
+    "differences": [
+      "source spectral range differs",
+      "monitor frequency-point count differs",
+      "broadband time-domain acquisition is compared with a monochromatic acquisition"
+    ],
+    "monochromatic": {
+      "exact_grid_nm": [
+        450.0
+      ],
+      "frequency_points": 1,
+      "wavelength_start_nm": 450.0,
+      "wavelength_stop_nm": 450.0
+    },
+    "same": false
+  },
   "broadband_case_id": "STAGE_A_NB_T79_445_455NM_X_UX0",
+  "broadband_ranking_basis": "WITHIN_BROADBAND_CONTRACT_ONLY",
+  "broadband_ranking_blocked_by_missing_tolerance": false,
   "closure": {
     "broadband_order_closure": {
       "pass": true,
@@ -35,93 +71,297 @@
       "residual_1_minus_R_minus_T": 0.5127762376824058
     }
   },
-  "decision": "HARD_GATE",
-  "extrapolation_used": false,
-  "hard_gate": "HARD_GATE_NUMERICAL_RECONCILIATION_TOLERANCE_UNDEFINED",
-  "identity": {
-    "coordinate_contract_id": {
-      "broadband": "coordinate_convention_v1",
-      "match": true,
-      "monochromatic": "coordinate_convention_v1"
-    },
-    "joint_geometry_hash": {
-      "broadband": "271305eacead79acc645c1f45cd07af821896f95626db9f6af84f2f5a406d933",
-      "match": true,
-      "monochromatic": "271305eacead79acc645c1f45cd07af821896f95626db9f6af84f2f5a406d933"
-    },
-    "material_contract_id": {
-      "broadband": "MDC_NATIVE_M1",
-      "match": true,
-      "monochromatic": "MDC_NATIVE_M1"
-    },
-    "mdc_geometry_hash": {
-      "broadband": "2743ba872a6865519e555f99131220415afb076d653db11f1fe2ef658286c7d8",
-      "match": true,
-      "monochromatic": "2743ba872a6865519e555f99131220415afb076d653db11f1fe2ef658286c7d8"
-    },
-    "mesh_contract_id": {
-      "broadband": "RUN3A_NATIVE_M1_FDTD_SETTINGS_INHERITED_V1",
-      "match": true,
-      "monochromatic": "RUN3A_NATIVE_M1_FDTD_SETTINGS_INHERITED_V1"
-    },
-    "np_geometry_hash": {
-      "broadband": "57c4f101401efed0be1e8137a99b59f0eeacfc0a3f19dcc2fb89dec92f246cfe",
-      "match": true,
-      "monochromatic": "57c4f101401efed0be1e8137a99b59f0eeacfc0a3f19dcc2fb89dec92f246cfe"
-    },
-    "same_geometry_material_source_mesh_readback": true,
-    "source_contract_id": {
-      "broadband": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
-      "match": true,
-      "monochromatic": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE"
-    },
-    "spacer_nm": {
-      "broadband": 79.0,
-      "match": true,
-      "monochromatic": 79
-    }
+  "decision": "MEASURED_NO_FORMAL_TOLERANCE",
+  "exact_grid": {
+    "broadband_450_row_is_exact": true,
+    "extrapolation_used": false,
+    "interpolation_used": false
   },
-  "interpolation_used": false,
+  "formal_numerical_tolerance": null,
+  "hard_gate": null,
   "metrics": {
     "R_total": {
+      "absolute_delta_broadband_minus_monochromatic": 0.0003019648404323713,
       "broadband": 0.05507447362948872,
-      "delta_broadband_minus_monochromatic": 0.0003019648404323713,
-      "monochromatic": 0.054772508789056346
+      "monochromatic": 0.054772508789056346,
+      "relative_delta_over_abs_monochromatic": 0.005513073019812167
     },
     "T_total": {
+      "absolute_delta_broadband_minus_monochromatic": -0.0014200467673829431,
       "broadband": 0.4310312067611549,
-      "delta_broadband_minus_monochromatic": -0.0014200467673829431,
-      "monochromatic": 0.43245125352853786
+      "monochromatic": 0.43245125352853786,
+      "relative_delta_over_abs_monochromatic": -0.003283715229858232
     },
     "directionality": {
+      "absolute_delta_broadband_minus_monochromatic": 0.0002001992862854518,
       "broadband": 0.999100872790331,
-      "delta_broadband_minus_monochromatic": 0.0002001992862854518,
-      "monochromatic": 0.9989006735040455
+      "monochromatic": 0.9989006735040455,
+      "relative_delta_over_abs_monochromatic": 0.00020041961287619553
     },
     "eta_minus1": {
+      "absolute_delta_broadband_minus_monochromatic": -7.748941128864851e-05,
       "broadband": 0.00033519477875347255,
-      "delta_broadband_minus_monochromatic": -7.748941128864851e-05,
-      "monochromatic": 0.00041268419004212106
+      "monochromatic": 0.00041268419004212106,
+      "relative_delta_over_abs_monochromatic": -0.18776927529193563
     },
     "eta_plus1": {
+      "absolute_delta_broadband_minus_monochromatic": -0.002519630609211343,
       "broadband": 0.3724649775982622,
-      "delta_broadband_minus_monochromatic": -0.002519630609211343,
-      "monochromatic": 0.37498460820747354
+      "monochromatic": 0.37498460820747354,
+      "relative_delta_over_abs_monochromatic": -0.006719290749707967
     },
     "eta_zero": {
+      "absolute_delta_broadband_minus_monochromatic": 0.00023282471957920565,
       "broadband": 0.0022880454562150725,
-      "delta_broadband_minus_monochromatic": 0.00023282471957920565,
-      "monochromatic": 0.002055220736635867
+      "monochromatic": 0.002055220736635867,
+      "relative_delta_over_abs_monochromatic": 0.11328453213269436
     },
     "residual": {
+      "absolute_delta_broadband_minus_monochromatic": 0.0011180819269506204,
       "broadband": 0.5138943196093564,
-      "delta_broadband_minus_monochromatic": 0.0011180819269506204,
-      "monochromatic": 0.5127762376824058
+      "monochromatic": 0.5127762376824058,
+      "relative_delta_over_abs_monochromatic": 0.0021804480098454133
     }
   },
+  "mode": "CROSS_ACQUISITION_CONTRACT_DIAGNOSTIC",
   "monochromatic_case_id": "STAGE_A_S79_450NM_X_UX0",
-  "reason": "Exact discrepancies and order-closure evidence are recorded, but the repository does not define a formal broadband-versus-monochromatic numerical tolerance; numerical equivalence cannot be safely decided without inventing one.",
-  "schema_version": "stage_a_broadband_mono_reconciliation_v1",
-  "tolerance_status": "NO_SEPARATE_FORMAL_BROADBAND_VS_MONO_TOLERANCE_FOUND_IN_CURRENT_REPO",
+  "monochromatic_reference_role": "DIAGNOSTIC_ONLY",
+  "physical_contract": {
+    "groups": {
+      "candidate_and_geometry": {
+        "coordinate_contract_id": {
+          "broadband": "coordinate_convention_v1",
+          "match": true,
+          "monochromatic": "coordinate_convention_v1"
+        },
+        "joint_geometry_hash": {
+          "broadband": "271305eacead79acc645c1f45cd07af821896f95626db9f6af84f2f5a406d933",
+          "match": true,
+          "monochromatic": "271305eacead79acc645c1f45cd07af821896f95626db9f6af84f2f5a406d933"
+        },
+        "material_contract_id": {
+          "broadband": "MDC_NATIVE_M1",
+          "match": true,
+          "monochromatic": "MDC_NATIVE_M1"
+        },
+        "mdc_candidate_id": {
+          "broadband": "P1_ZL1_ALTERNATIVE_G3_A3",
+          "match": true,
+          "monochromatic": "P1_ZL1_ALTERNATIVE_G3_A3"
+        },
+        "mdc_geometry_hash": {
+          "broadband": "2743ba872a6865519e555f99131220415afb076d653db11f1fe2ef658286c7d8",
+          "match": true,
+          "monochromatic": "2743ba872a6865519e555f99131220415afb076d653db11f1fe2ef658286c7d8"
+        },
+        "mesh_contract_id": {
+          "broadband": "RUN3A_NATIVE_M1_FDTD_SETTINGS_INHERITED_V1",
+          "match": true,
+          "monochromatic": "RUN3A_NATIVE_M1_FDTD_SETTINGS_INHERITED_V1"
+        },
+        "np_candidate_id": {
+          "broadband": "NP_K6X_125_135_150_175_190_210",
+          "match": true,
+          "monochromatic": "NP_K6X_125_135_150_175_190_210"
+        },
+        "np_geometry_hash": {
+          "broadband": "57c4f101401efed0be1e8137a99b59f0eeacfc0a3f19dcc2fb89dec92f246cfe",
+          "match": true,
+          "monochromatic": "57c4f101401efed0be1e8137a99b59f0eeacfc0a3f19dcc2fb89dec92f246cfe"
+        },
+        "source_contract_id": {
+          "broadband": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
+          "match": true,
+          "monochromatic": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE"
+        },
+        "spacer_nm": {
+          "broadband": 79.0,
+          "match": true,
+          "monochromatic": 79
+        },
+        "total_sio2_separation_nm": {
+          "broadband": 158.0,
+          "match": true,
+          "monochromatic": 158
+        }
+      },
+      "monitor_physical_contract": {
+        "order_monitor": {
+          "monitor type": {
+            "broadband": "2D Z-normal",
+            "match": true,
+            "monochromatic": "2D Z-normal"
+          },
+          "x span": {
+            "broadband": 1.74e-06,
+            "match": true,
+            "monochromatic": 1.74e-06
+          },
+          "y span": {
+            "broadband": 2.9e-07,
+            "match": true,
+            "monochromatic": 2.9e-07
+          }
+        },
+        "reference_medium": {
+          "broadband": "Air",
+          "match": true,
+          "monochromatic": "Air"
+        },
+        "reflection_monitor": {
+          "monitor type": {
+            "broadband": "2D Z-normal",
+            "match": true,
+            "monochromatic": "2D Z-normal"
+          },
+          "x span": {
+            "broadband": 1.74e-06,
+            "match": true,
+            "monochromatic": 1.74e-06
+          },
+          "y span": {
+            "broadband": 2.9e-07,
+            "match": true,
+            "monochromatic": 2.9e-07
+          }
+        },
+        "transmission_monitor": {
+          "monitor type": {
+            "broadband": "2D Z-normal",
+            "match": true,
+            "monochromatic": "2D Z-normal"
+          },
+          "x span": {
+            "broadband": 1.74e-06,
+            "match": true,
+            "monochromatic": 1.74e-06
+          },
+          "y span": {
+            "broadband": 2.9e-07,
+            "match": true,
+            "monochromatic": 2.9e-07
+          }
+        }
+      },
+      "normalization": {
+        "definition": "power_fraction_of_source",
+        "evidence": [
+          "scripts/coupling/extract_broadband_case.py",
+          "scripts/coupling/extract_control_group_case.py"
+        ],
+        "same": true
+      },
+      "order_sign": {
+        "both_pass": true,
+        "m_plus_1": {
+          "broadband": 1,
+          "match": true,
+          "monochromatic": 1
+        },
+        "m_plus_1_physical_kx_sign": {
+          "broadband": "+x",
+          "match": true,
+          "monochromatic": "+x"
+        }
+      },
+      "solver_mesh_boundary": {
+        "auto shutoff min": {
+          "broadband": 1e-05,
+          "match": true,
+          "monochromatic": 1e-05
+        },
+        "mesh accuracy": {
+          "broadband": 2.0,
+          "match": true,
+          "monochromatic": 2.0
+        },
+        "pml layers": {
+          "broadband": 8.0,
+          "match": true,
+          "monochromatic": 8.0
+        },
+        "simulation time": {
+          "broadband": 1e-12,
+          "match": true,
+          "monochromatic": 1e-12
+        },
+        "x max bc": {
+          "broadband": "Periodic",
+          "match": true,
+          "monochromatic": "Periodic"
+        },
+        "x min bc": {
+          "broadband": "Periodic",
+          "match": true,
+          "monochromatic": "Periodic"
+        },
+        "y max bc": {
+          "broadband": "Periodic",
+          "match": true,
+          "monochromatic": "Periodic"
+        },
+        "y min bc": {
+          "broadband": "Periodic",
+          "match": true,
+          "monochromatic": "Periodic"
+        },
+        "z max bc": {
+          "broadband": "PML",
+          "match": true,
+          "monochromatic": "PML"
+        },
+        "z min bc": {
+          "broadband": "PML",
+          "match": true,
+          "monochromatic": "PML"
+        }
+      },
+      "source_spatial_polarization": {
+        "angle phi": {
+          "broadband": 0.0,
+          "match": true,
+          "monochromatic": 0.0
+        },
+        "angle theta": {
+          "broadband": 0.0,
+          "match": true,
+          "monochromatic": 0.0
+        },
+        "direction": {
+          "broadband": "Forward",
+          "match": true,
+          "monochromatic": "Forward"
+        },
+        "kx_over_k0": {
+          "broadband": 0.0,
+          "match": true,
+          "monochromatic": 0.0
+        },
+        "polarization": {
+          "broadband": "x",
+          "match": true,
+          "monochromatic": "x"
+        },
+        "polarization angle": {
+          "broadband": 0.0,
+          "match": true,
+          "monochromatic": 0.0
+        }
+      }
+    },
+    "same": true
+  },
+  "post_hoc_tolerance_creation": false,
+  "provenance": {
+    "broadband_result_solver_entered": true,
+    "broadband_setup_manifest": "outputs\\coupling\\stage_a_nb_t79_445_455_xpol_normal_v1\\setup_manifest.json",
+    "broadband_setup_manifest_sha256": "a55d0f53a3292aa2a26e4acdf825aad4721c2535d9f8cc1aef260c0385b5db5a",
+    "monochromatic_result_solver_entered": true,
+    "monochromatic_setup_manifest": "outputs\\coupling\\stage_a_s79_450nm_xpol_normal_v1\\setup_manifest.json",
+    "monochromatic_setup_manifest_sha256": "498fb2df386bfdddbec97edbbb453355a699514f221725e2c767cd8ccbb872bb"
+  },
+  "reason": "The 450 nm values are measured across different spectral acquisition contracts. No authoritative numerical equivalence tolerance exists, so the discrepancy is diagnostic only; physical-contract mismatch remains a hard gate.",
+  "schema_version": "stage_a_broadband_mono_reconciliation_v2",
+  "tolerance_status": "NO_AUTHORITATIVE_TOLERANCE_FOUND",
   "wavelength_nm": 450.0
 }

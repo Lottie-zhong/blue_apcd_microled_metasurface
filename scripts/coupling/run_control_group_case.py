@@ -20,6 +20,7 @@ def main():
  if not setup['setup_gate']['pass']: raise RuntimeError('setup gate not PASS')
  if sha(pre)!=entry_sha: raise RuntimeError('pre-FSP hash mismatch before solver entry')
  budget_path=ROOT/'registries/coupling/solver_budget_registry.json'; budget=read(budget_path); authorized=budget.get('authorized_control_cases',[])+budget.get('authorized_spacer_cases',[])+budget.get('authorized_broadband_cases',[])
+ if group in ('NB_T0','NB_T79','NB_T237') and budget.get('status')=='BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY': raise RuntimeError('broadband solver execution requires new authorization after diagnostic policy freeze')
  if case_id not in authorized: raise RuntimeError(f'case not authorized: {case_id}')
  if budget.get('entered_runs',0)>=budget.get('budgets',{}).get('FDTD',0): raise RuntimeError('FDTD budget exhausted')
  completed=set(budget.get('completed_case_ids',[]));

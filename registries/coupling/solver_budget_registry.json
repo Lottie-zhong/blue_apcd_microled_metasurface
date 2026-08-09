@@ -1,6 +1,6 @@
 {
   "schema_version": "solver_budget_registry_v1",
-  "status": "HARD_GATE_NUMERICAL_RECONCILIATION_TOLERANCE_UNDEFINED",
+  "status": "BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY",
   "budgets": {
     "FDTD": 3,
     "TMM": 0,
@@ -77,6 +77,11 @@
     "S237": 1,
     "B3": 1
   },
-  "broadband_reconciliation_hard_gate": "HARD_GATE_NUMERICAL_RECONCILIATION_TOLERANCE_UNDEFINED",
-  "selection_policy": "contracts/coupling/stage_a_broadband_selection_policy_v1.json"
+  "selection_policy": "contracts/coupling/stage_a_broadband_selection_policy_v1.json",
+  "broadband_reconciliation_mode": "CROSS_ACQUISITION_CONTRACT_DIAGNOSTIC",
+  "broadband_reconciliation_verdict": "MEASURED_NO_FORMAL_TOLERANCE",
+  "formal_numerical_tolerance": null,
+  "broadband_ranking_basis": "WITHIN_BROADBAND_CONTRACT_ONLY",
+  "monochromatic_reference_role": "DIAGNOSTIC_ONLY",
+  "post_hoc_tolerance_creation": false
 }
