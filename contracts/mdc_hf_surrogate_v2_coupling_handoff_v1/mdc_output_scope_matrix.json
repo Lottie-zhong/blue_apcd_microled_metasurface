@@ -1,0 +1,72 @@
+{
+  "contract_id": "MDC_HF_SURROGATE_V2_OUTPUT_SCOPE_MATRIX_V1",
+  "entries": [
+    {
+      "allowed": [
+        "shape screening",
+        "profile-shape similarity",
+        "qualitative spectral/angular ranking",
+        "exploratory NP weighting",
+        "direct-FDTD priority"
+      ],
+      "forbidden": [
+        "true FDTD joint profile",
+        "pointwise quantitative accuracy",
+        "paper quantitative component output"
+      ],
+      "output": "W_pred(lambda,theta)",
+      "scope": "RANKING_SCREENING_ONLY"
+    },
+    {
+      "allowed": [
+        "qualitative ranking",
+        "peak/FWHM/cone exploratory screening"
+      ],
+      "forbidden": [
+        "validated external quantitative prediction",
+        "final claim without direct 2D FDTD"
+      ],
+      "output": "spectral/angular marginals",
+      "scope": "RANKING_SCREENING_ONLY"
+    },
+    {
+      "allowed": [
+        "diagnostic metadata",
+        "exploratory ranking only"
+      ],
+      "forbidden": [
+        "absolute or relative P(+1)",
+        "extraction efficiency",
+        "hard filter",
+        "validated power ranking",
+        "joint optimization target"
+      ],
+      "output": "relative upward power",
+      "reason": "raw FDTD p_up scale differs from M1 source-normalized power; frozen rank correlations are weak",
+      "scope": "NOT_QUANTITATIVELY_USABLE"
+    },
+    {
+      "allowed": [
+        "auxiliary shortlist metadata"
+      ],
+      "forbidden": [
+        "override full-profile failure",
+        "standalone physical claim"
+      ],
+      "output": "peak/FWHM/cone",
+      "scope": "AUXILIARY_SCREENING_ONLY"
+    }
+  ],
+  "forbidden_labels": [
+    "QUANTITATIVE_HF_SURROGATE",
+    "FDTD_REPLACEMENT",
+    "ABSOLUTE_POWER_PREDICTOR",
+    "EXTRACTION_EFFICIENCY_PREDICTOR",
+    "PURCELL_PREDICTOR",
+    "FULL_3D_DEVICE_SURROGATE"
+  ],
+  "power_scope": "NOT_QUANTITATIVELY_USABLE",
+  "power_warning": "POWER_RANKING_WEAK_NOT_RECOMMENDED_FOR_PRIMARY_SELECTION",
+  "profile_scope": "RANKING_SCREENING_ONLY",
+  "schema_version": "1.0"
+}

@@ -1,0 +1,59 @@
+{
+  "contract_id": "MDC_HF_SURROGATE_V2_TEST40_SCOPE_LOCK_V1",
+  "frozen_result": {
+    "case_power_rank_spearman": 0.112941,
+    "case_profile_js_mean": 0.267155,
+    "geometry_power_rank_spearman": 0.12833,
+    "geometry_profile_js_mean": 0.231131,
+    "log_power_bias": 21.5355,
+    "log_power_mae": 21.5355,
+    "log_power_rmse": 21.819
+  },
+  "model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_FINAL_5SEED_V1",
+  "model_status": "TRAINED_AND_EXTERNALLY_EVALUATED",
+  "prohibitions": [
+    "do_not_call_preregistered_test",
+    "no_test40_retraining_or_recalibration",
+    "no_hf15_or_sealed_reads",
+    "no_new_test40_numerical_reads",
+    "no_new_surrogate_development",
+    "no_quantitative_hf_surrogate_claim"
+  ],
+  "provenance": {
+    "prediction_before_label_audit": "PASS",
+    "prediction_manifest_sha256": "6a20f0689f44269d3cc73e3ef3810e76b8edc6c13c34161db81c626e69cf3172",
+    "prediction_profile_sha256": "b3cddef0ad46dfe97766fce08f44537fc2809bbd5badcb3251c0734635237283",
+    "prediction_table_sha256": "757db53f4b9f61161bf99b5729d172460d5f5f37749a43137e21cfc62d291d0b"
+  },
+  "schema_version": "1.0",
+  "scope_enum": "RANKING_SCREENING_ONLY",
+  "selection": {
+    "algorithm": "STRATIFIED_DETERMINISTIC_HASH_RANDOM_V1",
+    "candidate_universe_source": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\datasets\\mdc_ml_database_v1\\geometry_master.csv",
+    "candidate_universe_source_commit": "50cb7945c376bd14e025211d3c070e83a89447f9",
+    "contract_id": "MDC_HF_SURROGATE_V2_TEST40_POST_MODEL_LOCK_SELECTION_V1",
+    "exclusion_registry_sha256": "ea9fb41f811ea30e2d7aaba455a0411e0b270881fb720df780edf168ab80e1a2",
+    "model_lock_commit": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
+    "no_gower": true,
+    "no_retry_or_alternate": true,
+    "not_active_learning": true,
+    "not_iid_claim": true,
+    "not_preregistered_pretraining_test": true,
+    "outcome_blind": true,
+    "quotas": {
+      "Explicit_boundary": 4,
+      "Explicit_interior": 10,
+      "ZL1_boundary": 4,
+      "ZL1_interior": 9,
+      "ZL2_boundary": 4,
+      "ZL2_interior": 9
+    },
+    "raw_geometry_master_count": 8675,
+    "selection_key_expression": "SHA256(UTF8(\"APCD_MDC_TEST40_V1|20260808|\" + lowercase(canonical_geometry_hash)))",
+    "selection_seed": 20260808,
+    "selection_timing": "POST_MODEL_LOCK_PRE_LABEL_PRE_PREDICTION",
+    "sort_order": "ascending (selection_key, geometry_hash) within topology x boundary/interior stratum",
+    "support_contract_sha256": "393190b4c7c537c50757f64adb9fd6015b05bd9642355858461dc015a87ffefd"
+  },
+  "status": "MDC_HF_SURROGATE_V2_CLOSED_TEST40_RANKING_SCREENING_ONLY_READY_FOR_MDC_NP_HANDOFF"
+}

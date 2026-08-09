@@ -1,0 +1,37 @@
+{
+  "contract_id": "APCD_MDC_DIRECT_FDTD_CONFIRMATION_FOR_COUPLING_V1",
+  "prohibitions": [
+    "no substitution of eta_up_r12_relative for noncomparable transmission proxy",
+    "no threshold changes",
+    "no omitted component conditions"
+  ],
+  "purpose": "confirm shortlisted MDC geometries before formal Level-1 one-way coupling",
+  "quality_gate": {
+    "aggregation": "sum(W_MDC_FDTD * eta_NP_plus1)",
+    "angle_grid_sha": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+    "native_material": "Native-M1",
+    "only_pass_enters_formal_level1_ranking": true,
+    "profile_shape": [
+      301,
+      2000
+    ],
+    "quality_status_required": "PASS",
+    "raw_profile_before_normalization": true,
+    "wavelength_grid_sha": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9"
+  },
+  "required_fields": [
+    "mdc_geometry_hash",
+    "direct_fdtd_profile_sha",
+    "direct_fdtd_relative_power",
+    "wavelength_grid_sha",
+    "angle_grid_sha",
+    "aggregation_sha",
+    "quality_status"
+  ],
+  "schema_version": "1.0",
+  "solver_policy": {
+    "authorized_in_this_task": false,
+    "calls_in_this_task": 0,
+    "new_authorization_required": true
+  }
+}

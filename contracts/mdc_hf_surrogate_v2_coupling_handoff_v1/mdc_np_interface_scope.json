@@ -1,0 +1,35 @@
+{
+  "contract_id": "MDC_HF_SURROGATE_V2_NP_INTERFACE_SCOPE_V1",
+  "coupling_mode": "SURROGATE_SHAPE_SCREENING_ONLY",
+  "final_claim": {
+    "description": "integrated MDC+spacer+K6 full-wave validation required for final device claim",
+    "level": "LEVEL2_INTEGRATED_FULL_WAVE",
+    "required": true
+  },
+  "forbidden": [
+    "multiply M1 predicted power in Stage A",
+    "treat surrogate power as validated_relative_power",
+    "jump from LEVEL0 to FINAL_DEVICE_CLAIM",
+    "bidirectional NP reflection feedback claim"
+  ],
+  "power_scope": "NOT_QUANTITATIVELY_USABLE",
+  "profile_scope": "RANKING_SCREENING_ONLY",
+  "schema_version": "1.0",
+  "stage_a": {
+    "operation": "dimensionless shape_overlap_score",
+    "predicted_power_used": false,
+    "purpose": "shrink candidate space and prioritize direct FDTD",
+    "scope_carried_forward": "RANKING_SCREENING_ONLY",
+    "use": "W_pred(lambda, ux) only"
+  },
+  "stage_b": {
+    "formula": "P_plus1_relative = P_MDC_up_FDTD * sum(W_MDC_FDTD * eta_NP_plus1)",
+    "level": "LEVEL1_ONE_WAY_INCOHERENT_POWER",
+    "requirements": [
+      "direct FDTD confirmation contract PASS",
+      "Native-M1 assets",
+      "same wavelength/angle grids"
+    ],
+    "use": "direct FDTD W_MDC_FDTD and P_MDC_up_FDTD"
+  }
+}

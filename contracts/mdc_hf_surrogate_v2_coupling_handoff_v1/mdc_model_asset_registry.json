@@ -1,0 +1,60 @@
+{
+  "assets": {
+    "architecture_sha256": "25f69492c4ffe6616695183517416ec2d979d6d18dcb6ebc1309b7affe0f7df7",
+    "checkpoint_registry": "outputs/mdc_hf_surrogate_v2_m1_final_5seed_ensemble_v1/20260804T_final_m1_5seed_067c76b/final_m1_checkpoint_registry.json",
+    "checkpoint_sha256": [
+      "06402b5236669acbfb4300ac6b95cd9c9001c7f69387d4d8c9194e32e585407f",
+      "03e7beabb93a12100d3e79bc9cb8d1f71f91c8eade294aa689b155c43e88e908",
+      "0c63ecae98d3a3e307a4d3dbc39ca7cdcbc854d3bcb446aec76c3486b9b7b24e",
+      "6d187aa4f4a1de2174647551bc66ab40cd31fee144ab25f374dfcf1fe2677d5a",
+      "3069784d57945f374dd0b06ad2b3fc7694722d18d57b5245859bfbaae01c19bc"
+    ],
+    "decoder_sha256": "f0aee87e4d73d2c883bce8507ee108fd587283a3066c59033882aa03ac485712",
+    "ensemble_contract_sha256": "db3ffa65d7901fd04f7da2840f615c094124e1fd82b50bc627a9a0d08daddde7",
+    "input_scaler_sha256": "b5a009d1a0e1ae7ca1af105eba287152e21a00f98f97b02c3a5fd518af251cd9",
+    "membership_sha256": "b78fb181ba03df592657385c4c0afc271cad0be000b4e65e883c31d5fbca47a9",
+    "pca32_sha256": "9e484a64da745cee156888c2575f4147c31b5640089225de10780544822f929e",
+    "preprocessing_manifest_sha256": "420a894dc0eb64fceae861274f63da8f4a862284b2aae6034090a19d50201068",
+    "target_scaler_sha256": "f95ab53fae46ed2ece3cc195b887725ee00aa28a4cafb09e972980d2608f635c"
+  },
+  "contract_id": "MDC_HF_SURROGATE_V2_MODEL_ASSET_REGISTRY_V1",
+  "frozen_manifest_sha256": "8153fcb0846d5bb644c1eef0aa04db46f447e05d00addd704fa050d1a334351a",
+  "inference_contract_sha256": "db3ffa65d7901fd04f7da2840f615c094124e1fd82b50bc627a9a0d08daddde7",
+  "model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_FINAL_5SEED_V1",
+  "model_lock_commit": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
+  "output_schema": {
+    "auxiliary_fields": [
+      "peak_wavelength_nm",
+      "spectral_fwhm_nm",
+      "peak_angle_deg",
+      "angular_fwhm_deg",
+      "cone5",
+      "cone10",
+      "cone20"
+    ],
+    "geometry_fields": [
+      "geometry_hash",
+      "q_ensemble",
+      "spectral_marginal",
+      "angular_marginal"
+    ],
+    "joint_profile_shape": [
+      301,
+      2000
+    ],
+    "path": "outputs/mdc_hf_surrogate_v2_m1_final_5seed_ensemble_v1/20260804T_final_m1_5seed_067c76b/final_ensemble_output_schema.json",
+    "power_fields": [
+      "log_power_ensemble",
+      "power_ensemble"
+    ],
+    "sha256": "a9e52aa6bae1286d6b5c151d4ce751f9db7f03530c72a4ee01c87d7d4afaf368",
+    "uncertainty_fields": [
+      "seed_profile_std",
+      "seed_log_power_std",
+      "seed_auxiliary_std"
+    ]
+  },
+  "power_definition": "source-normalized relative upward power",
+  "schema_version": "1.0",
+  "source_commit": "382a73f4e561da8bb7fe36eabccbc1be587f4095"
+}
