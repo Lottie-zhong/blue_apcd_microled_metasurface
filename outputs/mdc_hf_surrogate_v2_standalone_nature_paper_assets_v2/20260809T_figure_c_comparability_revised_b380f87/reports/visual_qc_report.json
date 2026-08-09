@@ -1,0 +1,172 @@
+{
+  "audit_decision": "COMPARABLE_AFTER_DISPLAY_FIX",
+  "backend": "Python/matplotlib",
+  "figure_format_check": {
+    "figure_a_revised": {
+      "pdf": true,
+      "png": true,
+      "svg": true
+    },
+    "figure_b_revised": {
+      "pdf": true,
+      "png": true,
+      "svg": true
+    },
+    "figure_c_revised": {
+      "pdf": true,
+      "png": true,
+      "svg": true
+    },
+    "figure_d_revised": {
+      "pdf": true,
+      "png": true,
+      "svg": true
+    }
+  },
+  "frozen_metrics_unchanged": true,
+  "panel_audit": {
+    "A": [
+      {
+        "claim": "raw DOE96 joint profile",
+        "panel": "raw joint heatmap",
+        "pass": true
+      },
+      {
+        "claim": "unit-peak display of same source grid",
+        "panel": "unit-peak heatmap",
+        "pass": true
+      },
+      {
+        "claim": "wavelength-native marginal",
+        "panel": "spectral marginal",
+        "pass": true
+      },
+      {
+        "claim": "angle-native marginal",
+        "panel": "angular marginal",
+        "pass": true
+      }
+    ],
+    "B": [
+      {
+        "claim": "cross-fit JS comparison",
+        "panel": "held-out profile fidelity",
+        "pass": true
+      },
+      {
+        "claim": "cross-fit weighted-L1 comparison and PCA32 selection",
+        "panel": "selection metric",
+        "pass": true
+      }
+    ],
+    "C": [
+      {
+        "claim": "best frozen Test40 truth unit-peak profile",
+        "panel": "best truth",
+        "pass": true
+      },
+      {
+        "claim": "median frozen Test40 truth unit-peak profile",
+        "panel": "median truth",
+        "pass": true
+      },
+      {
+        "claim": "worst frozen Test40 truth unit-peak profile",
+        "panel": "worst truth",
+        "pass": true
+      },
+      {
+        "claim": "best frozen M1 prediction unit-peak profile",
+        "panel": "best prediction",
+        "pass": true
+      },
+      {
+        "claim": "median frozen M1 prediction unit-peak profile",
+        "panel": "median prediction",
+        "pass": true
+      },
+      {
+        "claim": "worst frozen M1 prediction unit-peak profile",
+        "panel": "worst prediction",
+        "pass": true
+      },
+      {
+        "claim": "best absolute error in shared unit-peak display space",
+        "panel": "best error",
+        "pass": true
+      },
+      {
+        "claim": "median absolute error in shared unit-peak display space",
+        "panel": "median error",
+        "pass": true
+      },
+      {
+        "claim": "worst absolute error in shared unit-peak display space",
+        "panel": "worst error",
+        "pass": true
+      }
+    ],
+    "D": [
+      {
+        "claim": "native FDTD and source-normalized proxy shown on non-common scale",
+        "panel": "power scale comparison",
+        "pass": true
+      },
+      {
+        "claim": "frozen geometry rank comparison with exact Spearman annotation",
+        "panel": "geometry ranking",
+        "pass": true
+      },
+      {
+        "claim": "frozen case joint-JS distribution with exact mean annotation",
+        "panel": "Test40 error distribution",
+        "pass": true
+      }
+    ]
+  },
+  "pdf_text_audit": {
+    "figure_a_revised": {
+      "minimum_pt": 5,
+      "status": "PASS"
+    },
+    "figure_b_revised": {
+      "minimum_pt": 5,
+      "status": "PASS"
+    },
+    "figure_c_revised": {
+      "minimum_pt": 5,
+      "status": "PASS"
+    },
+    "figure_d_revised": {
+      "minimum_pt": 5,
+      "status": "PASS"
+    }
+  },
+  "safety_counts": {
+    "backward": 0,
+    "fdtd": 0,
+    "new_training": 0,
+    "np_solver": 0,
+    "optimizer": 0,
+    "pca_refit": 0,
+    "rcwa": 0,
+    "test40_metric_recomputation": 0,
+    "tmm": 0
+  },
+  "scope_unchanged": true,
+  "selection_unchanged": true,
+  "source_commit": "b380f871e7315930f4dab64a7e0aabe1c1e24dec",
+  "source_data_traceability": true,
+  "static_source_preflight": {
+    "accepted_warnings": [
+      "PNG preview is supplied as requested; no TIFF requested.",
+      "log10 display uses explicit 1e-12 floor; no scientific values are altered."
+    ],
+    "fail": 0,
+    "pass": 18,
+    "status": "READY_FOR_VISUAL_QA",
+    "warn": 2
+  },
+  "status": "PASS",
+  "whole_figure_visual_inspection": true
+}
