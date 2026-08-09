@@ -37,6 +37,16 @@ def test_direct_fdtd_gate_and_level_route():
     assert n["stage_b"]["level"] == "LEVEL1_ONE_WAY_INCOHERENT_POWER"
     assert n["final_claim"]["level"] == "LEVEL2_INTEGRATED_FULL_WAVE"
 
+def test_exact_scope_registry_and_six_case_confirmation():
+    r = load("mdc_hf_surrogate_v2_final_scope_registry.json")
+    assert r["final_status"] == "MDC_HF_SURROGATE_V2_CLOSED_TEST40_RANKING_SCREENING_ONLY_READY_FOR_MDC_NP_HANDOFF"
+    assert r["power_scope"] == "NOT_QUANTITATIVELY_USABLE"
+    d = load("mdc_direct_fdtd_confirmation_contract.json")
+    assert d["required_case_count"] == 6
+    assert {(x["case_role"], x["source_axis"]) for x in d["required_case_matrix"]} == {(a,b) for a in ("top", "centroid", "bottom") for b in ("x", "z")}
+    i = load("mdc_coupling_screening_interface_v1.json")
+    assert set(i["required_reference_fields"]) >= {"spectral_marginal", "angular_marginal", "auxiliary_screening_values", "model_ensemble_spread"}
+
 def test_source_asset_registry_and_safety():
     src = load("mdc_source_lock.json")
     assert src["source_commit"] == "382a73f4e561da8bb7fe36eabccbc1be587f4095"

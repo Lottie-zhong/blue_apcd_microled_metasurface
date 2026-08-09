@@ -19,6 +19,40 @@
     "raw_profile_before_normalization": true,
     "wavelength_grid_sha": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9"
   },
+  "required_case_count": 6,
+  "required_case_matrix": [
+    {
+      "case_id": "TOP_X",
+      "case_role": "top",
+      "source_axis": "x"
+    },
+    {
+      "case_id": "TOP_Z",
+      "case_role": "top",
+      "source_axis": "z"
+    },
+    {
+      "case_id": "CENTROID_X",
+      "case_role": "centroid",
+      "source_axis": "x"
+    },
+    {
+      "case_id": "CENTROID_Z",
+      "case_role": "centroid",
+      "source_axis": "z"
+    },
+    {
+      "case_id": "BOTTOM_X",
+      "case_role": "bottom",
+      "source_axis": "x"
+    },
+    {
+      "case_id": "BOTTOM_Z",
+      "case_role": "bottom",
+      "source_axis": "z"
+    }
+  ],
+  "required_case_policy": "all six cases required per shortlisted MDC geometry; no partial geometry promotion",
   "required_fields": [
     "mdc_geometry_hash",
     "direct_fdtd_profile_sha",
