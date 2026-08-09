@@ -1,4 +1,8 @@
 import importlib.util
+import json
+import os
+
+import pytest
 from pathlib import Path
 
 
@@ -75,3 +79,96 @@ def test_exact_hash_and_entered_case_protection(tmp_path):
     result = MOD.run_case(None, anchor, 400.0, "x", "head", MOD.physical_contract("head"), [{"solver_entered": True, "case_identity_sha256": MOD.sha256_obj(identity)}])
     assert result["status"] == "QUARANTINED_ENTERED_NO_RECOVERY"
     assert result["solver_entered"] is True
+
+
+def test_duplicate_runner_guard_rejects_active_identity(tmp_path, monkeypatch):
+    monkeypatch.setattr(MOD, "OUT", tmp_path)
+    guard = MOD.acquire_runner_guard("run-1", "branch-1", "execute", "head")
+    try:
+        with pytest.raises(RuntimeError, match="ACTIVE_H1A_RUNNER_ALREADY_EXISTS"):
+            MOD.acquire_runner_guard("run-1", "branch-1", "execute", "head")
+    finally:
+        MOD.release_runner_guard(guard)
+
+
+def test_stale_guard_known_ownership_recovered(tmp_path, monkeypatch):
+    monkeypatch.setattr(MOD, "OUT", tmp_path)
+    payload = {
+        "stage": "H1A",
+        "run_identity": "run-1",
+        "owner_pid": 999999999,
+        "worktree": str(MOD.ROOT),
+        "branch": "branch-1",
+    }
+    MOD.atomic_json(MOD.runner_guard_path(), payload)
+    guard = MOD.acquire_runner_guard("run-1", "branch-1", "readiness-only")
+    MOD.release_runner_guard(guard)
+    assert not MOD.runner_guard_path().exists()
+
+
+def test_stale_guard_unknown_ownership_blocks(tmp_path, monkeypatch):
+    monkeypatch.setattr(MOD, "OUT", tmp_path)
+    MOD.atomic_json(MOD.runner_guard_path(), {
+        "stage": "H1A",
+        "run_identity": "other-run",
+        "owner_pid": 999999999,
+        "worktree": r"D:\other-worktree",
+        "branch": "other-branch",
+    })
+    with pytest.raises(RuntimeError, match="HARD_GATE_STALE_H1A_RUNNER_GUARD_UNKNOWN_OWNERSHIP"):
+        MOD.acquire_runner_guard("run-1", "branch-1", "execute")
+
+
+def test_readiness_failure_is_not_ready(tmp_path, monkeypatch):
+    monkeypatch.setattr(MOD, "OUT", tmp_path)
+
+    def fail():
+        raise RuntimeError("appOpen error: Failed to start messaging, check licenses")
+
+    result = MOD.run_readiness_probe(fail, snapshot_fn=lambda: {"status": "PASS", "processes": []})
+    assert result["latest_verdict"] == "LICENSE_OR_MESSAGING_UNAVAILABLE"
+    assert result["license_readiness_probe_attempts"] == 1
+    assert result["solver_entered"] is False
+    assert result["physics_attempt"] is False
+    assert result["fsp_created"] is False
+
+
+def test_readiness_success_closes_session(tmp_path, monkeypatch):
+    monkeypatch.setattr(MOD, "OUT", tmp_path)
+
+    class Session:
+        closed = False
+
+        def close(self):
+            self.closed = True
+
+    session = Session()
+    result = MOD.run_readiness_probe(lambda: session, snapshot_fn=lambda: {"status": "PASS", "processes": []})
+    assert result["latest_verdict"] == "LUMERICAL_READY"
+    assert result["attempts"][-1]["session_closed"] is True
+    assert session.closed is True
+    assert result["solver_entered"] is False
+
+
+def test_global_infrastructure_failure_fails_fast():
+    anchors = [{"authoritative_id": "a"}, {"authoritative_id": "b"}]
+    calls = []
+
+    def run_one(anchor, height, pol):
+        calls.append((anchor["authoritative_id"], height, pol))
+        return {"status": "FAILED", "solver_entered": False, "failure_scope": "GLOBAL_INFRASTRUCTURE"}
+
+    scheduled = MOD.schedule_case_results(anchors, run_one)
+    assert len(scheduled) == 1
+    assert len(calls) == 1
+
+
+def test_retry_uses_new_attempt_identity(tmp_path):
+    case_dir = tmp_path / "case"
+    case_dir.mkdir()
+    first = case_dir / "attempt_provenance.json"
+    first.write_text(json.dumps({"attempt_id": "case_attempt_001"}), encoding="utf-8")
+    attempt_id, provenance, pre_fsp = MOD.next_attempt_artifacts(case_dir, "case")
+    assert attempt_id == "case_attempt_002"
+    assert provenance.name == "attempt_provenance_attempt_002.json"
+    assert pre_fsp.name == "case_attempt_002_pre.fsp"

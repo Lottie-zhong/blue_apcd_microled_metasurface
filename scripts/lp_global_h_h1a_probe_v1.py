@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import atexit
 import csv
 import datetime as dt
 import hashlib
@@ -8,6 +9,7 @@ import importlib.util
 import json
 import math
 import os
+import re
 import subprocess
 import time
 import traceback
@@ -34,6 +36,8 @@ BUILDER_VERSION = "lp_ml_inverse_stage1_fdt_validation_runner_v1.unified_h_geome
 H500_DEDICATED_REFERENCE_DEG = 18.557501177497556
 H500_HISTORICAL_QUANTILE_REFERENCE_DEG = 27.845019017638
 MAX_NEW_SUBRUNS = 48
+RUNNER_GUARD_FILENAME = "active_runner_guard.json"
+READINESS_FILENAME = "license_readiness.json"
 
 
 def load_module(path: Path, name: str):
@@ -93,6 +97,181 @@ def read_json(path: Path) -> dict:
 def read_csv(path: Path) -> list[dict]:
     with path.open(encoding="utf-8-sig", newline="") as handle:
         return list(csv.DictReader(handle))
+
+
+def h1a_run_identity(branch: str) -> str:
+    payload = {
+        "stage": "H1A",
+        "branch": branch,
+        "anchor_manifest_sha256": sha256_file(ANCHOR_MANIFEST),
+        "source_csv_sha256": sha256_file(SOURCE_CSV),
+        "formal_contract_sha256": sha256_file(FORMAL_CONTRACT),
+    }
+    return f"H1A-{sha256_obj(payload)[:20]}"
+
+
+def runner_guard_path() -> Path:
+    return OUT / RUNNER_GUARD_FILENAME
+
+
+def _pid_exists(pid: object) -> bool:
+    try:
+        os.kill(int(pid), 0)
+        return True
+    except (OSError, TypeError, ValueError):
+        return False
+
+
+def acquire_runner_guard(run_identity: str, branch: str, mode: str, head: str = "") -> dict:
+    OUT.mkdir(parents=True, exist_ok=True)
+    path = runner_guard_path()
+    owner = {
+        "schema": "LP_GLOBAL_H_H1A_ACTIVE_RUNNER_GUARD_V1",
+        "stage": "H1A",
+        "run_identity": run_identity,
+        "owner_pid": os.getpid(),
+        "start_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "worktree": str(ROOT),
+        "branch": branch,
+        "head": head,
+        "mode": mode,
+        "manifest_provenance": str(OUT / "run_manifest.json"),
+    }
+    while True:
+        try:
+            fd = os.open(str(path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            try:
+                existing = read_json(path)
+            except Exception as exc:
+                raise RuntimeError("HARD_GATE_STALE_H1A_RUNNER_GUARD_UNKNOWN_OWNERSHIP") from exc
+            if _pid_exists(existing.get("owner_pid")):
+                raise RuntimeError("ACTIVE_H1A_RUNNER_ALREADY_EXISTS")
+            known = (
+                existing.get("run_identity") == run_identity
+                and existing.get("worktree") == str(ROOT)
+                and existing.get("branch") == branch
+                and existing.get("stage") == "H1A"
+            )
+            if not known:
+                raise RuntimeError("HARD_GATE_STALE_H1A_RUNNER_GUARD_UNKNOWN_OWNERSHIP")
+            try:
+                path.unlink()
+            except FileNotFoundError:
+                continue
+        else:
+            with os.fdopen(fd, "w", encoding="utf-8") as handle:
+                json.dump(owner, handle, indent=2, sort_keys=True, ensure_ascii=False)
+                handle.write("\n")
+            return {"path": str(path), **owner}
+
+
+def release_runner_guard(guard: dict | None) -> None:
+    if not guard:
+        return
+    path = Path(guard["path"])
+    try:
+        current = read_json(path)
+        if current.get("owner_pid") == guard.get("owner_pid") and current.get("run_identity") == guard.get("run_identity"):
+            path.unlink(missing_ok=True)
+    except (FileNotFoundError, OSError, ValueError, json.JSONDecodeError):
+        pass
+
+
+def readiness_error_verdict(error: object) -> str:
+    text = str(error).lower()
+    license_error = any(marker in text for marker in ("license", "licence", "checkout"))
+    messaging_error = any(marker in text for marker in ("messaging", "message", "appopen", "app open", "handshake", "interop"))
+    if license_error and messaging_error:
+        return "LICENSE_OR_MESSAGING_UNAVAILABLE"
+    if license_error:
+        return "LICENSE_UNAVAILABLE"
+    if messaging_error:
+        return "MESSAGING_HANDSHAKE_FAILURE"
+    return "READINESS_PROBE_ERROR"
+
+
+def run_readiness_probe(open_session, snapshot_fn=None) -> dict:
+    if snapshot_fn is None:
+        snapshot_fn = solver_isolation_snapshot
+    OUT.mkdir(parents=True, exist_ok=True)
+    path = OUT / READINESS_FILENAME
+    previous = read_json(path) if path.exists() else {}
+    attempt = int(previous.get("license_readiness_probe_attempts", 0)) + 1
+    entry = {
+        "attempt": attempt,
+        "started_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "solver_entered": False,
+        "physics_attempt": False,
+        "fsp_created": False,
+        "before_snapshot": snapshot_fn(),
+    }
+    session = None
+    try:
+        session = open_session()
+        entry["verdict"] = "LUMERICAL_READY"
+    except Exception as exc:
+        entry["verdict"] = readiness_error_verdict(exc)
+        entry["error"] = f"{type(exc).__name__}: {exc}"
+    finally:
+        if session is not None:
+            try:
+                session.close()
+                entry["session_closed"] = True
+            except Exception as exc:
+                entry["session_closed"] = False
+                entry["close_error"] = f"{type(exc).__name__}: {exc}"
+    entry["after_snapshot"] = snapshot_fn()
+    entry["finished_utc"] = dt.datetime.now(dt.timezone.utc).isoformat()
+    attempts = list(previous.get("attempts", []))
+    attempts.append(entry)
+    payload = {
+        "schema": "LP_GLOBAL_H_H1A_LICENSE_READINESS_V1",
+        "license_readiness_probe_attempts": attempt,
+        "latest_verdict": entry["verdict"],
+        "solver_entered": False,
+        "physics_attempt": False,
+        "fsp_created": False,
+        "attempts": attempts,
+    }
+    atomic_json(path, payload)
+    return payload
+
+
+def lumerical_readiness(runtime) -> dict:
+    return run_readiness_probe(lambda: runtime.lumapi.FDTD(hide=getattr(runtime, "hide_gui", True)))
+
+
+def next_attempt_artifacts(case_dir: Path, case_id: str) -> tuple[str, Path, Path]:
+    paths = sorted(case_dir.glob("attempt_provenance*.json"))
+    indices = []
+    for path in paths:
+        match = re.search(r"_attempt_(\d{3})\.json$", path.name)
+        indices.append(int(match.group(1)) if match else 1)
+    index = max(indices, default=0) + 1
+    attempt_id = f"{case_id}_attempt_{index:03d}"
+    provenance = case_dir / "attempt_provenance.json" if index == 1 else case_dir / f"attempt_provenance_attempt_{index:03d}.json"
+    pre_fsp = case_dir / f"{case_id}_attempt_{index:03d}_pre.fsp"
+    return attempt_id, provenance, pre_fsp
+
+
+def is_global_infrastructure_error(error: object) -> bool:
+    text = str(error).lower()
+    return any(marker in text for marker in ("appopen", "app open", "messaging", "license", "licence", "lumapi", "interop", "handshake"))
+
+
+def ordered_case_plan(anchors: list[dict]) -> list[tuple[dict, float, str]]:
+    return [(anchor, height, pol) for anchor in anchors for height in NEW_HEIGHTS_NM for pol in POLARIZATIONS]
+
+
+def schedule_case_results(anchors: list[dict], run_one) -> list[dict]:
+    scheduled = []
+    for anchor, height, pol in ordered_case_plan(anchors):
+        result = run_one(anchor, height, pol)
+        scheduled.append({"anchor": anchor, "height_nm": height, "polarization": pol, "result": result})
+        if result.get("failure_scope") == "GLOBAL_INFRASTRUCTURE":
+            break
+    return scheduled
 
 
 def number(value: object) -> float | None:
@@ -215,7 +394,7 @@ Get-Process -Name fdtd-engine-msmpi,mpiexec,fdtd-solutions -ErrorAction Silently
         if line.strip():
             parts = line.strip().split("|", 3)
             processes.append({"pid": parts[0], "name": parts[1] if len(parts) > 1 else "", "start": parts[2] if len(parts) > 2 else "", "path": parts[3] if len(parts) > 3 else ""})
-    active = [item for item in processes if item["name"].lower() in {"fdtd-engine-msmpi", "mpiexec"}]
+    active = [item for item in processes if item["name"].lower() in {"fdtd-engine-msmpi", "mpiexec", "fdtd-solutions"}]
     return {"status": "PASS" if not active else "BLOCKED_ACTIVE_FDTD", "command_returncode": result.returncode, "processes": processes, "active_engine_or_mpi": active, "policy": "no kill/suspend/restart; no new solver entries while engine_or_mpiexec is active"}
 
 
@@ -267,8 +446,8 @@ def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contr
         return recovered
     if any(entry.get("solver_entered") is True and entry.get("case_identity_sha256") == identity_hash for entry in entered):
         return {"status": "QUARANTINED_ENTERED_NO_RECOVERY", "solver_entered": True, "case_id": case_id, "identity": identity, "identity_sha256": identity_hash, "polarization": pol, "H_global_nm": height_nm, "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "error": "entered=true exact case has no accepted checkpoint; rerun forbidden"}
-    pre_fsp = case_dir / f"{case_id}_pre.fsp"
-    record = {"case_id": case_id, "attempt_id": f"{case_id}_attempt_001", "case_identity": identity, "case_identity_sha256": identity_hash, "status": "PREFLIGHT", "solver_entered": False, "started_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "physical_contract_sha256": sha256_obj(contract), "pre_fsp_path": str(pre_fsp)}
+    attempt_id, provenance_path, pre_fsp = next_attempt_artifacts(case_dir, case_id)
+    record = {"case_id": case_id, "attempt_id": attempt_id, "case_identity": identity, "case_identity_sha256": identity_hash, "status": "PREFLIGHT", "solver_entered": False, "started_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "physical_contract_sha256": sha256_obj(contract), "pre_fsp_path": str(pre_fsp)}
     f = None
     start = time.time()
     try:
@@ -283,7 +462,7 @@ def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contr
         f.load(str(pre_fsp))
         gate = setup_gate(f, anchor, pol, height_nm)
         record["configuration_gate"] = gate
-        atomic_json(case_dir / "attempt_provenance.json", record)
+        atomic_json(provenance_path, record)
         if not gate["pass"]:
             record.update({"status": "QUARANTINED_PREFLIGHT_GATE", "error": "configuration gate failed"})
             return record
@@ -292,14 +471,14 @@ def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contr
         if len(entered) > MAX_NEW_SUBRUNS:
             raise RuntimeError("HARD_GATE_SOLVER_BUDGET_EXCEEDED")
         write_entered(entered)
-        atomic_json(case_dir / "attempt_provenance.json", record)
+        atomic_json(provenance_path, record)
         f.run()
         rows, grid = RUNNER.extract_broadband(f)
         atomic_json(case_dir / "checkpoint.json", {"schema": "LP_GLOBAL_H_H1A_CHECKPOINT_V1", "status": "ACCEPTED", "case_id": case_id, "case_identity": identity, "case_identity_sha256": identity_hash, "geometry": anchor, "H_global_nm": height_nm, "polarization": pol, "physical_contract": contract, "physical_contract_sha256": sha256_obj(contract), "setup": setup, "configuration_gate": gate, "rows": rows, "grid_audit": grid})
         record.update({"status": "ACCEPTED", "rows": rows, "grid_audit": grid, "checkpoint_path": str(case_dir / "checkpoint.json"), "checkpoint_sha256": sha256_file(case_dir / "checkpoint.json")})
         return record
     except Exception as exc:
-        record.update({"status": "FAILED", "error": f"{type(exc).__name__}: {exc}", "traceback": traceback.format_exc(), "retained_data_status": "attempt_and_entered_evidence_preserved"})
+        record.update({"status": "FAILED", "error": f"{type(exc).__name__}: {exc}", "traceback": traceback.format_exc(), "retained_data_status": "attempt_and_entered_evidence_preserved", "failure_scope": "GLOBAL_INFRASTRUCTURE" if not record.get("solver_entered") and is_global_infrastructure_error(exc) else "CASE_OR_PHYSICS"})
         return record
     finally:
         if f is not None:
@@ -308,7 +487,7 @@ def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contr
             except Exception:
                 pass
         record["runtime_seconds"] = time.time() - start
-        atomic_json(case_dir / "attempt_provenance.json", record)
+        atomic_json(provenance_path, record)
 
 
 def full_jones_row(anchor: dict, height_nm: float, x: dict, y: dict, source: str) -> dict:
@@ -412,19 +591,22 @@ def write_outputs(manifest: dict, full: list[dict], phase: list[dict], phi: list
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument("--readiness-only", action="store_true")
     parser.add_argument("--execute", action="store_true")
     args = parser.parse_args(argv)
-    if args.preflight_only == args.execute:
+    if sum(bool(value) for value in (args.preflight_only, args.readiness_only, args.execute)) != 1:
         raise SystemExit("select exactly one mode")
     anchors, h500_source = load_anchors()
     head = current_head()
+    branch = current_branch()
+    run_identity = h1a_run_identity(branch)
     contract = physical_contract(head)
     planned = planned_cases(anchors)
     if len(planned) > MAX_NEW_SUBRUNS:
         raise SystemExit("HARD_GATE_PLANNED_BUDGET")
     snapshot = solver_isolation_snapshot()
     OUT.mkdir(parents=True, exist_ok=True)
-    manifest = {"schema": "LP_GLOBAL_H_H1A_RUN_MANIFEST_V1", "stage": "H1A", "branch": current_branch(), "head": head, "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "H_grid_nm": list(ALL_HEIGHTS_NM), "new_solver_heights_nm": list(NEW_HEIGHTS_NM), "H500_scheduled": False, "unique_anchor_count": len(anchors), "anchor_ids": [anchor["authoritative_id"] for anchor in anchors], "anchor_exact_hashes": [anchor["exact_geometry_hash_sha256"] for anchor in anchors], "solver_budget_planned": MAX_NEW_SUBRUNS, "solver_subruns_entered": len(read_entered()), "solver_isolation_snapshot": snapshot, "physical_contract": contract, "physical_contract_sha256": sha256_obj(contract), "source_csv": str(SOURCE_CSV.relative_to(ROOT)), "source_csv_sha256": sha256_file(SOURCE_CSV), "formal_contract": str(FORMAL_CONTRACT.relative_to(ROOT)), "formal_contract_sha256": sha256_file(FORMAL_CONTRACT), "planned_case_count": len(planned), "planned_cases": planned}
+    manifest = {"schema": "LP_GLOBAL_H_H1A_RUN_MANIFEST_V1", "stage": "H1A", "branch": branch, "head": head, "run_identity": run_identity, "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "H_grid_nm": list(ALL_HEIGHTS_NM), "new_solver_heights_nm": list(NEW_HEIGHTS_NM), "H500_scheduled": False, "unique_anchor_count": len(anchors), "anchor_ids": [anchor["authoritative_id"] for anchor in anchors], "anchor_exact_hashes": [anchor["exact_geometry_hash_sha256"] for anchor in anchors], "solver_budget_planned": MAX_NEW_SUBRUNS, "solver_subruns_entered": len(read_entered()), "solver_isolation_snapshot": snapshot, "physical_contract": contract, "physical_contract_sha256": sha256_obj(contract), "source_csv": str(SOURCE_CSV.relative_to(ROOT)), "source_csv_sha256": sha256_file(SOURCE_CSV), "formal_contract": str(FORMAL_CONTRACT.relative_to(ROOT)), "formal_contract_sha256": sha256_file(FORMAL_CONTRACT), "planned_case_count": len(planned), "planned_cases": planned}
     atomic_json(OUT / "run_manifest.json", manifest)
     if args.preflight_only:
         manifest["status"] = "READY" if snapshot["status"] == "PASS" else snapshot["status"]
@@ -435,20 +617,49 @@ def main(argv: list[str] | None = None) -> int:
         manifest["status"] = snapshot["status"]
         atomic_json(OUT / "run_manifest.json", manifest)
         raise SystemExit("HARD_GATE_ACTIVE_SOLVER")
+
+    mode = "readiness-only" if args.readiness_only else "execute"
+    guard = acquire_runner_guard(run_identity, branch, mode, head)
+    atexit.register(release_runner_guard, guard)
+    runtime_config = RUNNER.load_runtime_config(str(ROOT / "configs" / "runtime.yaml"))
+    lumapi = RUNNER.import_lumapi(runtime_config)
+    runtime = type("RuntimeProxy", (), {"lumapi": lumapi, "hide_gui": getattr(runtime_config, "hide_gui", True)})()
+    readiness = lumerical_readiness(runtime)
+    manifest.update({"readiness_verdict": readiness["latest_verdict"], "license_readiness_probe_attempts": readiness["license_readiness_probe_attempts"]})
+    if args.readiness_only:
+        manifest["status"] = readiness["latest_verdict"]
+        atomic_json(OUT / "run_manifest.json", manifest)
+        print(json.dumps({"status": manifest["status"], "license_readiness_probe_attempts": readiness["license_readiness_probe_attempts"]}, indent=2))
+        release_runner_guard(guard)
+        return 0 if readiness["latest_verdict"] == "LUMERICAL_READY" else 2
+    if readiness["latest_verdict"] != "LUMERICAL_READY":
+        manifest["status"] = "H1A_RUNTIME_HARDENED_WAITING_LICENSE_OR_MESSAGING"
+        atomic_json(OUT / "run_manifest.json", manifest)
+        print(json.dumps({"status": manifest["status"], "readiness_verdict": readiness["latest_verdict"], "license_readiness_probe_attempts": readiness["license_readiness_probe_attempts"]}, indent=2))
+        release_runner_guard(guard)
+        return 2
+
     entered = read_entered()
     if len(entered) > MAX_NEW_SUBRUNS:
         raise SystemExit("HARD_GATE_ENTERED_BUDGET")
-    runtime_config = RUNNER.load_runtime_config("configs/runtime.yaml")
-    lumapi = RUNNER.import_lumapi(runtime_config)
-    runtime = type("RuntimeProxy", (), {"lumapi": lumapi, "hide_gui": getattr(runtime_config, "hide_gui", True)})()
     results, quarantine = {}, []
-    for anchor in anchors:
-        for height in NEW_HEIGHTS_NM:
-            for pol in POLARIZATIONS:
-                result = run_case(runtime, anchor, height, pol, head, contract, entered)
-                results[(anchor["exact_geometry_hash_sha256"], height, pol)] = result
-                if result.get("status") != "ACCEPTED":
-                    quarantine.append({"case_id": result.get("case_id"), "authoritative_id": anchor["authoritative_id"], "geometry_hash_sha256": anchor["exact_geometry_hash_sha256"], "H_global_nm": height, "polarization": pol, "status": result.get("status"), "solver_entered": result.get("solver_entered", False), "error": result.get("error", "")})
+    scheduled = schedule_case_results(anchors, lambda anchor, height, pol: run_case(runtime, anchor, height, pol, head, contract, entered))
+    for item in scheduled:
+        anchor = item["anchor"]
+        height = item["height_nm"]
+        pol = item["polarization"]
+        result = item["result"]
+        results[(anchor["exact_geometry_hash_sha256"], height, pol)] = result
+        if result.get("status") != "ACCEPTED":
+            quarantine.append({"case_id": result.get("case_id"), "authoritative_id": anchor["authoritative_id"], "geometry_hash_sha256": anchor["exact_geometry_hash_sha256"], "H_global_nm": height, "polarization": pol, "status": result.get("status"), "solver_entered": result.get("solver_entered", False), "error": result.get("error", ""), "failure_scope": result.get("failure_scope")})
+    global_failures = [item["result"] for item in scheduled if item["result"].get("failure_scope") == "GLOBAL_INFRASTRUCTURE"]
+    if global_failures:
+        manifest.update({"status": "H1A_RUNTIME_INFRASTRUCTURE_FAIL_FAST", "solver_subruns_entered": len(entered), "solver_subruns_accepted": 0, "solver_subruns_quarantined": len(quarantine), "fail_fast_case_id": global_failures[0].get("case_id"), "fail_fast_error": global_failures[0].get("error")})
+        atomic_json(OUT / "run_manifest.json", manifest)
+        print(json.dumps({"status": manifest["status"], "case_id": manifest["fail_fast_case_id"], "solver_subruns_entered": len(entered)}, indent=2))
+        release_runner_guard(guard)
+        return 2
+
     full, phase, phi = make_tables(anchors, h500_source, results)
     interactions, spans = interaction_tables(phi, full, len(anchors))
     verdict, detail = decide_verdict(interactions, spans, len(anchors))
@@ -457,6 +668,7 @@ def main(argv: list[str] | None = None) -> int:
     write_outputs(manifest, full, phase, phi, spans, interactions, quarantine, verdict, detail)
     atomic_json(OUT / "run_manifest.json", manifest)
     print(json.dumps({"verdict": verdict, "solver_subruns_entered": len(entered), "solver_subruns_accepted": accepted, "solver_subruns_quarantined": len(quarantine), "flags": manifest.get("flags")}, indent=2))
+    release_runner_guard(guard)
     return 0
 
 
