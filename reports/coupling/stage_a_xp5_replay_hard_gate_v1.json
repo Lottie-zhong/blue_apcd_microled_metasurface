@@ -1,0 +1,45 @@
+{
+  "schema_version": "stage_a_xp5_replay_hard_gate_report_v1",
+  "decision": "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE",
+  "task": "APCD_MDC_NP_COUPLING_V1_XP5_FIXED_UX_DIAGNOSIS_SINGLE_REPLAY_AND_MATRIX_CONTINUE",
+  "case_id": "STAGE_A_BB_XP5_445_455NM_P_XLIKE",
+  "replay_id": "XP5_REPLAY1",
+  "authorization": {
+    "authorized": true,
+    "budget": 1,
+    "used": 1,
+    "source": "C:\\Users\\zlt\\.codex\\attachments\\cd860283-f668-4611-93dc-7d43683a9004\\pasted-text.txt",
+    "reason": "AUTHORIZED_FIXED_UX_IMPLEMENTATION_CORRECTION"
+  },
+  "diagnosis_report": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\reports\\coupling\\stage_a_xp5_fixed_ux_diagnosis_v1.json",
+  "corrected_setup": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_broadband_445_455_v1\\STAGE_A_BB_XP5_REPLAY1_445_455NM_P_XLIKE",
+    "pre_fsp_sha256": "0b30484fe6421956e12665677da28201c9486bd41c7069b4396adf126768d71b",
+    "setup_gate_pass": true
+  },
+  "original_invalid_artifact": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_broadband_445_455_v1\\STAGE_A_BB_XP5_445_455NM_P_XLIKE",
+    "pre_fsp_sha256": "b39a53716e98e08c159f6ad96c54b9685bf38ee01afaf461f98edef0683c3f7b",
+    "post_fsp_sha256": "695705378cfcb5732ed681bd0b807bc2720b4f49aeca6cd5679748604a8dbfd2",
+    "preserved": true
+  },
+  "replay_runtime": {
+    "entered_ledger": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_broadband_445_455_v1\\STAGE_A_BB_XP5_REPLAY1_445_455NM_P_XLIKE\\runtime\\REPLAY1\\entered_ledger.json",
+    "failure": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_broadband_445_455_v1\\STAGE_A_BB_XP5_REPLAY1_445_455NM_P_XLIKE\\runtime\\REPLAY1\\run_failure.json",
+    "solver_entered": true,
+    "solver_completed": false,
+    "failure_stage": "load_fsp_before_fdtd_run",
+    "failure_type": "LumApiError",
+    "failure_text": "appOpen error: Failed to start messaging, check licenses",
+    "post_fsp_saved": false
+  },
+  "safety": {
+    "total_solver_entries_including_broadband": 15,
+    "physical_case_solver_entries": 2,
+    "authorized_replays": 1,
+    "third_entry_forbidden": true,
+    "remaining_7_cases_may_enter": false,
+    "automatic_retry": false
+  },
+  "next_action": "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE_REQUIRES_LUMERICAL_LICENSE_MESSAGING_RECOVERY_AND_NEW_USER_AUTHORIZATION_IF_ANY_FURTHER_ENTRY_IS_REQUESTED"
+}

@@ -21,11 +21,11 @@
   "sealed_test_reads": 0,
   "formal_joint_screening_runs": 0,
   "next_solver_requires_new_authorization": true,
-  "broadband_authorization_status": "HARD_GATE_BROADBAND_FIXED_UX_IMPLEMENTATION_UNRESOLVED",
+  "broadband_authorization_status": "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE",
   "new_broadband_cases_budget": 9,
   "new_broadband_cases_entered": 2,
   "new_broadband_cases_completed": 2,
-  "total_solver_entries_including_broadband": 14,
+  "total_solver_entries_including_broadband": 15,
   "total_engine_completed_including_broadband": 14,
   "total_controller_returned_including_broadband": 14,
   "total_post_saved_including_broadband": 14,
@@ -71,6 +71,12 @@
       "attempt_id": "attempt_001",
       "entered_timestamp": "2026-08-09T10:31:37.325503+00:00",
       "pre_fsp_entry_sha256": "b39a53716e98e08c159f6ad96c54b9685bf38ee01afaf461f98edef0683c3f7b"
+    },
+    {
+      "case_id": "STAGE_A_BB_XP5_445_455NM_P_XLIKE",
+      "attempt_id": "REPLAY1",
+      "entered_timestamp": "2026-08-09T13:38:11.954618+00:00",
+      "pre_fsp_entry_sha256": "0b30484fe6421956e12665677da28201c9486bd41c7069b4396adf126768d71b"
     }
   ],
   "broadband_completed_attempts": [
@@ -409,11 +415,56 @@
     "x0_reuse_rerun": false,
     "no_polarization_averaging": true,
     "next_solver_requires_new_authorization": true,
-    "valid_completed_case_ids": ["STAGE_A_BB_Y0_445_455NM_S_YLIKE_UX0"],
-    "hard_gate_case_ids": ["STAGE_A_BB_XP5_445_455NM_P_XLIKE"],
-    "unentered_case_ids": ["STAGE_A_BB_XM5_445_455NM_P_XLIKE", "STAGE_A_BB_YP5_445_455NM_S_YLIKE", "STAGE_A_BB_YM5_445_455NM_S_YLIKE", "STAGE_A_BB_XP10_445_455NM_P_XLIKE", "STAGE_A_BB_XM10_445_455NM_P_XLIKE", "STAGE_A_BB_YP10_445_455NM_S_YLIKE", "STAGE_A_BB_YM10_445_455NM_S_YLIKE"],
+    "valid_completed_case_ids": [
+      "STAGE_A_BB_Y0_445_455NM_S_YLIKE_UX0"
+    ],
+    "hard_gate_case_ids": [
+      "STAGE_A_BB_XP5_445_455NM_P_XLIKE"
+    ],
+    "unentered_case_ids": [
+      "STAGE_A_BB_XM5_445_455NM_P_XLIKE",
+      "STAGE_A_BB_YP5_445_455NM_S_YLIKE",
+      "STAGE_A_BB_YM5_445_455NM_S_YLIKE",
+      "STAGE_A_BB_XP10_445_455NM_P_XLIKE",
+      "STAGE_A_BB_XM10_445_455NM_P_XLIKE",
+      "STAGE_A_BB_YP10_445_455NM_S_YLIKE",
+      "STAGE_A_BB_YM10_445_455NM_S_YLIKE"
+    ],
     "hard_gate_report": "reports/coupling/stage_a_polarization_angle_broadband_hard_gate_v1.json",
     "hard_gate_report_sha256": "9583cbfefdd7d47d84c1e50960cc16d8a1ac3c2ea722eb809e5b91ef4e753c53",
-    "next_authorization_action": "REQUEST_BROADBAND_XP5_REPLAY_AUTHORIZATION_AFTER_BFAST_SOURCE_CALIBRATION_CORRECTION"
+    "next_authorization_action": "REQUEST_BROADBAND_XP5_REPLAY_AUTHORIZATION_AFTER_BFAST_SOURCE_CALIBRATION_CORRECTION",
+    "xp5_replay_authorized": true,
+    "xp5_replay_budget": 1,
+    "xp5_replay_entered": 1,
+    "xp5_replay_completed": 0,
+    "xp5_replay_id": "XP5_REPLAY1",
+    "xp5_replay_status": "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE"
+  },
+  "xp5_replay": {
+    "authorized": true,
+    "budget": 1,
+    "entered": 1,
+    "completed": 0,
+    "physical_case_id": "STAGE_A_BB_XP5_445_455NM_P_XLIKE",
+    "replay_id": "XP5_REPLAY1",
+    "reason": "AUTHORIZED_FIXED_UX_IMPLEMENTATION_CORRECTION",
+    "authorization_source": "C:\\Users\\zlt\\.codex\\attachments\\cd860283-f668-4611-93dc-7d43683a9004\\pasted-text.txt",
+    "third_entry_forbidden": true,
+    "entered_attempts": [
+      {
+        "case_id": "STAGE_A_BB_XP5_445_455NM_P_XLIKE",
+        "attempt_id": "REPLAY1",
+        "entered_timestamp": "2026-08-09T13:38:11.954618+00:00",
+        "pre_fsp_entry_sha256": "0b30484fe6421956e12665677da28201c9486bd41c7069b4396adf126768d71b"
+      }
+    ],
+    "physical_case_solver_entries": 2,
+    "authorized_replays": 1,
+    "replay_failed": true,
+    "failure_stage": "load_fsp_before_fdtd_run",
+    "failure_type": "LumApiError",
+    "failure_text": "appOpen error: Failed to start messaging, check licenses",
+    "post_fsp_saved": false,
+    "stop_reason": "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE"
   }
 }

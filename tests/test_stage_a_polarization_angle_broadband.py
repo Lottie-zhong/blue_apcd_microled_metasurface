@@ -55,12 +55,34 @@ def test_y0_valid_11_row_result():
     assert payload["summary"]["no_polarization_averaging"] is True
 
 
-def test_xp5_hard_gate_preserves_single_completed_attempt_and_no_replay():
+def test_xp5_hard_gate_preserves_original_and_consumes_only_authorized_replay():
     registry = read(REGISTRY)
     report = read(REPORT)
     assert registry["broadband_polarization_angle"]["status"] == "HARD_GATE"
+    assert registry["broadband_authorization_status"] == "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE"
+    assert registry["xp5_replay"]["authorized"] is True
+    assert registry["xp5_replay"]["budget"] == 1
+    assert registry["xp5_replay"]["entered"] == 1
+    assert registry["xp5_replay"]["completed"] == 0
     assert report["decision"] == "HARD_GATE_BROADBAND_FIXED_UX_IMPLEMENTATION_UNRESOLVED"
     assert report["source_kx_closure_pass"] is False
     assert report["replay"] is False
     assert len(list((OUTPUT_ROOT / "STAGE_A_BB_XP5_445_455NM_P_XLIKE/runtime").glob("attempt_*"))) == 1
+    replay_runtime = OUTPUT_ROOT / "STAGE_A_BB_XP5_REPLAY1_445_455NM_P_XLIKE/runtime/REPLAY1"
+    assert (replay_runtime / "entered_ledger.json").exists()
+    assert (replay_runtime / "run_failure.json").exists()
+    assert not list(replay_runtime.glob("*post.fsp"))
     assert report["next_authorization_action"].startswith("REQUEST_BROADBAND_XP5_REPLAY_AUTHORIZATION")
+
+
+def test_xp5_fixed_ux_diagnosis_and_corrected_setup_provenance():
+    diagnosis = read(ROOT / "reports/coupling/stage_a_xp5_fixed_ux_diagnosis_v1.json")
+    assert diagnosis["residual_decomposition"]["rows"] and len(diagnosis["residual_decomposition"]["rows"]) == 11
+    assert diagnosis["original_evidence"]["source_residual_range"] < 1e-15
+    assert diagnosis["corrected_setup_evidence"]["setup_gate"]["pass"] is True
+    assert diagnosis["replay_gate"]["setup_only_source_ux_pass"] is True
+    assert diagnosis["replay_gate"]["setup_only_boundary_ux_pass"] is True
+    assert diagnosis["replay_gate"]["source_boundary_consistency_pass"] is True
+    replay_setup = read(OUTPUT_ROOT / "STAGE_A_BB_XP5_REPLAY1_445_455NM_P_XLIKE/setup_manifest.json")
+    assert replay_setup["replay_id"] == "XP5_REPLAY1"
+    assert replay_setup["solver_entered"] is True
