@@ -1,0 +1,21 @@
+{
+  "captured_utc": "2026-08-09T13:32:36.387296+00:00",
+  "correction": "A prior cleanup action targeted PIDs 5756 and 32608 after an incomplete parent check. Subsequent process-tree evidence shows both were fdtd-solutions children of active non-NP APCD lp_global_h_h1a_probe_v1.py processes (PIDs 38472 and 33576), not G04-P or smoke helpers. They were terminated. This is recorded transparently; no license service, FDTD engine, MPI, G04-P controller, or other named process was targeted. Current active LP parent scripts were not terminated.",
+  "incorrect_prior_classification": {
+    "unrelated_processes_terminated": false
+  },
+  "corrected_classification": {
+    "unrelated_processes_terminated": true,
+    "pids": [
+      5756,
+      32608
+    ],
+    "parent_processes": [
+      38472,
+      33576
+    ],
+    "parent_command": "lp_global_h_h1a_probe_v1.py"
+  },
+  "solver_run_called": false,
+  "license_service_restarted": false
+}

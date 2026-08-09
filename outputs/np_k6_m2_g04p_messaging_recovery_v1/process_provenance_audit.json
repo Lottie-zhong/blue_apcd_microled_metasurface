@@ -1,0 +1,126 @@
+{
+  "attempt_id": "attempt_001",
+  "case_id": "NP_K6_M2_BATCH1_G04_P",
+  "classification_notes": {
+    "active_solver_termination": "none",
+    "shared_license_service_restart": "none",
+    "unrelated_processes_terminated": false
+  },
+  "git": {
+    "branch": {
+      "cmd": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "work/np-k6-mdc-v1\n"
+    },
+    "divergence": {
+      "cmd": [
+        "git",
+        "rev-list",
+        "--left-right",
+        "--count",
+        "HEAD...@{upstream}"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "0\t0\n"
+    },
+    "head": {
+      "cmd": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "7a8588f6b5a1c96d88813f60406d418b488135fd\n"
+    },
+    "status": {
+      "cmd": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": " M docs/np_k6_p1d2_26point_sixbin_exhaustive_ranking_v1.md\n M docs/np_k6_p1d4b_k6x_run3c_n1_boundary_attribution_v1.md\n M outputs/np_k6_p1d4b_k6x_run3c_n1_boundary_attribution_v1/n1_449nm_closure_forensic.json\n M tests/test_np_k6_p1d2b1_broadband_d105_x_v1.py\n M tests/test_np_k6_p1d2b2_broadband_d110_x_v1.py\n M tests/test_np_k6_p1d2b3_broadband_d115_x_v1.py\n?? .tmp_audit27.py\n?? .tmp_build_27point_offline.py\n?? .tmp_builder_gate.ps1\n?? .tmp_commit_only.ps1\n?? .tmp_debug_rank.ps1\n?? .tmp_freeze_builder.ps1\n?? .tmp_recover_d180_attempt2_post.py\n?? _tmp_np_27point_git_closure_v1.ps1\n?? _tmp_np_p1d2_batch_d120_d230_foreground_v1.ps1\n?? _tmp_np_p1d2_batch_d185_d230_continuation_v1.ps1\n?? _tmp_np_p1d2_d180_explicit_rerun_foreground_v1.ps1\n?? docs/np_k6_p1d1a_h500_x_report_v1.md\n?? docs/np_k6_p1d2_27point_handoff_v1.md\n?? docs/np_k6_p1d2_natureskill_two_core_phase_figures_v1.md\n?? docs/np_k6_p1d2_single_pillar_phase_figure_v1.md\n?? runtime_logs/\n?? scripts/extract_np_k6_p1d2_complex_field_worker_v1.py\n?? scripts/extract_np_k6_p1d2_complex_txx_v1.py\n?? scripts/inspect_np_k6_p1d2_post_complex_worker_v1.py\n?? scripts/np_k6_m2_batch1_extractor_v1.py\n?? scripts/np_k6_m2_batch1_runner_v1.py\n?? scripts/np_k6_m2_batch1_setup_builder_v1.py\n?? scripts/np_k6_m2_batch1_supervisor_v1.py\n?? scripts/np_k6_p0_anchor_v2_extract.py\n?? scripts/np_k6_p0_anchor_v2_runner.py\n?? scripts/np_k6_p0_remaining_five_extractor_v1.py\n?? scripts/np_k6_p0_remaining_five_runner_v1.py\n?? scripts/np_k6_p0_remaining_five_supervisor_v1.py\n?? scripts/np_k6_p0_simtime_10ps_final_v1_extract.py\n?? scripts/np_k6_p0_simtime_10ps_final_v1_finalize.py\n?? scripts/np_k6_p0_simtime_10ps_final_v1_launcher.py\n?? scripts/np_k6_p0_simtime_10ps_final_v1_runner.py\n?? scripts/np_k6_p0_simtime_10ps_final_v1_watch_extract.py\n?? scripts/np_k6_p0_simtime_10ps_final_v1_watch_launcher.py\n?? scripts/np_k6_p0_simtime_recovery_v2_post_recover.py\n?? scripts/np_k6_supervisor_probe_v1.py\n?? scripts/np_k6_task_scheduler_probe_v1.py\n?? scripts/plot_np_k6_p1d2_natureskill_two_core_phase_figures_v1.py\n?? scripts/plot_np_k6_p1d2_single_pillar_nature_figure_v1.py\n?? scripts/plot_np_k6_p1d2_single_pillar_phase_library_v1.py\n?? scripts/register_np_k6_task_scheduler_job_v1.ps1\n?? scripts/run_np_k6_p1d1a_single_case_v1.py\n?? scripts/run_np_k6_p1d2_27point_sixbin_exhaustive_ranking_v1.py\n?? scripts/run_np_k6_supervised_case_v3.ps1\n?? scripts/run_np_k6_task_scheduler_supervisor_v1.ps1\n?? scripts/tmp_3ps_compact_poll.py\n?? scripts/tmp_3ps_compile.py\n?? scripts/tmp_3ps_finalize.py\n?? scripts/tmp_3ps_log_tail.py\n?? scripts/tmp_3ps_poll.py\n?? scripts/tmp_3ps_pre_run_audit.py\n?? scripts/tmp_3ps_preflight.py\n?? scripts/tmp_3ps_runtime_files.py\n?? scripts/tmp_3ps_watch_extract.py\n?? scripts/tmp_build_3ps_setup.py\n?? scripts/tmp_commit_recovery.py\n?? scripts/tmp_compile_recovery_code.py\n?? scripts/tmp_finalize_recovery_validator_report.py\n?? scripts/tmp_find_1ps_evidence.py\n?? scripts/tmp_find_old_metrics.py\n?? scripts/tmp_git_diff_setup.py\n?? scripts/tmp_inspect_3ps_sources.py\n?? scripts/tmp_launch_3ps_watcher.py\n?? scripts/tmp_list_recovery_tests.py\n?? scripts/tmp_mark_recovery_git_checks.py\n?? scripts/tmp_probe_lumapi_save.py\n?? scripts/tmp_push_recovery.py\n?? scripts/tmp_read_2ps_setup_audit.py\n?? scripts/tmp_read_launcher_remote.py\n?? scripts/tmp_recovery_allowlist_check.py\n?? scripts/tmp_recovery_boundary_summary.py\n?? scripts/tmp_recovery_compare_old.py\n?? scripts/tmp_recovery_evidence_list.py\n?? scripts/tmp_recovery_final_audit.py\n?? scripts/tmp_recovery_find_old_metrics.py\n?? scripts/tmp_recovery_followup_check.py\n?? scripts/tmp_recovery_followup_commit.py\n?? scripts/tmp_recovery_followup_tests.py\n?? scripts/tmp_recovery_old_runtime.py\n?? scripts/tmp_recovery_post_contract_probe.py\n?? scripts/tmp_recovery_post_data_probe.py\n?? scripts/tmp_recovery_post_push_audit.py\n?? scripts/tmp_recovery_push.py\n?? scripts/tmp_recovery_run_copy_probe.py\n?? scripts/tmp_recovery_staged_audit.py\n?? scripts/tmp_restage_validator_report.py\n?? scripts/tmp_restore_setup_zero_state.py\n?? scripts/tmp_run_recovery_tests.py\n?? scripts/tmp_show_recovery_tests.py\n?? scripts/tmp_stage_recovery.py\n?? scripts/tmp_stage_recovery_followup.py\n?? scripts/tmp_update_recovery_manifest.py\n?? scripts/tmp_update_recovery_validator_report.py\n?? scripts/validate_np_k6_m2_batch1_acquisition_v1.py\n?? scripts/validate_np_k6_p1d4b_run3c_v1.py\n?? tests/test_np_k6_p1d2_natureskill_two_core_phase_figures_v1.py\n?? tests/test_np_k6_p1d4b_run3c_v1.py\n?? tmp_commit_m0.py\n?? tmp_final_m0_check.py\n?? tmp_lumapi_attach_probe.py\n?? tmp_lumapi_open_source.py\n?? tmp_lumapi_session_source.py\n?? tmp_lumapi_session_text.py\n?? tmp_lumapi_source_probe.py\n?? tmp_m0_status.py\n?? tmp_p0_inspect_remote.py\n?? tmp_p0_list_cases.py\n?? tmp_recovery_compact_poll.py\n?? tmp_recovery_engine_metrics.py\n?? tmp_recovery_engine_poll.py\n?? tmp_recovery_failure_probe.py\n?? tmp_recovery_log_probe.py\n?? tmp_recovery_lumapi_preflight.py\n?? tmp_recovery_mesh_probe.py\n?? tmp_recovery_process_parent.py\n?? tmp_recovery_run_preflight_record.py\n?? tmp_recovery_runlog_tail.py\n?? tmp_recovery_runner_compile.py\n?? tmp_run_m0_dry.py\n?? tmp_run_m0_tests2.py\n?? tmp_stage_m0.py\n?? tmp_write_m0_evidence.py\n"
+    }
+  },
+  "process_probe": {
+    "cmd": [
+      "powershell",
+      "-NoProfile",
+      "-Command",
+      "$names=@('fdtd-solutions','fdtd-engine-msmpi','fdtd-solutions-msmpi','mpiexec','python','ansysedt','ansyscl','ansyslmd','lmgrd','lumerical'); Get-CimInstance Win32_Process | Where-Object {$names -contains $_.Name.Replace('.exe','') -or $_.CommandLine -match 'lumerical|fdtd|lumapi|NP_K6_M2_BATCH1'} | Select-Object ProcessId,ParentProcessId,Name,CommandLine,CreationDate,ExecutablePath | ConvertTo-Json -Compress"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "[{\"ProcessId\":7344,\"ParentProcessId\":3500,\"Name\":\"lmgrd.exe\",\"CommandLine\":\"C:\\\\ProgramData\\\\ANLicense\\\\lmgrd.exe\",\"CreationDate\":\"\\/Date(1780468432816)\\/\",\"ExecutablePath\":\"C:\\\\ProgramData\\\\ANLicense\\\\lmgrd.exe\"},{\"ProcessId\":10424,\"ParentProcessId\":3500,\"Name\":\"lmgrd.exe\",\"CommandLine\":\"C:\\\\SolidWorks_Flexnet_Server\\\\lmgrd.exe\",\"CreationDate\":\"\\/Date(1780468433287)\\/\",\"ExecutablePath\":\"C:\\\\SolidWorks_Flexnet_Server\\\\lmgrd.exe\"},{\"ProcessId\":10576,\"ParentProcessId\":7344,\"Name\":\"lmgrd.exe\",\"CommandLine\":\"\\\"C:\\\\ProgramData\\\\ANLicense\\\\lmgrd.exe\\\" -c \\\"C:\\\\ProgramData\\\\ANLicense\\\\license.lic\\\" -l \\\"C:\\\\ProgramData\\\\ANLicense\\\\SIMULIA.log\\\" -z -s\",\"CreationDate\":\"\\/Date(1780468433332)\\/\",\"ExecutablePath\":\"C:\\\\ProgramData\\\\ANLicense\\\\lmgrd.exe\"},{\"ProcessId\":11388,\"ParentProcessId\":10424,\"Name\":\"lmgrd.exe\",\"CommandLine\":\"\\\"C:\\\\SolidWorks_Flexnet_Server\\\\lmgrd.exe\\\" -c \\\"C:\\\\SolidWorks_Flexnet_Server\\\\sw_d_SSQ.lic\\\" -l \\\"C:\\\\SolidWorks_Flexnet_Server\\\\sw_d_SSQ.log\\\" -z -s\",\"CreationDate\":\"\\/Date(1780468433512)\\/\",\"ExecutablePath\":\"C:\\\\SolidWorks_Flexnet_Server\\\\lmgrd.exe\"},{\"ProcessId\":11512,\"ParentProcessId\":10576,\"Name\":\"ansyslmd.exe\",\"CommandLine\":\"ansyslmd.exe -T DESKTOP-NNE313K 11.19 -1 -c \\\";C:\\\\ProgramData\\\\ANLicense\\\\license.lic;\\\" -srv wMMPqBmk0mUF7fp0ZugWAHKVtg92TUguV13bDNGfavh02TPw9ITJ7ulI3QM2GY2 --lmgrd_start 6a1fcad1 -vdrestart 0  -l \\\"C:\\\\ProgramData\\\\ANLicense\\\\SIMULIA.log\\\"\",\"CreationDate\":\"\\/Date(1780468433528)\\/\",\"ExecutablePath\":\"C:\\\\ProgramData\\\\ANLicense\\\\ansyslmd.exe\"},{\"ProcessId\":6644,\"ParentProcessId\":32036,\"Name\":\"cmd.exe\",\"CommandLine\":\"\\\"c:\\\\windows\\\\system32\\\\cmd.exe\\\" /c \\\"powershell -NoProfile -Command Set-Location \\u0027D:\\\\project\\\\worktrees\\\\blue_apcd_rcled_mdc\\u0027; $content = [Console]::In.ReadToEnd(); Set-Content -LiteralPath \\u0027scripts\\\\stage_r2_4h1j4_fmm2b0_integer_dbr_and_lumerical_rcwa_audit_no_run.py\\u0027 -Value $content -Encoding UTF8\\\"\",\"CreationDate\":\"\\/Date(1783347570720)\\/\",\"ExecutablePath\":\"c:\\\\windows\\\\system32\\\\cmd.exe\"},{\"ProcessId\":32800,\"ParentProcessId\":6644,\"Name\":\"powershell.exe\",\"CommandLine\":\"powershell  -NoProfile -Command Set-Location \\u0027D:\\\\project\\\\worktrees\\\\blue_apcd_rcled_mdc\\u0027; $content = [Console]::In.ReadToEnd(); Set-Content -LiteralPath \\u0027scripts\\\\stage_r2_4h1j4_fmm2b0_integer_dbr_and_lumerical_rcwa_audit_no_run.py\\u0027 -Value $content -Encoding UTF8\",\"CreationDate\":\"\\/Date(1783347570871)\\/\",\"ExecutablePath\":\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\"},{\"ProcessId\":34764,\"ParentProcessId\":24204,\"Name\":\"python.exe\",\"CommandLine\":\"C:\\\\Users\\\\DELL\\\\anaconda3\\\\python.exe  -\",\"CreationDate\":\"\\/Date(1785571698437)\\/\",\"ExecutablePath\":\"C:\\\\Users\\\\DELL\\\\anaconda3\\\\python.exe\"},{\"ProcessId\":9228,\"ParentProcessId\":21060,\"Name\":\"ansyscl.exe\",\"CommandLine\":\"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl DESKTOP-NNE313K_DELL_251 -nodaemon -aclport 54018 -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log\",\"CreationDate\":\"\\/Date(1785841666676)\\/\",\"ExecutablePath\":\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\"},{\"ProcessId\":32640,\"ParentProcessId\":31304,\"Name\":\"ansysedt.exe\",\"CommandLine\":\"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\AnsysEM\\\\ansysedt.exe\\\" \\\"N:\\\\ZBB\\\\ansysxuexi\\\\ansysxuexi\\\\200um pingpurefang\\\\200um pingpurefang.aedt\\\"\",\"CreationDate\":\"\\/Date(1786066611191)\\/\",\"ExecutablePath\":\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\AnsysEM\\\\ansysedt.exe\"},{\"ProcessId\":22012,\"ParentProcessId\":32640,\"Name\":\"ansyscl.exe\",\"CommandLine\":\"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\\\" -acl 32640.94610 -nodaemon -log C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\.ansys\\\\ansyscl.DESKTOP-NNE313K.32640.94610.log\",\"CreationDate\":\"\\/Date(1786066623147)\\/\",\"ExecutablePath\":\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\licensingclient\\\\winx64\\\\ansyscl.exe\"},{\"ProcessId\":35296,\"ParentProcessId\":33696,\"Name\":\"python.exe\",\"CommandLine\":\"N:/anaconda_envs/RCP_LCP/python.exe  -\",\"CreationDate\":\"\\/Date(1786179355719)\\/\",\"ExecutablePath\":\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"},{\"ProcessId\":31400,\"ParentProcessId\":35296,\"Name\":\"ssh.exe\",\"CommandLine\":\"ssh lumerical-win N:/anaconda_envs/RCP_LCP/python.exe -\",\"CreationDate\":\"\\/Date(1786179355834)\\/\",\"ExecutablePath\":\"C:\\\\WINDOWS\\\\System32\\\\OpenSSH\\\\ssh.exe\"},{\"ProcessId\":15852,\"ParentProcessId\":15644,\"Name\":\"python.exe\",\"CommandLine\":\"N:/anaconda_envs/RCP_LCP/python.exe  -\",\"CreationDate\":\"\\/Date(1786180020007)\\/\",\"ExecutablePath\":\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"},{\"ProcessId\":30464,\"ParentProcessId\":15852,\"Name\":\"ssh.exe\",\"CommandLine\":\"ssh lumerical-win N:/anaconda_envs/RCP_LCP/python.exe -\",\"CreationDate\":\"\\/Date(1786180020156)\\/\",\"ExecutablePath\":\"C:\\\\WINDOWS\\\\System32\\\\OpenSSH\\\\ssh.exe\"},{\"ProcessId\":21892,\"ParentProcessId\":27700,\"Name\":\"python.exe\",\"CommandLine\":\"N:/anaconda_envs/RCP_LCP/python.exe  -\",\"CreationDate\":\"\\/Date(1786191886425)\\/\",\"ExecutablePath\":\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"},{\"ProcessId\":26208,\"ParentProcessId\":21892,\"Name\":\"ssh.exe\",\"CommandLine\":\"ssh lumerical-win N:/anaconda_envs/RCP_LCP/python.exe -\",\"CreationDate\":\"\\/Date(1786191886542)\\/\",\"ExecutablePath\":\"C:\\\\WINDOWS\\\\System32\\\\OpenSSH\\\\ssh.exe\"},{\"ProcessId\":26996,\"ParentProcessId\":24832,\"Name\":\"python.exe\",\"CommandLine\":\"N:/anaconda_envs/RCP_LCP/python.exe  -\",\"CreationDate\":\"\\/Date(1786281792361)\\/\",\"ExecutablePath\":\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"},{\"ProcessId\":26848,\"ParentProcessId\":26996,\"Name\":\"powershell.exe\",\"CommandLine\":\"powershell -NoProfile -Command \\\"$names=@(\\u0027fdtd-solutions\\u0027,\\u0027fdtd-engine-msmpi\\u0027,\\u0027fdtd-solutions-msmpi\\u0027,\\u0027mpiexec\\u0027,\\u0027python\\u0027,\\u0027ansysedt\\u0027,\\u0027ansyscl\\u0027,\\u0027ansyslmd\\u0027,\\u0027lmgrd\\u0027,\\u0027lumerical\\u0027); Get-CimInstance Win32_Process | Where-Object {$names -contains $_.Name.Replace(\\u0027.exe\\u0027,\\u0027\\u0027) -or $_.CommandLine -match \\u0027lumerical|fdtd|lumapi|NP_K6_M2_BATCH1\\u0027} | Select-Object ProcessId,ParentProcessId,Name,CommandLine,CreationDate,ExecutablePath | ConvertTo-Json -Compress\\\"\",\"CreationDate\":\"\\/Date(1786281793083)\\/\",\"ExecutablePath\":\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\"}]\n"
+  },
+  "scheduler_tasks": {
+    "\\APCD\\NP\\NP_K6_M2_BATCH1_G04_P_POST_RECOVERY_001": {
+      "cmd": [
+        "schtasks.exe",
+        "/Query",
+        "/TN",
+        "\\APCD\\NP\\NP_K6_M2_BATCH1_G04_P_POST_RECOVERY_001",
+        "/FO",
+        "LIST",
+        "/V"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "\n文件夹: \\APCD\\NP\n主机名:                             DESKTOP-NNE313K\n任务名:                             \\APCD\\NP\\NP_K6_M2_BATCH1_G04_P_POST_RECOVERY_001\n下次运行时间:                       N/A\n模式:                               就绪\n登录状态:                           只使用交互方式\n上次运行时间:                       2026/8/9 20:34:00\n上次结果:                           1\n创建者:                             DESKTOP-NNE313K\\DELL\n要运行的任务:                       \"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m2_batch1_hf_acquisition_v1\\runtime_runs\\NP_K6_M2_BATCH1_G04_P\\attempt_001\\post_recovery_only_no_run.py\"\n起始于:                             N/A\n注释:                               N/A\n计划任务状态:                       已启用\n空闲时间:                           已禁用\n电源管理:                           在电池模式停止, 不用电池启动\n作为用户运行:                       DELL\n删除没有计划的任务:                 已禁用\n如果运行了 X 小时 X 分钟，停止任务: 72:00:00\n计划:                               计划数据在此格式中不可用。\n计划类型:                           一次性\n开始时间:                           20:34:00\n开始日期:                           2026/8/9\n结束日期:                           N/A\n天:                                 N/A\n月:                                 N/A\n重复: 每:                           已禁用\n重复: 截止: 时间:                   已禁用\n重复: 截止: 持续时间:               已禁用\n重复: 如果还在运行，停止:           已禁用\n"
+    },
+    "\\APCD\\NP\\NP_K6_M2_BATCH1_G04_P_POST_RECOVERY_002": {
+      "cmd": [
+        "schtasks.exe",
+        "/Query",
+        "/TN",
+        "\\APCD\\NP\\NP_K6_M2_BATCH1_G04_P_POST_RECOVERY_002",
+        "/FO",
+        "LIST",
+        "/V"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "\n文件夹: \\APCD\\NP\n主机名:                             DESKTOP-NNE313K\n任务名:                             \\APCD\\NP\\NP_K6_M2_BATCH1_G04_P_POST_RECOVERY_002\n下次运行时间:                       N/A\n模式:                               就绪\n登录状态:                           只使用交互方式\n上次运行时间:                       2026/8/9 20:38:00\n上次结果:                           1\n创建者:                             DESKTOP-NNE313K\\DELL\n要运行的任务:                       \"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m2_batch1_hf_acquisition_v1\\runtime_runs\\NP_K6_M2_BATCH1_G04_P\\attempt_001\\post_recovery_only_no_run_v2.py\"\n起始于:                             N/A\n注释:                               N/A\n计划任务状态:                       已启用\n空闲时间:                           已禁用\n电源管理:                           在电池模式停止, 不用电池启动\n作为用户运行:                       DELL\n删除没有计划的任务:                 已禁用\n如果运行了 X 小时 X 分钟，停止任务: 72:00:00\n计划:                               计划数据在此格式中不可用。\n计划类型:                           一次性\n开始时间:                           20:38:00\n开始日期:                           2026/8/9\n结束日期:                           N/A\n天:                                 N/A\n月:                                 N/A\n重复: 每:                           已禁用\n重复: 截止: 时间:                   已禁用\n重复: 截止: 持续时间:               已禁用\n重复: 如果还在运行，停止:           已禁用\n"
+    },
+    "\\APCD\\NP\\NP_K6_M2_BATCH1_NP_K6_M2_BATCH1_G04_P_001": {
+      "cmd": [
+        "schtasks.exe",
+        "/Query",
+        "/TN",
+        "\\APCD\\NP\\NP_K6_M2_BATCH1_NP_K6_M2_BATCH1_G04_P_001",
+        "/FO",
+        "LIST",
+        "/V"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "\n文件夹: \\APCD\\NP\n主机名:                             DESKTOP-NNE313K\n任务名:                             \\APCD\\NP\\NP_K6_M2_BATCH1_NP_K6_M2_BATCH1_G04_P_001\n下次运行时间:                       N/A\n模式:                               就绪\n登录状态:                           只使用交互方式\n上次运行时间:                       2026/8/9 18:15:00\n上次结果:                           -1\n创建者:                             DESKTOP-NNE313K\\DELL\n要运行的任务:                       \"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\scripts\\np_k6_m2_batch1_runner_v1.py\" --case NP_K6_M2_BATCH1_G04_P --task-name \\APCD\\NP\\NP_K6_M2_BATCH1_NP_K6_M2_BATCH1_G04_P_001\n起始于:                             N/A\n注释:                               N/A\n计划任务状态:                       已启用\n空闲时间:                           已禁用\n电源管理:                           在电池模式停止, 不用电池启动\n作为用户运行:                       DELL\n删除没有计划的任务:                 已禁用\n如果运行了 X 小时 X 分钟，停止任务: 72:00:00\n计划:                               计划数据在此格式中不可用。\n计划类型:                           一次性\n开始时间:                           18:15:00\n开始日期:                           2026/8/9\n结束日期:                           N/A\n天:                                 N/A\n月:                                 N/A\n重复: 每:                           已禁用\n重复: 截止: 时间:                   已禁用\n重复: 截止: 持续时间:               已禁用\n重复: 如果还在运行，停止:           已禁用\n"
+    }
+  },
+  "sha_files": {
+    "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m2_batch1_hf_acquisition_v1\\runtime_prefsp\\NP_K6_M2_BATCH1_G04_P.fsp": {
+      "mtime_ns": 1786174823431079500,
+      "sha256": "db666c715fe430080f0013e1bdbb03c42286095f97c880bcf404304f5307377c",
+      "size": 502838
+    },
+    "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m2_batch1_hf_acquisition_v1\\runtime_runs\\NP_K6_M2_BATCH1_G04_P\\attempt_001\\NP_K6_M2_BATCH1_G04_P_attempt_001_run.fsp": {
+      "mtime_ns": 1786270507151386800,
+      "sha256": "db666c715fe430080f0013e1bdbb03c42286095f97c880bcf404304f5307377c",
+      "size": 502838
+    },
+    "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m2_batch1_hf_acquisition_v1\\runtime_runs\\NP_K6_M2_BATCH1_G04_P\\attempt_001\\backup_for_FDTD_Solutions_design.fsp": {
+      "mtime_ns": 1786277569078449100,
+      "sha256": "db666c715fe430080f0013e1bdbb03c42286095f97c880bcf404304f5307377c",
+      "size": 502838
+    }
+  },
+  "timestamp_utc": "2026-08-09T13:23:12.495761+00:00"
+}
