@@ -23,7 +23,7 @@ DOE = ROOT / "outputs/mdc_hf_surrogate_v2_doe96_joint_profile_database_v1/202608
 OOF = ROOT / "outputs/mdc_hf_surrogate_v2_oof_model_selection_v1/20260804T_oof_model_selection_08915e7"
 FINAL = ROOT / "outputs/mdc_hf_surrogate_v2_m1_final_5seed_ensemble_v1/20260804T_final_m1_5seed_067c76b"
 TEST40 = ROOT / "outputs/mdc_hf_surrogate_v2_test40_selection_conflict_resolution_v1/20260808T_test40_selection_conflict_resolution_489b54e"
-RUN_ID = "20260809T_failure_mechanism_diagnostic_a322b13"
+RUN_ID = "20260809T_failure_mechanism_diagnostic_exact_latent_4169274"
 OUT = ROOT / "outputs/mdc_hf_surrogate_v2_failure_mechanism_diagnostic_fixed_v3_v1" / RUN_ID
 
 
@@ -115,13 +115,18 @@ def profile_metrics(truth: np.ndarray, prediction: np.ndarray) -> dict[str, floa
 
 
 def geometry_feature(family: str, layer_count: float, total: float, defect: float,
-                     families: list[str], mean: np.ndarray, std: np.ndarray) -> np.ndarray:
-    n = float(layer_count)
+                     families: list[str], mean: np.ndarray, std: np.ndarray,
+                     has_c: float = 1.0, has_m: float = 1.0) -> np.ndarray:
+    n = np.float32(layer_count)
+    total = np.float32(total)
+    defect = np.float32(defect)
     values = np.asarray(
         [float(family == item) for item in families]
-        + [n, total / n, (total - defect) / max(n - 1, 1), defect, n, defect, total, n, 1.0, 1.0],
-        float,
+        + [n, total / n, (total - defect) / max(n - np.float32(1), np.float32(1)),
+           defect, n, defect, total, n, has_c, has_m],
+        np.float32,
     )
+    mean, std = np.asarray(mean, np.float32), np.asarray(std, np.float32)
     values[len(families):len(families) + 8] = (values[len(families):len(families) + 8] - mean) / std
     return values
 
@@ -154,6 +159,11 @@ def source_hashes() -> dict[str, str]:
         "oof_histories": OOF / "oof_training_history_summary.csv",
         "final_profiles": FINAL / "final_ensemble_geometry_profiles.npz",
         "final_input_scaler": FINAL / "final_input_scaler_manifest.json",
+        "final_checkpoint_seed20260804": FINAL / "checkpoints/final_M1_seed20260804.pt",
+        "final_checkpoint_seed20260805": FINAL / "checkpoints/final_M1_seed20260805.pt",
+        "final_checkpoint_seed20260806": FINAL / "checkpoints/final_M1_seed20260806.pt",
+        "final_checkpoint_seed20260807": FINAL / "checkpoints/final_M1_seed20260807.pt",
+        "final_checkpoint_seed20260808": FINAL / "checkpoints/final_M1_seed20260808.pt",
         "test40_predictions": TEST40 / "test40_blind_prediction_profiles.npy",
         "test40_prediction_index": TEST40 / "test40_blind_prediction_case_index.parquet",
         "test40_label_index": TEST40 / "test40_case_label_index_v1.parquet",
@@ -175,7 +185,7 @@ def main() -> None:
 
     branch, head = git("branch", "--show-current"), git("rev-parse", "HEAD")
     divergence = git("rev-list", "--left-right", "--count", "HEAD...@{u}")
-    if branch != "work/mdc-hf-surrogate-v2" or head != "a322b13e8814c18b5d27b6895abe448d5b46bb46" or divergence != "0\t0":
+    if branch != "work/mdc-hf-surrogate-v2" or head != "41692749baa7114606b92d8d50f8b69082e4e031" or divergence != "0\t0":
         raise RuntimeError(f"HARD_GATE_GIT_PREFLIGHT {branch} {head} {divergence}")
     hashes_before = source_hashes()
 
@@ -201,9 +211,14 @@ def main() -> None:
     candidates = json.loads((ROOT / "contracts/mdc_hf_surrogate_v2/fixed_v2_initial_doe96_candidate_manifest.json").read_text(encoding="utf-8"))["candidates"]
     projection = {x["geometry_hash"]: x for x in json.loads((TEST40 / "test40_m1_prediction_input_projection_v1.json").read_text(encoding="utf-8"))["rows"]}
     geometry_manifest = pd.read_csv(TEST40 / "test40_geometry_manifest_v1.csv")
+    geometry_manifest_by_hash = geometry_manifest.set_index("geometry_hash")
     geometry_hashes = sorted(geometry_manifest.geometry_hash)
     doe_x = np.asarray([geometry_feature(x["topology_family"], x["layer_count"], x["total_thickness_nm"], x["defect_thickness_nm"], families, mean, std) for x in candidates])
-    test_x = np.asarray([geometry_feature(projection[h]["derived_model_family"], projection[h]["layer_count"], projection[h]["total_thickness_nm"], projection[h]["defect_thickness_nm"], families, mean, std) for h in geometry_hashes])
+    test_x = np.asarray([geometry_feature(
+        projection[h]["derived_model_family"], projection[h]["layer_count"],
+        projection[h]["total_thickness_nm"], projection[h]["defect_thickness_nm"],
+        families, mean, std, geometry_manifest_by_hash.loc[h, "has_C"], geometry_manifest_by_hash.loc[h, "has_M"]
+    ) for h in geometry_hashes])
     distances = np.sqrt(((test_x[:, None, :] - doe_x[None, :, :]) ** 2).sum(2))
     doe_hashes = [x["geometry_hash"] for x in candidates]
     nearest_indices = np.argmin(distances, axis=1)
@@ -238,6 +253,31 @@ def main() -> None:
         return (np.asarray(q, np.float32).reshape(-1) - component_mean) @ components.T
 
     prediction_index = pd.read_parquet(TEST40 / "test40_blind_prediction_case_index.parquet").sort_values("test_case_uid").reset_index(drop=True)
+    profile_order = prediction_index.sort_values("profile_row").reset_index(drop=True)
+    test_feature_map = {geometry_hash: test_x[i] for i, geometry_hash in enumerate(geometry_hashes)}
+    case_feature_rows = []
+    for row in profile_order.itertuples(index=False):
+        conditioning = [float(row.source_position == item) for item in ["top", "centroid", "bottom"]]
+        conditioning += [float(row.dipole_orientation == item) for item in ["x", "z"]]
+        case_feature_rows.append(np.concatenate([test_feature_map[row.geometry_hash], conditioning]))
+    input_matrix_path = out / "test40_frozen_m1_input_matrix.npy"
+    expected_power_path = out / "test40_frozen_expected_ensemble_power.npy"
+    expected_log_power_path = out / "test40_frozen_expected_ensemble_log_power.npy"
+    np.save(input_matrix_path, np.asarray(case_feature_rows, np.float32))
+    np.save(expected_power_path, profile_order.ensemble_power.to_numpy(np.float32))
+    np.save(expected_log_power_path, profile_order.ensemble_log_power.to_numpy(np.float32))
+    replay_script = Path(__file__).with_name("replay_mdc_hf_surrogate_v2_test40_predicted_latent_v1.py")
+    replay_python = Path(r"N:\anaconda_envs\RCP_LCP\python.exe")
+    subprocess.check_call([
+        str(replay_python), str(replay_script), "--input", str(input_matrix_path),
+        "--expected-profiles", str(TEST40 / "test40_blind_prediction_profiles.npy"),
+        "--expected-power", str(expected_power_path), "--expected-log-power", str(expected_log_power_path),
+        "--output", str(out),
+    ])
+    latent_replay = json.loads((out / "test40_predicted_latent_replay_manifest.json").read_text(encoding="utf-8"))
+    if latent_replay["status"] != "PASS_EXACT_FROZEN_PREDICTION_REPLAY":
+        raise RuntimeError("HARD_GATE_TEST40_PREDICTED_LATENT_REPLAY_MISMATCH")
+    predicted_latent_by_profile_row = np.load(out / "test40_predicted_latent_ensemble.npy", allow_pickle=False)
     label_index = pd.read_parquet(TEST40 / "test40_case_label_index_v1.parquet").set_index("test_case_uid")
     predicted_profiles = np.load(TEST40 / "test40_blind_prediction_profiles.npy", mmap_mode="r")
     truth_latent, prediction_latent, case_rows, predictions_by_geometry = [], [], [], {}
@@ -245,7 +285,8 @@ def main() -> None:
         with np.load(label_index.loc[row.test_case_uid, "joint_tensor_path"], allow_pickle=False) as npz:
             truth_q = raw_case_to_q(npz)
         prediction_q = normalize_mass(predicted_profiles[int(row.profile_row)]).astype(np.float32)
-        z_truth, z_prediction = encode(truth_q), encode(prediction_q)
+        z_truth = encode(truth_q)
+        z_prediction = predicted_latent_by_profile_row[int(row.profile_row)]
         truth_latent.append(z_truth); prediction_latent.append(z_prediction)
         metrics = profile_metrics(truth_q, prediction_q)
         metrics.update({"test_case_uid": row.test_case_uid, "geometry_hash": row.geometry_hash,
@@ -275,8 +316,13 @@ def main() -> None:
     collapse = bool(latent.variance_ratio.median() < 0.25 and (latent.variance_ratio < 0.5).sum() >= 24)
     latent_audit = {
         "status": "LATENT_VARIANCE_COLLAPSE_EVIDENCE" if collapse else "NO_SYSTEMATIC_LATENT_VARIANCE_COLLAPSE",
-        "scope": "240 Test40 cases; both truth and frozen decoded M1 predictions re-encoded in the unchanged full-development PCA32 basis",
-        "raw_internal_test40_latent_saved": False, "prediction_coordinate_provenance": "frozen blind decoded profile -> frozen PCA32 transform; no fit",
+        "scope": "240 Test40 cases; truth uses the unchanged full-development PCA32 transform and prediction uses the exact inverse-scaled five-seed M1 latent-head ensemble",
+        "raw_internal_test40_latent_saved": True,
+        "prediction_coordinate_provenance": "fresh inference-only replay of five frozen M1 checkpoints; inverse target scaling; uniform five-seed latent mean",
+        "frozen_blind_profile_replay_max_abs_difference": latent_replay["frozen_profile_replay_max_abs_difference"],
+        "frozen_blind_log_power_replay_max_abs_difference": latent_replay["frozen_log_power_replay_max_abs_difference"],
+        "frozen_blind_power_replay_max_abs_difference": latent_replay["frozen_power_replay_max_abs_difference"],
+        "checkpoint_loads": latent_replay["checkpoint_loads"],
         "median_variance_ratio": float(latent.variance_ratio.median()),
         "components_ratio_lt_0_25": int((latent.variance_ratio < 0.25).sum()),
         "components_ratio_lt_0_5": int((latent.variance_ratio < 0.5).sum()),
@@ -483,7 +529,11 @@ def main() -> None:
     axes[0].set_yticks([1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1])
     axes[0].set_yticklabels(["0.00001", "0.0001", "0.001", "0.01", "0.1", "1"])
     axes[0].set_ylabel("Predicted / truth variance"); axes[0].set_xlabel("PCA32 component")
-    axes[0].legend(frameon=False); axes[0].set_title("a  Test40 latent variance collapses in 31 of 32 components", loc="left", fontweight="bold")
+    collapsed_components = int((latent.variance_ratio < 0.25).sum())
+    axes[0].legend(frameon=False); axes[0].set_title(
+        f"a  Test40 latent variance collapses in {collapsed_components} of 32 components",
+        loc="left", fontweight="bold",
+    )
     axes[1].plot(latent.component, latent.pearson, "o-", ms=2.5, color="#55A868", label="Pearson r")
     axes[1].plot(latent.component, latent.spearman, "o-", ms=2.5, color="#8172B2", label="Spearman rho")
     axes[1].axhline(0, color="0.6", lw=0.6); axes[1].set_ylim(-1, 1); axes[1].set_xlabel("PCA32 component"); axes[1].set_ylabel("Correlation")
@@ -526,6 +576,7 @@ def main() -> None:
     safety = {"FDTD_calls": 0, "TMM_calls": 0, "RCWA_calls": 0, "NP_solver_calls": 0,
               "neural_fits": 0, "optimizer_calls": 0, "backward_calls": 0, "PCA_fits": 0, "scaler_fits": 0,
               "HF15_reads": 0, "R12_reads": 0, "sealed_reads": 0, "Test40_membership_changes": 0,
+              "checkpoint_loads": 5, "neural_inference_replays": 1,
               "plot_backend": "Python", "R_calls": 0}
     dump(out / "safety_audit.json", safety)
     hashes_after = source_hashes()
@@ -536,9 +587,12 @@ def main() -> None:
     provenance = {"task": "APCD_MDC_HF_SURROGATE_V2_FAILURE_MECHANISM_DIAGNOSTIC_FOR_FIXED_V3_DECISION_V1",
                   "run_id": out.name, "branch": branch, "code_commit": head, "ahead_behind_before": divergence,
                   "python": platform.python_version(), "numpy": np.__version__, "pandas": pd.__version__,
-                  "matplotlib": matplotlib.__version__, "joblib": joblib.__version__, "source_artifact_sha256": hashes_before}
+                  "matplotlib": matplotlib.__version__, "joblib": joblib.__version__,
+                  "diagnostic_script_sha256": sha256(Path(__file__)),
+                  "latent_replay_helper_sha256": sha256(replay_script), "latent_replay": latent_replay,
+                  "source_artifact_sha256": hashes_before}
     dump(out / "provenance.json", provenance)
-    report = f"""# M1 failure-mechanism diagnostic\n\nStatus: `{decision}`.\n\nPCA32 cross-fit reconstruction (JS {pca32_crossfit['mean_js_divergence']:.5f}, weighted L1 {pca32_crossfit['mean_joint_weighted_l1']:.5f}) remains far below M1 Test40 error (JS {m1_geometry.joint_JS.mean():.5f}, weighted L1 {m1_geometry.joint_weighted_L1.mean():.5f}). The median latent variance ratio is {latent.variance_ratio.median():.6f}; 31/32 components are below 0.25. Predicted pairwise profile diversity is {diversity['JS']['prediction_to_truth_median_ratio']:.4%} of truth by JS and {diversity['weighted_L1']['prediction_to_truth_median_ratio']:.4%} by weighted L1.\n\nM1 remains better than the metadata-only nearest-neighbour baseline on all four mean diagnostics. Train and OOF errors are similar, while Test40 JS and L1 rise sharply. Fourteen of 15 OOF fits still improve from epoch 2 to epoch 3. Error increases with metadata distance (Spearman rho {distance_rho:.3f}), and concentrates in ZL1 / N=4-5 / interior regions. z-oriented cases have higher profile error. The two predicted power bands are driven by derived model family, not source position or dipole orientation.\n\nDecision: `{decision}`. Root cause is mixed undertraining plus insufficient geometry diversity/topology coverage. No training or solver execution was started.\n"""
+    report = f"""# M1 failure-mechanism diagnostic\n\nStatus: `{decision}`.\n\nPCA32 cross-fit reconstruction (JS {pca32_crossfit['mean_js_divergence']:.5f}, weighted L1 {pca32_crossfit['mean_joint_weighted_l1']:.5f}) remains far below M1 Test40 error (JS {m1_geometry.joint_JS.mean():.5f}, weighted L1 {m1_geometry.joint_weighted_L1.mean():.5f}). The latent audit uses exact inverse-scaled outputs replayed from all five frozen M1 checkpoints and reproduces the frozen blind profiles within {latent_replay['frozen_profile_replay_max_abs_difference']:.3g} max absolute difference. The median latent variance ratio is {latent.variance_ratio.median():.6f}; {int((latent.variance_ratio < .25).sum())}/32 components are below 0.25. Predicted pairwise profile diversity is {diversity['JS']['prediction_to_truth_median_ratio']:.4%} of truth by JS and {diversity['weighted_L1']['prediction_to_truth_median_ratio']:.4%} by weighted L1.\n\nM1 remains better than the metadata-only nearest-neighbour baseline on all four mean diagnostics. Train and OOF errors are similar, while Test40 JS and L1 rise sharply. Fourteen of 15 OOF fits still improve from epoch 2 to epoch 3. Error increases with metadata distance (Spearman rho {distance_rho:.3f}), and concentrates in ZL1 / N=4-5 / interior regions. z-oriented cases have higher profile error. The two predicted power bands are driven by derived model family, not source position or dipole orientation.\n\nDecision: `{decision}`. Root cause is mixed undertraining plus insufficient geometry diversity/topology coverage. No training or solver execution was started.\n"""
     (out / "completion_report.md").write_text(report, encoding="utf-8")
     artifacts = []
     for path in sorted(out.rglob("*")):

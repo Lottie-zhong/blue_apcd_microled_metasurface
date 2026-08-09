@@ -5,6 +5,7 @@ import numpy as np
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "diagnose_mdc_hf_surrogate_v2_failure_mechanism_fixed_v3_v1.py"
+HELPER = Path(__file__).resolve().parents[1] / "scripts" / "replay_mdc_hf_surrogate_v2_test40_predicted_latent_v1.py"
 SPEC = importlib.util.spec_from_file_location("diag", SCRIPT)
 diag = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(diag)
@@ -52,3 +53,34 @@ def test_safety_guards_have_zero_counters():
                   "neural_fits\": 0", "optimizer_calls\": 0", "backward_calls\": 0",
                   "PCA_fits\": 0", "scaler_fits\": 0", "HF15_reads\": 0", "sealed_reads\": 0"]:
         assert token in text
+
+
+def test_latent_audit_uses_exact_frozen_checkpoint_replay():
+    text = SCRIPT.read_text(encoding="utf-8")
+    helper = HELPER.read_text(encoding="utf-8")
+    assert "PASS_EXACT_FROZEN_PREDICTION_REPLAY" in text
+    assert "test40_predicted_latent_ensemble.npy" in text
+    assert "uniform arithmetic mean of five inverse-target-scaled latent-head outputs" in helper
+    assert "torch.inference_mode" in helper
+    assert "fit_calls\": 0" in helper
+    assert "optimizer_calls\": 0" in helper
+    assert "backward_calls\": 0" in helper
+
+
+def test_checkpoint_replay_verifies_frozen_profiles_and_power():
+    helper = HELPER.read_text(encoding="utf-8")
+    assert "frozen_profile_replay_max_abs_difference" in helper
+    assert "frozen_power_replay_max_abs_difference" in helper
+    assert "HARD_GATE_TEST40_PREDICTION_REPLAY_MISMATCH" in helper
+
+
+def test_latent_figure_collapse_count_is_computed_from_frozen_rule():
+    text = SCRIPT.read_text(encoding="utf-8")
+    assert "collapsed_components = int((latent.variance_ratio < 0.25).sum())" in text
+    assert "collapses in 31 of 32 components" not in text
+
+
+def test_provenance_hashes_both_executed_diagnostic_sources():
+    text = SCRIPT.read_text(encoding="utf-8")
+    assert '"diagnostic_script_sha256": sha256(Path(__file__))' in text
+    assert '"latent_replay_helper_sha256": sha256(replay_script)' in text
