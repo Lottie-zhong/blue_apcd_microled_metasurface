@@ -17,3 +17,8 @@ The evidence includes a transparent correction record for an earlier cleanup tha
 Evidence directory: `D:\project\worktrees\blue_apcd_np_k6_mdc_v1\outputs\np_k6_m2_g04p_messaging_recovery_v1`
 
 Captured UTC: `2026-08-09T13:33:39.744691+00:00`
+
+
+## Root-cause refinement
+
+Read-only postmortem logs show the v251 local Ansys Licensing Client Proxy at `54018@127.0.0.1` failing SSL handshake and exiting; the shared FlexNet server at `1055@DESKTOP-NNE313K` remains reachable with capacity. `AWP_LOCALE251=zh` also points to a missing `language\zh\ansysli_msgs.xml`; a process-local `en-us` override was tested and still failed. The remaining repair would affect active non-APCD Ansys EDT licensing-client processes (PIDs 9228/22012), so no restart or termination was performed.

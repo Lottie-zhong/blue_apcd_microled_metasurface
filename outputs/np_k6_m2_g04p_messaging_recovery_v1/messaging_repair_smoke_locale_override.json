@@ -1,0 +1,18 @@
+{
+  "captured_utc": "2026-08-09T13:40:17.727803+00:00",
+  "run_called": false,
+  "load_called": false,
+  "save_called": false,
+  "assert_no_solver_run": true,
+  "environment_before": "zh",
+  "environment_override": "en-us",
+  "session_created": false,
+  "messaging_pass": false,
+  "license_checkout_pass": false,
+  "close_called": false,
+  "lumapi_path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\api\\python\\lumapi.py",
+  "status": "FAIL",
+  "error_type": "LumApiError",
+  "error": "LumApiError('appOpen error: \\n Failed to start messaging, check licenses...')",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 11, in main\n  File \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\api\\python\\lumapi.py\", line 1541, in __init__\n    super(FDTD, self).__init__('fdtd', filename, key, hide, serverArgs, remoteArgs, **kwargs)\n  File \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\api\\python\\lumapi.py\", line 1196, in __init__\n    handle = self.__open__(iapi, product, key, hide, serverArgs, remoteArgs)\n  File \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\api\\python\\lumapi.py\", line 1415, in __open__\n    raise LumApiError(error)\nlumapi.LumApiError: 'appOpen error: \\n Failed to start messaging, check licenses...'\n"
+}

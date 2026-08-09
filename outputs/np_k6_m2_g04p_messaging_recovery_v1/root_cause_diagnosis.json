@@ -1,0 +1,20 @@
+{
+  "captured_utc": "2026-08-09T13:42:43.299451+00:00",
+  "root_cause": "LOCAL_ANSYS_LICENSE_CLIENT_PROXY_SSL_HANDSHAKE_TIMEOUT",
+  "evidence": [
+    "licdebug LUMERICAL_GUI.251 shows SSL handshake timeout with server 54018@127.0.0.1",
+    "licdebug LUMERICAL_SOLVE.251 shows ansyscl exited or could not read local proxy port and lumerical_solve timeout",
+    "lmstat 1055@DESKTOP-NNE313K reports license server UP with 100 seats and one lumerical_solve in use",
+    "AWP_LOCALE251=zh points to missing language\\zh\\ansysli_msgs.xml; temporary en-us override still failed smoke"
+  ],
+  "shared_server_1055_reachable": true,
+  "shared_server_restarted": false,
+  "active_non_apcd_ansyscl_pids": [
+    9228,
+    22012
+  ],
+  "restart_of_those_processes_authorization": false,
+  "smoke_locale_override": "FAIL",
+  "solver_calls": 0,
+  "post_fsp_created": false
+}
