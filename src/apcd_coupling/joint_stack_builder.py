@@ -24,6 +24,7 @@ def build_joint_case(
     interface_candidate: dict[str, Any] | None = None,
     case_id: str | None = None,
     control_group: str = "B3",
+    incident_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     mdc = deepcopy(mdc_candidate)
     np = deepcopy(np_candidate)
@@ -75,6 +76,7 @@ def build_joint_case(
         "wavelength_nm": float(wavelength_nm),
         "polarization": polarization,
         "kx_over_k0": float(kx_over_k0),
+        "incident_state": deepcopy(incident_state) if incident_state is not None else None,
         "objects": objects,
         "coordinates": {
             "plus_z": "GaN -> MDC/support -> NP -> Air",
@@ -99,4 +101,5 @@ def build_joint_case(
     case["interface_geometry_hash"] = canonical_hash({"candidate": interface, "layers": support_layers})
     case["np_geometry_hash"] = canonical_hash({"candidate": np, "pillars": pillars})
     case["joint_geometry_hash"] = canonical_hash({"objects": objects, "coordinates": case["coordinates"]})
+    case["incident_state_hash"] = canonical_hash(case["incident_state"]) if case["incident_state"] is not None else None
     return validate_joint_case(case)

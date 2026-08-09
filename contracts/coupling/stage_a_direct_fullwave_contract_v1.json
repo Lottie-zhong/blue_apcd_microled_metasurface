@@ -23,7 +23,7 @@
     "APCD_GAN_NATIVE_M1 continuous GaN",
     "ZL-1 alternative MDC",
     "MDC final 79nm SiO2",
-    "no extra spacer",
+    "extra 237nm APCD_SIO2_NATIVE_M1 spacer",
     "RUN3A TiO2 K6 pillars",
     "Air"
   ],
@@ -33,10 +33,10 @@
     "period_y_nm": 290,
     "pillar_height_nm": 500,
     "material": "APCD_TIO2_NATIVE_M1",
-    "t_extra_nm": 0
+    "t_extra_nm": 237
   },
   "coordinate_contract": {
-    "plus_z": "GaN -> MDC -> K6 -> Air",
+    "plus_z": "GaN -> MDC -> 237nm SiO2 spacer -> K6 -> Air",
     "plus_x": "RUN3A phase-gradient",
     "diffraction_order_m_plus_1": "physical +x",
     "joint_z_zero": "GaN/MDC first interface",
@@ -104,7 +104,10 @@
     "offline_screening_runs_this_freeze": 0,
     "sealed_test_reads_this_freeze": 0,
     "test40_reads_this_freeze": 0,
-    "source_worktree_writes_this_freeze": 0
+    "source_worktree_writes_this_freeze": 0,
+    "polarization_angle_matrix_runs_authorized": 9,
+    "polarization_angle_matrix_runs_completed": 9,
+    "total_solver_entries_including_validated_polarization_matrix": 12
   },
   "provenance": {
     "mdc_commit": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
@@ -117,7 +120,11 @@
     "np_package_id": "NP_K6_P1D4_K6X_V1",
     "np_package_sha256": "0b7b45e838a0d73b92d63f8a45459bc46206677a91821fa474dacf4bd9028eaa",
     "np_formal_scope_sha256": "f034240634365f2c81a78feb0c8df4bc2ecc17db074734236d48c13deaffc7de",
-    "np_handoff_sha256": "4fcf8b5cbefb37ba8153ffadbf7bb4a141d6cbbb4fb296fe9fd2211e44226934"
+    "np_handoff_sha256": "4fcf8b5cbefb37ba8153ffadbf7bb4a141d6cbbb4fb296fe9fd2211e44226934",
+    "polarization_angle_config": "configs/coupling/stage_a_polarization_angle_450_v1.json",
+    "oblique_real_kx_source_contract": "configs/coupling/oblique_real_kx_source_contract_v1.json",
+    "polarization_angle_matrix_report": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\reports\\coupling\\stage_a_polarization_angle_matrix_450_v1.json",
+    "polarization_angle_matrix_report_sha256": "21c0dc0df693ae6c380f2a8258e74a8d070229500bcfe6becc72620d4df8289c"
   },
   "authorized_case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
   "authorized_at": "2026-08-09T00:00:00Z",
@@ -190,5 +197,66 @@
     "outputs/coupling/stage_a_nb_t79_445_455_xpol_normal_v1/reconciliation_450nm.json",
     "outputs/coupling/stage_a_nb_t237_445_455_xpol_normal_v1/reconciliation_450nm.json",
     "outputs/coupling/stage_a_nb_t0_445_455_xpol_normal_v1/reconciliation_450nm.json"
-  ]
+  ],
+  "authorized_incident_state_case_ids": [
+    "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0",
+    "STAGE_A_POL_XP5_450NM_P_XLIKE",
+    "STAGE_A_POL_XM5_450NM_P_XLIKE",
+    "STAGE_A_POL_YP5_450NM_S_YLIKE",
+    "STAGE_A_POL_YM5_450NM_S_YLIKE",
+    "STAGE_A_POL_XP10_450NM_P_XLIKE",
+    "STAGE_A_POL_XM10_450NM_P_XLIKE",
+    "STAGE_A_POL_YP10_450NM_S_YLIKE",
+    "STAGE_A_POL_YM10_450NM_S_YLIKE"
+  ],
+  "authorized_incident_state_case_order": [
+    "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0",
+    "STAGE_A_POL_XP5_450NM_P_XLIKE",
+    "STAGE_A_POL_XM5_450NM_P_XLIKE",
+    "STAGE_A_POL_YP5_450NM_S_YLIKE",
+    "STAGE_A_POL_YM5_450NM_S_YLIKE",
+    "STAGE_A_POL_XP10_450NM_P_XLIKE",
+    "STAGE_A_POL_XM10_450NM_P_XLIKE",
+    "STAGE_A_POL_YP10_450NM_S_YLIKE",
+    "STAGE_A_POL_YM10_450NM_S_YLIKE"
+  ],
+  "polarization_angle_matrix": {
+    "status": "VALIDATED",
+    "control_group": "POL_ANGLE_MATRIX",
+    "wavelength_nm": 450.0,
+    "frozen_spacer_nm": 237,
+    "total_sio2_separation_nm": 316.0,
+    "angle_convention_id": "air_side_far_field_conserved_real_kx_v1",
+    "branches": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "case_order": [
+      "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0",
+      "STAGE_A_POL_XP5_450NM_P_XLIKE",
+      "STAGE_A_POL_XM5_450NM_P_XLIKE",
+      "STAGE_A_POL_YP5_450NM_S_YLIKE",
+      "STAGE_A_POL_YM5_450NM_S_YLIKE",
+      "STAGE_A_POL_XP10_450NM_P_XLIKE",
+      "STAGE_A_POL_XM10_450NM_P_XLIKE",
+      "STAGE_A_POL_YP10_450NM_S_YLIKE",
+      "STAGE_A_POL_YM10_450NM_S_YLIKE"
+    ],
+    "x0_reuse": {
+      "case_id": "STAGE_A_450NM_X_UX0_TEXTRA237",
+      "source": "existing frozen T237 broadband exact 450 row",
+      "rerun": false
+    },
+    "no_polarization_averaging": true,
+    "source_contract_path": "configs/coupling/oblique_real_kx_source_contract_v1.json",
+    "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+    "authorized_at": "2026-08-09T08:27:36.828143+00:00",
+    "decision": "POLARIZATION_ANGLE_450NM_MATRIX_VALIDATED",
+    "report_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\reports\\coupling\\stage_a_polarization_angle_matrix_450_v1.json",
+    "report_sha256": "21c0dc0df693ae6c380f2a8258e74a8d070229500bcfe6becc72620d4df8289c",
+    "solver_entries_completed": 9,
+    "completed_at": "2026-08-09T09:31:28.700581+00:00"
+  },
+  "current_matrix_decision": "POLARIZATION_ANGLE_450NM_MATRIX_VALIDATED",
+  "post_matrix_next_authorization_action": "REQUEST_STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_AUTHORIZATION"
 }

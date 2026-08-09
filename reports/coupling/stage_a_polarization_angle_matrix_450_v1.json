@@ -1,0 +1,522 @@
+{
+  "schema_version": "stage_a_polarization_angle_matrix_report_v1",
+  "report_id": "APCD_MDC_NP_COUPLING_V1_STAGE_A_FROZEN_SPACER_450NM_POLARIZATION_ANGLE_MATRIX",
+  "decision": "POLARIZATION_ANGLE_450NM_MATRIX_VALIDATED",
+  "wavelength_nm": 450.0,
+  "frozen_spacer_nm": 237.0,
+  "total_sio2_separation_nm": 316.0,
+  "angle_convention_id": "air_side_far_field_conserved_real_kx_v1",
+  "matrix_shape": {
+    "angles": [
+      -10.0,
+      -5.0,
+      0.0,
+      5.0,
+      10.0
+    ],
+    "branches": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "rows": 10
+  },
+  "x0_reuse": {
+    "case_id": "STAGE_A_450NM_X_UX0_TEXTRA237",
+    "theta_air_in_deg": 0.0,
+    "ux_in": 0.0,
+    "polarization_branch": "P_XLIKE",
+    "polarization": "x",
+    "eta_plus1": 0.376202552031929,
+    "eta_zero": 0.00033562477869515455,
+    "eta_minus1": 0.000549100357967581,
+    "eta_plus2": 0.014190309923864277,
+    "theta_out_plus1_deg": 14.988234482305131,
+    "R_total": 0.05451642969721874,
+    "T_total": 0.431402119943098,
+    "directionality": 0.9985425402795598,
+    "spacer_nm": 237.0,
+    "source_contract_id": "FROZEN_T237_BROADBAND_XPOL_NORMAL_REUSED_AT_450NM",
+    "incident_state_hash": null,
+    "solver_entered": false,
+    "solver_reused": true,
+    "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_nb_t237_445_455_xpol_normal_v1\\results\\result.json",
+    "provenance_status": "PASS",
+    "reuse_reason": "existing frozen T237 broadband exact 450 nm row",
+    "source_result_case_id": "STAGE_A_NB_T237_445_455NM_X_UX0",
+    "source_result_sha256": "b6458af76de89159ac05004c20d9955a1041d5a8d793587e63cd01160b8353d0",
+    "rerun": false
+  },
+  "new_solver_case_order": [
+    "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0",
+    "STAGE_A_POL_XP5_450NM_P_XLIKE",
+    "STAGE_A_POL_XM5_450NM_P_XLIKE",
+    "STAGE_A_POL_YP5_450NM_S_YLIKE",
+    "STAGE_A_POL_YM5_450NM_S_YLIKE",
+    "STAGE_A_POL_XP10_450NM_P_XLIKE",
+    "STAGE_A_POL_XM10_450NM_P_XLIKE",
+    "STAGE_A_POL_YP10_450NM_S_YLIKE",
+    "STAGE_A_POL_YM10_450NM_S_YLIKE"
+  ],
+  "matrix_rows": [
+    {
+      "case_id": "STAGE_A_POL_XM10_450NM_P_XLIKE",
+      "theta_air_in_deg": -10.0,
+      "ux_in": -0.17364817766693033,
+      "polarization_branch": "P_XLIKE",
+      "polarization": "x",
+      "eta_plus1": 0.2581464494005228,
+      "eta_zero": 0.013885597947940741,
+      "eta_minus1": 0.006349733476680511,
+      "eta_plus2": 0.0007024702187997898,
+      "theta_out_plus1_deg": 4.874444203898843,
+      "R_total": 0.10328614745660751,
+      "T_total": 0.30607571194421423,
+      "directionality": 0.97599309975816,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "99888b6f8fac673b761c15deafc987a9ab5e27fdb967c90f63b81ae4848ca755",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_XM10_450NM_P_XLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": -10.0,
+        "branch": "P_XLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_YM10_450NM_S_YLIKE",
+      "theta_air_in_deg": -10.0,
+      "ux_in": -0.17364817766693033,
+      "polarization_branch": "S_YLIKE",
+      "polarization": "y",
+      "eta_plus1": 0.4659183648139122,
+      "eta_zero": 0.0017956825956068779,
+      "eta_minus1": 0.002697196752178543,
+      "eta_plus2": 0.012338825160818646,
+      "theta_out_plus1_deg": 4.874444203898843,
+      "R_total": 0.03217305034121783,
+      "T_total": 0.4919380303687044,
+      "directionality": 0.9942443295242593,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "30973d3601f5447fe7f2f3e77ec2ba30d0578013b325018c8473b1f2e420bfbc",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_YM10_450NM_S_YLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": -10.0,
+        "branch": "S_YLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_XM5_450NM_P_XLIKE",
+      "theta_air_in_deg": -5.0,
+      "ux_in": -0.08715574274765817,
+      "polarization_branch": "P_XLIKE",
+      "polarization": "x",
+      "eta_plus1": 0.3086829450684895,
+      "eta_zero": 0.011969201731038817,
+      "eta_minus1": 0.010033173599038353,
+      "eta_plus2": 0.019891796573773667,
+      "theta_out_plus1_deg": 9.873005090723506,
+      "R_total": 0.066117231435227,
+      "T_total": 0.4019258019092331,
+      "directionality": 0.9685200308004989,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "bcd25d16a535c11578c77df207adb92492637398b69efd44cd6e562b67b17ffb",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_XM5_450NM_P_XLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": -5.0,
+        "branch": "P_XLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_YM5_450NM_S_YLIKE",
+      "theta_air_in_deg": -5.0,
+      "ux_in": -0.08715574274765817,
+      "polarization_branch": "S_YLIKE",
+      "polarization": "y",
+      "eta_plus1": 0.40235732025192583,
+      "eta_zero": 0.006084830464754552,
+      "eta_minus1": 0.0017339052287500335,
+      "eta_plus2": 0.0198313694208016,
+      "theta_out_plus1_deg": 9.873005090723506,
+      "R_total": 0.07903546962104006,
+      "T_total": 0.43805755895031556,
+      "directionality": 0.995709124278342,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "9a531b00fc9aae722d12ff022e36489f5b25db60ef21b3644ffd7977ad8c299d",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_YM5_450NM_S_YLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": -5.0,
+        "branch": "S_YLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_450NM_X_UX0_TEXTRA237",
+      "theta_air_in_deg": 0.0,
+      "ux_in": 0.0,
+      "polarization_branch": "P_XLIKE",
+      "polarization": "x",
+      "eta_plus1": 0.376202552031929,
+      "eta_zero": 0.00033562477869515455,
+      "eta_minus1": 0.000549100357967581,
+      "eta_plus2": 0.014190309923864277,
+      "theta_out_plus1_deg": 14.988234482305131,
+      "R_total": 0.05451642969721874,
+      "T_total": 0.431402119943098,
+      "directionality": 0.9985425402795598,
+      "spacer_nm": 237.0,
+      "source_contract_id": "FROZEN_T237_BROADBAND_XPOL_NORMAL_REUSED_AT_450NM",
+      "incident_state_hash": null,
+      "solver_entered": false,
+      "solver_reused": true,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_nb_t237_445_455_xpol_normal_v1\\results\\result.json",
+      "provenance_status": "PASS",
+      "reuse_reason": "existing frozen T237 broadband exact 450 nm row",
+      "source_result_case_id": "STAGE_A_NB_T237_445_455NM_X_UX0",
+      "source_result_sha256": "b6458af76de89159ac05004c20d9955a1041d5a8d793587e63cd01160b8353d0",
+      "rerun": false,
+      "matrix_theta_order": {
+        "theta_air_in_deg": 0.0,
+        "branch": "P_XLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0",
+      "theta_air_in_deg": 0.0,
+      "ux_in": 0.0,
+      "polarization_branch": "S_YLIKE",
+      "polarization": "y",
+      "eta_plus1": 0.3170225007402073,
+      "eta_zero": 0.01864280024988542,
+      "eta_minus1": 0.006431645273485233,
+      "eta_plus2": 0.0123125468828631,
+      "theta_out_plus1_deg": 14.988234482305131,
+      "R_total": 0.1086797661399145,
+      "T_total": 0.377874302055701,
+      "directionality": 0.9801157432892731,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "f8d8b5ecbe3ab474014ea1fe4013bd498730f212586523d9cea884825f8be478",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_Y0_450NM_S_YLIKE_UX0\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": 0.0,
+        "branch": "S_YLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_XP5_450NM_P_XLIKE",
+      "theta_air_in_deg": 5.0,
+      "ux_in": 0.08715574274765817,
+      "polarization_branch": "P_XLIKE",
+      "polarization": "x",
+      "eta_plus1": 0.3616147503931417,
+      "eta_zero": 0.0014484500533263887,
+      "eta_minus1": 0.009156950493513838,
+      "eta_plus2": 0.005329089027758487,
+      "theta_out_plus1_deg": 20.229199285812754,
+      "R_total": 0.06137873960347155,
+      "T_total": 0.4113656795229408,
+      "directionality": 0.9753029951541174,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "3e4c00db405460e6eab4509b7274418cb13d509fc6224fd74169893529ecd31a",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_XP5_450NM_P_XLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": 5.0,
+        "branch": "P_XLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_YP5_450NM_S_YLIKE",
+      "theta_air_in_deg": 5.0,
+      "ux_in": 0.08715574274765817,
+      "polarization_branch": "S_YLIKE",
+      "polarization": "y",
+      "eta_plus1": 0.36706818693131155,
+      "eta_zero": 0.014746010503013968,
+      "eta_minus1": 0.0025052437005368337,
+      "eta_plus2": 0.0033614900234257613,
+      "theta_out_plus1_deg": 20.229199285812754,
+      "R_total": 0.08340044112217944,
+      "T_total": 0.4286080946189367,
+      "directionality": 0.9932212559321332,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "7a1f4a0236e5ddfc5bdb9b32fb67434ab674bf2e8174671ee1144bf63a773f3c",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_YP5_450NM_S_YLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": 5.0,
+        "branch": "S_YLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_XP10_450NM_P_XLIKE",
+      "theta_air_in_deg": 10.0,
+      "ux_in": 0.17364817766693033,
+      "polarization_branch": "P_XLIKE",
+      "polarization": "x",
+      "eta_plus1": 0.19815406977958594,
+      "eta_zero": 0.013874187598787438,
+      "eta_minus1": 0.004316941073726745,
+      "eta_plus2": 0.005040266378640899,
+      "theta_out_plus1_deg": 25.611634564652103,
+      "R_total": 0.10254744086325633,
+      "T_total": 0.3062118649206973,
+      "directionality": 0.9786787202003239,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "75b94da47e66072431742c86e89127c56961610b90b0d1cddb3d213a91402ea2",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_XP10_450NM_P_XLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": 10.0,
+        "branch": "P_XLIKE"
+      }
+    },
+    {
+      "case_id": "STAGE_A_POL_YP10_450NM_S_YLIKE",
+      "theta_air_in_deg": 10.0,
+      "ux_in": 0.17364817766693033,
+      "polarization_branch": "S_YLIKE",
+      "polarization": "y",
+      "eta_plus1": 0.36273276220788964,
+      "eta_zero": 0.0057924033395207256,
+      "eta_minus1": 0.005159993667212498,
+      "eta_plus2": 0.0008646065862696495,
+      "theta_out_plus1_deg": 25.611634564652103,
+      "R_total": 0.0386401241418983,
+      "T_total": 0.47870558440078703,
+      "directionality": 0.9859741906172127,
+      "spacer_nm": 237.0,
+      "source_contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+      "incident_state_hash": "0477cdeefcfb7ca9d9d24b39a4b183a0180bb681d8af0fa34c5eb9445c8d261e",
+      "solver_entered": true,
+      "solver_reused": false,
+      "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_polarization_angle_450_v1\\STAGE_A_POL_YP10_450NM_S_YLIKE\\results\\result.json",
+      "provenance_status": "PASS",
+      "matrix_theta_order": {
+        "theta_air_in_deg": 10.0,
+        "branch": "S_YLIKE"
+      }
+    }
+  ],
+  "physical_behavior": {
+    "Y0_steering": {
+      "eta_plus1": 0.3170225007402073,
+      "eta_zero": 0.01864280024988542,
+      "theta_out_plus1_deg": 14.988234482305131,
+      "steering_exists": true
+    },
+    "normal_P_vs_S": {
+      "P_eta_plus1": 0.376202552031929,
+      "S_eta_plus1": 0.3170225007402073,
+      "P_minus_S_eta_plus1": 0.05918005129172166
+    },
+    "m_plus_1_behavior": {
+      "physical_sign_contract": "+x",
+      "all_rows_have_positive_m_plus_1_analytic_increment": true,
+      "theta_varies_with_input_ux": true
+    },
+    "signed_angle_asymmetry": {
+      "P_XLIKE": {
+        "plus5_minus_minus5_eta_plus1": 0.05293180532465225,
+        "plus10_minus_minus10_eta_plus1": -0.05999237962093684,
+        "plus5_minus_minus5_directionality": 0.006782964353618581,
+        "plus10_minus_minus10_directionality": 0.0026856204421639163
+      },
+      "S_YLIKE": {
+        "plus5_minus_minus5_eta_plus1": -0.035289133320614285,
+        "plus10_minus_minus10_eta_plus1": -0.10318560260602255,
+        "plus5_minus_minus5_directionality": -0.0024878683462088436,
+        "plus10_minus_minus10_directionality": -0.008270138907046642
+      }
+    },
+    "P_S_sensitivity": [
+      {
+        "theta_air_in_deg": -10.0,
+        "eta_plus1_P_minus_S": -0.2077719154133894,
+        "eta_zero_P_minus_S": 0.012089915352333863,
+        "directionality_P_minus_S": -0.018251229766099386,
+        "theta_out_plus1_P_minus_S_deg": 0.0
+      },
+      {
+        "theta_air_in_deg": -5.0,
+        "eta_plus1_P_minus_S": -0.09367437518343635,
+        "eta_zero_P_minus_S": 0.005884371266284265,
+        "directionality_P_minus_S": -0.02718909347784315,
+        "theta_out_plus1_P_minus_S_deg": 0.0
+      },
+      {
+        "theta_air_in_deg": 0.0,
+        "eta_plus1_P_minus_S": 0.05918005129172166,
+        "eta_zero_P_minus_S": -0.018307175471190266,
+        "directionality_P_minus_S": 0.01842679699028671,
+        "theta_out_plus1_P_minus_S_deg": 0.0
+      },
+      {
+        "theta_air_in_deg": 5.0,
+        "eta_plus1_P_minus_S": -0.00545343653816982,
+        "eta_zero_P_minus_S": -0.013297560449687579,
+        "directionality_P_minus_S": -0.017918260778015727,
+        "theta_out_plus1_P_minus_S_deg": 0.0
+      },
+      {
+        "theta_air_in_deg": 10.0,
+        "eta_plus1_P_minus_S": -0.1645786924283037,
+        "eta_zero_P_minus_S": 0.008081784259266712,
+        "directionality_P_minus_S": -0.007295470416888827,
+        "theta_out_plus1_P_minus_S_deg": 0.0
+      }
+    ],
+    "redistribution_metrics": [
+      {
+        "theta_air_in_deg": -10.0,
+        "branch": "P_XLIKE",
+        "eta_plus1": 0.2581464494005228,
+        "eta_zero": 0.013885597947940741,
+        "eta_minus1": 0.006349733476680511,
+        "eta_plus2": 0.0007024702187997898,
+        "R_total": 0.10328614745660751,
+        "T_total": 0.30607571194421423
+      },
+      {
+        "theta_air_in_deg": -10.0,
+        "branch": "S_YLIKE",
+        "eta_plus1": 0.4659183648139122,
+        "eta_zero": 0.0017956825956068779,
+        "eta_minus1": 0.002697196752178543,
+        "eta_plus2": 0.012338825160818646,
+        "R_total": 0.03217305034121783,
+        "T_total": 0.4919380303687044
+      },
+      {
+        "theta_air_in_deg": -5.0,
+        "branch": "P_XLIKE",
+        "eta_plus1": 0.3086829450684895,
+        "eta_zero": 0.011969201731038817,
+        "eta_minus1": 0.010033173599038353,
+        "eta_plus2": 0.019891796573773667,
+        "R_total": 0.066117231435227,
+        "T_total": 0.4019258019092331
+      },
+      {
+        "theta_air_in_deg": -5.0,
+        "branch": "S_YLIKE",
+        "eta_plus1": 0.40235732025192583,
+        "eta_zero": 0.006084830464754552,
+        "eta_minus1": 0.0017339052287500335,
+        "eta_plus2": 0.0198313694208016,
+        "R_total": 0.07903546962104006,
+        "T_total": 0.43805755895031556
+      },
+      {
+        "theta_air_in_deg": 0.0,
+        "branch": "P_XLIKE",
+        "eta_plus1": 0.376202552031929,
+        "eta_zero": 0.00033562477869515455,
+        "eta_minus1": 0.000549100357967581,
+        "eta_plus2": 0.014190309923864277,
+        "R_total": 0.05451642969721874,
+        "T_total": 0.431402119943098
+      },
+      {
+        "theta_air_in_deg": 0.0,
+        "branch": "S_YLIKE",
+        "eta_plus1": 0.3170225007402073,
+        "eta_zero": 0.01864280024988542,
+        "eta_minus1": 0.006431645273485233,
+        "eta_plus2": 0.0123125468828631,
+        "R_total": 0.1086797661399145,
+        "T_total": 0.377874302055701
+      },
+      {
+        "theta_air_in_deg": 5.0,
+        "branch": "P_XLIKE",
+        "eta_plus1": 0.3616147503931417,
+        "eta_zero": 0.0014484500533263887,
+        "eta_minus1": 0.009156950493513838,
+        "eta_plus2": 0.005329089027758487,
+        "R_total": 0.06137873960347155,
+        "T_total": 0.4113656795229408
+      },
+      {
+        "theta_air_in_deg": 5.0,
+        "branch": "S_YLIKE",
+        "eta_plus1": 0.36706818693131155,
+        "eta_zero": 0.014746010503013968,
+        "eta_minus1": 0.0025052437005368337,
+        "eta_plus2": 0.0033614900234257613,
+        "R_total": 0.08340044112217944,
+        "T_total": 0.4286080946189367
+      },
+      {
+        "theta_air_in_deg": 10.0,
+        "branch": "P_XLIKE",
+        "eta_plus1": 0.19815406977958594,
+        "eta_zero": 0.013874187598787438,
+        "eta_minus1": 0.004316941073726745,
+        "eta_plus2": 0.005040266378640899,
+        "R_total": 0.10254744086325633,
+        "T_total": 0.3062118649206973
+      },
+      {
+        "theta_air_in_deg": 10.0,
+        "branch": "S_YLIKE",
+        "eta_plus1": 0.36273276220788964,
+        "eta_zero": 0.0057924033395207256,
+        "eta_minus1": 0.005159993667212498,
+        "eta_plus2": 0.0008646065862696495,
+        "R_total": 0.0386401241418983,
+        "T_total": 0.47870558440078703
+      }
+    ],
+    "interpretation_boundary": "matrix validates execution/provenance/closure and reports performance; it is not an optimization result"
+  },
+  "validation": {
+    "all_9_new_results": true,
+    "all_provenance_pass": true,
+    "all_source_kx_pass": true,
+    "all_order_equation_pass": true,
+    "all_power_closure_pass": true,
+    "all_order_closure_pass": true,
+    "no_polarization_averaging": true,
+    "x0_rerun": false,
+    "solver_entries_new": 9,
+    "solver_entries_total_including_prior": 12
+  },
+  "source_contract": {
+    "contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\configs\\coupling\\oblique_real_kx_source_contract_v1.json",
+    "sha256": "5afdc85703ac547de143a9e673cf3f7e706a67bd8fef89a7e67e1ec902ec11e9"
+  },
+  "provenance": {
+    "frozen_x0_source": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\stage_a_nb_t237_445_455_xpol_normal_v1\\results\\result.json",
+    "frozen_x0_source_sha256": "b6458af76de89159ac05004c20d9955a1041d5a8d793587e63cd01160b8353d0",
+    "config_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\configs\\coupling\\stage_a_polarization_angle_450_v1.json",
+    "config_sha256": "679be783c032f4c46a0f38de397198ae2a7a7dc6494d8118a1002f487903d5f2"
+  },
+  "created_at": "2026-08-09T09:31:28.700581+00:00"
+}

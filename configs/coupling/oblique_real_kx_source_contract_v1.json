@@ -1,0 +1,136 @@
+{
+  "schema_version": "oblique_real_kx_source_contract_v1",
+  "contract_id": "OBLIQUE_REAL_KX_SOURCE_CONTRACT_V1",
+  "scope": "single-frequency 450 nm Stage-A frozen-spacer polarization-angle matrix",
+  "angle_convention_id": "air_side_far_field_conserved_real_kx_v1",
+  "reference_medium": "Air",
+  "wavelength_nm": 450.0,
+  "target_definition": {
+    "ux": "sin(theta_air)",
+    "uy": 0.0,
+    "real_kx": "k0_real*ux",
+    "positive_sign": "physical +x"
+  },
+  "source_medium_identity": "APCD_GAN_NATIVE_M1",
+  "source_implementation": "Bloch/periodic plane wave at z=-250 nm inside lossy GaN; internal theta is calibrated, never set equal to air theta for oblique states",
+  "calibration_implementation": "5 degree calibration readback in bandstructure kx; n_eff=(kx_bandstructure*wavelength_nm/period_x_nm)/sin(5 degree)",
+  "boundary_implementation": "oblique x min/max Bloch, y min/max Periodic, bloch units SI, set based on source angle disabled, manual FDTD kx=real_kx; normal Y0 uses x/y Periodic",
+  "polarization": {
+    "P_XLIKE": "polarization angle 0 deg; E in x-z and continuously tends to +x",
+    "S_YLIKE": "polarization angle 90 deg; E along physical +y"
+  },
+  "transversality": "P vector analytically verified with k=(real_kx,0,kz) and kz chosen for passive forward propagation in complex native GaN; S vector=(0,1,0)",
+  "readback_requirements": [
+    "target theta/ux/real_kx",
+    "source internal theta and calibration n_eff",
+    "source readback kx",
+    "boundary readback kx",
+    "readback ky=0",
+    "kx difference and sign",
+    "source medium",
+    "polarization angle",
+    "k_dot_E residual"
+  ],
+  "hard_gate_if_unresolved": "HARD_GATE_LOSSY_GAN_REAL_KX_SOURCE_IMPLEMENTATION_UNRESOLVED",
+  "authorized_case_order": [
+    "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0",
+    "STAGE_A_POL_XP5_450NM_P_XLIKE",
+    "STAGE_A_POL_XM5_450NM_P_XLIKE",
+    "STAGE_A_POL_YP5_450NM_S_YLIKE",
+    "STAGE_A_POL_YM5_450NM_S_YLIKE",
+    "STAGE_A_POL_XP10_450NM_P_XLIKE",
+    "STAGE_A_POL_XM10_450NM_P_XLIKE",
+    "STAGE_A_POL_YP10_450NM_S_YLIKE",
+    "STAGE_A_POL_YM10_450NM_S_YLIKE"
+  ],
+  "authorized_states": {
+    "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0": {
+      "case_id": "STAGE_A_POL_Y0_450NM_S_YLIKE_UX0",
+      "label": "Y0",
+      "theta_air_in_deg": 0.0,
+      "ux": 0.0,
+      "uy": 0.0,
+      "polarization_branch": "S_YLIKE"
+    },
+    "STAGE_A_POL_XP5_450NM_P_XLIKE": {
+      "case_id": "STAGE_A_POL_XP5_450NM_P_XLIKE",
+      "label": "X_P5",
+      "theta_air_in_deg": 5.0,
+      "ux": 0.08715574274765817,
+      "uy": 0.0,
+      "polarization_branch": "P_XLIKE"
+    },
+    "STAGE_A_POL_XM5_450NM_P_XLIKE": {
+      "case_id": "STAGE_A_POL_XM5_450NM_P_XLIKE",
+      "label": "X_M5",
+      "theta_air_in_deg": -5.0,
+      "ux": -0.08715574274765817,
+      "uy": 0.0,
+      "polarization_branch": "P_XLIKE"
+    },
+    "STAGE_A_POL_YP5_450NM_S_YLIKE": {
+      "case_id": "STAGE_A_POL_YP5_450NM_S_YLIKE",
+      "label": "Y_P5",
+      "theta_air_in_deg": 5.0,
+      "ux": 0.08715574274765817,
+      "uy": 0.0,
+      "polarization_branch": "S_YLIKE"
+    },
+    "STAGE_A_POL_YM5_450NM_S_YLIKE": {
+      "case_id": "STAGE_A_POL_YM5_450NM_S_YLIKE",
+      "label": "Y_M5",
+      "theta_air_in_deg": -5.0,
+      "ux": -0.08715574274765817,
+      "uy": 0.0,
+      "polarization_branch": "S_YLIKE"
+    },
+    "STAGE_A_POL_XP10_450NM_P_XLIKE": {
+      "case_id": "STAGE_A_POL_XP10_450NM_P_XLIKE",
+      "label": "X_P10",
+      "theta_air_in_deg": 10.0,
+      "ux": 0.17364817766693033,
+      "uy": 0.0,
+      "polarization_branch": "P_XLIKE"
+    },
+    "STAGE_A_POL_XM10_450NM_P_XLIKE": {
+      "case_id": "STAGE_A_POL_XM10_450NM_P_XLIKE",
+      "label": "X_M10",
+      "theta_air_in_deg": -10.0,
+      "ux": -0.17364817766693033,
+      "uy": 0.0,
+      "polarization_branch": "P_XLIKE"
+    },
+    "STAGE_A_POL_YP10_450NM_S_YLIKE": {
+      "case_id": "STAGE_A_POL_YP10_450NM_S_YLIKE",
+      "label": "Y_P10",
+      "theta_air_in_deg": 10.0,
+      "ux": 0.17364817766693033,
+      "uy": 0.0,
+      "polarization_branch": "S_YLIKE"
+    },
+    "STAGE_A_POL_YM10_450NM_S_YLIKE": {
+      "case_id": "STAGE_A_POL_YM10_450NM_S_YLIKE",
+      "label": "Y_M10",
+      "theta_air_in_deg": -10.0,
+      "ux": -0.17364817766693033,
+      "uy": 0.0,
+      "polarization_branch": "S_YLIKE"
+    }
+  },
+  "solver_entry_policy": "one solver entry per case; replay requires explicit authorization",
+  "created_at": "2026-08-09T08:27:36.828143+00:00",
+  "authoritative_calibration_readback": {
+    "method": "read-only reopened pre-FSP layout probe; switchtolayout; source theta=+5 deg; x Bloch/y Periodic; bandstructure kx",
+    "pre_fsp_path": "D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_v1\\\\outputs\\\\coupling\\\\stage_a_polarization_angle_450_v1\\\\STAGE_A_POL_Y0_450NM_S_YLIKE_UX0\\\\setup\\\\S_YLIKE_P0_pre.fsp",
+    "source_medium_identity": "APCD_GAN_NATIVE_M1",
+    "source_calibration_air_angle_deg": 5.0,
+    "source_calibration_kx_bandstructure": 0.8133835472387413,
+    "source_calibration_ux_from_fdtd": 0.21035781394105377,
+    "source_calibration_n_eff": 2.413585236145624,
+    "wavelength_nm": 450.0,
+    "period_x_nm": 1740.0,
+    "solver_entered": false,
+    "run_called": false,
+    "save_called": false
+  }
+}

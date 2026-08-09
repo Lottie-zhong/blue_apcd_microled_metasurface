@@ -26,8 +26,20 @@ def validate_joint_case(case: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("invalid spacer or wavelength")
     if case["polarization"] not in {"x", "y"}:
         raise ValueError("polarization must be x or y")
-    if _number(case["kx_over_k0"], "kx_over_k0") != 0:
-        raise ValueError("Stage-A builder supports only normal incidence kx_over_k0=0")
+    kx_over_k0 = _number(case["kx_over_k0"], "kx_over_k0")
+    incident_state = case.get("incident_state")
+    if kx_over_k0 != 0:
+        if case.get("control_group") != "POL_ANGLE_MATRIX" or not isinstance(incident_state, dict):
+            raise ValueError("nonzero kx requires the POL_ANGLE_MATRIX incident-state contract")
+        if incident_state.get("polarization_branch") not in {"P_XLIKE", "S_YLIKE"}:
+            raise ValueError("invalid incident polarization branch")
+        if abs(float(incident_state.get("ux", float("nan"))) - kx_over_k0) > 1e-12:
+            raise ValueError("incident state ux does not equal kx_over_k0")
+        if abs(float(incident_state.get("uy", float("nan")))) > 1e-12:
+            raise ValueError("incident state ky/k0 must be zero")
+    elif incident_state is not None:
+        if abs(float(incident_state.get("ux", 0.0))) > 1e-12 or abs(float(incident_state.get("uy", 0.0))) > 1e-12:
+            raise ValueError("normal incidence incident state must have ux=uy=0")
     materials = {obj.get("material_id") for obj in case["objects"] if obj.get("material_id")}
     if not materials.issubset(NATIVE_MATERIALS | {"Air"}):
         raise ValueError(f"non-canonical material in joint case: {sorted(materials - NATIVE_MATERIALS - {'Air'})}")
