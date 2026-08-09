@@ -45,6 +45,7 @@ def main() -> None:
     parser.add_argument("--attempt-id", type=str, default="attempt_001")
     parser.add_argument("--replay", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--phase-registry", type=Path, default=None)
     args = parser.parse_args()
     out = args.output_dir.resolve()
     case = read(out / "joint_case.json")
@@ -53,6 +54,15 @@ def main() -> None:
     case_id = case["case_id"]
     attempt = str(args.attempt_id)
     replay = bool(args.replay)
+    phase_path = None
+    phase = None
+    if args.phase_registry is not None:
+        phase_path = args.phase_registry if args.phase_registry.is_absolute() else ROOT / args.phase_registry
+        phase_path = phase_path.resolve()
+        phase = read(phase_path)
+    phase_mode = phase is not None and group == "POL_ANGLE_BROADBAND"
+    if phase_mode and replay:
+        raise RuntimeError("frozen-spacer phase replay is forbidden")
     pre = Path(setup["pre_fsp_path"])
     if not pre.is_absolute():
         pre = (ROOT / pre).resolve()
@@ -60,7 +70,10 @@ def main() -> None:
 
     budget_path = ROOT / "registries/coupling/solver_budget_registry.json"
     budget = read(budget_path)
-    authorized = (budget.get("authorized_control_cases", []) + budget.get("authorized_spacer_cases", []) + budget.get("authorized_broadband_cases", []) + budget.get("authorized_incident_state_case_ids", []) + budget.get("authorized_broadband_polarization_angle_case_ids", []))
+    if phase_mode:
+        authorized = set(phase.get("case_order", []))
+    else:
+        authorized = (budget.get("authorized_control_cases", []) + budget.get("authorized_spacer_cases", []) + budget.get("authorized_broadband_cases", []) + budget.get("authorized_incident_state_case_ids", []) + budget.get("authorized_broadband_polarization_angle_case_ids", []))
     if group in {"NB_T0", "NB_T79", "NB_T237"} and budget.get("status") in {"BROADBAND_RECONCILIATION_POLICY_FROZEN_DIAGNOSTIC_ONLY", "FINAL_SPACER_FREEZE_FOR_STAGE_A_XPOL_NORMAL", "NO_ROBUST_BROADBAND_WINNER"}:
         raise RuntimeError("broadband solver execution is locked after spacer freeze; new authorization required")
     if group == "POL_ANGLE_MATRIX" and budget.get("status") != "AUTHORIZED_POLARIZATION_ANGLE_450NM_MATRIX":
@@ -69,8 +82,16 @@ def main() -> None:
         "AUTHORIZED_STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND",
         "STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_RUNNING",
     }
-    if group == "POL_ANGLE_BROADBAND" and not replay and budget.get("broadband_authorization_status") not in broadband_statuses:
-        raise RuntimeError("broadband polarization-angle solver execution is locked; new authorization required")
+    phase_statuses = {
+        "AUTHORIZED_STAGE_A_FROZEN_SPACER_445_455_POLARIZATION_ANGLE_BROADBAND",
+        "STAGE_A_FROZEN_SPACER_445_455_POLARIZATION_ANGLE_BROADBAND_RUNNING",
+    }
+    if group == "POL_ANGLE_BROADBAND" and not replay:
+        if phase_mode:
+            if phase.get("authorized") is not True or phase.get("status") not in phase_statuses:
+                raise RuntimeError("frozen-spacer broadband phase is not authorized or is not runnable")
+        elif budget.get("broadband_authorization_status") not in broadband_statuses:
+            raise RuntimeError("broadband polarization-angle solver execution is locked; new authorization required")
     if replay:
         replay_state = budget.get("xp5_replay", {})
         if group != "POL_ANGLE_BROADBAND" or case_id != "STAGE_A_BB_XP5_445_455NM_P_XLIKE" or attempt != "REPLAY1":
@@ -86,7 +107,10 @@ def main() -> None:
     if case_id not in authorized:
         raise RuntimeError(f"case not authorized: {case_id}")
     if group == "POL_ANGLE_BROADBAND":
-        if not replay and int(budget.get("new_broadband_cases_entered", 0)) >= int(budget.get("new_broadband_cases_budget", 0)):
+        if phase_mode:
+            if int(phase.get("entered", 0)) >= int(phase.get("budget", 0)):
+                raise RuntimeError("frozen-spacer broadband phase FDTD budget exhausted")
+        elif not replay and int(budget.get("new_broadband_cases_entered", 0)) >= int(budget.get("new_broadband_cases_budget", 0)):
             raise RuntimeError("broadband polarization-angle FDTD budget exhausted")
     elif int(budget.get("entered_runs", 0)) >= int(budget.get("budgets", {}).get("FDTD", 0)):
         raise RuntimeError("FDTD budget exhausted")
@@ -106,15 +130,19 @@ def main() -> None:
             expected = incident_order[len(incident_entered)] if len(incident_entered) < len(incident_order) else None
             raise RuntimeError(f"incident-state case order violation: expected {expected}, got {case_id}")
     if group == "POL_ANGLE_BROADBAND" and not replay:
-        if case_id not in broadband_order:
+        current_order = phase.get("case_order", []) if phase_mode else broadband_order
+        current_entered = phase.get("entered_case_ids", []) if phase_mode else broadband_entered
+        if case_id not in current_order:
             raise RuntimeError(f"broadband incident-state case not authorized: {case_id}")
-        expected_index = broadband_order.index(case_id)
-        if broadband_entered != broadband_order[:len(broadband_entered)] or len(broadband_entered) != expected_index:
-            expected = broadband_order[len(broadband_entered)] if len(broadband_entered) < len(broadband_order) else None
+        expected_index = current_order.index(case_id)
+        if current_entered != current_order[:len(current_entered)] or len(current_entered) != expected_index:
+            expected = current_order[len(current_entered)] if len(current_entered) < len(current_order) else None
             raise RuntimeError(f"broadband incident-state case order violation: expected {expected}, got {case_id}")
     if group == "NB_T0" and "STAGE_A_NB_T237_445_455NM_X_UX0" not in completed:
         raise RuntimeError("NB_T237 must complete before NB_T0")
-    if not replay and (case_id in completed or case_id in incident_completed or case_id in broadband_completed):
+    if phase_mode and case_id in set(phase.get("completed_case_ids", [])):
+        raise RuntimeError("frozen-spacer phase case already completed; replay forbidden")
+    if not replay and not phase_mode and (case_id in completed or case_id in incident_completed or case_id in broadband_completed):
         raise RuntimeError("case already completed; replay forbidden")
 
     if args.dry_run:
@@ -122,6 +150,7 @@ def main() -> None:
             "case_id": case_id,
             "attempt_id": attempt,
             "replay": replay,
+            "phase_id": phase.get("phase_id") if phase_mode else None,
             "solver_entered": False,
             "pre_fsp_path": str(pre),
             "pre_fsp_entry_sha256": entry_sha,
@@ -149,6 +178,8 @@ def main() -> None:
         "physical_contract_hash": physical_hash,
         "replay": replay,
         "replay_reason": "AUTHORIZED_FIXED_UX_IMPLEMENTATION_CORRECTION" if replay else None,
+        "phase_id": phase.get("phase_id") if phase_mode else None,
+        "phase_registry_path": str(phase_path) if phase_mode else None,
         "joint_geometry_hash": case["joint_geometry_hash"],
         "source_commits": setup["source_commits"],
         "coupling_commit": commit,
@@ -170,24 +201,38 @@ def main() -> None:
             replay_state = budget.setdefault("xp5_replay", {})
             replay_state["entered"] = int(replay_state.get("entered", 0)) + 1
             replay_state["entered_attempts"] = replay_state.get("entered_attempts", []) + [{"case_id": case_id, "attempt_id": attempt, "entered_timestamp": entered["entered_timestamp"], "pre_fsp_entry_sha256": entry_sha}]
+        elif phase_mode:
+            phase["entered"] = int(phase.get("entered", 0)) + 1
+            phase["entered_case_ids"] = phase.get("entered_case_ids", []) + [case_id]
+            phase["entered_attempts"] = phase.get("entered_attempts", []) + [{"case_id": case_id, "attempt_id": attempt, "entered_timestamp": entered["entered_timestamp"], "pre_fsp_entry_sha256": entry_sha}]
         else:
             budget["new_broadband_cases_entered"] = int(budget.get("new_broadband_cases_entered", 0)) + 1
             budget["broadband_polarization_angle_entered_case_ids"] = budget.get("broadband_polarization_angle_entered_case_ids", []) + [case_id]
     else:
         budget["entered_case_ids"] = budget.get("entered_case_ids", []) + [case_id]
     if group == "POL_ANGLE_BROADBAND":
-        budget["broadband_authorization_status"] = (
-            "STAGE_A_XP5_REPLAY_RUNNING" if replay
-            else "STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_RUNNING"
-        )
+        if phase_mode:
+            phase["status"] = "STAGE_A_FROZEN_SPACER_445_455_POLARIZATION_ANGLE_BROADBAND_RUNNING"
+        else:
+            budget["broadband_authorization_status"] = (
+                "STAGE_A_XP5_REPLAY_RUNNING" if replay
+                else "STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_RUNNING"
+            )
     else:
         budget["status"] = "STAGE_A_CONTROL_GROUPS_RUNNING"
+    if phase_mode:
+        pointer = budget.setdefault("frozen_spacer_broadband_phase", {})
+        pointer.update({"phase_id": phase["phase_id"], "registry_path": str(phase_path), "setup_root": phase.get("setup_root"), "authorized": phase.get("authorized"), "budget": phase.get("budget"), "entered": phase.get("entered"), "completed": phase.get("completed"), "status": phase.get("status"), "x0_reuse_case_id": phase.get("x0_reuse_case_id"), "replay_forbidden": phase.get("replay_forbidden")})
     atomic(budget_path, budget)
+    if phase_mode:
+        atomic(phase_path, phase)
     setup["solver_entered"] = True
     setup["solver_entered_timestamp"] = entered["entered_timestamp"]
     setup["entered_ledger_path"] = str(ledger_path)
     setup["replay"] = replay
     setup["replay_id"] = "XP5_REPLAY1" if replay else None
+    setup["phase_id"] = phase.get("phase_id") if phase_mode else None
+    setup["phase_registry_path"] = str(phase_path) if phase_mode else None
     atomic(out / "setup_manifest.json", setup)
 
     try:
@@ -218,6 +263,10 @@ def main() -> None:
                 replay_state = budget.setdefault("xp5_replay", {})
                 replay_state["completed"] = int(replay_state.get("completed", 0)) + 1
                 replay_state["completed_attempts"] = replay_state.get("completed_attempts", []) + [{"case_id": case_id, "attempt_id": attempt, "post_fsp_sha256": post_sha, "completed_timestamp": runtime["completed_timestamp"]}]
+            elif phase_mode:
+                phase["completed"] = int(phase.get("completed", 0)) + 1
+                phase["completed_case_ids"] = phase.get("completed_case_ids", []) + [case_id]
+                phase["completed_attempts"] = phase.get("completed_attempts", []) + [{"case_id": case_id, "attempt_id": attempt, "post_fsp_sha256": post_sha, "completed_timestamp": runtime["completed_timestamp"]}]
         else:
             budget["engine_completed"] = int(budget.get("engine_completed", 0)) + 1
             budget["controller_returned"] = int(budget.get("controller_returned", 0)) + 1
@@ -227,28 +276,49 @@ def main() -> None:
             budget["new_physical_cases_completed"] = int(budget.get("new_physical_cases_completed", 0)) + 1
             budget["incident_state_completed_case_ids"] = budget.get("incident_state_completed_case_ids", []) + [case_id]
         elif group == "POL_ANGLE_BROADBAND":
-            if not replay:
+            if not replay and not phase_mode:
                 budget["new_broadband_cases_completed"] = int(budget.get("new_broadband_cases_completed", 0)) + 1
                 budget["broadband_polarization_angle_completed_case_ids"] = budget.get("broadband_polarization_angle_completed_case_ids", []) + [case_id]
         else:
             budget["completed_case_ids"] = budget.get("completed_case_ids", []) + [case_id]
         if group == "POL_ANGLE_BROADBAND":
-            budget["broadband_authorization_status"] = (
-                "STAGE_A_XP5_REPLAY_COMPLETED_AWAITING_AUDIT" if replay
-                else ("STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_RUNNING" if budget["new_broadband_cases_completed"] < budget["new_broadband_cases_budget"] else "STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_ALL_COMPLETED")
-            )
+            if phase_mode:
+                phase["status"] = (
+                    "STAGE_A_FROZEN_SPACER_445_455_POLARIZATION_ANGLE_BROADBAND_RUNNING"
+                    if int(phase.get("completed", 0)) < int(phase.get("budget", 0))
+                    else "STAGE_A_FROZEN_SPACER_445_455_POLARIZATION_ANGLE_BROADBAND_ALL_COMPLETED"
+                )
+            else:
+                budget["broadband_authorization_status"] = (
+                    "STAGE_A_XP5_REPLAY_COMPLETED_AWAITING_AUDIT" if replay
+                    else ("STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_RUNNING" if budget["new_broadband_cases_completed"] < budget["new_broadband_cases_budget"] else "STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_ALL_COMPLETED")
+                )
         else:
             budget["status"] = "STAGE_A_CONTROL_GROUPS_RUNNING" if budget["entered_runs"] < budget["budgets"]["FDTD"] else "STAGE_A_CONTROL_GROUPS_ALL_COMPLETED"
+        if phase_mode:
+            pointer = budget.setdefault("frozen_spacer_broadband_phase", {})
+            pointer.update({"phase_id": phase["phase_id"], "registry_path": str(phase_path), "setup_root": phase.get("setup_root"), "authorized": phase.get("authorized"), "budget": phase.get("budget"), "entered": phase.get("entered"), "completed": phase.get("completed"), "status": phase.get("status"), "x0_reuse_case_id": phase.get("x0_reuse_case_id"), "replay_forbidden": phase.get("replay_forbidden")})
         atomic(budget_path, budget)
+        if phase_mode:
+            atomic(phase_path, phase)
         print(json.dumps(runtime, indent=2))
     except Exception as exc:
         failure = {"case_id": case_id, "control_group": group, "attempt_id": attempt, "solver_entered": True, "failure_type": type(exc).__name__, "failure_text": str(exc), "automatic_replay_forbidden": True}
         atomic(runtime_dir / "run_failure.json", failure)
         if group == "POL_ANGLE_BROADBAND":
-            budget["broadband_authorization_status"] = "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE" if replay else "STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_ENTERED_FAILURE_REPLAY_FORBIDDEN"
+            if phase_mode:
+                phase["status"] = "HARD_GATE_STAGE_A_FROZEN_SPACER_BROADBAND_ENTERED_FAILURE_REPLAY_FORBIDDEN"
+                phase["last_failure"] = failure
+            else:
+                budget["broadband_authorization_status"] = "HARD_GATE_XP5_REPLAY_ENGINE_FAILURE" if replay else "STAGE_A_445_455_FROZEN_SPACER_POLARIZATION_ANGLE_BROADBAND_ENTERED_FAILURE_REPLAY_FORBIDDEN"
         else:
             budget["status"] = "STAGE_A_CONTROL_GROUPS_ENTERED_FAILURE_REPLAY_FORBIDDEN"
+        if phase_mode:
+            pointer = budget.setdefault("frozen_spacer_broadband_phase", {})
+            pointer.update({"phase_id": phase["phase_id"], "registry_path": str(phase_path), "setup_root": phase.get("setup_root"), "authorized": phase.get("authorized"), "budget": phase.get("budget"), "entered": phase.get("entered"), "completed": phase.get("completed"), "status": phase.get("status"), "last_failure": phase.get("last_failure"), "replay_forbidden": phase.get("replay_forbidden")})
         atomic(budget_path, budget)
+        if phase_mode:
+            atomic(phase_path, phase)
         raise
 
 
