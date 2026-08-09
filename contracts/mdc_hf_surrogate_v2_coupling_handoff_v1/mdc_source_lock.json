@@ -2,12 +2,65 @@
   "contract_id": "MDC_HF_SURROGATE_V2_COUPLING_SOURCE_LOCK_V1",
   "coupling_worktree_read_only_observation": {
     "branch": "work/mdc-np-coupling-v1",
-    "clean": false,
+    "clean": true,
     "divergence": "0\t0",
-    "head": "cd12695442128eb4217dcb33b47883e787ee272c",
+    "existing_contracts": [
+      {
+        "identity": "FROZEN",
+        "path": "contracts/coupling/coordinate_convention_v1.json",
+        "sha256": "b8bf2b956b68dcfc8aae9532936c3ac4e24eed74b6cf44a909da258be10a4257"
+      },
+      {
+        "identity": "FROZEN_FOR_SYNTHETIC_VALIDATION",
+        "path": "contracts/coupling/grid_alignment_contract_v1.json",
+        "sha256": "60384d6acdcef79c0c094c78ca40672d6d8599e1cacd7141903c7fa676169e0a"
+      },
+      {
+        "identity": "STAGE_A_SPACER_SENSITIVITY_COMPLETE",
+        "path": "contracts/coupling/integrated_validation_contract_v1.json",
+        "sha256": "f08124b4d04add1bdd7a9da95f560b1d9869ed22f22000ff62c0c04bc88c7c28"
+      },
+      {
+        "identity": "APCD_MDC_NP_ONE_WAY_POWER_INTERFACE_V1",
+        "path": "contracts/coupling/interface_stack_v1.json",
+        "sha256": "1bb8bb792fc0e36c8073679b0afa25e48855127756fdcd426663554d21c5b9f6"
+      },
+      {
+        "identity": "TRAINED_AND_FROZEN_NOT_YET_EXTERNALLY_EVALUATED",
+        "path": "contracts/coupling/mdc_model_scope_lock_v1.json",
+        "sha256": "d8ae1bce1a0a516207ed0eaaf75e861cd69823f9f67139d2324e0fc2f222e737"
+      },
+      {
+        "identity": null,
+        "path": "contracts/coupling/np_model_scope_lock_v1.json",
+        "sha256": "74e37b1af3a71cf81fbb1c797e313f9355ebab58719b990d6c4bb22260303fe4"
+      },
+      {
+        "identity": "APCD_MDC_NP_COUPLING_V1_WORKTREE_BOOTSTRAP_AND_INTERFACE_FREEZE",
+        "path": "contracts/coupling/objective_contract_v1.json",
+        "sha256": "3c7e027c2da80f5f17a9259bd719e8694dff329854e80f2724ff304c0f85c34c"
+      },
+      {
+        "identity": "APCD_MDC_NP_ONE_WAY_POWER_INTERFACE_V1",
+        "path": "contracts/coupling/one_way_power_interface_v1.json",
+        "sha256": "e2be05ecc60dd0e9fa3b287ba810ea1a5d7ee43c71aa4bb1f842b99eceb1ca21"
+      },
+      {
+        "identity": "APCD_MDC_NP_COUPLING_V1_STAGE_A_SPACER_SENSITIVITY_COMPLETE",
+        "path": "contracts/coupling/source_branch_lock_v1.json",
+        "sha256": "fea2bdc3671d7f5b744be9dec800e58b2080f2f1af1dd0afee3306980c18d203"
+      },
+      {
+        "identity": "APCD_MDC_NP_COUPLING_V1_STAGE_A_DIRECT_FULLWAVE_BASELINE",
+        "path": "contracts/coupling/stage_a_direct_fullwave_contract_v1.json",
+        "sha256": "1e3e5f729619998413367b5df072dbbededb0151e5be12b78195a7839ab1709f"
+      }
+    ],
+    "head": "7606125a0fa1ecd53ed41d2c285c68387754a910",
     "modified_by_this_task": false,
+    "observation_note": "metadata-only refresh; no coupling worktree files were modified",
     "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1",
-    "status_short": "M contracts/coupling/stage_a_direct_fullwave_contract_v1.json\n M registries/coupling/solver_budget_registry.json\n M scripts/coupling/build_control_group_case.py\n M scripts/coupling/extract_control_group_case.py\n M scripts/coupling/run_control_group_case.py\n M src/apcd_coupling/joint_stack_builder.py\n M src/apcd_coupling/result_schema.py\n?? configs/coupling/stage_a_spacer_sensitivity_v1.json\n?? tests/coupling/test_spacer_sensitivity.py"
+    "status_short": ""
   },
   "ensemble_seeds": [
     20260804,
