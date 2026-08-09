@@ -1,0 +1,1 @@
+Python backend selected by task contract. Figures A–D and workflow use fixed Arial-compatible sans-serif settings, no smoothing/interpolation, explicit source-data CSVs, and frozen artifact provenance.

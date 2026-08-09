@@ -1,0 +1,48 @@
+{
+  "capability": "RANKING_SCREENING_ONLY",
+  "contract_id": "MDC_HF_SURROGATE_V2_STANDALONE_NATURE_PAPER_SCOPE_V1",
+  "forbidden": [
+    "FDTD",
+    "TMM",
+    "RCWA",
+    "new neural fit",
+    "optimizer",
+    "backward design",
+    "PCA/scaler refit",
+    "HF15 values",
+    "R12 values",
+    "sealed test",
+    "active learning"
+  ],
+  "model_id": "MDC_HF_M1_GEOMETRY_CONDITIONED_DIRECT_FINAL_5SEED_V1",
+  "solver_calls": 0,
+  "source_assets": {
+    "compression_selection": "PCA32",
+    "doe96_cases": 576,
+    "final_seed_registry": {
+      "same_PCA32": true,
+      "same_architecture": true,
+      "same_epoch": true,
+      "same_input_scaler": true,
+      "same_membership": true,
+      "same_target_scaler": true,
+      "seed_count": 5,
+      "seed_weighting": "uniform arithmetic for q/auxiliary; uniform arithmetic in log-power space for geometric-mean power",
+      "seeds": [
+        20260804,
+        20260805,
+        20260806,
+        20260807,
+        20260808
+      ],
+      "status": "PASS",
+      "training_loss_weighting": false
+    },
+    "test40_cases": 240,
+    "test40_geometries": 40
+  },
+  "source_commit": "631080fcb6a5ed8626fba412bb19366b8b291d33",
+  "status": "CLOSED_TEST40_RANKING_SCREENING_ONLY",
+  "test40_metrics_recomputed": false,
+  "training_assets_frozen": true
+}
