@@ -87,6 +87,8 @@ def build_joint_case(
             "stack_top_nm": stack_top,
             "np_pillar_bottom_nm": stack_top,
             "np_pillar_top_nm": pillar_top,
+            "total_sio2_separation_nm": (float(layers[-1]["thickness_nm"]) if layers and layers[-1].get("material_id") == "APCD_SIO2_NATIVE_M1" else 0.0) + support_total + spacer,
+            "same_material_spacer_continuity": bool(spacer == 0 or (layers and layers[-1].get("material_id") == "APCD_SIO2_NATIVE_M1")),
             "reference_plane": "NP pillar bottom" if pillars else "GaN/stack interface",
         },
         "material_contract_id": "MDC_NATIVE_M1",

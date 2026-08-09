@@ -19,9 +19,8 @@ def main():
  ap=argparse.ArgumentParser(); ap.add_argument('--output-dir',type=Path,required=True); args=ap.parse_args(); out=args.output_dir.resolve(); case=read(out/'joint_case.json'); setup=read(out/'setup_manifest.json'); group=case['control_group']; case_id=case['case_id']; pre=Path(setup['pre_fsp_path']); pre=(ROOT/pre).resolve() if not pre.is_absolute() else pre; entry_sha=setup['pre_fsp_sha256']
  if not setup['setup_gate']['pass']: raise RuntimeError('setup gate not PASS')
  if sha(pre)!=entry_sha: raise RuntimeError('pre-FSP hash mismatch before solver entry')
- budget_path=ROOT/'registries/coupling/solver_budget_registry.json'; budget=read(budget_path); authorized=budget.get('authorized_control_cases',[])
+ budget_path=ROOT/'registries/coupling/solver_budget_registry.json'; budget=read(budget_path); authorized=budget.get('authorized_control_cases',[])+budget.get('authorized_spacer_cases',[])
  if case_id not in authorized: raise RuntimeError(f'case not authorized: {case_id}')
- if group not in {'B0','B1','B2'}: raise RuntimeError('control runner accepts only B0/B1/B2')
  if budget.get('entered_runs',0)>=budget.get('budgets',{}).get('FDTD',0): raise RuntimeError('FDTD budget exhausted')
  completed=set(budget.get('completed_case_ids',[]));
  if case_id in completed: raise RuntimeError('case already completed; replay forbidden')

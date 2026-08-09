@@ -15,7 +15,7 @@ def validate_result(result: dict[str, Any]) -> dict[str, Any]:
         value = float(result[key])
         if not math.isfinite(value):
             raise ValueError(f"result field {key} is not finite")
-    if result["control_group"] in {"B2", "B3"}:
+    if result.get("eta_plus1") is not None:
         for key in ("eta_plus1", "eta_zero", "eta_minus1", "theta_out_plus1_deg", "directionality"):
             value = float(result[key])
             if not math.isfinite(value):

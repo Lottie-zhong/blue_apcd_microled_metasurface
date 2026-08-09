@@ -3,14 +3,14 @@
   "coupling_branch": "work/mdc-np-coupling-v1",
   "coupling_worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1",
   "joint_scope": {
-    "status": "STAGE_A_CONTROL_GROUPS_B0_B1_B2_COMPLETE",
+    "status": "STAGE_A_SPACER_SENSITIVITY_COMPLETE",
     "normalized_scope_enum": "EXPLORATORY_ONLY",
     "authorized_level": "DIRECT_STAGE_A_FULLWAVE_VALIDATION_ONLY",
     "offline_screening_authorized": false,
     "direct_stage_a_ready": false,
-    "next_route": "REQUEST_STAGE_A_SPACER_SENSITIVITY_AUTHORIZATION",
+    "next_route": "REQUEST_STAGE_A_445_455_XPOL_SPACER_CONFIRMATION_AUTHORIZATION",
     "rule": "weaker(mdc_scope,np_scope)",
-    "reason": "B0/B1/B2 control groups completed once each; next solver requires new explicit authorization."
+    "reason": "S79/S158/S237 completed once each; t_extra=0 reused read-only; next solver requires new explicit authorization."
   },
   "mdc": {
     "current_head": "489b54e43bbf2c08ce030a945b9d4b70ee7550f2",
@@ -291,7 +291,12 @@
     "control_post_fsp_identity": "PASS: B0, B1, B2",
     "physical_fdtd_replays": 0,
     "comparison_matrix": "PASS: NP_R0, B0, B1, B2, B3",
-    "control_result_registry": "registries/coupling/stage_a_control_groups_result_registry_v1.json"
+    "control_result_registry": "registries/coupling/stage_a_control_groups_result_registry_v1.json",
+    "spacer_setup_gates": "PASS: S79, S158, S237",
+    "spacer_post_fsp_identity": "PASS: S79, S158, S237",
+    "spacer_extraction": "PASS: S79, S158, S237",
+    "spacer_comparison": "PASS: NP_R0, B3_TEXTRA0, S79, S158, S237",
+    "spacer_result_registry": "registries/coupling/stage_a_spacer_sensitivity_result_registry_v1.json"
   },
   "scope_resolution_status": "MDC_LOCKED_NP_FROZEN_EXPLORATORY_ONLY",
   "next_action": "REQUEST_STAGE_A_450NM_XPOL_NORMAL_TEXTRA0_FDTD_AUTHORIZATION",
@@ -646,5 +651,24 @@
     ],
     "b3_prior_golden_fixture": "READ_ONLY",
     "comparison_artifact": "outputs/coupling/stage_a_control_groups_comparison_v1/comparison_matrix.json"
+  },
+  "spacer_sensitivity": {
+    "status": "COMPLETE",
+    "cases": [
+      "S79",
+      "S158",
+      "S237"
+    ],
+    "baseline_t0": "READ_ONLY",
+    "candidate_decision": {
+      "status": "BEST_450NM_SPACER_CANDIDATE",
+      "candidate_control_group": "S237",
+      "candidate_spacer_nm": 237.0,
+      "eta_plus1_gain_vs_t0": 0.0878342226191059,
+      "final_spacer_freeze": false,
+      "narrowband_confirmation_required": true,
+      "reason": "This is a 450 nm single-point interface sensitivity screen; non-monotonic response requires 445-455 nm x-pol narrowband confirmation before any production freeze."
+    },
+    "comparison_artifact": "outputs/coupling/stage_a_spacer_sensitivity_comparison_v1/spacer_matrix.json"
   }
 }

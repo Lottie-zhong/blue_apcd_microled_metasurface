@@ -408,7 +408,7 @@
       "stage_a_result": "EXPLORATORY_DIRECT_FULLWAVE_COMPLETED"
     }
   },
-  "status": "APCD_MDC_NP_COUPLING_V1_STAGE_A_CONTROL_GROUPS_COMPLETE",
+  "status": "APCD_MDC_NP_COUPLING_V1_STAGE_A_SPACER_SENSITIVITY_COMPLETE",
   "stage_a_execution": {
     "case_id": "STAGE_A_450NM_X_UX0_TEXTRA0",
     "solver_entered": true,
@@ -426,5 +426,19 @@
     "B2": "COMPLETE",
     "B3": "PRIOR_GOLDEN_FIXTURE_READ_ONLY",
     "comparison_matrix": "COMPLETE"
+  },
+  "stage_a_spacer_sensitivity": {
+    "S79": "COMPLETE",
+    "S158": "COMPLETE",
+    "S237": "COMPLETE",
+    "candidate_decision": {
+      "status": "BEST_450NM_SPACER_CANDIDATE",
+      "candidate_control_group": "S237",
+      "candidate_spacer_nm": 237.0,
+      "eta_plus1_gain_vs_t0": 0.0878342226191059,
+      "final_spacer_freeze": false,
+      "narrowband_confirmation_required": true,
+      "reason": "This is a 450 nm single-point interface sensitivity screen; non-monotonic response requires 445-455 nm x-pol narrowband confirmation before any production freeze."
+    }
   }
 }

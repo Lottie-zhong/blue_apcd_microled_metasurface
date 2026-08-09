@@ -31,7 +31,7 @@ def test_np_authoritative_freeze_and_artifact_hashes():
 def test_joint_scope_forbids_offline_ranking_and_selects_direct_stage_a():
     lock = load("contracts/coupling/source_branch_lock_v1.json")
     resolution = load("outputs/mdc_np_coupling_v1/source_scope_resolution_v1.json")
-    assert lock["status"].endswith("CONTROL_GROUPS_COMPLETE")
+    assert lock["status"].endswith("SPACER_SENSITIVITY_COMPLETE")
     assert lock["joint_scope"]["normalized_scope_enum"] == "EXPLORATORY_ONLY"
     assert lock["joint_scope"]["offline_screening_authorized"] is False
     assert lock["joint_scope"]["direct_stage_a_ready"] is True
