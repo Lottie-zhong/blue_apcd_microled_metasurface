@@ -1,0 +1,60 @@
+{
+  "candidate_pool_sha256": "57e1162a2d0178ed4b5a398203b49b6b83ed33990e1b0781e35311163a67d8c7",
+  "conflict_performance_floor": "candidate_pool_median_on_performance_and_T_and_directionality",
+  "conflict_weights": {
+    "cnn_lf_eta_discrepancy": 0.25,
+    "cnn_mlp_eta_discrepancy": 0.3,
+    "p_s_eta_discrepancy": 0.45
+  },
+  "coverage_weights": {
+    "distance_to_existing_hf9_mean": 0.3,
+    "distance_to_existing_hf9_min": 0.7
+  },
+  "exclusions": [
+    "sealed_test_manifest",
+    "all_existing_M3_HF9",
+    "duplicate_geometry_hash",
+    "non_development_geometry",
+    "formal_label_or_target_values"
+  ],
+  "exploitation_2_weights": {
+    "distance_from_exploitation_1": 0.25,
+    "performance": 0.75
+  },
+  "geometry_manifest_sha256": "46855b5729987c099f2780212ad0600123624d22cb0a0c31e3a6f11807731559",
+  "m3_checkpoint_hashes": [
+    "2e46baf9d3728313b21194ca41fa9245a00d45be6ed7e8ee19d3295f142cfb94",
+    "625ce955180ae6e1079b8de44e946f94326f282d726d8ceebe0b96dcff1b5711",
+    "62e14ef577c711ba13990fee668c435474f0f627562e74fe23b925fcca881fed",
+    "91dc8336c81ddae14c2d86fa7f48c339b6c46197ffc1dc84d46bcba28649f0f3",
+    "d9c4cb4efda70061d14ea1f65af5c013691dda3b635f10c701c2b01a2511aa81",
+    "dd807f1de363bfa1c79d614458adafdc35828c53844669be1ee1e5d02303d034"
+  ],
+  "m3_ensemble_version_id": "np_k6_m3_pilot_retraining_v1",
+  "pairwise_redundancy_threshold": 0.25,
+  "performance_weights": {
+    "T_robust_min": 0.15,
+    "directionality_robust_min": 0.15,
+    "eta_robust_mean": 0.4,
+    "eta_robust_min": 0.25,
+    "inverse_non_target_robust_max": 0.05
+  },
+  "physical_distance_feature_space": "D0-D5, adjacent jumps, complement gaps, span/mean/std/alternating proxy; standardized on 48 development geometries",
+  "policy_hash": "a0f46c2da1f653c8a3798ee97bc70e4e3da7598dda5bc9392b76fc4a2128d5d7",
+  "primary_batch_size": 4,
+  "role_order": [
+    "exploitation_1",
+    "exploitation_2",
+    "coverage_exploration",
+    "model_conflict_physics_stress"
+  ],
+  "schema_version": "np_k6_m4_selection_policy_v1",
+  "scope": "development_candidate_pool_only; zero_solver; p_s_separate",
+  "sealed_target_reads": 0,
+  "solver_run_invocations": 0,
+  "source_dataset_sha256": "1669dd274e0674749849b8995aeebb9928c0cdeba169bbc328941f86ec38b15e",
+  "split_manifest_sha256": "261666863bb7a7eb044d1d3eff3c9b6f73b3479a082625af363b702b5afcb739",
+  "tie_break": "geometry_id_ascending_after_score_descending",
+  "uncertainty_role": "relative_context_only; never primary score; not calibrated probability or confidence interval",
+  "version_id": "NP_K6_M4_POLICY_PHYSICS_ROBUST_ROLE_BALANCED_V1"
+}
