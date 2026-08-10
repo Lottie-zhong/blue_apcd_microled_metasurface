@@ -18,4 +18,3 @@ def test_incompatible():
 def test_x_only():assert M.pe({"x_only":True,"Jones_complete":True}) is False
 def test_retry():
  r=M.analyze([p("a",500,10,"FAILED","x","a_1"),p("a",500,10,"ACCEPTED","x","a_2"),p("a",550,20)],[f("a",500,10),f("a",550,20)]);assert r["authoritative_phase_row_count"]==2 and len([z for z in r["per_anchor_phi_table"] if z["H_global_nm"]==500])==1 and all(z["status"]=="ACCEPTED" for z in r["per_anchor_phi_table"])
-

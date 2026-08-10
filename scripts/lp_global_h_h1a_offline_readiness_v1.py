@@ -71,4 +71,3 @@ if __name__=="__main__":
  p=argparse.ArgumentParser();p.add_argument("--write-artifacts",action="store_true");x=p.parse_args()
  if not x.write_artifacts:raise SystemExit("offline-only; use --write-artifacts")
  write()
-
