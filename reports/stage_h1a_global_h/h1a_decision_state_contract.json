@@ -1,0 +1,38 @@
+{
+  "cases": [
+    {
+      "action": "no ML or large atlas; wait Chart",
+      "case": "CASE1",
+      "state": "H1A_COMMON_TRANSLATION_DOMINATED",
+      "when": "common translation dominated"
+    },
+    {
+      "action": "candidate targeted constituent-manifold reconnaissance; no auto solver",
+      "case": "CASE2",
+      "state": "H1A_GEOMETRY_DEPENDENT_H_RESPONSE_OBSERVED",
+      "when": "geometry dependent and FLAG_60_SECTOR=false"
+    },
+    {
+      "action": "fixed-H mapping may continue; no auto ML",
+      "case": "CASE3",
+      "state": "H1A_FIXED_H_MAPPING_WORTH_CONTINUATION",
+      "when": "FLAG_60_SECTOR=true and FLAG_120_ML_RESTART=false"
+    },
+    {
+      "action": "requires fixed-H FDTD confirmation; no auto ML",
+      "case": "CASE4",
+      "state": "H1A_ML_RESTART_PHYSICS_POTENTIAL",
+      "when": "FLAG_120_ML_RESTART=true"
+    }
+  ],
+  "global_prohibitions": [
+    "ML",
+    "cVAE",
+    "inverse",
+    "K6",
+    "large_atlas",
+    "auto_solver"
+  ],
+  "physics_contract_modified": false,
+  "schema": "LP_GLOBAL_H_H1A_DECISION_CONTRACT_V1"
+}
