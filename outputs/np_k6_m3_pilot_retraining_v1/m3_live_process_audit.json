@@ -1,0 +1,156 @@
+{
+  "schema_version": "np_k6_m3_live_process_audit_v1",
+  "timestamp_utc": "2026-08-10T06:07:50.453502+00:00",
+  "read_only": true,
+  "process_query_returncode": 0,
+  "process_query_stderr": "",
+  "matched_processes": [
+    {
+      "pid": 8776,
+      "parent_pid": 3500,
+      "name": "ansoftrsmservice.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\EM_RSM\\ansoftrsmservice.exe\"",
+      "creation_date": "/Date(1780468432993)/",
+      "m3_related": false
+    },
+    {
+      "pid": 11512,
+      "parent_pid": 10576,
+      "name": "ansyslmd.exe",
+      "command_line_redacted": "ansyslmd.exe -T DESKTOP-NNE313K 11.19 -1 -c \";C:\\ProgramData\\ANLicense\\license.lic;\" -srv wMMPqBmk0mUF7fp0ZugWAHKVtg92TUguV13bDNGfavh02TPw9ITJ7ulI3QM2GY2 --lmgrd_start 6a1fcad1 -vdrestart 0  -l \"C:\\ProgramData\\ANLicense\\SIMULIA.log\"",
+      "creation_date": "/Date(1780468433528)/",
+      "m3_related": false
+    },
+    {
+      "pid": 6644,
+      "parent_pid": 32036,
+      "name": "cmd.exe",
+      "command_line_redacted": "\"c:\\windows\\system32\\cmd.exe\" /c \"powershell -NoProfile -Command Set-Location 'D:\\project\\worktrees\\blue_apcd_rcled_mdc'; $content = [Console]::In.ReadToEnd(); Set-Content -LiteralPath 'scripts\\stage_r2_4h1j4_fmm2b0_integer_dbr_and_lumerical_rcwa_audit_no_run.py' -Value $content -Encoding UTF8\"",
+      "creation_date": "/Date(1783347570720)/",
+      "m3_related": false
+    },
+    {
+      "pid": 32800,
+      "parent_pid": 6644,
+      "name": "powershell.exe",
+      "command_line_redacted": "powershell  -NoProfile -Command Set-Location 'D:\\project\\worktrees\\blue_apcd_rcled_mdc'; $content = [Console]::In.ReadToEnd(); Set-Content -LiteralPath 'scripts\\stage_r2_4h1j4_fmm2b0_integer_dbr_and_lumerical_rcwa_audit_no_run.py' -Value $content -Encoding UTF8",
+      "creation_date": "/Date(1783347570871)/",
+      "m3_related": false
+    },
+    {
+      "pid": 32640,
+      "parent_pid": 31304,
+      "name": "ansysedt.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe\" \"N:\\ZBB\\ansysxuexi\\ansysxuexi\\200um pingpurefang\\200um pingpurefang.aedt\"",
+      "creation_date": "/Date(1786066611191)/",
+      "m3_related": false
+    },
+    {
+      "pid": 22012,
+      "parent_pid": 32640,
+      "name": "ansyscl.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe\" -acl 32640.94610 -nodaemon -log C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.32640.94610.log",
+      "creation_date": "/Date(1786066623147)/",
+      "m3_related": false
+    },
+    {
+      "pid": 9388,
+      "parent_pid": 29468,
+      "name": "ansyscl.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe\" -acl DESKTOP-NNE313K_DELL_251 -nodaemon -aclport 9760 -log C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log",
+      "creation_date": "/Date(1786310885579)/",
+      "m3_related": false
+    },
+    {
+      "pid": 15964,
+      "parent_pid": 28764,
+      "name": "cmd.exe",
+      "command_line_redacted": "\"c:\\windows\\system32\\cmd.exe\" /c \"powershell -NoProfile -Command Set-Location -LiteralPath 'D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2'; N:/anaconda_envs/RCP_LCP/python.exe scripts/run_mdc_hf_surrogate_v3_al64_joint_profile_v1.py --output-root outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3 --continue-run\"",
+      "creation_date": "/Date(1786341859289)/",
+      "m3_related": false
+    },
+    {
+      "pid": 38692,
+      "parent_pid": 15964,
+      "name": "powershell.exe",
+      "command_line_redacted": "powershell  -NoProfile -Command Set-Location -LiteralPath 'D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2'; N:/anaconda_envs/RCP_LCP/python.exe scripts/run_mdc_hf_surrogate_v3_al64_joint_profile_v1.py --output-root outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3 --continue-run",
+      "creation_date": "/Date(1786341859469)/",
+      "m3_related": false
+    },
+    {
+      "pid": 27420,
+      "parent_pid": 38692,
+      "name": "python.exe",
+      "command_line_redacted": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" scripts/run_mdc_hf_surrogate_v3_al64_joint_profile_v1.py --output-root outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3 --continue-run",
+      "creation_date": "/Date(1786341859861)/",
+      "m3_related": false
+    },
+    {
+      "pid": 8740,
+      "parent_pid": 30364,
+      "name": "ansyscl.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe\" -acl DESKTOP-NNE313K_DELL_251 -nodaemon -aclport 20935 -log C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log",
+      "creation_date": "/Date(1786341861704)/",
+      "m3_related": false
+    },
+    {
+      "pid": 6964,
+      "parent_pid": 27420,
+      "name": "fdtd-solutions.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "creation_date": "/Date(1786342060147)/",
+      "m3_related": false
+    },
+    {
+      "pid": 27892,
+      "parent_pid": 6964,
+      "name": "mpiexec.exe",
+      "command_line_redacted": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_mdc_hf_surrogate_v2/outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3/cases/7e31eaf4b375dd119a520319c911e4fe1472b59ba0fc8a4d5a8f50ae43ab352c/7e31eaf4b375_attempt_1__post.fsp -remote -shared-solve-license <redacted>",
+      "creation_date": "/Date(1786342064960)/",
+      "m3_related": false
+    },
+    {
+      "pid": 8884,
+      "parent_pid": 16540,
+      "name": "fdtd-engine-msmpi.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_mdc_hf_surrogate_v2/outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3/cases/7e31eaf4b375dd119a520319c911e4fe1472b59ba0fc8a4d5a8f50ae43ab352c/7e31eaf4b375_attempt_1__post.fsp -remote -shared-solve-license <redacted>",
+      "creation_date": "/Date(1786342065086)/",
+      "m3_related": false
+    },
+    {
+      "pid": 27808,
+      "parent_pid": 16540,
+      "name": "fdtd-engine-msmpi.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_mdc_hf_surrogate_v2/outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3/cases/7e31eaf4b375dd119a520319c911e4fe1472b59ba0fc8a4d5a8f50ae43ab352c/7e31eaf4b375_attempt_1__post.fsp -remote -shared-solve-license <redacted>",
+      "creation_date": "/Date(1786342065139)/",
+      "m3_related": false
+    },
+    {
+      "pid": 25200,
+      "parent_pid": 16540,
+      "name": "fdtd-engine-msmpi.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_mdc_hf_surrogate_v2/outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3/cases/7e31eaf4b375dd119a520319c911e4fe1472b59ba0fc8a4d5a8f50ae43ab352c/7e31eaf4b375_attempt_1__post.fsp -remote -shared-solve-license <redacted>",
+      "creation_date": "/Date(1786342065193)/",
+      "m3_related": false
+    },
+    {
+      "pid": 23668,
+      "parent_pid": 16540,
+      "name": "fdtd-engine-msmpi.exe",
+      "command_line_redacted": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_mdc_hf_surrogate_v2/outputs/mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1/20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3/cases/7e31eaf4b375dd119a520319c911e4fe1472b59ba0fc8a4d5a8f50ae43ab352c/7e31eaf4b375_attempt_1__post.fsp -remote -shared-solve-license <redacted>",
+      "creation_date": "/Date(1786342065248)/",
+      "m3_related": false
+    },
+    {
+      "pid": 15484,
+      "parent_pid": 30108,
+      "name": "powershell.exe",
+      "command_line_redacted": "powershell -NoProfile -Command \"\n$items = @(Get-CimInstance Win32_Process | Where-Object {\n  $_.Name -match 'fdtd|lumerical|ansys|lumapi' -or $_.CommandLine -match 'fdtd|lumerical|ansys|lumapi'\n} | Select-Object ProcessId,ParentProcessId,Name,CommandLine,CreationDate)\n$items | ConvertTo-Json -Compress\n\"",
+      "creation_date": "/Date(1786342069368)/",
+      "m3_related": false
+    }
+  ],
+  "m3_related_process_count": 0,
+  "solver_started_by_m3_stage": false,
+  "sealed_access": 0
+}

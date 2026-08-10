@@ -1,0 +1,25 @@
+{
+  "schema_version": "np_k6_m3_test_audit_v1",
+  "timestamp_utc": "2026-08-10T06:05:42.736318+00:00",
+  "stage_specific_pytest": {
+    "command": "pytest -q tests/test_np_k6_m3_pilot_retraining_v1.py",
+    "status": "PASS",
+    "passed": 5
+  },
+  "frozen_m1_m2_relevant_pytest": {
+    "command": "pytest -q test_np_k6_m1_pilot_training_v1.py test_np_k6_m2_active_learning_batch1_v1.py test_np_k6_m2_batch1_dataset_v1.py",
+    "status": "PASS",
+    "passed": 16
+  },
+  "historical_g04_recompute_validator": {
+    "status": "PRE_EXISTING_HISTORICAL_ASSERTION_FAILURE",
+    "scope": "not an M3 failure; no historical artifact modified",
+    "failure": "legacy validator expects next G04-S ledger entered=false; current authority ledger is entered=true from later execution state"
+  },
+  "py_compile": {
+    "status": "PASS",
+    "solver_run_invocations": 0
+  },
+  "sealed_target_reads": 0,
+  "solver_run_invocations": 0
+}
