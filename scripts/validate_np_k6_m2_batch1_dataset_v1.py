@@ -1,0 +1,12 @@
+from pathlib import Path
+import csv,json,hashlib,math
+ROOT=Path(r'D:\project\worktrees\blue_apcd_np_k6_mdc_v1'); OUT=ROOT/'outputs/np_k6_m2_batch1_hf_dataset_v1'; STAGE=ROOT/'outputs/np_k6_m2_batch1_hf_acquisition_v1'
+checks={}; errors=[]
+def ck(name,cond,detail=''):
+ checks[name]=bool(cond)
+ if not cond: errors.append({'check':name,'detail':detail})
+def rows(p):
+ with p.open(newline='',encoding='utf-8-sig') as f:return list(csv.DictReader(f))
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+batch=rows(OUT/'hf_observations_long.csv'); merged=rows(ROOT/'outputs/np_k6_m2_batch1_merged_development_dataset_v1/hf_observations_long.csv'); ps=rows(OUT/'p_s_audit_66rows.csv'); state=json.loads((OUT/'batch1_dataset_state.json').read_text()); prog=json.loads((STAGE/'batch1_progress_state.json').read_text())
+ck('batch_rows_132',len(batch)==132,len(batch)); ck('merged_rows_198',len(merged)==198,len(merged)); ck('ps_rows_66',len(ps)==66,len(ps)); ck('case_count_12',len({r['case_id'] for r in batch})==12); ck('exact_wavelengths',all(sorted(int(r['wavelength_nm']) for r in batch if r['case_id']==c)==list(range(445,456)) for c in {r['case_id'] for r in batch})); ck('no_duplicate_case_wavelength',len({(r['case_id'],r['wavelength_nm']) for r in batch})==132); ck('all_quality_gate',all(r['quality_gate_pass']=='true' for r in batch)); ck('training_false',all(r['training_label']=='false' and r['candidate_performance_label']=='false' for r in batch)); ck('finite_metrics',all(math.isfinite(float(r[k])) for r in batch for k in ['T_total','R_total','eta_plus1','eta_0','eta_minus1','directionality'])); ck('state_complete',state['status']=='NP_K6_M2_BATCH1_HF_ACQUISITION_COMPLETE_RETRAIN_READY' and state['formal_observation_count']==132 and state['real_training_started'] is False); ck('progress_reconciled',prog['accepted_execution_count']==12 and prog['physical_solver_invocation_count']==13 and prog['next_unentered_case'] is None); ck('sealed_zero',state['sealed_access']==0); ck('checksum_batch',all(sha(OUT/x['path'])==x['sha256'] for x in json.loads((OUT/'dataset_checksum_manifest.json').read_text())['files'])); result={'status':'PASS' if not errors else 'FAIL','checks':checks,'errors':errors,'batch_rows':len(batch),'merged_rows':len(merged),'p_s_rows':len(ps),'solver_invocations':13,'sealed_access':0}; (OUT/'batch1_dataset_validator_report.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8'); print(json.dumps(result,indent=2)); raise SystemExit(0 if not errors else 1)
