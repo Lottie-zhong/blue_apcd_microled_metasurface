@@ -1,0 +1,47 @@
+{
+  "contract": {
+    "anti_collapse_diagnostics": [
+      "latent_variance_preservation",
+      "collapsed_PCA_component_count",
+      "profile_pairwise_diversity_ratio",
+      "truth_vs_prediction_diversity_distribution"
+    ],
+    "candidate_selection_rule": "complete-metric check; ascending mean rank across six required metrics; ascending worst-topology JS; descending median latent variance ratio; descending pairwise-diversity ratio; ascending candidate ID tie-break",
+    "contract_id": "MDC_HF_SURROGATE_V3_SELECTION_METRICS_CONTRACT_V1",
+    "external_acceptance_threshold": "not_defined_in_this_plan_freeze",
+    "external_capability_source": "new V3-Test40 after model freeze only",
+    "promotion_metric_redefinition": false,
+    "required_metrics": [
+      "joint_JS",
+      "joint_weighted_L1",
+      "spectral_CDF",
+      "angular_CDF",
+      "worst_fold_JS",
+      "worst_topology_JS"
+    ],
+    "required_slices": [
+      "ZL1",
+      "N=4-5",
+      "high_metadata_distance",
+      "x_orientation",
+      "z_orientation"
+    ],
+    "selection_data": "development_OOF_only",
+    "training_authorized": false
+  },
+  "implemented_metrics": [
+    "latent_variance_preservation",
+    "collapsed_component_count",
+    "profile_pairwise_diversity_ratio",
+    "joint_JS",
+    "joint_weighted_L1",
+    "spectral_CDF",
+    "angular_CDF",
+    "fold_wise_metrics",
+    "topology_wise_metrics",
+    "worst_fold_guard_inputs",
+    "worst_topology_guard_inputs"
+  ],
+  "status": "PASS",
+  "threshold_status": "NOT_DEFINED_IN_PLAN_FREEZE"
+}

@@ -1,0 +1,59 @@
+{
+  "candidate_count": 3,
+  "candidates": [
+    {
+      "auxiliary_head": "NOT_LOAD_BEARING",
+      "backbone": "M1",
+      "dropout": 0.05,
+      "id": "V3-A",
+      "input_width": 23,
+      "latent_head": "linear_signed",
+      "latent_output_dimension": "PCA32",
+      "latent_width": 128,
+      "power_head": "ABSENT_FROM_FORMAL_MODEL",
+      "profile_head_width": 32,
+      "purpose": "undertraining_or_power_interference_test",
+      "regularization": "fixed_v2_current",
+      "residual_blocks": 3,
+      "residual_width": 256,
+      "weight_decay": 0.0001
+    },
+    {
+      "auxiliary_head": "NOT_LOAD_BEARING",
+      "backbone": "M1",
+      "dropout": 0.0,
+      "id": "V3-B",
+      "input_width": 23,
+      "latent_head": "linear_signed",
+      "latent_output_dimension": "PCA32",
+      "latent_width": 128,
+      "power_head": "ABSENT_FROM_FORMAL_MODEL",
+      "profile_head_width": 32,
+      "purpose": "regularization_collapse_test",
+      "regularization": "reduced",
+      "residual_blocks": 3,
+      "residual_width": 256,
+      "weight_decay": 0.0
+    },
+    {
+      "auxiliary_head": "NOT_LOAD_BEARING",
+      "backbone": "moderately_widened_MLP",
+      "dropout": 0.0,
+      "id": "V3-C",
+      "input_width": 23,
+      "latent_head": "linear_signed",
+      "latent_output_dimension": "PCA32",
+      "latent_width": 192,
+      "power_head": "ABSENT_FROM_FORMAL_MODEL",
+      "profile_head_width": 32,
+      "purpose": "capacity_limitation_test",
+      "regularization": "reduced",
+      "residual_blocks": 3,
+      "residual_width": 384,
+      "weight_decay": 0.0
+    }
+  ],
+  "contract_id": "MDC_HF_SURROGATE_V3_PROFILE_ONLY_MODEL_CANDIDATES_V1",
+  "serialization_sha256": "03b0ec33e13aa65c6fe26474b46ef62a724996b05767219383326a4a271bd027",
+  "training_authorized": false
+}
