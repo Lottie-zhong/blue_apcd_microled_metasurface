@@ -1,0 +1,26 @@
+{
+  "collapse_definition": {
+    "candidate_median_variance_ratio_lt": 0.25,
+    "collapsed_count_and_fraction_reported": true,
+    "per_component_variance_ratio_lt": 0.25,
+    "profile_diversity_threshold": "NOT_DEFINED; secondary diagnostic only"
+  },
+  "contract_id": "MDC_HF_SURROGATE_V3_OOF_CANDIDATE_ELIGIBILITY_V1",
+  "policy": {
+    "expected_fits": 15,
+    "fit_matrix": "5 folds x 3 seeds",
+    "incomplete_or_invalid": "INELIGIBLE_FOR_PROMOTION",
+    "required_no_leakage": [
+      "fold",
+      "case",
+      "PCA/scaler",
+      "outer-fold early-stopping"
+    ],
+    "topologies": [
+      "Explicit",
+      "ZL1",
+      "ZL2"
+    ]
+  },
+  "status": "PASS"
+}

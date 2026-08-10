@@ -1,0 +1,75 @@
+{
+  "auxiliary_target_in_primary_score": false,
+  "candidate_eligibility": {
+    "expected_fits": 15,
+    "fit_matrix": "5 folds x 3 seeds",
+    "incomplete_or_invalid": "INELIGIBLE_FOR_PROMOTION",
+    "required_no_leakage": [
+      "fold",
+      "case",
+      "PCA/scaler",
+      "outer-fold early-stopping"
+    ],
+    "topologies": [
+      "Explicit",
+      "ZL1",
+      "ZL2"
+    ]
+  },
+  "catastrophic_collapse": {
+    "candidate_median_variance_ratio_lt": 0.25,
+    "collapsed_count_and_fraction_reported": true,
+    "per_component_variance_ratio_lt": 0.25,
+    "profile_diversity_threshold": "NOT_DEFINED; secondary diagnostic only"
+  },
+  "contract_id": "MDC_HF_SURROGATE_V3_OOF_PROMOTION_POLICY_V1",
+  "evaluation_level": {
+    "case_level": "diagnostic_only",
+    "case_level_can_override_geometry_selection": false,
+    "primary": "geometry"
+  },
+  "final_training_interface": {
+    "final_epoch_policy": "NOT_FROZEN_IN_V3_PLAN_FREEZE; remaining pre-OOF policy item",
+    "full_development_training_requires": "selected != NONE and separate Chart authorization",
+    "no_post_oof_architecture_search": true,
+    "selected_architecture": [
+      "V3-A",
+      "V3-B",
+      "V3-C",
+      "NONE"
+    ]
+  },
+  "formal_status": "MDC_HF_SURROGATE_V3_OOF_PROMOTION_POLICY_PREREGISTERED_WAITING_FOR_AL64",
+  "no_promotion_conditions": [
+    "all candidates catastrophic",
+    "formal OOF incomplete",
+    "any leakage",
+    "profile metric contract drift",
+    "A/B/C definition drift",
+    "sealed-test violation",
+    "execution artifact ambiguity"
+  ],
+  "outcome_blind": true,
+  "power_target_in_primary_score": false,
+  "primary_weights": {
+    "JS": 0.23529411764705882,
+    "angular_CDF": 0.17647058823529413,
+    "profile": 0.4117647058823529,
+    "spectral_CDF": 0.17647058823529413
+  },
+  "selection_hierarchy": [
+    "lowest global geometry-level profile composite",
+    "lower worst-topology profile composite",
+    "lower worst-fold profile composite",
+    "lower collapsed-component count",
+    "higher median latent variance ratio",
+    "higher profile pairwise-diversity ratio",
+    "lower architecture complexity V3-A > V3-B > V3-C"
+  ],
+  "tie_rule": {
+    "absolute_tolerance": 1.7763568394002505e-15,
+    "equality": "machine/numerical equality only",
+    "no_statistical_tolerance": true,
+    "relative_tolerance": 1.7763568394002505e-15
+  }
+}
