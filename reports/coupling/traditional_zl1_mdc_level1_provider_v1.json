@@ -1,0 +1,567 @@
+{
+  "P_MDC_up_P": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\aggregates\\W_MDC_P_native_420_480_nm.npz",
+    "raw_integral": 1.017732468795928e-05,
+    "sha256": "06fba65288ea2b7dd9bf1dd3145775513d908d373ec4639327e51f4209d53e4f",
+    "ux_mass_closure": 0.9999999999999996
+  },
+  "P_MDC_up_S": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\aggregates\\W_MDC_S_native_420_480_nm.npz",
+    "raw_integral": 6.2643051266377595e-06,
+    "sha256": "525574df77ddeb8730011a4b7abc19539579289334e4d64d43b83e83ab6848b0",
+    "ux_mass_closure": 0.9999999999999998
+  },
+  "P_family": [
+    "TOP_X",
+    "CENTROID_X",
+    "BOTTOM_X"
+  ],
+  "S_family": [
+    "TOP_Z",
+    "CENTROID_Z",
+    "BOTTOM_Z"
+  ],
+  "W_MDC_P_lambda_ux": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\aggregates\\W_MDC_P_coupling_445_455_nm.npz",
+    "raw_integral": 2.5651319251064105e-06,
+    "sha256": "01743df6b0cc34d66af08b350fa78575b12c30c36fbfc0fa84d5790997d31767",
+    "ux_mass_closure": 1.0
+  },
+  "W_MDC_S_lambda_ux": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\aggregates\\W_MDC_S_coupling_445_455_nm.npz",
+    "raw_integral": 2.022779138400822e-06,
+    "sha256": "acfb20d7f93d85fc38892019829fba95fc09e0a3d2e785a95050b9a403a5538f",
+    "ux_mass_closure": 1.0
+  },
+  "aggregation": {
+    "NP_operator_order": "P/S operator must act before x/z incoherent aggregation",
+    "P_family": "raw TOP_X/CENTROID_X/BOTTOM_X equal average then normalize",
+    "S_family": "raw TOP_Z/CENTROID_Z/BOTTOM_Z equal average then normalize",
+    "total_emitter": "diagnostic-only 0.5*P+0.5*S after raw family aggregation"
+  },
+  "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+  "geometry_hash": "c38694d6f162c04322ae8a87def91622d4fd4f272e4ec286e85acc978f74d888",
+  "geometry_total_thickness_nm": 975.0,
+  "grid": {
+    "angle_points": 2000,
+    "axis_order": [
+      "wavelength_index",
+      "angle_index"
+    ],
+    "grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+    "theta_to_ux": "conservative bin-mass remap; no interpolation/extrapolation",
+    "wavelength_points": 301
+  },
+  "provider_id": "TRADITIONAL_ZL1_MDC_LEVEL1_REAL_FDTD_PROVIDER_V1",
+  "quality_gates": {
+    "P_family_identity": true,
+    "S_family_identity": true,
+    "exact_six_case_membership": true,
+    "finite": true,
+    "grid_identity": true,
+    "nonnegative": true,
+    "orientation_identity": true,
+    "quadrature_closure": true,
+    "raw_power_provenance": true,
+    "source_identity": true
+  },
+  "raw_case_assets": [
+    {
+      "case_id": "TOP_X",
+      "result": {
+        "attempt_id": "TOP_X_ATTEMPT_001",
+        "builder_sha256": "ca77674081da3c4134c0358868ab63ce04c092d94a1008d955b4af0795a7987f",
+        "case_id": "TOP_X",
+        "completed_timestamp": "2026-08-10T04:58:37Z",
+        "frozen_grid_reference_sha256": "4124176c224d8242c5f321ab509a10bdae2ded13143bd64c5276dcae1b684a76",
+        "grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+        "grid_shape": [
+          301,
+          2000
+        ],
+        "interface_polarization_family": "P_TM_like",
+        "material_config_sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+        "monitor_contract_sha256": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+        "post_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\TOP_X\\runtime\\TOP_X__attempt_001__post.fsp",
+        "post_fsp_sha256": "c41365bef119692d8bf602d91d87a3ba3e14c3e61d6d55055c2adbde2fa6bc7a",
+        "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\TOP_X\\setup\\TOP_X__pre.fsp",
+        "pre_fsp_sha256": "595720c825af1299cfb294b7332e318ff55b3102b38f4480859f4215e1a6425a",
+        "raw_joint_finite": true,
+        "raw_joint_integral": 1.311491907708606e-05,
+        "raw_joint_negative_count": 0,
+        "raw_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\TOP_X\\runtime\\TOP_X__attempt_001__raw.npz",
+        "raw_power_finite": true,
+        "setup_readback": {
+          "box_monitor_counts": {
+            "emit_box_12nm_bottom": 1,
+            "emit_box_12nm_left": 1,
+            "emit_box_12nm_right": 1,
+            "emit_box_12nm_top": 1
+          },
+          "checks": {
+            "box_monitors": true,
+            "dimension_2d": true,
+            "fdtd": true,
+            "geometry_top": true,
+            "phi": true,
+            "reference_plane": true,
+            "source": true,
+            "source_y": true,
+            "theta": true,
+            "upward_monitor": true
+          },
+          "dimension": "2D",
+          "fdtd_count": 1,
+          "layer_y_max_nm": [
+            44.00000000000001,
+            123.0,
+            167.0,
+            246.0,
+            290.00000000000006,
+            606.0,
+            649.9999999999999,
+            729.0000000000001,
+            773.0,
+            852.0000000000001,
+            896.0,
+            975.0
+          ],
+          "monitor_y_nm": 1275.0,
+          "pass": true,
+          "source_count": 1,
+          "source_phi_deg": 0.0,
+          "source_theta_deg": 90.0,
+          "source_y_nm": -171.50000000000003,
+          "upward_monitor_count": 1
+        },
+        "solver_entered": true,
+        "solver_exit_state": "fdtd.run_returned",
+        "solver_status": "COMPLETE",
+        "source_orientation": "x",
+        "source_position": "TOP",
+        "source_z_nm": -171.5,
+        "status": "COMPLETE",
+        "theta_to_ux_mass_closure": 1.0,
+        "theta_to_ux_remap_relative_closure_error": 0.0
+      }
+    },
+    {
+      "case_id": "TOP_Z",
+      "result": {
+        "attempt_id": "TOP_Z_ATTEMPT_001",
+        "builder_sha256": "ca77674081da3c4134c0358868ab63ce04c092d94a1008d955b4af0795a7987f",
+        "case_id": "TOP_Z",
+        "completed_timestamp": "2026-08-10T04:59:51Z",
+        "frozen_grid_reference_sha256": "4124176c224d8242c5f321ab509a10bdae2ded13143bd64c5276dcae1b684a76",
+        "grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+        "grid_shape": [
+          301,
+          2000
+        ],
+        "interface_polarization_family": "S_TE_like",
+        "material_config_sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+        "monitor_contract_sha256": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+        "post_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\TOP_Z\\runtime\\TOP_Z__attempt_001__post.fsp",
+        "post_fsp_sha256": "9aa09d1a958f3dbed18e9b7549fdae77ffceb59cf89dee944b9530eb4fc61b1e",
+        "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\TOP_Z\\setup\\TOP_Z__pre.fsp",
+        "pre_fsp_sha256": "c94ef14d1d2c2d874ded7d4b6fbd17471dd2a2289dbfc7d8094540841667ad3f",
+        "raw_joint_finite": true,
+        "raw_joint_integral": 8.071240221633463e-06,
+        "raw_joint_negative_count": 0,
+        "raw_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\TOP_Z\\runtime\\TOP_Z__attempt_001__raw.npz",
+        "raw_power_finite": true,
+        "setup_readback": {
+          "box_monitor_counts": {
+            "emit_box_12nm_bottom": 1,
+            "emit_box_12nm_left": 1,
+            "emit_box_12nm_right": 1,
+            "emit_box_12nm_top": 1
+          },
+          "checks": {
+            "box_monitors": true,
+            "dimension_2d": true,
+            "fdtd": true,
+            "geometry_top": true,
+            "phi": true,
+            "reference_plane": true,
+            "source": true,
+            "source_y": true,
+            "theta": true,
+            "upward_monitor": true
+          },
+          "dimension": "2D",
+          "fdtd_count": 1,
+          "layer_y_max_nm": [
+            44.00000000000001,
+            123.0,
+            167.0,
+            246.0,
+            290.00000000000006,
+            606.0,
+            649.9999999999999,
+            729.0000000000001,
+            773.0,
+            852.0000000000001,
+            896.0,
+            975.0
+          ],
+          "monitor_y_nm": 1275.0,
+          "pass": true,
+          "source_count": 1,
+          "source_phi_deg": 0.0,
+          "source_theta_deg": 0.0,
+          "source_y_nm": -171.50000000000003,
+          "upward_monitor_count": 1
+        },
+        "solver_entered": true,
+        "solver_exit_state": "fdtd.run_returned",
+        "solver_status": "COMPLETE",
+        "source_orientation": "z",
+        "source_position": "TOP",
+        "source_z_nm": -171.5,
+        "status": "COMPLETE",
+        "theta_to_ux_mass_closure": 1.0,
+        "theta_to_ux_remap_relative_closure_error": 0.0
+      }
+    },
+    {
+      "case_id": "CENTROID_X",
+      "result": {
+        "attempt_id": "CENTROID_X_ATTEMPT_001",
+        "builder_sha256": "ca77674081da3c4134c0358868ab63ce04c092d94a1008d955b4af0795a7987f",
+        "case_id": "CENTROID_X",
+        "completed_timestamp": "2026-08-10T05:01:03Z",
+        "frozen_grid_reference_sha256": "4124176c224d8242c5f321ab509a10bdae2ded13143bd64c5276dcae1b684a76",
+        "grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+        "grid_shape": [
+          301,
+          2000
+        ],
+        "interface_polarization_family": "P_TM_like",
+        "material_config_sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+        "monitor_contract_sha256": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+        "post_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\CENTROID_X\\runtime\\CENTROID_X__attempt_001__post.fsp",
+        "post_fsp_sha256": "de5922ceb370e119a0300347bcc59460f570015bbf2c6ac688714022d9e7168b",
+        "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\CENTROID_X\\setup\\CENTROID_X__pre.fsp",
+        "pre_fsp_sha256": "12fd2652b642a64dd717105ae969978de9b8cf47496f7d31c0a3d51e783ad226",
+        "raw_joint_finite": true,
+        "raw_joint_integral": 9.922251578358166e-06,
+        "raw_joint_negative_count": 0,
+        "raw_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\CENTROID_X\\runtime\\CENTROID_X__attempt_001__raw.npz",
+        "raw_power_finite": true,
+        "setup_readback": {
+          "box_monitor_counts": {
+            "emit_box_12nm_bottom": 1,
+            "emit_box_12nm_left": 1,
+            "emit_box_12nm_right": 1,
+            "emit_box_12nm_top": 1
+          },
+          "checks": {
+            "box_monitors": true,
+            "dimension_2d": true,
+            "fdtd": true,
+            "geometry_top": true,
+            "phi": true,
+            "reference_plane": true,
+            "source": true,
+            "source_y": true,
+            "theta": true,
+            "upward_monitor": true
+          },
+          "dimension": "2D",
+          "fdtd_count": 1,
+          "layer_y_max_nm": [
+            44.00000000000001,
+            123.0,
+            167.0,
+            246.0,
+            290.00000000000006,
+            606.0,
+            649.9999999999999,
+            729.0000000000001,
+            773.0,
+            852.0000000000001,
+            896.0,
+            975.0
+          ],
+          "monitor_y_nm": 1275.0,
+          "pass": true,
+          "source_count": 1,
+          "source_phi_deg": 0.0,
+          "source_theta_deg": 90.0,
+          "source_y_nm": -276.00000000000006,
+          "upward_monitor_count": 1
+        },
+        "solver_entered": true,
+        "solver_exit_state": "fdtd.run_returned",
+        "solver_status": "COMPLETE",
+        "source_orientation": "x",
+        "source_position": "CENTROID",
+        "source_z_nm": -276.0,
+        "status": "COMPLETE",
+        "theta_to_ux_mass_closure": 1.0,
+        "theta_to_ux_remap_relative_closure_error": 0.0
+      }
+    },
+    {
+      "case_id": "CENTROID_Z",
+      "result": {
+        "attempt_id": "CENTROID_Z_ATTEMPT_001",
+        "builder_sha256": "ca77674081da3c4134c0358868ab63ce04c092d94a1008d955b4af0795a7987f",
+        "case_id": "CENTROID_Z",
+        "completed_timestamp": "2026-08-10T05:02:06Z",
+        "frozen_grid_reference_sha256": "4124176c224d8242c5f321ab509a10bdae2ded13143bd64c5276dcae1b684a76",
+        "grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+        "grid_shape": [
+          301,
+          2000
+        ],
+        "interface_polarization_family": "S_TE_like",
+        "material_config_sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+        "monitor_contract_sha256": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+        "post_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\CENTROID_Z\\runtime\\CENTROID_Z__attempt_001__post.fsp",
+        "post_fsp_sha256": "edfa9e5a4a12dc36eb9a8767a120ddd8dce41ce2ba809977bbb69e6016192405",
+        "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\CENTROID_Z\\setup\\CENTROID_Z__pre.fsp",
+        "pre_fsp_sha256": "feebe8617b94db8fa5369c3b66c4e26105f105bebc950b5af6b5d571a66c4160",
+        "raw_joint_finite": true,
+        "raw_joint_integral": 6.093372271752601e-06,
+        "raw_joint_negative_count": 0,
+        "raw_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\CENTROID_Z\\runtime\\CENTROID_Z__attempt_001__raw.npz",
+        "raw_power_finite": true,
+        "setup_readback": {
+          "box_monitor_counts": {
+            "emit_box_12nm_bottom": 1,
+            "emit_box_12nm_left": 1,
+            "emit_box_12nm_right": 1,
+            "emit_box_12nm_top": 1
+          },
+          "checks": {
+            "box_monitors": true,
+            "dimension_2d": true,
+            "fdtd": true,
+            "geometry_top": true,
+            "phi": true,
+            "reference_plane": true,
+            "source": true,
+            "source_y": true,
+            "theta": true,
+            "upward_monitor": true
+          },
+          "dimension": "2D",
+          "fdtd_count": 1,
+          "layer_y_max_nm": [
+            44.00000000000001,
+            123.0,
+            167.0,
+            246.0,
+            290.00000000000006,
+            606.0,
+            649.9999999999999,
+            729.0000000000001,
+            773.0,
+            852.0000000000001,
+            896.0,
+            975.0
+          ],
+          "monitor_y_nm": 1275.0,
+          "pass": true,
+          "source_count": 1,
+          "source_phi_deg": 0.0,
+          "source_theta_deg": 0.0,
+          "source_y_nm": -276.00000000000006,
+          "upward_monitor_count": 1
+        },
+        "solver_entered": true,
+        "solver_exit_state": "fdtd.run_returned",
+        "solver_status": "COMPLETE",
+        "source_orientation": "z",
+        "source_position": "CENTROID",
+        "source_z_nm": -276.0,
+        "status": "COMPLETE",
+        "theta_to_ux_mass_closure": 1.0,
+        "theta_to_ux_remap_relative_closure_error": 0.0
+      }
+    },
+    {
+      "case_id": "BOTTOM_X",
+      "result": {
+        "attempt_id": "BOTTOM_X_ATTEMPT_001",
+        "builder_sha256": "ca77674081da3c4134c0358868ab63ce04c092d94a1008d955b4af0795a7987f",
+        "case_id": "BOTTOM_X",
+        "completed_timestamp": "2026-08-10T05:03:17Z",
+        "frozen_grid_reference_sha256": "4124176c224d8242c5f321ab509a10bdae2ded13143bd64c5276dcae1b684a76",
+        "grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+        "grid_shape": [
+          301,
+          2000
+        ],
+        "interface_polarization_family": "P_TM_like",
+        "material_config_sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+        "monitor_contract_sha256": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+        "post_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\BOTTOM_X\\runtime\\BOTTOM_X__attempt_001__post.fsp",
+        "post_fsp_sha256": "ec96e282e788b398a68770c833ed5d61eb2ef663d7138ac1323c0e8c4e6031f9",
+        "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\BOTTOM_X\\setup\\BOTTOM_X__pre.fsp",
+        "pre_fsp_sha256": "6b14df5f3b83fd80d96bd5ab3a470f3d613a62109b4d47bb4872affc952542b5",
+        "raw_joint_finite": true,
+        "raw_joint_integral": 7.5717005848445065e-06,
+        "raw_joint_negative_count": 0,
+        "raw_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\BOTTOM_X\\runtime\\BOTTOM_X__attempt_001__raw.npz",
+        "raw_power_finite": true,
+        "setup_readback": {
+          "box_monitor_counts": {
+            "emit_box_12nm_bottom": 1,
+            "emit_box_12nm_left": 1,
+            "emit_box_12nm_right": 1,
+            "emit_box_12nm_top": 1
+          },
+          "checks": {
+            "box_monitors": true,
+            "dimension_2d": true,
+            "fdtd": true,
+            "geometry_top": true,
+            "phi": true,
+            "reference_plane": true,
+            "source": true,
+            "source_y": true,
+            "theta": true,
+            "upward_monitor": true
+          },
+          "dimension": "2D",
+          "fdtd_count": 1,
+          "layer_y_max_nm": [
+            44.00000000000001,
+            123.0,
+            167.0,
+            246.0,
+            290.00000000000006,
+            606.0,
+            649.9999999999999,
+            729.0000000000001,
+            773.0,
+            852.0000000000001,
+            896.0,
+            975.0
+          ],
+          "monitor_y_nm": 1275.0,
+          "pass": true,
+          "source_count": 1,
+          "source_phi_deg": 0.0,
+          "source_theta_deg": 90.0,
+          "source_y_nm": -380.5,
+          "upward_monitor_count": 1
+        },
+        "solver_entered": true,
+        "solver_exit_state": "fdtd.run_returned",
+        "solver_status": "COMPLETE",
+        "source_orientation": "x",
+        "source_position": "BOTTOM",
+        "source_z_nm": -380.5,
+        "status": "COMPLETE",
+        "theta_to_ux_mass_closure": 1.0,
+        "theta_to_ux_remap_relative_closure_error": 0.0
+      }
+    },
+    {
+      "case_id": "BOTTOM_Z",
+      "result": {
+        "attempt_id": "BOTTOM_Z_ATTEMPT_001",
+        "builder_sha256": "ca77674081da3c4134c0358868ab63ce04c092d94a1008d955b4af0795a7987f",
+        "case_id": "BOTTOM_Z",
+        "completed_timestamp": "2026-08-10T05:04:21Z",
+        "frozen_grid_reference_sha256": "4124176c224d8242c5f321ab509a10bdae2ded13143bd64c5276dcae1b684a76",
+        "grid_sha256": "f3e2b786901c912240ea0267886d4ea9d9e5c62b78846bf1428dbed3c25a0ac9",
+        "grid_shape": [
+          301,
+          2000
+        ],
+        "interface_polarization_family": "S_TE_like",
+        "material_config_sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+        "monitor_contract_sha256": "7b7db5804ec6c4767cbbc7d15538ee8cd4ae475c6e949f8a739c01a132b96957",
+        "post_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\BOTTOM_Z\\runtime\\BOTTOM_Z__attempt_001__post.fsp",
+        "post_fsp_sha256": "1b2dee497bb47a7c94e32ca385bad3dffe0750d7aef5a972f955fa97e0383f09",
+        "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\BOTTOM_Z\\setup\\BOTTOM_Z__pre.fsp",
+        "pre_fsp_sha256": "215c4ea7877869e3eaf611e5a45ad379dfe2a8114f6da212021c3c988c43f5da",
+        "raw_joint_finite": true,
+        "raw_joint_integral": 4.654646430430683e-06,
+        "raw_joint_negative_count": 0,
+        "raw_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\BOTTOM_Z\\runtime\\BOTTOM_Z__attempt_001__raw.npz",
+        "raw_power_finite": true,
+        "setup_readback": {
+          "box_monitor_counts": {
+            "emit_box_12nm_bottom": 1,
+            "emit_box_12nm_left": 1,
+            "emit_box_12nm_right": 1,
+            "emit_box_12nm_top": 1
+          },
+          "checks": {
+            "box_monitors": true,
+            "dimension_2d": true,
+            "fdtd": true,
+            "geometry_top": true,
+            "phi": true,
+            "reference_plane": true,
+            "source": true,
+            "source_y": true,
+            "theta": true,
+            "upward_monitor": true
+          },
+          "dimension": "2D",
+          "fdtd_count": 1,
+          "layer_y_max_nm": [
+            44.00000000000001,
+            123.0,
+            167.0,
+            246.0,
+            290.00000000000006,
+            606.0,
+            649.9999999999999,
+            729.0000000000001,
+            773.0,
+            852.0000000000001,
+            896.0,
+            975.0
+          ],
+          "monitor_y_nm": 1275.0,
+          "pass": true,
+          "source_count": 1,
+          "source_phi_deg": 0.0,
+          "source_theta_deg": 0.0,
+          "source_y_nm": -380.5,
+          "upward_monitor_count": 1
+        },
+        "solver_entered": true,
+        "solver_exit_state": "fdtd.run_returned",
+        "solver_status": "COMPLETE",
+        "source_orientation": "z",
+        "source_position": "BOTTOM",
+        "source_z_nm": -380.5,
+        "status": "COMPLETE",
+        "theta_to_ux_mass_closure": 1.0,
+        "theta_to_ux_remap_relative_closure_error": 0.0
+      }
+    }
+  ],
+  "reference_plane_z_nm": 975.0,
+  "safety": {
+    "FDTD": 6,
+    "FEM": 0,
+    "ML_inference": 0,
+    "NP_solver": 0,
+    "RCWA": 0,
+    "TMM": 0,
+    "integrated_3d_FDTD": 0,
+    "replays": 0,
+    "training": 0
+  },
+  "schema_version": "traditional_zl1_mdc_level1_real_fdtd_provider_v1",
+  "six_case_membership": [
+    "TOP_X",
+    "TOP_Z",
+    "CENTROID_X",
+    "CENTROID_Z",
+    "BOTTOM_X",
+    "BOTTOM_Z"
+  ],
+  "status": "PASS",
+  "task": "APCD_MDC_NP_COUPLING_V1_TRADITIONAL_LEVEL1_ZL1_FORMAL_SIX_CASE_FDTD"
+}

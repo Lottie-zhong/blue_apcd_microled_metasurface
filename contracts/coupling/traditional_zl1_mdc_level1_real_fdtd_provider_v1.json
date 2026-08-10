@@ -1,0 +1,66 @@
+{
+  "schema_version": "traditional_zl1_mdc_level1_real_fdtd_provider_contract_v1",
+  "provider_id": "TRADITIONAL_ZL1_MDC_LEVEL1_REAL_FDTD_PROVIDER_V1",
+  "candidate_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+  "geometry": {
+    "layers": 12,
+    "total_thickness_nm": 975,
+    "sequence_gaN_to_air": [
+      ["TiO2", 44], ["SiO2", 79], ["TiO2", 44], ["SiO2", 79],
+      ["TiO2", 44], ["SiO2", 316], ["TiO2", 44], ["SiO2", 79],
+      ["TiO2", 44], ["SiO2", 79], ["TiO2", 44], ["SiO2", 79]
+    ],
+    "extra_spacer_nm": 0,
+    "np_geometry_included": false,
+    "reference_plane_z_nm": 975
+  },
+  "materials": [
+    "APCD_GAN_NATIVE_M1",
+    "APCD_TIO2_NATIVE_M1",
+    "APCD_SIO2_NATIVE_M1"
+  ],
+  "source_cases": [
+    {"case_id": "TOP_X", "source_z_nm": -171.5, "source_orientation": "x", "interface_polarization_family": "P_TM_like"},
+    {"case_id": "TOP_Z", "source_z_nm": -171.5, "source_orientation": "z", "interface_polarization_family": "S_TE_like"},
+    {"case_id": "CENTROID_X", "source_z_nm": -276.0, "source_orientation": "x", "interface_polarization_family": "P_TM_like"},
+    {"case_id": "CENTROID_Z", "source_z_nm": -276.0, "source_orientation": "z", "interface_polarization_family": "S_TE_like"},
+    {"case_id": "BOTTOM_X", "source_z_nm": -380.5, "source_orientation": "x", "interface_polarization_family": "P_TM_like"},
+    {"case_id": "BOTTOM_Z", "source_z_nm": -380.5, "source_orientation": "z", "interface_polarization_family": "S_TE_like"}
+  ],
+  "native_joint_tensor": {
+    "shape": [301, 2000],
+    "wavelength_nm": [420, 480, 301],
+    "theta_deg": [-90, 90, 2000],
+    "theta_grid_nonuniform": true,
+    "axis_order": ["wavelength_index", "angle_index"],
+    "raw_before_normalization": true,
+    "theta_to_ux": "MDC_THETA_TO_UX_CONSERVATIVE_REMAP_V1",
+    "no_interpolation": true,
+    "no_extrapolation": true
+  },
+  "aggregation": {
+    "p_family": "raw TOP_X/CENTROID_X/BOTTOM_X equal average then normalize",
+    "s_family": "raw TOP_Z/CENTROID_Z/BOTTOM_Z equal average then normalize",
+    "total_emitter": "diagnostic-only 0.5*P+0.5*S after channel-resolved aggregation",
+    "np_operator_order": "P/S operator before x/z incoherent source aggregation",
+    "unpolarized_plane_wave_average": false
+  },
+  "solver_authorization": {
+    "new_2d_fdtd_cases": 6,
+    "per_case_entered_max": 1,
+    "replays": 0,
+    "np_solver": 0,
+    "integrated_3d_fdtd": 0,
+    "tmm": 0,
+    "rcwa": 0,
+    "training": 0,
+    "ml_inference": 0
+  },
+  "forbidden_shortcuts": [
+    "constant-index fallback",
+    "M1 predicted power",
+    "spectrum-times-angular-cut outer product",
+    "premature x/z averaging before P/S operator",
+    "NP solver in this phase"
+  ]
+}

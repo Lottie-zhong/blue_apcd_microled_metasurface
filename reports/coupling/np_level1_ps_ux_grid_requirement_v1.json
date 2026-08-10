@@ -1,0 +1,152 @@
+{
+  "P": {
+    "coupling": {
+      "asymmetric_99_percent_interval": {
+        "ux_max": 0.9945086101656629,
+        "ux_min": -0.9945086101656628
+      },
+      "band_nm": [
+        445.0,
+        455.0
+      ],
+      "denominator_raw_integral": 2.5651319251064105e-06,
+      "mean_ux": -7.08224842660421e-09,
+      "negative_mass": 0.5000000118656973,
+      "positive_mass": 0.4999999881343027,
+      "support": {
+        "symmetric_50_percent": {
+          "captured_mass": 0.49971941396981717,
+          "u_abs": 0.17908956792351438
+        },
+        "symmetric_90_percent": {
+          "captured_mass": 0.9005000717544195,
+          "u_abs": 0.898449807733072
+        },
+        "symmetric_95_percent": {
+          "captured_mass": 0.95035454561412,
+          "u_abs": 0.9544785809644698
+        },
+        "symmetric_99_percent": {
+          "captured_mass": 0.9895599839767928,
+          "u_abs": 0.9945086101656628
+        }
+      },
+      "ux_mass_closure": 1.0
+    },
+    "native": {
+      "asymmetric_99_percent_interval": {
+        "ux_max": 0.9975239858167331,
+        "ux_min": -0.997523985816733
+      },
+      "band_nm": [
+        420.0,
+        480.0
+      ],
+      "denominator_raw_integral": 1.017732468795928e-05,
+      "mean_ux": -2.0674091771866188e-08,
+      "negative_mass": 0.500000020834814,
+      "positive_mass": 0.4999999791651856,
+      "support": {
+        "symmetric_50_percent": {
+          "captured_mass": 0.5005453147894371,
+          "u_abs": 0.4132066656494198
+        },
+        "symmetric_90_percent": {
+          "captured_mass": 0.9007366719633354,
+          "u_abs": 0.9384702191284556
+        },
+        "symmetric_95_percent": {
+          "captured_mass": 0.9500254927160905,
+          "u_abs": 0.9714879053860794
+        },
+        "symmetric_99_percent": {
+          "captured_mass": 0.9901978024442122,
+          "u_abs": 0.997523985816733
+        }
+      },
+      "ux_mass_closure": 0.9999999999999996
+    }
+  },
+  "S": {
+    "coupling": {
+      "asymmetric_99_percent_interval": {
+        "ux_max": 0.5912957615838054,
+        "ux_min": -0.5912957615838053
+      },
+      "band_nm": [
+        445.0,
+        455.0
+      ],
+      "denominator_raw_integral": 2.022779138400822e-06,
+      "mean_ux": 3.1827008251106292e-09,
+      "negative_mass": 0.499999985684319,
+      "positive_mass": 0.5000000143156811,
+      "support": {
+        "symmetric_50_percent": {
+          "captured_mass": 0.49852001866980106,
+          "u_abs": 0.1400700528945287
+        },
+        "symmetric_90_percent": {
+          "captured_mass": 0.9001549179729125,
+          "u_abs": 0.3071536192245955
+        },
+        "symmetric_95_percent": {
+          "captured_mass": 0.9501672964388004,
+          "u_abs": 0.37818914976600054
+        },
+        "symmetric_99_percent": {
+          "captured_mass": 0.9900268058513496,
+          "u_abs": 0.5912957615838053
+        }
+      },
+      "ux_mass_closure": 1.0
+    },
+    "native": {
+      "asymmetric_99_percent_interval": {
+        "ux_max": 0.7363683853718732,
+        "ux_min": -0.7363683853718731
+      },
+      "band_nm": [
+        420.0,
+        480.0
+      ],
+      "denominator_raw_integral": 6.2643051266377595e-06,
+      "mean_ux": -2.889741307354754e-09,
+      "negative_mass": 0.49999999804901685,
+      "positive_mass": 0.5000000019509829,
+      "support": {
+        "symmetric_50_percent": {
+          "captured_mass": 0.5005353572487675,
+          "u_abs": 0.262131100751953
+        },
+        "symmetric_90_percent": {
+          "captured_mass": 0.9000130047577795,
+          "u_abs": 0.5142572160463091
+        },
+        "symmetric_95_percent": {
+          "captured_mass": 0.95012009864334,
+          "u_abs": 0.569284747706937
+        },
+        "symmetric_99_percent": {
+          "captured_mass": 0.9899906424120474,
+          "u_abs": 0.7363683853718731
+        }
+      },
+      "ux_mass_closure": 0.9999999999999998
+    }
+  },
+  "formal_wavelength_band_nm": [
+    445.0,
+    455.0
+  ],
+  "minimum_candidate_ux_sampling_strategy": "retain separate P and S branches and sample exact conservative remapped ux bins covering each branch's 99% support; no interpolation or extrapolation",
+  "native_wavelength_band_nm": [
+    420.0,
+    480.0
+  ],
+  "np_equivalence_assumed": false,
+  "np_solver_entries": 0,
+  "recommended_candidate_ux_sampling_strategy": "use the union of the P/S 99% support intervals with explicit endpoints and preserve P/S-specific response tables; do not fix an NP solver grid until separate authorization",
+  "schema_version": "np_level1_ps_ux_grid_requirement_v1",
+  "status": "DERIVED_FROM_FORMAL_ZL1_MDC_PROFILES"
+}
