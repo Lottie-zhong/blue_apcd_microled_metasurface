@@ -1,0 +1,140 @@
+{
+  "architectures": {
+    "circular_cnn": "M1 incumbent Conv1d(7,32,k=3,circular)x3 + GELU; context [wavelength,u_x,P,S]; 8 outputs",
+    "mlp": "10 -> 64 -> 64 -> 8 sigmoid",
+    "residual_mlp": "[10 direct + 7 LF eta + LF T] -> 64 -> 64; R sigmoid + eta residual linear; R has no LF baseline",
+    "resmlp": "10 -> 64 residual block x2 -> 8 sigmoid"
+  },
+  "created_utc": "2026-08-11T13:47:56.251471+00:00",
+  "cv_protocol": {
+    "early_stopping": false,
+    "epochs": 120,
+    "held_out_unit": "both P and S and all 11 wavelengths",
+    "normalization": "fit within training fold only",
+    "outer": "13-fold Leave-One-Geometry-Out",
+    "row_level_split": false,
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "sweep": false
+  },
+  "external_governance": {
+    "future_hf_logical_cases": 24,
+    "metadata_only": true,
+    "prospective_distinct": true,
+    "registry": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+    "sealed_geometry_count": 12,
+    "sealed_targets_read": 0
+  },
+  "input_contract": {
+    "condition": [
+      "wavelength_nm",
+      "u_x",
+      "polarization"
+    ],
+    "diameter_sorting": false,
+    "geometry": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6"
+    ],
+    "permutation_invariant_encoding": false,
+    "physical_order_preserved": true,
+    "polarizations": [
+      "p",
+      "s"
+    ],
+    "u_x_values": [
+      0.0
+    ],
+    "wavelengths": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "loss": "MSE on canonical response; residual model MSE on [R, HF_eta-LF_eta] and no fabricated R baseline",
+  "metrics": [
+    "order-profile MAE/RMSE",
+    "eta(+1/0/-1) MAE/RMSE",
+    "every order MAE",
+    "R/T MAE/RMSE",
+    "per geometry/polarization/wavelength",
+    "median/P90/max",
+    "worst geometry",
+    "Spearman",
+    "Top-3/Top-5",
+    "P/S delta",
+    "negative power",
+    "bookkeeping",
+    "energy residual",
+    "ensemble disagreement"
+  ],
+  "model_families": [
+    "LF-only physics baseline",
+    "Direct MLP",
+    "ResMLP",
+    "physics-baseline + residual MLP",
+    "existing circular 1D CNN incumbent"
+  ],
+  "output_contract": {
+    "T_definition": "sum eta_m",
+    "complex_labels": "COMPLEX_ORDER_CONTRACT_NOT_YET_READY",
+    "primary_vector": [
+      "R",
+      "eta_m-3",
+      "eta_m-2",
+      "eta_m-1",
+      "eta_m+0",
+      "eta_m+1",
+      "eta_m+2",
+      "eta_m+3"
+    ],
+    "tracked_orders": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "physics_gate": {
+    "LF_R": "unavailable",
+    "R_hat": "primary R",
+    "T_hat": "sum eta_hat",
+    "energy_budget_residual_reported": true,
+    "negative_power_violation_reported": true
+  },
+  "preregistration_id": "NP_K6_FULLK6_FORWARD_V0_PREREG_V1",
+  "prospective_validation": "freeze surrogate, choose previously unrun development candidate, freeze prediction before one authorized full-K6 HF run, compare once; no immediate retrain in same promotion round",
+  "ranking": {
+    "primary": "mean_over_wavelength_then_mean_P_S broadband eta(+1)",
+    "secondary": [
+      "Spearman",
+      "Top3",
+      "Top5",
+      "champion predicted rank",
+      "near-champion retrieval",
+      "seed stability"
+    ]
+  },
+  "scope": "FULL-K6 COUPLING-AWARE FORWARD SURROGATE V0",
+  "selection_tie_break": "forward reliability priority: order profile, eta(+1)/R/T, ranking, worst-case, physics; report Pareto if trade-offs remain",
+  "solver_calls": 0,
+  "task_definition": "HF order-resolved power response for ordered six-pillar geometry and condition [wavelength,u_x,polarization]. Current capability NORMAL_INCIDENCE_ONLY; H and period fixed."
+}

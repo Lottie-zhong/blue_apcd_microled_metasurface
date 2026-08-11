@@ -1,0 +1,50 @@
+{
+  "best_numerical": "lf_only",
+  "best_physics": "resmlp",
+  "best_ranking": "lf_only",
+  "best_worst_case": "lf_only",
+  "comparison": [
+    {
+      "LF_only": true,
+      "model": "lf_only",
+      "numerical_order_profile_mae": 0.04290870545788542,
+      "physics_energy_residual_mae": null,
+      "ranking_spearman": 0.8296703296703297,
+      "worst_geometry_mae": 0.07859126194206575
+    },
+    {
+      "LF_only": false,
+      "model": "direct_mlp",
+      "numerical_order_profile_mae": 0.08476329245834313,
+      "physics_energy_residual_mae": 0.12878561450979908,
+      "ranking_spearman": 0.15384615384615383,
+      "worst_geometry_mae": 0.22127079724729934
+    },
+    {
+      "LF_only": false,
+      "model": "resmlp",
+      "numerical_order_profile_mae": 0.0830888771065806,
+      "physics_energy_residual_mae": 0.08954523445338286,
+      "ranking_spearman": 0.38461538461538464,
+      "worst_geometry_mae": 0.24085948201677934
+    },
+    {
+      "LF_only": false,
+      "model": "residual_mlp",
+      "numerical_order_profile_mae": 0.16474317661456772,
+      "physics_energy_residual_mae": 1.0011901790567888,
+      "ranking_spearman": -0.7417582417582418,
+      "worst_geometry_mae": 0.28779020069096917
+    },
+    {
+      "LF_only": false,
+      "model": "circular_cnn",
+      "numerical_order_profile_mae": 0.061685720557285266,
+      "physics_energy_residual_mae": 0.22068233270029608,
+      "ranking_spearman": 0.4725274725274725,
+      "worst_geometry_mae": 0.1369930854011551
+    }
+  ],
+  "decision": "PARETO_COMPARISON_REPORT_REQUIRED",
+  "unique_winner_forced": false
+}
