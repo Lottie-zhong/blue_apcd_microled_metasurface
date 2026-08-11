@@ -1,0 +1,68 @@
+{
+  "batch2_geometries": [
+    "K6X_D110_D125_D135_D150_D175_D190",
+    "K6X_D120_D125_D180_D185_D190_D195",
+    "K6X_D120_D145_D200_D215_D220_D230",
+    "K6X_D140_D160_D165_D170_D180_D190"
+  ],
+  "common_geometry_count": 9,
+  "comparisons": [
+    {
+      "R_mae": 0.081573210818942,
+      "T_mae": 0.26080889451421524,
+      "bookkeeping_max": 0.0,
+      "comparison": "M5_CNN_common9",
+      "energy_residual_mae": 0.25404716461044574,
+      "eta_0_mae": 0.20194768588428286,
+      "eta_minus1_mae": 0.039520262487988116,
+      "eta_plus1_mae": 0.15145988519119405,
+      "negative_power_rate": 0.0,
+      "order_profile_mae": 0.06836887026700213,
+      "order_profile_rmse": 0.15791986237440991,
+      "ps_delta_mae": 0.07471689241622555,
+      "ranking_spearman": 0.6166666666666666,
+      "rows": 198,
+      "worst_geometry": "K6X_D100_D140_D145_D155_D225_D230",
+      "worst_geometry_mae": 0.1369930854011551
+    },
+    {
+      "R_mae": 0.07653847421101395,
+      "T_mae": 0.16732395123895097,
+      "bookkeeping_max": 0.0,
+      "comparison": "M5_Direct_common9",
+      "energy_residual_mae": 0.1283267134052873,
+      "eta_0_mae": 0.22920596208228147,
+      "eta_minus1_mae": 0.03952128681702255,
+      "eta_plus1_mae": 0.2761752092560935,
+      "negative_power_rate": 0.0,
+      "order_profile_mae": 0.09066164602300518,
+      "order_profile_rmse": 0.19892507379559185,
+      "ps_delta_mae": 0.0825090071174278,
+      "ranking_spearman": 0.21666666666666667,
+      "rows": 198,
+      "worst_geometry": "K6X_D100_D110_D115_D220_D225_D230",
+      "worst_geometry_mae": 0.22127079724729934
+    },
+    {
+      "R_mae": 0.07194812354885023,
+      "T_mae": 0.08733328295913267,
+      "bookkeeping_max": 0.0,
+      "comparison": "M3_CNN_HF9_OOF",
+      "energy_residual_mae": 0.016912731152107806,
+      "eta_0_mae": 0.24889596286068322,
+      "eta_minus1_mae": 0.04552845828370903,
+      "eta_plus1_mae": 0.0826123410463878,
+      "negative_power_rate": 0.0,
+      "order_profile_mae": 0.07287963424126899,
+      "order_profile_rmse": 0.133114569168327,
+      "ps_delta_mae": 0.06673934742742216,
+      "ranking_spearman": 0.9,
+      "rows": 198,
+      "worst_geometry": "K6X_D100_D110_D115_D220_D225_D230",
+      "worst_geometry_mae": 0.15589525040846297
+    }
+  ],
+  "diagnosis": "M5 frozen residual OOF is not reconstructing LF+delta; CNN degradation is evaluated descriptively on common membership.",
+  "m3_geometry_count": 9,
+  "m5_geometry_count": 13
+}
