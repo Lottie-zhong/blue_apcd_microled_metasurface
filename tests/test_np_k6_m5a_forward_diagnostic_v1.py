@@ -26,3 +26,14 @@ def test_m5a_formulation_audits_are_explicit():
     assert residual["correct_formula"] == "eta_hat=LF_eta+delta_hat"
     assert ranking["canonical_eta_plus1_index_in_full_vector"] == 5
     assert ranking["m5_frozen_evidence_modified"] is False
+
+
+def test_m5a_supplement_complete_zero_solver():
+    result = validate(ROOT)
+    assert result["supplement_exists"] is True
+    assert result["supplement_fit_after_prereg"] is True
+    assert result["supplement_solver_zero"] is True
+    assert result["ranking_rows"] == 7
+    assert result["bootstrap_rows"] == 6
+    assert result["physics_rows"] == 12
+    assert result["disagreement_rows"] == 9

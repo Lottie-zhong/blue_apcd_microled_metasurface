@@ -113,6 +113,48 @@ def validate(root: Path | None = None) -> dict:
     else:
         errors.append("external registry missing")
 
+    supplement = OUT / "NP_K6_M5A_FORWARD_DIAGNOSTIC_SUPPLEMENT_V1.json"
+    supplement_manifest = OUT / "m5a_supplement_run_manifest.json"
+    checks["supplement_exists"] = supplement.exists() and supplement_manifest.exists()
+    if not checks["supplement_exists"]:
+        errors.append("M5A supplement preregistration/manifest missing")
+    else:
+        sup = json.loads(supplement.read_text(encoding="utf-8"))
+        sm = json.loads(supplement_manifest.read_text(encoding="utf-8"))
+        checks["supplement_hash"] = sha256(supplement)
+        checks["supplement_fit_after_prereg"] = sup.get("created_utc", "") < sm.get("fit_started_utc", "")
+        checks["supplement_solver_zero"] = all(sm.get(k, 0) == 0 for k in ["solver_calls", "external_hf_calls", "sealed_target_reads", "inverse_design_artifacts"])
+        if not checks["supplement_fit_after_prereg"]:
+            errors.append("supplement audit ran before its preregistration")
+        if not checks["supplement_solver_zero"]:
+            errors.append("supplement nonzero solver/sealed count")
+        required = [
+            "ranking_audit_full.csv", "ranking_audit_summary.json", "geometry_paired_bootstrap_audit.csv",
+            "geometry_paired_bootstrap_summary.json", "lf_residual_spectrum_polarization.csv",
+            "lf_residual_correlation_audit.json", "model_disagreement_audit.csv",
+            "model_disagreement_summary.json", "physics_consistent_output_metrics.csv",
+            "physics_consistent_output_audit.json", "m5a_model_provenance_audit.json",
+        ]
+        for name in required:
+            if not (OUT / name).exists():
+                errors.append(f"missing supplement output: {name}")
+        ranking_rows = read_rows(OUT / "ranking_audit_full.csv")
+        bootstrap_rows = read_rows(OUT / "geometry_paired_bootstrap_audit.csv")
+        physics_rows = read_rows(OUT / "physics_consistent_output_metrics.csv")
+        disagreement_rows = read_rows(OUT / "model_disagreement_audit.csv")
+        residual_rows = read_rows(OUT / "lf_residual_spectrum_polarization.csv")
+        checks.update({"ranking_rows": len(ranking_rows), "bootstrap_rows": len(bootstrap_rows), "physics_rows": len(physics_rows), "disagreement_rows": len(disagreement_rows), "residual_breakdown_rows": len(residual_rows)})
+        if len(ranking_rows) != 7 or len(bootstrap_rows) != 6 or len(physics_rows) != 12 or len(disagreement_rows) != 9 or len(residual_rows) < 100:
+            errors.append("supplement audit row coverage mismatch")
+        if not all(k in ranking_rows[0] for k in ["top3_recall", "top5_recall", "champion_predicted_rank", "near_champion_hit_top3"]):
+            errors.append("ranking audit missing required metrics")
+        projected = [r for r in physics_rows if r["variant"] == "projected"]
+        if not projected or any(float(r["negative_power_rate"]) > 1e-12 or float(r["energy_violation_rate"]) > 1e-12 for r in projected):
+            errors.append("physics-consistent projection did not close violations")
+        prov = json.loads((OUT / "m5a_model_provenance_audit.json").read_text(encoding="utf-8"))
+        if prov.get("frozen_m5_evidence_modified") is not False or prov.get("sealed_target_reads") != 0 or prov.get("solver_calls") != 0:
+            errors.append("model provenance audit failed")
+
     checks["errors"] = errors
     checks["status"] = "PASS" if not errors else "FAIL"
     report = OUT / "m5a_validator_report.json"

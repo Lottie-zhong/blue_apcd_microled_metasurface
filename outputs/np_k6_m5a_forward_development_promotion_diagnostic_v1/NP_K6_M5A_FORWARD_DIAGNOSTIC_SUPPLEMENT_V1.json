@@ -1,0 +1,108 @@
+{
+  "bootstrap_contract": {
+    "paired_difference": "candidate absolute eta(+1) error minus LF absolute eta(+1) error",
+    "resamples": 10000,
+    "seed": 2025,
+    "unit": "geometry"
+  },
+  "created_utc": "2026-08-11T14:48:28.819924+00:00",
+  "disagreement_contract": {
+    "buckets": "lowest and highest disagreement quartiles",
+    "models": [
+      "direct_mlp",
+      "resmlp",
+      "circular_cnn"
+    ],
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "targets": [
+      "eta_plus1",
+      "order_profile",
+      "R",
+      "T"
+    ]
+  },
+  "governance": {
+    "external_hf_calls": 0,
+    "external_registry": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+    "inverse_design": 0,
+    "sealed_target_reads": 0,
+    "solver_calls": 0
+  },
+  "input_contract": {
+    "condition": [
+      "wavelength_nm",
+      "u_x",
+      "polarization"
+    ],
+    "ordered_geometry": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6"
+    ],
+    "u_x": 0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "model_selection_tie_break": [
+    "order_profile_mae",
+    "eta_plus1_mae",
+    "R_T_mae",
+    "ranking_spearman",
+    "worst_geometry_mae",
+    "physics_violation_rate",
+    "P_S_delta_mae"
+  ],
+  "output_contract": [
+    "R",
+    "eta_m-3",
+    "eta_m-2",
+    "eta_m-1",
+    "eta_m+0",
+    "eta_m+1",
+    "eta_m+2",
+    "eta_m+3"
+  ],
+  "parent_preregistration": "NP_K6_M5A_FORWARD_DIAGNOSTIC_PREREG_V1",
+  "physics_consistent_variant": {
+    "bookkeeping": "T=sum(eta_m)",
+    "fit_parameters": 0,
+    "name": "simple_nonnegative_energy_projection",
+    "operation": "clip all R/order powers at zero, then scale the full [R,eta] vector by max(1,sum) so sum<=1",
+    "report_raw_accuracy_and_violation_rate": true
+  },
+  "preregistration_id": "NP_K6_M5A_FORWARD_DIAGNOSTIC_SUPPLEMENT_V1",
+  "prospective_protocol": {
+    "external_set_distinct": true,
+    "prospective_set": "previously unrun development geometry selected after frozen surrogate",
+    "solver_authorization": false,
+    "truth_not_used_for_same_round_retraining": true
+  },
+  "purpose": "pre-registered completion audits and deterministic post-processing; no new solver or sealed target access",
+  "ranking_contract": {
+    "champion_rank": "predicted rank of true champion",
+    "near_champion": "true champion in predicted top-3",
+    "primary_score": "geometry mean eta(+1) across P/S and 445-455 nm",
+    "seed_stability": "per-seed geometry Spearman against ensemble",
+    "top3": "recall of true top-3 geometries",
+    "top5": "recall of true top-5 geometries"
+  },
+  "task_definition": "full-K6 order-resolved forward development diagnostic at normal incidence"
+}

@@ -59,11 +59,25 @@ All candidates had zero negative-power violations. The physics bookkeeping audit
 
 The main blocker is not a lack of solver data or sealed access: two frozen implementation contracts were objectively wrong (residual reconstruction and ranking index), and the corrected low-capacity candidates still do not pass the strict promotion rule. The result is a development diagnostic, not a frozen surrogate and not an HF promotion.
 
+## Completion supplement
+
+The remaining diagnostics were frozen in `NP_K6_M5A_FORWARD_DIAGNOSTIC_SUPPLEMENT_V1` before the supplement audit fit/post-processing. Its SHA256 is `30b94bacf65545a27de40cce24e244ee24c6245c5dab2b783b617c16fa8fbc72`. It adds the explicit ranking tie-break, geometry-level bootstrap, disagreement buckets, and a simple non-negative energy projection; it does not modify the parent M5A preregistration or any M5 frozen evidence.
+
+The complete ranking audit gives LF-only `rho=0.9341`, top-3 recall `0.667`, top-5 recall `1.0`, and champion rank `3`. The best LF-corrected candidates have the same top-3/top-5 recall but do not improve champion retrieval consistently; direct MLP, ResMLP and CNN have champion ranks `8`, `7`, and `6`, respectively. Frozen-seed ranking stability is high for the CNN (`mean rho=0.9835`) but this does not imply accuracy.
+
+Geometry-paired bootstrap (10,000 resamples, geometry unit) shows global-bias mean eta(+1) error delta `-0.02210` versus LF (95% CI `[-0.04576, 0.00489]`, improvement probability `0.9469`, 9/13 geometries), Ridge delta `-0.02029` (CI `[-0.05625, 0.01293]`, probability `0.8803`, 9/13), and paired P/S delta `-0.01668` (CI `[-0.05828, 0.02471]`, probability `0.7804`, 8/13). Learned direct/ResMLP/CNN deltas are positive (`+0.1452`, `+0.1572`, `+0.0272`), so none is promotion-ready.
+
+The constrained-output experiment is a deterministic projection, not a new architecture: clip `[R, eta]` at zero and scale when the total exceeds one. It drives negative-power and energy-violation rates to zero. For example, ResMLP energy-residual MAE falls from `0.08955` to `0.02600`, but eta(+1), ranking, worst-case and P/S gates still fail; physics legality alone does not justify promotion.
+
+Disagreement is informative but not calibrated probability. For direct MLP eta(+1), high-disagreement rows have MAE `0.4768` versus `0.1441` in the low bucket; for ResMLP the values are `0.2571` versus `0.2046`; CNN is `0.1024` versus `0.0805`. LF eta(+1) residual MAE correlates with LF eta(+1) magnitude (`rho=0.8901`), with mean-gap correlation `0.4231` and mean-diameter correlation `-0.4286`, supporting a coupling-regime error cluster rather than a single global bias.
+
 ## Evidence and validation
 
 Evidence directory: `outputs/np_k6_m5a_forward_development_promotion_diagnostic_v1/`
 
 Key files include the preregistration/hash, common-subset and Batch2 audits, 2x2 ablation, residual physics tables, corrected reconstruction audit, ranking contract audit, candidate gate, promotion decision, solver-zero audit, and `m5a_validator_report.json`. The standalone validator confirms 286 rows, 13 geometries, 26 paired cases, 11 wavelengths, unchanged M5 hashes, zero solver/sealed reads, and no external authorization.
+
+Supplement files additionally include `ranking_audit_full.csv`, `geometry_paired_bootstrap_audit.csv`, `lf_residual_spectrum_polarization.csv`, `model_disagreement_audit.csv`, `physics_consistent_output_metrics.csv`, `m5a_model_provenance_audit.json`, and `m5a_supplement_run_manifest.json`.
 
 ## Next gate
 
