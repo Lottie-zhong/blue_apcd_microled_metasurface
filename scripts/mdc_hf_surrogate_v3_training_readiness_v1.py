@@ -195,8 +195,30 @@ class MembershipAudit:
 class CanonicalV3DevelopmentLoader:
     """Canonical V3 development membership loader with preflight/formal modes."""
 
-    def __init__(self, contract_dir: Path = CONTRACT_DIR):
+    def __init__(self, contract_dir: Path = CONTRACT_DIR, al64_completion_manifest: Path | None = None):
         self.contract_dir = contract_dir
+        self.al64_completion_manifest = Path(al64_completion_manifest) if al64_completion_manifest else None
+
+    def _al64_completion_is_valid(self) -> bool:
+        """Consume only the AL64 completion metadata, never optical labels."""
+        if self.al64_completion_manifest is None or not self.al64_completion_manifest.exists():
+            return False
+        payload = read_json(self.al64_completion_manifest)
+        return (
+            payload.get("status") == "PASS"
+            and payload.get("AL64_geometry_count") == 64
+            and payload.get("AL64_case_count") == 384
+            and payload.get("all_cases_accepted") is True
+            and payload.get("all_case_quality_pass") is True
+            and payload.get("missing_case_uid_count") == 0
+            and payload.get("unexpected_case_uid_count") == 0
+            and payload.get("duplicate_case_uid_count") == 0
+            and payload.get("HF15_formal_reads") == 0
+            and payload.get("R12_formal_reads") == 0
+            and payload.get("V3_Test40_truth_reads") == 0
+            and payload.get("training_fits") == 0
+            and payload.get("pca_scaler_fits") == 0
+        )
 
     def load(self, *, formal: bool = False) -> dict[str, Any]:
         base_geometries = read_csv(self.contract_dir / DEV_GEOMETRIES.name)
@@ -208,7 +230,7 @@ class CanonicalV3DevelopmentLoader:
         base_hashes = {row["geometry_hash"] for row in base_geometries}
         al_hashes = {row["geometry_hash"] for row in al_geometries}
         overlap = len(base_hashes & al_hashes)
-        al_pending = any(row.get("future_solver_status") != "ACCEPTED" for row in al_geometries)
+        al_pending = any(row.get("future_solver_status") != "ACCEPTED" for row in al_geometries) and not self._al64_completion_is_valid()
         audit = MembershipAudit(
             base_geometry_count=len(base_geometries),
             base_case_count=len(base_cases),
@@ -241,6 +263,7 @@ class CanonicalV3DevelopmentLoader:
             "base_roles": sorted({row["source_role"] for row in base_geometries}),
             "al64_labels_status": sorted({row["future_labels_status"] for row in al_geometries}),
             "al64_solver_status": sorted({row["future_solver_status"] for row in al_geometries}),
+            "al64_completion_manifest": str(self.al64_completion_manifest) if self.al64_completion_manifest else None,
             "formal_training_allowed": not al_pending and audit.total_geometry_count == 200 and audit.total_case_count == 1200,
         }
 
@@ -640,14 +663,16 @@ def readiness_gate(loader_report: Mapping[str, Any], sealed_report: Mapping[str,
     return {"status": "READY_FOR_SEPARATE_V3_OOF_TRAINING_AUTHORIZATION" if ready else "WAITING_FOR_AL64_COMPLETION", "base_136_816_ok": base_ok, "al64_64_384_accepted": al_ok, "total_200_1200_ok": membership["total_geometry_count"] == 200 and membership["total_case_count"] == 1200, "sealed_v3_test40_ok": sealed_ok, "zero_solver_training_counters_ok": zero_ok, "formal_training_allowed": ready}
 
 
-def run_readiness(output_dir: Path = REPORT_DIR) -> dict[str, Any]:
-    loader = CanonicalV3DevelopmentLoader()
+def run_readiness(output_dir: Path = REPORT_DIR, al64_completion_manifest: Path | None = None) -> dict[str, Any]:
+    loader = CanonicalV3DevelopmentLoader(al64_completion_manifest=al64_completion_manifest)
     loader_report = loader.load(formal=False)
     sealed_report = SealedTest40Guard().audit()
     counters = {key: 0 for key in ("FDTD_calls", "TMM_calls", "RCWA_calls", "NP_solver_calls", "neural_fits", "optimizer_calls", "backward_calls", "PCA_fits", "scaler_fits", "V3_Test40_label_reads", "HF15_formal_label_reads", "HF15_diagnostics_value_reads", "R12_formal_label_reads", "R12_diagnostics_value_reads")}
     budget = FitBudget()
+    gate = readiness_gate(loader_report, sealed_report, counters)
+    readiness_status = "MDC_HF_SURROGATE_V3_TRAINING_PIPELINE_ZERO_SOLVER_READINESS_FROZEN_READY_FOR_SEPARATE_V3_OOF_TRAINING_AUTHORIZATION" if gate["status"].startswith("READY") else "MDC_HF_SURROGATE_V3_TRAINING_PIPELINE_ZERO_SOLVER_READINESS_FROZEN_WAITING_FOR_AL64"
     payloads = {
-        "readiness_report.json": {"task": "MDC_HF_SURROGATE_V3_TRAINING_PIPELINE_ZERO_SOLVER_READINESS_FROZEN", "status": "MDC_HF_SURROGATE_V3_TRAINING_PIPELINE_ZERO_SOLVER_READINESS_FROZEN_WAITING_FOR_AL64", "loader": loader_report, "sealed_guard": sealed_report, "counters": counters},
+        "readiness_report.json": {"task": "MDC_HF_SURROGATE_V3_TRAINING_PIPELINE_ZERO_SOLVER_READINESS_FROZEN", "status": readiness_status, "loader": loader_report, "sealed_guard": sealed_report, "counters": counters, "readiness_gate": gate},
         "architecture_registry.json": load_candidate_registry(),
         "loss_contract_verification.json": loss_contract_audit(),
         "split_leakage_audit.json": split_leakage_audit(loader_report),
@@ -656,13 +681,13 @@ def run_readiness(output_dir: Path = REPORT_DIR) -> dict[str, Any]:
           "training_dispatch_budget_audit.json": budget.audit(),
           "training_execution_state_contract.json": execution_state_contract(),
           "sealed_test_guard_audit.json": sealed_report,
-        "al64_pending_gate_result.json": readiness_gate(loader_report, sealed_report, counters),
+        "al64_pending_gate_result.json": gate,
         "environment_provenance_report.json": environment_audit(),
     }
     for name, value in payloads.items():
         write_json(output_dir / name, value)
     report = payloads["readiness_report.json"]
-    md = ["# MDC HF Surrogate V3 zero-solver readiness", "", f"- Status: `{report['status']}`", "- Current development preflight: 136 geometries / 816 cases", "- Future AL64 gate: 64 geometries / 384 cases pending", "- Formal target: 200 geometries / 1200 cases", "- Solver/training/PCA/scaler calls in this task: all zero", "- V3-Test40 labels: NOT_GENERATED and NOT_READ; metadata-only lock audit", "- Formal execution state identity/state-machine contract: PASS; dispatch calls: 0", "- Promotion thresholds: not defined in plan freeze; metric computation only.", ""]
+    md = ["# MDC HF Surrogate V3 zero-solver readiness", "", f"- Status: `{report['status']}`", "- Development membership: 136 base + 64 AL64 = 200 geometries / 1200 cases", "- AL64 completion metadata: accepted 64 geometries / 384 cases", "- Solver/training/PCA/scaler calls in this task: all zero", "- V3-Test40 labels: NOT_GENERATED and NOT_READ; metadata-only lock audit", "- Formal execution state identity/state-machine contract: PASS; dispatch calls: 0", "- Promotion thresholds: not defined in plan freeze; metric computation only.", ""]
     (output_dir / "readiness_report.md").write_text("\n".join(md), encoding="utf-8")
     hashes = {path.name: {"sha256": file_sha(path), "size": path.stat().st_size} for path in sorted(output_dir.iterdir()) if path.is_file() and path.name != "artifact_sha256.json"}
     write_json(output_dir / "artifact_sha256.json", {"status": "PASS", "files": hashes})
@@ -673,5 +698,6 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default=str(REPORT_DIR))
+    parser.add_argument("--al64-completion-manifest", default=None)
     args = parser.parse_args()
-    print(json.dumps(run_readiness(Path(args.output_dir)), ensure_ascii=False, sort_keys=True))
+    print(json.dumps(run_readiness(Path(args.output_dir), Path(args.al64_completion_manifest) if args.al64_completion_manifest else None), ensure_ascii=False, sort_keys=True))

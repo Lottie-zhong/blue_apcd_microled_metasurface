@@ -29,7 +29,9 @@
     "primary": "geometry"
   },
   "final_training_interface": {
-    "final_epoch_policy": "NOT_FROZEN_IN_V3_PLAN_FREEZE; remaining pre-OOF policy item",
+    "final_epoch_policy": "v3_final_epoch_policy_v1",
+    "final_epoch_policy_contract": "MDC_HF_SURROGATE_V3_FINAL_EPOCH_POLICY_V1",
+    "final_epoch_policy_sha256": "f48976808ee39e32d9f23a20ace4e3754b3b8bb67c8d55afb63c389ef919205b",
     "full_development_training_requires": "selected != NONE and separate Chart authorization",
     "no_post_oof_architecture_search": true,
     "selected_architecture": [
@@ -39,7 +41,7 @@
       "NONE"
     ]
   },
-  "formal_status": "MDC_HF_SURROGATE_V3_OOF_PROMOTION_POLICY_PREREGISTERED_WAITING_FOR_AL64",
+  "formal_status": "MDC_HF_SURROGATE_V3_OOF_PROMOTION_POLICY_PREREGISTERED_READY_FOR_OOF_AUTHORIZATION",
   "no_promotion_conditions": [
     "all candidates catastrophic",
     "formal OOF incomplete",

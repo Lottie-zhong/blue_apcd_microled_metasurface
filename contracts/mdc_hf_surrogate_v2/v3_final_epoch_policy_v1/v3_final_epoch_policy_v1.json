@@ -1,0 +1,79 @@
+{
+  "contract_id": "MDC_HF_SURROGATE_V3_FINAL_EPOCH_POLICY_V1",
+  "formal_status": "MDC_HF_SURROGATE_V3_FINAL_EPOCH_POLICY_FROZEN_200G1200C_READY_FOR_OOF_AUTHORIZATION",
+  "outcome_blind": true,
+  "eligible_checkpoint": {
+    "epoch_min_inclusive": 50,
+    "epoch_max_inclusive": 400,
+    "training_epochs_allowed": "1..400",
+    "checkpoint_monitor": "inner_stop_validation_geometry_level_profile_only_composite",
+    "checkpoint_source": "inner_stop_validation_only",
+    "checkpoint_tie_rule": "machine_equal_minimum_select_earliest_eligible_epoch",
+    "outer_fold_forbidden": true,
+    "power_target_forbidden": true,
+    "auxiliary_target_forbidden": true,
+    "v3_test40_forbidden": true,
+    "final_development_loss_forbidden": true,
+    "eligible_best_epoch_definition": "argmin inner-stop validation frozen geometry-level profile-only composite over epochs [50,400]"
+  },
+  "early_stopping": {
+    "min_epochs": 50,
+    "max_epochs": 400,
+    "patience": 50,
+    "allowed_after_epoch": 50,
+    "outer_fold_metric_drives_stopping": false,
+    "final_epoch_3_policy": false
+  },
+  "final_development_epoch": {
+    "requires_selected_architecture": true,
+    "selected_architecture_allowed": ["V3-A", "V3-B", "V3-C"],
+    "selected_none_forbidden": true,
+    "source_fit_count": 15,
+    "source_fit_matrix": "5 folds x 3 seeds",
+    "source_values": "eligible_best_epoch_i from complete valid leakage-free OOF fits",
+    "aggregation": "median",
+    "rounding": "round_half_up",
+    "formula": "E_final = ROUND_HALF_UP(median(eligible_best_epoch_1..eligible_best_epoch_15))",
+    "range_inclusive": [50, 400],
+    "outcome_dependent_override": false,
+    "architecture_dependent_override": false,
+    "final_training_loss_override": false
+  },
+  "full_development_training": {
+    "membership": {"geometries": 200, "cases": 1200},
+    "architecture_fixed": true,
+    "hyperparameters_fixed": true,
+    "epoch_fixed_to_E_final": true,
+    "validation_split": "none",
+    "early_stopping": false,
+    "checkpoint_hunting": false,
+    "loss_based_epoch_adjustment": false,
+    "v3_test40_access": "forbidden_until_model_and_checkpoint_hashes_frozen_and_separate_chart_authorization"
+  },
+  "max_epoch_saturation_warning": {
+    "trigger": "median_eligible_best_epoch == 400",
+    "status": "MAX_EPOCH_SATURATION_WARNING",
+    "report_count_best_epoch_equal_400": true,
+    "report_fold_seed_distribution": true,
+    "increase_max_epochs_automatically": false,
+    "change_E_final_automatically": false,
+    "change_promotion_automatically": false,
+    "chart_training_contract_amendment_required": true
+  },
+  "seed_and_ensemble_policy": {
+    "oof_seed_policy": [20260810, 20260811, 20260812],
+    "oof_fit_budget": 45,
+    "final_seed_ensemble_membership": "NOT_FROZEN_PRE_FINAL_TRAINING_ITEM",
+    "final_seed_ensemble_must_be_separately_frozen": true,
+    "invent_final_seeds_or_ensemble": false
+  },
+  "safety_assertions": {
+    "v3_test40_truth_reads": 0,
+    "v3_test40_label_generation": 0,
+    "hf15_r12_reads": 0,
+    "solver_calls_this_task": 0,
+    "neural_fits_this_task": 0,
+    "optimizer_backward_this_task": 0,
+    "pca_scaler_fits_this_task": 0
+  }
+}

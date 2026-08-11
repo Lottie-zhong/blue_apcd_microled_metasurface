@@ -24,6 +24,17 @@ def test_readiness_loader_validates_136_816_and_marks_al64_pending():
         readiness.CanonicalV3DevelopmentLoader().load(formal=True)
 
 
+def test_readiness_loader_consumes_real_al64_completion_metadata():
+    completion = readiness.ROOT / "outputs" / "mdc_hf_surrogate_v3_al64_real_2d_fdtd_v1" / "20260810T1355Z_0bfbbd5_targeted_al64_real_2d_fdtd_v3" / "al64_completion_manifest.json"
+    report = readiness.CanonicalV3DevelopmentLoader(al64_completion_manifest=completion).load()
+    membership = report["membership"]
+    assert membership["al64_pending"] is False
+    assert membership["status"] == "FORMAL_MEMBERSHIP_COMPLETE"
+    assert report["formal_training_allowed"] is True
+    gate = readiness.readiness_gate(report, readiness.SealedTest40Guard().audit(), {key: 0 for key in ("FDTD_calls", "TMM_calls", "RCWA_calls", "NP_solver_calls", "neural_fits", "optimizer_calls", "backward_calls", "PCA_fits", "scaler_fits", "V3_Test40_label_reads", "HF15_formal_label_reads", "HF15_diagnostics_value_reads", "R12_formal_label_reads", "R12_diagnostics_value_reads")})
+    assert gate["status"] == "READY_FOR_SEPARATE_V3_OOF_TRAINING_AUTHORIZATION"
+
+
 def test_v3_test40_guard_allows_only_lock_metadata_and_rejects_truth_paths(tmp_path):
     audit = readiness.SealedTest40Guard().audit()
     assert audit["status"] == "PASS"
