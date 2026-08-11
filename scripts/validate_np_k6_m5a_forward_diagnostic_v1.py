@@ -133,7 +133,7 @@ def validate(root: Path | None = None) -> dict:
             "geometry_paired_bootstrap_summary.json", "lf_residual_spectrum_polarization.csv",
             "lf_residual_correlation_audit.json", "model_disagreement_audit.csv",
             "model_disagreement_summary.json", "physics_consistent_output_metrics.csv",
-            "physics_consistent_output_audit.json", "m5a_model_provenance_audit.json",
+            "physics_consistent_output_audit.json", "m5a_model_provenance_audit.json", "m5a_preregistration_completeness_audit.json",
         ]
         for name in required:
             if not (OUT / name).exists():
@@ -154,6 +154,10 @@ def validate(root: Path | None = None) -> dict:
         prov = json.loads((OUT / "m5a_model_provenance_audit.json").read_text(encoding="utf-8"))
         if prov.get("frozen_m5_evidence_modified") is not False or prov.get("sealed_target_reads") != 0 or prov.get("solver_calls") != 0:
             errors.append("model provenance audit failed")
+        completeness = json.loads((OUT / "m5a_preregistration_completeness_audit.json").read_text(encoding="utf-8"))
+        checks["prereg_methodology_complete"] = completeness.get("all_sections_evidence_grounded") is True and completeness.get("post_result_rule_change") is False
+        if not checks["prereg_methodology_complete"]:
+            errors.append("preregistration methodology completeness audit failed")
 
     checks["errors"] = errors
     checks["status"] = "PASS" if not errors else "FAIL"

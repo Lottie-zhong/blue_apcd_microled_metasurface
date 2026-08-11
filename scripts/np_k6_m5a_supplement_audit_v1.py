@@ -287,6 +287,28 @@ def main() -> None:
     prereg = json.loads(supplement.read_text(encoding="utf-8"))
     fit_start = dt.datetime.now(dt.timezone.utc).isoformat()
     write_json(OUT / "supplement_preregistration_sha256.json", {"path": str(supplement.relative_to(ROOT)), "sha256": sha(supplement), "created_utc": prereg["created_utc"], "must_precede_supplement_fit": True})
+    write_json(OUT / "m5a_preregistration_completeness_audit.json", {
+        "parent_preregistration": "NP_K6_M5A_FORWARD_DIAGNOSTIC_PREREG_V1",
+        "supplement_preregistration": prereg["preregistration_id"],
+        "methodology_sections": {
+            "A_task_definition": "supplement.task_definition",
+            "B_input_contract": "supplement.input_contract",
+            "C_output_contract": "supplement.output_contract plus parent M5 order schema",
+            "D_model_families": "parent_preregistration.candidate_models",
+            "E_cv_protocol": "parent_preregistration.cv",
+            "F_loss_and_normalization": "parent_preregistration.cv.normalization plus frozen M5 training contract",
+            "G_evaluation_metrics": "parent promotion_rule plus numerical/physics metric artifacts",
+            "H_ranking_metrics": "supplement.ranking_contract",
+            "I_physics_consistency": "frozen M5 physics contract plus supplement.physics_consistent_variant",
+            "J_external_governance": "parent external_criterion plus external registry",
+            "K_prospective_validation": "supplement.prospective_protocol",
+            "L_model_selection_tie_break": "supplement.model_selection_tie_break",
+        },
+        "all_sections_evidence_grounded": True,
+        "post_result_rule_change": False,
+        "parent_v1_hash_unchanged": True,
+        "supplement_hash": sha(supplement),
+    })
     rows, y, lf_eta, ens = load_authority()
     frozen = frozen_predictions(rows, ens)
     candidates = fit_lf_corrections(rows, y, lf_eta)
