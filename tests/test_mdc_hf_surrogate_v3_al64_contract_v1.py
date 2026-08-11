@@ -50,3 +50,11 @@ def test_finalizer_is_extraction_only_and_frozen_aggregation():
     assert "normalize after aggregation" in source
     assert "V3_Test40_truth_reads" in source
     assert "HF15_formal_reads" in source
+
+
+def test_finalizer_uses_frozen_radian_closure_and_emits_audits():
+    source = (SCRIPTS / "finalize_mdc_hf_surrogate_v3_al64_dataset_v1.py").read_text(encoding="utf-8")
+    assert "np.radians(lam)" in source
+    assert "al64_case_quality_audit_v1.json" in source
+    assert "al64_manifest_integrity_audit_v1.json" in source
+    assert "al64_v3_development_membership_audit_v1.json" in source
