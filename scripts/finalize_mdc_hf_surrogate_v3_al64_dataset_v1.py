@@ -290,12 +290,16 @@ def main(run_root: Path) -> int:
     actual_case_matrix_sha = sha_file(matrix_path)
     actual_selection_sha = sha_file(contracts / "v3_al64_selection_contract_v1.json")
     actual_overlap_sha = sha_file(contracts / "v3_al64_overlap_audit_v1.json")
+    expected_geometry_hashes = {str(r.get("geometry_hash", "")) for r in geometries}
+    state_geometry_hashes = {str(c.get("geometry_hash", "")) for c in cases_state}
+    geometry_hash_match = expected_geometry_hashes == state_geometry_hashes and len(state_geometry_hashes) == EXPECTED_GEOMETRIES
     manifest_integrity = {
-        "status": "PASS" if actual_manifest_sha == auth.get("frozen_manifest_sha256") and actual_case_matrix_sha == auth.get("case_matrix_sha256") and actual_selection_sha == auth.get("selection_contract_sha256") and actual_overlap_sha == auth.get("overlap_audit_sha256") and topology_counts == Counter({"ZL1": 32, "Explicit": 16, "ZL2": 16}) else "HARD_GATE_AL64_MANIFEST_DRIFT",
+        "status": "PASS" if actual_manifest_sha == auth.get("frozen_manifest_sha256") and actual_case_matrix_sha == auth.get("case_matrix_sha256") and actual_selection_sha == auth.get("selection_contract_sha256") and actual_overlap_sha == auth.get("overlap_audit_sha256") and topology_counts == Counter({"ZL1": 32, "Explicit": 16, "ZL2": 16}) and geometry_hash_match else "HARD_GATE_AL64_MANIFEST_DRIFT",
         "geometry_count": len(geometries),
         "case_count": len(matrix),
         "topology_distribution": dict(sorted(topology_counts.items())),
         "quota": {"ZL1": 32, "Explicit": 16, "ZL2": 16},
+        "geometry_hash_consistency": {"expected_unique": len(expected_geometry_hashes), "state_unique": len(state_geometry_hashes), "exact_match": geometry_hash_match},
         "geometry_manifest_sha256": actual_manifest_sha,
         "case_matrix_sha256": actual_case_matrix_sha,
         "selection_contract_sha256": actual_selection_sha,
