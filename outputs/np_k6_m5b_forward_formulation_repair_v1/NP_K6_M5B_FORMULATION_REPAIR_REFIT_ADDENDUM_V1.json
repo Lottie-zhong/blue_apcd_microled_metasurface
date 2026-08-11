@@ -1,0 +1,29 @@
+{
+  "addendum_id": "NP_K6_M5B_FORMULATION_REPAIR_REFIT_ADDENDUM_V1",
+  "allowed_candidates": [
+    "LF_global_bias",
+    "LF_wavelength_polarization_affine",
+    "LF_ridge_residual",
+    "LF_paired_shared_contrast",
+    "corrected_residual_mlp"
+  ],
+  "constraint_formula": "raw R=max(R,0); raw eta=max(eta,0); if R+sum(eta)>1, scale eta by (1-R)/sum(eta); T=sum(eta).",
+  "created_utc": "2026-08-11T16:38:19.934582+00:00",
+  "external_hf_calls": 0,
+  "history_policy": "M5/M5A frozen artifacts remain immutable; M5B outputs are corrected/superseding evidence.",
+  "inverse_design": 0,
+  "model_selection": "Use corrected schema, numerical order-profile, eta(+1), ranking, worst geometry, P/S contrast and physics consistency; no single-metric winner.",
+  "no_solver": true,
+  "normalization": "fold-local only; no row-level split or global fit",
+  "outer_cv": "13-fold geometry LOGO; P/S and all 11 wavelengths held out together",
+  "paired_formula": "mu=(P+S)/2; delta_pol=(P-S)/2; prediction=common+sign(polarization)*contrast; P/S remain explicit.",
+  "parent_preregistration": "NP_K6_M5B_FORMULATION_REPAIR_PREREG_V1",
+  "residual_formula": "For LF-compatible eta outputs: delta=HF-LF; eta_hat=LF_eta+delta_hat. R is a direct head because LF_R is unavailable.",
+  "scope": "development-only small refit after completed deterministic no-refit replay",
+  "sealed_target_reads": 0,
+  "seeds": [
+    17,
+    29,
+    43
+  ]
+}

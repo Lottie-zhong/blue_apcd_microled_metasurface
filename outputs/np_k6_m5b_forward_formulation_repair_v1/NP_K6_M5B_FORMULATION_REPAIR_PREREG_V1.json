@@ -1,0 +1,86 @@
+{
+  "allowed_refit_candidates_after_replay": [
+    "LF_global_output_bias",
+    "LF_wavelength_polarization_affine",
+    "LF_ridge_residual",
+    "corrected_shallow_residual_mlp",
+    "LF_paired_shared_correction_polarization_contrast",
+    "CircularCNN_incumbent"
+  ],
+  "created_utc": "2026-08-11T16:29:09.154267+00:00",
+  "cv": {
+    "held_out_unit": "geometry with P/S and all 11 wavelengths",
+    "normalization": "training-fold local only",
+    "outer": "13-fold Leave-One-Geometry-Out",
+    "row_split": false,
+    "seeds": [
+      17,
+      29,
+      43
+    ]
+  },
+  "external_hf_calls": 0,
+  "forbidden_models": [
+    "Transformer",
+    "GNN",
+    "FNO",
+    "massive_hyperparameter_search",
+    "inverse_design"
+  ],
+  "history_policy": "M5 and M5A artifacts remain frozen; old metrics are labelled superseded, corrected M5B metrics are separate",
+  "inverse_design": 0,
+  "metrics": [
+    "order_profile_MAE/RMSE",
+    "eta_m+1_MAE/RMSE",
+    "all_order_metrics",
+    "R/T",
+    "ranking",
+    "worst_geometry",
+    "P/S subgroup",
+    "wavelength subgroup",
+    "negative_power",
+    "energy_bookkeeping"
+  ],
+  "no_refit_replay": {
+    "ranking_target": "symbolic eta_m+1",
+    "raw_oof_only": true,
+    "required_first": true,
+    "residual_reconstruction": "HF_hat=LF+delta_hat"
+  },
+  "output_schema_registry": "NP_K6_AUTHORITATIVE_OUTPUT_SCHEMA_V1",
+  "preregistration_id": "NP_K6_M5B_FORMULATION_REPAIR_PREREG_V1",
+  "promotion_gates": {
+    "P_S_contrast_fidelity": true,
+    "R_T_quantitative": true,
+    "eta_plus1_better_than_lf": true,
+    "geometry_level_improvement": true,
+    "order_not_worse_than_lf": true,
+    "physics_pass": true,
+    "ranking_no_material_degradation": true,
+    "worst_case_not_sacrificed": true
+  },
+  "ranking": {
+    "aggregation": "mean wavelength then mean P/S per geometry",
+    "primary": "symbolic eta_m+1",
+    "secondary": [
+      "Spearman",
+      "Top3",
+      "Top5",
+      "true champion rank",
+      "near champion",
+      "seed/model stability"
+    ]
+  },
+  "scope": "zero-solver schema repair, deterministic replay, and development-only revalidation",
+  "sealed_target_reads": 0,
+  "solver_calls": 0,
+  "tie_break": [
+    "order_profile",
+    "eta_m+1",
+    "R/T",
+    "ranking",
+    "worst_case",
+    "physics",
+    "P/S_fidelity"
+  ]
+}

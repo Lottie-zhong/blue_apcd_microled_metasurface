@@ -1,0 +1,245 @@
+{
+  "checks": [
+    {
+      "check": "authoritative_output_schema",
+      "detail": [
+        "R",
+        "eta_m-3",
+        "eta_m-2",
+        "eta_m-1",
+        "eta_m+0",
+        "eta_m+1",
+        "eta_m+2",
+        "eta_m+3"
+      ],
+      "pass": true
+    },
+    {
+      "check": "eta_plus1_symbolic_index",
+      "detail": {
+        "index": 5,
+        "key": "eta_m+1"
+      },
+      "pass": true
+    },
+    {
+      "check": "m5b_prereg_hash",
+      "detail": "222dbc1a544a5d749c8eb7d769111101033c870e0e498d28affa903915379eac",
+      "pass": true
+    },
+    {
+      "check": "m5b_addendum_hash",
+      "detail": "80c989edbf58e18ab6b98e7413d7a2e6dc2b7a2ef702b5f5051239a1ad41dfb2",
+      "pass": true
+    },
+    {
+      "check": "no_refit_first",
+      "detail": {
+        "refit_count": 0,
+        "solver_calls": 0
+      },
+      "pass": true
+    },
+    {
+      "check": "refit_manifest_zero_solver",
+      "detail": {
+        "external_hf_calls": 0,
+        "fit_finished_utc": "2026-08-11T16:43:27.257057+00:00",
+        "fit_started_utc": "2026-08-11T16:43:18.231090+00:00",
+        "geometry_count": 13,
+        "history_frozen": true,
+        "inverse_design_artifacts": 0,
+        "models": [
+          "LF_only_frozen",
+          "LF_global_bias",
+          "LF_wavelength_polarization_affine",
+          "LF_ridge_residual",
+          "LF_paired_shared_contrast",
+          "corrected_residual_mlp",
+          "M5_direct_MLP_frozen",
+          "M5_ResMLP_frozen",
+          "M5_CircularCNN_frozen",
+          "M5B_corrected_no_refit_residual_mlp"
+        ],
+        "normalization": "fold-local",
+        "outer_cv": "13-fold LOGO",
+        "paired_cases": 26,
+        "preregistration_sha256": "222dbc1a544a5d749c8eb7d769111101033c870e0e498d28affa903915379eac",
+        "refit_addendum_sha256": "80c989edbf58e18ab6b98e7413d7a2e6dc2b7a2ef702b5f5051239a1ad41dfb2",
+        "refit_count": 1,
+        "rows": 286,
+        "schema_sha256": "ce71c3cbaa233a7e5d776cbc464ea3a814dc6c5f61777fc17180a2322625f448",
+        "sealed_metadata_only": true,
+        "sealed_target_reads": 0,
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "solver_calls": 0,
+        "status": "PASS",
+        "wavelengths": [
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "prereg_precedes_refit",
+      "detail": {
+        "fit_started": "2026-08-11T16:43:18.231090+00:00",
+        "prereg_created": "2026-08-11T16:29:09.154267+00:00"
+      },
+      "pass": true
+    },
+    {
+      "check": "exact_development_membership",
+      "detail": {
+        "geometries": 13,
+        "paired_cases": 26,
+        "rows": 286,
+        "wavelengths": [
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "quality_flags",
+      "detail": "all rows",
+      "pass": true
+    },
+    {
+      "check": "no_duplicate_case_wavelength",
+      "detail": "286 unique keys",
+      "pass": true
+    },
+    {
+      "check": "ux_scope",
+      "detail": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ],
+      "pass": true
+    },
+    {
+      "check": "m5_frozen_prereg_unchanged",
+      "detail": "3cb63dd1100768f13f982db8ddeab9dde623c4e60ea9d3ec2e971edd06c5c09e",
+      "pass": true
+    },
+    {
+      "check": "m5_frozen_oof_unchanged",
+      "detail": "read-only raw OOF",
+      "pass": true
+    },
+    {
+      "check": "m5a_frozen_preregs_unchanged",
+      "detail": {
+        "m5a": "30644e7a2cef9a9a6d6d471e3baa2b0edd91ccf755876fa605daf1b0f87532cb",
+        "supplement": "30b94bacf65545a27de40cce24e244ee24c6245c5dab2b783b617c16fa8fbc72"
+      },
+      "pass": true
+    },
+    {
+      "check": "no_hardcoded_eta_ranking_index",
+      "detail": [],
+      "pass": true
+    },
+    {
+      "check": "symbolic_residual_reconstruction",
+      "detail": "LF plus delta reconstruction",
+      "pass": true
+    },
+    {
+      "check": "refit_oof_complete",
+      "detail": {
+        "models": [
+          "LF_global_bias",
+          "LF_only_frozen",
+          "LF_paired_shared_contrast",
+          "LF_ridge_residual",
+          "LF_wavelength_polarization_affine",
+          "M5B_corrected_no_refit_residual_mlp",
+          "M5_CircularCNN_frozen",
+          "M5_ResMLP_frozen",
+          "M5_direct_MLP_frozen",
+          "corrected_residual_mlp"
+        ],
+        "rows": 5720,
+        "variants": [
+          "constrained",
+          "raw"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "promotion_gate_evaluated",
+      "detail": 9,
+      "pass": true
+    },
+    {
+      "check": "external_target_zero",
+      "detail": {
+        "development_incumbent": "LF_only_frozen",
+        "external_registry": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+        "external_target_reads": 0,
+        "inverse_design_artifacts": 0,
+        "promotion_pass_models": [],
+        "promotion_rule_frozen": true,
+        "reason": "No learned full-response candidate passed every corrected numerical, ranking, worst-case, P/S and physics gate.",
+        "sealed_target_reads": 0,
+        "solver_calls": 0,
+        "status": "NP_K6_M5B_FORMULATION_REPAIR_COMPLETE_MORE_DEVELOPMENT_HF_REQUIRED"
+      },
+      "pass": true
+    },
+    {
+      "check": "supersession_map",
+      "detail": "historical artifacts retained",
+      "pass": true
+    },
+    {
+      "check": "no_inverse_artifacts",
+      "detail": 0,
+      "pass": true
+    }
+  ],
+  "external_hf_calls": 0,
+  "generated_utc": "2026-08-11T16:51:48.126672+00:00",
+  "historical_artifacts_modified": false,
+  "inverse_design_artifacts": 0,
+  "sealed_target_reads": 0,
+  "solver_calls": 0,
+  "status": "PASS",
+  "validator_id": "NP_K6_M5B_FORMULATION_REPAIR_VALIDATOR_V1"
+}

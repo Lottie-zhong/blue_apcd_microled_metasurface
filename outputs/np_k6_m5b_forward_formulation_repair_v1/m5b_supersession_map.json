@@ -1,0 +1,32 @@
+{
+  "generated_utc": "2026-08-11T16:49:02.946232+00:00",
+  "historical_frozen": [
+    "M5 original OOF",
+    "M5A original ranking metrics",
+    "M5A residual reconstruction audit"
+  ],
+  "historical_frozen_artifacts": {
+    "m5": "retained; historical metrics remain valid for the original implementation and original schema labels",
+    "m5a": "retained; forensic implementation/ranking diagnoses remain valid and are not overwritten"
+  },
+  "implementation_issues": {
+    "ranking": "frozen eta(+1) ranking used wrong index 4; corrected symbolic key maps to full-vector index 5",
+    "residual_mlp": "frozen raw delta OOF required eta_hat=LF_eta+delta_hat reconstruction"
+  },
+  "m5b_corrected_evidence": {
+    "external_registry": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1 remains metadata-only; target reads 0",
+    "no_refit": "m5b_no_refit_replay_manifest.json and m5b_residual_reconstruction_metrics.csv",
+    "promotion": "m5b_promotion_gate.csv and m5b_final_decision.json",
+    "refit": "m5b_refit_manifest.json and m5b_refit_metrics.csv"
+  },
+  "m5b_refit_status": "COMPLETE",
+  "old_metrics_retained": true,
+  "superseded_claims": {
+    "M5_residual_catastrophic_metrics": "M5B corrected no-refit residual reconstruction",
+    "M5_wrong_eta_plus1_ranking": "M5B corrected symbolic eta_m+1 ranking"
+  },
+  "unchanged_files": [
+    "outputs\\np_k6_m5_fullk6_forward_v0",
+    "outputs\\np_k6_m5a_forward_development_promotion_diagnostic_v1"
+  ]
+}
