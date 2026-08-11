@@ -1,0 +1,93 @@
+{
+  "candidate_universe": {
+    "effective_source_count": 39,
+    "expected_final_count": 35,
+    "external_excluded": [],
+    "hf13_excluded": [
+      "K6X_D110_D125_D135_D150_D175_D190",
+      "K6X_D120_D125_D180_D185_D190_D195",
+      "K6X_D120_D145_D200_D215_D220_D230",
+      "K6X_D140_D160_D165_D170_D180_D190"
+    ],
+    "source": "M4 effective development candidate pool minus current HF13 and external registry"
+  },
+  "created_utc": "2026-08-11T17:32:59.960471+00:00",
+  "exclusions": [
+    "current HF13 geometries",
+    "sealed external registry geometries",
+    "duplicate geometry hashes",
+    "non-development geometry",
+    "formal external target values"
+  ],
+  "external_registry": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+  "external_target_reads": 0,
+  "inputs": [
+    "ordered physical D1...D6",
+    "adjacent jumps and standardized M4 physical feature space",
+    "LF eta(+1)/T/R and spectral proxies",
+    "CNN/MLP/LF disagreement",
+    "predicted P/S discrepancy",
+    "nearest-HF13 distance",
+    "M5B calibrated LF residual bias"
+  ],
+  "inverse_design": 0,
+  "normalization": "candidate-pool min-max after exclusions; physical distances from frozen standardized M4 feature space; no HF target normalization",
+  "preregistration_id": "NP_K6_M6_ERROR_REGION_ACQUISITION_PREREG_V1",
+  "proxy_definitions": {
+    "RT_residual": "aggregate CNN-LF and CNN-MLP T/R disagreement",
+    "coverage": "physical feature-space distance to current HF13, capped at 90th percentile",
+    "eta_plus1_absolute_residual": "calibrated LF eta(+1) disagreement plus CNN/MLP and LF model discrepancy; heuristic only",
+    "full_order_profile": "aggregate normalized T/R/eta(+1)/directionality/non-target disagreement",
+    "model_disagreement": "CNN-versus-MLP disagreement aggregate",
+    "performance": "M4 performance potential, used only as one role component",
+    "ps_contrast": "aggregate predicted P/S T/R/eta(+1)/directionality/non-target discrepancy",
+    "tail_error": "maximum normalized disagreement and robust-response stress"
+  },
+  "roles": {
+    "COVERAGE-EXTRAPOLATION-CONTROL": "largest representative HF13 feature-space gap, capped against isolated extremes",
+    "ERROR-1": "highest calibrated-LF residual risk without pathological exclusion",
+    "PERFORMANCE+ERROR": "high broadband eta(+1) potential with material disagreement",
+    "POLARIZATION-STRESS": "highest predicted P/S contrast information"
+  },
+  "scope": "development-only error-region acquisition design; zero solver; no external/sealed target reads",
+  "sealed_target_reads": 0,
+  "selection_policy": {
+    "backups": 8,
+    "expansion": "first6=Primary4+backup1-2; first8=first6+backup3-4",
+    "primary4_quota": {
+      "COVERAGE-EXTRAPOLATION-CONTROL": 1,
+      "ERROR-1": 1,
+      "PERFORMANCE+ERROR": 1,
+      "POLARIZATION-STRESS": 1
+    },
+    "random_seed": 20260812,
+    "redundancy_penalty": "0.25 when physical feature distance below 1.0; deterministic greedy selection",
+    "tie_break": "score descending, then geometry_id ascending"
+  },
+  "solver_budget_package": {
+    "first6_logical_cases": 12,
+    "first8_logical_cases": 16,
+    "polarizations": [
+      "p",
+      "s"
+    ],
+    "primary4_logical_cases": 8,
+    "u_x": [
+      0.0
+    ],
+    "wavelengths": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "solver_calls": 0
+}

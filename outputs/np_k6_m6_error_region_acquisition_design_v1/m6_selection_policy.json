@@ -1,0 +1,14 @@
+{
+  "candidate_pool_count": 35,
+  "policy": "role-quota plus redundancy-aware deterministic greedy selection",
+  "preregistration_sha256": "9f7e578d2b54c571206d8537a1fb6aa72b16e37f85f9c179097c94e6c81794e8",
+  "random_baseline_seed": 20260812,
+  "redundancy_penalty": "0.25*sum(max(0,1-distance)) for distance<1.0",
+  "roles": [
+    "ERROR-1",
+    "POLARIZATION-STRESS",
+    "COVERAGE-EXTRAPOLATION-CONTROL",
+    "PERFORMANCE+ERROR"
+  ],
+  "tie_break": "score descending then geometry_id ascending"
+}

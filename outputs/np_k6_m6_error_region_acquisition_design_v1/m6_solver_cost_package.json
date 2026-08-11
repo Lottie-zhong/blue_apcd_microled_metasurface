@@ -1,0 +1,48 @@
+{
+  "costs": [
+    {
+      "batch": "Primary4",
+      "geometry_count": 4,
+      "logical_cases_p_s": 8,
+      "max_total_hours": 35.8882815,
+      "median_total_hours": 7.3838590788888885,
+      "p90_total_hours": 30.40280866222222
+    },
+    {
+      "batch": "first6",
+      "geometry_count": 6,
+      "logical_cases_p_s": 12,
+      "max_total_hours": 53.83242224999999,
+      "median_total_hours": 11.075788618333332,
+      "p90_total_hours": 45.604212993333334
+    },
+    {
+      "batch": "first8",
+      "geometry_count": 8,
+      "logical_cases_p_s": 16,
+      "max_total_hours": 71.776563,
+      "median_total_hours": 14.767718157777777,
+      "p90_total_hours": 60.80561732444444
+    }
+  ],
+  "historical_max_risk_note": "G04-P engine completed but post-save was not recovered; infrastructure-loss is tracked separately and is not treated as a clean runtime sample.",
+  "runtime_empirical": {
+    "clean_max_hours": 4.4860351875,
+    "clean_max_seconds": 16149.726675,
+    "clean_median_hours": 0.9229823848611111,
+    "clean_median_seconds": 3322.7365855,
+    "clean_p90_hours": 3.8003510827777776,
+    "clean_p90_seconds": 13681.263898,
+    "clean_samples": 24,
+    "fixed_three_hour_assumption_used": false,
+    "infrastructure_loss_cases": [
+      {
+        "engine_seconds": 7067.003474,
+        "path": "outputs\\np_k6_m2_batch1_hf_acquisition_v1\\cases\\NP_K6_M2_BATCH1_G04_P\\attempt_ledger.json",
+        "post_saved": false
+      }
+    ],
+    "source": "P0 remaining anchors + Batch1 + M4 Batch2 attempt ledgers"
+  },
+  "solver_calls": 0
+}
