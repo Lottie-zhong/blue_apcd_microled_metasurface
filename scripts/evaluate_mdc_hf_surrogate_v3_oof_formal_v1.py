@@ -77,7 +77,28 @@ def main():
                 pp.append(np.mean([case_pred[(seed,int(i))] for i in inds],axis=0)); tt.append(np.mean([case_target[(seed,int(i))] for i in inds],axis=0))
             by_geom.append(np.mean(pp,axis=0)); by_truth.append(np.mean(tt,axis=0))
         diversity_ratio=pairwise_mean(np.asarray(by_geom))/max(pairwise_mean(np.asarray(by_truth)),1e-12)
-        record={'candidate_id':cid,'fit_records':[{'outer_fold':int(r['outer_fold']),'seed':int(r['seed']),'finite':r['finite'],'prediction_complete':r['prediction_complete'],'fold_leakage':r['fold_leakage'],'case_leakage':r['case_leakage'],'pca_scaler_leakage':r['pca_scaler_leakage'],'outer_stop_contamination':r['outer_stop_contamination'],'eligible_best_epoch':int(r['best_epoch'])} for r in json.loads((out/'fit_matrix.json').read_text(encoding='utf-8'))['fits'] if r['candidate_id']==cid], 'topology_coverage':{t:True for t in run.TOPOLOGIES}, 'global_geometry_metrics':global_metrics,'worst_fold_metrics':worst_fold,'worst_topology_metrics':worst_topo,'fold_metrics':fold_metrics,'topology_metrics':topo_metrics,'topology_orientation_metrics':{},'topology_source_position_metrics':{},'median_latent_variance_ratio':float(np.median(ratio)),'per_component_latent_variance_ratio':ratio.tolist(),'collapsed_component_count':collapsed,'profile_pairwise_diversity_ratio':float(diversity_ratio),'metric_contract_drift':False,'architecture_definition_drift':False,'sealed_test_violation':False,'execution_artifact_ambiguous':False,'known_failure_reference':{'JS':0.22933,'weighted_L1':1.15060}}
+        topology_orientation_metrics={}
+        topology_source_position_metrics={}
+        case_meta=cases.reset_index(drop=True)
+        def _stratified(key_fn):
+            out={}
+            keys=sorted({str(key_fn(i)) for i in range(len(case_meta))})
+            for key in keys:
+                rows_s=[]
+                for seed in run.SEEDS:
+                    for g,inds in geom_groups.items():
+                        sel=[int(i) for i in inds if str(key_fn(i))==key]
+                        if not sel: continue
+                        p=np.asarray([case_pred[(seed,i)] for i in sel],dtype=np.float32).mean(0).reshape(run.NATIVE_SHAPE)
+                        t=np.asarray([case_target[(seed,i)] for i in sel],dtype=np.float32).mean(0).reshape(run.NATIVE_SHAPE)
+                        rows_s.append(aggregate_metrics(p[None,...],t[None,...]))
+                if rows_s:
+                    out[key]={k:float(np.mean([m[k] for m in rows_s])) for k in ('profile','JS','spectral_CDF','angular_CDF','weighted_L1')}
+                    out[key]['evaluation_level']='geometry'; out[key]['geometry_stratum_count']=len(rows_s)
+            return out
+        topology_orientation_metrics=_stratified(lambda i: str(gmap.loc[str(case_meta.iloc[i].geometry_hash)].topology_family)+'|'+str(case_meta.iloc[i].dipole_orientation))
+        topology_source_position_metrics=_stratified(lambda i: str(gmap.loc[str(case_meta.iloc[i].geometry_hash)].topology_family)+'|'+str(case_meta.iloc[i].source_position))
+        record={'candidate_id':cid,'fit_records':[{'outer_fold':int(r['outer_fold']),'seed':int(r['seed']),'finite':r['finite'],'prediction_complete':r['prediction_complete'],'fold_leakage':r['fold_leakage'],'case_leakage':r['case_leakage'],'pca_scaler_leakage':r['pca_scaler_leakage'],'outer_stop_contamination':r['outer_stop_contamination'],'eligible_best_epoch':int(r['best_epoch'])} for r in json.loads((out/'fit_matrix.json').read_text(encoding='utf-8'))['fits'] if r['candidate_id']==cid], 'topology_coverage':{t:True for t in run.TOPOLOGIES}, 'global_geometry_metrics':global_metrics,'worst_fold_metrics':worst_fold,'worst_topology_metrics':worst_topo,'fold_metrics':fold_metrics,'topology_metrics':topo_metrics,'topology_orientation_metrics':topology_orientation_metrics,'topology_source_position_metrics':topology_source_position_metrics,'median_latent_variance_ratio':float(np.median(ratio)),'per_component_latent_variance_ratio':ratio.tolist(),'collapsed_component_count':collapsed,'profile_pairwise_diversity_ratio':float(diversity_ratio),'metric_contract_drift':False,'architecture_definition_drift':False,'sealed_test_violation':False,'execution_artifact_ambiguous':False,'known_failure_reference':{'JS':0.22933,'weighted_L1':1.15060}}
         records.append(record)
     policy=load_module(REPO/'scripts'/'mdc_hf_surrogate_v3_oof_promotion_policy_v1.py','v3policy'); selection=policy.select_promoted_candidate(records)
     (out/'candidate_metrics.json').write_text(json.dumps(records,indent=2),encoding='utf-8'); (out/'promotion_result.json').write_text(json.dumps(selection,indent=2),encoding='utf-8')
@@ -87,4 +108,5 @@ def main():
     (out/'evaluation_completion.json').write_text(json.dumps(result,indent=2),encoding='utf-8'); print(json.dumps(result))
 
 if __name__=='__main__': main()
+
 
