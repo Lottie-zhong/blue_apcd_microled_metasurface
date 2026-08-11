@@ -276,8 +276,9 @@ def provenance(rows: list[dict[str, str]], ens: dict[tuple[str, str, int], dict[
     for q in read_csv(M5 / "oof_predictions.csv"):
         model_seeds.setdefault(q["model"], set()).add(q["seed"])
     model_seeds = {k: sorted(v) for k, v in model_seeds.items()}
-    files = [M5 / "preregistration_sha256.json", M5 / "oof_predictions.csv", M5 / "authority_audit.json", ROOT / "scripts" / "np_k6_m5_fullk6_forward_v0.py", ROOT / "scripts" / "np_k6_m5a_forward_diagnostic_v1.py", supplement]
-    write_json(OUT / "m5a_model_provenance_audit.json", {"model_seed_inventory": model_seeds, "source_hashes": {str(p.relative_to(ROOT)): sha(p) for p in files}, "fit_started_utc": fit_start, "supplement_sha256": sha(supplement), "checkpoints_copied": 0, "frozen_m5_evidence_modified": False, "sealed_target_reads": 0, "solver_calls": 0})
+    files = [M5 / n for n in ["preregistration_sha256.json", "oof_predictions.csv", "authority_audit.json", "training_run_manifest.json", "model_selection.json", "numerical_metrics.json", "physics_consistency_metrics.json", "lf_baseline_provenance.json", "order_schema_audit.json", "fold_manifest.csv", "complex_feasibility_audit.json", "external_set_registry.json"]]
+    files += [ROOT / "scripts" / "np_k6_m5_fullk6_forward_v0.py", ROOT / "scripts" / "np_k6_m5a_forward_diagnostic_v1.py", ROOT / "outputs" / "np_k6_m3_pilot_retraining_v1" / "development_hf_v2_training_view.csv", ROOT / "outputs" / "np_k6_m3_pilot_retraining_v1" / "m3_oof_predictions_long.csv", supplement]
+    write_json(OUT / "m5a_model_provenance_audit.json", {"model_seed_inventory": model_seeds, "m5_authority_file_inventory": [str(p.relative_to(ROOT)) for p in files if str(p).find("np_k6_m5_fullk6_forward_v0") >= 0], "source_hashes": {str(p.relative_to(ROOT)): sha(p) for p in files}, "fit_started_utc": fit_start, "supplement_sha256": sha(supplement), "checkpoints_copied": 0, "frozen_m5_evidence_modified": False, "sealed_target_reads": 0, "solver_calls": 0})
 
 
 def main() -> None:
