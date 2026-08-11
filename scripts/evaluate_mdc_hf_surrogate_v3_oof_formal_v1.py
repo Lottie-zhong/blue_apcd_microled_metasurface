@@ -1,4 +1,4 @@
-"""Evaluate completed V3 OOF artifacts without fitting or opening sealed data."""
+﻿"""Evaluate completed V3 OOF artifacts without fitting or opening sealed data."""
 from __future__ import annotations
 import argparse, importlib.util, json, sys, hashlib
 from pathlib import Path
@@ -41,7 +41,7 @@ def main():
     geom,cases,wavelength,angle,_=run.load_inputs(); folds=run.geometry_folds(geom)
     q=np.memmap(out/'profile_q_memmap.f32',mode='r',dtype='float32',shape=(len(cases),run.PROFILE_DIM))
     rows=[json.loads(x) for x in (out/'oof_predictions.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
-    if len(rows)!=3600: raise RuntimeError(f'HARD_GATE_OOF_ROW_COUNT:{len(rows)}')
+    if len(rows)!=10800: raise RuntimeError(f'HARD_GATE_OOF_ROW_COUNT:{len(rows)}')
     cand_ids=['V3-A','V3-B','V3-C']; records=[]
     gmap=geom.set_index('geometry_hash'); case_hash=cases.geometry_hash.astype(str).to_numpy(); geom_groups={g:np.flatnonzero(case_hash==g) for g in sorted(set(case_hash))}
     target_latent_by_fold={}; comps={}
@@ -87,3 +87,4 @@ def main():
     (out/'evaluation_completion.json').write_text(json.dumps(result,indent=2),encoding='utf-8'); print(json.dumps(result))
 
 if __name__=='__main__': main()
+
