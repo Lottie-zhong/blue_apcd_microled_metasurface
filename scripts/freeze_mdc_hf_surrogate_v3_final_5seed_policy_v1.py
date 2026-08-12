@@ -45,7 +45,35 @@ def validate_oof():
  p=readj(OOF/"promotion_result.json");e=readj(OOF/"final_epoch_derivation.json");a=readj(OOF/"fresh_load_replay_1.json");b=readj(OOF/"fresh_load_replay_2.json")
  if p["selected_architecture"]!="V3-C" or e["final_epoch"]!=117 or e["fit_count"]!=15 or a["prediction_sha256"]!=b["prediction_sha256"]: raise PolicyError("OOF anchor mismatch")
  return {"status":"PASS","selected_architecture":"V3-C","final_epoch":117,"oof_fit_count":15,"fresh_load_replays_equal":True,"fresh_load_prediction_sha256":a["prediction_sha256"],"oof_retraining_this_task":0}
+
+
+def verify_bundle():
+    required = (
+        "final_model_identity.json", "final_seed_policy.json",
+        "final_ensemble_policy.json", "full_development_membership_assertion.json",
+        "full_development_pca_scaler_routing_policy.json", "fixed_epoch_policy_reference.json",
+        "capability_scope_assertion.json", "known_failure_warning_inheritance.json",
+        "sealed_v3_test40_assertion.json", "final_training_interface.json",
+        "profile_only_loss_audit.json", "oof_anchor_audit.json",
+    )
+    for name in required:
+        if not (OUT / name).exists():
+            raise PolicyError("missing generated contract: " + name)
+    identity = readj(OUT / "final_model_identity.json")
+    ensemble = readj(OUT / "final_ensemble_policy.json")
+    training = readj(OUT / "final_training_interface.json")
+    sealed = readj(OUT / "sealed_v3_test40_assertion.json")
+    if identity.get("model_id") != "MDC_HF_SURROGATE_V3_C_FINAL_5SEED_PROFILE_ONLY_V1":
+        raise PolicyError("model identity drift")
+    if ensemble.get("performance_weighting") or ensemble.get("best_seed_selection"):
+        raise PolicyError("ensemble policy drift")
+    if training.get("final_epoch") != 117 or training.get("training_authorized"):
+        raise PolicyError("final training interface drift")
+    if sealed.get("truth_reads") != 0 or sealed.get("label_generation") != 0:
+        raise PolicyError("sealed assertion drift")
+    return {"status": "PASS", "required_contract_count": len(required), "output": str(OUT)}
+
 if __name__=="__main__":
  branch=subprocess.check_output(["git","-C",str(ROOT),"branch","--show-current"],text=True).strip()
  if branch!="work/mdc-hf-surrogate-v2": raise PolicyError("branch mismatch")
- print(json.dumps({"status":"PASS","formal_state":"MDC_HF_SURROGATE_V3_FINAL_5SEED_POLICY_FROZEN_READY_FOR_FINAL_DEVELOPMENT_TRAINING_AUTHORIZATION","membership":validate_membership(),"oof":validate_oof(),"loss":validate_loss(),"seeds":validate_seeds()},indent=2,sort_keys=True))
+ print(json.dumps({"status":"PASS","formal_state":"MDC_HF_SURROGATE_V3_FINAL_5SEED_POLICY_FROZEN_READY_FOR_FINAL_DEVELOPMENT_TRAINING_AUTHORIZATION","membership":validate_membership(),"oof":validate_oof(),"loss":validate_loss(),"seeds":validate_seeds(),"bundle":verify_bundle()},indent=2,sort_keys=True))
