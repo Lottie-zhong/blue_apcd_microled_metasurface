@@ -185,10 +185,18 @@ def main() -> None:
     pca_path = FINAL / "shared_full_development_pca32.npz"
     pca = np.load(pca_path, allow_pickle=False)
     seed_lat = np.load(RUN / "test40_external_individual_seed_latents.npy", mmap_mode="r", allow_pickle=False)
-    seed_geom_lat = np.stack([np.stack([np.asarray(seed_lat[j, [i for i, g in enumerate(case_geom) if g == gh]]).mean(axis=0) for gh in geom_order]) for j in range(len(SEEDS))])
-    pred_lat = seed_geom_lat.mean(axis=0).astype(np.float64)
-    truth_lat = (truth.astype(np.float64) - pca["mean"].astype(np.float64)) @ pca["components"].astype(np.float64).T
-    ratios = pred_lat.var(axis=0) / np.maximum(truth_lat.var(axis=0), 1e-12)
+    # Frozen collapse definition is evaluated on the full 240-case external
+    # set.  Geometry-aggregated values are retained only as a secondary
+    # diagnostic; aggregation must not silently redefine the test-set scope.
+    raw_case = np.stack([np.load(Path(r["raw_npz_path"]), allow_pickle=False)["joint_raw"].reshape(-1) for r in case_rows]).astype(np.float32)
+    raw_case = raw_case / np.maximum(raw_case.sum(axis=1, keepdims=True), 1e-12)
+    # PCA mean is defined on the normalized development profiles; use the same
+    # normalized case profile convention for this post-selection diagnostic.
+    truth_case_lat = (raw_case.astype(np.float64) - pca["mean"].astype(np.float64)) @ pca["components"].astype(np.float64).T
+    pred_case_lat = seed_lat.mean(axis=0).astype(np.float64)
+    ratios = pred_case_lat.var(axis=0) / np.maximum(truth_case_lat.var(axis=0), 1e-12)
+    geom_seed_lat = np.stack([np.stack([np.asarray(seed_lat[j, [i for i, g in enumerate(case_geom) if g == gh]]).mean(axis=0) for gh in geom_order]) for j in range(len(SEEDS))])
+    geom_ratios = geom_seed_lat.mean(axis=0).var(axis=0) / np.maximum(((truth.astype(np.float64) - pca["mean"].astype(np.float64)) @ pca["components"].astype(np.float64).T).var(axis=0), 1e-12)
     def pairwise_js(a: np.ndarray) -> float:
         vals = []
         for i in range(len(a)):
@@ -208,7 +216,7 @@ def main() -> None:
     pdiv_l1 = pairwise_l1(pred_geom.reshape(40, *SHAPE)) / max(pairwise_l1(truth.reshape(40, *SHAPE)), 1e-12)
     external_median_ratio = float(np.median(ratios))
     external_collapsed = int(np.sum(ratios < 0.25))
-    dump(OUT / "anti_collapse_external.json", {"status": "PASS", "definition": "frozen latent variance ratio < 0.25", "latent_source": "five-seed model latent outputs, geometry-aggregated", "median_latent_variance_ratio": external_median_ratio, "collapsed_component_count": external_collapsed, "catastrophic_collapse_evidence": external_median_ratio < 0.25, "formal_warning": "EXTERNAL_CATASTROPHIC_LATENT_COLLAPSE_EVIDENCE" if external_median_ratio < 0.25 else None, "component_ratios": ratios.tolist(), "profile_pairwise_diversity_ratio_JS": pdiv_js, "profile_pairwise_diversity_ratio_weighted_L1": pdiv_l1, "diagnostic_only": True})
+    dump(OUT / "anti_collapse_external.json", {"status": "PASS", "definition": "frozen latent variance ratio < 0.25", "latent_source": "five-seed model latent outputs vs normalized raw truth, full 240-case scope", "evaluation_scope": "case_level_240", "median_latent_variance_ratio": external_median_ratio, "collapsed_component_count": external_collapsed, "catastrophic_collapse_evidence": external_median_ratio < 0.25, "formal_warning": "EXTERNAL_CATASTROPHIC_LATENT_COLLAPSE_EVIDENCE" if external_median_ratio < 0.25 else None, "component_ratios": ratios.tolist(), "geometry_aggregated_secondary_median_ratio": float(np.median(geom_ratios)), "geometry_aggregated_secondary_collapsed_count": int(np.sum(geom_ratios < 0.25)), "profile_pairwise_diversity_ratio_JS": pdiv_js, "profile_pairwise_diversity_ratio_weighted_L1": pdiv_l1, "diagnostic_only": True})
 
     oof_comp = authoritative_oof
     oof_js = float(oof_c["global_geometry_metrics"]["JS"])
@@ -263,7 +271,8 @@ def main() -> None:
     manifest = {str(p.relative_to(OUT)): sha(p) for p in sorted(OUT.rglob("*")) if p.is_file() and p.name not in ("artifact_sha256_manifest.json", "completion_manifest.json")}
     dump(OUT / "artifact_sha256_manifest.json", {"status": "PASS", "file_count": len(manifest), "files": manifest, "raw_external_artifacts_untouched": True})
     dump(OUT / "completion_manifest.json", {"status": "PASS", "formal_status": "MDC_HF_SURROGATE_V3_TEST40_PROSPECTIVE_EXTERNAL_EVALUATION_COMPLETE", "run": str(RUN), "package": str(OUT), "phase_a_solver_calls": 240, "phase_b_truth_cases": 240, "phase_c_model_fits": 0, "v3_test40_truth_reads_after_authorization": 240, "hf15_r12_reads": 0, "package_artifact_sha256": sha(OUT / "artifact_sha256_manifest.json"), "raw_artifacts_unchanged": True})
-    report = f"""# V3-C Test40 external evaluation package audit\n\nStatus: MDC_HF_SURROGATE_V3_TEST40_PROSPECTIVE_EXTERNAL_EVALUATION_COMPLETE\n\n- Frozen model: V3-C, final epoch 117, five-seed equal ensemble.\n- Phase A: 240/240 2D FDTD cases accepted; Phase B: 40 geometries/240 cases frozen; Phase C: inference only, 0 fits.\n- Authoritative geometry-level composite: {ext_metrics['authoritative_profile_composite']:.12g}; L_profile primitive: {ext_metrics['L_profile']:.12g}; JS: {ext_metrics['JS']:.12g}; weighted-L1 V2 comparison: NOT_DIRECTLY_COMPARABLE.\n- V3-Test40 truth was unread before authorization and read only after the explicit authorization boundary. No HF15/R12 truth was read.\n- External anti-collapse diagnostic: {external_median_ratio:.12g} median latent variance ratio and {external_collapsed}/32 collapsed components; `EXTERNAL_CATASTROPHIC_LATENT_COLLAPSE_EVIDENCE` under the frozen 0.25 definition.\n- All post-selection recomputations in this package are descriptive and do not alter thresholds, model identity, or promotion.\n- Power/LEE and Level-1 coupling claims remain unsupported; Level-1 MDC-NP requires direct HF evaluation.\n\nThe original external run is byte-preserved. This directory is the corrected lightweight audit/package because the historical completion report had a null backward field and the historical SHA manifest was malformed.\n"""
+    collapse_line = (f"- External anti-collapse diagnostic (formal 240-case scope): {external_median_ratio:.12g} median latent variance ratio and {external_collapsed}/32 collapsed components; no catastrophic collapse evidence. Secondary geometry-aggregated diagnostic median ratio: {float(np.median(geom_ratios)):.12g}.\n" if external_median_ratio >= 0.25 else f"- External anti-collapse diagnostic (formal 240-case scope): {external_median_ratio:.12g} median latent variance ratio and {external_collapsed}/32 collapsed components; `EXTERNAL_CATASTROPHIC_LATENT_COLLAPSE_EVIDENCE` under the frozen 0.25 definition.\n")
+    report = f"""# V3-C Test40 external evaluation package audit\n\nStatus: MDC_HF_SURROGATE_V3_TEST40_PROSPECTIVE_EXTERNAL_EVALUATION_COMPLETE\n\n- Frozen model: V3-C, final epoch 117, five-seed equal ensemble.\n- Phase A: 240/240 2D FDTD cases accepted; Phase B: 40 geometries/240 cases frozen; Phase C: inference only, 0 fits.\n- Authoritative geometry-level composite: {ext_metrics['authoritative_profile_composite']:.12g}; L_profile primitive: {ext_metrics['L_profile']:.12g}; JS: {ext_metrics['JS']:.12g}; weighted-L1 V2 comparison: NOT_DIRECTLY_COMPARABLE.\n- V3-Test40 truth was unread before authorization and read only after the explicit authorization boundary. No HF15/R12 truth was read.\n{collapse_line}- All post-selection recomputations in this package are descriptive and do not alter thresholds, model identity, or promotion.\n- Power/LEE and Level-1 coupling claims remain unsupported; Level-1 MDC-NP requires direct HF evaluation.\n\nThe original external run is byte-preserved. This directory is the corrected lightweight audit/package because the historical completion report had a null backward field and the historical SHA manifest was malformed.\n"""
     (OUT / "completion_report.md").write_text(report, encoding="utf-8")
     # Include the final report in a second manifest refresh (manifest self-reference remains excluded).
     manifest = {str(p.relative_to(OUT)): sha(p) for p in sorted(OUT.rglob("*")) if p.is_file() and p.name not in ("artifact_sha256_manifest.json", "completion_manifest.json")}

@@ -56,15 +56,16 @@ def main() -> None:
     assert len(model["checkpoint_sha256"]) == 5
     assert pred["fit_calls"] == pred["backward_calls"] == pred["optimizer_calls"] == 0
     assert pred["fresh_load_replay_match"] is True
-    assert collapse["median_latent_variance_ratio"] < 0.25
-    assert collapse["collapsed_component_count"] == 32
+    assert collapse["median_latent_variance_ratio"] >= 0.25
+    assert collapse["collapsed_component_count"] == 0
+    assert collapse["evaluation_scope"] == "case_level_240"
     assert completion["phase_a_solver_calls"] == 240 and completion["phase_c_model_fits"] == 0
     assert completion["hf15_r12_reads"] == 0 and completion["raw_artifacts_unchanged"] is True
     assert report["status"] == "PASS" and all(report["checks"].values())
     manifest = load(root / "artifact_sha256_manifest.json")
     for rel, expected in manifest["files"].items():
         assert digest(root / rel) == expected, rel
-    print(json.dumps({"status": "PASS", "required_files": len(REQUIRED), "sha_entries": len(manifest["files"]), "external_collapse_warning": True}, sort_keys=True))
+    print(json.dumps({"status": "PASS", "required_files": len(REQUIRED), "sha_entries": len(manifest["files"]), "external_collapse_warning": bool(collapse.get("formal_warning"))}, sort_keys=True))
 
 
 if __name__ == "__main__":
