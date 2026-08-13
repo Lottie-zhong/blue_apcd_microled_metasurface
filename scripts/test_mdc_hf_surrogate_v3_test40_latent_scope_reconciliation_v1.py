@@ -48,6 +48,7 @@ def main() -> None:
     safety = load(root / "safety_and_immutability_audit.json")
     completion = load(root / "completion_manifest.json")
     assert formal["sample_count"] == 240 and len(formal["component_table"]) == 32
+    assert formal["sample_unit"].startswith("independent source-conditioned")
     assert formal["collapsed_component_count_lt_0_25"] == 0
     assert formal["median_variance_ratio"] > 0.25
     assert formal["truth_variance_min"] > 1e-12 and formal["near_zero_truth_variance_count"] == 0
@@ -55,6 +56,8 @@ def main() -> None:
     assert "NOT_PHYSICALLY_EQUIVALENT" in geom["physical_equivalence"]
     assert len(fixed["conditions"]) == 6 and len(div["conditions"]) == 6
     assert all(v["collapsed_component_count_lt_0_25"] == 0 for v in fixed["conditions"].values())
+    all_div = load(root / "all_case_profile_diversity.json")
+    assert all_div["scope"] == "all 240 source-conditioned cases" and all_div["JS"]["exact"] is True and all_div["weighted_L1"]["exact"] is True
     assert abs(decomp["truth"]["between_geometry_fraction"] + decomp["truth"]["between_source_condition_fraction"] + decomp["truth"]["residual_interaction_fraction"] - 1.0) < 1e-9
     assert abs(decomp["prediction"]["between_geometry_fraction"] + decomp["prediction"]["between_source_condition_fraction"] + decomp["prediction"]["residual_interaction_fraction"] - 1.0) < 1e-9
     assert oof["formal_gate_scope_statement"].startswith("FORMAL_GATE_IS_CASE_LEVEL")

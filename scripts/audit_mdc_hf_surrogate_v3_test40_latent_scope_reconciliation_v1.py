@@ -95,6 +95,63 @@ def pairwise_diversity(rows: np.ndarray, block: int = 4096) -> Dict[str, float]:
     return {"pair_count": int(len(ix[0])), "JS": float(js[ix].mean()), "weighted_L1": float(l1[ix].mean())}
 
 
+def pairwise_js_mean_exact(rows: np.ndarray, dim_block: int = 16384, pair_block: int = 8) -> float:
+    """Exact upper-triangle JS mean without materializing an n*n*d tensor."""
+    a = simple_normalize(rows).astype(np.float32, copy=False)
+    n, d = a.shape
+    total = 0.0
+    count = 0
+    with np.errstate(divide="ignore", invalid="ignore"):
+        for i0 in range(0, n, pair_block):
+            i1 = min(i0 + pair_block, n)
+            for j0 in range(i1, n, pair_block):
+                j1 = min(j0 + pair_block, n)
+                block_sum = np.zeros((i1 - i0, j1 - j0), dtype=np.float64)
+                for start in range(0, d, dim_block):
+                    stop = min(start + dim_block, d)
+                    x = a[i0:i1, None, start:stop].astype(np.float64)
+                    y = a[None, j0:j1, start:stop].astype(np.float64)
+                    mid = 0.5 * (x + y)
+                    block_sum += 0.5 * (np.where(x > 0, x * np.log(np.maximum(x / np.maximum(mid, EPS), EPS)), 0.0) + np.where(y > 0, y * np.log(np.maximum(y / np.maximum(mid, EPS), EPS)), 0.0)).sum(axis=2)
+                total += float(block_sum.sum())
+                count += (i1 - i0) * (j1 - j0)
+    return total / max(count, 1)
+
+
+def pairwise_js_mean_fast(rows: np.ndarray) -> Tuple[float, str]:
+    """Exact all-pair JS; use CUDA only for pure read-only arithmetic when available."""
+    try:
+        import torch
+        if torch.cuda.is_available():
+            a = torch.from_numpy(simple_normalize(rows).astype(np.float32, copy=False)).to("cuda")
+            n, d = a.shape
+            total = torch.zeros((), dtype=torch.float64, device="cuda")
+            count = 0
+            with torch.no_grad():
+                for i0 in range(0, n, 8):
+                    i1 = min(i0 + 8, n)
+                    for j0 in range(i1, n, 8):
+                        j1 = min(j0 + 8, n)
+                        subtotal = torch.zeros((), dtype=torch.float64, device="cuda")
+                        for start in range(0, d, 32768):
+                            stop = min(start + 32768, d)
+                            x = a[i0:i1, None, start:stop].double()
+                            y = a[None, j0:j1, start:stop].double()
+                            mid = 0.5 * (x + y)
+                            term = torch.where(x > 0, x * torch.log(torch.clamp(x / torch.clamp(mid, min=EPS), min=EPS)), torch.zeros_like(x))
+                            term = term + torch.where(y > 0, y * torch.log(torch.clamp(y / torch.clamp(mid, min=EPS), min=EPS)), torch.zeros_like(y))
+                            subtotal = subtotal + 0.5 * term.sum()
+                        total = total + subtotal
+                        count += (i1 - i0) * (j1 - j0)
+            value = float((total / max(count, 1)).cpu())
+            del a, total
+            torch.cuda.empty_cache()
+            return value, "exact_cuda_blockwise"
+    except Exception:
+        pass
+    return pairwise_js_mean_exact(rows), "exact_cpu_blockwise"
+
+
 def ratio_summary(truth: np.ndarray, pred: np.ndarray) -> Dict[str, Any]:
     """Per-component population variance (ddof=0), frozen epsilon and <0.25 reference."""
     tv = np.var(np.asarray(truth, dtype=np.float64), axis=0, ddof=0)
@@ -333,19 +390,23 @@ def main() -> None:
     # from the existing frozen package's geometry-level report and explicitly
     # labelled where a full 240-pair JS recomputation is not part of the prior
     # formal artifact.  Fixed-source JS above is exact.
-    if args.reuse_existing_profile_diversity and (OUT / "all_case_profile_diversity.json").exists():
+    if args.reuse_existing_profile_diversity and (OUT / "all_case_profile_diversity.json").exists() and read_json(OUT / "all_case_profile_diversity.json")["JS"].get("exact") is True:
         existing_all_diversity = read_json(OUT / "all_case_profile_diversity.json")
         all_truth_l1 = existing_all_diversity["weighted_L1"]["truth"]
         all_pred_l1 = existing_all_diversity["weighted_L1"]["prediction"]
+        all_truth_js = existing_all_diversity["JS"]["truth"]
+        all_pred_js = existing_all_diversity["JS"]["prediction"]
     else:
         all_truth_l1 = pairwise_mean_l1(truth_simple_profiles)
         all_pred_l1 = pairwise_mean_l1(np.asarray(pred, dtype=np.float32))
+        all_truth_js, truth_js_method = pairwise_js_mean_fast(truth_simple_profiles)
+        all_pred_js, pred_js_method = pairwise_js_mean_fast(np.asarray(pred, dtype=np.float32))
     prior_anti = read_json(PACKAGE / "anti_collapse_external.json")
     all_diversity = {
         "scope": "all 240 source-conditioned cases",
         "weighted_L1": {"truth": all_truth_l1, "prediction": all_pred_l1, "predicted_to_truth_ratio": all_pred_l1 / max(all_truth_l1, EPS), "exact": True},
-        "JS": {"prior_package_geometry_40_profile_ratio": prior_anti["profile_pairwise_diversity_ratio_JS"], "scope": "NOT_ALL_240; retained only as geometry-level reference", "exact_all_240_recompute": "not materialized in this lightweight audit"},
-        "interpretation": "fixed-source diversity is the primary source-vs-geometry diagnostic; all-240 weighted-L1 is exact, while the prior JS value is not relabeled as all-240",
+        "JS": {"truth": all_truth_js, "prediction": all_pred_js, "predicted_to_truth_ratio": all_pred_js / max(all_truth_js, EPS), "exact": True, "truth_method": locals().get("truth_js_method", "reused"), "prediction_method": locals().get("pred_js_method", "reused"), "prior_package_geometry_40_profile_ratio": prior_anti["profile_pairwise_diversity_ratio_JS"]},
+        "interpretation": "fixed-source diversity is the primary source-vs-geometry diagnostic; all-240 JS and weighted-L1 are exact and separately reported",
     }
     dump(OUT / "all_case_profile_diversity.json", all_diversity)
 
