@@ -172,3 +172,49 @@ def test_retry_uses_new_attempt_identity(tmp_path):
     assert attempt_id == "case_attempt_002"
     assert provenance.name == "attempt_provenance_attempt_002.json"
     assert pre_fsp.name == "case_attempt_002_pre.fsp"
+
+def test_run_case_releases_slot_before_extraction(tmp_path, monkeypatch):
+    events=[]
+    monkeypatch.setattr(MOD, "OUT", tmp_path / "out")
+    monkeypatch.setattr(MOD, "RUNTIME", tmp_path / "runtime")
+    monkeypatch.setattr(MOD, "current_branch", lambda: "work/lp-global-h-manifold-v1")
+    monkeypatch.setattr(MOD, "setup_gate", lambda *args: {"pass": True, "checks": {}})
+    monkeypatch.setattr(MOD.RUNNER, "build", lambda *args, **kwargs: {"pass": True})
+    monkeypatch.setattr(MOD.RUNNER, "extract_broadband", lambda f: (events.append("extract") or ([{"weighted_Ex_real": 1.0, "weighted_Ex_imag": 0.0, "weighted_Ey_real": 0.0, "weighted_Ey_imag": 0.0}], {"pass": True})))
+
+    class FakeFDTD:
+        count=0
+        def __init__(self, *args, **kwargs):
+            FakeFDTD.count += 1
+            self.index=FakeFDTD.count
+        def save(self, path): Path(path).write_text("pre", encoding="utf-8")
+        def close(self): events.append(f"close{self.index}")
+        def load(self, path): events.append("load")
+        def setresource(self, *args): events.append(("setresource", args[-2:]))
+        def run(self): events.append("run")
+
+    class FakeLumapi:
+        FDTD=FakeFDTD
+
+    class Runtime:
+        lumapi=FakeLumapi
+        hide_gui=True
+
+    class Lease:
+        slot_id="GLOBAL_SLOT_1"
+        record={"slot_acquire_time":"t-acquire", "concurrent_peer_branch":["NP"], "admission_snapshot":{"effective_global_active_jobs_before_acquire":1}}
+        def start_heartbeat(self): events.append("heartbeat_start")
+        def mark_solver_entered(self, stamp): events.append("entered_marker")
+        def release(self, state, solver_complete=None): events.append(("release", state))
+
+    class Scheduler:
+        def acquire_wait(self, **kwargs): events.append("acquire"); return Lease()
+
+    anchor={"authoritative_id":"A","anchor_role":"role","exact_geometry_hash_sha256":"a"*64}
+    result=MOD.run_case(Runtime(), anchor, 400.0, "x", "head", {"contract": True}, [], scheduler=Scheduler())
+    assert result["status"]=="ACCEPTED"
+    assert result["solver_entered"] is True
+    assert result["slot_id"]=="GLOBAL_SLOT_1"
+    assert events.index("acquire") < events.index("entered_marker") < events.index("run")
+    assert events.index(("release", "SOLVER_COMPLETED")) < events.index("extract")
+    assert result["concurrent_peer_branch"]==["NP"]

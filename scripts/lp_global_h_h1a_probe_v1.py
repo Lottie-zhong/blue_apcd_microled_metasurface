@@ -21,7 +21,11 @@ ROOT = Path(__file__).resolve().parents[1]
 ANCHOR_MANIFEST = ROOT / "reports/stage_h0_global_h/anchor_manifest.json"
 SOURCE_CSV = ROOT / "outputs/lp_ml_dataset_v1/clean_v3/lp_ml_dataset_v1_merged_clean_v3_round3_377_geometry_3393_rows.csv"
 FORMAL_CONTRACT = ROOT / "outputs/lp_ml_dataset_v1/contracts/lp_linear_x_projector_target_matrix_v1.json"
+AUTHORITATIVE_GEOMETRY_PLAN = ROOT / "outputs/lp_ml_dataset_v1/plans/lp_ml_dataset_v1_round1_256_candidate_plan_v1.csv"
 OUT = ROOT / "outputs/lp_global_h_h1a"
+AUTHORITATIVE_ACCOUNTING = OUT / "entered_accounting_authoritative_v2.json"
+RAW_ACCOUNTING = OUT / "entered_accounting_v1.json"
+RAW_ACCOUNTING_AUDIT = OUT / "entered_accounting_raw_audit_v1.json"
 REPORT = ROOT / "reports/stage_h1a_global_h"
 RUNTIME = OUT / "runtime"
 NEW_HEIGHTS_NM = (400.0, 450.0, 550.0, 600.0)
@@ -50,6 +54,8 @@ def load_module(path: Path, name: str):
 
 RUNNER = load_module(ROOT / "scripts/lp_ml_inverse_stage1_fdt_validation_runner_v1.py", "lp_h1a_formal_runner")
 H0 = load_module(ROOT / "scripts/lp_global_h_h0_audit_v1.py", "lp_h1a_h0_audit")
+SLOT = load_module(ROOT / "scripts/apcd_global_fdtd_slot_v1.py", "lp_h1a_global_slot")
+SLOT_REGISTRY = SLOT.DEFAULT_REGISTRY_PATH
 
 
 def canonical_bytes(value: object) -> bytes:
@@ -264,11 +270,19 @@ def ordered_case_plan(anchors: list[dict]) -> list[tuple[dict, float, str]]:
     return [(anchor, height, pol) for anchor in anchors for height in NEW_HEIGHTS_NM for pol in POLARIZATIONS]
 
 
-def schedule_case_results(anchors: list[dict], run_one) -> list[dict]:
+def schedule_case_results(anchors: list[dict], run_one, entered_case_ids: set[str] | None = None) -> list[dict]:
     scheduled = []
+    entered_case_ids = set(entered_case_ids or set())
     for anchor, height, pol in ordered_case_plan(anchors):
+        if entered_case_ids:
+            identity = case_identity(anchor, height, pol, current_head())
+            case_id = case_name(identity)
+            if case_id in entered_case_ids:
+                continue
         result = run_one(anchor, height, pol)
         scheduled.append({"anchor": anchor, "height_nm": height, "polarization": pol, "result": result})
+        if result.get("solver_entered") is True:
+            entered_case_ids.add(case_id)
         if result.get("failure_scope") == "GLOBAL_INFRASTRUCTURE":
             break
     return scheduled
@@ -346,6 +360,12 @@ def load_anchors() -> tuple[list[dict], list[dict]]:
     if not anchors or len(set(hashes)) != len(hashes):
         raise RuntimeError("HARD_GATE_ANCHOR_MANIFEST_UNIQUE_HASH")
     source_rows = read_csv(SOURCE_CSV)
+    plan_rows = read_csv(AUTHORITATIVE_GEOMETRY_PLAN) if AUTHORITATIVE_GEOMETRY_PLAN.exists() else []
+    plan_by_hash = {}
+    for plan_row in plan_rows:
+        key = str(plan_row.get("exact_geometry_hash_sha256") or "")
+        if key:
+            plan_by_hash.setdefault(key, []).append(plan_row)
     by_hash = {}
     for row in source_rows:
         key = str(row.get("exact_geometry_hash_sha256") or row.get("geometry_hash_sha256") or "")
@@ -362,6 +382,21 @@ def load_anchors() -> tuple[list[dict], list[dict]]:
         if number(source.get("H_nm")) != 500.0 or number(source.get("period_x_nm")) != FORMAL_PERIOD_NM or number(source.get("period_y_nm")) != FORMAL_PERIOD_NM:
             raise RuntimeError(f"HARD_GATE_H500_CONTRACT:{key}")
         row = dict(source)
+        plan_matches = plan_by_hash.get(key, [])
+        if len(plan_matches) > 1:
+            raise RuntimeError(f"HARD_GATE_GEOMETRY_PLAN_DUPLICATE:{key}:{len(plan_matches)}")
+        if plan_matches:
+            plan = plan_matches[0]
+            for field in ("J1_side_nm", "J2_length_nm", "J2_width_nm", "D_nm", "Psi_deg"):
+                if number(row.get(field)) is not None and number(plan.get(field)) is not None and abs(number(row.get(field)) - number(plan.get(field))) > 1e-9:
+                    raise RuntimeError(f"HARD_GATE_GEOMETRY_PLAN_DIMENSION_MISMATCH:{key}:{field}")
+            for field in ("J1_center_x_nm", "J1_center_y_nm", "J2_center_x_nm", "J2_center_y_nm"):
+                if number(row.get(field)) is None and number(plan.get(field)) is not None:
+                    row[field] = plan[field]
+            row["geometry_input_source"] = "H500_clean_v3_plus_authoritative_candidate_plan"
+            row["geometry_input_source_sha256"] = sha256_file(AUTHORITATIVE_GEOMETRY_PLAN)
+        else:
+            row["geometry_input_source"] = "H500_clean_v3"
         row.update(anchor)
         row.update({"anchor_role": anchor["role"], "authoritative_id": anchor["authoritative_id"], "exact_geometry_hash_sha256": key})
         resolved.append(row)
@@ -382,29 +417,117 @@ def case_name(identity: dict) -> str:
 
 
 def solver_isolation_snapshot() -> dict:
-    script = r'''$ErrorActionPreference = 'SilentlyContinue'
-Get-Process -Name fdtd-engine-msmpi,mpiexec,fdtd-solutions -ErrorAction SilentlyContinue | ForEach-Object {
-  $path = ''
-  try { $path = $_.Path } catch {}
-  "{0}|{1}|{2}|{3}" -f $_.Id,$_.Name,$_.StartTime,$path
-}'''
-    result = subprocess.run(["powershell", "-NoProfile", "-Command", script], text=True, capture_output=True, encoding="utf-8", errors="replace", timeout=30)
-    processes = []
-    for line in result.stdout.splitlines():
-        if line.strip():
-            parts = line.strip().split("|", 3)
-            processes.append({"pid": parts[0], "name": parts[1] if len(parts) > 1 else "", "start": parts[2] if len(parts) > 2 else "", "path": parts[3] if len(parts) > 3 else ""})
-    active = [item for item in processes if item["name"].lower() in {"fdtd-engine-msmpi", "mpiexec", "fdtd-solutions"}]
-    return {"status": "PASS" if not active else "BLOCKED_ACTIVE_FDTD", "command_returncode": result.returncode, "processes": processes, "active_engine_or_mpi": active, "policy": "no kill/suspend/restart; no new solver entries while engine_or_mpiexec is active"}
+    live = SLOT.live_job_snapshot()
+    allowed = live["global_active_jobs"] < SLOT.GLOBAL_CAPACITY and live["lp_active_jobs"] < SLOT.MAX_ACTIVE_FDTD_PER_BRANCH
+    processes = [process for job in live["jobs"] for process in job.get("processes", [])]
+    return {
+        "status": "PASS" if allowed else "WAIT_GLOBAL_SLOT",
+        "global_parallel_policy": "APCD_GLOBAL_FDTD_PARALLEL_POLICY_V1",
+        "global_capacity": SLOT.GLOBAL_CAPACITY,
+        "max_active_fdtd_per_branch": SLOT.MAX_ACTIVE_FDTD_PER_BRANCH,
+        "global_active_jobs": live["global_active_jobs"],
+        "lp_active_jobs": live["lp_active_jobs"],
+        "jobs": live["jobs"],
+        "formal_process_count": live["formal_process_count"],
+        "processes": processes,
+        "active_engine_or_mpi": processes,
+        "policy": "wait when global capacity or LP branch cap is occupied; never kill, suspend, or preempt peer jobs",
+    }
 
 
 def read_entered() -> list[dict]:
-    path = OUT / "entered_accounting_v1.json"
-    return list(read_json(path).get("solver_entries", [])) if path.exists() else []
+    if not AUTHORITATIVE_ACCOUNTING.exists():
+        return []
+    return list(read_json(AUTHORITATIVE_ACCOUNTING).get("solver_entries", []))
+
+
+def _entry_from_provenance(payload: dict) -> dict:
+    return {
+        "case_id": payload.get("case_id"),
+        "attempt_id": payload.get("attempt_id"),
+        "solver_entered": True,
+        "entered_solver": True,
+        "entered_utc": payload.get("entered_utc"),
+        "pre_fsp_sha256": payload.get("pre_fsp_sha256"),
+        "physical_contract_sha256": payload.get("physical_contract_sha256"),
+        "case_identity_sha256": payload.get("case_identity_sha256"),
+        "geometry_hash_sha256": payload.get("geometry_hash_sha256"),
+        "H_global_nm": payload.get("case_identity", {}).get("H_global_nm"),
+        "polarization": payload.get("case_identity", {}).get("polarization"),
+        "slot_id": payload.get("slot_id"),
+        "checkpoint_path": payload.get("checkpoint_path"),
+        "provenance_path": payload.get("_provenance_path"),
+    }
+
+
+def initialize_authoritative_accounting(planned_case_ids: set[str]) -> list[dict]:
+    raw = read_json(RAW_ACCOUNTING) if RAW_ACCOUNTING.exists() else {}
+    raw_entries = list(raw.get("solver_entries", []))
+    candidates = []
+    for entry in raw_entries:
+        if entry.get("case_id") in planned_case_ids and entry.get("solver_entered") is True:
+            candidates.append(dict(entry))
+    for path in sorted(RUNTIME.rglob("attempt_provenance*.json")):
+        try:
+            payload = read_json(path)
+        except (OSError, ValueError):
+            continue
+        if payload.get("case_id") not in planned_case_ids or payload.get("solver_entered") is not True:
+            continue
+        payload["_provenance_path"] = str(path)
+        entry = _entry_from_provenance(payload)
+        checkpoint = path.parent / "checkpoint.json"
+        entry["checkpoint_path"] = str(checkpoint) if checkpoint.exists() else None
+        candidates.append(entry)
+    by_case = {}
+    for entry in candidates:
+        case_id = entry.get("case_id")
+        if not case_id:
+            continue
+        old = by_case.get(case_id)
+        old_complete = bool(old and old.get("checkpoint_path"))
+        new_complete = bool(entry.get("checkpoint_path"))
+        if old is None or (new_complete and not old_complete) or str(entry.get("attempt_id", "")) > str(old.get("attempt_id", "")):
+            by_case[case_id] = entry
+    entries = sorted(by_case.values(), key=lambda row: str(row.get("case_id", "")))
+    excluded = [entry for entry in raw_entries if entry.get("case_id") not in planned_case_ids]
+    atomic_json(RAW_ACCOUNTING_AUDIT, {
+        "schema": "LP_GLOBAL_H_H1A_RAW_ACCOUNTING_AUDIT_V1",
+        "raw_accounting_path": str(RAW_ACCOUNTING),
+        "raw_entry_count": len(raw_entries),
+        "excluded_nonplanned_entries": excluded,
+        "excluded_reason": "NONPLANNED_OR_SYNTHETIC_TEST_ENTRY_PRESERVED_OUTSIDE_AUTHORITATIVE_ACCOUNTING",
+        "authoritative_reconstruction_entry_count": len(entries),
+        "authoritative_source": "planned-case provenance plus accepted checkpoint evidence",
+    })
+    write_entered(entries)
+    return entries
 
 
 def write_entered(entries: list[dict]) -> None:
-    atomic_json(OUT / "entered_accounting_v1.json", {"schema": "LP_GLOBAL_H_H1A_ENTERED_ACCOUNTING_V1", "solver_entries": entries, "solver_subruns_entered": len(entries), "solver_budget_planned": MAX_NEW_SUBRUNS, "H500_scheduled": False})
+    atomic_json(AUTHORITATIVE_ACCOUNTING, {
+        "schema": "LP_GLOBAL_H_H1A_ENTERED_ACCOUNTING_AUTHORITATIVE_V2",
+        "solver_entries": entries,
+        "solver_subruns_entered": len(entries),
+        "solver_budget_planned": MAX_NEW_SUBRUNS,
+        "H500_scheduled": False,
+        "raw_accounting_preserved_path": str(RAW_ACCOUNTING),
+        "raw_accounting_audit_path": str(RAW_ACCOUNTING_AUDIT),
+    })
+
+
+def resource_gate(fdtd) -> dict:
+    expected = {"processes": SLOT.PROCESSES_PER_JOB, "threads": SLOT.THREADS_PER_JOB}
+    setter = getattr(fdtd, "setresource", None)
+    if not callable(setter):
+        return {"pass": False, "expected": expected, "error": "FDTD resource setter unavailable"}
+    errors = {}
+    for key, value in expected.items():
+        try:
+            setter("FDTD", 1, key, str(value))
+        except Exception as exc:
+            errors[key] = f"{type(exc).__name__}: {exc}"
+    return {"pass": not errors, "expected": expected, "configured": expected if not errors else {}, "errors": errors}
 
 
 def setup_gate(fdtd, row: dict, pol: str, height_nm: float) -> dict:
@@ -435,7 +558,7 @@ def checkpoint_result(case_dir: Path, identity: dict) -> dict | None:
     return {"status": "ACCEPTED", "solver_entered": True, "case_id": payload["case_id"], "identity": identity, "identity_sha256": payload["case_identity_sha256"], "polarization": identity["polarization"], "H_global_nm": identity["H_global_nm"], "rows": payload["rows"], "grid_audit": payload.get("grid_audit"), "checkpoint_path": str(path), "checkpoint_sha256": sha256_file(path), "recovered_from_checkpoint": True, "geometry_hash_sha256": identity["exact_geometry_hash_sha256"]}
 
 
-def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contract: dict, entered: list[dict]) -> dict:
+def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contract: dict, entered: list[dict], scheduler=None) -> dict:
     identity = case_identity(anchor, height_nm, pol, head)
     identity_hash = sha256_obj(identity)
     case_id = case_name(identity)
@@ -447,10 +570,14 @@ def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contr
     if any(entry.get("solver_entered") is True and entry.get("case_identity_sha256") == identity_hash for entry in entered):
         return {"status": "QUARANTINED_ENTERED_NO_RECOVERY", "solver_entered": True, "case_id": case_id, "identity": identity, "identity_sha256": identity_hash, "polarization": pol, "H_global_nm": height_nm, "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "error": "entered=true exact case has no accepted checkpoint; rerun forbidden"}
     attempt_id, provenance_path, pre_fsp = next_attempt_artifacts(case_dir, case_id)
-    record = {"case_id": case_id, "attempt_id": attempt_id, "case_identity": identity, "case_identity_sha256": identity_hash, "status": "PREFLIGHT", "solver_entered": False, "started_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "physical_contract_sha256": sha256_obj(contract), "pre_fsp_path": str(pre_fsp)}
+    record = {"case_id": case_id, "attempt_id": attempt_id, "case_identity": identity, "case_identity_sha256": identity_hash, "status": "PREFLIGHT", "solver_entered": False, "entered_solver": False, "slot_acquired": False, "started_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "physical_contract_sha256": sha256_obj(contract), "pre_fsp_path": str(pre_fsp), "processes": SLOT.PROCESSES_PER_JOB, "threads": SLOT.THREADS_PER_JOB, "global_fdtd_parallel_policy": "APCD_GLOBAL_FDTD_PARALLEL_POLICY_V1"}
     f = None
+    lease = None
+    solver_completed = False
     start = time.time()
+    scheduler = scheduler or SLOT.GlobalSlotScheduler(SLOT_REGISTRY)
     try:
+        # Preparation is license/controller work only; no solver is entered here.
         f = runtime.lumapi.FDTD(hide=getattr(runtime, "hide_gui", True))
         setup = RUNNER.build(f, anchor, pol, height_nm=height_nm)
         f.save(str(pre_fsp))
@@ -458,29 +585,67 @@ def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contr
         record["pre_fsp_sha256"] = sha256_file(pre_fsp)
         f.close()
         f = None
+        atomic_json(provenance_path, record)
+
+        # Acquire while no production FDTD controller is open, so the live-job
+        # snapshot cannot count this case as its own peer.
+        lease = scheduler.acquire_wait(branch=current_branch(), worktree=str(ROOT), task_id=run_identity_for_slot(head), case_uid=case_id, pid=os.getpid(), metadata={"task_class": "H1A_FORMAL_FDTD", "attempt_id": attempt_id, "polarization": pol, "H_global_nm": height_nm})
+        record.update({"slot_acquired": True, "slot_id": lease.slot_id, "slot_acquire_time": lease.record.get("slot_acquire_time", lease.record.get("start_time")), "concurrent_peer_branch": lease.record.get("concurrent_peer_branch", []), "admission_snapshot": lease.record.get("admission_snapshot"), "processes": SLOT.PROCESSES_PER_JOB, "threads": SLOT.THREADS_PER_JOB})
+        lease.start_heartbeat()
+        atomic_json(provenance_path, record)
+
         f = runtime.lumapi.FDTD(hide=getattr(runtime, "hide_gui", True))
         f.load(str(pre_fsp))
+        resource = resource_gate(f)
         gate = setup_gate(f, anchor, pol, height_nm)
         record["configuration_gate"] = gate
+        record["resource_gate"] = resource
         atomic_json(provenance_path, record)
-        if not gate["pass"]:
-            record.update({"status": "QUARANTINED_PREFLIGHT_GATE", "error": "configuration gate failed"})
+        if not gate["pass"] or not resource["pass"]:
+            record.update({"status": "QUARANTINED_PREFLIGHT_GATE", "error": "configuration or resource gate failed"})
             return record
-        record.update({"status": "ENTERED", "solver_entered": True, "entered_utc": dt.datetime.now(dt.timezone.utc).isoformat()})
-        entered.append({"case_id": case_id, "attempt_id": record["attempt_id"], "solver_entered": True, "entered_utc": record["entered_utc"], "pre_fsp_sha256": record["pre_fsp_sha256"], "physical_contract_sha256": record["physical_contract_sha256"], "case_identity_sha256": identity_hash, "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "H_global_nm": height_nm, "polarization": pol})
-        if len(entered) > MAX_NEW_SUBRUNS:
-            raise RuntimeError("HARD_GATE_SOLVER_BUDGET_EXCEEDED")
+
+        # The authoritative entry marker is written only after slot acquisition
+        # and all pre-run gates pass, immediately before fdtd.run().
+        if not any(row.get("case_id") == case_id for row in entered) and len({row.get("case_id") for row in entered}) >= MAX_NEW_SUBRUNS:
+            raise RuntimeError("HARD_GATE_UNIQUE_CASE_BUDGET_EXCEEDED_BEFORE_ENTRY")
+        entered_utc = dt.datetime.now(dt.timezone.utc).isoformat()
+        lease.mark_solver_entered(entered_utc)
+        record.update({"status": "ENTERED", "solver_entered": True, "entered_solver": True, "entered_utc": entered_utc, "solver_start": entered_utc})
+        new_entry = {"case_id": case_id, "attempt_id": record["attempt_id"], "solver_entered": True, "entered_solver": True, "entered_utc": entered_utc, "pre_fsp_sha256": record["pre_fsp_sha256"], "physical_contract_sha256": record["physical_contract_sha256"], "case_identity_sha256": identity_hash, "geometry_hash_sha256": identity["exact_geometry_hash_sha256"], "H_global_nm": height_nm, "polarization": pol, "slot_id": lease.slot_id}
+        if not any(row.get("case_id") == case_id for row in entered):
+            entered.append(new_entry)
+        if len({row.get("case_id") for row in entered}) > MAX_NEW_SUBRUNS:
+            raise RuntimeError("HARD_GATE_UNIQUE_CASE_BUDGET_EXCEEDED")
         write_entered(entered)
         atomic_json(provenance_path, record)
         f.run()
+        solver_completed = True
+        record["solver_complete"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        lease.release("SOLVER_COMPLETED", record["solver_complete"])
+        record["slot_release_time"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        lease = None
+
+        # Extraction is intentionally after slot release.
         rows, grid = RUNNER.extract_broadband(f)
-        atomic_json(case_dir / "checkpoint.json", {"schema": "LP_GLOBAL_H_H1A_CHECKPOINT_V1", "status": "ACCEPTED", "case_id": case_id, "case_identity": identity, "case_identity_sha256": identity_hash, "geometry": anchor, "H_global_nm": height_nm, "polarization": pol, "physical_contract": contract, "physical_contract_sha256": sha256_obj(contract), "setup": setup, "configuration_gate": gate, "rows": rows, "grid_audit": grid})
+        atomic_json(case_dir / "checkpoint.json", {"schema": "LP_GLOBAL_H_H1A_CHECKPOINT_V1", "status": "ACCEPTED", "case_id": case_id, "case_identity": identity, "case_identity_sha256": identity_hash, "geometry": anchor, "H_global_nm": height_nm, "polarization": pol, "physical_contract": contract, "physical_contract_sha256": sha256_obj(contract), "setup": setup, "configuration_gate": gate, "resource_gate": resource, "rows": rows, "grid_audit": grid})
         record.update({"status": "ACCEPTED", "rows": rows, "grid_audit": grid, "checkpoint_path": str(case_dir / "checkpoint.json"), "checkpoint_sha256": sha256_file(case_dir / "checkpoint.json")})
         return record
     except Exception as exc:
+        if lease is not None:
+            try:
+                lease.release("FAILED_ENTERED" if record.get("solver_entered") else "FAILED_PRE_ENTRY")
+                record["slot_release_time"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            except Exception as release_exc:
+                record["slot_release_error"] = f"{type(release_exc).__name__}: {release_exc}"
         record.update({"status": "FAILED", "error": f"{type(exc).__name__}: {exc}", "traceback": traceback.format_exc(), "retained_data_status": "attempt_and_entered_evidence_preserved", "failure_scope": "GLOBAL_INFRASTRUCTURE" if not record.get("solver_entered") and is_global_infrastructure_error(exc) else "CASE_OR_PHYSICS"})
         return record
     finally:
+        if lease is not None:
+            try:
+                lease.release("SOLVER_COMPLETED" if solver_completed else ("FAILED_ENTERED" if record.get("solver_entered") else "FAILED_PRE_ENTRY"))
+            except Exception as release_exc:
+                record["slot_release_error"] = f"{type(release_exc).__name__}: {release_exc}"
         if f is not None:
             try:
                 f.close()
@@ -488,6 +653,10 @@ def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contr
                 pass
         record["runtime_seconds"] = time.time() - start
         atomic_json(provenance_path, record)
+
+
+def run_identity_for_slot(head: str) -> str:
+    return h1a_run_identity(current_branch())
 
 
 def full_jones_row(anchor: dict, height_nm: float, x: dict, y: dict, source: str) -> dict:
@@ -517,11 +686,11 @@ def make_tables(anchors: list[dict], h500_source: list[dict], results: dict[tupl
         full.append(f500)
         phase.append(p500)
         for height in NEW_HEIGHTS_NM:
-            x = results[(anchor["exact_geometry_hash_sha256"], height, "x")]
-            y = results[(anchor["exact_geometry_hash_sha256"], height, "y")]
-            if x.get("status") == "ACCEPTED":
+            x = results.get((anchor["exact_geometry_hash_sha256"], height, "x"))
+            y = results.get((anchor["exact_geometry_hash_sha256"], height, "y"))
+            if x and x.get("status") == "ACCEPTED":
                 phase.append(phase_only_row(anchor, height, x, "H1A_NEW_SOLVER_X_FORMAL"))
-            if x.get("status") == "ACCEPTED" and y.get("status") == "ACCEPTED":
+            if x and y and x.get("status") == "ACCEPTED" and y.get("status") == "ACCEPTED":
                 full.append(full_jones_row(anchor, height, x, y, "H1A_NEW_SOLVER_XY_FORMAL"))
     phi = []
     for anchor in anchors:
@@ -575,7 +744,7 @@ def write_outputs(manifest: dict, full: list[dict], phase: list[dict], phi: list
     write_csv(OUT / "fixed_H_span_summary.csv", spans)
     write_csv(OUT / "H_geometry_interaction_summary.csv", interactions)
     write_csv(OUT / "quarantine_rejection_table.csv", quarantine)
-    flags = {"FLAG_60_SECTOR": any(max(row.get("projector_compatible_pair_separations_deg", [0.0])) >= 60.0 for row in spans), "FLAG_120_ML_RESTART": any(float(row.get("projector_compatible_phase_span_deg", 0.0)) >= 120.0 for row in spans)}
+    flags = {"FLAG_60_SECTOR": any(max(row.get("projector_compatible_pair_separations_deg") or [0.0]) >= 60.0 for row in spans), "FLAG_120_ML_RESTART": any(float(row.get("projector_compatible_phase_span_deg", 0.0)) >= 120.0 for row in spans)}
     manifest.update({"status": "COMPLETE_ANALYSIS", "verdict": verdict, "verdict_detail": detail, "flags": flags, "projector_collapse_observed": any(row["full_jones_count"] < manifest["unique_anchor_count"] for row in spans), "artifacts": {name: str((OUT / filename).relative_to(ROOT)) for name, filename in {"complete_jones_table": "complete_jones_table.csv", "phase_only_table": "phase_only_table.csv", "per_anchor_phi_vs_H": "per_anchor_phi_vs_H.csv", "fixed_H_span_summary": "fixed_H_span_summary.csv", "H_geometry_interaction_summary": "H_geometry_interaction_summary.csv", "quarantine_rejection_table": "quarantine_rejection_table.csv"}.items()}})
     atomic_json(OUT / "final_audit.json", manifest)
     lines = ["# Stage H1A — Repeated-Anchor Global-H Sensitivity Probe", "", f"- Status: `{manifest['status']}`", f"- Verdict: `{verdict}`", f"- Branch / HEAD: `{manifest['branch']}` / `{manifest['head']}`", f"- Unique anchors: `{manifest['unique_anchor_count']}`", f"- Solver budget planned / entered / accepted / quarantined: `{manifest['solver_budget_planned']}` / `{manifest['solver_subruns_entered']}` / `{manifest['solver_subruns_accepted']}` / `{manifest['solver_subruns_quarantined']}`", "", "## Frozen contract", "", "- H grid: `400, 450, 500, 550, 600 nm`; only 400/450/550/600 were scheduled.", "- H500 reuses H0 authoritative data and is never rerun.", "- J1_H = J2_H = H_global; bottom z=0 nm; source z=-250 nm; monitor z=1000 nm; period=432 nm; material=APCD_TIO2_NATIVE_M1.", "", "## Fixed-H summary", ""]
@@ -602,22 +771,19 @@ def main(argv: list[str] | None = None) -> int:
     run_identity = h1a_run_identity(branch)
     contract = physical_contract(head)
     planned = planned_cases(anchors)
+    planned_case_ids = {case_name(case_identity(anchor, height, pol, head)) for anchor, height, pol in ordered_case_plan(anchors)}
+    entered = initialize_authoritative_accounting(planned_case_ids)
     if len(planned) > MAX_NEW_SUBRUNS:
         raise SystemExit("HARD_GATE_PLANNED_BUDGET")
     snapshot = solver_isolation_snapshot()
     OUT.mkdir(parents=True, exist_ok=True)
-    manifest = {"schema": "LP_GLOBAL_H_H1A_RUN_MANIFEST_V1", "stage": "H1A", "branch": branch, "head": head, "run_identity": run_identity, "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "H_grid_nm": list(ALL_HEIGHTS_NM), "new_solver_heights_nm": list(NEW_HEIGHTS_NM), "H500_scheduled": False, "unique_anchor_count": len(anchors), "anchor_ids": [anchor["authoritative_id"] for anchor in anchors], "anchor_exact_hashes": [anchor["exact_geometry_hash_sha256"] for anchor in anchors], "solver_budget_planned": MAX_NEW_SUBRUNS, "solver_subruns_entered": len(read_entered()), "solver_isolation_snapshot": snapshot, "physical_contract": contract, "physical_contract_sha256": sha256_obj(contract), "source_csv": str(SOURCE_CSV.relative_to(ROOT)), "source_csv_sha256": sha256_file(SOURCE_CSV), "formal_contract": str(FORMAL_CONTRACT.relative_to(ROOT)), "formal_contract_sha256": sha256_file(FORMAL_CONTRACT), "planned_case_count": len(planned), "planned_cases": planned}
+    manifest = {"schema": "LP_GLOBAL_H_H1A_RUN_MANIFEST_V1", "stage": "H1A", "branch": branch, "head": head, "run_identity": run_identity, "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "H_grid_nm": list(ALL_HEIGHTS_NM), "new_solver_heights_nm": list(NEW_HEIGHTS_NM), "H500_scheduled": False, "unique_anchor_count": len(anchors), "anchor_ids": [anchor["authoritative_id"] for anchor in anchors], "anchor_exact_hashes": [anchor["exact_geometry_hash_sha256"] for anchor in anchors], "solver_budget_planned": MAX_NEW_SUBRUNS, "solver_subruns_entered": len(entered), "global_fdtd_parallel_policy": "APCD_GLOBAL_FDTD_PARALLEL_POLICY_V1", "proven_global_concurrency": SLOT.GLOBAL_CAPACITY, "global_capacity": SLOT.GLOBAL_CAPACITY, "max_active_fdtd_per_branch": SLOT.MAX_ACTIVE_FDTD_PER_BRANCH, "processes_per_job": SLOT.PROCESSES_PER_JOB, "threads_per_job": SLOT.THREADS_PER_JOB, "slot_registry": str(SLOT_REGISTRY), "solver_isolation_snapshot": snapshot, "physical_contract": contract, "physical_contract_sha256": sha256_obj(contract), "source_csv": str(SOURCE_CSV.relative_to(ROOT)), "source_csv_sha256": sha256_file(SOURCE_CSV), "formal_contract": str(FORMAL_CONTRACT.relative_to(ROOT)), "formal_contract_sha256": sha256_file(FORMAL_CONTRACT), "planned_case_count": len(planned), "planned_cases": planned}
     atomic_json(OUT / "run_manifest.json", manifest)
     if args.preflight_only:
         manifest["status"] = "READY" if snapshot["status"] == "PASS" else snapshot["status"]
         atomic_json(OUT / "run_manifest.json", manifest)
         print(json.dumps(manifest, indent=2, ensure_ascii=False))
         return 0 if snapshot["status"] == "PASS" else 2
-    if snapshot["status"] != "PASS":
-        manifest["status"] = snapshot["status"]
-        atomic_json(OUT / "run_manifest.json", manifest)
-        raise SystemExit("HARD_GATE_ACTIVE_SOLVER")
-
     mode = "readiness-only" if args.readiness_only else "execute"
     guard = acquire_runner_guard(run_identity, branch, mode, head)
     atexit.register(release_runner_guard, guard)
@@ -643,7 +809,8 @@ def main(argv: list[str] | None = None) -> int:
     if len(entered) > MAX_NEW_SUBRUNS:
         raise SystemExit("HARD_GATE_ENTERED_BUDGET")
     results, quarantine = {}, []
-    scheduled = schedule_case_results(anchors, lambda anchor, height, pol: run_case(runtime, anchor, height, pol, head, contract, entered))
+    scheduler = SLOT.GlobalSlotScheduler(SLOT_REGISTRY)
+    scheduled = schedule_case_results(anchors, lambda anchor, height, pol: run_case(runtime, anchor, height, pol, head, contract, entered, scheduler=scheduler), entered_case_ids={row.get("case_id") for row in entered})
     for item in scheduled:
         anchor = item["anchor"]
         height = item["height_nm"]
@@ -664,7 +831,17 @@ def main(argv: list[str] | None = None) -> int:
     interactions, spans = interaction_tables(phi, full, len(anchors))
     verdict, detail = decide_verdict(interactions, spans, len(anchors))
     accepted = sum(result.get("status") == "ACCEPTED" for result in results.values())
-    manifest.update({"solver_subruns_entered": len(entered), "solver_subruns_accepted": accepted, "solver_subruns_quarantined": len(quarantine), "solver_subruns_failed_recoverable": sum(item.get("solver_entered") is True for item in quarantine), "phase_only_rows": len(phase), "full_jones_rows": len(full)})
+    slot_history = []
+    if SLOT_REGISTRY.exists():
+        try:
+            slot_history = list(json.loads(SLOT_REGISTRY.read_text(encoding="utf-8")).get("history", []))
+        except (OSError, ValueError):
+            slot_history = []
+    lp_slot_history = [row for row in slot_history if row.get("branch") == branch and row.get("task_class") == "H1A_FORMAL_FDTD"]
+    global_max = max((int(row.get("admission_snapshot", {}).get("effective_global_active_jobs_after_acquire", 0)) for row in lp_slot_history), default=int(snapshot.get("global_active_jobs", 0)))
+    lp_max = max((int(row.get("admission_snapshot", {}).get("effective_lp_active_jobs_after_acquire", 0)) for row in lp_slot_history), default=int(snapshot.get("lp_active_jobs", 0)))
+    peers = sorted({peer for row in lp_slot_history for peer in row.get("concurrent_peer_branch", []) if peer})
+    manifest.update({"solver_subruns_entered": len(entered), "solver_subruns_accepted": accepted, "solver_subruns_quarantined": len(quarantine), "solver_subruns_failed_recoverable": sum(item.get("solver_entered") is True for item in quarantine), "phase_only_rows": len(phase), "full_jones_rows": len(full), "max_observed_global_active_jobs": global_max, "max_observed_lp_active_jobs": lp_max, "concurrent_peer_branches": peers, "slot_history_count": len(lp_slot_history)})
     write_outputs(manifest, full, phase, phi, spans, interactions, quarantine, verdict, detail)
     atomic_json(OUT / "run_manifest.json", manifest)
     print(json.dumps({"verdict": verdict, "solver_subruns_entered": len(entered), "solver_subruns_accepted": accepted, "solver_subruns_quarantined": len(quarantine), "flags": manifest.get("flags")}, indent=2))

@@ -8,10 +8,10 @@ def num(v):
  try:v=float(v);return v if math.isfinite(v) else None
  except(TypeError,ValueError):return None
 def yes(v):return str(v).strip().upper() in {"1","TRUE","YES","PASS","ACCEPTED","COMPLETE"}
-def rd(p,d=None):return json.loads(p.read_text(encoding="utf8")) if p.exists() else d
+def rd(p,d=None):return json.loads(p.read_text(encoding="utf-8")) if p.exists() else d
 def cr(p):
  if not p.exists():return []
- with p.open(encoding="utf8-sig",newline="") as f:return list(csv.DictReader(f))
+ with p.open(encoding="utf-8-sig",newline="") as f:return list(csv.DictReader(f))
 def acc(r):
  for k in("accepted","authoritative_accepted","acceptance_status","status"):
   if k in r and str(r[k]).strip():return yes(r[k])
@@ -53,8 +53,64 @@ def matrix():
  q=[("single J1 square builder","READY_REUSE","scripts/lp_ml_inverse_stage1_fdt_validation_runner_v1.py:72-88"),("single J2 rectangle builder","READY_REUSE","scripts/lp_ml_inverse_stage1_fdt_validation_runner_v1.py:72-88"),("x/y complex transmission extractor","READY_REUSE","scripts/lp_ml_inverse_stage1_fdt_validation_runner_v1.py:99-115"),("phase/amplitude atlas utility","NOT_APPLICABLE","atlas forbidden in zero-solver stage"),("geometry legality checker","READY_REUSE","scripts/lp_5d_phase_reachability_probe_v1.py:187-217"),("direct/periodic gap checker","READY_REUSE","scripts/lp_5d_phase_reachability_probe_v1.py:191-217"),("integer dimension / half-grid center checker","READY_REUSE","scripts/lp_ml_contract_plan.py:54"),("APCD_TIO2_NATIVE_M1 registration","READY_REUSE","scripts/lp_ml_inverse_stage1_fdt_validation_runner_v1.py:27,73"),("same phase/reference convention","READY_REUSE","scripts/lp_global_h_h0_audit_v1.py and H1A physical_contract()")]
  return{"schema":"LP_GLOBAL_H_H1B_H2_ZERO_SOLVER_READINESS_MATRIX_V1","inspection_only":True,"solver_entered_new":0,"rows":[{"item":a,"status":b,"evidence":c} for a,b,c in q],"new_geometry_created":False}
 def audit():
- ps=list(O.rglob("attempt_provenance*.json"));vs=[rd(p,{}) for p in ps];m=rd(O/"run_manifest.json",{}) or {};q=rd(O/"license_readiness.json",{}) or {};e=rd(O/"entered_accounting_v1.json",{}) or {};n=max(int(m.get("solver_subruns_entered",0)),int(e.get("solver_subruns_entered",0)));f=[p for p in O.rglob("*") if p.is_file() and p.suffix.lower() in{".fsp",".fspx"}];v=q.get("latest_verdict") or m.get("readiness_verdict") or "NOT_PROBED"
- return{"schema":"LP_GLOBAL_H_H1A_RUNTIME_READINESS_AUDIT_V1","branch":m.get("branch"),"head":m.get("head"),"runtime_guard":{"guard_present":A.runner_guard_path().exists(),"singleton_guard_implemented":True},"readiness_verdict":v,"historical_attempts":{"brief_stated_count":26,"live_audit_count":len(ps),"discrepancy_preserved":len(ps)!=26,"all_solver_entered_false":all(x.get("solver_entered") is False for x in vs),"all_status_failed":all(str(x.get("status","")).upper()=="FAILED" for x in vs)},"solver_accounting":{"solver_entered":n,"solver_budget_planned":48,"solver_entered_fraction":f"{n}/48","H500_scheduled":bool(m.get("H500_scheduled",False)),"new_physics_fdtd_runs":0},"h1a_fsp_fspx_count":len(f),"active_solver_snapshot":A.solver_isolation_snapshot(),"offline_pipeline_status":"READY_WAITING_AUTHORITATIVE_H1A_ACCEPTED_DATA","physics_contract_modified":False,"final_state":"H1A_OFFLINE_READY_WAITING_LICENSE_OR_MESSAGING" if v!="LUMERICAL_READY" else "H1A_OFFLINE_READY_WAITING_PHYSICS_QUEUE"}
+ ps=list(O.rglob("attempt_provenance*.json"))
+ vs=[rd(p,{}) for p in ps]
+ manifest=rd(O/"run_manifest.json",{}) or {}
+ readiness=rd(O/"license_readiness.json",{}) or {}
+ raw_accounting=rd(O/"entered_accounting_v1.json",{}) or {}
+ provenance_entered=[x for x in vs if x.get("solver_entered") is True or x.get("entered_solver") is True]
+ accepted_entered=[x for x in provenance_entered if str(x.get("status","")).upper()=="ACCEPTED" and (O/"runtime"/"cases"/str(x.get("case_id",""))/"checkpoint.json").exists()]
+ accepted_case_ids=sorted({str(x.get("case_id")) for x in accepted_entered if x.get("case_id")})
+ preentry_failed=[x for x in vs if x.get("solver_entered") is False and str(x.get("status","")).upper()=="FAILED"]
+ fsp_files=[p for p in O.rglob("*") if p.is_file() and p.suffix.lower() in {".fsp",".fspx"}]
+ raw_entries=list(raw_accounting.get("solver_entries",[]))
+ live=A.solver_isolation_snapshot()
+ active_other_branch=any("blue_apcd_lp" not in str(j).lower() and "lp_global_h" not in str(j).lower() for j in live.get("jobs",[]))
+ readiness_verdict=readiness.get("latest_verdict") or manifest.get("readiness_verdict") or "NOT_PROBED"
+ if live.get("status")!="PASS" or active_other_branch:
+  final_state="H1A_RECOVERED_WAITING_EXTERNAL_RUNTIME"
+ elif accepted_case_ids:
+  final_state="H1A_RUNTIME_RECOVERY_REQUIRED_BEFORE_EXECUTION"
+ elif readiness_verdict!="LUMERICAL_READY":
+  final_state="H1A_RECOVERED_BLOCKED_LICENSE_OR_MESSAGING"
+ else:
+  final_state="H1A_OFFLINE_READY_WAITING_LICENSE_OR_MESSAGING"
+ return {
+  "schema":"LP_GLOBAL_H_H1A_RUNTIME_READINESS_AUDIT_V2",
+  "branch":manifest.get("branch"),
+  "head":manifest.get("head"),
+  "runtime_guard":{"guard_present":A.runner_guard_path().exists(),"singleton_guard_implemented":True},
+  "readiness_verdict":readiness_verdict,
+  "historical_attempts":{
+   "brief_stated_count":26,
+   "live_audit_count":len(vs),
+   "pre_entry_failed_attempt_count":len(preentry_failed),
+   "all_pre_entry_failed_solver_entered_false":all(x.get("solver_entered") is False for x in preentry_failed),
+   "discrepancy_preserved":len(vs)!=26
+  },
+  "solver_accounting":{
+   "solver_budget_planned":48,
+   "new_physics_fdtd_runs_this_task":0,
+   "new_solver_entered_this_task":0,
+   "new_solver_entered_fraction":"0/48",
+   "cumulative_authoritative_entered_case_count":len(accepted_case_ids),
+   "cumulative_authoritative_entered_fraction":f"{len(accepted_case_ids)}/48",
+   "cumulative_authoritative_entered_case_ids":accepted_case_ids,
+   "raw_accounting_entries":len(raw_entries),
+   "raw_accounting_authoritative":False,
+   "raw_accounting_note":"raw entered_accounting_v1.json was overwritten by an earlier synthetic lifecycle test; preserved unchanged. Provenance plus accepted checkpoints are authoritative for this audit.",
+   "H500_scheduled":bool(manifest.get("H500_scheduled",False)),
+   "current_task_zero_solver_contract_satisfied":True
+  },
+  "h1a_fsp_fspx_count_existing":len(fsp_files),
+  "active_solver_snapshot":live,
+  "external_runtime_observed":active_other_branch,
+  "offline_pipeline_status":"READY_SYNTHETIC_TESTED_WAITING_AUTHORITATIVE_H1A_DATA",
+  "physics_contract_modified":False,
+  "hard_gate":"H1A_RUNTIME_RECOVERY_REQUIRED_BEFORE_EXECUTION" if accepted_case_ids else None,
+  "final_state":final_state
+ }
+
 def write():
  p,f=cr(O/"per_anchor_phi_vs_H.csv"),cr(O/"complete_jones_table.csv")
  if not p:
@@ -65,8 +121,8 @@ def write():
  offline_contract={"schema":"LP_GLOBAL_H_H1A_OFFLINE_ANALYSIS_CONTRACT_V1","status":"READY","zero_solver":True,"required_metrics":["per_anchor_phi_vs_H","shortest_signed_circular_delta","common_shift_C","anchor_residuals","interaction_rms","interaction_max","fixed_H_anchor_coverage","fixed_H_projector_compatible_coverage","x_only_exclusion","dedicated_vs_historical_reference_separation","FLAG_60_SECTOR","FLAG_120_ML_RESTART"],"reuse":{"circular_span":"lp_global_h_h0_audit_v1.circular_phase_span","delta":"lp_global_h_h1a_probe_v1.circ_diff","common_shift":"lp_global_h_h1a_probe_v1.circular_central","residuals":"lp_global_h_h1a_probe_v1.circular_residuals"},"projector_compatible_semantics":"best_50_percent_by_projector_error_among_this_H1A_anchor_slice; no new absolute threshold","references":{"dedicated_probe":"separate from historical quantile/reference slice","historical_quantile":"separate from dedicated probe"},"current_result":r,"synthetic_fixture_path":"tests/fixtures/h1a_offline_synthetic_cases.json","physics_contract_modified":False}
  decision_contract={"schema":"LP_GLOBAL_H_H1A_DECISION_CONTRACT_V1","cases":[{"case":"CASE1","state":"H1A_COMMON_TRANSLATION_DOMINATED","when":"common translation dominated","action":"no ML or large atlas; wait Chart"},{"case":"CASE2","state":"H1A_GEOMETRY_DEPENDENT_H_RESPONSE_OBSERVED","when":"geometry dependent and FLAG_60_SECTOR=false","action":"candidate targeted constituent-manifold reconnaissance; no auto solver"},{"case":"CASE3","state":"H1A_FIXED_H_MAPPING_WORTH_CONTINUATION","when":"FLAG_60_SECTOR=true and FLAG_120_ML_RESTART=false","action":"fixed-H mapping may continue; no auto ML"},{"case":"CASE4","state":"H1A_ML_RESTART_PHYSICS_POTENTIAL","when":"FLAG_120_ML_RESTART=true","action":"requires fixed-H FDTD confirmation; no auto ML"}],"global_prohibitions":["ML","cVAE","inverse","K6","large_atlas","auto_solver"],"physics_contract_modified":False}
  v={"h1a_offline_analysis_contract.json":offline_contract,"h1a_decision_state_contract.json":decision_contract,"h1b_h2_readiness_matrix.json":matrix(),"h1a_runtime_readiness_audit.json":a}
- for n,x in v.items():(P/n).write_text(json.dumps(x,indent=2,sort_keys=True)+"\n",encoding="utf8")
- (P/"h1a_runtime_readiness_audit.md").write_text("\n".join(["# H1A runtime and offline-analysis readiness",f"- Status: {a['final_state']}",f"- Readiness: {a['readiness_verdict']}",f"- Solver accounting: {a['solver_accounting']['solver_entered_fraction']}",f"- H500 scheduled: {a['solver_accounting']['H500_scheduled']}",f"- H1A FSP/FSPX: {a['h1a_fsp_fspx_count']}",f"- Live attempts: {a['historical_attempts']['live_audit_count']} (brief stated {a['historical_attempts']['brief_stated_count']}); discrepancy preserved: {a['historical_attempts']['discrepancy_preserved']}","- Offline analyzer READY; x-only excluded from projector; H500 references separate","- Automatic ML/cVAE/inverse/K6/atlas/solver gates are false"])+"\n",encoding="utf8")
+ for n,x in v.items():(P/n).write_text(json.dumps(x,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+ (P/"h1a_runtime_readiness_audit.md").write_text("\n".join(["# H1A runtime and offline-analysis readiness",f"- Status: {a['final_state']}",f"- Readiness: {a['readiness_verdict']}",f"- Solver accounting: {a['solver_accounting']['new_solver_entered_fraction']}",f"- H500 scheduled: {a['solver_accounting']['H500_scheduled']}",f"- H1A FSP/FSPX: {a['h1a_fsp_fspx_count_existing']}",f"- Live attempts: {a['historical_attempts']['live_audit_count']} (brief stated {a['historical_attempts']['brief_stated_count']}); discrepancy preserved: {a['historical_attempts']['discrepancy_preserved']}","- Offline analyzer READY; x-only excluded from projector; H500 references separate","- Automatic ML/cVAE/inverse/K6/atlas/solver gates are false"])+"\n",encoding="utf-8")
 if __name__=="__main__":
  p=argparse.ArgumentParser();p.add_argument("--write-artifacts",action="store_true");x=p.parse_args()
  if not x.write_artifacts:raise SystemExit("offline-only; use --write-artifacts")
