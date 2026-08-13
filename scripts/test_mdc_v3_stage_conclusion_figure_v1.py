@@ -15,10 +15,11 @@ def sha(p: Path) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(); ap.add_argument("--package", required=True); a = ap.parse_args(); root = Path(a.package)
-    required = {"stage_conclusion_figure.png", "stage_conclusion_figure.tiff", "stage_conclusion_figure.pdf", "stage_conclusion_figure.svg", "sample_selection_manifest.json", "caption_draft.md", "figure_readme.md", "completion_manifest.json", "artifact_sha256.json"}
+    required = {"stage_conclusion_figure.png", "stage_conclusion_figure.tiff", "stage_conclusion_figure.pdf", "stage_conclusion_figure.svg", "sample_selection_manifest.json", "caption_draft.md", "figure_readme.md", "layout_refinement_note.md", "completion_manifest.json", "artifact_sha256.json"}
     assert all((root / x).exists() for x in required)
     comp = load(root / "completion_manifest.json"); sel = load(root / "sample_selection_manifest.json"); man = load(root / "artifact_sha256.json")
-    assert comp["status"] == "PASS" and comp["backend"] == "python_matplotlib" and comp["rows"] == 3
+    assert comp["status"] == "PASS" and comp["backend"] == "python_matplotlib" and comp["rows"] == 3 and comp["layout_refined"] is True
+    assert comp["figure_id"] == "MDC_HF_SURROGATE_V3_STAGE_CONCLUSION_FIGURE_LAYOUT_REFINED_NATURESTYLE_V1"
     assert comp["columns"] == ["Truth", "V3-C prediction", "Absolute error"]
     assert comp["png_dpi"] == 600 and comp["solver_calls"] == comp["training_fits"] == comp["pca_fit_calls"] == comp["scaler_fit_calls"] == 0
     assert comp["new_evaluation_metric"] is False and sel["no_new_metric"] is True
