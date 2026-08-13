@@ -1,0 +1,324 @@
+{
+  "schema_version": "np_k6_m6_cross_branch_process_provenance_v2",
+  "timestamp_utc": "2026-08-13T18:21:14.584159+00:00",
+  "policy": "APCD_GLOBAL_FDTD_PARALLEL_POLICY_V1",
+  "historical_np_g01p": {
+    "case_id": "NP_K6_M6_PRIMARY4_G01_P",
+    "expected": {
+      "processes": 4,
+      "threads": 1
+    },
+    "observed_mpiexec_n": 52,
+    "observed_engine_process_count": 52,
+    "process_identity": "all observed engines command-lines referenced NP_K6_M6_PRIMARY4_G01_P attempt_001 run.fsp; LP snapshot separately used mpiexec -n 4 and blue_apcd_lp_global_h_manifold_v1 paths",
+    "post_fsp_sha256": "95746977778c361c279ac45c1cdc7a2db03386db1dd60bed4a0739e155f910c4"
+  },
+  "lp_reference": {
+    "expected_processes": 4,
+    "worktree_token": "blue_apcd_lp_global_h_manifold_v1"
+  },
+  "command_line_evidence": [
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_error_region_acquisition_design_v1\\m6_g01p_resource_contract_adjudication_v1.json",
+      "line": 19,
+      "text": "  \"process_identity\": \"all observed engines command-lines referenced NP_K6_M6_PRIMARY4_G01_P attempt_001 run.fsp; LP snapshot separately used mpiexec -n 4 and blue_apcd_lp_global_h_manifold_v1 paths\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_error_region_acquisition_design_v1\\m6_partial_waiting_for_external_release.json",
+      "line": 10,
+      "text": "      \"CommandLine\": \"\\\"C:\\\\Program Files\\\\Microsoft MPI\\\\Bin\\\\mpiexec.exe\\\"  -n 4 -affinity \\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_lp_global_h_manifold_v1/outputs/lp_global_h_h1a/runtime/cases/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py_attempt_002_pre.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2tSaU1taGhjblJIWTJzNU5UWktOamRhYkdSSk1HTldVWGhFU0ZoVlNsSnVSSEJSZEZWUU5ISlRXbkJIUm1aNGJYVjJZamxxTVhWU2NqaEpNVVk1WWpoWFprTkhXa1Y2TW5VelZYWkRlbEpwUzBoaVZFTjJaMlV3TmpOWU5GRnZhVUZaUW5sNWVVMXFablZpV21wNk5sUnBZVjkxUWtwSlNFdE1iRUZhTm5aTE1HUjBSVE0wVDA1TWRVZGxOV0pUTURCME9HSnZNMEprTXkxQ1RGRTRXQzB3WmxWcWNrNU9hbFE0Y0dKSVRtZ3RhM280ZUZsRVdESTVSVEF3Ymw4eVdHa3dMV1ZXUjNoZk9EVTNkVE5UVmpSZmNHNTZMVE5vZVY5b1EwUTBRUzFpTm1SSVVHSlVNWEo2VjJ4WVh6ZFBOamhDUzI1WFl5MDRXa1ZzYzJFNE5ESktXRmxGZWsxVE0zTkVVWFF5ZFRodU4wRmxjMmw1YXpWalZtTm5TMDF1YzNWZk5ESlhaRnBsVFRoSFJVUjZSR1I0WlhkRFRsbFRTbGM1WjBKaldsbHFNM0kzVUVkNGFqWkpXR3c1Wmxwa2RTMDVSRWwxTkVkSFdVaGhVVlI1U25JS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX0RFTExfMjUxPC9JRD48L0RBVEE+Cg==\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_error_region_acquisition_design_v1\\m6_partial_waiting_for_external_release.json",
+      "line": 15,
+      "text": "      \"CommandLine\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_lp_global_h_manifold_v1/outputs/lp_global_h_h1a/runtime/cases/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py_attempt_002_pre.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2tSaU1taGhjblJIWTJzNU5UWktOamRhYkdSSk1HTldVWGhFU0ZoVlNsSnVSSEJSZEZWUU5ISlRXbkJIUm1aNGJYVjJZamxxTVhWU2NqaEpNVVk1WWpoWFprTkhXa1Y2TW5VelZYWkRlbEpwUzBoaVZFTjJaMlV3TmpOWU5GRnZhVUZaUW5sNWVVMXFablZpV21wNk5sUnBZVjkxUWtwSlNFdE1iRUZhTm5aTE1HUjBSVE0wVDA1TWRVZGxOV0pUTURCME9HSnZNMEprTXkxQ1RGRTRXQzB3WmxWcWNrNU9hbFE0Y0dKSVRtZ3RhM280ZUZsRVdESTVSVEF3Ymw4eVdHa3dMV1ZXUjNoZk9EVTNkVE5UVmpSZmNHNTZMVE5vZVY5b1EwUTBRUzFpTm1SSVVHSlVNWEo2VjJ4WVh6ZFBOamhDUzI1WFl5MDRXa1ZzYzJFNE5ESktXRmxGZWsxVE0zTkVVWFF5ZFRodU4wRmxjMmw1YXpWalZtTm5TMDF1YzNWZk5ESlhaRnBsVFRoSFJVUjZSR1I0WlhkRFRsbFRTbGM1WjBKaldsbHFNM0kzVUVkNGFqWkpXR3c1Wmxwa2RTMDVSRWwxTkVkSFdVaGhVVlI1U25JS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX0RFTExfMjUxPC9JRD48L0RBVEE+Cg==\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_error_region_acquisition_design_v1\\m6_partial_waiting_for_external_release.json",
+      "line": 20,
+      "text": "      \"CommandLine\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_lp_global_h_manifold_v1/outputs/lp_global_h_h1a/runtime/cases/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py_attempt_002_pre.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2tSaU1taGhjblJIWTJzNU5UWktOamRhYkdSSk1HTldVWGhFU0ZoVlNsSnVSSEJSZEZWUU5ISlRXbkJIUm1aNGJYVjJZamxxTVhWU2NqaEpNVVk1WWpoWFprTkhXa1Y2TW5VelZYWkRlbEpwUzBoaVZFTjJaMlV3TmpOWU5GRnZhVUZaUW5sNWVVMXFablZpV21wNk5sUnBZVjkxUWtwSlNFdE1iRUZhTm5aTE1HUjBSVE0wVDA1TWRVZGxOV0pUTURCME9HSnZNMEprTXkxQ1RGRTRXQzB3WmxWcWNrNU9hbFE0Y0dKSVRtZ3RhM280ZUZsRVdESTVSVEF3Ymw4eVdHa3dMV1ZXUjNoZk9EVTNkVE5UVmpSZmNHNTZMVE5vZVY5b1EwUTBRUzFpTm1SSVVHSlVNWEo2VjJ4WVh6ZFBOamhDUzI1WFl5MDRXa1ZzYzJFNE5ESktXRmxGZWsxVE0zTkVVWFF5ZFRodU4wRmxjMmw1YXpWalZtTm5TMDF1YzNWZk5ESlhaRnBsVFRoSFJVUjZSR1I0WlhkRFRsbFRTbGM1WjBKaldsbHFNM0kzVUVkNGFqWkpXR3c1Wmxwa2RTMDVSRWwxTkVkSFdVaGhVVlI1U25JS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX0RFTExfMjUxPC9JRD48L0RBVEE+Cg==\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_error_region_acquisition_design_v1\\m6_partial_waiting_for_external_release.json",
+      "line": 25,
+      "text": "      \"CommandLine\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_lp_global_h_manifold_v1/outputs/lp_global_h_h1a/runtime/cases/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py_attempt_002_pre.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2tSaU1taGhjblJIWTJzNU5UWktOamRhYkdSSk1HTldVWGhFU0ZoVlNsSnVSSEJSZEZWUU5ISlRXbkJIUm1aNGJYVjJZamxxTVhWU2NqaEpNVVk1WWpoWFprTkhXa1Y2TW5VelZYWkRlbEpwUzBoaVZFTjJaMlV3TmpOWU5GRnZhVUZaUW5sNWVVMXFablZpV21wNk5sUnBZVjkxUWtwSlNFdE1iRUZhTm5aTE1HUjBSVE0wVDA1TWRVZGxOV0pUTURCME9HSnZNMEprTXkxQ1RGRTRXQzB3WmxWcWNrNU9hbFE0Y0dKSVRtZ3RhM280ZUZsRVdESTVSVEF3Ymw4eVdHa3dMV1ZXUjNoZk9EVTNkVE5UVmpSZmNHNTZMVE5vZVY5b1EwUTBRUzFpTm1SSVVHSlVNWEo2VjJ4WVh6ZFBOamhDUzI1WFl5MDRXa1ZzYzJFNE5ESktXRmxGZWsxVE0zTkVVWFF5ZFRodU4wRmxjMmw1YXpWalZtTm5TMDF1YzNWZk5ESlhaRnBsVFRoSFJVUjZSR1I0WlhkRFRsbFRTbGM1WjBKaldsbHFNM0kzVUVkNGFqWkpXR3c1Wmxwa2RTMDVSRWwxTkVkSFdVaGhVVlI1U25JS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX0RFTExfMjUxPC9JRD48L0RBVEE+Cg==\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_error_region_acquisition_design_v1\\m6_partial_waiting_for_external_release.json",
+      "line": 30,
+      "text": "      \"CommandLine\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_lp_global_h_manifold_v1/outputs/lp_global_h_h1a/runtime/cases/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py/H1A_LPML_R2_HIGH_UNCERTAINTY_007_f447ce0e428d_H450_Py_attempt_002_pre.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2tSaU1taGhjblJIWTJzNU5UWktOamRhYkdSSk1HTldVWGhFU0ZoVlNsSnVSSEJSZEZWUU5ISlRXbkJIUm1aNGJYVjJZamxxTVhWU2NqaEpNVVk1WWpoWFprTkhXa1Y2TW5VelZYWkRlbEpwUzBoaVZFTjJaMlV3TmpOWU5GRnZhVUZaUW5sNWVVMXFablZpV21wNk5sUnBZVjkxUWtwSlNFdE1iRUZhTm5aTE1HUjBSVE0wVDA1TWRVZGxOV0pUTURCME9HSnZNMEprTXkxQ1RGRTRXQzB3WmxWcWNrNU9hbFE0Y0dKSVRtZ3RhM280ZUZsRVdESTVSVEF3Ymw4eVdHa3dMV1ZXUjNoZk9EVTNkVE5UVmpSZmNHNTZMVE5vZVY5b1EwUTBRUzFpTm1SSVVHSlVNWEo2VjJ4WVh6ZFBOamhDUzI1WFl5MDRXa1ZzYzJFNE5ESktXRmxGZWsxVE0zTkVVWFF5ZFRodU4wRmxjMmw1YXpWalZtTm5TMDF1YzNWZk5ESlhaRnBsVFRoSFJVUjZSR1I0WlhkRFRsbFRTbGM1WjBKaldsbHFNM0kzVUVkNGFqWkpXR3c1Wmxwa2RTMDVSRWwxTkVkSFdVaGhVVlI1U25JS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX0RFTExfMjUxPC9JRD48L0RBVEE+Cg==\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\NP_K6_M6_PRIMARY4_G01_P_attempt_001_run_p0.log",
+      "line": 11,
+      "text": "Running fsp file: N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe -t 1 -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE00Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2toalRtaDBSRGMxV2kxTmJIbEpOMnBLUzFCYWFtTnVSRFF5ZWprMFZrZExVR2hCVUZjMmJHVkZNQzB0Tm13MFVuRm5iMnhLVDJ4R09XMUZRMHN6TVZrdFRYZDVNVEpPU2tkeFNqSk9OVmd5ZW5scllrRkhWMWxyUkRaVk9XSmpOVFZEZFZOelpsRlVSVFJSY0hkSVZsVjNhMHRQUzAxTWRDMVpiMGxxWlZwdmIydzRORlJpUm5Zek5sTjNRVEptZW1WbGVXZENVWGhYVFcxR1REaE9kalZ1UkhseGIwTTRja3R6WjJvNWQwMUdhamx6TUMxU1gycGtlRTlVTFhaMFgxZGxPUzF2WkhWRVFWSjNNR0l6Y25CalNYWlJjSHBYTkV0aE1qQkxTbFF6V0Zsc01qSjFOMk51WVZoTFpWUXdhMnM1VUVkUVpXRXliMGxHTmtadFJrUkhlSGczUTBGWmQwd3RhMFp1ZDFvNFFUQkRVVEpxYjJ0UE9VaEhWelJrTWxWYVYwRjBOSGQyTlVWNmFXZ3diV1Z5WmtoYVlsQkhkRTlHYlU1TVpUTk1RbTQ1Wm1OR1NuUnhSME5pY1dOYWRYaFNOalI0TW0xMVQyNVpPRGROUW5BS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 19,
+      "text": "        \"command_line\": \"\\\"C:\\\\Program Files\\\\Microsoft MPI\\\\Bin\\\\mpiexec.exe\\\"  -n 52 -affinity \\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 25,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 31,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 37,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 43,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 49,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 55,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 61,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 67,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 73,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 79,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 85,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 91,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 97,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 103,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 109,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 115,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 121,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 127,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 133,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 139,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 145,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 151,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 157,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 163,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 169,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 175,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 181,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 187,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 193,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 199,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 205,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 211,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 217,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 223,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 229,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 235,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 241,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 247,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 253,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 259,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 265,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 271,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 277,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 283,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 289,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 295,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 301,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 307,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 313,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 319,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 325,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m6_primary4_hf_acquisition_v1\\runtime_runs\\NP_K6_M6_PRIMARY4_G01_P\\attempt_001\\resource_contract_violation_audit.json",
+      "line": 331,
+      "text": "        \"command_line\": \"\\\"N:\\\\Program Files\\\\ANSYS Inc\\\\v251\\\\Lumerical\\\\bin\\\\fdtd-engine-msmpi.exe\\\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m6_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M6_PRIMARY4_G01_P/attempt_001/NP_K6_M6_PRIMARY4_G01_P_attempt_001_run.fsp -remote -shared-solve-license <redacted>\","
+    }
+  ],
+  "conclusion": "NP_G01P_52_ENGINE_COMMAND_LINES_REFERENCE_NP_M6_RUN_COPY_LP_IS_SEPARATE_N4_REFERENCE",
+  "solver_calls_this_audit": 0
+}

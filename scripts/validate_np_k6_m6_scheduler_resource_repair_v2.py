@@ -21,6 +21,9 @@ def main() -> int:
         checks.append({"name": name, "pass": bool(passed), "detail": detail})
 
     evidence = read_json(REPAIR / "resource_repair_evidence_v3.json")
+    cross = read_json(REPAIR / "m6_cross_branch_process_provenance_v2.json")
+    check("cross_branch_conclusion", cross.get("conclusion") == "NP_G01P_52_ENGINE_COMMAND_LINES_REFERENCE_NP_M6_RUN_COPY_LP_IS_SEPARATE_N4_REFERENCE")
+    check("cross_branch_audit_solver_zero", cross.get("solver_calls_this_audit") == 0)
     check("policy_identity", evidence.get("policy") == "APCD_GLOBAL_FDTD_PARALLEL_POLICY_V1")
     check("expected_resources", evidence.get("expected_per_job") == {"processes": 4, "threads": 1})
     check("repair_solver_calls_zero", evidence.get("formal_solver_calls_this_repair") == 0)
