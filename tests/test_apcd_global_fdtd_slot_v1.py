@@ -144,3 +144,19 @@ def test_two_branches_racing_last_slot_only_one_succeeds(tmp_path):
 def test_policy_has_no_thirteen_process_row():
     assert MOD.PROCESSES_PER_JOB==4
     assert MOD.PROCESSES_PER_JOB != 13
+
+
+def test_completed_entered_stale_slot_is_recovered_with_explicit_evidence(tmp_path):
+    path=tmp_path/"registry.json"
+    data={**MOD.default_registry(),"active_slots":[{
+        "slot_id":"GLOBAL_SLOT_1", "controller_pid":999999999, "pid":999999999,
+        "branch":"NP", "case_uid":"NP_CASE", "entered":True, "entered_solver":True,
+        "completion_evidence":{"solver_completed":True,"owner_processes_absent":True}
+    }]}
+    path.write_text(json.dumps(data),encoding="utf-8")
+    lease=MOD.GlobalSlotScheduler(path,lambda:[]).acquire("work/lp-global-h-manifold-v1",r"D:\lp","task","case",pid=os.getpid())
+    try:
+        registry=json.loads(path.read_text(encoding="utf-8"))
+        assert any(row["completion_release_state"]=="STALE_RECOVERED_COMPLETED" for row in registry["history"])
+    finally:
+        lease.release("PRE_ENTRY_RELEASE")

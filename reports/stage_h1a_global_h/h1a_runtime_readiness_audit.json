@@ -1163,7 +1163,7 @@
   },
   "branch": "work/lp-global-h-manifold-v1",
   "external_runtime_observed": true,
-  "final_state": "H1A_COMPLETE_ANALYSIS_WITH_ENTERED_QUARANTINE",
+  "final_state": "H1A_COMPLETE_ANALYSIS",
   "h1a_fsp_fspx_count_existing": 24,
   "hard_gate": "H1A_ENTERED_CASES_WITHOUT_CHECKPOINT_NO_REPLAY",
   "head": "979464a77150c3f94d8737361585d872bfb20a33",
@@ -1174,9 +1174,9 @@
     "live_audit_count": 75,
     "pre_entry_failed_attempt_count": 51
   },
-  "offline_pipeline_status": "COMPLETE_ANALYSIS_WITH_ENTERED_QUARANTINE",
+  "offline_pipeline_status": "COMPLETE_ANALYSIS",
   "physics_contract_modified": false,
-  "readiness_verdict": "H1A_RUNTIME_COMPLETE_OFFLINE_ANALYSIS_PARTIAL",
+  "readiness_verdict": "H1A_RUNTIME_COMPLETE_OFFLINE_ANALYSIS_COMPLETE",
   "runtime_guard": {
     "guard_present": true,
     "singleton_guard_implemented": true
@@ -1237,21 +1237,21 @@
     ],
     "cumulative_authoritative_entered_fraction": "48/48",
     "current_task_zero_solver_contract_satisfied": false,
-    "new_physics_fdtd_runs_this_task": 48,
-    "new_solver_entered_fraction": "48/48",
-    "new_solver_entered_this_task": 48,
-    "raw_accounting_authoritative": false,
-    "raw_accounting_entries": 1,
-    "raw_accounting_note": "Authoritative v2 ledger contains 48 unique entered cases. Historical duplicate attempts are preserved in provenance; 8 entered cases lack checkpoints and are quarantined. No entered case was replayed.",
+    "new_physics_fdtd_runs_this_task": 8,
+    "new_solver_entered_fraction": "8/48",
+    "new_solver_entered_this_task": 8,
+    "raw_accounting_authoritative": true,
+    "raw_accounting_entries": 48,
+    "raw_accounting_note": "Raw provenance is preserved. Eight historical budget-guard records were reconciled as pre-entry only under the exact no-solver-artifact rule; each was then executed once formally. No truly entered case was replayed.",
     "solver_budget_planned": 48
   },
   "final_execution_summary": {
     "planned_unique_cases": 48,
     "entered_unique_cases": 48,
-    "accepted_checkpoints": 40,
-    "entered_without_checkpoint": 8,
-    "phase_only_rows": 26,
-    "full_jones_rows": 26,
+    "accepted_checkpoints": 48,
+    "entered_without_checkpoint": 0,
+    "phase_only_rows": 30,
+    "full_jones_rows": 30,
     "global_capacity": 2,
     "max_active_fdtd_per_branch": 1,
     "max_observed_global_active_jobs": 2,
@@ -1266,8 +1266,31 @@
       "FLAG_120_ML_RESTART": false,
       "FLAG_60_SECTOR": false
     },
-    "verdict": "H1A_INCONCLUSIVE",
-    "final_audit": "reports/stage_h1a_global_h/stage_h1a_global_h_final.json"
+    "verdict": "H1A_GEOMETRY_DEPENDENT_H_RESPONSE_OBSERVED",
+    "final_audit": "reports/stage_h1a_global_h/stage_h1a_global_h_final.json",
+    "hard_gate": null,
+    "pre_entry_reconciled_cases": 8
   },
-  "no_replay_of_entered_cases": true
+  "no_replay_of_entered_cases": true,
+  "pre_entry_reconciliation": {
+    "count": 8,
+    "artifact": "outputs/lp_global_h_h1a/entered_pre_entry_reconciliation_v1.json",
+    "raw_provenance_preserved": true,
+    "exact_error": "RuntimeError: HARD_GATE_SOLVER_BUDGET_EXCEEDED",
+    "required_conditions": [
+      "solver_entered=true",
+      "solver_complete is null",
+      "no checkpoint",
+      "no *_run.fsp/log/monitor/result/mat artifacts"
+    ],
+    "interpretation": "These eight records were pre-entry budget-guard failures, not solver-entered physics runs; they were not counted against the authoritative entered ledger after reconciliation."
+  },
+  "recovery_execution": {
+    "formal_runs_after_reconciliation": 8,
+    "accepted_checkpoints_after_reconciliation": 8,
+    "replayed_truly_entered_cases": 0,
+    "no_auto_replay_contract_preserved": true
+  },
+  "final_verdict": "H1A_GEOMETRY_DEPENDENT_H_RESPONSE_OBSERVED",
+  "final_audit_path": "reports/stage_h1a_global_h/stage_h1a_global_h_final.json"
 }

@@ -178,7 +178,11 @@ class GlobalSlotScheduler:
             if live_case or live_branch:
                 keep.append(row)
                 continue
+            completion_evidence = row.get("completion_evidence") or {}
             if row.get("entered") or row.get("entered_solver"):
+                if completion_evidence.get("solver_completed") is True and completion_evidence.get("owner_processes_absent") is True:
+                    row.update({"completion_release_state":"STALE_RECOVERED_COMPLETED","slot_release_time":utc_now(),"heartbeat":utc_now()}); recovered.append(row)
+                    continue
                 raise StaleEnteredSlot("HARD_GATE_STALE_SLOT_ENTERED_OR_LIVE_JOB")
             row.update({"completion_release_state":"STALE_RECOVERED_PRE_ENTRY","slot_release_time":utc_now()}); recovered.append(row)
         data["active_slots"]=keep; data.setdefault("history",[]).extend(recovered)

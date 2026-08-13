@@ -218,3 +218,36 @@ def test_run_case_releases_slot_before_extraction(tmp_path, monkeypatch):
     assert events.index("acquire") < events.index("entered_marker") < events.index("run")
     assert events.index(("release", "SOLVER_COMPLETED")) < events.index("extract")
     assert result["concurrent_peer_branch"]==["NP"]
+
+
+def test_budget_guard_reconciliation_requires_no_solver_artifacts(tmp_path):
+    payload = {
+        "case_id": "case",
+        "attempt_id": "case_attempt_001",
+        "error": "RuntimeError: HARD_GATE_SOLVER_BUDGET_EXCEEDED",
+        "solver_entered": True,
+        "entered_solver": True,
+        "solver_complete": None,
+        "checkpoint_path": None,
+        "entered_utc": "t",
+        "pre_fsp_path": "pre.fsp",
+    }
+    result = MOD._pre_entry_budget_guard_reconciliation(payload, tmp_path / "attempt_provenance_attempt_001.json")
+    assert result["reconciled_solver_entered"] is False
+    (tmp_path / "case_attempt_001_run.fsp").write_text("run", encoding="utf-8")
+    assert MOD._pre_entry_budget_guard_reconciliation(payload, tmp_path / "attempt_provenance_attempt_001.json") is None
+
+
+def test_checkpoint_recovery_accepts_prior_runner_identity_with_same_physics(tmp_path):
+    anchors, _ = MOD.load_anchors()
+    anchor=anchors[0]
+    identity=MOD.case_identity(anchor,400.0,"x","new-head")
+    stored=dict(identity)
+    stored["builder_commit"]="old-head"
+    stored["probe_script_sha256"]="old-script"
+    payload={"status":"ACCEPTED","case_id":MOD.case_name(identity),"case_identity":stored,"rows":[{"weighted_Ex_real":1.0,"weighted_Ex_imag":0.0,"weighted_Ey_real":0.0,"weighted_Ey_imag":0.0}]}
+    case_dir=tmp_path/"cases"/MOD.case_name(identity); case_dir.mkdir(parents=True)
+    (case_dir/"checkpoint.json").write_text(json.dumps(payload),encoding="utf-8")
+    result=MOD.checkpoint_result(case_dir,identity)
+    assert result is not None
+    assert result["recovered_from_checkpoint"] is True

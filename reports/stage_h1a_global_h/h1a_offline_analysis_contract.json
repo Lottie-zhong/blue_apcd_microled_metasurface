@@ -446,16 +446,16 @@
     "residuals": "lp_global_h_h1a_probe_v1.circular_residuals"
   },
   "schema": "LP_GLOBAL_H_H1A_OFFLINE_ANALYSIS_CONTRACT_V1",
-  "status": "COMPLETE_ANALYSIS_WITH_ENTERED_QUARANTINE",
+  "status": "COMPLETE_ANALYSIS",
   "synthetic_fixture_path": "tests/fixtures/h1a_offline_synthetic_cases.json",
   "zero_solver": false,
   "final_execution_summary": {
     "planned_unique_cases": 48,
     "entered_unique_cases": 48,
-    "accepted_checkpoints": 40,
-    "entered_without_checkpoint": 8,
-    "phase_only_rows": 26,
-    "full_jones_rows": 26,
+    "accepted_checkpoints": 48,
+    "entered_without_checkpoint": 0,
+    "phase_only_rows": 30,
+    "full_jones_rows": 30,
     "global_capacity": 2,
     "max_active_fdtd_per_branch": 1,
     "max_observed_global_active_jobs": 2,
@@ -470,15 +470,26 @@
       "FLAG_120_ML_RESTART": false,
       "FLAG_60_SECTOR": false
     },
-    "verdict": "H1A_INCONCLUSIVE",
-    "hard_gate": "8 solver_entered=true cases have no accepted checkpoint; no replay permitted without an explicit new budget/Chart decision.",
-    "final_audit": "reports/stage_h1a_global_h/stage_h1a_global_h_final.json"
+    "verdict": "H1A_GEOMETRY_DEPENDENT_H_RESPONSE_OBSERVED",
+    "hard_gate": null,
+    "final_audit": "reports/stage_h1a_global_h/stage_h1a_global_h_final.json",
+    "pre_entry_reconciled_cases": 8
   },
   "authoritative_final_result": {
     "artifact": "reports/stage_h1a_global_h/stage_h1a_global_h_final.json",
-    "phase_only_rows": 26,
-    "full_jones_rows": 26,
-    "verdict": "H1A_INCONCLUSIVE",
-    "status": "COMPLETE_ANALYSIS_WITH_ENTERED_QUARANTINE"
+    "phase_only_rows": 30,
+    "full_jones_rows": 30,
+    "verdict": "H1A_GEOMETRY_DEPENDENT_H_RESPONSE_OBSERVED",
+    "status": "COMPLETE_ANALYSIS"
+  },
+  "pre_entry_reconciliation": {
+    "count": 8,
+    "artifact": "outputs/lp_global_h_h1a/entered_pre_entry_reconciliation_v1.json",
+    "raw_provenance_preserved": true,
+    "exact_error": "RuntimeError: HARD_GATE_SOLVER_BUDGET_EXCEEDED",
+    "no_solver_artifacts_required": true,
+    "formal_runs_after_reconciliation": 8,
+    "accepted_checkpoints_after_reconciliation": 8,
+    "replayed_truly_entered_cases": 0
   }
 }

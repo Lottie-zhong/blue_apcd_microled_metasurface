@@ -460,10 +460,52 @@ def _entry_from_provenance(payload: dict) -> dict:
     }
 
 
+def _pre_entry_budget_guard_reconciliation(payload: dict, provenance_path: Path) -> dict | None:
+    """Identify the historical budget-guard bug without mutating raw provenance.
+
+    The old runner marked the slot and provenance as entered before checking the
+    unique budget, then raised HARD_GATE_SOLVER_BUDGET_EXCEEDED immediately
+    before calling f.run().  Such a record is recoverable only when the
+    provenance has no solver completion, checkpoint, run-FSP, log, or monitor
+    artifact.  Any weaker match remains entered and is never replayed.
+    """
+    if payload.get("error") != "RuntimeError: HARD_GATE_SOLVER_BUDGET_EXCEEDED":
+        return None
+    if payload.get("solver_entered") is not True or payload.get("entered_solver") is not True:
+        return None
+    if payload.get("solver_complete") is not None:
+        return None
+    case_dir = provenance_path.parent
+    checkpoint = case_dir / "checkpoint.json"
+    if payload.get("checkpoint_path") or checkpoint.exists():
+        return None
+    artifact_patterns = ("*_run.fsp", "*.log", "*monitor*", "*result*", "*.mat")
+    artifacts = sorted({str(path) for pattern in artifact_patterns for path in case_dir.glob(pattern) if path.is_file()})
+    if artifacts:
+        return None
+    return {
+        "case_id": payload.get("case_id"),
+        "attempt_id": payload.get("attempt_id"),
+        "provenance_path": str(provenance_path),
+        "pre_fsp_path": payload.get("pre_fsp_path"),
+        "entered_utc": payload.get("entered_utc"),
+        "original_solver_entered": True,
+        "reconciled_solver_entered": False,
+        "reconciliation_reason": "BUDGET_GUARD_RAISED_BEFORE_FDTD_RUN",
+        "evidence": {
+            "solver_complete": payload.get("solver_complete"),
+            "checkpoint_exists": False,
+            "run_artifacts": artifacts,
+            "exact_error": payload.get("error"),
+        },
+    }
+
+
 def initialize_authoritative_accounting(planned_case_ids: set[str]) -> list[dict]:
     raw = read_json(RAW_ACCOUNTING) if RAW_ACCOUNTING.exists() else {}
     raw_entries = list(raw.get("solver_entries", []))
     candidates = []
+    reconciled = []
     for entry in raw_entries:
         if entry.get("case_id") in planned_case_ids and entry.get("solver_entered") is True:
             candidates.append(dict(entry))
@@ -473,6 +515,10 @@ def initialize_authoritative_accounting(planned_case_ids: set[str]) -> list[dict
         except (OSError, ValueError):
             continue
         if payload.get("case_id") not in planned_case_ids or payload.get("solver_entered") is not True:
+            continue
+        reconciliation = _pre_entry_budget_guard_reconciliation(payload, path)
+        if reconciliation is not None:
+            reconciled.append(reconciliation)
             continue
         payload["_provenance_path"] = str(path)
         entry = _entry_from_provenance(payload)
@@ -491,6 +537,14 @@ def initialize_authoritative_accounting(planned_case_ids: set[str]) -> list[dict
             by_case[case_id] = entry
     entries = sorted(by_case.values(), key=lambda row: str(row.get("case_id", "")))
     excluded = [entry for entry in raw_entries if entry.get("case_id") not in planned_case_ids]
+    atomic_json(OUT / "entered_pre_entry_reconciliation_v1.json", {
+        "schema": "LP_GLOBAL_H_H1A_PRE_ENTRY_RECONCILIATION_V1",
+        "rule": "Only the exact historical budget-guard exception with no solver completion, checkpoint, run-FSP, log, monitor, result, or MAT artifact is reconciled as pre-entry.",
+        "raw_provenance_preserved": True,
+        "reconciled_entry_count": len(reconciled),
+        "reconciled_case_ids": sorted({row.get("case_id") for row in reconciled}),
+        "entries": reconciled,
+    })
     atomic_json(RAW_ACCOUNTING_AUDIT, {
         "schema": "LP_GLOBAL_H_H1A_RAW_ACCOUNTING_AUDIT_V1",
         "raw_accounting_path": str(RAW_ACCOUNTING),
@@ -548,14 +602,32 @@ def setup_gate(fdtd, row: dict, pol: str, height_nm: float) -> dict:
     return {"pass": bool(base.get("pass") and readback_pass), "base_gate": base, "checks": checks, "expected": expected, "readback_pass": readback_pass, "formal_convention": EXTRACTION_CONVENTION}
 
 
+def _checkpoint_identity_matches(payload: dict, identity: dict) -> bool:
+    stored = payload.get("case_identity") or {}
+    # The runner script hash and builder commit can change during audit fixes.
+    # Bind recovery to the frozen physical case fields instead of requiring a
+    # byte-identical identity from an older, already accepted checkpoint.
+    fields = (
+        "anchor_authoritative_id", "anchor_role", "exact_geometry_hash_sha256",
+        "H_global_nm", "polarization", "material_contract", "period_nm",
+        "builder_version", "formal_extraction_convention",
+    )
+    return all(stored.get(field) == identity.get(field) for field in fields)
+
+
 def checkpoint_result(case_dir: Path, identity: dict) -> dict | None:
     path = case_dir / "checkpoint.json"
     if not path.exists():
         return None
-    payload = read_json(path)
-    if payload.get("status") != "ACCEPTED" or payload.get("case_identity_sha256") != sha256_obj(identity):
+    try:
+        payload = read_json(path)
+    except (OSError, ValueError):
         return None
-    return {"status": "ACCEPTED", "solver_entered": True, "case_id": payload["case_id"], "identity": identity, "identity_sha256": payload["case_identity_sha256"], "polarization": identity["polarization"], "H_global_nm": identity["H_global_nm"], "rows": payload["rows"], "grid_audit": payload.get("grid_audit"), "checkpoint_path": str(path), "checkpoint_sha256": sha256_file(path), "recovered_from_checkpoint": True, "geometry_hash_sha256": identity["exact_geometry_hash_sha256"]}
+    if payload.get("status") != "ACCEPTED" or payload.get("case_id") != case_name(identity):
+        return None
+    if not payload.get("rows") or not _checkpoint_identity_matches(payload, identity):
+        return None
+    return {"status": "ACCEPTED", "solver_entered": True, "case_id": payload["case_id"], "identity": identity, "identity_sha256": payload.get("case_identity_sha256"), "polarization": identity["polarization"], "H_global_nm": identity["H_global_nm"], "rows": payload["rows"], "grid_audit": payload.get("grid_audit"), "checkpoint_path": str(path), "checkpoint_sha256": sha256_file(path), "recovered_from_checkpoint": True, "geometry_hash_sha256": identity["exact_geometry_hash_sha256"]}
 
 
 def run_case(runtime, anchor: dict, height_nm: float, pol: str, head: str, contract: dict, entered: list[dict], scheduler=None) -> dict:
@@ -808,7 +880,15 @@ def main(argv: list[str] | None = None) -> int:
     entered = read_entered()
     if len(entered) > MAX_NEW_SUBRUNS:
         raise SystemExit("HARD_GATE_ENTERED_BUDGET")
+    # Rebuild the complete offline result set from accepted checkpoints before
+    # scheduling.  This keeps postprocessing cumulative across resumed runs and
+    # guarantees that accepted historical cases are never rerun.
     results, quarantine = {}, []
+    for anchor, height, pol in ordered_case_plan(anchors):
+        identity = case_identity(anchor, height, pol, head)
+        recovered = checkpoint_result(RUNTIME / "cases" / case_name(identity), identity)
+        if recovered is not None:
+            results[(anchor["exact_geometry_hash_sha256"], height, pol)] = recovered
     scheduler = SLOT.GlobalSlotScheduler(SLOT_REGISTRY)
     scheduled = schedule_case_results(anchors, lambda anchor, height, pol: run_case(runtime, anchor, height, pol, head, contract, entered, scheduler=scheduler), entered_case_ids={row.get("case_id") for row in entered})
     for item in scheduled:
