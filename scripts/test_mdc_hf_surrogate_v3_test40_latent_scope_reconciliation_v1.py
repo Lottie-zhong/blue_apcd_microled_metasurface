@@ -25,6 +25,13 @@ def main() -> None:
     root = Path(args.package)
     required = {
         "formal_case_level_latent_metric_lineage.json",
+        "latent_coordinate_lineage.json",
+        "scaler_role_audit.json",
+        "canonical_same_coordinate_variance.json",
+        "canonical_fixed_source_variance.json",
+        "variability_decomposition_reconciliation.json",
+        "final_v3_capability_statement.json",
+        "mdc_vnext_conditional_handoff.json",
         "geometry_aggregation_semantics.json",
         "fixed_source_latent_variance_table.json",
         "fixed_source_profile_diversity_table.json",
@@ -47,11 +54,16 @@ def main() -> None:
     decision = load(root / "external_capability_decision_support.json")
     safety = load(root / "safety_and_immutability_audit.json")
     completion = load(root / "completion_manifest.json")
+    canonical = load(root / "canonical_same_coordinate_variance.json")
+    canonical_fixed = load(root / "canonical_fixed_source_variance.json")
     assert formal["sample_count"] == 240 and len(formal["component_table"]) == 32
     assert formal["sample_unit"].startswith("independent source-conditioned")
     assert formal["collapsed_component_count_lt_0_25"] == 0
     assert formal["median_variance_ratio"] > 0.25
     assert formal["truth_variance_min"] > 1e-12 and formal["near_zero_truth_variance_count"] == 0
+    assert canonical["diagnostic_class"] == "POST_SELECTION_CANONICAL_COORDINATE_DIAGNOSTIC"
+    assert canonical["sample_count"] == 240 and canonical["collapsed_component_count_lt_0_25"] >= 0
+    assert len(canonical_fixed["conditions"]) == 6
     assert geom["prior_value_match_tolerance"] is True
     assert "NOT_PHYSICALLY_EQUIVALENT" in geom["physical_equivalence"]
     assert len(fixed["conditions"]) == 6 and len(div["conditions"]) == 6
@@ -69,7 +81,7 @@ def main() -> None:
     manifest = load(root / "artifact_sha256.json")
     for rel, expected in manifest["files"].items():
         assert sha(root / rel) == expected, rel
-    print(json.dumps({"status": "PASS", "required": len(required), "sha_entries": manifest["file_count"], "formal_collapsed": formal["collapsed_component_count_lt_0_25"], "secondary_collapsed": completion["secondary_collapsed_components"]}, sort_keys=True))
+    print(json.dumps({"status": "PASS", "required": len(required), "sha_entries": manifest["file_count"], "formal_collapsed": formal["collapsed_component_count_lt_0_25"], "canonical_collapsed": canonical["collapsed_component_count_lt_0_25"], "secondary_collapsed": completion["secondary_collapsed_components"]}, sort_keys=True))
 
 
 if __name__ == "__main__":

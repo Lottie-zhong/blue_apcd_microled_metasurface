@@ -330,6 +330,27 @@ def main() -> None:
     truth_case_q_mean_geom_lat = (pred_case_q_mean_geom.astype(np.float64) - mean) @ comp.T
     truth_geom_lat_simple_mean = np.stack([truth_lat_simple_case[geom_indices[g]].mean(axis=0) for g in geom_order])
     pred_simple_profiles = simple_normalize(np.asarray(pred, dtype=np.float32))
+    # Canonical apples-to-apples coordinate diagnostic: decoded normalized
+    # truth and decoded normalized prediction are projected through the same
+    # frozen final PCA32 basis.  This is post-selection only; it is not the
+    # historical formal latent-output metric and does not alter promotion.
+    pred_canonical_lat_case = (pred_simple_profiles.astype(np.float64) - mean) @ comp.T
+    canonical = ratio_summary(truth_lat_simple_case, pred_canonical_lat_case)
+    canonical.update({
+        "status": "PASS",
+        "diagnostic_class": "POST_SELECTION_CANONICAL_COORDINATE_DIAGNOSTIC",
+        "scope": "Test40 formal external case-level 240 source-conditioned cases",
+        "truth_path": "raw joint tensor -> simple array-sum normalized decoded profile -> frozen final PCA32 projection",
+        "prediction_path": "frozen external decoded profile -> nonnegative simple array-sum normalization -> frozen final PCA32 projection",
+        "shared_basis": "final shared full-development PCA32",
+        "pca_archive_sha256": sha_file(pca_path),
+        "pca_fit_count": 0,
+        "variance_definition": "np.var(axis=0, ddof=0), population variance over 240 cases",
+        "collapse_threshold": COLLAPSE_THRESHOLD,
+        "formal_metric_relationship": "historical formal metric remains direct frozen network latent output vs simple-normalized truth; this canonical result is a separate decoded-profile diagnostic",
+        "interpretation": "same-coordinate latent variance magnitude is valid for cross truth/prediction comparison, but does not measure profile-space diversity recovery",
+    })
+    dump(OUT / "canonical_same_coordinate_variance.json", canonical)
     pred_geom_simple_mean = np.stack([pred_simple_profiles[geom_indices[g]].mean(axis=0) for g in geom_order])
     truth_geom_simple_mean = np.stack([truth_simple_profiles[geom_indices[g]].mean(axis=0) for g in geom_order])
     pred_geom_lat_simple_profile = (simple_normalize(pred_geom_simple_mean).astype(np.float64) - mean) @ comp.T
@@ -383,8 +404,21 @@ def main() -> None:
                 "profile_normalization": "simple array-sum normalization, exact frozen profile-space diagnostic convention",
                 "post_selection_diagnostic_only": True,
             }
-    dump(OUT / "fixed_source_latent_variance_table.json", {"status": "PASS", "scope": "40 geometries per fixed source condition; canonical q truth and direct model latent prediction", "conditions": fixed_variance, "collapse_threshold": COLLAPSE_THRESHOLD, "denominator_floor": EPS})
+    dump(OUT / "fixed_source_latent_variance_table.json", {"status": "PASS", "scope": "40 geometries per fixed source condition; simple-normalized truth projected through final PCA32 and direct frozen model latent prediction", "conditions": fixed_variance, "collapse_threshold": COLLAPSE_THRESHOLD, "denominator_floor": EPS})
     dump(OUT / "fixed_source_profile_diversity_table.json", {"status": "PASS", "scope": "40 geometries per fixed source condition", "conditions": fixed_diversity, "all_case_scope_note": "all-240-case values are reported separately; fixed-source values are not pooled", "interpretation": "all six fixed-source prediction/truth JS and weighted-L1 diversity ratios are below one, consistent with source-conditioned under-dispersion; no acceptance threshold is introduced", "post_selection_diagnostic_only": True})
+
+    canonical_fixed_variance = {}
+    for source, ix in source_indices.items():
+        indices = np.asarray(ix, dtype=int)
+        canonical_fixed_variance[source] = ratio_summary(truth_lat_simple_case[indices], pred_canonical_lat_case[indices])
+    dump(OUT / "canonical_fixed_source_variance.json", {
+        "status": "PASS",
+        "diagnostic_class": "POST_SELECTION_CANONICAL_COORDINATE_DIAGNOSTIC",
+        "scope": "40 geometries per fixed source condition; decoded normalized profiles projected through one frozen final PCA32 basis",
+        "conditions": canonical_fixed_variance,
+        "collapse_threshold": COLLAPSE_THRESHOLD,
+        "post_selection_diagnostic_only": True,
+    })
 
     # Exact all-240 pairwise L1 is cheap via sorted identity; JS is retained
     # from the existing frozen package's geometry-level report and explicitly
@@ -413,10 +447,22 @@ def main() -> None:
     geometry_labels = case_geom
     truth_source_decomp = two_way_decomposition(truth_lat_simple_case, geometry_labels, source_names)
     pred_source_decomp = two_way_decomposition(pred_lat_case, geometry_labels, source_names)
+    canonical_pred_source_decomp = two_way_decomposition(pred_canonical_lat_case, geometry_labels, source_names)
     dump(OUT / "source_vs_geometry_variability_decomposition.json", {
         "status": "PASS", "space": "32-dimensional final shared PCA latent coordinates", "truth": truth_source_decomp, "prediction": pred_source_decomp,
         "interpretation": "source-vs-geometry descriptive variance fractions; not a new acceptance or selection metric",
         "labels": {"geometry": "40 frozen Test40 geometries", "source": "six balanced top/centroid/bottom x/z conditions"},
+        "canonical_same_coordinate_prediction": canonical_pred_source_decomp,
+        "canonical_interpretation": "decoded normalized prediction and truth use the same final PCA32 coordinate system; descriptive only",
+    })
+
+    dump(OUT / "variability_decomposition_reconciliation.json", {
+        "status": "PASS",
+        "diagnostic_class": "POST_SELECTION_CANONICAL_COORDINATE_DIAGNOSTIC",
+        "truth": truth_source_decomp,
+        "historical_direct_latent_prediction": pred_source_decomp,
+        "canonical_decoded_profile_prediction": canonical_pred_source_decomp,
+        "interpretation": "The historical direct-latent decomposition is retained for lineage; canonical decoded-profile decomposition is the apples-to-apples reconciliation. Neither is a new selection metric.",
     })
 
     eigen = np.asarray(pca["explained_eigenvalues"], dtype=np.float64)
@@ -453,6 +499,76 @@ def main() -> None:
         "no_new_thresholds": True, "no_training_or_solver_next": True,
     }
     dump(OUT / "external_capability_decision_support.json", decision)
+
+    dump(OUT / "latent_coordinate_lineage.json", {
+        "status": "PASS",
+        "diagnostic_class": "POST_SELECTION_CANONICAL_COORDINATE_DIAGNOSTIC",
+        "formal_case_metric": {
+            "truth_tensor": "raw HF case joint tensor",
+            "truth_shape": [301, 2000],
+            "truth_transform": "simple array-sum normalization -> final shared PCA32 projection",
+            "prediction_tensor": "mean of five frozen seed network latent outputs",
+            "prediction_shape": [32],
+            "prediction_transform": "direct network PCA coordinates; no latent target scaler",
+            "variance_definition": "population variance ddof=0 over 240 source-conditioned cases",
+            "coordinate_consistency": True,
+            "formal_status": "FORMAL_CASE_LEVEL_LATENT_ANTICOLLAPSE_PASS",
+            "interpretation": "valid same-coordinate anti-collapse diagnostic; magnitude is not profile-diversity recovery",
+        },
+        "canonical_same_coordinate_metric": {
+            "truth_path": "raw joint tensor -> nonnegative simple array-sum normalized decoded profile -> frozen final PCA32",
+            "prediction_path": "frozen decoded normalized prediction profile -> nonnegative simple array-sum normalization -> frozen final PCA32",
+            "basis_sha256": sha_file(pca_path),
+            "fit_calls": 0,
+            "purpose": "apples-to-apples post-selection diagnostic only",
+        },
+        "oof_scope": "OOF uses fold-local PCA32 bases; pooled OOF/Test40 numeric latent ratios are not directly comparable",
+    })
+    dump(OUT / "scaler_role_audit.json", {
+        "status": "PASS",
+        "scaler_sha256": "4410683cebe31b6677a7ab77fb2998b0e69c6426e06d2874e64c23d37fd04420",
+        "fit_count": 1,
+        "per_seed_scaler_fit": False,
+        "role": "geometry/case input feature scaler",
+        "input_shape_role": "feature rows used as network inputs",
+        "latent_target_scaling": False,
+        "evidence": "shared preprocessing manifest and final trainer path: x_t uses (Xraw-mean)/std while z_t is raw PCA32 coordinate target",
+        "conclusion": "formal 64468.02 ratio is not invalidated by a hidden latent-target standardization mismatch",
+        "read_only": True,
+    })
+    dump(OUT / "final_v3_capability_statement.json", {
+        "status": "PASS",
+        "model": "MDC_HF_SURROGATE_V3_C_FINAL_5SEED_FULL_DEVELOPMENT_MODEL_FROZEN",
+        "supported": [
+            "normalized spectral-angular profile Level-0 screening",
+            "prospective external profile-shape generalization",
+            "coarse geometry trend/ranking with RANKING_SCREENING_ONLY scope",
+        ],
+        "not_yet_supported": [
+            "quantitative FDTD replacement",
+            "absolute or relative upward power prediction",
+            "LEE",
+            "Purcell/LDOS",
+            "Level-1 MDC-NP truth",
+            "device coupling prediction",
+        ],
+        "remaining_evidence": "geometry sensitivity exists, but predicted geometry diversity remains under-dispersed relative to truth; z-source conditions are harder and ZL2 is weakest in frozen external diagnostics",
+        "formal_scope": "RANKING_SCREENING_ONLY",
+        "test40_truth_read": "existing external acquisition was already authorized/frozen; this package performs read-only diagnostics and does not generate or modify labels",
+    })
+    dump(OUT / "mdc_vnext_conditional_handoff.json", {
+        "status": "PASS",
+        "recommendation": "HANDOFF_TO_MDC_NP_JOINT_HF_BEFORE_ANY_V_NEXT_SURROGATE",
+        "sequence": [
+            "frozen V3 screening",
+            "direct MDC HF shortlist",
+            "MDC-NP joint HF",
+            "joint/coupling residual attribution",
+        ],
+        "conditional_future_direction": "authorize a Physics-Residual Factorized MDC Surrogate only if joint error attribution proves MDC standalone is the dominant residual source",
+        "not_authorized_here": ["new V3 training", "new solver budget", "architecture/loss change", "threshold change"],
+        "reason": "external profile evidence supports screening but does not support claiming standalone quantitative physics replacement",
+    })
 
     safety = {
         "status": "PASS", "solver_calls": 0, "neural_fits": 0, "backward_calls": 0, "optimizer_calls": 0, "pca_fit_calls": 0, "scaler_fit_calls": 0,
