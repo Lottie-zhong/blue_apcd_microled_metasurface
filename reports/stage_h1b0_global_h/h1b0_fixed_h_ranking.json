@@ -1,0 +1,472 @@
+{
+  "schema": "LP_GLOBAL_H_H1B0_FIXED_H_RANKING_V1",
+  "stage": "H1B-0",
+  "status": "COMPLETE_OFFLINE_ZERO_SOLVER",
+  "created_utc": "2026-08-14T03:51:56.490421+00:00",
+  "branch": "work/lp-global-h-manifold-v1",
+  "current_head": "8808806c454ae7b87c4a55ad9336357ecb0df810",
+  "h1a_source_head": "31b2fab21d6ee370f92944b55bdd6f9843de4971",
+  "input_source_hashes": {
+    "final_audit": "42efdaf3edb9b35c749c86f5c52e1c829645157fa348c1c71407b0cd4e690777",
+    "complete_jones_table": "7f3bde4a697d8d5eea34e110e391c4c76348f974884f2673fc27740e8f3a624a",
+    "phase_table": "2809038cb305497df938b506b3d0260ccff535cddf82a7c9a28473059059e9b2",
+    "interaction_table": "22c08f35a65da9ccbd88db217f3174e3184f9cbf8a2208659221137e8dbff878"
+  },
+  "solver_contract": {
+    "new_solver_entered": 0,
+    "new_rcwa_entered": 0,
+    "new_physics_solver_entered": 0,
+    "scheduler_invoked": false
+  },
+  "per_H": {
+    "400.0": {
+      "H_global_nm": 400.0,
+      "full_jones_anchor_count": 6,
+      "raw_anchor_circular_phase_span_deg": 39.31261495736902,
+      "projector_compatible_anchor_count": 3,
+      "projector_compatible_semantics": "best_50_percent_by_projector_error_among_this_H1A_anchor_slice; no new absolute threshold",
+      "dedicated_projector_compatible_circular_phase_span_deg": 14.118943521334018,
+      "historical_quantile_reference_slice_deg": null,
+      "historical_reference_definition": "not_defined_for_new_H_without_a_409_row_historical_slice",
+      "max_projector_compatible_pairwise_separation_deg": 14.118943521334387,
+      "projector_compatible_pairwise_separations": [
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+          "separation_deg": 14.118943521334387
+        },
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+          "separation_deg": 11.162964850598343
+        },
+        {
+          "left_anchor_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+          "right_anchor_id": "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+          "separation_deg": 2.9559786707360445
+        }
+      ],
+      "projector_compatible_anchor_ids": [
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R2_HIGH_UNCERTAINTY_007",
+        "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054"
+      ],
+      "projector_quality_summary": {
+        "min": 0.22451699894771393,
+        "median": 0.23677932753756814,
+        "max": 0.2435146161308861,
+        "lower_is_better": true
+      },
+      "throughput_summary": {
+        "min": 0.9772224430244386,
+        "median": 0.9797784135243053,
+        "max": 0.9806086796813084,
+        "lower_is_better": false
+      },
+      "clear_low_throughput_artifact": false,
+      "low_throughput_artifact_diagnostic": "descriptive floor 0.8; not used for ranking",
+      "phase_extrema_include_boundary_sensitive_anchor": true,
+      "projector_collapse": false,
+      "common_shift_C_deg": 342.50239170054107,
+      "rms_residual_deg": 2.727327153605168,
+      "max_abs_residual_deg": 4.6256437732411655
+    },
+    "450.0": {
+      "H_global_nm": 450.0,
+      "full_jones_anchor_count": 6,
+      "raw_anchor_circular_phase_span_deg": 39.14774833742695,
+      "projector_compatible_anchor_count": 3,
+      "projector_compatible_semantics": "best_50_percent_by_projector_error_among_this_H1A_anchor_slice; no new absolute threshold",
+      "dedicated_projector_compatible_circular_phase_span_deg": 12.91602113412705,
+      "historical_quantile_reference_slice_deg": null,
+      "historical_reference_definition": "not_defined_for_new_H_without_a_409_row_historical_slice",
+      "max_projector_compatible_pairwise_separation_deg": 12.916021134126424,
+      "projector_compatible_pairwise_separations": [
+        {
+          "left_anchor_id": "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 12.916021134126424
+        },
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+          "separation_deg": 12.496173737613276
+        },
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 0.4198473965131484
+        }
+      ],
+      "projector_compatible_anchor_ids": [
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+        "LPML_R1_GLOBAL_SOBOL_126"
+      ],
+      "projector_quality_summary": {
+        "min": 0.1854270009336404,
+        "median": 0.23835323162457556,
+        "max": 0.24125303571133494,
+        "lower_is_better": true
+      },
+      "throughput_summary": {
+        "min": 0.9895034919754477,
+        "median": 0.9927954877558394,
+        "max": 1.0016513385972392,
+        "lower_is_better": false
+      },
+      "clear_low_throughput_artifact": false,
+      "low_throughput_artifact_diagnostic": "descriptive floor 0.8; not used for ranking",
+      "phase_extrema_include_boundary_sensitive_anchor": true,
+      "projector_collapse": false,
+      "common_shift_C_deg": 352.2794252781733,
+      "rms_residual_deg": 2.5585121945920566,
+      "max_abs_residual_deg": 4.6434941398048295
+    },
+    "500.0": {
+      "H_global_nm": 500.0,
+      "full_jones_anchor_count": 6,
+      "raw_anchor_circular_phase_span_deg": 44.844205999649034,
+      "projector_compatible_anchor_count": 3,
+      "projector_compatible_semantics": "best_50_percent_by_projector_error_among_this_H1A_anchor_slice; no new absolute threshold",
+      "dedicated_projector_compatible_circular_phase_span_deg": 17.564728315260993,
+      "historical_quantile_reference_slice_deg": 27.845019017638037,
+      "historical_reference_definition": "H0 409-row historical projector quantile",
+      "max_projector_compatible_pairwise_separation_deg": 17.56472831526179,
+      "projector_compatible_pairwise_separations": [
+        {
+          "left_anchor_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 17.56472831526179
+        },
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+          "separation_deg": 14.91052497047582
+        },
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 2.6542033447859694
+        }
+      ],
+      "projector_compatible_anchor_ids": [
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R2_HIGH_UNCERTAINTY_007",
+        "LPML_R1_GLOBAL_SOBOL_126"
+      ],
+      "projector_quality_summary": {
+        "min": 6.610360367531598e-05,
+        "median": 0.0003456801410263166,
+        "max": 0.0038337167443491804,
+        "lower_is_better": true
+      },
+      "throughput_summary": {
+        "min": 0.915301492696012,
+        "median": 0.9756068991673285,
+        "max": 0.9890658144016449,
+        "lower_is_better": false
+      },
+      "clear_low_throughput_artifact": false,
+      "low_throughput_artifact_diagnostic": "descriptive floor 0.8; not used for ranking",
+      "phase_extrema_include_boundary_sensitive_anchor": false,
+      "projector_collapse": false,
+      "common_shift_C_deg": 0.0,
+      "rms_residual_deg": 0.0,
+      "max_abs_residual_deg": 0.0
+    },
+    "550.0": {
+      "H_global_nm": 550.0,
+      "full_jones_anchor_count": 6,
+      "raw_anchor_circular_phase_span_deg": 41.73888172836399,
+      "projector_compatible_anchor_count": 3,
+      "projector_compatible_semantics": "best_50_percent_by_projector_error_among_this_H1A_anchor_slice; no new absolute threshold",
+      "dedicated_projector_compatible_circular_phase_span_deg": 30.096722115615023,
+      "historical_quantile_reference_slice_deg": null,
+      "historical_reference_definition": "not_defined_for_new_H_without_a_409_row_historical_slice",
+      "max_projector_compatible_pairwise_separation_deg": 30.096722115614966,
+      "projector_compatible_pairwise_separations": [
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+          "separation_deg": 30.096722115614966
+        },
+        {
+          "left_anchor_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 23.997300390733358
+        },
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 6.0994217248816085
+        }
+      ],
+      "projector_compatible_anchor_ids": [
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R2_HIGH_UNCERTAINTY_007",
+        "LPML_R1_GLOBAL_SOBOL_126"
+      ],
+      "projector_quality_summary": {
+        "min": 0.17800754883177927,
+        "median": 0.1843707157586535,
+        "max": 0.1864961370084426,
+        "lower_is_better": true
+      },
+      "throughput_summary": {
+        "min": 0.9131123667434419,
+        "median": 0.9795182609705267,
+        "max": 0.9839285148454424,
+        "lower_is_better": false
+      },
+      "clear_low_throughput_artifact": false,
+      "low_throughput_artifact_diagnostic": "descriptive floor 0.8; not used for ranking",
+      "phase_extrema_include_boundary_sensitive_anchor": true,
+      "projector_collapse": false,
+      "common_shift_C_deg": 0.1693747837378304,
+      "rms_residual_deg": 8.610431905814359,
+      "max_abs_residual_deg": 15.288115306595301
+    },
+    "600.0": {
+      "H_global_nm": 600.0,
+      "full_jones_anchor_count": 6,
+      "raw_anchor_circular_phase_span_deg": 26.239342213502027,
+      "projector_compatible_anchor_count": 3,
+      "projector_compatible_semantics": "best_50_percent_by_projector_error_among_this_H1A_anchor_slice; no new absolute threshold",
+      "dedicated_projector_compatible_circular_phase_span_deg": 5.505242204365004,
+      "historical_quantile_reference_slice_deg": null,
+      "historical_reference_definition": "not_defined_for_new_H_without_a_409_row_historical_slice",
+      "max_projector_compatible_pairwise_separation_deg": 5.50524220436472,
+      "projector_compatible_pairwise_separations": [
+        {
+          "left_anchor_id": "LPML_R2_LOW_PHASE_AND_SIX_BIN_COVERAGE_024",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "separation_deg": 5.50524220436472
+        },
+        {
+          "left_anchor_id": "LPML_R2_LOW_PHASE_AND_SIX_BIN_COVERAGE_024",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 4.516737499840133
+        },
+        {
+          "left_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+          "right_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+          "separation_deg": 0.9885047045245869
+        }
+      ],
+      "projector_compatible_anchor_ids": [
+        "LPML_R2_LOW_PHASE_AND_SIX_BIN_COVERAGE_024",
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R1_GLOBAL_SOBOL_126"
+      ],
+      "projector_quality_summary": {
+        "min": 0.4382355692895701,
+        "median": 0.49349526214994677,
+        "max": 0.4952912860888611,
+        "lower_is_better": true
+      },
+      "throughput_summary": {
+        "min": 0.8523609923096993,
+        "median": 0.8668615715910959,
+        "max": 0.8930153989823681,
+        "lower_is_better": false
+      },
+      "clear_low_throughput_artifact": false,
+      "low_throughput_artifact_diagnostic": "descriptive floor 0.8; not used for ranking",
+      "phase_extrema_include_boundary_sensitive_anchor": true,
+      "projector_collapse": false,
+      "common_shift_C_deg": 347.85429910326434,
+      "rms_residual_deg": 17.152480156154944,
+      "max_abs_residual_deg": 35.45188973052677
+    }
+  },
+  "ranking": {
+    "method": "Pareto core filter then lexicographic physics ranking; no weighted composite score",
+    "core_priority": [
+      "max_projector_compatible_pairwise_separation",
+      "dedicated_projector_compatible_span",
+      "compatible_count",
+      "projector_quality_robustness",
+      "throughput_robustness"
+    ],
+    "interaction_priority": "fifth-priority leverage diagnostic only; not an independent success criterion",
+    "pareto_core_front_H_nm": [
+      400.0,
+      450.0,
+      500.0,
+      550.0
+    ],
+    "lexicographic_order_H_nm": [
+      550.0,
+      500.0,
+      400.0,
+      450.0,
+      600.0
+    ],
+    "PRIMARY_H_CANDIDATE": 550.0,
+    "SECONDARY_H_CANDIDATE": [
+      400.0,
+      450.0
+    ],
+    "CONTROL_H": 500.0,
+    "candidate_status": "parallel_secondary_candidates_allowed"
+  },
+  "leave_one_anchor_out": {
+    "method": "leave one exact anchor out; compatible count uses ceil(50% of remaining anchors)",
+    "base_primary_H_candidate": 550.0,
+    "cases": [
+      {
+        "dropped_anchor_id": "LPML_R1_GLOBAL_SOBOL_002",
+        "lexicographic_order_H_nm": [
+          550.0,
+          500.0,
+          400.0,
+          450.0,
+          600.0
+        ],
+        "primary_H_candidate": 550.0,
+        "secondary_H_candidate": [
+          400.0,
+          450.0
+        ],
+        "per_H_projector_compatible_span_deg": {
+          "400.0": 14.118943521334018,
+          "450.0": 12.91602113412705,
+          "500.0": 17.564728315260993,
+          "550.0": 30.096722115615023,
+          "600.0": 5.505242204365004
+        }
+      },
+      {
+        "dropped_anchor_id": "LPML_R1_GLOBAL_SOBOL_038",
+        "lexicographic_order_H_nm": [
+          550.0,
+          600.0,
+          500.0,
+          400.0,
+          450.0
+        ],
+        "primary_H_candidate": 550.0,
+        "secondary_H_candidate": [
+          400.0,
+          450.0
+        ],
+        "per_H_projector_compatible_span_deg": {
+          "400.0": 13.244765372924974,
+          "450.0": 12.91602113412705,
+          "500.0": 22.97407744918803,
+          "550.0": 28.121111325056006,
+          "600.0": 26.210722642466976
+        }
+      },
+      {
+        "dropped_anchor_id": "LPML_R1_GLOBAL_SOBOL_126",
+        "lexicographic_order_H_nm": [
+          550.0,
+          600.0,
+          500.0,
+          400.0,
+          450.0
+        ],
+        "primary_H_candidate": 550.0,
+        "secondary_H_candidate": [
+          400.0,
+          450.0
+        ],
+        "per_H_projector_compatible_span_deg": {
+          "400.0": 14.118943521334018,
+          "450.0": 12.496173737613958,
+          "500.0": 22.97407744918803,
+          "550.0": 34.22053304993801,
+          "600.0": 26.210722642466976
+        }
+      },
+      {
+        "dropped_anchor_id": "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+        "lexicographic_order_H_nm": [
+          550.0,
+          500.0,
+          400.0,
+          450.0,
+          600.0
+        ],
+        "primary_H_candidate": 550.0,
+        "secondary_H_candidate": [
+          400.0,
+          450.0
+        ],
+        "per_H_projector_compatible_span_deg": {
+          "400.0": 11.162964850597973,
+          "450.0": 10.695022978399038,
+          "500.0": 17.564728315260993,
+          "550.0": 30.096722115615023,
+          "600.0": 5.505242204365004
+        }
+      },
+      {
+        "dropped_anchor_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "lexicographic_order_H_nm": [
+          550.0,
+          400.0,
+          450.0,
+          500.0,
+          600.0
+        ],
+        "primary_H_candidate": 550.0,
+        "secondary_H_candidate": [
+          400.0,
+          450.0
+        ],
+        "per_H_projector_compatible_span_deg": {
+          "400.0": 14.118943521334018,
+          "450.0": 12.91602113412705,
+          "500.0": 8.063552478713007,
+          "550.0": 34.22053304993801,
+          "600.0": 5.505242204365004
+        }
+      },
+      {
+        "dropped_anchor_id": "LPML_R2_LOW_PHASE_AND_SIX_BIN_COVERAGE_024",
+        "lexicographic_order_H_nm": [
+          550.0,
+          600.0,
+          500.0,
+          400.0,
+          450.0
+        ],
+        "primary_H_candidate": 550.0,
+        "secondary_H_candidate": [
+          400.0,
+          450.0
+        ],
+        "per_H_projector_compatible_span_deg": {
+          "400.0": 14.118943521334018,
+          "450.0": 12.91602113412705,
+          "500.0": 17.564728315260993,
+          "550.0": 30.096722115615023,
+          "600.0": 21.693985142627014
+        }
+      }
+    ],
+    "ranking_stability": "H_RANKING_REASONABLY_STABLE_WITHIN_H1A_SAMPLE",
+    "primary_survives_all_single_anchor_removals": true
+  },
+  "most_H_sensitive_anchor": "LPML_R2_HIGH_UNCERTAINTY_007",
+  "least_H_sensitive_anchor": "LPML_R1_GLOBAL_SOBOL_126",
+  "flags": {
+    "FLAG_60_SECTOR": false,
+    "FLAG_120_ML_RESTART": false
+  },
+  "sector_gap_artifact": "h1b0_sector_gap.json",
+  "artifacts": {
+    "h1b0_anchor_response.csv": "reports\\stage_h1b0_global_h\\h1b0_anchor_response.csv",
+    "h1b0_fixed_h_ranking.csv": "reports\\stage_h1b0_global_h\\h1b0_fixed_h_ranking.csv",
+    "h1b0_fixed_h_ranking.json": "reports\\stage_h1b0_global_h\\h1b0_fixed_h_ranking.json",
+    "h1b0_lateral_hypotheses.json": "reports\\stage_h1b0_global_h\\h1b0_lateral_hypotheses.json",
+    "h1b0_leave_one_anchor_out.json": "reports\\stage_h1b0_global_h\\h1b0_leave_one_anchor_out.json",
+    "h1b0_proposed_next_probe.json": "reports\\stage_h1b0_global_h\\h1b0_proposed_next_probe.json",
+    "h1b0_route_comparison.json": "reports\\stage_h1b0_global_h\\h1b0_route_comparison.json",
+    "h1b0_sector_gap.json": "reports\\stage_h1b0_global_h\\h1b0_sector_gap.json",
+    "h1b0_summary.md": "reports\\stage_h1b0_global_h\\h1b0_summary.md"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "status": "PROPOSED_ONLY",
+  "solver_contract": {
+    "new_fdtd": 0,
+    "new_rcwa": 0,
+    "new_physics_solver": 0,
+    "scheduler_invoked": false
+  },
+  "primary_H_candidate": 550.0,
+  "secondary_H_candidates": [
+    400.0,
+    450.0
+  ],
+  "control_H": 500.0,
+  "candidate_selection_rules": [
+    "H=550 primary from maximum compatible separation/span",
+    "H=500 historical control",
+    "target D/Psi, J1_side and unresolved J2 anisotropy directions",
+    "require exact identity, legal geometry, native material, fixed planes and full-dimer x+y"
+  ],
+  "phase_extending_candidates": [
+    {
+      "source_anchor_pair": [
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R2_HIGH_UNCERTAINTY_007"
+      ],
+      "H_nm": 550.0
+    },
+    {
+      "source_anchor_pair": [
+        "LPML_R2_HIGH_UNCERTAINTY_007",
+        "LPML_R1_GLOBAL_SOBOL_126"
+      ],
+      "H_nm": 550.0
+    }
+  ],
+  "proposed_budget": {
+    "full_dimer_geometry_cases": 5,
+    "formal_x_y_subruns": 10,
+    "breakdown": "2 phase-extending + 1 projector-preserving + 1 interior control + 1 boundary check"
+  },
+  "prohibitions": [
+    "no solver execution",
+    "no bounds freeze",
+    "no ML",
+    "no inverse",
+    "no K6",
+    "no atlas promotion"
+  ]
+}

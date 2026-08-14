@@ -1,0 +1,48 @@
+{
+  "routes": [
+    {
+      "route": "TARGETED_CONSTITUENT_RECONNAISSANCE",
+      "role": "diagnostic J1/J2 decomposition only; cannot replace full-dimer APCD truth",
+      "direct_apcd_relevance": "LOW",
+      "information_per_solver_call": "MODERATE",
+      "coupling_model_risk": "HIGH_FOR_APCD_INTERPRETATION",
+      "code_readiness": "READY_REUSE",
+      "proposed_only_budget": {
+        "constituent_geometry_cases": 6,
+        "breakdown": "3 J1 diagnostic + 3 J2 diagnostic",
+        "formal_solver_subruns": "not frozen"
+      }
+    },
+    {
+      "route": "TARGETED_FULL_DIMER_EXPANSION",
+      "role": "directly test H1A-exposed lateral directions with APCD projector and full Jones",
+      "direct_apcd_relevance": "HIGH",
+      "information_per_solver_call": "HIGH",
+      "coupling_model_risk": "LOWER_THAN_CONSTITUENT_PROXY",
+      "code_readiness": "READY_REUSE",
+      "proposed_only_budget": {
+        "full_dimer_geometry_cases": 5,
+        "formal_x_y_subruns": 10,
+        "breakdown": "2 phase-extending + 1 projector-preserving + 1 interior control + 1 boundary check"
+      }
+    },
+    {
+      "route": "HYBRID_SMALL_CONSTITUENT_THEN_DIMER",
+      "role": "use constituents only to narrow one mechanism hypothesis, then validate with full dimer",
+      "direct_apcd_relevance": "MODERATE",
+      "information_per_solver_call": "MODERATE",
+      "coupling_model_risk": "MODERATE",
+      "code_readiness": "READY_REUSE",
+      "proposed_only_budget": {
+        "constituent_geometry_cases": 4,
+        "full_dimer_geometry_cases": 3,
+        "formal_full_dimer_x_y_subruns": 6
+      }
+    }
+  ],
+  "decision": {
+    "recommended_next_physics_route": "TARGETED_FULL_DIMER_EXPANSION",
+    "reason": "H1A directly observes geometry-dependent full-dimer response; Route B has highest direct APCD relevance with a small proposed budget.",
+    "authorization": "PROPOSED_ONLY; DO NOT EXECUTE; DO NOT FREEZE BUDGET AS AUTHORIZED"
+  }
+}

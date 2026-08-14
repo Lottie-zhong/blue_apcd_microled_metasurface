@@ -1,0 +1,84 @@
+{
+  "scope": "HYPOTHESIS_GENERATING_ONLY",
+  "N_anchors": 6,
+  "confounders": [
+    "N=6",
+    "anchor roles are not randomized",
+    "coordinates are correlated",
+    "five H values only",
+    "no causal inference"
+  ],
+  "hypotheses": [
+    {
+      "id": "HYPOTHESIS_D_PSI_DIRECTIONAL_PHASE_RESPONSE",
+      "direction": "D and Psi are candidate directions for the sign of net H=600 versus H=400 phase shift",
+      "supporting_anchors": [
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R1_GLOBAL_SOBOL_126",
+        "LPML_R2_LOW_PHASE_AND_SIX_BIN_COVERAGE_024"
+      ],
+      "observed_pattern": "Positive descriptive rank correlations are recorded for D and Psi; they are not separable from coordinate covariance.",
+      "confidence": "LOW",
+      "full_dimer_fdtd_required": true
+    },
+    {
+      "id": "HYPOTHESIS_J1_SIDE_PROJECTOR_ROBUSTNESS",
+      "direction": "J1_side is a candidate direction for H-dependent projector-quality variation",
+      "supporting_anchors": [
+        "LPML_R1_GLOBAL_SOBOL_002",
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R1_GLOBAL_SOBOL_126",
+        "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+        "LPML_R2_HIGH_UNCERTAINTY_007",
+        "LPML_R2_LOW_PHASE_AND_SIX_BIN_COVERAGE_024"
+      ],
+      "observed_pattern": "J1_side and projector_error_range co-vary descriptively in this sample; no causal claim is made.",
+      "confidence": "LOW",
+      "full_dimer_fdtd_required": true
+    },
+    {
+      "id": "HYPOTHESIS_J2_ANISOTROPY_UNRESOLVED",
+      "direction": "J2_length/J2_width may affect retardance or leakage, but six anchors do not isolate it",
+      "supporting_anchors": [
+        "LPML_R1_GLOBAL_SOBOL_002",
+        "LPML_R1_GLOBAL_SOBOL_038",
+        "LPML_R1_GLOBAL_SOBOL_126",
+        "LPML_R2_BOUNDARY_AND_HIGH_GRADIENT_054",
+        "LPML_R2_HIGH_UNCERTAINTY_007",
+        "LPML_R2_LOW_PHASE_AND_SIX_BIN_COVERAGE_024"
+      ],
+      "observed_pattern": "J2 evidence is confounded and insufficient for directional ranking; only a paired full-dimer contrast could test it.",
+      "confidence": "LOW",
+      "full_dimer_fdtd_required": true
+    }
+  ],
+  "correlation_observations": [
+    {
+      "coordinate": "J1_side_nm",
+      "metric": "projector_error_range",
+      "descriptive_correlation": {
+        "pearson_r": 0.9571698913840905,
+        "spearman_r": 0.819688599970537
+      },
+      "N": 6
+    },
+    {
+      "coordinate": "D_nm",
+      "metric": "net_delta_phi_600_vs_400_deg",
+      "descriptive_correlation": {
+        "pearson_r": 0.6952268512155507,
+        "spearman_r": 0.8116794499134278
+      },
+      "N": 6
+    },
+    {
+      "coordinate": "Psi_deg",
+      "metric": "net_delta_phi_600_vs_400_deg",
+      "descriptive_correlation": {
+        "pearson_r": 0.7855646157096111,
+        "spearman_r": 0.8116794499134278
+      },
+      "N": 6
+    }
+  ]
+}
