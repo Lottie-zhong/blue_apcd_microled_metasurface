@@ -1,0 +1,37 @@
+{
+  "schema": "H1D0_PROPOSED_NEXT_STAGE_V1",
+  "status": "PROPOSED_ONLY",
+  "stage": "LP_DETOUR_PHASE_FEASIBILITY_PROBE",
+  "route": "DETOUR_PHASE_FIRST",
+  "parent_geometry_uid": "H1C1B_V2_009",
+  "parent_exact_hash": "955c293def3063f64969c25743e14ce122e7ed0364b12be0b9f75cdb350cb800",
+  "layout": "six equal-pitch slots with reverse bin order for m=+1",
+  "validation": [
+    "one K=6 coupled supercell",
+    "x and y input runs",
+    "nine wavelengths 450.0-454.0 nm at 0.5 nm",
+    "order-resolved J_xy for m=+1",
+    "alpha/beta -> alpha*/beta* conversion",
+    "report t_{alpha*<-alpha}^{(+1)} and leakage"
+  ],
+  "proposed_solver_budget": {
+    "independent_fdtd_cases": 2,
+    "mpi_engines_per_case": 4,
+    "threads_per_case": 1,
+    "new_rcwa": 0,
+    "new_ml": 0,
+    "new_inverse": 0,
+    "new_full_k6_database": 0
+  },
+  "stop_go": {
+    "go": "order-resolved +1 target channel remains selective and layout remains legal",
+    "stop": [
+      "sign mismatch",
+      "supercell coupling destroys selectivity",
+      "geometry legality failure",
+      "order-resolved target channel unavailable"
+    ]
+  },
+  "current_stage_solver_entered_delta": 0,
+  "authorization_required_before_solver": true
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "H1D0_ROUTE_DECISION_MATRIX_V1",
+  "routes": {
+    "ROUTE_A_EXTEND_DIMER_INTRINSIC_GRAMMAR": {
+      "broadband_projector_preservation": "medium-risk",
+      "available_phase_leverage": "unknown until new DOF evidence",
+      "360_degree_reachability": "not guaranteed",
+      "fabrication_feasibility": "medium-risk",
+      "parameter_count": "increases",
+      "solver_cost": "high; new-grammar labels required",
+      "existing_data_reuse": "baseline slice only",
+      "K6_validation": "new local-element plus coupled validation",
+      "coupling_sensitivity": "high",
+      "interpretability": "medium"
+    },
+    "ROUTE_B_DETOUR_POSITIONAL_PHASE": {
+      "broadband_projector_preservation": "high for repeated strict parent analytically",
+      "available_phase_leverage": "full 360 degree relative phase analytically",
+      "360_degree_reachability": "yes in order coefficient model",
+      "fabrication_feasibility": "high for pure six-slot layout",
+      "parameter_count": "low; positions/order only",
+      "solver_cost": "low initial; one K6 x/y validation proposed",
+      "existing_data_reuse": "direct local-element reuse; 63 strict rows",
+      "K6_validation": "one coupled K6 order-resolved Jones validation",
+      "coupling_sensitivity": "high but localized to one decisive test",
+      "interpretability": "high"
+    },
+    "HYBRID_INTRINSIC_DETOUR": {
+      "broadband_projector_preservation": "medium-high; parent dispersion creates residuals",
+      "available_phase_leverage": "full analytically with smaller corrections",
+      "360_degree_reachability": "yes in order coefficient model",
+      "fabrication_feasibility": "conditional; legal assignment has tight boundary margin and low-throughput parents",
+      "parameter_count": "low-medium",
+      "solver_cost": "low-medium",
+      "existing_data_reuse": "direct local-element reuse",
+      "K6_validation": "same one-case validation plus hybrid assignment",
+      "coupling_sensitivity": "high",
+      "interpretability": "medium-high"
+    }
+  },
+  "computed_checks": {
+    "pure_parent": "H1C1B_V2_009",
+    "pure_max_broadband_relative_error_deg": 0.0,
+    "hybrid_subset": [
+      "H1C1B_V2_010",
+      "H1C1B_V2_015"
+    ],
+    "hybrid_geometry_legal": true,
+    "hybrid_max_broadband_relative_error_deg": 50.12597125948855,
+    "hybrid_unconstrained_geometry_legal": false
+  },
+  "recommendation": "DETOUR_PHASE_FIRST",
+  "reasoned_basis": [
+    "The measured bottleneck is clustered intrinsic common phase, not lack of local selectivity evidence.",
+    "A repeated strict dimer preserves the same local broadband Jones evidence while positional phase supplies the missing relative phase.",
+    "Pure detour has zero new local geometry DOFs and a legal six-slot offline layout; coupling risk is isolated to one proposed K6 order-resolved validation."
+  ]
+}

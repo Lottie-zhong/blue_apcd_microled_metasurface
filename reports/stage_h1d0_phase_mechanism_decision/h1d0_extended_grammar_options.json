@@ -1,0 +1,37 @@
+{
+  "schema": "H1D0_EXTENDED_GRAMMAR_OPTIONS_V1",
+  "status": "PROPOSED_ONLY",
+  "do_not_authorize_per_bin_height": true,
+  "options": [
+    {
+      "name": "J1_independent_anisotropy",
+      "added_dofs": [
+        "J1_length_nm",
+        "J1_width_nm"
+      ],
+      "baseline_slice": "J1_length=J1_width=J1_side",
+      "phase_leverage": "potentially direct local common-phase lever",
+      "bounds": "must be derived from fabrication evidence before any solver"
+    },
+    {
+      "name": "independent_relative_orientation",
+      "added_dofs": [
+        "J1_orientation_deg or independent J2_orientation_deg"
+      ],
+      "baseline_slice": "current frozen orientation convention",
+      "phase_leverage": "potentially changes anisotropic interference",
+      "bounds": "not authorized in H1D0"
+    },
+    {
+      "name": "independent_local_displacement_vector",
+      "added_dofs": [
+        "dx_nm",
+        "dy_nm"
+      ],
+      "baseline_slice": "current D/Psi polar representation",
+      "phase_leverage": "changes coupling and possibly common phase",
+      "bounds": "must preserve direct/periodic gaps"
+    }
+  ],
+  "contract_guard": "one global H remains mandatory; no per-bin H; no solver in H1D0"
+}
