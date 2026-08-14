@@ -1,0 +1,618 @@
+{
+  "H500_scheduled": false,
+  "baseline_H1B2_compatible_span_deg": 48.20045808425289,
+  "branch": "work/lp-global-h-manifold-v1",
+  "candidate_selection_audit_sha256": "04d9dbcc1e89700402694d46f1d5904aacbd2401ae66e31534ec51d577dd0600",
+  "candidates": [
+    {
+      "D_nm": 186.1316738225926,
+      "H_global_nm": 550.0,
+      "J1_H_nm": 550.0,
+      "J1_center_x_nm": -93.0,
+      "J1_center_y_nm": 3.5,
+      "J1_rotation_deg": 0.0,
+      "J1_side_nm": 112,
+      "J2_H_nm": 550.0,
+      "J2_center_x_nm": 93.0,
+      "J2_center_y_nm": -3.5,
+      "J2_length_nm": 112,
+      "J2_rotation_deg": -2.1552756207914943,
+      "J2_width_nm": 102,
+      "Psi_deg": -2.1552756207914943,
+      "candidate_id": "H1B3_F1_CONSERVATIVE_FORWARD",
+      "canonical_relative_geometry_hash_sha256": "c0dd49ee3da3c2242e20a161af5a43a3509b2d2e17260804072c35c858e8e72e",
+      "displacement_5d_from_C": {
+        "D_nm": -1.998600189859,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.022907184237
+      },
+      "displacement_basis": "requested 0.5*d_success; legal center projection",
+      "exact_geometry_hash_sha256": "15559d20712a7b2b8369baf8680a8a8c572a19111cb2e60905279acedf0362f7",
+      "expected_edge_target": "upper",
+      "geometry_identity": {
+        "H_global_nm": 550.0,
+        "J1_H_nm": 550.0,
+        "J1_center_x_nm": -93.0,
+        "J1_center_y_nm": 3.5,
+        "J1_rotation_deg": 0.0,
+        "J1_shape": "sharp_rectangle",
+        "J1_side_nm": 112,
+        "J2_H_nm": 550.0,
+        "J2_center_x_nm": 93.0,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112,
+        "J2_rotation_deg": -2.1552756207914943,
+        "J2_shape": "sharp_rectangle",
+        "J2_width_nm": 102,
+        "bottom_plane_nm": 0.0,
+        "endpoint_convention": "deduplicate_periodic_endpoints_and_reclose_period",
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+        "observable": "coordinate_weighted_full_period_complex_G0",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "phase_reference": "arg(txx)",
+        "projector": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "schema": "LP_GLOBAL_H_H1B1_GEOMETRY_IDENTITY_V1",
+        "source_z_nm": -250.0,
+        "wavelength_nm": 450.0
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 74.1316738225926,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 134.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          112,
+          112,
+          102,
+          93.0,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "material_contract": "APCD_TIO2_NATIVE_M1",
+      "parent_reference_geometry": {
+        "D_nm": 192.12756179163884,
+        "H_global_nm": 550.0,
+        "J1_side_nm": 112.0,
+        "J2_center_x_nm": 96.0,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112.0,
+        "J2_width_nm": 102.0,
+        "Psi_deg": -2.0879838327233444,
+        "Txx": 0.9795182609705267,
+        "authoritative_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "candidate_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "exact_geometry_hash_sha256": "f447ce0e428d39f1d9055da8692b608a9f0b342aab7aee33131b269a1e037adb",
+        "phase_wrapped_deg": 106.96528957076407,
+        "projector_compatible": true,
+        "projector_error_apcd_v1": 0.1843707157586535,
+        "selected_throughput_Txx": 0.9795182609705267
+      },
+      "parent_reference_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+      "period_nm": [
+        432.0,
+        432.0
+      ],
+      "rationale": "C plus 0.5*d_success on the verified upper-edge displacement, projected to the nearest legal half-grid center.",
+      "requested_displacement_5d_from_C": {
+        "D_nm": -1.998643889594,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.022192301915
+      },
+      "role": "F1_CONSERVATIVE_FORWARD_CONTINUATION",
+      "secondary_contrast": {},
+      "supporting_authoritative_evidence": [
+        "H1B2 C exact parent-to-C d_success",
+        "H1B2 C compatible upper extremum"
+      ],
+      "symmetry_equivalence_geometry_hash_sha256": "f0c7c44877842c4765f9d5038ea84c16c153ae9cfd1af1b30d78b0e5159d1dcc"
+    },
+    {
+      "D_nm": 184.13310403075272,
+      "H_global_nm": 550.0,
+      "J1_H_nm": 550.0,
+      "J1_center_x_nm": -92.0,
+      "J1_center_y_nm": 3.5,
+      "J1_rotation_deg": 0.0,
+      "J1_side_nm": 112,
+      "J2_H_nm": 550.0,
+      "J2_center_x_nm": 92.0,
+      "J2_center_y_nm": -3.5,
+      "J2_length_nm": 112,
+      "J2_rotation_deg": -2.1786800752766027,
+      "J2_width_nm": 102,
+      "Psi_deg": -2.1786800752766027,
+      "candidate_id": "H1B3_F2_FULL_FORWARD",
+      "canonical_relative_geometry_hash_sha256": "fd5166da8aeb9c3dc4810d472a76621695e6f4d52526d0501ef070f9ab839b31",
+      "displacement_5d_from_C": {
+        "D_nm": -3.997169981699,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.046311638723
+      },
+      "displacement_basis": "requested 1.0*d_success; legal center projection",
+      "exact_geometry_hash_sha256": "b2a64e2a6da23fea3d392927867e71124c033f67fb60ebad04b8e30349e8cda2",
+      "expected_edge_target": "upper",
+      "geometry_identity": {
+        "H_global_nm": 550.0,
+        "J1_H_nm": 550.0,
+        "J1_center_x_nm": -92.0,
+        "J1_center_y_nm": 3.5,
+        "J1_rotation_deg": 0.0,
+        "J1_shape": "sharp_rectangle",
+        "J1_side_nm": 112,
+        "J2_H_nm": 550.0,
+        "J2_center_x_nm": 92.0,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112,
+        "J2_rotation_deg": -2.1786800752766027,
+        "J2_shape": "sharp_rectangle",
+        "J2_width_nm": 102,
+        "bottom_plane_nm": 0.0,
+        "endpoint_convention": "deduplicate_periodic_endpoints_and_reclose_period",
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+        "observable": "coordinate_weighted_full_period_complex_G0",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "phase_reference": "arg(txx)",
+        "projector": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "schema": "LP_GLOBAL_H_H1B1_GEOMETRY_IDENTITY_V1",
+        "source_z_nm": -250.0,
+        "wavelength_nm": 450.0
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 72.13310403075272,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 136.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          112,
+          112,
+          102,
+          92.0,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "material_contract": "APCD_TIO2_NATIVE_M1",
+      "parent_reference_geometry": {
+        "D_nm": 192.12756179163884,
+        "H_global_nm": 550.0,
+        "J1_side_nm": 112.0,
+        "J2_center_x_nm": 96.0,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112.0,
+        "J2_width_nm": 102.0,
+        "Psi_deg": -2.0879838327233444,
+        "Txx": 0.9795182609705267,
+        "authoritative_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "candidate_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "exact_geometry_hash_sha256": "f447ce0e428d39f1d9055da8692b608a9f0b342aab7aee33131b269a1e037adb",
+        "phase_wrapped_deg": 106.96528957076407,
+        "projector_compatible": true,
+        "projector_error_apcd_v1": 0.1843707157586535,
+        "selected_throughput_Txx": 0.9795182609705267
+      },
+      "parent_reference_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+      "period_nm": [
+        432.0,
+        432.0
+      ],
+      "rationale": "C plus 1.0*d_success on the verified upper-edge displacement, projected to the nearest legal half-grid center.",
+      "requested_displacement_5d_from_C": {
+        "D_nm": -3.997287779188,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.044384603831
+      },
+      "role": "F2_FULL_FORWARD_CONTINUATION",
+      "secondary_contrast": {},
+      "supporting_authoritative_evidence": [
+        "H1B2 C exact parent-to-C d_success",
+        "H1B2 C compatible upper extremum"
+      ],
+      "symmetry_equivalence_geometry_hash_sha256": "6e75c8541b7cd26ae1dc702a2f046039717678ab42ebf09f3214ca8c4d3c28d2"
+    },
+    {
+      "D_nm": 186.1316738225926,
+      "H_global_nm": 550.0,
+      "J1_H_nm": 550.0,
+      "J1_center_x_nm": -93.0,
+      "J1_center_y_nm": 3.5,
+      "J1_rotation_deg": 0.0,
+      "J1_side_nm": 111,
+      "J2_H_nm": 550.0,
+      "J2_center_x_nm": 93.0,
+      "J2_center_y_nm": -3.5,
+      "J2_length_nm": 112,
+      "J2_rotation_deg": -2.1552756207914943,
+      "J2_width_nm": 102,
+      "Psi_deg": -2.1552756207914943,
+      "candidate_id": "H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+      "canonical_relative_geometry_hash_sha256": "a6d3fff8d3e6e550b8a1229e6f05cf875293f9f381001f51838c16ecf4fc785f",
+      "displacement_5d_from_C": {
+        "D_nm": -1.998600189859,
+        "J1_side_nm": -1.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.022907184237
+      },
+      "displacement_basis": "requested 0.5*d_success plus second conservative J1-side neighbor",
+      "exact_geometry_hash_sha256": "cb8c360689f9e8707a009df5401f186561937eaa51338008ff4b330b891cdec3",
+      "expected_edge_target": "upper",
+      "geometry_identity": {
+        "H_global_nm": 550.0,
+        "J1_H_nm": 550.0,
+        "J1_center_x_nm": -93.0,
+        "J1_center_y_nm": 3.5,
+        "J1_rotation_deg": 0.0,
+        "J1_shape": "sharp_rectangle",
+        "J1_side_nm": 111,
+        "J2_H_nm": 550.0,
+        "J2_center_x_nm": 93.0,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112,
+        "J2_rotation_deg": -2.1552756207914943,
+        "J2_shape": "sharp_rectangle",
+        "J2_width_nm": 102,
+        "bottom_plane_nm": 0.0,
+        "endpoint_convention": "deduplicate_periodic_endpoints_and_reclose_period",
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+        "observable": "coordinate_weighted_full_period_complex_G0",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "phase_reference": "arg(txx)",
+        "projector": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "schema": "LP_GLOBAL_H_H1B1_GEOMETRY_IDENTITY_V1",
+        "source_z_nm": -250.0,
+        "wavelength_nm": 450.0
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 75.1316738225926,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 135.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          111,
+          112,
+          102,
+          93.0,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "material_contract": "APCD_TIO2_NATIVE_M1",
+      "parent_reference_geometry": {
+        "D_nm": 192.12756179163884,
+        "H_global_nm": 550.0,
+        "J1_side_nm": 112.0,
+        "J2_center_x_nm": 96.0,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112.0,
+        "J2_width_nm": 102.0,
+        "Psi_deg": -2.0879838327233444,
+        "Txx": 0.9795182609705267,
+        "authoritative_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "candidate_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "exact_geometry_hash_sha256": "f447ce0e428d39f1d9055da8692b608a9f0b342aab7aee33131b269a1e037adb",
+        "phase_wrapped_deg": 106.96528957076407,
+        "projector_compatible": true,
+        "projector_error_apcd_v1": 0.1843707157586535,
+        "selected_throughput_Txx": 0.9795182609705267
+      },
+      "parent_reference_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+      "period_nm": [
+        432.0,
+        432.0
+      ],
+      "rationale": "Forward half-step with the second conservative local neighbor J1-side perturbation because no supported projector-compensation direction passed the frozen empirical audit.",
+      "requested_displacement_5d_from_C": {
+        "D_nm": -1.998643889594,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.022192301915
+      },
+      "role": "F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+      "secondary_contrast": {
+        "J1_side_nm": -1,
+        "fallback": "SECOND_CONSERVATIVE_LOCAL_NEIGHBOR"
+      },
+      "supporting_authoritative_evidence": [
+        "H1B2 C exact parent-to-C d_success",
+        "projector_compensation_selection_audit: NO_SUPPORTED_PROJECTOR_COMPENSATION_DIRECTION",
+        "H1B1/H1B2 authoritative full-Jones local evidence"
+      ],
+      "symmetry_equivalence_geometry_hash_sha256": "ecf00302688eb3d87d1033abce29d3f01a907aaf5c79092bf8b49d3c86213064"
+    },
+    {
+      "D_nm": 189.12958520548815,
+      "H_global_nm": 550.0,
+      "J1_H_nm": 550.0,
+      "J1_center_x_nm": -94.5,
+      "J1_center_y_nm": 3.5,
+      "J1_rotation_deg": 0.0,
+      "J1_side_nm": 112,
+      "J2_H_nm": 550.0,
+      "J2_center_x_nm": 94.5,
+      "J2_center_y_nm": -3.5,
+      "J2_length_nm": 112,
+      "J2_rotation_deg": -2.1210963966614536,
+      "J2_width_nm": 102,
+      "Psi_deg": -2.1210963966614536,
+      "candidate_id": "H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+      "canonical_relative_geometry_hash_sha256": "34e95c85a3204ea252ea174d375c445f4b8e3b0171e695c0700d4d206d74198b",
+      "displacement_5d_from_C": {
+        "D_nm": 0.999311193037,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": 0.011272039893
+      },
+      "displacement_basis": "tiny legal half-grid neighbor centered at C",
+      "exact_geometry_hash_sha256": "71bc42ab40098127a0dcd322a68f0f251cc298bcd9c0d71497e99c2983c6423d",
+      "expected_edge_target": "upper",
+      "geometry_identity": {
+        "H_global_nm": 550.0,
+        "J1_H_nm": 550.0,
+        "J1_center_x_nm": -94.5,
+        "J1_center_y_nm": 3.5,
+        "J1_rotation_deg": 0.0,
+        "J1_shape": "sharp_rectangle",
+        "J1_side_nm": 112,
+        "J2_H_nm": 550.0,
+        "J2_center_x_nm": 94.5,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112,
+        "J2_rotation_deg": -2.1210963966614536,
+        "J2_shape": "sharp_rectangle",
+        "J2_width_nm": 102,
+        "bottom_plane_nm": 0.0,
+        "endpoint_convention": "deduplicate_periodic_endpoints_and_reclose_period",
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+        "observable": "coordinate_weighted_full_period_complex_G0",
+        "period_nm": [
+          432.0,
+          432.0
+        ],
+        "phase_reference": "arg(txx)",
+        "projector": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "schema": "LP_GLOBAL_H_H1B1_GEOMETRY_IDENTITY_V1",
+        "source_z_nm": -250.0,
+        "wavelength_nm": 450.0
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 77.12958520548815,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 131.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          112,
+          112,
+          102,
+          94.5,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "material_contract": "APCD_TIO2_NATIVE_M1",
+      "parent_reference_geometry": {
+        "D_nm": 192.12756179163884,
+        "H_global_nm": 550.0,
+        "J1_side_nm": 112.0,
+        "J2_center_x_nm": 96.0,
+        "J2_center_y_nm": -3.5,
+        "J2_length_nm": 112.0,
+        "J2_width_nm": 102.0,
+        "Psi_deg": -2.0879838327233444,
+        "Txx": 0.9795182609705267,
+        "authoritative_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "candidate_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+        "exact_geometry_hash_sha256": "f447ce0e428d39f1d9055da8692b608a9f0b342aab7aee33131b269a1e037adb",
+        "phase_wrapped_deg": 106.96528957076407,
+        "projector_compatible": true,
+        "projector_error_apcd_v1": 0.1843707157586535,
+        "selected_throughput_Txx": 0.9795182609705267
+      },
+      "parent_reference_id": "LPML_R2_HIGH_UNCERTAINTY_007",
+      "period_nm": [
+        432.0,
+        432.0
+      ],
+      "rationale": "Tiny half-grid neighbor toward the C parent, used as a projector-robustness control without changing H550 or the dimer topology.",
+      "requested_displacement_5d_from_C": {
+        "D_nm": null,
+        "J1_side_nm": null,
+        "J2_length_nm": null,
+        "J2_width_nm": null,
+        "Psi_deg": null
+      },
+      "role": "F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+      "secondary_contrast": {},
+      "supporting_authoritative_evidence": [
+        "H1B2 C exact local lattice point",
+        "H1B1/H1B2 authoritative full-Jones local evidence"
+      ],
+      "symmetry_equivalence_geometry_hash_sha256": "225ab7e2ccdb333ae057620b071b9a37aad7fb79d71f84ad8bc0e8e9918598ee"
+    }
+  ],
+  "compensation_audit_sha256": "232f3dbe60a5baf3f1c3cc9e8931f5c539b3cc55733aecb06969c97860d30c18",
+  "freeze_sha256": "87a3d1a4f15ccdafdf212b9861e70378a81026727b110541d905eb7ccfb98d95",
+  "global_capacity": 2,
+  "head": "5f64c348d039a6812c6862bec0f4e56b59b269ba",
+  "max_active_fdtd_per_branch": 1,
+  "physical_contract": {
+    "H_global_nm": 550.0,
+    "J1_H_nm": 550.0,
+    "J2_H_nm": 550.0,
+    "bottom_plane_nm": 0.0,
+    "endpoint_convention": "deduplicate_periodic_endpoints_and_reclose_period",
+    "formal_polarizations": [
+      "x",
+      "y"
+    ],
+    "material": "APCD_TIO2_NATIVE_M1",
+    "monitor_z_nm": 1000.0,
+    "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+    "observable": "transmission_side_coordinate_weighted_complex_G0",
+    "period_nm": [
+      432.0,
+      432.0
+    ],
+    "phase_reference": "arg(txx)",
+    "projector": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "source_z_nm": -250.0
+  },
+  "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+  "pre_execution_live_snapshot": {
+    "formal_process_count": 6,
+    "global_active_jobs": 1,
+    "jobs": [
+      {
+        "branch": "NP",
+        "process_count": 6
+      }
+    ],
+    "lp_active_jobs": 0,
+    "timestamp_utc": "2026-08-14T07:48:23.390192+00:00"
+  },
+  "processes_per_job": 4,
+  "schema": "LP_GLOBAL_H_H1B3_CANDIDATE_MANIFEST_V1",
+  "stage": "H1B-3",
+  "status": "FROZEN_FOR_EXECUTION",
+  "threads_per_job": 1
+}
