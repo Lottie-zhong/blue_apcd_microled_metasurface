@@ -1,0 +1,187 @@
+{
+  "checks": [
+    {
+      "check": "output_exists",
+      "detail": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7_16g_forward_retraining_v1",
+      "pass": true
+    },
+    {
+      "check": "exact_352_rows",
+      "detail": 352,
+      "pass": true
+    },
+    {
+      "check": "exact_16_geometries",
+      "detail": 16,
+      "pass": true
+    },
+    {
+      "check": "32_paired_PS_cases",
+      "detail": 32,
+      "pass": true
+    },
+    {
+      "check": "row_duplicate_zero",
+      "detail": 0,
+      "pass": true
+    },
+    {
+      "check": "exact_wavelengths",
+      "detail": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ],
+      "pass": true
+    },
+    {
+      "check": "M6_G01_quarantine_absent",
+      "detail": true,
+      "pass": true
+    },
+    {
+      "check": "formal_flags",
+      "detail": "quality_gate_pass=true, diagnostic_only=false",
+      "pass": true
+    },
+    {
+      "check": "LF_exact_352_rows",
+      "detail": 352,
+      "pass": true
+    },
+    {
+      "check": "LF_key_identity",
+      "detail": 0,
+      "pass": true
+    },
+    {
+      "check": "LF_16G_coverage",
+      "detail": 16,
+      "pass": true
+    },
+    {
+      "check": "LF_authority_complete",
+      "detail": true,
+      "pass": true
+    },
+    {
+      "check": "prereg_hash",
+      "detail": {
+        "actual": "7286d97b52e9aab17e6e13a1b6af8639befd5a3fa5e9298b7f93ce32d721005a",
+        "recorded": "7286d97b52e9aab17e6e13a1b6af8639befd5a3fa5e9298b7f93ce32d721005a"
+      },
+      "pass": true
+    },
+    {
+      "check": "prereg_before_fit",
+      "detail": true,
+      "pass": true
+    },
+    {
+      "check": "fit_after_prereg",
+      "detail": true,
+      "pass": true
+    },
+    {
+      "check": "cv_16_LOGO",
+      "detail": 16,
+      "pass": true
+    },
+    {
+      "check": "fold_local_normalization",
+      "detail": true,
+      "pass": true
+    },
+    {
+      "check": "model_family_identity",
+      "detail": [
+        "LF_affine",
+        "LF_global_bias",
+        "LF_only",
+        "LF_paired_shared_contrast",
+        "LF_ridge_residual",
+        "circular_cnn",
+        "corrected_residual_mlp",
+        "direct_mlp",
+        "resmlp"
+      ],
+      "pass": true
+    },
+    {
+      "check": "raw_constrained_metrics",
+      "detail": true,
+      "pass": true
+    },
+    {
+      "check": "OOF_complete",
+      "detail": 3168,
+      "pass": true
+    },
+    {
+      "check": "external_metadata_only",
+      "detail": {
+        "development_geometry_intersection": [],
+        "external_target_reads": 0,
+        "future_logical_cases": 24,
+        "geometry_count": 12,
+        "metadata_only": true,
+        "registry_id": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+        "sealed_target_reads": 0
+      },
+      "pass": true
+    },
+    {
+      "check": "solver_zero",
+      "detail": {
+        "active_solver_processes": false,
+        "checkpoint_count": 0,
+        "external_hf_calls": 0,
+        "fdtd_run_calls": 0,
+        "inverse_design": 0,
+        "lumapi_solver_run_calls": 0,
+        "new_hf_acquisition": 0,
+        "sealed_hf_target_reads": 0
+      },
+      "pass": true
+    },
+    {
+      "check": "no_inverse_artifacts",
+      "detail": [],
+      "pass": true
+    },
+    {
+      "check": "symbolic_output_contract",
+      "detail": {
+        "T_definition": "sum_all_tracked_eta",
+        "complex_labels": "COMPLEX_ORDER_CONTRACT_NOT_YET_READY",
+        "eta_plus1_symbolic_key": "eta_m+1",
+        "primary": [
+          "R",
+          "eta_m-3",
+          "eta_m-2",
+          "eta_m-1",
+          "eta_m+0",
+          "eta_m+1",
+          "eta_m+2",
+          "eta_m+3"
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "error_count": 0,
+  "external_target_reads": 0,
+  "generated_utc": "2026-08-14T19:09:52.032242+00:00",
+  "sealed_target_reads": 0,
+  "solver_calls": 0,
+  "status": "PASS",
+  "validator_id": "NP_K6_M7_16G_FORWARD_RETRAINING_VALIDATOR_V1"
+}

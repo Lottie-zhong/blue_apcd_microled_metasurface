@@ -1,0 +1,131 @@
+{
+  "created_utc": "2026-08-14T19:00:21.472382+00:00",
+  "cv": {
+    "epochs": 80,
+    "held_out_unit": "both P/S and all 11 wavelengths",
+    "normalization": "fold-local",
+    "outer": "16-fold Leave-One-Geometry-Out",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "sweep": false
+  },
+  "dataset": {
+    "capability": "NORMAL_INCIDENCE_ONLY",
+    "g01p_excluded": true,
+    "g01s_absent": true,
+    "geometries": 16,
+    "paired_PS_cases": 32,
+    "path": "outputs\\np_k6_m6_formal_development_merge_v1\\formal_development_hf_observations_352rows.csv",
+    "rows": 352,
+    "sha256": "b4114cc62eeb78dec4952c983d2340e6ceddc44dc7e743fc0598783e51c4fc40",
+    "u_x": [
+      0.0
+    ],
+    "wavelengths": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "external_governance": {
+    "future_hf_logical_cases": 24,
+    "metadata_only": true,
+    "never_model_selection": true,
+    "never_normalization": true,
+    "never_training": true,
+    "registry": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1"
+  },
+  "input_contract": {
+    "condition": [
+      "wavelength_nm",
+      "u_x",
+      "polarization"
+    ],
+    "diameter_sorting": false,
+    "ordered_geometry": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6"
+    ],
+    "permutation_invariant_encoding": false
+  },
+  "learning_value": {
+    "common_hf13_comparison": true,
+    "new_m6_geometry_heldout_analysis": true,
+    "no_percent_improvement_claim": true
+  },
+  "lf_authority": {
+    "R_available": false,
+    "id": "NP_K6_LF_BASELINE_16G_V1",
+    "path": "lf_baseline_352rows.csv",
+    "polarization_scope": "LF_BASELINE_POLARIZATION_BLIND_AT_CURRENT_SCOPE",
+    "sha256": "13a045904d9109fe249e111de77569ee6de1f0bc856cfa29bf1336350dd5f588"
+  },
+  "models": {
+    "LF_affine": "fold-local wavelength/polarization affine residual calibration",
+    "LF_global_bias": "fold-local mean residual calibration",
+    "LF_only": "frozen physical baseline",
+    "LF_paired_shared_contrast": "fold-local paired common/contrast correction",
+    "LF_ridge_residual": "fold-local Ridge on ordered geometry+LF residual",
+    "circular_cnn": "M3 incumbent circular Conv1d",
+    "corrected_residual_mlp": "18->64->64 residual target [R,HF_eta-LF_eta]",
+    "direct_mlp": "10->64->64 direct HF reference",
+    "resmlp": "10->64 residual blocks direct HF reference"
+  },
+  "output_contract": {
+    "T_definition": "sum_all_tracked_eta",
+    "complex_labels": "COMPLEX_ORDER_CONTRACT_NOT_YET_READY",
+    "eta_plus1_symbolic_key": "eta_m+1",
+    "primary": [
+      "R",
+      "eta_m-3",
+      "eta_m-2",
+      "eta_m-1",
+      "eta_m+0",
+      "eta_m+1",
+      "eta_m+2",
+      "eta_m+3"
+    ]
+  },
+  "physics": {
+    "R_T_legality": true,
+    "energy_budget_residual": true,
+    "negative_power_rate": true,
+    "order_sum_T_mismatch": true,
+    "raw_and_constrained_reported": true
+  },
+  "preregistration_id": "NP_K6_M7_16G_FORWARD_RETRAINING_PREREG_V1",
+  "promotion": {
+    "no_external_hf": true,
+    "no_prospective_hf": true,
+    "no_training_promotion": true,
+    "stop_after_forward_assessment": true
+  },
+  "ranking": {
+    "primary": "broadband eta(+1): mean wavelength then mean P/S",
+    "secondary": [
+      "Spearman",
+      "Top-3",
+      "Top-5",
+      "champion rank",
+      "near-champion",
+      "seed stability"
+    ]
+  },
+  "scope": "16-geometry coupling-aware forward retraining",
+  "solver_calls": 0
+}
