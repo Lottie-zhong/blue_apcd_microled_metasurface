@@ -1,0 +1,35 @@
+{
+  "options": [
+    {
+      "builder_complexity": "none",
+      "classification": "LOCAL_SEARCH_DIRECTION",
+      "common_phase_plausibility": "refinement only",
+      "dof": "J2_length/J2_width constant-mean d2",
+      "new_dimensionality": 0,
+      "projector_risk": "already sampled",
+      "solver_cost": "not a new grammar probe"
+    },
+    {
+      "builder_complexity": "low; theta_J2=Psi+delta_theta",
+      "classification": "NEW_GRAMMAR_DOF",
+      "common_phase_plausibility": "indirect compensation via decoupled Psi and J2 axis",
+      "dof": "delta_theta_J2_deg",
+      "fabrication_complexity": "low; one local rectangle orientation parameter",
+      "minimal_solver_cost": "6 geometries / 12 subruns",
+      "new_dimensionality": 1,
+      "projector_risk": "small-angle controllable but must be measured",
+      "reuse_existing_data": "high; old rows are delta_theta=0 hypersurface"
+    },
+    {
+      "classification": "NEW_GRAMMAR_DOF",
+      "common_phase_plausibility": "low",
+      "decision": "not first",
+      "dof": "independent J1 rotation",
+      "new_dimensionality": 1,
+      "projector_risk": "first-order dominant",
+      "spectral_risk": "high in H1E1 A-small-N"
+    }
+  ],
+  "schema": "H1E3B_NEXT_DOF_COMPARISON_V1",
+  "selection": "delta_theta_J2_deg"
+}

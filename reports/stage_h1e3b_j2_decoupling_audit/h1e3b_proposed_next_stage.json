@@ -1,0 +1,151 @@
+{
+  "candidate_count": 6,
+  "fixed_contract": {
+    "H_global_nm": 550,
+    "full_jones": true,
+    "grid_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "material": "APCD_TIO2_NATIVE_M1",
+    "projector": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "formal_subrun_budget": 12,
+  "paired_design_logic": [
+    "baseline: Psi, theta_J2=Psi",
+    "displacement-only conceptual: Psi+deltaPsi, theta_J2 held fixed",
+    "tied historical: Psi+deltaPsi, theta_J2=Psi+deltaPsi",
+    "compensated: Psi+deltaPsi, theta_J2 independently adjusted"
+  ],
+  "parameterization": "theta_J2=Psi+delta_theta_J2; centers remain D/Psi",
+  "parents": [
+    {
+      "Psi_deg": 2.997042580283685,
+      "coordinates_5d": {
+        "D_nm": 191.26160095534075,
+        "J1_side_nm": 113.0,
+        "J2_length_nm": 111.0,
+        "J2_width_nm": 96.0,
+        "Psi_deg": 2.997042580283685
+      },
+      "exact_hash": "3f1dc26c576ffc1bc4c074f90d1c58ade24eb09b6926603aa8208ee52da19611",
+      "geometry_uid": "H1C1B_V2_010",
+      "minimum_Txx": 0.5747444050650641,
+      "minimum_projector_margin": 0.051773200362063565,
+      "minimum_throughput": 0.2976976125056778,
+      "phase_range_deg": 58.48592291876838
+    },
+    {
+      "Psi_deg": 2.398421334092505,
+      "coordinates_5d": {
+        "D_nm": 191.1674658512792,
+        "J1_side_nm": 113.0,
+        "J2_length_nm": 112.0,
+        "J2_width_nm": 96.0,
+        "Psi_deg": 2.398421334092505
+      },
+      "exact_hash": "58cb7c6aebab655f9f14af16d5a2ec1d0182037e8543fca5a31e7a08ebfcd176",
+      "geometry_uid": "GLOBAL_006",
+      "minimum_Txx": 0.5493112595589198,
+      "minimum_projector_margin": 0.04713376267534308,
+      "minimum_throughput": 0.30917779395425904,
+      "phase_range_deg": 48.01417610682665
+    },
+    {
+      "Psi_deg": 2.398421334092505,
+      "coordinates_5d": {
+        "D_nm": 191.1674658512792,
+        "J1_side_nm": 114.0,
+        "J2_length_nm": 111.0,
+        "J2_width_nm": 96.0,
+        "Psi_deg": 2.398421334092505
+      },
+      "exact_hash": "955c293def3063f64969c25743e14ce122e7ed0364b12be0b9f75cdb350cb800",
+      "geometry_uid": "H1C1B_V2_009",
+      "minimum_Txx": 0.6384879392021248,
+      "minimum_projector_margin": 0.035171126165841615,
+      "minimum_throughput": 0.346227794317933,
+      "phase_range_deg": 54.3641419133383
+    }
+  ],
+  "schema": "LP_J2_ORIENTATION_DECOUPLING_BROADBAND_PROBE_V1",
+  "solver_entered": false,
+  "status": "PROPOSED_ONLY_NOT_EXECUTED",
+  "stop_go": {
+    "go": "at least one 9/9 strict child with preserved projector margin and evidence that decoupling changes the Psi response without simply adding cross-polarization",
+    "stop": "no strict child or projector risk dominates"
+  },
+  "variable": "delta_theta_J2_deg",
+  "variants": [
+    {
+      "D_nm": 191.26160095534075,
+      "J2_length_nm": 111.0,
+      "J2_width_nm": 96.0,
+      "Psi_deg": 2.997042580283685,
+      "delta_theta_J2_deg": -1,
+      "parent_uid": "H1C1B_V2_010",
+      "theta_J2_deg": 1.997042580283685
+    },
+    {
+      "D_nm": 191.26160095534075,
+      "J2_length_nm": 111.0,
+      "J2_width_nm": 96.0,
+      "Psi_deg": 2.997042580283685,
+      "delta_theta_J2_deg": 1,
+      "parent_uid": "H1C1B_V2_010",
+      "theta_J2_deg": 3.997042580283685
+    },
+    {
+      "D_nm": 191.1674658512792,
+      "J2_length_nm": 112.0,
+      "J2_width_nm": 96.0,
+      "Psi_deg": 2.398421334092505,
+      "delta_theta_J2_deg": -1,
+      "parent_uid": "GLOBAL_006",
+      "theta_J2_deg": 1.3984213340925051
+    },
+    {
+      "D_nm": 191.1674658512792,
+      "J2_length_nm": 112.0,
+      "J2_width_nm": 96.0,
+      "Psi_deg": 2.398421334092505,
+      "delta_theta_J2_deg": 1,
+      "parent_uid": "GLOBAL_006",
+      "theta_J2_deg": 3.398421334092505
+    },
+    {
+      "D_nm": 191.1674658512792,
+      "J2_length_nm": 111.0,
+      "J2_width_nm": 96.0,
+      "Psi_deg": 2.398421334092505,
+      "delta_theta_J2_deg": -1,
+      "parent_uid": "H1C1B_V2_009",
+      "theta_J2_deg": 1.3984213340925051
+    },
+    {
+      "D_nm": 191.1674658512792,
+      "J2_length_nm": 111.0,
+      "J2_width_nm": 96.0,
+      "Psi_deg": 2.398421334092505,
+      "delta_theta_J2_deg": 1,
+      "parent_uid": "H1C1B_V2_009",
+      "theta_J2_deg": 3.398421334092505
+    }
+  ]
+}

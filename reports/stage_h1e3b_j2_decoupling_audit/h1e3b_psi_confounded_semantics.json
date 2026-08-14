@@ -1,0 +1,48 @@
+{
+  "J1_orientation_deg": 0.0,
+  "Psi_range_deg": [
+    -2.8624052261117474,
+    2.997042580283685
+  ],
+  "confounding": "every historical Psi change also changes displacement azimuth and theta_J2 because cx=D*cos(Psi)/2, cy=D*sin(Psi)/2, theta_J2=Psi; historical Psi-vs-phase/projector associations cannot identify either mechanism alone",
+  "grouped_by_sign": {
+    "negative": {
+      "phase_range_deg": [
+        8.815010427678772,
+        145.66784372952105
+      ],
+      "projector_error_range": [
+        0.001049531621357791,
+        0.9772420376228802
+      ],
+      "records": 187,
+      "strict": 9
+    },
+    "positive": {
+      "phase_range_deg": [
+        2.074932818251966,
+        359.7779817117504
+      ],
+      "projector_error_range": [
+        0.0008237332550098397,
+        0.9898609191600587
+      ],
+      "records": 255,
+      "strict": 9
+    },
+    "zero": {
+      "phase_range_deg": [
+        23.642079211170653,
+        147.10161737912108
+      ],
+      "projector_error_range": [
+        0.0010935442289102815,
+        0.575590662234205
+      ],
+      "records": 46,
+      "strict": 0
+    }
+  },
+  "schema": "H1E3B_PSI_CONFOUNDED_SEMANTICS_V1",
+  "source": "reports/stage_h1c1c_phase_gap/h1c1c_authoritative_label_registry_v1.csv"
+}
