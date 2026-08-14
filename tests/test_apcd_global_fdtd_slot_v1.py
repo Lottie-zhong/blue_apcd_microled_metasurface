@@ -111,6 +111,16 @@ def test_rcwa_is_not_an_fdtd_slot(tmp_path):
     lease.release("PRE_ENTRY_RELEASE")
 
 
+def test_rcwa_parent_controller_is_not_an_fdtd_slot():
+    rows=[
+        {"pid":301,"ppid":401,"name":"fdtd-solutions.exe","cmdline":r"fdtd-solutions -server -hide"},
+        {"pid":401,"ppid":0,"name":"python.exe","cmdline":r"python scripts/coupling/rcwa_p33_oblique_anchor.py --attempt-id attempt_002"},
+    ]
+    snap=MOD.live_job_snapshot(lambda: rows)
+    assert snap["global_active_jobs"]==0
+    assert snap["formal_process_count"]==0
+
+
 def test_two_branches_racing_last_slot_only_one_succeeds(tmp_path):
     import threading
     peer=[{"pid":101,"ppid":0,"name":"fdtd-solutions.exe","cmdline":r"D:\np\blue_apcd_np\case.fsp"}]

@@ -69,7 +69,7 @@ def registry_lock(path,timeout_s=LOCK_TIMEOUT_S):
 
 def _ps_snapshot():
     script=r'''$ErrorActionPreference='SilentlyContinue'
-Get-CimInstance Win32_Process | Where-Object { $_.Name -match '^(fdtd-solutions|fdtd-engine-msmpi|fdtd-engine|mpiexec).exe$' } | ForEach-Object { [pscustomobject]@{pid=[int]$_.ProcessId;ppid=[int]$_.ParentProcessId;name=[string]$_.Name;cmdline=[string]$_.CommandLine;path=[string]$_.ExecutablePath} } | ConvertTo-Json -Compress'''
+Get-CimInstance Win32_Process | Where-Object { $_.Name -match '^(fdtd-solutions|fdtd-engine-msmpi|fdtd-engine|mpiexec|python).exe$' } | ForEach-Object { [pscustomobject]@{pid=[int]$_.ProcessId;ppid=[int]$_.ParentProcessId;name=[string]$_.Name;cmdline=[string]$_.CommandLine;path=[string]$_.ExecutablePath} } | ConvertTo-Json -Compress'''
     result=subprocess.run(["powershell","-NoProfile","-Command",script],capture_output=True,text=True,encoding="utf-8",errors="replace",timeout=30)
     if not result.stdout.strip(): return []
     try: rows=json.loads(result.stdout)
@@ -105,10 +105,24 @@ def _branch_key(branch):
 def _branch_matches(left, right):
     return _branch_key(left) == _branch_key(right)
 
+def _lineage_text(row, by_pid):
+    parts=[]; current=row; seen=set()
+    while current and int(current.get("pid",-1)) not in seen:
+        pid=int(current.get("pid",-1)); seen.add(pid)
+        parts.append(str(current.get("name") or ""))
+        parts.append(str(current.get("cmdline") or ""))
+        current=by_pid.get(int(current.get("ppid",-1)))
+    return " ".join(parts).lower().replace("/","\\")
+
+def _is_rcwa_lineage(row, by_pid):
+    # RCWA may open an fdtd-solutions controller for messaging, but it is not
+    # a production FDTD job and must not consume a validated FDTD slot.
+    return "rcwa" in _lineage_text(row, by_pid)
+
 def live_job_snapshot(provider:Callable[[],list[dict[str,Any]]]|None=None):
     rows=list(provider() if provider else _ps_snapshot())
     by_pid={int(r.get("pid",-1)):r for r in rows}
-    formal=[r for r in rows if str(r.get("name") or "").lower() in FORMAL_NAMES]
+    formal=[r for r in rows if str(r.get("name") or "").lower() in FORMAL_NAMES and not _is_rcwa_lineage(r,by_pid)]
     direct_tokens={int(row.get("pid",-1)):_token(row,by_pid) for row in formal}
     direct_fsp_tokens={token for pid,token in direct_tokens.items() if str(by_pid[pid].get("cmdline") or "").lower().find(".fsp") >= 0}
     def ancestors(pid):
