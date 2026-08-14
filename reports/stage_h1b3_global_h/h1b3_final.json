@@ -1,0 +1,585 @@
+{
+  "H500_replay_check": {
+    "authoritative_rows": 6,
+    "scheduled": false
+  },
+  "artifacts": {
+    "candidate_effects": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_candidate_effects.csv",
+    "candidate_manifest": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_candidate_manifest.json",
+    "candidate_selection_audit": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_candidate_selection_audit.json",
+    "final": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_final.json",
+    "full_jones": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_full_jones.csv",
+    "merged_manifold": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_merged_h550_manifold.csv",
+    "projector_compensation_audit": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_projector_compensation_audit.json",
+    "sector_robustness": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_sector_robustness.json",
+    "solver_accounting": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_solver_accounting.json",
+    "summary": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1b3\\h1b3_summary.md"
+  },
+  "branch": "work/lp-global-h-manifold-v1",
+  "candidate_effects": [
+    {
+      "actual_legal_displacement_5d_from_C": {
+        "D_nm": -1.998600189859,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.022907184237
+      },
+      "candidate_id": "H1B3_F1_CONSERVATIVE_FORWARD",
+      "classification": "PHASE_GAIN_WITH_PROJECTOR_PRESERVED",
+      "exact_5d": {
+        "D_nm": 186.1316738225926,
+        "J1_side_nm": 112,
+        "J2_length_nm": 112,
+        "J2_width_nm": 102,
+        "Psi_deg": -2.1552756207914943
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 74.1316738225926,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 134.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          112,
+          112,
+          102,
+          93.0,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "phase_gain_vs_C_deg": 1.5480211769825587,
+      "phi_deg": 116.36634608542369,
+      "projector_compatible": true,
+      "projector_error_apcd_v1": 0.16708071541745373,
+      "projector_error_delta_vs_C": -0.007170465997133224,
+      "projector_margin_to_compatibility_threshold": 0.019415421590988857,
+      "role": "F1_CONSERVATIVE_FORWARD_CONTINUATION",
+      "selected_throughput_Txx": 0.9483115737373942
+    },
+    {
+      "actual_legal_displacement_5d_from_C": {
+        "D_nm": -3.997169981699,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.046311638723
+      },
+      "candidate_id": "H1B3_F2_FULL_FORWARD",
+      "classification": "PHASE_GAIN_WITH_PROJECTOR_PRESERVED",
+      "exact_5d": {
+        "D_nm": 184.13310403075272,
+        "J1_side_nm": 112,
+        "J2_length_nm": 112,
+        "J2_width_nm": 102,
+        "Psi_deg": -2.1786800752766027
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 72.13310403075272,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 136.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          112,
+          112,
+          102,
+          92.0,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "phase_gain_vs_C_deg": 3.490496889012661,
+      "phi_deg": 118.30882179745379,
+      "projector_compatible": true,
+      "projector_error_apcd_v1": 0.1707654777821731,
+      "projector_error_delta_vs_C": -0.00348570363241385,
+      "projector_margin_to_compatibility_threshold": 0.015730659226269483,
+      "role": "F2_FULL_FORWARD_CONTINUATION",
+      "selected_throughput_Txx": 0.9397404807455068
+    },
+    {
+      "actual_legal_displacement_5d_from_C": {
+        "D_nm": -1.998600189859,
+        "J1_side_nm": -1.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": -0.022907184237
+      },
+      "candidate_id": "H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+      "classification": "NO_USEFUL_LOCAL_GAIN",
+      "exact_5d": {
+        "D_nm": 186.1316738225926,
+        "J1_side_nm": 111,
+        "J2_length_nm": 112,
+        "J2_width_nm": 102,
+        "Psi_deg": -2.1552756207914943
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 75.1316738225926,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 135.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          111,
+          112,
+          102,
+          93.0,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "phase_gain_vs_C_deg": -1.9593658074362565,
+      "phi_deg": 112.85895910100487,
+      "projector_compatible": true,
+      "projector_error_apcd_v1": 0.13372697948148482,
+      "projector_error_delta_vs_C": -0.04052420193310213,
+      "projector_margin_to_compatibility_threshold": 0.052769157526957766,
+      "role": "F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+      "selected_throughput_Txx": 0.9472820741185112
+    },
+    {
+      "actual_legal_displacement_5d_from_C": {
+        "D_nm": 0.999311193037,
+        "J1_side_nm": 0.0,
+        "J2_length_nm": 0.0,
+        "J2_width_nm": 0.0,
+        "Psi_deg": 0.011272039893
+      },
+      "candidate_id": "H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+      "classification": "NO_USEFUL_LOCAL_GAIN",
+      "exact_5d": {
+        "D_nm": 189.12958520548815,
+        "J1_side_nm": 112,
+        "J2_length_nm": 112,
+        "J2_width_nm": 102,
+        "Psi_deg": -2.1210963966614536
+      },
+      "legality": {
+        "checks": {
+          "H_global_550": true,
+          "cell_containment": true,
+          "direct_gap_ge_60": true,
+          "exact_hash_unique_in_probe": true,
+          "half_grid_center": true,
+          "integer_lateral_dimensions": true,
+          "native_material": true,
+          "no_overlap": true,
+          "no_previous_exact_physics_evidence": true,
+          "period_432": true,
+          "periodic_gap_ge_60": true,
+          "physical_geometry_unique_in_probe": true
+        },
+        "direct_gap_nm": 77.12958520548815,
+        "outside_old_H500_search_box": true,
+        "pass": true,
+        "periodic_gap_x_nm": 131.0,
+        "periodic_gap_y_nm": 313.0,
+        "physical_key": [
+          112,
+          112,
+          102,
+          94.5,
+          -3.5,
+          550.0,
+          432.0,
+          "APCD_TIO2_NATIVE_M1"
+        ]
+      },
+      "phase_gain_vs_C_deg": -0.6916001599541346,
+      "phi_deg": 114.12672474848699,
+      "projector_compatible": true,
+      "projector_error_apcd_v1": 0.17915648830435627,
+      "projector_error_delta_vs_C": 0.004905306889769312,
+      "projector_margin_to_compatibility_threshold": 0.007339648704086321,
+      "role": "F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+      "selected_throughput_Txx": 0.9481983413147803
+    }
+  ],
+  "flags": {
+    "FLAG_120_ML_RESTART": false,
+    "FLAG_60_SECTOR": false
+  },
+  "head": "a4ccaa4ba5fbeb986bb1fec336cb55a89c5ea699",
+  "manifest_freeze_sha256": "87a3d1a4f15ccdafdf212b9861e70378a81026727b110541d905eb7ccfb98d95",
+  "recommended_next_route": "TARGETED_CONSTITUENT_RECONNAISSANCE",
+  "schema": "LP_GLOBAL_H_H1B3_FINAL_V1",
+  "sector_robustness": {
+    "SECTOR_60_ROBUSTNESS": "INCONCLUSIVE",
+    "flag_60": false,
+    "legality_boundary_check": "all frozen legality checks must pass",
+    "nearby_compatible_points": [
+      "LPML_R2_HIGH_UNCERTAINTY_007",
+      "H1B2_C_UPPER_EDGE_LOCAL_CONTINUATION",
+      "H1B3_F1_CONSERVATIVE_FORWARD",
+      "H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+      "H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR"
+    ],
+    "new_extremum_projector_margin": 0.015730659226269483,
+    "new_upper_extremum_ids": [
+      "H1B3_F2_FULL_FORWARD"
+    ],
+    "throughput_collapse_check": "Txx > 0.2 required for supported region"
+  },
+  "solver_accounting": {
+    "H500_replay_check": {
+      "authoritative_rows": 6,
+      "scheduled": false
+    },
+    "H500_scheduled": false,
+    "H_global_nm_only": 550.0,
+    "cases": [
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F1_CONSERVATIVE_FORWARD",
+        "case_id": "H1B3_H1B3_F1_CONSERVATIVE_FORWARD_H550_Px",
+        "geometry_hash_sha256": "15559d20712a7b2b8369baf8680a8a8c572a19111cb2e60905279acedf0362f7",
+        "planned": true,
+        "polarization": "x",
+        "quarantined": false,
+        "recovered": true,
+        "solver_entered": true,
+        "status": "ACCEPTED"
+      },
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F1_CONSERVATIVE_FORWARD",
+        "case_id": "H1B3_H1B3_F1_CONSERVATIVE_FORWARD_H550_Py",
+        "geometry_hash_sha256": "15559d20712a7b2b8369baf8680a8a8c572a19111cb2e60905279acedf0362f7",
+        "planned": true,
+        "polarization": "y",
+        "quarantined": false,
+        "recovered": true,
+        "solver_entered": true,
+        "status": "ACCEPTED"
+      },
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F2_FULL_FORWARD",
+        "case_id": "H1B3_H1B3_F2_FULL_FORWARD_H550_Px",
+        "geometry_hash_sha256": "b2a64e2a6da23fea3d392927867e71124c033f67fb60ebad04b8e30349e8cda2",
+        "planned": true,
+        "polarization": "x",
+        "quarantined": false,
+        "recovered": true,
+        "solver_entered": true,
+        "status": "ACCEPTED"
+      },
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F2_FULL_FORWARD",
+        "case_id": "H1B3_H1B3_F2_FULL_FORWARD_H550_Py",
+        "geometry_hash_sha256": "b2a64e2a6da23fea3d392927867e71124c033f67fb60ebad04b8e30349e8cda2",
+        "planned": true,
+        "polarization": "y",
+        "quarantined": false,
+        "recovered": true,
+        "solver_entered": true,
+        "status": "ACCEPTED"
+      },
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+        "case_id": "H1B3_H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION_H550_Px",
+        "geometry_hash_sha256": "cb8c360689f9e8707a009df5401f186561937eaa51338008ff4b330b891cdec3",
+        "planned": true,
+        "polarization": "x",
+        "quarantined": false,
+        "recovered": false,
+        "solver_entered": true,
+        "status": "ACCEPTED",
+        "unentered_infrastructure_failure": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+        "case_id": "H1B3_H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION_H550_Py",
+        "geometry_hash_sha256": "cb8c360689f9e8707a009df5401f186561937eaa51338008ff4b330b891cdec3",
+        "planned": true,
+        "polarization": "y",
+        "quarantined": false,
+        "recovered": false,
+        "solver_entered": true,
+        "status": "ACCEPTED",
+        "unentered_infrastructure_failure": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+        "case_id": "H1B3_H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR_H550_Px",
+        "geometry_hash_sha256": "71bc42ab40098127a0dcd322a68f0f251cc298bcd9c0d71497e99c2983c6423d",
+        "planned": true,
+        "polarization": "x",
+        "quarantined": false,
+        "recovered": false,
+        "solver_entered": true,
+        "status": "ACCEPTED",
+        "unentered_infrastructure_failure": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "accepted": true,
+        "attempted": true,
+        "candidate_id": "H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+        "case_id": "H1B3_H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR_H550_Py",
+        "geometry_hash_sha256": "71bc42ab40098127a0dcd322a68f0f251cc298bcd9c0d71497e99c2983c6423d",
+        "planned": true,
+        "polarization": "y",
+        "quarantined": false,
+        "recovered": false,
+        "solver_entered": true,
+        "status": "ACCEPTED",
+        "unentered_infrastructure_failure": true
+      }
+    ],
+    "manifest_freeze_sha256": "87a3d1a4f15ccdafdf212b9861e70378a81026727b110541d905eb7ccfb98d95",
+    "schema": "LP_GLOBAL_H_H1B3_SOLVER_ACCOUNTING_V1",
+    "solver_budget_planned": 8,
+    "solver_entries": [
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F1_CONSERVATIVE_FORWARD_H550_Px_attempt_001",
+        "candidate_id": "H1B3_F1_CONSERVATIVE_FORWARD",
+        "case_id": "H1B3_H1B3_F1_CONSERVATIVE_FORWARD_H550_Px",
+        "case_identity_sha256": "53aa49e4ec778feac28175ad79c770667384b2ab97f63fcfe12c96eca5aca1f8",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:49:28.686868+00:00",
+        "geometry_hash_sha256": "15559d20712a7b2b8369baf8680a8a8c572a19111cb2e60905279acedf0362f7",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 26844,
+        "polarization": "x",
+        "pre_fsp_sha256": "dbd6342301e69bac24a7e38f0cd7e41279922776de2e45cac413e155922fe56b",
+        "slot_id": "GLOBAL_SLOT_2",
+        "solver_entered": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F1_CONSERVATIVE_FORWARD_H550_Py_attempt_001",
+        "candidate_id": "H1B3_F1_CONSERVATIVE_FORWARD",
+        "case_id": "H1B3_H1B3_F1_CONSERVATIVE_FORWARD_H550_Py",
+        "case_identity_sha256": "8bee4cf05ae8bc2d2144a2453966ad8c6fe5e8567dbd5711a623dfb8f932990e",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:49:50.939200+00:00",
+        "geometry_hash_sha256": "15559d20712a7b2b8369baf8680a8a8c572a19111cb2e60905279acedf0362f7",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 26844,
+        "polarization": "y",
+        "pre_fsp_sha256": "79eba7123c4acd2907cd9b851797ed612630cbd38c4a9d7186063443de7a4bff",
+        "slot_id": "GLOBAL_SLOT_2",
+        "solver_entered": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F2_FULL_FORWARD_H550_Px_attempt_001",
+        "candidate_id": "H1B3_F2_FULL_FORWARD",
+        "case_id": "H1B3_H1B3_F2_FULL_FORWARD_H550_Px",
+        "case_identity_sha256": "ce0307b777b4c3d4ab36b3f1782dfd35599485e85417bc3a1ae90efc6579e04b",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:50:13.946555+00:00",
+        "geometry_hash_sha256": "b2a64e2a6da23fea3d392927867e71124c033f67fb60ebad04b8e30349e8cda2",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 26844,
+        "polarization": "x",
+        "pre_fsp_sha256": "4560e5cd79421bb779ae128095548dfca11aceca3314046b7b6f4a614b126a4c",
+        "slot_id": "GLOBAL_SLOT_2",
+        "solver_entered": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F2_FULL_FORWARD_H550_Py_attempt_001",
+        "candidate_id": "H1B3_F2_FULL_FORWARD",
+        "case_id": "H1B3_H1B3_F2_FULL_FORWARD_H550_Py",
+        "case_identity_sha256": "94ea6fe27dc75c3e01e872f3c824bfeaa65b226e047163f3b2cdbc9d407ab660",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:50:35.963701+00:00",
+        "geometry_hash_sha256": "b2a64e2a6da23fea3d392927867e71124c033f67fb60ebad04b8e30349e8cda2",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 26844,
+        "polarization": "y",
+        "pre_fsp_sha256": "ad53f9ea0b2919c34e314ae719c961848c605c906daa17429dffcd31beb4f7c3",
+        "slot_id": "GLOBAL_SLOT_2",
+        "solver_entered": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION_H550_Px_attempt_002",
+        "candidate_id": "H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+        "case_id": "H1B3_H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION_H550_Px",
+        "case_identity_sha256": "847e2772dd4092899ce98b3b8dbfe8f2a1152233c548faac0377ee2ad07f4dcf",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:55:57.707748+00:00",
+        "geometry_hash_sha256": "cb8c360689f9e8707a009df5401f186561937eaa51338008ff4b330b891cdec3",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 18236,
+        "polarization": "x",
+        "pre_fsp_sha256": "700ddf22a438f491ae288ace54f41a3264fdfc1b6816cf5dfa3a2bf0e7ebdde2",
+        "slot_id": "GLOBAL_SLOT_1",
+        "solver_entered": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION_H550_Py_attempt_002",
+        "candidate_id": "H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION",
+        "case_id": "H1B3_H1B3_F3_FORWARD_PLUS_PROJECTOR_COMPENSATION_H550_Py",
+        "case_identity_sha256": "4796b79223c415db8f75851914da92fbb0c820372a1edfcb2aa3d845ab18b3cc",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:56:18.124827+00:00",
+        "geometry_hash_sha256": "cb8c360689f9e8707a009df5401f186561937eaa51338008ff4b330b891cdec3",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 18236,
+        "polarization": "y",
+        "pre_fsp_sha256": "615df9486f1360edbf2d76c7bf3f1c483fa707a9a58b32bd08f74133e14b6820",
+        "slot_id": "GLOBAL_SLOT_1",
+        "solver_entered": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR_H550_Px_attempt_002",
+        "candidate_id": "H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+        "case_id": "H1B3_H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR_H550_Px",
+        "case_identity_sha256": "1b5937d246cbac9cd3dab23f700b2e94060c371b333cf2a4bec062cac568f265",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:56:38.754286+00:00",
+        "geometry_hash_sha256": "71bc42ab40098127a0dcd322a68f0f251cc298bcd9c0d71497e99c2983c6423d",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 18236,
+        "polarization": "x",
+        "pre_fsp_sha256": "705fc1e2d21bc7b8ef85f4f8ca1d1654e2d5ddd0a1edc0f872d97aed4a643043",
+        "slot_id": "GLOBAL_SLOT_1",
+        "solver_entered": true
+      },
+      {
+        "H_global_nm": 550.0,
+        "attempt_id": "H1B3_H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR_H550_Py_attempt_002",
+        "candidate_id": "H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR",
+        "case_id": "H1B3_H1B3_F4_PROJECTOR_ROBUST_LOCAL_NEIGHBOR_H550_Py",
+        "case_identity_sha256": "16d913a61f7ea2316ee1377b6baa726fc404ded4f724d8589e0b63632f09fb0b",
+        "entered_solver": true,
+        "entered_utc": "2026-08-14T07:57:01.054229+00:00",
+        "geometry_hash_sha256": "71bc42ab40098127a0dcd322a68f0f251cc298bcd9c0d71497e99c2983c6423d",
+        "physical_contract_sha256": "35e6c2bf9d42de0a79f9d2536064237a2d8dffff6c32fff8ebbf8f48da9b2a0f",
+        "pid": 18236,
+        "polarization": "y",
+        "pre_fsp_sha256": "961aa7f132a58d75e445ce82c3931cfbb3ba919672631208b17549b92c9d2798",
+        "slot_id": "GLOBAL_SLOT_1",
+        "solver_entered": true
+      }
+    ],
+    "solver_subruns_accepted": 8,
+    "solver_subruns_entered": 8,
+    "solver_subruns_quarantined": 0,
+    "stage": "H1B-3",
+    "status": "COMPLETE_ANALYSIS"
+  },
+  "span_comparison": {
+    "FLAG_120_ML_RESTART": false,
+    "FLAG_60_SECTOR": false,
+    "baseline_H1B2_compatible_arc": {
+      "arc_end_deg": 114.81832490844113,
+      "arc_start_deg": 66.61786682418824,
+      "coverage_deg": 48.20045808425289,
+      "largest_gap_deg": 311.7995419157471,
+      "raw_max_deg": 114.81832490844113,
+      "raw_min_deg": 66.61786682418824
+    },
+    "baseline_H1B2_compatible_span_deg": 48.20045808425289,
+    "incremental_gain_deg": 3.490496889012661,
+    "max_compatible_pair_ids": [
+      "H1B1_A_LOWER_COMPATIBLE_EDGE",
+      "H1B3_F2_FULL_FORWARD"
+    ],
+    "max_compatible_pair_separation_deg": 51.69095497326555,
+    "merged_H550_count": 20,
+    "new_H1B3_full_jones_count": 4,
+    "new_merged_H550_compatible_arc": {
+      "arc_end_deg": 118.30882179745379,
+      "arc_start_deg": 66.61786682418824,
+      "coverage_deg": 51.69095497326555,
+      "largest_gap_deg": 308.30904502673445,
+      "raw_max_deg": 118.30882179745379,
+      "raw_min_deg": 66.61786682418824
+    },
+    "new_merged_H550_projector_compatible_count": 11,
+    "new_merged_H550_projector_compatible_span_deg": 51.69095497326555,
+    "new_merged_H550_raw_arc": {
+      "arc_end_deg": 118.30882179745379,
+      "arc_start_deg": 40.297497908740894,
+      "coverage_deg": 78.01132388871292,
+      "largest_gap_deg": 281.9886761112871,
+      "raw_max_deg": 118.30882179745379,
+      "raw_min_deg": 40.297497908740894
+    },
+    "new_sector_gap_deg": 8.309045026734452,
+    "new_upper_extremum_ids": [
+      "H1B3_F2_FULL_FORWARD"
+    ],
+    "upper_edge_extension_from_C_deg": 3.490496889012661
+  },
+  "stage": "H1B-3",
+  "status": "COMPLETE_ANALYSIS",
+  "verdict": "H1B3_FINAL_REFINEMENT_IMPROVED_BUT_BELOW_60"
+}
