@@ -42,3 +42,8 @@ def test_h1b2_budget_and_contract_constants():
     assert MOD.H_GLOBAL_NM == 550.0
     assert MOD.PERIOD_NM == 432.0
     assert MOD.MATERIAL == "APCD_TIO2_NATIVE_M1"
+
+
+def test_authoritative_merge_has_h1a_six_plus_h1b1_five_baseline_rows():
+    assert len(MOD.old_h550_rows()) == 6
+    assert len(MOD.h1b1_h550_rows()) == 5

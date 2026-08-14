@@ -37,6 +37,7 @@ H1B1_FINAL = ROOT / "reports/stage_h1b1_global_h/h1b1_final.json"
 H1B1_MANIFEST = ROOT / "outputs/lp_global_h_h1b1/h1b1_candidate_manifest.json"
 H1B1_EFFECTS = ROOT / "outputs/lp_global_h_h1b1/h1b1_candidate_effects.csv"
 H1B1_MERGED = ROOT / "outputs/lp_global_h_h1b1/h1b1_h550_merged_manifold.csv"
+H1B1_FULL = ROOT / "outputs/lp_global_h_h1b1/h1b1_full_jones.csv"
 H1A_FULL = ROOT / "outputs/lp_global_h_h1a/complete_jones_table.csv"
 H0_ANCHORS = ROOT / "reports/stage_h0_global_h/anchor_manifest.json"
 H1B0_PROPOSAL = ROOT / "reports/stage_h1b0_global_h/h1b0_proposed_next_probe.json"
@@ -239,7 +240,9 @@ def parent_geometry(parent_id: str, evidence: dict[str, dict]) -> dict:
         row["J2_center_y_nm"] = d * math.sin(psi) / 2.0
         row["J1_center_x_nm"] = -row["J2_center_x_nm"]
         row["J1_center_y_nm"] = -row["J2_center_y_nm"]
-    return {key: row.get(key) for key in ("authoritative_id", "candidate_id", "exact_geometry_hash_sha256", "J1_side_nm", "J2_length_nm", "J2_width_nm", "J2_center_x_nm", "J2_center_y_nm", "D_nm", "Psi_deg", "H_global_nm", "phase_wrapped_deg", "phi_deg", "projector_error_apcd_v1", "selected_throughput_Txx", "Txx", "projector_compatible")}
+    result = {key: row.get(key) for key in ("authoritative_id", "candidate_id", "exact_geometry_hash_sha256", "J1_side_nm", "J2_length_nm", "J2_width_nm", "J2_center_x_nm", "J2_center_y_nm", "D_nm", "Psi_deg", "H_global_nm", "projector_error_apcd_v1", "selected_throughput_Txx", "Txx", "projector_compatible")}
+    result["phase_wrapped_deg"] = row.get("phase_wrapped_deg") or row.get("phi_deg")
+    return result
 
 
 def materialize_candidates() -> list[dict]:
@@ -467,6 +470,7 @@ def build_manifest() -> tuple[dict, dict]:
         "h1b1_manifest_sha256": sha256_file(H1B1_MANIFEST),
         "h1b1_effects_sha256": sha256_file(H1B1_EFFECTS),
         "h1b1_merged_sha256": sha256_file(H1B1_MERGED),
+        "h1b1_full_jones_sha256": sha256_file(H1B1_FULL),
         "h1b0_proposal_sha256": sha256_file(H1B0_PROPOSAL),
         "h1b0_hypotheses_sha256": sha256_file(H1B0_HYPOTHESES),
         "bounds_contract_sha256": sha256_file(BOUNDS),
@@ -695,7 +699,7 @@ def max_pairs(rows: list[dict]) -> tuple[float, list[str] | None]:
     for a, b in itertools.combinations(rows, 2):
         separation = abs(SUP.H1A.circ_diff(canonical_phase(float(a["phase_wrapped_deg"])), canonical_phase(float(b["phase_wrapped_deg"]))))
         if separation > best[0]:
-            best = (separation, [str(a.get("candidate_id") or a.get("authoritative_id")), str(b.get("candidate_id") or a.get("candidate_id"))])
+            best = (separation, [str(a.get("candidate_id") or a.get("authoritative_id")), str(b.get("candidate_id") or b.get("authoritative_id"))])
     return best
 
 
@@ -704,6 +708,21 @@ def old_h550_rows() -> list[dict]:
     for row in rows:
         row["diffraction_order"] = "G0"
         row["physics_origin"] = "H1A_AUTHORITATIVE_FULL_JONES"
+    return rows
+
+
+def h1b1_h550_rows() -> list[dict]:
+    rows = read_csv(H1B1_FULL)
+    if len(rows) != 5:
+        raise RuntimeError(f"HARD_GATE_H1B1_FULL_JONES_MERGE_COUNT:{len(rows)}")
+    for row in rows:
+        row["source_class"] = "H1B1_AUTHORITATIVE_FULL_JONES"
+        row["physics_origin"] = "H1B1_AUTHORITATIVE_FULL_JONES"
+        row["diffraction_order"] = "G0"
+        row["phase_wrapped_deg"] = canonical_phase(float(row["phase_wrapped_deg"]))
+        row["projector_error_apcd_v1"] = number(row.get("projection_error_apcd_v1") or row.get("projector_error_apcd_v1"))
+        row["selected_throughput_Txx"] = number(row.get("Txx"))
+        row["projector_compatible"] = row["projector_error_apcd_v1"] is not None and row["projector_error_apcd_v1"] <= PROJECTOR_ERROR_MAX + 1e-12
     return rows
 
 
@@ -721,7 +740,9 @@ def analyze(manifest: dict, results: dict[str, dict]) -> dict:
             phase_new.append(phase_only_row(candidate, x))
         if x and y and x.get("status") == "ACCEPTED" and y.get("status") == "ACCEPTED":
             full_new.append(full_jones_row(candidate, x, y))
-    old = old_h550_rows()
+    old_h1a = old_h550_rows()
+    old_h1b1 = h1b1_h550_rows()
+    old = old_h1a + old_h1b1
     merged = old + full_new
     for row in merged:
         err = number(row.get("projection_error_apcd_v1") or row.get("projector_error_apcd_v1"))
@@ -731,6 +752,7 @@ def analyze(manifest: dict, results: dict[str, dict]) -> dict:
     compatible = [row for row in merged if row["projector_compatible"]]
     old_compatible = [row for row in old if row["projector_compatible"]]
     old_arc = circular_arc([row["phase_wrapped_deg"] for row in old_compatible])
+    old_h1a_arc = circular_arc([row["phase_wrapped_deg"] for row in old_h1a if row["projector_compatible"]])
     new_arc = circular_arc([row["phase_wrapped_deg"] for row in compatible])
     lower_extension = ccw_distance(new_arc["arc_start_deg"], old_arc["arc_start_deg"]) if new_arc["arc_start_deg"] is not None and old_arc["arc_start_deg"] is not None else 0.0
     upper_extension = ccw_distance(old_arc["arc_end_deg"], new_arc["arc_end_deg"]) if new_arc["arc_end_deg"] is not None and old_arc["arc_end_deg"] is not None else 0.0
@@ -739,10 +761,9 @@ def analyze(manifest: dict, results: dict[str, dict]) -> dict:
     upper_ids = [row["candidate_id"] for row in compatible if row["candidate_id"] in new_rows and abs(ccw_distance(new_arc["arc_end_deg"], row["phase_wrapped_deg"])) < 1e-8]
     pair, pair_ids = max_pairs(compatible)
     effects = []
-    evidence = evidence_rows()
     for row in full_new:
         candidate = next(c for c in manifest["candidates"] if c["candidate_id"] == row["candidate_id"])
-        parent = candidate["parent_reference_geometry"]
+        parent = parent_geometry(candidate["parent_reference_id"], evidence_rows())
         parent_phi = number(parent.get("phase_wrapped_deg"))
         parent_error = number(parent.get("projector_error_apcd_v1"))
         parent_txx = number(parent.get("selected_throughput_Txx") or parent.get("Txx"))
@@ -791,7 +812,8 @@ def analyze(manifest: dict, results: dict[str, dict]) -> dict:
         route = "TARGETED_CONSTITUENT_RECONNAISSANCE"
     span = {
         "baseline_H1B1_compatible_span_deg": BASELINE_COMPATIBLE_SPAN_DEG,
-        "old_H1A_H550_compatible_arc": old_arc,
+        "old_H1A_H550_compatible_arc": old_h1a_arc,
+        "baseline_H1B1_compatible_arc": old_arc,
         "new_merged_H550_compatible_arc": new_arc,
         "new_merged_H550_raw_arc": circular_arc([row["phase_wrapped_deg"] for row in merged]),
         "new_merged_H550_projector_compatible_count": len(compatible),
@@ -802,7 +824,8 @@ def analyze(manifest: dict, results: dict[str, dict]) -> dict:
         "max_compatible_pair_separation_deg": pair,
         "max_compatible_pair_ids": pair_ids,
         "new_sector_gap_deg": 60.0 - pair,
-        "old_H1A_H550_count": len(old),
+        "old_H1A_H550_count": len(old_h1a),
+        "old_H1B1_H550_count": len(old_h1b1),
         "new_H1B2_full_jones_count": len(full_new),
         "merged_H550_count": len(merged),
         "new_lower_extremum_ids": lower_ids,
@@ -900,12 +923,31 @@ def execute(manifest: dict) -> int:
     return 0
 
 
+def postprocess(manifest: dict) -> int:
+    accounting = load_accounting()
+    if len(accounting.get("solver_entries", [])) != MAX_SUBRUNS:
+        raise RuntimeError("HARD_GATE_H1B2_POSTPROCESS_ENTRY_COUNT")
+    results: dict[str, dict] = {}
+    for candidate in manifest["candidates"]:
+        for pol in POLARIZATIONS:
+            identity = case_identity(candidate, pol, manifest["head"])
+            recovered = checkpoint_result(RUNTIME / "cases" / case_name(candidate, pol), identity)
+            if not recovered:
+                raise RuntimeError(f"HARD_GATE_H1B2_POSTPROCESS_CHECKPOINT_MISSING:{candidate['candidate_id']}:{pol}")
+            results[case_name(candidate, pol)] = recovered
+    analysis = analyze(manifest, results)
+    write_analysis(manifest, accounting, analysis)
+    print(json.dumps({"status": "COMPLETE_ANALYSIS_POSTPROCESS_ONLY", "solver_replay": False, "verdict": analysis["verdict"], "entered": len(accounting.get("solver_entries", [])), "accepted_full_jones": len(analysis["full_new"]), "span": analysis["span"]}, indent=2, ensure_ascii=False, default=str))
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--preflight-only", action="store_true")
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--postprocess-only", action="store_true")
     args = parser.parse_args()
-    if bool(args.preflight_only) == bool(args.execute):
+    if sum(bool(value) for value in (args.preflight_only, args.execute, args.postprocess_only)) != 1:
         raise SystemExit("select exactly one mode")
     if args.preflight_only:
         return preflight()
@@ -915,8 +957,12 @@ def main() -> int:
     manifest = read_json(manifest_path)
     if manifest.get("status") != "FROZEN_READY" or manifest.get("freeze_sha256") != sha256_obj({key: value for key, value in manifest.items() if key != "freeze_sha256"}):
         raise SystemExit("HARD_GATE_H1B2_FROZEN_MANIFEST_INVALID")
-    if current_branch() != TARGET_BRANCH or current_head() != manifest.get("head"):
+    current = current_head()
+    ancestry = subprocess.run(["git", "merge-base", "--is-ancestor", str(manifest.get("head")), current], cwd=ROOT, capture_output=True)
+    if current_branch() != TARGET_BRANCH or ancestry.returncode != 0:
         raise SystemExit("HARD_GATE_H1B2_HEAD_OR_BRANCH_DRIFT")
+    if args.postprocess_only:
+        return postprocess(manifest)
     return execute(manifest)
 
 
