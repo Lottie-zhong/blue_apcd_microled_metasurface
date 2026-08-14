@@ -1,0 +1,68 @@
+{
+  "450_nm_role": "visualization_reference_and_label_only; never sole broadband acceptance",
+  "authoritative_source": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_ml_dataset_v1\\plans\\lp_ml_dataset_v1_broadband_smoke_attempt2_execution_contract_v1.json",
+  "authoritative_source_sha256": "3216aea9d54bf1fbbe1dcdbdbab6d3399ee03802440edd9c589e8f75decee5de",
+  "frozen_wavelength_grid_nm": [
+    450.0,
+    450.5,
+    451.0,
+    451.5,
+    452.0,
+    452.5,
+    453.0,
+    453.5,
+    454.0
+  ],
+  "projector_compatibility": {
+    "broadband_aggregate_semantics": "NOT_FROZEN; Chart review required",
+    "center_threshold": 0.1864961370084426,
+    "proposed_review_definition": "all frozen wavelengths pass the inherited error threshold, while throughput is reported as a robustness metric until a formal throughput gate is approved",
+    "threshold_semantics": "inherited empirical H1A best_50_percent_by_projector_error_among_this_H1A_anchor_slice; no new absolute threshold",
+    "threshold_source": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_global_h_h1b3_probe_v1.py"
+  },
+  "reference_convention": {
+    "endpoint_convention": "deduplicate_periodic_endpoints_and_reclose_period",
+    "formal_polarizations": [
+      "x",
+      "y"
+    ],
+    "material": "APCD_TIO2_NATIVE_M1",
+    "monitor_z_nm": 1000.0,
+    "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+    "observable": "transmission_side_coordinate_weighted_complex_G0",
+    "period_nm": [
+      432.0,
+      432.0
+    ],
+    "phase": "arg(txx)",
+    "projector": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "repository_provenance": {
+    "branch": "work/lp-global-h-manifold-v1",
+    "head": "5e9f3eb42ccbf3fcf1d82f8452da09b4e1c9ec96",
+    "tool_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_h1c0_audit_v1.py",
+    "tool_sha256": "0c6d9f8b23ba7e723dee6aa4d983994babeeec747ca2b3084c483dbe329d1f0a",
+    "upstream_ahead_behind": "0\t0"
+  },
+  "schema": "H1C0_BROADBAND_CONTRACT_V1",
+  "solver_contract": {
+    "new_fdtd": false,
+    "new_physics_solver": false,
+    "new_rcwa": false
+  },
+  "wavelength_count": 9,
+  "wavelength_endpoints_nm": [
+    450.0,
+    454.0
+  ],
+  "wavelength_step_nm": 0.5
+}

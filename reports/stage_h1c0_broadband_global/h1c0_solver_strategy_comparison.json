@@ -1,0 +1,33 @@
+{
+  "current_runtime_evidence": {
+    "broadband_points_per_run": 9,
+    "per_run_duration_field": "not recorded; do not fabricate wall time",
+    "processes_per_job": 4,
+    "threads_per_job": 1,
+    "validated_global_concurrency": 2
+  },
+  "recommendation": "STRATEGY_B_WITH_MANDATORY_Y_COMPLETION_GATE",
+  "recommendation_reason": "queue pressure makes x reconnaissance a cost optimization, but x-only rows never enter the formal candidate bank; if shortlist reduction is not demonstrated, revert to A because one broadband run already returns the full frozen spectrum",
+  "repository_provenance": {
+    "branch": "work/lp-global-h-manifold-v1",
+    "head": "5e9f3eb42ccbf3fcf1d82f8452da09b4e1c9ec96",
+    "tool_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_h1c0_audit_v1.py",
+    "tool_sha256": "0c6d9f8b23ba7e723dee6aa4d983994babeeec747ca2b3084c483dbe329d1f0a",
+    "upstream_ahead_behind": "0\t0"
+  },
+  "schema": "H1C0_SOLVER_STRATEGY_COMPARISON_V1",
+  "strategy_A": {
+    "cost_for_72_geometries": 144,
+    "formal_compatibility": true,
+    "name": "BROADBAND_FULL_JONES_EVERY_GEOMETRY",
+    "subruns_per_geometry": 2
+  },
+  "strategy_B": {
+    "cost_saving_vs_A": "25_percent_subrun reduction in this illustrative shortlist",
+    "formal_compatibility": "only_after_y_completion",
+    "name": "BROADBAND_X_RECONNAISSANCE_THEN_PHASE_DIVERSE_Y_COMPLETION",
+    "total_subruns_if_50_percent_shortlist": 108,
+    "x_subruns_for_72_geometries": 72,
+    "y_subruns_if_50_percent_shortlist": 36
+  }
+}
