@@ -1,0 +1,49 @@
+{
+  "active_fdtd_job_count_at_first_lp_entry": 1,
+  "active_rcwa_job_count_at_first_lp_entry": 1,
+  "coupling_mdc_solver_type": "RCWA",
+  "cross_branch_isolation": true,
+  "evidence": [
+    "h1c1c_solver_accounting.json",
+    "concurrency3_trial/concurrency3_trial_result.json",
+    "concurrency3_trial/concurrency3_live_job_map.json"
+  ],
+  "lp_used_second_validated_fdtd_slot": true,
+  "max_active_fdtd_per_branch": 1,
+  "max_simultaneous_independent_fdtd_jobs": 2,
+  "mpi_engine_count_per_fdtd_case": 4,
+  "np_solver_type": "FDTD",
+  "processes_per_fdtd_job": 4,
+  "rcwa_excluded_from_fdtd_accounting": true,
+  "schema": "H1C1C_GLOBAL_SOLVER_ACCOUNTING_V1",
+  "simultaneous_rcwa_jobs": 1,
+  "solver_replay": false,
+  "solver_type_aware_scheduler_tests": {
+    "source": "tests/test_solver_type_aware_scheduler.py",
+    "status": "PASS",
+    "tests": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G"
+    ]
+  },
+  "threads_per_fdtd_job": 1,
+  "validated_production_fdtd_concurrency": 2,
+  "whole_machine_resource_observations": {
+    "cpu_load_pct_range": [
+      0.0,
+      3.0
+    ],
+    "memory_free_mb_range": [
+      236296.7,
+      236518.2
+    ],
+    "memory_total_mb": 261790.2,
+    "observation_count": 9,
+    "source": "concurrency3_live_job_map.json"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "classification": "CONCURRENCY3_NOT_OBSERVED_DUE_TO_ONLY_TWO_REAL_LIVE_JOBS",
+  "lp_solver_entered": false,
+  "lp_trial_accepted": false,
+  "max_observed_real_fdtd_concurrency": 1,
+  "peer_interference_observed": false,
+  "peer_worktrees_touched": false,
+  "policy": "APCD_CONCURRENCY3_VALIDATION_TRIAL_V1",
+  "processes": 4,
+  "production_concurrency_value": 2,
+  "real_live_fdtd_jobs_before": 1,
+  "schema": "APCD_CONCURRENCY3_TRIAL_RESULT_V1",
+  "stage_local_cap3_enabled": false,
+  "telemetry_observations": 4,
+  "threads": 1,
+  "trial_case": {
+    "case_uid": "H1C1C_H1C1C_R04_Py",
+    "exact_hash": "335a88ab04422b7cee7c78ee36928f383f33253ec86a6166c835cc268e7f4513",
+    "geometry_uid": "H1C1C_R04",
+    "polarization": "y"
+  },
+  "trial_result": {
+    "attempt_id": "H1C1C_H1C1C_R04_Py_attempt_001",
+    "branch": "work/lp-global-h-manifold-v1",
+    "case_id": "H1C1C_H1C1C_R04_Py",
+    "case_identity": {
+      "H_global_nm": 550.0,
+      "builder_version": "h1c1c_phase_gap_unified_h550_builder_v1",
+      "case_uid": "H1C1C_H1C1C_R04_Py",
+      "exact_geometry_hash_sha256": "335a88ab04422b7cee7c78ee36928f383f33253ec86a6166c835cc268e7f4513",
+      "formal_extraction_convention": "transmission_side_full_period_coordinate_weighted_complex_G0_endpoint_dedup_periodic_reclosure_sqrtT_over_norm_arg_txx",
+      "geometry_uid": "H1C1C_R04",
+      "manifest_freeze_sha256": "9c5cb0b24e8469d462d57499cf0babd309a8db4964209ed100db50b408bcd82f",
+      "material_contract": "APCD_TIO2_NATIVE_M1",
+      "period_nm": [
+        432.0,
+        432.0
+      ],
+      "physical_contract_sha256": "65ba528cb2c91762bd4d79ad94d83b3eaae770e51dc1b165a0edef4e4e6f6407",
+      "polarization": "y",
+      "projector": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "stage": "H1C1C",
+      "wavelength_grid_nm": [
+        450.0,
+        450.5,
+        451.0,
+        451.5,
+        452.0,
+        452.5,
+        453.0,
+        453.5,
+        454.0
+      ]
+    },
+    "case_identity_sha256": "225d8e251a6c59880f744bc6cb0d12e945a536f9484a21119fecdef663600c39",
+    "entered_solver": false,
+    "error": "AttributeError: 'ExperimentalScheduler' object has no attribute 'slot_id'",
+    "exact_hash": "335a88ab04422b7cee7c78ee36928f383f33253ec86a6166c835cc268e7f4513",
+    "geometry_uid": "H1C1C_R04",
+    "physical_contract_sha256": "066082605042de35564aaf17e663f6cb2907e76e0f9abdad957b77d97324e00c",
+    "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1c1c\\runtime\\cases\\H1C1C_H1C1C_R04_Py\\H1C1C_H1C1C_R04_Py_attempt_001_pre.fsp",
+    "pre_fsp_sha256": "d10d5c77e0530b5cace2f0f820d8c98bc9467707cbfc63b98e669c4a6c244aad",
+    "processes": 4,
+    "retained_data_status": "pre_entry_failure_evidence_preserved",
+    "schema": "H1C1A_ATTEMPT_PROVENANCE_V1",
+    "setup": {
+      "config_readback": {
+        "H_global_nm": 550.0,
+        "T_frequency_points": 9.0,
+        "field_frequency_points": 9.0,
+        "monitor_z_nm": 1000.0000000000001,
+        "source_start_nm": 450.0000000000001,
+        "source_stop_nm": 453.99999999999994
+      },
+      "geometry_readback": {
+        "J1_center_x_nm": -9.050000000000001e-08,
+        "J1_center_y_nm": -4.500000000000001e-09,
+        "J1_material": "APCD_TIO2_NATIVE_M1",
+        "J2_center_x_nm": 9.050000000000001e-08,
+        "J2_center_y_nm": 4.500000000000001e-09,
+        "J2_material": "APCD_TIO2_NATIVE_M1"
+      },
+      "material_name": "APCD_TIO2_NATIVE_M1"
+    },
+    "slot_acquired": false,
+    "solver_entered": false,
+    "solver_runs_for_spectrum": 1,
+    "started_utc": "2026-08-14T14:17:39.991290+00:00",
+    "status": "FAILED",
+    "threads": 1,
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_global_h_h1c1a_broadband_v1.py\", line 556, in run_case\n    lease = scheduler.acquire_wait(branch=TARGET_BRANCH, worktree=str(ROOT), task_id=\"H1C1A_BROADBAND_GLOBAL\", case_uid=cid, pid=os.getpid(), metadata={\"task_class\": \"H1C1A_FORMAL_BROADBAND_FDTD\", \"attempt_id\": attempt_id, \"polarization\": pol, \"H_global_nm\": H_GLOBAL_NM}, timeout_s=21600.0, poll_s=15.0)\n  File \"D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_global_h_h1c1c_concurrency3_trial_v1.py\", line 142, in acquire_wait\n    \"slot_id\": self.slot_id,\nAttributeError: 'ExperimentalScheduler' object has no attribute 'slot_id'\n",
+    "wavelength_grid_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "worktree": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1"
+  },
+  "triple_overlap_observations": 0,
+  "true_three_job_overlap": false
+}

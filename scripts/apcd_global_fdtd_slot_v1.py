@@ -94,6 +94,25 @@ def _classify(cmdline):
     if "coupling" in text: return "Coupling"
     return "EXTERNAL_UNREGISTERED"
 
+def _classify_solver_type(cmdline):
+    text=str(cmdline or "").lower().replace("/", "\\")
+    # The coupling branch uses RCWA resources even though its launcher may
+    # contain Lumerical/FDTD-named controller processes and MPI engines.
+    if "blue_apcd_mdc_np_coupling_v1" in text or "np_level1_s_ux" in text or "coupling" in text or "rcwa" in text:
+        return "RCWA"
+    if "blue_apcd_np" in text or "blue_apcd_lp_global_h_manifold_v1" in text or "\\lp_global_h" in text:
+        return "FDTD"
+    return "UNKNOWN"
+
+def _row_solver_type(row):
+    explicit=str(row.get("solver_type") or "").upper()
+    if explicit in {"FDTD", "RCWA", "UNKNOWN"}:
+        return explicit
+    text=" ".join(str(row.get(k) or "") for k in ("branch", "worktree", "task_id", "case_uid", "task_class")).lower().replace("/", "\\")
+    if "coupling" in text or "mdc" in text or "rcwa" in text or "np_level1_s_ux" in text:
+        return "RCWA"
+    return "FDTD"
+
 def _branch_key(branch):
     text=str(branch or "").lower()
     if text == "work/lp-global-h-manifold-v1" or "lp_global_h" in text: return "LP"
@@ -130,7 +149,7 @@ def _is_server_controller(row):
 def live_job_snapshot(provider:Callable[[],list[dict[str,Any]]]|None=None):
     rows=list(provider() if provider else _ps_snapshot())
     by_pid={int(r.get("pid",-1)):r for r in rows}
-    formal=[r for r in rows if str(r.get("name") or "").lower() in FORMAL_NAMES and not _is_rcwa_lineage(r,by_pid) and not _is_server_controller(r)]
+    formal=[r for r in rows if str(r.get("name") or "").lower() in FORMAL_NAMES and not _is_server_controller(r)]
     direct_tokens={int(row.get("pid",-1)):_token(row,by_pid) for row in formal}
     direct_fsp_tokens={token for pid,token in direct_tokens.items() if str(by_pid[pid].get("cmdline") or "").lower().find(".fsp") >= 0}
     def ancestors(pid):
@@ -153,13 +172,19 @@ def live_job_snapshot(provider:Callable[[],list[dict[str,Any]]]|None=None):
             descendant_tokens={token for other_pid, token in fsp_pid_tokens.items() if pid in ancestors(other_pid)}
             if len(descendant_tokens) == 1:
                 token=next(iter(descendant_tokens))
-        item=groups.setdefault(token,{"job_token":token,"processes":[],"branch":"EXTERNAL_UNREGISTERED"})
+        item=groups.setdefault(token,{"job_token":token,"processes":[],"branch":"EXTERNAL_UNREGISTERED","solver_type":"UNKNOWN"})
         item["processes"].append(row)
         branch=_classify(row.get("cmdline"))
         if branch != "EXTERNAL_UNREGISTERED":
             item["branch"]=branch
+        solver_type=_classify_solver_type(row.get("cmdline"))
+        if solver_type == "RCWA" or item.get("solver_type") == "UNKNOWN":
+            item["solver_type"]=solver_type
     jobs=list(groups.values())
-    return {"timestamp_utc":utc_now(),"global_active_jobs":len(jobs),"lp_active_jobs":sum(j["branch"]=="work/lp-global-h-manifold-v1" for j in jobs),"jobs":jobs,"formal_process_count":len(formal)}
+    active_fdtd=sum(j.get("solver_type")=="FDTD" for j in jobs)
+    active_rcwa=sum(j.get("solver_type")=="RCWA" for j in jobs)
+    unknown=[j for j in jobs if j.get("solver_type")=="UNKNOWN"]
+    return {"timestamp_utc":utc_now(),"global_active_jobs":len(jobs),"active_fdtd_jobs":active_fdtd,"active_rcwa_jobs":active_rcwa,"unknown_solver_jobs":unknown,"lp_active_jobs":sum(j["branch"]=="work/lp-global-h-manifold-v1" and j.get("solver_type")=="FDTD" for j in jobs),"jobs":jobs,"formal_process_count":len(formal),"fdtd_engine_process_count":sum(sum(str(p.get("name") or "").lower()=="fdtd-engine-msmpi.exe" for p in j.get("processes",[])) for j in jobs if j.get("solver_type")=="FDTD"),"rcwa_process_count":sum(len(j.get("processes",[])) for j in jobs if j.get("solver_type")=="RCWA")}
 
 def _slot_by_id(data,slot_id): return next((r for r in data["active_slots"] if r.get("slot_id")==slot_id),None)
 
@@ -213,15 +238,19 @@ class GlobalSlotScheduler:
         pid=int(pid or os.getpid()); metadata=dict(metadata or {})
         with registry_lock(self.registry_path):
             data=_read(self.registry_path); live=live_job_snapshot(self.process_provider); self._recover_stale(data,live); active=data["active_slots"]
-            uncovered=[j for j in live["jobs"] if not any(_branch_matches(r.get("branch"), j.get("branch")) for r in active)]
-            effective_global=len(active)+len(uncovered); effective_lp=sum(str(r.get("branch"))=="work/lp-global-h-manifold-v1" for r in active)+sum(j.get("branch")=="work/lp-global-h-manifold-v1" for j in uncovered)
+            if live.get("unknown_solver_jobs"):
+                raise SlotError("SOLVER_TYPE_CLASSIFICATION_REQUIRED")
+            fdtd_active_rows=[r for r in active if _row_solver_type(r)=="FDTD"]
+            uncovered=[j for j in live["jobs"] if j.get("solver_type")=="FDTD" and not any(_branch_matches(r.get("branch"), j.get("branch")) and _row_solver_type(r)=="FDTD" for r in fdtd_active_rows)]
+            effective_fdtd=len(fdtd_active_rows)+len(uncovered)
+            effective_lp=sum(_branch_key(r.get("branch"))=="LP" for r in fdtd_active_rows)+sum(_branch_key(j.get("branch"))=="LP" for j in uncovered)
             if branch=="work/lp-global-h-manifold-v1" and effective_lp>=MAX_ACTIVE_FDTD_PER_BRANCH: raise SlotUnavailable("WAIT_LP_ACTIVE_FDTD")
-            if sum(str(r.get("branch"))==branch for r in active)>=MAX_ACTIVE_FDTD_PER_BRANCH: raise SlotUnavailable("WAIT_BRANCH_ACTIVE_FDTD")
-            if effective_global>=GLOBAL_CAPACITY: raise SlotUnavailable("WAIT_GLOBAL_FDTD_CAPACITY")
-            used={str(r.get("slot_id")) for r in active}; slot_id=next((f"GLOBAL_SLOT_{i}" for i in range(1,GLOBAL_CAPACITY+1) if f"GLOBAL_SLOT_{i}" not in used),None)
+            if sum(_branch_matches(r.get("branch"),branch) and _row_solver_type(r)=="FDTD" for r in fdtd_active_rows)>=MAX_ACTIVE_FDTD_PER_BRANCH: raise SlotUnavailable("WAIT_BRANCH_ACTIVE_FDTD")
+            if effective_fdtd>=GLOBAL_CAPACITY: raise SlotUnavailable("WAIT_GLOBAL_FDTD_CAPACITY")
+            used={str(r.get("slot_id")) for r in fdtd_active_rows}; slot_id=next((f"GLOBAL_SLOT_{i}" for i in range(1,GLOBAL_CAPACITY+1) if f"GLOBAL_SLOT_{i}" not in used),None)
             if slot_id is None: raise SlotUnavailable("WAIT_GLOBAL_SLOT_REGISTRY_FULL")
-            peers=[str(r.get("branch","UNKNOWN")) for r in active if r.get("branch")!=branch]+[str(j.get("branch","EXTERNAL_UNREGISTERED")) for j in uncovered if j.get("branch")!=branch]; now=utc_now()
-            row={"schema":"APCD_GLOBAL_FDTD_SLOT_V1","slot_id":slot_id,"branch":branch,"worktree":worktree,"task_id":task_id,"case_uid":case_uid,"task_class":metadata.get("task_class","FORMAL_FDTD"),"requested_slots":1,"requested_cores":PROCESSES_PER_JOB,"pid":pid,"controller_pid":pid,"slot_acquired":True,"entered":False,"entered_solver":False,"start_time":now,"slot_acquire_time":now,"heartbeat":now,"completion_release_state":"ACTIVE","attempt_id":metadata.get("attempt_id"),"polarization":metadata.get("polarization"),"H_global_nm":metadata.get("H_global_nm"),"processes":PROCESSES_PER_JOB,"threads":THREADS_PER_JOB,"concurrent_peer_branch":sorted(set(peers)),"admission_snapshot":{"registry_active_slots":len(active),"live_global_active_jobs":live["global_active_jobs"],"live_lp_active_jobs":live["lp_active_jobs"],"effective_global_active_jobs_before_acquire":effective_global,"effective_lp_active_jobs_before_acquire":effective_lp,"effective_global_active_jobs_after_acquire":effective_global+1,"effective_lp_active_jobs_after_acquire":effective_lp+1 if branch=="work/lp-global-h-manifold-v1" else effective_lp,"live_jobs":live["jobs"]}}
+            peers=[str(r.get("branch","UNKNOWN")) for r in active if r.get("branch")!=branch]+[str(j.get("branch","EXTERNAL_UNREGISTERED")) for j in live["jobs"] if j.get("branch")!=branch]; now=utc_now()
+            row={"schema":"APCD_GLOBAL_FDTD_SLOT_V1","slot_id":slot_id,"fdtd_slot_id":slot_id,"slot_class":"FDTD","solver_type":"FDTD","branch":branch,"worktree":worktree,"task_id":task_id,"case_uid":case_uid,"task_class":metadata.get("task_class","FORMAL_FDTD"),"requested_slots":1,"requested_cores":PROCESSES_PER_JOB,"pid":pid,"controller_pid":pid,"slot_acquired":True,"entered":False,"entered_solver":False,"start_time":now,"slot_acquire_time":now,"heartbeat":now,"completion_release_state":"ACTIVE","attempt_id":metadata.get("attempt_id"),"polarization":metadata.get("polarization"),"H_global_nm":metadata.get("H_global_nm"),"processes":PROCESSES_PER_JOB,"threads":THREADS_PER_JOB,"concurrent_peer_branch":sorted(set(peers)),"admission_snapshot":{"registry_active_slots":len(active),"live_global_active_jobs":live["global_active_jobs"],"active_fdtd_jobs":live.get("active_fdtd_jobs"),"active_rcwa_jobs":live.get("active_rcwa_jobs"),"unknown_solver_jobs":len(live.get("unknown_solver_jobs",[])),"live_lp_active_jobs":live["lp_active_jobs"],"effective_global_active_jobs_before_acquire":effective_fdtd,"effective_lp_active_jobs_before_acquire":effective_lp,"effective_global_active_jobs_after_acquire":effective_fdtd+1,"effective_lp_active_jobs_after_acquire":effective_lp+1 if branch=="work/lp-global-h-manifold-v1" else effective_lp,"live_jobs":live["jobs"]}}
             data["active_slots"].append(row); data["updated_utc"]=now; _write(self.registry_path,data)
         return SlotLease(self,row)
     def acquire_wait(self,*args,timeout_s=21600.0,poll_s=15.0,**kwargs):
