@@ -1,0 +1,41 @@
+{
+  "options": [
+    {
+      "common_phase_leverage": "LOW_TO_MEDIUM",
+      "decision": "reject as first next probe",
+      "dof": "independent_J1_rotation_deg",
+      "duplicate_with_Psi_D": false,
+      "implemented_now": false,
+      "projector_risk": "HIGH_FIRST_ORDER",
+      "spectral_risk": "HIGH_ON_A_SMALL_N; UNKNOWN_ELSEWHERE"
+    },
+    {
+      "common_phase_leverage": "not separately identifiable",
+      "decision": "reject as duplicate",
+      "dof": "independent_J2_orientation",
+      "duplicate_with_Psi": true,
+      "implemented_now": false,
+      "projector_risk": "not separable from current Psi"
+    },
+    {
+      "common_phase_leverage": "not a new coordinate under current (D,Psi) polar representation",
+      "decision": "reject as duplicate",
+      "dof": "additional_intra_dimer_displacement_component",
+      "duplicate_with_Psi_D": true,
+      "implemented_now": false,
+      "projector_risk": "unknown"
+    },
+    {
+      "builder_support": "J2_length_nm and J2_width_nm are separate geometry fields and are used independently by addrect",
+      "common_phase_leverage": "MEDIUM plausible because J2 is HWP-like contributor",
+      "decision": "preferred alternative",
+      "dof": "independent_J2_anisotropy_d_nm",
+      "implemented_now": true,
+      "projector_risk": "MEDIUM_HIGH",
+      "spectral_risk": "requires minimal probe"
+    }
+  ],
+  "schema": "H1E3A_NEXT_DOF_COMPARISON_V1",
+  "selected": "independent_J2_anisotropy_d_nm",
+  "selection_rule": "prefer plausible common-phase leverage while avoiding first-order projector mixing, duplicated coordinates, and known spectral instability"
+}

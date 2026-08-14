@@ -1,0 +1,160 @@
+{
+  "candidate_count": 6,
+  "fixed_contract": {
+    "H_global_nm": 550,
+    "full_jones": true,
+    "grid_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "material": "APCD_TIO2_NATIVE_M1",
+    "projector": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "formal_subrun_budget": 12,
+  "parameterization": "J2_length=L2_mean+d2; J2_width=L2_mean-d2",
+  "parents": [
+    {
+      "J2_mean_nm": 103.5,
+      "coordinates_5d": {
+        "D_nm": 191.1674658512792,
+        "J1_side_nm": 114.0,
+        "J2_length_nm": 111.0,
+        "J2_width_nm": 96.0,
+        "Psi_deg": 2.398421334092505
+      },
+      "exact_hash": "955c293def3063f64969c25743e14ce122e7ed0364b12be0b9f75cdb350cb800",
+      "geometry_uid": "H1C1B_V2_009",
+      "minimum_projector_margin": 0.035171126165841615,
+      "proposed_d2_nm": [
+        -1,
+        1
+      ],
+      "strict_9_of_9": true,
+      "worst_projector_error": 0.15132501084260097
+    },
+    {
+      "J2_mean_nm": 100.5,
+      "coordinates_5d": {
+        "D_nm": 204.12006270820123,
+        "J1_side_nm": 109.0,
+        "J2_length_nm": 106.0,
+        "J2_width_nm": 95.0,
+        "Psi_deg": -1.9652605719205243
+      },
+      "exact_hash": "008a917f209f17a46f5bfd48dde796d5e473af44a93209b4432f5b6d9908a446",
+      "geometry_uid": "GLOBAL_015",
+      "minimum_projector_margin": 0.03775701580407198,
+      "proposed_d2_nm": [
+        -1,
+        1
+      ],
+      "strict_9_of_9": true,
+      "worst_projector_error": 0.1487391212043706
+    },
+    {
+      "J2_mean_nm": 104.0,
+      "coordinates_5d": {
+        "D_nm": 191.1674658512792,
+        "J1_side_nm": 113.0,
+        "J2_length_nm": 112.0,
+        "J2_width_nm": 96.0,
+        "Psi_deg": 2.398421334092505
+      },
+      "exact_hash": "58cb7c6aebab655f9f14af16d5a2ec1d0182037e8543fca5a31e7a08ebfcd176",
+      "geometry_uid": "GLOBAL_006",
+      "minimum_projector_margin": 0.04713376267534308,
+      "proposed_d2_nm": [
+        -1,
+        1
+      ],
+      "strict_9_of_9": true,
+      "worst_projector_error": 0.1393623743330995
+    }
+  ],
+  "schema": "LP_J2_ANISOTROPY_BROADBAND_PROBE_PROPOSED_V1",
+  "solver_entered": false,
+  "status": "PROPOSED_ONLY_NOT_EXECUTED",
+  "stop_go": {
+    "go": "at least one 9/9 strict child with phase displacement beyond old cluster and preserved projector margin",
+    "stop": "zero strict children or projector degradation dominates without new strict phase reachability"
+  },
+  "variable": "J2_anisotropy_d_nm",
+  "variants": [
+    {
+      "D_nm": 191.1674658512792,
+      "J1_side_nm": 114,
+      "J2_length_nm": 110,
+      "J2_width_nm": 97,
+      "Psi_deg": 2.398421334092505,
+      "bounds_pass": true,
+      "d2_nm": -1,
+      "parent_uid": "H1C1B_V2_009"
+    },
+    {
+      "D_nm": 191.1674658512792,
+      "J1_side_nm": 114,
+      "J2_length_nm": 112,
+      "J2_width_nm": 95,
+      "Psi_deg": 2.398421334092505,
+      "bounds_pass": true,
+      "d2_nm": 1,
+      "parent_uid": "H1C1B_V2_009"
+    },
+    {
+      "D_nm": 204.12006270820123,
+      "J1_side_nm": 109,
+      "J2_length_nm": 105,
+      "J2_width_nm": 96,
+      "Psi_deg": -1.9652605719205243,
+      "bounds_pass": true,
+      "d2_nm": -1,
+      "parent_uid": "GLOBAL_015"
+    },
+    {
+      "D_nm": 204.12006270820123,
+      "J1_side_nm": 109,
+      "J2_length_nm": 107,
+      "J2_width_nm": 94,
+      "Psi_deg": -1.9652605719205243,
+      "bounds_pass": true,
+      "d2_nm": 1,
+      "parent_uid": "GLOBAL_015"
+    },
+    {
+      "D_nm": 191.1674658512792,
+      "J1_side_nm": 113,
+      "J2_length_nm": 111,
+      "J2_width_nm": 97,
+      "Psi_deg": 2.398421334092505,
+      "bounds_pass": true,
+      "d2_nm": -1,
+      "parent_uid": "GLOBAL_006"
+    },
+    {
+      "D_nm": 191.1674658512792,
+      "J1_side_nm": 113,
+      "J2_length_nm": 113,
+      "J2_width_nm": 95,
+      "Psi_deg": 2.398421334092505,
+      "bounds_pass": true,
+      "d2_nm": 1,
+      "parent_uid": "GLOBAL_006"
+    }
+  ]
+}
