@@ -119,10 +119,18 @@ def _is_rcwa_lineage(row, by_pid):
     # a production FDTD job and must not consume a validated FDTD slot.
     return "rcwa" in _lineage_text(row, by_pid)
 
+def _is_server_controller(row):
+    # The resident Lumerical server is a controller endpoint, not an active
+    # FDTD job. A real formal job is represented by an .fsp-bearing launcher
+    # or engine process in the same process group.
+    name=str(row.get("name") or "").lower()
+    text=str(row.get("cmdline") or "").lower()
+    return name == "fdtd-solutions.exe" and ".fsp" not in text and ".fspx" not in text
+
 def live_job_snapshot(provider:Callable[[],list[dict[str,Any]]]|None=None):
     rows=list(provider() if provider else _ps_snapshot())
     by_pid={int(r.get("pid",-1)):r for r in rows}
-    formal=[r for r in rows if str(r.get("name") or "").lower() in FORMAL_NAMES and not _is_rcwa_lineage(r,by_pid)]
+    formal=[r for r in rows if str(r.get("name") or "").lower() in FORMAL_NAMES and not _is_rcwa_lineage(r,by_pid) and not _is_server_controller(r)]
     direct_tokens={int(row.get("pid",-1)):_token(row,by_pid) for row in formal}
     direct_fsp_tokens={token for pid,token in direct_tokens.items() if str(by_pid[pid].get("cmdline") or "").lower().find(".fsp") >= 0}
     def ancestors(pid):
@@ -182,13 +190,14 @@ class GlobalSlotScheduler:
             if row is None: raise SlotError(f"slot not active: {slot_id}")
             row.update(changes); data["updated_utc"]=utc_now(); _write(self.registry_path,data)
     def _recover_stale(self,data,live):
-        keep=[]; recovered=[]; live_text=json.dumps(live.get("jobs",[]),sort_keys=True).lower()
+        keep=[]; recovered=[]
+        live_jobs=live.get("jobs",[])
         for row in data["active_slots"]:
             owner=row.get("controller_pid") or row.get("pid")
             if pid_exists(owner): keep.append(row); continue
             case=str(row.get("case_uid") or "").lower(); branch=str(row.get("branch") or "").lower()
-            live_case = bool(case and case in live_text)
-            live_branch = bool(branch and branch in live_text)
+            live_case = bool(case and any(case in json.dumps(job,sort_keys=True).lower() for job in live_jobs))
+            live_branch = bool(branch and any(_branch_matches(branch, job.get("branch")) for job in live_jobs))
             if live_case or live_branch:
                 keep.append(row)
                 continue

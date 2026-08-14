@@ -76,7 +76,7 @@ def test_controller_without_fsp_is_grouped_with_single_child_fsp_job():
     snap=MOD.live_job_snapshot(lambda: rows)
     assert snap["global_active_jobs"]==1
     assert snap["jobs"][0]["branch"]=="NP"
-    assert len(snap["jobs"][0]["processes"])==3
+    assert len(snap["jobs"][0]["processes"])==2
 
 
 def test_pid_exists_treats_windows_invalid_pid_system_error_as_not_alive(monkeypatch):
@@ -115,6 +115,15 @@ def test_rcwa_parent_controller_is_not_an_fdtd_slot():
     rows=[
         {"pid":301,"ppid":401,"name":"fdtd-solutions.exe","cmdline":r"fdtd-solutions -server -hide"},
         {"pid":401,"ppid":0,"name":"python.exe","cmdline":r"python scripts/coupling/rcwa_p33_oblique_anchor.py --attempt-id attempt_002"},
+    ]
+    snap=MOD.live_job_snapshot(lambda: rows)
+    assert snap["global_active_jobs"]==0
+    assert snap["formal_process_count"]==0
+
+
+def test_resident_server_controller_is_not_an_fdtd_slot():
+    rows=[
+        {"pid":301,"ppid":0,"name":"fdtd-solutions.exe","cmdline":r"fdtd-solutions -server -hide"},
     ]
     snap=MOD.live_job_snapshot(lambda: rows)
     assert snap["global_active_jobs"]==0
