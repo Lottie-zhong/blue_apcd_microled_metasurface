@@ -1,0 +1,42 @@
+{
+  "builder_evidence": {
+    "J1_center_uses_negative_global_displacement": true,
+    "J1_rotation_currently_fixed_deg": 0.0,
+    "J2_rotation_currently_uses_Psi_deg": true,
+    "shared_H_fixed": true
+  },
+  "options": [
+    {
+      "dof": "independent_J1_rotation_deg",
+      "expected_common_phase_leverage": "MEDIUM",
+      "expected_projector_risk": "MEDIUM",
+      "fabrication_risk": "LOW_MEDIUM",
+      "mechanism": "rotate one parallel scatterer and change its anisotropic complex scattering phase/amplitude relative to J2",
+      "minimal_solver_cost": "6 geometries x 2 polarizations = 12 formal subruns",
+      "new_dimensionality": 1,
+      "reuse_existing_evidence": "high: existing J1/J2 rectangles and J2 rotation builder path"
+    },
+    {
+      "dof": "additional_intra_dimer_displacement",
+      "expected_common_phase_leverage": "LOW_MEDIUM",
+      "expected_projector_risk": "MEDIUM_HIGH",
+      "fabrication_risk": "MEDIUM",
+      "mechanism": "change relative pillar separation/azimuth",
+      "minimal_solver_cost": "6-12 subruns",
+      "new_dimensionality": 1,
+      "reuse_existing_evidence": "low: D/Psi already encode global displacement"
+    },
+    {
+      "dof": "independent_J2_anisotropy",
+      "expected_common_phase_leverage": "MEDIUM",
+      "expected_projector_risk": "HIGH",
+      "fabrication_risk": "LOW_MEDIUM",
+      "mechanism": "break the remaining J2 lateral symmetry",
+      "minimal_solver_cost": "6-12 subruns",
+      "new_dimensionality": 1,
+      "reuse_existing_evidence": "medium"
+    }
+  ],
+  "schema": "H1E2_NEXT_DOF_OPTIONS_V1",
+  "selection": "independent_J1_rotation_deg"
+}

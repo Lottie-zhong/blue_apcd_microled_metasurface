@@ -1,0 +1,39 @@
+{
+  "bounds_deg": [
+    -15,
+    15
+  ],
+  "candidate_count": 6,
+  "candidate_rule": "each exact parent with J1_rotation_deg=-15 and +15 deg; all other dimensions unchanged",
+  "fixed_contract": {
+    "H_global_nm": 550,
+    "J1_length_width_from_parent": true,
+    "full_jones": true,
+    "material": "APCD_TIO2_NATIVE_M1",
+    "wavelength_grid_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ]
+  },
+  "formal_subrun_budget": 12,
+  "parents": [
+    "H1C1B_V2_009",
+    "GLOBAL_015",
+    "GLOBAL_006"
+  ],
+  "schema": "H1E2_PROPOSED_NEXT_STAGE_V1",
+  "solver_entered": false,
+  "status": "PROPOSED_ONLY_NOT_EXECUTED",
+  "stop_go": {
+    "go": "at least one 9/9 strict child with phase-space displacement beyond old cluster edge and no unacceptable projector collapse",
+    "stop": "zero strict children or all strict children remain inside/adjacent to old cluster without useful leverage"
+  },
+  "variable": "J1_rotation_deg"
+}
