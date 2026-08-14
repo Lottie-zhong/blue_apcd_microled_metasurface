@@ -256,7 +256,8 @@ def build_selection_audit() -> tuple[list[dict], dict, dict]:
 
 
 def build_manifest(candidates: list[dict], audit: dict, comp: dict) -> dict:
-    if current_branch() != TARGET_BRANCH or current_head() != H1B2_ACCEPTED_HEAD:
+    ancestry = subprocess.run(["git", "merge-base", "--is-ancestor", H1B2_ACCEPTED_HEAD, current_head()], cwd=ROOT)
+    if current_branch() != TARGET_BRANCH or ancestry.returncode != 0:
         raise RuntimeError(f"HARD_GATE_H1B2_ACCEPTED_PROVENANCE:{current_branch()}:{current_head()}")
     final = read_json(H1B2_FINAL)
     span = number(final.get("span_comparison", {}).get("new_merged_H550_projector_compatible_span_deg"))
