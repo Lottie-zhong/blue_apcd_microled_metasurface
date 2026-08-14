@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -41,6 +42,34 @@ class SolverTypeAwareSchedulerTests(unittest.TestCase):
         snap = solver_slot.live_job_snapshot(lambda: rows)
         self.assertEqual(snap["active_fdtd_jobs"], 1)
         self.assertEqual(snap["active_rcwa_jobs"], 1)
+
+    def test_rcwa_legacy_global_slot_does_not_collide_with_new_fdtd_slot(self):
+        rows = group("a", "project/blue_apcd_np_k6", 250)
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "registry.json"
+            data = solver_slot.default_registry()
+            data["active_slots"] = [{
+                "slot_id": "GLOBAL_SLOT_2",
+                "controller_pid": os.getpid(),
+                "branch": "MDC",
+                "worktree": r"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1",
+                "case_uid": "MDC_RCWA_CASE",
+                "entered": False,
+                "entered_solver": False,
+            }]
+            path.write_text(json.dumps(data), encoding="utf-8")
+            lease = solver_slot.GlobalSlotScheduler(path, lambda: rows).acquire(
+                "work/lp-global-h-manifold-v1", "lp", "task", "case"
+            )
+            try:
+                self.assertEqual(lease.record["slot_id"], "FDTD_SLOT_2")
+                registry = json.loads(path.read_text(encoding="utf-8"))
+                self.assertEqual(
+                    len({row["slot_id"] for row in registry["active_slots"]}),
+                    len(registry["active_slots"]),
+                )
+            finally:
+                lease.release("TEST_RELEASE")
 
     def test_c_two_fdtd_plus_rcwa_blocks_new_fdtd(self):
         rows = group("a", "project/blue_apcd_np_k6", 400) + group("b", "project/blue_apcd_np_k6", 500) + group("c", "project/blue_apcd_mdc_np_coupling_v1", 600)

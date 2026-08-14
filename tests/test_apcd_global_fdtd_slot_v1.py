@@ -33,7 +33,7 @@ def test_one_peer_is_allowed_but_capacity_two_waits(tmp_path):
         assert lease.record["concurrent_peer_branch"]==["NP"]
     finally:
         lease.release("PRE_ENTRY_RELEASE")
-    full=[*peer,{"pid":102,"ppid":0,"name":"mpiexec.exe","cmdline":r"D:\mdc\blue_apcd_mdc\case.fsp"}]
+    full=[*peer,{"pid":102,"ppid":0,"name":"mpiexec.exe","cmdline":r"D:\np\blue_apcd_np\case2.fsp"}]
     blocked=MOD.GlobalSlotScheduler(tmp_path/"full.json",lambda:full)
     with pytest.raises(MOD.SlotUnavailable,match="WAIT_GLOBAL_FDTD_CAPACITY"):
         blocked.acquire("work/lp-global-h-manifold-v1",r"D:\lp", "task", "case", pid=os.getpid())

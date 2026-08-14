@@ -247,7 +247,14 @@ class GlobalSlotScheduler:
             if branch=="work/lp-global-h-manifold-v1" and effective_lp>=MAX_ACTIVE_FDTD_PER_BRANCH: raise SlotUnavailable("WAIT_LP_ACTIVE_FDTD")
             if sum(_branch_matches(r.get("branch"),branch) and _row_solver_type(r)=="FDTD" for r in fdtd_active_rows)>=MAX_ACTIVE_FDTD_PER_BRANCH: raise SlotUnavailable("WAIT_BRANCH_ACTIVE_FDTD")
             if effective_fdtd>=GLOBAL_CAPACITY: raise SlotUnavailable("WAIT_GLOBAL_FDTD_CAPACITY")
-            used={str(r.get("slot_id")) for r in fdtd_active_rows}; slot_id=next((f"GLOBAL_SLOT_{i}" for i in range(1,GLOBAL_CAPACITY+1) if f"GLOBAL_SLOT_{i}" not in used),None)
+            occupied={str(r.get("slot_id")) for r in active if r.get("slot_id")}
+            target_index=effective_fdtd+1
+            candidates=([f"GLOBAL_SLOT_{target_index}", f"FDTD_SLOT_{target_index}"]
+                        if target_index == 1 else
+                        [f"FDTD_SLOT_{target_index}", f"GLOBAL_SLOT_{target_index}"])
+            candidates.extend(f"FDTD_SLOT_{i}" for i in range(1,GLOBAL_CAPACITY+1))
+            candidates.extend(f"GLOBAL_SLOT_{i}" for i in range(1,GLOBAL_CAPACITY+1))
+            slot_id=next((candidate for candidate in candidates if candidate not in occupied),None)
             if slot_id is None: raise SlotUnavailable("WAIT_GLOBAL_SLOT_REGISTRY_FULL")
             peers=[str(r.get("branch","UNKNOWN")) for r in active if r.get("branch")!=branch]+[str(j.get("branch","EXTERNAL_UNREGISTERED")) for j in live["jobs"] if j.get("branch")!=branch]; now=utc_now()
             row={"schema":"APCD_GLOBAL_FDTD_SLOT_V1","slot_id":slot_id,"fdtd_slot_id":slot_id,"slot_class":"FDTD","solver_type":"FDTD","branch":branch,"worktree":worktree,"task_id":task_id,"case_uid":case_uid,"task_class":metadata.get("task_class","FORMAL_FDTD"),"requested_slots":1,"requested_cores":PROCESSES_PER_JOB,"pid":pid,"controller_pid":pid,"slot_acquired":True,"entered":False,"entered_solver":False,"start_time":now,"slot_acquire_time":now,"heartbeat":now,"completion_release_state":"ACTIVE","attempt_id":metadata.get("attempt_id"),"polarization":metadata.get("polarization"),"H_global_nm":metadata.get("H_global_nm"),"processes":PROCESSES_PER_JOB,"threads":THREADS_PER_JOB,"concurrent_peer_branch":sorted(set(peers)),"admission_snapshot":{"registry_active_slots":len(active),"live_global_active_jobs":live["global_active_jobs"],"active_fdtd_jobs":live.get("active_fdtd_jobs"),"active_rcwa_jobs":live.get("active_rcwa_jobs"),"unknown_solver_jobs":len(live.get("unknown_solver_jobs",[])),"live_lp_active_jobs":live["lp_active_jobs"],"effective_global_active_jobs_before_acquire":effective_fdtd,"effective_lp_active_jobs_before_acquire":effective_lp,"effective_global_active_jobs_after_acquire":effective_fdtd+1,"effective_lp_active_jobs_after_acquire":effective_lp+1 if branch=="work/lp-global-h-manifold-v1" else effective_lp,"live_jobs":live["jobs"]}}
