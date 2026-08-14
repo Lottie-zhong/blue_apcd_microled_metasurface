@@ -1,0 +1,77 @@
+{
+  "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1c1b\\runtime\\setup_check\\H1C1A_setup_check_pre.fsp",
+  "pre_fsp_sha256": "08c0bc590c8a2b158096f64468b683eb27c05aee255758c2206d74a79811cf61",
+  "reload_gate": {
+    "checks": {
+      "J1_material": "APCD_TIO2_NATIVE_M1",
+      "J2_material": "APCD_TIO2_NATIVE_M1",
+      "J2_rotation_deg": 1.5481576989779677,
+      "T_frequency_points": 9.0,
+      "field_frequency_points": 9.0,
+      "monitor_z_nm": 1000.0000000000001,
+      "source_start_nm": 450.0000000000001,
+      "source_stop_nm": 453.99999999999994
+    },
+    "expected": {
+      "J1_material": "APCD_TIO2_NATIVE_M1",
+      "J2_material": "APCD_TIO2_NATIVE_M1",
+      "J2_rotation_deg": 1.5481576989779677,
+      "T_frequency_points": 9.0,
+      "field_frequency_points": 9.0,
+      "monitor_z_nm": 1000.0,
+      "source_start_nm": 450.0,
+      "source_stop_nm": 454.0
+    },
+    "expected_wavelengths_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "input_polarization": "x",
+    "normalization": "sqrt(T)/norm(weighted_Ex,weighted_Ey)",
+    "observable": "transmission_side_coordinate_weighted_complex_G0",
+    "pass": true,
+    "solver_runs_for_spectrum": 1
+  },
+  "schema": "H1C1A_SETUP_CHECK_V1",
+  "setup": {
+    "config_readback": {
+      "H_global_nm": 550.0,
+      "T_frequency_points": 9.0,
+      "field_frequency_points": 9.0,
+      "monitor_z_nm": 1000.0000000000001,
+      "source_start_nm": 450.0000000000001,
+      "source_stop_nm": 453.99999999999994
+    },
+    "geometry_readback": {
+      "J1_center_x_nm": -9.25e-08,
+      "J1_center_y_nm": -2.5e-09,
+      "J1_material": "APCD_TIO2_NATIVE_M1",
+      "J2_center_x_nm": 9.25e-08,
+      "J2_center_y_nm": 2.5e-09,
+      "J2_material": "APCD_TIO2_NATIVE_M1"
+    },
+    "material_name": "APCD_TIO2_NATIVE_M1"
+  },
+  "solver_entered": false,
+  "solver_run_called": false,
+  "solver_runs_for_spectrum": 1,
+  "stage": "H1C-1B",
+  "wavelength_grid_nm": [
+    450.0,
+    450.5,
+    451.0,
+    451.5,
+    452.0,
+    452.5,
+    453.0,
+    453.5,
+    454.0
+  ]
+}
