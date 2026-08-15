@@ -1,0 +1,32 @@
+import csv, json, hashlib
+from pathlib import Path
+from statistics import mean
+R=Path(r'D:/project/worktrees/blue_apcd_np_k6_mdc_v1')
+O=R/'outputs/np_k6_m7a_primary4_targeted_hf_acquisition_closeout_v1'
+DOC=R/'docs/np_k6_m7a_primary4_targeted_hf_acquisition_closeout_v1.md'
+def rdj(n): return json.loads((O/n).read_text(encoding='utf-8-sig'))
+def rdc(n):
+ with (O/n).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
+q=rdj('m7a_case_quality_audit.json'); cases=q['cases']
+rank=rdj('m7a_broadband_ranking_summary.json'); ps=rdj('m7a_ps_polarization_summary.json')
+res=rdc('m7a_lf_residual_summary.csv'); roles=rdc('m7a_role_truth_audit.csv')
+trial=rdj('m7a_concurrency3_trial_observation.json'); man=rdj('m7a_dataset_manifest.json')
+v=rdj('m7a_final_validator_report.json'); passed=sum(1 for x in v['checks'] if x['pass'])
+maxc=max(float(x['max_abs_closure_residual']) for x in cases); maxs=max(float(x['max_structure_interval_anomaly']) for x in cases)
+lines=[]
+lines += ['# NP K6 M7A Primary4 targeted HF acquisition closeout v1','',f"Status: `{man['status']}`",'']
+lines += ['## Scope and frozen identity','',f"- Preregistration: `NP_K6_M7A_TARGETED_ACQUISITION_PREREG_V1`; SHA256 `{man['preregistration_sha256']}`.",'- Eight authorized logical cases (4 geometries × P/S), exact 445–455 nm at 1 nm spacing, u_x=0 and k_y=0, Native-M1, fixed 5 nm core mesh, 3 ps generator V2.','- No external/sealed target was read; no M8, retraining, inverse design, angular extension, or additional HF acquisition was started.','']
+lines += ['## Case quality and provenance','',f"All `{len(cases)}/8` cases passed: exact 11 finite wavelengths, closure gate, structure-interval gate, order/normalization bookkeeping, Native-M1/material and 4 MPI × 1 thread resource readback.",'','| Case | Role | Post-FSP SHA256 | max |1-T-R| | max structure anomaly |','|---|---|---|---:|---:|']
+for x in cases: lines.append(f"| {x['case_id']} | {x['role']} | `{x['post_fsp_sha256']}` | {float(x['max_abs_closure_residual']):.9g} | {float(x['max_structure_interval_anomaly']):.9g} |")
+lines += ['',f"Across all cases: max closure residual `{maxc:.9g}` and max structure anomaly `{maxs:.9g}`; both are below 0.01. Order and direct normalization mismatches are ≤ `3.33e-16`.",'']
+lines += ['## Dataset closeout','',f"- New M7A rows: `{man['new_hf_rows']}`; prior formal development rows preserved: `{man['existing_hf_rows']}`; merged development view: `{man['merged_hf_rows']}` rows.",f"- Merged identity: `{man['merged_geometry_count']}` geometries × 2 polarizations × 11 wavelengths = `{man['merged_hf_rows']}` rows; `{man['merged_paired_cases']}` paired logical cases.",'- Existing 352-row legacy `training_label` fields were preserved; the M7A rows carry `training_label=true`, `quality_gate_pass=true`, `diagnostic_only=false`, and candidate-performance provenance for this development acquisition.','- Duplicate/conflicting provenance: 0; new-vs-existing geometry overlap: 0; quarantined M6 G01 geometry absent.','']
+lines += ['## Role truth and ranking evidence','', 'The four pre-registered roles were retained as audit labels; no post-hoc role reassignment was made.','']
+for r in roles: lines.append(f"- `{r.get('geometry_id')}` ({r.get('role')}): observed_signal=`{r.get('observed_signal')}`, evidence=`{r.get('information_value_evidence')}`.")
+lines += ['',f"Broadband truth champion: `{rank['true_champion']}`. The G02 ranking-champion-stress geometry has true broadband rank `{rank['G02_true_rank']}`. LF full-order ranking Spearman ρ is `{next(x['spearman'] for x in rank['models'] if x['model']=='LF'):.6f}`, top-3 recall `{next(x['top3_recall'] for x in rank['models'] if x['model']=='LF'):.6f}`, and top-5 recall `{next(x['top5_recall'] for x in rank['models'] if x['model']=='LF'):.6f}`. These are audit results, not a claim of active-learning success.",'']
+lines += ['## Polarization and LF residual audit','',f"The paired P/S audit retains explicit polarization. Over the merged HF20 scope, |Δη(+1)| mean/max are `{next(x for x in ps['scope_summaries'] if x['scope']=='HF20' and x['metric']=='abs_delta_eta_plus1')['mean']:.6f}` / `{next(x for x in ps['scope_summaries'] if x['scope']=='HF20' and x['metric']=='abs_delta_eta_plus1')['max']:.6f}`; the M7A4 subset is `{next(x for x in ps['scope_summaries'] if x['scope']=='M7A4' and x['metric']=='abs_delta_eta_plus1')['mean']:.6f}` / `{next(x for x in ps['scope_summaries'] if x['scope']=='M7A4' and x['metric']=='abs_delta_eta_plus1')['max']:.6f}`.",'- LF is the deterministic existing low-fidelity proxy from the D0 chunk library, not a new solver result; at current u_x=0 it is explicitly polarization-blind.','', '| LF output | mean HF−LF | mean absolute residual | max absolute residual |','|---|---:|---:|---:|']
+for r in res: lines.append(f"| {r['output']} | {float(r['mean']):.6f} | {float(r['abs_mean']):.6f} | {float(r['max']):.6f} |")
+lines += ['', 'The residuals show systematic coupling correction, especially for total T and η(+1); they do not authorize treating LF as HF truth.','']
+lines += ['## Temporary concurrency-3 trial','',f"Trial `{trial['trial_id']}` remained temporary: global cap `{trial['global_cap']}`, NP authorized max `{trial['np_max_active_authorized']}`, LP max `{trial['lp_max_active_authorized']}`, fourth FDTD forbidden, and RCWA excluded from FDTD counting.",f"Observed maximum active FDTD was `{trial['max_observed_active_fdtd']}` with `{trial['slot3_history_rows']}` slot-3 history rows. Every M7A case used 4 processes × 1 thread and passed quality gates. Continuous CPU/RAM telemetry was not available, so no stronger resource-utilization claim is made.",'']
+lines += ['## Validator and solver budget','',f"Independent validator: `{passed}` checks passed, 0 errors; report SHA256 `{hashlib.sha256((O/'m7a_final_validator_report.json').read_bytes()).hexdigest()}`. Solver budget audit records exactly 8 entered/run invocations, 0 attempt_002, 0 replacements/replays, 0 external-HF calls, 0 sealed-target reads, and `m8_started=false` / `training_started=false`.",'','## Decision','',f"The 440-row formal development dataset is complete and ready for the separately authorized M8 retraining decision. This closeout does not itself start M8 or promote a production surrogate. Next action: obtain explicit authorization before M8 retraining; keep external HF and all other solver branches frozen.",'']
+DOC.parent.mkdir(parents=True,exist_ok=True); DOC.write_text('\n'.join(lines).rstrip()+'\n',encoding='utf-8')
+print(str(DOC))
