@@ -1,0 +1,62 @@
+{
+  "schema": "H1F4A_PHASE2_DIRECTION_ZERO_SOLVER_AUDIT_V1",
+  "stage": "H1F-4A Phase-2",
+  "route": "GROUPED_D_FIRST_HARMONIC_TRANSFER_VALIDATION",
+  "solver_entered_delta": 0,
+  "formal_direction_rule_found": false,
+  "phi_D_star_defined": false,
+  "phi_D_star_deg": null,
+  "cos_phi_D_star": null,
+  "sin_phi_D_star": null,
+  "classification": "GROUPED_D_PHASE2_DIRECTION_NOT_FORMALLY_IDENTIFIABLE_CHART_REVIEW",
+  "reason": [
+    "Phase-1 evidence contains separate A/B scalar Jacobian summaries but no frozen unique multi-metric objective or direction-selection rule.",
+    "The authoritative instruction forbids selecting phi_D* from max|d eta(+1)/da_D| and max|d eta(+1)/db_D| alone.",
+    "Available Jacobian includes wavelength-, polarization-, order- and complex-response dimensions with mixed signs, so a unique direction cannot be recovered without inventing weights or a post hoc objective."
+  ],
+  "evidence": {
+    "phase1_summary": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_h1f4a_grouped_d_first_harmonic_jacobian_probe\\h1f4a_jacobian_summary.json",
+    "jacobian_csv": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_h1f4a_grouped_d_first_harmonic_jacobian_probe\\h1f4a_central_difference_jacobian.csv",
+    "scheduler_preregistration": {
+      "fresh_audit_required_before_each_entry": true,
+      "max_active_lp_fdtd": 1,
+      "no_fourth_fdtd": true,
+      "permanent_global_fdtd_policy": 2,
+      "rcwa_consumes_fdtd_slot": false,
+      "temporary_stage_capacity": 3
+    },
+    "phase1_classification": "GROUPED_D_FIRST_HARMONIC_PHASE1_LEVERAGE_OBSERVED_CHART_REVIEW_READY",
+    "axes": {
+      "A": {
+        "max_abs_target_eta_jacobian_per_nm": 0.0020805128256899067,
+        "mean_abs_target_eta_jacobian_per_nm": 0.0007935859211652524,
+        "signed_min": -0.0016491253732721497,
+        "signed_max": 0.0020805128256899067,
+        "sign_consistent_x": false,
+        "sign_consistent_y": true
+      },
+      "B": {
+        "max_abs_target_eta_jacobian_per_nm": 0.0018152848849110944,
+        "mean_abs_target_eta_jacobian_per_nm": 0.0006513664529783889,
+        "signed_min": -0.0018152848849110944,
+        "signed_max": 0.0006881260617607612,
+        "sign_consistent_x": false,
+        "sign_consistent_y": true
+      }
+    }
+  },
+  "prohibited_actions_not_taken": [
+    "arctan of two scalar maxima",
+    "post-hoc objective creation",
+    "transfer geometry creation",
+    "new Phase-1 case",
+    "Phase-2 solver entry"
+  ],
+  "transfer_solver_plan": {
+    "planned_cases": 4,
+    "solver_entered": 0,
+    "replay": 0
+  },
+  "ml_admitted": false,
+  "next_gate": "Chart must supply or accept a frozen unique direction-selection rule before Transfer geometry can be frozen."
+}
