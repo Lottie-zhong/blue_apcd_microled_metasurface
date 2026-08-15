@@ -1,0 +1,46 @@
+{
+  "schema": "H1F3A_ROUTE_COMPARISON_V1",
+  "weighted_composite_used": false,
+  "routes": {
+    "ROUTE_A_POSITION_MODE": {
+      "direct_full_K6_leverage": "HIGH",
+      "projector_risk": "LOW_TO_MEDIUM; local geometry unchanged",
+      "coupling_leverage": "HIGH",
+      "new_dimension_count": 1,
+      "legality": "quantified by exact polygon envelope",
+      "fabrication_complexity": "medium; site displacement mask",
+      "solver_cost": "low proposed: 2 seeds x +/- amplitude x/y = 8 cases",
+      "seed_reuse": "direct",
+      "interpretability": "high causal comparison to same unperturbed seed"
+    },
+    "ROUTE_B_GROUPED_LOCAL_GEOMETRY": {
+      "direct_full_K6_leverage": "MEDIUM_TO_HIGH",
+      "projector_risk": "MEDIUM",
+      "coupling_leverage": "MEDIUM",
+      "new_dimension_count": 1,
+      "legality": "quantifiable but local gap-sensitive",
+      "fabrication_complexity": "medium",
+      "solver_cost": "low if one grouped amplitude",
+      "seed_reuse": "direct",
+      "interpretability": "medium"
+    },
+    "ROUTE_C_GLOBAL_H": {
+      "direct_full_K6_leverage": "MEDIUM",
+      "projector_risk": "MEDIUM",
+      "coupling_leverage": "MEDIUM",
+      "new_dimension_count": 1,
+      "legality": "fabrication-contract constrained",
+      "fabrication_complexity": "low",
+      "solver_cost": "low",
+      "seed_reuse": "direct",
+      "interpretability": "medium; H changes local phase and collective response together"
+    }
+  },
+  "decision_basis": [
+    "position changes neighbor coupling and structure factor directly",
+    "H1D1 rejects detour-phase interpretation but does not reject geometric position coupling",
+    "H1F1/H1F2 show constituent inventory/order alone is weak",
+    "Route B variables already show projector/selectivity tradeoffs in H1A-H1E",
+    "H1A supports H as medium-value secondary route"
+  ]
+}

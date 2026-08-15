@@ -1,0 +1,66 @@
+{
+  "schema": "H1F3A_GROUPED_GEOMETRY_OPTIONS_V1",
+  "route": "ROUTE_B",
+  "options": [
+    {
+      "option": "alternating_D",
+      "variable": "D_nm",
+      "pattern": "D_n=D_n0+(-1)^n*A_D",
+      "dimensionality": 1,
+      "coupling_rationale": "directly changes intra-dimer near-field coupling while preserving one shared amplitude and fixed site positions",
+      "status": "RECOMMENDED_ROUTE_B_OPTION_IF_ROUTE_B_SELECTED",
+      "seed_audits": {
+        "K6_L0_A": {
+          "mode": "alternating grouped intra-dimer separation",
+          "variable": "D_nm",
+          "pattern": "D_n=D_n0+(-1)^n*A_D",
+          "zero_mean_over_sites": true,
+          "D_legal_max_nm": 75.57450580014304,
+          "probe_scale_nm": 5.0,
+          "probe_scale_rule": "10% of exact legal envelope capped at 5 nm; proposed only",
+          "site_count_variables": 1,
+          "local_geometry_mutation": "J1/J2 centers move symmetrically about their local midpoint; no isolated-dimer library generation"
+        },
+        "K6_L0_B": {
+          "mode": "alternating grouped intra-dimer separation",
+          "variable": "D_nm",
+          "pattern": "D_n=D_n0+(-1)^n*A_D",
+          "zero_mean_over_sites": true,
+          "D_legal_max_nm": 75.57450580014375,
+          "probe_scale_nm": 5.0,
+          "probe_scale_rule": "10% of exact legal envelope capped at 5 nm; proposed only",
+          "site_count_variables": 1,
+          "local_geometry_mutation": "J1/J2 centers move symmetrically about their local midpoint; no isolated-dimer library generation"
+        },
+        "K6_L1_C": {
+          "mode": "alternating grouped intra-dimer separation",
+          "variable": "D_nm",
+          "pattern": "D_n=D_n0+(-1)^n*A_D",
+          "zero_mean_over_sites": true,
+          "D_legal_max_nm": 76.28990891658489,
+          "probe_scale_nm": 5.0,
+          "probe_scale_rule": "10% of exact legal envelope capped at 5 nm; proposed only",
+          "site_count_variables": 1,
+          "local_geometry_mutation": "J1/J2 centers move symmetrically about their local midpoint; no isolated-dimer library generation"
+        }
+      }
+    },
+    {
+      "option": "J1_rotation",
+      "status": "DEPRIORITIZED",
+      "evidence": "H1E3 rotation audits identify projector-risk dominance"
+    },
+    {
+      "option": "J2_orientation_decoupling",
+      "status": "DEPRIORITIZED",
+      "evidence": "H1E3C physics outcome J2_DECOUPLING_PHASE_LEVER_BREAKS_SELECTIVITY"
+    },
+    {
+      "option": "J1_anisotropy",
+      "status": "DEPRIORITIZED",
+      "evidence": "strict lever but phase clustered in H1E1/H1E2"
+    }
+  ],
+  "six_site_independent_variables": false,
+  "no_isolated_dimer_search": true
+}

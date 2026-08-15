@@ -1,0 +1,28 @@
+{
+  "schema": "H1F3A_PROPOSED_NEXT_STAGE_V1",
+  "status": "PROPOSED_ONLY",
+  "stage_name": "LP_K6_POSITION_MODE_LEVEL2_PROBE",
+  "route_decision": "LOW_DIMENSIONAL_POSITION_MODE_FIRST",
+  "seeds": [
+    "K6_L0_A",
+    "K6_L1_C"
+  ],
+  "exact_seed_control": "each perturbed layout compared directly with its same unperturbed full-wave seed",
+  "mode": "delta_x_n=sign*A*cos(2*pi*n/6), phi=0",
+  "signs": [
+    -1,
+    1
+  ],
+  "amplitudes_nm": {
+    "K6_L0_A": 10.0,
+    "K6_L1_C": 10.0
+  },
+  "candidate_count": 4,
+  "formal_x_y_solver_budget": 8,
+  "P_supercell_fixed": true,
+  "no_y_motion": true,
+  "no_local_geometry_mutation": true,
+  "stop_go": "reproducible full-wave order redistribution relative to exact seed, evaluated by m+1, m0, x/y discrimination, target-order Jones/projector, and broadband robustness; no absolute device threshold invented",
+  "solver_entered_delta": 0,
+  "level2_auto_start": false
+}

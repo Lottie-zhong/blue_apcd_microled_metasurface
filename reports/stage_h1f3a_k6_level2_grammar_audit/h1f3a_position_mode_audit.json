@@ -1,0 +1,64 @@
+{
+  "schema": "H1F3A_POSITION_MODE_AUDIT_V1",
+  "route": "ROUTE_A",
+  "formulation": "delta_x_n=A*cos(2*pi*n/6+phi)",
+  "phase_fixed": true,
+  "phase_reason": "phi=0 is a deterministic site-order convention; adding phi would be a second DOF and is not needed for the first audit",
+  "zero_mean": true,
+  "P_supercell_fixed": true,
+  "y_motion": false,
+  "seed_audits": {
+    "K6_L0_A": {
+      "mode": "delta_x_n=A*cos(2*pi*n/6), phi=0 fixed",
+      "zero_mean": true,
+      "phase_phi_deg": 0.0,
+      "A_legal_max_nm": 125.6577859999993,
+      "base_minimum_clearance_nm": 75.79090344120182,
+      "probe_scale_nm": 10.0,
+      "probe_scale_rule": "10% of exact legal envelope capped at 10 nm; proposed only",
+      "P_supercell_fixed": true,
+      "y_motion_nm": 0.0,
+      "fundamental_period_6p_for_nonzero_A": true,
+      "translations_tested": {
+        "p": false,
+        "2p": false,
+        "3p": false
+      }
+    },
+    "K6_L0_B": {
+      "mode": "delta_x_n=A*cos(2*pi*n/6), phi=0 fixed",
+      "zero_mean": true,
+      "phase_phi_deg": 0.0,
+      "A_legal_max_nm": 119.7908233787146,
+      "base_minimum_clearance_nm": 75.79090344120227,
+      "probe_scale_nm": 10.0,
+      "probe_scale_rule": "10% of exact legal envelope capped at 10 nm; proposed only",
+      "P_supercell_fixed": true,
+      "y_motion_nm": 0.0,
+      "fundamental_period_6p_for_nonzero_A": true,
+      "translations_tested": {
+        "p": false,
+        "2p": false,
+        "3p": false
+      }
+    },
+    "K6_L1_C": {
+      "mode": "delta_x_n=A*cos(2*pi*n/6), phi=0 fixed",
+      "zero_mean": true,
+      "phase_phi_deg": 0.0,
+      "A_legal_max_nm": 121.04867309459522,
+      "base_minimum_clearance_nm": 72.11680099258335,
+      "probe_scale_nm": 10.0,
+      "probe_scale_rule": "10% of exact legal envelope capped at 10 nm; proposed only",
+      "P_supercell_fixed": true,
+      "y_motion_nm": 0.0,
+      "fundamental_period_6p_for_nonzero_A": true,
+      "translations_tested": {
+        "p": false,
+        "2p": false,
+        "3p": false
+      }
+    }
+  },
+  "interpretation": "coupled_supercell_geometry_DOF_only; not detour phase, PB phase, phase-bin labeling, or analytic positional-phase synthesis"
+}
