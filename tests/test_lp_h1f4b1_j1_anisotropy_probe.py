@@ -28,5 +28,16 @@ def test_jacobian_and_concurrency_artifacts():
     assert analysis['concurrency_3_observation']['peak_simultaneous_real_fdtd_jobs'] == 3
     assert analysis['concurrency_3_observation']['concurrent_rcwa_jobs'] == 1
     assert analysis['ml_admitted'] is False
+    assert analysis['baseline']['uid'] == 'K6_L1_C_POS_PLUS10'
+    assert analysis['baseline']['solver_not_repeated'] is True
+    assert analysis['baseline']['prior_accounting']['accepted_formal_cases'] == 8
+    assert analysis['j1_jacobian']['even_residuals']['eta_x_plus1']['mean'] is not None
+    assert analysis['cancellation']['r_cancel'] is not None
+    assert analysis['response_plane']['j1_vs_grouped_d_cosine'] is not None
+    with (REPORT / 'h1f4b1_two_lever_jacobian.csv').open(encoding='utf-8') as f:
+        assert len(list(csv.DictReader(f))) == 36
+    legality = json.loads((REPORT / 'h1f4b1_legality_detail.json').read_text(encoding='utf-8'))
+    assert legality['all_pass'] is True
+    assert all(x['pass'] for x in legality['layouts'].values())
     with (REPORT / 'h1f4b1_j1_jacobian.csv').open(encoding='utf-8') as f:
         assert len(list(csv.DictReader(f))) == 9
