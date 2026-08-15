@@ -20,7 +20,7 @@ class H1F4APhase2ZeroSolverTest(unittest.TestCase):
         self.assertEqual(d['solver_entered_delta'],0)
         self.assertEqual(d['transfer_solver_plan']['solver_entered'],0)
         self.assertEqual(d['classification'],'GROUPED_D_PHASE2_DIRECTION_NOT_FORMALLY_IDENTIFIABLE_CHART_REVIEW')
-        self.assertFalse((R/'transfer_plus_manifest.json').exists())
-        self.assertFalse((R/'transfer_minus_manifest.json').exists())
+        self.assertTrue((R/'H1F4A_PHASE2_DIRECTION_RULE_V1.json').exists())
+        self.assertTrue((R/'transfer_candidate_manifest.json').exists())
 
 if __name__ == '__main__': unittest.main()
