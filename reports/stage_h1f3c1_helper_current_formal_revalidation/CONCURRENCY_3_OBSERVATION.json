@@ -1,0 +1,40 @@
+{
+  "classification": "CONCURRENCY_3_PRODUCTION_OBSERVATION_PASS",
+  "peak_simultaneous_real_fdtd_jobs": 3,
+  "concurrent_rcwa_jobs_observed": 1,
+  "concurrent_rcwa_jobs_authorized": 2,
+  "lp_mpi_configuration": {
+    "processes_per_job": 4,
+    "threads_per_process": 1,
+    "cases_serial": [
+      "x",
+      "y"
+    ]
+  },
+  "lp_cases": [
+    {
+      "case": "x",
+      "attempt_id": "H1F3C1_HELPER_H1C1B_V2_015_TRIMER_V1_x_attempt_006",
+      "solver_entered": true,
+      "status": "ACCEPTED"
+    },
+    {
+      "case": "y",
+      "attempt_id": "H1F3C1_HELPER_H1C1B_V2_015_TRIMER_V1_y_attempt_001",
+      "solver_entered": true,
+      "status": "ACCEPTED"
+    }
+  ],
+  "lp_wall_time": "unavailable",
+  "lp_solver_throughput": "unavailable",
+  "cpu_utilization": "unavailable",
+  "machine_ram": "unavailable",
+  "peer_fdtd_behavior": "NP groups remained observable; no peer exit evidence",
+  "license_behavior": "no license denial observed in provenance",
+  "controller_messaging": "no IPC/controller failure observed",
+  "disk_io": "no runtime I/O failure observed",
+  "mpi_topology": "2 NP groups x 4 children plus LP group x 4 at peak; provenance deduplicated by job token",
+  "cross_branch_failure": false,
+  "permanent_policy_promoted": false,
+  "permanent_global_fdtd_policy": 2
+}
