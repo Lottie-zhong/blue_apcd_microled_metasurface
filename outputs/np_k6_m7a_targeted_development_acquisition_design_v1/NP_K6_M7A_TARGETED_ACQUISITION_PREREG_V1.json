@@ -1,0 +1,59 @@
+{
+  "backup_count": 8,
+  "batch_sizes": {
+    "Primary4": 4,
+    "first6": 6,
+    "first8": 8
+  },
+  "candidate_source": "M6 frozen candidate_scores.csv, development-only proxy universe",
+  "created_utc": "2026-08-15T03:41:10.791177+00:00",
+  "exclusion_policy": {
+    "exclude_duplicate_hash": true,
+    "exclude_external_registry": true,
+    "exclude_formal_hf16": true,
+    "exclude_g01_geometry": "K6X_D110_D125_D130_D135_D140_D175",
+    "exclude_sealed_pool": true
+  },
+  "features": [
+    "ordered_D1_D6",
+    "adjacent_diameter_jumps",
+    "diameter_range",
+    "nearest_HF16_distance",
+    "LF_order_profile",
+    "LF_eta_plus1",
+    "LF_spectral_robustness",
+    "calibrated_LF_eta_plus1",
+    "Ridge_eta_plus1",
+    "residual_MLP_eta_plus1",
+    "CNN_eta_plus1",
+    "model_rank_disagreement",
+    "P_S_contrast_proxy",
+    "known_residual_cluster_proximity",
+    "geometry_diversity"
+  ],
+  "normalization": "min-max fitted on eligible development candidate universe only",
+  "preregistration_id": "NP_K6_M7A_TARGETED_ACQUISITION_PREREG_V1",
+  "promotion": "development promotion candidate only; external HF remains unauthorized",
+  "roles": {
+    "COVERAGE-CONTROL": "representative geometry/LF-response support",
+    "POLARIZATION-STRESS": "P/S contrast and structured-model instability",
+    "RANKING-CHAMPION-STRESS": "performance with rank ambiguity and pairwise reversals",
+    "RESIDUAL-TAIL": "tail and systematic LF/model correction risk"
+  },
+  "scope": "zero-solver targeted development HF acquisition design only",
+  "score_construction": {
+    "coverage_control": "0.55 nearest-HF16 distance + 0.25 LF response distance + 0.20 geometry diversity",
+    "polarization_stress": "0.70 P/S proxy + 0.20 predicted P/S disagreement + 0.10 residual risk",
+    "ranking_ambiguity": "0.50 rank variance + 0.30 performance potential + 0.20 near-champion margin",
+    "residual_tail": "0.35 tail + 0.25 M7 model disagreement + 0.20 Ridge-CNN disagreement + 0.20 order-risk"
+  },
+  "solver_calls": 0,
+  "solver_cost_protocol": {
+    "mpi_processes": 4,
+    "no_solver_in_this_stage": true,
+    "runtime_source": "m6_solver_cost_package.json",
+    "threads": 1,
+    "verified_concurrency": 2
+  },
+  "tie_break": "descending role score, then descending geometry_hash lexicographic"
+}
