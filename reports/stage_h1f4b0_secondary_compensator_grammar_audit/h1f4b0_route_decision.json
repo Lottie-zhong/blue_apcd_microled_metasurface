@@ -1,0 +1,137 @@
+{
+  "schema": "H1F4B0_ROUTE_DECISION_V1",
+  "stage": "H1F-4B0",
+  "status": "PASS_ZERO_SOLVER_AUDIT",
+  "solver_entered_delta": 0,
+  "ml_admitted": false,
+  "primary_route": "GROUPED_D_PLUS_J1_ANISOTROPY_COMPENSATOR_PROBE_READY",
+  "backup_route": {
+    "route": "GLOBAL_H_GROUPED_D_MANIFOLD_REVISIT_READY",
+    "priority": "SECONDARY_BACKUP",
+    "reason": "global-H is a medium-value operating-manifold selector, not a demonstrated projector repair"
+  },
+  "ordered_gate_decision": {
+    "gate_1_evidence_legitimacy": "PASS_WITH_LOCAL_SCOPE; J1 anisotropy has current-formal broadband local evidence but no full-K6 proof",
+    "gate_2_projector_behavior": "BEST_AVAILABLE_LOCAL_COMPENSATOR SIGNAL; selected strict child is 9/9, but nonuniform",
+    "gate_3_spectral_stability": "DEGRADED; mixed local spectral response, so next probe must use minimal amplitude and full broadband evaluator",
+    "gate_4_grouped_d_orthogonality": "PASS; J1 anisotropy changes constituent Jones balance rather than six-site D phase/spacing",
+    "gate_5_fabrication": "PASS_EXISTING_H550_GRAMMAR",
+    "gate_6_evidence_strength": "J1 is below full-K6 but stronger and more orthogonal as compensator than J2 decoupling or rotation"
+  },
+  "rejected_or_deprioritized": {
+    "J2_decoupling": "reject as primary: J2_DECOUPLING_PHASE_LEVER_BREAKS_SELECTIVITY, tradeoff_improves=false",
+    "J1_rotation": "reject: PROJECTOR_MIXING_DOMINANT_FIRST_ORDER, probe_approved=false",
+    "position": "reject as compensator: full-K6 response weak for both seeds",
+    "helper": "reject: projector degraded 6/9",
+    "global_H": "backup selector only: GLOBAL_H_REVISIT_VALUE_MEDIUM"
+  },
+  "proposed_next_solver_probe": {
+    "solver_authorized_now": false,
+    "maximum_cases_if_approved": 4,
+    "design": "one full-K6 seed x J1 anisotropy PLUS/MINUS x X/Y",
+    "seed_uid": "K6_L1_C_POS_PLUS10",
+    "seed_hash": "a8606d8f44a4675db08493c3dd95c8ea43f30882d3a9bbb18a65b59c2ba45198",
+    "perturbation": "J1_length=J1_side+delta_nm; J1_width=J1_side-delta_nm, applied symmetrically as PLUS/MINUS around frozen seed local J1 geometry",
+    "amplitude_nm": 2.0,
+    "amplitude_basis": "smallest existing H1E1 legal differential sample; do not extrapolate beyond legality",
+    "expected_observable": "full-K6 x/y broadband Jones: eta_x,+1, eta_y,+1, eta_x,0, eta_x,-1, projector error, cross leakage, closure",
+    "decision_rule": "ordered gates; no weighted composite; test whether J1 perturbation reduces y/projector cost without relying on post-hoc target improvement",
+    "serial_order": [
+      "J1_ANISO_PLUS_X",
+      "J1_ANISO_PLUS_Y",
+      "J1_ANISO_MINUS_X",
+      "J1_ANISO_MINUS_Y"
+    ],
+    "no_replay": true,
+    "fresh_concurrency_audit": true
+  },
+  "global_h_revisit": {
+    "value": "GLOBAL_H_REVISIT_VALUE_MEDIUM",
+    "H_grid_nm": [
+      400.0,
+      450.0,
+      500.0,
+      550.0,
+      600.0
+    ],
+    "H550_projector_compatible_span_deg": 30.096722,
+    "H600_projector_compatible_span_deg": 5.505242,
+    "interpretation": "selector of operating manifold; not per-site phase knob and not yet full-K6 proof"
+  },
+  "source_hashes": {
+    "h1e1_final": {
+      "path": "stage_h1e1_j1_anisotropy/h1e1_final.json",
+      "sha256": "422a0695aae2fe73cb17d4580a090b423ac06f111045fbfb176e4d811391fae0"
+    },
+    "h1e2_route": {
+      "path": "stage_h1e2_j1_anisotropy_attribution/h1e2_route_decision.json",
+      "sha256": "067319f98f67b4972fcca4ecca867706c7073b548e03817fce6db29105bfe173"
+    },
+    "h1e2_child": {
+      "path": "stage_h1e2_j1_anisotropy_attribution/h1e2_child_audit.json",
+      "sha256": "cea650057b71146f721d378f4bc9c6be800cee86a6c63351343cb82af01879d3"
+    },
+    "h1e2_sixbin": {
+      "path": "stage_h1e2_j1_anisotropy_attribution/h1e2_sixbin_attribution.json",
+      "sha256": "23a57bdf9444d60e6a0570aee231f51a9b73c562551632b25209283965b212fc"
+    },
+    "h1e3a_route": {
+      "path": "stage_h1e3a_j1_rotation_audit/h1e3a_route_decision.json",
+      "sha256": "5b506db3fe52f71ae6e23173c66a1bdace5a7f4871ddd3c21573e8f1752cd658"
+    },
+    "h1e3a_risk": {
+      "path": "stage_h1e3a_j1_rotation_audit/h1e3a_rotation_projector_risk.json",
+      "sha256": "0f14fed5e758b29f1c562a8e42502fdf4940a398d818244458618c3cdb09f314"
+    },
+    "h1e3b_route": {
+      "path": "stage_h1e3b_j2_decoupling_audit/h1e3b_route_decision.json",
+      "sha256": "76f6b7d3f63e045e48917aedb38c17a6f0fe500115175e933aad835c2525c10b"
+    },
+    "h1e3c_final": {
+      "path": "stage_h1e3c_j2_decoupling_probe/h1e3c_final.json",
+      "sha256": "81f0a2c7cb7e73a9a177c0c13a9a072d7ed19efa9a8f8f500ef2923e6b98c329"
+    },
+    "h1f3a_final": {
+      "path": "stage_h1f3a_k6_level2_grammar_audit/h1f3a_final.json",
+      "sha256": "99238dff068183a06095bac64e782c5ae16158fad2fd3cbe95086cc1a7def729"
+    },
+    "h1f3a_global_h": {
+      "path": "stage_h1f3a_k6_level2_grammar_audit/h1f3a_global_h_k6_audit.json",
+      "sha256": "67ef4c0d90a5e8e2d1309c2cee513b3af2eb7542ff486530cff41cf04c77104d"
+    },
+    "h1f3a_compare": {
+      "path": "stage_h1f3a_k6_level2_grammar_audit/h1f3a_route_comparison.json",
+      "sha256": "05343e57ccdabcda4f9ccbe6911a2874baa7f8eaa79240baf9b4412c15247dde"
+    },
+    "h1f3b_final": {
+      "path": "stage_h1f3b_k6_position_mode_level2/h1f3b_final.json",
+      "sha256": "829872900e8517d73a5995677409c1f72f93528419823723080970866465f08f"
+    },
+    "h1f3b_transfer": {
+      "path": "stage_h1f3b_k6_position_mode_level2/h1f3b_seed_transferability.json",
+      "sha256": "8adb3190619be222e859bf4e5c8e18fd5bf8841e26d26b40f9bab6dea48ffc3c"
+    },
+    "h1f3c1_summary": {
+      "path": "stage_h1f3c1_helper_current_formal_revalidation/helper_current_formal_summary.json",
+      "sha256": "197720492d8f5c16d9a141dfd1983ee25206ebdb7bbea6b4a6f1d667557974ce"
+    },
+    "h1f3c1_results": {
+      "path": "stage_h1f3c1_helper_current_formal_revalidation/execution_results.json",
+      "sha256": "bdef5dc0b3b0e9b676675cb38082b2eab5d8452165cfbb452624c7354fce7fa1"
+    },
+    "h1f4a_transfer": {
+      "path": "stage_h1f4a_phase2_grouped_d_transfer_validation/h1f4a_phase2_transfer_analysis.json",
+      "sha256": "f887312a6c6c0075c6e902b1f3f9f2d6551fb5756ee4ee373dca33efbbdad2ce"
+    },
+    "h1f4a_rule": {
+      "path": "stage_h1f4a_phase2_grouped_d_transfer_validation/H1F4A_PHASE2_DIRECTION_RULE_V1.json",
+      "sha256": "ba76b81775f3de5825a1b2c5e213aef9d1ca2b5b2bce39049bd238ee3f24b04b"
+    },
+    "k6_registry": {
+      "path": "stage_h1f3c_k6_complex_lever_audit/K6_FULLWAVE_EVIDENCE_REGISTRY.csv",
+      "sha256": "e01e00781999ad29b01fbb3af6ee5201638a57f3a501d0033d8528e667b739cb",
+      "row_count": 720
+    }
+  },
+  "historical_phase2_audit_preserved": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_h1f4a_phase2_grouped_d_transfer_validation\\phase2_direction_zero_solver_audit.json"
+}
