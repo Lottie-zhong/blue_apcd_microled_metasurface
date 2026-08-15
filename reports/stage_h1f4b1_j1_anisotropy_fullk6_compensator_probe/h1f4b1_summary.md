@@ -9,6 +9,7 @@
 - Frozen grouped-D directional derivatives are available for eta_x,+1, eta_y,+1, eta_x,0 and eta_x,-1 from the existing H1F4A full-wave order artifact; no grouped-D solver was rerun.
 - `r_cancel=-0.09287375`; per-wavelength values are recorded in `h1f4b1_cancellation.csv`.
 
+- `r_cancel(lambda)` remains negative at all 9 points, while its magnitude spread is reported explicitly; no arbitrary broadband-robustness threshold is applied.
 ## CONCURRENCY_3_OBSERVATION
 
 - Peak simultaneous real FDTD jobs: 3; concurrent RCWA jobs: 1.

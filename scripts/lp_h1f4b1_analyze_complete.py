@@ -201,6 +201,8 @@ def main():
                              'predicted_combined_per_nm': gdv + r_cancel * gjv})
     with (REPORT / 'h1f4b1_cancellation.csv').open('w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=combined[0].keys()); writer.writeheader(); writer.writerows(combined)
+    combined_means = {label: mean([r['predicted_combined_per_nm'] for r in combined if r['metric'] == label])
+                      for label in ('eta_x_plus1', 'eta_x_0', 'eta_x_minus1')}
 
     jx = [j1_derivatives[('x', w, 1)] for w in waves]
     jy = [j1_derivatives[('y', w, 1)] for w in waves]
@@ -238,7 +240,9 @@ def main():
               'cancellation': {'G_D_y_mean_per_nm': mean(gy_d), 'G_J1_y_mean_per_nm': mean(gy_j),
                   'r_cancel': r_cancel, 'per_wavelength': cancellation,
                   'r_cancel_stats': summary([x['r_cancel'] for x in cancellation]),
-                  'sign_consistency': summary([x['r_cancel'] for x in cancellation])['sign_consistency']},
+                  'sign_consistency': summary([x['r_cancel'] for x in cancellation])['sign_consistency'],
+                  'broadband_assessment': 'sign-consistent, but magnitude spread is reported without an arbitrary robustness threshold'},
+              'combined_linearized_prediction_mean_per_nm': combined_means,
               'response_plane': plane_summary,
               'complementarity': {'J1_eta_x_plus1_mean': mean(jx), 'J1_eta_y_plus1_mean': mean(jy),
                   'grouped_D_eta_x_plus1_mean': mean(dx), 'grouped_D_eta_y_plus1_mean': mean(dy),
@@ -261,6 +265,7 @@ def main():
         '- `d eta_y,+1/dJ1` mean is `+2.7271403e-3/nm`; `d eta_x,+1/dJ1` mean is `-2.6817358e-3/nm`.\n'
         '- Frozen grouped-D directional derivatives are available for eta_x,+1, eta_y,+1, eta_x,0 and eta_x,-1 from the existing H1F4A full-wave order artifact; no grouped-D solver was rerun.\n'
         '- `r_cancel=-0.09287375`; per-wavelength values are recorded in `h1f4b1_cancellation.csv`.\n\n'
+        '- `r_cancel(lambda)` remains negative at all 9 points, while its magnitude spread is reported explicitly; no arbitrary broadband-robustness threshold is applied.\n'
         '## CONCURRENCY_3_OBSERVATION\n\n'
         '- Peak simultaneous real FDTD jobs: 3; concurrent RCWA jobs: 1.\n'
         '- LP MPI: 4 processes, 1 thread. Throughput and CPU/RAM telemetry: unavailable.\n'
