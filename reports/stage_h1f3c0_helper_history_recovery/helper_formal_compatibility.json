@@ -1,0 +1,47 @@
+{
+  "schema": "H1F3C0_HELPER_FORMAL_COMPATIBILITY_V1",
+  "classification": "HISTORICAL_HELPER_PROMISING_BUT_LEGACY",
+  "full_jones_x_y": true,
+  "current_contract": {
+    "wavelength_grid_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "material": "APCD_TIO2_NATIVE_M1",
+    "H_nm": 550.0,
+    "P_supercell_nm": 2591.446716,
+    "weighted_G0": true,
+    "reference_plane": "current LP formal monitor/reference",
+    "normalization": "current LP formal normalization",
+    "projector": "diag(1,0)",
+    "phase": "arg(txx)"
+  },
+  "historical_contract": {
+    "wavelength_nm": [
+      633.0
+    ],
+    "material": "c-Si on Al2O3",
+    "H_nm": 300.0,
+    "period_nm": [
+      340.0,
+      340.0
+    ],
+    "basis": "alpha/beta paper basis with x/y linear Jones columns",
+    "full_period_weighted_G0": "not encoded in legacy artifact",
+    "current_Px": "not encoded in legacy artifact"
+  },
+  "missing_or_mismatched": [
+    "wavelength/material/height/period mismatch",
+    "single wavelength only",
+    "legacy case/attempt schema absent",
+    "current G0/reference/normalization/Px linkage absent"
+  ],
+  "formal_revalidation_required": true
+}
