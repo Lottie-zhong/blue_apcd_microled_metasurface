@@ -79,6 +79,9 @@ Get-CimInstance Win32_Process | Where-Object { $_.Name -match '^(fdtd-solutions|
 def _token(row,by_pid):
     match=FSP_RE.search(str(row.get("cmdline") or ""))
     if match: return "fsp:"+match.group(1).lower().replace("/","\\")
+    if _is_rcwa_runner(row):
+        runner_name = next((part.strip(chr(34)).replace(chr(92), "/").split("/")[-1].lower() for part in str(row.get("cmdline") or "").split() if "rcwa" in part.lower() and part.lower().endswith(".py")), "runner.py")
+        return "rcwa:blue_apcd_mdc_np_coupling_v1:" + runner_name
     current=row; seen=set()
     while current and int(current.get("pid",-1)) not in seen:
         pid=int(current.get("pid",-1)); seen.add(pid); name=str(current.get("name") or "").lower()
@@ -138,6 +141,12 @@ def _is_rcwa_lineage(row, by_pid):
     # a production FDTD job and must not consume a validated FDTD slot.
     return "rcwa" in _lineage_text(row, by_pid)
 
+def _is_rcwa_runner(row):
+    name=str(row.get("name") or "").lower()
+    text=str(row.get("cmdline") or "").lower().replace("/", "\\")
+    return name == "python.exe" and "--run" in text and ("rcwa" in text or "coupling" in text)
+
+
 def _is_server_controller(row):
     # The resident Lumerical server is a controller endpoint, not an active
     # FDTD job. A real formal job is represented by an .fsp-bearing launcher
@@ -149,7 +158,7 @@ def _is_server_controller(row):
 def live_job_snapshot(provider:Callable[[],list[dict[str,Any]]]|None=None):
     rows=list(provider() if provider else _ps_snapshot())
     by_pid={int(r.get("pid",-1)):r for r in rows}
-    formal=[r for r in rows if str(r.get("name") or "").lower() in FORMAL_NAMES and not _is_server_controller(r)]
+    formal=[r for r in rows if (str(r.get("name") or "").lower() in FORMAL_NAMES or _is_rcwa_runner(r)) and not _is_server_controller(r)]
     direct_tokens={int(row.get("pid",-1)):_token(row,by_pid) for row in formal}
     direct_fsp_tokens={token for pid,token in direct_tokens.items() if str(by_pid[pid].get("cmdline") or "").lower().find(".fsp") >= 0}
     def ancestors(pid):

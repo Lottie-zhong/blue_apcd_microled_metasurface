@@ -26,6 +26,16 @@ def fake_registry(path):
     path.write_text(json.dumps(solver_slot.default_registry()), encoding="utf-8")
 
 
+def rcwa_runner(pid=50):
+    return [{
+        "pid": pid,
+        "ppid": 0,
+        "name": "python.exe",
+        "cmdline": r"N:/anaconda_envs/RCP_LCP/python.exe D:/project/worktrees/blue_apcd_mdc_np_coupling_v1/scripts/coupling/rcwa_level1_angular_acquisition_9job_runner_v2.py --run --sleep-seconds 600",
+        "path": r"N:/anaconda_envs/RCP_LCP/python.exe",
+    }]
+
+
 class SolverTypeAwareSchedulerTests(unittest.TestCase):
     def test_a_np_fdtd_admits_lp(self):
         rows = group("a", "project/blue_apcd_np_k6", 100)
@@ -97,6 +107,14 @@ class SolverTypeAwareSchedulerTests(unittest.TestCase):
         snap = solver_slot.live_job_snapshot(lambda: group("a", "project/unknown_solver", 1200))
         self.assertEqual(snap["active_fdtd_jobs"], 0)
         self.assertEqual(len(snap["unknown_solver_jobs"]), 1)
+
+
+    def test_h_rcwa_python_runner_is_one_independent_rcwa_job(self):
+        snap = solver_slot.live_job_snapshot(rcwa_runner)
+        self.assertEqual(snap["active_fdtd_jobs"], 0)
+        self.assertEqual(snap["active_rcwa_jobs"], 1)
+        self.assertEqual(snap["rcwa_process_count"], 1)
+        self.assertTrue(snap["jobs"][0]["job_token"].startswith("rcwa:"))
 
 
 if __name__ == "__main__":
