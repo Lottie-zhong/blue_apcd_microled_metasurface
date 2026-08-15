@@ -1,0 +1,61 @@
+{
+  "schema": "H1F3C_PROPOSED_H1F4A_V1",
+  "status": "PROPOSED_ONLY_NOT_RUN",
+  "stage": "H1F-4A",
+  "route": "GROUPED_D_FIRST_HARMONIC_JACOBIAN_PROBE",
+  "primary_seed": {
+    "candidate_uid": "K6_L1_C_POS_PLUS10",
+    "source_stage": "H1F3B",
+    "candidate_hash": "a8606d8f44a4675db08493c3dd95c8ea43f30882d3a9bbb18a65b59c2ba45198",
+    "mean_target_eta_sum": 0.04402189455500795,
+    "mean_projector_error": 0.7150491167599562,
+    "wavelength_count": 9,
+    "valid_xy": true,
+    "role_grammar": "delta_x_n=A*cos(2*pi*n/6), phi=0"
+  },
+  "transfer_seed": {
+    "candidate_uid": "K6_L1_B",
+    "source_stage": "H1F2",
+    "candidate_hash": "ea25ff16c44e2dd00eb9fc6805b6f174a635668f65edad2666f641faf9880a78",
+    "mean_target_eta_sum": 0.027310360171322347,
+    "mean_projector_error": 0.669653245505911,
+    "wavelength_count": 9,
+    "valid_xy": true,
+    "role_grammar": "CONSERVATIVE_FRONTIER_MIX"
+  },
+  "phase_1": {
+    "basis": [
+      [
+        "a_D",
+        "+A"
+      ],
+      [
+        "a_D",
+        "-A"
+      ],
+      [
+        "b_D",
+        "+A"
+      ],
+      [
+        "b_D",
+        "-A"
+      ]
+    ],
+    "layouts": 4,
+    "formal_xy_cases": 8,
+    "A_D_probe_nm": 4.0
+  },
+  "phase_2": {
+    "condition": "only if Phase 1 meaningful complex/order lever",
+    "layouts": 2,
+    "formal_xy_cases": 4,
+    "direction": "empirical phi_D*",
+    "A_D_probe_nm": 4.0
+  },
+  "maximum_future_solver_budget": 12,
+  "if_phase_1_weak": "stop at 8 and review one higher-leverage local variable",
+  "solver_authorized": false,
+  "A_D_probe_nm": 4.0,
+  "A_D_probe_derivation": "4 nm is below the conservative 12.117 nm envelope for both selected seeds, stays inside the historical 180.225-209.239 nm D domain for the first-order perturbation, and is a perturbative multi-grid-scale displacement; it is proposed only, not executed"
+}
