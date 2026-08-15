@@ -1,0 +1,197 @@
+{
+  "schema": "H1F4B1_ANALYSIS_V1",
+  "stage": "H1F-4B1",
+  "solver_entered_delta": 4,
+  "accepted_formal_cases": 4,
+  "wavelength_grid_nm": [
+    450.0,
+    450.5,
+    451.0,
+    451.5,
+    452.0,
+    452.5,
+    453.0,
+    453.5,
+    454.0
+  ],
+  "j1_jacobian": {
+    "delta_span_nm": 4.0,
+    "eta_metrics": {
+      "eta_x_plus1_stats": {
+        "mean": -0.0026817357667170403,
+        "median": -0.0006762476424346624,
+        "min": -0.013000812788267518,
+        "max": 0.00588893471893458,
+        "std": 0.0063288122753646136,
+        "sign_consistency": false,
+        "positive_count": 4,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "eta_x_zero_stats": {
+        "mean": 0.01857965707973279,
+        "median": -0.016092430299568056,
+        "min": -0.13260328702733978,
+        "max": 0.17299859454716274,
+        "std": 0.0952859378821138,
+        "sign_consistency": false,
+        "positive_count": 4,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "eta_x_minus1_stats": {
+        "mean": -0.002472783723155831,
+        "median": 0.0005111410391241181,
+        "min": -0.015066262356319065,
+        "max": 0.009947494031127439,
+        "std": 0.007745652947275964,
+        "sign_consistency": false,
+        "positive_count": 5,
+        "negative_count": 4,
+        "zero_count": 0
+      },
+      "eta_y_plus1_stats": {
+        "mean": 0.002727140305820772,
+        "median": 0.0025502752620910393,
+        "min": 0.0016546736728674822,
+        "max": 0.0040931008898401795,
+        "std": 0.0008016164596347747,
+        "sign_consistency": true,
+        "positive_count": 9,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "eta_y_zero_stats": {
+        "mean": -0.01381712371317069,
+        "median": -0.016791809294099465,
+        "min": -0.02262038771519156,
+        "max": 0.010936401987843361,
+        "std": 0.010396047245414729,
+        "sign_consistency": false,
+        "positive_count": 1,
+        "negative_count": 8,
+        "zero_count": 0
+      },
+      "eta_y_minus1_stats": {
+        "mean": 0.0030248804738671146,
+        "median": 0.0031767494056046293,
+        "min": 0.0021292482631195975,
+        "max": 0.0036140906819832307,
+        "std": 0.000431094032016231,
+        "sign_consistency": true,
+        "positive_count": 9,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "complex_jones_rows": 9,
+    "odd_response_definition": "(M(+2)-M(-2))/2",
+    "even_response_definition": "(M(+2)+M(-2))/2-M(0)",
+    "even_response": "unavailable_baseline_not_rerun",
+    "nonlinearity": "not separable from even response without baseline; no post-hoc threshold applied"
+  },
+  "grouped_d_directional_jacobian": {
+    "u_a": 0.013475202169639136,
+    "u_b": -0.9999092053414087,
+    "eta_x_plus1_stats": {
+      "mean": 0.0007344670142591269,
+      "median": 0.000868068508892669,
+      "min": -0.0006903730544447943,
+      "max": 0.0018184807728333174,
+      "std": 0.0009889632850455055,
+      "sign_consistency": false,
+      "positive_count": 6,
+      "negative_count": 3,
+      "zero_count": 0
+    },
+    "eta_y_plus1_stats": {
+      "mean": 0.0002532797378503624,
+      "median": 0.00023548619423982602,
+      "min": 0.00017314577796978374,
+      "max": 0.00046557570086818394,
+      "std": 8.499226224473602e-05,
+      "sign_consistency": true,
+      "positive_count": 9,
+      "negative_count": 0,
+      "zero_count": 0
+    }
+  },
+  "cancellation": {
+    "G_D_y_mean_per_nm": 0.0002532797378503624,
+    "G_J1_y_mean_per_nm": 0.002727140305820772,
+    "r_cancel": -0.09287374665313898,
+    "per_wavelength": [
+      {
+        "wavelength_nm": 450.0,
+        "g_D_eta_y_plus1_per_nm": 0.00017314577796978374,
+        "g_J1_eta_y_plus1_per_nm": 0.0016546736728674822,
+        "r_cancel": -0.1046404380567252
+      },
+      {
+        "wavelength_nm": 450.5,
+        "g_D_eta_y_plus1_per_nm": 0.00018842100220063394,
+        "g_J1_eta_y_plus1_per_nm": 0.0018133210062851166,
+        "r_cancel": -0.103909347295681
+      },
+      {
+        "wavelength_nm": 451.0,
+        "g_D_eta_y_plus1_per_nm": 0.00021349266725067243,
+        "g_J1_eta_y_plus1_per_nm": 0.002186598046988091,
+        "r_cancel": -0.09763690566940088
+      },
+      {
+        "wavelength_nm": 451.5,
+        "g_D_eta_y_plus1_per_nm": 0.00023548619423982602,
+        "g_J1_eta_y_plus1_per_nm": 0.0024423064125459405,
+        "r_cancel": -0.0964195946217688
+      },
+      {
+        "wavelength_nm": 452.0,
+        "g_D_eta_y_plus1_per_nm": 0.00025839915127079594,
+        "g_J1_eta_y_plus1_per_nm": 0.0026858973366493118,
+        "r_cancel": -0.09620589281091134
+      },
+      {
+        "wavelength_nm": 452.5,
+        "g_D_eta_y_plus1_per_nm": 0.0002799974129246798,
+        "g_J1_eta_y_plus1_per_nm": 0.003292800558383862,
+        "r_cancel": -0.08503321350932508
+      },
+      {
+        "wavelength_nm": 453.0,
+        "g_D_eta_y_plus1_per_nm": 0.00028640816381679334,
+        "g_J1_eta_y_plus1_per_nm": 0.0025502752620910393,
+        "r_cancel": -0.11230480414179275
+      },
+      {
+        "wavelength_nm": 453.5,
+        "g_D_eta_y_plus1_per_nm": 0.00017859157011189235,
+        "g_J1_eta_y_plus1_per_nm": 0.0038252895667359255,
+        "r_cancel": -0.046687072180076145
+      },
+      {
+        "wavelength_nm": 454.0,
+        "g_D_eta_y_plus1_per_nm": 0.00046557570086818394,
+        "g_J1_eta_y_plus1_per_nm": 0.0040931008898401795,
+        "r_cancel": -0.11374645125993045
+      }
+    ],
+    "broadband_stable": true
+  },
+  "response_plane_cosine": {
+    "j1_eta_x_plus1_eta_y_plus1": -0.3904650468079014,
+    "grouped_d_eta_x_plus1_eta_y_plus1": 0.715761190707765
+  },
+  "concurrency_3_observation": {
+    "peak_simultaneous_real_fdtd_jobs": 3,
+    "concurrent_rcwa_jobs": 1,
+    "lp_mpi_configuration": "4 MPI processes, 1 thread",
+    "throughput": "unavailable",
+    "cpu_ram": "unavailable",
+    "license_behavior": "no denial observed",
+    "controller_messaging": "one scheduler heartbeat WinError 5 during registry os.replace; solver cases accepted",
+    "cross_branch_failure": false
+  },
+  "ml_admitted": false,
+  "verdict": "J1_ANISOTROPY_FULLK6_COMPENSATOR_LEVER_PARTIAL"
+}
