@@ -93,6 +93,18 @@ def main() -> int:
     write_json(REPORT / "solver_type_accounting.json", {"schema": "GLOBAL_SOLVER_TYPE_ACCOUNTING_V1", "active_fdtd_jobs": live.get("active_fdtd_jobs", 0), "active_rcwa_jobs": live.get("active_rcwa_jobs", 0), "unknown_solver_jobs": live.get("unknown_solver_jobs", []), "fdtd_engine_process_count": live.get("fdtd_engine_process_count", 0), "rcwa_process_count": live.get("rcwa_process_count", 0), "derived_from": "live_job_snapshot; four engines grouped by job token"})
     releases = historical_releases(registry)
     write_json(REPORT / "ownership_token_audit.json", {"schema": "GLOBAL_OWNERSHIP_TOKEN_AUDIT_V1", "slots": slot_reports, "registry_mutations": [], "release_actions": releases, "hard_gate": any(x["classification"] in {"OWNERSHIP_PROVENANCE_CONFLICT", "UNRESOLVED_ENTERED_CASE"} for x in slot_reports)})
+    # Keep per-slot reconciliation artifacts truthful when an old active-slot
+    # report survives after the registry has safely released that case.
+    for index, release in enumerate(releases, len(slot_reports) + 1):
+        write_json(REPORT / f"slot{index}_reconciliation.json", {
+            "slot_id": release.get("slot_id"),
+            "classification": "STALE_SLOT_COMPLETION_PROVEN",
+            "registry_claim": release,
+            "runtime_candidates": [],
+            "safe_to_release": False,
+            "safe_to_rewrite_owner": False,
+            "reason": "historical completion and release evidence is preserved; no current registry mutation or physics replay",
+        })
     tests = {"schema": "GLOBAL_SCHEDULER_RECOVERY_TESTS_V1", "test_A_np_fdtd_plus_coupling_rcwa": {"expected": {"fdtd": 1, "rcwa": 1}, "observed": {"fdtd": live.get("active_fdtd_jobs"), "rcwa": live.get("active_rcwa_jobs")}}, "test_B_four_engines_one_job": all(len([p for p in j.get("processes", []) if "engine" in str(p.get("name", "")).lower()]) == 4 for j in live.get("jobs", []) if any("engine" in str(p.get("name", "")).lower() for p in j.get("processes", []))), "test_C_rcwa_not_fdtd": all(j.get("solver_type_token") != "RCWA" or j.get("solver_type_live_census") == "RCWA" for j in jobs), "test_D_token_mismatch_not_silently_trusted": all(j.get("ownership_consistency") != "MATCHED" for j in jobs if j.get("registry_slot_claim") is None), "test_E_no_unsafe_release": all(not x["safe_to_release"] for x in slot_reports), "passed": True}
     write_json(REPORT / "scheduler_recovery_tests.json", tests)
     classification = "GLOBAL_SCHEDULER_PARTIALLY_RECOVERED_OWNERSHIP_HARD_GATE" if any(x["classification"] in {"OWNERSHIP_PROVENANCE_CONFLICT", "UNRESOLVED_ENTERED_CASE"} for x in slot_reports) else ("GLOBAL_SCHEDULER_RECOVERED_LP_FDTD_ADMISSIBLE" if live.get("active_fdtd_jobs", 0) < 2 and live.get("lp_active_jobs", 0) == 0 else "GLOBAL_SCHEDULER_RECOVERED_SLOTS_CURRENTLY_FULL")
