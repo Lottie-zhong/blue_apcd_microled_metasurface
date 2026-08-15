@@ -1,44 +1,1064 @@
 {
-  "accepted_formal_cases": 0,
+  "accepted_formal_cases": 4,
   "cases": [
     {
-      "accepted": false,
+      "accepted": true,
+      "admission_snapshot": {
+        "active_fdtd_jobs": 2,
+        "active_rcwa_jobs": 1,
+        "effective_global_active_jobs_after_acquire": 3,
+        "effective_global_active_jobs_before_acquire": 2,
+        "effective_lp_active_jobs_after_acquire": 1,
+        "effective_lp_active_jobs_before_acquire": 0,
+        "live_global_active_jobs": 3,
+        "live_jobs": [
+          {
+            "branch": "MDC",
+            "job_token": "rcwa:blue_apcd_mdc_np_coupling_v1:rcwa_level1_angular_acquisition_9job_runner_v2.py",
+            "processes": [
+              {
+                "cmdline": "N:\\anaconda_envs\\RCP_LCP\\python.exe  D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_angular_acquisition_9job_runner_v2.py --run --attempt-id attempt_003 --sleep-seconds 600",
+                "name": "python.exe",
+                "path": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+                "pid": 23924,
+                "ppid": 32640
+              }
+            ],
+            "solver_type": "RCWA"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g03_p\\attempt_001\\np_k6_m7a_primary4_g03_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 25680,
+                "ppid": 30680
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15572,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39124,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 20284,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 38792,
+                "ppid": 32372
+              }
+            ],
+            "solver_type": "FDTD"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g04_p\\attempt_001\\np_k6_m7a_primary4_g04_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 16224,
+                "ppid": 30216
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39344,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 42496,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15152,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 32824,
+                "ppid": 40184
+              }
+            ],
+            "solver_type": "FDTD"
+          }
+        ],
+        "live_lp_active_jobs": 0,
+        "registry_active_slots": 2,
+        "unknown_solver_jobs": 0
+      },
+      "attempt_id": "attempt_001",
       "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS",
+      "case_id": "H1F4A_K6_L1_B_TRANSFER_PLUS_x",
+      "case_identity": {
+        "base_candidate_uid": "K6_L1_B",
+        "candidate_hash": "c135f1f44b8e24d272f021fe6a857cbd499ce9983cfdfea1526811a71a535b05",
+        "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS",
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS_x",
+        "harmonic_coefficients": {
+          "a_D_nm": 0.053900808678556546,
+          "b_D_nm": -3.999636821365635
+        },
+        "manifest_freeze_sha256": "8ee8ee45bbd61194afffe4dbf19b83e3221aed08fa1f6c94d379e7dfa1f30121",
+        "polarization": "x",
+        "solver_runs_for_spectrum": 1,
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "case_identity_sha256": "516c0024a73f47bfb829d80523362ef96e779830f91aa832c5a6595e546543b5",
       "case_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS_x",
+      "checkpoint_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_PLUS_x\\attempt_001\\checkpoint.json",
+      "checkpoint_sha256": "ef7d1aa1d6c36c5fd063396956fbb7cb4ba2194f233cea0983203719f1b3c920",
+      "configuration_gate": {
+        "checks": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0000000000001,
+          "source_start_nm": 450.0000000000001,
+          "source_stop_nm": 453.99999999999994
+        },
+        "expected": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0,
+          "source_start_nm": 450.0,
+          "source_stop_nm": 454.0
+        },
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "one_broadband_run_returns_all_9_points": true,
+        "pass": true,
+        "polarization": "x"
+      },
+      "entered_solver": true,
+      "entered_utc": "2026-08-15T17:41:38.793837+00:00",
+      "physical_contract_sha256": "c135f1f44b8e24d272f021fe6a857cbd499ce9983cfdfea1526811a71a535b05",
       "planned": true,
       "polarization": "x",
+      "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_PLUS_x\\attempt_001\\case_pre.fsp",
+      "pre_fsp_sha256": "92049d2f2f41bc8cae42c904665496589319446cf5c64200c56a5a997e6f27e7",
+      "processes": 4,
       "replay": false,
-      "solver_entered": false
+      "run_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_PLUS_x\\attempt_001\\case_run.fsp",
+      "run_fsp_sha256": "1fec3e1ceb698b969abe5d3b5528fface1ac084a63638795084936c8a82dea71",
+      "schema": "H1F1_ATTEMPT_PROVENANCE_V1",
+      "setup": {
+        "H_global_nm": 550.0,
+        "material_name": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "pillar_count": 12,
+        "polarization": "x",
+        "site_positions_nm": [
+          {
+            "site": 0,
+            "x_nm": 215.953893,
+            "y_nm": 0
+          },
+          {
+            "site": 1,
+            "x_nm": 647.861679,
+            "y_nm": 0
+          },
+          {
+            "site": 2,
+            "x_nm": 1079.7694649999999,
+            "y_nm": 0
+          },
+          {
+            "site": 3,
+            "x_nm": 1511.677251,
+            "y_nm": 0
+          },
+          {
+            "site": 4,
+            "x_nm": 1943.5850369999998,
+            "y_nm": 0
+          },
+          {
+            "site": 5,
+            "x_nm": 2375.492823,
+            "y_nm": 0
+          }
+        ],
+        "supercell_nm": [
+          2591.446716,
+          432.0
+        ],
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "slot_acquired": true,
+      "slot_id": "FDTD_SLOT_3",
+      "solver_complete": "2026-08-15T17:42:28.152914+00:00",
+      "solver_entered": true,
+      "solver_entry": {
+        "attempt_id": "attempt_001",
+        "case_id": "H1F4A_K6_L1_B_TRANSFER_PLUS_x",
+        "case_identity_sha256": "516c0024a73f47bfb829d80523362ef96e779830f91aa832c5a6595e546543b5",
+        "entered_solver": true,
+        "entered_utc": "2026-08-15T17:41:38.793837+00:00",
+        "physical_contract_sha256": "c135f1f44b8e24d272f021fe6a857cbd499ce9983cfdfea1526811a71a535b05",
+        "polarization": "x",
+        "pre_fsp_sha256": "92049d2f2f41bc8cae42c904665496589319446cf5c64200c56a5a997e6f27e7",
+        "processes": 4,
+        "slot_id": "FDTD_SLOT_3",
+        "solver_entered": true,
+        "threads": 1
+      },
+      "solver_replay": false,
+      "solver_runs_for_spectrum": 1,
+      "started_utc": "2026-08-15T17:41:22.193416+00:00",
+      "status": "ACCEPTED",
+      "threads": 1,
+      "wavelength_grid_nm": [
+        450.0,
+        450.5,
+        451.0,
+        451.5,
+        452.0,
+        452.5,
+        453.0,
+        453.5,
+        454.0
+      ]
     },
     {
-      "accepted": false,
+      "accepted": true,
+      "admission_snapshot": {
+        "active_fdtd_jobs": 2,
+        "active_rcwa_jobs": 1,
+        "effective_global_active_jobs_after_acquire": 3,
+        "effective_global_active_jobs_before_acquire": 2,
+        "effective_lp_active_jobs_after_acquire": 1,
+        "effective_lp_active_jobs_before_acquire": 0,
+        "live_global_active_jobs": 3,
+        "live_jobs": [
+          {
+            "branch": "MDC",
+            "job_token": "rcwa:blue_apcd_mdc_np_coupling_v1:rcwa_level1_angular_acquisition_9job_runner_v2.py",
+            "processes": [
+              {
+                "cmdline": "N:\\anaconda_envs\\RCP_LCP\\python.exe  D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_angular_acquisition_9job_runner_v2.py --run --attempt-id attempt_003 --sleep-seconds 600",
+                "name": "python.exe",
+                "path": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+                "pid": 23924,
+                "ppid": 32640
+              }
+            ],
+            "solver_type": "RCWA"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g03_p\\attempt_001\\np_k6_m7a_primary4_g03_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 25680,
+                "ppid": 30680
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15572,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39124,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 20284,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 38792,
+                "ppid": 32372
+              }
+            ],
+            "solver_type": "FDTD"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g04_p\\attempt_001\\np_k6_m7a_primary4_g04_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 16224,
+                "ppid": 30216
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39344,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 42496,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15152,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 32824,
+                "ppid": 40184
+              }
+            ],
+            "solver_type": "FDTD"
+          }
+        ],
+        "live_lp_active_jobs": 0,
+        "registry_active_slots": 2,
+        "unknown_solver_jobs": 0
+      },
+      "attempt_id": "attempt_001",
       "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS",
+      "case_id": "H1F4A_K6_L1_B_TRANSFER_PLUS_y",
+      "case_identity": {
+        "base_candidate_uid": "K6_L1_B",
+        "candidate_hash": "c135f1f44b8e24d272f021fe6a857cbd499ce9983cfdfea1526811a71a535b05",
+        "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS",
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS_y",
+        "harmonic_coefficients": {
+          "a_D_nm": 0.053900808678556546,
+          "b_D_nm": -3.999636821365635
+        },
+        "manifest_freeze_sha256": "8ee8ee45bbd61194afffe4dbf19b83e3221aed08fa1f6c94d379e7dfa1f30121",
+        "polarization": "y",
+        "solver_runs_for_spectrum": 1,
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "case_identity_sha256": "f84e02e6c0a3f9285bcc6e2db3bc6aaf7bc91f20b3030c6642125048e14249b7",
       "case_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS_y",
+      "checkpoint_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_PLUS_y\\attempt_001\\checkpoint.json",
+      "checkpoint_sha256": "1456ef5d72fb1bdda463994a42bd2a4399a905b0b0c1e6d55c949d433981f69d",
+      "configuration_gate": {
+        "checks": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0000000000001,
+          "source_start_nm": 450.0000000000001,
+          "source_stop_nm": 453.99999999999994
+        },
+        "expected": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0,
+          "source_start_nm": 450.0,
+          "source_stop_nm": 454.0
+        },
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "one_broadband_run_returns_all_9_points": true,
+        "pass": true,
+        "polarization": "y"
+      },
+      "entered_solver": true,
+      "entered_utc": "2026-08-15T17:42:47.923829+00:00",
+      "physical_contract_sha256": "c135f1f44b8e24d272f021fe6a857cbd499ce9983cfdfea1526811a71a535b05",
       "planned": true,
       "polarization": "y",
+      "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_PLUS_y\\attempt_001\\case_pre.fsp",
+      "pre_fsp_sha256": "71038045244e9b2699abcb1f29d22640e8aa0a985ee56e10538e404c618722cc",
+      "processes": 4,
       "replay": false,
-      "solver_entered": false
+      "run_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_PLUS_y\\attempt_001\\case_run.fsp",
+      "run_fsp_sha256": "fdb504c36fd1e472e579953a77a6de0f51e1a191eebdc42dc81c88b9a4db5695",
+      "schema": "H1F1_ATTEMPT_PROVENANCE_V1",
+      "setup": {
+        "H_global_nm": 550.0,
+        "material_name": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "pillar_count": 12,
+        "polarization": "y",
+        "site_positions_nm": [
+          {
+            "site": 0,
+            "x_nm": 215.953893,
+            "y_nm": 0
+          },
+          {
+            "site": 1,
+            "x_nm": 647.861679,
+            "y_nm": 0
+          },
+          {
+            "site": 2,
+            "x_nm": 1079.7694649999999,
+            "y_nm": 0
+          },
+          {
+            "site": 3,
+            "x_nm": 1511.677251,
+            "y_nm": 0
+          },
+          {
+            "site": 4,
+            "x_nm": 1943.5850369999998,
+            "y_nm": 0
+          },
+          {
+            "site": 5,
+            "x_nm": 2375.492823,
+            "y_nm": 0
+          }
+        ],
+        "supercell_nm": [
+          2591.446716,
+          432.0
+        ],
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "slot_acquired": true,
+      "slot_id": "FDTD_SLOT_3",
+      "solver_complete": "2026-08-15T17:43:38.361548+00:00",
+      "solver_entered": true,
+      "solver_entry": {
+        "attempt_id": "attempt_001",
+        "case_id": "H1F4A_K6_L1_B_TRANSFER_PLUS_y",
+        "case_identity_sha256": "f84e02e6c0a3f9285bcc6e2db3bc6aaf7bc91f20b3030c6642125048e14249b7",
+        "entered_solver": true,
+        "entered_utc": "2026-08-15T17:42:47.923829+00:00",
+        "physical_contract_sha256": "c135f1f44b8e24d272f021fe6a857cbd499ce9983cfdfea1526811a71a535b05",
+        "polarization": "y",
+        "pre_fsp_sha256": "71038045244e9b2699abcb1f29d22640e8aa0a985ee56e10538e404c618722cc",
+        "processes": 4,
+        "slot_id": "FDTD_SLOT_3",
+        "solver_entered": true,
+        "threads": 1
+      },
+      "solver_replay": false,
+      "solver_runs_for_spectrum": 1,
+      "started_utc": "2026-08-15T17:42:31.497310+00:00",
+      "status": "ACCEPTED",
+      "threads": 1,
+      "wavelength_grid_nm": [
+        450.0,
+        450.5,
+        451.0,
+        451.5,
+        452.0,
+        452.5,
+        453.0,
+        453.5,
+        454.0
+      ]
     },
     {
-      "accepted": false,
+      "accepted": true,
+      "admission_snapshot": {
+        "active_fdtd_jobs": 2,
+        "active_rcwa_jobs": 1,
+        "effective_global_active_jobs_after_acquire": 3,
+        "effective_global_active_jobs_before_acquire": 2,
+        "effective_lp_active_jobs_after_acquire": 1,
+        "effective_lp_active_jobs_before_acquire": 0,
+        "live_global_active_jobs": 3,
+        "live_jobs": [
+          {
+            "branch": "MDC",
+            "job_token": "rcwa:blue_apcd_mdc_np_coupling_v1:rcwa_level1_angular_acquisition_9job_runner_v2.py",
+            "processes": [
+              {
+                "cmdline": "N:\\anaconda_envs\\RCP_LCP\\python.exe  D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_angular_acquisition_9job_runner_v2.py --run --attempt-id attempt_003 --sleep-seconds 600",
+                "name": "python.exe",
+                "path": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+                "pid": 23924,
+                "ppid": 32640
+              }
+            ],
+            "solver_type": "RCWA"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g03_p\\attempt_001\\np_k6_m7a_primary4_g03_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 25680,
+                "ppid": 30680
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15572,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39124,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 20284,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 38792,
+                "ppid": 32372
+              }
+            ],
+            "solver_type": "FDTD"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g04_p\\attempt_001\\np_k6_m7a_primary4_g04_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 16224,
+                "ppid": 30216
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39344,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 42496,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15152,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 32824,
+                "ppid": 40184
+              }
+            ],
+            "solver_type": "FDTD"
+          }
+        ],
+        "live_lp_active_jobs": 0,
+        "registry_active_slots": 2,
+        "unknown_solver_jobs": 0
+      },
+      "attempt_id": "attempt_001",
       "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS",
+      "case_id": "H1F4A_K6_L1_B_TRANSFER_MINUS_x",
+      "case_identity": {
+        "base_candidate_uid": "K6_L1_B",
+        "candidate_hash": "7251a23bc51010f0edb704abc931f7776067a3ef53bb0a201f9c44d657f1eeac",
+        "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS",
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS_x",
+        "harmonic_coefficients": {
+          "a_D_nm": -0.053900808678556546,
+          "b_D_nm": 3.999636821365635
+        },
+        "manifest_freeze_sha256": "8ee8ee45bbd61194afffe4dbf19b83e3221aed08fa1f6c94d379e7dfa1f30121",
+        "polarization": "x",
+        "solver_runs_for_spectrum": 1,
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "case_identity_sha256": "114b59e11863553095e1ad814c402c0fc32957afb9345c0b5c3bcf5d486017f3",
       "case_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS_x",
+      "checkpoint_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_MINUS_x\\attempt_001\\checkpoint.json",
+      "checkpoint_sha256": "433b4fe775f8efffe0015e9b5eca0584561ab0ff637d766352049cf17dcc0efa",
+      "configuration_gate": {
+        "checks": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0000000000001,
+          "source_start_nm": 450.0000000000001,
+          "source_stop_nm": 453.99999999999994
+        },
+        "expected": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0,
+          "source_start_nm": 450.0,
+          "source_stop_nm": 454.0
+        },
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "one_broadband_run_returns_all_9_points": true,
+        "pass": true,
+        "polarization": "x"
+      },
+      "entered_solver": true,
+      "entered_utc": "2026-08-15T17:43:57.944311+00:00",
+      "physical_contract_sha256": "7251a23bc51010f0edb704abc931f7776067a3ef53bb0a201f9c44d657f1eeac",
       "planned": true,
       "polarization": "x",
+      "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_MINUS_x\\attempt_001\\case_pre.fsp",
+      "pre_fsp_sha256": "dd8621802cbbb2d2302c954f64c3c27e35095a668c6bcf1d36a2aa5a7f94831b",
+      "processes": 4,
       "replay": false,
-      "solver_entered": false
+      "run_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_MINUS_x\\attempt_001\\case_run.fsp",
+      "run_fsp_sha256": "8ea4bace35bbc0a2aaada767c7d9a602693ad5b5c27f9989b756fec3eabe47ab",
+      "schema": "H1F1_ATTEMPT_PROVENANCE_V1",
+      "setup": {
+        "H_global_nm": 550.0,
+        "material_name": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "pillar_count": 12,
+        "polarization": "x",
+        "site_positions_nm": [
+          {
+            "site": 0,
+            "x_nm": 215.953893,
+            "y_nm": 0
+          },
+          {
+            "site": 1,
+            "x_nm": 647.861679,
+            "y_nm": 0
+          },
+          {
+            "site": 2,
+            "x_nm": 1079.7694649999999,
+            "y_nm": 0
+          },
+          {
+            "site": 3,
+            "x_nm": 1511.677251,
+            "y_nm": 0
+          },
+          {
+            "site": 4,
+            "x_nm": 1943.5850369999998,
+            "y_nm": 0
+          },
+          {
+            "site": 5,
+            "x_nm": 2375.492823,
+            "y_nm": 0
+          }
+        ],
+        "supercell_nm": [
+          2591.446716,
+          432.0
+        ],
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "slot_acquired": true,
+      "slot_id": "FDTD_SLOT_3",
+      "solver_complete": "2026-08-15T17:44:50.534968+00:00",
+      "solver_entered": true,
+      "solver_entry": {
+        "attempt_id": "attempt_001",
+        "case_id": "H1F4A_K6_L1_B_TRANSFER_MINUS_x",
+        "case_identity_sha256": "114b59e11863553095e1ad814c402c0fc32957afb9345c0b5c3bcf5d486017f3",
+        "entered_solver": true,
+        "entered_utc": "2026-08-15T17:43:57.944311+00:00",
+        "physical_contract_sha256": "7251a23bc51010f0edb704abc931f7776067a3ef53bb0a201f9c44d657f1eeac",
+        "polarization": "x",
+        "pre_fsp_sha256": "dd8621802cbbb2d2302c954f64c3c27e35095a668c6bcf1d36a2aa5a7f94831b",
+        "processes": 4,
+        "slot_id": "FDTD_SLOT_3",
+        "solver_entered": true,
+        "threads": 1
+      },
+      "solver_replay": false,
+      "solver_runs_for_spectrum": 1,
+      "started_utc": "2026-08-15T17:43:41.291400+00:00",
+      "status": "ACCEPTED",
+      "threads": 1,
+      "wavelength_grid_nm": [
+        450.0,
+        450.5,
+        451.0,
+        451.5,
+        452.0,
+        452.5,
+        453.0,
+        453.5,
+        454.0
+      ]
     },
     {
-      "accepted": false,
+      "accepted": true,
+      "admission_snapshot": {
+        "active_fdtd_jobs": 2,
+        "active_rcwa_jobs": 1,
+        "effective_global_active_jobs_after_acquire": 3,
+        "effective_global_active_jobs_before_acquire": 2,
+        "effective_lp_active_jobs_after_acquire": 1,
+        "effective_lp_active_jobs_before_acquire": 0,
+        "live_global_active_jobs": 3,
+        "live_jobs": [
+          {
+            "branch": "MDC",
+            "job_token": "rcwa:blue_apcd_mdc_np_coupling_v1:rcwa_level1_angular_acquisition_9job_runner_v2.py",
+            "processes": [
+              {
+                "cmdline": "N:\\anaconda_envs\\RCP_LCP\\python.exe  D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_angular_acquisition_9job_runner_v2.py --run --attempt-id attempt_003 --sleep-seconds 600",
+                "name": "python.exe",
+                "path": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+                "pid": 23924,
+                "ppid": 32640
+              }
+            ],
+            "solver_type": "RCWA"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g03_p\\attempt_001\\np_k6_m7a_primary4_g03_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 25680,
+                "ppid": 30680
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15572,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39124,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 20284,
+                "ppid": 32372
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G03_P/attempt_001/NP_K6_M7A_PRIMARY4_G03_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2s1ek1IUTFPRmRJUTJWdGVHMXBhRTF3VlRoU2RtTlpPRFJETlVGcmMza3hZbWx0YzIxdGVGWmhhakp2UjFScVMzRldjRVJ3VGxCWlVIcDFTblZtYzJvNFJuQlVMVWxXVDJaelpUVjFOMlUxU0ZKMlIweFpabEZYVjJsSlkyZHBkMGhKTW5WNWIyWnlRa1pMUkdneVYzQlVXbFZxU1ZJdFR6RmhSV0pHTm05bWFWWXRSMjlZYlZZeGQzVXphMUJGWjAxNWVraFdPRk5HV2xnNWMyVm9URko2TlVReVdYUjBja1pqWVVSZlNXdFZOVlkxYlMwMWQwWm5hVGszYmw5b1ZHVkVUSGRXUmxsU2VtbHdjVVJ2Y0ZwWE9VczRZbkJJVjFoQ2EzSTBOV3h5WTI1Qk1qWnZSR05JUlZGRFJYVmxURGx4ZG5OMk0yVlFjRE5LTFhBdGFWOTBXVEpCYldKRVpreFRlVk53VW1SemNrRjVaM2xuYVZSR2NsWXRYMUJUTVY5bVVrSlpkSFZzUVRndFVscExVbU5pVkMxb05YUTNWbWxpYUhGSVFWSllVRU10YzJNNWVUQkVVakZJY0U1VGVrMVFOMWxwVVRWMGNVcG1RVEpQVEZVS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 38792,
+                "ppid": 32372
+              }
+            ],
+            "solver_type": "FDTD"
+          },
+          {
+            "branch": "NP",
+            "job_token": "fsp:d:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m7a_primary4_hf_acquisition_v1\\runtime_runs\\np_k6_m7a_primary4_g04_p\\attempt_001\\np_k6_m7a_primary4_g04_p_attempt_001_run.fsp",
+            "processes": [
+              {
+                "cmdline": "\"C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe\"  -n 4 -affinity \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "mpiexec.exe",
+                "path": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+                "pid": 16224,
+                "ppid": 30216
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 39344,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 42496,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 15152,
+                "ppid": 40184
+              },
+              {
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe\" -t 1 D:/project/worktrees/blue_apcd_np_k6_mdc_v1/outputs/np_k6_m7a_primary4_hf_acquisition_v1/runtime_runs/NP_K6_M7A_PRIMARY4_G04_P/attempt_001/NP_K6_M7A_PRIMARY4_G04_P_attempt_001_run.fsp -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48REFUQT5QRTlMUlZsZlUwbGFSVDRLTVRJNENqd3ZUMHRGV1Y5VFNWcEZQZ284UlU1RFgxTkpXa1UtQ2pFeU9BbzhMMFZPUTE5VFNWcEZQZ284U1ZaZlUwbGFSVDRLT0FvOEwwbFdYMU5KV2tVLUNqeE5VMGRmVTBsYVJUNEtNVE01Q2p3dlRWTkhYMU5KV2tVLUNqeE5VMGMtQ2xCUmQzWnBOa2N5T0hnMVpXSmxXQzFWYUVSclpVSmFYMFZ5V2taNmFta3lZVGRyWkZGQmJWRkdUSEpGZG1kZlRFNTVkMG8yVVMwNFlsSmtWbGh5TkVFeVlXMXpRVXByZWxGMFYwaGpNRWhrYjNWYVRsUkxWVXd6VmsxQmVERlhRVzluYkRaSFdtWklSbWxsWHpsRGIzaG5iMXBIZERJelpUaDRUMlY2ZUhseVRuUXRlWHB1ZFVwcldXRXlhVGhRT0VReFVUZEhRalptY0hJeE5HZGZXbmRQUlc5MWRFbGlZaTE1WWsxcWRtdFhjVmRrT1MxZmRtVnZNVGhaUW10VVgwMVZVM1JuYm1SeGRHWmZaMVpRZGxWQmNrNXljRVozY2pOclF6ZDBNVUYzVlhaNFJESXdUbGQ1YldsZmVtbDRYMmN6VjBzd0xVeElWM052ZUhRdGEwVkhha1Z3VEd3emNsWlpkbGxGUnpCZlFuQTBiVTFoUkhOWVlsQXlRV1F3YTNGUVJrUnJObHA0VlhSeE1rZEtZV053ZDBadFRXZEtaMFZKY0RneVkyZHJRa2R5YTNBdFRqVnBlRkEwY25nMVlscGpjMmRYYnpKWFZXYzFXWEJEYWtnS1BDOU5VMGMtQ2c8L0RBVEE+PC9BTlNZU19MSUNFTlNJTkdfQ09OVEVYVF9EQVRBPgpBTlNZU19MSUNFTlNJTkdfV09SS0ZMT1dfU0VTU0lPTj08REFUQT48SUQ+REVTS1RPUC1OTkUzMTNLX1NZU1RFTV8yNTE8L0lEPjwvREFUQT4K",
+                "name": "fdtd-engine-msmpi.exe",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-engine-msmpi.exe",
+                "pid": 32824,
+                "ppid": 40184
+              }
+            ],
+            "solver_type": "FDTD"
+          }
+        ],
+        "live_lp_active_jobs": 0,
+        "registry_active_slots": 2,
+        "unknown_solver_jobs": 0
+      },
+      "attempt_id": "attempt_001",
       "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS",
+      "case_id": "H1F4A_K6_L1_B_TRANSFER_MINUS_y",
+      "case_identity": {
+        "base_candidate_uid": "K6_L1_B",
+        "candidate_hash": "7251a23bc51010f0edb704abc931f7776067a3ef53bb0a201f9c44d657f1eeac",
+        "candidate_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS",
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS_y",
+        "harmonic_coefficients": {
+          "a_D_nm": -0.053900808678556546,
+          "b_D_nm": 3.999636821365635
+        },
+        "manifest_freeze_sha256": "8ee8ee45bbd61194afffe4dbf19b83e3221aed08fa1f6c94d379e7dfa1f30121",
+        "polarization": "y",
+        "solver_runs_for_spectrum": 1,
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "case_identity_sha256": "2d3190e2f2d772354e2a9ee2c5d57d03d29651a3fd2d1fd10294d4ccf6afb373",
       "case_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS_y",
+      "checkpoint_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_MINUS_y\\attempt_001\\checkpoint.json",
+      "checkpoint_sha256": "b4a1fec9e6abbfd4244ae87a778a23480bc98df87cb45ece67e6f9c1f2d5d256",
+      "configuration_gate": {
+        "checks": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0000000000001,
+          "source_start_nm": 450.0000000000001,
+          "source_stop_nm": 453.99999999999994
+        },
+        "expected": {
+          "frequency_points": 9.0,
+          "monitor_z_nm": 1000.0,
+          "source_start_nm": 450.0,
+          "source_stop_nm": 454.0
+        },
+        "material_contract": "APCD_TIO2_NATIVE_M1",
+        "one_broadband_run_returns_all_9_points": true,
+        "pass": true,
+        "polarization": "y"
+      },
+      "entered_solver": true,
+      "entered_utc": "2026-08-15T17:45:11.112126+00:00",
+      "physical_contract_sha256": "7251a23bc51010f0edb704abc931f7776067a3ef53bb0a201f9c44d657f1eeac",
       "planned": true,
       "polarization": "y",
+      "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_MINUS_y\\attempt_001\\case_pre.fsp",
+      "pre_fsp_sha256": "52ed989840204a271a7fd687b4ec5f4bc6ae36f7e78b1fc97eeff9e357f10ca5",
+      "processes": 4,
       "replay": false,
-      "solver_entered": false
+      "run_fsp_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_h1f4a_phase2_grouped_d_transfer_validation\\cases\\H1F4A_K6_L1_B_TRANSFER_MINUS_y\\attempt_001\\case_run.fsp",
+      "run_fsp_sha256": "a05d330887b73157c36a09d7684e0235cbd5bb0195c0f9bbbc4020f431373229",
+      "schema": "H1F1_ATTEMPT_PROVENANCE_V1",
+      "setup": {
+        "H_global_nm": 550.0,
+        "material_name": "APCD_TIO2_NATIVE_M1",
+        "monitor_z_nm": 1000.0,
+        "pillar_count": 12,
+        "polarization": "y",
+        "site_positions_nm": [
+          {
+            "site": 0,
+            "x_nm": 215.953893,
+            "y_nm": 0
+          },
+          {
+            "site": 1,
+            "x_nm": 647.861679,
+            "y_nm": 0
+          },
+          {
+            "site": 2,
+            "x_nm": 1079.7694649999999,
+            "y_nm": 0
+          },
+          {
+            "site": 3,
+            "x_nm": 1511.677251,
+            "y_nm": 0
+          },
+          {
+            "site": 4,
+            "x_nm": 1943.5850369999998,
+            "y_nm": 0
+          },
+          {
+            "site": 5,
+            "x_nm": 2375.492823,
+            "y_nm": 0
+          }
+        ],
+        "supercell_nm": [
+          2591.446716,
+          432.0
+        ],
+        "wavelength_grid_nm": [
+          450.0,
+          450.5,
+          451.0,
+          451.5,
+          452.0,
+          452.5,
+          453.0,
+          453.5,
+          454.0
+        ]
+      },
+      "slot_acquired": true,
+      "slot_id": "FDTD_SLOT_3",
+      "solver_complete": "2026-08-15T17:46:01.924343+00:00",
+      "solver_entered": true,
+      "solver_entry": {
+        "attempt_id": "attempt_001",
+        "case_id": "H1F4A_K6_L1_B_TRANSFER_MINUS_y",
+        "case_identity_sha256": "2d3190e2f2d772354e2a9ee2c5d57d03d29651a3fd2d1fd10294d4ccf6afb373",
+        "entered_solver": true,
+        "entered_utc": "2026-08-15T17:45:11.112126+00:00",
+        "physical_contract_sha256": "7251a23bc51010f0edb704abc931f7776067a3ef53bb0a201f9c44d657f1eeac",
+        "polarization": "y",
+        "pre_fsp_sha256": "52ed989840204a271a7fd687b4ec5f4bc6ae36f7e78b1fc97eeff9e357f10ca5",
+        "processes": 4,
+        "slot_id": "FDTD_SLOT_3",
+        "solver_entered": true,
+        "threads": 1
+      },
+      "solver_replay": false,
+      "solver_runs_for_spectrum": 1,
+      "started_utc": "2026-08-15T17:44:54.632643+00:00",
+      "status": "ACCEPTED",
+      "threads": 1,
+      "wavelength_grid_nm": [
+        450.0,
+        450.5,
+        451.0,
+        451.5,
+        452.0,
+        452.5,
+        453.0,
+        453.5,
+        454.0
+      ]
     }
   ],
-  "entered_formal_cases": 0,
+  "entered_formal_cases": 4,
   "max_global_active_fdtd_jobs": 3,
   "max_lp_active_fdtd_jobs": 1,
   "ml_admitted": false,
@@ -47,6 +1067,7 @@
   "quarantine_cases": 0,
   "replay_cases": 0,
   "schema": "H1F4A_PHASE2_SOLVER_ACCOUNTING_V1",
-  "solver_accepted_delta": 0,
-  "solver_entered_delta": 0
+  "solver_accepted_delta": 4,
+  "solver_entered_delta": 4,
+  "status": "FULLWAVE_POSTPROCESSED"
 }

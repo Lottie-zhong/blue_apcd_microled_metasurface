@@ -1,0 +1,41 @@
+{
+  "section": "CONCURRENCY_3_OBSERVATION",
+  "classification": "CONCURRENCY_3_PRODUCTION_OBSERVATION_PASS",
+  "peak_simultaneous_real_fdtd_jobs": 3,
+  "concurrent_rcwa_jobs_observed_max": 1,
+  "lp_mpi_configuration": {
+    "processes_per_case": 4,
+    "threads_per_process": 1,
+    "dedupe": "4 MPI children = 1 FDTD physics case"
+  },
+  "lp_wall_time": {
+    "per_case": [
+      {
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS_x",
+        "wall_time_seconds": 65.959498
+      },
+      {
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_PLUS_y",
+        "wall_time_seconds": 66.864238
+      },
+      {
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS_x",
+        "wall_time_seconds": 69.243568
+      },
+      {
+        "case_uid": "H1F4A_K6_L1_B_TRANSFER_MINUS_y",
+        "wall_time_seconds": 67.2917
+      }
+    ],
+    "total_seconds": 269.35900399999997
+  },
+  "throughput": "unavailable",
+  "cpu_ram": "unavailable",
+  "observable_peer_job_behavior": "NP peer FDTD groups remained present; no peer abnormal exit recorded",
+  "license_behavior": "no license denial recorded",
+  "controller_messaging_stability": "all 4 cases accepted; no IPC/messaging failure recorded",
+  "cross_branch_failure": false,
+  "permanent_validated_production_fdtd_concurrency": 2,
+  "stage_effective_capacity": 3,
+  "promotion": "PENDING_CHART_DECISION"
+}

@@ -24,6 +24,6 @@ class H1F4ADirectionRuleTest(unittest.TestCase):
         self.assertTrue(all(c['geometry_legality']['pass'] for c in m['children']))
         self.assertEqual({c['harmonic_coefficients']['a_D_nm'] for c in m['children']},{0.053900808678556546,-0.053900808678556546})
         self.assertEqual({c['harmonic_coefficients']['b_D_nm'] for c in m['children']},{-3.999636821365635,3.999636821365635})
-        self.assertEqual(json.load(open(R/'h1f4a_phase2_solver_accounting.json'))['solver_entered_delta'],0)
+        self.assertEqual(json.load(open(R/'h1f4a_phase2_solver_accounting.json'))['solver_entered_delta'],4)
 
 if __name__=='__main__': unittest.main()
