@@ -1,0 +1,41 @@
+{
+  "decision": "COUPLING_AWARE_FULL_K6_FIRST",
+  "rationale": "directly tests the demonstrated order-level bottleneck while preserving the successful strict broadband dimer mechanism and avoiding an unmeasured architecture expansion",
+  "routes": {
+    "COUPLING_AWARE_FULL_K6_OPTIMIZATION": {
+      "broadband_selectivity_risk": "medium; strict dimer parents preserve a tested broadband mechanism, but coupling can break it",
+      "directional_plus1": "direct objective",
+      "fabrication_complexity": "unchanged if same-layer dimer K6 grammar is retained",
+      "interpretability": "medium-high for constrained K6",
+      "new_dimensionality": "low-medium with grouped parameters",
+      "new_solver_cost": "high but can be bounded by a small decisive batch",
+      "physical_leverage": "directly attacks order-level coupling bottleneck",
+      "reuse_578_rows": "high as seed bank and legality evidence, not K6 labels",
+      "time_to_decisive_result": "shortest path to testing whether coupling provides new leverage"
+    },
+    "GLOBAL_H_REVISIT": {
+      "broadband_selectivity_risk": "medium; H changes can perturb projector and dispersion",
+      "directional_plus1": "indirect; still needs K6 coupling validation",
+      "fabrication_complexity": "low; unchanged architecture",
+      "interpretability": "high",
+      "new_dimensionality": "one shared fabrication parameter",
+      "new_solver_cost": "small final H probe, then full broadband strict validation",
+      "physical_leverage": "medium; H550 has best sampled compatible span but sparse 50-nm grid",
+      "reuse_578_rows": "high for anchors, not coupled labels",
+      "time_to_decisive_result": "medium"
+    },
+    "LOCAL_METAMOLECULE_ARCHITECTURE_EXTENSION": {
+      "broadband_selectivity_risk": "high until full Jones evidence",
+      "directional_plus1": "indirect; architecture must still be embedded in a coupled supercell",
+      "fabrication_complexity": "medium-high to high",
+      "interpretability": "medium",
+      "new_dimensionality": "high",
+      "new_solver_cost": "high",
+      "physical_leverage": "potentially high but unmeasured",
+      "reuse_578_rows": "seed/baseline only",
+      "time_to_decisive_result": "long"
+    }
+  },
+  "schema": "H1F0_ROUTE_COMPARISON_V1",
+  "scoring": "qualitative evidence matrix; no arbitrary weighted score"
+}

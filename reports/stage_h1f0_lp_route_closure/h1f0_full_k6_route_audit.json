@@ -1,0 +1,103 @@
+{
+  "coupling_aware_advantages": [
+    "neighbor coupling",
+    "collective supercell modes",
+    "amplitude redistribution",
+    "multiple scattering",
+    "nonlocal phase compensation",
+    "order-level interference"
+  ],
+  "diagnostic_metrics": [
+    "eta_x,0(lambda)",
+    "eta_x,-1(lambda)",
+    "other propagating-order leakage",
+    "polarization contrast",
+    "spectral robustness over 450-454 nm"
+  ],
+  "existing_method_reuse": [
+    "12 strict dimer parents after H1E3C",
+    "geometry legality constraints",
+    "full Jones projector evidence",
+    "phase trajectories",
+    "H=550 evidence",
+    "versioned 578-row registry with ml_admitted=false"
+  ],
+  "full_jones_requirement": "x and y source subruns are required before final polarization-selectivity acceptance; x-first can only be a resource triage screen and cannot create a final label",
+  "method_comparison": [
+    {
+      "cost": "bounded",
+      "fit": "best first decisive small batch",
+      "interpretability": "high",
+      "method": "deterministic coarse search",
+      "role": "first level-0 screen"
+    },
+    {
+      "cost": "medium",
+      "fit": "later after coupled labels exist",
+      "interpretability": "medium",
+      "method": "active learning",
+      "role": "adaptive expansion after a seed set"
+    },
+    {
+      "cost": "very high",
+      "fit": "nonconvex mixed discrete/continuous K6",
+      "interpretability": "low",
+      "method": "evolutionary optimization",
+      "role": "not first step"
+    },
+    {
+      "cost": "high per setup, efficient gradients",
+      "fit": "continuous geometry after a legal seed",
+      "interpretability": "medium",
+      "method": "adjoint optimization",
+      "role": "later refinement"
+    },
+    {
+      "cost": "high upfront",
+      "fit": "later when coupled labels accumulate",
+      "interpretability": "medium",
+      "method": "coupling-aware forward surrogate plus search",
+      "role": "second phase, not before labels"
+    }
+  ],
+  "motivation": "H1D showed naive additive/detour reasoning can fail after actual supercell symmetry and primitive-period recovery; direct order-level coupling is the demonstrated bottleneck",
+  "parameterizations": [
+    {
+      "description": "one or few strict dimer parent types plus small legal grouped position adjustments",
+      "dimensionality": "low",
+      "free_variables": "site assignment groups plus bounded positions",
+      "id": "K6-A",
+      "risk": "may under-explore local diversity but is decisive and interpretable"
+    },
+    {
+      "description": "six site-specific selections from strict/near-strict bank plus constrained position freedom",
+      "dimensionality": "medium",
+      "free_variables": "6 discrete parent choices plus grouped legal displacements",
+      "id": "K6-B",
+      "risk": "larger combinatorial space; preserves bank legality"
+    },
+    {
+      "description": "low-dimensional perturbations around current strict dimers with one shared/grouped coupling control",
+      "dimensionality": "medium",
+      "free_variables": "few continuous perturbations and grouped positions",
+      "id": "K6-C",
+      "risk": "new local perturbation legality must be audited"
+    }
+  ],
+  "primary_objectives": [
+    "broadband eta_x,+1(lambda)",
+    "broadband suppression eta_y,+1(lambda)",
+    "fabrication legality"
+  ],
+  "risks": [
+    "large search space",
+    "high 3D broadband FDTD cost",
+    "nonconvexity",
+    "local phase loses standalone interpretability",
+    "fabrication sensitivity",
+    "surrogate/active-learning/adjoint infrastructure may be needed later"
+  ],
+  "schema": "H1F0_FULL_K6_ROUTE_AUDIT_V1",
+  "six_bin_local_phase_library": "strategy_or_initialization_not_Maxwell_requirement",
+  "workflow_recommendation": "deterministic small K6 seed batch -> full x/y order-resolved validation of any survivor -> only then active learning or adjoint refinement"
+}

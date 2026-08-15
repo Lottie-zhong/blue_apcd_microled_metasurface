@@ -1,0 +1,51 @@
+{
+  "budget": {
+    "formal_full_acceptance": "x+y required; no x-only candidate can be accepted as polarization-selective",
+    "maximum_fdt_cases_if_staged": 6,
+    "new_solver_runs_proposed_only": 6,
+    "solver_entered_now": 0,
+    "wavelengths_nm": [
+      450.0,
+      450.5,
+      451.0,
+      451.5,
+      452.0,
+      452.5,
+      453.0,
+      453.5,
+      454.0
+    ],
+    "x_pol_prescreen_candidates": 4,
+    "y_pol_completion_max": 2
+  },
+  "candidates": {
+    "K6-A": 4,
+    "K6-B": 4,
+    "K6-C": 2
+  },
+  "metrics": {
+    "diagnostic": [
+      "eta_x,0",
+      "eta_x,-1",
+      "other propagating leakage",
+      "polarization contrast",
+      "broadband robustness"
+    ],
+    "primary": [
+      "eta_x,+1",
+      "eta_y,+1 suppression",
+      "fabrication legality"
+    ]
+  },
+  "scheduler": "preserve solver-type-aware accounting, MAX_ACTIVE_FDTD_PER_BRANCH=1, global validated FDTD concurrency=2, and entered=true no-replay",
+  "schema": "H1F0_PROPOSED_NEXT_STAGE_V1",
+  "seed_bank": "12 authoritative H1E3C strict geometries; use strict parents as seeds, not an exact six-bin requirement",
+  "selection": "prepare a small deterministic candidate manifest; execute only the smallest decisive subset after a future admission decision",
+  "stage": "LP_K6_COUPLING_AWARE_LEVEL0_DESIGN",
+  "status": "PROPOSED_ONLY_NO_EXECUTION",
+  "stop_go": {
+    "go": "at least one x+y-complete candidate shows reproducible broadband +1 redistribution and a measurable improvement over the identical-dimer/detour baseline while remaining fabrication-legal",
+    "not_required_at_level0": "final device performance and six isolated 60-degree phase bins",
+    "stop": "no candidate exceeds the baseline on order-level redistribution, or all survivors lose strict broadband Px compatibility, or legality fails"
+  }
+}

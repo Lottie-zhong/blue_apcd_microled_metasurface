@@ -1,0 +1,40 @@
+{
+  "assessment": "Route B can add genuine architecture-level leverage, but it introduces more physical and fabrication complexity than the demonstrated bottleneck requires; no option is selected here.",
+  "options": [
+    {
+      "APCD_logic": "compatible with parallel scatterers if same-layer and independently legal",
+      "architecture": "third same-layer local scatterer / trimer",
+      "fabrication_complexity": "medium-high",
+      "id": "B1_TRIMER",
+      "phase_degrees_of_freedom": "additional resonant amplitude, phase and coupling path",
+      "projector_preservation": "must be constrained with full Jones Px checks; risk higher than dimer",
+      "recommendation": "not automatic; requires a geometry contract",
+      "reuse_578_rows": "strict dimer parents can seed two sites; no labels for the third-site coupling",
+      "solver_dimensionality": "high"
+    },
+    {
+      "APCD_logic": "potentially compatible, but physical scattering interpretation changes",
+      "architecture": "non-rectangular same-layer pillar shape",
+      "fabrication_complexity": "medium-high",
+      "id": "B2_NONRECTANGULAR",
+      "phase_degrees_of_freedom": "shape resonances and anisotropic scattering",
+      "projector_preservation": "unknown until full Jones evidence",
+      "recommendation": "not automatic",
+      "reuse_578_rows": "geometry legality and strict dimer phase data remain useful as baselines only",
+      "solver_dimensionality": "high"
+    },
+    {
+      "APCD_logic": "possible but requires explicit parallel-scatterer and fabrication audit",
+      "architecture": "additional same-layer local resonant element",
+      "fabrication_complexity": "high",
+      "id": "B3_EXTRA_RESONANT",
+      "phase_degrees_of_freedom": "new local resonance and controlled mutual coupling",
+      "projector_preservation": "must be treated as a new metamolecule contract",
+      "recommendation": "not automatic",
+      "reuse_578_rows": "use strict parents for initialization, not as coupled labels",
+      "solver_dimensionality": "very high"
+    }
+  ],
+  "schema": "H1F0_METAMOLECULE_EXTENSION_OPTIONS_V1",
+  "scope": "architecture-level extension, not another scalar parameter in the same rectangular dimer"
+}
