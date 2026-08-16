@@ -12,8 +12,8 @@ def test_policy_and_acquisition_are_distinct_from_entry(tmp_path):
     scheduler=MOD.GlobalSlotScheduler(tmp_path/"registry.json",lambda:[])
     lease=scheduler.acquire("work/lp-global-h-manifold-v1",r"D:\lp", "task", "case", pid=os.getpid(), metadata={"attempt_id":"a1","polarization":"x","H_global_nm":400.0})
     try:
-        assert MOD.GLOBAL_CAPACITY==2
-        assert MOD.MAX_ACTIVE_FDTD_PER_BRANCH==1
+        assert MOD.GLOBAL_CAPACITY==3
+        assert MOD.MAX_ACTIVE_FDTD_PER_BRANCH==3
         assert MOD.PROCESSES_PER_JOB==4
         assert MOD.THREADS_PER_JOB==1
         assert lease.record["slot_acquired"] is True
@@ -33,7 +33,7 @@ def test_one_peer_is_allowed_but_capacity_two_waits(tmp_path):
         assert lease.record["concurrent_peer_branch"]==["NP"]
     finally:
         lease.release("PRE_ENTRY_RELEASE")
-    full=[*peer,{"pid":102,"ppid":0,"name":"mpiexec.exe","cmdline":r"D:\np\blue_apcd_np\case2.fsp"}]
+    full=[*peer,{"pid":102,"ppid":0,"name":"mpiexec.exe","cmdline":r"D:\np\blue_apcd_np\case2.fsp"},{"pid":103,"ppid":0,"name":"mpiexec.exe","cmdline":r"D:\np\blue_apcd_np\case3.fsp"}]
     blocked=MOD.GlobalSlotScheduler(tmp_path/"full.json",lambda:full)
     with pytest.raises(MOD.SlotUnavailable,match="WAIT_GLOBAL_FDTD_CAPACITY"):
         blocked.acquire("work/lp-global-h-manifold-v1",r"D:\lp", "task", "case", pid=os.getpid())
@@ -132,7 +132,7 @@ def test_resident_server_controller_is_not_an_fdtd_slot():
 
 def test_two_branches_racing_last_slot_only_one_succeeds(tmp_path):
     import threading
-    peer=[{"pid":101,"ppid":0,"name":"fdtd-solutions.exe","cmdline":r"D:\np\blue_apcd_np\case.fsp"}]
+    peer=[{"pid":101,"ppid":0,"name":"fdtd-solutions.exe","cmdline":r"D:\np\blue_apcd_np\case.fsp"},{"pid":102,"ppid":0,"name":"mpiexec.exe","cmdline":r"D:\np\blue_apcd_np\case2.fsp"}]
     path=tmp_path/"registry.json"
     results=[]
     leases=[]

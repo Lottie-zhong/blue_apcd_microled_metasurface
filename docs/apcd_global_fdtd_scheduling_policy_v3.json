@@ -1,0 +1,24 @@
+{
+  "authority_module": "scripts/apcd_global_fdtd_slot_v1.py",
+  "concurrency3_evidence": "functional stability production evidence; not hardware maximum or throughput optimum",
+  "current_production_global_cap": 3,
+  "default_max_active_fdtd_per_branch": 3,
+  "dynamic_rule": "max(0,min(3-global_active_formal_fdtd,3-branch_active_formal_fdtd))",
+  "entered_jobs_untouched": true,
+  "fairness": "queue without preemption; healthy entered jobs are never killed/paused/suspended",
+  "fdtd_resource_per_job": {
+    "processes": 4,
+    "threads": 1
+  },
+  "fourth_fdtd_authorized": false,
+  "historical_policy": {
+    "global_cap": 2,
+    "status": "SUPERSEDED_HISTORICAL_CONSERVATIVE_SETTING"
+  },
+  "manifest_sha256": "9dbf2980d1eaa4af0dacdf751e28177f26559c8434de88ab0bf433e27db36934",
+  "policy_id": "APCD_GLOBAL_FDTD_SCHEDULING_POLICY_V3",
+  "rcwa_consumes_fdtd_slot": false,
+  "registry_path": "D:/project/apcd_global_fdtd_slot_registry_v1.json",
+  "solver_count_this_upgrade": 0,
+  "status": "PERMANENT"
+}

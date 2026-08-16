@@ -5,10 +5,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-GLOBAL_CAPACITY = 2
-MAX_ACTIVE_FDTD_PER_BRANCH = 1
+POLICY_ID = "APCD_GLOBAL_FDTD_SCHEDULING_POLICY_V3"
+CURRENT_PRODUCTION_FDTD_SCHEDULING_CAP = 3
+DEFAULT_MAX_ACTIVE_FDTD_PER_BRANCH = 3
+GLOBAL_CAPACITY = CURRENT_PRODUCTION_FDTD_SCHEDULING_CAP
+MAX_ACTIVE_FDTD_PER_BRANCH = DEFAULT_MAX_ACTIVE_FDTD_PER_BRANCH
 PROCESSES_PER_JOB = 4
 THREADS_PER_JOB = 1
+RCWA_CONSUMES_FDTD_SLOT = False
 DEFAULT_REGISTRY_PATH = Path(r"D:\project\apcd_global_fdtd_slot_registry_v1.json")
 LOCK_TIMEOUT_S = 30.0
 LOCK_STALE_S = 120.0
@@ -29,14 +33,20 @@ def pid_exists(pid):
     except (OSError, TypeError, ValueError, SystemError):
         return False
 
+def _branch_active_limit(branch, metadata):
+    # Permanent V3 policy: branch-local admission is bounded by the
+    # shared global cap and never by a branch-specific historical trial.
+    return DEFAULT_MAX_ACTIVE_FDTD_PER_BRANCH
+
 def default_registry():
-    return {"schema":"APCD_GLOBAL_FDTD_SLOT_REGISTRY_V1","global_capacity":GLOBAL_CAPACITY,"max_active_fdtd_per_branch":MAX_ACTIVE_FDTD_PER_BRANCH,"active_slots":[],"history":[],"updated_utc":utc_now()}
+    return {"schema":"APCD_GLOBAL_FDTD_SLOT_REGISTRY_V1","policy_id":POLICY_ID,"global_capacity":GLOBAL_CAPACITY,"max_active_fdtd_per_branch":MAX_ACTIVE_FDTD_PER_BRANCH,"active_slots":[],"history":[],"updated_utc":utc_now()}
 
 def _read(path):
     if not path.exists(): return default_registry()
     try: data=json.loads(path.read_text(encoding="utf-8-sig"))
     except (OSError, ValueError) as exc: raise RegistryCorrupt(f"cannot read slot registry: {path}") from exc
-    if data.get("schema") != "APCD_GLOBAL_FDTD_SLOT_REGISTRY_V1" or data.get("global_capacity") != GLOBAL_CAPACITY or data.get("max_active_fdtd_per_branch") != MAX_ACTIVE_FDTD_PER_BRANCH or not isinstance(data.get("active_slots"),list) or not isinstance(data.get("history",[]),list):
+    trial_cap_ok = data.get("global_capacity") == GLOBAL_CAPACITY and data.get("policy_id") == POLICY_ID
+    if data.get("schema") != "APCD_GLOBAL_FDTD_SLOT_REGISTRY_V1" or not trial_cap_ok or data.get("max_active_fdtd_per_branch") != MAX_ACTIVE_FDTD_PER_BRANCH or not isinstance(data.get("active_slots"),list) or not isinstance(data.get("history",[]),list):
         raise RegistryCorrupt("slot registry schema or policy mismatch")
     return data
 
@@ -53,6 +63,10 @@ def registry_lock(path,timeout_s=LOCK_TIMEOUT_S):
         try: fd=os.open(str(lock),os.O_CREAT|os.O_EXCL|os.O_WRONLY)
         except FileExistsError:
             try: info=json.loads(lock.read_text(encoding="utf-8")); owner=info.get("pid"); age=time.time()-lock.stat().st_mtime
+            except FileNotFoundError:
+                # Another atomic acquirer released the lock between the
+                # existence check and metadata read; retry acquisition.
+                continue
             except Exception as exc: raise SlotError("HARD_GATE_SLOT_LOCK_UNKNOWN_OWNERSHIP") from exc
             if not pid_exists(owner) and age >= LOCK_STALE_S:
                 try: lock.unlink()
@@ -254,7 +268,8 @@ class GlobalSlotScheduler:
             effective_fdtd=len(fdtd_active_rows)+len(uncovered)
             effective_lp=sum(_branch_key(r.get("branch"))=="LP" for r in fdtd_active_rows)+sum(_branch_key(j.get("branch"))=="LP" for j in uncovered)
             if branch=="work/lp-global-h-manifold-v1" and effective_lp>=MAX_ACTIVE_FDTD_PER_BRANCH: raise SlotUnavailable("WAIT_LP_ACTIVE_FDTD")
-            if sum(_branch_matches(r.get("branch"),branch) and _row_solver_type(r)=="FDTD" for r in fdtd_active_rows)>=MAX_ACTIVE_FDTD_PER_BRANCH: raise SlotUnavailable("WAIT_BRANCH_ACTIVE_FDTD")
+            branch_active_limit=_branch_active_limit(branch, metadata)
+            if sum(_branch_matches(r.get("branch"),branch) and _row_solver_type(r)=="FDTD" for r in fdtd_active_rows)>=branch_active_limit: raise SlotUnavailable("WAIT_BRANCH_ACTIVE_FDTD")
             if effective_fdtd>=GLOBAL_CAPACITY: raise SlotUnavailable("WAIT_GLOBAL_FDTD_CAPACITY")
             occupied={str(r.get("slot_id")) for r in active if r.get("slot_id")}
             target_index=effective_fdtd+1
