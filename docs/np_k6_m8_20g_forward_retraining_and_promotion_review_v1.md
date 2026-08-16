@@ -27,6 +27,7 @@ Final state: `MORE_TARGETED_DEVELOPMENT_HF_REQUIRED`
 | circular_cnn | 0.047797 | 0.079635 | 0.06611742695733383 | 0.171506 | 0.933835 | 0.333333 | 5 | 0.138530 | 0.412877 |
 
 - Best order-profile trainable result: `LF_ridge_residual` (0.042516). Lowest η(+1) MAE is `circular_cnn` (0.079635), but its T/energy/worst-case gates fail. No model passes every frozen development gate.
+- Per-seed ranking and error dispersion are retained in `model_metrics_by_seed.csv` and `ranking_seed_stability.json`; no single seed is used as a hidden selection shortcut.
 - Raw and constrained metric files are both retained; constrained projection is not used as a substitute for raw physics validity.
 
 ## Ranking, physics, and P/S

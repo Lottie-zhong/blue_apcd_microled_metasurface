@@ -35,3 +35,4 @@ def test_m8_requirement_audit_and_detailed_learning_value():
     assert len(load_csv('common_HF16_full_metric_delta.csv')) == 144
     assert len(load_csv('new4_heldout_full_difficulty.csv')) == 36
     assert len(load_csv('hf20_ps_truth_distribution_summary.csv')) == 24
+    assert load_json('ranking_seed_stability.json')['seed_count'] == 3
