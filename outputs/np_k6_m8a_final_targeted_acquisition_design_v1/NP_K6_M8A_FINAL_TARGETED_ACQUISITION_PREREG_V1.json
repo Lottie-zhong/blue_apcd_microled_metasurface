@@ -1,0 +1,131 @@
+{
+  "authority": {
+    "G01_residual_tail_geometry": "K6X_D135_D155_D190_D220_D225_D230",
+    "candidate_universe_audit_sha256": "b7c4c472a47ba8bc0b3079d9abaa1c347960d2273408d85f5a9949e3a01baf09",
+    "candidate_universe_sha256": "66dd4e35226ca4f8373760c4a18bde07e25be5104e08318a16c9f863aa6a56b9",
+    "candidate_universe_source": "outputs\\np_k6_m7a_targeted_development_acquisition_design_v1\\candidate_acquisition_features.csv",
+    "capability": "NORMAL_INCIDENCE_ONLY",
+    "eligible_candidate_count": 31,
+    "external_registry_sha256": "5622a6a726a89f60f3d5d6641fd7a0d1d27a4bb61f3647e58aa9bd328f8a4704",
+    "geometries": 20,
+    "hf_rows": 440,
+    "m7a_selection_manifest_sha256": "0bd289c9dd3c330788264a49a67373f6aabb0e9c06768f5fe8da3a645a365712",
+    "m8_preregistration_sha256": "fc05bc4d99cb54fa48558cda3605da53aa3fbda3f84c995a5493dfb820131ef9",
+    "paired_PS_cases": 40,
+    "u_x": [
+      0.0
+    ],
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "baseline_comparison": [
+    "proposed_Primary2",
+    "residual_score_top2",
+    "performance_only_top2",
+    "ranking_ambiguity_top2",
+    "random2_seeded_20260816"
+  ],
+  "created_utc": "2026-08-16T08:54:54.001399+00:00",
+  "exclusions": {
+    "duplicate_geometry_hash": true,
+    "external_registry_overlap": true,
+    "external_target_reads": 0,
+    "formal_HF16_overlap": true,
+    "formal_HF20_overlap": true,
+    "historical_quarantined_G01": "K6X_D110_D125_D130_D135_D140_D175",
+    "sealed_pool_overlap": true,
+    "sealed_target_reads": 0
+  },
+  "external_hf": 0,
+  "feature_contract": {
+    "anti_duplication": [
+      "nearest_HF20_distance",
+      "candidate_pairwise_redundancy"
+    ],
+    "ranking": [
+      "broadband_eta_plus1_potential",
+      "model_rank_variance",
+      "pairwise_rank_reversal",
+      "distance_to_Top3_boundary",
+      "Ridge_CNN_disagreement",
+      "calibrated_LF_vs_learned_disagreement",
+      "spectral_robustness",
+      "P_S_proxy"
+    ],
+    "tail": [
+      "ordered_D1_D6",
+      "adjacent_diameter_jumps",
+      "diameter_span",
+      "distance_to_G01",
+      "LF_order_profile_similarity",
+      "LF_eta_plus1_similarity",
+      "LF_to_HF_residual_proxy",
+      "Ridge_CNN_disagreement",
+      "P_S_proxy",
+      "wavelength_robustness"
+    ]
+  },
+  "future_solver_cost": {
+    "concurrency3_governance": "functional stability evidence only; not throughput optimal",
+    "optional_first4_formal_cases": 8,
+    "optional_first4_rows": 88,
+    "primary2_formal_cases": 4,
+    "primary2_rows": 44,
+    "runtime": "4 MPI x 1 thread compliant authority"
+  },
+  "future_success_criteria": {
+    "no_giant_error_required": true,
+    "ranking": "near-champion ordering materially clarified OR agreement confirmed",
+    "tail": "continuous/error-cluster localization OR informative negative result showing isolated/proxy failure"
+  },
+  "identity_freeze_order": "This preregistration hash must precede final candidate identity generation.",
+  "inverse_design": 0,
+  "marginal_value_contract": "compare Primary2 versus Primary2+next2 backups on tail localization, ranking ambiguity, P/S information, redundancy, LF response diversity",
+  "new_hf": 0,
+  "normalization": "min-max fit on eligible candidate universe only; no HF truth, external metadata, or sealed metadata used for score fitting",
+  "plateau_stop_rule": "If after Primary2 and M9 no model passes all gates, common-HF20 lacks consistent improvement, and tail/champion failures do not converge, stop automatic development-HF loop and enter FORWARD_MODEL_PLATEAU_REASSESSMENT_REQUIRED.",
+  "preregistration_id": "NP_K6_M8A_FINAL_TARGETED_ACQUISITION_PREREG_V1",
+  "roles": {
+    "RANKING-DISAMBIGUATION": "reduce champion/Top-K ambiguity near current Pareto frontier",
+    "TAIL-LOCALIZATION": "localize whether M7A G01 residual-tail is isolated, smooth local, diameter-jump-driven, P/S-dependent, or order-redistribution cluster"
+  },
+  "scope": {
+    "diameter_sorting": false,
+    "no_angular_acquisition": true,
+    "no_new_truth": true,
+    "ordered_D1_D6": true,
+    "u_x_only": 0.0
+  },
+  "scoring": {
+    "all_terms_minmax_on_eligible_pool": true,
+    "ranking_score": "0.25*model_rank_variance + 0.20*pairwise_rank_reversal + 0.20*near_Top3_margin + 0.15*broadband_eta_plus1_potential + 0.10*Ridge_CNN_disagreement + 0.10*PS_proxy",
+    "tail_score": "0.30*G01_physical_proximity + 0.20*G01_LF_response_similarity + 0.20*residual_proxy + 0.15*Ridge_CNN_disagreement + 0.10*PS_proxy + 0.05*spectral_robustness"
+  },
+  "sealed_target_reads": 0,
+  "selection_rule": {
+    "backup_count": 6,
+    "backup_order": "deterministic interleaving tail/ranking/mixed queues by frozen score and geometry_hash",
+    "no_automatic_backup_substitution": true,
+    "one_candidate_per_role": true,
+    "optional_first4": "Primary2 plus next two backups only; not default recommendation",
+    "primary_count": 2,
+    "primary_roles": [
+      "TAIL-LOCALIZATION",
+      "RANKING-DISAMBIGUATION"
+    ],
+    "ranking_pick": "highest ranking_score excluding tail pick, then lowest physical redundancy, then descending geometry_hash",
+    "tail_pick": "highest tail_score, then lowest physical redundancy, then descending geometry_hash"
+  },
+  "solver_calls": 0
+}
