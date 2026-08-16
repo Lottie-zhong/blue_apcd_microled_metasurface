@@ -1,0 +1,97 @@
+{
+  "authority": {
+    "G01_quarantine_absent": true,
+    "duplicate_hf_keys": 0,
+    "exact_wavelengths": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "generator_ids": [
+      "NP_K6_PILOT_FDTD_GENERATOR_FIXED_GRID_3PS_V2"
+    ],
+    "geometry_hash_field": "geometry_hash",
+    "hf_rows": 440,
+    "interface_stack_ids": [
+      "NP_K6_INDEPENDENT_STACK_PILOT_V1"
+    ],
+    "lf_key_mismatch": 0,
+    "lf_rows": 440,
+    "paired_PS_cases": 40,
+    "provenance_conflicts": 0,
+    "rows_per_geometry_pol": 11,
+    "scope": {
+      "k_y": 0.0,
+      "source_scope": "M8 preregistration; extracted CSV has no populated ux/ky field",
+      "u_x": 0.0
+    },
+    "unique_geometry_hashes": 20,
+    "unique_geometry_ids": 20
+  },
+  "cv_and_leakage": {
+    "P_S_pairing": true,
+    "fold_manifest_rows": 20,
+    "model_count": 9,
+    "normalization_fit_within_training_fold": true,
+    "outer_cv": "20-fold LOGO",
+    "row_random_split": false,
+    "seed_count": 3
+  },
+  "governance": {
+    "concurrency3": "CONCURRENCY3_FUNCTIONAL_STABILITY_EVIDENCE_PRESENT; continuous CPU/RAM unavailable",
+    "external_metadata_only": true,
+    "external_registry_path": "outputs\\np_k6_m5_fullk6_forward_v0\\external_set_registry.json",
+    "external_target_reads": 0,
+    "inverse_files_in_m8_output": [],
+    "sealed_target_reads": 0,
+    "solver_calls": 0
+  },
+  "output_schema": {
+    "T_equals_order_sum_max_abs_error": 0.0,
+    "expected_symbolic_order_fields": [
+      "pred_eta_m-3",
+      "pred_eta_m-2",
+      "pred_eta_m-1",
+      "pred_eta_m+0",
+      "pred_eta_m+1",
+      "pred_eta_m+2",
+      "pred_eta_m+3"
+    ],
+    "missing_fields": [],
+    "pass": true
+  },
+  "regression_tests": {
+    "pytest_command": "26 passed",
+    "status": "PASS",
+    "tests": [
+      "test_np_k6_m5_fullk6_forward_v0.py",
+      "test_np_k6_m5b_formulation_repair_v1.py",
+      "test_np_k6_m7_16g_forward_retraining_v1.py",
+      "test_np_k6_m7a_targeted_development_acquisition_design_v1.py",
+      "test_m8",
+      "test_m7a_closeout_source.py"
+    ]
+  },
+  "residual_reconstruction": {
+    "formula": "HF = LF + (HF-LF)",
+    "max_abs_reconstruction_error": 5.551115123125783e-17,
+    "pass": true,
+    "rows": 440
+  },
+  "selection_time_preservation": {
+    "direct_model_absent": true,
+    "fields_match_manifest": true,
+    "pre_fit_recorded_sha256": "0bd289c9dd3c330788264a49a67373f6aabb0e9c06768f5fe8da3a645a365712",
+    "rows": 20,
+    "selection_manifest_sha256": "0bd289c9dd3c330788264a49a67373f6aabb0e9c06768f5fe8da3a645a365712"
+  },
+  "status": "PASS"
+}

@@ -46,6 +46,15 @@ if decision.get('final_state') not in allowed: errors.append('decision_state')
 if decision.get('external_hf_authorized', False) is True: errors.append('external_hf_authorized')
 review = j('m8_promotion_review.json')
 if review.get('solver_calls', 0) not in (0,'0'): errors.append('review_solver_calls')
+for audit_name in ('authority_full_audit.json','m8_requirement_audit.json','residual_reconstruction_audit.json','schema_and_leakage_audit.json','selection_time_preservation_audit.json','regression_test_audit.json'):
+    audit = j(audit_name)
+    if audit_name == 'm8_requirement_audit.json' and audit.get('status') != 'PASS': errors.append('requirement_audit')
+    if audit_name == 'authority_full_audit.json' and audit.get('status') != 'PASS': errors.append('authority_full_audit')
+    if audit_name == 'residual_reconstruction_audit.json' and not audit.get('pass', False): errors.append('residual_reconstruction')
+    if audit_name == 'selection_time_preservation_audit.json' and not audit.get('fields_match_manifest', False): errors.append('selection_time_preservation')
+    if audit_name == 'regression_test_audit.json' and audit.get('status') != 'PASS': errors.append('regression_audit')
+for name,expected in (('common_HF16_full_metric_delta.csv',144),('common_HF16_full_learning_value.csv',9),('new4_heldout_full_difficulty.csv',36),('hf20_ps_truth_distribution_summary.csv',24),('residual_structure_oof_by_geometry.csv',1120)):
+    if len(rows(name)) != expected: errors.append(name+'_row_count')
 if (O/'m7a_prospective_like_selection_time_audit.csv').exists():
     sel = rows('m7a_prospective_like_selection_time_audit.csv')
     if any(r.get('model') == 'direct_mlp' for r in sel): errors.append('selection_manifest_schema_not_frozen')

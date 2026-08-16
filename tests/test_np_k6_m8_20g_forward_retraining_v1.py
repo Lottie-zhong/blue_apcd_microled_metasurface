@@ -27,3 +27,11 @@ def test_m8_oof_contract_and_solver_zero():
     assert len({(r['geometry_id'], r['polarization'], r['wavelength_nm'], r['model']) for r in rows}) == 3960
     assert load_json('solver_zero_audit.json').get('solver_calls', 0) == 0
     assert load_json('m8_external_promotion_decision.json').get('external_hf_authorized', False) is False
+
+def test_m8_requirement_audit_and_detailed_learning_value():
+    assert load_json('m8_requirement_audit.json')['status'] == 'PASS'
+    assert load_json('residual_reconstruction_audit.json')['pass'] is True
+    assert load_json('selection_time_preservation_audit.json')['fields_match_manifest'] is True
+    assert len(load_csv('common_HF16_full_metric_delta.csv')) == 144
+    assert len(load_csv('new4_heldout_full_difficulty.csv')) == 36
+    assert len(load_csv('hf20_ps_truth_distribution_summary.csv')) == 24
