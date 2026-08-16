@@ -1,0 +1,257 @@
+{
+  "comparison_contract": {
+    "M7A_new4": "separate held-out difficulty audit",
+    "common_HF16": "M7 16G frozen OOF vs M8 20G LOGO on original HF16 geometries; report paired geometry deltas",
+    "prospective_like": "M7 selection-time predictions only vs M7A HF truth; never use M8 predictions for selection-time claim"
+  },
+  "created_utc": "2026-08-16T07:55:25.399863+00:00",
+  "cv_protocol": {
+    "epochs": 80,
+    "holdout_unit": "geometry including both P/S and all 11 wavelengths",
+    "normalization": "fit within each training fold only",
+    "outer": "20-fold Leave-One-Geometry-Out",
+    "row_random_split": false,
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "torch_threads": 2
+  },
+  "dataset": {
+    "capability": "NORMAL_INCIDENCE_ONLY",
+    "duplicate_or_conflicting_provenance": 0,
+    "g01_quarantined_geometry_absent": true,
+    "geometries": 20,
+    "k_y": [
+      0.0
+    ],
+    "lf_path": "outputs\\np_k6_m7a_primary4_targeted_hf_acquisition_closeout_v1\\m7a_formal_development_lf_baseline_440rows.csv",
+    "lf_sha256": "1efdb351f6ee7dc4271fce075e44c03fc698c8057465e1f4e294dad8355a8249",
+    "paired_PS_cases": 40,
+    "path": "outputs\\np_k6_m7a_primary4_targeted_hf_acquisition_closeout_v1\\m7a_formal_development_hf_observations_440rows.csv",
+    "rows": 440,
+    "sha256": "0ba66303de730be46a7592e200099ea4331deb5af487cc79cfbdde6788fdf28c",
+    "u_x": [
+      0.0
+    ],
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "external_hf_calls": 0,
+  "fit_order_lock": "This artifact and its SHA must exist before any M8 fit artifact.",
+  "governance": {
+    "concurrency3": "CONCURRENCY3_FUNCTIONAL_STABILITY_EVIDENCE_PRESENT; continuous CPU/RAM unavailable; not throughput-optimal validation",
+    "external_geometry_count": 12,
+    "external_registry": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+    "external_target_reads": 0,
+    "future_logical_cases": 24,
+    "sealed_target_reads": 0
+  },
+  "input_contract": {
+    "H_nm": 500,
+    "condition": [
+      "wavelength_nm",
+      "u_x",
+      "polarization"
+    ],
+    "diameter_sorting": false,
+    "mean_std_only_compression": false,
+    "ordered_geometry": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6"
+    ],
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "permutation_invariant_encoding": false
+  },
+  "loss_contract": {
+    "constraints": "raw and nonnegative/energy constrained projection both reported",
+    "no_hf_to_lf_calibration": true,
+    "primary": "mean squared error on [R,eta_m-3..eta_m+3] or LF residual target where legal",
+    "residual_reconstruction": "HF_hat = LF + delta_hat"
+  },
+  "metrics": {
+    "numerical": [
+      "full_order_profile_MAE",
+      "full_order_profile_RMSE",
+      "eta_plus1_MAE_RMSE",
+      "eta_0_MAE_RMSE",
+      "eta_minus1_MAE_RMSE",
+      "per_order_MAE",
+      "R_MAE",
+      "T_MAE",
+      "median_abs_error",
+      "P90_abs_error",
+      "max_abs_error",
+      "per_geometry",
+      "per_polarization",
+      "per_wavelength",
+      "worst_geometry",
+      "worst_geometry_polarization",
+      "seed_dispersion"
+    ],
+    "physics": [
+      "negative_power_violation",
+      "order_bookkeeping",
+      "T_order_consistency",
+      "energy_residual",
+      "R_T_legality",
+      "order_sign_identity",
+      "P_S_identity",
+      "wavelength_identity",
+      "out_of_scope_attempts"
+    ],
+    "ps": [
+      "contrast_MAE",
+      "worst_geometry",
+      "worst_wavelength"
+    ],
+    "ranking": [
+      "broadband_eta_plus1_Spearman",
+      "Top3_recall",
+      "Top5_recall",
+      "true_champion_rank",
+      "near_champion_retrieval",
+      "pairwise_ordering",
+      "seed_stability"
+    ]
+  },
+  "model_families": [
+    {
+      "name": "LF_only",
+      "trainable": false,
+      "type": "deterministic_reference"
+    },
+    {
+      "features": "LF-compatible outputs only",
+      "name": "LF_global_bias",
+      "type": "LF_plus_global_bias"
+    },
+    {
+      "features": "LF-compatible outputs only",
+      "name": "LF_affine",
+      "type": "LF_plus_condition_affine_correction"
+    },
+    {
+      "features": "ordered geometry + condition + LF",
+      "name": "LF_ridge_residual",
+      "type": "LF_plus_ridge_residual"
+    },
+    {
+      "features": "paired P/S LF residual",
+      "name": "LF_paired_shared_contrast",
+      "type": "paired_PS_structured_residual"
+    },
+    {
+      "activation": "GELU",
+      "features": "ordered geometry + condition + LF",
+      "hidden": [
+        64,
+        64
+      ],
+      "name": "corrected_residual_mlp",
+      "type": "compact_residual_mlp"
+    },
+    {
+      "activation": "GELU",
+      "features": "ordered geometry + condition",
+      "hidden": [
+        64,
+        64
+      ],
+      "name": "direct_mlp",
+      "type": "compact_direct_mlp"
+    },
+    {
+      "activation": "GELU",
+      "features": "ordered geometry + condition",
+      "hidden": [
+        64,
+        64,
+        64
+      ],
+      "name": "resmlp",
+      "type": "compact_resmlp"
+    },
+    {
+      "architecture": "M7 circular 1D CNN",
+      "name": "circular_cnn",
+      "type": "frozen_M7_incumbent"
+    }
+  ],
+  "new_development_hf": 0,
+  "output_contract": {
+    "T_definition": "sum_all_tracked_eta",
+    "complex_labels": "COMPLEX_ORDER_CONTRACT_NOT_YET_READY",
+    "derived": [
+      "T_total",
+      "directionality",
+      "target_non_target_ratio",
+      "leakage_score"
+    ],
+    "primary": [
+      "R",
+      "eta_m-3",
+      "eta_m-2",
+      "eta_m-1",
+      "eta_m+0",
+      "eta_m+1",
+      "eta_m+2",
+      "eta_m+3"
+    ],
+    "symbolic_eta_plus1_key": "eta_m+1"
+  },
+  "preregistration_id": "NP_K6_M8_20G_FORWARD_RETRAINING_PREREG_V1",
+  "promotion_gate": {
+    "criteria": [
+      "eta_plus1_not_worse_than_strong_LF_calibrated_incumbent",
+      "full_order_not_materially_worse_than_physics_baseline",
+      "champion_and_top3_reliable",
+      "worst_case_controlled",
+      "physics_consistency_pass",
+      "P_S_contrast_predictive",
+      "R_T_quantitatively_usable",
+      "geometry_level_consistency",
+      "common_HF16_no_systematic_regression"
+    ],
+    "decision_values": [
+      "EXTERNAL_HF_PROMOTION_READY",
+      "MORE_TARGETED_DEVELOPMENT_HF_REQUIRED",
+      "FORWARD_MODEL_PLATEAU_REASSESSMENT_REQUIRED",
+      "MODEL_FORMULATION_REQUIRES_REVISION"
+    ],
+    "external_remains_metadata_only": true,
+    "quantitative_thresholds": {
+      "P_S_contrast_mae_max": 0.15,
+      "R_mae_max": 0.12,
+      "T_mae_max": 0.12,
+      "all_constraints_frozen_before_fit": true,
+      "common_HF16_improved_geometries_at_least_degraded": true,
+      "energy_residual_max": 0.05,
+      "eta_plus1_mae_relative_to_best_lf_calibrated_max": 1.0,
+      "order_profile_mae_relative_to_best_lf_calibrated_max": 1.0,
+      "ranking_spearman_min": 0.9,
+      "top3_recall_min": 0.6666666666666666,
+      "true_champion_predicted_rank_max": 3,
+      "worst_geometry_order_profile_mae_max": 0.1
+    }
+  },
+  "sealed_target_reads": 0,
+  "solver_calls": 0
+}
