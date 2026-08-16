@@ -1,0 +1,55 @@
+{
+  "schema": "H1F4B2_PREREGISTRATION_V1",
+  "parent_uid": "K6_L1_C_POS_PLUS10",
+  "parent_hash": "a8606d8f44a4675db08493c3dd95c8ea43f30882d3a9bbb18a65b59c2ba45198",
+  "r_cancel": -0.09287374665313898,
+  "A_D_plus_nm": 4.0,
+  "A_D_minus_nm": -4.0,
+  "delta_J1_plus_nm": -0.3714949866125559,
+  "delta_J1_minus_nm": 0.3714949866125559,
+  "children": [
+    [
+      "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_PLUS",
+      "5d3afb251f7a363cf62c68133745a296eb8da6f44ed068ec8fb71b6f73b9910f",
+      4.0,
+      -0.3714949866125559
+    ],
+    [
+      "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_MINUS",
+      "da8af199ad94c4bcf0845e10b54b4433062708b20d26851666df050c160e8b7b",
+      -4.0,
+      0.3714949866125559
+    ]
+  ],
+  "cases": [
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_PLUS_x",
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_PLUS_y",
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_MINUS_x",
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_MINUS_y"
+  ],
+  "attempt_uids": [
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_PLUS_x_attempt_001",
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_PLUS_y_attempt_001",
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_MINUS_x_attempt_001",
+    "H1F4B2_K6_L1_C_POS_PLUS10_COMBINED_MINUS_y_attempt_001"
+  ],
+  "wavelength_grid_nm": [
+    450.0,
+    450.5,
+    451.0,
+    451.5,
+    452.0,
+    452.5,
+    453.0,
+    453.5,
+    454.0
+  ],
+  "analysis_equations": [
+    "G_combined=G_D+r_cancel*G_J1",
+    "G_obs=(M(PLUS)-M(MINUS))/8 nm",
+    "even=(M(PLUS)+M(MINUS))/2-M(baseline)"
+  ],
+  "no_auto_replay": true,
+  "solver_budget": 4,
+  "ml_admitted": false
+}
