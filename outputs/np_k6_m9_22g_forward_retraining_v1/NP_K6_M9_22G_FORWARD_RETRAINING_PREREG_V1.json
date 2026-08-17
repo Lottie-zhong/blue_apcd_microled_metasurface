@@ -1,0 +1,275 @@
+{
+  "created_utc": "2026-08-17T09:17:49.900549+00:00",
+  "cv_protocol": {
+    "ensemble": "mean across 3 deterministic seeds",
+    "epochs": 80,
+    "holdout_unit": "all P/S and all 11 wavelengths for one geometry",
+    "normalization": "fit within each training fold only",
+    "outer": "22-fold Leave-One-Geometry-Out",
+    "row_random_split": false,
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "torch_threads": 2
+  },
+  "dataset": {
+    "capability": "NORMAL_INCIDENCE_ONLY",
+    "diagnostic_only_all": false,
+    "duplicate_or_conflicting_provenance": 0,
+    "generator_identity": "NP_K6_PILOT_FDTD_GENERATOR_FIXED_GRID_3PS_V2",
+    "geometries": 22,
+    "hf_path": "outputs\\np_k6_m8a_primary2_closeout_v1\\hf22_formal_development_484rows.csv",
+    "hf_sha256": "5c5dca90928498c927663ad3eedbf502394a68c741feef836195573846ba1599",
+    "interface_stack_identity": "NP_K6_INDEPENDENT_STACK_PILOT_V1",
+    "k_y": [
+      0.0
+    ],
+    "lf_manifest_path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\lf22_full_vector_authority_manifest.json",
+    "lf_manifest_sha256": "6cbe9a40cb6577704d75384bfc31a5b933a08317b2ea5a0b3e2098848c07a08f",
+    "lf_path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\lf22_full_vector_authority.csv",
+    "lf_sha256": "bbf893209cc0fe8df0ae6ef4426071f5c7960f17bc11263139e06f2fe15a0665",
+    "paired_PS_cases": 44,
+    "quality_gate_pass_all": true,
+    "rows": 484,
+    "training_label_all": true,
+    "u_x": [
+      0.0
+    ],
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "external_governance": {
+    "geometry_count": 12,
+    "metadata_only": true,
+    "never_active_learning": true,
+    "never_model_selection": true,
+    "never_normalization": true,
+    "never_training": true,
+    "paired_cases": 24,
+    "registry_id": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+    "registry_path": "outputs\\np_k6_m5_fullk6_forward_v0\\external_set_registry.json",
+    "registry_sha256": "5622a6a726a89f60f3d5d6641fd7a0d1d27a4bb61f3647e58aa9bd328f8a4704",
+    "sealed_target_reads": 0,
+    "u_x": [
+      0.0
+    ],
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "external_hf_calls": 0,
+  "fit_order_lock": "This artifact and its SHA must exist before any M9 fit artifact.",
+  "input_contract": {
+    "H_nm": 500,
+    "angular_generalization": false,
+    "condition": [
+      "wavelength_nm",
+      "u_x",
+      "polarization"
+    ],
+    "diameter_sorting": false,
+    "mean_std_only_compression": false,
+    "ordered_geometry": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6"
+    ],
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "permutation_invariant_encoding": false,
+    "u_x_training_scope": [
+      0.0
+    ]
+  },
+  "inverse_design": 0,
+  "lf_contract": {
+    "legal_outputs": [
+      "eta_m_proxy",
+      "propagating_sum_proxy",
+      "T_proxy"
+    ],
+    "lf_full_vector_gate": "PASS",
+    "no_hf_to_lf_calibration": true,
+    "polarization_blind": true,
+    "residual_formula": "HF_hat=LF+delta_hat",
+    "source": "FROZEN_D0_FULL_VECTOR_REGENERATED"
+  },
+  "methodology_version": "FULL-K6 COUPLING-AWARE FORWARD V0 extended to 22 geometry LOGO",
+  "model_families": [
+    {
+      "name": "LF_only",
+      "trainable": false
+    },
+    {
+      "name": "LF_global_bias",
+      "trainable": true
+    },
+    {
+      "name": "LF_affine",
+      "trainable": true
+    },
+    {
+      "name": "LF_ridge_residual",
+      "trainable": true
+    },
+    {
+      "name": "LF_paired_shared_contrast",
+      "trainable": true
+    },
+    {
+      "activation": "GELU",
+      "hidden": [
+        64,
+        64
+      ],
+      "name": "corrected_residual_mlp",
+      "type": "compact_residual_mlp"
+    },
+    {
+      "activation": "GELU",
+      "hidden": [
+        64,
+        64
+      ],
+      "name": "direct_mlp",
+      "type": "compact_direct_mlp"
+    },
+    {
+      "activation": "GELU",
+      "hidden": [
+        64,
+        64,
+        64
+      ],
+      "name": "resmlp",
+      "type": "compact_resmlp"
+    },
+    {
+      "name": "circular_cnn",
+      "type": "frozen_M7_incumbent"
+    }
+  ],
+  "new_hf_acquisition": 0,
+  "output_contract": {
+    "T_definition": "sum_all_tracked_eta",
+    "complex_labels": "COMPLEX_ORDER_CONTRACT_NOT_YET_READY",
+    "derived": [
+      "T_total",
+      "directionality",
+      "target_non_target_ratio",
+      "leakage_score"
+    ],
+    "order_identity_frozen": true,
+    "primary": [
+      "R",
+      "eta_m-3",
+      "eta_m-2",
+      "eta_m-1",
+      "eta_m+0",
+      "eta_m+1",
+      "eta_m+2",
+      "eta_m+3"
+    ],
+    "propagating_orders": [
+      -1,
+      0,
+      1
+    ],
+    "symbolic_eta_plus1_key": "eta_m+1",
+    "tracked_orders": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "physics_contract": {
+    "nonnegative_projection_reported": true,
+    "report": [
+      "negative_power_violation",
+      "T_order_bookkeeping",
+      "energy_budget_residual",
+      "R_T_legality",
+      "order_identity_completeness",
+      "order_sign_identity",
+      "wavelength_identity",
+      "P_S_identity",
+      "out_of_scope_attempts"
+    ]
+  },
+  "preregistration_id": "NP_K6_M9_22G_FORWARD_RETRAINING_PREREG_V1",
+  "promotion_gate": {
+    "allowed_states": [
+      "NP_K6_M9_22G_FORWARD_DEVELOPMENT_COMPLETE_EXTERNAL_HF_PROMOTION_READY",
+      "NP_K6_M9_22G_FORWARD_MODEL_PLATEAU_REASSESSMENT_REQUIRED",
+      "NP_K6_M9_MORE_TARGETED_DEVELOPMENT_HF_REQUIRED",
+      "NP_K6_M9_MODEL_FORMULATION_REQUIRES_REVISION"
+    ],
+    "external_hf_required_for_final_promotion": true,
+    "surrogate_not_final_frozen_without_external_and_prospective": true,
+    "thresholds": {
+      "P_S_contrast_mae_max": 0.15,
+      "R_mae_max": 0.12,
+      "T_mae_max": 0.12,
+      "all_constraints_frozen_before_fit": true,
+      "energy_residual_max": 0.05,
+      "ranking_spearman_min": 0.9,
+      "top3_recall_min": 0.6666666666666666,
+      "true_champion_predicted_rank_max": 3,
+      "worst_geometry_order_profile_mae_max": 0.1
+    }
+  },
+  "prospective_protocol": {
+    "future_only": true,
+    "no_same_round_retrain": true,
+    "prediction_frozen_before_future_hf": true,
+    "prospective_set_distinct_from_external_and_active_learning": true
+  },
+  "ps_contract": {
+    "contrast_metric": "predicted delta(P-S) versus true delta(P-S)",
+    "explicit_polarization_condition": true,
+    "no_PS_averaging": true
+  },
+  "ranking_contract": {
+    "frozen_before_fit": true,
+    "primary": "broadband eta(+1) mean across P/S and 445-455 nm at geometry level",
+    "secondary": [
+      "P/S-aware separate ranking",
+      "Top3 recall",
+      "Top5 recall",
+      "pairwise ordering",
+      "seed stability"
+    ]
+  },
+  "sealed_target_reads": 0,
+  "solver_calls": 0
+}
