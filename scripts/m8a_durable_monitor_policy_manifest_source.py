@@ -26,11 +26,14 @@ manifest = {
     "canonical_paths": {
         "progress_jsonl": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_progress.jsonl",
         "monitor_state": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor_state.json",
+        "hourly_summary": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_hourly_summary.json",
         "lock": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor.lock",
         "terminal_success": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/terminal_success.json",
         "terminal_failure": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/terminal_failure.json",
     },
     "production_interval_seconds": 600,
+    "hourly_progress_summary_interval_seconds": 3600,
+    "hourly_progress_summary_samples": 6,
     "one_monitor_per_task": True,
     "same_process_loop": True,
     "read_only": True,
@@ -44,6 +47,8 @@ manifest = {
         "fallback_detached_ssh_process": False,
     },
     "normal_samples_file_only": True,
+    "production_visible_output": False,
+    "user_visible_hourly_callback": False,
     "important_state_changes_immediate": True,
     "no_solver_calls": True,
     "no_slot_mutation": True,
@@ -82,7 +87,14 @@ manifest = {
         "G01_P": {"engine_physical_complete": True, "original_controller_post_saved": False, "result_recovered": True, "formal_accepted": True},
         "G01_S": {"engine_physical_complete": True, "original_controller_post_saved": False, "result_recovered": True, "formal_accepted": True},
         "G02_P": {"engine_physical_complete": True, "original_controller_post_saved": False, "result_recovered": True, "formal_accepted": True},
-        "G02_S": {"entered": False, "run_invocation_count": 0, "status": "pending"},
+        "G02_S": {
+            "entered": True,
+            "run_invocation_count": 1,
+            "attempt_id": "attempt_001",
+            "status": "ENGINE_STILL_RUNNING",
+            "post_saved": False,
+            "formal_accepted": False,
+        },
     },
     "monitor_contract": {
         "normal_jsonl_fields": [
@@ -91,6 +103,14 @@ manifest = {
             "cpu_seconds", "cpu_delta_seconds", "queue", "global_slot_state", "resource_state", "entered_unresolved",
             "active_hard_gate",
         ],
+        "hourly_summary_fields": [
+            "timestamp", "case", "attempt", "entered", "run", "engine_state", "progress",
+            "pid_alive", "cpu_time_delta_1h", "runtime_seconds", "slot", "post_fsp", "extraction",
+            "latest_anomaly", "monitor_health",
+        ],
+        "hourly_summary_interval_seconds": 3600,
+        "hourly_summary_sample_count": 6,
+        "progress_null_when_unavailable": True,
         "terminal_artifacts_written_once": True,
         "duplicate_alert_fingerprint_suppression": True,
         "stale_lock_recovery_identity_checked": True,
@@ -111,17 +131,18 @@ Normal samples are appended to the canonical JSONL file without visible chatter.
 
 - `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_progress.jsonl`
 - `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor_state.json`
+- `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_hourly_summary.json`
 - `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor.lock`
 - `terminal_success.json` / `terminal_failure.json`
 
-The monitor is independent of the dispatcher, never acquires or releases slots, never calls `run`, never saves or edits an FSP, and never kills, pauses, restarts, or replays a worker.
+The monitor is independent of the dispatcher, never acquires or releases slots, never calls `run`, never saves or edits an FSP, and never kills, pauses, restarts, or replays a worker. It samples internally every 600 seconds and updates the hourly summary every six samples (about 3600 seconds). The production scheduler wrapper is quiet; no routine 600-second or hourly chat callback is assumed.
 Task Scheduler and dispatcher remain the owners of queue progression, slot release, post-save, and G02-S admission.
 
 ## Current M8A authority
 
 G01-P, G01-S, and G02-P are represented as engine-complete, result-recovered, and formally accepted while preserving the fact that their original controller `post_saved` flag was false. G02-S remains pending with `entered=0` and `run_invocation_count=0`.
 
-Legacy polling/probe scripts are forensic-only and are not production durable monitors. The query helper reads only the last JSONL record and canonical monitor state.
+Legacy polling/probe scripts are forensic-only and are not production durable monitors. The query helper reads only the hourly summary first, then the last JSONL record and canonical monitor state; it never scans the repository.
 
 This is a zero-solver control-plane migration: `solver_calls=0`, no new FDTD/RCWA, no slot mutation, and no sealed-HF access.
 """,

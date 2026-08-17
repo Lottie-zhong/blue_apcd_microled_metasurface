@@ -14,6 +14,7 @@
     "MONITOR_SELF_FAILURE"
   ],
   "canonical_paths": {
+    "hourly_summary": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_hourly_summary.json",
     "lock": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor.lock",
     "monitor_state": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor_state.json",
     "progress_jsonl": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_progress.jsonl",
@@ -40,12 +41,17 @@
       "result_recovered": true
     },
     "G02_S": {
-      "entered": false,
-      "run_invocation_count": 0,
-      "status": "pending"
+      "attempt_id": "attempt_001",
+      "entered": true,
+      "formal_accepted": false,
+      "post_saved": false,
+      "run_invocation_count": 1,
+      "status": "ENGINE_STILL_RUNNING"
     }
   },
   "dispatcher_independent": true,
+  "hourly_progress_summary_interval_seconds": 3600,
+  "hourly_progress_summary_samples": 6,
   "important_state_changes_immediate": true,
   "legacy_scripts": {
     "m8a_case_state_probe_source.py": "FORENSIC_ONLY",
@@ -56,9 +62,28 @@
     "m8a_progress_ascii_source.py": "FORENSIC_ONLY",
     "m8a_runtime_policy_probe_source.py": "FORENSIC_ONLY"
   },
-  "manifest_sha256": "daa45195636a535342fd51704c45f227915d4a10a1878ccf8a02b306fb466521",
+  "manifest_sha256": "0f734f2987c8e37ffa95642a8edfc602fe5788781d1fc099240c8af23aeeb1e2",
   "monitor_contract": {
     "duplicate_alert_fingerprint_suppression": true,
+    "hourly_summary_fields": [
+      "timestamp",
+      "case",
+      "attempt",
+      "entered",
+      "run",
+      "engine_state",
+      "progress",
+      "pid_alive",
+      "cpu_time_delta_1h",
+      "runtime_seconds",
+      "slot",
+      "post_fsp",
+      "extraction",
+      "latest_anomaly",
+      "monitor_health"
+    ],
+    "hourly_summary_interval_seconds": 3600,
+    "hourly_summary_sample_count": 6,
     "normal_jsonl_fields": [
       "timestamp_utc",
       "task_id",
@@ -81,6 +106,7 @@
       "entered_unresolved",
       "active_hard_gate"
     ],
+    "progress_null_when_unavailable": true,
     "stale_lock_recovery_identity_checked": true,
     "terminal_artifacts_written_once": true
   },
@@ -99,6 +125,7 @@
     "scheduler_task_name": "NP_K6_M8A_PRIMARY2_DURABLE_MONITOR_V2"
   },
   "production_interval_seconds": 600,
+  "production_visible_output": false,
   "query_helper": "scripts/np_k6_m8a_monitor_query_v2.py",
   "read_only": true,
   "same_process_loop": true,
@@ -114,5 +141,6 @@
     "rcwa_consumes_fdtd_slot": false
   },
   "schema": "apcd_global_durable_monitor_policy_v2",
-  "task_id": "NP_K6_M8A_PRIMARY2"
+  "task_id": "NP_K6_M8A_PRIMARY2",
+  "user_visible_hourly_callback": false
 }

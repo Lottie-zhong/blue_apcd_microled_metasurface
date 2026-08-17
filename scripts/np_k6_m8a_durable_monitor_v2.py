@@ -23,6 +23,8 @@ MONITOR_SCHEMA = "apcd_global_durable_monitor_policy_v2"
 MONITOR_VERSION = "NP_K6_M8A_DURABLE_MONITOR_V2"
 TASK_ID = "NP_K6_M8A_PRIMARY2"
 MONITOR_INTERVAL_SECONDS = 600
+HOURLY_PROGRESS_SUMMARY_INTERVAL_SECONDS = 3600
+HOURLY_PROGRESS_SUMMARY_SAMPLES = HOURLY_PROGRESS_SUMMARY_INTERVAL_SECONDS // MONITOR_INTERVAL_SECONDS
 DEFAULT_ROOT = Path(r"D:/project/worktrees/blue_apcd_np_k6_mdc_v1")
 DEFAULT_OUTPUT = DEFAULT_ROOT / "outputs" / "np_k6_m8a_primary2_hf_acquisition_v1"
 DEFAULT_REGISTRY = Path(r"D:/project/apcd_global_fdtd_slot_registry_v1.json")
@@ -167,6 +169,7 @@ def case_authority(output_dir: Path, recovery_dir: Path, case_id: str) -> Dict[s
         "attempt_id": ledger.get("attempt_id", "attempt_001"),
         "status": ledger.get("status"),
         "entered": bool(ledger.get("entered")),
+        "entered_timestamp_utc": ledger.get("entered_timestamp_utc") or ledger.get("solver_entered_timestamp_utc"),
         "run_invocation_count": int(ledger.get("run_invocation_count", 0) or 0),
         "engine_completed": engine_complete,
         "engine_physical_complete": engine_complete,
@@ -350,6 +353,7 @@ class DurableMonitor:
         self.state_path = self.monitor_dir / (task_id + "_monitor_state.json")
         self.success_path = self.monitor_dir / "terminal_success.json"
         self.failure_path = self.monitor_dir / "terminal_failure.json"
+        self.hourly_summary_path = self.monitor_dir / (task_id + "_hourly_summary.json")
         self.owner_token = uuid.uuid4().hex
         self.state = read_json(self.state_path, {})
         self.state.setdefault("schema", MONITOR_SCHEMA)
@@ -362,8 +366,132 @@ class DurableMonitor:
         self.state.setdefault("solver_calls", 0)
         self.state.setdefault("dispatcher_independent", True)
         self.state.setdefault("agent_polling_production", False)
+        self.state.setdefault("hourly_summary_interval_seconds", HOURLY_PROGRESS_SUMMARY_INTERVAL_SECONDS)
+        self.state.setdefault("hourly_summary_samples", HOURLY_PROGRESS_SUMMARY_SAMPLES)
         self.state.setdefault("last_visible_report_epoch", time.monotonic())
         self._lock_acquired = False
+
+    @staticmethod
+    def _parse_timestamp(value: Any) -> Optional[datetime]:
+        if not isinstance(value, str):
+            return None
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+        except (TypeError, ValueError):
+            return None
+
+    @staticmethod
+    def _summary_case(sample: Dict[str, Any]) -> Dict[str, Any]:
+        cases = sample.get("cases", [])
+        if not isinstance(cases, list):
+            return {}
+        preferred = [case for case in cases if str(case.get("case_id", "")).endswith("G02_S")]
+        entered = [case for case in cases if case.get("entered")]
+        return (preferred or entered or cases or [{}])[0]
+
+    def _hourly_summary(self, sample: Dict[str, Any], *, cpu_delta: Optional[float],
+                        window_start_timestamp: Optional[str],
+                        window_elapsed_seconds: Optional[float]) -> Dict[str, Any]:
+        case = self._summary_case(sample)
+        case_id = case.get("case_id") or self.task_id
+        lineage = sample.get("process_lineage", {}) or {}
+        processes = lineage.get("matched_processes", []) or []
+        engine_alive = any("fdtd-engine" in str(item.get("Name", "")).lower() for item in processes if isinstance(item, dict))
+        controller_alive = any(
+            any(token in str(item.get("Name", "")).lower() for token in ("python", "powershell", "supervisor"))
+            for item in processes if isinstance(item, dict)
+        )
+        slot = None
+        for candidate in sample.get("global_slot_state", {}).get("active_slots", []) or []:
+            if candidate.get("case_uid") == case_id:
+                slot = candidate.get("slot_id") or candidate.get("fdtd_slot_id")
+                break
+        raw_progress = case.get("progress")
+        if raw_progress is None:
+            raw_progress = sample.get("solver_progress")
+        progress = raw_progress if isinstance(raw_progress, (int, float)) and not isinstance(raw_progress, bool) else None
+        entered_at = self._parse_timestamp(case.get("entered_timestamp_utc"))
+        observed_at = self._parse_timestamp(sample.get("timestamp_utc"))
+        runtime_seconds = None
+        if entered_at and observed_at:
+            runtime_seconds = max(0.0, (observed_at - entered_at).total_seconds())
+        if case.get("engine_completed") or case.get("engine_physical_complete"):
+            engine_state = "ENGINE_COMPLETED"
+        elif case.get("entered"):
+            engine_state = "ENGINE_RUNNING" if engine_alive else "ENGINE_STATE_UNRESOLVED"
+        else:
+            engine_state = "NOT_ENTERED"
+        latest_alert = self.state.get("last_alert") or {}
+        return {
+            "timestamp": sample.get("timestamp_utc", utc_now()),
+            "case": case_id,
+            "attempt": case.get("attempt_id", "attempt_001"),
+            "entered": bool(case.get("entered")),
+            "run": int(case.get("run_invocation_count", 0) or 0),
+            "engine_state": engine_state,
+            "progress": progress,
+            "pid_alive": {
+                "engine": engine_alive,
+                "controller": controller_alive,
+                "pids": [item.get("ProcessId") for item in processes if isinstance(item, dict) and item.get("ProcessId") is not None],
+            },
+            "cpu_time_delta_1h": cpu_delta,
+            "runtime_seconds": runtime_seconds,
+            "slot": slot,
+            "post_fsp": bool(case.get("post_persisted") or case.get("post_saved")),
+            "extraction": case.get("extraction_status") if "extraction_status" in case else case.get("extracted"),
+            "latest_anomaly": latest_alert.get("alert_code") or ((self.state.get("active_hard_gate") or [None])[-1]),
+            "monitor_health": {
+                "status": self.state.get("status", "running"),
+                "read_only": True,
+                "solver_calls": 0,
+                "sample_count": int(self.state.get("sample_count", 0) or 0),
+                "monitor_interval_seconds": MONITOR_INTERVAL_SECONDS,
+                "hourly_summary_interval_seconds": HOURLY_PROGRESS_SUMMARY_INTERVAL_SECONDS,
+                "window_start_timestamp": window_start_timestamp,
+                "window_elapsed_seconds": window_elapsed_seconds,
+            },
+        }
+
+    def _write_hourly_summary(self, sample: Dict[str, Any], *, force: bool = False) -> None:
+        count = int(self.state.get("sample_count", 0) or 0)
+        if not force and (count == 0 or count % HOURLY_PROGRESS_SUMMARY_SAMPLES != 0):
+            return
+        window = self.state.get("hourly_window_start")
+        previous_cpu = None
+        if isinstance(window, dict):
+            previous_cpu = window.get("cpu_seconds")
+        current_cpu = (sample.get("process_lineage", {}) or {}).get("cpu_seconds")
+        cpu_delta = None
+        window_elapsed_seconds = None
+        if isinstance(window, dict):
+            start_dt = self._parse_timestamp(window.get("timestamp"))
+            end_dt = self._parse_timestamp(sample.get("timestamp_utc"))
+            if start_dt and end_dt:
+                window_elapsed_seconds = max(0.0, (end_dt - start_dt).total_seconds())
+        if previous_cpu is not None and current_cpu is not None:
+            try:
+                candidate_delta = max(0.0, float(current_cpu) - float(previous_cpu))
+                # Do not label a stale or oversized window as a one-hour CPU delta.
+                if window_elapsed_seconds is None or 1800.0 <= window_elapsed_seconds <= 5400.0:
+                    cpu_delta = candidate_delta
+            except (TypeError, ValueError):
+                cpu_delta = None
+        summary = self._hourly_summary(
+            sample,
+            cpu_delta=cpu_delta,
+            window_start_timestamp=window.get("timestamp") if isinstance(window, dict) else None,
+            window_elapsed_seconds=window_elapsed_seconds,
+        )
+        atomic_json(self.hourly_summary_path, summary)
+        self.state["last_hourly_summary_timestamp_utc"] = summary["timestamp"]
+        self.state["last_hourly_summary_sample_count"] = count
+        self.state["hourly_window_start"] = {
+            "timestamp": summary["timestamp"],
+            "cpu_seconds": current_cpu,
+            "sample_count": count,
+        }
 
     def _lock_payload(self) -> Dict[str, Any]:
         return {
@@ -531,7 +659,7 @@ class DurableMonitor:
         cases = sample.get("cases", [])
         return len(cases) == len(CASES) and all(case.get("formal_accepted") for case in cases)
 
-    def process_sample(self, sample: Dict[str, Any]) -> Dict[str, Any]:
+    def process_sample(self, sample: Dict[str, Any], *, force_hourly: bool = False) -> Dict[str, Any]:
         sample = dict(sample)
         sample.setdefault("timestamp_utc", utc_now())
         sample.setdefault("task_id", self.task_id)
@@ -556,7 +684,14 @@ class DurableMonitor:
         self.state["last_sample"] = sample
         self.state["last_sample_timestamp_utc"] = sample["timestamp_utc"]
         self.state["status"] = "anomaly" if self.failure_path.exists() else "running"
+        if not isinstance(self.state.get("hourly_window_start"), dict):
+            self.state["hourly_window_start"] = {
+                "timestamp": sample["timestamp_utc"],
+                "cpu_seconds": (sample.get("process_lineage", {}) or {}).get("cpu_seconds"),
+                "sample_count": int(self.state["sample_count"]),
+            }
         append_jsonl(self.progress_path, sample)
+        self._write_hourly_summary(sample, force=force_hourly)
         atomic_json(self.state_path, self.state)
         if self.visible_output and not self.state.get("last_alert"):
             elapsed = time.monotonic() - float(self.state.get("last_visible_report_epoch", time.monotonic()))
@@ -595,17 +730,31 @@ class DurableMonitor:
         try:
             self.state["status"] = "running"
             self.state["production_interval_seconds"] = MONITOR_INTERVAL_SECONDS
+            self.state["hourly_summary_interval_seconds"] = HOURLY_PROGRESS_SUMMARY_INTERVAL_SECONDS
+            self.state["hourly_summary_samples"] = HOURLY_PROGRESS_SUMMARY_SAMPLES
             self.state["test_interval_override_seconds"] = self.interval_seconds if self.interval_seconds != MONITOR_INTERVAL_SECONDS else None
             self.state["read_only"] = True
             self.state["agent_polling_production"] = False
             self.state["dispatcher_independent"] = True
             atomic_json(self.state_path, self.state)
+            # If six samples existed before this feature was deployed, publish
+            # the baseline from the next real sample rather than stale state.
+            existing_summary = read_json(self.hourly_summary_path, {})
+            existing_health = existing_summary.get("monitor_health", {}) if isinstance(existing_summary, dict) else {}
+            summary_window_elapsed = existing_health.get("window_elapsed_seconds")
+            summary_needs_contract_refresh = not isinstance(summary_window_elapsed, (int, float))
+            legacy_summary_pending = (
+                int(self.state.get("sample_count", 0) or 0) >= HOURLY_PROGRESS_SUMMARY_SAMPLES
+                and int(self.state.get("last_hourly_summary_sample_count", 0) or 0)
+                < int(self.state.get("sample_count", 0) or 0)
+            ) or summary_needs_contract_refresh
             if self.visible_output:
                 print(json.dumps({"event": "monitor_started", "task_id": self.task_id, "interval_seconds": self.interval_seconds}, sort_keys=True), flush=True)
             count = 0
             while True:
                 sample = self.sample_provider() if self.sample_provider else collect_authoritative_snapshot(DEFAULT_ROOT, DEFAULT_OUTPUT, DEFAULT_REGISTRY)
-                self.process_sample(sample)
+                self.process_sample(sample, force_hourly=legacy_summary_pending)
+                legacy_summary_pending = False
                 count += 1
                 if once or (max_samples is not None and count >= max_samples) or self.success_path.exists():
                     return 0
@@ -626,6 +775,7 @@ def monitor_query(monitor_dir: Path) -> Dict[str, Any]:
     state = monitor_dir / (TASK_ID + "_monitor_state.json")
     result = {
         "task_id": TASK_ID,
+        "hourly_summary": read_json(monitor_dir / (TASK_ID + "_hourly_summary.json"), {}),
         "last_progress": last_jsonl(progress),
         "monitor_state": read_json(state, {}),
         "terminal_success": read_json(monitor_dir / "terminal_success.json", {}),
