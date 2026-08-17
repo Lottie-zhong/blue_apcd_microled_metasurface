@@ -1,0 +1,118 @@
+{
+  "agent_polling_production": false,
+  "anomalies": [
+    "WORKER_LINEAGE_LOST",
+    "CPU_STALL_DEBOUNCED",
+    "CONTROLLER_OR_SUPERVISOR_DEAD",
+    "POST_ENGINE_CLOSURE_ANOMALY",
+    "FSP_LEDGER_CONTRADICTION",
+    "ENTERED_UNRESOLVED",
+    "SLOT_OCCUPIED_AFTER_TERMINAL",
+    "QUEUE_IDLE_WITH_FREE_SLOT",
+    "REGISTRY_CONTROLLER_CONFLICT",
+    "RESOURCE_OR_LICENSE_HARD_GATE",
+    "MONITOR_SELF_FAILURE"
+  ],
+  "canonical_paths": {
+    "lock": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor.lock",
+    "monitor_state": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor_state.json",
+    "progress_jsonl": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_progress.jsonl",
+    "terminal_failure": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/terminal_failure.json",
+    "terminal_success": "outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/terminal_success.json"
+  },
+  "current_m8a_authority": {
+    "G01_P": {
+      "engine_physical_complete": true,
+      "formal_accepted": true,
+      "original_controller_post_saved": false,
+      "result_recovered": true
+    },
+    "G01_S": {
+      "engine_physical_complete": true,
+      "formal_accepted": true,
+      "original_controller_post_saved": false,
+      "result_recovered": true
+    },
+    "G02_P": {
+      "engine_physical_complete": true,
+      "formal_accepted": true,
+      "original_controller_post_saved": false,
+      "result_recovered": true
+    },
+    "G02_S": {
+      "entered": false,
+      "run_invocation_count": 0,
+      "status": "pending"
+    }
+  },
+  "dispatcher_independent": true,
+  "important_state_changes_immediate": true,
+  "legacy_scripts": {
+    "m8a_case_state_probe_source.py": "FORENSIC_ONLY",
+    "m8a_failure_probe_source.py": "FORENSIC_ONLY",
+    "m8a_heartbeat_probe_source.py": "FORENSIC_ONLY",
+    "m8a_log_probe_source.py": "FORENSIC_ONLY",
+    "m8a_monitor_source.py": "NOT_PRODUCTION_DURABLE_MONITOR",
+    "m8a_progress_ascii_source.py": "FORENSIC_ONLY",
+    "m8a_runtime_policy_probe_source.py": "FORENSIC_ONLY"
+  },
+  "manifest_sha256": "daa45195636a535342fd51704c45f227915d4a10a1878ccf8a02b306fb466521",
+  "monitor_contract": {
+    "duplicate_alert_fingerprint_suppression": true,
+    "normal_jsonl_fields": [
+      "timestamp_utc",
+      "task_id",
+      "coverage",
+      "progress",
+      "controller_state",
+      "dispatcher_state",
+      "worker_state",
+      "entered",
+      "solver_returned",
+      "engine_completed",
+      "post_persisted",
+      "pid",
+      "ppid",
+      "cpu_seconds",
+      "cpu_delta_seconds",
+      "queue",
+      "global_slot_state",
+      "resource_state",
+      "entered_unresolved",
+      "active_hard_gate"
+    ],
+    "stale_lock_recovery_identity_checked": true,
+    "terminal_artifacts_written_once": true
+  },
+  "monitor_executable": "scripts/np_k6_m8a_durable_monitor_v2.py",
+  "no_fsp_mutation": true,
+  "no_slot_mutation": true,
+  "no_solver_calls": true,
+  "normal_samples_file_only": true,
+  "one_monitor_per_task": true,
+  "policy_id": "APCD_GLOBAL_DURABLE_MONITOR_POLICY_V2",
+  "production_activation": {
+    "current_attachment_status": "CONTEXT_PATH_OR_TASK_ACL_REQUIRES_RECONCILIATION",
+    "fallback_detached_ssh_process": false,
+    "implementation": "COMPLETE",
+    "preferred_backend": "WINDOWS_TASK_SCHEDULER",
+    "scheduler_task_name": "NP_K6_M8A_PRIMARY2_DURABLE_MONITOR_V2"
+  },
+  "production_interval_seconds": 600,
+  "query_helper": "scripts/np_k6_m8a_monitor_query_v2.py",
+  "read_only": true,
+  "same_process_loop": true,
+  "scheduler_policy": {
+    "branch_capacity": 3,
+    "fdtd_resource": {
+      "processes": 4,
+      "threads": 1
+    },
+    "global_capacity": 3,
+    "monitor_consumes_fdtd_slot": false,
+    "policy_id": "APCD_GLOBAL_FDTD_SCHEDULING_POLICY_V3",
+    "rcwa_consumes_fdtd_slot": false
+  },
+  "schema": "apcd_global_durable_monitor_policy_v2",
+  "task_id": "NP_K6_M8A_PRIMARY2"
+}
