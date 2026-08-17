@@ -26,6 +26,7 @@ manifest = load(MONITOR / "monitor_policy_v2_manifest.json")
 state = load(MONITOR / "NP_K6_M8A_PRIMARY2_monitor_state.json")
 progress = MONITOR / "NP_K6_M8A_PRIMARY2_progress.jsonl"
 hourly = MONITOR / "NP_K6_M8A_PRIMARY2_hourly_summary.json"
+deployment = MONITOR / "monitor_deployment_audit.json"
 rows = []
 if progress.exists():
     rows = [json.loads(line) for line in progress.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -33,6 +34,7 @@ required = {"timestamp_utc", "task_id", "coverage", "progress", "controller_stat
 field_ok = all(required.issubset(row) for row in rows) if rows else False
 hourly_fields = {"timestamp", "case", "attempt", "entered", "run", "engine_state", "progress", "pid_alive", "cpu_time_delta_1h", "runtime_seconds", "slot", "post_fsp", "extraction", "latest_anomaly", "monitor_health"}
 hourly_value = load(hourly) if hourly.exists() else {}
+deployment_value = load(deployment) if deployment.exists() else {}
 hourly_present = hourly.exists()
 hourly_field_ok = (not hourly_present) or hourly_fields.issubset(hourly_value.keys())
 hourly_health_ok = (not hourly_present) or (
@@ -40,9 +42,19 @@ hourly_health_ok = (not hourly_present) or (
     and hourly_value.get("monitor_health", {}).get("hourly_summary_interval_seconds") == 3600
     and hourly_value.get("monitor_health", {}).get("solver_calls") == 0
 )
+deployment_present = deployment.exists()
+deployment_contract_ok = (not deployment_present) or (
+    deployment_value.get("status") == "RUNNING"
+    and deployment_value.get("production_interval_seconds") == 600
+    and deployment_value.get("hourly_progress_summary_interval_seconds") == 3600
+    and deployment_value.get("hourly_progress_summary_samples") == 6
+    and deployment_value.get("read_only") is True
+    and deployment_value.get("solver_calls") == 0
+    and deployment_value.get("slot_mutations") == 0
+)
 report = {
     "schema": "apcd_global_durable_monitor_policy_v2_validator",
-    "status": "PASS" if not static_forbidden and manifest.get("production_interval_seconds") == 600 and manifest.get("hourly_progress_summary_interval_seconds") == 3600 and manifest.get("hourly_progress_summary_samples") == 6 and manifest.get("read_only") is True and manifest.get("agent_polling_production") is False and manifest.get("production_visible_output") is False and field_ok and hourly_field_ok and hourly_health_ok and all(row.get("solver_calls") == 0 for row in rows) and state.get("solver_calls", 0) == 0 else "FAIL",
+    "status": "PASS" if not static_forbidden and manifest.get("production_interval_seconds") == 600 and manifest.get("hourly_progress_summary_interval_seconds") == 3600 and manifest.get("hourly_progress_summary_samples") == 6 and manifest.get("read_only") is True and manifest.get("agent_polling_production") is False and manifest.get("production_visible_output") is False and field_ok and hourly_field_ok and hourly_health_ok and deployment_contract_ok and all(row.get("solver_calls") == 0 for row in rows) and state.get("solver_calls", 0) == 0 else "FAIL",
     "static_forbidden_tokens": static_forbidden,
     "ast_parse": True,
     "manifest_interval": manifest.get("production_interval_seconds"),
@@ -60,8 +72,10 @@ report = {
     "state_solver_calls": state.get("solver_calls", 0),
     "terminal_success_exists": (MONITOR / "terminal_success.json").exists(),
     "terminal_failure_exists": (MONITOR / "terminal_failure.json").exists(),
-    "production_monitor_process_started": False,
-    "scheduler_attachment": "BLOCKED_OR_NOT_PERSISTED_BY_CURRENT_TASK_CONTEXT",
+    "deployment_audit_exists": deployment_present,
+    "deployment_contract_ok": deployment_contract_ok,
+    "production_monitor_process_started": bool(deployment_value.get("monitor_process_observed_alive", False)),
+    "scheduler_attachment": "ACTIVE_READ_ONLY_MONITOR_TASK" if deployment_value.get("status") == "RUNNING" else "BLOCKED_OR_NOT_PERSISTED_BY_CURRENT_TASK_CONTEXT",
     "no_fsp_mutation": True,
     "no_slot_mutation": True,
 }

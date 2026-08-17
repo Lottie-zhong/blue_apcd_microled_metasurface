@@ -9,6 +9,7 @@ Normal samples are appended to the canonical JSONL file without visible chatter.
 - `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_progress.jsonl`
 - `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor_state.json`
 - `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_hourly_summary.json`
+- `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/monitor_deployment_audit.json`
 - `outputs/np_k6_m8a_primary2_hf_acquisition_v1/monitor/NP_K6_M8A_PRIMARY2_monitor.lock`
 - `terminal_success.json` / `terminal_failure.json`
 
