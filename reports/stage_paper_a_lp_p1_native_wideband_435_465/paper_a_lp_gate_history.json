@@ -1,0 +1,42 @@
+{
+  "schema": "PAPER_A_LP_GATE_HISTORY_V1",
+  "status": "FROZEN",
+  "stages": [
+    {
+      "stage": "P0 historical rerank",
+      "truth_status": "HISTORICAL_OVERLAP_ONLY",
+      "scope": "Historical 450-454 nm evidence may be used only for real overlap cross-check; no labels are fabricated outside overlap.",
+      "solver_budget_in_this_freeze": 0
+    },
+    {
+      "stage": "P1 current Native-M1 truth",
+      "truth_status": "COMPLETED",
+      "candidates": [
+        "H1C1B_V2_009",
+        "H1C1B_V2_015",
+        "H1C1B_V2_010"
+      ],
+      "window_nm": [
+        435,
+        465
+      ],
+      "formal_points": 31,
+      "real_xy_solver_jobs": 6,
+      "verdict": "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
+      "evidence": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\p1_final_champion.json"
+    },
+    {
+      "stage": "Gate A intrinsic broadband",
+      "truth_status": "FAIL",
+      "verdict": "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
+      "reason": "All three current Native-M1 candidates fail the fixed 435-465 nm broadband guidance."
+    },
+    {
+      "stage": "Gate A-prime MDC source-weighted viability",
+      "truth_status": "FAIL",
+      "verdict": "PAPER_A_GATE_A_PRIME_FAIL_LP_ROUTE_FREEZE",
+      "reason": "Failure persists under real frozen MDC ZL-1 alternative FDTD r12 spectral weighting; the MDC-FWHM region contains state sign flips.",
+      "evidence": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\mdc_weighted_lp_gate_a_prime.json"
+    }
+  ]
+}
