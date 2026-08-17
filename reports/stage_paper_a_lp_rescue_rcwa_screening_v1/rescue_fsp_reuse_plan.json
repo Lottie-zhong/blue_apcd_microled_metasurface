@@ -1,0 +1,33 @@
+{
+  "schema": "PAPER_A_LP_RESCUE_FSP_REUSE_PLAN_V1",
+  "future_fdt_authorized_now": false,
+  "candidates": {
+    "GLOBAL_018": {
+      "source_fsp": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1c1a\\runtime\\cases\\H1C1A_GLOBAL_018_Px\\H1C1A_GLOBAL_018_Px_attempt_001_pre.fsp",
+      "parent_sha256": "6a1b7cefb8dba82647c60f4c2dbce6d45456d97ea804fd32b32d0a5ebe0450d5",
+      "current_native_geometry_physics_compatible": true,
+      "direct_formal_broadband_reuse": false,
+      "future_operation": "copy immutable parent to candidate-specific prepared pre-FSP; patch plane-wave source 430-470 nm and T/field monitor sampling to 41 points; preserve geometry/material/background/boundaries/mesh/normalization/monitor geometry"
+    },
+    "H1C1B_V2_012": {
+      "source_fsp": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\outputs\\lp_global_h_h1c1b\\runtime\\cases\\H1C1B_V2_012_Px\\H1C1B_V2_012_Px_attempt_001_pre.fsp",
+      "parent_sha256": "a40aae3b478f1f4a31a109946205981aac8105ea383e5f034b0dd2065857822e",
+      "current_native_geometry_physics_compatible": true,
+      "direct_formal_broadband_reuse": false,
+      "future_operation": "copy immutable parent to candidate-specific prepared pre-FSP; patch plane-wave source 430-470 nm and T/field monitor sampling to 41 points; preserve geometry/material/background/boundaries/mesh/normalization/monitor geometry"
+    }
+  },
+  "controls": [
+    "H1C1B_V2_009",
+    "H1C1B_V2_010",
+    "H1C1B_V2_015"
+  ],
+  "exact_changes_if_future_fdt": [
+    "source wavelength start/stop: 450-454 -> 430-470 nm",
+    "T monitor frequency points: 9 -> 41",
+    "field_monitor frequency points: 9 -> 41",
+    "retain use source limits and complex field extraction",
+    "no geometry/material/mesh/boundary/normalization edits"
+  ],
+  "historical_fsp_immutable": true
+}

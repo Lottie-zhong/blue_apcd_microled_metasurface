@@ -1,0 +1,178 @@
+{
+  "schema": "PAPER_A_LP_RCWA_RESCUE_DECISION_V1",
+  "verdict": "PAPER_A_LP_RCWA_RESCUE_FAIL_NO_FDTD_PROMOTION",
+  "rcwa_screening_calibration": "RCWA_SCREENING_NOT_CALIBRATED",
+  "future_fdt_promotion_budget": 0,
+  "new_fdtd_started": false,
+  "controls": [
+    "H1C1B_V2_009",
+    "H1C1B_V2_010",
+    "H1C1B_V2_015"
+  ],
+  "rescue_candidates": [
+    "GLOBAL_018",
+    "H1C1B_V2_012"
+  ],
+  "calibration_rows": [
+    {
+      "candidate_id": "H1C1B_V2_009",
+      "FDTD_source_weighted_DoLP": 0.36999675577550056,
+      "RCWA_source_weighted_DoLP": 0.2703544592923601,
+      "FDTD_source_weighted_useful": 0.3811697288724078,
+      "RCWA_source_weighted_useful": 0.21432453394527637,
+      "FDTD_source_weighted_x_fidelity": 0.6849505481810916,
+      "RCWA_source_weighted_x_fidelity": 0.36486567842523804,
+      "FDTD_state_flip": true,
+      "RCWA_state_flip": true,
+      "qualitative_low_DoLP_match": true,
+      "state_flip_match": true,
+      "calibration_pass": true
+    },
+    {
+      "candidate_id": "H1C1B_V2_010",
+      "FDTD_source_weighted_DoLP": 0.37772811055512595,
+      "RCWA_source_weighted_DoLP": 0.17246984897104609,
+      "FDTD_source_weighted_useful": 0.3972754829592868,
+      "RCWA_source_weighted_useful": 0.271852844323148,
+      "FDTD_source_weighted_x_fidelity": 0.6886024765656105,
+      "RCWA_source_weighted_x_fidelity": 0.4138319486544224,
+      "FDTD_state_flip": true,
+      "RCWA_state_flip": true,
+      "qualitative_low_DoLP_match": true,
+      "state_flip_match": true,
+      "calibration_pass": true
+    },
+    {
+      "candidate_id": "H1C1B_V2_015",
+      "FDTD_source_weighted_DoLP": 0.31700121951197613,
+      "RCWA_source_weighted_DoLP": 0.1378841167380119,
+      "FDTD_source_weighted_useful": 0.4418973165513354,
+      "RCWA_source_weighted_useful": 0.33863231237182995,
+      "FDTD_source_weighted_x_fidelity": 0.6584777032284771,
+      "RCWA_source_weighted_x_fidelity": 0.43106088675210336,
+      "FDTD_state_flip": true,
+      "RCWA_state_flip": true,
+      "qualitative_low_DoLP_match": true,
+      "state_flip_match": true,
+      "calibration_pass": true
+    }
+  ],
+  "convergence": [
+    {
+      "candidate_id": "H1C1B_V2_009",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.29506396084902475,
+      "max_delta_DoLP": 0.15895795179813488,
+      "max_delta_useful_power": 0.08773414278744499,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "H1C1B_V2_010",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.32509585278112324,
+      "max_delta_DoLP": 0.2904801802762951,
+      "max_delta_useful_power": 0.15332298335353461,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "H1C1B_V2_015",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.9506008735868529,
+      "max_delta_DoLP": 0.1328872316890862,
+      "max_delta_useful_power": 0.10174592154805168,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "GLOBAL_018",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.3941860140710221,
+      "max_delta_DoLP": 0.27869984956958804,
+      "max_delta_useful_power": 0.02024723093432046,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "H1C1B_V2_012",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.594371581716949,
+      "max_delta_DoLP": 0.3375325519697849,
+      "max_delta_useful_power": 0.12840723675527932,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    }
+  ],
+  "cap3_production_verdict": "APCD_GLOBAL_RCWA_SCHEDULING_POLICY_V1_PERMANENT_CAP3_COMPLETE",
+  "peak_active_rcwa": 3,
+  "shared_authority_path": "D:\\project\\apcd_global_rcwa_scheduler_authority_v1.json",
+  "shared_authority_sha256": "3c16f827fae0697e88c1a2da0f0ecf6ace0eef9b977f683c5cf266555f41abe8",
+  "MDC_source": "ZL-1 alternative / r12_normalized_output / relative weights",
+  "formal_range_nm": [
+    435,
+    465
+  ],
+  "formal_points": 31,
+  "main_region_nm": [
+    438,
+    458
+  ],
+  "phase_or_K6_used": false,
+  "calibration_failure_reasons": [
+    "harmonic convergence failed at tested 49/121/225 settings",
+    "complex Jones and DoLP deltas remain above screening tolerance"
+  ],
+  "explicit_answers": {
+    "rcwa_passed_existing_fdtd_truth_calibration": false,
+    "GLOBAL_018_worth_future_fdtd": false,
+    "H1C1B_V2_012_worth_future_fdtd": false,
+    "MDC_main_region_state_flip_screen": {
+      "GLOBAL_018": true,
+      "H1C1B_V2_012": true
+    },
+    "future_fdt_promotion_budget": 0
+  },
+  "convergence_summary": [
+    {
+      "candidate_id": "H1C1B_V2_009",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.29506396084902475,
+      "max_delta_DoLP": 0.15895795179813488,
+      "max_delta_useful_power": 0.08773414278744499,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "H1C1B_V2_010",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.32509585278112324,
+      "max_delta_DoLP": 0.2904801802762951,
+      "max_delta_useful_power": 0.15332298335353461,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "H1C1B_V2_015",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.9506008735868529,
+      "max_delta_DoLP": 0.1328872316890862,
+      "max_delta_useful_power": 0.10174592154805168,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "GLOBAL_018",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.3941860140710221,
+      "max_delta_DoLP": 0.27869984956958804,
+      "max_delta_useful_power": 0.02024723093432046,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    },
+    {
+      "candidate_id": "H1C1B_V2_012",
+      "convergence_pass": false,
+      "max_delta_complex_jones": 0.594371581716949,
+      "max_delta_DoLP": 0.3375325519697849,
+      "max_delta_useful_power": 0.12840723675527932,
+      "criterion": "last-order delta <= 0.05 complex-Jones, 0.03 DoLP, 0.03 useful-power"
+    }
+  ],
+  "frozen_prior_verdicts_unchanged": [
+    "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
+    "PAPER_A_GATE_A_PRIME_FAIL_LP_ROUTE_FREEZE",
+    "FROZEN_NOT_PROMOTED"
+  ]
+}

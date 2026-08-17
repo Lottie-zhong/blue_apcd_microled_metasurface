@@ -1,0 +1,66 @@
+{
+  "schema": "PAPER_A_LP_RCWA_RESCUE_AUDIT_V1",
+  "status": "PASS",
+  "new_fdtd_calls": 0,
+  "rcwa_provider": "grcwa-0.1.2",
+  "rcwa_case_count": 5,
+  "formal_points": 31,
+  "source_span_nm": [
+    430,
+    470
+  ],
+  "fsp_inventory_rows": 5,
+  "fsp_modified": false,
+  "historical_fsp_overwritten": false,
+  "controls_calibrated": false,
+  "phase_used": false,
+  "k6_used": false,
+  "coupling_modified": false,
+  "scheduler_fdtd_modified": false,
+  "cap3_peak_observed": true,
+  "cap3_resource_anomaly": false,
+  "cap3_verdict": "APCD_GLOBAL_RCWA_SCHEDULING_POLICY_V1_PERMANENT_CAP3_COMPLETE",
+  "shared_authority_path": "D:\\project\\apcd_global_rcwa_scheduler_authority_v1.json",
+  "shared_authority_sha256": "3c16f827fae0697e88c1a2da0f0ecf6ace0eef9b977f683c5cf266555f41abe8",
+  "artifacts": [
+    "rcwa_fdt_calibration.csv",
+    "rcwa_convergence.csv",
+    "rcwa_fulljones_spectra.csv",
+    "rcwa_order_resolved_power.csv",
+    "rcwa_mdc_weighted_metrics.csv",
+    "rcwa_rescue_decision.json",
+    "rescue_existing_fsp_inventory.csv",
+    "rescue_fsp_reuse_plan.json",
+    "report.md",
+    "audit.json"
+  ],
+  "convergence_pass": false,
+  "calibration_failure_reasons": [
+    "harmonic convergence failed at tested 49/121/225 settings",
+    "complex Jones and DoLP deltas remain above screening tolerance"
+  ],
+  "explicit_answers": {
+    "rcwa_passed_existing_fdtd_truth_calibration": false,
+    "GLOBAL_018_worth_future_fdtd": false,
+    "H1C1B_V2_012_worth_future_fdtd": false,
+    "MDC_main_region_state_flip_screen": {
+      "GLOBAL_018": true,
+      "H1C1B_V2_012": true
+    },
+    "future_fdt_promotion_budget": 0
+  },
+  "resource_observation_summary": {
+    "sample_count": 62,
+    "peak_fdtd_process_count": 28,
+    "max_single_fdtd_process_cpu_percent": 101.5,
+    "baseline_for_fdtd_slowdown": false,
+    "fdt_starvation_claim": "not observed in read-only sampling; no before/after runtime baseline was available",
+    "license_interference": "none: pure-Python grcwa required no RCWA license",
+    "fdtd_scheduler_mutation": false
+  },
+  "frozen_prior_verdicts_unchanged": [
+    "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
+    "PAPER_A_GATE_A_PRIME_FAIL_LP_ROUTE_FREEZE",
+    "FROZEN_NOT_PROMOTED"
+  ]
+}
