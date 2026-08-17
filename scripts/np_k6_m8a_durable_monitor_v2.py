@@ -222,11 +222,42 @@ def collect_authoritative_snapshot(root: Path, output_dir: Path, registry_path: 
     processes = process_snapshot()
     registry = registry_snapshot(registry_path)
     case_text = " ".join(json.dumps(case, sort_keys=True) for case in cases)
+    all_processes = processes.get("processes", []) or []
     lineage = [
         item
-        for item in processes.get("processes", [])
+        for item in all_processes
         if any(case_id.lower() in str(item.get("CommandLine", "")).lower() for case_id in CASES)
     ]
+    # A live scheduler slot is authoritative even when Windows omits the case
+    # identifier from a child command line.  Follow the slot controller PID
+    # through its observed descendants so a historical dead-controller alert
+    # cannot mask a currently live execution lineage.
+    known_pids = {int(item.get("ProcessId")) for item in lineage if item.get("ProcessId") is not None}
+    for case in cases:
+        for slot in registry.get("active_slots", []) or []:
+            if slot.get("case_uid") != case.get("case_id"):
+                continue
+            roots = {
+                int(value)
+                for value in (slot.get("pid"), slot.get("controller_pid"))
+                if value is not None
+            }
+            frontier = set(roots)
+            while frontier:
+                children = {
+                    int(item.get("ProcessId"))
+                    for item in all_processes
+                    if item.get("ParentProcessId") is not None
+                    and int(item.get("ParentProcessId")) in frontier
+                    and item.get("ProcessId") is not None
+                } - known_pids
+                for pid in frontier:
+                    for item in all_processes:
+                        if item.get("ProcessId") is not None and int(item.get("ProcessId")) == pid:
+                            if item not in lineage:
+                                lineage.append(item)
+                known_pids.update(frontier)
+                frontier = children
     entered_unresolved = [
         case["case_id"]
         for case in cases
@@ -237,6 +268,9 @@ def collect_authoritative_snapshot(root: Path, output_dir: Path, registry_path: 
         for case in cases
         if case["entered"] and not case["controller_returned"] and not case["engine_physical_complete"] and not case["result_recovered"] and not any(
             case["case_id"].lower() in str(item.get("CommandLine", "")).lower() for item in lineage
+        ) and not any(
+            slot.get("case_uid") == case["case_id"]
+            for slot in registry.get("active_slots", []) or []
         )
     ]
     cpu_seconds = sum(
@@ -369,6 +403,17 @@ class DurableMonitor:
         self.state.setdefault("hourly_summary_interval_seconds", HOURLY_PROGRESS_SUMMARY_INTERVAL_SECONDS)
         self.state.setdefault("hourly_summary_samples", HOURLY_PROGRESS_SUMMARY_SAMPLES)
         self.state.setdefault("last_visible_report_epoch", time.monotonic())
+        legacy_gate = self.state.get("active_hard_gate")
+        if isinstance(legacy_gate, list):
+            self.state.setdefault("active_hard_gate_codes", sorted(set(str(code) for code in legacy_gate)))
+            self.state["active_hard_gate"] = bool(legacy_gate)
+        else:
+            self.state.setdefault("active_hard_gate_codes", [])
+            self.state["active_hard_gate"] = bool(legacy_gate)
+        self.state.setdefault("historical_anomalies", [])
+        self.state.setdefault("active_alert", None)
+        self.state.setdefault("current_execution_state", "UNKNOWN")
+        self._current_alerts: List[Dict[str, Any]] = []
         self._lock_acquired = False
 
     @staticmethod
@@ -422,7 +467,7 @@ class DurableMonitor:
             engine_state = "ENGINE_RUNNING" if engine_alive else "ENGINE_STATE_UNRESOLVED"
         else:
             engine_state = "NOT_ENTERED"
-        latest_alert = self.state.get("last_alert") or {}
+        latest_alert = self.state.get("active_alert") or {}
         return {
             "timestamp": sample.get("timestamp_utc", utc_now()),
             "case": case_id,
@@ -441,7 +486,7 @@ class DurableMonitor:
             "slot": slot,
             "post_fsp": bool(case.get("post_persisted") or case.get("post_saved")),
             "extraction": case.get("extraction_status") if "extraction_status" in case else case.get("extracted"),
-            "latest_anomaly": latest_alert.get("alert_code") or ((self.state.get("active_hard_gate") or [None])[-1]),
+            "latest_anomaly": latest_alert.get("alert_code"),
             "monitor_health": {
                 "status": self.state.get("status", "running"),
                 "read_only": True,
@@ -559,11 +604,16 @@ class DurableMonitor:
                 pass
         self._lock_acquired = False
 
-    def _record_alert(self, code: str, evidence: Dict[str, Any]) -> None:
+    def _record_alert(self, code: str, evidence: Dict[str, Any]) -> Dict[str, Any]:
         fingerprint = sha256_text({"code": code, "evidence": evidence})
         reported = set(self.state.get("reported_fingerprints", []))
         if fingerprint in reported:
-            return
+            existing = read_json(self.failure_path, {})
+            for alert in existing.get("alerts", []) if isinstance(existing, dict) else []:
+                if isinstance(alert, dict) and alert.get("alert_fingerprint") == fingerprint:
+                    self._current_alerts.append(alert)
+                    return alert
+            return {"alert_code": code, "alert_fingerprint": fingerprint, "evidence": evidence}
         reported.add(fingerprint)
         self.state["reported_fingerprints"] = sorted(reported)
         alert = {
@@ -594,10 +644,104 @@ class DurableMonitor:
             "alerts": alerts,
         }
         atomic_json(self.failure_path, artifact)
-        self.state["active_hard_gate"] = [code]
         self.state["last_alert"] = alert
+        self._current_alerts.append(alert)
         if self.visible_output:
             print(json.dumps({"event": "monitor_anomaly", "alert_code": code, "alert_fingerprint": fingerprint}, sort_keys=True), flush=True)
+        return alert
+
+    @staticmethod
+    def _case_ids_from_alert(alert: Dict[str, Any], sample: Dict[str, Any]) -> List[str]:
+        evidence = alert.get("evidence", {}) if isinstance(alert, dict) else {}
+        values = evidence.get("cases") if isinstance(evidence, dict) else None
+        if not isinstance(values, list):
+            value = evidence.get("case_id") if isinstance(evidence, dict) else None
+            values = [value] if value else []
+        case_ids = sorted({str(value) for value in values if value})
+        if not case_ids:
+            case_ids = sorted({
+                str(case.get("case_id"))
+                for case in sample.get("cases", []) or []
+                if case.get("entered") and case.get("case_id")
+            })
+        return case_ids
+
+    @staticmethod
+    def _case_attempt(sample: Dict[str, Any], case_id: str) -> Optional[str]:
+        for case in sample.get("cases", []) or []:
+            if case.get("case_id") == case_id:
+                return case.get("attempt_id") or "attempt_001"
+        return None
+
+    @staticmethod
+    def _live_execution_case(sample: Dict[str, Any], case: Dict[str, Any]) -> bool:
+        if not case.get("entered") or int(case.get("run_invocation_count", 0) or 0) < 1:
+            return False
+        lineage = sample.get("process_lineage", {}) or {}
+        if lineage.get("matched_processes"):
+            return True
+        case_id = case.get("case_id")
+        for slot in (sample.get("global_slot_state", {}) or {}).get("active_slots", []) or []:
+            if slot.get("case_uid") == case_id and slot.get("completion_release_state") == "ACTIVE":
+                return True
+        return False
+
+    def _apply_state_semantics(self, sample: Dict[str, Any], active_codes: Iterable[str]) -> None:
+        active_codes = sorted(set(str(code) for code in active_codes))
+        active_fingerprints = {
+            alert.get("alert_fingerprint")
+            for alert in self._current_alerts
+            if isinstance(alert, dict) and alert.get("alert_fingerprint")
+        }
+        failure = read_json(self.failure_path, {})
+        alerts = failure.get("alerts", []) if isinstance(failure, dict) else []
+        historical = []
+        bindings = []
+        for raw in alerts if isinstance(alerts, list) else []:
+            if not isinstance(raw, dict):
+                continue
+            alert = dict(raw)
+            case_ids = self._case_ids_from_alert(alert, sample)
+            attempt_ids = {
+                case_id: self._case_attempt(sample, case_id)
+                for case_id in case_ids
+            }
+            resolved = alert.get("alert_fingerprint") not in active_fingerprints
+            alert["case_ids"] = case_ids
+            alert["attempt_ids"] = attempt_ids
+            alert["resolved_by_later_authoritative_state"] = bool(resolved)
+            alert["superseded_status"] = "resolved_by_later_authoritative_state" if resolved else "active"
+            historical.append(alert)
+            for case_id in case_ids or [None]:
+                bindings.append({
+                    "task_id": self.task_id,
+                    "case_id": case_id,
+                    "attempt_id": attempt_ids.get(case_id) if case_id else None,
+                    "event_timestamp_utc": alert.get("first_detected_timestamp_utc"),
+                    "alert_fingerprint": alert.get("alert_fingerprint"),
+                    "resolved_by_later_authoritative_state": bool(resolved),
+                    "superseded_status": "resolved_by_later_authoritative_state" if resolved else "active",
+                })
+        self.state["historical_anomalies"] = historical
+        self.state["active_alert"] = self._current_alerts[-1] if self._current_alerts and active_codes else None
+        self.state["active_hard_gate_codes"] = active_codes
+        self.state["active_hard_gate"] = bool(active_codes)
+        selected = self._summary_case(sample)
+        if selected.get("engine_completed") or selected.get("engine_physical_complete"):
+            execution_state = "ENGINE_COMPLETED"
+        elif self._live_execution_case(sample, selected):
+            execution_state = "ENGINE_RUNNING"
+        elif selected.get("entered"):
+            execution_state = "ENGINE_STATE_UNRESOLVED"
+        else:
+            execution_state = "NOT_ENTERED"
+        self.state["current_execution_state"] = execution_state
+        # Keep the legacy failure artifact intact at the alert-record level;
+        # append machine-readable bindings only at the artifact root.
+        if isinstance(failure, dict) and bindings and failure.get("event_bindings") != bindings:
+            failure = dict(failure)
+            failure["event_bindings"] = bindings
+            atomic_json(self.failure_path, failure)
 
     def _detect_anomalies(self, sample: Dict[str, Any]) -> None:
         previous = self.state.get("last_sample", {})
@@ -647,13 +791,21 @@ class DurableMonitor:
         if unknown_slots:
             active_codes.append("REGISTRY_CONTROLLER_CONFLICT")
             self._record_alert("REGISTRY_CONTROLLER_CONFLICT", {"unknown_slots": unknown_slots})
-        self.state["active_hard_gate"] = sorted(set(active_codes))
         if sample.get("entered_unresolved"):
             self._record_alert("ENTERED_UNRESOLVED", {"cases": sample["entered_unresolved"]})
         current_live = len(lineage.get("matched_processes", []))
         previous_live = len(previous.get("process_lineage", {}).get("matched_processes", [])) if previous else current_live
         if any(case.get("entered") for case in cases) and previous and current_live == 0 and previous_live > 0:
-            self._record_alert("WORKER_LINEAGE_LOST", {"previous_live": previous_live, "current_live": current_live})
+            active_codes.append("WORKER_LINEAGE_LOST")
+            self._record_alert(
+                "WORKER_LINEAGE_LOST",
+                {
+                    "previous_live": previous_live,
+                    "current_live": current_live,
+                    "cases": [case.get("case_id") for case in cases if case.get("entered")],
+                },
+            )
+        self._apply_state_semantics(sample, active_codes)
 
     def _terminal_success(self, sample: Dict[str, Any]) -> bool:
         cases = sample.get("cases", [])
@@ -661,6 +813,7 @@ class DurableMonitor:
 
     def process_sample(self, sample: Dict[str, Any], *, force_hourly: bool = False) -> Dict[str, Any]:
         sample = dict(sample)
+        self._current_alerts = []
         sample.setdefault("timestamp_utc", utc_now())
         sample.setdefault("task_id", self.task_id)
         sample.setdefault("monitor_version", MONITOR_VERSION)
@@ -677,13 +830,13 @@ class DurableMonitor:
             unchanged = abs(delta) < 1e-9 and bool(lineage.get("matched_processes"))
             self.state["cpu_stall_count"] = int(self.state.get("cpu_stall_count", 0)) + 1 if unchanged else 0
             if self.state["cpu_stall_count"] >= 2:
-                self.state.setdefault("active_hard_gate", []).append("CPU_STALL_DEBOUNCED")
+                self.state.setdefault("active_hard_gate_codes", []).append("CPU_STALL_DEBOUNCED")
                 self._record_alert("CPU_STALL_DEBOUNCED", {"cpu_seconds": current_cpu, "samples": self.state["cpu_stall_count"]})
         self._detect_anomalies(sample)
         self.state["sample_count"] = int(self.state.get("sample_count", 0)) + 1
         self.state["last_sample"] = sample
         self.state["last_sample_timestamp_utc"] = sample["timestamp_utc"]
-        self.state["status"] = "anomaly" if self.failure_path.exists() else "running"
+        self.state["status"] = "anomaly" if self.state.get("active_hard_gate") else "running"
         if not isinstance(self.state.get("hourly_window_start"), dict):
             self.state["hourly_window_start"] = {
                 "timestamp": sample["timestamp_utc"],

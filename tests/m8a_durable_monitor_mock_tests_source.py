@@ -11,10 +11,10 @@ sys.path.insert(0, str(_HERE.parent / "scripts"))
 from np_k6_m8a_durable_monitor_v2 import CASES, DuplicateMonitor, DurableMonitor, monitor_query
 
 
-def fake_sample(*, entered=False, lineage=True, engine_completed=False, post_saved=False, controller_returned=False, accepted=False):
+def fake_sample(*, entered=False, lineage=True, engine_completed=False, post_saved=False, controller_returned=False, accepted=False, entered_case_id=None):
     cases = []
     for index, case_id in enumerate(CASES):
-        active = entered and index == 0
+        active = entered and (case_id == entered_case_id if entered_case_id else index == 0)
         cases.append({
             "case_id": case_id,
             "attempt_id": "attempt_001",
@@ -100,8 +100,10 @@ def test_e_lineage_loss_alert_once():
         first = monitor.failure_path.read_text(encoding="utf-8")
         monitor.process_sample(fake_sample(entered=True, lineage=False))
         second = monitor.failure_path.read_text(encoding="utf-8")
-        assert first == second
-        assert json.loads(second)["reported"] is True
+        first_value = json.loads(first)
+        second_value = json.loads(second)
+        assert first_value["alerts"][0]["alert_fingerprint"] == second_value["alerts"][0]["alert_fingerprint"]
+        assert second_value["reported"] is True
 
 
 def test_f_engine_complete_post_missing_anomaly():
@@ -195,6 +197,50 @@ def test_l_query_fast_path_prefers_hourly_summary():
         result = monitor_query(root)
         assert result["hourly_summary"]["case"] == "NP_K6_M8A_PRIMARY2_G02_S"
         assert result["repository_scan"] is False
+
+
+def test_m_historical_failure_does_not_mask_current_healthy_execution():
+    with tempfile.TemporaryDirectory() as raw:
+        root = Path(raw)
+        monitor = DurableMonitor(root, visible_output=False)
+        historical = {
+            "schema": "apcd_global_durable_monitor_policy_v2",
+            "task_id": "NP_K6_M8A_PRIMARY2",
+            "reported": True,
+            "alerts": [{
+                "task_id": "NP_K6_M8A_PRIMARY2",
+                "alert_code": "CONTROLLER_OR_SUPERVISOR_DEAD",
+                "alert_fingerprint": "historical-dead-fingerprint",
+                "first_detected_timestamp_utc": "2026-08-17T01:00:00+00:00",
+                "evidence": {"cases": ["NP_K6_M8A_PRIMARY2_G02_S"]},
+            }],
+        }
+        monitor.failure_path.write_text(json.dumps(historical), encoding="utf-8")
+        sample = fake_sample(entered=True, lineage=True, entered_case_id="NP_K6_M8A_PRIMARY2_G02_S")
+        monitor.process_sample(sample)
+        state = json.loads(monitor.state_path.read_text(encoding="utf-8"))
+        assert state["current_execution_state"] == "ENGINE_RUNNING"
+        assert state["active_hard_gate"] is False
+        assert state["active_alert"] is None
+        assert state["historical_anomalies"][0]["alert_code"] == "CONTROLLER_OR_SUPERVISOR_DEAD"
+        assert state["historical_anomalies"][0]["resolved_by_later_authoritative_state"] is True
+        failure = json.loads(monitor.failure_path.read_text(encoding="utf-8"))
+        assert failure["alerts"][0]["alert_fingerprint"] == "historical-dead-fingerprint"
+        assert failure["event_bindings"][0]["case_id"] == "NP_K6_M8A_PRIMARY2_G02_S"
+        assert failure["event_bindings"][0]["attempt_id"] == "attempt_001"
+
+
+def test_n_unresolved_current_failure_remains_active_hard_gate():
+    with tempfile.TemporaryDirectory() as raw:
+        root = Path(raw)
+        monitor = DurableMonitor(root, visible_output=False)
+        monitor.process_sample(fake_sample(entered=True, lineage=True, entered_case_id="NP_K6_M8A_PRIMARY2_G02_S"))
+        monitor.process_sample(fake_sample(entered=True, lineage=False, entered_case_id="NP_K6_M8A_PRIMARY2_G02_S"))
+        state = json.loads(monitor.state_path.read_text(encoding="utf-8"))
+        assert state["current_execution_state"] == "ENGINE_STATE_UNRESOLVED"
+        assert state["active_hard_gate"] is True
+        assert state["active_alert"]["alert_code"] == "WORKER_LINEAGE_LOST"
+        assert state["historical_anomalies"][-1]["resolved_by_later_authoritative_state"] is False
 
 
 def test_zero_solver_and_registry_immutability():

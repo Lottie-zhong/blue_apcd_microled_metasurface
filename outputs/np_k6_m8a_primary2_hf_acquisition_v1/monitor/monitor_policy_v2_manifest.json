@@ -43,11 +43,12 @@
     },
     "G02_S": {
       "attempt_id": "attempt_001",
+      "controller_returned": true,
       "entered": true,
       "formal_accepted": false,
-      "post_saved": false,
+      "post_saved": true,
       "run_invocation_count": 1,
-      "status": "ENGINE_STILL_RUNNING"
+      "status": "ENGINE_COMPLETED"
     }
   },
   "dispatcher_independent": true,
@@ -63,9 +64,10 @@
     "m8a_progress_ascii_source.py": "FORENSIC_ONLY",
     "m8a_runtime_policy_probe_source.py": "FORENSIC_ONLY"
   },
-  "manifest_sha256": "196092580fa271ffdd03e13b39ef615e40e7ab0e4f65c60ebccd804198afd08c",
+  "manifest_sha256": "08010dbb7e33c0eeb4008de4898ce3f1b5c95cc3bc6c46bf3309cdeb0e1da82a",
   "monitor_contract": {
     "duplicate_alert_fingerprint_suppression": true,
+    "historical_artifacts_immutable_at_alert_record_level": true,
     "hourly_summary_fields": [
       "timestamp",
       "case",
@@ -109,7 +111,22 @@
     ],
     "progress_null_when_unavailable": true,
     "stale_lock_recovery_identity_checked": true,
-    "terminal_artifacts_written_once": true
+    "state_semantic_fields": [
+      "historical_anomalies",
+      "active_alert",
+      "active_hard_gate",
+      "current_execution_state"
+    ],
+    "terminal_artifacts_written_once": true,
+    "terminal_failure_binding_fields": [
+      "task_id",
+      "case_id",
+      "attempt_id",
+      "event_timestamp_utc",
+      "alert_fingerprint",
+      "resolved_by_later_authoritative_state",
+      "superseded_status"
+    ]
   },
   "monitor_executable": "scripts/np_k6_m8a_durable_monitor_v2.py",
   "no_fsp_mutation": true,
