@@ -1,87 +1,282 @@
 {
-  "schema": "PAPER_A_LP_P1_ZERO_SOLVER_FINAL_CLOSEOUT_AUDIT_V1",
+  "schema": "PAPER_A_LP_GATE_A_PRIME_MDC_SOURCE_WEIGHTED_AUDIT_V1",
   "status": "PASS",
-  "created_utc": "2026-08-17T12:26:15.014800+00:00",
-  "solver_budget_closeout": 0,
-  "no_additional_solver": true,
-  "active_coupling_fdt_during_closeout": true,
+  "created_utc": "2026-08-17T12:48:57.613325+00:00",
+  "solver_budget": 0,
+  "no_solver_started": true,
+  "mdc_worktree_modified": false,
   "source_evidence": {
-    "full_spectra_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\lp_435_465_full_spectra.csv",
-    "full_spectra_sha256": "de8310871496359b5f6dc3e89d82018fbb311f35e9a3c7dc7bbc1cf622d19b42",
-    "stability_metrics_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\lp_435_465_stability_metrics.csv",
-    "stability_metrics_sha256": "eb6257ae7967e1531adb4a86c889fe150a416a38a1ffbc79889607cf4e0205d1",
-    "manifest_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\p1_manifest.json",
-    "manifest_sha256": "68b67d62dd96df26caf586747a723047a229aa1f2a572dfc94a2fb7139f410dd",
-    "accounting_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\solver_accounting.json",
-    "accounting_sha256": "940440a52efc613ccc984518e94b4d39c5876e4d0367b8dd150e9ea3a503abf4",
-    "postprocess_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\p1_postprocess.json",
-    "terminal_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\monitor\\terminal_success.json"
+    "mdc_csv": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_device_closure_figures_v1\\spectral_profiles_420_480_plot_data.csv",
+    "mdc_csv_sha256": "c88e161bd45a6db507acb5c4ab90d1b02cc4ba3828a83aedd1938b3a766d8f5d",
+    "best_candidate_record": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\outputs\\mdc_device_closure_figures_v1\\best_candidate_record.json",
+    "best_candidate_record_sha256": "f60864b46fdaddb65d01e67948f4e77f5d30300e25071f78710e5f54c07ecde9",
+    "lp_intrinsic_champion": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\p1_final_champion.json",
+    "lp_intrinsic_champion_sha256": "6cc36b96abd13cf57d66705cf791da01f0b5883b1f01c7f95ccc3e1e3e34680f"
   },
-  "input_assertions": {
-    "candidate_ids": [
+  "assertions": {
+    "lp_candidates": [
       "H1C1B_V2_009",
       "H1C1B_V2_015",
       "H1C1B_V2_010"
     ],
-    "formal_points": 31,
-    "row_count": 93,
-    "wavelength_grid_nm": [
-      435.0,
-      436.0,
-      437.0,
-      438.0,
-      439.0,
-      440.0,
-      441.0,
-      442.0,
-      443.0,
-      444.0,
-      445.0,
-      446.0,
-      447.0,
-      448.0,
-      449.0,
-      450.0,
-      451.0,
-      452.0,
-      453.0,
-      454.0,
-      455.0,
-      456.0,
-      457.0,
-      458.0,
-      459.0,
-      460.0,
-      461.0,
-      462.0,
-      463.0,
-      464.0,
-      465.0
+    "lp_formal_points": 31,
+    "lp_formal_range_nm": [
+      435,
+      465
     ],
-    "phase_used_for_qualification": false,
-    "k6_used_for_qualification": false,
-    "solver_subruns_entered": 6,
-    "solver_subruns_accepted": 6,
-    "terminal_solver_entries": 6,
-    "postprocess_status": "PASS"
+    "lp_cases_used": 6,
+    "mdc_structure_key": "zl1_alternative",
+    "mdc_rows_used": 301,
+    "weight_field": "r12_normalized_output",
+    "coherency_integration": true,
+    "simple_weighted_DoLP_used": false,
+    "absolute_emitted_power_claim": false,
+    "intrinsic_verdict_preserved": "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT"
   },
-  "gate_guidance": {
-    "mean_DoLP": 0.85,
-    "worst_DoLP": 0.78,
-    "mean_useful_power": 0.4,
-    "worst_useful_power": 0.3,
-    "mean_x_fidelity": 0.9,
-    "worst_x_fidelity": 0.87
+  "source_summary": {
+    "source_candidate": "ZL-1 alternative",
+    "structure_key": "zl1_alternative",
+    "normalization_field": "r12_normalized_output",
+    "normalization_method": "fixed_physical_r12nm_box",
+    "source_grid_nm": [
+      420,
+      480
+    ],
+    "source_points": 301,
+    "source_step_nm": 0.2,
+    "full_relative_spectral_area_420_480": 0.5631879138975073,
+    "overlap_relative_spectral_area_435_465": 0.35676169875586045,
+    "overlap_fraction_435_465": 0.6334683148416894,
+    "effective_weighted_center_nm": 448.0361598049741,
+    "effective_weighted_sigma_nm": 7.443727597936834,
+    "effective_weighted_fwhm_equivalent_nm": 17.528638957141357,
+    "frozen_mdc_output_peak_nm": 447.8,
+    "frozen_mdc_output_fwhm_nm": 18.782086773076742,
+    "formal_31_point_weight_sum": 1.0000000000000004,
+    "formal_31_point_max_weight": 0.053894065745725785,
+    "formal_31_point_weights": [
+      {
+        "wavelength_nm": 435.0,
+        "weight": 0.026674876750638583
+      },
+      {
+        "wavelength_nm": 436.0,
+        "weight": 0.028141679832695367
+      },
+      {
+        "wavelength_nm": 437.0,
+        "weight": 0.029762283879956924
+      },
+      {
+        "wavelength_nm": 438.0,
+        "weight": 0.03153789778090923
+      },
+      {
+        "wavelength_nm": 439.0,
+        "weight": 0.033459407314529684
+      },
+      {
+        "wavelength_nm": 440.0,
+        "weight": 0.0355364781691666
+      },
+      {
+        "wavelength_nm": 441.0,
+        "weight": 0.03780173895798326
+      },
+      {
+        "wavelength_nm": 442.0,
+        "weight": 0.04027033334207435
+      },
+      {
+        "wavelength_nm": 443.0,
+        "weight": 0.042916648889133
+      },
+      {
+        "wavelength_nm": 444.0,
+        "weight": 0.0457088105930039
+      },
+      {
+        "wavelength_nm": 445.0,
+        "weight": 0.048604598525670936
+      },
+      {
+        "wavelength_nm": 446.0,
+        "weight": 0.05138838513501595
+      },
+      {
+        "wavelength_nm": 447.0,
+        "weight": 0.05345812262098926
+      },
+      {
+        "wavelength_nm": 448.0,
+        "weight": 0.053894065745725785
+      },
+      {
+        "wavelength_nm": 449.0,
+        "weight": 0.051960082026737915
+      },
+      {
+        "wavelength_nm": 450.0,
+        "weight": 0.04768294294952848
+      },
+      {
+        "wavelength_nm": 451.0,
+        "weight": 0.041956084668591444
+      },
+      {
+        "wavelength_nm": 452.0,
+        "weight": 0.036048951321972944
+      },
+      {
+        "wavelength_nm": 453.0,
+        "weight": 0.030946239687079047
+      },
+      {
+        "wavelength_nm": 454.0,
+        "weight": 0.02700902047049859
+      },
+      {
+        "wavelength_nm": 455.0,
+        "weight": 0.024098361967414033
+      },
+      {
+        "wavelength_nm": 456.0,
+        "weight": 0.021923288377887595
+      },
+      {
+        "wavelength_nm": 457.0,
+        "weight": 0.02028122182181385
+      },
+      {
+        "wavelength_nm": 458.0,
+        "weight": 0.019072877533169722
+      },
+      {
+        "wavelength_nm": 459.0,
+        "weight": 0.018216458623589653
+      },
+      {
+        "wavelength_nm": 460.0,
+        "weight": 0.017613189279749475
+      },
+      {
+        "wavelength_nm": 461.0,
+        "weight": 0.017181063143632824
+      },
+      {
+        "wavelength_nm": 462.0,
+        "weight": 0.01688231437404596
+      },
+      {
+        "wavelength_nm": 463.0,
+        "weight": 0.01670526080720066
+      },
+      {
+        "wavelength_nm": 464.0,
+        "weight": 0.01663241266479465
+      },
+      {
+        "wavelength_nm": 465.0,
+        "weight": 0.016634902744800506
+      }
+    ],
+    "weight_interpretation": "relative FDTD spectral shape normalized within real 435-465 nm overlap; not absolute emitted power"
   },
-  "candidate_gate_pass_count": 0,
-  "verdict": "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
-  "champion_frozen": false,
+  "verdict": "PAPER_A_GATE_A_PRIME_FAIL_LP_ROUTE_FREEZE",
+  "primary": null,
+  "runner_up": null,
   "outputs": {
-    "p1_broadband_metrics.csv": "22102679e09ad259545056137fa6c845aacd99b790da81a88473769be6bc840e",
-    "p1_candidate_ranking.csv": "e2bc8b5d0348b709c968c12142f21008c5c05a53f43bd9689c5168369af0b8a7",
-    "p1_final_champion.json": "6cc36b96abd13cf57d66705cf791da01f0b5883b1f01c7f95ccc3e1e3e34680f",
-    "p1_final_report.md": "874e638d1bb30a3695d980560f6e5e3cbfc94b893b7599c7e7677eadf6eac29f",
-    "README.md": "eb28dfdfebc2fb1290edfcc3b5276e3eb142093709c383cdbce6198e8f7a0e11"
+    "mdc_weighted_lp_metrics.csv": "6144fbb18694f84e66af39a5c8a4f964ebb95adf08da29b390827012a772482f",
+    "mdc_weighted_lp_stokes.csv": "e82482403dc1909e227126ed32a1a1ffd93bcb86d7e0f9a95a63209b808690a5",
+    "mdc_weighted_lp_candidate_comparison.csv": "2f2c2c69f41e72aaf37c5d62c41872bb63c14cbfbb3f7c4c72d67da2fb1ef37b",
+    "mdc_weighted_lp_gate_a_prime.json": "0707803c72a4f6cf1432481487e82cef060d9fad61fb88d07b6f9459c31abc33",
+    "report.md": "ea4186538e338793d513200d332282906647d4258e6dc8251637322d0695fd4f"
   },
-  "scope_guard": "No geometry expansion, no new LP design space, no CP/angular/integrated admission."
+  "previous_intrinsic_closeout_audit": {
+    "schema": "PAPER_A_LP_P1_ZERO_SOLVER_FINAL_CLOSEOUT_AUDIT_V1",
+    "status": "PASS",
+    "created_utc": "2026-08-17T12:26:15.014800+00:00",
+    "solver_budget_closeout": 0,
+    "no_additional_solver": true,
+    "active_coupling_fdt_during_closeout": true,
+    "source_evidence": {
+      "full_spectra_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\lp_435_465_full_spectra.csv",
+      "full_spectra_sha256": "de8310871496359b5f6dc3e89d82018fbb311f35e9a3c7dc7bbc1cf622d19b42",
+      "stability_metrics_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\lp_435_465_stability_metrics.csv",
+      "stability_metrics_sha256": "eb6257ae7967e1531adb4a86c889fe150a416a38a1ffbc79889607cf4e0205d1",
+      "manifest_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\p1_manifest.json",
+      "manifest_sha256": "68b67d62dd96df26caf586747a723047a229aa1f2a572dfc94a2fb7139f410dd",
+      "accounting_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\solver_accounting.json",
+      "accounting_sha256": "940440a52efc613ccc984518e94b4d39c5876e4d0367b8dd150e9ea3a503abf4",
+      "postprocess_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\p1_postprocess.json",
+      "terminal_path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\monitor\\terminal_success.json"
+    },
+    "input_assertions": {
+      "candidate_ids": [
+        "H1C1B_V2_009",
+        "H1C1B_V2_015",
+        "H1C1B_V2_010"
+      ],
+      "formal_points": 31,
+      "row_count": 93,
+      "wavelength_grid_nm": [
+        435.0,
+        436.0,
+        437.0,
+        438.0,
+        439.0,
+        440.0,
+        441.0,
+        442.0,
+        443.0,
+        444.0,
+        445.0,
+        446.0,
+        447.0,
+        448.0,
+        449.0,
+        450.0,
+        451.0,
+        452.0,
+        453.0,
+        454.0,
+        455.0,
+        456.0,
+        457.0,
+        458.0,
+        459.0,
+        460.0,
+        461.0,
+        462.0,
+        463.0,
+        464.0,
+        465.0
+      ],
+      "phase_used_for_qualification": false,
+      "k6_used_for_qualification": false,
+      "solver_subruns_entered": 6,
+      "solver_subruns_accepted": 6,
+      "terminal_solver_entries": 6,
+      "postprocess_status": "PASS"
+    },
+    "gate_guidance": {
+      "mean_DoLP": 0.85,
+      "worst_DoLP": 0.78,
+      "mean_useful_power": 0.4,
+      "worst_useful_power": 0.3,
+      "mean_x_fidelity": 0.9,
+      "worst_x_fidelity": 0.87
+    },
+    "candidate_gate_pass_count": 0,
+    "verdict": "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
+    "champion_frozen": false,
+    "outputs": {
+      "p1_broadband_metrics.csv": "22102679e09ad259545056137fa6c845aacd99b790da81a88473769be6bc840e",
+      "p1_candidate_ranking.csv": "e2bc8b5d0348b709c968c12142f21008c5c05a53f43bd9689c5168369af0b8a7",
+      "p1_final_champion.json": "6cc36b96abd13cf57d66705cf791da01f0b5883b1f01c7f95ccc3e1e3e34680f",
+      "p1_final_report.md": "874e638d1bb30a3695d980560f6e5e3cbfc94b893b7599c7e7677eadf6eac29f",
+      "README.md": "eb28dfdfebc2fb1290edfcc3b5276e3eb142093709c383cdbce6198e8f7a0e11"
+    },
+    "scope_guard": "No geometry expansion, no new LP design space, no CP/angular/integrated admission."
+  }
 }
