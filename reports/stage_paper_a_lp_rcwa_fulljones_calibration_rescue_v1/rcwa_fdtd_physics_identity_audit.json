@@ -1,0 +1,98 @@
+{
+  "schema": "PAPER_A_LP_RCWA_FDTD_PHYSICS_IDENTITY_AUDIT_V1",
+  "zero_solver": true,
+  "controls": [
+    "H1C1B_V2_009",
+    "H1C1B_V2_010",
+    "H1C1B_V2_015"
+  ],
+  "identity_status": "NOT_ESTABLISHED",
+  "items": [
+    {
+      "item": "exact_geometry_dimensions",
+      "status": "PASS_FDTD_SIDE",
+      "evidence": "FSP read-only inventory records exact D/H/J1/J2/Psi for all three controls; RCWA rasterization provenance is not persisted in the prior stage"
+    },
+    {
+      "item": "period",
+      "status": "PASS",
+      "evidence": "FDTD x/y span and RCWA cell are both 432 nm"
+    },
+    {
+      "item": "pillar_rotations_and_offsets",
+      "status": "NOT_ESTABLISHED",
+      "evidence": "FSP audit confirms pillar_1 rotation 0 and pillar_2 rotation Psi with Psi-dependent center offsets; prior RCWA artifact does not preserve the geometry-to-grid transform"
+    },
+    {
+      "item": "substrate_superstrate",
+      "status": "CONDITIONAL_PASS",
+      "evidence": "FDTD background index 1 with no explicit substrate/superstrate object; RCWA used air on both exterior sides"
+    },
+    {
+      "item": "layer_height",
+      "status": "PASS_FDTD_SIDE",
+      "evidence": "FDTD H_global = 550 nm for all controls; RCWA contract records 550 nm patterned layer"
+    },
+    {
+      "item": "reference_planes",
+      "status": "FAIL_UNRESOLVED",
+      "evidence": "FDTD T and field monitors are at z approximately 1000 nm; prior RCWA spectra contain no output-plane or propagation-phase metadata"
+    },
+    {
+      "item": "native_m1_material_dispersion",
+      "status": "CONDITIONAL_PASS",
+      "evidence": "FDTD FSP and RCWA both identify APCD_TIO2_NATIVE_M1; numerical interpolation crosswalk against the FSP material object was not recorded"
+    },
+    {
+      "item": "source_propagation_direction",
+      "status": "CONDITIONAL_PASS",
+      "evidence": "FDTD source is Forward at z=-250 nm; RCWA normal incidence is documented, but the p/s-to-x/y sign crosswalk is not independently sealed"
+    },
+    {
+      "item": "x_y_basis_and_sign",
+      "status": "NOT_ESTABLISHED",
+      "evidence": "Complex J crosswalk and coordinate handedness are not recoverable from the prior RCWA artifact alone; energy closure does not establish basis identity"
+    },
+    {
+      "item": "boundary_periodicity",
+      "status": "PASS",
+      "evidence": "FDTD periodic x/y and PML z; RCWA periodic lateral cell and open exterior layers"
+    },
+    {
+      "item": "wavelength_definition",
+      "status": "PASS",
+      "evidence": "RCWA and FDTD compare wavelength in nm; formal diagnostic points are 435-465 nm"
+    },
+    {
+      "item": "complex_field_phase_reference",
+      "status": "FAIL_UNRESOLVED",
+      "evidence": "No explicit propagation-phase removal or common reference plane is recorded"
+    },
+    {
+      "item": "jones_extraction_plane",
+      "status": "FAIL_UNRESOLVED",
+      "evidence": "FDTD extraction is from the z=1000 nm field/T plane; RCWA plane is not recorded in the prior production provenance"
+    },
+    {
+      "item": "transmitted_order",
+      "status": "PASS_FORMAL_RANGE",
+      "evidence": "Target order is (0,0); existing order-resolved artifact reports zero other propagating orders across 435-465 nm"
+    },
+    {
+      "item": "amplitude_and_power_normalization",
+      "status": "CONDITIONAL_PASS",
+      "evidence": "RCWA order power closure is excellent, but closure alone does not prove complex amplitude normalization matches FDTD"
+    },
+    {
+      "item": "propagation_phase_correction",
+      "status": "NOT_APPLIED",
+      "evidence": "No common reference-plane correction is present in the prior RCWA spectra"
+    },
+    {
+      "item": "coordinate_handedness",
+      "status": "NOT_ESTABLISHED",
+      "evidence": "No sealed FDTD-to-RCWA handedness/basis transform is stored"
+    }
+  ],
+  "conclusion": "Energy closure is not sufficient evidence of a common complex-Jones physics contract; reference plane, basis/handedness, and RCWA geometry rasterization provenance remain unresolved."
+}

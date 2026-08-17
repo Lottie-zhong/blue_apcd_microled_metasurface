@@ -1,0 +1,21 @@
+{
+  "schema": "PAPER_A_LP_RCWA_CALIBRATION_DIAGNOSIS_V1",
+  "final_verdict": "PAPER_A_LP_RCWA_FULLJONES_CALIBRATION_FINAL_FAIL",
+  "zero_solver": true,
+  "finite_ladder": {
+    "Level-0-current": 121,
+    "Level-1-next": 225,
+    "pre_level_diagnostic": 49,
+    "stopped_after": "Level-1-next",
+    "stop_reason": "complex-Jones/DoLP/useful-power drift remains material; do not increase harmonics indefinitely"
+  },
+  "A_harmonic_convergence_insufficient": true,
+  "B_reference_plane_propagation_phase_mismatch": "UNRESOLVED_CONTRIBUTOR",
+  "C_jones_basis_handedness_mismatch": "UNRESOLVED_CONTRIBUTOR",
+  "D_diffraction_order_extraction_mismatch": "NOT_PRIMARY_IN_FORMAL_RANGE",
+  "E_material_implementation_mismatch": "NOT_ESTABLISHED",
+  "F_geometry_layer_contract_mismatch": "NOT_ESTABLISHED_RCWA_RASTER_PROVENANCE",
+  "G_provider_unsuitable_for_fulljones": "NOT_ISOLATED_BUT_STOP_LOSS_TRIGGERED",
+  "why_energy_closure_is_insufficient": "R+T closure constrains power bookkeeping only; it does not establish common complex phase reference, Jones basis, geometry rasterization, or transmitted-field normalization.",
+  "control_qualitative_pattern": "low-DoLP/state-flip pattern is observed, but numerical convergence and complex-Jones identity are not sufficient for provider qualification"
+}
