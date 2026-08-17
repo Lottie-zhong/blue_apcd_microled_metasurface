@@ -1,6 +1,6 @@
 {
-  "schema": "PAPER_A_LP_RCWA_RESCUE_DECISION_V1",
-  "verdict": "PAPER_A_LP_RCWA_RESCUE_FAIL_NO_FDTD_PROMOTION",
+  "schema": "PAPER_A_LP_RCWA_RESCUE_DECISION_V2_AUTHORITY_CORRECTION",
+  "verdict": "SUPERSEDED_BY_RCWA_CALIBRATION_FAILURE",
   "rcwa_screening_calibration": "RCWA_SCREENING_NOT_CALIBRATED",
   "future_fdt_promotion_budget": 0,
   "new_fdtd_started": false,
@@ -174,5 +174,28 @@
     "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
     "PAPER_A_GATE_A_PRIME_FAIL_LP_ROUTE_FREEZE",
     "FROZEN_NOT_PROMOTED"
-  ]
+  ],
+  "superseded_verdict": "PAPER_A_LP_RCWA_RESCUE_FAIL_NO_FDTD_PROMOTION",
+  "supersession_reason": "screening provider itself was not calibrated/converged; it lacks authority to reject or promote the FDTD rescue candidates",
+  "scientific_use_of_rescue_findings": "RCWA_NEGATIVE_INDICATION_ONLY",
+  "formal_fdtd_promotion_or_rejection_authority": false,
+  "rescue_candidates_formal_status": {
+    "GLOBAL_018": "FDTD_TRUTH_PENDING",
+    "H1C1B_V2_012": "FDTD_TRUTH_PENDING"
+  },
+  "restored_forensic_authority": "PAPER_A_LP_FORENSIC_RESCUE_BATCH1_READY",
+  "paper_a_lp_rescue_state": "BATCH1_FDTD_TRUTH_PENDING_RESOURCE_AND_USER_AUTHORIZATION",
+  "future_truth_budget": {
+    "maximum_fdtd_jobs": 4,
+    "definition": "2 geometries x 2 real input polarizations",
+    "currently_started": 0,
+    "current_admission_authorized": false
+  },
+  "scope_status": "FROZEN_NOT_PROMOTED",
+  "frozen_scope_reason": "009/015/010 Gate A and Gate A-prime failures remain valid; rescue does not reopen Paper A scope",
+  "rcwa_scheduler_authority_separate_from_scientific_calibration": true,
+  "current_production_rcwa_scheduling_cap": 3,
+  "rcwa_branch_local_cap": 3,
+  "new_solver_started_during_correction": false,
+  "correction_zero_solver": true
 }
