@@ -1,0 +1,59 @@
+{
+  "schema": "PAPER_A_LP_BOUNDED_FORENSIC_RESCUE_V1",
+  "stage": "PAPER_A_LP_BOUNDED_FORENSIC_RESCUE_V1",
+  "solver_calls": 0,
+  "rcwa_calls": 0,
+  "ml_training_calls": 0,
+  "new_geometry_optimization_calls": 0,
+  "current_scope_status": "FROZEN_NOT_PROMOTED",
+  "frozen_negative_controls": [
+    "H1C1B_V2_009",
+    "H1C1B_V2_010",
+    "H1C1B_V2_015"
+  ],
+  "authoritative_source": {
+    "report": "reports/stage_paper_a_lp_p0_historical_fulljones_zero_solver_rerank",
+    "inventory": "geometry_broadband_metrics.csv",
+    "p0_audit": "audit.json",
+    "p0_provenance": "provenance_cohorts.csv",
+    "material_contract": "APCD_TIO2_NATIVE_M1",
+    "solver_lineage": "historical real FDTD H1C1A/B/C",
+    "full_jones_rows": 468,
+    "geometry_count": 52,
+    "historical_grid_nm": [
+      450.0,
+      454.0
+    ],
+    "historical_spacing_nm": 0.5,
+    "historical_points": 9
+  },
+  "rescue_policy": {
+    "phase_criteria_used": false,
+    "k6_criteria_used": false,
+    "phase_k6_context": "provenance only; exact individual rejection cause not inferred",
+    "ranking": "physical metrics and Pareto dominance only; no composite score",
+    "future_native_confirmation": "430-470 source/monitor span, formal 435-465 nm at 1 nm, 450 nm anchor",
+    "future_batch_budget": "maximum 4 FDTD jobs = 2 geometries x/y; not authorized in this stage",
+    "MDC_main_region": "approximately 438-458 nm; no historical data coverage"
+  },
+  "counts": {
+    "current_native_compatible_full_jones_geometries": 52,
+    "current_native_compatible_full_jones_rows": 468,
+    "non_control_candidates": 49,
+    "historical_mean_screen_pass_non_control": 7,
+    "phase_k6_context_lp_strong_non_control": 7,
+    "physical_pareto_front": 4,
+    "primary_batch": 2,
+    "reserve_batch": 2
+  },
+  "selected_ids": {
+    "primary": [
+      "GLOBAL_018",
+      "H1C1B_V2_012"
+    ],
+    "reserve": [
+      "GLOBAL_006",
+      "H1C1C_R06"
+    ]
+  }
+}

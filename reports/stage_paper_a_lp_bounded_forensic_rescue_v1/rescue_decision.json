@@ -1,0 +1,48 @@
+{
+  "schema": "PAPER_A_LP_FORENSIC_RESCUE_DECISION_V1",
+  "verdict": "PAPER_A_LP_FORENSIC_RESCUE_BATCH1_READY",
+  "scope_status": "FROZEN_NOT_PROMOTED",
+  "solver_budget_used": 0,
+  "future_batch_authorized": false,
+  "future_batch_definition": "2 geometries x 2 real input polarizations = 4 FDTD jobs maximum",
+  "candidate_counts": {
+    "current_native_compatible_full_jones_geometries": 52,
+    "current_native_compatible_full_jones_rows": 468,
+    "non_control_candidates": 49,
+    "historical_mean_screen_pass_non_control": 7,
+    "phase_k6_context_lp_strong_non_control": 7,
+    "physical_pareto_front": 4,
+    "primary_batch": 2,
+    "reserve_batch": 2
+  },
+  "primary": [
+    "GLOBAL_018",
+    "H1C1B_V2_012"
+  ],
+  "runner_up": "GLOBAL_006",
+  "reserve": [
+    "H1C1C_R06"
+  ],
+  "chart_questions": {
+    "1_counts": "52 current/native-compatible geometries, 468 full-Jones rows, 49 non-control candidates, 7 non-control historical physical-screen passes",
+    "2_current_native_compatible": "52/52 in the authoritative P0 cohort; all Native-M1 with complete x/y full-Jones 9-point evidence",
+    "3_highest_selection_ratio_or_purity": "GLOBAL_018 has the highest mean rank contrast 19.7146; H1C1B_V2_012 has the highest mean DoLP 0.8990 among the non-control pool",
+    "4_phase_k6_rejected_but_lp_strong": "7 non-control candidates pass the bounded physical mean screen; individual phase/K6 rejection is not inferred, only historical route context is retained",
+    "5_why_primary_two": "They span orthogonal physical tradeoffs: GLOBAL_018 maximizes stable useful throughput/rank contrast, while H1C1B_V2_012 maximizes purity/fidelity with an explicit throughput risk",
+    "6_basin_diversity": "Primary geometries differ in exact H/J1/J2/D cells; the 4-candidate front contains 4 exact cells across H1C1A, H1C1B, and H1C1C provenance branches",
+    "7_added_evidence": "Adds historical candidates with complete native-compatible full-Jones evidence and distinct physical tradeoffs; it does not relabel 009/015/010 or erase their current source-weighted failure",
+    "8_future_four_jobs_worth": "Yes as a bounded confirmation batch only: 2 primary geometries x/y, with no automatic admission and no claim of current broadband viability"
+  },
+  "required_future_gates": [
+    "435-465 nm current Native-M1 full-Jones confirmation",
+    "MDC-source-weighted coherency integration",
+    "no polarization-state flip in approximately 438-458 nm main-energy region",
+    "source-weighted DoLP >= 0.80, useful LP >= 0.35, target-x fidelity >= 0.85",
+    "not supported by a single 1-nm point"
+  ],
+  "stop_loss": {
+    "triggered": false,
+    "condition": "fewer than 2 clearly distinct historically supported current/native-compatible candidates",
+    "if_triggered": "PAPER_A_LP_FORENSIC_RESCUE_NO_WORTHWHILE_CANDIDATES"
+  }
+}
