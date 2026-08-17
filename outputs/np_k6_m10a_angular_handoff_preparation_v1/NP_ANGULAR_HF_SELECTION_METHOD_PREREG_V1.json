@@ -1,0 +1,45 @@
+{
+  "candidate_margin_ratio_definition": "provider_error / candidate_separation",
+  "created_before_coupling_b_result_consumption": true,
+  "created_timestamp_utc": "2026-08-17T16:08:35.807226+00:00",
+  "forbidden_before_new_prereg": [
+    "Transformer",
+    "GNN",
+    "FNO",
+    "large CNN",
+    "hyperparameter sweep"
+  ],
+  "future_candidate_order": [
+    "raw RCWA",
+    "constant/local bias",
+    "affine calibration",
+    "Ridge residual",
+    "compact residual MLP only if justified"
+  ],
+  "m9a_prereg_sha256": "0ee8251bff8ca4b6c3cdb982f1fc9a2387caf6e3cd370ccfe9dc6e551080bf91",
+  "preregistration_id": "NP_ANGULAR_HF_SELECTION_METHOD_PREREG_V1",
+  "selection_dimensions": [
+    "MDC angular mass / importance",
+    "RCWA angular gradient / sensitivity",
+    "P/S divergence",
+    "B-vs-control decision sensitivity",
+    "order redistribution",
+    "expected Level1-to-Level2 residual risk",
+    "existing HF novelty",
+    "solver information-per-cost"
+  ],
+  "selection_rule": "freeze metric definitions and rank candidates only after Coupling B terminal package; do not add B-favorable metrics post hoc",
+  "selection_scope": "principles only; no exact angular identities frozen",
+  "solver_policy": {
+    "BFAST": 0,
+    "FDTD": 0,
+    "ML_training": 0,
+    "RCWA": 0,
+    "TMM": 0,
+    "external_HF": 0,
+    "inverse": 0,
+    "new_HF": 0,
+    "replay": 0
+  },
+  "threshold_policy": "no absolute promotion threshold frozen before formal candidate-separation and MDC angular weighting authority"
+}
