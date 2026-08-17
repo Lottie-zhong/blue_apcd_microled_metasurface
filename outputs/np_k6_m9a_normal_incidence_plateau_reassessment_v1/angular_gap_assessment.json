@@ -1,0 +1,50 @@
+{
+  "conventions": {
+    "gradient": "+x",
+    "m_plus1": "+x",
+    "outward_normal": "+z",
+    "polarization": [
+      "P",
+      "S"
+    ]
+  },
+  "current_support": {
+    "angular_generalization": "NOT_SUPPORTED",
+    "capability": "NORMAL_INCIDENCE_ONLY",
+    "k_y": 0.0,
+    "u_x": [
+      0.0
+    ]
+  },
+  "future_selection_prerequisites": [
+    "Coupling Stage1 9/9",
+    "CONTROL_0 vs ALT_1",
+    "MDC angular power/mass",
+    "RCWA sensitivity/gradient",
+    "P/S divergence",
+    "expected L1-to-L2 residual risk"
+  ],
+  "input_contract": [
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "wavelength_nm",
+    "u_x",
+    "polarization"
+  ],
+  "no_angular_solver_in_m9a": true,
+  "output_contract": [
+    "R",
+    "T",
+    "eta_m-3..m+3",
+    "eta_plus1",
+    "eta_0",
+    "eta_minus1",
+    "directionality",
+    "leakage"
+  ],
+  "preregistration_sha256": "0ee8251bff8ca4b6c3cdb982f1fc9a2387caf6e3cd370ccfe9dc6e551080bf91"
+}

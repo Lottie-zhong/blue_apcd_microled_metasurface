@@ -1,0 +1,156 @@
+{
+  "angular_governance": {
+    "current_nonzero_u_x_support": false,
+    "no_angular_fdt_in_m9a": true,
+    "selection_waits_for_coupling_stage1": true
+  },
+  "authority_inputs": {
+    "hf22_sha256": "5c5dca90928498c927663ad3eedbf502394a68c741feef836195573846ba1599",
+    "lf22_gate_sha256": "69dac4c8656deacba5881c182838449e71ee335db71e76d25ecc1286732dea20",
+    "m9_prereg_sha256": "072cf2a9b372bfbbeab98afff8301809ed00a66910906e2ff49773916644ff07"
+  },
+  "capability_dimensions": [
+    "A_normal_incidence_domain",
+    "B_full_order_contract",
+    "C_eta_plus1_quantitative",
+    "D_broadband_ranking",
+    "E_top3_retrieval",
+    "F_top5_retrieval",
+    "G_champion_identification",
+    "H_R_T",
+    "I_P_S_contrast",
+    "J_worst_case_physics",
+    "K_angular_generalization"
+  ],
+  "capability_statuses": [
+    "PASS",
+    "MARGINAL",
+    "FAIL",
+    "NOT_SUPPORTED"
+  ],
+  "created_timestamp_utc": "2026-08-17T10:15:41.035393+00:00",
+  "external_governance": {
+    "current_action": "HOLD",
+    "external_geometry_count": 12,
+    "external_registry_id": "NP_K6_FORWARD_EXTERNAL_FROZEN_SET_V1",
+    "future_paired_cases": 24,
+    "narrow_screening_requires_fresh_prereg": true
+  },
+  "frozen_thresholds": {
+    "PS_contrast_mae": {
+      "MARGINAL_max": 0.15,
+      "PASS_max": 0.1
+    },
+    "R_T_mae": {
+      "MARGINAL_max": 0.15,
+      "PASS_max": 0.12
+    },
+    "champion_rank": {
+      "MARGINAL_max": 5,
+      "PASS_max": 3
+    },
+    "eta_plus1_mae": {
+      "MARGINAL_max": 0.12,
+      "PASS_max": 0.08
+    },
+    "order_profile_mae": {
+      "MARGINAL_max": 0.06,
+      "PASS_max": 0.04
+    },
+    "physics": {
+      "MARGINAL_energy_max": 0.15,
+      "MARGINAL_negative_rate_max": 0.15,
+      "PASS_energy_max": 0.05,
+      "PASS_negative_rate_max": 0.05
+    },
+    "ranking_spearman": {
+      "MARGINAL_min": 0.85,
+      "PASS_min": 0.9
+    },
+    "top3_recall": {
+      "MARGINAL_min": 0.5,
+      "PASS_min": 0.6666666666666666
+    },
+    "top5_recall": {
+      "MARGINAL_min": 0.6,
+      "PASS_min": 0.8
+    },
+    "worst_order_profile_mae": {
+      "MARGINAL_max": 0.12,
+      "PASS_max": 0.08
+    }
+  },
+  "learning_curve_protocol": {
+    "global_views": [
+      13,
+      16,
+      20,
+      22
+    ],
+    "metrics": [
+      "order_profile_mae",
+      "eta_plus1_mae",
+      "ranking_spearman",
+      "top3_recall",
+      "top5_recall",
+      "champion_rank",
+      "worst_case_order_profile_mae",
+      "P_S_contrast_mae",
+      "physics_energy_residual_max"
+    ],
+    "no_posthoc_threshold_change": true,
+    "paired_common_views": [
+      13,
+      16,
+      20
+    ]
+  },
+  "methodology": "physics-guided surrogate / screening / active-learning-assisted HF acquisition / coupling-aware handoff; never ML replacement of FDTD",
+  "plateau_criteria": [
+    "no_model_passes_all_frozen_gates",
+    "common_geometry improvement is not consistent across models",
+    "tail/champion failures remain",
+    "additional normal-incidence HF is not justified unless all three criteria are false"
+  ],
+  "preregistration_id": "NP_K6_M9A_PLATEAU_REASSESSMENT_PREREG_V1",
+  "scope": {
+    "capability": "NORMAL_INCIDENCE_ONLY",
+    "geometry_count": 22,
+    "k_y": 0.0,
+    "paired_ps_cases": 44,
+    "rows": 484,
+    "u_x": [
+      0.0
+    ],
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "screening_gate": {
+    "not_angular_provider": true,
+    "not_fdt_replacement": true,
+    "not_quantitative_full_response_authority": true,
+    "role": "RANKING_SCREENING_ONLY"
+  },
+  "selection_tie_break": "no unique universal winner; retain LF_only ranking and LF_ridge_residual order-profile screening as complementary providers",
+  "solver_policy": {
+    "external_hf": 0,
+    "fdtd": 0,
+    "inverse_design": 0,
+    "lumapi_solver_run": 0,
+    "new_hf": 0,
+    "rcwa": 0,
+    "sealed_reads": 0
+  },
+  "stage": "M9A_NORMAL_INCIDENCE_PLATEAU_REASSESSMENT_AND_COUPLING_HANDOFF_PREP"
+}

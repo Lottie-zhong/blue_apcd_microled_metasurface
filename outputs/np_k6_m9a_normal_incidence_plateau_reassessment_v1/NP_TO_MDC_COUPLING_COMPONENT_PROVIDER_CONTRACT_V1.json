@@ -1,0 +1,65 @@
+{
+  "capability_levels": {
+    "NP-0": "metadata/schema only",
+    "NP-1": "u_x=0 ranking/order-profile screening",
+    "NP-2": "validated nonzero-u_x component provider after future gates"
+  },
+  "contract_id": "NP_TO_MDC_COUPLING_COMPONENT_PROVIDER_CONTRACT_V1",
+  "error_reporting": [
+    "anchor_residual",
+    "weighted_error",
+    "extrapolation_flag",
+    "P_S_identity"
+  ],
+  "forbidden_claims": [
+    "ML replaces FDTD",
+    "angular generalization from u_x=0",
+    "sealed target access"
+  ],
+  "future_nonzero_ux": "UNSUPPORTED_UNTIL_ANGULAR_ANCHORS",
+  "inputs": [
+    "ordered D1..D6",
+    "wavelength_nm",
+    "u_x",
+    "polarization"
+  ],
+  "outputs": [
+    "R",
+    "T",
+    "eta_m-3..m+3",
+    "directionality",
+    "leakage"
+  ],
+  "semantics": {
+    "interpolation": "no unregistered extrapolation",
+    "normalization": "formal sourcepower normalization",
+    "order_sign": "m=+1 physical +x",
+    "reference_plane": "formal NP plane identity"
+  },
+  "status": "HANDOFF_PREP_ONLY",
+  "supported_domain": {
+    "k_y": [
+      0.0
+    ],
+    "polarization": [
+      "P",
+      "S"
+    ],
+    "u_x": [
+      0.0
+    ],
+    "wavelength_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  }
+}
