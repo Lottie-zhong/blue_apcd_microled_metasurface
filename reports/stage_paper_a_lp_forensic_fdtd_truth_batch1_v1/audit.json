@@ -1,0 +1,39 @@
+{
+  "schema": "PAPER_A_LP_FORENSIC_FDTD_TRUTH_BATCH1_AUDIT_V1",
+  "timestamp_utc": "2026-08-18T10:12:56.990584+00:00",
+  "verdict": "PAPER_A_LP_FORENSIC_FDTD_RESCUE_FINAL_FAIL",
+  "tests": {
+    "setup_only_pass": true,
+    "full_jones_cases": true,
+    "formal_rows": 62,
+    "formal_wavelengths_per_candidate": 31,
+    "candidate_count": 2,
+    "mdc_weighting_source_verified": true,
+    "stokes_before_dolp": true,
+    "no_additional_solver_in_closeout": true,
+    "no_cp": true,
+    "no_rcwa": true,
+    "no_geometry_search": true,
+    "no_phase_k6_qualification": true
+  },
+  "resource_safety": {
+    "coupling_untouched": true,
+    "global_cap_unchanged": true,
+    "active_peer_solver_killed": false,
+    "exactly_one_monitor_required": true
+  },
+  "files": [
+    "fdtd_pre_flight.json",
+    "fdtd_pre_fsp_provenance.json",
+    "fdtd_existing_fsp_reuse_audit.csv",
+    "fdtd_case_registry.csv",
+    "fdtd_fulljones_spectra.csv",
+    "fdtd_stokes_spectra.csv",
+    "fdtd_target_channel_stability.csv",
+    "fdtd_mdc_weighted_metrics.csv",
+    "fdtd_450_anchor_metrics.csv",
+    "fdtd_candidate_decision.json",
+    "paper_a_lp_rescue_authority.json",
+    "report.md"
+  ]
+}
