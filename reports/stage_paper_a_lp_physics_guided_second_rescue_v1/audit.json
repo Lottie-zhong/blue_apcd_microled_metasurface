@@ -1,0 +1,40 @@
+{
+  "schema": "PAPER_A_LP_PHYSICS_GUIDED_SECOND_RESCUE_AUDIT_V1",
+  "status": "PASS",
+  "solver_calls": 0,
+  "rcwa_calls": 0,
+  "ml_calls": 0,
+  "new_geometry_generation_calls": 0,
+  "pool_geometry_count": 52,
+  "pool_row_count": 468,
+  "pool_source_counts": {
+    "H1C1A": 21,
+    "H1C1B": 21,
+    "H1C1C": 10
+  },
+  "failed_controls_excluded": [
+    "GLOBAL_018",
+    "H1C1B_V2_009",
+    "H1C1B_V2_010",
+    "H1C1B_V2_012",
+    "H1C1B_V2_015"
+  ],
+  "metrics": {
+    "stokes_from_C_half_JJdag": true,
+    "M_x_equals_S1_over_S0": true,
+    "orientation_from_S1_S2": true,
+    "svd_complex_jones": true,
+    "phase_used_for_ranking": false,
+    "k6_used": false,
+    "synthetic_reconstruction": false,
+    "zero_crossing_is_diagnostic_only": true
+  },
+  "stop_loss": {
+    "triggered": true,
+    "criterion": "No non-control candidate strictly beats the failed-control envelope in min_M_x, max_abs_dM, orientation ripple, and dominant-output-vector drift"
+  },
+  "future_fdt_not_started": true,
+  "fsp_reuse_audited": true,
+  "legacy_mixed": false,
+  "incompatible_normalization_mixed": false
+}
