@@ -1,0 +1,50 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_FEASIBLE_SPACE_V2_REJECTIONS_V1",
+  "raw_pool_statistics": {
+    "schema": "PAPER_A_LP_ANISOTROPY_FEASIBLE_SPACE_V2_RAW_POOL_V1",
+    "seed": 20260818,
+    "sobol_scramble": false,
+    "sobol_generation": "fresh random_base2(m) and first N points; N escalated 4096 -> 16384 -> 65536",
+    "raw_count": 4096,
+    "quantized_unique_count": 4096,
+    "feasible_unique_count": 1879,
+    "feasible_fraction_of_raw": 0.458740234375,
+    "rejection_counts": {
+      "direct_gap_lt_60_nm": 2190,
+      "periodic_image_gap_lt_60_nm": 74,
+      "overlap_or_touching": 0,
+      "cell_containment": 40,
+      "quantization_duplicate": 0,
+      "other": 0
+    },
+    "pool_ranges": {
+      "a1": [
+        0.8521739130434782,
+        1.1478260869565218
+      ],
+      "b1": [
+        0.85,
+        1.15
+      ],
+      "a2": [
+        0.85,
+        1.15
+      ],
+      "b2": [
+        0.8555555555555555,
+        1.1444444444444444
+      ],
+      "delta_theta_deg": [
+        0.0,
+        89.978027344
+      ],
+      "D_nm": [
+        170,
+        220
+      ]
+    },
+    "diversity_vectors": 1879,
+    "selection_source_n": 4096
+  },
+  "notes": "Rejection counts are by unique quantized sample and may overlap when multiple hard gates fail."
+}

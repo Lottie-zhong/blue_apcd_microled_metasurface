@@ -1,0 +1,79 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_FEASIBLE_SPACE_V2_PARAMETERIZATION_V1",
+  "stage": "LP_ANISOTROPY_FEASIBLE_SPACE_V2",
+  "box": {
+    "a1": [
+      0.85,
+      1.15
+    ],
+    "b1": [
+      0.85,
+      1.15
+    ],
+    "a2": [
+      0.85,
+      1.15
+    ],
+    "b2": [
+      0.85,
+      1.15
+    ],
+    "delta_theta_deg": [
+      0.0,
+      90.0
+    ],
+    "D_nm": [
+      170.0,
+      220.0
+    ]
+  },
+  "base_geometry": {
+    "L1_nm": 230.0,
+    "W1_nm": 100.0,
+    "L2_nm": 180.0,
+    "W2_nm": 90.0
+  },
+  "height_nm": 525.0,
+  "period_nm": [
+    432.0,
+    432.0
+  ],
+  "material": "APCD_TIO2_NATIVE_M1",
+  "source_span_nm": [
+    430.0,
+    470.0
+  ],
+  "formal_window_nm": [
+    435.0,
+    465.0
+  ],
+  "formal_points": 31,
+  "quantization": {
+    "lateral_dimensions": "round-half-up to integer nm",
+    "D_nm": "round-half-up to integer nm; centers are +/-D/2 and therefore integer/half-grid compatible",
+    "delta_theta_deg": "9 decimal places; no hidden optical or fabrication ranking"
+  },
+  "hard_gates": {
+    "direct_polygon_clearance_nm_ge": 60.0,
+    "periodic_image_polygon_clearance_nm_ge": 60.0,
+    "no_overlap_or_touching": true,
+    "cell_containment": true,
+    "integer_lateral_dimensions": true,
+    "half_grid_centers": true,
+    "no_sub_grid_geometry": true
+  },
+  "diagnostic_only": {
+    "minimum_lateral_feature_nm": true,
+    "H_over_min_feature": true,
+    "no_authoritative_minimum_linewidth_or_aspect_ratio_gate_found": true
+  },
+  "not_imported_old_lp_constraints": [
+    "J1_side 108-112 nm",
+    "J2_length 106-110 nm",
+    "J2_width 98-102 nm",
+    "D 196-204 nm",
+    "Psi +/-1.2 deg",
+    "H=500 nm"
+  ],
+  "periodic_distance_definition": "exact polygon segment distance over all pillar/image pairs and translations {-1,0,+1} in each axis; cell-boundary distance is not used as a substitute"
+}
