@@ -1,0 +1,57 @@
+{
+  "schema": "PAPER_A_EXCLUSIVE_IDLE_FDTD_RESOURCE_AUTHORITY_V1",
+  "authority_id": "PAPER_A_EXCLUSIVE_IDLE_FDTD_RESOURCE_AUTHORITY_V1",
+  "effective_date": "2026-08-19",
+  "scope": "Paper A broadband LP+CP new canonical worktree and all future Paper A solver admissions",
+  "current_stage": "PAPER_A_BROADBAND_LP_ANISOTROPY_EXPANDED_SEARCH_V1",
+  "current_state": "PLANNING_AND_SETUP_ONLY_BEFORE_BENCHMARK",
+  "current_solver_authority": {
+    "new_fdtd_budget": 0,
+    "new_rcwa_budget": 0,
+    "ml_budget": 0,
+    "paper_a_active_fdtd_allowed": 0,
+    "solver_run_called": false,
+    "solver_entered": 0
+  },
+  "future_paper_a_entry_requires_all": [
+    "Chart explicitly authorizes a concrete Paper A solver budget",
+    "benchmark gate is explicitly released",
+    "NP has no active FDTD",
+    "NP-ML has no active FDTD",
+    "MDC-NP Coupling has no active FDTD",
+    "every other independent branch has no active FDTD",
+    "shared global scheduler reports cross_branch_active_fdtd_count = 0",
+    "no READY, WAITING, or pending higher-priority FDTD demand is visible",
+    "admission is recorded in the shared scheduler registry"
+  ],
+  "exclusive_idle_rule": {
+    "paper_a_may_not_enter_if_any_other_branch_uses_fdtd": true,
+    "global_fdtd_cap_does_not_override_exclusive_idle_rule": true,
+    "cross_branch_active_fdtd_count_required": 0,
+    "case_boundary_yield_required": true,
+    "entered_true_no_auto_replay": true,
+    "no_kill_pause_restart_replay": true
+  },
+  "future_planning_only_parameters": {
+    "paper_a_max_active_fdtd_planned": 2,
+    "global_production_fdtd_cap": 3,
+    "mpi_processes_per_job": 4,
+    "threads_per_job": 1
+  },
+  "canonical_worktree": "D:/project/worktrees/blue_apcd_paper_a_lp_cp_broadband_v1",
+  "canonical_branch": "work/paper-a-lp-cp-broadband-v1",
+  "shared_scheduler_authority": "D:/project/apcd_global_fdtd_slot_registry_v1.json",
+  "frozen_sources_untouched": [
+    "D:/project/worktrees/blue_apcd_lp_global_h_manifold_v1",
+    "D:/project/worktrees/blue_apcd_cp_stage10_bw2a",
+    "D:/project/worktrees/blue_apcd_mdc_defect_450"
+  ],
+  "does_not_modify": [
+    "Paper A scientific objective",
+    "Native-M1 physics contract",
+    "435-465 nm LP evaluation contract",
+    "solver budget authority",
+    "NP/Coupling scheduler priority"
+  ],
+  "immutable_source": true
+}

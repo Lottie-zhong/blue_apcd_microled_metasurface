@@ -17,3 +17,8 @@ A01_x and A01_y have validated Native-M1 pre-FSPs with 430–470 nm source/monit
 The shared scheduler has active FDTD=0, entered FDTD=0, and READY-for-auto-admission=0 for this stage. No controller or monitor is left with a pending automatic claim. A future explicit benchmark authorization is required before any solver case can enter.
 
 No broadband Jones spectra, MDC-weighted truth metrics, or candidate PASS/FAIL verdict is produced at planning stage.
+
+
+## Exclusive-idle resource authority
+
+Paper A future FDTD admission requires Chart authorization, benchmark release, and zero active FDTD in every other branch; cross-branch active FDTD must equal 0. The current stage remains solver-free and has no hidden pending admission. Canonical authority: `D:\project\worktrees\blue_apcd_paper_a_lp_cp_broadband_v1\paper_a_broadband\authority\paper_a_exclusive_idle_fdtd_resource_authority_v1.json` (SHA256 `a74dd9378a8ee23d6f5c3be5369ab9f45691e74b053405ca5927603b4d2eb955`).
