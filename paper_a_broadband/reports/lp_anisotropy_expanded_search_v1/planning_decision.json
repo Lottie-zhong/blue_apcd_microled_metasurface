@@ -1,14 +1,30 @@
 {
   "schema": "PAPER_A_BROADBAND_LP_ANISOTROPY_PLANNING_DECISION_V1",
   "status": "PAPER_A_BROADBAND_LP_ANISOTROPY_EXPANDED_SEARCH_PLANNED_WAIT_BENCHMARK",
-  "solver_budget": {
-    "new_fdtd": 0,
-    "new_rcwa": 0,
-    "ml": 0
-  },
+  "stage_status": "PLANNING_AND_SETUP_ONLY_BEFORE_BENCHMARK",
+  "planned_geometry_count": 8,
+  "initial_geometry_ids": [
+    "ANISO_A01",
+    "ANISO_A02",
+    "ANISO_A03",
+    "ANISO_A04"
+  ],
+  "conditional_geometry_ids": [
+    "ANISO_A05",
+    "ANISO_A06",
+    "ANISO_A07",
+    "ANISO_A08"
+  ],
+  "prepared_cases": [
+    "ANISO_A01_x",
+    "ANISO_A01_y"
+  ],
+  "solver_run_called": false,
   "solver_entered_cases": 0,
   "active_fdtd": 0,
   "ready_for_auto_admission": 0,
-  "hidden_pending_admission": false,
-  "next_authority": "USER_EXPLICIT_BENCHMARK_AUTHORIZATION_REQUIRED"
+  "hidden_pending_auto_admission": false,
+  "next_minimum_authority": "USER_EXPLICIT_BENCHMARK_AUTHORIZATION_REQUIRED",
+  "truth_metrics_available": false,
+  "no_new_solver_truth_artifacts": true
 }
