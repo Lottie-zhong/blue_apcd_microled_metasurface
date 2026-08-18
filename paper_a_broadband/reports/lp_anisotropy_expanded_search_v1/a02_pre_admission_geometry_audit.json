@@ -1,0 +1,175 @@
+{
+  "schema": "PAPER_A_ANISO_A02_INDEPENDENT_GEOMETRY_AUDIT_V1",
+  "canonical_geometry_id": "ANISO_A02",
+  "source_doe_sha256": "38e14641dad5a681dac109eefdf2458a3980a86857482d6e6e2d9e841a44ee0e",
+  "exact_geometry": {
+    "L1_nm": 195.5,
+    "W1_nm": 114.99999999999999,
+    "L2_nm": 206.99999999999997,
+    "W2_nm": 76.5,
+    "j1_center_x_nm": 0.0,
+    "j1_center_y_nm": 106.0,
+    "j2_center_x_nm": 0.0,
+    "j2_center_y_nm": -106.0,
+    "j1_rotation_deg": 0.0,
+    "j2_rotation_deg": 65.0,
+    "D_nm": 212.0,
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0,
+    "height_nm": 525.0
+  },
+  "vertices_nm": {
+    "pillar_1": [
+      [
+        "-97.75",
+        "48.500000000000005"
+      ],
+      [
+        "97.75",
+        "48.500000000000005"
+      ],
+      [
+        "97.75",
+        "163.499999999999995"
+      ],
+      [
+        "-97.75",
+        "163.499999999999995"
+      ]
+    ],
+    "pillar_2": [
+      [
+        "-9.0747172360105242120507084472",
+        "-215.968004469875011035139321653"
+      ],
+      [
+        "78.4072629443142464001059866889",
+        "-28.3622925532884958331645328047"
+      ],
+      [
+        "9.0747172360105242120507084472",
+        "3.96800446987501103513932165335"
+      ],
+      [
+        "-78.4072629443142464001059866889",
+        "-183.637707446711504166835467195"
+      ]
+    ]
+  },
+  "canonical_validity_reconstruction": {
+    "source_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_anisotropy_bootstrap_v1.py",
+    "source_sha256": "074198f4516505c3f07cd29282249260b4bb4d090c8ef235aa03d33df285c7ac",
+    "validity_function_line_start": 74,
+    "validity_function_line_end": 99,
+    "cell_boundary_convention": "x,y in [-P/2,+P/2]; boundary clearance is included in the canonical aggregate min_edge_gap_nm",
+    "pair_translation_convention": "periodic shifts tx,ty in {-P,0,+P}",
+    "minimum_same_cell_pair_gap_nm": "44.5319955301249939648606783467",
+    "minimum_direct_distinct_periodic_pair_gap_nm": "52.5319955301249939648606783467",
+    "minimum_cell_boundary_clearance_nm": "0.031995530124988964860678346652",
+    "minimum_aggregate_value_nm": "0.031995530124988964860678346652"
+  },
+  "periodic_seam": {
+    "boundary_record": {
+      "object": "pillar_2",
+      "vertex_index": 0,
+      "boundary": "bottom",
+      "clearance_nm": "0.031995530124988964860678346652",
+      "point_nm": [
+        "-9.0747172360105242120507084472",
+        "-215.968004469875011035139321653"
+      ]
+    },
+    "boundary_to_boundary_same_object_seam_gap_nm": "0.063991060249977929721356693304",
+    "object": "pillar_2",
+    "copy_translation_nm": [
+      "0.0",
+      "432.0"
+    ],
+    "original_point_nm": [
+      "-9.0747172360105242120507084472",
+      "-215.968004469875011035139321653"
+    ],
+    "periodic_copy_point_nm": [
+      "-9.0747172360105242120507084472",
+      "216.031995530124988964860678347"
+    ]
+  },
+  "interpretation": {
+    "reported_canonical_min_edge_gap_nm": 0.03199553012498768,
+    "reported_value_definition": "aggregate of polygon pair distances and cell-boundary clearances; field name is not a pure pillar-to-pillar edge gap",
+    "reported_value_source": "pillar_2 vertex 2 to bottom cell boundary y=-216 nm",
+    "reported_pair_is_same_cell": false,
+    "reported_pair_is_periodic_image": false,
+    "independent_same_cell_pillar_pair_gap_nm": "44.5319955301249939648606783467",
+    "independent_periodic_seam_gap_nm": "0.063991060249977929721356693304",
+    "classification": "REPORTING_DEFINITION_ARTIFACT_REVEALS_GENUINE_PERIODIC_SEAM_NEAR_CONTACT",
+    "pre_admission_status": "PRE_ADMISSION_GEOMETRY_RISK"
+  },
+  "topology": {
+    "same_cell_polygon_intersection": false,
+    "mathematical_non_overlap": true,
+    "two_distinct_pillar_objects_in_builder": true,
+    "a02_child_fsp_exists": false,
+    "canonical_fsp_topology_evidence": "No A02 child FSP exists; topology is established from the canonical two-object builder model, not from an instantiated A02 FSP.",
+    "periodic_tiling_near_contact": true
+  },
+  "authoritative_rules_scan": {
+    "current_paper_a": [],
+    "historical_upstream_noncurrent": [
+      {
+        "path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_ml1\\lp_ml1a4_explicit_geometry_seed_generator.py",
+        "line": 107,
+        "text": "    if bbox_clearance(p1, p2) < 20:",
+        "classification": "historical LP-ML-specific rule; not current Paper A anisotropy authority"
+      },
+      {
+        "path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_ml1\\lp_ml1a4_explicit_geometry_seed_generator.py",
+        "line": 108,
+        "text": "        return False, \"conservative_bbox_clearance_below_20nm\"",
+        "classification": "historical LP-ML-specific rule; not current Paper A anisotropy authority"
+      },
+      {
+        "path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_ml1\\lp_ml1a4_explicit_geometry_seed_generator.py",
+        "line": 305,
+        "text": "no_overlap_rule: rotated rectangles must not overlap; conservative bbox clearance >= 20 nm",
+        "classification": "historical LP-ML-specific rule; not current Paper A anisotropy authority"
+      },
+      {
+        "path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_ml1\\lp_ml1a_seed_manifest_dryrun.py",
+        "line": 75,
+        "text": "    if g[\"gap_or_dx_nm\"] < 20: return False, \"minimum_gap_below_20nm_no_overlap\"",
+        "classification": "historical LP-ML-specific rule; not current Paper A anisotropy authority"
+      },
+      {
+        "path": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\scripts\\lp_ml1\\lp_ml1a_seed_manifest_dryrun.py",
+        "line": 124,
+        "text": "minimum_gap_no_overlap_rule: minimum gap >= 20 nm; no-overlap required before LP-ML1B",
+        "classification": "historical LP-ML-specific rule; not current Paper A anisotropy authority"
+      }
+    ]
+  },
+  "git_snapshot": {
+    "branch": "work/paper-a-lp-cp-broadband-v1",
+    "head": "be4624f88f538cb30b1e33bf2f3670f021bda9df"
+  },
+  "authoritative_rules_summary": {
+    "current_paper_a_hard_minimum_gap_nm_found": false,
+    "historical_upstream_noncurrent_20nm_rules_found": true,
+    "note": "No hard minimum-gap or mesh-separability threshold exists in the current Paper A anisotropy authority. Historical LP-ML rules mention 20 nm but are not current Paper A authority and were not imported."
+  },
+  "safety_invariants": {
+    "DOE_changed": false,
+    "new_fdtd_budget": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "active_fdtd": 0,
+    "rcwa": 0,
+    "ml": 0,
+    "ready_pending_hidden_auto_admission": 0
+  },
+  "decision": {
+    "status": "PRE_ADMISSION_GEOMETRY_RISK",
+    "benchmark_admission_safe": false,
+    "reason": "Periodic seam clearance is 0.06399106024997536 nm, with 0.03199553012498768 nm boundary margin; do not authorize A02 benchmark entry without scientific decision."
+  }
+}
