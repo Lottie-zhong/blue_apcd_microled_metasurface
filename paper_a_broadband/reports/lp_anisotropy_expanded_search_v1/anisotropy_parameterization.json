@@ -1,0 +1,85 @@
+{
+  "schema": "PAPER_A_BROADBAND_LP_ANISOTROPY_PARAMETERIZATION_V1",
+  "stage": "PAPER_A_BROADBAND_LP_ANISOTROPY_EXPANDED_SEARCH_V1",
+  "backbone": {
+    "candidate": "BW2_J1J2_D194_T90_PSI99_H525",
+    "cp_source_csv": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\references\\cp\\stage10_cp_bw2_candidate_geometry.csv",
+    "exact_cp_values": {
+      "period_x_nm": 431.907786,
+      "period_y_nm": 432.0,
+      "height_nm": 525.0,
+      "J1_L_nm": 230.0,
+      "J1_W_nm": 100.0,
+      "J2_L_nm": 180.0,
+      "J2_W_nm": 90.0,
+      "J1_rotation_deg": -9.0,
+      "J2_rotation_deg": 36.0,
+      "relative_rotation_deg": 45.0,
+      "D_nm": 194.0
+    },
+    "frozen_lp_projection": {
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0,
+      "theta1_deg": 0.0,
+      "theta2_deg": "delta_theta",
+      "note": "existing LP plane-wave template projection; global common rotation redundancy not supported by H1E3A audit and no seventh DOF is introduced"
+    }
+  },
+  "variables": [
+    "a1",
+    "b1",
+    "a2",
+    "b2",
+    "delta_theta_deg",
+    "D_nm"
+  ],
+  "formulae": {
+    "L1_nm": "a1*230.0",
+    "W1_nm": "b1*100.0",
+    "L2_nm": "a2*180.0",
+    "W2_nm": "b2*90.0"
+  },
+  "axis_free": true,
+  "no_fixed_x_target": true,
+  "stokes_contract": "C_in=0.5I; C_out=0.5 J J^H; DoLP=sqrt(S1^2+S2^2)/S0; psi=0.5 atan2(S2,S1) modulo-pi unwrap; P_LP_axisfree=0.5*(S0+sqrt(S1^2+S2^2))",
+  "rotation_audit": {
+    "route_decision": "J1_ROTATION_PROJECTOR_RISK_DOMINANT",
+    "common_phase_lever": false,
+    "minimum_treatment": "theta1=0, theta2=delta_theta; no global-angle expansion"
+  },
+  "source_monitor": {
+    "source_span_nm": [
+      430.0,
+      470.0
+    ],
+    "formal_window_nm": [
+      435.0,
+      465.0
+    ],
+    "formal_points": 31,
+    "spacing_nm": 1.0,
+    "anchor_nm": 450.0
+  },
+  "solver_policy": {
+    "max_geometries": 8,
+    "max_fdt_jobs": 16,
+    "max_active_paper_a_fdtd": 2,
+    "jobs_per_geometry": 2,
+    "mpi_processes": 4,
+    "threads": 1,
+    "global_fdtd_cap": 3,
+    "np_coupling_higher_priority": true,
+    "entered_true_no_replay": true
+  },
+  "solver_entered": false,
+  "stage_status": "PLANNING_AND_SETUP_ONLY_BEFORE_BENCHMARK",
+  "execution_authority_current": {
+    "new_fdtd_budget": 0,
+    "new_rcwa_budget": 0,
+    "ml": 0,
+    "active_fdtd_allowed": 0,
+    "ready_for_auto_admission": 0,
+    "future_planned_max_active_paper_a_fdtd": 2,
+    "requires_future_user_benchmark_authorization": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "PAPER_A_BROADBAND_LP_ANISOTROPY_GATE_PREREGISTRATION_V1",
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "axis_free": true,
+  "MDC_weighted_final_pass": {
+    "DoLP_min": 0.8,
+    "P_LP_axisfree_min": 0.35,
+    "MDC_FWHM_psi_span_deg_max": 10.0,
+    "preferred_MDC_FWHM_DoLP_worst_min": 0.7,
+    "circular_contamination": "must not dominate purity"
+  },
+  "promising": {
+    "DoLP_min": 0.6,
+    "P_LP_axisfree_min": 0.25,
+    "MDC_FWHM_psi_span_deg_max": 30.0,
+    "relative_to_previous": "clear spectral-state improvement"
+  },
+  "midpoint": {
+    "after": "A01-A04 / 8 physical cases",
+    "continue_if": [
+      "PROMISING_ANISOTROPY_SEED",
+      "ANISOTROPY_DIRECTIONAL_TREND_PRESENT"
+    ],
+    "otherwise": "EARLY_STOP_NO_DIRECTION"
+  },
+  "no_single_point_selection": true,
+  "no_solver_truth_available": true
+}
