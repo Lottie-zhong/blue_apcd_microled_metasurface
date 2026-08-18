@@ -1,0 +1,73 @@
+{
+  "created_after_package_pin": true,
+  "created_utc": "2026-08-18T16:13:22.729986+00:00",
+  "decision_stability_gate": {
+    "at_risk": "0.5-<1",
+    "decision_changing": ">=1",
+    "freeze_before_new_HF": true,
+    "ratio": "E_ALT1 + E_CONTROL0 divided by Delta_candidate; common-provider equivalent E/Delta_candidate",
+    "stable": "<0.5"
+  },
+  "exact_identities_frozen_here": false,
+  "exact_wavelength_contract_nm": [
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455
+  ],
+  "forbidden": [
+    "Transformer",
+    "GNN",
+    "FNO",
+    "large CNN",
+    "hyperparameter sweep"
+  ],
+  "future_model_priority": [
+    "raw RCWA",
+    "local/global bias",
+    "affine calibration",
+    "Ridge residual",
+    "compact residual MLP only if simple methods fail"
+  ],
+  "geometry_strategy": {
+    "ALT1": "PROMOTED_INTEGRATED_CANDIDATE",
+    "CONTROL0": "FROZEN_CONTROL_REFERENCE"
+  },
+  "missing_data_policy": "formal unavailable != zero importance; encode MDC_IMPORTANCE=UNKNOWN; no interpolation, extrapolation, symmetry fill, nearest-neighbor fill, or uniform fill",
+  "model_or_calibration_target": "RCWA angular baseline + sparse FDTD calibration",
+  "numeric_promotion_threshold": "not frozen beyond the preregistered 0.5 decision-stability gate; no post-hoc threshold changes",
+  "package_pin_id": "NP_CONSUMED_COUPLING_B_TERMINAL_PACKAGE_PIN_V1",
+  "package_pin_sha256": "b0ecfdc647f4718b57583c80186d8fbf959f6077347636f7b791d5d96700096e",
+  "polarization_policy": "P/S explicit; no P/S averaging or substitution",
+  "preregistration_id": "NP_K6_M10_COUPLING_RELEVANT_ANGULAR_HF_SELECTION_PREREG_V1",
+  "selection_dimensions": [
+    "MDC angular importance",
+    "RCWA angular gradient",
+    "P/S divergence",
+    "CONTROL0 vs ALT1 separation",
+    "order redistribution",
+    "expected Level1-to-Level2 risk",
+    "existing HF novelty",
+    "solver information-per-cost"
+  ],
+  "solver_policy": {
+    "BFAST": 0,
+    "FDTD": 0,
+    "ML_training": 0,
+    "RCWA": 0,
+    "TMM": 0,
+    "external_HF": 0,
+    "inverse": 0,
+    "new_HF": 0,
+    "replay": 0
+  },
+  "source_scope": "EXPLORATORY_ONLY; Level-1 provider evidence, not Level-2 integrated truth",
+  "u_x_policy": "exact signed package identity only; no +/-u_x substitution"
+}

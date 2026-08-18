@@ -1,0 +1,24 @@
+{
+  "categories": {
+    "DECISION_AT_RISK": "0.5 <= ratio < 1",
+    "DECISION_STABLE": "ratio < 0.5",
+    "PROVIDER_ERROR_DECISION_CHANGING": "ratio >= 1"
+  },
+  "created_before_new_HF": true,
+  "created_utc": "2026-08-18T16:13:22.729986+00:00",
+  "formula": "Delta_candidate=abs(Y_ALT1-Y_CONTROL0); safe if E_ALT1+E_CONTROL0 < Delta_candidate; common E equivalent E/Delta_candidate < 0.5",
+  "metrics": [
+    "eta(+1)",
+    "T",
+    "MDC-weighted objective"
+  ],
+  "package_provider_error_classification": "PROVIDER_ERROR_POTENTIALLY_DECISION_CHANGING",
+  "package_ratios": {
+    "450_T": 179616.09155428826,
+    "450_eta_plus1": 331750.4071499914,
+    "broadband_T": 378158.4276756399,
+    "broadband_eta_plus1": 574977.5694903398
+  },
+  "post_hf_truth": "not available; no decision promotion is made now",
+  "prereg_id": "NP_M10_DECISION_STABILITY_GATE_PREREG_V1"
+}
