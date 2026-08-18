@@ -1,0 +1,407 @@
+{
+  "schema": "PAPER_A_BROADBAND_LP_INITIAL_DOE_V1",
+  "scope": "new CP-inspired axis-free LP geometry search",
+  "solver_calls": 0,
+  "geometry_budget": {
+    "initial_max_geometries": 6,
+    "max_fdt_jobs_initial": 12,
+    "max_active_fdt": 2
+  },
+  "lp_physics": {
+    "material_contract": [
+      "APCD_GAN_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ],
+    "period_nm": [
+      432.0,
+      432.0
+    ],
+    "source_span_nm": [
+      430.0,
+      470.0
+    ],
+    "formal_grid_nm": [
+      435.0,
+      465.0
+    ],
+    "formal_spacing_nm": 1.0,
+    "formal_points": 31,
+    "anchor_nm": 450.0,
+    "mcd_main_fwhm_nm": [
+      438.409,
+      457.191
+    ],
+    "input_basis": [
+      "x",
+      "y"
+    ],
+    "normalization_renormalization": false
+  },
+  "backbone": {
+    "source": "CP frozen champion BW2_J1J2_D194_T90_PSI99_H525",
+    "source_geometry_file": "references/cp/stage10_cp_bw2_candidate_geometry.csv",
+    "projection_rule": "Use exact CP lateral dimensions, height, centers, and rotations in the LP plane-wave parent FSP; retain LP fixed period 432x432 nm and Native-M1 plane-wave source/monitor contract.",
+    "no_old_lp_candidate_bank": true
+  },
+  "space_filling": {
+    "method": "scipy.stats.qmc.Sobol",
+    "scramble": false,
+    "seed": 0,
+    "dimension_order": [
+      "height_nm",
+      "j1_length_nm",
+      "j1_width_nm",
+      "j2_length_nm",
+      "j2_width_nm",
+      "separation_nm",
+      "j1_rotation_deg",
+      "j2_rotation_deg"
+    ],
+    "accepted_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "bounds": {
+      "height_nm": [
+        500.0,
+        550.0
+      ],
+      "j1_length_nm": [
+        210.0,
+        240.0
+      ],
+      "j1_width_nm": [
+        90.0,
+        110.0
+      ],
+      "j2_length_nm": [
+        165.0,
+        195.0
+      ],
+      "j2_width_nm": [
+        80.0,
+        100.0
+      ],
+      "separation_nm": [
+        184.0,
+        204.0
+      ],
+      "j1_rotation_deg": [
+        -18.0,
+        0.0
+      ],
+      "j2_rotation_deg": [
+        24.0,
+        48.0
+      ]
+    },
+    "rounding": {
+      "length_nm": 3,
+      "angle_deg": 3
+    }
+  },
+  "geometry_roles": {
+    "CP_LIKE_ANCHOR": "CP champion projected into LP plane-wave period/material contract; J1=(230x100) nm at (0,+97) nm, rot=-9 deg; J2=(180x90) nm at (0,-97) nm, rot=36 deg; H=525 nm.",
+    "LINEAR_ALIGNED_ANCHOR": "Same CP-like dimensions, height and centers, with both pillar rotations set to 0 deg; this is a new-scope control, not a historical candidate.",
+    "SOBOL_SPACE_FILLING": "Four fixed points only, generated before any solver result is available."
+  },
+  "ranking": {
+    "axis_free": true,
+    "qualification_excludes": [
+      "phase",
+      "K6",
+      "fixed_x_fidelity",
+      "S1_positive_hard_gate",
+      "old_rescue_ranking"
+    ],
+    "final_pass": {
+      "weighted_dolp_min": 0.8,
+      "weighted_useful_lp_min": 0.35,
+      "mdc_fwhm_psi_span_deg_max": 10.0,
+      "preferred_worst_dolp_min": 0.7
+    },
+    "promising": {
+      "weighted_dolp_min": 0.65,
+      "weighted_useful_lp_min": 0.3,
+      "mdc_fwhm_psi_span_deg_max": 15.0
+    }
+  },
+  "execution": {
+    "waves": "sequential_geometry_boundary",
+    "wave_1": [
+      "LPBROAD_G001_x",
+      "LPBROAD_G001_y"
+    ],
+    "dispatch_next_wave_only_after": [
+      "x/y postprocess",
+      "axis-free metric audit",
+      "shared scheduler recheck"
+    ],
+    "entered_true_no_auto_replay": true,
+    "high_priority_yield_at_case_boundary": true
+  },
+  "geometries": [
+    {
+      "geometry_id": "LPBROAD_G001",
+      "role": "CP_LIKE_ANCHOR",
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0,
+      "height_nm": 525.0,
+      "j1_length_nm": 230.0,
+      "j1_width_nm": 100.0,
+      "j2_length_nm": 180.0,
+      "j2_width_nm": 90.0,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 97.0,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -97.0,
+      "j1_rotation_deg": -9.0,
+      "j2_rotation_deg": 36.0,
+      "material": "APCD_TIO2_NATIVE_M1",
+      "source_provenance": {
+        "type": "frozen_cp_champion_projected",
+        "candidate": "BW2_J1J2_D194_T90_PSI99_H525"
+      },
+      "geometry_hash_sha256": "88ca4b12724d0c9e61d8ad29fb370eaaa89672229ff8ad288b3bfacaacb09360",
+      "cases": [
+        {
+          "case_id": "LPBROAD_G001_x",
+          "polarization": "x",
+          "source_polarization_angle_deg": 0.0
+        },
+        {
+          "case_id": "LPBROAD_G001_y",
+          "polarization": "y",
+          "source_polarization_angle_deg": 90.0
+        }
+      ]
+    },
+    {
+      "geometry_id": "LPBROAD_G002",
+      "role": "LINEAR_ALIGNED_ANCHOR",
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0,
+      "height_nm": 525.0,
+      "j1_length_nm": 230.0,
+      "j1_width_nm": 100.0,
+      "j2_length_nm": 180.0,
+      "j2_width_nm": 90.0,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 97.0,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -97.0,
+      "j1_rotation_deg": 0.0,
+      "j2_rotation_deg": 0.0,
+      "material": "APCD_TIO2_NATIVE_M1",
+      "source_provenance": {
+        "type": "new_scope_linear_control",
+        "parent": "LPBROAD_G001"
+      },
+      "geometry_hash_sha256": "29b4049110a5d549c6493e13262465813396e66a1debc94af5d8e6a2347c94e0",
+      "cases": [
+        {
+          "case_id": "LPBROAD_G002_x",
+          "polarization": "x",
+          "source_polarization_angle_deg": 0.0
+        },
+        {
+          "case_id": "LPBROAD_G002_y",
+          "polarization": "y",
+          "source_polarization_angle_deg": 90.0
+        }
+      ]
+    },
+    {
+      "geometry_id": "LPBROAD_G003",
+      "role": "SOBOL_SPACE_FILLING",
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0,
+      "height_nm": 518.75,
+      "j1_length_nm": 221.25,
+      "j1_width_nm": 102.5,
+      "j2_length_nm": 191.25,
+      "j2_width_nm": 87.5,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 93.25,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -93.25,
+      "j1_rotation_deg": -11.25,
+      "j2_rotation_deg": 45.0,
+      "material": "APCD_TIO2_NATIVE_M1",
+      "source_provenance": {
+        "type": "deterministic_sobol",
+        "scramble": false,
+        "seed": 0,
+        "sobol_index": 4,
+        "unit_point": [
+          0.375,
+          0.375,
+          0.625,
+          0.875,
+          0.375,
+          0.125,
+          0.375,
+          0.875
+        ]
+      },
+      "geometry_hash_sha256": "b12571e9df086cd63e8eb2374b4726663446b2bb8ece32170e03438ba70c7954",
+      "cases": [
+        {
+          "case_id": "LPBROAD_G003_x",
+          "polarization": "x",
+          "source_polarization_angle_deg": 0.0
+        },
+        {
+          "case_id": "LPBROAD_G003_y",
+          "polarization": "y",
+          "source_polarization_angle_deg": 90.0
+        }
+      ]
+    },
+    {
+      "geometry_id": "LPBROAD_G004",
+      "role": "SOBOL_SPACE_FILLING",
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0,
+      "height_nm": 543.75,
+      "j1_length_nm": 236.25,
+      "j1_width_nm": 92.5,
+      "j2_length_nm": 176.25,
+      "j2_width_nm": 97.5,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 98.25,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -98.25,
+      "j1_rotation_deg": -2.25,
+      "j2_rotation_deg": 33.0,
+      "material": "APCD_TIO2_NATIVE_M1",
+      "source_provenance": {
+        "type": "deterministic_sobol",
+        "scramble": false,
+        "seed": 0,
+        "sobol_index": 5,
+        "unit_point": [
+          0.875,
+          0.875,
+          0.125,
+          0.375,
+          0.875,
+          0.625,
+          0.875,
+          0.375
+        ]
+      },
+      "geometry_hash_sha256": "46ac4331feec80fd8674f0c02538408e8650bfcf481260d7c8ac3d024ca361c0",
+      "cases": [
+        {
+          "case_id": "LPBROAD_G004_x",
+          "polarization": "x",
+          "source_polarization_angle_deg": 0.0
+        },
+        {
+          "case_id": "LPBROAD_G004_y",
+          "polarization": "y",
+          "source_polarization_angle_deg": 90.0
+        }
+      ]
+    },
+    {
+      "geometry_id": "LPBROAD_G005",
+      "role": "SOBOL_SPACE_FILLING",
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0,
+      "height_nm": 531.25,
+      "j1_length_nm": 213.75,
+      "j1_width_nm": 107.5,
+      "j2_length_nm": 183.75,
+      "j2_width_nm": 92.5,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 100.75,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -100.75,
+      "j1_rotation_deg": -15.75,
+      "j2_rotation_deg": 27.0,
+      "material": "APCD_TIO2_NATIVE_M1",
+      "source_provenance": {
+        "type": "deterministic_sobol",
+        "scramble": false,
+        "seed": 0,
+        "sobol_index": 6,
+        "unit_point": [
+          0.625,
+          0.125,
+          0.875,
+          0.625,
+          0.625,
+          0.875,
+          0.125,
+          0.125
+        ]
+      },
+      "geometry_hash_sha256": "96b151a1a6adde29af285bd6b2d4eb7cf66e95bdf61e5ad560be341617cfeb99",
+      "cases": [
+        {
+          "case_id": "LPBROAD_G005_x",
+          "polarization": "x",
+          "source_polarization_angle_deg": 0.0
+        },
+        {
+          "case_id": "LPBROAD_G005_y",
+          "polarization": "y",
+          "source_polarization_angle_deg": 90.0
+        }
+      ]
+    },
+    {
+      "geometry_id": "LPBROAD_G006",
+      "role": "SOBOL_SPACE_FILLING",
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0,
+      "height_nm": 506.25,
+      "j1_length_nm": 228.75,
+      "j1_width_nm": 97.5,
+      "j2_length_nm": 168.75,
+      "j2_width_nm": 82.5,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 95.75,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -95.75,
+      "j1_rotation_deg": -6.75,
+      "j2_rotation_deg": 39.0,
+      "material": "APCD_TIO2_NATIVE_M1",
+      "source_provenance": {
+        "type": "deterministic_sobol",
+        "scramble": false,
+        "seed": 0,
+        "sobol_index": 7,
+        "unit_point": [
+          0.125,
+          0.625,
+          0.375,
+          0.125,
+          0.125,
+          0.375,
+          0.625,
+          0.625
+        ]
+      },
+      "geometry_hash_sha256": "9922c506d9e8dbc398a03e3693dc0f0c9ceddac84130ec183a56fb62c4e93eb4",
+      "cases": [
+        {
+          "case_id": "LPBROAD_G006_x",
+          "polarization": "x",
+          "source_polarization_angle_deg": 0.0
+        },
+        {
+          "case_id": "LPBROAD_G006_y",
+          "polarization": "y",
+          "source_polarization_angle_deg": 90.0
+        }
+      ]
+    }
+  ],
+  "freeze_sha256": "e2e42ab130b0ac3b006e7b2243e7304eaa60c9bbc4a49b05eab905c8140e0ebe"
+}

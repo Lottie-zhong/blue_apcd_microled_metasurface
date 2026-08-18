@@ -1,0 +1,65 @@
+{
+  "schema": "PAPER_A_LP_NEW_GEOMETRY_SEARCH_PREFLIGHT_V1",
+  "timestamp_utc": "2026-08-18T14:55:15.790602+00:00",
+  "status": "PASS",
+  "solver_entered": false,
+  "solver_run_called": false,
+  "material_validity": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\outputs\\material_reference\\mdc_blue_oujizi_m\\material_ref_native_sampled.csv",
+    "exists": true,
+    "models": {
+      "sio222": {
+        "min_nm": 199.97450000000003,
+        "max_nm": 1033.2015000000001,
+        "covers_430_470": true
+      },
+      "tio22": {
+        "min_nm": 199.97450000000003,
+        "max_nm": 1033.2015000000001,
+        "covers_430_470": true
+      },
+      "gan": {
+        "min_nm": null,
+        "max_nm": null,
+        "covers_430_470": false
+      }
+    },
+    "required_models_in_lp_parent": [
+      "sio222",
+      "tio22"
+    ],
+    "unused_native_model_in_parent": "gan",
+    "pass": true
+  },
+  "source_content_contract": {
+    "source_span_nm": [
+      430.0,
+      470.0
+    ],
+    "formal_window_nm": [
+      435.0,
+      465.0
+    ],
+    "formal_points": 31,
+    "reliable_amplitude_boundary_margin": true
+  },
+  "monitor_extractor_contract": {
+    "native_points": 41,
+    "formal_points": 31,
+    "spacing_nm": 1.0,
+    "formal_subset_indices": [
+      5,
+      35
+    ]
+  },
+  "mesh_boundary_contract": "parent LP FDTD mesh and boundaries unchanged; geometry-only object edits",
+  "normalization_contract": "existing complex weighted field normalization; no historical-window renormalization",
+  "scheduler_contract": {
+    "global_cap": 3,
+    "max_active_fdt": 2,
+    "processes": 4,
+    "threads": 1
+  },
+  "doe_freeze_sha256": "e2e42ab130b0ac3b006e7b2243e7304eaa60c9bbc4a49b05eab905c8140e0ebe",
+  "old_candidate_bank_used": false
+}

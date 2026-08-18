@@ -117,7 +117,7 @@ def _classify_solver_type(cmdline):
     # contain Lumerical/FDTD-named controller processes and MPI engines.
     if "blue_apcd_mdc_np_coupling_v1" in text or "np_level1_s_ux" in text or "coupling" in text or "rcwa" in text:
         return "RCWA"
-    if "blue_apcd_np" in text or "blue_apcd_lp_global_h_manifold_v1" in text or "\\lp_global_h" in text:
+    if "blue_apcd_paper_a_lp_cp_broadband_v1" in text or "blue_apcd_np" in text or "blue_apcd_lp_global_h_manifold_v1" in text or "\\lp_global_h" in text:
         return "FDTD"
     return "UNKNOWN"
 

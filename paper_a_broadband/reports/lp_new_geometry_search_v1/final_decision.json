@@ -1,0 +1,75 @@
+{
+  "schema": "PAPER_A_BROADBAND_LP_NEW_GEOMETRY_SEARCH_FINAL_V1",
+  "status": "PAPER_A_BROADBAND_LP_NEW_GEOMETRY_SEARCH_STOPPED_NO_STABLE_BASIN",
+  "stage_status": "PASS",
+  "solver_budget": {
+    "initial_geometries": 6,
+    "entered_cases": 12,
+    "max_initial_cases": 12,
+    "local_refinement_cases": 0,
+    "additional_solver_after_initial_doe": 0
+  },
+  "contract": {
+    "formal_range_nm": [
+      435.0,
+      465.0
+    ],
+    "formal_points": 31,
+    "source_span_nm": [
+      430.0,
+      470.0
+    ],
+    "axis_free": true,
+    "MDC_weighting": "ZL-1 alternative r12_normalized_output relative shape",
+    "phase_used_for_qualification": false,
+    "K6_used": false,
+    "old_candidate_bank_used": false
+  },
+  "geometry_ids": [
+    "LPBROAD_G001",
+    "LPBROAD_G002",
+    "LPBROAD_G003",
+    "LPBROAD_G004",
+    "LPBROAD_G005",
+    "LPBROAD_G006"
+  ],
+  "ranking_rule": "final_pass, promising, MDC-FWHM worst DoLP, MDC-weighted DoLP, MDC-weighted useful LP power, then psi span; no composite score",
+  "candidate_count": 6,
+  "final_pass_count": 0,
+  "promising_count": 0,
+  "top_ranked_geometry": "LPBROAD_G006",
+  "ranked_geometry_ids": [
+    "LPBROAD_G006",
+    "LPBROAD_G005",
+    "LPBROAD_G002",
+    "LPBROAD_G003",
+    "LPBROAD_G004",
+    "LPBROAD_G001"
+  ],
+  "recovery_notes": [
+    {
+      "case_id": "LPBROAD_G004_x",
+      "recovered_from_returned_run_fsp": true,
+      "solver_replay": false,
+      "extraction_diagnostics": {
+        "native_negative_transmission_outside_formal": [
+          {
+            "wavelength_nm": 434.0,
+            "value": -0.6332404018248586
+          }
+        ],
+        "formal_negative_transmission": []
+      }
+    }
+  ],
+  "scheduler_snapshot": {
+    "timestamp_utc": "2026-08-18T15:00:09.733686+00:00",
+    "global_active_jobs": 0,
+    "active_fdtd_jobs": 0,
+    "active_rcwa_jobs": 0,
+    "unknown_solver_jobs": 0,
+    "jobs": []
+  },
+  "head": "af5c6e3276bf2c414ff59d86ddbac229081e785f",
+  "doe_freeze_sha256": "e2e42ab130b0ac3b006e7b2243e7304eaa60c9bbc4a49b05eab905c8140e0ebe"
+}
