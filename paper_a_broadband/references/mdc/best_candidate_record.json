@@ -1,0 +1,269 @@
+{
+  "fdtd_settings": {
+    "R12_half_size_nm": 12,
+    "angular_convention": "air-side far-field angle; 0 deg normal",
+    "autoshutoff": 1e-07,
+    "dimension": "2D x-y",
+    "dipole_definitions": {
+      "x": "theta=90 deg, phi=0 deg",
+      "z": "theta=0 deg, phi=0 deg"
+    },
+    "dipole_position_nm": {
+      "x": 0,
+      "y": -400
+    },
+    "global_dx_nm": 20,
+    "invariant_axis": "z",
+    "monitor": {
+      "name": "upward_monitor",
+      "position": "stack top + 300 nm in Air",
+      "x_span_um": 6
+    },
+    "normalization_method": "fixed_physical_r12nm_box",
+    "simulation_time_fs": 900,
+    "source_local_dx_dy_nm": 1,
+    "stack_dy_nm": 2,
+    "stack_entrance_y_nm": 0,
+    "stack_normal": "+y",
+    "wavelength_points": 301,
+    "wavelength_range_nm": [
+      420,
+      480
+    ],
+    "x_span_um": 8
+  },
+  "frozen_metrics": {
+    "R12_output_FWHM_nm": 18.782086773076742,
+    "T448": 0.01965072974633289,
+    "T450": 0.017386044501296605,
+    "T453": 0.011283546422812978,
+    "angular_FWHM_450_nm_deg": 23.592442404409894,
+    "benchmark_28nm_weighted_FWHM_nm": 13.26125576194596,
+    "cone10_450_nm": 0.6323566897531674,
+    "edge_stability": 0.37475386995454546,
+    "integrated_R12_normalized_power_420_480": 0.5631879138975083,
+    "output_peak_nm": 447.8
+  },
+  "geometry": {
+    "added_defect_thickness_nm": 237.0,
+    "effective_center_defect_thickness_nm": 316.0,
+    "exact_layer_sequence": "H44 L79 H44 L79 H44 L316 H44 L79 H44 L79 H44 L79",
+    "layer_count": 12,
+    "layers": [
+      {
+        "canonical_material_id": "APCD_TIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 44.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 1,
+        "material_token": "H",
+        "physical_thickness_nm": 44.0,
+        "role": "mirror; GaN-side termination"
+      },
+      {
+        "canonical_material_id": "APCD_SIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 123.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 2,
+        "material_token": "L",
+        "physical_thickness_nm": 79.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_TIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 167.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 3,
+        "material_token": "H",
+        "physical_thickness_nm": 44.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_SIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 246.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 4,
+        "material_token": "L",
+        "physical_thickness_nm": 79.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_TIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 290.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 5,
+        "material_token": "H",
+        "physical_thickness_nm": 44.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_SIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 606.0,
+        "is_defect_region": true,
+        "layer_index_GaN_to_Air": 6,
+        "material_token": "L",
+        "physical_thickness_nm": 316.0,
+        "role": "defect"
+      },
+      {
+        "canonical_material_id": "APCD_TIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 650.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 7,
+        "material_token": "H",
+        "physical_thickness_nm": 44.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_SIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 729.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 8,
+        "material_token": "L",
+        "physical_thickness_nm": 79.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_TIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 773.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 9,
+        "material_token": "H",
+        "physical_thickness_nm": 44.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_SIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 852.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 10,
+        "material_token": "L",
+        "physical_thickness_nm": 79.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_TIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 896.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 11,
+        "material_token": "H",
+        "physical_thickness_nm": 44.0,
+        "role": "mirror"
+      },
+      {
+        "canonical_material_id": "APCD_SIO2_NATIVE_M1",
+        "cumulative_thickness_nm": 975.0,
+        "is_defect_region": false,
+        "layer_index_GaN_to_Air": 12,
+        "material_token": "L",
+        "physical_thickness_nm": 79.0,
+        "role": "mirror; Air-side termination"
+      }
+    ],
+    "propagation_direction": "GaN -> compiled stack -> Air",
+    "total_physical_thickness_nm": 975.0
+  },
+  "identity": {
+    "branch": "mdc_defect_450_top_filter",
+    "candidate_source": "frozen P1 asymmetric static manifest",
+    "formal_candidate_name": "ZL-1 alternative",
+    "frozen_commit": "40dedf4098fa0ca19e0e5f0e3395e73fb4949c53",
+    "geometry_hash": "c38694d6f162c04322ae8a87def91622d4fd4f272e4ec286e85acc978f74d888",
+    "sequence_hash": "07a8ecbcb195f5620d693d95fb485c416395b380d1cb60b1e76aac0ef0127730",
+    "stage_label": "alternative_best_angle_power_tradeoff",
+    "stage_status": "native_m1_2d_dipole_device_closure_pass",
+    "structure_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+    "topology": "ZL-1",
+    "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450"
+  },
+  "materials": [
+    {
+      "covers_440_460": true,
+      "fallback": false,
+      "k_450": 0.08415346869326513,
+      "material_hash": "4780b085a2a5a0424fbcc7f67da21cb5cd164e54296342920aec42c6dde46207",
+      "material_id": "APCD_GAN_NATIVE_M1",
+      "n_450": 2.414946476353578,
+      "registration": "register_lumerical_sampled_material(apply_display_style=True)",
+      "sample_count": 500,
+      "source_fsp": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+      "source_fsp_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f",
+      "source_identity": "sampled material GaN from frozen project FSP",
+      "source_material_name": "GaN",
+      "wavelength_max_nm": 991.87,
+      "wavelength_min_nm": 130.50999999999996
+    },
+    {
+      "covers_440_460": true,
+      "fallback": false,
+      "material_hash": "dbc71df5ef07dbb266c3d7d05a39c20e50ce69202167c1631707b114f5ee1762",
+      "material_id": "APCD_TIO2_NATIVE_M1",
+      "registration": "register_lumerical_sampled_material(apply_display_style=True)",
+      "sample_count": 101,
+      "source_fsp": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+      "source_fsp_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f",
+      "source_identity": "sampled material tio22 from frozen project FSP",
+      "source_material_name": "tio22",
+      "wavelength_max_nm": 1033.2015000000001,
+      "wavelength_min_nm": 199.97450000000003
+    },
+    {
+      "covers_440_460": true,
+      "fallback": false,
+      "material_hash": "dce2bad1135214ae15c863b0a08c49d853b6dc2e7a11d59a6dd5621f15b149dd",
+      "material_id": "APCD_SIO2_NATIVE_M1",
+      "registration": "register_lumerical_sampled_material(apply_display_style=True)",
+      "sample_count": 101,
+      "source_fsp": "F:\\wc_312\\MDC_blue_oujizi_m\\m_1.fsp",
+      "source_fsp_sha256": "d7511bb92154152d5050d7ae664cb5b281ad3794a280129008359353b357e26f",
+      "source_identity": "sampled material sio222 from frozen project FSP",
+      "source_material_name": "sio222",
+      "wavelength_max_nm": 1033.2015000000001,
+      "wavelength_min_nm": 199.97450000000003
+    }
+  ],
+  "runtime": {
+    "x": {
+      "result_json": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_x_attempt1_20260715_114631.json",
+      "result_npz": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_x_attempt1_20260715_114631.npz",
+      "runtime_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_x_attempt1_20260715_114631.fsp",
+      "runtime_fsp_exists": true,
+      "runtime_fsp_sha256": "227b0e2a484c2d3077fb4f8cc42bfaa0f504d9527903af832d916935a1c49b57",
+      "solver_log": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_x_attempt1_20260715_114631_p0.log",
+      "solver_log_exists": true,
+      "solver_log_sha256": "e862dbb5adc4d5670f724bb7598a16172149416a084ab4ce861483afb904aa09"
+    },
+    "z": {
+      "result_json": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_z_attempt1_20260715_114710.json",
+      "result_npz": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_z_attempt1_20260715_114710.npz",
+      "runtime_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_z_attempt1_20260715_114710.fsp",
+      "runtime_fsp_exists": true,
+      "runtime_fsp_sha256": "2c77edef55141e345fba7f273ac9db48e5944bdad4edc0d4de2bbdcc04fc84f8",
+      "solver_log": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\runtime\\mdc_native_m1_2d_dipole_device_comparison_v1\\b420_zl1_alternative_z_attempt1_20260715_114710_p0.log",
+      "solver_log_exists": true,
+      "solver_log_sha256": "06f98f04bf56602a13a4e3efa02e154c7dba6d3065b11b195091c123f4f415df"
+    }
+  },
+  "tmm_settings": {
+    "TE_admittance": "Y_TE=kz/k0",
+    "TM_admittance": "Y_TM=n^2/(kz/k0)",
+    "angle_convention": "air_side_far_field_conserved_real_kx_v1",
+    "angular_FWHM_deg": 14.996580473442913,
+    "angular_grid_deg": [
+      -60,
+      60,
+      1
+    ],
+    "complex_GaN_branch_policy": "forward passive branch: Im(kz)>=0; if Im(kz)=0 then Re(kz)>=0",
+    "gan_representation": "native_m1_raw_table",
+    "normal_to_40_60_ratio": 45.66660483135923,
+    "peak_angle_set_deg": [
+      0.0
+    ],
+    "spectral_FWHM_nm": 3.3000000000007503,
+    "spectral_grid_nm": [
+      420,
+      480,
+      0.1
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "candidate_geometry_authority": "references/cp/champion_geometry.json",
+  "mode": "LOAD_INSPECT_ONLY",
+  "prepared_fsp": "paper_a_broadband/runtime/reusable_fsp/cp/CP_NATIVE_M1_CENTER_XY_setup_prepared_not_run.fsp",
+  "readback": {
+    "GaN_material": "APCD_GAN_NATIVE_M1",
+    "center_dimer": {
+      "J1_dimensions_nm": [
+        230.0,
+        100.0,
+        525.0
+      ],
+      "J1_rotation_deg": -9.0,
+      "J1_y_nm": 97.0,
+      "J2_dimensions_nm": [
+        180.0,
+        90.0,
+        525.0
+      ],
+      "J2_rotation_deg": 36.0,
+      "J2_y_nm": -97.0,
+      "center_separation_nm": 194.0,
+      "pillar_material": "APCD_TIO2_NATIVE_M1"
+    },
+    "container_label_note": "The inherited parent container name includes D195, while direct child readback yields 194 nm center separation. The exact candidate geometry authority is the copied D194/PSI99 source CSV and canonical geometry JSON; the parent container label is non-authoritative provenance metadata.",
+    "dipole_center_nm": [
+      0.0,
+      0.0,
+      -200.0
+    ],
+    "objects": [
+      "FDTD",
+      "GaN continuous block",
+      "21-dimer 7x3 group",
+      "center x/y dipoles",
+      "top field/power monitors"
+    ]
+  },
+  "schema": "PAPER_A_CP_CHAMPION_FSP_LOAD_INSPECT_V1",
+  "solver_run_called": false
+}

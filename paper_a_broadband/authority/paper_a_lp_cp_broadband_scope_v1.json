@@ -1,0 +1,67 @@
+{
+  "CP_inspired_LP_hypothesis": "The CP current-Native broadband result supports the existence of an APCD dimer geometry basin with spectrally stable polarization state. The new LP search targets a stable LINEAR state in the MDC main spectrum.",
+  "legacy_material_policy": "NON_PRODUCTION_REFERENCE_ONLY under references/legacy",
+  "modules": {
+    "CP": {
+      "L_fraction_gt_0_5_throughout": true,
+      "MDC_weighted": {
+        "DoCP": -0.519328,
+        "L_fraction": 0.759664
+      },
+      "anchor_450nm": {
+        "DoCP_RminusL": -0.50282,
+        "L_fraction": 0.75141
+      },
+      "basis": "E_R=(E_x-iE_y)/sqrt(2); E_L=(E_x+iE_y)/sqrt(2); x/y independent sources combined incoherently",
+      "candidate": "BW2_J1J2_D194_T90_PSI99_H525",
+      "formal_window_nm": [
+        420,
+        480
+      ],
+      "handedness_flip": false,
+      "min_L_fraction": 0.70589,
+      "min_wavelength_nm_approximately": 479.616,
+      "role": "frozen current-Native broadband positive reference",
+      "verdict": "CP_NATIVE_M1_BROADBAND_L_PRESERVED"
+    },
+    "LP": {
+      "coverage": "emphasize MDC real main spectrum",
+      "failed_controls_reference_only": [
+        "H1C1B_V2_009",
+        "H1C1B_V2_010",
+        "H1C1B_V2_015",
+        "GLOBAL_018",
+        "H1C1B_V2_012"
+      ],
+      "objective": [
+        "high DoLP",
+        "spectrally stable linear axis psi",
+        "low dominant-Jones-channel drift",
+        "useful power",
+        "no broadband DoLP collapse"
+      ],
+      "role": "new CP-inspired broadband axis-free linear-polarization geometry search",
+      "target_axis": "axis-free; psi != 0 degrees allowed if stable"
+    }
+  },
+  "new_scientific_goal": "current-Native broadband polarization-state engineering for conditioned blue MicroLED emission",
+  "not_objectives": [
+    "six-phase reachability",
+    "60 degree phase bins",
+    "K6 composition",
+    "beam steering",
+    "LP-K6",
+    "grouped-D",
+    "J1 rescue",
+    "phase coverage",
+    "old historical rescue ranking"
+  ],
+  "production_materials": [
+    "APCD_GAN_NATIVE_M1",
+    "APCD_TIO2_NATIVE_M1",
+    "APCD_SIO2_NATIVE_M1"
+  ],
+  "schema": "PAPER_A_LP_CP_BROADBAND_SCOPE_V1",
+  "scope_execution_rule": "No new solver was run during bootstrap; new DOE is preregistered only.",
+  "status": "BOOTSTRAPPED_ZERO_SOLVER"
+}

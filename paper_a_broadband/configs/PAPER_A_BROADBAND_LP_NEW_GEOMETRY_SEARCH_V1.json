@@ -1,0 +1,95 @@
+{
+  "DOE_contract": {
+    "RCWA": "not qualified for full-Jones rescue screening",
+    "case_basis": "each geometry requires independent x/y FDTD cases",
+    "entry_requires": "explicit future user solver authorization plus shared scheduler admission",
+    "max_active_FDTD": 2,
+    "promotion_provider": "current-Native-M1 FDTD only"
+  },
+  "geometry_parameterization": {
+    "axis_constraint": "none; output linear angle psi is evaluated, not pre-fixed",
+    "excluded_controls": [
+      "H1C1B_V2_009",
+      "H1C1B_V2_010",
+      "H1C1B_V2_015",
+      "GLOBAL_018",
+      "H1C1B_V2_012"
+    ],
+    "fixed_reference_period_nm": [
+      432,
+      432
+    ],
+    "topology": "two APCD TiO2 pillars per periodic unit cell",
+    "variables": [
+      "J1 length/width",
+      "J2 length/width",
+      "common or independent pillar height",
+      "J1/J2 rotations",
+      "dimer displacement components"
+    ]
+  },
+  "metrics": {
+    "diagnostics": [
+      "Stokes S0/S1/S2/S3",
+      "rank-one error",
+      "dominant-Jones-channel drift",
+      "MDC-weighted incoherent coherency integration"
+    ],
+    "not_qualification": [
+      "phase",
+      "K6",
+      "six-phase reachability",
+      "beam steering",
+      "old historical rescue ranking"
+    ],
+    "primary": [
+      "worst-case viability over 435-465",
+      "DoLP mean/worst and collapse detection",
+      "linear axis psi continuity/stability modulo 180 deg",
+      "dominant singular-output vector stability",
+      "useful polarized power mean/worst",
+      "leakage mean/worst"
+    ]
+  },
+  "not_executed": true,
+  "schema": "PAPER_A_BROADBAND_LP_NEW_GEOMETRY_SEARCH_V1",
+  "scientific_hypothesis": "CP current-Native evidence indicates a broadband polarization-state-stable dimer basin. Search for a dominant output LINEAR state stable over MDC main spectrum; target axis is free (psi need not equal 0 degrees).",
+  "solver_calls_this_bootstrap": 0,
+  "source_contract": {
+    "Jones": "real independent x/y, no reciprocity fill",
+    "LP_formal_window_nm": [
+      435,
+      465
+    ],
+    "LP_grid_nm": 1,
+    "LP_source_monitor_minimum_nm": [
+      430,
+      470
+    ],
+    "MDC_main_FWHM_nm": [
+      438.409,
+      457.191
+    ],
+    "MDC_weighting": "ZL-1 alternative r12_normalized_output relative spectral probability; not absolute LEE",
+    "coherency": "C_out=0.5 J J_dagger",
+    "input_basis": [
+      "x",
+      "y"
+    ],
+    "materials": [
+      "APCD_GAN_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ]
+  },
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "stop_loss": {
+    "do_not_expand_geometry_space_automatically": true,
+    "stop_and_report_if": [
+      "Native-M1 material validity conflict",
+      "entered case would require replay",
+      "shared scheduler or high-priority resource conflict",
+      "no candidate passes preregistered stability gates after authorized budget"
+    ]
+  }
+}

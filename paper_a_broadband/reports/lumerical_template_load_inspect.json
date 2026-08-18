@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "mode": "LOAD_INSPECT_ONLY",
+  "solver_run_called": false,
+  "results": {
+    "LP": {
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\reusable_fsp\\lp\\P1_LP_H1C1B_V2_009_Px_attempt_006_pre.fsp",
+      "object_count": 6,
+      "required_objects": [
+        "::model::FDTD::",
+        "::model::pillar_1",
+        "::model::pillar_2",
+        "::model::source",
+        "::model::T",
+        "::model::field_monitor"
+      ],
+      "pass": true
+    },
+    "CP": {
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\reusable_fsp\\cp\\CP_NATIVE_M1_CENTER_XY_setup_prepared_not_run.fsp",
+      "object_count": 7,
+      "required_objects": [
+        "::model::FDTD::",
+        "::model::GaN_continuous_block_zprop_extends_into_bottom_PML",
+        "::model::route_b2_x_dipole_zprop",
+        "::model::route_b2_y_dipole_zprop",
+        "::model::top_field_monitor_zprop",
+        "::model::top_power_monitor_zprop"
+      ],
+      "pass": true
+    }
+  }
+}

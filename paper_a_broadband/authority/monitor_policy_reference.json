@@ -1,0 +1,11 @@
+{
+  "canonical_runtime_directory": "paper_a_broadband/runtime/monitor",
+  "future_search_requirement": "use shared global scheduler/controller policy; do not fork monitor or scheduler truth",
+  "internal_sampling_interval_seconds": 600,
+  "max_active_monitors_per_task": 1,
+  "monitor_permissions": "read-only; cannot claim slots, dispatch, start/replay/kill solvers, or modify FSP/physics/scheduler",
+  "schema": "APCD_DURABLE_MONITOR_POLICY_REFERENCE_V2",
+  "scope": "reference_only; bootstrap starts no durable process",
+  "shared_authority": true,
+  "visible_status_policy": "APCD_VISIBLE_STATUS_THROTTLE_V1; real transition immediately, otherwise no more than every 1800 seconds; monitor itself is file-only"
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "PAPER_A_LP_BRANCH_FINAL_FREEZE_2026_08_17",
+  "status": "FROZEN_NOT_PROMOTED",
+  "created_utc": "2026-08-17T12:56:19.656098+00:00",
+  "solver_budget": 0,
+  "rcwa": 0,
+  "ml": 0,
+  "new_geometry_search": 0,
+  "intrinsic_verdict": "PAPER_A_GATE_A_FAIL_LP_BROADBAND_INSUFFICIENT",
+  "source_weighted_verdict": "PAPER_A_GATE_A_PRIME_FAIL_LP_ROUTE_FREEZE",
+  "current_paper_a_scope_status": "FROZEN_NOT_PROMOTED",
+  "candidates": [
+    "H1C1B_V2_009",
+    "H1C1B_V2_015",
+    "H1C1B_V2_010"
+  ],
+  "frozen_physics": {
+    "material": "current Native-M1",
+    "lp_window_nm": [
+      435,
+      465
+    ],
+    "formal_spacing_nm": 1,
+    "formal_points": 31,
+    "real_xy_solver_jobs": 6,
+    "intrinsic_gate_failed": true,
+    "mdc_source_weighted_gate_failed": true,
+    "failure_location": "MDC main energy range, not only remote spectral edges",
+    "bottleneck": "POLARIZATION_STATE_SPECTRAL_INSTABILITY",
+    "not_primary_bottleneck": "THROUGHPUT_ONLY_FAILURE"
+  },
+  "quantitative_evidence": {
+    "source_weighted_effective_center_nm": 448.0361598049741,
+    "source_weighted_effective_sigma_nm": 7.443727597936834,
+    "source_weight_overlap_fraction_435_465": 0.6334683148416894,
+    "candidates": {
+      "H1C1B_V2_009": {
+        "source_weighted_DoLP": 0.36999675577550056,
+        "source_weighted_useful_LP_power": 0.3811697288724078,
+        "source_weighted_target_x_fidelity": 0.6849505481810916,
+        "source_weighted_leakage_fraction": 0.31504945181890825,
+        "MDC_FWHM_DoLP": 0.4258386185715674,
+        "MDC_FWHM_state_flip_detected": true
+      },
+      "H1C1B_V2_015": {
+        "source_weighted_DoLP": 0.31700121951197613,
+        "source_weighted_useful_LP_power": 0.4418973165513354,
+        "source_weighted_target_x_fidelity": 0.6584777032284771,
+        "source_weighted_leakage_fraction": 0.34152229677152324,
+        "MDC_FWHM_DoLP": 0.4177868538530601,
+        "MDC_FWHM_state_flip_detected": true
+      },
+      "H1C1B_V2_010": {
+        "source_weighted_DoLP": 0.37772811055512595,
+        "source_weighted_useful_LP_power": 0.3972754829592868,
+        "source_weighted_target_x_fidelity": 0.6886024765656105,
+        "source_weighted_leakage_fraction": 0.31139752343438987,
+        "MDC_FWHM_DoLP": 0.4651752129571084,
+        "MDC_FWHM_state_flip_detected": true
+      }
+    }
+  },
+  "primary": null,
+  "runner_up": null,
+  "automatic_continuation": "PERMANENTLY_DISABLED_UNLESS_NEW_SCOPE_EXPLICITLY_AUTHORIZED",
+  "prohibited_without_new_scope": [
+    "new geometry search",
+    "LP-ML",
+    "inverse design",
+    "K6",
+    "six-phase",
+    "grouped-D",
+    "J1 rescue",
+    "angular sweep",
+    "integrated dipole closure",
+    "fabrication sweep",
+    "additional spectral solver",
+    "Native-M1 CP solver"
+  ],
+  "cp_assets": "FROZEN_AND_RETAINED_NOT_STARTED",
+  "gate_history_artifact": "D:\\project\\worktrees\\blue_apcd_lp_global_h_manifold_v1\\reports\\stage_paper_a_lp_p1_native_wideband_435_465\\paper_a_lp_gate_history.json"
+}
