@@ -1,0 +1,59 @@
+{
+  "stage": "PAPER_A_CP_CURRENT_NATIVE_BROADBAND_REVALIDATION_V1",
+  "audit_status": "PASS",
+  "zero_solver": true,
+  "solver_entered_count": 2,
+  "postprocess": {
+    "full_spectra_rows": 909,
+    "metrics_rows": 18,
+    "weighted_rows": 9,
+    "native_grid_points": 101,
+    "cones_deg": [
+      5.0,
+      10.0,
+      20.0
+    ]
+  },
+  "artifacts": {
+    "cp_native_m1_full_spectra.csv": {
+      "path": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a\\reports\\stage_paper_a_cp_current_native_broadband_revalidation_v1\\cp_native_m1_full_spectra.csv",
+      "sha256": "40750c565e5b6bd50f6bfc772c34dd4c285da09bb573a22581cb9c8e1902ebda",
+      "size_bytes": 317181
+    },
+    "cp_native_m1_broadband_metrics.csv": {
+      "path": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a\\reports\\stage_paper_a_cp_current_native_broadband_revalidation_v1\\cp_native_m1_broadband_metrics.csv",
+      "sha256": "f73428426e2edadd0fab9eb847ac953ce3ce2d738119ea1e5524ff58eb5958b6",
+      "size_bytes": 10076
+    },
+    "cp_native_m1_mdc_weighted_metrics.csv": {
+      "path": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a\\reports\\stage_paper_a_cp_current_native_broadband_revalidation_v1\\cp_native_m1_mdc_weighted_metrics.csv",
+      "sha256": "5b746222346fc814bf1df2c540782a690648e1b48073b7aeb8664447277bbd6b",
+      "size_bytes": 1873
+    },
+    "cp_native_m1_zero_solver_closeout.json": {
+      "path": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a\\reports\\stage_paper_a_cp_current_native_broadband_revalidation_v1\\cp_native_m1_zero_solver_closeout.json",
+      "sha256": "25421030bb605f68c973c8b98420ea58fde1e5b10b8605505a760ec2dcd53dcd",
+      "size_bytes": 54535
+    },
+    "report.md": {
+      "path": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a\\reports\\stage_paper_a_cp_current_native_broadband_revalidation_v1\\report.md",
+      "sha256": "b57cacaf81ba7d07bf43ff96d8313640507b5ef7be2e61fdc7ddff1dd2d4ed8b",
+      "size_bytes": 2137
+    },
+    "controller_state.json": {
+      "path": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a\\reports\\stage_paper_a_cp_current_native_broadband_revalidation_v1\\controller_state.json",
+      "sha256": "42c40e3d8cdb36af5d86a6efde526340174850998aefd94383e2c2d3021d7aaa",
+      "size_bytes": 611
+    }
+  },
+  "contract_checks": {
+    "native_m1": true,
+    "source_monitor_400_500": true,
+    "formal_420_480": true,
+    "incoherent_xy": true,
+    "circular_basis": true,
+    "mdc_read_only": true,
+    "no_new_solver": true
+  },
+  "mdc_weighting_correction": "ZL-1 alternative r12_normalized_output; prior bare weighting superseded"
+}
