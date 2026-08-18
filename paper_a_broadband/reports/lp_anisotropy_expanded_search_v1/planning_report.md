@@ -27,3 +27,8 @@ Paper A future FDTD admission requires Chart authorization, benchmark release, a
 ## A02 pre-admission geometry risk
 
 The reported `0.03199553012498768 nm` is the aggregate validity field's minimum cell-boundary clearance: pillar_2 vertex 2 is `0.03199553012498768 nm` above the lower periodic boundary. The same-cell pillar_1/pillar_2 gap is `44.5319955301249939648606783467 nm`; the implied pillar_2 periodic seam gap is `0.063991060249977929721356693304 nm`. A02 is mathematically non-overlapping but not benchmark-safe because of periodic seam near-contact. DOE unchanged; no replacement applied; solver authority remains zero. See `D:\project\worktrees\blue_apcd_paper_a_lp_cp_broadband_v1\paper_a_broadband\reports\lp_anisotropy_expanded_search_v1\a02_pre_admission_geometry_audit.json`.
+
+
+## A02 pre-admission geometry risk
+
+The reported `0.03199553012498768 nm` is the aggregate validity field's minimum cell-boundary clearance: pillar_2 vertex 2 is `0.03199553012498768 nm` above the lower periodic boundary. The same-cell pillar_1/pillar_2 gap is `44.5319955301249939648606783467 nm`; the implied pillar_2 periodic seam gap is `0.063991060249977929721356693304 nm`. A02 is mathematically non-overlapping but not benchmark-safe because of periodic seam near-contact. DOE unchanged; no replacement applied; solver authority remains zero. See `D:\project\worktrees\blue_apcd_paper_a_lp_cp_broadband_v1\paper_a_broadband\reports\lp_anisotropy_expanded_search_v1\a02_pre_admission_geometry_audit.json`.
