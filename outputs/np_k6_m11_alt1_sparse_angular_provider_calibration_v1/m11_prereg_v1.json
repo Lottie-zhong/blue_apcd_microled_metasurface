@@ -1,0 +1,43 @@
+{
+  "authority": "exact 55 rows; 5 logical cases x 11 wavelengths; HF truth only; P/S explicit",
+  "created_utc": "2026-08-19T13:29:09.115782+00:00",
+  "cv": "leave-one-logical-case-out; fold-local fit; no wavelength leakage",
+  "excluded": [
+    "+0.224 P unresolved",
+    "-0.482 stress-only",
+    "-0.9549788465408765 not provider claim"
+  ],
+  "id": "NP_K6_M11_SPARSE_ANGULAR_CALIBRATION_PREREG_V1",
+  "models": [
+    "RAW_RCWA",
+    "GLOBAL_BIAS",
+    "POLARIZATION_CONDITIONAL_BIAS",
+    "AFFINE_CALIBRATION",
+    "RIDGE_RESIDUAL"
+  ],
+  "outputs": [
+    "R",
+    "T",
+    "eta_plus1",
+    "eta_0",
+    "eta_minus1"
+  ],
+  "ridge_alpha": 1e-06,
+  "ridge_features": [
+    "intercept",
+    "u_x",
+    "wavelength_scaled",
+    "polarization_encoding",
+    "raw_RCWA_output"
+  ],
+  "schema": "NP_K6_M11_SPARSE_ANGULAR_CALIBRATION_PREREG_V1",
+  "selection": "simplest model within 5 percent of best grouped OOF full metric",
+  "solver_budget": {
+    "BFAST": 0,
+    "FDTD": 0,
+    "RCWA": 0,
+    "TMM": 0,
+    "external_HF": 0,
+    "inverse": 0
+  }
+}
