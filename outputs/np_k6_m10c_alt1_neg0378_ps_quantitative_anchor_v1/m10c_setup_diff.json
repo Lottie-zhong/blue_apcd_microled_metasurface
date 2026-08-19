@@ -1,0 +1,16 @@
+{
+  "schema": "NP_K6_M10C_SETUP_OBJECT_LEVEL_DIFF_V1",
+  "baseline": "TRANSMISSION_BALANCED_K6X.fsp",
+  "allowed_case_changes": [
+    "source angle theta set to exact negative ux replacement node",
+    "P/S polarization angle explicitly set to 0/90 degrees",
+    "formal 5 nm mesh override retained/added for M10C production-equivalent core",
+    "FDTD mesh accuracy set to 4",
+    "simulation time set to 3 ps",
+    "monitor/reference/order contracts retained"
+  ],
+  "unexpected_differences": [],
+  "solver_entered": 0,
+  "setup_only_audit": true,
+  "note": "This is an object-contract audit; actual grid equality is established only by the two authorized post-FSP runs."
+}

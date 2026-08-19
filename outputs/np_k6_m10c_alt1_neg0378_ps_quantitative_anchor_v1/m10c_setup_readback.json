@@ -1,0 +1,384 @@
+{
+  "all_contract_checks_pass": true,
+  "records": [
+    {
+      "case_id": "NP_K6_M10C_ALT1_UX_M0d378689399989_P_XLIKE",
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m10c_alt1_neg0378_ps_quantitative_anchor_v1\\runtime_prefsp\\NP_K6_M10C_ALT1_UX_M0d378689399989_P_XLIKE.fsp",
+      "polarization": "P_XLIKE",
+      "readback": {
+        "all_checks_pass": true,
+        "case_id": "NP_K6_M10C_ALT1_UX_M0d378689399989_P_XLIKE",
+        "checks": {
+          "auto_shutoff_production_1e5": true,
+          "exact_445_455": true,
+          "geometry_hash_label": "00a951a831619fe0a34b5ffd5c58545282e2236d79190bd9d2d3961dd856f7b1",
+          "height_500nm": true,
+          "mesh_5nm": true,
+          "mesh_accuracy_4": true,
+          "mesh_bounds": true,
+          "monitor_contract": true,
+          "native_materials": true,
+          "ordered_diameters_match": true,
+          "ordered_x_match": true,
+          "periodic_xy": true,
+          "pillar_y_zero": true,
+          "pml_z": true,
+          "simulation_time_3ps": true,
+          "source_k_y_zero": true,
+          "source_ux_exact": true
+        },
+        "polarization": "P_XLIKE",
+        "post_reload_sha256": "ca8c74d457011d18697e98c4035f54bb0b57c0a2557cbbfe8fad9d0bf109df56",
+        "readback": {
+          "FDTD": {
+            "auto shutoff min": 1e-05,
+            "mesh accuracy": 4.0,
+            "mesh refinement": "conformal variant 0",
+            "pml layers": 8.0,
+            "simulation time": 3e-12,
+            "x max": 8.7e-07,
+            "x max bc": "Periodic",
+            "x min": -8.7e-07,
+            "x min bc": "Periodic",
+            "y max": 1.45e-07,
+            "y max bc": "Periodic",
+            "y min": -1.45e-07,
+            "y min bc": "Periodic",
+            "z max": 1.2e-06,
+            "z max bc": "PML",
+            "z min": -6e-07,
+            "z min bc": "PML"
+          },
+          "geometry": [
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_0",
+              "radius": 5.0000000000000004e-08,
+              "x": -7.25e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_1",
+              "radius": 5.7500000000000005e-08,
+              "x": -4.35e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_2",
+              "radius": 6.5e-08,
+              "x": -1.4500000000000001e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_3",
+              "radius": 7.250000000000001e-08,
+              "x": 1.4500000000000001e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_4",
+              "radius": 7.75e-08,
+              "x": 4.35e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_5",
+              "radius": 9.25e-08,
+              "x": 7.25e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            }
+          ],
+          "materials": {
+            "APCD_SIO2_NATIVE_M1": {
+              "type": {
+                "error": "LumApiError(\"In getnamed, no items matching the name 'APCD_SIO2_NATIVE_M1' can be found\")"
+              }
+            },
+            "APCD_TIO2_NATIVE_M1": {
+              "type": {
+                "error": "LumApiError(\"In getnamed, no items matching the name 'APCD_TIO2_NATIVE_M1' can be found\")"
+              }
+            }
+          },
+          "mesh": {
+            "dx": 5e-09,
+            "dy": 5e-09,
+            "dz": 5e-09,
+            "enabled": 1.0,
+            "override x mesh": 1.0,
+            "override y mesh": 1.0,
+            "override z mesh": 1.0,
+            "x": 0.0,
+            "x max": 8.7e-07,
+            "x min": -8.7e-07,
+            "x span": 1.74e-06,
+            "y": 0.0,
+            "y max": 1.45e-07,
+            "y min": -1.45e-07,
+            "y span": 2.9e-07,
+            "z": 2.5e-07,
+            "z max": 6e-07,
+            "z min": -1e-07,
+            "z span": 7e-07
+          },
+          "monitors": {
+            "field_450_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": 9e-07
+            },
+            "order_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": 9e-07
+            },
+            "reflection_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": -3e-07
+            },
+            "transmission_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": 9e-07
+            }
+          },
+          "source": {
+            "angle phi": 0.0,
+            "angle theta": -22.252524680424486,
+            "direction": "Forward",
+            "injection axis": "z-axis",
+            "polarization angle": 0.0,
+            "wavelength start": 4.45e-07,
+            "wavelength stop": 4.55e-07,
+            "x span": 1.74e-06,
+            "y span": 2.9e-07,
+            "z": -2.5e-07
+          }
+        },
+        "run_invocation_count": 0,
+        "setup_only": true,
+        "sha_stable": true,
+        "solver_entered": false,
+        "theta_air_deg": -22.252524680424486,
+        "u_x_exact": -0.3786893999886029
+      },
+      "sha256": "ca8c74d457011d18697e98c4035f54bb0b57c0a2557cbbfe8fad9d0bf109df56"
+    },
+    {
+      "case_id": "NP_K6_M10C_ALT1_UX_M0d378689399989_S_YLIKE",
+      "path": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_m10c_alt1_neg0378_ps_quantitative_anchor_v1\\runtime_prefsp\\NP_K6_M10C_ALT1_UX_M0d378689399989_S_YLIKE.fsp",
+      "polarization": "S_YLIKE",
+      "readback": {
+        "all_checks_pass": true,
+        "case_id": "NP_K6_M10C_ALT1_UX_M0d378689399989_S_YLIKE",
+        "checks": {
+          "auto_shutoff_production_1e5": true,
+          "exact_445_455": true,
+          "geometry_hash_label": "00a951a831619fe0a34b5ffd5c58545282e2236d79190bd9d2d3961dd856f7b1",
+          "height_500nm": true,
+          "mesh_5nm": true,
+          "mesh_accuracy_4": true,
+          "mesh_bounds": true,
+          "monitor_contract": true,
+          "native_materials": true,
+          "ordered_diameters_match": true,
+          "ordered_x_match": true,
+          "periodic_xy": true,
+          "pillar_y_zero": true,
+          "pml_z": true,
+          "simulation_time_3ps": true,
+          "source_k_y_zero": true,
+          "source_ux_exact": true
+        },
+        "polarization": "S_YLIKE",
+        "post_reload_sha256": "780b253835c4554bca0b7c56ba94eb41c83e1cb427b9d7d4dbe02534efe54e9e",
+        "readback": {
+          "FDTD": {
+            "auto shutoff min": 1e-05,
+            "mesh accuracy": 4.0,
+            "mesh refinement": "conformal variant 0",
+            "pml layers": 8.0,
+            "simulation time": 3e-12,
+            "x max": 8.7e-07,
+            "x max bc": "Periodic",
+            "x min": -8.7e-07,
+            "x min bc": "Periodic",
+            "y max": 1.45e-07,
+            "y max bc": "Periodic",
+            "y min": -1.45e-07,
+            "y min bc": "Periodic",
+            "z max": 1.2e-06,
+            "z max bc": "PML",
+            "z min": -6e-07,
+            "z min bc": "PML"
+          },
+          "geometry": [
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_0",
+              "radius": 5.0000000000000004e-08,
+              "x": -7.25e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_1",
+              "radius": 5.7500000000000005e-08,
+              "x": -4.35e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_2",
+              "radius": 6.5e-08,
+              "x": -1.4500000000000001e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_3",
+              "radius": 7.250000000000001e-08,
+              "x": 1.4500000000000001e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_4",
+              "radius": 7.75e-08,
+              "x": 4.35e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            },
+            {
+              "material": "APCD_TIO2_NATIVE_M1",
+              "name": "TiO2_pillar_5",
+              "radius": 9.25e-08,
+              "x": 7.25e-07,
+              "y": 0.0,
+              "z max": 5e-07,
+              "z min": 0.0
+            }
+          ],
+          "materials": {
+            "APCD_SIO2_NATIVE_M1": {
+              "type": {
+                "error": "LumApiError(\"In getnamed, no items matching the name 'APCD_SIO2_NATIVE_M1' can be found\")"
+              }
+            },
+            "APCD_TIO2_NATIVE_M1": {
+              "type": {
+                "error": "LumApiError(\"In getnamed, no items matching the name 'APCD_TIO2_NATIVE_M1' can be found\")"
+              }
+            }
+          },
+          "mesh": {
+            "dx": 5e-09,
+            "dy": 5e-09,
+            "dz": 5e-09,
+            "enabled": 1.0,
+            "override x mesh": 1.0,
+            "override y mesh": 1.0,
+            "override z mesh": 1.0,
+            "x": 0.0,
+            "x max": 8.7e-07,
+            "x min": -8.7e-07,
+            "x span": 1.74e-06,
+            "y": 0.0,
+            "y max": 1.45e-07,
+            "y min": -1.45e-07,
+            "y span": 2.9e-07,
+            "z": 2.5e-07,
+            "z max": 6e-07,
+            "z min": -1e-07,
+            "z span": 7e-07
+          },
+          "monitors": {
+            "field_450_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": 9e-07
+            },
+            "order_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": 9e-07
+            },
+            "reflection_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": -3e-07
+            },
+            "transmission_monitor": {
+              "frequency points": 11.0,
+              "monitor type": "2D Z-normal",
+              "x span": 1.74e-06,
+              "y span": 2.9e-07,
+              "z": 9e-07
+            }
+          },
+          "source": {
+            "angle phi": 0.0,
+            "angle theta": -22.252524680424486,
+            "direction": "Forward",
+            "injection axis": "z-axis",
+            "polarization angle": 90.0,
+            "wavelength start": 4.45e-07,
+            "wavelength stop": 4.55e-07,
+            "x span": 1.74e-06,
+            "y span": 2.9e-07,
+            "z": -2.5e-07
+          }
+        },
+        "run_invocation_count": 0,
+        "setup_only": true,
+        "sha_stable": true,
+        "solver_entered": false,
+        "theta_air_deg": -22.252524680424486,
+        "u_x_exact": -0.3786893999886029
+      },
+      "sha256": "780b253835c4554bca0b7c56ba94eb41c83e1cb427b9d7d4dbe02534efe54e9e"
+    }
+  ],
+  "setup_reload_pass": true
+}
