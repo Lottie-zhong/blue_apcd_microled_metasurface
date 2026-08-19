@@ -1,0 +1,27 @@
+{
+  "causal_attribution_claim": false,
+  "classification_allowed_set": [
+    "A_RAYLEIGH_GRAZING_ORDER_NUMERICAL_RISK_CONFIRMED",
+    "B_PROPAGATING_ORDER_SCHEMA_INCOMPLETE",
+    "C_SPATIAL_MESH_CONTRACT_DEVIATION",
+    "D_PML_GRAZING_ORDER_RISK_DOMINANT",
+    "E_REFERENCE_PLANE_NEAR_CUTOFF_RISK",
+    "F_MULTIPLE_SPATIAL_GRAZING_EFFECTS_PLAUSIBLE",
+    "G_NO_CUTOFF_RELATION_FOUND_OTHER_NUMERICAL_CAUSE_REQUIRED"
+  ],
+  "confidence": "MEDIUM",
+  "contradicting_evidence": [
+    "no exact propagating-to-evanescent crossing occurs inside 445-455 nm",
+    "the m=-2 air-at-450 hypothesis is false; formal kx/k0=-1.2058279957277418",
+    "closure-versus-distance correlations are weak/non-monotonic",
+    "+0.37868939998860307 P/S have a smaller nearest air cutoff distance yet low closure residuals"
+  ],
+  "primary_classification": "F_MULTIPLE_SPATIAL_GRAZING_EFFECTS_PLAUSIBLE",
+  "secondary_interpretation": "NO_CLEAR_CUTOFF_CAUSALITY; OTHER_BOUNDARY_OR_MONITOR_NUMERICS_REQUIRED",
+  "supporting_evidence": [
+    "air m=-1 is near cutoff across 445-455 nm and substrate m=-3 is weakly evanescent near cutoff",
+    "near-cutoff longitudinal scale makes PML/reference-plane sensitivity plausible",
+    "attempt001 lacks the frozen 5 nm core mesh readback; attempt002 matches the 5 nm spatial contract",
+    "PML and reference-plane audits retain MEDIUM risk because no boundary-flux ledger was saved"
+  ]
+}
