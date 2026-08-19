@@ -1,0 +1,15 @@
+from __future__ import annotations
+import hashlib,json
+from pathlib import Path
+ROOT=Path(r'D:\project\worktrees\blue_apcd_np_k6_mdc_v1'); OUT=ROOT/'outputs'/'np_k6_m10b_serial_execution_v1'; checks=[]
+def check(name,ok): checks.append({'name':name,'pass':bool(ok)})
+def sha(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(1<<20),b''):h.update(b)
+ return h.hexdigest()
+contract=json.loads((OUT/'m10b_setup_contract.json').read_text(encoding='utf-8'))
+check('resource_policy',contract.get('resource_policy')=='APCD_GLOBAL_FDTD_PRODUCTION_RESOURCE_POLICY_V4'); check('scheduler_policy',contract.get('scheduling_policy')=='APCD_GLOBAL_FDTD_SCHEDULING_POLICY_V3'); check('resources',contract.get('per_job_mpi')==12 and contract.get('per_job_threads')==1); check('global_cap',contract.get('global_cap')==3); check('local_cap',contract.get('task_local_max_active_fdtd')==1); check('serial_order',contract.get('case_order')==['NP_K6_M10B_ALT1_UX_M0d482758620690_P_XLIKE','NP_K6_M10B_ALT1_UX_M0d482758620690_S_YLIKE'])
+pc=OUT/'runtime_runs'/'NP_K6_M10B_ALT1_UX_M0d482758620690_P_XLIKE'/'attempt_001'; led=json.loads((pc/'attempt_ledger.json').read_text(encoding='utf-8')); q=json.loads((pc/'quality_gate.json').read_text(encoding='utf-8')); check('P_entered_once',led.get('entered') is True and led.get('run_invocation_count')==1); check('P_engine_post_controller',led.get('engine_completed') is True and led.get('post_saved') is True and led.get('controller_returned') is True); check('P_resource_readback',led.get('resource_contract',{}).get('readback')=={'processes':'12','threads':'1'}); check('P_post_reload',json.loads((OUT/'m10b_quality_summary.json').read_text(encoding='utf-8')).get('independent_readonly_reload') is True); check('closure_fail_recorded',q.get('quality_gate_pass') is False and q.get('max_closure_residual',0)>0.01); check('order_gate',q.get('order_sum_gate_pass') is True); check('normalization_gate',q.get('normalization_gate_pass') is True); check('S_not_entered',not (OUT/'runtime_runs'/'NP_K6_M10B_ALT1_UX_M0d482758620690_S_YLIKE'/'attempt_001').exists()); status=json.loads((OUT/'controller_status.json').read_text(encoding='utf-8')); check('batch_stop',status.get('state')=='STOP_BATCH_FOR_REVIEW' and status.get('solver_calls')==1 and status.get('entered_total')==1); ra=json.loads((OUT/'m10b_resource_audit.json').read_text(encoding='utf-8')); check('slot_peak_one',ra.get('peak_m10b_active_fdtd')==1 and ra.get('p_s_overlap_duration_s')==0); check('registry_empty_after_release',ra.get('registry_active_slots_after_closeout')==0); post=next(pc.glob('*_post.fsp'),pc/'missing_post.fsp'); check('post_sha_stable',post.exists() and sha(post)==led.get('post_fsp_sha256'))
+report={'validator':'np_k6_m10b_serial_execution_v1','checks':checks,'passed':all(x['pass'] for x in checks),'solver_calls':1,'S_solver_calls':0}
+(OUT/'m10b_validator_report.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n',encoding='utf-8'); print(json.dumps(report,indent=2)); raise SystemExit(0 if report['passed'] else 1)
