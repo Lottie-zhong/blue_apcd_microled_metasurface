@@ -1,0 +1,269 @@
+{
+  "mesh_override_readback": {
+    "dx": 5e-09,
+    "dy": 5e-09,
+    "dz": 5e-09,
+    "override x mesh": 1.0,
+    "override y mesh": 1.0,
+    "override z mesh": 1.0,
+    "x max": 8.700000000000001e-07,
+    "x min": -8.700000000000001e-07,
+    "y max": 1.45e-07,
+    "y min": -1.45e-07,
+    "z max": 6e-07,
+    "z min": -1e-07
+  },
+  "reload_pass": true,
+  "setup_readback": {
+    "FDTD": {
+      "auto shutoff min": 1e-07,
+      "mesh accuracy": 4.0,
+      "mesh refinement": "conformal variant 0",
+      "pml layers": 8.0,
+      "simulation time": 3e-12,
+      "use auto shutoff": 1.0,
+      "x max": 8.7e-07,
+      "x max bc": "Periodic",
+      "x min": -8.7e-07,
+      "x min bc": "Periodic",
+      "y max": 1.45e-07,
+      "y max bc": "Periodic",
+      "y min": -1.45e-07,
+      "y min bc": "Periodic",
+      "z max": 1.2e-06,
+      "z max bc": "PML",
+      "z min": -6e-07,
+      "z min bc": "PML"
+    },
+    "field_450_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": 9e-07
+    },
+    "geometry": [
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_0",
+        "radius": 5.0000000000000004e-08,
+        "x": -7.25e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_1",
+        "radius": 5.7500000000000005e-08,
+        "x": -4.35e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_2",
+        "radius": 6.5e-08,
+        "x": -1.4500000000000001e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_3",
+        "radius": 7.250000000000001e-08,
+        "x": 1.4500000000000001e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_4",
+        "radius": 7.75e-08,
+        "x": 4.35e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_5",
+        "radius": 9.25e-08,
+        "x": 7.25e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      }
+    ],
+    "order_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "use wavelength spacing": 1.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": 9e-07
+    },
+    "reflection_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "use wavelength spacing": 1.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": -3e-07
+    },
+    "source_x_forward": {
+      "angle phi": 0.0,
+      "angle theta": -28.865727415007168,
+      "direction": "Forward",
+      "injection axis": "z-axis",
+      "polarization angle": 0.0,
+      "wavelength start": 4.45e-07,
+      "wavelength stop": 4.55e-07,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": -2.5e-07
+    },
+    "transmission_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "use wavelength spacing": 1.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": 9e-07
+    }
+  },
+  "setup_sha256": "920c4257debd6e2adbc7a7893752552f71d8500bf04437f7332bf54304af38d2",
+  "source_readback": {
+    "FDTD": {
+      "auto shutoff min": 1e-05,
+      "mesh accuracy": 2.0,
+      "mesh refinement": "conformal variant 0",
+      "pml layers": 8.0,
+      "simulation time": 1e-12,
+      "use auto shutoff": 1.0,
+      "x max": 8.7e-07,
+      "x max bc": "Periodic",
+      "x min": -8.7e-07,
+      "x min bc": "Periodic",
+      "y max": 1.45e-07,
+      "y max bc": "Periodic",
+      "y min": -1.45e-07,
+      "y min bc": "Periodic",
+      "z max": 1.2e-06,
+      "z max bc": "PML",
+      "z min": -6e-07,
+      "z min bc": "PML"
+    },
+    "field_450_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": 9e-07
+    },
+    "geometry": [
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_0",
+        "radius": 5.0000000000000004e-08,
+        "x": -7.25e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_1",
+        "radius": 5.7500000000000005e-08,
+        "x": -4.35e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_2",
+        "radius": 6.5e-08,
+        "x": -1.4500000000000001e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_3",
+        "radius": 7.250000000000001e-08,
+        "x": 1.4500000000000001e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_4",
+        "radius": 7.75e-08,
+        "x": 4.35e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      },
+      {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "name": "TiO2_pillar_5",
+        "radius": 9.25e-08,
+        "x": 7.25e-07,
+        "y": 0.0,
+        "z max": 5e-07,
+        "z min": 0.0
+      }
+    ],
+    "order_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "use wavelength spacing": 1.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": 9e-07
+    },
+    "reflection_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "use wavelength spacing": 1.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": -3e-07
+    },
+    "source_x_forward": {
+      "angle phi": 0.0,
+      "angle theta": -28.865727415007168,
+      "direction": "Forward",
+      "injection axis": "z-axis",
+      "polarization angle": 0.0,
+      "wavelength start": 4.45e-07,
+      "wavelength stop": 4.55e-07,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": -2.5e-07
+    },
+    "transmission_monitor": {
+      "frequency points": 11.0,
+      "monitor type": "2D Z-normal",
+      "override global monitor settings": 0.0,
+      "use wavelength spacing": 1.0,
+      "x span": 1.74e-06,
+      "y span": 2.9e-07,
+      "z": 9e-07
+    }
+  },
+  "source_sha256": "2067f41fdbd75fc6adee4f75cd87a2d319fb1f1a239530a8a34ef3498b826a24"
+}
