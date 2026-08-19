@@ -1,0 +1,8 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_V2_BALANCED_SELECTION_PREREGISTRATION_V1",
+  "center_anchor_rule": "nearest nominal center among S2/S3 by normalized six-dimensional Euclidean distance, ties sample_index then hash",
+  "remaining_initial_rule": "in S1-S4 order excluding anchor stratum, constrained greedy maximin to already selected, ties sample_index then hash",
+  "conditional_rule": "in S1-S4 order, constrained greedy maximin to initial plus prior conditional, ties sample_index then hash",
+  "no_optical_information": true,
+  "max_geometries": 8
+}
