@@ -1,0 +1,7 @@
+# NP K6 frozen forward-surrogate Nature figure v1
+
+## Caption
+
+**Forward surrogate for rapid K6 metagrating screening.** **a,** Ordered six-pillar K6 geometry, wavelength and explicit polarization are supplied to the frozen forward-surrogate workflow, which supports broadband-response estimation and candidate ranking before final FDTD verification. **b,** Held-out geometry-level ranking: each marker is one of 22 K6 geometries, using the frozen mean η(+1) score across paired P/S cases and 445–455 nm. This panel uses the frozen `LF_only` ranking component (Spearman ρ = 0.962). **c,** Held-out broadband η(+1) spectra from the frozen `LF_ridge_residual` spectral component. Best, Median and Worst are selected programmatically by geometry-level mean absolute η(+1) OOF error over explicit P/S and all 11 wavelengths; P is solid with circles and S is dashed with squares. Absolute-error panels have their own y scales.
+
+The figure presents normal-incidence held-out/OOF evidence only: 22 geometries, paired P/S conditions, 445–455 nm, and 484 HF rows. The ranking and spectral panels deliberately use different frozen provider components; the figure does not claim that one universal model achieved both results. It supports screening/ranking only, not angular generalization, full FDTD replacement, integrated MDC–NP truth, or a universal quantitative predictor. Final quantitative verification remains full-wave FDTD.
