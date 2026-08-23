@@ -1,0 +1,31 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_INITIAL_TRUTH_AUTHORITY_V1",
+  "stage": "PAPER_A_LP_ANISOTROPY_FEASIBLE_SPACE_V2_BALANCED_INITIAL_TRUTH_V1",
+  "authorization": "USER_EXPLICIT_SOLVER_AUTHORIZATION_2026_08_23",
+  "status": "INITIAL_TRUTH_BATCH_AUTHORIZED",
+  "initial_truth_candidates": ["BF01", "BF02", "BF03", "BF04"],
+  "authorized_case_ids": ["BF01_x", "BF01_y", "BF02_x", "BF02_y", "BF03_x", "BF03_y", "BF04_x", "BF04_y"],
+  "conditional_truth_candidates": ["BF05", "BF06", "BF07", "BF08"],
+  "conditional_batch_authorized": false,
+  "maximum_physics_jobs": 8,
+  "paper_a_max_active_fdtd": 2,
+  "global_fdtd_cap_unchanged": 3,
+  "mpi_processes_per_job": 4,
+  "threads_per_process": 1,
+  "entered_true_no_auto_replay": true,
+  "physics_contract": {
+    "material": "APCD_TIO2_NATIVE_M1",
+    "source_monitor_span_nm": [430, 470],
+    "formal_window_nm": [435, 465],
+    "formal_spacing_nm": 1,
+    "formal_points": 31,
+    "anchor_nm": 450,
+    "input_basis": ["x", "y"],
+    "analysis": "axis-free zero-order full Jones and incoherent coherency/Stokes",
+    "phase_or_k6_qualification": false
+  },
+  "case_boundary_priority": "yield before the next geometry if NP or Coupling has active or explicit queued solver demand",
+  "rcwa": 0,
+  "ml": 0,
+  "new_geometry": 0
+}
