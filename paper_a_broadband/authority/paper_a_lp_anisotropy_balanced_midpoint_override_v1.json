@@ -1,0 +1,46 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_MIDPOINT_AUTHORITY_OVERRIDE_V1",
+  "timestamp_utc": "2026-08-23T08:17:20.275188+00:00",
+  "status": "PASS",
+  "supersedes_admission_rule_only": "final_pass_count > 0 or promising_count > 0; directional diagnostics alone do not authorize conditional truth",
+  "preserves_initial_physics": true,
+  "initial_midpoint_artifact": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\lp_anisotropy_balanced_truth_v1\\midpoint_physics_audit.json",
+  "initial_midpoint_sha256": "f9ab4f80cd20ef52d1bc4e11cda994f741552cd5d65cdb3731f5367789fcedfc",
+  "revised_conditional_admission_rule": "final_pass_count > 0 or promising_count > 0 or directional_diagnostic_count > 0",
+  "final_pass_count": 0,
+  "promising_count": 0,
+  "directional_diagnostic_count": 1,
+  "directional_geometry_ids": [
+    "BF04"
+  ],
+  "BF04_evidence": {
+    "MDC_weighted_DoLP": 0.44157468386268967,
+    "MDC_FWHM_psi_span_deg": 39.62464253012555
+  },
+  "conditional_batch_eligible": true,
+  "conditional_batch_authorized": true,
+  "authorization": "USER_EXPLICIT_MIDPOINT_AUTHORITY_MODIFICATION_AND_SOLVER_CONTINUATION_2026_08_23",
+  "authorized_geometry_ids": [
+    "BF05",
+    "BF06",
+    "BF07",
+    "BF08"
+  ],
+  "authorized_case_ids": [
+    "BF05_x",
+    "BF05_y",
+    "BF06_x",
+    "BF06_y",
+    "BF07_x",
+    "BF07_y",
+    "BF08_x",
+    "BF08_y"
+  ],
+  "conditional_physics_job_budget": 8,
+  "total_stage_physics_job_budget": 16,
+  "paper_a_max_active_fdtd": 2,
+  "entered_true_no_auto_replay": true,
+  "no_new_geometry": true,
+  "no_rcwa": true,
+  "no_ml": true
+}
