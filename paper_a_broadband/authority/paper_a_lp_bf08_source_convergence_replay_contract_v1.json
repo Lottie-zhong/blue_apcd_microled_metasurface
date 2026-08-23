@@ -1,0 +1,45 @@
+{
+  "schema": "PAPER_A_LP_BF08_SOURCE_CONVERGENCE_REPLAY_CONTRACT_V1",
+  "status": "USER_AUTHORIZED_PENDING_SETUP_ONLY_GATE",
+  "authorization": "USER_EXPLICIT_BF08_X_Y_ONE_TIME_TWO_JOB_REPLAY_2026_08_23",
+  "purpose": "Resolve the returned-BF08 formal-transmission anomaly at 436 nm without changing geometry or the scientific spectral window.",
+  "cases": ["BF08_x", "BF08_y"],
+  "physical_jobs_max": 2,
+  "replay_attempt_ids": ["BF08_x_attempt_002", "BF08_y_attempt_002"],
+  "no_auto_replay_after_this_contract": true,
+  "preserved_physics": {
+    "geometry": "BF08 attempt-001 immutable returned run-FSP geometry; no dimensional, rotation, displacement, or period change",
+    "materials": ["APCD_TIO2_NATIVE_M1"],
+    "source_span_nm": [430.0, 470.0],
+    "formal_window_nm": [435.0, 465.0],
+    "formal_spacing_nm": 1.0,
+    "formal_points": 31,
+    "anchor_nm": 450.0,
+    "input_basis": ["x", "y"],
+    "diffraction_order": [0, 0],
+    "mesh_accuracy": 2,
+    "boundaries": "x/y periodic; z PML",
+    "normalization": "existing complex weighted field normalization; no clipping, interpolation, or renormalization"
+  },
+  "source_and_convergence_changes": {
+    "source_wavelength_start_nm": 430.0,
+    "source_wavelength_stop_nm": 470.0,
+    "native_monitor_points_previous": 41,
+    "native_monitor_points_replay": 81,
+    "native_sampling_nm": 0.5,
+    "formal_grid_selection": "exact 435-465 nm integer-nm samples from the 0.5-nm native grid",
+    "simulation_time_previous_ps": 1.0,
+    "simulation_time_replay_ps": 5.0,
+    "auto_shutoff_min_previous": 1e-05,
+    "auto_shutoff_min_replay": 1e-07,
+    "source_content_gate": "sourcepower(435-465 nm) positive and min/max >= 0.99",
+    "acceptance": "all 31 formal transmission samples must be non-negative for each x/y case; otherwise preserve evidence and hard-gate without another replay"
+  },
+  "scheduler": {
+    "global_fdtd_cap": 3,
+    "paper_a_max_active_fdtd": 2,
+    "mpi_processes": 4,
+    "threads": 1
+  },
+  "prohibitions": ["new geometry", "mesh change", "boundary change", "RCWA", "ML", "additional solver cases"]
+}
