@@ -1,0 +1,26 @@
+{
+  "schema": "PAPER_A_LP_BF08_AUTHORITATIVE_REBUILT_TRUTH_V1",
+  "status": "USER_AUTHORIZED_PENDING_SETUP_ONLY_GATE",
+  "task_id": "PAPER_A_LP_BF08_AUTHORITATIVE_REBUILT_TRUTH_V1",
+  "authorization": "explicit BF08_x/y new solver budget",
+  "attempt_id": "attempt_003",
+  "physical_budget": {"max_fdtd_jobs": 2, "cases": ["BF08_x", "BF08_y"], "max_active_paper_a_fdtd": 1},
+  "truth_boundary": {
+    "authoritative_truth_inputs": "BF08 attempt_003 outputs only",
+    "attempt_001_002": "provenance_only_not_physics_truth_not_parent_fsp",
+    "no_auto_replay_after_entered": true
+  },
+  "physics_contract": {
+    "material": "APCD_TIO2_NATIVE_M1",
+    "geometry_nm": {"L1": 206.0, "W1": 112.0, "L2": 157.0, "W2": 103.0, "theta1_deg": 0.0, "theta2_deg": 87.099609375, "D": 212.0, "center_1_nm": [0.0, 106.0], "center_2_nm": [0.0, -106.0], "H": 525.0, "Px": 432.0, "Py": 432.0},
+    "source_span_nm": [430.0, 470.0],
+    "formal_window_nm": [435.0, 465.0],
+    "formal_spacing_nm": 1.0,
+    "formal_points": 31,
+    "anchor_nm": 450.0,
+    "mpi_processes": 4,
+    "threads": 1,
+    "phase_or_k6_used": false
+  },
+  "expected_terminal": "BF08_AUTHORITATIVE_TRUTH_AVAILABLE_NO_AUTOMATIC_PROMOTION"
+}
