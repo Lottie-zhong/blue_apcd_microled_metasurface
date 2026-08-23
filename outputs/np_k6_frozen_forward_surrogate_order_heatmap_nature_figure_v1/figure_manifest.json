@@ -1,0 +1,130 @@
+{
+  "archetype": "quantitative grid",
+  "artifact_id": "NP_K6_FROZEN_FORWARD_SURROGATE_ORDER_HEATMAP_NATURE_FIGURE_V1",
+  "backend": "python/matplotlib",
+  "core_conclusion": "The frozen NP surrogate preserves useful held-out K6 ranking and order-resolved broadband response trends for rapid screening before full-wave FDTD verification.",
+  "data_integrity": {
+    "P_S_averaging": false,
+    "clipping": false,
+    "interpolation": false,
+    "renormalization": false,
+    "smoothing": false,
+    "wavelength_rows_as_independent_geometries": false
+  },
+  "final_size_mm": {
+    "height": 163.8,
+    "width": 183.0
+  },
+  "generation_timestamp_utc": "2026-08-23T08:14:43.482424+00:00",
+  "metrics": {
+    "absolute_error_scale": [
+      0.0,
+      0.49151468265954873
+    ],
+    "efficiency_common_scale": [
+      -0.03355295459840597,
+      0.7416090484903791
+    ],
+    "geometry_ranking_spearman": 0.961603613777527,
+    "negative_raw_spectral_predictions_preserved": 31
+  },
+  "providers": {
+    "components_are_distinct": true,
+    "ranking": {
+      "model": "LF_only",
+      "variant": "ensemble_raw"
+    },
+    "spectral": {
+      "model": "LF_ridge_residual",
+      "variant": "ensemble_raw"
+    }
+  },
+  "scope": {
+    "heldout_geometries": 22,
+    "hf_rows": 484,
+    "k_y": 0.0,
+    "polarizations": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "u_x": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "script_sha256": "0856b698fb92447d7aab6cb5875d5c4a2dad76fb6dab1264299fad1cf1502f8d",
+  "selected_cases": [
+    {
+      "error_metric": "mean absolute eta(+1) OOF error over explicit P/S and all 11 wavelengths",
+      "error_value": 0.023597529081565986,
+      "geometry_count": 22,
+      "geometry_id": "K6X_D110_D190_D210_D215_D220_D225",
+      "prediction_source": "LF_ridge_residual/ensemble_raw",
+      "rank_ascending_eta_plus1_mae": 1,
+      "selection": "Best",
+      "truth_source": "HF22 formal held-out authority"
+    },
+    {
+      "error_metric": "mean absolute eta(+1) OOF error over explicit P/S and all 11 wavelengths",
+      "error_value": 0.06712589733175645,
+      "geometry_count": 22,
+      "geometry_id": "K6X_D100_D130_D135_D155_D160_D225",
+      "prediction_source": "LF_ridge_residual/ensemble_raw",
+      "rank_ascending_eta_plus1_mae": 11,
+      "selection": "Median",
+      "truth_source": "HF22 formal held-out authority"
+    },
+    {
+      "error_metric": "mean absolute eta(+1) OOF error over explicit P/S and all 11 wavelengths",
+      "error_value": 0.18508323828021264,
+      "geometry_count": 22,
+      "geometry_id": "K6X_D135_D155_D190_D220_D225_D230",
+      "prediction_source": "LF_ridge_residual/ensemble_raw",
+      "rank_ascending_eta_plus1_mae": 22,
+      "selection": "Worst",
+      "truth_source": "HF22 formal held-out authority"
+    }
+  ],
+  "selection_metric": "mean absolute eta(+1) OOF error over explicit P/S and all 11 wavelengths; lower central rank for even n",
+  "source_artifacts": {
+    "hf_truth": {
+      "path": "outputs\\np_k6_m8a_primary2_closeout_v1\\hf22_formal_development_484rows.csv",
+      "sha256": "5c5dca90928498c927663ad3eedbf502394a68c741feef836195573846ba1599"
+    },
+    "normal_incidence_freeze": {
+      "path": "outputs\\np_k6_m9a_normal_incidence_plateau_reassessment_v1\\normal_incidence_freeze_decision.json",
+      "sha256": "974d5e933c8c726cd397b09587abe18a3638010f66a68ac73214e38ec53367a3"
+    },
+    "oof_predictions": {
+      "path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\oof_predictions_22g.csv",
+      "sha256": "3184bb5aa2ff14d046bb6212847e1e4b443d0575e10d889ec002de14af6e76c8"
+    }
+  },
+  "tracked_order_vector": [
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "zero_compute_audit": {
+    "data_regeneration": 0,
+    "external_hf": 0,
+    "inverse": 0,
+    "new_fdtd": 0,
+    "new_rcwa": 0,
+    "new_training": 0
+  }
+}

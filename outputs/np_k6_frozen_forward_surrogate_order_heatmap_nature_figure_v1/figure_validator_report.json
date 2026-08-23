@@ -1,0 +1,242 @@
+{
+  "checks": [
+    {
+      "check": "artifact identity",
+      "detail": "NP_K6_FROZEN_FORWARD_SURROGATE_ORDER_HEATMAP_NATURE_FIGURE_V1",
+      "passed": true
+    },
+    {
+      "check": "frozen normal-incidence scope",
+      "detail": {
+        "heldout_geometries": 22,
+        "hf_rows": 484,
+        "k_y": 0.0,
+        "polarizations": [
+          "P_XLIKE",
+          "S_YLIKE"
+        ],
+        "u_x": 0.0,
+        "wavelengths_nm": [
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check": "distinct frozen providers",
+      "detail": {
+        "components_are_distinct": true,
+        "ranking": {
+          "model": "LF_only",
+          "variant": "ensemble_raw"
+        },
+        "spectral": {
+          "model": "LF_ridge_residual",
+          "variant": "ensemble_raw"
+        }
+      },
+      "passed": true
+    },
+    {
+      "check": "authority-derived order vector",
+      "detail": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "passed": true
+    },
+    {
+      "check": "one ranking point per held-out geometry",
+      "detail": {
+        "rows": 22,
+        "unique": 22
+      },
+      "passed": true
+    },
+    {
+      "check": "exact frozen ranking rho",
+      "detail": 0.961603613777527,
+      "passed": true
+    },
+    {
+      "check": "complete exact order heatmap grid",
+      "detail": {
+        "expected": 462,
+        "finite": true,
+        "rows": 462,
+        "unique_keys": 462
+      },
+      "passed": true
+    },
+    {
+      "check": "raw negative predictions preserved",
+      "detail": 31,
+      "passed": true
+    },
+    {
+      "check": "no interpolation or value alteration",
+      "detail": {
+        "P_S_averaging": false,
+        "clipping": false,
+        "interpolation": false,
+        "renormalization": false,
+        "smoothing": false,
+        "wavelength_rows_as_independent_geometries": false
+      },
+      "passed": true
+    },
+    {
+      "check": "programmatic best median worst",
+      "detail": [
+        {
+          "error_metric": "mean absolute eta(+1) OOF error over explicit P/S and all 11 wavelengths",
+          "error_value": 0.023597529081565986,
+          "geometry_count": 22,
+          "geometry_id": "K6X_D110_D190_D210_D215_D220_D225",
+          "prediction_source": "LF_ridge_residual/ensemble_raw",
+          "rank_ascending_eta_plus1_mae": 1,
+          "selection": "Best",
+          "truth_source": "HF22 formal held-out authority"
+        },
+        {
+          "error_metric": "mean absolute eta(+1) OOF error over explicit P/S and all 11 wavelengths",
+          "error_value": 0.06712589733175645,
+          "geometry_count": 22,
+          "geometry_id": "K6X_D100_D130_D135_D155_D160_D225",
+          "prediction_source": "LF_ridge_residual/ensemble_raw",
+          "rank_ascending_eta_plus1_mae": 11,
+          "selection": "Median",
+          "truth_source": "HF22 formal held-out authority"
+        },
+        {
+          "error_metric": "mean absolute eta(+1) OOF error over explicit P/S and all 11 wavelengths",
+          "error_value": 0.18508323828021264,
+          "geometry_count": 22,
+          "geometry_id": "K6X_D135_D155_D190_D220_D225_D230",
+          "prediction_source": "LF_ridge_residual/ensemble_raw",
+          "rank_ascending_eta_plus1_mae": 22,
+          "selection": "Worst",
+          "truth_source": "HF22 formal held-out authority"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check": "common truth prediction and independent error scales",
+      "detail": {
+        "efficiency": [
+          -0.03355295459840597,
+          0.7416090484903791
+        ],
+        "error": [
+          0.0,
+          0.49151468265954873
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check": "zero-compute contract",
+      "detail": {
+        "data_regeneration": 0,
+        "external_hf": 0,
+        "inverse": 0,
+        "new_fdtd": 0,
+        "new_rcwa": 0,
+        "new_training": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "all required figure formats",
+      "detail": {
+        "pdf": 87160,
+        "png": 456478,
+        "svg": 338883,
+        "tiff": 3226646
+      },
+      "passed": true
+    },
+    {
+      "check": "183 mm raster exports at 600 dpi",
+      "detail": {
+        "png": {
+          "dpi": [
+            599.9988,
+            599.9988
+          ],
+          "size_px": [
+            4323,
+            3870
+          ]
+        },
+        "tiff": {
+          "dpi": [
+            600.0,
+            600.0
+          ],
+          "size_px": [
+            4323,
+            3870
+          ]
+        }
+      },
+      "passed": true
+    },
+    {
+      "check": "visual QA complete",
+      "detail": {
+        "backend_exclusivity": "PASS",
+        "clipping": "PASS",
+        "color_scale_contract": "PASS",
+        "editable_pdf_svg": "PASS",
+        "manual_visual_inspection": {
+          "panel_a": "PASS: ranking points, equality line, rho annotation, and provider note are legible without overlap",
+          "panel_b": "PASS: all Best/Median/Worst rows and P_XLIKE/S_YLIKE facets are aligned; heatmap cells, ticks, labels, and both colorbars are unobstructed",
+          "whole_figure": "PASS: no clipping, overlap, excessive whitespace, or unreadable panel label at final 183 x 163.8 mm layout"
+        },
+        "panel_a_annotation_overlap": "PASS",
+        "panel_b_facet_overlap": "PASS",
+        "pdf_glyph_audit": "PASS",
+        "pdf_text_audit": {
+          "auditable": true,
+          "below_minimum_count": 0,
+          "minimum_found_pt": 5.1,
+          "minimum_required_pt": 5.0,
+          "text_run_count": 98,
+          "warnings": []
+        },
+        "raster_600dpi": "PASS",
+        "source_preflight": "PASS",
+        "source_preflight_summary": {
+          "backend": "python",
+          "fail": 0,
+          "pass": 20,
+          "strict_ready": true,
+          "warn": 0
+        },
+        "typography": "PASS"
+      },
+      "passed": true
+    }
+  ],
+  "passed": 15,
+  "status": "PASS",
+  "total": 15,
+  "validator": "NP_K6_FROZEN_FORWARD_SURROGATE_ORDER_HEATMAP_NATURE_FIGURE_V1"
+}
