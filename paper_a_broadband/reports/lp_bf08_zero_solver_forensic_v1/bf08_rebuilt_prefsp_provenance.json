@@ -1,0 +1,189 @@
+{
+  "geometry": {
+    "L1_W1_L2_W2_nm": [
+      206,
+      112,
+      157,
+      103
+    ],
+    "theta_deg": [
+      0.0,
+      87.099609375
+    ],
+    "centers_nm": [
+      [
+        0,
+        106
+      ],
+      [
+        0,
+        -106
+      ]
+    ],
+    "D_nm": 212,
+    "H_nm": 525,
+    "Px_Py_nm": [
+      432,
+      432
+    ]
+  },
+  "parent_fsp": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\reusable_fsp\\lp\\P1_LP_H1C1B_V2_009_Px_attempt_006_pre.fsp",
+  "parent_sha256": "27e28cefb049b7d8ff6b30b37764b4fd3e449e9278196d57bb629a396aaac926",
+  "builder": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_new_geometry_search_runner_v1.py",
+  "builder_sha256": "f065a70acb16eec75c26baea0b036f08cf5d746b9f7404db98fcd9a78a76f6d5",
+  "rebuilt": [
+    {
+      "case_id": "BF08_x",
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\bf08_authoritative_builder_reconstruction_v1\\cases\\BF08_x\\BF08_x_authoritative_rebuilt_pre.fsp",
+      "sha256": "e030b67d47ebf5aa2b20e937cd64bfd0af1ace00bfb377aa14d6cab0470727f3",
+      "readback": {
+        "pillars": {
+          "pillar_1": {
+            "x": 0.0,
+            "y": 1.0600000000000001e-07,
+            "x span": 2.0600000000000002e-07,
+            "y span": 1.1200000000000002e-07,
+            "z span": 5.250000000000001e-07,
+            "rotation 1": 0.0,
+            "material": "APCD_TIO2_NATIVE_M1"
+          },
+          "pillar_2": {
+            "x": 0.0,
+            "y": -1.0600000000000002e-07,
+            "x span": 1.5700000000000002e-07,
+            "y span": 1.0300000000000002e-07,
+            "z span": 5.250000000000001e-07,
+            "rotation 1": 87.099609375,
+            "material": "APCD_TIO2_NATIVE_M1"
+          }
+        },
+        "fdtd": {
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "mesh accuracy": 2.0,
+          "simulation time": 5e-12,
+          "auto shutoff min": 1e-07,
+          "x min bc": "Periodic",
+          "x max bc": "Periodic",
+          "y min bc": "Periodic",
+          "y max bc": "Periodic",
+          "z min bc": "PML",
+          "z max bc": "PML"
+        },
+        "source": {
+          "source type": "standard",
+          "injection axis": "z-axis",
+          "direction": "Forward",
+          "x": 0.0,
+          "y": 0.0,
+          "z": -2.5000000000000004e-07,
+          "amplitude": 1.0,
+          "wavelength start": 4.3e-07,
+          "wavelength stop": 4.7e-07,
+          "polarization angle": 0.0
+        },
+        "T": {
+          "monitor type": "2D Z-normal",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 1.0000000000000002e-06,
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "override global monitor settings": 1.0,
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "frequency points": 81.0
+        },
+        "field_monitor": {
+          "monitor type": "2D Z-normal",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 1.0000000000000002e-06,
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "override global monitor settings": 1.0,
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "frequency points": 81.0
+        }
+      }
+    },
+    {
+      "case_id": "BF08_y",
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\bf08_authoritative_builder_reconstruction_v1\\cases\\BF08_y\\BF08_y_authoritative_rebuilt_pre.fsp",
+      "sha256": "78be13a751c10ccab9a01a41b3e210552e8b7a5b31eeca6da9a66e1392a0d448",
+      "readback": {
+        "pillars": {
+          "pillar_1": {
+            "x": 0.0,
+            "y": 1.0600000000000001e-07,
+            "x span": 2.0600000000000002e-07,
+            "y span": 1.1200000000000002e-07,
+            "z span": 5.250000000000001e-07,
+            "rotation 1": 0.0,
+            "material": "APCD_TIO2_NATIVE_M1"
+          },
+          "pillar_2": {
+            "x": 0.0,
+            "y": -1.0600000000000002e-07,
+            "x span": 1.5700000000000002e-07,
+            "y span": 1.0300000000000002e-07,
+            "z span": 5.250000000000001e-07,
+            "rotation 1": 87.099609375,
+            "material": "APCD_TIO2_NATIVE_M1"
+          }
+        },
+        "fdtd": {
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "mesh accuracy": 2.0,
+          "simulation time": 5e-12,
+          "auto shutoff min": 1e-07,
+          "x min bc": "Periodic",
+          "x max bc": "Periodic",
+          "y min bc": "Periodic",
+          "y max bc": "Periodic",
+          "z min bc": "PML",
+          "z max bc": "PML"
+        },
+        "source": {
+          "source type": "standard",
+          "injection axis": "z-axis",
+          "direction": "Forward",
+          "x": 0.0,
+          "y": 0.0,
+          "z": -2.5000000000000004e-07,
+          "amplitude": 1.0,
+          "wavelength start": 4.3e-07,
+          "wavelength stop": 4.7e-07,
+          "polarization angle": 90.0
+        },
+        "T": {
+          "monitor type": "2D Z-normal",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 1.0000000000000002e-06,
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "override global monitor settings": 1.0,
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "frequency points": 81.0
+        },
+        "field_monitor": {
+          "monitor type": "2D Z-normal",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 1.0000000000000002e-06,
+          "x span": 4.32e-07,
+          "y span": 4.32e-07,
+          "override global monitor settings": 1.0,
+          "use source limits": 1.0,
+          "use wavelength spacing": 1.0,
+          "frequency points": 81.0
+        }
+      }
+    }
+  ],
+  "physical_contract_sha256": "5367e33d0e051ffe0949a1f949c3f3c82fabf6a9bea2574374b7792480d1156f"
+}
