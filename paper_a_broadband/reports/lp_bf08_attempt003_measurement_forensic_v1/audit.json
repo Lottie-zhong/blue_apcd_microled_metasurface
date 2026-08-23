@@ -1,0 +1,60 @@
+{
+  "schema": "PAPER_A_LP_BF08_ATTEMPT003_MEASUREMENT_FORENSIC_V1",
+  "status": "PASS",
+  "verdict": "PAPER_A_LP_BF08_ATTEMPT003_ROOT_CAUSE_NUMERICAL_TIME_DOMAIN_DIVERGENCE_CONFIRMED",
+  "root_cause_classification": "E_NUMERICAL_TIME_DOMAIN_DIVERGENCE_IN_STORED_SOLVER_ENERGY_RESULT",
+  "causal_assessment": {
+    "A_monitor_normal_or_sign_convention": "EXCLUDED: fixed +z monitor convention produces nonnegative transmission for 14 same-template BF01-BF07 controls; BF08_y changes sign with wavelength",
+    "B_forward_backward_flux_convention": "EXCLUDED: Forward +z source is below the +z-normal monitor for BF08 and all controls",
+    "C_power_normalization_implementation": "EXCLUDED_AS_PRIMARY: sourcepower is nonzero/stable and negative/hyper-unit values exist in lumapi transmission(T) before normalize_pair",
+    "D_monitor_placement": "EXCLUDED: BF08 monitor type, position, spans, and source-relative placement match accepted controls",
+    "E_actual_solver_energy_result": "CONFIRMED_AS_NUMERICALLY_INVALID: late-time auto-shutoff grows instead of decaying; process return success does not establish convergence"
+  },
+  "polarization_difference": {
+    "only_source_basis_change": "BF08_x and BF08_y have identical geometry, materials, mesh, boundaries, source position/span and monitors; polarization angle is 0 versus 90 degrees",
+    "x": {
+      "negative_formal_points": 31,
+      "auto_shutoff_final": 2367.4,
+      "auto_shutoff_max": 2448.03
+    },
+    "y": {
+      "negative_formal_points": 4,
+      "auto_shutoff_final": 1.64048,
+      "auto_shutoff_max": 1.86408
+    },
+    "inference_boundary": "severity correlates with input polarization coupling to the anisotropic BF08 structure; provenance alone cannot identify the unstable eigenmode"
+  },
+  "recoverability": {
+    "without_new_solver_or_physics_change": false,
+    "reason": "stored fields are contaminated by numerical growth; post-processing sign changes or renormalization cannot recover authoritative truth"
+  },
+  "independent_flux_confirmation": {
+    "BF08_x_max_abs_manual_minus_transmission": 1.8189894035458565e-12,
+    "BF08_x_sign_equal_count": 31,
+    "BF08_y_max_abs_manual_minus_transmission": 5.329070518200751e-15,
+    "BF08_y_sign_equal_count": 31,
+    "formal_points_each": 31
+  },
+  "fsp_validity": {
+    "pre_fsp_setup_provenance": "VALID",
+    "post_fsp_result_state": "INVALID_FOR_PHYSICS_TRUTH",
+    "five_ps_convergence_contract": "UNSAFE_FOR_BF08"
+  },
+  "additional_provenance_finding": "attempt_003 runtime pre-FSP copies were mutated in place by solver result-state persistence after entry; fresh builder originals and physical-object readbacks remain intact; this is not causal to negative transmission",
+  "template_scope": {
+    "monitor_and_full_jones_geometry_template": "NO_SYSTEMATIC_SIGN_OR_PLACEMENT_DEFECT_FOUND",
+    "runner_defect": "missing post-run late-time divergence gate",
+    "BF01_BF04_existing_truth": "NOT_AFFECTED; their stored control transmission is nonnegative under the original 1 ps contract",
+    "BF01_BF04_future_runs": "BASE_1PS_TEMPLATE_PROVEN_BY_CONTROLS; DO_NOT APPLY BF08 5PS REPLAY PATCH WITHOUT NEW STABILITY AUTHORITY_AND_GATE"
+  },
+  "solver_counters": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "rcwa": 0,
+    "ml": 0
+  },
+  "truth_files_modified": false,
+  "attempt_promotion": false,
+  "generated_utc": "2026-08-23T11:29:08.687448+00:00"
+}

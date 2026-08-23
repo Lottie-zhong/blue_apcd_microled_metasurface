@@ -1,0 +1,30 @@
+{
+  "paper_a_lp_controls": {
+    "same_source_direction": true,
+    "same_monitor_type": true,
+    "same_monitor_z_as_BF08": true,
+    "all_control_formal_T_nonnegative": true,
+    "control_case_count": 14
+  },
+  "cp": {
+    "readback_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\references\\cp\\champion_fsp_readback.json",
+    "readback_sha256": "ee3886021f756c53bb1e9f3d55813ed263380931c1128bb5f6a81df9a8aa9eaf",
+    "setup_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\references\\cp\\setup_audit.json",
+    "setup_sha256": "96bf2eb7820beb90e95cfa1845f7fff7acee27fd8c9856646dff892b227da510",
+    "frozen_worktree": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a",
+    "frozen_commit": "1a5e8b72ffe39dd0ddde3ddcc537d9eaa8bbfa81",
+    "monitor_summary_path": "D:\\project\\worktrees\\blue_apcd_cp_stage10_bw2a\\outputs\\blue_stage10_cp_zprop_validation\\cp_zprop_center_summary.md",
+    "monitor_summary_sha256": "eff89dc4ecbaa07e946648a39e87da3b0a319816c0726c1e0672225bb6aa0747",
+    "relevance": "top 2D Z-normal power monitor at z=1000 nm above an upward source; different dipole/PML geometry, consistent positive-outgoing convention"
+  },
+  "mdc": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\references\\mdc\\mdc_weighting_contract.json",
+    "sha256": "ee4c67b2e5f0e91a8317e2763a02c51adde31233da5a5f664f166bb8a4bdc4ca",
+    "frozen_worktree": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450",
+    "frozen_commit": "40dedf4098fa0ca19e0e5f0e3395e73fb4949c53",
+    "flux_validation_path": "D:\\project\\worktrees\\blue_apcd_mdc_defect_450\\scripts\\validate_mdc_lumerical_2d_monitor_contract_v1.py",
+    "flux_validation_sha256": "be7df15af47790b7c8e6650ec477d5b6df5b0f3a06b010da49f79898f84af365",
+    "flux_validation_contract": "direct Poynting integral is compared with transmission(monitor)*sourcepower at <=1e-3 relative difference; outward sign is geometry-defined",
+    "relevance": "MDC validates the same stored-flux versus transmission convention; r12_normalized_output remains relative weighting only and cannot repair LP transmission sign"
+  }
+}
