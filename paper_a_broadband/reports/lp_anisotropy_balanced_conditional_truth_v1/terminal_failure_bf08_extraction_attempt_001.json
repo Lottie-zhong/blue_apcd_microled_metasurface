@@ -1,0 +1,125 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_CONDITIONAL_FAILURE_V1",
+  "timestamp_utc": "2026-08-23T08:27:25.873630+00:00",
+  "status": "HARD_GATE_CASE_FAILURE",
+  "wave": {
+    "geometry_id": "BF08",
+    "status": "FAILED",
+    "cases": [
+      {
+        "case_id": "BF08_x",
+        "returncode": 0,
+        "state": {
+          "case_id": "BF08_x",
+          "geometry_id": "BF08",
+          "polarization": "x",
+          "status": "FAILED",
+          "solver_entered": true,
+          "updated_utc": "2026-08-23T08:27:19.624737+00:00",
+          "slot_id": "GLOBAL_SLOT_1",
+          "entered_utc": "2026-08-23T08:26:46.040135+00:00",
+          "solver_pid": 4328,
+          "configuration_gate": {
+            "pass": true,
+            "checks": {
+              "source_start_nm": 430.0,
+              "source_stop_nm": 470.0,
+              "source_polarization_angle_deg": 0.0,
+              "T_frequency_points": 41.0,
+              "field_frequency_points": 41.0,
+              "monitor_z_nm": 1000.0000000000001,
+              "materials": [
+                "APCD_TIO2_NATIVE_M1",
+                "APCD_TIO2_NATIVE_M1"
+              ],
+              "j1_rotation_deg": 0.0,
+              "j2_rotation_deg": 87.099609375,
+              "j1_height_nm": 525.0,
+              "j2_height_nm": 525.0
+            },
+            "expected": {
+              "source_start_nm": 430.0,
+              "source_stop_nm": 470.0,
+              "source_polarization_angle_deg": 0.0,
+              "T_frequency_points": 41.0,
+              "field_frequency_points": 41.0,
+              "monitor_z_nm": 1000.0,
+              "materials": [
+                "APCD_TIO2_NATIVE_M1",
+                "APCD_TIO2_NATIVE_M1"
+              ],
+              "j1_rotation_deg": 0.0,
+              "j2_rotation_deg": 87.099609375,
+              "j1_height_nm": 525.0,
+              "j2_height_nm": 525.0
+            },
+            "mesh_boundary_unchanged": true,
+            "normalization_renormalized": false,
+            "formal_extraction_points": 31,
+            "native_monitor_points": 41
+          },
+          "solver_complete": "2026-08-23T08:27:19.162929+00:00",
+          "run_fsp_sha256": "2a10d30a4cf0597700c3cd02f43827de5c87fe2bcc521ae306e6104d8d67e9b1",
+          "error": "RuntimeError: NEGATIVE_FORMAL_TRANSMISSION:436.0:-0.032303489892054345"
+        }
+      },
+      {
+        "case_id": "BF08_y",
+        "returncode": 0,
+        "state": {
+          "case_id": "BF08_y",
+          "geometry_id": "BF08",
+          "polarization": "y",
+          "status": "FAILED",
+          "solver_entered": true,
+          "updated_utc": "2026-08-23T08:27:22.464753+00:00",
+          "slot_id": "FDTD_SLOT_2",
+          "entered_utc": "2026-08-23T08:26:46.894981+00:00",
+          "solver_pid": 24076,
+          "configuration_gate": {
+            "pass": true,
+            "checks": {
+              "source_start_nm": 430.0,
+              "source_stop_nm": 470.0,
+              "source_polarization_angle_deg": 90.0,
+              "T_frequency_points": 41.0,
+              "field_frequency_points": 41.0,
+              "monitor_z_nm": 1000.0000000000001,
+              "materials": [
+                "APCD_TIO2_NATIVE_M1",
+                "APCD_TIO2_NATIVE_M1"
+              ],
+              "j1_rotation_deg": 0.0,
+              "j2_rotation_deg": 87.099609375,
+              "j1_height_nm": 525.0,
+              "j2_height_nm": 525.0
+            },
+            "expected": {
+              "source_start_nm": 430.0,
+              "source_stop_nm": 470.0,
+              "source_polarization_angle_deg": 90.0,
+              "T_frequency_points": 41.0,
+              "field_frequency_points": 41.0,
+              "monitor_z_nm": 1000.0,
+              "materials": [
+                "APCD_TIO2_NATIVE_M1",
+                "APCD_TIO2_NATIVE_M1"
+              ],
+              "j1_rotation_deg": 0.0,
+              "j2_rotation_deg": 87.099609375,
+              "j1_height_nm": 525.0,
+              "j2_height_nm": 525.0
+            },
+            "mesh_boundary_unchanged": true,
+            "normalization_renormalized": false,
+            "formal_extraction_points": 31,
+            "native_monitor_points": 41
+          },
+          "solver_complete": "2026-08-23T08:27:21.974119+00:00",
+          "run_fsp_sha256": "72478ec30327b2aa8615a07e55146c0ffea4c80bfce9e9217d80f96bdc76ef04",
+          "error": "RuntimeError: NEGATIVE_FORMAL_TRANSMISSION:436.0:-0.03338799928438594"
+        }
+      }
+    ]
+  }
+}

@@ -721,6 +721,164 @@ def audit() -> dict[str, Any]:
     return result
 
 
+def hard_gate_closeout() -> dict[str, Any]:
+    diagnostic_path = REPORT / "bf08_returned_fsp_diagnostic.json"
+    diagnostic = json.loads(diagnostic_path.read_text(encoding="utf-8"))
+    if not all(row.get("hash_match") and len(row.get("negative_points", [])) == 1 for row in diagnostic.get("cases", [])):
+        raise RuntimeError("HARD_GATE_BF08_RETURNED_FSP_PROVENANCE_CONFLICT")
+    old_failure = REPORT / "terminal_failure.json"
+    archived_failure = REPORT / "terminal_failure_bf08_extraction_attempt_001.json"
+    if old_failure.exists() and not archived_failure.exists():
+        os.replace(old_failure, archived_failure)
+    elif old_failure.exists():
+        old_failure.unlink()
+
+    valid_ids = INITIAL + ["BF05", "BF06", "BF07"]
+    summaries = [INIT.postprocess_geometry(gid) for gid in valid_ids]
+    ranked = rank_summaries(summaries)
+    final_rows = [row for row in ranked if row.get("final_pass")]
+    promising_rows = [row for row in ranked if row.get("promising")]
+    rows = [
+        {
+            "geometry_id": row["geometry_id"],
+            "MDC_weighted_DoLP": row["MDC_weighted"]["DoLP"],
+            "MDC_weighted_P_LP_axisfree": row["MDC_weighted"]["P_LP_axisfree"],
+            "MDC_FWHM_psi_span_deg": row["MDC_FWHM_psi_span_deg"],
+            "MDC_FWHM_DoLP_worst": row["MDC_FWHM_DoLP_worst"],
+            "formal_DoLP_worst": row["formal_DoLP_worst"],
+            "formal_P_LP_axisfree_worst": row["formal_P_LP_axisfree_worst"],
+            "final_pass": row["final_pass"],
+            "promising": row["promising"],
+            "qualification_status": "VALID_31_POINT_FULL_JONES",
+        }
+        for row in ranked
+    ]
+    rows.append(
+        {
+            "geometry_id": "BF08",
+            "MDC_weighted_DoLP": None,
+            "MDC_weighted_P_LP_axisfree": None,
+            "MDC_FWHM_psi_span_deg": None,
+            "MDC_FWHM_DoLP_worst": None,
+            "formal_DoLP_worst": None,
+            "formal_P_LP_axisfree_worst": None,
+            "final_pass": False,
+            "promising": False,
+            "qualification_status": "INVALID_NEGATIVE_FORMAL_TRANSMISSION_AT_436_NM",
+        }
+    )
+    write_csv(REPORT / "all_candidate_comparison.csv", rows)
+
+    case_ids = [f"{gid}_{pol}" for gid in ALL for pol in ("x", "y")]
+    states = {case_id: case_state(case_id) for case_id in case_ids}
+    entered = sum(bool(state and state.get("solver_entered")) for state in states.values())
+    accepted = sum(bool(state and state.get("status") == "COMPLETED") for state in states.values())
+    scheduler = INIT.scheduler_snapshot()
+    verdict = "PAPER_A_LP_ANISOTROPY_BALANCED_FULL_TRUTH_HARD_GATE_BF08_FORMAL_TRANSMISSION_INVALID"
+    decision = {
+        "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_FULL_TRUTH_TERMINAL_FAILURE_V1",
+        "timestamp_utc": now(),
+        "status": "HARD_GATE",
+        "verdict": verdict,
+        "reason": "BF08_x and BF08_y returned immutable run-FSPs but both have negative formal net transmission at 436 nm; 31-point normalization is not physically valid",
+        "solver_budget_max_cases": TOTAL_STAGE_BUDGET,
+        "solver_entered_cases": entered,
+        "solver_accepted_cases": accepted,
+        "solver_replay": False,
+        "remaining_authorized_solver_budget": 0,
+        "valid_full_jones_geometries": valid_ids,
+        "invalid_geometry": "BF08",
+        "valid_final_pass_count": len(final_rows),
+        "valid_promising_count": len(promising_rows),
+        "ranked_valid_geometry_ids": [row["geometry_id"] for row in ranked],
+        "primary": None,
+        "champion_frozen": False,
+        "BF08_returned_fsp_diagnostic": diagnostic,
+        "no_artificial_renormalization": True,
+        "no_rcwa": True,
+        "no_ml": True,
+        "scheduler_snapshot": scheduler,
+        "next_authority": "CHART_REQUIRED_FOR_ANY_BF08_REPLAY_OR_PHYSICS_CONTRACT_CHANGE",
+    }
+    write_json(REPORT / "terminal_failure.json", decision)
+    write_json(REPORT / "audit.json", decision)
+
+    spectra_path = REPORT / "full_jones_order_0_0_spectra.csv"
+    with spectra_path.open(encoding="utf-8", newline="") as handle:
+        spectra_rows = list(csv.DictReader(handle))
+    checks = {
+        "entered_exact_16": entered == TOTAL_STAGE_BUDGET,
+        "accepted_exact_14": accepted == 14,
+        "bf08_both_entered_returned_fsp_preserved": all(
+            states[case_id]
+            and states[case_id].get("solver_entered")
+            and states[case_id].get("run_fsp_sha256")
+            and (RUNTIME / "cases" / case_id / f"{case_id}_run.fsp").exists()
+            for case_id in ("BF08_x", "BF08_y")
+        ),
+        "bf08_hashes_match_attempt": all(row.get("hash_match") for row in diagnostic["cases"]),
+        "bf08_negative_only_436_nm": all([point["wavelength_nm"] for point in row["negative_points"]] == [436.0] for row in diagnostic["cases"]),
+        "valid_full_jones_217_rows": len(spectra_rows) == 217 and len({(row["geometry_id"], row["wavelength_nm"]) for row in spectra_rows}) == 217,
+        "seven_valid_no_pass_or_promising": not final_rows and not promising_rows,
+        "scheduler_active_zero": scheduler.get("active_fdtd_jobs") == 0 and not scheduler.get("unknown_solver_jobs"),
+        "monitor_lock_released": not (RUNTIME / "monitor_conditional/paper_a_lp_conditional_truth_monitor.lock").exists(),
+        "no_auto_replay": True,
+        "no_artificial_renormalization": True,
+    }
+    final_audit = {
+        "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_FULL_TRUTH_HARD_GATE_AUDIT_V1",
+        "timestamp_utc": now(),
+        "status": "PASS" if all(checks.values()) else "HARD_GATE_AUDIT_FAILURE",
+        "checks": checks,
+        "solver_accounting": {"authorized": TOTAL_STAGE_BUDGET, "entered": entered, "accepted": accepted, "entered_unresolved": 2, "remaining": 0, "rcwa": 0, "ml": 0},
+        "terminal_verdict": verdict,
+    }
+    write_json(REPORT / "final_audit.json", final_audit)
+
+    report = [
+        "# Paper A LP anisotropy balanced full truth hard gate",
+        "",
+        f"Verdict: `{verdict}`",
+        "",
+        "BF01-BF07 have valid 31-point order-(0,0) J_xy evidence. None passes FINAL or PROMISING.",
+        "BF08 x/y both completed the solver and preserved immutable run-FSPs, but both report negative formal net transmission at 436 nm. No absolute-value clipping, zero clipping, interpolation, or renormalization was applied.",
+        "",
+        "| geometry | weighted DoLP | weighted P_LP | FWHM psi span | formal worst DoLP | final pass | promising |",
+        "|---|---:|---:|---:|---:|---|---|",
+    ]
+    for row in ranked:
+        report.append(
+            f"| {row['geometry_id']} | {row['MDC_weighted']['DoLP']:.6f} | {row['MDC_weighted']['P_LP_axisfree']:.6f} | "
+            f"{row['MDC_FWHM_psi_span_deg']:.3f} | {row['formal_DoLP_worst']:.6f} | {row['final_pass']} | {row['promising']} |"
+        )
+    report.append("| BF08 | invalid | invalid | invalid | invalid | False | False |")
+    report += [
+        "",
+        "Solver accounting: authorized/entered/accepted = 16/16/14; BF08 x/y are entered-unresolved extraction cases and cannot be replayed without new Chart authority.",
+        "",
+    ]
+    (REPORT / "final_report.md").write_text("\n".join(report), encoding="utf-8")
+
+    truth_path = AUTH / "paper_a_lp_anisotropy_balanced_initial_truth_v1.json"
+    truth = json.loads(truth_path.read_text(encoding="utf-8"))
+    truth.update(
+        {
+            "status": "FULL_BALANCED_TRUTH_HARD_GATE_BF08_INVALID",
+            "solver_entered_cases": entered,
+            "solver_completed_cases": accepted,
+            "entered_unresolved_cases": ["BF08_x", "BF08_y"],
+            "remaining_authorized_solver_budget": 0,
+            "full_truth_verdict": verdict,
+            "full_truth_result_artifact": str(REPORT / "terminal_failure.json"),
+            "champion_frozen": False,
+            "primary": None,
+            "next_authority": "CHART_REQUIRED_FOR_ANY_BF08_REPLAY_OR_PHYSICS_CONTRACT_CHANGE",
+        }
+    )
+    write_json(truth_path, truth)
+    return decision
+
+
 def tests() -> dict[str, Any]:
     override = json.loads((AUTH / "paper_a_lp_anisotropy_balanced_midpoint_override_v1.json").read_text(encoding="utf-8"))
     prepared_path = REPORT / "conditional_prepared_fsp_provenance.json"
@@ -751,7 +909,7 @@ def status() -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=["authorize", "prepare", "preflight", "run-case", "run-conditional", "audit", "tests", "status", "closeout"])
+    parser.add_argument("mode", choices=["authorize", "prepare", "preflight", "run-case", "run-conditional", "audit", "tests", "status", "closeout", "hard-gate-closeout"])
     parser.add_argument("--case-id")
     args = parser.parse_args()
     if args.mode == "authorize":
@@ -772,6 +930,8 @@ def main() -> int:
         output = tests()
     elif args.mode == "closeout":
         output = closeout("ZERO_SOLVER_RECLOSEOUT")
+    elif args.mode == "hard-gate-closeout":
+        output = hard_gate_closeout()
     else:
         output = status()
     print(json.dumps(output, indent=2, ensure_ascii=False, default=str))
