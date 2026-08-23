@@ -332,6 +332,11 @@ def run_case(case_id: str) -> dict[str, Any]:
         raise RuntimeError(f"HARD_GATE_SETUP_STATUS:{case_id}")
     pre = Path(setup["replay_pre_fsp_path"])
     attempt_path = case_dir(case_id) / "attempt_002_authorized_replay_provenance.json"
+    if attempt_path.exists():
+        previous = json.loads(attempt_path.read_text(encoding="utf-8"))
+        if previous.get("solver_entered") is True:
+            raise RuntimeError(f"HARD_GATE_ENTERED_REPLAY_ATTEMPT_EXISTS:{case_id}")
+        write_json(case_dir(case_id) / "attempt_002_preentry_failure.json", previous)
     record = {
         "schema": "PAPER_A_LP_BF08_AUTHORIZED_REPLAY_ATTEMPT_V1",
         "case_id": case_id,
@@ -353,7 +358,7 @@ def run_case(case_id: str) -> dict[str, Any]:
     try:
         scheduler_module = load_module(SCHEDULER_PATH, f"bf08_replay_scheduler_{case_id}")
         scheduler = scheduler_module.GlobalSlotScheduler(SLOT_REGISTRY)
-        update_state(case_id, case_id=case_id, status="WAITING", solver_entered=False)
+        update_state(case_id, status="WAITING", solver_entered=False)
         lease = scheduler.acquire_wait(
             branch=BRANCH, worktree=str(ROOT), task_id=TASK_ID, case_uid=case_id,
             pid=os.getpid(), metadata={"task_class": "PAPER_A_BF08_AUTHORIZED_REPLAY", "attempt_id": record["attempt_id"]},
@@ -500,6 +505,13 @@ def run_replay() -> dict[str, Any]:
         final = {"status": "HARD_GATE_PRE_ENTRY", "preflight": pre, "solver_entered": 0}
         write_json(REPORT / "terminal_failure.json", final)
         return final
+    prior_terminal = REPORT / "terminal_failure.json"
+    if prior_terminal.exists():
+        prior = json.loads(prior_terminal.read_text(encoding="utf-8"))
+        if prior.get("solver_accounting", {}).get("entered") != 0:
+            raise RuntimeError("HARD_GATE_PRIOR_ENTERED_REPLAY_TERMINAL")
+        write_json(REPORT / "terminal_failure_preentry_controller.json", prior)
+        prior_terminal.unlink()
     stop = threading.Event()
     worker = threading.Thread(target=monitor, args=(stop,), daemon=True)
     worker.start()
