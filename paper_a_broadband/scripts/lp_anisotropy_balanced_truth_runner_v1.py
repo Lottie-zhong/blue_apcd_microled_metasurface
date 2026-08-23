@@ -168,7 +168,9 @@ def instrumented_base_write_json(path: Path, value: Any) -> None:
             "mesh_boundary_unchanged": True,
             "normalization_renormalized": False,
         }
-        value.setdefault("attempt_id", f"{case_id}_attempt_001")
+        case_runtime = RUNTIME / "cases" / str(case_id)
+        archived_attempts = list(case_runtime.glob("attempt_provenance_attempt_*.json"))
+        value.setdefault("attempt_id", f"{case_id}_attempt_{len(archived_attempts) + 1:03d}")
         value["physical_contract"] = contract
         value["physical_contract_sha256"] = sha_obj(contract)
     _base_write_json(path, value)
