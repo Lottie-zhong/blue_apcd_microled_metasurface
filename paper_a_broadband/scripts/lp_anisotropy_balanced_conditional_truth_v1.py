@@ -316,7 +316,13 @@ def prepare() -> dict[str, Any]:
             setup_path = out / "setup_only.json"
             expected = expected_readback(g, pol)
             existing = json.loads(setup_path.read_text(encoding="utf-8")) if setup_path.exists() else None
-            if existing and existing.get("status") == "PASS" and pre.exists() and existing.get("pre_fsp_sha256") == sha_file(pre):
+            if (
+                existing
+                and existing.get("status") == "PASS"
+                and existing.get("gate", {}).get("pass") is True
+                and pre.exists()
+                and existing.get("pre_fsp", {}).get("sha256") == sha_file(pre)
+            ):
                 results.append(existing)
                 continue
             f = lumapi.FDTD(hide=True)
@@ -369,9 +375,11 @@ def prepare() -> dict[str, Any]:
                 "pre_fsp_path": str(pre),
                 "pre_fsp_sha256": sha_file(pre),
                 "parent_fsp_sha256": parent_hash,
+                "pre_fsp": {"path": str(pre), "sha256": sha_file(pre), "parent_sha256": parent_hash},
                 "geometry_hash": g["geometry_hash_sha256"],
                 "readback": actual,
                 "expected": expected,
+                "gate": {"pass": readback_matches(actual, expected), "checks": actual, "expected": expected},
                 "mesh_boundary_unchanged": True,
                 "normalization_renormalized": False,
             }
@@ -620,6 +628,13 @@ def closeout(reason: str) -> dict[str, Any]:
 
 
 def run_conditional() -> dict[str, Any]:
+    terminal_failure = REPORT / "terminal_failure.json"
+    if terminal_failure.exists() and not any(case_state(case_id) and case_state(case_id).get("solver_entered") for case_id in CONDITIONAL_CASES):
+        archive = REPORT / "terminal_failure_preentry_setup_gate_attempt_001.json"
+        if not archive.exists():
+            os.replace(terminal_failure, archive)
+        else:
+            terminal_failure.unlink()
     pre = preflight()
     if pre["status"] != "PASS":
         write_json(REPORT / "terminal_failure.json", {"schema": "PAPER_A_LP_ANISOTROPY_BALANCED_CONDITIONAL_FAILURE_V1", "timestamp_utc": now(), "status": "HARD_GATE_PREFLIGHT", "preflight": pre})
