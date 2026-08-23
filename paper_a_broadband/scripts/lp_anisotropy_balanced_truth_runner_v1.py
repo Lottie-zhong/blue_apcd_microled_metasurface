@@ -429,6 +429,38 @@ def postprocess_geometry(geometry_id: str) -> dict[str, Any]:
 BASE.postprocess_geometry = postprocess_geometry
 
 
+def run_case(case_id: str) -> dict[str, Any]:
+    return BASE.PREV.run_case(case_id)
+
+
+def run_wave(geometry_id: str) -> dict[str, Any]:
+    processes = []
+    logs = []
+    for polarization in ("x", "y"):
+        case_id = f"{geometry_id}_{polarization}"
+        log_path = RUNTIME / "cases" / case_id / "controller.log"
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        handle = log_path.open("a", encoding="utf-8")
+        logs.append(handle)
+        process = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "run-case", "--case-id", case_id], stdout=handle, stderr=handle)
+        processes.append((case_id, process))
+    while any(process.poll() is None for _, process in processes):
+        time.sleep(5.0)
+    results = []
+    for case_id, process in processes:
+        state_path = RUNTIME / "cases" / case_id / "state.json"
+        state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else None
+        results.append({"case_id": case_id, "returncode": process.returncode, "state": state})
+    for handle in logs:
+        handle.close()
+    if any(result["returncode"] != 0 or not result["state"] or result["state"].get("status") != "COMPLETED" for result in results):
+        return {"geometry_id": geometry_id, "status": "FAILED", "cases": results}
+    return {"geometry_id": geometry_id, "status": "COMPLETED", "cases": results, "summary": postprocess_geometry(geometry_id)}
+
+
+BASE.run_wave = run_wave
+
+
 def finalize(status: str, waves: list[dict[str, Any]], midpoint: dict[str, Any] | None = None, reason: str | None = None) -> dict[str, Any]:
     summaries = [wave["summary"] for wave in waves if wave.get("summary")]
     ranked = sorted(summaries, key=lambda row: (bool(row.get("final_pass")), bool(row.get("promising")), row.get("MDC_weighted", {}).get("DoLP", -1), row.get("MDC_weighted", {}).get("P_LP_axisfree", -1), -row.get("MDC_FWHM_psi_span_deg", 999)), reverse=True)
@@ -535,10 +567,15 @@ def status() -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=["preflight", "run-initial", "status"])
+    parser.add_argument("mode", choices=["preflight", "run-case", "run-initial", "status"])
+    parser.add_argument("--case-id")
     args = parser.parse_args()
     if args.mode == "preflight":
         output = preflight()
+    elif args.mode == "run-case":
+        if not args.case_id:
+            raise RuntimeError("CASE_ID_REQUIRED")
+        output = run_case(args.case_id)
     elif args.mode == "run-initial":
         output = run_initial()
     else:
