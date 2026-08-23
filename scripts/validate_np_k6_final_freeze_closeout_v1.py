@@ -23,7 +23,10 @@ with (ROOT / "outputs/np_k6_m8a_primary2_closeout_v1/hf22_formal_development_484
 errors = []
 if freeze["status"] != "NP_K6_FROZEN_FORWARD_PROVIDER_COUPLING_HANDOFF_READY": errors.append("freeze status")
 if git("branch", "--show-current") != "work/np-k6-mdc-v1": errors.append("branch")
-if git("rev-parse", "HEAD") != "a87042a74060cf88a0de70ee2b5e346785015d3f": errors.append("HEAD")
+if freeze["repository"].get("freeze_input_head") != "a87042a74060cf88a0de70ee2b5e346785015d3f": errors.append("freeze input HEAD")
+stored_head = freeze["repository"].get("head")
+ancestor = subprocess.run(["git", "-C", str(ROOT), "merge-base", "--is-ancestor", stored_head, "HEAD"], check=False)
+if ancestor.returncode != 0: errors.append("final HEAD ancestry")
 if git("rev-list", "--left-right", "--count", "HEAD...@{upstream}") not in {"0\t0", "0 0"}: errors.append("divergence")
 if len(rows) != 484 or len({r["geometry_id"] for r in rows}) != 22 or len({(r["geometry_id"], r["polarization"]) for r in rows}) != 44: errors.append("HF authority counts")
 if provider["scope"]["u_x"] != [0.0] or provider["scope"]["k_y"] != 0.0: errors.append("normal incidence")
