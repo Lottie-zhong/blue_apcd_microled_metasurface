@@ -1,0 +1,312 @@
+{
+  "checks": [
+    {
+      "check": "artifact identity",
+      "detail": "NP_K6_FROZEN_FORWARD_SURROGATE_NATURE_FIGURE_LAYOUT_V2",
+      "passed": true
+    },
+    {
+      "check": "distinct frozen providers",
+      "detail": {
+        "components_are_distinct": true,
+        "ranking": {
+          "model": "LF_only",
+          "variant": "ensemble_raw"
+        },
+        "spectral": {
+          "model": "LF_ridge_residual",
+          "variant": "ensemble_raw"
+        },
+        "statement": "distinct frozen provider components; not a single universal surrogate"
+      },
+      "passed": true
+    },
+    {
+      "check": "frozen 22 geometry 484 row scope",
+      "detail": {
+        "heldout_geometries": 22,
+        "hf_rows": 484,
+        "k_y": 0.0,
+        "polarizations": [
+          "P_XLIKE",
+          "S_YLIKE"
+        ],
+        "u_x": 0.0,
+        "wavelengths_nm": [
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check": "one ranking row per held-out geometry",
+      "detail": {
+        "rows": 22,
+        "unique": 22
+      },
+      "passed": true
+    },
+    {
+      "check": "frozen rho",
+      "detail": 0.961603613777527,
+      "passed": true
+    },
+    {
+      "check": "complete order-resolved grid",
+      "detail": {
+        "expected": 462,
+        "keys": 462,
+        "rows": 462
+      },
+      "passed": true
+    },
+    {
+      "check": "order-axis mapping and +x convention",
+      "detail": {
+        "array_row_order": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "heatmap_origin": "lower; pcolormesh rows ascend from minimum to maximum m",
+        "m_plus1_direction": "physical +x",
+        "shared_for": [
+          "FDTD truth",
+          "raw OOF prediction",
+          "P_XLIKE",
+          "S_YLIKE"
+        ],
+        "source": "authority-derived formal transmitted-order columns",
+        "tick_labels": [
+          "-3",
+          "-2",
+          "-1",
+          "0",
+          "+1",
+          "+2",
+          "+3"
+        ],
+        "tracked_order_vector": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check": "representatives retained from v1",
+      "detail": [
+        {
+          "error_value": 0.023597529081565986,
+          "geometry_count": 22,
+          "geometry_id": "K6X_D110_D190_D210_D215_D220_D225",
+          "prediction_source": "LF_ridge_residual/ensemble_raw",
+          "rank_ascending_eta_plus1_mae": 1,
+          "selection": "Best",
+          "selection_metric": "geometry-level mean absolute eta(+1) OOF error over explicit P/S and 445-455 nm",
+          "truth_source": "HF22 formal held-out authority"
+        },
+        {
+          "error_value": 0.06712589733175645,
+          "geometry_count": 22,
+          "geometry_id": "K6X_D100_D130_D135_D155_D160_D225",
+          "prediction_source": "LF_ridge_residual/ensemble_raw",
+          "rank_ascending_eta_plus1_mae": 11,
+          "selection": "Median",
+          "selection_metric": "geometry-level mean absolute eta(+1) OOF error over explicit P/S and 445-455 nm",
+          "truth_source": "HF22 formal held-out authority"
+        },
+        {
+          "error_value": 0.18508323828021264,
+          "geometry_count": 22,
+          "geometry_id": "K6X_D135_D155_D190_D220_D225_D230",
+          "prediction_source": "LF_ridge_residual/ensemble_raw",
+          "rank_ascending_eta_plus1_mae": 22,
+          "selection": "Worst",
+          "selection_metric": "geometry-level mean absolute eta(+1) OOF error over explicit P/S and 445-455 nm",
+          "truth_source": "HF22 formal held-out authority"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check": "negative raw prediction integrity",
+      "detail": {
+        "negative_prediction_count": 31,
+        "negative_prediction_min": -0.03355295459840597,
+        "negative_truth_count": 0,
+        "negative_truth_min": null,
+        "operations": {
+          "absolute_value_transform": false,
+          "clipping": false,
+          "renormalization": false
+        },
+        "raw_predictions_retained": true,
+        "truth_integrity": "PASS"
+      },
+      "passed": true
+    },
+    {
+      "check": "global color-scale contract",
+      "detail": {
+        "absolute_error": {
+          "colormap": "magma sequential",
+          "label": "Absolute prediction error",
+          "scale": [
+            0.0,
+            0.49151468265954873
+          ],
+          "shared_all_cases": true
+        },
+        "per_row_scales": false,
+        "truth_prediction": {
+          "colormap": "coolwarm restrained diverging",
+          "label": "Order efficiency eta_m (raw OOF; negatives retained)",
+          "scale": [
+            -0.03355295459840597,
+            0.7416090484903791
+          ],
+          "shared": true,
+          "zero_neutral": true
+        }
+      },
+      "passed": true
+    },
+    {
+      "check": "no data-altering operation",
+      "detail": {
+        "P_S_averaging": false,
+        "clipping": false,
+        "interpolation": false,
+        "renormalization": false,
+        "representative_reselection": false,
+        "smoothing": false,
+        "source_data_recomputed": false
+      },
+      "passed": true
+    },
+    {
+      "check": "zero compute",
+      "detail": {
+        "data_regeneration": 0,
+        "external_hf": 0,
+        "inverse": 0,
+        "new_fdtd": 0,
+        "new_rcwa": 0,
+        "new_training": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "np_k6_heldout_ranking_provider_v2 export bundle",
+      "detail": {
+        "dpi": [
+          599.9988,
+          599.9988
+        ],
+        "size_px": [
+          4323,
+          1771
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check": "np_k6_order_resolved_truth_prediction_error_v2 export bundle",
+      "detail": {
+        "dpi": [
+          599.9988,
+          599.9988
+        ],
+        "size_px": [
+          4323,
+          3900
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check": "183 mm wide and <=170 mm high 600 dpi rasters",
+      "detail": {
+        "np_k6_heldout_ranking_provider_v2": {
+          "dpi": [
+            599.9988,
+            599.9988
+          ],
+          "size_px": [
+            4323,
+            1771
+          ]
+        },
+        "np_k6_order_resolved_truth_prediction_error_v2": {
+          "dpi": [
+            599.9988,
+            599.9988
+          ],
+          "size_px": [
+            4323,
+            3900
+          ]
+        }
+      },
+      "passed": true
+    },
+    {
+      "check": "visual QA complete",
+      "detail": {
+        "clipping": "PASS",
+        "editable_vector_text": "PASS",
+        "facet_label_clearance": "PASS",
+        "figure1_annotation_clearance": "PASS",
+        "figure1_scatter_provider_alignment": "PASS",
+        "figure2_colorbar_alignment": "PASS",
+        "figure2_grid_alignment": "PASS",
+        "footer_clearance": "PASS",
+        "manual_panel_inspection": {
+          "figure1": "PASS: square scatter, rho annotation, y=x line, title, and provider block are separated and readable.",
+          "figure2": "PASS: FDTD/Prediction/Error columns and all P/S facets align; row labels remain outside axes; colorbars share grid height and labels do not overlap heatmaps, ticks, x labels, or footer."
+        },
+        "pdf_glyph_audit": "PASS",
+        "pdf_text_audit": {
+          "below_minimum_count": 0,
+          "figure1_minimum_found_pt": 5.1,
+          "figure2_minimum_found_pt": 5.0,
+          "minimum_required_pt": 5.0
+        },
+        "raster_600dpi": "PASS",
+        "source_preflight": "PASS",
+        "source_preflight_summary": {
+          "fail": 0,
+          "pass": 20,
+          "strict_ready": true,
+          "warn": 0
+        },
+        "typography": "PASS"
+      },
+      "passed": true
+    }
+  ],
+  "passed": 16,
+  "status": "PASS",
+  "total": 16,
+  "validator": "NP_K6_FROZEN_FORWARD_SURROGATE_NATURE_FIGURE_LAYOUT_V2"
+}

@@ -1,0 +1,151 @@
+{
+  "archetype": "quantitative grid split into ranking/provider and order-resolved evidence figures",
+  "artifact_id": "NP_K6_FROZEN_FORWARD_SURROGATE_NATURE_FIGURE_LAYOUT_V2",
+  "backend": "python/matplotlib",
+  "color_scale_contract": "color_scale_contract.json",
+  "core_conclusion": "The frozen NP surrogate preserves useful held-out K6 ranking and order-resolved broadband response trends for rapid screening before full-wave FDTD verification.",
+  "data_integrity": {
+    "P_S_averaging": false,
+    "clipping": false,
+    "interpolation": false,
+    "renormalization": false,
+    "representative_reselection": false,
+    "smoothing": false,
+    "source_data_recomputed": false
+  },
+  "figures": {
+    "figure1": {
+      "annotation_placement_axes_fraction": [
+        0.045,
+        0.93
+      ],
+      "paths": {
+        "pdf": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_heldout_ranking_provider_v2.pdf",
+        "png": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_heldout_ranking_provider_v2.png",
+        "svg": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_heldout_ranking_provider_v2.svg",
+        "tiff": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_heldout_ranking_provider_v2.tiff"
+      },
+      "size_mm": [
+        183.0,
+        75.0
+      ]
+    },
+    "figure2": {
+      "colorbar_grid_height_shared": true,
+      "heatmap_interpolation": "nearest-equivalent discrete pcolormesh",
+      "paths": {
+        "pdf": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_order_resolved_truth_prediction_error_v2.pdf",
+        "png": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_order_resolved_truth_prediction_error_v2.png",
+        "svg": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_order_resolved_truth_prediction_error_v2.svg",
+        "tiff": "figures\\np_k6_frozen_forward_surrogate_nature_figure_layout_v2\\np_k6_order_resolved_truth_prediction_error_v2.tiff"
+      },
+      "size_mm": [
+        183.0,
+        165.1
+      ]
+    }
+  },
+  "generation_timestamp_utc": "2026-08-23T08:54:11.906406+00:00",
+  "negative_prediction_audit": "negative_prediction_audit.json",
+  "providers": {
+    "components_are_distinct": true,
+    "ranking": {
+      "model": "LF_only",
+      "variant": "ensemble_raw"
+    },
+    "spectral": {
+      "model": "LF_ridge_residual",
+      "variant": "ensemble_raw"
+    },
+    "statement": "distinct frozen provider components; not a single universal surrogate"
+  },
+  "ranking_rho": 0.961603613777527,
+  "scope": {
+    "heldout_geometries": 22,
+    "hf_rows": 484,
+    "k_y": 0.0,
+    "polarizations": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "u_x": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "script_sha256": "aeac68105fc97ffdc4021bd9197ace72c9aff245a6b585a51c564620745fb125",
+  "selected_cases": [
+    {
+      "error_value": 0.023597529081565986,
+      "geometry_count": 22,
+      "geometry_id": "K6X_D110_D190_D210_D215_D220_D225",
+      "prediction_source": "LF_ridge_residual/ensemble_raw",
+      "rank_ascending_eta_plus1_mae": 1,
+      "selection": "Best",
+      "selection_metric": "geometry-level mean absolute eta(+1) OOF error over explicit P/S and 445-455 nm",
+      "truth_source": "HF22 formal held-out authority"
+    },
+    {
+      "error_value": 0.06712589733175645,
+      "geometry_count": 22,
+      "geometry_id": "K6X_D100_D130_D135_D155_D160_D225",
+      "prediction_source": "LF_ridge_residual/ensemble_raw",
+      "rank_ascending_eta_plus1_mae": 11,
+      "selection": "Median",
+      "selection_metric": "geometry-level mean absolute eta(+1) OOF error over explicit P/S and 445-455 nm",
+      "truth_source": "HF22 formal held-out authority"
+    },
+    {
+      "error_value": 0.18508323828021264,
+      "geometry_count": 22,
+      "geometry_id": "K6X_D135_D155_D190_D220_D225_D230",
+      "prediction_source": "LF_ridge_residual/ensemble_raw",
+      "rank_ascending_eta_plus1_mae": 22,
+      "selection": "Worst",
+      "selection_metric": "geometry-level mean absolute eta(+1) OOF error over explicit P/S and 445-455 nm",
+      "truth_source": "HF22 formal held-out authority"
+    }
+  ],
+  "selection_metric": "geometry-level mean absolute eta(+1) OOF error over explicit P/S and 445-455 nm",
+  "source_artifacts": {
+    "hf_truth": {
+      "path": "outputs\\np_k6_m8a_primary2_closeout_v1\\hf22_formal_development_484rows.csv",
+      "sha256": "5c5dca90928498c927663ad3eedbf502394a68c741feef836195573846ba1599"
+    },
+    "oof_predictions": {
+      "path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\oof_predictions_22g.csv",
+      "sha256": "3184bb5aa2ff14d046bb6212847e1e4b443d0575e10d889ec002de14af6e76c8"
+    },
+    "v1_representative_cases": {
+      "path": "outputs\\np_k6_frozen_forward_surrogate_order_heatmap_nature_figure_v1\\representative_cases.json",
+      "sha256": "289319530d7927a7968a2e2a1b644a16ab15fa46e3b9e6baa7410789afc473d6"
+    }
+  },
+  "tracked_order_vector": [
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "zero_compute_audit": {
+    "data_regeneration": 0,
+    "external_hf": 0,
+    "inverse": 0,
+    "new_fdtd": 0,
+    "new_rcwa": 0,
+    "new_training": 0
+  }
+}
