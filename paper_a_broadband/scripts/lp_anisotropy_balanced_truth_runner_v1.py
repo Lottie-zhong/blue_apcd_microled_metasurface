@@ -463,10 +463,35 @@ def run_wave(geometry_id: str) -> dict[str, Any]:
 BASE.run_wave = run_wave
 
 
+def midpoint_balanced(summaries: list[dict[str, Any]]) -> dict[str, Any]:
+    final = [row for row in summaries if row.get("final_pass")]
+    promising = [row for row in summaries if row.get("promising")]
+    directional = [row for row in summaries if row.get("MDC_weighted", {}).get("DoLP", 0.0) >= 0.40 or row.get("MDC_FWHM_psi_span_deg", 999.0) <= 45.0]
+    continuation = bool(final or promising)
+    result = {
+        "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_MIDPOINT_AUDIT_V1",
+        "timestamp_utc": now(),
+        "geometries_completed": len(summaries),
+        "final_pass_count": len(final),
+        "promising_count": len(promising),
+        "directional_diagnostic_count": len(directional),
+        "continue_to_BF05_BF08": continuation,
+        "conditional_admission_rule": "final_pass_count > 0 or promising_count > 0; directional diagnostics alone do not authorize conditional truth",
+        "status": "CONDITIONAL_BATCH_ELIGIBLE_PENDING_USER_AUTHORIZATION" if continuation else "CONDITIONAL_BATCH_NOT_ADMITTED_MIDPOINT_NOT_PROMISING",
+        "summaries": summaries,
+    }
+    write_json(REPORT / "midpoint_physics_audit.json", result)
+    return result
+
+
+BASE.midpoint = midpoint_balanced
+
+
 def finalize(status: str, waves: list[dict[str, Any]], midpoint: dict[str, Any] | None = None, reason: str | None = None) -> dict[str, Any]:
     summaries = [wave["summary"] for wave in waves if wave.get("summary")]
     ranked = sorted(summaries, key=lambda row: (bool(row.get("final_pass")), bool(row.get("promising")), row.get("MDC_weighted", {}).get("DoLP", -1), row.get("MDC_weighted", {}).get("P_LP_axisfree", -1), -row.get("MDC_FWHM_psi_span_deg", 999)), reverse=True)
     entered = sum(1 for gid in INITIAL for pol in ("x", "y") if (RUNTIME / "cases" / f"{gid}_{pol}" / "state.json").exists() and json.loads((RUNTIME / "cases" / f"{gid}_{pol}" / "state.json").read_text(encoding="utf-8")).get("solver_entered"))
+    conditional_eligible = bool(midpoint and midpoint.get("continue_to_BF05_BF08"))
     decision = {
         "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_INITIAL_TRUTH_DECISION_V1",
         "timestamp_utc": now(),
@@ -478,7 +503,8 @@ def finalize(status: str, waves: list[dict[str, Any]], midpoint: dict[str, Any] 
         "ranked_initial_geometry_ids": [row["geometry_id"] for row in ranked],
         "midpoint_physics_audit": midpoint,
         "conditional_batch_authorized": False,
-        "next_authority": "USER_DECISION_REQUIRED_FOR_BF05_BF08",
+        "conditional_batch_eligible": conditional_eligible,
+        "next_authority": "USER_DECISION_REQUIRED_FOR_BF05_BF08" if conditional_eligible else "BF05_BF08_NOT_ADMITTED_MIDPOINT_NOT_PROMISING",
         "no_rcwa": True,
         "no_ml": True,
         "summaries": summaries,
@@ -516,6 +542,17 @@ def finalize(status: str, waves: list[dict[str, Any]], midpoint: dict[str, Any] 
         report.append(f"| {item['geometry_id']} | {item['MDC_weighted']['DoLP']:.6f} | {item['MDC_weighted']['P_LP_axisfree']:.6f} | {item['MDC_FWHM_psi_span_deg']:.3f} | {item['MDC_FWHM_DoLP_worst']:.6f} | {item['final_pass']} | {item['promising']} |")
     (REPORT / "final_report.md").write_text("\n".join(report) + "\n", encoding="utf-8")
     return decision
+
+
+def zero_solver_closeout() -> dict[str, Any]:
+    checkpoint_paths = [RUNTIME / "cases" / f"{geometry_id}_{polarization}" / "checkpoint.json" for geometry_id in INITIAL for polarization in ("x", "y")]
+    if not all(path.exists() and json.loads(path.read_text(encoding="utf-8")).get("status") == "ACCEPTED" for path in checkpoint_paths):
+        raise RuntimeError("HARD_GATE_ZERO_SOLVER_CLOSEOUT_CHECKPOINT_CHAIN")
+    waves = []
+    for geometry_id in INITIAL:
+        waves.append({"geometry_id": geometry_id, "status": "COMPLETED", "summary": postprocess_geometry(geometry_id)})
+    midpoint = midpoint_balanced([wave["summary"] for wave in waves])
+    return finalize("PAPER_A_LP_BALANCED_INITIAL_TRUTH_COMPLETE", waves, midpoint=midpoint, reason="ZERO_SOLVER_MIDPOINT_AUTHORITY_CORRECTION")
 
 
 def run_initial() -> dict[str, Any]:
@@ -569,7 +606,7 @@ def status() -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=["preflight", "run-case", "run-initial", "status"])
+    parser.add_argument("mode", choices=["preflight", "run-case", "run-initial", "zero-solver-closeout", "status"])
     parser.add_argument("--case-id")
     args = parser.parse_args()
     if args.mode == "preflight":
@@ -580,6 +617,8 @@ def main() -> int:
         output = run_case(args.case_id)
     elif args.mode == "run-initial":
         output = run_initial()
+    elif args.mode == "zero-solver-closeout":
+        output = zero_solver_closeout()
     else:
         output = status()
     print(json.dumps(output, indent=2, ensure_ascii=False, default=str))
