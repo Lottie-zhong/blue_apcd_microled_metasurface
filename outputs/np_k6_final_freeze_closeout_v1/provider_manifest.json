@@ -1,0 +1,84 @@
+{
+  "capability": {
+    "supported": [
+      "geometry ranking",
+      "coarse screening",
+      "normal-incidence spectral estimation"
+    ],
+    "unsupported": [
+      "FDTD replacement",
+      "quantitative coupled-device prediction",
+      "angular generalization",
+      "Jones matrix prediction",
+      "full MDC-NP integrated truth"
+    ]
+  },
+  "components_are_distinct": true,
+  "hf_authority": {
+    "geometries": 22,
+    "logical_ps_cases": 44,
+    "spectral_rows": 484
+  },
+  "provider_id": "NP_K6_NORMAL_INCIDENCE_SCREENING_PROVIDER_V1",
+  "ranking_component": {
+    "model": "LF_only",
+    "role": "geometry-level ranking/coarse screening",
+    "variant": "ensemble_raw"
+  },
+  "scope": {
+    "k_y": 0.0,
+    "polarization": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "u_x": [
+      0.0
+    ],
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "source_artifacts": {
+    "hf22_authority": {
+      "path": "outputs\\np_k6_m8a_primary2_closeout_v1\\hf22_formal_development_484rows.csv",
+      "sha256": "5c5dca90928498c927663ad3eedbf502394a68c741feef836195573846ba1599"
+    },
+    "m9_constrained_metrics": {
+      "path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\model_metrics_constrained.csv",
+      "sha256": "315cd0079e833a95c8a9779a3fedfa54734d1babd3d3fda1977694f6002a1c41"
+    },
+    "m9_oof_predictions": {
+      "path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\oof_predictions_22g.csv",
+      "sha256": "3184bb5aa2ff14d046bb6212847e1e4b443d0575e10d889ec002de14af6e76c8"
+    },
+    "m9_ranking_metrics": {
+      "path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\ranking_metrics.csv",
+      "sha256": "c1f4d401d02ce44480502f15efe4ac0f6bcfbe09d7a6ce8da94d9299b4de7fcb"
+    },
+    "m9_validator": {
+      "path": "outputs\\np_k6_m9_22g_forward_retraining_v1\\m9_final_validator_report.json",
+      "sha256": "0fc1780c718728a979d9bd5df316c0ad618ac3088c3da95a14baf8225a4de543"
+    },
+    "m9a_freeze_decision": {
+      "path": "outputs\\np_k6_m9a_normal_incidence_plateau_reassessment_v1\\normal_incidence_freeze_decision.json",
+      "sha256": "974d5e933c8c726cd397b09587abe18a3638010f66a68ac73214e38ec53367a3"
+    }
+  },
+  "source_provider_freeze": "outputs\\np_k6_m9a_normal_incidence_plateau_reassessment_v1\\normal_incidence_freeze_decision.json",
+  "spectral_component": {
+    "model": "LF_ridge_residual",
+    "role": "normal-incidence spectral estimation",
+    "variant": "ensemble_raw"
+  },
+  "timestamp_utc": "2026-08-23T07:35:19.002310+00:00"
+}

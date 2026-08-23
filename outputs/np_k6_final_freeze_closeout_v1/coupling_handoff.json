@@ -1,0 +1,93 @@
+{
+  "angular_data_availability": {
+    "exact_wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "logical_case_count": 5,
+    "row_count": 55,
+    "stress_only": [
+      {
+        "polarization": "P_XLIKE",
+        "status": "RAYLEIGH_STRESS_TEST_ONLY_NOT_QUANTITATIVE_ANCHOR",
+        "u_x": -0.48275862069
+      }
+    ],
+    "unresolved": [
+      {
+        "polarization": "P_XLIKE",
+        "status": "UNRESOLVED_NOT_TRUTH_NO_ATTEMPT_003",
+        "u_x": 0.22413793103448276
+      }
+    ],
+    "usable_logical_cases": [
+      {
+        "polarization": "S_YLIKE",
+        "status": "AVAILABLE_SPARSE_HF_CROSS_REFERENCE",
+        "u_x": 0.22413793103448276
+      },
+      {
+        "polarization": "P_XLIKE",
+        "status": "AVAILABLE_SPARSE_HF_CROSS_REFERENCE",
+        "u_x": 0.37868939998860307
+      },
+      {
+        "polarization": "S_YLIKE",
+        "status": "AVAILABLE_SPARSE_HF_CROSS_REFERENCE",
+        "u_x": 0.37868939998860307
+      },
+      {
+        "polarization": "P_XLIKE",
+        "status": "AVAILABLE_QUANTITATIVE_HF_ANCHOR",
+        "u_x": -0.3786893999886029
+      },
+      {
+        "polarization": "S_YLIKE",
+        "status": "AVAILABLE_QUANTITATIVE_HF_ANCHOR",
+        "u_x": -0.3786893999886029
+      }
+    ]
+  },
+  "contract_id": "NP_K6_COUPLING_HANDOFF_CONTRACT_V1",
+  "geometry_schema": [
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6"
+  ],
+  "known_limitations": [
+    "normal-incidence provider remains separate from angular sparse calibration",
+    "angular RCWA/FDTD residuals are case- and polarization-dependent",
+    "no Jones outputs",
+    "no integrated MDC-NP truth",
+    "no universal quantitative surrogate claim"
+  ],
+  "phase_order_convention": {
+    "m_plus_1": "physical +x",
+    "u_x_sign": "positive u_x is +x incidence convention"
+  },
+  "polarization_convention": {
+    "P": "P_XLIKE",
+    "S": "S_YLIKE",
+    "paired_explicit": true
+  },
+  "recommended_usage": [
+    "RCWA baseline",
+    "sparse FDTD calibration",
+    "coupling residual learning"
+  ],
+  "source_handoff": "outputs\\np_k6_m11_alt1_sparse_angular_provider_calibration_v1\\NP_TO_MDC_COUPLING_ALT1_ANGULAR_COMPONENT_PROVIDER_HANDOFF_V1.json",
+  "status": "NP_K6_FROZEN_FORWARD_PROVIDER_COUPLING_HANDOFF_READY",
+  "timestamp_utc": "2026-08-23T07:35:19.002310+00:00"
+}

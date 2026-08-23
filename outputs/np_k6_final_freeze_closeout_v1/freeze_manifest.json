@@ -1,0 +1,96 @@
+{
+  "angular_handoff_contract": "NP_K6_COUPLING_HANDOFF_CONTRACT_V1",
+  "authority_checks": {
+    "figure_ml_training": 0,
+    "figure_rcwa_calls": 0,
+    "figure_solver_calls": 0,
+    "figure_validator_status": "PASS",
+    "m10c_status": "NP_K6_M10C_ALT1_NEG0378_PS_ANGULAR_HF_COMPLETE_M11_CALIBRATION_READY",
+    "m11_handoff_H1": "PASS",
+    "m11_handoff_H2": "NOT_PROVEN",
+    "m11_status": "NP_K6_M11_ALT1_ANGULAR_COMPONENT_PROVIDER_HANDOFF_READY_CONTROL_DECISION_UNPROVEN",
+    "m9a_status": "NP_K6_M9A_NORMAL_INCIDENCE_SCREENING_FROZEN_WAIT_COUPLING_ANGULAR_HANDOFF"
+  },
+  "capability_boundary": {
+    "supported": [
+      "geometry ranking",
+      "coarse screening",
+      "normal-incidence spectral estimation"
+    ],
+    "unsupported": [
+      "FDTD replacement",
+      "quantitative coupled-device prediction",
+      "angular generalization",
+      "Jones matrix prediction",
+      "full MDC-NP integrated truth"
+    ]
+  },
+  "development_archive_status": {
+    "EXTERNAL_HF": "HOLD",
+    "INVERSE_DESIGN": "NOT_STARTED",
+    "NORMAL_INCIDENCE_HF_EXPANSION": "FROZEN",
+    "STANDALONE_SURROGATE_OPTIMIZATION": "FROZEN"
+  },
+  "freeze_basis": "NP_K6_FROZEN_FORWARD_SURROGATE_NATURE_FIGURE_COMPLETE",
+  "freeze_id": "NP_K6_FINAL_FREEZE_AND_COUPLING_HANDOFF_CLOSEOUT_V1",
+  "hf_authority": {
+    "duplicate_or_conflicting_provenance": 0,
+    "geometries": 22,
+    "geometry_order_preserved": true,
+    "logical_ps_cases": 44,
+    "spectral_rows": 484
+  },
+  "normal_incidence_scope": {
+    "k_y": 0.0,
+    "polarizations": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "u_x": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "provider_components": {
+    "ranking": {
+      "model": "LF_only",
+      "role": "geometry-level ranking/coarse screening",
+      "variant": "ensemble_raw"
+    },
+    "single_universal_surrogate": false,
+    "spectral": {
+      "model": "LF_ridge_residual",
+      "role": "normal-incidence spectral estimation",
+      "variant": "ensemble_raw"
+    }
+  },
+  "provider_id": "NP_K6_NORMAL_INCIDENCE_SCREENING_PROVIDER_V1",
+  "repository": {
+    "branch": "work/np-k6-mdc-v1",
+    "divergence_head_upstream": "0\t0",
+    "expected_head": "a87042a74060cf88a0de70ee2b5e346785015d3f",
+    "head": "a87042a74060cf88a0de70ee2b5e346785015d3f"
+  },
+  "status": "NP_K6_FROZEN_FORWARD_PROVIDER_COUPLING_HANDOFF_READY",
+  "timestamp_utc": "2026-08-23T07:35:19.002310+00:00",
+  "zero_solver_audit": {
+    "basis": "freeze/audit/handoff only; derived metadata and documents only",
+    "data_regeneration": 0,
+    "external_hf": 0,
+    "inverse": 0,
+    "new_fdtd": 0,
+    "new_rcwa": 0,
+    "new_training": 0,
+    "sealed_hf_target_read": 0
+  }
+}
