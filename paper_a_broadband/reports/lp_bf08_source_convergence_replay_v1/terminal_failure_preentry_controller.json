@@ -1,0 +1,60 @@
+{
+  "schema": "PAPER_A_LP_BF08_SOURCE_CONVERGENCE_REPLAY_TERMINAL_V1",
+  "timestamp_utc": "2026-08-23T08:54:19.405386+00:00",
+  "records": [
+    {
+      "schema": "PAPER_A_LP_BF08_AUTHORIZED_REPLAY_ATTEMPT_V1",
+      "case_id": "BF08_x",
+      "attempt_id": "BF08_x_attempt_002",
+      "solver_replay": true,
+      "replay_authorization": "USER_EXPLICIT_BF08_X_Y_ONE_TIME_TWO_JOB_REPLAY_2026_08_23",
+      "solver_entered": false,
+      "geometry_hash_sha256": "258b562b14b617072eeefb4a10288c9938564e0fcf1392b3b8892b7f7c6bba75",
+      "immutable_returned_run_fsp_sha256": "2a10d30a4cf0597700c3cd02f43827de5c87fe2bcc521ae306e6104d8d67e9b1",
+      "replay_pre_fsp_sha256": "387ca30e41d1ff6ed450e608955c74462c117d5922ae72847aff3249aa4c6b0a",
+      "physical_contract_sha256": "01f01095def5a73db1f0c8507b9aab61ffc54e68cbaf64254ab10287d08c68ad",
+      "mpi_processes": 4,
+      "threads": 1,
+      "started_utc": "2026-08-23T08:54:19.400228+00:00",
+      "status": "FAILED",
+      "error": "TypeError: update_state() got multiple values for argument 'case_id'",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\bf08_source_convergence_replay_v1.py\", line 356, in run_case\n    update_state(case_id, case_id=case_id, status=\"WAITING\", solver_entered=False)\nTypeError: update_state() got multiple values for argument 'case_id'\n"
+    },
+    {
+      "schema": "PAPER_A_LP_BF08_AUTHORIZED_REPLAY_ATTEMPT_V1",
+      "case_id": "BF08_y",
+      "attempt_id": "BF08_y_attempt_002",
+      "solver_replay": true,
+      "replay_authorization": "USER_EXPLICIT_BF08_X_Y_ONE_TIME_TWO_JOB_REPLAY_2026_08_23",
+      "solver_entered": false,
+      "geometry_hash_sha256": "258b562b14b617072eeefb4a10288c9938564e0fcf1392b3b8892b7f7c6bba75",
+      "immutable_returned_run_fsp_sha256": "72478ec30327b2aa8615a07e55146c0ffea4c80bfce9e9217d80f96bdc76ef04",
+      "replay_pre_fsp_sha256": "5378200bdbb53757bad92e3305b341273477d4223d8e29fb541a0e0f37612a23",
+      "physical_contract_sha256": "01f01095def5a73db1f0c8507b9aab61ffc54e68cbaf64254ab10287d08c68ad",
+      "mpi_processes": 4,
+      "threads": 1,
+      "started_utc": "2026-08-23T08:54:19.405386+00:00",
+      "status": "FAILED",
+      "error": "TypeError: update_state() got multiple values for argument 'case_id'",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\bf08_source_convergence_replay_v1.py\", line 356, in run_case\n    update_state(case_id, case_id=case_id, status=\"WAITING\", solver_entered=False)\nTypeError: update_state() got multiple values for argument 'case_id'\n"
+    }
+  ],
+  "analysis": {
+    "status": "HARD_GATE_REPLAY_CASE_FAILURE"
+  },
+  "solver_accounting": {
+    "authorized": 2,
+    "entered": 0,
+    "accepted": 0,
+    "rcwa": 0,
+    "ml": 0
+  },
+  "scheduler_final": {
+    "timestamp_utc": "2026-08-23T08:54:20.000641+00:00",
+    "global_active_jobs": 0,
+    "active_fdtd_jobs": 0,
+    "active_rcwa_jobs": 0,
+    "unknown_solver_jobs": [],
+    "jobs": []
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "schema": "PAPER_A_LP_BF08_SOURCE_CONVERGENCE_REPLAY_FINAL_AUDIT_V1",
+  "status": "HARD_GATE",
+  "verdict": "PAPER_A_LP_BF08_REPLAY_SOURCE_NORMALIZATION_OR_PARENT_FSP_STATE_UNRESOLVED",
+  "reason": "Both user-authorized attempt-002 FDTD jobs returned, but neither yielded a physically valid non-negative formal-transmission spectrum under the tightened source/convergence settings.",
+  "solver_accounting": {
+    "authorized": 2,
+    "entered": 2,
+    "accepted": 0,
+    "rcwa": 0,
+    "ml": 0
+  },
+  "no_further_solver_authorized": true,
+  "checks": {
+    "entered_exactly_two": true,
+    "post_fsp_hashes_match": true,
+    "source_content_pass": true,
+    "mesh_boundary_unchanged": true,
+    "returned_parent_hashes_match": true,
+    "current_pre_fsp_provenance_drift_detected": true,
+    "formal_nonnegative_acceptance": false,
+    "scheduler_active_slots_zero": true,
+    "rcwa_zero": true,
+    "ml_zero": true
+  },
+  "case_details": [
+    {
+      "case_id": "BF08_x",
+      "attempt_id": "BF08_x_attempt_002",
+      "entered": true,
+      "returned": true,
+      "post_fsp_exists": true,
+      "post_fsp_hash_match": true,
+      "negative_formal_points": [
+        {
+          "wavelength_nm": 435.0,
+          "T": -6948.538507181775
+        },
+        {
+          "wavelength_nm": 436.0,
+          "T": -15939.744045885647
+        },
+        {
+          "wavelength_nm": 437.0,
+          "T": -1435.8649704744978
+        },
+        {
+          "wavelength_nm": 438.0,
+          "T": -487.77306500556944
+        },
+        {
+          "wavelength_nm": 439.0,
+          "T": -242.6204373690567
+        },
+        {
+          "wavelength_nm": 440.0,
+          "T": -148.4323141962165
+        },
+        {
+          "wavelength_nm": 441.0,
+          "T": -97.01326408518317
+        },
+        {
+          "wavelength_nm": 442.0,
+          "T": -67.33496765763765
+        },
+        {
+          "wavelength_nm": 443.0,
+          "T": -54.29583854027992
+        },
+        {
+          "wavelength_nm": 444.0,
+          "T": -37.24245913216451
+        },
+        {
+          "wavelength_nm": 445.0,
+          "T": -34.33397362836772
+        },
+        {
+          "wavelength_nm": 446.0,
+          "T": -24.180248826037705
+        },
+        {
+          "wavelength_nm": 447.0,
+          "T": -23.373861576404398
+        },
+        {
+          "wavelength_nm": 448.0,
+          "T": -18.809075158432485
+        },
+        {
+          "wavelength_nm": 449.0,
+          "T": -16.506329267220238
+        },
+        {
+          "wavelength_nm": 450.0,
+          "T": -14.342592400376223
+        },
+        {
+          "wavelength_nm": 451.0,
+          "T": -13.042941782418504
+        },
+        {
+          "wavelength_nm": 452.0,
+          "T": -11.545507284690572
+        },
+        {
+          "wavelength_nm": 453.0,
+          "T": -9.131651540875867
+        },
+        {
+          "wavelength_nm": 454.0,
+          "T": -8.331945252549435
+        },
+        {
+          "wavelength_nm": 455.0,
+          "T": -8.505382897939372
+        },
+        {
+          "wavelength_nm": 456.0,
+          "T": -7.901931387275507
+        },
+        {
+          "wavelength_nm": 457.0,
+          "T": -6.516203781656149
+        },
+        {
+          "wavelength_nm": 458.0,
+          "T": -5.330855340698238
+        },
+        {
+          "wavelength_nm": 459.0,
+          "T": -4.538126972692089
+        },
+        {
+          "wavelength_nm": 460.0,
+          "T": -4.077241136939546
+        },
+        {
+          "wavelength_nm": 461.0,
+          "T": -3.761610755420396
+        },
+        {
+          "wavelength_nm": 462.0,
+          "T": -3.4804673233650276
+        },
+        {
+          "wavelength_nm": 463.0,
+          "T": -3.2209700431206376
+        },
+        {
+          "wavelength_nm": 464.0,
+          "T": -3.051457387508905
+        },
+        {
+          "wavelength_nm": 465.0,
+          "T": -3.088539421536494
+        }
+      ],
+      "negative_formal_count": 31,
+      "source_content_pass": true,
+      "source_min_over_max": 0.9941976488181686,
+      "mesh_boundary_unchanged": true,
+      "current_pre_fsp_hash_matches_attempt": false,
+      "returned_parent_hash_match": true
+    },
+    {
+      "case_id": "BF08_y",
+      "attempt_id": "BF08_y_attempt_002",
+      "entered": true,
+      "returned": true,
+      "post_fsp_exists": true,
+      "post_fsp_hash_match": true,
+      "negative_formal_points": [
+        {
+          "wavelength_nm": 435.0,
+          "T": -6.9227083798707
+        },
+        {
+          "wavelength_nm": 436.0,
+          "T": -16.142663332825247
+        },
+        {
+          "wavelength_nm": 437.0,
+          "T": -1.3400531520906511
+        },
+        {
+          "wavelength_nm": 438.0,
+          "T": -0.19320972887501023
+        }
+      ],
+      "negative_formal_count": 4,
+      "source_content_pass": true,
+      "source_min_over_max": 0.9941976488181686,
+      "mesh_boundary_unchanged": true,
+      "current_pre_fsp_hash_matches_attempt": false,
+      "returned_parent_hash_match": true
+    }
+  ],
+  "preflight_sha256": "687abbb0e7752d69da3ba4ae39a0d7be30f1e714ad0c94cc6e7c2424bd9f3d57",
+  "terminal_sha256": "92817fec96321e303cee31fc2c8784eee0fea0675131f0b8dccbb9e5109a18b0"
+}
