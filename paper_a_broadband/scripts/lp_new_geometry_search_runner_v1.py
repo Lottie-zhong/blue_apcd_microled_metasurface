@@ -418,6 +418,14 @@ def run_case(case_id: str) -> dict[str, Any]:
             record["status"] = "QUARANTINED_PREFLIGHT_GATE"
             update_state(cid, status=record["status"], solver_entered=False, configuration_gate=gate)
             return record
+        authority_hook = globals().get("PRE_ENTRY_AUTHORITY_CHECK")
+        if authority_hook is not None:
+            authority_check = authority_hook(cid, pre)
+            record["prepared_input_authority"] = authority_check
+            if not authority_check.get("pass"):
+                record["status"] = "QUARANTINED_PRE_ENTRY_AUTHORITY"
+                update_state(cid, status=record["status"], solver_entered=False, configuration_gate=gate, prepared_input_authority=authority_check)
+                return record
         f.setresource("FDTD", 1, "processes", str(PROCESSES))
         entered = now()
         lease.mark_solver_entered(entered)
