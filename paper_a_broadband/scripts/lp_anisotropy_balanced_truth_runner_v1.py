@@ -18,18 +18,18 @@ from typing import Any
 import numpy as np
 
 ROOT = Path(r"D:/project/worktrees/blue_apcd_paper_a_lp_cp_broadband_v1")
-REPORT = ROOT / "paper_a_broadband/reports/lp_anisotropy_balanced_truth_v1"
-RUNTIME = ROOT / "paper_a_broadband/runtime/search_anisotropy_balanced_truth_v1"
+REPORT = ROOT / "paper_a_broadband/reports/lp_bf01_bf04_initial_truth_v1"
+RUNTIME = ROOT / "paper_a_broadband/runtime/search_anisotropy_bf01_bf04_initial_truth_v1"
 SELECTION = ROOT / "paper_a_broadband/reports/lp_anisotropy_feasible_space_v2_balanced_selection/balanced_selected_candidates.json"
 PREPARED = ROOT / "paper_a_broadband/reports/lp_anisotropy_feasible_space_v2_balanced_selection/prepared_fsp_provenance.json"
 BASE_RUNNER = ROOT / "paper_a_broadband/scripts/lp_anisotropy_expanded_search_runner_v1.py"
 SLOT_REGISTRY = Path(r"D:/project/apcd_global_fdtd_slot_registry_v1.json")
-TASK_ID = "PAPER_A_LP_ANISOTROPY_FEASIBLE_SPACE_V2_BALANCED_INITIAL_TRUTH_V1"
+TASK_ID = "PAPER_A_LP_BF01_BF04_INITIAL_BROADBAND_FULL_JONES_TRUTH_BATCH_V1"
 INITIAL = ["BF01", "BF02", "BF03", "BF04"]
 CONDITIONAL = ["BF05", "BF06", "BF07", "BF08"]
 GRID = [435.0 + i for i in range(31)]
 MAX_PHYSICS_JOBS = 8
-MAX_ACTIVE_PAPER_A_FDTD = 2
+MAX_ACTIVE_PAPER_A_FDTD = 1
 MONITOR_INTERVAL_S = 600.0
 
 sys.path.insert(0, r"N:/Program Files/ANSYS Inc/v251/Lumerical/api/python")
@@ -98,7 +98,7 @@ BASE.TASK_ID = TASK_ID
 BASE.PREV.REPORT = REPORT
 BASE.PREV.RUNTIME = RUNTIME
 BASE.PREV.TASK_ID = TASK_ID
-BASE.PREV.PROCESSES = 4
+BASE.PREV.PROCESSES = 12
 BASE.PREV.THREADS = 1
 
 
@@ -163,7 +163,7 @@ def instrumented_base_write_json(path: Path, value: Any) -> None:
             "formal_window_nm": [435.0, 465.0],
             "formal_points": 31,
             "diffraction_order": [0, 0],
-            "mpi_processes": 4,
+            "mpi_processes": 12,
             "threads": 1,
             "mesh_boundary_unchanged": True,
             "normalization_renormalized": False,
@@ -224,7 +224,7 @@ def materialize_setup_metadata() -> list[dict[str, Any]]:
                 "source_span_nm": [430.0, 470.0],
                 "formal_grid_nm": [435.0, 465.0],
                 "formal_points": 31,
-                "processes": 4,
+                "processes": 12,
                 "threads": 1,
                 "timestamp_utc": now(),
             }
@@ -287,7 +287,7 @@ def preflight() -> dict[str, Any]:
         "all_pre_fsp_hashes_match": all(row["status"] == "PASS" for row in setup),
         "material_validity": material,
         "source_monitor": {"source_span_nm": [430.0, 470.0], "formal_window_nm": [435.0, 465.0], "spacing_nm": 1.0, "formal_points": 31, "anchor_nm": 450.0},
-        "solver_policy": {"maximum_physics_jobs": MAX_PHYSICS_JOBS, "paper_a_max_active_fdtd": MAX_ACTIVE_PAPER_A_FDTD, "global_cap": 3, "mpi_processes": 4, "threads": 1, "entered_true_no_replay": True},
+        "solver_policy": {"maximum_physics_jobs": MAX_PHYSICS_JOBS, "paper_a_max_active_fdtd": MAX_ACTIVE_PAPER_A_FDTD, "global_cap": 3, "mpi_processes": 12, "threads": 1, "entered_true_no_replay": True},
         "scheduler_snapshot": snapshot,
         "explicit_high_priority_registry_demand": registry_queue_demands(),
         "no_rcwa": True,
@@ -435,30 +435,68 @@ def run_case(case_id: str) -> dict[str, Any]:
     return BASE.PREV.run_case(case_id)
 
 
+def invoke_physics_validity_gate(case_id: str) -> dict[str, Any]:
+    case_runtime = RUNTIME / "cases" / case_id
+    provenance = json.loads((case_runtime / "attempt_provenance.json").read_text(encoding="utf-8"))
+    if provenance.get("solver_entered") is not True:
+        raise RuntimeError(f"PHYSICS_GATE_REQUIRES_ENTERED_CASE:{case_id}")
+    output = case_runtime / "physics_validity_gate.json"
+    command = [
+        sys.executable,
+        str(ROOT / "paper_a_broadband/scripts/fdtd_physics_validity_gate_v1.py"),
+        "--case-id", case_id,
+        "--post-fsp", str(Path(provenance["run_fsp_path"])),
+        "--solver-log", str(case_runtime / "controller.log"),
+        "--output", str(output),
+    ]
+    completed = subprocess.run(command, capture_output=True, text=True, check=False)
+    if completed.returncode != 0:
+        raise RuntimeError(f"PHYSICS_VALIDITY_GATE_EXECUTION_FAILED:{case_id}:{completed.stderr[-2000:]}")
+    result = json.loads(output.read_text(encoding="utf-8"))
+    if result.get("case_id") != case_id:
+        raise RuntimeError(f"PHYSICS_VALIDITY_GATE_CASE_MISMATCH:{case_id}")
+    state_path = case_runtime / "state.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    state.update({
+        "physics_validity_gate": str(output),
+        "physics_validity_status": result.get("status"),
+        "physics_validity_root_cause": result.get("root_cause"),
+        "updated_utc": now(),
+    })
+    write_json(state_path, state)
+    return result
+
+
 def run_wave(geometry_id: str) -> dict[str, Any]:
-    processes = []
-    logs = []
+    results = []
     for polarization in ("x", "y"):
         case_id = f"{geometry_id}_{polarization}"
         log_path = RUNTIME / "cases" / case_id / "controller.log"
         log_path.parent.mkdir(parents=True, exist_ok=True)
-        handle = log_path.open("a", encoding="utf-8")
-        logs.append(handle)
-        process = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "run-case", "--case-id", case_id], stdout=handle, stderr=handle)
-        processes.append((case_id, process))
-    while any(process.poll() is None for _, process in processes):
-        time.sleep(5.0)
-    results = []
-    for case_id, process in processes:
+        with log_path.open("a", encoding="utf-8") as handle:
+            process = subprocess.Popen(
+                [sys.executable, str(Path(__file__).resolve()), "run-case", "--case-id", case_id],
+                stdout=handle,
+                stderr=handle,
+            )
+            returncode = process.wait()
         state_path = RUNTIME / "cases" / case_id / "state.json"
         state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else None
-        results.append({"case_id": case_id, "returncode": process.returncode, "state": state})
-    for handle in logs:
-        handle.close()
-    if any(result["returncode"] != 0 or not result["state"] or result["state"].get("status") != "COMPLETED" for result in results):
-        return {"geometry_id": geometry_id, "status": "FAILED", "cases": results}
+        result = {"case_id": case_id, "returncode": returncode, "state": state}
+        results.append(result)
+        if returncode != 0 or not state or state.get("status") != "COMPLETED":
+            return {"geometry_id": geometry_id, "status": "HARD_GATE_CASE_FAILURE", "failed_case": case_id, "cases": results}
+        validity = invoke_physics_validity_gate(case_id)
+        result["physics_validity"] = validity
+        if validity.get("status") != "VALID_FOR_PHYSICS_TRUTH":
+            return {
+                "geometry_id": geometry_id,
+                "status": "HARD_GATE_PHYSICS_VALIDITY",
+                "failed_case": case_id,
+                "cases": results,
+                "physics_validity": validity,
+            }
     return {"geometry_id": geometry_id, "status": "COMPLETED", "cases": results, "summary": postprocess_geometry(geometry_id)}
-
 
 BASE.run_wave = run_wave
 

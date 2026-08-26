@@ -1,0 +1,86 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_INITIAL_TRUTH_PREFLIGHT_V1",
+  "timestamp_utc": "2026-08-26T06:19:20.239063+00:00",
+  "status": "HARD_GATE_PREFLIGHT",
+  "canonical_head": "51e7804266766cf950ea3e3c39b55006346fcaf9",
+  "selection_sha256": "f235cd63086bb8bcd676f729f59373537c8e9565587a8b9c3071a1b85270203c",
+  "initial_geometry_ids": [
+    "BF01",
+    "BF02",
+    "BF03",
+    "BF04"
+  ],
+  "authorized_case_ids": [
+    "BF01_x",
+    "BF01_y",
+    "BF02_x",
+    "BF02_y",
+    "BF03_x",
+    "BF03_y",
+    "BF04_x",
+    "BF04_y"
+  ],
+  "conditional_authorized": false,
+  "prepared_case_count": 8,
+  "all_pre_fsp_hashes_match": false,
+  "material_validity": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\outputs\\material_reference\\mdc_blue_oujizi_m\\material_ref_native_sampled.csv",
+    "exists": true,
+    "models": {
+      "sio222": {
+        "min_nm": 199.97450000000003,
+        "max_nm": 1033.2015000000001,
+        "covers_430_470": true
+      },
+      "tio22": {
+        "min_nm": 199.97450000000003,
+        "max_nm": 1033.2015000000001,
+        "covers_430_470": true
+      },
+      "gan": {
+        "min_nm": null,
+        "max_nm": null,
+        "covers_430_470": false
+      }
+    },
+    "required_models_in_lp_parent": [
+      "sio222",
+      "tio22"
+    ],
+    "unused_native_model_in_parent": "gan",
+    "pass": true
+  },
+  "source_monitor": {
+    "source_span_nm": [
+      430.0,
+      470.0
+    ],
+    "formal_window_nm": [
+      435.0,
+      465.0
+    ],
+    "spacing_nm": 1.0,
+    "formal_points": 31,
+    "anchor_nm": 450.0
+  },
+  "solver_policy": {
+    "maximum_physics_jobs": 8,
+    "paper_a_max_active_fdtd": 1,
+    "global_cap": 3,
+    "mpi_processes": 12,
+    "threads": 1,
+    "entered_true_no_replay": true
+  },
+  "scheduler_snapshot": {
+    "timestamp_utc": "2026-08-26T06:19:20.102958+00:00",
+    "global_active_jobs": 0,
+    "active_fdtd_jobs": 0,
+    "active_rcwa_jobs": 0,
+    "unknown_solver_jobs": [],
+    "jobs": []
+  },
+  "explicit_high_priority_registry_demand": [],
+  "no_rcwa": true,
+  "no_ml": true,
+  "conditional_batch_not_ready": true
+}
