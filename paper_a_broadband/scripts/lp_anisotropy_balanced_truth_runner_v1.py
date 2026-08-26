@@ -106,6 +106,43 @@ BASE.PREV.PROCESSES = 12
 BASE.PREV.THREADS = 1
 
 
+def authoritative_case_dir(case_id: str) -> Path:
+    """Resolve the accepted V2 attempt without falling back to superseded truth."""
+    candidates = [
+        RUNTIME / "cases" / f"{case_id}_attempt_002",
+        RUNTIME / "cases" / case_id,
+    ]
+    for candidate in candidates:
+        checkpoint = candidate / "checkpoint.json"
+        provenance = candidate / "attempt_provenance.json"
+        validity = candidate / "physics_validity_gate_v2.json"
+        if not (checkpoint.exists() and provenance.exists() and validity.exists()):
+            continue
+        try:
+            checkpoint_data = json.loads(checkpoint.read_text(encoding="utf-8"))
+            provenance_data = json.loads(provenance.read_text(encoding="utf-8"))
+            validity_data = json.loads(validity.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if (
+            checkpoint_data.get("status") == "ACCEPTED"
+            and checkpoint_data.get("solver_entered") is True
+            and provenance_data.get("attempt_id") == f"{case_id}_attempt_002"
+            and provenance_data.get("solver_entered") is True
+            and validity_data.get("status") == "VALID_FOR_PHYSICS_TRUTH"
+        ):
+            return candidate
+    raise RuntimeError(f"HARD_GATE_AUTHORITATIVE_V2_CHECKPOINT_NOT_FOUND:{case_id}")
+
+
+# The solver runner archives instrumented V2 cases in attempt-002 directories.
+# Bind all zero-solver postprocessing helpers to that same authoritative mapping.
+BASE.case_dir = authoritative_case_dir
+BASE.case_state = lambda case_id: authoritative_case_dir(case_id) / "state.json"
+BASE.PREV.case_dir = authoritative_case_dir
+BASE.PREV.case_state = lambda case_id: authoritative_case_dir(case_id) / "state.json"
+
+
 def selected_rows() -> list[dict[str, Any]]:
     data = json.loads(SELECTION.read_text(encoding="utf-8"))
     rows = data.get("candidates", [])
@@ -484,7 +521,7 @@ def monitor_loop(stop: threading.Event) -> None:
 def full_jones_rows(geometry_id: str) -> list[dict[str, Any]]:
     checkpoints = {}
     for polarization in ("x", "y"):
-        path = RUNTIME / "cases" / f"{geometry_id}_{polarization}" / "checkpoint.json"
+        path = authoritative_case_dir(f"{geometry_id}_{polarization}") / "checkpoint.json"
         checkpoints[polarization] = {float(row["wavelength_nm"]): row for row in json.loads(path.read_text(encoding="utf-8"))["rows"]}
     rows = []
     for wavelength in GRID:
@@ -634,7 +671,12 @@ BASE.midpoint = midpoint_balanced
 def finalize(status: str, waves: list[dict[str, Any]], midpoint: dict[str, Any] | None = None, reason: str | None = None) -> dict[str, Any]:
     summaries = [wave["summary"] for wave in waves if wave.get("summary")]
     ranked = sorted(summaries, key=lambda row: (bool(row.get("final_pass")), bool(row.get("promising")), row.get("MDC_weighted", {}).get("DoLP", -1), row.get("MDC_weighted", {}).get("P_LP_axisfree", -1), -row.get("MDC_FWHM_psi_span_deg", 999)), reverse=True)
-    entered = sum(1 for gid in INITIAL for pol in ("x", "y") if (RUNTIME / "cases" / f"{gid}_{pol}" / "state.json").exists() and json.loads((RUNTIME / "cases" / f"{gid}_{pol}" / "state.json").read_text(encoding="utf-8")).get("solver_entered"))
+    entered = sum(
+        1
+        for gid in INITIAL
+        for pol in ("x", "y")
+        if json.loads(authoritative_case_dir(f"{gid}_{pol}").joinpath("state.json").read_text(encoding="utf-8")).get("solver_entered")
+    )
     conditional_eligible = bool(midpoint and midpoint.get("continue_to_BF05_BF08"))
     decision = {
         "schema": "PAPER_A_LP_ANISOTROPY_BALANCED_INITIAL_TRUTH_DECISION_V1",
@@ -689,7 +731,7 @@ def finalize(status: str, waves: list[dict[str, Any]], midpoint: dict[str, Any] 
 
 
 def zero_solver_closeout() -> dict[str, Any]:
-    checkpoint_paths = [RUNTIME / "cases" / f"{geometry_id}_{polarization}" / "checkpoint.json" for geometry_id in INITIAL for polarization in ("x", "y")]
+    checkpoint_paths = [authoritative_case_dir(f"{geometry_id}_{polarization}") / "checkpoint.json" for geometry_id in INITIAL for polarization in ("x", "y")]
     if not all(path.exists() and json.loads(path.read_text(encoding="utf-8")).get("status") == "ACCEPTED" for path in checkpoint_paths):
         raise RuntimeError("HARD_GATE_ZERO_SOLVER_CLOSEOUT_CHECKPOINT_CHAIN")
     waves = []

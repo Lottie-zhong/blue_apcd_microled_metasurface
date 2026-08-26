@@ -1,18 +1,17 @@
 # Paper A LP balanced initial truth v1
 
-Status: `HARD_GATE_CASE_FAILURE`
+Status: `PAPER_A_LP_BALANCED_INITIAL_TRUTH_COMPLETE`
 
 Current Native-M1; source/monitor 430-470 nm; formal axis-free full-Jones evaluation 435-465 nm at 1 nm; zero-order J_xy from independent x/y inputs.
-Solver entered: 1/8. Conditional BF05-BF08 was not authorized or run.
+Solver entered: 8/8. Conditional BF05-BF08 was not authorized or run.
 
 | geometry | weighted DoLP | weighted P_LP | FWHM psi span | FWHM DoLP worst | pass | promising |
 |---|---:|---:|---:|---:|---|---|
+| BF04 | 0.441575 | 0.477642 | 39.625 | 0.051591 | False | False |
+| BF03 | 0.141874 | 0.385328 | 229.842 | 0.009418 | False | False |
+| BF02 | 0.133706 | 0.388518 | 165.222 | 0.020359 | False | False |
+| BF01 | 0.121789 | 0.380843 | 90.000 | 0.023330 | False | False |
 
-## Physics validity hard gate
+## Integrity note
 
-- Failing case: BF01_x
-- Gate status: INSUFFICIENT_EVIDENCE_NOT_VALIDATED
-- Gate 1: no Auto Shutoff trajectory in immutable solver log.
-- Gate 2: independent late-time electromagnetic-energy/residual time series was not persisted.
-- Gate 3 transmission sanity and Gate 4 source normalization passed.
-- No replay was performed; BF01_y-BF04_y were not started.
+The zero-solver closeout entered no new solver. BF04_y retains its pre-entry authority hash and V2 validity; a post-entry on-disk pre-FSP drift is recorded as a provenance warning in input_chain_audit.json. No replay or repair was performed.
