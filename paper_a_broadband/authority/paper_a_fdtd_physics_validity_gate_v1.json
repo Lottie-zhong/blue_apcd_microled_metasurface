@@ -1,0 +1,73 @@
+{
+  "schema": "PAPER_A_FDTD_PHYSICS_VALIDITY_GATE_V1",
+  "status": "ACTIVE_FOR_COMPLETED_OUTPUT_READONLY_VALIDATION_ONLY",
+  "purpose": "solver completion is not equivalent to physics-truth validity",
+  "scope": {
+    "allowed_inputs": ["completed post-FSP", "immutable solver log", "completed-output provenance", "frozen authority/control evidence"],
+    "forbidden_actions": ["FDTD run", "scheduler admission", "FSP generation", "FSP save", "switchtolayout", "raw-result modification", "abs", "clipping", "renormalization", "wavelength deletion", "retry", "promotion", "RCWA", "ML"],
+    "output_boundary": "writes only new derived audit artifacts"
+  },
+  "formal_spectral_contract": {
+    "monitor_span_nm": [430.0, 470.0],
+    "formal_window_nm": [435.0, 465.0],
+    "formal_spacing_nm": 1.0,
+    "formal_points": 31
+  },
+  "thresholds": {
+    "auto_shutoff_initial_reference": {
+      "value": 1.0,
+      "units": "solver-normalized auto-shutoff observable",
+      "provenance": "Lumerical p0 logs record Auto Shutoff: 1 at simulation start; this is a solver-provided reference, not a new physical threshold"
+    },
+    "late_window": {
+      "rule": "last ceil(N/3) recorded auto-shutoff samples, minimum 3 samples",
+      "provenance": "deterministic post-run sampling rule; it changes no solver physics"
+    },
+    "late_time_divergence": {
+      "invalid_when": "trajectory first decays below 1.0 and later returns above 1.0, with positive net late-window growth",
+      "provenance": "BF08 attempt_003 logs show post-decay return/growth to 2367.4 (x) and 1.64048 (y), whereas accepted BF07 controls finish near 1e-3"
+    },
+    "sourcepower_ratio_min": {
+      "value": 0.99,
+      "provenance": "paper_a_lp_bf08_source_convergence_replay_contract_v1.json source_content_gate"
+    },
+    "sourcepower_zero": {
+      "value": 0.0,
+      "provenance": "only exact zero is used as an absolute collapse criterion because sourcepower scale is unit/context dependent"
+    },
+    "passive_transmission_control_envelope_max_abs": {
+      "value": 1.0024235255552798,
+      "provenance": "maximum absolute formal transmission across frozen accepted BF01-BF07 x/y controls in lp_bf08_attempt003_measurement_forensic_v1; screening signal only unless paired with convergence failure"
+    }
+  },
+  "layers": {
+    "gate_1_solver_convergence": "read immutable solver log; record final/peak/trajectory and classify late-time divergence",
+    "gate_2_late_time_energy": "use solver auto-shutoff trajectory as the available time-resolved electromagnetic-energy/residual proxy; explicitly report when no independent time-series field-energy observable was persisted",
+    "gate_3_transmission_sanity": "read transmission(T) without transformation; assess finite values, negative persistence, and control-envelope excess",
+    "gate_4_source_normalization": "read sourcepower at exact formal monitor coordinates; require finite, strictly positive values and min/max >= 0.99"
+  },
+  "semantics": {
+    "VALID_FOR_PHYSICS_TRUTH": "all required layers pass",
+    "INVALID_FOR_PHYSICS_TRUTH": "convergence/energy invalid, non-finite transmission, source collapse/instability, or convergence-invalid transmission anomaly",
+    "INSUFFICIENT_EVIDENCE_NOT_VALIDATED": "required completed-output provenance, log, or formal monitor data unavailable",
+    "negative_transmission": "diagnostic only; never transformed and only becomes a truth-invalidating signal together with invalid convergence/energy or non-finite data"
+  },
+  "regression_authority": {
+    "case": "BF08 attempt_003",
+    "expected_status": "INVALID_FOR_PHYSICS_TRUTH",
+    "expected_root_cause": "E_NUMERICAL_TIME_DOMAIN_DIVERGENCE_IN_STORED_SOLVER_ENERGY_RESULT",
+    "immutable_input_hashes": {
+      "BF08_x_post_fsp": "01adda5334ff3b8bcb70b821c028ceda111071480c287aafb9adbd85ad7eb8b1",
+      "BF08_y_post_fsp": "a8e60a40a2e3b48318d0281daeec5127d51b6d4ca7beeb3f9d80fa3fccdd0ca4"
+    }
+  },
+  "resource_safety": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "active_paper_a_fdtd": 0,
+    "rcwa": 0,
+    "ml": 0,
+    "scheduler_admission": false
+  }
+}
