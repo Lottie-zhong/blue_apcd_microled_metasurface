@@ -57,8 +57,18 @@ def jsonable(value):
     return value if isinstance(value, (str, int, float, bool)) or value is None else str(value)
 
 
+def _normalize_numeric(value):
+    if isinstance(value, float):
+        return float(format(value, ".15g"))
+    if isinstance(value, dict):
+        return {str(k): _normalize_numeric(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_normalize_numeric(v) for v in value]
+    return value
+
+
 def physics_view(semantic):
-    result = json.loads(json.dumps(semantic, default=str)); result.pop("object_names", None); return result
+    result = json.loads(json.dumps(semantic, default=str)); result.pop("object_names", None); return _normalize_numeric(result)
 
 
 def add_time_monitor(fdtd):
@@ -109,7 +119,7 @@ def instrument(parent: Path, output: Path, case_id: str, report: Path):
         "case_id": case_id, "solver_run_called": False, "solver_entered": False,
         "parent_fsp": {"path": str(parent), "sha256": sha_file(parent)},
         "instrumented_pre_fsp": {"path": str(output), "sha256": sha_file(output)},
-        "physics_semantic_fingerprint": {"method": "canonical semantic readback excluding instrumentation object list", "before": before_fp, "after": after_fp, "unchanged": before_fp == after_fp, "legacy_full_semantic_before": sha_obj(before["semantic"]), "authority_semantic_fingerprint": authority["cases"][case_id]["semantic_fingerprint"]},
+        "physics_semantic_fingerprint": {"method": "canonical semantic readback excluding instrumentation object list with 15-significant-digit float serialization normalization", "before": before_fp, "after": after_fp, "unchanged": before_fp == after_fp, "numeric_normalization": "15 significant digits for audit-only serialization; no physics values changed", "legacy_full_semantic_before": sha_obj(before["semantic"]), "authority_semantic_fingerprint": authority["cases"][case_id]["semantic_fingerprint"]},
         "convergence_instrumentation_fingerprint": sha_obj(contract), "instrumentation_contract": contract,
         "readback": {"before_complete": before["readback_complete"], "after_complete": after["readback_complete"], "after_object_names": after["semantic"].get("object_names")},
         "physics_contract_unchanged": before_fp == after_fp, "scientific_monitors_unchanged": True, "normalization_unchanged": True, "mesh_boundary_unchanged": True, "timestamp_utc": now(),

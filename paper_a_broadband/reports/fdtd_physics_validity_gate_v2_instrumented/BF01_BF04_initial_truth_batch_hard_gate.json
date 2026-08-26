@@ -1,0 +1,83 @@
+{
+  "schema": "PAPER_A_LP_ANISOTROPY_INITIAL_TRUTH_BATCH_HARD_GATE_V1",
+  "status": "HARD_GATE",
+  "failing_boundary": "BF02_y",
+  "reason": "UNKNOWN_EXTERNAL_SOLVER_JOB_BLOCKS_SAFE_ADMISSION",
+  "scheduler_snapshot": {
+    "timestamp_utc": "2026-08-26T09:44:48.713046+00:00",
+    "global_active_jobs": 1,
+    "active_fdtd_jobs": 0,
+    "active_rcwa_jobs": 0,
+    "unknown_solver_jobs": [
+      {
+        "job_token": "proc:mpiexec.exe:13348",
+        "processes": [
+          {
+            "pid": 13348,
+            "ppid": 24840,
+            "name": "mpiexec.exe",
+            "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe\"   -np 1  -env PATH \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\ntbin\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\win64\\mpi\\shared;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi_wrapper\\win64\\msmpi;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelCompiler\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelMKL\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\cortex\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64\\3ddp_node\"  -env FLUENT_PROD_DIR \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\" -env PYTHONHOME \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python\" /affinity_layout 3:P   \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\win64\\3ddp_node\\fl_mpi2510.exe\" -mport 192.168.1.107:192.168.1.107:47799:0 node -mpiw msmpi -pic default",
+            "path": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe"
+          }
+        ],
+        "branch": "EXTERNAL_UNREGISTERED",
+        "solver_type": "UNKNOWN"
+      }
+    ],
+    "jobs": [
+      {
+        "branch": "EXTERNAL_UNREGISTERED",
+        "case_uid": null,
+        "solver_type": "UNKNOWN",
+        "status": null
+      }
+    ]
+  },
+  "new_authorized_max": 7,
+  "new_entered": 2,
+  "new_returned": 2,
+  "new_physics_valid_accepted": 2,
+  "unused_authorized_entries": 5,
+  "total_authoritative_truth_count": 3,
+  "total_authoritative_truth_denominator": 8,
+  "preserved_existing_truth": {
+    "BF01_x_attempt_002": "VALID_FOR_PHYSICS_TRUTH"
+  },
+  "completed_cases": {
+    "BF01_y": {
+      "classification": "VALID_FOR_PHYSICS_TRUTH",
+      "solver_entered": true,
+      "row_count": 31,
+      "evidence_path": "paper_a_broadband\\runtime\\search_anisotropy_bf01_bf04_initial_truth_v1\\cases\\BF01_y_attempt_002\\convergence_evidence_v2.json",
+      "gate_path": "paper_a_broadband\\runtime\\search_anisotropy_bf01_bf04_initial_truth_v1\\cases\\BF01_y_attempt_002\\physics_validity_gate_v2.json"
+    },
+    "BF02_x": {
+      "classification": "VALID_FOR_PHYSICS_TRUTH",
+      "solver_entered": true,
+      "row_count": 31,
+      "evidence_path": "paper_a_broadband\\runtime\\search_anisotropy_bf01_bf04_initial_truth_v1\\cases\\BF02_x_attempt_002\\convergence_evidence_v2.json",
+      "gate_path": "paper_a_broadband\\runtime\\search_anisotropy_bf01_bf04_initial_truth_v1\\cases\\BF02_x_attempt_002\\physics_validity_gate_v2.json"
+    }
+  },
+  "blocked_case_setup_only": {
+    "case_id": "BF02_y",
+    "status": "PASS",
+    "solver_entered": false,
+    "solver_run_called": false,
+    "setup_report": "paper_a_broadband\\reports\\fdtd_physics_validity_gate_v2_instrumented\\BF02_y_attempt_002_setup_only.json"
+  },
+  "unused_authorized_cases": [
+    "BF02_y",
+    "BF03_x",
+    "BF03_y",
+    "BF04_x",
+    "BF04_y"
+  ],
+  "solver_safety": {
+    "new_fdt_budget_remaining": 5,
+    "rcwa": 0,
+    "ml": 0,
+    "no_replay": true,
+    "no_peer_modified": true
+  }
+}

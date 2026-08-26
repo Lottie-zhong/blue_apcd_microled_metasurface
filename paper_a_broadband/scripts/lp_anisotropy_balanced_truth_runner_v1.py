@@ -202,27 +202,45 @@ def prepared_map() -> dict[str, dict[str, Any]]:
     if data.get("status") != "FRESH_SETUP_ONLY_INPUTS_AUTHORIZED_PENDING_SOLVER_ADMISSION":
         raise RuntimeError("HARD_GATE_PREPARED_AUTHORITY_STATUS")
     rows = {case_id: dict(row) for case_id, row in data.get("cases", {}).items()}
-    v2_setup_path = ROOT / "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented/BF01_x_attempt_002_setup_only.json"
-    if v2_setup_path.exists():
+    v2_report_dir = ROOT / "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented"
+    for case_id in list(rows):
+        v2_setup_path = v2_report_dir / (case_id + "_attempt_002_setup_only.json")
+        if not v2_setup_path.exists():
+            continue
         v2 = json.loads(v2_setup_path.read_text(encoding="utf-8"))
-        if v2.get("status") == "PASS" and v2.get("case_id") == "BF01_x":
-            row = rows["BF01_x"]
+        if v2.get("status") == "PASS" and v2.get("case_id") == case_id:
+            row = rows[case_id]
             row.update({
                 "path": v2["instrumented_pre_fsp"]["path"],
                 "sha256": v2["instrumented_pre_fsp"]["sha256"],
                 "semantic_fingerprint": v2["physics_semantic_fingerprint"]["legacy_full_semantic_before"],
                 "physics_semantic_fingerprint": v2["physics_semantic_fingerprint"]["after"],
                 "convergence_instrumentation_fingerprint": v2["convergence_instrumentation_fingerprint"],
+                "physics_fingerprint_mode": v2.get("physics_semantic_fingerprint", {}).get("numeric_normalization", "exact"),
                 "instrumented_v2": True,
             })
-            rows["BF01_x"] = row
+            rows[case_id] = row
     return rows
+
+
+def _normalize_numeric(value: Any) -> Any:
+    if isinstance(value, float):
+        return float(format(value, ".15g"))
+    if isinstance(value, dict):
+        return {str(k): _normalize_numeric(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_normalize_numeric(v) for v in value]
+    return value
 
 
 def physics_semantic_view(semantic: dict[str, Any]) -> dict[str, Any]:
     view = json.loads(json.dumps(semantic, default=str))
     view.pop("object_names", None)
     return view
+
+
+def normalized_physics_semantic_view(semantic: dict[str, Any]) -> dict[str, Any]:
+    return _normalize_numeric(physics_semantic_view(semantic))
 
 
 def verify_authoritative_input(case_id: str, path: Path | None = None) -> dict[str, Any]:
@@ -236,7 +254,11 @@ def verify_authoritative_input(case_id: str, path: Path | None = None) -> dict[s
     polarization = case_id.rsplit("_", 1)[1]
     readback = SEMANTIC_READER.read_fsp(actual_path, case_id, polarization) if actual_path.exists() else None
     actual_fingerprint = SEMANTIC_READER.sha_obj(readback["semantic"]) if readback and readback.get("readback_complete") else None
-    actual_physics_fingerprint = SEMANTIC_READER.sha_obj(physics_semantic_view(readback["semantic"])) if readback and readback.get("readback_complete") else None
+    if readback and readback.get("readback_complete"):
+        fingerprint_view = normalized_physics_semantic_view(readback["semantic"]) if authority.get("physics_fingerprint_mode") == "15 significant digits for audit-only serialization; no physics values changed" else physics_semantic_view(readback["semantic"])
+        actual_physics_fingerprint = SEMANTIC_READER.sha_obj(fingerprint_view)
+    else:
+        actual_physics_fingerprint = None
     binary_match = actual_sha == authority.get("sha256")
     instrumented = bool(authority.get("instrumented_v2"))
     fingerprint_match = actual_physics_fingerprint == authority.get("physics_semantic_fingerprint") if instrumented else actual_fingerprint == authority.get("semantic_fingerprint")
