@@ -91,7 +91,7 @@ def case_state(cid): return case_dir(cid) / "state.json"
 
 def scheduler_snapshot():
     raw=PREV.load_module(SCHEDULER_PATH,"anisotropy_scheduler_snapshot").live_job_snapshot()
-    return {"timestamp_utc":raw.get("timestamp_utc"),"global_active_jobs":raw.get("global_active_jobs"),"active_fdtd_jobs":raw.get("active_fdtd_jobs"),"active_rcwa_jobs":raw.get("active_rcwa_jobs"),"unknown_solver_jobs":raw.get("unknown_solver_jobs",[]),"jobs":[{"branch":j.get("branch"),"case_uid":j.get("case_uid"),"solver_type":j.get("solver_type"),"status":j.get("status")} for j in raw.get("jobs",[])]}
+    return {"timestamp_utc":raw.get("timestamp_utc"),"global_active_jobs":raw.get("global_active_jobs"),"active_fdtd_jobs":raw.get("active_fdtd_jobs"),"active_rcwa_jobs":raw.get("active_rcwa_jobs"),"unknown_solver_jobs":raw.get("unknown_solver_jobs",[]),"external_fluent_jobs":raw.get("external_fluent_jobs",[]),"jobs":[{"branch":j.get("branch"),"case_uid":j.get("case_uid"),"solver_type":j.get("solver_type"),"status":j.get("status")} for j in raw.get("jobs",[])]}
 
 
 def preflight():

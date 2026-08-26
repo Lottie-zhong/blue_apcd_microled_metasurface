@@ -117,6 +117,11 @@ def _classify_solver_type(cmdline):
     # contain Lumerical/FDTD-named controller processes and MPI engines.
     if "blue_apcd_mdc_np_coupling_v1" in text or "np_level1_s_ux" in text or "coupling" in text or "rcwa" in text:
         return "RCWA"
+    # A positively identified Fluent MPI lineage is external resource
+    # occupancy, not an APCD FDTD job. Keep it visible for audit while
+    # preventing it from triggering the unresolved-unknown safety gate.
+    if "fluent" in text and ("mpiexec" in text or "fl_mpi" in text or "multiport\\mpi" in text):
+        return "EXTERNAL_FLUENT"
     if "blue_apcd_paper_a_lp_cp_broadband_v1" in text or "blue_apcd_np" in text or "blue_apcd_lp_global_h_manifold_v1" in text or "\\lp_global_h" in text:
         return "FDTD"
     return "UNKNOWN"
@@ -207,7 +212,8 @@ def live_job_snapshot(provider:Callable[[],list[dict[str,Any]]]|None=None):
     active_fdtd=sum(j.get("solver_type")=="FDTD" for j in jobs)
     active_rcwa=sum(j.get("solver_type")=="RCWA" for j in jobs)
     unknown=[j for j in jobs if j.get("solver_type")=="UNKNOWN"]
-    return {"timestamp_utc":utc_now(),"global_active_jobs":len(jobs),"active_fdtd_jobs":active_fdtd,"active_rcwa_jobs":active_rcwa,"unknown_solver_jobs":unknown,"lp_active_jobs":sum(j["branch"]=="work/lp-global-h-manifold-v1" and j.get("solver_type")=="FDTD" for j in jobs),"jobs":jobs,"formal_process_count":len(formal),"fdtd_engine_process_count":sum(sum(str(p.get("name") or "").lower()=="fdtd-engine-msmpi.exe" for p in j.get("processes",[])) for j in jobs if j.get("solver_type")=="FDTD"),"rcwa_process_count":sum(len(j.get("processes",[])) for j in jobs if j.get("solver_type")=="RCWA")}
+    external_fluent=[j for j in jobs if j.get("solver_type")=="EXTERNAL_FLUENT"]
+    return {"timestamp_utc":utc_now(),"global_active_jobs":len(jobs),"active_fdtd_jobs":active_fdtd,"active_rcwa_jobs":active_rcwa,"unknown_solver_jobs":unknown,"external_fluent_jobs":external_fluent,"lp_active_jobs":sum(j["branch"]=="work/lp-global-h-manifold-v1" and j.get("solver_type")=="FDTD" for j in jobs),"jobs":jobs,"formal_process_count":len(formal),"fdtd_engine_process_count":sum(sum(str(p.get("name") or "").lower()=="fdtd-engine-msmpi.exe" for p in j.get("processes",[])) for j in jobs if j.get("solver_type")=="FDTD"),"rcwa_process_count":sum(len(j.get("processes",[])) for j in jobs if j.get("solver_type")=="RCWA")}
 
 def _slot_by_id(data,slot_id): return next((r for r in data["active_slots"] if r.get("slot_id")==slot_id),None)
 

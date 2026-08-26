@@ -353,15 +353,17 @@ def registry_queue_demands() -> list[dict[str, Any]]:
 
 def boundary_check() -> dict[str, Any]:
     snapshot = scheduler_snapshot()
-    other = [job for job in snapshot.get("jobs", []) if job.get("branch") != BASE.BRANCH]
+    external_fluent = [job for job in snapshot.get("jobs", []) if job.get("solver_type") == "EXTERNAL_FLUENT"]
+    other = [job for job in snapshot.get("jobs", []) if job.get("branch") != BASE.BRANCH and job.get("solver_type") != "EXTERNAL_FLUENT"]
     queued = registry_queue_demands()
     allowed = not snapshot.get("unknown_solver_jobs") and not other and not queued and snapshot.get("active_fdtd_jobs") == 0
     result = {
         "timestamp_utc": now(),
         "snapshot": snapshot,
+        "identified_external_fluent": external_fluent,
         "explicit_high_priority_registry_demand": queued,
         "allow_next_wave": allowed,
-        "reason": "NO_ACTIVE_OR_EXPLICIT_QUEUED_HIGH_PRIORITY_SOLVER" if allowed else "CASE_BOUNDARY_YIELD",
+        "reason": "NO_ACTIVE_OR_EXPLICIT_QUEUED_HIGH_PRIORITY_SOLVER_EXTERNAL_FLUENT_ACCOUNTED" if allowed and external_fluent else ("NO_ACTIVE_OR_EXPLICIT_QUEUED_HIGH_PRIORITY_SOLVER" if allowed else "CASE_BOUNDARY_YIELD"),
     }
     append_jsonl(REPORT / "boundary_events.jsonl", result)
     return result

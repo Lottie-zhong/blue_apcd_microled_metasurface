@@ -1,0 +1,144 @@
+{
+  "schema": "PAPER_A_EXTERNAL_FLUENT_CONCURRENT_RESOURCE_AUDIT_V1",
+  "classification": "SAFE_CONCURRENT_ADMISSION",
+  "timestamp_utc": "2026-08-26T10:22:55.431214+00:00",
+  "server_logical_processors": 104,
+  "fluent_identification": {
+    "scheduler_observed_mpi_pid": 13348,
+    "scheduler_observed_mpi_parent_pid": 24840,
+    "scheduler_observed_command": "mpiexec.exe -np 1 ...\\fluent\\fl_mpi2510.exe",
+    "fluent_compute_pid": 28412,
+    "fluent_compute_parent_pid": 18684,
+    "fluent_host_pid": 26880,
+    "fluent_host_command_contains": "-t1; nprocs_string=1",
+    "fluent_mpi_ranks": 1,
+    "fluent_threads_per_rank": 1,
+    "aggregate_visible_fluent_rank_equivalents": 2,
+    "configured_total_fluent_cpu_use": 2,
+    "affinity_mask": 4503599627370495,
+    "affinity_envelope_logical_processors": 52,
+    "affinity_scope": "both visible Fluent trees observed on the same 52-processor mask"
+  },
+  "headroom": {
+    "configured_remaining_logical_processors": 102,
+    "conservative_remaining_outside_fluent_affinity_envelope": 52,
+    "paper_a_required_mpi_ranks": 12,
+    "sufficient_for_paper_a": true
+  },
+  "other_solver_workloads": {
+    "ansysedt_pid": 29204,
+    "ansysedt_command": "ansysedt.exe 200um pingpurefang.aedt",
+    "ansysedt_os_threads": 53,
+    "ansysedt_working_set_bytes": 881377280,
+    "ansysedt_cpu_seconds_before": 33.609375,
+    "ansysedt_cpu_seconds_after_3s": 33.609375,
+    "classification": "idle_gui_no_cpu_growth_not_active_solver_workload"
+  },
+  "registered_scheduler_before_admission": {
+    "snapshot": {
+      "timestamp_utc": "2026-08-26T10:22:53.251950+00:00",
+      "global_active_jobs": 1,
+      "active_fdtd_jobs": 0,
+      "active_rcwa_jobs": 0,
+      "unknown_solver_jobs": [],
+      "external_fluent_jobs": [
+        {
+          "job_token": "proc:mpiexec.exe:13348",
+          "processes": [
+            {
+              "pid": 13348,
+              "ppid": 24840,
+              "name": "mpiexec.exe",
+              "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe\"   -np 1  -env PATH \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\ntbin\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\win64\\mpi\\shared;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi_wrapper\\win64\\msmpi;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelCompiler\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelMKL\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\cortex\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64\\3ddp_node\"  -env FLUENT_PROD_DIR \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\" -env PYTHONHOME \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python\" /affinity_layout 3:P   \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\win64\\3ddp_node\\fl_mpi2510.exe\" -mport 192.168.1.107:192.168.1.107:47799:0 node -mpiw msmpi -pic default",
+              "path": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe"
+            }
+          ],
+          "branch": "EXTERNAL_UNREGISTERED",
+          "solver_type": "EXTERNAL_FLUENT"
+        }
+      ],
+      "jobs": [
+        {
+          "branch": "EXTERNAL_UNREGISTERED",
+          "case_uid": null,
+          "solver_type": "EXTERNAL_FLUENT",
+          "status": null
+        }
+      ]
+    },
+    "boundary": {
+      "timestamp_utc": "2026-08-26T10:22:55.429213+00:00",
+      "snapshot": {
+        "timestamp_utc": "2026-08-26T10:22:55.361192+00:00",
+        "global_active_jobs": 1,
+        "active_fdtd_jobs": 0,
+        "active_rcwa_jobs": 0,
+        "unknown_solver_jobs": [],
+        "external_fluent_jobs": [
+          {
+            "job_token": "proc:mpiexec.exe:13348",
+            "processes": [
+              {
+                "pid": 13348,
+                "ppid": 24840,
+                "name": "mpiexec.exe",
+                "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe\"   -np 1  -env PATH \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\ntbin\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\win64\\mpi\\shared;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi_wrapper\\win64\\msmpi;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelCompiler\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelMKL\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\cortex\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64\\3ddp_node\"  -env FLUENT_PROD_DIR \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\" -env PYTHONHOME \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python\" /affinity_layout 3:P   \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\win64\\3ddp_node\\fl_mpi2510.exe\" -mport 192.168.1.107:192.168.1.107:47799:0 node -mpiw msmpi -pic default",
+                "path": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe"
+              }
+            ],
+            "branch": "EXTERNAL_UNREGISTERED",
+            "solver_type": "EXTERNAL_FLUENT"
+          }
+        ],
+        "jobs": [
+          {
+            "branch": "EXTERNAL_UNREGISTERED",
+            "case_uid": null,
+            "solver_type": "EXTERNAL_FLUENT",
+            "status": null
+          }
+        ]
+      },
+      "identified_external_fluent": [
+        {
+          "branch": "EXTERNAL_UNREGISTERED",
+          "case_uid": null,
+          "solver_type": "EXTERNAL_FLUENT",
+          "status": null
+        }
+      ],
+      "explicit_high_priority_registry_demand": [],
+      "allow_next_wave": true,
+      "reason": "NO_ACTIVE_OR_EXPLICIT_QUEUED_HIGH_PRIORITY_SOLVER_EXTERNAL_FLUENT_ACCOUNTED"
+    }
+  },
+  "bf02_y_pre_entry_authority": {
+    "pass": true,
+    "case_id": "BF02_y",
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\convergence_instrumentation_v2\\cases\\BF02_y\\BF02_y_attempt_002_pre.fsp",
+    "authority_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\convergence_instrumentation_v2\\cases\\BF02_y\\BF02_y_attempt_002_pre.fsp",
+    "path_match": true,
+    "actual_sha256": "f63c78ccd3dd92b95fc3bf2e049794dc71ea994517ab6770b04e0b79a9398cfa",
+    "authority_sha256": "f63c78ccd3dd92b95fc3bf2e049794dc71ea994517ab6770b04e0b79a9398cfa",
+    "binary_sha_match": true,
+    "actual_semantic_fingerprint": "428528434ca7cdaff02cfbebf407a9531c062f3f7f8fd7264dfed7b2ac6faf2d",
+    "actual_physics_semantic_fingerprint": "6dbacca8c33f89412cc8e9d48af55931b0902e5d193e8262e4bc40f782cb46b1",
+    "authority_semantic_fingerprint": "428528434ca7cdaff02cfbebf407a9531c062f3f7f8fd7264dfed7b2ac6faf2d",
+    "authority_physics_semantic_fingerprint": "6dbacca8c33f89412cc8e9d48af55931b0902e5d193e8262e4bc40f782cb46b1",
+    "semantic_fingerprint_match": true,
+    "instrumented_v2": true,
+    "convergence_instrumentation_fingerprint": "c7b67d8358f4147c401620516d46c8c2ad95314593586aa38129013dd0c65657",
+    "readback_complete": true,
+    "failure": null,
+    "checked_before_solver_entry": true,
+    "timestamp_utc": "2026-08-26T10:22:51.228088+00:00"
+  },
+  "paper_a_contract": {
+    "max_active_fdtd": 1,
+    "processes": 12,
+    "threads": 1
+  },
+  "fluent_untouched": true,
+  "global_cap_changed": false,
+  "coupling_authority_changed": false
+}
