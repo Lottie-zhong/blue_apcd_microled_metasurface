@@ -37,6 +37,8 @@ MDC_FWHM = (438.409, 457.191)
 MATERIAL = "APCD_TIO2_NATIVE_M1"
 PROCESSES = 4
 THREADS = 1
+INSTRUMENTED_RUN_MODE = False
+CONVERGENCE_INSTRUMENTATION_SCRIPT = ROOT / "paper_a_broadband/scripts/fdtd_convergence_instrumentation_v2.py"
 
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, r"N:/Program Files/ANSYS Inc/v251/Lumerical/api/python")
@@ -56,6 +58,10 @@ def sha_obj(value: Any) -> str:
 
 def sha_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def convergence_instrumentation():
+    return load_module(CONVERGENCE_INSTRUMENTATION_SCRIPT, "fdtd_convergence_instrumentation_v2_runner")
 
 
 def write_json(path: Path, value: Any) -> None:
@@ -164,6 +170,8 @@ def make_pre_fsp(g: dict[str, Any], pol: str) -> dict[str, Any]:
         f.setglobalmonitor("use source limits", True)
         f.setglobalmonitor("use wavelength spacing", True)
         f.setglobalmonitor("frequency points", 41)
+        if INSTRUMENTED_RUN_MODE:
+            convergence_instrumentation().add_time_monitor(f)
         f.save(str(pre))
     finally:
         try:
@@ -371,7 +379,16 @@ def run_case(case_id: str) -> dict[str, Any]:
     setup = json.loads((d / "setup_only.json").read_text(encoding="utf-8"))
     if setup.get("status") != "PASS" or not setup.get("gate", {}).get("pass"):
         return {"case_id": cid, "status": "BLOCKED_SETUP_GATE", "solver_entered": False}
+    instrumentation_fp = setup.get("pre_fsp", {}).get("convergence_instrumentation_fingerprint")
+    if not instrumentation_fp:
+        return {
+            "case_id": cid,
+            "status": "BLOCKED_V2_INSTRUMENTATION_NOT_PREPARED",
+            "solver_entered": False,
+            "reason": "V2 convergence instrumentation is mandatory before any new physics entry",
+        }
     pre = Path(setup["pre_fsp"]["path"])
+    attempt_id = cid + ("_attempt_002" if setup.get("pre_fsp", {}).get("instrumented_v2") else "_attempt_001")
     record = {
         "schema": "PAPER_A_LP_NEW_GEOMETRY_ATTEMPT_V1",
         "case_id": cid,
@@ -389,6 +406,8 @@ def run_case(case_id: str) -> dict[str, Any]:
         "threads": THREADS,
         "started_utc": now(),
         "solver_replay": False,
+        "attempt_id": attempt_id,
+        "convergence_instrumentation_fingerprint": instrumentation_fp,
     }
     write_json(d / "attempt_provenance.json", record)
     lease = None
@@ -437,7 +456,12 @@ def run_case(case_id: str) -> dict[str, Any]:
         record["solver_complete"] = completed
         run_fsp = d / f"{cid}_run.fsp"
         f.save(str(run_fsp))
-        record.update({"run_fsp_path": str(run_fsp), "run_fsp_sha256": sha_file(run_fsp), "status": "RETURNED"})
+        convergence = convergence_instrumentation().persist_convergence_evidence(
+            f, cid, record.get("attempt_id", cid + "_attempt_001"), d, pre, run_fsp,
+            d / "controller.log", record.get("convergence_instrumentation_fingerprint", "SETUP_READBACK_REQUIRED"),
+        )
+        record.update({"run_fsp_path": str(run_fsp), "run_fsp_sha256": sha_file(run_fsp), "convergence_evidence_path": convergence.get("evidence_path"), "convergence_evidence_sha256": convergence.get("evidence_sha256"), "status": "RETURNED"})
+        write_json(d / "attempt_provenance.json", record)
         lease.release("SOLVER_COMPLETED", completed)
         lease = None
         update_state(cid, status="RETURNED", solver_entered=True, solver_complete=completed, run_fsp_sha256=record["run_fsp_sha256"])

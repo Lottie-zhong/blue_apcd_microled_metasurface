@@ -1,0 +1,68 @@
+{
+  "schema": "PAPER_A_FDTD_PHYSICS_VALIDITY_GATE_V2_INSTRUMENTED",
+  "status": "ACTIVE_FOR_COMPLETED_OUTPUT_READONLY_VALIDATION_ONLY",
+  "version": "V2",
+  "formal_spectral_contract": {
+    "monitor_span_nm": [430.0, 470.0],
+    "formal_window_nm": [435.0, 465.0],
+    "formal_spacing_nm": 1.0,
+    "formal_points": 31
+  },
+  "convergence_instrumentation": {
+    "schema": "PAPER_A_FDTD_CONVERGENCE_INSTRUMENTATION_V2",
+    "monitor_name": "v2_convergence_time_probe",
+    "monitor_type": "Point time monitor",
+    "location_nm": {"x": 0.0, "y": 0.0, "z": 700.0},
+    "recorded_fields": ["t", "Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+    "purpose": "independent local time-domain field-energy/residual proxy",
+    "non_perturbative_contract": {
+      "geometry_unchanged": true,
+      "materials_unchanged": true,
+      "source_unchanged": true,
+      "mesh_unchanged": true,
+      "boundaries_unchanged": true,
+      "simulation_time_unchanged": true,
+      "scientific_monitors_unchanged": true,
+      "normalization_unchanged": true,
+      "full_jones_observables_unchanged": true,
+      "only_added_object": "diagnostic time monitor"
+    }
+  },
+  "late_time_classification": {
+    "schema": "PAPER_A_LATE_TIME_CLASSIFICATION_V2",
+    "initial_auto_shutoff_reference": 1.0,
+    "late_window_rule": "last ceil(N/3) samples, minimum 3",
+    "numerical_divergence_rule": "Auto Shutoff first falls below 1.0 and later returns above 1.0 with positive net late-window growth; established by V1/BF08 controls",
+    "independent_series_rule": "finite strictly increasing point-monitor time series with at least 3 late samples is required for VALID; positive diagnostic late growth is ambiguous unless corroborated by the established Auto Shutoff rule",
+    "valid_rule": "completion evidence + no established divergence + persisted independent series + transmission/source sanity PASS",
+    "insufficient_rule": "missing or ambiguous required evidence; no forced label",
+    "thresholds_not_invented": true,
+    "provenance": {
+      "auto_rule": "paper_a_fdtd_physics_validity_gate_v1.json",
+      "bf08_positive_control": "BF08 attempt_003 p0 logs",
+      "bf07_control": "legacy only; no V2 VALID without independent series"
+    }
+  },
+  "statuses": [
+    "VALID_FOR_PHYSICS_TRUTH",
+    "INVALID_FOR_PHYSICS_TRUTH_NUMERICAL_DIVERGENCE",
+    "INVALID_FOR_PHYSICS_TRUTH_SOURCE_NORMALIZATION",
+    "INVALID_FOR_PHYSICS_TRUTH_TRANSMISSION_SANITY",
+    "INSUFFICIENT_EVIDENCE_NOT_VALIDATED"
+  ],
+  "regression": {
+    "BF08_attempt_003_expected": "INVALID_FOR_PHYSICS_TRUTH_NUMERICAL_DIVERGENCE",
+    "BF01_x_attempt_001_expected": "INSUFFICIENT_EVIDENCE_NOT_VALIDATED",
+    "BF07_control_expected": "INSUFFICIENT_EVIDENCE_NOT_VALIDATED",
+    "no_raw_solver_data_modified": true
+  },
+  "resource_safety": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "active_paper_a_fdtd": 0,
+    "rcwa": 0,
+    "ml": 0,
+    "scheduler_admission": false
+  }
+}

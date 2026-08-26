@@ -201,7 +201,28 @@ def prepared_map() -> dict[str, dict[str, Any]]:
         raise RuntimeError("HARD_GATE_PREPARED_AUTHORITY_SCHEMA")
     if data.get("status") != "FRESH_SETUP_ONLY_INPUTS_AUTHORIZED_PENDING_SOLVER_ADMISSION":
         raise RuntimeError("HARD_GATE_PREPARED_AUTHORITY_STATUS")
-    return {case_id: row for case_id, row in data.get("cases", {}).items()}
+    rows = {case_id: dict(row) for case_id, row in data.get("cases", {}).items()}
+    v2_setup_path = ROOT / "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented/BF01_x_attempt_002_setup_only.json"
+    if v2_setup_path.exists():
+        v2 = json.loads(v2_setup_path.read_text(encoding="utf-8"))
+        if v2.get("status") == "PASS" and v2.get("case_id") == "BF01_x":
+            row = rows["BF01_x"]
+            row.update({
+                "path": v2["instrumented_pre_fsp"]["path"],
+                "sha256": v2["instrumented_pre_fsp"]["sha256"],
+                "semantic_fingerprint": v2["physics_semantic_fingerprint"]["legacy_full_semantic_before"],
+                "physics_semantic_fingerprint": v2["physics_semantic_fingerprint"]["after"],
+                "convergence_instrumentation_fingerprint": v2["convergence_instrumentation_fingerprint"],
+                "instrumented_v2": True,
+            })
+            rows["BF01_x"] = row
+    return rows
+
+
+def physics_semantic_view(semantic: dict[str, Any]) -> dict[str, Any]:
+    view = json.loads(json.dumps(semantic, default=str))
+    view.pop("object_names", None)
+    return view
 
 
 def verify_authoritative_input(case_id: str, path: Path | None = None) -> dict[str, Any]:
@@ -215,8 +236,10 @@ def verify_authoritative_input(case_id: str, path: Path | None = None) -> dict[s
     polarization = case_id.rsplit("_", 1)[1]
     readback = SEMANTIC_READER.read_fsp(actual_path, case_id, polarization) if actual_path.exists() else None
     actual_fingerprint = SEMANTIC_READER.sha_obj(readback["semantic"]) if readback and readback.get("readback_complete") else None
+    actual_physics_fingerprint = SEMANTIC_READER.sha_obj(physics_semantic_view(readback["semantic"])) if readback and readback.get("readback_complete") else None
     binary_match = actual_sha == authority.get("sha256")
-    fingerprint_match = actual_fingerprint == authority.get("semantic_fingerprint")
+    instrumented = bool(authority.get("instrumented_v2"))
+    fingerprint_match = actual_physics_fingerprint == authority.get("physics_semantic_fingerprint") if instrumented else actual_fingerprint == authority.get("semantic_fingerprint")
     readback_complete = bool(readback and readback.get("readback_complete"))
     return {
         "pass": bool(path_match and binary_match and fingerprint_match and readback_complete),
@@ -228,8 +251,12 @@ def verify_authoritative_input(case_id: str, path: Path | None = None) -> dict[s
         "authority_sha256": authority.get("sha256"),
         "binary_sha_match": binary_match,
         "actual_semantic_fingerprint": actual_fingerprint,
+        "actual_physics_semantic_fingerprint": actual_physics_fingerprint,
         "authority_semantic_fingerprint": authority.get("semantic_fingerprint"),
+        "authority_physics_semantic_fingerprint": authority.get("physics_semantic_fingerprint"),
         "semantic_fingerprint_match": fingerprint_match,
+        "instrumented_v2": instrumented,
+        "convergence_instrumentation_fingerprint": authority.get("convergence_instrumentation_fingerprint"),
         "readback_complete": readback_complete,
         "failure": None if path_match and binary_match and fingerprint_match and readback_complete else "PREPARED_INPUT_AUTHORITY_MISMATCH",
     }
@@ -268,7 +295,7 @@ def materialize_setup_metadata() -> list[dict[str, Any]]:
                 "status": "PASS" if passed else "HARD_GATE",
                 "solver_entered": False,
                 "solver_run_called": False,
-                "pre_fsp": {"path": str(path), "sha256": actual_hash, "authority_sha256": source.get("sha256"), "semantic_fingerprint": verification["actual_semantic_fingerprint"], "authority_semantic_fingerprint": source.get("semantic_fingerprint"), "parent_sha256": source.get("parent_fsp_sha256")},
+                "pre_fsp": {"path": str(path), "sha256": actual_hash, "authority_sha256": source.get("sha256"), "semantic_fingerprint": verification["actual_semantic_fingerprint"], "physics_semantic_fingerprint": verification.get("actual_physics_semantic_fingerprint"), "authority_semantic_fingerprint": source.get("semantic_fingerprint"), "authority_physics_semantic_fingerprint": source.get("physics_semantic_fingerprint"), "convergence_instrumentation_fingerprint": source.get("convergence_instrumentation_fingerprint"), "parent_sha256": source.get("parent_fsp_sha256")},
                 "gate": {"pass": passed, "authority_binary_match": verification["binary_sha_match"], "authority_semantic_fingerprint_match": verification["semantic_fingerprint_match"], "readback_complete": verification["readback_complete"], "path_match": verification["path_match"], "readback": {"semantic_fingerprint": verification["actual_semantic_fingerprint"]}},
                 "material_contract": "APCD_TIO2_NATIVE_M1",
                 "source_span_nm": [430.0, 470.0],
@@ -490,15 +517,18 @@ def invoke_physics_validity_gate(case_id: str) -> dict[str, Any]:
     provenance = json.loads((case_runtime / "attempt_provenance.json").read_text(encoding="utf-8"))
     if provenance.get("solver_entered") is not True:
         raise RuntimeError(f"PHYSICS_GATE_REQUIRES_ENTERED_CASE:{case_id}")
-    output = case_runtime / "physics_validity_gate.json"
+    output = case_runtime / "physics_validity_gate_v2.json"
     command = [
         sys.executable,
-        str(ROOT / "paper_a_broadband/scripts/fdtd_physics_validity_gate_v1.py"),
+        str(ROOT / "paper_a_broadband/scripts/fdtd_physics_validity_gate_v2_instrumented.py"),
         "--case-id", case_id,
         "--post-fsp", str(Path(provenance["run_fsp_path"])),
         "--solver-log", str(case_runtime / "controller.log"),
         "--output", str(output),
     ]
+    evidence_path = provenance.get("convergence_evidence_path")
+    if evidence_path:
+        command.extend(["--convergence-evidence", str(Path(evidence_path))])
     completed = subprocess.run(command, capture_output=True, text=True, check=False)
     if completed.returncode != 0:
         raise RuntimeError(f"PHYSICS_VALIDITY_GATE_EXECUTION_FAILED:{case_id}:{completed.stderr[-2000:]}")

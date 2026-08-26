@@ -1,0 +1,73 @@
+{
+  "schema": "PAPER_A_FDTD_PHYSICS_VALIDITY_GATE_V2_INSTRUMENTED_AUDIT_V1",
+  "status": "PASS_PRE_ADMISSION_INSTRUMENTATION_READY",
+  "task": "PAPER_A_FDTD_PHYSICS_VALIDITY_GATE_V2_INSTRUMENTED",
+  "scope": {
+    "new_fdtd_budget": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "rcwa": 0,
+    "ml": 0,
+    "scheduler_admission": false,
+    "physics_truth_authorized": false,
+    "new_mesh_or_physics": false
+  },
+  "authority": {
+    "path": "paper_a_broadband/authority/paper_a_fdtd_physics_validity_gate_v2_instrumented.json",
+    "sha256": "593b5e633bd17bdcceaace1c1f7b7c47694d5cb4dedec9acf5e2bdb523433a54"
+  },
+  "regressions": {
+    "BF08_x_attempt_003": {
+      "path": "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented/BF08_x_v2_regression.json",
+      "status": "INVALID_FOR_PHYSICS_TRUTH_NUMERICAL_DIVERGENCE",
+      "root_cause": "E_NUMERICAL_TIME_DOMAIN_DIVERGENCE_IN_STORED_SOLVER_ENERGY_RESULT"
+    },
+    "BF08_y_attempt_003": {
+      "path": "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented/BF08_y_v2_regression.json",
+      "status": "INVALID_FOR_PHYSICS_TRUTH_NUMERICAL_DIVERGENCE",
+      "root_cause": "E_NUMERICAL_TIME_DOMAIN_DIVERGENCE_IN_STORED_SOLVER_ENERGY_RESULT"
+    },
+    "BF07_x_legacy_control": {
+      "path": "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented/BF07_x_v2_regression.json",
+      "status": "INSUFFICIENT_EVIDENCE_NOT_VALIDATED"
+    },
+    "BF01_x_attempt_001": {
+      "path": "paper_a_broadband/runtime/search_anisotropy_bf01_bf04_initial_truth_v1/cases/BF01_x/physics_validity_gate.json",
+      "status": "INSUFFICIENT_EVIDENCE_NOT_VALIDATED",
+      "legacy_v1_not_rewritten": true
+    }
+  },
+  "BF01_x_attempt_002_setup_only": {
+    "path": "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented/BF01_x_attempt_002_setup_only.json",
+    "status": "PASS",
+    "solver_run_called": false,
+    "solver_entered": false,
+    "instrumented_pre_fsp_sha256": "748999f34803762b38ebf8ed7db131ce95fd4df02c2ca31afa41ce9845704a69",
+    "physics_semantic_fingerprint": "7ef054cffe4e3967c43a700fd2498397d3de1f39104d9c6b1977c4bcbfb5085f",
+    "convergence_instrumentation_fingerprint": "c7b67d8358f4147c401620516d46c8c2ad95314593586aa38129013dd0c65657",
+    "physics_contract_unchanged": true,
+    "readback_complete": true
+  },
+  "pre_entry_authority_check": {
+    "case_id": "BF01_x",
+    "status": "PASS",
+    "binary_sha_match": true,
+    "physics_semantic_fingerprint_match": true,
+    "instrumented_v2": true,
+    "solver_run_called": false,
+    "solver_entered": 0
+  },
+  "policy": {
+    "new_cases_require_convergence_instrumentation": true,
+    "missing_instrumentation_action": "BLOCKED_V2_INSTRUMENTATION_NOT_PREPARED",
+    "entered_true_no_auto_replay": true,
+    "attempt_001_reused_as_physics_truth": false,
+    "BF01_x_attempt_002_future_authority_only": true,
+    "BF02_BF04_not_prepared_or_admitted": true
+  },
+  "tests": {
+    "v2_regression": "PASS",
+    "py_compile": "PASS",
+    "git_diff_check": "PASS"
+  }
+}

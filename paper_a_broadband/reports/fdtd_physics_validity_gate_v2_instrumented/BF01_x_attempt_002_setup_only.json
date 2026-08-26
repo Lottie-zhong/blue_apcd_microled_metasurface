@@ -1,0 +1,75 @@
+{
+  "schema": "PAPER_A_FDTD_CONVERGENCE_INSTRUMENTATION_SETUP_ONLY_V2",
+  "status": "PASS",
+  "case_id": "BF01_x",
+  "solver_run_called": false,
+  "solver_entered": false,
+  "parent_fsp": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\reconciliation_bf01_bf04_v1_rerun\\primary\\cases\\BF01_x\\BF01_x_pre.fsp",
+    "sha256": "5d03046ae9c5544a58b0f27d25fa2d05088bd696e767173f89d766d2c3a0a958"
+  },
+  "instrumented_pre_fsp": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\convergence_instrumentation_v2\\cases\\BF01_x\\BF01_x_attempt_002_pre.fsp",
+    "sha256": "748999f34803762b38ebf8ed7db131ce95fd4df02c2ca31afa41ce9845704a69"
+  },
+  "physics_semantic_fingerprint": {
+    "method": "canonical semantic readback excluding instrumentation object list",
+    "before": "7ef054cffe4e3967c43a700fd2498397d3de1f39104d9c6b1977c4bcbfb5085f",
+    "after": "7ef054cffe4e3967c43a700fd2498397d3de1f39104d9c6b1977c4bcbfb5085f",
+    "unchanged": true,
+    "legacy_full_semantic_before": "46d30736636a8ac2956d780877d2abd3f6bed346af7b7d27c224ccf0eaed13a0",
+    "authority_semantic_fingerprint": "74aa6910f178c81c32b6897a9e133ee2a4d19bebc273b83b3fad06fa920e8fc2"
+  },
+  "convergence_instrumentation_fingerprint": "c7b67d8358f4147c401620516d46c8c2ad95314593586aa38129013dd0c65657",
+  "instrumentation_contract": {
+    "schema": "PAPER_A_FDTD_CONVERGENCE_INSTRUMENTATION_V2",
+    "monitor_name": "v2_convergence_time_probe",
+    "monitor_type": "Point time monitor",
+    "location_nm": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 700.0
+    },
+    "recorded_fields": [
+      "t",
+      "Ex",
+      "Ey",
+      "Ez",
+      "Hx",
+      "Hy",
+      "Hz"
+    ],
+    "non_perturbative_contract": {
+      "geometry_unchanged": true,
+      "materials_unchanged": true,
+      "source_unchanged": true,
+      "mesh_unchanged": true,
+      "boundaries_unchanged": true,
+      "simulation_time_unchanged": true,
+      "scientific_monitors_unchanged": true,
+      "normalization_unchanged": true,
+      "full_jones_observables_unchanged": true,
+      "only_added_object": "v2_convergence_time_probe"
+    },
+    "monitor_readback": {
+      "monitor type": "Point",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 7e-07,
+      "record data": "UNAVAILABLE:LumApiError:\"in getnamed, the requested property 'record data' was not found\"",
+      "time monitor": "UNAVAILABLE:LumApiError:\"in getnamed, the requested property 'time monitor' was not found\""
+    }
+  },
+  "readback": {
+    "before_complete": true,
+    "after_complete": true,
+    "after_object_names": [
+      "::model::"
+    ]
+  },
+  "physics_contract_unchanged": true,
+  "scientific_monitors_unchanged": true,
+  "normalization_unchanged": true,
+  "mesh_boundary_unchanged": true,
+  "timestamp_utc": "2026-08-26T07:54:13.136881+00:00"
+}
