@@ -117,7 +117,16 @@ def case_record(g: dict[str, Any], pol: str) -> dict[str, Any]:
 
 
 def case_dir(case_id: str) -> Path:
-    return RUNTIME / "cases" / case_id
+    canonical_dir = RUNTIME / "cases" / case_id
+    setup_path = canonical_dir / "setup_only.json"
+    if setup_path.exists():
+        try:
+            setup = json.loads(setup_path.read_text(encoding="utf-8"))
+            if setup.get("pre_fsp", {}).get("instrumented_v2") is True:
+                return RUNTIME / "cases" / f"{case_id}_attempt_002"
+        except Exception:
+            pass
+    return canonical_dir
 
 
 def case_state(case_id: str) -> Path:

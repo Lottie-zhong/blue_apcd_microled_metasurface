@@ -1,0 +1,50 @@
+{
+  "schema": "PAPER_A_BF01_X_ATTEMPT_002_TERMINAL_AUDIT_V1",
+  "status": "PASS",
+  "authorized_new_entries": 1,
+  "entered": 1,
+  "returned": 1,
+  "physics_valid_accepted": 1,
+  "no_additional_solver_entry": true,
+  "resource": {
+    "mpi_processes": 12,
+    "threads": 1,
+    "paper_a_active_fdtd_max": 1,
+    "rcwa": 0,
+    "ml": 0
+  },
+  "pre_entry_authority": {
+    "physics_fingerprint": "7ef054cffe4e3967c43a700fd2498397d3de1f39104d9c6b1977c4bcbfb5085f",
+    "instrumented_pre_fsp_entry_sha256": "748999f34803762b38ebf8ed7db131ce95fd4df02c2ca31afa41ce9845704a69",
+    "instrumentation_fingerprint": "c7b67d8358f4147c401620516d46c8c2ad95314593586aa38129013dd0c65657",
+    "validated": true
+  },
+  "v2_gate": {
+    "path": "paper_a_broadband/runtime/search_anisotropy_bf01_bf04_initial_truth_v1/cases/BF01_x_attempt_002/physics_validity_gate_v2.json",
+    "status": "VALID_FOR_PHYSICS_TRUTH",
+    "auto_shutoff_samples": 0,
+    "independent_time_series_samples": 15851,
+    "late_window_slope": -1.2094941737054567e-11,
+    "positive_late_window_growth": false,
+    "transmission_sanity": "PASS",
+    "source_normalization": "PASS"
+  },
+  "attempt_comparison": {
+    "path": "paper_a_broadband/reports/fdtd_physics_validity_gate_v2_instrumented/BF01_x_attempt_001_vs_002_comparison.json",
+    "status": "PASS_SCIENTIFICALLY_CONSISTENT",
+    "transmission_max_abs": 0.0,
+    "transmission_mean_abs": 0.0,
+    "sourcepower_ratio_min": 1.0,
+    "sourcepower_ratio_max": 1.0
+  },
+  "instrumentation_non_perturbative": true,
+  "pre_fsp_lifecycle_note": {
+    "entry_sha256": "748999f34803762b38ebf8ed7db131ce95fd4df02c2ca31afa41ce9845704a69",
+    "current_sha256": "53c53f093e19a32ebd8c67b348439e2903c2f75bc3521c610b6e4fe4c545973d",
+    "sha_changed_after_solver": true,
+    "physics_semantic_fingerprint_current": "7ef054cffe4e3967c43a700fd2498397d3de1f39104d9c6b1977c4bcbfb5085f",
+    "interpretation": "binary FSP container changed after solver lifecycle; physics semantic fingerprint and compared optical observables unchanged; no repair or replay performed"
+  },
+  "remaining_batch_safe_to_resume": false,
+  "next_authority": "NEW_CHART_DECISION_REQUIRED_FOR_BF01_Y_TO_BF04"
+}

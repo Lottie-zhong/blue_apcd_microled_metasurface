@@ -295,7 +295,7 @@ def materialize_setup_metadata() -> list[dict[str, Any]]:
                 "status": "PASS" if passed else "HARD_GATE",
                 "solver_entered": False,
                 "solver_run_called": False,
-                "pre_fsp": {"path": str(path), "sha256": actual_hash, "authority_sha256": source.get("sha256"), "semantic_fingerprint": verification["actual_semantic_fingerprint"], "physics_semantic_fingerprint": verification.get("actual_physics_semantic_fingerprint"), "authority_semantic_fingerprint": source.get("semantic_fingerprint"), "authority_physics_semantic_fingerprint": source.get("physics_semantic_fingerprint"), "convergence_instrumentation_fingerprint": source.get("convergence_instrumentation_fingerprint"), "parent_sha256": source.get("parent_fsp_sha256")},
+                "pre_fsp": {"path": str(path), "sha256": actual_hash, "authority_sha256": source.get("sha256"), "semantic_fingerprint": verification["actual_semantic_fingerprint"], "physics_semantic_fingerprint": verification.get("actual_physics_semantic_fingerprint"), "authority_semantic_fingerprint": source.get("semantic_fingerprint"), "authority_physics_semantic_fingerprint": source.get("physics_semantic_fingerprint"), "convergence_instrumentation_fingerprint": source.get("convergence_instrumentation_fingerprint"), "instrumented_v2": bool(source.get("instrumented_v2")), "parent_sha256": source.get("parent_fsp_sha256")},
                 "gate": {"pass": passed, "authority_binary_match": verification["binary_sha_match"], "authority_semantic_fingerprint_match": verification["semantic_fingerprint_match"], "readback_complete": verification["readback_complete"], "path_match": verification["path_match"], "readback": {"semantic_fingerprint": verification["actual_semantic_fingerprint"]}},
                 "material_contract": "APCD_TIO2_NATIVE_M1",
                 "source_span_nm": [430.0, 470.0],
@@ -306,6 +306,8 @@ def materialize_setup_metadata() -> list[dict[str, Any]]:
                 "timestamp_utc": now(),
             }
             write_json(RUNTIME / "cases" / case_id / "setup_only.json", setup)
+            if source.get("instrumented_v2"):
+                write_json(RUNTIME / "cases" / f"{case_id}_attempt_002" / "setup_only.json", setup)
             results.append(setup)
     return results
 
