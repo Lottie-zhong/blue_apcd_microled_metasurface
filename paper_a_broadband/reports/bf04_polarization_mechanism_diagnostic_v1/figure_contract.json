@@ -1,0 +1,21 @@
+{
+  "core_conclusion": "BF04 improves because its dominant output channel is comparatively wavelength-stable, but its linear DoLP still collapses where singular-channel separation weakens.",
+  "figure_archetype": "quantitative grid",
+  "backend": "Python/matplotlib",
+  "final_size": "double-column-style 183 mm wide; vector SVG/PDF plus 600 dpi TIFF and 300 dpi PNG",
+  "panel_map": {
+    "figure_svd_channel_separation": "sigma1/sigma2, ratio, normalized gap, derived power diattenuation",
+    "figure_dominant_channel_stability": "U1 orientation, DoCP, reference overlap, adjacent overlap",
+    "figure_poincare_stokes_trajectories": "normalized output-Stokes trajectories for BF01-BF04",
+    "figure_bf04_failure_attribution": "BF04 DoLP/psi, gap, U1 stability and low-DoLP attribution"
+  },
+  "evidence_hierarchy": {
+    "hero": "BF04 low-DoLP versus singular gap and U1 reference overlap",
+    "supporting": "full formal wavelength SVD/Stokes metrics and Poincare trajectories",
+    "controls": "BF01-BF03 initial-set comparison; no post-hoc threshold"
+  },
+  "statistics": "31 formal wavelength points per geometry; descriptive spectra, no replicate uncertainty or inferential test",
+  "source_data": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\lp_bf01_bf04_initial_truth_v1\\full_jones_order_0_0_spectra.csv",
+  "image_integrity": "plots are direct renders of preserved numeric CSV truth; no selective wavelength deletion or visual normalization",
+  "reviewer_risk": "raw psi retained at low DoLP; interpretation relies on U1 overlap and singular separation, not psi alone"
+}
