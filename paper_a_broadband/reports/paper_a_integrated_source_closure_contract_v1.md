@@ -15,6 +15,8 @@ The primary source authority is `MDC_REALISTIC_MQW_SOURCE_MODULE_V1`: 12 primary
 
 The frozen CP reference is `BW2_J1J2_D194_T90_PSI99_H525`; the frozen MDC provider is `P1_ZL1_ALTERNATIVE_G3_A3`, with relative `r12_normalized_output` only. LP uses `BF04R_I03` as a local-basin current-Native reference; no new LP candidate was generated.
 
+Exact references are recorded in the machine-readable contract: I03 is `(L1,W1,L2,W2)=(264,87,194,80) nm`, `theta=(0,85.819861293) deg`, `D=220 nm`, centers `(0,+/-110) nm`, `H=525 nm`, `Px=Py=432 nm`; the CP champion has J1 `(230 x 100) nm` at `-9 deg`, J2 `(180 x 90) nm` at `+36 deg`, centers `(0,+/-97) nm`, `D=194 nm`, `H=525 nm`, and period `(431.907786,432) nm`. The MDC stack is 975 nm with `r12_normalized_output` peak about 447.8 nm and FWHM 18.7821 nm; it is a relative spectrum, not absolute emitted power.
+
 ## Hard gate
 
 No authoritative 3D finite mesa extent, finite I03 replication/placement, absolute MQW-to-MDC-to-I03 z registration, or explicit decision on the Coupling-only 237 nm spacer was found. The existing CP x/y-periodic FSP, 2D MDC evidence, R1C5 source module, and old K6 finite patch are therefore not substituted. The emitter spectral envelope is also not silently invented.

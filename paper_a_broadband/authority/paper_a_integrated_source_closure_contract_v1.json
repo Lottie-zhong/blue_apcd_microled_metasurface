@@ -28,8 +28,44 @@
       "CP frozen Native-M1 positive reference",
       "new integrated LP axis-free direct-source closure"
     ]
+ },
+ "exact_reference_geometry": {
+  "cp_champion": {
+   "D_nm": 194.0,
+   "J1": {"L_nm": 230.0, "W_nm": 100.0, "center_nm": [0.0, 97.0], "rotation_deg": -9.0},
+   "J2": {"L_nm": 180.0, "W_nm": 90.0, "center_nm": [0.0, -97.0], "rotation_deg": 36.0},
+   "candidate": "BW2_J1J2_D194_T90_PSI99_H525",
+   "dipole_center_nm": [0.0, 0.0, -200.0],
+   "height_nm": 525.0,
+   "materials": ["APCD_GAN_NATIVE_M1", "APCD_TIO2_NATIVE_M1"],
+   "period_nm": {"Px": 431.907786, "Py": 432.0},
+   "psi_deg": 99.0,
+   "theta_deg": 90.0,
+   "role": "frozen CP positive reference; existing x/y-periodic FSP is not an integrated finite boundary"
   },
-  "solver_accounting": {
+  "lp_i03": {
+   "D_nm": 220.0,
+   "L1_W1_L2_W2_nm": [264.0, 87.0, 194.0, 80.0],
+   "candidate": "BF04R_I03",
+   "centers_nm": {"pillar_1": [0.0, 110.0], "pillar_2": [0.0, -110.0]},
+   "geometry_hash": "b818fd28e0535053a21940f40a9b45cfb0b9252aba9e0158be2496fba87eea06",
+   "height_nm": 525.0,
+   "period_nm": {"Px": 432.0, "Py": 432.0},
+   "theta1_theta2_deg": [0.0, 85.819861293],
+   "role": "current-Native plane-wave local-basin reference; not an integrated finite layout"
+  },
+  "mdc": {
+   "angular_fwhm_450_deg": 23.592442404409894,
+   "candidate": "P1_ZL1_ALTERNATIVE_G3_A3",
+   "fdtd_output_peak_nm_approx": 447.8,
+   "main_fwhm_region_nm_approx": [438.409, 457.191],
+   "normalization": "relative r12_normalized_output; not absolute emitted power or LEE",
+   "r12_normalized_output_fwhm_nm": 18.782086773076742,
+   "stack_sequence_from_GaN": ["TiO2:44", "SiO2:79", "TiO2:44", "SiO2:79", "TiO2:44", "SiO2:316", "TiO2:44", "SiO2:79", "TiO2:44", "SiO2:79", "TiO2:44", "SiO2:79"],
+   "stack_total_thickness_nm": 975.0
+  }
+ },
+ "solver_accounting": {
     "fdtd": 0,
     "hidden_auto_admission": false,
     "ml": 0,
