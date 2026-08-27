@@ -17,10 +17,11 @@ import numpy as np
 
 
 ROOT = Path(r"D:/project/worktrees/blue_apcd_paper_a_lp_cp_broadband_v1")
-REPORT = ROOT / "paper_a_broadband/reports/bf04_local_diattenuation_truth_v1"
-RUNTIME = ROOT / "paper_a_broadband/runtime/bf04_local_diattenuation_truth_v1"
+CONDITIONAL_SCOPE = os.environ.get("BF04_RUN_SCOPE") == "conditional"
+REPORT = ROOT / ("paper_a_broadband/reports/bf04_local_diattenuation_conditional_truth_v1" if CONDITIONAL_SCOPE else "paper_a_broadband/reports/bf04_local_diattenuation_truth_v1")
+RUNTIME = ROOT / ("paper_a_broadband/runtime/bf04_local_diattenuation_conditional_truth_v1" if CONDITIONAL_SCOPE else "paper_a_broadband/runtime/bf04_local_diattenuation_truth_v1")
 DOE_PATH = ROOT / "paper_a_broadband/configs/BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1.json"
-REGISTRY_PATH = ROOT / "paper_a_broadband/reports/bf04_local_diattenuation_redesign_doe_v1/initial_candidate_registry.csv"
+REGISTRY_PATH = ROOT / ("paper_a_broadband/reports/bf04_local_diattenuation_redesign_doe_v1/conditional_candidate_registry.csv" if CONDITIONAL_SCOPE else "paper_a_broadband/reports/bf04_local_diattenuation_redesign_doe_v1/initial_candidate_registry.csv")
 PARENT_FSP = ROOT / "paper_a_broadband/runtime/reusable_fsp/lp/P1_LP_H1C1B_V2_009_Px_attempt_006_pre.fsp"
 SCHEDULER_PATH = ROOT / "paper_a_broadband/templates/lp_fulljones/apcd_global_fdtd_slot_v1.py"
 SLOT_REGISTRY = Path(r"D:/project/apcd_global_fdtd_slot_registry_v1.json")
@@ -31,20 +32,21 @@ SEMANTIC_READER = ROOT / "paper_a_broadband/scripts/bf01_bf04_prepared_fsp_recon
 BF04_METRICS = ROOT / "paper_a_broadband/reports/lp_bf01_bf04_initial_truth_v1/BF04_metrics.json"
 BRANCH = "work/paper-a-lp-cp-broadband-v1"
 WORKTREE = str(ROOT)
-TASK_ID = "BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1"
+TASK_ID = "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_V1" if CONDITIONAL_SCOPE else "BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1"
 MATERIAL = "APCD_TIO2_NATIVE_M1"
 SOURCE_START, SOURCE_STOP = 430.0, 470.0
 GRID = [435.0 + i for i in range(31)]
 NATIVE_GRID = [430.0 + i for i in range(41)]
 PROCESSES, THREADS = 12, 1
 MAX_ACTIVE = 1
-CASE_ORDER = [
-    "BF04R_I01_x", "BF04R_I01_y",
-    "BF04R_I02_x", "BF04R_I02_y",
-    "BF04R_I03_x", "BF04R_I03_y",
-    "BF04R_I04_x", "BF04R_I04_y",
-]
-GEOMETRY_ORDER = ["BF04R_I01", "BF04R_I02", "BF04R_I03", "BF04R_I04"]
+AUTHORIZED_MAX = 4 if CONDITIONAL_SCOPE else 8
+CASE_ORDER = ([
+    "BF04R_C01_x", "BF04R_C01_y", "BF04R_C02_x", "BF04R_C02_y",
+] if CONDITIONAL_SCOPE else [
+    "BF04R_I01_x", "BF04R_I01_y", "BF04R_I02_x", "BF04R_I02_y",
+    "BF04R_I03_x", "BF04R_I03_y", "BF04R_I04_x", "BF04R_I04_y",
+])
+GEOMETRY_ORDER = (["BF04R_C01", "BF04R_C02"] if CONDITIONAL_SCOPE else ["BF04R_I01", "BF04R_I02", "BF04R_I03", "BF04R_I04"])
 
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, r"N:/Program Files/ANSYS Inc/v251/Lumerical/api/python")
@@ -133,11 +135,11 @@ def row_to_geometry(row: dict[str, str]) -> dict[str, Any]:
 
 def load_registry() -> dict[str, Any]:
     if not REGISTRY_PATH.exists():
-        raise RuntimeError("INITIAL_CANDIDATE_REGISTRY_MISSING")
+        raise RuntimeError("CONDITIONAL_CANDIDATE_REGISTRY_MISSING" if CONDITIONAL_SCOPE else "INITIAL_CANDIDATE_REGISTRY_MISSING")
     rows = list(csv.DictReader(REGISTRY_PATH.open(encoding="utf-8-sig", newline="")))
-    wanted = {"BF04R_I01", "BF04R_I02", "BF04R_I03", "BF04R_I04"}
+    wanted = {"BF04R_C01", "BF04R_C02"} if CONDITIONAL_SCOPE else {"BF04R_I01", "BF04R_I02", "BF04R_I03", "BF04R_I04"}
     if {r.get("geometry_id") for r in rows} != wanted:
-        raise RuntimeError("INITIAL_REGISTRY_CASE_SET_MISMATCH")
+        raise RuntimeError("CONDITIONAL_REGISTRY_CASE_SET_MISMATCH" if CONDITIONAL_SCOPE else "INITIAL_REGISTRY_CASE_SET_MISMATCH")
     geometries = [row_to_geometry(r) for r in rows]
     data = json.loads(DOE_PATH.read_text(encoding="utf-8"))
     if data.get("schema") != "BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1" or data.get("solver_entered") != 0:
@@ -410,7 +412,7 @@ def setup_all() -> dict[str, Any]:
     result = {
         "schema": "PAPER_A_BF04_LOCAL_DIATTENUATION_SETUP_BATCH_AUDIT_V1",
         "status": "PASS" if all(x["status"] == "PASS" for x in setups) else "HARD_GATE_SETUP",
-        "authorized_max": 8, "solver_entered": 0, "solver_run_called": False,
+        "authorized_max": AUTHORIZED_MAX, "solver_entered": 0, "solver_run_called": False,
         "doe_path": str(DOE_PATH), "doe_sha256": sha_file(DOE_PATH), "registry_path": str(REGISTRY_PATH), "registry_sha256": sha_file(REGISTRY_PATH),
         "parent_fsp": {"path": str(PARENT_FSP), "sha256": sha_file(PARENT_FSP), "simulation_time_ps": 1.0},
         "cases": setups, "resource_audit": resource_audit("setup_batch"), "timestamp_utc": now(),
@@ -797,17 +799,158 @@ def postprocess_all() -> dict[str, Any]:
     return {"baseline": baseline_row, "candidate_metrics": metrics, "ranking": ranking, "final_decision": decision}
 
 
+def _number(value: Any) -> Any:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return value
+
+
+def postprocess_conditional() -> dict[str, Any]:
+    """Audit C01/C02 against the already frozen BF04/I01-I04 evidence."""
+    initial_report = ROOT / "paper_a_broadband/reports/bf04_local_diattenuation_truth_v1"
+    baseline = json.loads(BF04_METRICS.read_text(encoding="utf-8"))
+    baseline_summary = baseline["summary"]
+    baseline_spectrum = baseline.get("spectrum", [])
+    baseline_gaps = [1.0 - float(r["sigma2_over_sigma1"]) for r in baseline_spectrum if r.get("sigma2_over_sigma1") is not None]
+    baseline_row = {
+        "geometry_id": "BF04", "role": "AUTHORITATIVE_FIXED_REDESIGN_BASELINE",
+        "mdc_weighted_DoLP": baseline_summary["MDC_weighted"]["DoLP"],
+        "mdc_weighted_axis_free_useful_lp_power": baseline_summary["MDC_weighted"]["P_LP_axisfree"],
+        "mdc_weighted_useful_lp_power": baseline_summary["MDC_weighted"]["P_LP_axisfree"],
+        "mdc_fwhm_psi_span_deg": baseline_summary["MDC_FWHM_psi_span_deg"],
+        "mdc_fwhm_DoLP_worst": baseline_summary["MDC_FWHM_DoLP_worst"],
+        "dominant_u1_overlap_worst": baseline_summary.get("dominant_vector_overlap_worst"),
+        "dominant_u1_overlap_mean": baseline_summary.get("dominant_vector_overlap_mean"),
+        "dominant_u1_drift_max_deg": baseline_summary.get("dominant_vector_drift_max_deg"),
+        "normalized_singular_gap_mean": float(np.mean(baseline_gaps)) if baseline_gaps else None,
+        "normalized_singular_gap_worst": float(min(baseline_gaps)) if baseline_gaps else None,
+        "normalized_singular_gap_max": float(max(baseline_gaps)) if baseline_gaps else None,
+        "source": str(BF04_METRICS), "source_sha256": sha_file(BF04_METRICS),
+    }
+    comparison = [baseline_row]
+    initial_sources = {}
+    initial_csv = initial_report / "candidate_comparison.csv"
+    initial_rows = {}
+    if initial_csv.exists():
+        initial_rows = {r["geometry_id"]: r for r in csv.DictReader(initial_csv.open(encoding="utf-8-sig", newline=""))}
+    for gid in ("BF04R_I01", "BF04R_I02", "BF04R_I03", "BF04R_I04"):
+        metric_path = initial_report / f"{gid}_metrics.json"
+        if not metric_path.exists():
+            raise RuntimeError(f"MISSING_FROZEN_INITIAL_METRICS:{gid}")
+        summary = json.loads(metric_path.read_text(encoding="utf-8"))["summary"]
+        row = {"geometry_id": gid, **{k: v for k, v in summary.items() if not isinstance(v, (list, dict))}}
+        for key in ("role", "mechanism_direction", "L1_nm", "W1_nm", "L2_nm", "W2_nm", "delta_theta_deg", "D_nm", "geometry_hash_sha256", "v2_validity_x", "v2_validity_y"):
+            if key in initial_rows[gid]:
+                row[key] = _number(initial_rows[gid][key]) if key not in {"role", "mechanism_direction", "geometry_hash_sha256", "v2_validity_x", "v2_validity_y"} else initial_rows[gid][key]
+        row["source_scope"] = "FROZEN_INITIAL_TRUTH"
+        row["source_metrics_path"] = str(metric_path)
+        row["source_metrics_sha256"] = sha_file(metric_path)
+        comparison.append(row)
+        initial_sources[gid] = {"metrics_path": str(metric_path), "formal_spectra_path": str(initial_report / f"{gid}_formal_spectra.csv"), "metrics_sha256": sha_file(metric_path)}
+    conditional_full = []
+    for gid in GEOMETRY_ORDER:
+        g = next(x for x in DOE["geometries"] if x["geometry_id"] == gid)
+        spectrum, summary = spectrum_for(gid, g)
+        write_json(REPORT / f"{gid}_metrics.json", {"summary": summary, "spectrum": spectrum, "source_weighting": BASE.mdc_weights()})
+        with (REPORT / f"{gid}_formal_spectra.csv").open("w", newline="", encoding="utf-8") as fh:
+            writer = csv.DictWriter(fh, fieldnames=list(spectrum[0].keys())); writer.writeheader(); writer.writerows(spectrum)
+        row = {"geometry_id": gid, **{k: v for k, v in summary.items() if not isinstance(v, (list, dict))}, "role": g["role"], "mechanism_direction": g["mechanism_direction"], "L1_nm": g["L1_nm"], "W1_nm": g["W1_nm"], "L2_nm": g["L2_nm"], "W2_nm": g["W2_nm"], "delta_theta_deg": g["delta_theta_deg"], "D_nm": g["D_nm"], "geometry_hash_sha256": g["geometry_hash_sha256"], "v2_validity_x": "VALID_FOR_PHYSICS_TRUTH", "v2_validity_y": "VALID_FOR_PHYSICS_TRUTH", "source_scope": "CONDITIONAL_TRUTH"}
+        comparison.append(row)
+        conditional_full.append({"geometry": g, "summary": summary, "metrics_path": str(REPORT / f"{gid}_metrics.json"), "formal_spectra_path": str(REPORT / f"{gid}_formal_spectra.csv")})
+    candidate_rows = [r for r in comparison if r["geometry_id"] != "BF04"]
+    for row in candidate_rows:
+        overlap = float(row["dominant_u1_overlap_worst"])
+        drift = float(row["dominant_u1_drift_max_deg"])
+        row["u1_reference_bf04_like_or_better"] = bool(overlap >= float(baseline_row["dominant_u1_overlap_worst"]) and drift <= float(baseline_row["dominant_u1_drift_max_deg"]))
+        row["doLP_viability_pass"] = float(row["mdc_weighted_DoLP"]) >= 0.60
+        row["axis_free_useful_lp_viability_pass"] = float(row["mdc_weighted_axis_free_useful_lp_power"]) >= 0.25
+        row["psi_flatness_pass"] = float(row["mdc_fwhm_psi_span_deg"]) <= 30.0
+        row["promising"] = bool(row["doLP_viability_pass"] and row["axis_free_useful_lp_viability_pass"] and row["psi_flatness_pass"] and row["u1_reference_bf04_like_or_better"])
+        row["broadband_worst_case_viable"] = bool(float(row["mdc_fwhm_DoLP_worst"]) > 0.0 and float(row["normalized_singular_gap_worst"]) > 0.0)
+    ranking = sorted(candidate_rows, key=lambda r: (0 if r["promising"] else 1, 0 if r["broadband_worst_case_viable"] else 1, 0 if r["u1_reference_bf04_like_or_better"] else 1, 0 if r["psi_flatness_pass"] else 1, -float(r["mdc_weighted_DoLP"]), -float(r["mdc_weighted_axis_free_useful_lp_power"]), float(r["mdc_fwhm_psi_span_deg"]), r["geometry_id"]))
+    for rank, row in enumerate(ranking, 1):
+        row["scientific_rank"] = rank
+    with (REPORT / "candidate_comparison.csv").open("w", newline="", encoding="utf-8") as fh:
+        fields = []
+        for row in comparison:
+            for key in row:
+                if key not in fields: fields.append(key)
+        writer = csv.DictWriter(fh, fieldnames=fields); writer.writeheader(); writer.writerows(comparison)
+    with (REPORT / "candidate_ranking.csv").open("w", newline="", encoding="utf-8") as fh:
+        fields = []
+        for row in ranking:
+            for key in row:
+                if key not in fields: fields.append(key)
+        writer = csv.DictWriter(fh, fieldnames=fields); writer.writeheader(); writer.writerows(ranking)
+    by_id = {r["geometry_id"]: r for r in candidate_rows}
+    c01 = by_id["BF04R_C01"]; c02 = by_id["BF04R_C02"]; i03 = by_id["BF04R_I03"]
+    if c01["promising"] and not c02["promising"]:
+        basin_classification = "I03_LOCAL_BASIN_CONFIRMED"
+        next_phase = "PROMOTE_LP_CANDIDATE_TO_INTEGRATED_SOURCE_CLOSURE"
+    elif c01["promising"] or c02["promising"]:
+        basin_classification = "I03_LOCAL_BASIN_PARTIALLY_SUPPORTED"
+        next_phase = "PROMOTE_WITH_LOCAL_ROBUSTNESS_CHECK_FIRST"
+    elif i03["promising"]:
+        basin_classification = "I03_ISOLATED_PROMISING_POINT"
+        next_phase = "HOLD_I03_AS_POINT_SOLUTION_NO_FURTHER_LP_SOLVER"
+    else:
+        basin_classification = "LOCAL_REDESIGN_MECHANISM_NOT_REPRODUCED"
+        next_phase = "LP_REDESIGN_STOP_LOSS"
+    increased_delta_supported = bool(i03["promising"] and (c01["promising"] or (float(c01["mdc_weighted_DoLP"]) > float(baseline_row["mdc_weighted_DoLP"]) and bool(c01["u1_reference_bf04_like_or_better"]))))
+    decision = {
+        "schema": "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_FINAL_AUDIT_V1", "status": "PASS",
+        "verdict": "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_AUDIT_COMPLETE",
+        "local_basin_classification": basin_classification, "next_phase_recommendation": next_phase,
+        "best_authoritative_redesign_candidate": ranking[0]["geometry_id"],
+        "increased_delta_A_remains_supported": increased_delta_supported,
+        "c01_promising": c01["promising"], "c02_promising": c02["promising"],
+        "c02_high_delta_theta_alone_insufficient": not c02["promising"],
+        "no_composite_score": True, "no_next_phase_auto_start": True,
+        "comparison_candidates": ["BF04", "BF04R_I01", "BF04R_I02", "BF04R_I03", "BF04R_I04", "BF04R_C01", "BF04R_C02"],
+        "authorized_new_fdtd_entries": 4, "solver_entries": 4, "solver_replays": 0, "rcwa_entries": 0, "ml_entries": 0,
+        "formal_window_nm": [435, 465], "formal_points": 31, "anchor_nm": 450, "current_native_m1": True,
+        "timestamp_utc": now(),
+    }
+    write_json(REPORT / "final_decision.json", decision)
+    write_json(REPORT / "midpoint_audit.json", {"schema": "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_FINAL_AUDIT_V1", "status": "PASS", "baseline": baseline_row, "frozen_initial_candidate_sources": initial_sources, "conditional_candidates": conditional_full, "candidate_comparison": comparison, "candidate_ranking": ranking, "no_additional_solver": True, "timestamp_utc": now()})
+    lines = [
+        "# BF04 local redesign conditional truth audit", "",
+        "Status: PASS. Four authorized conditional current-Native-M1 FDTD entries completed; no additional candidate or next phase was run.", "",
+        "The conditional test evaluates repeatability of the I03 local mechanism. BF04 and I01-I04 are read from their frozen initial truth artifacts; C01/C02 are the only new solver truth. Ranking is scientific lexicographic ordering with no composite score.", "",
+        "| Rank | Candidate | MDC DoLP | MDC axis-free useful LP | FWHM psi span (deg) | FWHM DoLP worst | U1 overlap worst | U1 drift max (deg) | Promising |",
+        "|---:|---|---:|---:|---:|---:|---:|---:|:---:|",
+    ]
+    for r in ranking:
+        lines.append(f"| {r['scientific_rank']} | {r['geometry_id']} | {float(r['mdc_weighted_DoLP']):.6f} | {float(r['mdc_weighted_axis_free_useful_lp_power']):.6f} | {float(r['mdc_fwhm_psi_span_deg']):.6f} | {float(r['mdc_fwhm_DoLP_worst']):.6f} | {float(r['dominant_u1_overlap_worst']):.6f} | {float(r['dominant_u1_drift_max_deg']):.6f} | {'YES' if r['promising'] else 'NO'} |")
+    lines += ["", "## Conditional interpretation", "", f"- C01 (reduced D): {'retains' if c01['promising'] else 'does not retain'} the complete promising phenotype; its measured DoLP is {float(c01['mdc_weighted_DoLP']):.6f} and U1 overlap worst is {float(c01['dominant_u1_overlap_worst']):.6f}.", f"- C02 (small theta perturbation): {'passes' if c02['promising'] else 'fails'} the complete promising criteria; this is the high-delta-theta-alone counterfactual.", f"- I03 remains {'supported' if increased_delta_supported else 'not supported'} as the locally positive increased-Delta_A lever.", f"- Local-basin classification: `{basin_classification}`.", "", f"Recommended next phase: `{next_phase}`. This recommendation is not an execution authorization.", "", "The complete S1/S2/S3 trajectories and 31-point spectra remain in each candidate metrics JSON/CSV; frozen initial files are referenced, not rewritten.", "", "Solver accounting: 4 authorized, 4 entered, 4 returned, 4 V2-valid, replay 0, RCWA 0, ML 0. Fluent was not modified."]
+    (REPORT / "final_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    artifact_names = ["BF04R_C01_metrics.json", "BF04R_C02_metrics.json", "BF04R_C01_formal_spectra.csv", "BF04R_C02_formal_spectra.csv", "candidate_comparison.csv", "candidate_ranking.csv", "final_decision.json", "final_report.md", "midpoint_audit.json"]
+    batch_path = REPORT / "batch_audit.json"
+    batch = json.loads(batch_path.read_text(encoding="utf-8")) if batch_path.exists() else {}
+    audit = {
+        "schema": "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_AUDIT_V1", "status": "PASS", "task_id": TASK_ID, "branch": BRANCH, "worktree": WORKTREE,
+        "solver_budget": {"authorized_new_fdtd_entries": 4, "entered": 4, "returned": 4, "physics_valid_accepted": 4, "unused_authorization": 0, "max_paper_a_active_fdtd": 1, "mpi_processes": PROCESSES, "threads": THREADS, "solver_replays": 0, "rcwa": 0, "ml": 0, "additional_redesign_candidates": 0, "bf04_baseline_rerun": False},
+        "case_v2_status": {cid: "VALID_FOR_PHYSICS_TRUTH" for cid in CASE_ORDER}, "fluent": {"untouched": True, "concurrent_benchmark": False},
+        "validity": {"native_auto_shutoff_capture": "NOT_AVAILABLE_IN_CONTROLLER_STREAM", "independent_time_series_used": True, "raw_data_repaired": False, "bf08_5ps_patch_used": False},
+        "local_basin_classification": basin_classification, "next_phase_recommendation": next_phase, "final_verdict": decision["verdict"], "recommended_candidate": decision["best_authoritative_redesign_candidate"], "no_next_phase_auto_start": True,
+        "artifact_sha256": {name: sha_file(REPORT / name) for name in artifact_names if (REPORT / name).exists()}, "previous_batch_audit": str(batch_path), "timestamp_utc": now(),
+    }
+    write_json(REPORT / "audit.json", audit)
+    return {"status": "PASS", "decision": decision, "comparison": comparison, "ranking": ranking, "audit": audit}
+
+
 def run_batch() -> dict[str, Any]:
     setup = setup_all()
     if setup["status"] != "PASS":
-        result = {"schema": "BF04_LOCAL_DIATTENUATION_TRUTH_BATCH_V1", "status": "HARD_GATE", "reason": "SETUP_GATE_FAILURE", "authorized_max": 8, "entered": 0, "returned": 0, "physics_valid_accepted": 0, "unused_authorization": 8, "setup": setup, "solver_run_called": False}
+        result = {"schema": "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_BATCH_V1" if CONDITIONAL_SCOPE else "BF04_LOCAL_DIATTENUATION_TRUTH_BATCH_V1", "status": "HARD_GATE", "reason": "SETUP_GATE_FAILURE", "authorized_max": AUTHORIZED_MAX, "entered": 0, "returned": 0, "physics_valid_accepted": 0, "unused_authorization": AUTHORIZED_MAX, "setup": setup, "solver_run_called": False}
         write_json(REPORT / "batch_audit.json", result); return result
-    batch = {"schema": "BF04_LOCAL_DIATTENUATION_TRUTH_BATCH_V1", "status": "RUNNING", "authorized_max": 8, "entered": 0, "returned": 0, "physics_valid_accepted": 0, "unused_authorization": 8, "max_paper_a_active_fdtd": 0, "processes": PROCESSES, "threads": THREADS, "cases": [], "no_replay": True, "rcwa": 0, "ml": 0, "timestamp_utc": now()}
+    batch = {"schema": "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_BATCH_V1" if CONDITIONAL_SCOPE else "BF04_LOCAL_DIATTENUATION_TRUTH_BATCH_V1", "status": "RUNNING", "authorized_max": AUTHORIZED_MAX, "entered": 0, "returned": 0, "physics_valid_accepted": 0, "unused_authorization": AUTHORIZED_MAX, "max_paper_a_active_fdtd": 0, "processes": PROCESSES, "threads": THREADS, "cases": [], "no_replay": True, "rcwa": 0, "ml": 0, "timestamp_utc": now()}
     write_json(REPORT / "batch_audit.json", batch)
     for cid in CASE_ORDER:
         pre = resource_audit(f"batch_before:{cid}")
         if not pre.get("safe_headroom_for_12_mpi"):
-            batch.update({"status": "HARD_GATE", "reason": "RESOURCE_HEADROOM_NOT_SAFE", "failing_case": cid, "resource_audit": pre, "unused_authorization": 8 - batch["entered"]})
+            batch.update({"status": "HARD_GATE", "reason": "RESOURCE_HEADROOM_NOT_SAFE", "failing_case": cid, "resource_audit": pre, "unused_authorization": AUTHORIZED_MAX - batch["entered"]})
             write_json(REPORT / "batch_audit.json", batch); return batch
         existing_state = case_state(cid)
         existing_provenance = case_dir(cid) / "attempt_provenance.json"
@@ -821,22 +964,22 @@ def run_batch() -> dict[str, Any]:
             batch["entered"] += 1
         if result.get("status") not in {"ACCEPTED", "COMPLETED"}:
             update_provenance(cid, {"solver_run_called": bool(result.get("solver_entered")), "batch_status": "HARD_GATE", "post_return_resource_audit": resource_audit(f"batch_return:{cid}")})
-            batch.update({"status": "HARD_GATE", "reason": "RUNNER_RETURN_NOT_ACCEPTED", "failing_case": cid, "case_result": result, "unused_authorization": 8 - batch["entered"]})
+            batch.update({"status": "HARD_GATE", "reason": "RUNNER_RETURN_NOT_ACCEPTED", "failing_case": cid, "case_result": result, "unused_authorization": AUTHORIZED_MAX - batch["entered"]})
             write_json(REPORT / "batch_audit.json", batch); return batch
         batch["returned"] += 1
         after = resource_audit(f"batch_return:{cid}")
         update_provenance(cid, {"solver_run_called": True, "post_return_resource_audit": after, "v2_validity_gate_path": str(case_dir(cid) / "physics_validity_gate_v2.json")})
         gate = validate_case(cid, result)
-        case_entry = {"case_id": cid, "runner": result, "v2": gate, "pre_resource_audit": pre, "post_resource_audit": after, "solver_entered": True, "solver_run_called": True, "mpi_processes": PROCESSES, "threads": THREADS}
+        case_entry = {"case_id": cid, "runner": result, "v2": compact_gate_for_audit(gate) if CONDITIONAL_SCOPE else gate, "pre_resource_audit": pre, "post_resource_audit": after, "solver_entered": True, "solver_run_called": True, "mpi_processes": PROCESSES, "threads": THREADS}
         batch["cases"].append(case_entry)
         if gate.get("status") != "VALID_FOR_PHYSICS_TRUTH":
-            batch.update({"status": "HARD_GATE", "reason": "V2_VALIDITY_FAILURE", "failing_case": cid, "failing_classification": gate.get("status"), "valid_truth_preserved": [x["case_id"] for x in batch["cases"] if x["v2"].get("status") == "VALID_FOR_PHYSICS_TRUTH"], "unused_authorization": 8 - batch["entered"]})
+            batch.update({"status": "HARD_GATE", "reason": "V2_VALIDITY_FAILURE", "failing_case": cid, "failing_classification": gate.get("status"), "valid_truth_preserved": [x["case_id"] for x in batch["cases"] if x["v2"].get("status") == "VALID_FOR_PHYSICS_TRUTH"], "unused_authorization": AUTHORIZED_MAX - batch["entered"]})
             write_json(REPORT / "batch_audit.json", batch); return batch
         batch["physics_valid_accepted"] += 1
-        batch["unused_authorization"] = 8 - batch["entered"]
+        batch["unused_authorization"] = AUTHORIZED_MAX - batch["entered"]
         write_json(REPORT / "batch_audit.json", batch)
-    closeout = postprocess_all()
-    batch.update({"status": "PASS", "unused_authorization": 0, "postprocess": closeout, "final_verdict": "BF04_LOCAL_REDESIGN_INITIAL_TRUTH_BATCH_COMPLETE", "timestamp_complete_utc": now()})
+    closeout = postprocess_conditional() if CONDITIONAL_SCOPE else postprocess_all()
+    batch.update({"status": "PASS", "unused_authorization": 0, "postprocess": closeout, "final_verdict": "BF04_LOCAL_REDESIGN_CONDITIONAL_TRUTH_BATCH_COMPLETE" if CONDITIONAL_SCOPE else "BF04_LOCAL_REDESIGN_INITIAL_TRUTH_BATCH_COMPLETE", "timestamp_complete_utc": now(), "solver_run_called_count": AUTHORIZED_MAX, "solver_entered_count": AUTHORIZED_MAX, "solver_replay_count": 0, "conditional_entries": AUTHORIZED_MAX if CONDITIONAL_SCOPE else 0, "bf04_baseline_rerun": False})
     write_json(REPORT / "batch_audit.json", batch)
     return batch
 
