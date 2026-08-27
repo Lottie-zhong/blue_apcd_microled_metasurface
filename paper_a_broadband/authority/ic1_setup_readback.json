@@ -1,0 +1,68 @@
+{
+  "schema": "PAPER_A_IC1_SETUP_READBACK_V1",
+  "status": "PASS_GEOMETRY_ONLY",
+  "setup_only": true,
+  "solver_enterable_fsp_created": false,
+  "geometry": {
+    "GaN_host_count": 1,
+    "MQW_logical_region_count": 12,
+    "MDC_layer_count": 12,
+    "I03_cell_count": 25,
+    "I03_pillar_count": 50,
+    "I03_geometry_hash_sha256": "b818fd28e0535053a21940f40a9b45cfb0b9252aba9e0158be2496fba87eea06",
+    "all_I03_pillars_distinct": true,
+    "direct_contact_boundary": {
+      "mdc_top_z_nm": 975.0,
+      "i03_bottom_z_nm": 975.0,
+      "gap_nm": 0.0
+    }
+  },
+  "qa": {
+    "no_overlap": true,
+    "no_unintended_air_gap_at_MDC_I03_contact": true,
+    "no_truncated_I03_cell": true,
+    "no_half_dimer": true,
+    "no_pml_collision": true,
+    "source_in_intended_top_MQW_host": true,
+    "source_outside_MDC_and_I03": true,
+    "native_material_assignments": true,
+    "global_z_readback": true,
+    "5x5_replication_correct": true,
+    "periodic_xy_forbidden_and_absent": true,
+    "monitor_clearance": true,
+    "v2_instrumentation_declared": true
+  },
+  "readback_summary": {
+    "mesa_bounds_nm": [
+      -1500.0,
+      1500.0,
+      -1500.0,
+      1500.0
+    ],
+    "i03_bounds_nm": [
+      -1080.0,
+      1080.0,
+      -1080.0,
+      1080.0
+    ],
+    "i03_mesa_margin_nm": 420.0,
+    "source_position_nm": [
+      0.0,
+      0.0,
+      -171.5
+    ],
+    "source_well_bounds_nm": [
+      -173.0,
+      -170.0
+    ],
+    "min_geometry_to_domain_boundary_nm": 1100.0
+  },
+  "solver_counters": {
+    "run_called": false,
+    "entered": 0,
+    "active_fdtd": 0,
+    "rcwa": 0,
+    "ml": 0,
+    "hidden_auto_admission": false
+  }
+}

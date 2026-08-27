@@ -1,0 +1,199 @@
+{
+  "schema": "PAPER_A_IC1_MONITOR_CONTRACT_V1",
+  "status": "FROZEN_SETUP_ONLY_MONITOR_AUTHORITY",
+  "source_grid": {
+    "start_nm": 400.0,
+    "stop_nm": 500.0,
+    "points": 101,
+    "source_type": "broadband_electric_dipole",
+    "emitter_weighting_applied": false
+  },
+  "closed_flux_box": {
+    "bounds_nm": {
+      "x": [
+        -2000.0,
+        2000.0
+      ],
+      "y": [
+        -2000.0,
+        2000.0
+      ],
+      "z": [
+        -500.0,
+        1700.0
+      ]
+    },
+    "purpose": "six-face signed flux closure around finite structure and source",
+    "faces": [
+      {
+        "name": "ic1_flux_top",
+        "type": "2D_power",
+        "normal": "+z",
+        "position_nm": [
+          0.0,
+          0.0,
+          1700.0
+        ],
+        "span_nm": [
+          4000.0,
+          4000.0
+        ]
+      },
+      {
+        "name": "ic1_flux_bottom",
+        "type": "2D_power",
+        "normal": "-z",
+        "position_nm": [
+          0.0,
+          0.0,
+          -500.0
+        ],
+        "span_nm": [
+          4000.0,
+          4000.0
+        ]
+      },
+      {
+        "name": "ic1_flux_xminus",
+        "type": "2D_power",
+        "normal": "-x",
+        "position_nm": [
+          -2000.0,
+          0.0,
+          600.0
+        ],
+        "span_nm": [
+          4000.0,
+          2200.0
+        ],
+        "span_axes": [
+          "y",
+          "z"
+        ]
+      },
+      {
+        "name": "ic1_flux_xplus",
+        "type": "2D_power",
+        "normal": "+x",
+        "position_nm": [
+          2000.0,
+          0.0,
+          600.0
+        ],
+        "span_nm": [
+          4000.0,
+          2200.0
+        ],
+        "span_axes": [
+          "y",
+          "z"
+        ]
+      },
+      {
+        "name": "ic1_flux_yminus",
+        "type": "2D_power",
+        "normal": "-y",
+        "position_nm": [
+          0.0,
+          -2000.0,
+          600.0
+        ],
+        "span_nm": [
+          4000.0,
+          2200.0
+        ],
+        "span_axes": [
+          "x",
+          "z"
+        ]
+      },
+      {
+        "name": "ic1_flux_yplus",
+        "type": "2D_power",
+        "normal": "+y",
+        "position_nm": [
+          0.0,
+          2000.0,
+          600.0
+        ],
+        "span_nm": [
+          4000.0,
+          2200.0
+        ],
+        "span_axes": [
+          "x",
+          "z"
+        ]
+      }
+    ]
+  },
+  "near_to_far": {
+    "name": "ic1_top_near_to_far",
+    "type": "2D_frequency_field_monitor",
+    "position_nm": [
+      0.0,
+      0.0,
+      1700.0
+    ],
+    "span_nm": [
+      4000.0,
+      4000.0
+    ],
+    "normal": "+z",
+    "record_complex_components": [
+      "Ex",
+      "Ey"
+    ],
+    "projection_region": "top plane itself; use only data inside monitor aperture",
+    "angular_grid": {
+      "theta_deg": [
+        0.0,
+        90.0,
+        1.0
+      ],
+      "phi_deg": [
+        0.0,
+        359.0,
+        1.0
+      ]
+    },
+    "outputs": [
+      "farfield_Ex",
+      "farfield_Ey",
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "angular_distribution"
+    ]
+  },
+  "source_normalization": {
+    "source_id": "IC1_MDC_I03_TOPWELL_X",
+    "readback": "solver_sourcepower_at_each_wavelength",
+    "normalization": "sourcepower-normalized_power_and_complex_field",
+    "no_W_emit_weighting": true,
+    "no_plane_wave_transmission_semantics": true
+  },
+  "convergence_instrumentation": {
+    "name": "ic1_v2_time_probe",
+    "type": "point_time_monitor",
+    "position_nm": [
+      0.0,
+      0.0,
+      -100.0
+    ],
+    "record": [
+      "Ex",
+      "Ey",
+      "Ez",
+      "field_energy_proxy"
+    ],
+    "purpose": "independent time-domain convergence series and late-time growth detection",
+    "minimum_late_samples": 3
+  },
+  "interpretation": {
+    "upward_power": "top closed-face flux",
+    "integrated_polarization": "derive from coherency only after wavelength-resolved readback",
+    "diffraction_order_Jones_claim": false
+  }
+}

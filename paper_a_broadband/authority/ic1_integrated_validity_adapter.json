@@ -1,0 +1,41 @@
+{
+  "schema": "PAPER_A_IC1_INTEGRATED_VALIDITY_ADAPTER_V2",
+  "status": "SPECIFICATION_ONLY_NOT_RUN",
+  "parent_authority": {
+    "path": "paper_a_broadband/authority/paper_a_fdtd_physics_validity_gate_v2_instrumented.json",
+    "sha256": "593B5E633BD17BDCCEAACE1C1F7B7C47694D5CB4DEDEC9ACF5E2BDB523433A54",
+    "divergence_gate_unchanged": true
+  },
+  "required_evidence": [
+    "completed solver lifecycle evidence",
+    "immutable post-FSP and solver log",
+    "independent point-monitor time series with >=3 finite strictly increasing samples",
+    "finite positive sourcepower at every sampled wavelength",
+    "finite closed-box face flux and finite top near-to-far Ex/Ey",
+    "no explosive field growth or established Auto Shutoff divergence"
+  ],
+  "integrated_replacements_for_plane_wave_sanity": [
+    "finite emitted power",
+    "finite monitor flux",
+    "finite complex far-field components",
+    "sourcepower consistency",
+    "no nonphysical huge signed power caused by divergence"
+  ],
+  "hard_reject_conditions": [
+    "any parent V2 divergence gate failure",
+    "non-finite or non-positive sourcepower",
+    "non-finite closed flux or far-field components",
+    "missing immutable provenance",
+    "periodic x/y boundary",
+    "W_emit used to claim production device metrics in IC1"
+  ],
+  "no_threshold_invention": true,
+  "solver_accounting": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "FDTD": 0,
+    "RCWA": 0,
+    "ML": 0
+  }
+}

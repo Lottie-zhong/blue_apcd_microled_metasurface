@@ -1,0 +1,26 @@
+{
+  "schema": "PAPER_A_IC1_CANARY_READINESS_V1",
+  "status": "PAPER_A_IC1_INTEGRATED_CANARY_READY",
+  "readiness_scope": "architecture_canary_only",
+  "checks": {
+    "finite_mesa_frozen": true,
+    "i03_5x5_frozen": true,
+    "absolute_z_layout_frozen": true,
+    "finite_xyz_pml_frozen": true,
+    "closed_flux_and_near_to_far_monitors_frozen": true,
+    "v2_integrated_adapter_frozen": true,
+    "geometry_only_readback_pass": true,
+    "solver_not_run": true
+  },
+  "production_hard_gates_retained": [
+    "EMITTER_SPECTRUM_UNRESOLVED",
+    "mesa_is_not_fabrication_dimension",
+    "future_mesh/PML_solver_readback_required"
+  ],
+  "future_solver": {
+    "case_id": "IC1_MDC_I03_TOPWELL_X",
+    "budget_entries": 1,
+    "configuration": "finite 3D 3um mesa + 12-well host-registered stack + MDC + 5x5 I03 + top-well central x dipole",
+    "authorized_in_this_task": false
+  }
+}

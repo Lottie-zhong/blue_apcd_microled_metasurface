@@ -1,0 +1,50 @@
+{
+  "schema": "PAPER_A_IC1_DOMAIN_PML_AUTHORITY_V1",
+  "status": "FROZEN_CANARY_NUMERICAL_DOMAIN",
+  "boundary_condition": {
+    "x": "PML",
+    "y": "PML",
+    "z_min": "PML",
+    "z_max": "PML",
+    "periodic_xy": false
+  },
+  "domain_nm": {
+    "x_span": 6000.0,
+    "y_span": 6000.0,
+    "z_span": 4200.0,
+    "x_bounds": [
+      -3000.0,
+      3000.0
+    ],
+    "y_bounds": [
+      -3000.0,
+      3000.0
+    ],
+    "z_bounds": [
+      -1600.0,
+      2600.0
+    ]
+  },
+  "pml": {
+    "x_minus_nm": -3000.0,
+    "x_plus_nm": 3000.0,
+    "y_minus_nm": -3000.0,
+    "y_plus_nm": 3000.0,
+    "z_minus_nm": -1600.0,
+    "z_plus_nm": 2600.0,
+    "layers": 12,
+    "profile": "existing_validated_default_PML_profile_to_be_read_back_at_future_setup"
+  },
+  "canary_numerical_margins_nm": {
+    "mesa_edge_to_lateral_boundary": 1500.0,
+    "i03_top_to_top_boundary": 1100.0,
+    "lowest_well_bottom_to_bottom_boundary": 1218.0,
+    "minimum_physical_to_domain_boundary": 1100.0,
+    "not_fabrication_dimension": true
+  },
+  "physical_collision_checks": {
+    "pml_intersects_physical_geometry": false,
+    "source_in_pml": false,
+    "monitors_in_pml": false
+  }
+}

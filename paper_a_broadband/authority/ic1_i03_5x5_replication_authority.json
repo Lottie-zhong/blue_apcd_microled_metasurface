@@ -1,0 +1,1083 @@
+{
+  "schema": "PAPER_A_IC1_I03_5X5_REPLICATION_AUTHORITY_V1",
+  "status": "FROZEN_CANARY_REPLICATION",
+  "source_geometry_id": "BF04R_I03",
+  "source_geometry_hash_sha256": "b818fd28e0535053a21940f40a9b45cfb0b9252aba9e0158be2496fba87eea06",
+  "period_nm": {
+    "Px": 432.0,
+    "Py": 432.0
+  },
+  "replication": {
+    "Nx": 5,
+    "Ny": 5,
+    "integer_indices_i": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "integer_indices_j": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "cell_center_rule": "c(i,j)=(i*432,j*432) nm",
+    "pillar_1_rule": "c(i,j)+(0,+110) nm",
+    "pillar_2_rule": "c(i,j)+(0,-110) nm",
+    "centered_optical_axis": true,
+    "full_cells_only": true,
+    "truncated_cells": false,
+    "half_dimers": false
+  },
+  "footprint": {
+    "x_nm": 2160.0,
+    "y_nm": 2160.0,
+    "bounds_nm": [
+      -1080.0,
+      1080.0,
+      -1080.0,
+      1080.0
+    ],
+    "mesa_edge_margin_nm": {
+      "left": 420.0,
+      "right": 420.0,
+      "bottom": 420.0,
+      "top": 420.0
+    }
+  },
+  "unit_cell": {
+    "height_nm": 525.0,
+    "pillar_1": {
+      "L_nm": 264.0,
+      "W_nm": 87.0,
+      "rotation_z_deg": 0.0,
+      "center_offset_nm": [
+        0.0,
+        110.0
+      ]
+    },
+    "pillar_2": {
+      "L_nm": 194.0,
+      "W_nm": 80.0,
+      "rotation_z_deg": 85.819861293,
+      "center_offset_nm": [
+        0.0,
+        -110.0
+      ]
+    },
+    "material": "APCD_TIO2_NATIVE_M1"
+  },
+  "geometry_only_clearance": {
+    "intra_cell_pair_gap_nm": 76.84233977127985,
+    "minimum_adjacent_cell_gap_nm": 68.84233977127985,
+    "minimum_gap_pair": "pillar_1(i,j) to pillar_2(i,j+1)",
+    "minimum_cell_edge_clearance_nm": 6.342339771279853,
+    "overlap": false,
+    "threshold_authority": null
+  },
+  "cells": [
+    {
+      "i": -2,
+      "j": -2,
+      "cell_center_nm": [
+        -864.0,
+        -864.0
+      ],
+      "cell_boundary_nm": [
+        -1080.0,
+        -648.0,
+        -1080.0,
+        -648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -864.0,
+          -754.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -864.0,
+          -974.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -1,
+      "j": -2,
+      "cell_center_nm": [
+        -432.0,
+        -864.0
+      ],
+      "cell_boundary_nm": [
+        -648.0,
+        -216.0,
+        -1080.0,
+        -648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -432.0,
+          -754.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -432.0,
+          -974.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 0,
+      "j": -2,
+      "cell_center_nm": [
+        0.0,
+        -864.0
+      ],
+      "cell_boundary_nm": [
+        -216.0,
+        216.0,
+        -1080.0,
+        -648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          0.0,
+          -754.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          0.0,
+          -974.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 1,
+      "j": -2,
+      "cell_center_nm": [
+        432.0,
+        -864.0
+      ],
+      "cell_boundary_nm": [
+        216.0,
+        648.0,
+        -1080.0,
+        -648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          432.0,
+          -754.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          432.0,
+          -974.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 2,
+      "j": -2,
+      "cell_center_nm": [
+        864.0,
+        -864.0
+      ],
+      "cell_boundary_nm": [
+        648.0,
+        1080.0,
+        -1080.0,
+        -648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          864.0,
+          -754.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          864.0,
+          -974.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -2,
+      "j": -1,
+      "cell_center_nm": [
+        -864.0,
+        -432.0
+      ],
+      "cell_boundary_nm": [
+        -1080.0,
+        -648.0,
+        -648.0,
+        -216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -864.0,
+          -322.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -864.0,
+          -542.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -1,
+      "j": -1,
+      "cell_center_nm": [
+        -432.0,
+        -432.0
+      ],
+      "cell_boundary_nm": [
+        -648.0,
+        -216.0,
+        -648.0,
+        -216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -432.0,
+          -322.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -432.0,
+          -542.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 0,
+      "j": -1,
+      "cell_center_nm": [
+        0.0,
+        -432.0
+      ],
+      "cell_boundary_nm": [
+        -216.0,
+        216.0,
+        -648.0,
+        -216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          0.0,
+          -322.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          0.0,
+          -542.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 1,
+      "j": -1,
+      "cell_center_nm": [
+        432.0,
+        -432.0
+      ],
+      "cell_boundary_nm": [
+        216.0,
+        648.0,
+        -648.0,
+        -216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          432.0,
+          -322.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          432.0,
+          -542.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 2,
+      "j": -1,
+      "cell_center_nm": [
+        864.0,
+        -432.0
+      ],
+      "cell_boundary_nm": [
+        648.0,
+        1080.0,
+        -648.0,
+        -216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          864.0,
+          -322.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          864.0,
+          -542.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -2,
+      "j": 0,
+      "cell_center_nm": [
+        -864.0,
+        0.0
+      ],
+      "cell_boundary_nm": [
+        -1080.0,
+        -648.0,
+        -216.0,
+        216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -864.0,
+          110.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -864.0,
+          -110.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -1,
+      "j": 0,
+      "cell_center_nm": [
+        -432.0,
+        0.0
+      ],
+      "cell_boundary_nm": [
+        -648.0,
+        -216.0,
+        -216.0,
+        216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -432.0,
+          110.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -432.0,
+          -110.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 0,
+      "j": 0,
+      "cell_center_nm": [
+        0.0,
+        0.0
+      ],
+      "cell_boundary_nm": [
+        -216.0,
+        216.0,
+        -216.0,
+        216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          0.0,
+          110.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          0.0,
+          -110.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 1,
+      "j": 0,
+      "cell_center_nm": [
+        432.0,
+        0.0
+      ],
+      "cell_boundary_nm": [
+        216.0,
+        648.0,
+        -216.0,
+        216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          432.0,
+          110.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          432.0,
+          -110.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 2,
+      "j": 0,
+      "cell_center_nm": [
+        864.0,
+        0.0
+      ],
+      "cell_boundary_nm": [
+        648.0,
+        1080.0,
+        -216.0,
+        216.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          864.0,
+          110.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          864.0,
+          -110.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -2,
+      "j": 1,
+      "cell_center_nm": [
+        -864.0,
+        432.0
+      ],
+      "cell_boundary_nm": [
+        -1080.0,
+        -648.0,
+        216.0,
+        648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -864.0,
+          542.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -864.0,
+          322.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -1,
+      "j": 1,
+      "cell_center_nm": [
+        -432.0,
+        432.0
+      ],
+      "cell_boundary_nm": [
+        -648.0,
+        -216.0,
+        216.0,
+        648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -432.0,
+          542.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -432.0,
+          322.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "cell_center_nm": [
+        0.0,
+        432.0
+      ],
+      "cell_boundary_nm": [
+        -216.0,
+        216.0,
+        216.0,
+        648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          0.0,
+          542.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          0.0,
+          322.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 1,
+      "j": 1,
+      "cell_center_nm": [
+        432.0,
+        432.0
+      ],
+      "cell_boundary_nm": [
+        216.0,
+        648.0,
+        216.0,
+        648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          432.0,
+          542.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          432.0,
+          322.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 2,
+      "j": 1,
+      "cell_center_nm": [
+        864.0,
+        432.0
+      ],
+      "cell_boundary_nm": [
+        648.0,
+        1080.0,
+        216.0,
+        648.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          864.0,
+          542.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          864.0,
+          322.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -2,
+      "j": 2,
+      "cell_center_nm": [
+        -864.0,
+        864.0
+      ],
+      "cell_boundary_nm": [
+        -1080.0,
+        -648.0,
+        648.0,
+        1080.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -864.0,
+          974.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -864.0,
+          754.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": -1,
+      "j": 2,
+      "cell_center_nm": [
+        -432.0,
+        864.0
+      ],
+      "cell_boundary_nm": [
+        -648.0,
+        -216.0,
+        648.0,
+        1080.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          -432.0,
+          974.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          -432.0,
+          754.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 0,
+      "j": 2,
+      "cell_center_nm": [
+        0.0,
+        864.0
+      ],
+      "cell_boundary_nm": [
+        -216.0,
+        216.0,
+        648.0,
+        1080.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          0.0,
+          974.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          0.0,
+          754.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 1,
+      "j": 2,
+      "cell_center_nm": [
+        432.0,
+        864.0
+      ],
+      "cell_boundary_nm": [
+        216.0,
+        648.0,
+        648.0,
+        1080.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          432.0,
+          974.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          432.0,
+          754.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    },
+    {
+      "i": 2,
+      "j": 2,
+      "cell_center_nm": [
+        864.0,
+        864.0
+      ],
+      "cell_boundary_nm": [
+        648.0,
+        1080.0,
+        648.0,
+        1080.0
+      ],
+      "pillar_1": {
+        "center_nm": [
+          864.0,
+          974.0
+        ],
+        "length_nm": 264.0,
+        "width_nm": 87.0,
+        "rotation_z_deg": 0.0,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      },
+      "pillar_2": {
+        "center_nm": [
+          864.0,
+          754.0
+        ],
+        "length_nm": 194.0,
+        "width_nm": 80.0,
+        "rotation_z_deg": 85.819861293,
+        "height_nm": 525.0,
+        "bottom_z_nm": 975.0,
+        "top_z_nm": 1500.0,
+        "material": "APCD_TIO2_NATIVE_M1"
+      }
+    }
+  ]
+}
