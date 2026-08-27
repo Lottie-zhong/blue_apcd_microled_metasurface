@@ -1,0 +1,69 @@
+{
+  "schema": "BF04_LOCAL_REDESIGN_INITIAL_TRUTH_AUDIT_V1",
+  "status": "PASS",
+  "task_id": "BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1",
+  "branch": "work/paper-a-lp-cp-broadband-v1",
+  "worktree": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1",
+  "solver_budget": {
+    "authorized_new_fdtd_entries": 8,
+    "entered": 8,
+    "returned": 8,
+    "physics_valid_accepted": 8,
+    "unused_authorization": 0,
+    "max_paper_a_active_fdtd": 1,
+    "mpi_processes": 12,
+    "threads": 1,
+    "solver_replays": 0,
+    "rcwa": 0,
+    "ml": 0,
+    "conditional_entries": 0,
+    "bf04_baseline_rerun": false
+  },
+  "case_v2_status": {
+    "BF04R_I01_x": "VALID_FOR_PHYSICS_TRUTH",
+    "BF04R_I01_y": "VALID_FOR_PHYSICS_TRUTH",
+    "BF04R_I02_x": "VALID_FOR_PHYSICS_TRUTH",
+    "BF04R_I02_y": "VALID_FOR_PHYSICS_TRUTH",
+    "BF04R_I03_x": "VALID_FOR_PHYSICS_TRUTH",
+    "BF04R_I03_y": "VALID_FOR_PHYSICS_TRUTH",
+    "BF04R_I04_x": "VALID_FOR_PHYSICS_TRUTH",
+    "BF04R_I04_y": "VALID_FOR_PHYSICS_TRUTH"
+  },
+  "fluent": {
+    "positively_identified": true,
+    "untouched": true,
+    "concurrent_benchmark": false
+  },
+  "validity": {
+    "native_auto_shutoff_capture": "NOT_AVAILABLE_IN_CONTROLLER_STREAM",
+    "independent_time_series_used": true,
+    "raw_data_repaired": false,
+    "bf08_5ps_patch_used": false,
+    "phase_or_k6_qualification_used": false
+  },
+  "final_verdict": "BF04_LOCAL_REDESIGN_PROMISING_CONDITIONAL_BATCH_JUSTIFIED",
+  "recommended_candidate": "BF04R_I03",
+  "conditional_candidates_not_run": [
+    "BF04R_C01",
+    "BF04R_C02"
+  ],
+  "artifact_sha256": {
+    "batch_audit.json": "d196aa8c55dbe756ade76be3e0318746a3f62eed8cc813f0b2e532b2cb779532",
+    "setup_batch_audit.json": "db181559df4a95371ffd84257ac0e0c96f6dcda422553c4b601f9d960a61b2db",
+    "finalize_audit.json": "615ae5edb13792392c80615650ea4f56118c87748be581b6ec214c9fc1ab9f52",
+    "BF04R_I01_metrics.json": "8c910a43338bfd17338d84021d8a6436c98fe504ed7393672dd39e2397df8814",
+    "BF04R_I02_metrics.json": "7684eabafbd0996e772607ee996316aa29af859cc9c1a614f968732574a34164",
+    "BF04R_I03_metrics.json": "92af686bd7e57a934da34eb2b9cb79b93ce72e2428294b97065924a2feeffaa3",
+    "BF04R_I04_metrics.json": "bc8e22d27eb395e11534c6fd4168d75aa6181aa7219fdee5dd7e51dd07fb2018",
+    "BF04R_I01_formal_spectra.csv": "afcdae6fda87f1d083f4f5d23ff632c33155e71a0b140317deb34d054177ad93",
+    "BF04R_I02_formal_spectra.csv": "d7b770069b3536011db79474a22aca9be1accf2eaa70f6aa410b12d9125e4fa5",
+    "BF04R_I03_formal_spectra.csv": "9f90237c0c96114b8dfc2fa23bd426bd4e3fed3690fc2d4dfc95ef3cb13128b6",
+    "BF04R_I04_formal_spectra.csv": "1171ae38dc64dffb0fe6d6e993272cd94744f213b8047cfbbea44c35fbb4de8c",
+    "candidate_comparison.csv": "da2bf87af992f81a03b242536a8996b0e54cc19ba2502e2877877cf133c6bc90",
+    "candidate_ranking.csv": "d382835538be293b17811aea0e1c45c12859a5d2e5310aff3d378768af514589",
+    "midpoint_audit.json": "e159e780a7882ed7cf48daabc544c9970c7cb37fb31094fb347232dd04d32104",
+    "final_decision.json": "2cb65a51ff4c5f788a57170e12b6b413375ea638a848ffb38f93c044f0c2d3ef",
+    "final_report.md": "0ac5b9aa098f32131f603f5a2fa4a67ab588e092e253716d60f30614e9e542c8"
+  },
+  "timestamp_utc": "2026-08-27T04:39:11.828651+00:00"
+}
