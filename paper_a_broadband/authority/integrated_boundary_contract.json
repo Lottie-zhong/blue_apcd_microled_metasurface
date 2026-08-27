@@ -1,0 +1,34 @@
+{
+  "contract_id": "PAPER_A_INTEGRATED_FINITE_MESA_BOUNDARY_V1",
+  "hard_gate_reasons": [
+    "HARD_GATE_MISSING_3D_FINITE_LAYOUT_AUTHORITY",
+    "HARD_GATE_MISSING_ABSOLUTE_SOURCE_Z_REGISTRATION",
+    "HARD_GATE_MISSING_MDC_I03_VERTICAL_SEPARATION_DECISION"
+  ],
+  "rejected_substitutions": [
+    "Old Stage13 K6 finite patch: not I03 and not an integrated-source authority.",
+    "CP champion periodic x/y FSP: not a finite mesa boundary.",
+    "2D MDC or R1C5 source module: not a closed 3D integrated layout."
+  ],
+  "required_boundary": {
+    "integrated_periodic_reuse_forbidden": true,
+    "monitor_location": "outside near-field source box and before PML; exact offset pending finite layout.",
+    "periodic_xy": false,
+    "source_box": "enclose each physical dipole with validated clearance; exact dimensions pending finite layout.",
+    "x_boundary": "finite lateral PML",
+    "y_boundary": "finite lateral PML",
+    "z_boundary": "top and bottom PML"
+  },
+  "required_layout_authority": {
+    "absolute_source_z_nm": null,
+    "extra_sio2_spacer_237_nm": "UNDECIDED_AND_MUST_NOT_BE_IMPORTED_SILENTLY",
+    "i03_edge_placement": null,
+    "i03_finite_footprint_nm": null,
+    "i03_replication_count": null,
+    "mdc_to_i03_vertical_separation_nm": null,
+    "mesa_lateral_extent_nm": null,
+    "patterned_region_extent_nm": null
+  },
+  "schema": "paper_a_integrated_boundary_contract_v1",
+  "status": "HARD_GATE_MISSING_3D_FINITE_LAYOUT_AUTHORITY"
+}

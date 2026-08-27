@@ -1,0 +1,79 @@
+{
+  "contract_id": "PAPER_A_INTEGRATED_SOURCE_ENSEMBLE_V1",
+  "coordinate_frame": {
+    "absolute_project_z_registration": "PENDING_EXPLICIT_3D_LAYOUT_AUTHORITY",
+    "intended_project_mapping": "project +z = source +y",
+    "source_module": "interface_y=0; positive y from MDC toward air; negative y into epitaxy"
+  },
+  "excluded_source_layers": {
+    "formal_primary_emission_weight": 0.0,
+    "strain_release_wells_centers_nm": [
+      -399.0,
+      -415.0,
+      -431.0
+    ]
+  },
+  "polarization_cases": {
+    "coherence": "incoherent source ensemble; combine coherency/Stokes at output, not field amplitudes across wells or x/y cases.",
+    "full_primary_target_cases": 24,
+    "per_well": [
+      "x_in_plane_dipole",
+      "y_in_plane_dipole"
+    ],
+    "setup_only_canary_cases": [
+      "top_primary_well_center_-171.5_nm_x",
+      "top_primary_well_center_-171.5_nm_y"
+    ]
+  },
+  "primary_wells": {
+    "barrier_thickness_nm": 16.0,
+    "centers_nm_source_frame": [
+      -171.5,
+      -190.5,
+      -209.5,
+      -228.5,
+      -247.5,
+      -266.5,
+      -285.5,
+      -304.5,
+      -323.5,
+      -342.5,
+      -361.5,
+      -380.5
+    ],
+    "count": 12,
+    "weight_sum": 1.0,
+    "weights": [
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333,
+      0.08333333333333333
+    ],
+    "well_thickness_nm": 3.0
+  },
+  "required_before_setup_canary": [
+    "Explicit 3D finite mesa extent and lateral source/monitor clearance.",
+    "Explicit finite I03 replication count, footprint, placement, and edge treatment.",
+    "Absolute z registration for MQW wells, MDC stack, and I03 top/bottom interfaces.",
+    "Explicit decision on whether the Coupling-only 237 nm extra SiO2 spacer is present.",
+    "Authoritative source spectral envelope or a documented relative-weight convention."
+  ],
+  "schema": "paper_a_source_ensemble_contract_v1",
+  "source_authority": "MDC_REALISTIC_MQW_SOURCE_MODULE_V1",
+  "source_semantics": {
+    "direct_source": true,
+    "field_injection_from_level1_forbidden": true,
+    "level1_role": "power-domain low-fidelity predictor and interface reference only",
+    "source_waveform_later_setup_option": "Broad source/monitor coverage around 420-500 nm or 430-500 nm may be prepared only after layout/z gate; this is not an emitted-power spectrum.",
+    "spectral_envelope": "MISSING_EXPLICIT_AUTHORITY; do not invent an absolute emitter envelope."
+  },
+  "status": "CONTRACT_DEFINED_NOT_SOLVER_AUTHORIZED"
+}

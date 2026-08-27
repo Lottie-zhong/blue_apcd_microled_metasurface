@@ -1,0 +1,41 @@
+{
+  "comparison_rule": "Same source ensemble, finite boundary, materials, monitors, extraction, and power convention across all four; only physical module inclusion changes.",
+  "configs": [
+    {
+      "config_id": "A0_BARE_MICROLED",
+      "description": "Finite MQW/mesa source without MDC or I03.",
+      "status": "NOT_RUN"
+    },
+    {
+      "config_id": "A1_MDC_MICROLED",
+      "description": "Finite MQW/mesa source with frozen ZL-1 MDC.",
+      "status": "NOT_RUN"
+    },
+    {
+      "config_id": "A2_BARE_I03",
+      "description": "Finite MQW/mesa source with finite I03 and no MDC.",
+      "status": "NOT_RUN"
+    },
+    {
+      "config_id": "A3_MDC_I03_TARGET",
+      "description": "Finite MQW/mesa source with frozen ZL-1 MDC and finite I03.",
+      "status": "NOT_RUN"
+    }
+  ],
+  "contract_id": "PAPER_A_INTEGRATED_ABLATION_MATRIX_V1",
+  "schema": "paper_a_integrated_ablation_matrix_v1",
+  "shared_contract": {
+    "boundary": "integrated_boundary_contract.json",
+    "materials": "Native-M1 only: APCD_GAN_NATIVE_M1, APCD_TIO2_NATIVE_M1, APCD_SIO2_NATIVE_M1.",
+    "normalization": "direct output power; relative spectral normalization only where provider authority says so.",
+    "source_ensemble": "source_ensemble_contract.json"
+  },
+  "solver_accounting": {
+    "entered": 0,
+    "fdtd": 0,
+    "ml": 0,
+    "rcwa": 0,
+    "run_called": false
+  },
+  "status": "DEFINED_NOT_RUN"
+}

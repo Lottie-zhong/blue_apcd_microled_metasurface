@@ -1,0 +1,175 @@
+{
+  "contract_id": "MATCHED_CONTROL0_ALT1_TOP_Z_T237_XY0_EMITTED_SOURCE_CONTRACT_V1",
+  "decision": "EMITTED_SOURCE_ORDER_METRICS",
+  "source_representation": "identical TOP_Z integrated emitted electric dipole",
+  "source_readback": {
+    "position_nm": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -171.5
+    },
+    "orientation": "Z",
+    "theta_deg": 0.0,
+    "phi_deg": 0.0,
+    "amplitude": 1.0
+  },
+  "level1": {
+    "role": "POWER_DOMAIN_LOW_FIDELITY_PREDICTOR",
+    "forbidden_use": "FDTD_COMPLEX_FIELD_INJECTION_SOURCE",
+    "provider_manifest": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\provider_manifest.json",
+      "sha256": "eeaa34c7e625d81a9a4b9b03abfdfc6c57028da2fb3456df34480a90ef19030c"
+    },
+    "top_z_power_raw": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\traditional_zl1_mdc_level1_real_fdtd_v1\\queued_20260810T000000Z\\cases\\TOP_Z\\runtime\\TOP_Z__attempt_001__raw.npz",
+      "sha256": "e6bd06aad6ba1da2d0f73728ee2bd07878815d007c9cdcb5d8db7a30f3362bfd"
+    }
+  },
+  "prohibitions": [
+    "real angular power distribution injection",
+    "fabricated complex field or phase",
+    "single plane-wave ux replacement",
+    "incident-reference source for R/T",
+    "TOP_Z physics alteration"
+  ],
+  "shared_physics": {
+    "spacer_nm": 237.0,
+    "wavelength_grid_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "material_config_sha256": "3124eb996180bdb04d7a16578d32f95d047d28a735b33c4e9bf51ebccafdfa4b",
+    "solver": {
+      "dimension": "3D",
+      "x span": 1.74e-06,
+      "y span": 2.9000000000000003e-07,
+      "z min": -6.000000000000002e-07,
+      "z max": 2.3e-06,
+      "x min bc": "Periodic",
+      "x max bc": "Periodic",
+      "y min bc": "Periodic",
+      "y max bc": "Periodic",
+      "z min bc": "PML",
+      "z max bc": "PML",
+      "mesh accuracy": 2.0,
+      "pml layers": 8.0,
+      "simulation time": 1e-12,
+      "auto shutoff min": 1e-06
+    },
+    "monitors": {
+      "upward_monitor": {
+        "monitor type": "2D Z-normal",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 2.0000000000000003e-06,
+        "x span": 1.74e-06,
+        "y span": 2.9000000000000003e-07,
+        "z span": 0.0,
+        "frequency points": 11.0
+      },
+      "downward_monitor": {
+        "monitor type": "2D Z-normal",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -5.000000000000001e-07,
+        "x span": 1.74e-06,
+        "y span": 2.9000000000000003e-07,
+        "z span": 0.0,
+        "frequency points": 11.0
+      },
+      "source_box_top": {
+        "monitor type": "2D Z-normal",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.4650000000000002e-07,
+        "x span": 1.0000000000000001e-07,
+        "y span": 1.0000000000000001e-07,
+        "z span": 0.0,
+        "frequency points": 11.0
+      },
+      "source_box_bottom": {
+        "monitor type": "2D Z-normal",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.9650000000000002e-07,
+        "x span": 1.0000000000000001e-07,
+        "y span": 1.0000000000000001e-07,
+        "z span": 0.0,
+        "frequency points": 11.0
+      },
+      "source_box_xmin": {
+        "monitor type": "2D X-normal",
+        "x": -5.0000000000000004e-08,
+        "y": 0.0,
+        "z": -1.7150000000000002e-07,
+        "x span": 0.0,
+        "y span": 1.0000000000000001e-07,
+        "z span": 5.0000000000000004e-08,
+        "frequency points": 11.0
+      },
+      "source_box_xmax": {
+        "monitor type": "2D X-normal",
+        "x": 5.0000000000000004e-08,
+        "y": 0.0,
+        "z": -1.7150000000000002e-07,
+        "x span": 0.0,
+        "y span": 1.0000000000000001e-07,
+        "z span": 5.0000000000000004e-08,
+        "frequency points": 11.0
+      },
+      "source_box_ymin": {
+        "monitor type": "2D Y-normal",
+        "x": 0.0,
+        "y": -5.0000000000000004e-08,
+        "z": -1.7150000000000002e-07,
+        "x span": 1.0000000000000001e-07,
+        "y span": 0.0,
+        "z span": 5.0000000000000004e-08,
+        "frequency points": 11.0
+      },
+      "source_box_ymax": {
+        "monitor type": "2D Y-normal",
+        "x": 0.0,
+        "y": 5.0000000000000004e-08,
+        "z": -1.7150000000000002e-07,
+        "x span": 1.0000000000000001e-07,
+        "y span": 0.0,
+        "z span": 5.0000000000000004e-08,
+        "frequency points": 11.0
+      }
+    },
+    "materials": {
+      "APCD_GAN_NATIVE_M1": {
+        "present": true,
+        "sample_count": 500
+      },
+      "APCD_TIO2_NATIVE_M1": {
+        "present": true,
+        "sample_count": 101
+      },
+      "APCD_SIO2_NATIVE_M1": {
+        "present": true,
+        "sample_count": 101
+      }
+    },
+    "runtime": {
+      "mpi_processes": 12,
+      "threads_per_process": 1
+    }
+  },
+  "only_physical_variable": "NP_variant = CONTROL0 | ALT1",
+  "jones_boundary": "JONES_MATRIX_NOT_AVAILABLE",
+  "solver_entered": false,
+  "run_called": false,
+  "replay": 0,
+  "shared_contract_hash": "a89e1b448c852e48a025221206431bb210d9f9a244804fe1e207f8497b24e01b"
+}

@@ -1,0 +1,69 @@
+{
+  "authorized_now": false,
+  "auto_admission": false,
+  "contract_id": "PAPER_A_INTEGRATED_FUTURE_SOLVER_BUDGET_PLAN_V1",
+  "new_fdtd_budget_current_task": 0,
+  "new_ml_budget_current_task": 0,
+  "new_rcwa_budget_current_task": 0,
+  "planning_note": "These are future planning counts, not current authorization. No setup or solver admission occurs until the finite layout, z registration, source envelope, and scheduler/user authority are independently closed.",
+  "schema": "paper_a_future_solver_budget_plan_v1",
+  "shared_caps": {
+    "current_production_fdtd_scheduling_cap": 3,
+    "current_production_rcwa_scheduling_cap": 3,
+    "paper_a_new_lp_max_active_fdtd_reference": 2
+  },
+  "staged_plan": [
+    {
+      "authorized_now": false,
+      "cases": [
+        "MDC+I03 target, top primary well -171.5 nm, x"
+      ],
+      "cumulative_fdtd_jobs": 1,
+      "new_fdtd_jobs": 1,
+      "purpose": "setup-only canary after all hard gates close",
+      "stage": "IC1"
+    },
+    {
+      "authorized_now": false,
+      "cases": [
+        "MDC+I03 target, top primary well -171.5 nm, y"
+      ],
+      "cumulative_fdtd_jobs": 2,
+      "new_fdtd_jobs": 1,
+      "purpose": "x/y canary pair",
+      "stage": "IC2"
+    },
+    {
+      "authorized_now": false,
+      "cases": [
+        "bare MicroLED x/y",
+        "MDC MicroLED x/y",
+        "bare+I03 x/y"
+      ],
+      "cumulative_fdtd_jobs": 8,
+      "new_fdtd_jobs": 6,
+      "purpose": "four-way ablation support for top-well source",
+      "stage": "IC3"
+    },
+    {
+      "authorized_now": false,
+      "cases": [
+        "remaining 11 primary wells x/y for MDC+I03 target"
+      ],
+      "cumulative_fdtd_jobs": 30,
+      "new_fdtd_jobs": 22,
+      "purpose": "full 12-well LP source ensemble",
+      "stage": "IC4"
+    },
+    {
+      "authorized_now": false,
+      "cases": [
+        "12 primary wells x/y for frozen CP champion if separately authorized"
+      ],
+      "cumulative_fdtd_jobs": 54,
+      "new_fdtd_jobs": 24,
+      "purpose": "full integrated CP source-ensemble parity",
+      "stage": "CP_LATER"
+    }
+  ]
+}

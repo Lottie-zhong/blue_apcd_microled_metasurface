@@ -1,0 +1,53 @@
+{
+  "stage": "R1C5_RCLED_source_module_handoff_package",
+  "candidate_id": "R1C2_C2_cav230",
+  "top_pair_count": 6,
+  "bottom_pair_count": 0,
+  "cavity_span_nm": 230,
+  "termination": "TiO2_50nm",
+  "fdtd_x_span_um": 20,
+  "gan_device_x_span_um": 3,
+  "top_dbr_mdc_span_um": 8,
+  "monitor_x_span_um": 16,
+  "dipole_orientation": "physical_x_theta90_phi0",
+  "validated_wavelengths_nm": [
+    450,
+    453,
+    456
+  ],
+  "recommended_source_y_offset_nm": 0,
+  "backup_source_y_offset_nm": -20,
+  "center_source_metrics": [
+    {
+      "wavelength_nm": 450,
+      "eta10": 0.39847885776285646,
+      "eta20": 0.5865632812974813,
+      "eta30": 0.8563771945857132,
+      "peak_abs_angle_deg": 9.298662864455567,
+      "dominant_zone": "abs_5_10"
+    },
+    {
+      "wavelength_nm": 453,
+      "eta10": 0.4607406097884527,
+      "eta20": 0.6816741613325253,
+      "eta30": 0.8556591642205009,
+      "peak_abs_angle_deg": 9.00834332946029,
+      "dominant_zone": "abs_5_10"
+    },
+    {
+      "wavelength_nm": 456,
+      "eta10": 0.4942185387009043,
+      "eta20": 0.7190401009249459,
+      "eta30": 0.8612277307907673,
+      "peak_abs_angle_deg": 6.808961808702712,
+      "dominant_zone": "abs_5_10"
+    }
+  ],
+  "source_y_caveat": [
+    "Do not claim full +/-40 nm vertical robustness.",
+    "source_y_offset=-40 nm fails near-normal behavior at 450/456 nm.",
+    "source_y_offset=+20 nm has 450 nm dominant_zone=abs_20_30.",
+    "Use center or near-center source placement for later APCD coupling."
+  ],
+  "apcd_integration_status": "not_run"
+}

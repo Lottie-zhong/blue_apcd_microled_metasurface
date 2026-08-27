@@ -1,0 +1,74 @@
+{
+  "schema_version": "interface_stack_v1",
+  "interface_id": "APCD_MDC_NP_ONE_WAY_POWER_INTERFACE_V1",
+  "status": "STAGE_A_XPOL_NORMAL_SPACER_FROZEN",
+  "stack": [
+    {
+      "role": "substrate",
+      "material": "APCD_GAN_NATIVE_M1",
+      "extent": "z<0"
+    },
+    {
+      "role": "mdc",
+      "candidate": "ZL-1 alternative",
+      "structure_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "layers_from_gan_up": [
+        "TiO2:44nm",
+        "SiO2:79nm",
+        "TiO2:44nm",
+        "SiO2:79nm",
+        "TiO2:44nm",
+        "SiO2:316nm",
+        "TiO2:44nm",
+        "SiO2:79nm",
+        "TiO2:44nm",
+        "SiO2:79nm",
+        "TiO2:44nm",
+        "SiO2:79nm"
+      ],
+      "thickness_nm": 975,
+      "top_termination": "APCD_SIO2_NATIVE_M1:79nm"
+    },
+    {
+      "role": "extra_spacer",
+      "material": "APCD_SIO2_NATIVE_M1",
+      "thickness_nm": 237,
+      "future_sensitivity_nm": [],
+      "frozen_nm": 237
+    },
+    {
+      "role": "np",
+      "candidate_id": "NP_K6X_125_135_150_175_190_210",
+      "K": 6,
+      "period_x_nm": 1740,
+      "period_y_nm": 290,
+      "pillar_height_nm": 500,
+      "material": "APCD_TIO2_NATIVE_M1"
+    },
+    {
+      "role": "superstrate",
+      "material": "Air"
+    }
+  ],
+  "joint_baseline": "GaN -> ZL-1 alternative -> MDC final 79nm SiO2 -> extra SiO2 237nm -> RUN3A TiO2 pillars -> Air",
+  "reference_plane": "NP pillar bottom",
+  "extra_spacer_policy": "t_extra=237nm frozen for Stage-A x-polarization normal-incidence scope; no interpolation or unrun spacer inference.",
+  "stage_a_contract": "contracts/coupling/stage_a_direct_fullwave_contract_v1.json",
+  "t_extra_policy": {
+    "baseline_nm": 0,
+    "future_candidates_nm": [
+      0,
+      79,
+      158,
+      237
+    ],
+    "run_now": false,
+    "frozen_nm": 237,
+    "frozen_total_sio2_separation_nm": 316
+  },
+  "stage_a_result_path": "reports/coupling/stage_a_broadband_spacer_selection_v1.json",
+  "next_route": "REQUEST_STAGE_A_FROZEN_SPACER_POLARIZATION_ANGLE_VALIDATION_AUTHORIZATION",
+  "reference_medium": "Air",
+  "total_sio2_separation_nm": 316,
+  "selection_artifact_sha256": "cb2a6ec5b5a4ad3da308fe5bcb1bf2ca32713c7830cb9048fcd11e7b76223f4a"
+}

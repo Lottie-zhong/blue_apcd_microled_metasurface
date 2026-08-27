@@ -1,0 +1,41 @@
+{
+  "contract_id": "PAPER_A_INTEGRATED_SOURCE_CLOSURE_ADAPTER_V2",
+  "inputs": [
+    "direct per-case complex Ex/Ey or equivalent coherency/Stokes",
+    "source-ensemble metadata",
+    "finite geometry/boundary manifest",
+    "Native-M1 material identity",
+    "declared spectral grid and normalization"
+  ],
+  "must_not_call": [
+    "lumapi.run",
+    "FDTD solver",
+    "RCWA solver",
+    "ML/inverse design"
+  ],
+  "outputs": [
+    "full wavelength spectra",
+    "integrated Stokes/coherency",
+    "LP DoLP/psi/useful power/stability",
+    "CP DoCP/channel fraction/handedness stability",
+    "ablation comparison",
+    "provenance/hash audit"
+  ],
+  "reject_conditions": [
+    "periodic x/y boundary for integrated claim",
+    "missing finite mesa or I03 placement",
+    "missing absolute source z mapping",
+    "missing source case identity/weight",
+    "source field injection from Level1",
+    "MDC spectrum times plane-wave transmission shortcut"
+  ],
+  "schema": "paper_a_integrated_source_closure_adapter_v2",
+  "solver_accounting_this_task": {
+    "entered": 0,
+    "fdtd": 0,
+    "ml": 0,
+    "rcwa": 0,
+    "run_called": false
+  },
+  "status": "SPECIFICATION_ONLY_NOT_IMPLEMENTED_NOT_AUTHORIZED"
+}

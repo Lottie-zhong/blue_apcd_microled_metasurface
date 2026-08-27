@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "finite_lateral_boundary": {
+      "reason": "No authoritative 3D finite mesa and finite I03 layout/replication found.",
+      "status": "FAIL_HARD_GATE"
+    },
+    "integrated_extractor": {
+      "required": "V2 direct-source adapter with complex fields/coherency and finite-boundary metadata.",
+      "status": "NOT_CLOSED"
+    },
+    "mesh_and_pml": {
+      "rule": "Reuse validated Native-M1 mesh/PML strategy only after finite layout and clearance are authoritative; no mesh/physics change in this task.",
+      "status": "DEFERRED"
+    },
+    "native_m1_material_identity": {
+      "allowed": [
+        "APCD_GAN_NATIVE_M1",
+        "APCD_TIO2_NATIVE_M1",
+        "APCD_SIO2_NATIVE_M1"
+      ],
+      "legacy_constant_index_fallback": "FORBIDDEN_FOR_PRODUCTION",
+      "status": "PASS_AT_CONTRACT_LEVEL"
+    },
+    "source_ensemble": {
+      "status": "DEFINED_BUT_ABSOLUTE_Z_PENDING"
+    },
+    "spectral_coverage": {
+      "actual_emitter_envelope_authority": "MISSING_EXPLICIT_AUTHORITY",
+      "later_source_monitor_coverage": "420-500 nm or 430-500 nm, with formal channel analysis declared separately.",
+      "status": "PARTIAL"
+    }
+  },
+  "contract_id": "PAPER_A_INTEGRATED_VALIDITY_CONTRACT_V1",
+  "hard_gate": "PAPER_A_INTEGRATED_SOURCE_CLOSURE_HARD_GATE",
+  "not_a_solver_result": true,
+  "schema": "paper_a_integrated_validity_contract_v1",
+  "status": "HARD_GATE_CONTRACT_LEVEL"
+}

@@ -1,0 +1,57 @@
+{
+  "ablation_authority": "integrated_ablation_matrix.json",
+  "adapter_specification": "integrated_source_closure_adapter_v2.json",
+  "boundary_authority": "integrated_boundary_contract.json",
+  "canonical": {
+    "branch": "work/paper-a-lp-cp-broadband-v1",
+    "head_at_contract_generation": "906e2236ddd64349cdca03d12f73d945abe917b9",
+    "worktree": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1"
+  },
+  "future_budget_plan": "future_solver_budget_plan.json",
+  "generated_utc": "2026-08-27T05:33:44.196097Z",
+  "hard_gate_reasons": [
+    "HARD_GATE_MISSING_3D_FINITE_LAYOUT_AUTHORITY",
+    "HARD_GATE_MISSING_ABSOLUTE_SOURCE_Z_REGISTRATION",
+    "HARD_GATE_MISSING_MDC_I03_VERTICAL_SEPARATION_DECISION",
+    "HARD_GATE_MISSING_EXPLICIT_SOURCE_SPECTRAL_ENVELOPE_AUTHORITY",
+    "HARD_GATE_INTEGRATED_V2_ADAPTER_NOT_CLOSED"
+  ],
+  "metric_authority": "integrated_metric_contract.json",
+  "no_solver_statement": "This contract stage performs inspection and documentation only. No FDTD, RCWA, ML, setup run, or hidden admission is permitted.",
+  "schema": "paper_a_integrated_source_closure_contract_v1",
+  "scientific_scope": {
+    "cp_champion": "BW2_J1J2_D194_T90_PSI99_H525",
+    "lp_candidate": "BF04R_I03",
+    "lp_role": "frozen current-Native local-basin reference; no new redesign candidate generated here",
+    "mdc_provider": "P1_ZL1_ALTERNATIVE_G3_A3",
+    "modules": [
+      "CP frozen Native-M1 positive reference",
+      "new integrated LP axis-free direct-source closure"
+    ]
+  },
+  "solver_accounting": {
+    "fdtd": 0,
+    "hidden_auto_admission": false,
+    "ml": 0,
+    "new_admission": false,
+    "rcwa": 0,
+    "solver_entered": 0,
+    "solver_run_called": false
+  },
+  "source_authority": {
+    "interface": "references/source/interface/matched_emitted_source_physical_contract_v1.json",
+    "limitations": [
+      "interface evidence is periodic/single-source",
+      "no finite 3D mesa authority",
+      "no absolute source z registration",
+      "source spectral envelope incomplete"
+    ],
+    "mqw": "references/source/mqw/mdc_realistic_mqw_source_module_v1.json",
+    "primary": "source_ensemble_contract.json"
+  },
+  "source_worktree_integrity": "Frozen LP/CP/MDC/Coupling source worktrees are read-only inputs; no modification is authorized.",
+  "status": "HARD_GATE_CONTRACT_LEVEL",
+  "task": "PAPER_A_INTEGRATED_SOURCE_CLOSURE_CONTRACT_V1",
+  "validity_authority": "integrated_validity_contract.json",
+  "verdict": "PAPER_A_INTEGRATED_SOURCE_CLOSURE_HARD_GATE"
+}

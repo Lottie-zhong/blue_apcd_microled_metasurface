@@ -1,0 +1,53 @@
+{
+  "contract_id": "PAPER_A_INTEGRATED_METRIC_CONTRACT_V1",
+  "cp_metrics": {
+    "DoCP": "(P_R-P_L)/(P_R+P_L) for the declared convention",
+    "convention": "E_R=(Ex-i Ey)/sqrt(2); E_L=(Ex+i Ey)/sqrt(2)",
+    "stability": [
+      "target fraction floor",
+      "signed DoCP",
+      "handedness flips",
+      "cone-integrated target power"
+    ],
+    "target_channel": "L/R must be declared from the frozen champion convention; no handedness sign reinterpretation."
+  },
+  "input_rule": "Use direct complex Ex/Ey or direct per-case coherency/Stokes and power at the same output plane; no derived plane-wave transfer multiplication.",
+  "lp_metrics": {
+    "DoLP": "sqrt(S1^2 + S2^2) / S0",
+    "axis_free": true,
+    "psi": "0.5 atan2(S2,S1), reported modulo 180 degrees",
+    "stability": [
+      "DoLP spectral floor",
+      "psi span/drift",
+      "dominant Jones singular-vector overlap/drift",
+      "useful-power flatness"
+    ],
+    "useful_power": "S0 times the declared collection/target-output factor, never an invented absolute LEE."
+  },
+  "normalization_and_prohibitions": [
+    "MDC r12_normalized_output is relative spectral shape, not absolute emitted power.",
+    "Do not multiply MDC spectrum by plane-wave transmission to claim integrated output.",
+    "Do not average DoLP values in place of coherency integration.",
+    "No historical constant-index result can substitute for Native-M1 direct output."
+  ],
+  "planned_outputs": [
+    "integrated_full_spectra.csv",
+    "integrated_stokes.csv",
+    "integrated_lp_metrics.csv",
+    "integrated_cp_metrics.csv",
+    "integrated_ablation_comparison.csv"
+  ],
+  "schema": "paper_a_integrated_metric_contract_v1",
+  "source_combination": {
+    "incoherent_x_y": true,
+    "per_case_coherency": "C_s(lambda)",
+    "stokes_from_coherency": [
+      "S0 = Cxx + Cyy",
+      "S1 = Cxx - Cyy",
+      "S2 = 2 Re(Cxy)",
+      "S3 = -2 Im(Cxy) under the project convention"
+    ],
+    "weighted_total": "C_total(lambda) = sum_s w_s C_s(lambda)"
+  },
+  "status": "DEFINED_NOT_RUN"
+}
