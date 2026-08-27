@@ -1,0 +1,216 @@
+{
+  "schema": "PAPER_A_BF04_LOCAL_DIATTENUATION_REDESIGN_DOMAIN_V1",
+  "stage": "BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1",
+  "solver_budget": {
+    "NEW_FDTD_BUDGET": 0,
+    "RCWA": 0,
+    "ML": 0,
+    "BF05_BF08": "NOT_RUN"
+  },
+  "backbone": {
+    "candidate": "BF04",
+    "source_registry": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\lp_anisotropy_feasible_space_v2_balanced_selection\\balanced_candidate_registry.csv",
+    "source_registry_sha256": "2bd97a7ea886d3b317bd2089f90153649f90f68d1613f74fb359a0bcd56dba39",
+    "exact": {
+      "L1_nm": 256,
+      "W1_nm": 91,
+      "L2_nm": 204,
+      "W2_nm": 77,
+      "delta_theta_deg": 82.727050781,
+      "D_nm": 219
+    },
+    "source_row": {
+      "geometry_id": "BF04",
+      "role": "INITIAL_TRUTH_CANDIDATE",
+      "angular_stratum": "S4",
+      "sample_index": "2554",
+      "a1": "1.1130434782608696",
+      "b1": "0.91",
+      "a2": "1.1333333333333333",
+      "b2": "0.8555555555555555",
+      "L1_nm": "256",
+      "W1_nm": "91",
+      "L2_nm": "204",
+      "W2_nm": "77",
+      "theta1_deg": "0.0",
+      "theta2_deg": "82.727050781",
+      "delta_theta_deg": "82.727050781",
+      "D_nm": "219",
+      "j1_center_x_nm": "0.0",
+      "j1_center_y_nm": "109.5",
+      "j2_center_x_nm": "0.0",
+      "j2_center_y_nm": "-109.5",
+      "height_nm": "525.0",
+      "period_x_nm": "432.0",
+      "period_y_nm": "432.0",
+      "direct_clearance_nm": "67.44670171090638",
+      "periodic_image_clearance_nm": "61.44670171090638",
+      "global_minimum_clearance_nm": "61.44670171090638",
+      "minimum_lateral_feature_nm": "77",
+      "aspect_ratio_H_over_min_feature": "6.818181818181818",
+      "A1": "0.4755043227665706",
+      "A2": "0.45195729537366547",
+      "delta_A": "0.02354702739290515",
+      "geometry_hash_sha256": "27f33a0ecb247535fff91c4784913bf7e887287144d3f3c6d85336ba0c80ccc1",
+      "normalized_six_coordinates": "[0.8768115942028989, 0.20000000000000023, 0.9444444444444446, 0.01851851851851846, 0.9191894531222222, 0.98]",
+      "nearest_selected_neighbor_distance": "1.0258166777752158",
+      "lineage_old_af": "AF06",
+      "validity": "PASS",
+      "solver_entered": "False"
+    }
+  },
+  "global_domain_authority": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\configs\\anisotropy_expanded_doe_v1.json",
+    "sha256": "38e14641dad5a681dac109eefdf2458a3980a86857482d6e6e2d9e841a44ee0e",
+    "bounds": {
+      "L1_nm": [
+        195.5,
+        264.5
+      ],
+      "W1_nm": [
+        85.0,
+        114.99999999999999
+      ],
+      "L2_nm": [
+        153.0,
+        206.99999999999997
+      ],
+      "W2_nm": [
+        76.5,
+        103.49999999999999
+      ],
+      "delta_theta_deg": [
+        0.0,
+        90.0
+      ],
+      "D_nm": [
+        170.0,
+        220.0
+      ]
+    }
+  },
+  "validity_rule_authority": {
+    "implementation_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_anisotropy_feasible_space_v2.py",
+    "implementation_sha256": "513cc688043f0dadf91f0823d39368c945650d45fa13980d46eea2428de228d3",
+    "parameterization_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\lp_anisotropy_feasible_space_v2\\feasible_space_parameterization.json",
+    "parameterization_sha256": "7ea9d45634b47f41e9c9a114874f2d56186d8798ebf26290460b46875ace6b48",
+    "rule_source": "existing Paper A feasible-space authority; no new threshold introduced"
+  },
+  "local_generation_bounds_continuous_nm_deg": {
+    "L1_nm": [
+      243.2,
+      268.8
+    ],
+    "W1_nm": [
+      86.45,
+      95.55
+    ],
+    "L2_nm": [
+      193.79999999999998,
+      214.20000000000002
+    ],
+    "W2_nm": [
+      73.14999999999999,
+      80.85000000000001
+    ],
+    "delta_theta_deg": [
+      75.227050781,
+      90.227050781
+    ],
+    "D_nm": [
+      207.0,
+      231.0
+    ]
+  },
+  "local_intersection_bounds_continuous_nm_deg": {
+    "L1_nm": [
+      243.2,
+      264.5
+    ],
+    "W1_nm": [
+      86.45,
+      95.55
+    ],
+    "L2_nm": [
+      193.79999999999998,
+      206.99999999999997
+    ],
+    "W2_nm": [
+      76.5,
+      80.85000000000001
+    ],
+    "delta_theta_deg": [
+      75.227050781,
+      90.0
+    ],
+    "D_nm": [
+      207.0,
+      220.0
+    ]
+  },
+  "quantized_allowed_bounds": {
+    "L1_nm": [
+      244,
+      264
+    ],
+    "W1_nm": [
+      87,
+      95
+    ],
+    "L2_nm": [
+      194,
+      207
+    ],
+    "W2_nm": [
+      77,
+      80
+    ],
+    "D_nm": [
+      207,
+      220
+    ],
+    "delta_theta_deg": [
+      75.227050781,
+      90.0
+    ]
+  },
+  "quantization": {
+    "lateral_dimensions": "round-half-up to integer nm",
+    "D_nm": "round-half-up to integer nm; centers +/-D/2 half-grid compatible",
+    "delta_theta_deg": "round to 9 decimal places"
+  },
+  "fixed_physics": {
+    "height_nm": 525.0,
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0,
+    "materials": "current Native-M1 unchanged",
+    "source_monitor": "unchanged current-Native broadband contract",
+    "mesh_boundary": "unchanged"
+  },
+  "hard_gates": {
+    "direct_polygon_clearance_nm_ge": 60.0,
+    "periodic_image_polygon_clearance_nm_ge": 60.0,
+    "no_overlap_or_touching": true,
+    "cell_containment": true,
+    "integer_lateral_dimensions": true,
+    "half_grid_centers": true,
+    "no_sub_grid_geometry": true
+  },
+  "sampling": {
+    "method": "Sobol",
+    "scramble": false,
+    "seed": 20260827,
+    "raw_sample_count": 16384,
+    "quantized_unique_count": 16384,
+    "feasible_pool_size": 10439,
+    "rejection_counts": {
+      "quantization_duplicate": 0,
+      "local_quantized_bounds": 1692,
+      "direct_gap_lt_60_nm": 3370,
+      "periodic_image_gap_lt_60_nm": 418,
+      "overlap_or_touching": 0,
+      "cell_containment": 916
+    }
+  },
+  "pool_hash": "343595da2cfb7103a731345984f33320d91721948465754a6239363a25a61e18"
+}
