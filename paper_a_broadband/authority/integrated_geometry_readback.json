@@ -1,0 +1,46 @@
+{
+  "collision_summary": {
+    "i03_vs_mdc": "not evaluated because I03 absolute z is unresolved",
+    "mqw_vs_mdc": "NO_COLLISION; highest primary-well top z=-170 nm, MDC bottom z=0 nm, clearance=170 nm",
+    "pml_collision": "not evaluated because finite domain is unresolved"
+  },
+  "constructed_geometry_only_digital_twin": false,
+  "readback_scope": "Analytic contract/readback only; no integrated 3D geometry file was generated because finite mesa, I03 vertical placement, and emitter envelope remain unresolved.",
+  "schema": "paper_a_integrated_geometry_readback_v1",
+  "solver_enterable_fsp_created": false,
+  "status": "NOT_CONSTRUCTED_PHYSICAL_AUTHORITY_INCOMPLETE",
+  "validated_subcomponents": {
+    "finite_replication": {
+      "no_truncation_rule": true,
+      "status": "PASS_FORMULA_ONLY_NOT_SELECTED"
+    },
+    "i03_cell": {
+      "finite_edge_minimum_nm": 6.342339771279853,
+      "intra_cell_gap_nm": 76.84233977127985,
+      "minimum_periodic_gap_nm": 68.84233977127985,
+      "status": "PASS_ANALYTIC_NONOVERLAP"
+    },
+    "materials": {
+      "all_native_m1": true,
+      "status": "PASS_CONTRACT_LEVEL"
+    },
+    "mdc": {
+      "contiguous_interfaces": true,
+      "layer_count": 12,
+      "status": "PASS_INTERFACE_TABLE",
+      "total_thickness_nm": 975.0
+    },
+  "mqw": {
+    "count": 12,
+    "source_to_mdc_bottom_clearance_nm": 170.0,
+    "monotonic_absolute_z": true,
+      "pitch_nm": 19.0,
+      "status": "PASS_ANALYTIC",
+      "thickness_nm": 3.0
+    },
+    "pml_and_monitors": {
+      "reason": "finite domain dimensions and z placement unresolved",
+      "status": "NOT_VALIDATED"
+    }
+  }
+}

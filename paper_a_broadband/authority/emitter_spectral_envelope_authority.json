@@ -1,0 +1,44 @@
+{
+  "current_authority": null,
+  "decision": "Do not promote the 28 nm Gaussian and do not infer W_emit from MDC output.",
+  "forensic_findings": {
+    "cp_and_lp_ranges": {
+      "reason": "400-500 nm CP coverage and LP evaluation windows are numerical coverage, not measured emission spectrum.",
+      "status": "SOURCE_MONITOR_COVERAGE_ONLY"
+    },
+    "historical_28nm_gaussian": {
+      "center_nm": 450.0,
+      "definition": "g(lambda)=exp(-0.5*((lambda-450)/sigma)^2)",
+      "fwhm_nm": 28.0,
+      "normalization": "Relative normalization by integral/trapezoid over the sampled grid; 440-460 capture fraction uses erf(10/(sqrt(2)*sigma)).",
+      "physical_status": "HISTORICAL_DIAGNOSTIC_NOT_MEASURED_MICROLED_AUTHORITY",
+      "provider_code": "_gaussian_weights(lam): sigma=28/(2*sqrt(2*ln(2))); w=exp(-0.5*((lam-450)/sigma)^2)",
+      "sigma_nm": 11.890505204032268,
+      "source_script": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\run_mdc_native_m1_2d_dipole_device_comparison_v1.py",
+      "source_sha256": "EEEBEC442E4E1781EB2B218821EDEAD492C56FAAD151FAA145643B09F872B1DB",
+      "support": "Mathematically Gaussian; MDC comparison sampled 420-480 nm at 301 points.",
+      "weight_domain": "Power-domain source weighting in the MDC comparison postprocessor; weighted metrics divide by integral of w on the available grid."
+    },
+    "mdc_output": {
+      "reason": "r12_normalized_output is conditioned MDC output, not bare MicroLED emission; cannot be promoted to W_emit.",
+      "status": "NOT_BARE_EMITTER"
+    },
+    "mqw_weights": {
+      "reason": "Equal 12-well weights define source-position ensemble, not spectral envelope.",
+      "status": "SPATIAL_SOURCE_ENSEMBLE_ONLY"
+    }
+  },
+  "frozen_semantics": {
+    "derive_polarization_after_coherency": true,
+    "do_not_encode_as_coherent_field_amplitude": true,
+    "future_power_weighting_rule": "C_total(lambda)=W_emit(lambda)*sum_s w_s C_s(lambda)"
+  },
+  "required_future_authority": [
+    "Measured or otherwise physical bare MicroLED emitted-power spectrum",
+    "center/FWHM/support and uncertainty",
+    "explicit power-vs-field interpretation",
+    "normalization convention on the integrated wavelength grid"
+  ],
+  "schema": "paper_a_emitter_spectral_envelope_authority_v1",
+  "status": "HARD_GATE_EMITTER_SPECTRUM_UNRESOLVED"
+}

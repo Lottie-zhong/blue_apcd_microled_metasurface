@@ -1,0 +1,85 @@
+{
+  "classification_legend": [
+    "AUTHORITATIVE_PHYSICAL",
+    "HISTORICAL_DIAGNOSTIC",
+    "OPTIMIZATION_VARIABLE",
+    "NUMERICAL_CONVENIENCE",
+    "UNKNOWN"
+  ],
+  "conclusion": "No authoritative finite 3D mesa/aperture or bare-emitter spectral envelope exists in the inspected current chain. MQW source z registration is available relative to the MDC/PGaN interface; I03 vertical placement and finite mesa remain unresolved.",
+  "entries": [
+    {
+      "classification": "AUTHORITATIVE_PHYSICAL",
+      "scope": "Adopted for current integrated source registration relative to MDC/PGaN interface.",
+      "source": "paper_a_broadband/references/source/mqw/mdc_realistic_mqw_source_module_v1.json",
+      "source_sha256": "5A80910C7DCFBC636D16926B223D070F32907B18EC18273222ADC23E9B634806",
+      "value": "MQW centers -171.5 to -380.5 nm, 3 nm wells, 16 nm barriers, 19 nm pitch"
+    },
+    {
+      "classification": "AUTHORITATIVE_PHYSICAL",
+      "scope": "Single global datum candidate adopted; project +z = source +y.",
+      "source": "paper_a_broadband/references/source/mqw/mdc_realistic_mqw_source_module_v1.json and interface_stack_v1.json",
+      "source_sha256": "5A80910C7DCFBC636D16926B223D070F32907B18EC18273222ADC23E9B634806; F8F29B95FC1A57A0BBE3B8735165F6BFAFED5C051F23BBC36E1953B7037EF0A6",
+      "value": "GaN-top/MDC-bottom interface at source-module coordinate y=0"
+    },
+    {
+      "classification": "AUTHORITATIVE_PHYSICAL",
+      "scope": "MDC provider stack; output spectrum remains conditioned relative evidence.",
+      "source": "paper_a_broadband/references/mdc/best_candidate_record.json",
+      "source_sha256": "F60864B46FDADDB65D01E67948F4E77F5D30300E25071F78710E5F54C07ECDE9",
+      "value": "ZL-1 alternative 975 nm native-M1 stack"
+    },
+    {
+      "classification": "AUTHORITATIVE_PHYSICAL",
+      "scope": "Authoritative for Coupling Stage-A MDC-to-NP chain only; not current MDC-to-I03 authority.",
+      "source": "paper_a_broadband/references/source/interface/interface_stack_v1.json",
+      "source_sha256": "F8F29B95FC1A57A0BBE3B8735165F6BFAFED5C051F23BBC36E1953B7037EF0A6",
+      "value": "237 nm APCD_SIO2_NATIVE_M1 extra spacer from MDC top to NP pillar bottom"
+    },
+    {
+      "classification": "HISTORICAL_DIAGNOSTIC",
+      "scope": "Finite source-module precedent used only to bound a candidate set; not a Paper A mesa authority.",
+      "source": "paper_a_broadband/references/source/reference/r1c5_source_module_baseline.json",
+      "source_sha256": "603982A4E602969520F29063F08D8D7D98B36CFADE5BFE74338540759DFE30E4",
+      "value": "R1C5 gan_device_x_span=3 um, FDTD x span=20 um, monitor x span=16 um"
+    },
+    {
+      "classification": "HISTORICAL_DIAGNOSTIC",
+      "scope": "Periodic CP reference/setup convention; not finite integrated layout authority.",
+      "source": "frozen CP preparation helper and CP provenance",
+      "source_sha256": "7E02D0D523B943D2863C4D9FF411C42F7EB1FFA20E03F05B0622A80972D4D711",
+      "value": "CP prepare array 7x3, GaN 3000x1200 nm, FDTD 20000x20000 nm, monitor 22000x22000 nm, source z=-200 nm"
+    },
+    {
+      "classification": "HISTORICAL_DIAGNOSTIC",
+      "scope": "K6 phase-gradient geometry, not I03; explicitly rejected as integrated layout source.",
+      "source": "outputs/stage13_2_lp_finite_patch_definition/finite_patch_options.csv",
+      "source_sha256": "not rehashed in this audit",
+      "value": "Old Stage13 K6 finite patch options A_small/A_medium"
+    },
+    {
+      "classification": "HISTORICAL_DIAGNOSTIC",
+      "scope": "Wan/common engineering benchmark, explicitly not a measured MicroLED spectrum.",
+      "source": "frozen MDC comparison helper _gaussian_weights",
+      "source_sha256": "EEEBEC442E4E1781EB2B218821EDEAD492C56FAAD151FAA145643B09F872B1DB",
+      "value": "28 nm FWHM Gaussian centered at 450 nm"
+    },
+    {
+      "classification": "NUMERICAL_CONVENIENCE",
+      "scope": "Simulation/evaluation coverage; not a physical emitter envelope.",
+      "source": "frozen CP physics contract and LP contracts",
+      "source_sha256": "see source_asset_inventory.json and existing CP physics_contract.json",
+      "value": "CP source/monitor span 400-500 nm and LP evaluation windows"
+    },
+    {
+      "classification": "UNKNOWN",
+      "scope": "No defensible physical spectrum authority found.",
+      "source": "forensic search across Paper A, MDC, CP, RCLED/source-module assets",
+      "source_sha256": "not applicable",
+      "value": "Bare emitter spectral envelope"
+    }
+  ],
+  "generated_utc": "2026-08-27T05:50:42.804900Z",
+  "schema": "paper_a_historical_layout_provenance_audit_v1",
+  "task": "PAPER_A_FINITE_3D_LAYOUT_ZREG_AUTHORITY_V1"
+}

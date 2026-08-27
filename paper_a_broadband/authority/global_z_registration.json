@@ -1,0 +1,122 @@
+{
+  "absolute_z_status": "MQW and MDC source-frame coordinates are absolute to the adopted datum; complete integrated z chain remains blocked by I03 placement and finite-domain authority.",
+  "datum": {
+    "authority": "MDC_REALISTIC_MQW_SOURCE_MODULE_V1",
+    "mapping": "project +z = source +y; positive toward MDC/air, negative into epitaxy",
+    "name": "GaN-top/MDC-bottom interface",
+    "source_coordinate_equivalent": "mdc_pgan_interface_y_nm=0.0",
+    "z_nm": 0.0
+  },
+  "i03": {
+    "bottom_z_nm": null,
+    "reason": "No authoritative MDC-to-I03 vertical separation/contact plane; Coupling-only 237 nm layer cannot be imported silently.",
+    "registration_status": "UNRESOLVED",
+    "top_z_nm": null
+  },
+  "mdc": {
+    "interfaces_nm": [
+      0.0,
+      44.0,
+      123.0,
+      167.0,
+      246.0,
+      290.0,
+      606.0,
+      650.0,
+      729.0,
+      773.0,
+      852.0,
+      896.0,
+      975.0
+    ],
+    "layer_materials": [
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ],
+    "registration_status": "RESOLVED_FROM_DATUM",
+    "total_thickness_nm": 975.0
+  },
+  "monitor_and_pml": {
+    "far_field_monitor_z_nm": null,
+    "near_field_monitor_z_nm": null,
+    "pml_offsets_nm": null,
+    "status": "UNRESOLVED_WITHOUT_FINITE_DOMAIN"
+  },
+  "mqw": {
+    "bottom_z_nm": [
+      -173.0,
+      -192.0,
+      -211.0,
+      -230.0,
+      -249.0,
+      -268.0,
+      -287.0,
+      -306.0,
+      -325.0,
+      -344.0,
+      -363.0,
+      -382.0
+    ],
+    "centers_nm": [
+      -171.5,
+      -190.5,
+      -209.5,
+      -228.5,
+      -247.5,
+      -266.5,
+      -285.5,
+      -304.5,
+      -323.5,
+      -342.5,
+      -361.5,
+      -380.5
+    ],
+    "formal_envelope_nm": [
+      -382.0,
+      -170.0
+    ],
+    "internal_barrier_thickness_nm": 16.0,
+    "registration_status": "RESOLVED_TO_GLOBAL_DATUM",
+    "strain_release_centers_nm": [
+      -399.0,
+      -415.0,
+      -431.0
+    ],
+    "strain_release_weight": 0.0,
+    "top_z_nm": [
+      -170.0,
+      -189.0,
+      -208.0,
+      -227.0,
+      -246.0,
+      -265.0,
+      -284.0,
+      -303.0,
+      -322.0,
+      -341.0,
+      -360.0,
+      -379.0
+    ],
+    "well_thickness_nm": 3.0
+  },
+  "schema": "paper_a_global_z_registration_v1",
+  "spacer_237nm": {
+    "original_coupling_local_interfaces_nm": [
+      975.0,
+      1212.0
+    ],
+    "status": "NOT_TRANSFERABLE_TO_CURRENT_MDC_I03_CHAIN",
+    "target_registration": null
+  },
+  "status": "PARTIAL_SOURCE_Z_RESOLVED_INTEGRATED_LAYOUT_INCOMPLETE"
+}

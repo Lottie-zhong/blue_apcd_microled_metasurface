@@ -1,0 +1,49 @@
+{
+  "artifact_links": [
+    "historical_layout_provenance_audit.json",
+    "global_z_registration.json",
+    "mqw_absolute_positions.csv",
+    "spacer_237nm_decision.json",
+    "finite_mesa_authority.json",
+    "i03_finite_replication_authority.json",
+    "emitter_spectral_envelope_authority.json",
+    "common_lp_cp_source_authority.json",
+    "integrated_geometry_readback.json",
+    "integrated_canary_readiness.json"
+  ],
+  "canonical": {
+    "branch": "work/paper-a-lp-cp-broadband-v1",
+    "head_at_start": "a47e94e21c0b6c9a173d3aa5676c19f18aa56fdd",
+    "worktree": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1"
+  },
+  "generated_utc": "2026-08-27T05:50:42.804900Z",
+  "no_solver_statement": "Inspection, analytic geometry calculations, and documentation only. No FDTD/RCWA/ML, no setup-only FSP, and no auto-admission.",
+  "resolved": {
+    "global_z_datum": "GaN-top/MDC-bottom interface z=0",
+    "i03_replication_equations": true,
+    "mdc_absolute_stack_interfaces": "0..975 nm adopted from frozen ZL-1 alternative stack",
+    "mqw_absolute_registration": "12 well centers adopted exactly from MDC_REALISTIC_MQW_SOURCE_MODULE_V1",
+    "spacer_decision": "SPACER_237NM_NOT_TRANSFERABLE_TO_PAPER_A_INTEGRATED_MODEL"
+  },
+  "schema": "paper_a_finite_3d_layout_zreg_authority_v1",
+  "scientific_boundary": "No historical finite patch, periodic CP FSP, 2D MDC, Coupling spacer, or 28 nm benchmark is promoted to current integrated physical authority without explicit compatibility evidence.",
+  "solver_accounting": {
+    "fdtd": 0,
+    "hidden_auto_admission": false,
+    "ml": 0,
+    "new_fdtd_budget": 0,
+    "rcwa": 0,
+    "solver_entered": 0,
+    "solver_run_called": false
+  },
+  "status": "HARD_GATE",
+  "task": "PAPER_A_FINITE_3D_LAYOUT_ZREG_AUTHORITY_V1",
+  "unresolved": [
+    "finite mesa extent",
+    "selected finite I03 Nx x Ny",
+    "absolute MDC-to-I03 separation and I03 z placement",
+    "bare-emitter spectral envelope",
+    "finite-domain PML/monitor positions"
+  ],
+  "verdict": "PAPER_A_FINITE_3D_LAYOUT_ZREG_AUTHORITY_HARD_GATE"
+}

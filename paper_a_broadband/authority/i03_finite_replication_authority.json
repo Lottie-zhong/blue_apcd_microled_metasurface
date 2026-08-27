@@ -1,0 +1,108 @@
+{
+  "candidate_arrays": [
+    {
+      "Nx": 3,
+      "Ny": 3,
+      "first_cell_center_nm": [
+        -432.0,
+        -432.0
+      ],
+      "footprint_nm": [
+        1296.0,
+        1296.0
+      ],
+      "status": "CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "Nx": 5,
+      "Ny": 5,
+      "first_cell_center_nm": [
+        -864.0,
+        -864.0
+      ],
+      "footprint_nm": [
+        2160.0,
+        2160.0
+      ],
+      "status": "CANDIDATE_NOT_AUTHORITY"
+    },
+    {
+      "Nx": 7,
+      "Ny": 7,
+      "first_cell_center_nm": [
+        -1296.0,
+        -1296.0
+      ],
+      "footprint_nm": [
+        3024.0,
+        3024.0
+      ],
+      "status": "REJECTED_BY_3UM_DIAGNOSTIC_FIT"
+    }
+  ],
+  "canonical_cell": {
+    "candidate": "BF04R_I03",
+    "geometry_hash": "b818fd28e0535053a21940f40a9b45cfb0b9252aba9e0158be2496fba87eea06",
+    "height_nm": 525.0,
+    "material": "APCD_TIO2_NATIVE_M1",
+    "period_nm": {
+      "Px": 432.0,
+      "Py": 432.0
+    },
+    "pillars": {
+      "pillar_1": {
+        "center_nm": [
+          0.0,
+          110.0
+        ],
+        "length_nm": 264.0,
+        "rotation_deg": 0.0,
+        "width_nm": 87.0
+      },
+      "pillar_2": {
+        "center_nm": [
+          0.0,
+          -110.0
+        ],
+        "length_nm": 194.0,
+        "rotation_deg": 85.819861293,
+        "width_nm": 80.0
+      }
+    }
+  },
+  "coordinate_equations": {
+    "array_boundary": "centered cell boundary at +/- Nx*216 and +/- Ny*216 nm",
+    "array_origin": "lower-left cell center = (-(Nx-1)*216, -(Ny-1)*216) nm",
+    "cell_center": "c(i,j) = ( (i-(Nx-1)/2)*432, (j-(Ny-1)/2)*432 ) nm, i=0..Nx-1, j=0..Ny-1",
+    "pillar_1_center": "c(i,j) + (0,+110) nm",
+    "pillar_2_center": "c(i,j) + (0,-110) nm"
+  },
+  "edge_termination": "Full-cell boundary; no truncated meta-atoms, no half-dimers, no silent geometry or unit conversion.",
+  "geometry_only_clearance_audit": {
+    "authoritative_minimum_edge_margin_threshold": null,
+    "internal_cell_edge_margins_nm": {
+      "bottom_y": 6.342339771279853,
+      "minimum": 6.342339771279853,
+      "top_y": 62.5,
+      "x": 84.0
+    },
+    "interpretation": "Mathematically non-overlapping, but bottom cell-edge clearance is only 6.3423397713 nm; no frozen fabrication/grid threshold was found to classify it as safe.",
+    "intra_cell_pillar_gap_nm": 76.84233977127985,
+    "minimum_periodic_cell_gap_nm": 68.84233977127985,
+    "minimum_periodic_pair": {
+      "image_shift_cells": [
+        0,
+        1
+      ],
+      "objects": [
+        "pillar_1",
+        "pillar_2"
+      ]
+    },
+    "overlap_or_intersection": false
+  },
+  "registration": "Odd Nx and Ny center the optical axis at (0,0); exact first-cell centers are listed per candidate.",
+  "schema": "paper_a_i03_finite_replication_authority_v1",
+  "selection_status": "No final Nx x Ny is frozen until mesa extent and finite-boundary authority are supplied.",
+  "status": "DEFINED_NOT_SELECTED_HARD_GATE_MESA_EXTENT_UNRESOLVED"
+}
