@@ -1,0 +1,241 @@
+{
+  "schema": "PAPER_A_IC1_INTEGRATED_CANARY_FINAL_AUDIT_V1",
+  "generated_utc": "2026-08-28T08:49:13.124808+00:00",
+  "task": "PAPER_A_IC1_PRODUCTION_INPUT_AND_RUNNER_PREPARATION_V1",
+  "case_id": "IC1_MDC_I03_TOPWELL_X",
+  "attempt_id": "attempt_001",
+  "canonical_worktree": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1",
+  "branch": "work/paper-a-lp-cp-broadband-v1",
+  "head_at_audit_generation": "c41a7884d650f17defaa8b274536d104f638d8a3",
+  "upstream": "origin/work/paper-a-lp-cp-broadband-v1",
+  "ahead_behind_at_audit_generation": "0\t0",
+  "pre_entry_head": "c41a7884d650f17defaa8b274536d104f638d8a3",
+  "authority": {
+    "pre_fsp_sha256": "72439a053e8d2c2d8f09df544096ff31922e10bc99c6bc7baa439762a64536a0",
+    "post_fsp_sha256": "1efec8ca55370270bb6faabca2dc156c352be2b1b0da69f19fd177c9ce2fe0b5",
+    "physical_contract_sha256": "2f0c43f795520b5157fb8351456021efd2c368eb35b82c6a26424520ef682ebb",
+    "physics_semantic_fingerprint": "5f3a5cf319a270572d9acf33b7c1cba6495728bcb55caf350efe1d4aee12eb6b",
+    "integrated_instrumentation_fingerprint": "ff0f40c8595b71d7bd1d5d16db898338b9dbfbb1f92fbe5978f6ab1beb163b86",
+    "runner": "paper_a_broadband/scripts/ic1_production_runner_v1.py",
+    "production_mode": "--confirm-solver-entry",
+    "source_grid_nm": [
+      400.0,
+      500.0
+    ],
+    "source_grid_points": 101,
+    "mpi_processes": 12,
+    "threads_per_process": 1
+  },
+  "admission_snapshot": {
+    "registry_active_slots": 0,
+    "live_global_active_jobs": 1,
+    "active_fdtd_jobs": 0,
+    "active_rcwa_jobs": 0,
+    "unknown_solver_jobs": 0,
+    "effective_global_active_jobs_before_acquire": 0,
+    "effective_global_active_jobs_after_acquire": 1,
+    "external_unregistered_process_present": true,
+    "global_capacity": 3,
+    "peak_observed_fdtd_occupancy": 1
+  },
+  "solver_accounting": {
+    "authorized": 1,
+    "entered": 1,
+    "returned": 1,
+    "accepted": 1,
+    "additional_replay": 0,
+    "postprocess_solver_run_called": false,
+    "postprocess_solver_entered": 0
+  },
+  "postprocess_solver_run_called": false,
+  "postprocess_solver_entered": 0,
+  "no_auto_replay": true,
+  "forbidden_cases_started": [],
+  "result": {
+    "classification": "VALID_FOR_IC1_INTEGRATED_CANARY_TRUTH",
+    "architecture_verdict": "PAPER_A_IC1_FINITE_INTEGRATED_CANARY_PASS",
+    "w_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+    "raw_solver_data_modified": false,
+    "convergence": {
+      "sample_count": 10267,
+      "time_start_s": 0.0,
+      "time_end_s": 7.997222930123122e-13,
+      "late_window_count": 3423,
+      "late_first_proxy": 9.75844104626748e-13,
+      "late_last_proxy": 2.7833087547264474e-11,
+      "late_slope_per_s": -1485.193677131005,
+      "positive_late_window_growth": false,
+      "native_auto_shutoff": "NOT_PERSISTED_BY_RUNNER"
+    },
+    "sourcepower": {
+      "finite": true,
+      "positive": true,
+      "min_W": 1.5122214660608366e-15,
+      "max_W": 3.691946938625089e-15
+    },
+    "six_face_closed_flux": {
+      "finite": true,
+      "net_min_W": -3.717817568511818e-16,
+      "net_max_W": -2.7237752054617993e-16
+    },
+    "near_to_far": {
+      "finite": true,
+      "samples": 101,
+      "450_nm": {
+        "wavelength_nm": 450.0000000000001,
+        "ux_points": 150,
+        "uy_points": 150,
+        "ux_min": -1.0,
+        "ux_max": 1.0,
+        "uy_min": -1.0,
+        "uy_max": 1.0,
+        "intensity_summary": {
+          "shape": [
+            150,
+            150
+          ],
+          "dtype": "float64",
+          "size": 22500,
+          "finite": true,
+          "real_min": 0.0,
+          "real_max": 4.044758085875751e-14,
+          "imag_min": null,
+          "imag_max": null
+        },
+        "vector_summary": {
+          "shape": [
+            3
+          ],
+          "dtype": "complex128",
+          "size": 3,
+          "finite": true,
+          "real_min": -7.74205471936135e-09,
+          "real_max": 1.4778204568126373e-07,
+          "imag_min": -3.146650185390755e-08,
+          "imag_max": 0.0
+        },
+        "vector_Ex": [
+          1.4778204568126373e-07,
+          -3.146650185390755e-08
+        ],
+        "vector_Ey": [
+          -7.74205471936135e-09,
+          -6.580740274654235e-09
+        ],
+        "stokes": {
+          "S0": 1.1466459659250564e-14,
+          "S1": 1.1363214105410523e-14,
+          "S2": -9.370638081510108e-16,
+          "S3": 1.2161306390653219e-15,
+          "DoLP": 0.9943597511653182,
+          "DoCP": 0.10605981926463316,
+          "psi_deg": 177.64289440598827
+        }
+      }
+    },
+    "stokes": {
+      "samples": 101,
+      "finite": true,
+      "DoLP_min": 0.17122021472628168,
+      "DoLP_max": 0.5867104293925933
+    }
+  },
+  "monitor": {
+    "terminal_schema": "APCD_IC1_TERMINAL_SUCCESS_V1",
+    "terminal_final_state": {
+      "timestamp": "2026-08-28T08:20:31.7858794Z",
+      "task": "PAPER_A_IC1_PRODUCTION_INPUT_AND_RUNNER_PREPARATION_V1",
+      "stage": "IC1_MDC_I03_TOPWELL_X",
+      "completed": 1,
+      "total": 1,
+      "waiting": 0,
+      "running": 0,
+      "returned": 1,
+      "accepted": 1,
+      "current_case": "IC1_MDC_I03_TOPWELL_X",
+      "attempt": "attempt_001",
+      "controller_pid": null,
+      "controller_status": "not_observed",
+      "solver_pid": null,
+      "solver_lineage": [],
+      "solver_status": "not_observed",
+      "solver_cpu_time_delta_s": null,
+      "queue_status": "registry_read_only",
+      "global_fdtd_slots": 0,
+      "global_fdtd_capacity": 3,
+      "cpu_logical_processors": 104,
+      "free_ram_kb": 241772616,
+      "io_summary": null,
+      "license_status": "not_observed_by_monitor",
+      "progress": null,
+      "entered_unresolved": false,
+      "active_hard_gate": null,
+      "provenance_status": "RETURNED",
+      "monitor_read_only": true,
+      "monitor_interval_seconds": 600,
+      "solver_run_called": true
+    },
+    "read_only": true,
+    "interval_seconds": 600,
+    "terminal_artifact": "paper_a_broadband/runtime/monitor/terminal_success.json"
+  },
+  "integrity": {
+    "raw_solver_data_modified": false,
+    "external_fluent_modified": false,
+    "frozen_lp_cp_mdc_worktrees_written": false,
+    "preexisting_unrelated_dirty_state_preserved": true,
+    "artifact_hashes": {
+      "paper_a_broadband/scripts/ic1_integrated_canary_postprocess_v1.py": {
+        "sha256": "175834eedf90ac86e5a8e448667893273107f1fe12c66b1cab5ea3f85447dfe4",
+        "bytes": 17723
+      },
+      "paper_a_broadband/reports/ic1_integrated_canary_closeout/ic1_closed_flux.csv": {
+        "sha256": "02ff36264858701a0bc8b0ab62a17a0c176d50117b3aca49aaea3e418cc70989",
+        "bytes": 24929
+      },
+      "paper_a_broadband/reports/ic1_integrated_canary_closeout/ic1_stokes.csv": {
+        "sha256": "eca0cb20947e5f893ed89c8e4f877953998c5cc4f14816f6bba106a660e6b790",
+        "bytes": 25291
+      },
+      "paper_a_broadband/reports/ic1_integrated_canary_closeout/ic1_farfield_metrics.csv": {
+        "sha256": "357465992f63b52bb05c9a1ba4e9725adfb9d6c0bf1181049708bce0ecc8dfb6",
+        "bytes": 34739
+      },
+      "paper_a_broadband/reports/ic1_integrated_canary_closeout/ic1_face_flux_long.csv": {
+        "sha256": "5a79c7e41ad6eea8b41943df58a332e62b20c5bd09f04f7ec4ed83927694242c",
+        "bytes": 75639
+      },
+      "paper_a_broadband/reports/ic1_integrated_canary_closeout/ic1_integrated_validity_gate_v2.json": {
+        "sha256": "3533cc75ca7111fb212f7d4a6cf40de2850944912974e809cb30100ba1dc38c6",
+        "bytes": 708729
+      },
+      "paper_a_broadband/reports/ic1_integrated_canary_closeout/ic1_integrated_canary_summary.json": {
+        "sha256": "6f55926e96f8726e5778274cf5198d84856f2a1caab3a73ae12e783f2388ef91",
+        "bytes": 3126
+      },
+      "paper_a_broadband/reports/ic1_integrated_canary_closeout/ic1_final_report.md": {
+        "sha256": "3981a79395b44bf65f415fba0fbad8e45cca33c35c74a7f58ca0852148f3f71a",
+        "bytes": 3024
+      }
+    },
+    "runtime_evidence_hashes": {
+      "provenance": {
+        "sha256": "2daf36626e66d8b439905369fc0f72657976fde28241a0246560800cc9581ed7",
+        "bytes": 3831
+      },
+      "convergence": {
+        "sha256": "1547f6f111b299875aedaf6aa77ffcfc3de14f523d39dc7bc1b2ef2fa5ce0502",
+        "bytes": 622815
+      },
+      "monitor_state": {
+        "sha256": "c61aba9fa09240154024993c6949f8932d317b5cacd2154ba7c7bf414ecc6cbb",
+        "bytes": 1092
+      },
+      "terminal_success": {
+        "sha256": "2edb55f1c750d4720c2f9a1f5c04397473816e2f1717de05923ae3338e3ae973",
+        "bytes": 1951
+      }
+    }
+  },
+  "status": "PASS"
+}
