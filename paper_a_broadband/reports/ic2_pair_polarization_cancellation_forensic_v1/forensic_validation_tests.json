@@ -1,0 +1,169 @@
+{
+  "schema": "PAPER_A_IC2_PAIR_POLARIZATION_CANCELLATION_VALIDATION_V1",
+  "status": "PASS",
+  "checks": {
+    "required_files": {
+      "pass": true,
+      "missing": []
+    },
+    "required_figures": {
+      "pass": true,
+      "missing": []
+    },
+    "finite_csv_values": {
+      "pass": true,
+      "files": {
+        "pair_angular_cancellation_metrics.csv": {
+          "pass": true,
+          "detail": []
+        },
+        "pair_collection_cone_metrics.csv": {
+          "pass": true,
+          "detail": []
+        },
+        "pair_poincare_relation.csv": {
+          "pass": true,
+          "detail": []
+        },
+        "pair_single_source_stokes.csv": {
+          "pass": true,
+          "detail": []
+        },
+        "pair_useful_lp_normalized.csv": {
+          "pass": true,
+          "detail": []
+        },
+        "pair_xy_source_cancellation.csv": {
+          "pass": true,
+          "detail": []
+        }
+      }
+    },
+    "decision_and_zero_solver": {
+      "pass": true,
+      "root_cause_classification": "BOTH_SOURCE_AND_ANGULAR_CANCELLATION",
+      "zero_solver_fields": {
+        "new_fdtd_budget": 0,
+        "solver_run_called_delta": 0,
+        "solver_entered_delta": 0,
+        "fdtd": 0,
+        "rcwa": 0,
+        "ml": 0,
+        "replay": 0
+      },
+      "new_cases_started": []
+    },
+    "audit_no_new_solver": {
+      "pass": true
+    },
+    "angular_weighted_cancellation_finite": {
+      "pass": true,
+      "values": [
+        0.6913006042130423,
+        0.7141739403040356,
+        0.7205168553794804
+      ]
+    },
+    "useful_lp_normalized_identity": {
+      "pass": true,
+      "max_abs_error": 0.0
+    },
+    "450_anchor": {
+      "pass": true,
+      "pair_DoLP": 0.037876844117608964,
+      "C_linear": 0.08854257161559786,
+      "C_angular": 0.08612761641165362
+    },
+    "angular_npz_finite_inside_propagating_disk": {
+      "pass": true,
+      "per_wavelength": {
+        "440": {
+          "S0": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "DoLP": true,
+          "DoCP": true,
+          "psi_deg": true,
+          "useful_LP_axisfree": true
+        },
+        "450": {
+          "S0": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "DoLP": true,
+          "DoCP": true,
+          "psi_deg": true,
+          "useful_LP_axisfree": true
+        },
+        "460": {
+          "S0": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "DoLP": true,
+          "DoCP": true,
+          "psi_deg": true,
+          "useful_LP_axisfree": true
+        }
+      }
+    },
+    "monitor_snapshot": {
+      "pass": true,
+      "global_fdtd_slots": 0,
+      "running": 0,
+      "entered_unresolved": false
+    },
+    "artifact_hashes": {
+      "audit.json": {
+        "sha256": "87ab8b861ac541bbdc882eee150c299845e24a18da1d582c23b3a3db4e3a5ce4",
+        "bytes": 16307
+      },
+      "final_report.md": {
+        "sha256": "867e51666c7cf164c45289b0145777f43d38552fa4999e611198a53955cf23a9",
+        "bytes": 2834
+      },
+      "pair_450nm_forensic_anchor.json": {
+        "sha256": "b45fd577547952c2cd4d8d69733f343ce6a47ff1ed74c9e3971bc4fc5f4494ab",
+        "bytes": 6541
+      },
+      "pair_angular_cancellation_metrics.csv": {
+        "sha256": "5bae0c48a5ed320de69de87ba82ee77e61e4b12a668178a344c7164027ebd46d",
+        "bytes": 1056
+      },
+      "pair_angular_resolved_450nm.npz": {
+        "sha256": "b00b3aa07c78c01d5acc5de662de7b02deb8531170414a01ba4a82821ed8f6a1",
+        "bytes": 4970885
+      },
+      "pair_angular_resolved_relevant_wavelengths.npz": {
+        "sha256": "b00b3aa07c78c01d5acc5de662de7b02deb8531170414a01ba4a82821ed8f6a1",
+        "bytes": 4970885
+      },
+      "pair_collection_cone_metrics.csv": {
+        "sha256": "45af414a7af67143988616eaeffcb7bec47f6f8db5dc4499972b7b992f1c219e",
+        "bytes": 1795
+      },
+      "pair_poincare_relation.csv": {
+        "sha256": "b1d592f1c8c8d0a229b89218ae715d4ba6b9605fd81d68ee269cb1c95a26c616",
+        "bytes": 18600
+      },
+      "pair_single_source_stokes.csv": {
+        "sha256": "8c64f74f42103f7c820bc3140c74f935876503db85970017a3a4bd2f20ea86e3",
+        "bytes": 48479
+      },
+      "pair_useful_lp_normalized.csv": {
+        "sha256": "1e8f1fbc10dd239592b4cb88db5f62ffa760ed5bf4e00ba61df45015f158693a",
+        "bytes": 12096
+      },
+      "pair_xy_source_cancellation.csv": {
+        "sha256": "9227eb1094543acbc6f7ce61c59051763f1200a6ce5ab08221431ba6cfadf263",
+        "bytes": 13484
+      },
+      "root_cause_decision.json": {
+        "sha256": "8b8f21140dc6cb9de07ca1512ea5cb306cb1a91ceaadc069d4e96ce537e36e89",
+        "bytes": 9421
+      }
+    }
+  }
+}
