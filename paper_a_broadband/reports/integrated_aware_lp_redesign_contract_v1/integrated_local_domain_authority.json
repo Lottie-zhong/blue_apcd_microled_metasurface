@@ -1,0 +1,93 @@
+{
+  "schema": "PAPER_A_INTEGRATED_AWARE_LOCAL_DOMAIN_AUTHORITY_V1",
+  "status": "ZERO_SOLVER_INITIAL_DOE_PLANNING",
+  "parent_authority": {
+    "local_domain_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\bf04_local_diattenuation_redesign_doe_v1\\local_domain_authority.json",
+    "local_domain_sha256": "f20395ce2624e055d72fa19fb7098a306b7d637fd197f513de5cc95776cd8781",
+    "parent_pool_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\bf04_local_diattenuation_redesign_doe_v1\\feasible_pool_inventory.csv",
+    "parent_pool_sha256": "1f903d82ddf7c08b3a468dfa937f5487584d734795457d44c68b94c1833cd274",
+    "parent_config_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\configs\\BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1.json",
+    "parent_config_sha256": "75458395f1d57a11b606cc8a886b7a9f5d025474f3976e1442f65ff5be89e0a1"
+  },
+  "i03_reference": {
+    "geometry_id": "BF04R_I03",
+    "L1_nm": 264,
+    "W1_nm": 87,
+    "L2_nm": 194,
+    "W2_nm": 80,
+    "D_nm": 220,
+    "delta_theta_deg": 85.819861293
+  },
+  "fixed_physics": {
+    "height_nm": 525.0,
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0,
+    "finite_array": "5x5 full cells",
+    "mesa_nm": [
+      3000.0,
+      3000.0
+    ],
+    "MDC": "unchanged frozen MDC/source/top-well contract",
+    "materials": [
+      "APCD_GAN_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ]
+  },
+  "narrow_bounds": {
+    "L1_nm": [
+      251,
+      264
+    ],
+    "W1_nm": [
+      87,
+      91
+    ],
+    "L2_nm": [
+      194,
+      203
+    ],
+    "W2_nm": [
+      77,
+      80
+    ],
+    "D_nm": [
+      208,
+      220
+    ],
+    "delta_theta_deg": [
+      80.0,
+      90.0
+    ]
+  },
+  "bound_derivation": {
+    "dimension_fraction": 0.05,
+    "dimensions": "intersection of exact parent quantized bounds with integer +/-5% I03 neighborhood, rounded outward to integer candidates only after intersection",
+    "D_nm": "fixed prospective [208,220] nm from new contract",
+    "delta_theta_deg": "fixed prospective [80,90] deg from new contract"
+  },
+  "hard_gates_inherited": {
+    "direct_polygon_clearance_nm_ge": 60.0,
+    "periodic_image_polygon_clearance_nm_ge": 60.0,
+    "no_overlap_or_touching": true,
+    "cell_containment": true,
+    "integer_lateral_dimensions": true,
+    "half_grid_centers": true,
+    "no_sub_grid_geometry": true
+  },
+  "validity_implementation": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_anisotropy_feasible_space_v2.py",
+    "sha256": "513cc688043f0dadf91f0823d39368c945650d45fa13980d46eea2428de228d3",
+    "method": "existing exact segment-to-segment polygon distance over translations {-Px,0,+Px}x{-Py,0,+Py}; no new threshold"
+  },
+  "pool_filter": "parent feasible_pool_inventory filtered only by new narrow bounds and inherited validity gates; no optical field or metric used",
+  "pool_count": 2487,
+  "pool_hash": "90fc1e53b688154d7a1c0b73c4b355f663dc2c581f27973dd98b2caf83cdf5c3",
+  "solver_accounting": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "RCWA": 0,
+    "ML": 0
+  }
+}

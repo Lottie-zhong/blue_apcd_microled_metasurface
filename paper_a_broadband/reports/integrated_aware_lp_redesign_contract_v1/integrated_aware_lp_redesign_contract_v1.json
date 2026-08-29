@@ -1,0 +1,152 @@
+{
+  "schema": "PAPER_A_INTEGRATED_AWARE_LP_REDESIGN_CONTRACT_V1",
+  "status": "INTEGRATED_LOCAL_SPACE_TOO_CONSTRAINED",
+  "canonical_head": "28613abef0f6fd8f034eeec03cc7c1fe90a7a511",
+  "canonical_branch": "work/paper-a-lp-cp-broadband-v1",
+  "objective": {
+    "primary": [
+      "x/y source Stokes reinforcement",
+      "angular polarization-axis reinforcement"
+    ],
+    "source_formula": "C_source(lambda)=|L_x+L_y|/(|L_x|+|L_y|), L=(S1,S2)",
+    "angular_formula": "C_angular(lambda)=|integral L_xy dOmega|/integral |L_xy| dOmega",
+    "quadrature": "existing exact solid-angle quadrature; no scalar composite score",
+    "success_requires": [
+      "pair DoLP improvement",
+      "C_source improvement",
+      "C_angular improvement",
+      "dominant angular LP-axis consistency",
+      "no severe upward/source-normalized power collapse",
+      "low circular contamination",
+      "numerical stability"
+    ]
+  },
+  "frozen_root_cause": {
+    "classification": "BOTH_SOURCE_AND_ANGULAR_CANCELLATION",
+    "pair_DoLP_450nm": 0.037876844117608964,
+    "C_source_450nm": 0.08854257161559786,
+    "C_angular_450nm": 0.08612761641165362,
+    "Poincare_separation_deg": 100.45025108271777,
+    "interpretation": "finite integrated incoherent source does not quantitatively inherit periodic intrinsic I03 LP behavior"
+  },
+  "baseline_metrics_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_baseline_metrics.json",
+  "design_space": {
+    "parent": "exact BF04/I03 local feasible domain",
+    "vary_only": [
+      "L1_nm",
+      "W1_nm",
+      "L2_nm",
+      "W2_nm",
+      "D_nm",
+      "delta_theta_deg"
+    ],
+    "fixed": {
+      "H_nm": 525.0,
+      "Px_nm": 432.0,
+      "Py_nm": 432.0,
+      "finite_array": "5x5",
+      "mesa_nm": [
+        3000.0,
+        3000.0
+      ],
+      "MDC_source_topwell_domain_monitors": "unchanged"
+    },
+    "domain_authority_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_local_domain_authority.json"
+  },
+  "mechanism_coordinates": [
+    "A1",
+    "A2",
+    "A_mean",
+    "Delta_A",
+    "D",
+    "delta_theta"
+  ],
+  "integrated_mechanism_labels": [
+    "SOURCE_CHANNEL_ALIGNMENT_PROBE",
+    "ANGULAR_AXIS_ALIGNMENT_PROBE",
+    "COUPLING_STRENGTH_PROBE",
+    "DIFFERENTIAL_ANISOTROPY_PROBE"
+  ],
+  "candidate_registries": {
+    "initial": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_candidate_registry_initial.csv",
+    "conditional": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_candidate_registry_conditional.csv"
+  },
+  "future_evaluation": {
+    "at_450_nm": [
+      "pair DoLP",
+      "C_source",
+      "C_angular",
+      "Poincare x/y separation",
+      "upward/source-normalized power",
+      "5/10/20 deg cone DoLP"
+    ],
+    "broadband": [
+      "pair DoLP(lambda)",
+      "C_source(lambda)",
+      "C_angular(lambda)",
+      "angular psi stability",
+      "DoCP(lambda)",
+      "power spectrum"
+    ],
+    "combination": "incoherent x/y Stokes combination only after both cases valid"
+  },
+  "future_budget_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\future_solver_budget_plan.json",
+  "limitations": {
+    "W_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+    "incident_plane": "INCIDENT_I03_FIELD_NOT_AVAILABLE",
+    "no_historical_28nm_gaussian": true,
+    "no_exact_source_to_I03_angular_causality_claim": true
+  },
+  "excluded_objectives": [
+    "phase",
+    "K6",
+    "six-phase reachability",
+    "beam steering",
+    "LP-K6",
+    "grouped-D",
+    "J1 rescue",
+    "phase coverage",
+    "old historical rescue ranking"
+  ],
+  "candidate_selection_status": {
+    "IAR1_requested_direction_feasible": false,
+    "IAR1_max_pool_Delta_A": 0.08821511011292033,
+    "IAR1_base_I03_Delta_A": 0.08821511011292033,
+    "IAR1_boundary_control_only": true,
+    "initial_candidate_count": 4,
+    "conditional_candidate_count": 2
+  },
+  "solver_safety": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "RCWA": 0,
+    "ML": 0,
+    "new_physics": 0,
+    "new_MQW_wells": 0,
+    "no_ready_pending_hidden_auto_admission": true
+  },
+  "source_authority": {
+    "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\bf04_local_diattenuation_redesign_doe_v1\\local_domain_authority.json": {
+      "sha256": "f20395ce2624e055d72fa19fb7098a306b7d637fd197f513de5cc95776cd8781",
+      "bytes": 6134
+    },
+    "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\bf04_local_diattenuation_redesign_doe_v1\\feasible_pool_inventory.csv": {
+      "sha256": "1f903d82ddf7c08b3a468dfa937f5487584d734795457d44c68b94c1833cd274",
+      "bytes": 6168399
+    },
+    "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\configs\\BF04_LOCAL_DIATTENUATION_REDESIGN_DOE_V1.json": {
+      "sha256": "75458395f1d57a11b606cc8a886b7a9f5d025474f3976e1442f65ff5be89e0a1",
+      "bytes": 3573
+    },
+    "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\configs\\PAPER_A_BROADBAND_LP_NEW_GEOMETRY_SEARCH_V1.json": {
+      "sha256": "dfa9ceeda95cf828ad1fdc6e9daf09ec4adee02aaa7bba76fad2fbadedf71f74",
+      "bytes": 3002
+    },
+    "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_anisotropy_feasible_space_v2.py": {
+      "sha256": "513cc688043f0dadf91f0823d39368c945650d45fa13980d46eea2428de228d3",
+      "bytes": 34646
+    }
+  },
+  "created_utc": "2026-08-29T06:08:24.402255+00:00"
+}

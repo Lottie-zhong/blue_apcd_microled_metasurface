@@ -1,0 +1,39 @@
+{
+  "schema": "PAPER_A_INTEGRATED_AWARE_MECHANISM_SELECTION_AUDIT_V1",
+  "status": "PASS",
+  "selection_is_geometry_only": true,
+  "no_optical_prediction": true,
+  "algorithm": {
+    "IAR1": "max Delta_A within |D-220|<=2 and |delta_theta-I03|<=2",
+    "IAR2": "min Delta_A within same near-fixed D/theta subset",
+    "IAR3": "minimum D with Delta_A/theta proximity tie-break",
+    "IAR4": "target approximately 3 deg delta_theta displacement with anisotropy proximity tie-break",
+    "IAR-C1": "D x delta_theta interaction target (208 nm, I03 theta +3 deg) with anisotropy proximity",
+    "IAR-C2": "Delta_A x delta_theta interaction target (I03 theta -3 deg) with Delta_A displacement tie-break"
+  },
+  "selected_initial_ids": [
+    "IAR1",
+    "IAR2",
+    "IAR3",
+    "IAR4"
+  ],
+  "selected_conditional_ids": [
+    "IAR-C1",
+    "IAR-C2"
+  ],
+  "all_selected_geometry_valid": true,
+  "all_direct_clearance_ge_60": true,
+  "all_periodic_clearance_ge_60": true,
+  "all_hashes_unique": true,
+  "baseline_i03_excluded": true,
+  "all_geometry_hashes_recomputed_match": true,
+  "IAR1_requested_direction_feasible": false,
+  "IAR1_max_pool_Delta_A": 0.08821511011292033,
+  "IAR1_base_I03_Delta_A": 0.08821511011292033,
+  "IAR1_max_pool_minus_I03": 0.0,
+  "final_verdict": "INTEGRATED_LOCAL_SPACE_TOO_CONSTRAINED",
+  "old_labels_reused": false,
+  "candidate_mechanism_diversity": true,
+  "base_delta_A": 0.08821511011292033,
+  "base_A_mean": 0.4601659492170441
+}

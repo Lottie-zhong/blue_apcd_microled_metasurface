@@ -1,0 +1,35 @@
+{
+  "schema": "PAPER_A_INTEGRATED_AWARE_FUTURE_SOLVER_BUDGET_PLAN_V1",
+  "current_stage": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "RCWA": 0,
+    "ML": 0,
+    "new_MQW_wells": 0,
+    "executed": false
+  },
+  "initial_truth_batch": {
+    "geometries": 4,
+    "dipole_orientations_per_geometry": 2,
+    "FDTD_entries": 8,
+    "cases": "top-well x and top-well y independent cases",
+    "active_cap": 2,
+    "provider": "current-Native FDTD only",
+    "authorization": "future user authorization plus shared scheduler admission required",
+    "admission_status": "INTEGRATED_LOCAL_SPACE_TOO_CONSTRAINED"
+  },
+  "conditional_truth_batch": {
+    "geometries": 2,
+    "dipole_orientations_per_geometry": 2,
+    "FDTD_entries": 4,
+    "authorization": "not authorized by this planning stage"
+  },
+  "global_policy": {
+    "CURRENT_PRODUCTION_FDTD_SCHEDULING_CAP": 3,
+    "CURRENT_PRODUCTION_RCWA_SCHEDULING_CAP": 3,
+    "shared_scheduler_not_forked": true
+  },
+  "case_validity": "geometry not scientifically evaluable until both x and y source cases are valid; combine S_i,pair=0.5*S_i,x+0.5*S_i,y",
+  "no_auto_admission": true
+}
