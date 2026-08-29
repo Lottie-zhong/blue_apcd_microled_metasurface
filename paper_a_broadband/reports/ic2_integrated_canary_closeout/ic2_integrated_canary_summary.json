@@ -1,0 +1,130 @@
+{
+  "schema": "PAPER_A_IC2_INTEGRATED_POSTPROCESS_SUMMARY_V1",
+  "case_id": "IC2_TOPWELL_Y",
+  "classification": "VALID_FOR_IC2_INTEGRATED_TRUTH",
+  "root_cause": null,
+  "pre_fsp_sha256": "66cb2dff751c1baf03f5bcbddf7cfeb368e7901146d258805ed3408a9e5183a3",
+  "post_fsp_sha256": "b0bb15541b6559493d3a56daa4a20f049c575026727012fa3ed01d11c753baf5",
+  "physics_semantic_fingerprint": "43f8469cd278ffa6d56876391447a3c3bf902be03b17b362e8d844dfe43eeb0a",
+  "integrated_instrumentation_fingerprint": "ff0f40c8595b71d7bd1d5d16db898338b9dbfbb1f92fbe5978f6ab1beb163b86",
+  "spectral_grid_nm": {
+    "start": 400.00000000000006,
+    "stop": 500.00000000000006,
+    "points": 101
+  },
+  "sourcepower": {
+    "finite": true,
+    "positive": true,
+    "min_W": 1.5122214660608366e-15,
+    "max_W": 3.691946938625089e-15
+  },
+  "six_face_closed_flux": {
+    "finite": true,
+    "net_min_W": -3.710485625889473e-16,
+    "net_max_W": -2.7393938855143156e-16
+  },
+  "near_to_far": {
+    "finite": true,
+    "samples": 101,
+    "450_nm": {
+      "wavelength_nm": 450.0000000000001,
+      "ux_points": 150,
+      "uy_points": 150,
+      "ux_min": -1.0,
+      "ux_max": 1.0,
+      "uy_min": -1.0,
+      "uy_max": 1.0,
+      "intensity_summary": {
+        "shape": [
+          150,
+          150
+        ],
+        "dtype": "float64",
+        "size": 22500,
+        "finite": true,
+        "real_min": 0.0,
+        "real_max": 3.504283152520092e-14,
+        "imag_min": null,
+        "imag_max": null
+      },
+      "vector_summary": {
+        "shape": [
+          3
+        ],
+        "dtype": "complex128",
+        "size": 3,
+        "finite": true,
+        "real_min": -2.417873931872883e-08,
+        "real_max": 0.0,
+        "imag_min": -9.484281357827817e-09,
+        "imag_max": 1.8448659523320375e-07
+      },
+      "vector_Ex": [
+        -6.699044184160067e-09,
+        -9.484281357827817e-09
+      ],
+      "vector_Ey": [
+        -2.417873931872883e-08,
+        1.8448659523320375e-07
+      ],
+      "stokes": {
+        "S0": 1.7377372020819384e-14,
+        "S1": -1.7242543234963613e-14,
+        "S2": -1.587748332925948e-15,
+        "S3": 1.4652018194288843e-15,
+        "DoLP": 0.9964390108239568,
+        "DoCP": 0.08431665142885032,
+        "psi_deg": 92.63057058303049
+      }
+    }
+  },
+  "stokes": {
+    "samples": 101,
+    "finite": true,
+    "DoLP_min": 0.3240922720279333,
+    "DoLP_max": 0.5186583865518053
+  },
+  "convergence": {
+    "sample_count": 9636,
+    "time_start_s": 0.0,
+    "time_end_s": 7.505673381232834e-13,
+    "late_window_count": 3212,
+    "late_first_proxy": 1.0402876780610514e-09,
+    "late_last_proxy": 1.7584996231383363e-10,
+    "late_slope_per_s": -2586.6782920406604,
+    "positive_late_window_growth": false,
+    "native_auto_shutoff": "NOT_PERSISTED_BY_RUNNER"
+  },
+  "architecture_verdict": "PAPER_A_IC2_FINITE_INTEGRATED_PASS",
+  "W_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+  "raw_solver_data_modified": false,
+  "timestamp_utc": "2026-08-29T05:11:02.936217+00:00",
+  "terminal_provenance_audit": {
+    "case_id": "IC2_TOPWELL_Y",
+    "readback_status": "PASS",
+    "native_materials": [
+      "APCD_GAN_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ],
+    "source_position_m": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.7150000000000002e-07
+    },
+    "source_orientation": {
+      "theta_deg": 90.0,
+      "phi_deg": 90.0,
+      "expected": "y-oriented; theta=90 deg, phi=90 deg"
+    },
+    "source_position_ok": true,
+    "source_y_orientation_ok": true,
+    "physics_semantic_fingerprint": "43f8469cd278ffa6d56876391447a3c3bf902be03b17b362e8d844dfe43eeb0a",
+    "integrated_instrumentation_fingerprint": "ff0f40c8595b71d7bd1d5d16db898338b9dbfbb1f92fbe5978f6ab1beb163b86",
+    "expected_shared_physics_semantic_fingerprint": "43f8469cd278ffa6d56876391447a3c3bf902be03b17b362e8d844dfe43eeb0a",
+    "expected_shared_integrated_instrumentation_fingerprint": "ff0f40c8595b71d7bd1d5d16db898338b9dbfbb1f92fbe5978f6ab1beb163b86",
+    "required_instrumentation_objects_present": true,
+    "object_name_note": "IC2 preserves IC1 instrumentation object names to keep the validated measurement contract identical; source orientation is the intended x-to-y delta.",
+    "all_geometry_mdc_i03_domain_monitor_settings_shared": true
+  }
+}

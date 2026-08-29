@@ -1,0 +1,50 @@
+{
+  "schema": "PAPER_A_IC2_TERMINAL_POSTPROCESS_AUDIT_V1",
+  "case_id": "IC2_TOPWELL_Y",
+  "classification": "VALID_FOR_IC2_INTEGRATED_TRUTH",
+  "provenance": {
+    "attempt_id": "attempt_001",
+    "status": "RETURNED",
+    "solver_entered": true,
+    "solver_run_called": true,
+    "mpi_processes": 12,
+    "threads_per_process": 1,
+    "no_auto_replay": true,
+    "pre_fsp_sha256": "66cb2dff751c1baf03f5bcbddf7cfeb368e7901146d258805ed3408a9e5183a3",
+    "post_fsp_sha256": "b0bb15541b6559493d3a56daa4a20f049c575026727012fa3ed01d11c753baf5",
+    "post_fsp_present": true
+  },
+  "semantic_audit": {
+    "case_id": "IC2_TOPWELL_Y",
+    "readback_status": "PASS",
+    "native_materials": [
+      "APCD_GAN_NATIVE_M1",
+      "APCD_TIO2_NATIVE_M1",
+      "APCD_SIO2_NATIVE_M1"
+    ],
+    "source_position_m": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.7150000000000002e-07
+    },
+    "source_orientation": {
+      "theta_deg": 90.0,
+      "phi_deg": 90.0,
+      "expected": "y-oriented; theta=90 deg, phi=90 deg"
+    },
+    "source_position_ok": true,
+    "source_y_orientation_ok": true,
+    "physics_semantic_fingerprint": "43f8469cd278ffa6d56876391447a3c3bf902be03b17b362e8d844dfe43eeb0a",
+    "integrated_instrumentation_fingerprint": "ff0f40c8595b71d7bd1d5d16db898338b9dbfbb1f92fbe5978f6ab1beb163b86",
+    "expected_shared_physics_semantic_fingerprint": "43f8469cd278ffa6d56876391447a3c3bf902be03b17b362e8d844dfe43eeb0a",
+    "expected_shared_integrated_instrumentation_fingerprint": "ff0f40c8595b71d7bd1d5d16db898338b9dbfbb1f92fbe5978f6ab1beb163b86",
+    "required_instrumentation_objects_present": true,
+    "object_name_note": "IC2 preserves IC1 instrumentation object names to keep the validated measurement contract identical; source orientation is the intended x-to-y delta.",
+    "all_geometry_mdc_i03_domain_monitor_settings_shared": true
+  },
+  "postprocess_solver_run_called": false,
+  "postprocess_solver_entered": 0,
+  "raw_solver_data_modified": false,
+  "W_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+  "timestamp_utc": "2026-08-29T05:11:02.938218+00:00"
+}

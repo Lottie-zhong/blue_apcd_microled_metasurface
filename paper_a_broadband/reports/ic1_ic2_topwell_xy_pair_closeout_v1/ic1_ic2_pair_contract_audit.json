@@ -1,0 +1,50 @@
+{
+  "schema": "PAPER_A_IC1_IC2_PAIR_CONTRACT_AUDIT_V1",
+  "status": "PASS",
+  "ic1_case": "IC1_TOPWELL_X",
+  "ic2_case": "IC2_TOPWELL_Y",
+  "weights": {
+    "IC1_TOPWELL_X": 0.5,
+    "IC2_TOPWELL_Y": 0.5
+  },
+  "combination": "incoherent Stokes/coherency and source-normalized power combination; no electric-field addition; no DoLP or psi averaging",
+  "stokes_convention": "S0=trace(C), S1=Cxx-Cyy, S2=2Re(Cxy), S3=-2Im(Cxy), DoLP=sqrt(S1^2+S2^2)/S0, psi=0.5 atan2(S2,S1) modulo 180 deg",
+  "grid_checks": {
+    "stokes_sample_count_ic1": 101,
+    "stokes_sample_count_ic2": 101,
+    "flux_sample_count_ic1": 101,
+    "flux_sample_count_ic2": 101,
+    "farfield_sample_count_ic1": 101,
+    "farfield_sample_count_ic2": 101,
+    "stokes_wavelength_identity": true,
+    "flux_wavelength_identity": true,
+    "farfield_wavelength_identity": true,
+    "stokes_flux_grid_identity_ic1": true,
+    "stokes_flux_grid_identity_ic2": true
+  },
+  "angular_checks": {
+    "ux_identity": true,
+    "uy_identity": true,
+    "intensity_shape_identity": true,
+    "vector_shape_identity": true,
+    "ux_points": 150,
+    "uy_points": 150,
+    "intensity_shape": [
+      150,
+      150
+    ],
+    "vector_shape": [
+      3
+    ],
+    "all_finite": true
+  },
+  "sourcepower_identity": true,
+  "ic1_validity_status": "VALID_FOR_IC1_INTEGRATED_CANARY_TRUTH",
+  "ic2_validity_status": "VALID_FOR_IC2_INTEGRATED_TRUTH",
+  "ic1_summary_classification": "VALID_FOR_IC1_INTEGRATED_CANARY_TRUTH",
+  "ic2_summary_classification": "VALID_FOR_IC2_INTEGRATED_TRUTH",
+  "W_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+  "production_emitter_weighting_used": false,
+  "no_new_solver": true,
+  "timestamp_utc": "2026-08-29T05:20:00.554643+00:00"
+}

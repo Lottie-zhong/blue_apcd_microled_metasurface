@@ -1,0 +1,97 @@
+{
+  "schema": "PAPER_A_IC2_PRODUCTION_RUNNER_DRY_RUN_V1",
+  "status": "READY",
+  "case_id": "IC2_TOPWELL_Y",
+  "pre_fsp": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\ic2_solver_ready\\IC2_TOPWELL_Y_attempt_001_pre.fsp",
+  "pre_fsp_sha256": "66cb2dff751c1baf03f5bcbddf7cfeb368e7901146d258805ed3408a9e5183a3",
+  "authority_prefsp_sha256": "66cb2dff751c1baf03f5bcbddf7cfeb368e7901146d258805ed3408a9e5183a3",
+  "sha_match": true,
+  "validation": {
+    "schema": true,
+    "readback_complete": true,
+    "native_materials": true,
+    "counts": true,
+    "finite_pml": true,
+    "no_periodic_xy": true,
+    "domain": true,
+    "source": true,
+    "spectral_source": true,
+    "absolute_z": true,
+    "direct_mdc_i03_contact": true,
+    "monitor_count": true,
+    "near_to_far": true,
+    "v2": true,
+    "no_legacy_constant_index": true,
+    "geometry_domain_monitor_semantic_match": true,
+    "orientation_only_physics_delta": true,
+    "all": true
+  },
+  "resource_audit": {
+    "status": "READ_ONLY",
+    "timestamp_utc": "2026-08-28T09:07:52.346591+00:00",
+    "registry": {
+      "active_slots": [],
+      "global_capacity": 3,
+      "policy_ok": true
+    },
+    "effective_active_fdtd": 0,
+    "global_fdtd_capacity": 3,
+    "active_rcwa": 0,
+    "unknown_solver_jobs": [],
+    "external_fluent_jobs": [
+      {
+        "job_token": "proc:mpiexec.exe:13348",
+        "processes": [
+          {
+            "pid": 13348,
+            "ppid": 24840,
+            "name": "mpiexec.exe",
+            "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe\"   -np 1  -env PATH \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\ntbin\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\win64\\mpi\\shared;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi_wrapper\\win64\\msmpi;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelCompiler\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelMKL\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\cortex\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64\\3ddp_node\"  -env FLUENT_PROD_DIR \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\" -env PYTHONHOME \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python\" /affinity_layout 3:P   \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\win64\\3ddp_node\\fl_mpi2510.exe\" -mport 192.168.1.107:192.168.1.107:47799:0 node -mpiw msmpi -pic default",
+            "path": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe"
+          }
+        ],
+        "branch": "EXTERNAL_UNREGISTERED",
+        "solver_type": "EXTERNAL_FLUENT"
+      }
+    ],
+    "live_jobs": [
+      {
+        "job_token": "proc:mpiexec.exe:13348",
+        "processes": [
+          {
+            "pid": 13348,
+            "ppid": 24840,
+            "name": "mpiexec.exe",
+            "cmdline": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe\"   -np 1  -env PATH \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\ntbin\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\win64\\mpi\\shared;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi_wrapper\\win64\\msmpi;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelCompiler\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\tp\\IntelMKL\\2023.1.0\\winx64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\cortex\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64;N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\addons\\afd\\win64\\3ddp_node\"  -env FLUENT_PROD_DIR \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\" -env PYTHONHOME \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\..\\..\\commonfiles\\CPython\\3_10\\winx64\\Release\\python\" /affinity_layout 3:P   \"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\win64\\3ddp_node\\fl_mpi2510.exe\" -mport 192.168.1.107:192.168.1.107:47799:0 node -mpiw msmpi -pic default",
+            "path": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\fluent\\fluent25.1.0\\multiport\\mpi\\win64\\ms\\bin\\mpiexec.exe"
+          }
+        ],
+        "branch": "EXTERNAL_UNREGISTERED",
+        "solver_type": "EXTERNAL_FLUENT"
+      }
+    ],
+    "cpu_logical_processors": 104,
+    "requested_mpi_processes": 12,
+    "cpu_headroom_for_12_ranks": true,
+    "free_ram_kb": 245628836,
+    "free_ram_source": "psutil.virtual_memory.available",
+    "ram_headroom_obvious_hard_gate": true,
+    "safe_headroom": true
+  },
+  "production_resources": {
+    "mpi_processes": 12,
+    "threads_per_process": 1,
+    "max_new_fdtd_entries": 1
+  },
+  "solver_counters": {
+    "run_called": false,
+    "entered": 0,
+    "active_fdtd": 0,
+    "rcwa": 0,
+    "ml": 0,
+    "hidden_auto_admission": false
+  },
+  "execute_requires": "--confirm-solver-entry",
+  "no_dispatch_in_dry_run": true,
+  "timestamp_utc": "2026-08-28T09:07:52.366189+00:00"
+}
