@@ -1,0 +1,105 @@
+{
+  "schema": "PAPER_A_IC1_INTEGRATED_CANARY_POSTPROCESS_SUMMARY_V1",
+  "case_id": "IAR4_x",
+  "classification": "VALID_FOR_IC1_INTEGRATED_CANARY_TRUTH",
+  "root_cause": null,
+  "pre_fsp_sha256": "4e3d7f865b0580e3192c4693a66f1b3ef45fb6c9ef076cf99a8f009320326d6d",
+  "post_fsp_sha256": "0bb82eb9a70b241c724d0d8d3c09ad14da26d6d741c225cef813c2d4307e6fc6",
+  "physics_semantic_fingerprint": null,
+  "integrated_instrumentation_fingerprint": null,
+  "spectral_grid_nm": {
+    "start": 400.00000000000006,
+    "stop": 500.00000000000006,
+    "points": 101
+  },
+  "sourcepower": {
+    "finite": true,
+    "positive": true,
+    "min_W": 1.5122214660608366e-15,
+    "max_W": 3.691946938625089e-15
+  },
+  "six_face_closed_flux": {
+    "finite": true,
+    "net_min_W": -3.7127404495158374e-16,
+    "net_max_W": -2.7244606392543457e-16
+  },
+  "near_to_far": {
+    "finite": true,
+    "samples": 101,
+    "450_nm": {
+      "wavelength_nm": 450.0000000000001,
+      "ux_points": 150,
+      "uy_points": 150,
+      "ux_min": -1.0,
+      "ux_max": 1.0,
+      "uy_min": -1.0,
+      "uy_max": 1.0,
+      "intensity_summary": {
+        "shape": [
+          150,
+          150
+        ],
+        "dtype": "float64",
+        "size": 22500,
+        "finite": true,
+        "real_min": 0.0,
+        "real_max": 4.2712612114911896e-14,
+        "imag_min": null,
+        "imag_max": null
+      },
+      "vector_summary": {
+        "shape": [
+          3
+        ],
+        "dtype": "complex128",
+        "size": 3,
+        "finite": true,
+        "real_min": -1.2683792145297427e-08,
+        "real_max": 1.4356406173368428e-07,
+        "imag_min": -3.991095123465039e-08,
+        "imag_max": 0.0
+      },
+      "vector_Ex": [
+        1.4356406173368428e-07,
+        -3.991095123465039e-08
+      ],
+      "vector_Ey": [
+        -1.2683792145297427e-08,
+        -1.070119838614563e-08
+      ],
+      "stokes": {
+        "S0": 1.1239459040006253e-14,
+        "S1": 1.0964064809921497e-14,
+        "S2": -1.393841711622922e-15,
+        "S3": 2.0425297155144207e-15,
+        "DoLP": 0.9833487491866948,
+        "DoCP": 0.1817284718280609,
+        "psi_deg": 176.37747745902627
+      }
+    }
+  },
+  "stokes": {
+    "samples": 101,
+    "finite": true,
+    "DoLP_min": 0.18308220615278029,
+    "DoLP_max": 0.5842836142325862
+  },
+  "convergence": {
+    "sample_count": 10267,
+    "time_start_s": 0.0,
+    "time_end_s": 7.997222930123122e-13,
+    "late_window_count": 3423,
+    "late_first_proxy": 1.4051136649004324e-11,
+    "late_last_proxy": 1.1827246205962485e-11,
+    "late_slope_per_s": -1592.4855745911786,
+    "positive_late_window_growth": false,
+    "native_auto_shutoff": "NOT_PERSISTED_BY_RUNNER"
+  },
+  "architecture_verdict": "PAPER_A_IC1_FINITE_INTEGRATED_CANARY_PASS",
+  "W_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+  "raw_solver_data_modified": false,
+  "timestamp_utc": "2026-08-29T17:44:53.946115+00:00",
+  "candidate_id": "IAR4",
+  "polarization": "x",
+  "validity_gate": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_initial_truth_v1\\sources\\IAR4_x\\validity_gate_v2.json"
+}

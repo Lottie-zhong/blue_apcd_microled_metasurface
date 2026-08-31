@@ -1,0 +1,17 @@
+{
+  "schema": "PAPER_A_INTEGRATED_AWARE_LP_INITIAL_TRUTH_TERMINAL_FAILURE_V1",
+  "status": "HARD_GATE",
+  "error": "JSONDecodeError:Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\integrated_aware_lp_initial_truth_controller_v1.py\", line 231, in main\n    execute()\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\integrated_aware_lp_initial_truth_controller_v1.py\", line 213, in execute\n    if case_id not in state.get(\"completed_cases\", []): run_case(builder, scheduler, candidate, case_id, polarization, state, controller_log)\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\integrated_aware_lp_initial_truth_controller_v1.py\", line 117, in run_case\n    setup = setup_case(builder, candidate, case_id, polarization, state, controller_log)\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\integrated_aware_lp_initial_truth_controller_v1.py\", line 102, in setup_case\n    existing = json.loads(setup_manifest.read_text(encoding=\"utf-8\"))\n  File \"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\python-3.9.9-embed-amd64\\lib\\json\\__init__.py\", line 335, in loads\n    raise JSONDecodeError(\"Unexpected UTF-8 BOM (decode using utf-8-sig)\",\njson.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)\n",
+  "solver_accounting": {
+    "authorized": 4,
+    "entered": 0,
+    "returned": 0,
+    "accepted": 0,
+    "replay": 0,
+    "rcwa": 0,
+    "ml": 0
+  },
+  "no_auto_replay": true,
+  "timestamp_utc": "2026-08-29T06:30:50.599645+00:00"
+}
