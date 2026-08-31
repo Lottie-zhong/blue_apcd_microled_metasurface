@@ -1,0 +1,113 @@
+{
+  "schema": "PAPER_A_IAR4_ORIENTATION_CAUSAL_CONTROL_CONTRACT_V1",
+  "status": "PASS",
+  "stage": "zero_solver_mechanism_promotion_gate",
+  "scientific_interpretation_allowed": "IAR4_LIKE_LOCAL_PERTURBATION_POSITIVE_INTEGRATED_RESPONSE",
+  "scientific_interpretation_forbidden": "ORIENTATION_CAUSAL_LEVER without a matched angle-only control truth comparison",
+  "IAR4_fixed_exact_authority": {
+    "L1_nm": 259,
+    "W1_nm": 87,
+    "L2_nm": 203,
+    "W2_nm": 79,
+    "D_nm": 210,
+    "height_nm": 525.0,
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0
+  },
+  "IAR4_existing_delta_theta_deg": 82.820909321,
+  "I03_reference_delta_theta_deg": 85.819861293,
+  "vary_only": [
+    "delta_theta_deg"
+  ],
+  "validity_rules_inherited": {
+    "direct_polygon_clearance_nm_ge": 60.0,
+    "periodic_image_polygon_clearance_nm_ge": 60.0,
+    "no_overlap_or_touching": true,
+    "cell_containment": true,
+    "integer_lateral_dimensions": true,
+    "half_grid_centers": true,
+    "no_sub_grid_geometry": true
+  },
+  "no_authoritative_minimum_linewidth_or_aspect_ratio_gate": true,
+  "matched_control": {
+    "label": "IAR4-OC1",
+    "delta_theta_deg": 85.819861293,
+    "delta_theta_difference_from_IAR4_deg": 2.9989519720000004,
+    "delta_theta_difference_from_I03_deg": 0.0,
+    "geometry_hash_sha256": "03e4683c2f2b0a6fbf0cecb4ea8e15767623159ad91de7410a6bc8e8a117d228",
+    "direct_clearance_nm": 62.390756888329996,
+    "periodic_image_clearance_nm": 74.39075688833,
+    "global_minimum_clearance_nm": 62.390756888329996,
+    "global_nearest_pair": {
+      "distance_nm": 62.390756888329996,
+      "object_a": "pillar_1",
+      "object_b": "pillar_2",
+      "image_shift": [
+        0,
+        0
+      ],
+      "point_a_nm": [
+        -31.996335707627395,
+        61.5
+      ],
+      "point_b_nm": [
+        -31.996335707627402,
+        -0.890756888329999
+      ],
+      "touch_or_overlap": false
+    },
+    "overlap_or_touching_pass": true,
+    "cell_containment_pass": true,
+    "integer_lateral_dimensions": true,
+    "half_grid_centers": true,
+    "geometry_valid": true,
+    "validity_reasons": []
+  },
+  "angle_only_control_feasibility": "IAR4_ANGLE_ONLY_CAUSAL_CONTROL_FEASIBLE",
+  "IAR_C2_fallback": {
+    "IAR4": {
+      "L1_nm": 259,
+      "W1_nm": 87,
+      "L2_nm": 203,
+      "W2_nm": 79,
+      "D_nm": 210,
+      "delta_theta_deg": 82.820909321
+    },
+    "IAR-C2": {
+      "L1_nm": 258,
+      "W1_nm": 88,
+      "L2_nm": 198,
+      "W2_nm": 78,
+      "D_nm": 217,
+      "delta_theta_deg": 82.818204313
+    },
+    "differences_IAR_C2_minus_IAR4": {
+      "L1_nm": -1,
+      "W1_nm": 1,
+      "L2_nm": -5,
+      "W2_nm": -1,
+      "D_nm": 7,
+      "delta_theta_deg": -0.0027050080000066146
+    },
+    "delta_theta_proximity_to_IAR4_deg": -0.0027050080000066146,
+    "delta_theta_proximity_to_I03_deg": -3.001656980000007,
+    "Delta_A_IAR4": 0.05739351453285774,
+    "Delta_A_IAR_C2": 0.05654687107313394,
+    "geometry_distance_from_i03_6d_from_canonical_registry": 1.0344527569575581,
+    "IAR4_direct_clearance_nm": 60.85936097571534,
+    "IAR4_periodic_clearance_nm": 72.85936097571536,
+    "IAR_C2_direct_clearance_nm": 69.90100490771425,
+    "IAR_C2_periodic_clearance_nm": 67.90100490771425,
+    "IAR_C2_role": "local_basin_support_only; not orientation_only_causal_control",
+    "fallback_used": false
+  },
+  "promotion_status": "no optical promotion or geometry-domain expansion in this zero-solver gate",
+  "solver_accounting": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "FDTD": 0,
+    "RCWA": 0,
+    "ML": 0
+  }
+}

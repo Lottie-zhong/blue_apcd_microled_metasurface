@@ -1,0 +1,237 @@
+{
+  "schema": "PAPER_A_IAR4_POLYGON_VALIDITY_AUDIT_V1",
+  "status": "PASS",
+  "validity_authority": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_local_domain_authority.json",
+    "sha256": "5fc38ef57cdca89345a9bf9d7666755b4a7cf74cd5bd5de2b8cac02d9f9b9df0",
+    "hard_gates": {
+      "direct_polygon_clearance_nm_ge": 60.0,
+      "periodic_image_polygon_clearance_nm_ge": 60.0,
+      "no_overlap_or_touching": true,
+      "cell_containment": true,
+      "integer_lateral_dimensions": true,
+      "half_grid_centers": true,
+      "no_sub_grid_geometry": true
+    },
+    "diagnostic_boundary": {
+      "no_authoritative_minimum_linewidth_or_aspect_ratio_gate_found": true
+    }
+  },
+  "IAR4_existing_truth": {
+    "label": "IAR4",
+    "delta_theta_deg": 82.820909321,
+    "delta_theta_difference_from_IAR4_deg": 0.0,
+    "delta_theta_difference_from_I03_deg": -2.9989519720000004,
+    "geometry_hash_sha256": "181420d721cd2259af51feb14593dd8767b2909d5b427be2ae576e6c7a898edc",
+    "direct_clearance_nm": 60.85936097571534,
+    "periodic_image_clearance_nm": 72.85936097571536,
+    "global_minimum_clearance_nm": 60.85936097571534,
+    "global_nearest_pair": {
+      "distance_nm": 60.85936097571534,
+      "object_a": "pillar_1",
+      "object_b": "pillar_2",
+      "image_shift": [
+        0,
+        0
+      ],
+      "point_a_nm": [
+        -26.50576138391024,
+        61.5
+      ],
+      "point_b_nm": [
+        -26.505761383910237,
+        0.6406390242846571
+      ],
+      "touch_or_overlap": false
+    },
+    "overlap_or_touching_pass": true,
+    "cell_containment_pass": true,
+    "integer_lateral_dimensions": true,
+    "half_grid_centers": true,
+    "geometry_valid": true,
+    "validity_reasons": []
+  },
+  "I03_reference_geometry": {
+    "label": "I03_REFERENCE",
+    "delta_theta_deg": 85.819861293,
+    "delta_theta_difference_from_IAR4_deg": 2.9989519720000004,
+    "delta_theta_difference_from_I03_deg": 0.0,
+    "geometry_hash_sha256": "b818fd28e0535053a21940f40a9b45cfb0b9252aba9e0158be2496fba87eea06",
+    "direct_clearance_nm": 76.84233977127985,
+    "periodic_image_clearance_nm": 68.84233977127985,
+    "global_minimum_clearance_nm": 68.84233977127985,
+    "global_nearest_pair": {
+      "distance_nm": 68.84233977127985,
+      "object_a": "pillar_1",
+      "object_b": "pillar_2",
+      "image_shift": [
+        0,
+        1
+      ],
+      "point_a_nm": [
+        32.82302176425824,
+        153.5
+      ],
+      "point_b_nm": [
+        32.82302176425825,
+        222.34233977127985
+      ],
+      "touch_or_overlap": false
+    },
+    "overlap_or_touching_pass": true,
+    "cell_containment_pass": true,
+    "integer_lateral_dimensions": true,
+    "half_grid_centers": true,
+    "geometry_valid": true,
+    "validity_reasons": []
+  },
+  "I03_reference_contract": {
+    "geometry_id": "BF04R_I03",
+    "L1_nm": 264,
+    "W1_nm": 87,
+    "L2_nm": 194,
+    "W2_nm": 80,
+    "D_nm": 220,
+    "delta_theta_deg": 85.819861293
+  },
+  "angle_search": {
+    "frozen_domain_deg": [
+      80.0,
+      90.0
+    ],
+    "grid_step_deg": 0.001,
+    "grid_points": 10002,
+    "valid_grid_points": 9177,
+    "exact_I03_angle_record": {
+      "label": "I03_ANGLE_EXACT",
+      "delta_theta_deg": 85.819861293,
+      "delta_theta_difference_from_IAR4_deg": 2.9989519720000004,
+      "delta_theta_difference_from_I03_deg": 0.0,
+      "geometry_hash_sha256": "03e4683c2f2b0a6fbf0cecb4ea8e15767623159ad91de7410a6bc8e8a117d228",
+      "direct_clearance_nm": 62.390756888329996,
+      "periodic_image_clearance_nm": 74.39075688833,
+      "global_minimum_clearance_nm": 62.390756888329996,
+      "global_nearest_pair": {
+        "distance_nm": 62.390756888329996,
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift": [
+          0,
+          0
+        ],
+        "point_a_nm": [
+          -31.996335707627395,
+          61.5
+        ],
+        "point_b_nm": [
+          -31.996335707627402,
+          -0.890756888329999
+        ],
+        "touch_or_overlap": false
+      },
+      "overlap_or_touching_pass": true,
+      "cell_containment_pass": true,
+      "integer_lateral_dimensions": true,
+      "half_grid_centers": true,
+      "geometry_valid": true,
+      "validity_reasons": []
+    },
+    "selection_mode": "EXACT_I03_ANGLE_MATCHED_CONTROL",
+    "selected_control": {
+      "label": "IAR4-OC1",
+      "delta_theta_deg": 85.819861293,
+      "delta_theta_difference_from_IAR4_deg": 2.9989519720000004,
+      "delta_theta_difference_from_I03_deg": 0.0,
+      "geometry_hash_sha256": "03e4683c2f2b0a6fbf0cecb4ea8e15767623159ad91de7410a6bc8e8a117d228",
+      "direct_clearance_nm": 62.390756888329996,
+      "periodic_image_clearance_nm": 74.39075688833,
+      "global_minimum_clearance_nm": 62.390756888329996,
+      "global_nearest_pair": {
+        "distance_nm": 62.390756888329996,
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift": [
+          0,
+          0
+        ],
+        "point_a_nm": [
+          -31.996335707627395,
+          61.5
+        ],
+        "point_b_nm": [
+          -31.996335707627402,
+          -0.890756888329999
+        ],
+        "touch_or_overlap": false
+      },
+      "overlap_or_touching_pass": true,
+      "cell_containment_pass": true,
+      "integer_lateral_dimensions": true,
+      "half_grid_centers": true,
+      "geometry_valid": true,
+      "validity_reasons": []
+    },
+    "control_feasibility": "IAR4_ANGLE_ONLY_CAUSAL_CONTROL_FEASIBLE",
+    "no_new_threshold_introduced": true
+  },
+  "IAR_C2_comparison": {
+    "IAR4": {
+      "L1_nm": 259,
+      "W1_nm": 87,
+      "L2_nm": 203,
+      "W2_nm": 79,
+      "D_nm": 210,
+      "delta_theta_deg": 82.820909321
+    },
+    "IAR-C2": {
+      "L1_nm": 258,
+      "W1_nm": 88,
+      "L2_nm": 198,
+      "W2_nm": 78,
+      "D_nm": 217,
+      "delta_theta_deg": 82.818204313
+    },
+    "differences_IAR_C2_minus_IAR4": {
+      "L1_nm": -1,
+      "W1_nm": 1,
+      "L2_nm": -5,
+      "W2_nm": -1,
+      "D_nm": 7,
+      "delta_theta_deg": -0.0027050080000066146
+    },
+    "delta_theta_proximity_to_IAR4_deg": -0.0027050080000066146,
+    "delta_theta_proximity_to_I03_deg": -3.001656980000007,
+    "Delta_A_IAR4": 0.05739351453285774,
+    "Delta_A_IAR_C2": 0.05654687107313394,
+    "geometry_distance_from_i03_6d_from_canonical_registry": 1.0344527569575581,
+    "IAR4_direct_clearance_nm": 60.85936097571534,
+    "IAR4_periodic_clearance_nm": 72.85936097571536,
+    "IAR_C2_direct_clearance_nm": 69.90100490771425,
+    "IAR_C2_periodic_clearance_nm": 67.90100490771425,
+    "IAR_C2_role": "local_basin_support_only; not orientation_only_causal_control",
+    "fallback_used": false
+  },
+  "fixed_control_semantics": {
+    "only_delta_theta_changes": true,
+    "fixed_fields": [
+      "L1_nm",
+      "W1_nm",
+      "L2_nm",
+      "W2_nm",
+      "D_nm",
+      "height_nm",
+      "period_x_nm",
+      "period_y_nm",
+      "theta1_deg",
+      "centers",
+      "integrated_architecture",
+      "source",
+      "MDC",
+      "monitor",
+      "mesh",
+      "domain",
+      "boundary"
+    ],
+    "causal_scope": "geometry-only angle control; no optical prediction in this audit"
+  }
+}
