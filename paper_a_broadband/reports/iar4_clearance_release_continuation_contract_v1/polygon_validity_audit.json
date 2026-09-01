@@ -1,0 +1,1228 @@
+{
+  "schema": "PAPER_A_IAR4_CLEARANCE_RELEASE_CONTINUATION_POLYGON_VALIDITY_AUDIT_V1",
+  "status": "PASS",
+  "current_rule_source": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_anisotropy_feasible_space_v2.py",
+  "current_rule_sha256": "513cc688043f0dadf91f0823d39368c945650d45fa13980d46eea2428de228d3",
+  "high_precision_rule_source": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\a02_pre_admission_geometry_audit_v2.py",
+  "IAR4": {
+    "geometry": {
+      "L1_nm": 259,
+      "W1_nm": 87,
+      "L2_nm": 203,
+      "W2_nm": 79,
+      "D_nm": 210,
+      "delta_theta_deg": 82.820909321,
+      "theta1_deg": 0.0,
+      "theta2_deg": 82.820909321,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 105.0,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -105.0,
+      "height_nm": 525.0,
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0
+    },
+    "geometry_hash_sha256_recomputed": "181420d721cd2259af51feb14593dd8767b2909d5b427be2ae576e6c7a898edc",
+    "validity_audit_high_precision": {
+      "vertices_nm": {
+        "pillar_1": [
+          [
+            "-129.5",
+            "61.5"
+          ],
+          [
+            "129.5",
+            "61.5"
+          ],
+          [
+            "129.5",
+            "148.5"
+          ],
+          [
+            "-129.5",
+            "148.5"
+          ]
+        ],
+        "pillar_2": [
+          [
+            "26.505761383910230216127840716662269983198734117693",
+            "-210.64063902428465165236204717845048947169598730797"
+          ],
+          [
+            "51.874908155792054518446827545234451897632956001861",
+            "-9.232083118467388347062583163703216790571517760254"
+          ],
+          [
+            "-26.505761383910230216127840716662269983198734117693",
+            "0.64063902428465165236204717845048947169598730796917"
+          ],
+          [
+            "-51.874908155792054518446827545234451897632956001861",
+            "-200.76791688153261165293741683629678320942848223975"
+          ]
+        ]
+      },
+      "direct_same_cell_pillar_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "60.859360975715348347637952821549510528304012692031",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-26.505761383910230216127840716662269983198734117693",
+            "0.64063902428465165236204717845048947169598730796917"
+          ],
+          "projection_nm": [
+            "-26.505761383910230216127840716662269983198734117693",
+            "61.5"
+          ],
+          "projection_t": "0.39766115295787555901108941808238505797992766749926"
+        }
+      },
+      "nearest_periodic_image_pair_all_objects": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "72.859360975715348347637952821549510528304012692031",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "26.505761383910230216127840716662269983198734117693",
+            "221.35936097571534834763795282154951052830401269203"
+          ],
+          "projection_nm": [
+            "26.505761383910230216127840716662269983198734117693",
+            "148.5"
+          ],
+          "projection_t": "0.39766115295787555901108941808238505797992766749926"
+        }
+      },
+      "nearest_periodic_image_pair_cross_pillar": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "72.859360975715348347637952821549510528304012692031",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "26.505761383910230216127840716662269983198734117693",
+            "221.35936097571534834763795282154951052830401269203"
+          ],
+          "projection_nm": [
+            "26.505761383910230216127840716662269983198734117693",
+            "148.5"
+          ],
+          "projection_t": "0.39766115295787555901108941808238505797992766749926"
+        }
+      },
+      "nearest_same_object_periodic_image_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_1",
+        "image_shift_cells": [
+          -1,
+          0
+        ],
+        "image_shift_nm": [
+          "-432.0",
+          "0.0"
+        ],
+        "distance_nm": "173.0",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "A_to_B",
+          "vertex_index": 0,
+          "edge_index": 0,
+          "point_nm": [
+            "-129.5",
+            "61.5"
+          ],
+          "projection_nm": [
+            "-302.5",
+            "61.5"
+          ],
+          "projection_t": "1.0"
+        }
+      },
+      "periodic_intersection_count": 0,
+      "boundary_minimum": {
+        "object": "pillar_2",
+        "vertex_index": 0,
+        "boundary": "bottom",
+        "clearance_nm": "5.3593609757153483476379528215495105283040126920308",
+        "point_nm": [
+          "26.505761383910230216127840716662269983198734117693",
+          "-210.64063902428465165236204717845048947169598730797"
+        ]
+      },
+      "cell_containment_pass": true,
+      "direct_no_overlap_or_touch_pass": true,
+      "periodic_no_overlap_or_touch_pass": true,
+      "integer_lateral_dimensions_pass": true,
+      "half_grid_centers_pass": true,
+      "legacy_aggregate_minimum_nm": "5.3593609757153483476379528215495105283040126920308",
+      "physical_polygon_minimum_nm": "60.859360975715348347637952821549510528304012692031",
+      "direct_clearance_nm": "60.859360975715348347637952821549510528304012692031",
+      "periodic_image_clearance_nm": "72.859360975715348347637952821549510528304012692031",
+      "boundary_margin_nm": "5.3593609757153483476379528215495105283040126920308",
+      "old_planning_validity": {},
+      "current_inherited_gate_pass": true
+    },
+    "candidate_id": "IAR4",
+    "source_geometry_hash": "181420d721cd2259af51feb14593dd8767b2909d5b427be2ae576e6c7a898edc",
+    "source_geometry_hash_match": true
+  },
+  "IAR4_CR1": {
+    "geometry": {
+      "L1_nm": 259,
+      "W1_nm": 87,
+      "L2_nm": 203,
+      "W2_nm": 79,
+      "D_nm": 211,
+      "delta_theta_deg": 80.0,
+      "theta1_deg": 0.0,
+      "theta2_deg": 80.0,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 105.5,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -105.5,
+      "height_nm": 525.0,
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0
+    },
+    "geometry_hash_sha256_recomputed": "805644d2904934477dd8d5fa85842c25b5cd561ea8bff3efe2ab148d17ab8609",
+    "validity_audit_high_precision": {
+      "vertices_nm": {
+        "pillar_1": [
+          [
+            "-129.5",
+            "62.0"
+          ],
+          [
+            "129.5",
+            "62.0"
+          ],
+          [
+            "129.5",
+            "149.0"
+          ],
+          [
+            "-129.5",
+            "149.0"
+          ]
+        ],
+        "pillar_2": [
+          [
+            "21.274616210788787936537111854200707245952277208751",
+            "-212.31708994858286680536722375322452032958512929833"
+          ],
+          [
+            "56.525196277175648753435587088371610834028539677117",
+            "-12.401116087104630753918389761551348554444549199207"
+          ],
+          [
+            "-21.274616210788787936537111854200707245952277208751",
+            "1.3170899485828668053672237532245203295851292983347"
+          ],
+          [
+            "-56.525196277175648753435587088371610834028539677117",
+            "-198.59888391289536924608161023844865144555545080079"
+          ]
+        ]
+      },
+      "direct_same_cell_pillar_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "60.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "1.3170899485828668053672237532245203295851292983347"
+          ],
+          "projection_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "62.0"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "nearest_periodic_image_pair_all_objects": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "70.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "219.68291005141713319463277624677547967041487070167"
+          ],
+          "projection_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "149.0"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "nearest_periodic_image_pair_cross_pillar": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "70.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "219.68291005141713319463277624677547967041487070167"
+          ],
+          "projection_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "149.0"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "nearest_same_object_periodic_image_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_1",
+        "image_shift_cells": [
+          -1,
+          0
+        ],
+        "image_shift_nm": [
+          "-432.0",
+          "0.0"
+        ],
+        "distance_nm": "173.0",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "A_to_B",
+          "vertex_index": 0,
+          "edge_index": 0,
+          "point_nm": [
+            "-129.5",
+            "62.0"
+          ],
+          "projection_nm": [
+            "-302.5",
+            "62.0"
+          ],
+          "projection_t": "1.0"
+        }
+      },
+      "periodic_intersection_count": 0,
+      "boundary_minimum": {
+        "object": "pillar_2",
+        "vertex_index": 0,
+        "boundary": "bottom",
+        "clearance_nm": "3.6829100514171331946327762467754796704148707016653",
+        "point_nm": [
+          "21.274616210788787936537111854200707245952277208751",
+          "-212.31708994858286680536722375322452032958512929833"
+        ]
+      },
+      "cell_containment_pass": true,
+      "direct_no_overlap_or_touch_pass": true,
+      "periodic_no_overlap_or_touch_pass": true,
+      "integer_lateral_dimensions_pass": true,
+      "half_grid_centers_pass": true,
+      "legacy_aggregate_minimum_nm": "3.6829100514171331946327762467754796704148707016653",
+      "physical_polygon_minimum_nm": "60.682910051417133194632776246775479670414870701665",
+      "direct_clearance_nm": "60.682910051417133194632776246775479670414870701665",
+      "periodic_image_clearance_nm": "70.682910051417133194632776246775479670414870701665",
+      "boundary_margin_nm": "3.6829100514171331946327762467754796704148707016653",
+      "old_planning_validity": {},
+      "current_inherited_gate_pass": true
+    },
+    "candidate_id": "IAR4-CR1",
+    "role": "ORIENTATION_CONTINUATION_WITH_D_CLEARANCE_COMPENSATION",
+    "status": "PROSPECTIVE_NOT_AUTHORIZED",
+    "difference_from_IAR4": {
+      "L1_nm": 0,
+      "W1_nm": 0,
+      "L2_nm": 0,
+      "W2_nm": 0,
+      "D_nm": 1,
+      "delta_theta_deg": -2.820909321000002
+    },
+    "current_inherited_gate_pass": true
+  },
+  "IAR-C2": {
+    "geometry": {
+      "L1_nm": 258,
+      "W1_nm": 88,
+      "L2_nm": 198,
+      "W2_nm": 78,
+      "D_nm": 217,
+      "delta_theta_deg": 82.818204313,
+      "theta1_deg": 0.0,
+      "theta2_deg": 82.818204313,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 108.5,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -108.5,
+      "height_nm": 525.0,
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0
+    },
+    "geometry_hash_sha256_recomputed": "3f09a8a9dd696630b80e7265436157601ee84490d36c02d3ac1e7bd7a6c4636a",
+    "validity_audit_high_precision": {
+      "vertices_nm": {
+        "pillar_1": [
+          [
+            "-129.0",
+            "64.5"
+          ],
+          [
+            "129.0",
+            "64.5"
+          ],
+          [
+            "129.0",
+            "152.5"
+          ],
+          [
+            "-129.0",
+            "152.5"
+          ]
+        ],
+        "pillar_2": [
+          [
+            "26.317241705027556176433301320763245106234162721907",
+            "-211.59899509228573605080738435364285821837561727551"
+          ],
+          [
+            "51.070807170553107988294195993897763794619117582061",
+            "-15.152409485042511632652968093349527931594213426975"
+          ],
+          [
+            "-26.317241705027556176433301320763245106234162721907",
+            "-5.4010049077142639491926156463571417816243827244905"
+          ],
+          [
+            "-51.070807170553107988294195993897763794619117582061",
+            "-201.84759051495748836734703190665047206840578657302"
+          ]
+        ]
+      },
+      "direct_same_cell_pillar_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "69.90100490771426394919261564635714178162438272449",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-26.317241705027556176433301320763245106234162721907",
+            "-5.4010049077142639491926156463571417816243827244905"
+          ],
+          "projection_nm": [
+            "-26.317241705027556176433301320763245106234162721907",
+            "64.5"
+          ],
+          "projection_t": "0.39799518718981567373475464604355331354172805146548"
+        }
+      },
+      "nearest_periodic_image_pair_all_objects": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "67.90100490771426394919261564635714178162438272449",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "26.317241705027556176433301320763245106234162721907",
+            "220.40100490771426394919261564635714178162438272449"
+          ],
+          "projection_nm": [
+            "26.317241705027556176433301320763245106234162721907",
+            "152.5"
+          ],
+          "projection_t": "0.39799518718981567373475464604355331354172805146548"
+        }
+      },
+      "nearest_periodic_image_pair_cross_pillar": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "67.90100490771426394919261564635714178162438272449",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "26.317241705027556176433301320763245106234162721907",
+            "220.40100490771426394919261564635714178162438272449"
+          ],
+          "projection_nm": [
+            "26.317241705027556176433301320763245106234162721907",
+            "152.5"
+          ],
+          "projection_t": "0.39799518718981567373475464604355331354172805146548"
+        }
+      },
+      "nearest_same_object_periodic_image_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_1",
+        "image_shift_cells": [
+          -1,
+          0
+        ],
+        "image_shift_nm": [
+          "-432.0",
+          "0.0"
+        ],
+        "distance_nm": "174.0",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "A_to_B",
+          "vertex_index": 0,
+          "edge_index": 0,
+          "point_nm": [
+            "-129.0",
+            "64.5"
+          ],
+          "projection_nm": [
+            "-303.0",
+            "64.5"
+          ],
+          "projection_t": "1.0"
+        }
+      },
+      "periodic_intersection_count": 0,
+      "boundary_minimum": {
+        "object": "pillar_2",
+        "vertex_index": 0,
+        "boundary": "bottom",
+        "clearance_nm": "4.4010049077142639491926156463571417816243827244905",
+        "point_nm": [
+          "26.317241705027556176433301320763245106234162721907",
+          "-211.59899509228573605080738435364285821837561727551"
+        ]
+      },
+      "cell_containment_pass": true,
+      "direct_no_overlap_or_touch_pass": true,
+      "periodic_no_overlap_or_touch_pass": true,
+      "integer_lateral_dimensions_pass": true,
+      "half_grid_centers_pass": true,
+      "legacy_aggregate_minimum_nm": "4.4010049077142639491926156463571417816243827244905",
+      "physical_polygon_minimum_nm": "67.90100490771426394919261564635714178162438272449",
+      "direct_clearance_nm": "69.90100490771426394919261564635714178162438272449",
+      "periodic_image_clearance_nm": "67.90100490771426394919261564635714178162438272449",
+      "boundary_margin_nm": "4.4010049077142639491926156463571417816243827244905",
+      "old_planning_validity": {},
+      "current_inherited_gate_pass": true
+    },
+    "candidate_id": "IAR-C2",
+    "role": "SAME_ORIENTATION_LOCAL_BASIN_AND_CLEARANCE_REFERENCE",
+    "status": "REFERENCE_ONLY_NOT_CAUSAL_CONTROL",
+    "source_geometry_hash": "3f09a8a9dd696630b80e7265436157601ee84490d36c02d3ac1e7bd7a6c4636a",
+    "source_geometry_hash_match": true,
+    "difference_from_IAR4": {
+      "L1_nm": -1.0,
+      "W1_nm": 1.0,
+      "L2_nm": -5.0,
+      "W2_nm": -1.0,
+      "D_nm": 7.0,
+      "delta_theta_deg": -0.0027050080000066146
+    },
+    "normalized_6d_distance_from_IAR4": 0.17568802531059394,
+    "clearance_delta_vs_IAR4_nm": {
+      "direct": 9.04164393199892,
+      "periodic": -4.9583560680010805
+    }
+  },
+  "D_theta_frontier": [
+    {
+      "D_nm": 208,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "85.105630504851",
+      "minimum_legal_delta_theta_deg_9dp": "85.105630507",
+      "delta_theta_reduction_vs_IAR4_deg": "-2.284721186",
+      "direct_clearance_nm": "60.000000000151",
+      "periodic_clearance_nm": "76.000000000151",
+      "global_minimum_clearance_nm": "60.000000000151",
+      "direct_headroom_over_60_nm": "0.000000000151",
+      "periodic_headroom_over_60_nm": "16.000000000151",
+      "minimum_headroom_over_60_nm": "0.000000000151",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "60.000000000151213522021012630585856102387087576101",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-30.696090956856438564783409733651325766157409524953",
+            "0.4999999998487864779789873694141438976129124238994"
+          ],
+          "projection_nm": [
+            "-30.696090956856438564783409733651325766157409524953",
+            "60.5"
+          ],
+          "projection_t": "0.38148227429785158855295980797818020939707563889979"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 209,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "83.121772632054",
+      "minimum_legal_delta_theta_deg_9dp": "83.121772635",
+      "delta_theta_reduction_vs_IAR4_deg": "-0.300863314",
+      "direct_clearance_nm": "60.000000000391",
+      "periodic_clearance_nm": "74.000000000391",
+      "global_minimum_clearance_nm": "60.000000000391",
+      "direct_headroom_over_60_nm": "0.000000000391",
+      "periodic_headroom_over_60_nm": "14.000000000391",
+      "minimum_headroom_over_60_nm": "0.000000000391",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "60.000000000391248408557474292286836912311446413192",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-27.060118256994987016668786304951918398933941573279",
+            "0.99999999960875159144252570771316308768855358680768"
+          ],
+          "projection_nm": [
+            "-27.060118256994987016668786304951918398933941573279",
+            "61.0"
+          ],
+          "projection_t": "0.39552077893052128564992746600404664710836315994873"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 210,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.824233958849",
+      "minimum_legal_delta_theta_deg_9dp": "80.824233962",
+      "delta_theta_reduction_vs_IAR4_deg": "1.996675359",
+      "direct_clearance_nm": "60.000000000254",
+      "periodic_clearance_nm": "72.000000000254",
+      "global_minimum_clearance_nm": "60.000000000254",
+      "direct_headroom_over_60_nm": "0.000000000254",
+      "periodic_headroom_over_60_nm": "12.000000000254",
+      "minimum_headroom_over_60_nm": "0.000000000254",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "60.000000000254263829501209245177686757013358300963",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-22.80898945710129867531821924385559229202002739759",
+            "1.4999999997457361704987907548223132429866416990375"
+          ],
+          "projection_nm": [
+            "-22.80898945710129867531821924385559229202002739759",
+            "61.5"
+          ],
+          "projection_t": "0.41193440364053552635012270562217918033969101390892"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 211,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "60.682910051417",
+      "periodic_clearance_nm": "70.682910051417",
+      "global_minimum_clearance_nm": "60.682910051417",
+      "direct_headroom_over_60_nm": "0.682910051417",
+      "periodic_headroom_over_60_nm": "10.682910051417",
+      "minimum_headroom_over_60_nm": "0.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "60.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "1.3170899485828668053672237532245203295851292983347"
+          ],
+          "projection_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "62.0"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 212,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "61.682910051417",
+      "periodic_clearance_nm": "69.682910051417",
+      "global_minimum_clearance_nm": "61.682910051417",
+      "direct_headroom_over_60_nm": "1.682910051417",
+      "periodic_headroom_over_60_nm": "9.682910051417",
+      "minimum_headroom_over_60_nm": "1.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "61.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "0.81708994858286680536722375322452032958512929833475"
+          ],
+          "projection_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "62.5"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 213,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "62.682910051417",
+      "periodic_clearance_nm": "68.682910051417",
+      "global_minimum_clearance_nm": "62.682910051417",
+      "direct_headroom_over_60_nm": "2.682910051417",
+      "periodic_headroom_over_60_nm": "8.682910051417",
+      "minimum_headroom_over_60_nm": "2.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "62.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "0.31708994858286680536722375322452032958512929833475"
+          ],
+          "projection_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "63.0"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 214,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "63.682910051417",
+      "periodic_clearance_nm": "67.682910051417",
+      "global_minimum_clearance_nm": "63.682910051417",
+      "direct_headroom_over_60_nm": "3.682910051417",
+      "periodic_headroom_over_60_nm": "7.682910051417",
+      "minimum_headroom_over_60_nm": "3.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "63.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "-0.18291005141713319463277624677547967041487070166525"
+          ],
+          "projection_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "63.5"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 215,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "64.682910051417",
+      "periodic_clearance_nm": "66.682910051417",
+      "global_minimum_clearance_nm": "64.682910051417",
+      "direct_headroom_over_60_nm": "4.682910051417",
+      "periodic_headroom_over_60_nm": "6.682910051417",
+      "minimum_headroom_over_60_nm": "4.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "64.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "-0.68291005141713319463277624677547967041487070166525"
+          ],
+          "projection_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "64.0"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 216,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "65.682910051417",
+      "periodic_clearance_nm": "65.682910051417",
+      "global_minimum_clearance_nm": "65.682910051417",
+      "direct_headroom_over_60_nm": "5.682910051417",
+      "periodic_headroom_over_60_nm": "5.682910051417",
+      "minimum_headroom_over_60_nm": "5.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "0.0"
+        ],
+        "distance_nm": "65.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "-1.1829100514171331946327762467754796704148707016653"
+          ],
+          "projection_nm": [
+            "-21.274616210788787936537111854200707245952277208751",
+            "64.5"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 217,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "66.682910051417",
+      "periodic_clearance_nm": "64.682910051417",
+      "global_minimum_clearance_nm": "64.682910051417",
+      "direct_headroom_over_60_nm": "6.682910051417",
+      "periodic_headroom_over_60_nm": "4.682910051417",
+      "minimum_headroom_over_60_nm": "4.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "64.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "216.68291005141713319463277624677547967041487070167"
+          ],
+          "projection_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "152.0"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 218,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.000000000000",
+      "minimum_legal_delta_theta_deg_9dp": "80.000000000",
+      "delta_theta_reduction_vs_IAR4_deg": "2.820909321",
+      "direct_clearance_nm": "67.682910051417",
+      "periodic_clearance_nm": "63.682910051417",
+      "global_minimum_clearance_nm": "63.682910051417",
+      "direct_headroom_over_60_nm": "7.682910051417",
+      "periodic_headroom_over_60_nm": "3.682910051417",
+      "minimum_headroom_over_60_nm": "3.682910051417",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "63.682910051417133194632776246775479670414870701665",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "216.18291005141713319463277624677547967041487070167"
+          ],
+          "projection_nm": [
+            "21.274616210788787936537111854200707245952277208751",
+            "152.5"
+          ],
+          "projection_t": "0.41785862466876915854618875731968838901176726946428"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 219,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "80.824233958849",
+      "minimum_legal_delta_theta_deg_9dp": "80.824233962",
+      "delta_theta_reduction_vs_IAR4_deg": "1.996675359",
+      "direct_clearance_nm": "69.000000000254",
+      "periodic_clearance_nm": "63.000000000254",
+      "global_minimum_clearance_nm": "63.000000000254",
+      "direct_headroom_over_60_nm": "9.000000000254",
+      "periodic_headroom_over_60_nm": "3.000000000254",
+      "minimum_headroom_over_60_nm": "3.000000000254",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "63.000000000254263829501209245177686757013358300963",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "22.80898945710129867531821924385559229202002739759",
+            "216.00000000025426382950120924517768675701335830096"
+          ],
+          "projection_nm": [
+            "22.80898945710129867531821924385559229202002739759",
+            "153.0"
+          ],
+          "projection_t": "0.41193440364053552635012270562217918033969101390892"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    },
+    {
+      "D_nm": 220,
+      "fixed_L1_nm": 259,
+      "fixed_W1_nm": 87,
+      "fixed_L2_nm": 203,
+      "fixed_W2_nm": 79,
+      "continuous_boundary_estimate_deg": "82.021870354164",
+      "minimum_legal_delta_theta_deg_9dp": "82.021870357",
+      "delta_theta_reduction_vs_IAR4_deg": "0.799038964",
+      "direct_clearance_nm": "70.500000000239",
+      "periodic_clearance_nm": "62.500000000239",
+      "global_minimum_clearance_nm": "62.500000000239",
+      "direct_headroom_over_60_nm": "10.500000000239",
+      "periodic_headroom_over_60_nm": "2.500000000239",
+      "minimum_headroom_over_60_nm": "2.500000000239",
+      "nearest_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0.0",
+          "432.0"
+        ],
+        "distance_nm": "62.500000000238829702665064726905635979031965487308",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "25.029982022579079290890458108455719060404759529825",
+            "216.00000000023882970266506472690563597903196548731"
+          ],
+          "projection_nm": [
+            "25.029982022579079290890458108455719060404759529825",
+            "153.5"
+          ],
+          "projection_t": "0.40335914276996494482281676406001652872430594776129"
+        }
+      },
+      "validity": "PASS",
+      "frontier_method": "current exact polygon rule; 0.01 deg bracket, 9-decimal quantization, high-precision confirmation"
+    }
+  ],
+  "frontier_all_current_gates_pass": true,
+  "boundary_margin_used_as_gate": false,
+  "A01_A08_audit_reused": false
+}
