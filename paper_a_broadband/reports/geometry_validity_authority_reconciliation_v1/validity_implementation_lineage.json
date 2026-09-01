@@ -1,0 +1,106 @@
+{
+  "schema": "PAPER_A_GEOMETRY_VALIDITY_IMPLEMENTATION_LINEAGE_V1",
+  "timestamp_utc": "2026-09-01T05:20:59.034192+00:00",
+  "old_validity_logic": [
+    {
+      "path": "paper_a_broadband/scripts/lp_anisotropy_bootstrap_v1.py",
+      "commit": {
+        "returncode": 0,
+        "commit": "42ec413e6a6d4357e1c59b7815cb68ed1e14dce0",
+        "date": "2026-08-18",
+        "subject": "Add Paper A LP anisotropy planning setup-only stage"
+      },
+      "lines": "74-97",
+      "stages_used": [
+        "lp_anisotropy_expanded_search_v1 planning",
+        "geometry_validity.csv",
+        "planned_geometry_registry.csv",
+        "planned_case_registry.csv",
+        "planning_report.md"
+      ],
+      "semantic_definition": "min_edge_gap_nm is max(0,min(gaps)); gaps combine directed polygon-pair distances for pillar/image pairs with cell-boundary margins, while validity only checks containment and overlap."
+    },
+    {
+      "path": "paper_a_broadband/scripts/a02_pre_admission_geometry_audit_v1.py",
+      "commit": {
+        "returncode": 0,
+        "commit": "40d857921caba438b388fc8f1d21d8f188adc6b6",
+        "date": "2026-08-19",
+        "subject": "Correct A02 boundary-vertex audit provenance"
+      },
+      "lines": "92-145",
+      "stages_used": [
+        "a02_pre_admission_geometry_audit.json",
+        "a02_pre_admission_geometry_audit.md"
+      ],
+      "semantic_definition": "high-precision pair and boundary audit, but the 0.032 nm boundary margin was incorrectly doubled as a seam gap in the historical report; this is superseded provenance."
+    }
+  ],
+  "corrected_polygon_logic": [
+    {
+      "path": "paper_a_broadband/scripts/a02_pre_admission_geometry_audit_v2.py",
+      "commit_history": [
+        {
+          "commit": "40ac4792c470034bedeeb3dee6000464e9330513",
+          "subject": "Resolve_A02_minimum_gap_reporting_audit"
+        },
+        {
+          "commit": "2d06badb7c7401293cc4a25be7f17be321ed5497",
+          "subject": "Correct_A02_integer_grid_audit_tolerance"
+        }
+      ],
+      "current_last_commit": {
+        "returncode": 0,
+        "commit": "2d06badb7c7401293cc4a25be7f17be321ed5497",
+        "date": "2026-09-01",
+        "subject": "Correct_A02_integer_grid_audit_tolerance"
+      },
+      "lines": "154-213",
+      "stages_used": [
+        "a02_pre_admission_geometry_audit_v2.json",
+        "a01_a08_corrected_validity_audit_v2.csv"
+      ],
+      "semantic_definition": "exact high-precision segment-to-segment polygon distance; direct is same-cell pillar pair; periodic is every object/image pair under {-1,0,+1} translations excluding [0,0]; boundary margin is separately reported, not substituted for polygon clearance."
+    }
+  ],
+  "current_authority_logic": [
+    {
+      "path": "paper_a_broadband/scripts/lp_anisotropy_feasible_space_v2.py",
+      "commit": {
+        "returncode": 0,
+        "commit": "4ff2ff6f78e152d03a04d792466ddae8a4e2fb35",
+        "date": "2026-08-19",
+        "subject": "plan Paper A LP anisotropy feasible space V2"
+      },
+      "lines": "160-209, 294-317",
+      "stages_used": [
+        "lp_anisotropy_feasible_space_v2",
+        "balanced selection",
+        "BF04 local redesign",
+        "integrated-aware LP contract"
+      ],
+      "semantic_definition": "exact direct/periodic polygon clearance with no cell-boundary substitution plus no overlap/touch, containment, integer lateral dimensions, and half-grid centers."
+    },
+    {
+      "path": "paper_a_broadband/reports/integrated_aware_lp_redesign_contract_v1/integrated_local_domain_authority.json",
+      "commit": {
+        "returncode": 0,
+        "commit": "f2441d593d301141eba5b43bf6ad609a9aba4904",
+        "date": "2026-08-29",
+        "subject": "integrated_aware_lp_redesign_contract_v1"
+      },
+      "lines": "69-81",
+      "stages_used": [
+        "I03 local domain",
+        "IAR1-IAR4 contract",
+        "IC1/IC2 and IAR truth provenance"
+      ],
+      "semantic_definition": "current inherited hard gates: direct polygon clearance >=60 nm, periodic translated-polygon clearance >=60 nm, no overlap/touch, containment, integer lateral dimensions, half-grid centers, no sub-grid geometry; no separate minimum linewidth/aspect-ratio hard gate."
+    }
+  ],
+  "current_rule_authority_hashes": {
+    "parameterization": "7ea9d45634b47f41e9c9a114874f2d56186d8798ebf26290460b46875ace6b48",
+    "integrated_local_domain": "5fc38ef57cdca89345a9bf9d7666755b4a7cf74cd5bd5de2b8cac02d9f9b9df0",
+    "corrected_method": "a3892e8832d83e642cb94fbe6505ec6a08622465fbd05c99192dce2ece3fa090"
+  }
+}
