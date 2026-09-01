@@ -1,0 +1,319 @@
+{
+  "schema": "PAPER_A_IAR_C2_ORIENTATION_CONTINUATION_CONTROL_CONTRACT_V1",
+  "status": "ZERO_SOLVER_PRE_ADMISSION_PLAN_ONLY",
+  "task": "PAPER_A_IAR_C2_ORIENTATION_CONTINUATION_CONTROL_CONTRACT_V1",
+  "scientific_scope": "IAR-C2 fixed-geometry orientation continuation control; no optical inference",
+  "parent_authority": {
+    "conditional_registry_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_candidate_registry_conditional.csv",
+    "conditional_registry_sha256": "ecd2474a66227f11e00c195d8efd818b2d66dbbf02ae03a95e3e3127dc0d256b",
+    "IAR-C2_exact_row_used": true,
+    "frozen_local_domain_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_local_domain_authority.json",
+    "frozen_local_domain_sha256": "5fc38ef57cdca89345a9bf9d7666755b4a7cf74cd5bd5de2b8cac02d9f9b9df0",
+    "delta_theta_domain_deg": [
+      80.0,
+      90.0
+    ]
+  },
+  "fixed_IAR_C2_geometry": {
+    "L1_nm": 258,
+    "W1_nm": 88,
+    "L2_nm": 198,
+    "W2_nm": 78,
+    "D_nm": 217,
+    "delta_theta_deg": 82.818204313,
+    "theta1_deg": 0.0,
+    "theta2_deg": 82.818204313,
+    "j1_center_x_nm": 0.0,
+    "j1_center_y_nm": 108.5,
+    "j2_center_x_nm": 0.0,
+    "j2_center_y_nm": -108.5,
+    "height_nm": 525.0,
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0
+  },
+  "IAR_C2_source_geometry_hash": "3f09a8a9dd696630b80e7265436157601ee84490d36c02d3ac1e7bd7a6c4636a",
+  "angle_only_control": {
+    "candidate_id": "IAR-C2-OC80",
+    "role": "FABRICATION_HEADROOM_ORIENTATION_CONTINUATION_CONTROL",
+    "status": "PROSPECTIVE_NOT_AUTHORIZED",
+    "geometry": {
+      "L1_nm": 258,
+      "W1_nm": 88,
+      "L2_nm": 198,
+      "W2_nm": 78,
+      "D_nm": 217,
+      "delta_theta_deg": 80.0,
+      "theta1_deg": 0.0,
+      "theta2_deg": 80.0,
+      "j1_center_x_nm": 0.0,
+      "j1_center_y_nm": 108.5,
+      "j2_center_x_nm": 0.0,
+      "j2_center_y_nm": -108.5,
+      "height_nm": 525.0,
+      "period_x_nm": 432.0,
+      "period_y_nm": 432.0
+    },
+    "geometry_hash_sha256_recomputed": "4e5a2cd840e948d7adc6827926514d95fe6a4d1eefb8e5d4f51d952f7a1bd574",
+    "source_geometry_hash": null,
+    "source_geometry_hash_match": true,
+    "validity_audit_high_precision": {
+      "vertices_nm": {
+        "pillar_1": [
+          [
+            "-129.0",
+            "64.5"
+          ],
+          [
+            "129.0",
+            "64.5"
+          ],
+          [
+            "129.0",
+            "152.5"
+          ],
+          [
+            "-129.0",
+            "152.5"
+          ]
+        ],
+        "pillar_2": [
+          [
+            "21.216332778450009778983031908829232729117894775851",
+            "-212.76824647721888148252450787836605539740833333044"
+          ],
+          [
+            "55.598671956502218851622924009153562337192278858297",
+            "-17.776311380801685727909389009640498690620969489914"
+          ],
+          [
+            "-21.216332778450009778983031908829232729117894775851",
+            "-4.2317535227811185174754921216339446025916666695569"
+          ],
+          [
+            "-55.598671956502218851622924009153562337192278858297",
+            "-199.22368861919831427209061099035950130937903051009"
+          ]
+        ]
+      },
+      "direct_same_cell_pillar_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          0
+        ],
+        "image_shift_nm": [
+          "0",
+          "0"
+        ],
+        "distance_nm": "68.731753522781118517475492121633944602591666669557",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 2,
+          "edge_index": 0,
+          "point_nm": [
+            "-21.216332778450009778983031908829232729117894775851",
+            "-4.2317535227811185174754921216339446025916666695569"
+          ],
+          "projection_nm": [
+            "-21.216332778450009778983031908829232729117894775851",
+            "64.5"
+          ],
+          "projection_t": "0.41776615202151159000394173678748359407318645435717"
+        }
+      },
+      "nearest_periodic_image_pair_all_objects": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0",
+          "432"
+        ],
+        "distance_nm": "66.731753522781118517475492121633944602591666669557",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "21.216332778450009778983031908829232729117894775851",
+            "219.23175352278111851747549212163394460259166666956"
+          ],
+          "projection_nm": [
+            "21.216332778450009778983031908829232729117894775851",
+            "152.5"
+          ],
+          "projection_t": "0.41776615202151159000394173678748359407318645435717"
+        }
+      },
+      "nearest_periodic_image_pair_cross_pillar": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_2",
+        "image_shift_cells": [
+          0,
+          1
+        ],
+        "image_shift_nm": [
+          "0",
+          "432"
+        ],
+        "distance_nm": "66.731753522781118517475492121633944602591666669557",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "B_to_A",
+          "vertex_index": 0,
+          "edge_index": 2,
+          "point_nm": [
+            "21.216332778450009778983031908829232729117894775851",
+            "219.23175352278111851747549212163394460259166666956"
+          ],
+          "projection_nm": [
+            "21.216332778450009778983031908829232729117894775851",
+            "152.5"
+          ],
+          "projection_t": "0.41776615202151159000394173678748359407318645435717"
+        }
+      },
+      "nearest_same_object_periodic_image_pair": {
+        "object_a": "pillar_1",
+        "object_b": "pillar_1",
+        "image_shift_cells": [
+          -1,
+          0
+        ],
+        "image_shift_nm": [
+          "-432",
+          "0"
+        ],
+        "distance_nm": "174.0",
+        "intersects_or_touches": false,
+        "witness": {
+          "side": "A_to_B",
+          "vertex_index": 0,
+          "edge_index": 0,
+          "point_nm": [
+            "-129.0",
+            "64.5"
+          ],
+          "projection_nm": [
+            "-303.0",
+            "64.5"
+          ],
+          "projection_t": "1.0"
+        }
+      },
+      "periodic_intersection_count": 0,
+      "boundary_minimum": {
+        "object": "pillar_2",
+        "vertex_index": 0,
+        "boundary": "bottom",
+        "clearance_nm": "3.2317535227811185174754921216339446025916666695569",
+        "point_nm": [
+          "21.216332778450009778983031908829232729117894775851",
+          "-212.76824647721888148252450787836605539740833333044"
+        ]
+      },
+      "cell_containment_pass": true,
+      "direct_no_overlap_or_touch_pass": true,
+      "periodic_no_overlap_or_touch_pass": true,
+      "integer_lateral_dimensions_pass": true,
+      "half_grid_centers_pass": true,
+      "legacy_aggregate_minimum_nm": "3.2317535227811185174754921216339446025916666695569",
+      "physical_polygon_minimum_nm": "66.731753522781118517475492121633944602591666669557",
+      "direct_clearance_nm": "68.731753522781118517475492121633944602591666669557",
+      "periodic_image_clearance_nm": "66.731753522781118517475492121633944602591666669557",
+      "boundary_margin_nm": "3.2317535227811185174754921216339446025916666695569",
+      "old_planning_validity": {},
+      "current_inherited_gate_pass": true
+    },
+    "inherited_gate_snapshot": {
+      "direct_clearance_nm_ge_60": true,
+      "periodic_clearance_nm_ge_60": true,
+      "no_direct_overlap_or_touch": true,
+      "no_periodic_overlap_or_touch": true,
+      "cell_containment": true,
+      "integer_lateral_dimensions": true,
+      "half_grid_centers": true,
+      "current_inherited_gate_pass": true
+    },
+    "parent_candidate_id": "IAR-C2",
+    "only_changed_parameter": "delta_theta_deg",
+    "delta_theta_difference_from_IAR_C2_deg": -2.818204313,
+    "delta_theta_difference_from_IAR4_deg": -2.820909321000002,
+    "clearance_headroom_over_60_nm": {
+      "direct": 8.73175352278112,
+      "periodic": 6.731753522781119,
+      "global": 6.731753522781119
+    },
+    "causal_control_reason": "All IAR-C2 dimensions, D, H, periods, centers, materials, and geometry semantics are frozen; only relative orientation changes.",
+    "difference_from_IAR4": {
+      "L1_nm": -1.0,
+      "W1_nm": 1.0,
+      "L2_nm": -5.0,
+      "W2_nm": -1.0,
+      "D_nm": 7.0,
+      "delta_theta_deg": -2.820909321000002
+    },
+    "normalized_6d_distance_from_IAR4": 0.17846201940720746
+  },
+  "validity_authority": {
+    "current_rule_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_anisotropy_feasible_space_v2.py",
+    "current_rule_sha256": "513cc688043f0dadf91f0823d39368c945650d45fa13980d46eea2428de228d3",
+    "high_precision_rule_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\a02_pre_admission_geometry_audit_v2.py",
+    "high_precision_rule_sha256": "a3892e8832d83e642cb94fbe6505ec6a08622465fbd05c99192dce2ece3fa090",
+    "method": "existing exact segment-to-segment polygon distance over all pillar/image pairs in translations {-1,0,+1}; no cell-boundary substitution",
+    "inherited_gates": {
+      "cell_containment": true,
+      "direct_polygon_clearance_nm_ge": 60.0,
+      "half_grid_centers": true,
+      "integer_lateral_dimensions": true,
+      "no_overlap_or_touching": true,
+      "no_sub_grid_geometry": true,
+      "periodic_image_polygon_clearance_nm_ge": 60.0
+    },
+    "no_new_fabrication_threshold": true
+  },
+  "frontier_scan": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\iar_c2_orientation_continuation_control_contract_v1\\iar_c2_angle_clearance_frontier.csv",
+    "grid_start_deg": 80.0,
+    "grid_stop_deg": 90.0,
+    "grid_step_deg": 0.01,
+    "row_count": 1001,
+    "all_current_rule_gates_pass": true,
+    "minimum_legal_theta_on_grid_deg": 80.0,
+    "minimum_legal_theta_is_domain_lower_bound": true
+  },
+  "solver_authority": {
+    "current_solver_budget": 0,
+    "future_bounded_validation_maximum": 4,
+    "future_batch": [
+      "IAR-C2_x",
+      "IAR-C2_y",
+      "IAR-C2-OC80_x",
+      "IAR-C2-OC80_y"
+    ],
+    "current_authorization": "NONE",
+    "automatic_admission": false,
+    "CR1_preferred": false
+  },
+  "stop_loss": "After the separately authorized four-job C2/OC80 bounded validation, make a GO/STOP decision; do not expand the local geometry domain, run local DOE, or open another rescue route.",
+  "solver_accounting": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "RCWA": 0,
+    "ML": 0,
+    "active_fdtd_processes": {
+      "matching_process_count": 0,
+      "matching_process_rows": [],
+      "returncode": 0
+    },
+    "hidden_ready_or_pending_auto_admission": false
+  },
+  "DOE_changed": false
+}
