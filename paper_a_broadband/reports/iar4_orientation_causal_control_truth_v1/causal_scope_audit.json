@@ -1,0 +1,5909 @@
+{
+  "schema": "PAPER_A_IAR4_OC1_CAUSAL_SCOPE_AUDIT_V1",
+  "status": "PASS",
+  "truth_scope": "existing current Native-M1 IAR4 versus IAR4-OC1 integrated FDTD truth only",
+  "strict_causal_comparator": "IAR4 versus IAR4-OC1; only delta_theta differs",
+  "input_provenance": {
+    "IAR4_pair_wavelength_metrics_csv": {
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_initial_truth_v1\\pairs\\IAR4\\pair_wavelength_metrics.csv",
+      "sha256": "4254390a61645e5f35fe5eb7cdaac586a5a0cf44c3b8800b65017b5aed01e01c"
+    },
+    "IAR4_angular_cancellation_metrics_csv": {
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_initial_truth_v1\\pairs\\IAR4\\angular_cancellation_metrics.csv",
+      "sha256": "a1029d7d56307fe81ba70a263def4a6a0c252cd5edc5d83f00a84e9a9c4a4fd5"
+    },
+    "IAR4_OC1_pair_wavelength_metrics_csv": {
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\iar4_orientation_causal_control_truth_v1\\pairs\\IAR4-OC1\\pair_wavelength_metrics.csv",
+      "sha256": "d8c7a82bc1952aa581004a21b0dd16d1f53ecfcdde95df693691edfc91289ef2"
+    },
+    "IAR4_OC1_angular_cancellation_metrics_csv": {
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\iar4_orientation_causal_control_truth_v1\\pairs\\IAR4-OC1\\angular_cancellation_metrics.csv",
+      "sha256": "f54e05e320653976336ccdae90fb292593b64550c8a74a1ae3fd60a8ef7d4a73"
+    },
+    "prior_causal_contrast_summary_json": {
+      "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\iar4_orientation_causal_control_truth_v1\\iar4_vs_oc1_causal_contrast_summary.json",
+      "sha256": "aa1b9693859f2106ba502cc6f0c0ce0279def8776f8856303061c18fbf9e4fa3"
+    }
+  },
+  "scopes": {
+    "A_450_nm_exact": {
+      "label": "A_450_nm_exact",
+      "wavelength_min_nm": 450.0,
+      "wavelength_max_nm": 450.0,
+      "points": 1,
+      "metrics": {
+        "pair_DoLP": {
+          "count": 1,
+          "mean": -0.012140793341122384,
+          "median": -0.012140793341122384,
+          "minimum": -0.012140793341122384,
+          "maximum": -0.012140793341122384,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "C_source": {
+          "count": 1,
+          "mean": -0.03129493671549155,
+          "median": -0.03129493671549155,
+          "minimum": -0.03129493671549155,
+          "maximum": -0.03129493671549155,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "C_angular": {
+          "count": 1,
+          "mean": -0.0043782726611538425,
+          "median": -0.0043782726611538425,
+          "minimum": -0.0043782726611538425,
+          "maximum": -0.0043782726611538425,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "full_angle_DoLP": {
+          "count": 1,
+          "mean": -0.0028871821975590545,
+          "median": -0.0028871821975590545,
+          "minimum": -0.0028871821975590545,
+          "maximum": -0.0028871821975590545,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "upward_source_normalized_power": {
+          "count": 1,
+          "mean": -9.241491364746744e-06,
+          "median": -9.241491364746744e-06,
+          "minimum": -9.241491364746744e-06,
+          "maximum": -9.241491364746744e-06,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "useful_LP": {
+          "count": 1,
+          "mean": -0.025394054302343205,
+          "median": -0.025394054302343205,
+          "minimum": -0.025394054302343205,
+          "maximum": -0.025394054302343205,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "P_LP_over_S0": {
+          "count": 1,
+          "mean": -0.006070396670561196,
+          "median": -0.006070396670561196,
+          "minimum": -0.006070396670561196,
+          "maximum": -0.006070396670561196,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "cone_5deg_DoLP": {
+          "count": 1,
+          "mean": -0.04470060284485153,
+          "median": -0.04470060284485153,
+          "minimum": -0.04470060284485153,
+          "maximum": -0.04470060284485153,
+          "positive_count": 0,
+          "negative_count": 1,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "cone_10deg_DoLP": {
+          "count": 1,
+          "mean": 0.014788805396065363,
+          "median": 0.014788805396065363,
+          "minimum": 0.014788805396065363,
+          "maximum": 0.014788805396065363,
+          "positive_count": 1,
+          "negative_count": 0,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 1.0,
+          "fraction_delta_lt_0_IAR4_better": 0.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "cone_20deg_DoLP": {
+          "count": 1,
+          "mean": 0.00687137402758653,
+          "median": 0.00687137402758653,
+          "minimum": 0.00687137402758653,
+          "maximum": 0.00687137402758653,
+          "positive_count": 1,
+          "negative_count": 0,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 1.0,
+          "fraction_delta_lt_0_IAR4_better": 0.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        }
+      },
+      "sign_consistency": {
+        "pair_DoLP_vs_C_source": {
+          "left_metric": "pair_DoLP",
+          "right_metric": "C_source",
+          "points": 1,
+          "same_sign_count": 1,
+          "opposite_nonzero_sign_count": 0,
+          "same_sign_fraction": 1.0,
+          "opposite_nonzero_sign_fraction": 0.0
+        },
+        "C_angular_vs_C_source": {
+          "left_metric": "C_angular",
+          "right_metric": "C_source",
+          "points": 1,
+          "same_sign_count": 1,
+          "opposite_nonzero_sign_count": 0,
+          "same_sign_fraction": 1.0,
+          "opposite_nonzero_sign_fraction": 0.0
+        }
+      },
+      "power_vs_purity_quadrants": {
+        "primary_power_metrics": {
+          "pair_DoLP_vs_upward_source_normalized_power": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "pair_DoLP_vs_useful_LP": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source_vs_upward_source_normalized_power": {
+            "purity_metric": "C_source",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source_vs_useful_LP": {
+            "purity_metric": "C_source",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular_vs_upward_source_normalized_power": {
+            "purity_metric": "C_angular",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular_vs_useful_LP": {
+            "purity_metric": "C_angular",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP_vs_upward_source_normalized_power": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP_vs_useful_LP": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          }
+        },
+        "efficiency_metric_P_LP_over_S0": {
+          "pair_DoLP": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source": {
+            "purity_metric": "C_source",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular": {
+            "purity_metric": "C_angular",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 1,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                450.0
+              ],
+              "zero_involved": []
+            }
+          }
+        }
+      }
+    },
+    "B_445_455_nm_unweighted_diagnostic": {
+      "label": "B_445_455_nm_unweighted_diagnostic",
+      "wavelength_min_nm": 445.0,
+      "wavelength_max_nm": 455.0,
+      "points": 11,
+      "metrics": {
+        "pair_DoLP": {
+          "count": 11,
+          "mean": -0.011148396487502304,
+          "median": -0.010725303405343296,
+          "minimum": -0.015229248840968854,
+          "maximum": -0.0062978510737815505,
+          "positive_count": 0,
+          "negative_count": 11,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "C_source": {
+          "count": 11,
+          "mean": -0.02834840159742001,
+          "median": -0.030088193034701935,
+          "minimum": -0.035160513805834855,
+          "maximum": -0.019304552692658974,
+          "positive_count": 0,
+          "negative_count": 11,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "C_angular": {
+          "count": 11,
+          "mean": -0.0063097646219656585,
+          "median": -0.005666646290050606,
+          "minimum": -0.016709554405980848,
+          "maximum": 0.0036934537569902268,
+          "positive_count": 1,
+          "negative_count": 10,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.09090909090909091,
+          "fraction_delta_lt_0_IAR4_better": 0.9090909090909091,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            455.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 454.0,
+              "to_wavelength_nm": 455.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "full_angle_DoLP": {
+          "count": 11,
+          "mean": -0.00398209346461902,
+          "median": -0.0037458800010412713,
+          "minimum": -0.01027662819699885,
+          "maximum": 0.0023706037325486873,
+          "positive_count": 1,
+          "negative_count": 10,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.09090909090909091,
+          "fraction_delta_lt_0_IAR4_better": 0.9090909090909091,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            455.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 454.0,
+              "to_wavelength_nm": 455.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "upward_source_normalized_power": {
+          "count": 11,
+          "mean": -1.4986205846190921e-05,
+          "median": -1.541264305362361e-05,
+          "minimum": -2.1803711445663593e-05,
+          "maximum": -9.241491364746744e-06,
+          "positive_count": 0,
+          "negative_count": 11,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "useful_LP": {
+          "count": 11,
+          "mean": -0.02550260382550523,
+          "median": -0.02525762737373749,
+          "minimum": -0.03308395971328615,
+          "maximum": -0.01796419741276023,
+          "positive_count": 0,
+          "negative_count": 11,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "P_LP_over_S0": {
+          "count": 11,
+          "mean": -0.00557419824375115,
+          "median": -0.005362651702671584,
+          "minimum": -0.007614624420484439,
+          "maximum": -0.003148925536890834,
+          "positive_count": 0,
+          "negative_count": 11,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.0,
+          "fraction_delta_lt_0_IAR4_better": 1.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "cone_5deg_DoLP": {
+          "count": 11,
+          "mean": -0.026118352968490854,
+          "median": -0.023853282220998362,
+          "minimum": -0.06469050349236506,
+          "maximum": 0.004978847939870024,
+          "positive_count": 2,
+          "negative_count": 9,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.18181818181818182,
+          "fraction_delta_lt_0_IAR4_better": 0.8181818181818182,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            454.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 453.0,
+              "to_wavelength_nm": 454.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "cone_10deg_DoLP": {
+          "count": 11,
+          "mean": 0.008536871328981498,
+          "median": 0.009044936551780625,
+          "minimum": 0.0018718438298925555,
+          "maximum": 0.014788805396065363,
+          "positive_count": 11,
+          "negative_count": 0,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 1.0,
+          "fraction_delta_lt_0_IAR4_better": 0.0,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [],
+          "sign_flip_intervals_nm": []
+        },
+        "cone_20deg_DoLP": {
+          "count": 11,
+          "mean": 0.0026735959421530257,
+          "median": 0.003810613399627738,
+          "minimum": -0.0053272873559878225,
+          "maximum": 0.00722522921062746,
+          "positive_count": 9,
+          "negative_count": 2,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.8181818181818182,
+          "fraction_delta_lt_0_IAR4_better": 0.18181818181818182,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            454.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 453.0,
+              "to_wavelength_nm": 454.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            }
+          ]
+        }
+      },
+      "sign_consistency": {
+        "pair_DoLP_vs_C_source": {
+          "left_metric": "pair_DoLP",
+          "right_metric": "C_source",
+          "points": 11,
+          "same_sign_count": 11,
+          "opposite_nonzero_sign_count": 0,
+          "same_sign_fraction": 1.0,
+          "opposite_nonzero_sign_fraction": 0.0
+        },
+        "C_angular_vs_C_source": {
+          "left_metric": "C_angular",
+          "right_metric": "C_source",
+          "points": 11,
+          "same_sign_count": 10,
+          "opposite_nonzero_sign_count": 1,
+          "same_sign_fraction": 0.9090909090909091,
+          "opposite_nonzero_sign_fraction": 0.09090909090909091
+        }
+      },
+      "power_vs_purity_quadrants": {
+        "primary_power_metrics": {
+          "pair_DoLP_vs_upward_source_normalized_power": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 11,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "pair_DoLP_vs_useful_LP": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 11,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source_vs_upward_source_normalized_power": {
+            "purity_metric": "C_source",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 11,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source_vs_useful_LP": {
+            "purity_metric": "C_source",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 11,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular_vs_upward_source_normalized_power": {
+            "purity_metric": "C_angular",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 1,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 10,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [
+                455.0
+              ],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular_vs_useful_LP": {
+            "purity_metric": "C_angular",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 1,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 10,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [
+                455.0
+              ],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP_vs_upward_source_normalized_power": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 1,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 10,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [
+                455.0
+              ],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP_vs_useful_LP": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 1,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 10,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [
+                455.0
+              ],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          }
+        },
+        "efficiency_metric_P_LP_over_S0": {
+          "pair_DoLP": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 11,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source": {
+            "purity_metric": "C_source",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 11,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular": {
+            "purity_metric": "C_angular",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 1,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 10,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [
+                455.0
+              ],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 0,
+              "purity_positive_power_negative": 1,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 10,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [],
+              "purity_positive_power_negative": [
+                455.0
+              ],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          }
+        }
+      }
+    },
+    "C_400_500_nm_full_diagnostic": {
+      "label": "C_400_500_nm_full_diagnostic",
+      "wavelength_min_nm": 400.0,
+      "wavelength_max_nm": 500.0,
+      "points": 101,
+      "metrics": {
+        "pair_DoLP": {
+          "count": 101,
+          "mean": -0.0017364092333941315,
+          "median": -0.000729222681192826,
+          "minimum": -0.015229248840968854,
+          "maximum": 0.0036274981610708024,
+          "positive_count": 42,
+          "negative_count": 59,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.4158415841584158,
+          "fraction_delta_lt_0_IAR4_better": 0.5841584158415841,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            403.0,
+            405.0,
+            407.0,
+            409.0,
+            412.0,
+            415.0,
+            421.0,
+            425.0,
+            428.0,
+            430.0,
+            432.0,
+            433.0,
+            437.0,
+            443.0,
+            458.0,
+            462.0,
+            469.0,
+            487.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 402.0,
+              "to_wavelength_nm": 403.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 404.0,
+              "to_wavelength_nm": 405.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 406.0,
+              "to_wavelength_nm": 407.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 408.0,
+              "to_wavelength_nm": 409.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 411.0,
+              "to_wavelength_nm": 412.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 414.0,
+              "to_wavelength_nm": 415.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 420.0,
+              "to_wavelength_nm": 421.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 424.0,
+              "to_wavelength_nm": 425.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 427.0,
+              "to_wavelength_nm": 428.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 429.0,
+              "to_wavelength_nm": 430.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 431.0,
+              "to_wavelength_nm": 432.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 436.0,
+              "to_wavelength_nm": 437.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 442.0,
+              "to_wavelength_nm": 443.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 457.0,
+              "to_wavelength_nm": 458.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 461.0,
+              "to_wavelength_nm": 462.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 468.0,
+              "to_wavelength_nm": 469.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 486.0,
+              "to_wavelength_nm": 487.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            }
+          ]
+        },
+        "C_source": {
+          "count": 101,
+          "mean": -0.005162363423285352,
+          "median": -0.002141337443945516,
+          "minimum": -0.035160513805834855,
+          "maximum": 0.012806885956548497,
+          "positive_count": 36,
+          "negative_count": 65,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.3564356435643564,
+          "fraction_delta_lt_0_IAR4_better": 0.6435643564356436,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            403.0,
+            405.0,
+            407.0,
+            408.0,
+            412.0,
+            415.0,
+            421.0,
+            425.0,
+            429.0,
+            430.0,
+            432.0,
+            433.0,
+            440.0,
+            442.0,
+            458.0,
+            461.0,
+            469.0,
+            488.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 402.0,
+              "to_wavelength_nm": 403.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 404.0,
+              "to_wavelength_nm": 405.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 406.0,
+              "to_wavelength_nm": 407.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 407.0,
+              "to_wavelength_nm": 408.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 411.0,
+              "to_wavelength_nm": 412.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 414.0,
+              "to_wavelength_nm": 415.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 420.0,
+              "to_wavelength_nm": 421.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 424.0,
+              "to_wavelength_nm": 425.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 428.0,
+              "to_wavelength_nm": 429.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 429.0,
+              "to_wavelength_nm": 430.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 431.0,
+              "to_wavelength_nm": 432.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 439.0,
+              "to_wavelength_nm": 440.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 441.0,
+              "to_wavelength_nm": 442.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 457.0,
+              "to_wavelength_nm": 458.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 460.0,
+              "to_wavelength_nm": 461.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 468.0,
+              "to_wavelength_nm": 469.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 487.0,
+              "to_wavelength_nm": 488.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            }
+          ]
+        },
+        "C_angular": {
+          "count": 101,
+          "mean": -4.723312237248158e-05,
+          "median": 0.0010465770583087813,
+          "minimum": -0.016709554405980848,
+          "maximum": 0.007312280904593835,
+          "positive_count": 59,
+          "negative_count": 42,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.5841584158415841,
+          "fraction_delta_lt_0_IAR4_better": 0.4158415841584158,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            401.0,
+            405.0,
+            409.0,
+            412.0,
+            415.0,
+            419.0,
+            420.0,
+            426.0,
+            427.0,
+            433.0,
+            434.0,
+            437.0,
+            443.0,
+            455.0,
+            464.0,
+            468.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 400.0,
+              "to_wavelength_nm": 401.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 404.0,
+              "to_wavelength_nm": 405.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 408.0,
+              "to_wavelength_nm": 409.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 411.0,
+              "to_wavelength_nm": 412.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 414.0,
+              "to_wavelength_nm": 415.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 418.0,
+              "to_wavelength_nm": 419.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 419.0,
+              "to_wavelength_nm": 420.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 425.0,
+              "to_wavelength_nm": 426.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 426.0,
+              "to_wavelength_nm": 427.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 433.0,
+              "to_wavelength_nm": 434.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 436.0,
+              "to_wavelength_nm": 437.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 442.0,
+              "to_wavelength_nm": 443.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 454.0,
+              "to_wavelength_nm": 455.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 463.0,
+              "to_wavelength_nm": 464.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 467.0,
+              "to_wavelength_nm": 468.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "full_angle_DoLP": {
+          "count": 101,
+          "mean": -4.6838238819437914e-05,
+          "median": 0.0006542946865195146,
+          "minimum": -0.01027662819699885,
+          "maximum": 0.0045271030273414115,
+          "positive_count": 59,
+          "negative_count": 42,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.5841584158415841,
+          "fraction_delta_lt_0_IAR4_better": 0.4158415841584158,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            401.0,
+            405.0,
+            409.0,
+            412.0,
+            415.0,
+            419.0,
+            420.0,
+            426.0,
+            427.0,
+            433.0,
+            434.0,
+            437.0,
+            443.0,
+            455.0,
+            464.0,
+            468.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 400.0,
+              "to_wavelength_nm": 401.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 404.0,
+              "to_wavelength_nm": 405.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 408.0,
+              "to_wavelength_nm": 409.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 411.0,
+              "to_wavelength_nm": 412.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 414.0,
+              "to_wavelength_nm": 415.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 418.0,
+              "to_wavelength_nm": 419.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 419.0,
+              "to_wavelength_nm": 420.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 425.0,
+              "to_wavelength_nm": 426.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 426.0,
+              "to_wavelength_nm": 427.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 433.0,
+              "to_wavelength_nm": 434.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 436.0,
+              "to_wavelength_nm": 437.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 442.0,
+              "to_wavelength_nm": 443.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 454.0,
+              "to_wavelength_nm": 455.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 463.0,
+              "to_wavelength_nm": 464.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 467.0,
+              "to_wavelength_nm": 468.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "upward_source_normalized_power": {
+          "count": 101,
+          "mean": -2.5862496942725985e-06,
+          "median": -2.2612355967859335e-06,
+          "minimum": -3.195786093516256e-05,
+          "maximum": 2.7104932400545678e-05,
+          "positive_count": 39,
+          "negative_count": 62,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.38613861386138615,
+          "fraction_delta_lt_0_IAR4_better": 0.6138613861386139,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            404.0,
+            411.0,
+            414.0,
+            416.0,
+            429.0,
+            433.0,
+            438.0,
+            444.0,
+            459.0,
+            470.0,
+            486.0,
+            491.0,
+            497.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 403.0,
+              "to_wavelength_nm": 404.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 410.0,
+              "to_wavelength_nm": 411.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 413.0,
+              "to_wavelength_nm": 414.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 415.0,
+              "to_wavelength_nm": 416.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 428.0,
+              "to_wavelength_nm": 429.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 437.0,
+              "to_wavelength_nm": 438.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 443.0,
+              "to_wavelength_nm": 444.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 458.0,
+              "to_wavelength_nm": 459.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 469.0,
+              "to_wavelength_nm": 470.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 485.0,
+              "to_wavelength_nm": 486.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 490.0,
+              "to_wavelength_nm": 491.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 496.0,
+              "to_wavelength_nm": 497.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "useful_LP": {
+          "count": 101,
+          "mean": -0.003608472918780271,
+          "median": -0.0004462399006013307,
+          "minimum": -0.03308395971328615,
+          "maximum": 0.01022840305688355,
+          "positive_count": 47,
+          "negative_count": 54,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.46534653465346537,
+          "fraction_delta_lt_0_IAR4_better": 0.5346534653465347,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            403.0,
+            405.0,
+            407.0,
+            416.0,
+            429.0,
+            433.0,
+            437.0,
+            443.0,
+            458.0,
+            462.0,
+            468.0,
+            488.0,
+            499.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 402.0,
+              "to_wavelength_nm": 403.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 404.0,
+              "to_wavelength_nm": 405.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 406.0,
+              "to_wavelength_nm": 407.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 415.0,
+              "to_wavelength_nm": 416.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 428.0,
+              "to_wavelength_nm": 429.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 436.0,
+              "to_wavelength_nm": 437.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 442.0,
+              "to_wavelength_nm": 443.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 457.0,
+              "to_wavelength_nm": 458.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 461.0,
+              "to_wavelength_nm": 462.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 467.0,
+              "to_wavelength_nm": 468.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 487.0,
+              "to_wavelength_nm": 488.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 498.0,
+              "to_wavelength_nm": 499.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "P_LP_over_S0": {
+          "count": 101,
+          "mean": -0.0008682046166970631,
+          "median": -0.0003646113405963991,
+          "minimum": -0.007614624420484439,
+          "maximum": 0.0018137490805353318,
+          "positive_count": 42,
+          "negative_count": 59,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.4158415841584158,
+          "fraction_delta_lt_0_IAR4_better": 0.5841584158415841,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            403.0,
+            405.0,
+            407.0,
+            409.0,
+            412.0,
+            415.0,
+            421.0,
+            425.0,
+            428.0,
+            430.0,
+            432.0,
+            433.0,
+            437.0,
+            443.0,
+            458.0,
+            462.0,
+            469.0,
+            487.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 402.0,
+              "to_wavelength_nm": 403.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 404.0,
+              "to_wavelength_nm": 405.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 406.0,
+              "to_wavelength_nm": 407.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 408.0,
+              "to_wavelength_nm": 409.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 411.0,
+              "to_wavelength_nm": 412.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 414.0,
+              "to_wavelength_nm": 415.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 420.0,
+              "to_wavelength_nm": 421.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 424.0,
+              "to_wavelength_nm": 425.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 427.0,
+              "to_wavelength_nm": 428.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 429.0,
+              "to_wavelength_nm": 430.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 431.0,
+              "to_wavelength_nm": 432.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 436.0,
+              "to_wavelength_nm": 437.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 442.0,
+              "to_wavelength_nm": 443.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 457.0,
+              "to_wavelength_nm": 458.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 461.0,
+              "to_wavelength_nm": 462.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 468.0,
+              "to_wavelength_nm": 469.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 486.0,
+              "to_wavelength_nm": 487.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            }
+          ]
+        },
+        "cone_5deg_DoLP": {
+          "count": 101,
+          "mean": -0.0049887026476661735,
+          "median": -0.001049451645322108,
+          "minimum": -0.06469050349236506,
+          "maximum": 0.027694918025860216,
+          "positive_count": 49,
+          "negative_count": 52,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.48514851485148514,
+          "fraction_delta_lt_0_IAR4_better": 0.5148514851485149,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            403.0,
+            405.0,
+            415.0,
+            418.0,
+            420.0,
+            423.0,
+            430.0,
+            433.0,
+            434.0,
+            444.0,
+            454.0,
+            470.0,
+            485.0,
+            496.0,
+            500.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 402.0,
+              "to_wavelength_nm": 403.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 404.0,
+              "to_wavelength_nm": 405.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 414.0,
+              "to_wavelength_nm": 415.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 417.0,
+              "to_wavelength_nm": 418.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 419.0,
+              "to_wavelength_nm": 420.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 422.0,
+              "to_wavelength_nm": 423.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 429.0,
+              "to_wavelength_nm": 430.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 432.0,
+              "to_wavelength_nm": 433.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 433.0,
+              "to_wavelength_nm": 434.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 443.0,
+              "to_wavelength_nm": 444.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 453.0,
+              "to_wavelength_nm": 454.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 469.0,
+              "to_wavelength_nm": 470.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 484.0,
+              "to_wavelength_nm": 485.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 495.0,
+              "to_wavelength_nm": 496.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 499.0,
+              "to_wavelength_nm": 500.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "cone_10deg_DoLP": {
+          "count": 101,
+          "mean": 0.00012739154573708806,
+          "median": 0.0003994720194509527,
+          "minimum": -0.0185054921567738,
+          "maximum": 0.02956886661666333,
+          "positive_count": 58,
+          "negative_count": 43,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.5742574257425742,
+          "fraction_delta_lt_0_IAR4_better": 0.42574257425742573,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            408.0,
+            409.0,
+            414.0,
+            419.0,
+            422.0,
+            424.0,
+            429.0,
+            430.0,
+            434.0,
+            435.0,
+            436.0,
+            442.0,
+            443.0,
+            456.0,
+            459.0,
+            467.0,
+            470.0,
+            477.0,
+            478.0,
+            483.0,
+            488.0,
+            489.0,
+            490.0,
+            493.0,
+            495.0,
+            498.0,
+            499.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 407.0,
+              "to_wavelength_nm": 408.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 408.0,
+              "to_wavelength_nm": 409.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 413.0,
+              "to_wavelength_nm": 414.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 418.0,
+              "to_wavelength_nm": 419.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 421.0,
+              "to_wavelength_nm": 422.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 423.0,
+              "to_wavelength_nm": 424.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 428.0,
+              "to_wavelength_nm": 429.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 429.0,
+              "to_wavelength_nm": 430.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 433.0,
+              "to_wavelength_nm": 434.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 434.0,
+              "to_wavelength_nm": 435.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 435.0,
+              "to_wavelength_nm": 436.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 441.0,
+              "to_wavelength_nm": 442.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 442.0,
+              "to_wavelength_nm": 443.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 455.0,
+              "to_wavelength_nm": 456.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 458.0,
+              "to_wavelength_nm": 459.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 466.0,
+              "to_wavelength_nm": 467.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 469.0,
+              "to_wavelength_nm": 470.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 476.0,
+              "to_wavelength_nm": 477.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 477.0,
+              "to_wavelength_nm": 478.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 482.0,
+              "to_wavelength_nm": 483.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 487.0,
+              "to_wavelength_nm": 488.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 488.0,
+              "to_wavelength_nm": 489.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 489.0,
+              "to_wavelength_nm": 490.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 492.0,
+              "to_wavelength_nm": 493.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 494.0,
+              "to_wavelength_nm": 495.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 497.0,
+              "to_wavelength_nm": 498.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 498.0,
+              "to_wavelength_nm": 499.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        },
+        "cone_20deg_DoLP": {
+          "count": 101,
+          "mean": -0.0021400011549616987,
+          "median": -0.0021181422664376323,
+          "minimum": -0.016240956571259207,
+          "maximum": 0.014349529912490708,
+          "positive_count": 30,
+          "negative_count": 71,
+          "zero_count": 0,
+          "fraction_delta_gt_0_OC1_better": 0.297029702970297,
+          "fraction_delta_lt_0_IAR4_better": 0.7029702970297029,
+          "fraction_delta_eq_0": 0.0,
+          "sign_flip_wavelengths_nm": [
+            409.0,
+            412.0,
+            414.0,
+            418.0,
+            429.0,
+            430.0,
+            445.0,
+            454.0,
+            458.0,
+            460.0,
+            469.0,
+            478.0,
+            499.0
+          ],
+          "sign_flip_intervals_nm": [
+            {
+              "from_wavelength_nm": 408.0,
+              "to_wavelength_nm": 409.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 411.0,
+              "to_wavelength_nm": 412.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 413.0,
+              "to_wavelength_nm": 414.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 417.0,
+              "to_wavelength_nm": 418.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 428.0,
+              "to_wavelength_nm": 429.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 429.0,
+              "to_wavelength_nm": 430.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 444.0,
+              "to_wavelength_nm": 445.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 453.0,
+              "to_wavelength_nm": 454.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 457.0,
+              "to_wavelength_nm": 458.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 459.0,
+              "to_wavelength_nm": 460.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 468.0,
+              "to_wavelength_nm": 469.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            },
+            {
+              "from_wavelength_nm": 477.0,
+              "to_wavelength_nm": 478.0,
+              "from_sign": "+",
+              "to_sign": "-"
+            },
+            {
+              "from_wavelength_nm": 498.0,
+              "to_wavelength_nm": 499.0,
+              "from_sign": "-",
+              "to_sign": "+"
+            }
+          ]
+        }
+      },
+      "sign_consistency": {
+        "pair_DoLP_vs_C_source": {
+          "left_metric": "pair_DoLP",
+          "right_metric": "C_source",
+          "points": 101,
+          "same_sign_count": 93,
+          "opposite_nonzero_sign_count": 8,
+          "same_sign_fraction": 0.9207920792079208,
+          "opposite_nonzero_sign_fraction": 0.07920792079207921
+        },
+        "C_angular_vs_C_source": {
+          "left_metric": "C_angular",
+          "right_metric": "C_source",
+          "points": 101,
+          "same_sign_count": 62,
+          "opposite_nonzero_sign_count": 39,
+          "same_sign_fraction": 0.6138613861386139,
+          "opposite_nonzero_sign_fraction": 0.38613861386138615
+        }
+      },
+      "power_vs_purity_quadrants": {
+        "primary_power_metrics": {
+          "pair_DoLP_vs_upward_source_normalized_power": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 16,
+              "purity_positive_power_negative": 26,
+              "purity_negative_power_positive": 23,
+              "purity_negative_power_negative": 36,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                404.0,
+                407.0,
+                408.0,
+                414.0,
+                429.0,
+                432.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                459.0,
+                460.0,
+                461.0,
+                469.0,
+                486.0
+              ],
+              "purity_positive_power_negative": [
+                403.0,
+                412.0,
+                413.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                428.0,
+                437.0,
+                458.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0
+              ],
+              "purity_negative_power_positive": [
+                405.0,
+                406.0,
+                409.0,
+                410.0,
+                415.0,
+                430.0,
+                431.0,
+                443.0,
+                462.0,
+                463.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0,
+                468.0,
+                487.0,
+                488.0,
+                489.0,
+                490.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "purity_negative_power_negative": [
+                400.0,
+                401.0,
+                402.0,
+                411.0,
+                416.0,
+                417.0,
+                418.0,
+                419.0,
+                420.0,
+                425.0,
+                426.0,
+                427.0,
+                433.0,
+                434.0,
+                435.0,
+                436.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0,
+                456.0,
+                457.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "pair_DoLP_vs_useful_LP": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 37,
+              "purity_positive_power_negative": 5,
+              "purity_negative_power_positive": 10,
+              "purity_negative_power_negative": 49,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                403.0,
+                404.0,
+                407.0,
+                408.0,
+                412.0,
+                413.0,
+                414.0,
+                429.0,
+                432.0,
+                437.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                458.0,
+                459.0,
+                460.0,
+                461.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0
+              ],
+              "purity_positive_power_negative": [
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                428.0
+              ],
+              "purity_negative_power_positive": [
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                430.0,
+                431.0,
+                468.0,
+                487.0,
+                499.0,
+                500.0
+              ],
+              "purity_negative_power_negative": [
+                400.0,
+                401.0,
+                402.0,
+                405.0,
+                406.0,
+                416.0,
+                417.0,
+                418.0,
+                419.0,
+                420.0,
+                425.0,
+                426.0,
+                427.0,
+                433.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source_vs_upward_source_normalized_power": {
+            "purity_metric": "C_source",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 12,
+              "purity_positive_power_negative": 24,
+              "purity_negative_power_positive": 27,
+              "purity_negative_power_negative": 38,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                404.0,
+                407.0,
+                414.0,
+                429.0,
+                432.0,
+                440.0,
+                441.0,
+                459.0,
+                460.0,
+                469.0,
+                486.0,
+                487.0
+              ],
+              "purity_positive_power_negative": [
+                403.0,
+                412.0,
+                413.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                458.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0
+              ],
+              "purity_negative_power_positive": [
+                405.0,
+                406.0,
+                408.0,
+                409.0,
+                410.0,
+                415.0,
+                430.0,
+                431.0,
+                438.0,
+                439.0,
+                442.0,
+                443.0,
+                461.0,
+                462.0,
+                463.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0,
+                468.0,
+                488.0,
+                489.0,
+                490.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "purity_negative_power_negative": [
+                400.0,
+                401.0,
+                402.0,
+                411.0,
+                416.0,
+                417.0,
+                418.0,
+                419.0,
+                420.0,
+                425.0,
+                426.0,
+                427.0,
+                428.0,
+                433.0,
+                434.0,
+                435.0,
+                436.0,
+                437.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0,
+                456.0,
+                457.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source_vs_useful_LP": {
+            "purity_metric": "C_source",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 32,
+              "purity_positive_power_negative": 4,
+              "purity_negative_power_positive": 15,
+              "purity_negative_power_negative": 50,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                403.0,
+                404.0,
+                407.0,
+                412.0,
+                413.0,
+                414.0,
+                429.0,
+                432.0,
+                440.0,
+                441.0,
+                458.0,
+                459.0,
+                460.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0,
+                487.0
+              ],
+              "purity_positive_power_negative": [
+                421.0,
+                422.0,
+                423.0,
+                424.0
+              ],
+              "purity_negative_power_positive": [
+                408.0,
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                430.0,
+                431.0,
+                437.0,
+                438.0,
+                439.0,
+                442.0,
+                461.0,
+                468.0,
+                499.0,
+                500.0
+              ],
+              "purity_negative_power_negative": [
+                400.0,
+                401.0,
+                402.0,
+                405.0,
+                406.0,
+                416.0,
+                417.0,
+                418.0,
+                419.0,
+                420.0,
+                425.0,
+                426.0,
+                427.0,
+                428.0,
+                433.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular_vs_upward_source_normalized_power": {
+            "purity_metric": "C_angular",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 26,
+              "purity_positive_power_negative": 33,
+              "purity_negative_power_positive": 13,
+              "purity_negative_power_negative": 29,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                405.0,
+                406.0,
+                407.0,
+                408.0,
+                414.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                459.0,
+                460.0,
+                461.0,
+                462.0,
+                463.0,
+                468.0,
+                469.0,
+                486.0,
+                487.0,
+                488.0,
+                489.0,
+                490.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "purity_positive_power_negative": [
+                400.0,
+                412.0,
+                413.0,
+                419.0,
+                426.0,
+                433.0,
+                437.0,
+                455.0,
+                456.0,
+                457.0,
+                458.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0
+              ],
+              "purity_negative_power_positive": [
+                404.0,
+                409.0,
+                410.0,
+                415.0,
+                429.0,
+                430.0,
+                431.0,
+                432.0,
+                443.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0
+              ],
+              "purity_negative_power_negative": [
+                401.0,
+                402.0,
+                403.0,
+                411.0,
+                416.0,
+                417.0,
+                418.0,
+                420.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                425.0,
+                427.0,
+                428.0,
+                434.0,
+                435.0,
+                436.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular_vs_useful_LP": {
+            "purity_metric": "C_angular",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 37,
+              "purity_positive_power_negative": 22,
+              "purity_negative_power_positive": 10,
+              "purity_negative_power_negative": 32,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                407.0,
+                408.0,
+                412.0,
+                413.0,
+                414.0,
+                437.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                458.0,
+                459.0,
+                460.0,
+                461.0,
+                468.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0,
+                487.0,
+                499.0,
+                500.0
+              ],
+              "purity_positive_power_negative": [
+                400.0,
+                405.0,
+                406.0,
+                419.0,
+                426.0,
+                433.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0
+              ],
+              "purity_negative_power_positive": [
+                403.0,
+                404.0,
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                429.0,
+                430.0,
+                431.0,
+                432.0
+              ],
+              "purity_negative_power_negative": [
+                401.0,
+                402.0,
+                416.0,
+                417.0,
+                418.0,
+                420.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                425.0,
+                427.0,
+                428.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP_vs_upward_source_normalized_power": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "upward_source_normalized_power",
+            "counts": {
+              "purity_positive_power_positive": 26,
+              "purity_positive_power_negative": 33,
+              "purity_negative_power_positive": 13,
+              "purity_negative_power_negative": 29,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                405.0,
+                406.0,
+                407.0,
+                408.0,
+                414.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                459.0,
+                460.0,
+                461.0,
+                462.0,
+                463.0,
+                468.0,
+                469.0,
+                486.0,
+                487.0,
+                488.0,
+                489.0,
+                490.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "purity_positive_power_negative": [
+                400.0,
+                412.0,
+                413.0,
+                419.0,
+                426.0,
+                433.0,
+                437.0,
+                455.0,
+                456.0,
+                457.0,
+                458.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0
+              ],
+              "purity_negative_power_positive": [
+                404.0,
+                409.0,
+                410.0,
+                415.0,
+                429.0,
+                430.0,
+                431.0,
+                432.0,
+                443.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0
+              ],
+              "purity_negative_power_negative": [
+                401.0,
+                402.0,
+                403.0,
+                411.0,
+                416.0,
+                417.0,
+                418.0,
+                420.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                425.0,
+                427.0,
+                428.0,
+                434.0,
+                435.0,
+                436.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP_vs_useful_LP": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "useful_LP",
+            "counts": {
+              "purity_positive_power_positive": 37,
+              "purity_positive_power_negative": 22,
+              "purity_negative_power_positive": 10,
+              "purity_negative_power_negative": 32,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                407.0,
+                408.0,
+                412.0,
+                413.0,
+                414.0,
+                437.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                458.0,
+                459.0,
+                460.0,
+                461.0,
+                468.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0,
+                487.0,
+                499.0,
+                500.0
+              ],
+              "purity_positive_power_negative": [
+                400.0,
+                405.0,
+                406.0,
+                419.0,
+                426.0,
+                433.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0
+              ],
+              "purity_negative_power_positive": [
+                403.0,
+                404.0,
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                429.0,
+                430.0,
+                431.0,
+                432.0
+              ],
+              "purity_negative_power_negative": [
+                401.0,
+                402.0,
+                416.0,
+                417.0,
+                418.0,
+                420.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                425.0,
+                427.0,
+                428.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0
+              ],
+              "zero_involved": []
+            }
+          }
+        },
+        "efficiency_metric_P_LP_over_S0": {
+          "pair_DoLP": {
+            "purity_metric": "pair_DoLP",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 42,
+              "purity_positive_power_negative": 0,
+              "purity_negative_power_positive": 0,
+              "purity_negative_power_negative": 59,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                403.0,
+                404.0,
+                407.0,
+                408.0,
+                412.0,
+                413.0,
+                414.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                428.0,
+                429.0,
+                432.0,
+                437.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                458.0,
+                459.0,
+                460.0,
+                461.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0
+              ],
+              "purity_positive_power_negative": [],
+              "purity_negative_power_positive": [],
+              "purity_negative_power_negative": [
+                400.0,
+                401.0,
+                402.0,
+                405.0,
+                406.0,
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                416.0,
+                417.0,
+                418.0,
+                419.0,
+                420.0,
+                425.0,
+                426.0,
+                427.0,
+                430.0,
+                431.0,
+                433.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0,
+                468.0,
+                487.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_source": {
+            "purity_metric": "C_source",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 35,
+              "purity_positive_power_negative": 1,
+              "purity_negative_power_positive": 7,
+              "purity_negative_power_negative": 58,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                403.0,
+                404.0,
+                407.0,
+                412.0,
+                413.0,
+                414.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                429.0,
+                432.0,
+                440.0,
+                441.0,
+                458.0,
+                459.0,
+                460.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0
+              ],
+              "purity_positive_power_negative": [
+                487.0
+              ],
+              "purity_negative_power_positive": [
+                408.0,
+                428.0,
+                437.0,
+                438.0,
+                439.0,
+                442.0,
+                461.0
+              ],
+              "purity_negative_power_negative": [
+                400.0,
+                401.0,
+                402.0,
+                405.0,
+                406.0,
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                416.0,
+                417.0,
+                418.0,
+                419.0,
+                420.0,
+                425.0,
+                426.0,
+                427.0,
+                430.0,
+                431.0,
+                433.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0,
+                468.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "C_angular": {
+            "purity_metric": "C_angular",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 33,
+              "purity_positive_power_negative": 26,
+              "purity_negative_power_positive": 9,
+              "purity_negative_power_negative": 33,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                407.0,
+                408.0,
+                412.0,
+                413.0,
+                414.0,
+                437.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                458.0,
+                459.0,
+                460.0,
+                461.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0
+              ],
+              "purity_positive_power_negative": [
+                400.0,
+                405.0,
+                406.0,
+                419.0,
+                426.0,
+                433.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                468.0,
+                487.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "purity_negative_power_positive": [
+                403.0,
+                404.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                428.0,
+                429.0,
+                432.0
+              ],
+              "purity_negative_power_negative": [
+                401.0,
+                402.0,
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                416.0,
+                417.0,
+                418.0,
+                420.0,
+                425.0,
+                427.0,
+                430.0,
+                431.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0
+              ],
+              "zero_involved": []
+            }
+          },
+          "full_angle_DoLP": {
+            "purity_metric": "full_angle_DoLP",
+            "power_metric": "P_LP_over_S0",
+            "counts": {
+              "purity_positive_power_positive": 33,
+              "purity_positive_power_negative": 26,
+              "purity_negative_power_positive": 9,
+              "purity_negative_power_negative": 33,
+              "zero_involved": 0
+            },
+            "wavelengths_nm": {
+              "purity_positive_power_positive": [
+                407.0,
+                408.0,
+                412.0,
+                413.0,
+                414.0,
+                437.0,
+                438.0,
+                439.0,
+                440.0,
+                441.0,
+                442.0,
+                458.0,
+                459.0,
+                460.0,
+                461.0,
+                469.0,
+                470.0,
+                471.0,
+                472.0,
+                473.0,
+                474.0,
+                475.0,
+                476.0,
+                477.0,
+                478.0,
+                479.0,
+                480.0,
+                481.0,
+                482.0,
+                483.0,
+                484.0,
+                485.0,
+                486.0
+              ],
+              "purity_positive_power_negative": [
+                400.0,
+                405.0,
+                406.0,
+                419.0,
+                426.0,
+                433.0,
+                455.0,
+                456.0,
+                457.0,
+                462.0,
+                463.0,
+                468.0,
+                487.0,
+                488.0,
+                489.0,
+                490.0,
+                491.0,
+                492.0,
+                493.0,
+                494.0,
+                495.0,
+                496.0,
+                497.0,
+                498.0,
+                499.0,
+                500.0
+              ],
+              "purity_negative_power_positive": [
+                403.0,
+                404.0,
+                421.0,
+                422.0,
+                423.0,
+                424.0,
+                428.0,
+                429.0,
+                432.0
+              ],
+              "purity_negative_power_negative": [
+                401.0,
+                402.0,
+                409.0,
+                410.0,
+                411.0,
+                415.0,
+                416.0,
+                417.0,
+                418.0,
+                420.0,
+                425.0,
+                427.0,
+                430.0,
+                431.0,
+                434.0,
+                435.0,
+                436.0,
+                443.0,
+                444.0,
+                445.0,
+                446.0,
+                447.0,
+                448.0,
+                449.0,
+                450.0,
+                451.0,
+                452.0,
+                453.0,
+                454.0,
+                464.0,
+                465.0,
+                466.0,
+                467.0
+              ],
+              "zero_involved": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "anchor_context": {
+    "anchor_450nm_signs": {
+      "pair_DoLP": "-",
+      "C_source": "-",
+      "C_angular": "-",
+      "full_angle_DoLP": "-",
+      "upward_source_normalized_power": "-",
+      "useful_LP": "-",
+      "P_LP_over_S0": "-",
+      "cone_5deg_DoLP": "-",
+      "cone_10deg_DoLP": "+",
+      "cone_20deg_DoLP": "+"
+    },
+    "anchor_450nm_values": {
+      "pair_DoLP": -0.012140793341122384,
+      "C_source": -0.03129493671549155,
+      "C_angular": -0.0043782726611538425,
+      "full_angle_DoLP": -0.0028871821975590545,
+      "upward_source_normalized_power": -9.241491364746744e-06,
+      "useful_LP": -0.025394054302343205,
+      "P_LP_over_S0": -0.006070396670561196,
+      "cone_5deg_DoLP": -0.04470060284485153,
+      "cone_10deg_DoLP": 0.014788805396065363,
+      "cone_20deg_DoLP": 0.00687137402758653
+    },
+    "445_455_neighbor_sign_counts": {
+      "pair_DoLP": {
+        "positive": 0,
+        "negative": 10,
+        "zero": 0
+      },
+      "C_source": {
+        "positive": 0,
+        "negative": 10,
+        "zero": 0
+      },
+      "C_angular": {
+        "positive": 1,
+        "negative": 9,
+        "zero": 0
+      },
+      "full_angle_DoLP": {
+        "positive": 1,
+        "negative": 9,
+        "zero": 0
+      },
+      "upward_source_normalized_power": {
+        "positive": 0,
+        "negative": 10,
+        "zero": 0
+      },
+      "useful_LP": {
+        "positive": 0,
+        "negative": 10,
+        "zero": 0
+      },
+      "P_LP_over_S0": {
+        "positive": 0,
+        "negative": 10,
+        "zero": 0
+      },
+      "cone_5deg_DoLP": {
+        "positive": 2,
+        "negative": 8,
+        "zero": 0
+      },
+      "cone_10deg_DoLP": {
+        "positive": 10,
+        "negative": 0,
+        "zero": 0
+      },
+      "cone_20deg_DoLP": {
+        "positive": 8,
+        "negative": 2,
+        "zero": 0
+      }
+    }
+  },
+  "tradeoff_label_audit": {
+    "original_label": "ORIENTATION_PURITY_POWER_TRADEOFF",
+    "recommended_scoped_label": "FULL_BAND_DESCRIPTIVE_NONUNIFORMITY",
+    "top_level_verdict_suitability": "NOT_SUITABLE_AS_TOP_LEVEL_CAUSAL_VERDICT",
+    "reason": "Full-band deltas are wavelength-nonuniform; quadrant counts are reported per metric pair without composite scoring.",
+    "full_band_purity_vs_power_quadrants": {
+      "primary_power_metrics": {
+        "pair_DoLP_vs_upward_source_normalized_power": {
+          "purity_metric": "pair_DoLP",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 16,
+            "purity_positive_power_negative": 26,
+            "purity_negative_power_positive": 23,
+            "purity_negative_power_negative": 36,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              404.0,
+              407.0,
+              408.0,
+              414.0,
+              429.0,
+              432.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              459.0,
+              460.0,
+              461.0,
+              469.0,
+              486.0
+            ],
+            "purity_positive_power_negative": [
+              403.0,
+              412.0,
+              413.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              428.0,
+              437.0,
+              458.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0
+            ],
+            "purity_negative_power_positive": [
+              405.0,
+              406.0,
+              409.0,
+              410.0,
+              415.0,
+              430.0,
+              431.0,
+              443.0,
+              462.0,
+              463.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0,
+              468.0,
+              487.0,
+              488.0,
+              489.0,
+              490.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "purity_negative_power_negative": [
+              400.0,
+              401.0,
+              402.0,
+              411.0,
+              416.0,
+              417.0,
+              418.0,
+              419.0,
+              420.0,
+              425.0,
+              426.0,
+              427.0,
+              433.0,
+              434.0,
+              435.0,
+              436.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0,
+              456.0,
+              457.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "pair_DoLP_vs_useful_LP": {
+          "purity_metric": "pair_DoLP",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 37,
+            "purity_positive_power_negative": 5,
+            "purity_negative_power_positive": 10,
+            "purity_negative_power_negative": 49,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              403.0,
+              404.0,
+              407.0,
+              408.0,
+              412.0,
+              413.0,
+              414.0,
+              429.0,
+              432.0,
+              437.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              458.0,
+              459.0,
+              460.0,
+              461.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0
+            ],
+            "purity_positive_power_negative": [
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              428.0
+            ],
+            "purity_negative_power_positive": [
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              430.0,
+              431.0,
+              468.0,
+              487.0,
+              499.0,
+              500.0
+            ],
+            "purity_negative_power_negative": [
+              400.0,
+              401.0,
+              402.0,
+              405.0,
+              406.0,
+              416.0,
+              417.0,
+              418.0,
+              419.0,
+              420.0,
+              425.0,
+              426.0,
+              427.0,
+              433.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_source_vs_upward_source_normalized_power": {
+          "purity_metric": "C_source",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 12,
+            "purity_positive_power_negative": 24,
+            "purity_negative_power_positive": 27,
+            "purity_negative_power_negative": 38,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              404.0,
+              407.0,
+              414.0,
+              429.0,
+              432.0,
+              440.0,
+              441.0,
+              459.0,
+              460.0,
+              469.0,
+              486.0,
+              487.0
+            ],
+            "purity_positive_power_negative": [
+              403.0,
+              412.0,
+              413.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              458.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0
+            ],
+            "purity_negative_power_positive": [
+              405.0,
+              406.0,
+              408.0,
+              409.0,
+              410.0,
+              415.0,
+              430.0,
+              431.0,
+              438.0,
+              439.0,
+              442.0,
+              443.0,
+              461.0,
+              462.0,
+              463.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0,
+              468.0,
+              488.0,
+              489.0,
+              490.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "purity_negative_power_negative": [
+              400.0,
+              401.0,
+              402.0,
+              411.0,
+              416.0,
+              417.0,
+              418.0,
+              419.0,
+              420.0,
+              425.0,
+              426.0,
+              427.0,
+              428.0,
+              433.0,
+              434.0,
+              435.0,
+              436.0,
+              437.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0,
+              456.0,
+              457.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_source_vs_useful_LP": {
+          "purity_metric": "C_source",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 32,
+            "purity_positive_power_negative": 4,
+            "purity_negative_power_positive": 15,
+            "purity_negative_power_negative": 50,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              403.0,
+              404.0,
+              407.0,
+              412.0,
+              413.0,
+              414.0,
+              429.0,
+              432.0,
+              440.0,
+              441.0,
+              458.0,
+              459.0,
+              460.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0,
+              487.0
+            ],
+            "purity_positive_power_negative": [
+              421.0,
+              422.0,
+              423.0,
+              424.0
+            ],
+            "purity_negative_power_positive": [
+              408.0,
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              430.0,
+              431.0,
+              437.0,
+              438.0,
+              439.0,
+              442.0,
+              461.0,
+              468.0,
+              499.0,
+              500.0
+            ],
+            "purity_negative_power_negative": [
+              400.0,
+              401.0,
+              402.0,
+              405.0,
+              406.0,
+              416.0,
+              417.0,
+              418.0,
+              419.0,
+              420.0,
+              425.0,
+              426.0,
+              427.0,
+              428.0,
+              433.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_angular_vs_upward_source_normalized_power": {
+          "purity_metric": "C_angular",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 26,
+            "purity_positive_power_negative": 33,
+            "purity_negative_power_positive": 13,
+            "purity_negative_power_negative": 29,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              405.0,
+              406.0,
+              407.0,
+              408.0,
+              414.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              459.0,
+              460.0,
+              461.0,
+              462.0,
+              463.0,
+              468.0,
+              469.0,
+              486.0,
+              487.0,
+              488.0,
+              489.0,
+              490.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "purity_positive_power_negative": [
+              400.0,
+              412.0,
+              413.0,
+              419.0,
+              426.0,
+              433.0,
+              437.0,
+              455.0,
+              456.0,
+              457.0,
+              458.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0
+            ],
+            "purity_negative_power_positive": [
+              404.0,
+              409.0,
+              410.0,
+              415.0,
+              429.0,
+              430.0,
+              431.0,
+              432.0,
+              443.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0
+            ],
+            "purity_negative_power_negative": [
+              401.0,
+              402.0,
+              403.0,
+              411.0,
+              416.0,
+              417.0,
+              418.0,
+              420.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              425.0,
+              427.0,
+              428.0,
+              434.0,
+              435.0,
+              436.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_angular_vs_useful_LP": {
+          "purity_metric": "C_angular",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 37,
+            "purity_positive_power_negative": 22,
+            "purity_negative_power_positive": 10,
+            "purity_negative_power_negative": 32,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              407.0,
+              408.0,
+              412.0,
+              413.0,
+              414.0,
+              437.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              458.0,
+              459.0,
+              460.0,
+              461.0,
+              468.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0,
+              487.0,
+              499.0,
+              500.0
+            ],
+            "purity_positive_power_negative": [
+              400.0,
+              405.0,
+              406.0,
+              419.0,
+              426.0,
+              433.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0
+            ],
+            "purity_negative_power_positive": [
+              403.0,
+              404.0,
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              429.0,
+              430.0,
+              431.0,
+              432.0
+            ],
+            "purity_negative_power_negative": [
+              401.0,
+              402.0,
+              416.0,
+              417.0,
+              418.0,
+              420.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              425.0,
+              427.0,
+              428.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "full_angle_DoLP_vs_upward_source_normalized_power": {
+          "purity_metric": "full_angle_DoLP",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 26,
+            "purity_positive_power_negative": 33,
+            "purity_negative_power_positive": 13,
+            "purity_negative_power_negative": 29,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              405.0,
+              406.0,
+              407.0,
+              408.0,
+              414.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              459.0,
+              460.0,
+              461.0,
+              462.0,
+              463.0,
+              468.0,
+              469.0,
+              486.0,
+              487.0,
+              488.0,
+              489.0,
+              490.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "purity_positive_power_negative": [
+              400.0,
+              412.0,
+              413.0,
+              419.0,
+              426.0,
+              433.0,
+              437.0,
+              455.0,
+              456.0,
+              457.0,
+              458.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0
+            ],
+            "purity_negative_power_positive": [
+              404.0,
+              409.0,
+              410.0,
+              415.0,
+              429.0,
+              430.0,
+              431.0,
+              432.0,
+              443.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0
+            ],
+            "purity_negative_power_negative": [
+              401.0,
+              402.0,
+              403.0,
+              411.0,
+              416.0,
+              417.0,
+              418.0,
+              420.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              425.0,
+              427.0,
+              428.0,
+              434.0,
+              435.0,
+              436.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "full_angle_DoLP_vs_useful_LP": {
+          "purity_metric": "full_angle_DoLP",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 37,
+            "purity_positive_power_negative": 22,
+            "purity_negative_power_positive": 10,
+            "purity_negative_power_negative": 32,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              407.0,
+              408.0,
+              412.0,
+              413.0,
+              414.0,
+              437.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              458.0,
+              459.0,
+              460.0,
+              461.0,
+              468.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0,
+              487.0,
+              499.0,
+              500.0
+            ],
+            "purity_positive_power_negative": [
+              400.0,
+              405.0,
+              406.0,
+              419.0,
+              426.0,
+              433.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0
+            ],
+            "purity_negative_power_positive": [
+              403.0,
+              404.0,
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              429.0,
+              430.0,
+              431.0,
+              432.0
+            ],
+            "purity_negative_power_negative": [
+              401.0,
+              402.0,
+              416.0,
+              417.0,
+              418.0,
+              420.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              425.0,
+              427.0,
+              428.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0
+            ],
+            "zero_involved": []
+          }
+        }
+      },
+      "efficiency_metric_P_LP_over_S0": {
+        "pair_DoLP": {
+          "purity_metric": "pair_DoLP",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 42,
+            "purity_positive_power_negative": 0,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 59,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              403.0,
+              404.0,
+              407.0,
+              408.0,
+              412.0,
+              413.0,
+              414.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              428.0,
+              429.0,
+              432.0,
+              437.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              458.0,
+              459.0,
+              460.0,
+              461.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0
+            ],
+            "purity_positive_power_negative": [],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              400.0,
+              401.0,
+              402.0,
+              405.0,
+              406.0,
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              416.0,
+              417.0,
+              418.0,
+              419.0,
+              420.0,
+              425.0,
+              426.0,
+              427.0,
+              430.0,
+              431.0,
+              433.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0,
+              468.0,
+              487.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_source": {
+          "purity_metric": "C_source",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 35,
+            "purity_positive_power_negative": 1,
+            "purity_negative_power_positive": 7,
+            "purity_negative_power_negative": 58,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              403.0,
+              404.0,
+              407.0,
+              412.0,
+              413.0,
+              414.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              429.0,
+              432.0,
+              440.0,
+              441.0,
+              458.0,
+              459.0,
+              460.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0
+            ],
+            "purity_positive_power_negative": [
+              487.0
+            ],
+            "purity_negative_power_positive": [
+              408.0,
+              428.0,
+              437.0,
+              438.0,
+              439.0,
+              442.0,
+              461.0
+            ],
+            "purity_negative_power_negative": [
+              400.0,
+              401.0,
+              402.0,
+              405.0,
+              406.0,
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              416.0,
+              417.0,
+              418.0,
+              419.0,
+              420.0,
+              425.0,
+              426.0,
+              427.0,
+              430.0,
+              431.0,
+              433.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0,
+              468.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_angular": {
+          "purity_metric": "C_angular",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 33,
+            "purity_positive_power_negative": 26,
+            "purity_negative_power_positive": 9,
+            "purity_negative_power_negative": 33,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              407.0,
+              408.0,
+              412.0,
+              413.0,
+              414.0,
+              437.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              458.0,
+              459.0,
+              460.0,
+              461.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0
+            ],
+            "purity_positive_power_negative": [
+              400.0,
+              405.0,
+              406.0,
+              419.0,
+              426.0,
+              433.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              468.0,
+              487.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "purity_negative_power_positive": [
+              403.0,
+              404.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              428.0,
+              429.0,
+              432.0
+            ],
+            "purity_negative_power_negative": [
+              401.0,
+              402.0,
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              416.0,
+              417.0,
+              418.0,
+              420.0,
+              425.0,
+              427.0,
+              430.0,
+              431.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "full_angle_DoLP": {
+          "purity_metric": "full_angle_DoLP",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 33,
+            "purity_positive_power_negative": 26,
+            "purity_negative_power_positive": 9,
+            "purity_negative_power_negative": 33,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [
+              407.0,
+              408.0,
+              412.0,
+              413.0,
+              414.0,
+              437.0,
+              438.0,
+              439.0,
+              440.0,
+              441.0,
+              442.0,
+              458.0,
+              459.0,
+              460.0,
+              461.0,
+              469.0,
+              470.0,
+              471.0,
+              472.0,
+              473.0,
+              474.0,
+              475.0,
+              476.0,
+              477.0,
+              478.0,
+              479.0,
+              480.0,
+              481.0,
+              482.0,
+              483.0,
+              484.0,
+              485.0,
+              486.0
+            ],
+            "purity_positive_power_negative": [
+              400.0,
+              405.0,
+              406.0,
+              419.0,
+              426.0,
+              433.0,
+              455.0,
+              456.0,
+              457.0,
+              462.0,
+              463.0,
+              468.0,
+              487.0,
+              488.0,
+              489.0,
+              490.0,
+              491.0,
+              492.0,
+              493.0,
+              494.0,
+              495.0,
+              496.0,
+              497.0,
+              498.0,
+              499.0,
+              500.0
+            ],
+            "purity_negative_power_positive": [
+              403.0,
+              404.0,
+              421.0,
+              422.0,
+              423.0,
+              424.0,
+              428.0,
+              429.0,
+              432.0
+            ],
+            "purity_negative_power_negative": [
+              401.0,
+              402.0,
+              409.0,
+              410.0,
+              411.0,
+              415.0,
+              416.0,
+              417.0,
+              418.0,
+              420.0,
+              425.0,
+              427.0,
+              430.0,
+              431.0,
+              434.0,
+              435.0,
+              436.0,
+              443.0,
+              444.0,
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              464.0,
+              465.0,
+              466.0,
+              467.0
+            ],
+            "zero_involved": []
+          }
+        }
+      }
+    },
+    "445_455_purity_vs_power_quadrants": {
+      "primary_power_metrics": {
+        "pair_DoLP_vs_upward_source_normalized_power": {
+          "purity_metric": "pair_DoLP",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 0,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 11,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "pair_DoLP_vs_useful_LP": {
+          "purity_metric": "pair_DoLP",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 0,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 11,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_source_vs_upward_source_normalized_power": {
+          "purity_metric": "C_source",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 0,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 11,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_source_vs_useful_LP": {
+          "purity_metric": "C_source",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 0,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 11,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_angular_vs_upward_source_normalized_power": {
+          "purity_metric": "C_angular",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 1,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 10,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [
+              455.0
+            ],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_angular_vs_useful_LP": {
+          "purity_metric": "C_angular",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 1,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 10,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [
+              455.0
+            ],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "full_angle_DoLP_vs_upward_source_normalized_power": {
+          "purity_metric": "full_angle_DoLP",
+          "power_metric": "upward_source_normalized_power",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 1,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 10,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [
+              455.0
+            ],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "full_angle_DoLP_vs_useful_LP": {
+          "purity_metric": "full_angle_DoLP",
+          "power_metric": "useful_LP",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 1,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 10,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [
+              455.0
+            ],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        }
+      },
+      "efficiency_metric_P_LP_over_S0": {
+        "pair_DoLP": {
+          "purity_metric": "pair_DoLP",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 0,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 11,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_source": {
+          "purity_metric": "C_source",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 0,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 11,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0,
+              455.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "C_angular": {
+          "purity_metric": "C_angular",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 1,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 10,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [
+              455.0
+            ],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        },
+        "full_angle_DoLP": {
+          "purity_metric": "full_angle_DoLP",
+          "power_metric": "P_LP_over_S0",
+          "counts": {
+            "purity_positive_power_positive": 0,
+            "purity_positive_power_negative": 1,
+            "purity_negative_power_positive": 0,
+            "purity_negative_power_negative": 10,
+            "zero_involved": 0
+          },
+          "wavelengths_nm": {
+            "purity_positive_power_positive": [],
+            "purity_positive_power_negative": [
+              455.0
+            ],
+            "purity_negative_power_positive": [],
+            "purity_negative_power_negative": [
+              445.0,
+              446.0,
+              447.0,
+              448.0,
+              449.0,
+              450.0,
+              451.0,
+              452.0,
+              453.0,
+              454.0
+            ],
+            "zero_involved": []
+          }
+        }
+      }
+    },
+    "450nm_anchor_isolation": {
+      "anchor_450nm_signs": {
+        "pair_DoLP": "-",
+        "C_source": "-",
+        "C_angular": "-",
+        "full_angle_DoLP": "-",
+        "upward_source_normalized_power": "-",
+        "useful_LP": "-",
+        "P_LP_over_S0": "-",
+        "cone_5deg_DoLP": "-",
+        "cone_10deg_DoLP": "+",
+        "cone_20deg_DoLP": "+"
+      },
+      "anchor_450nm_values": {
+        "pair_DoLP": -0.012140793341122384,
+        "C_source": -0.03129493671549155,
+        "C_angular": -0.0043782726611538425,
+        "full_angle_DoLP": -0.0028871821975590545,
+        "upward_source_normalized_power": -9.241491364746744e-06,
+        "useful_LP": -0.025394054302343205,
+        "P_LP_over_S0": -0.006070396670561196,
+        "cone_5deg_DoLP": -0.04470060284485153,
+        "cone_10deg_DoLP": 0.014788805396065363,
+        "cone_20deg_DoLP": 0.00687137402758653
+      },
+      "445_455_neighbor_sign_counts": {
+        "pair_DoLP": {
+          "positive": 0,
+          "negative": 10,
+          "zero": 0
+        },
+        "C_source": {
+          "positive": 0,
+          "negative": 10,
+          "zero": 0
+        },
+        "C_angular": {
+          "positive": 1,
+          "negative": 9,
+          "zero": 0
+        },
+        "full_angle_DoLP": {
+          "positive": 1,
+          "negative": 9,
+          "zero": 0
+        },
+        "upward_source_normalized_power": {
+          "positive": 0,
+          "negative": 10,
+          "zero": 0
+        },
+        "useful_LP": {
+          "positive": 0,
+          "negative": 10,
+          "zero": 0
+        },
+        "P_LP_over_S0": {
+          "positive": 0,
+          "negative": 10,
+          "zero": 0
+        },
+        "cone_5deg_DoLP": {
+          "positive": 2,
+          "negative": 8,
+          "zero": 0
+        },
+        "cone_10deg_DoLP": {
+          "positive": 10,
+          "negative": 0,
+          "zero": 0
+        },
+        "cone_20deg_DoLP": {
+          "positive": 8,
+          "negative": 2,
+          "zero": 0
+        }
+      }
+    }
+  },
+  "final_scoped_verdict": "ORIENTATION_CAUSAL_EFFECT_WAVELENGTH_DEPENDENT",
+  "W_emit": "UNRESOLVED_NOT_USED",
+  "historical_28nm_Gaussian": "NOT_USED",
+  "composite_score": "NOT_USED",
+  "promotion_threshold": "NOT_CREATED",
+  "solver_run_called": false,
+  "solver_entered": 0,
+  "timestamp_utc": "2026-09-01T04:39:21.495933+00:00"
+}

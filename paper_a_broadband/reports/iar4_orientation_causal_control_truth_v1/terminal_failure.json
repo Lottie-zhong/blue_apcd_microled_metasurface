@@ -1,0 +1,17 @@
+{
+  "schema": "PAPER_A_IAR4_OC1_CAUSAL_CONTROL_TERMINAL_FAILURE_V1",
+  "status": "HARD_GATE",
+  "error": "RuntimeError:HARD_GATE_ANALYSIS_FAILED:Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 236, in <module>\n    raise SystemExit(main())\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 96, in main\n    new_pair, new_joined = load_pair(NEW_PAIR)\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 83, in load_pair\n    ang_by_wl = {round(f(row, \"wavelength_nm\"), 9): row for row in angular}\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 83, in <dictcomp>\n    ang_by_wl = {round(f(row, \"wavelength_nm\"), 9): row for row in angular}\nNameError: name 'f' is not defined\n",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_controller_v1.py\", line 399, in main\n    execute()\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_controller_v1.py\", line 361, in execute\n    raise RuntimeError(f\"HARD_GATE_ANALYSIS_FAILED:{analysis_result.stderr[-4000:]}\")\nRuntimeError: HARD_GATE_ANALYSIS_FAILED:Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 236, in <module>\n    raise SystemExit(main())\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 96, in main\n    new_pair, new_joined = load_pair(NEW_PAIR)\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 83, in load_pair\n    ang_by_wl = {round(f(row, \"wavelength_nm\"), 9): row for row in angular}\n  File \"D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\iar4_orientation_causal_control_truth_analysis_v1.py\", line 83, in <dictcomp>\n    ang_by_wl = {round(f(row, \"wavelength_nm\"), 9): row for row in angular}\nNameError: name 'f' is not defined\n\n",
+  "solver_accounting": {
+    "authorized": 2,
+    "entered": 2,
+    "returned": 2,
+    "accepted": 2,
+    "replay": 0,
+    "RCWA": 0,
+    "ML": 0
+  },
+  "no_auto_replay": true,
+  "timestamp_utc": "2026-08-31T13:48:25.531879+00:00"
+}
