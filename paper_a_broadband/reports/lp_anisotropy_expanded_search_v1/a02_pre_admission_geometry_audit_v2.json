@@ -1,0 +1,929 @@
+{
+  "schema": "PAPER_A_ANISO_A02_INDEPENDENT_GEOMETRY_AUDIT_V2",
+  "status": "PASS_WITH_A02_ADMISSION_HARD_GATE",
+  "stage": "zero_solver_pre_admission_audit",
+  "canonical_geometry_id": "ANISO_A02",
+  "source_doe": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\configs\\anisotropy_expanded_doe_v1.json",
+    "sha256_before": "38e14641dad5a681dac109eefdf2458a3980a86857482d6e6e2d9e841a44ee0e",
+    "sha256_after": "38e14641dad5a681dac109eefdf2458a3980a86857482d6e6e2d9e841a44ee0e",
+    "unchanged": true
+  },
+  "exact_geometry": {
+    "L1_nm": 195.5,
+    "W1_nm": 114.99999999999999,
+    "L2_nm": 206.99999999999997,
+    "W2_nm": 76.5,
+    "j1_center_x_nm": 0.0,
+    "j1_center_y_nm": 106.0,
+    "j2_center_x_nm": 0.0,
+    "j2_center_y_nm": -106.0,
+    "j1_rotation_deg": 0.0,
+    "j2_rotation_deg": 65.0,
+    "D_nm": 212.0,
+    "period_x_nm": 432.0,
+    "period_y_nm": 432.0,
+    "height_nm": 525.0
+  },
+  "vertices_nm": {
+    "pillar_1": [
+      [
+        "-97.75",
+        "48.500000000000005"
+      ],
+      [
+        "97.75",
+        "48.500000000000005"
+      ],
+      [
+        "97.75",
+        "163.499999999999995"
+      ],
+      [
+        "-97.75",
+        "163.499999999999995"
+      ]
+    ],
+    "pillar_2": [
+      [
+        "-9.0747172360105242120507084471959063771165300447389",
+        "-215.96800446987501103513932165334803857470810116165"
+      ],
+      [
+        "78.407262944314246400105986688901155597096545870693",
+        "-28.362292553288495833164532804703320314871290379756"
+      ],
+      [
+        "9.0747172360105242120507084471959063771165300447389",
+        "3.9680044698750110351393216533480385747081011616508"
+      ],
+      [
+        "-78.407262944314246400105986688901155597096545870693",
+        "-183.63770744671150416683546719529667968512870962024"
+      ]
+    ]
+  },
+  "minimum_separation": {
+    "reported_value_nm": 0.03199553012498768,
+    "reported_field_definition": "legacy aggregate of polygon-pair distances and cell-boundary margins",
+    "reported_witness": {
+      "object": "pillar_2",
+      "vertex_index": 0,
+      "boundary": "bottom",
+      "clearance_nm": "0.031995530124988964860678346651961425291898838349183",
+      "point_nm": [
+        "-9.0747172360105242120507084471959063771165300447389",
+        "-215.96800446987501103513932165334803857470810116165"
+      ]
+    },
+    "direct_same_cell_pillar_pair": {
+      "object_a": "pillar_1",
+      "object_b": "pillar_2",
+      "image_shift_cells": [
+        0,
+        0
+      ],
+      "image_shift_nm": [
+        "0.0",
+        "0.0"
+      ],
+      "distance_nm": "44.531995530124993964860678346651961425291898838349",
+      "intersects_or_touches": false,
+      "witness": {
+        "side": "B_to_A",
+        "vertex_index": 2,
+        "edge_index": 0,
+        "point_nm": [
+          "9.0747172360105242120507084471959063771165300447389",
+          "3.9680044698750110351393216533480385747081011616508"
+        ],
+        "projection_nm": [
+          "9.0747172360105242120507084471959063771165300447389",
+          "48.500000000000005"
+        ],
+        "projection_t": "0.54641799097703592947340515829767727047118429690404"
+      }
+    },
+    "nearest_periodic_image_pair_all_objects": {
+      "object_a": "pillar_1",
+      "object_b": "pillar_2",
+      "image_shift_cells": [
+        0,
+        1
+      ],
+      "image_shift_nm": [
+        "0.0",
+        "432.0"
+      ],
+      "distance_nm": "52.531995530124993964860678346651961425291898838349",
+      "intersects_or_touches": false,
+      "witness": {
+        "side": "B_to_A",
+        "vertex_index": 0,
+        "edge_index": 2,
+        "point_nm": [
+          "-9.0747172360105242120507084471959063771165300447389",
+          "216.03199553012498896486067834665196142529189883835"
+        ],
+        "projection_nm": [
+          "-9.0747172360105242120507084471959063771165300447389",
+          "163.499999999999995"
+        ],
+        "projection_t": "0.54641799097703592947340515829767727047118429690404"
+      }
+    },
+    "nearest_periodic_image_pair_cross_pillar": {
+      "object_a": "pillar_1",
+      "object_b": "pillar_2",
+      "image_shift_cells": [
+        0,
+        1
+      ],
+      "image_shift_nm": [
+        "0.0",
+        "432.0"
+      ],
+      "distance_nm": "52.531995530124993964860678346651961425291898838349",
+      "intersects_or_touches": false,
+      "witness": {
+        "side": "B_to_A",
+        "vertex_index": 0,
+        "edge_index": 2,
+        "point_nm": [
+          "-9.0747172360105242120507084471959063771165300447389",
+          "216.03199553012498896486067834665196142529189883835"
+        ],
+        "projection_nm": [
+          "-9.0747172360105242120507084471959063771165300447389",
+          "163.499999999999995"
+        ],
+        "projection_t": "0.54641799097703592947340515829767727047118429690404"
+      }
+    },
+    "nearest_same_object_periodic_image_pair": {
+      "object_a": "pillar_2",
+      "object_b": "pillar_2",
+      "image_shift_cells": [
+        0,
+        -1
+      ],
+      "image_shift_nm": [
+        "0.0",
+        "-432.0"
+      ],
+      "distance_nm": "212.8392310549349088473764687980523851716175496867",
+      "intersects_or_touches": false,
+      "witness": {
+        "side": "A_to_B",
+        "vertex_index": 0,
+        "edge_index": 1,
+        "point_nm": [
+          "-9.0747172360105242120507084471959063771165300447389",
+          "-215.96800446987501103513932165334803857470810116165"
+        ],
+        "projection_nm": [
+          "9.0747172360105242120507084471959063771165300447389",
+          "-428.03199553012498896486067834665196142529189883835"
+        ],
+        "projection_t": "1.0"
+      }
+    },
+    "recomputed_legacy_aggregate_nm": "0.031995530124988964860678346651961425291898838349183",
+    "recomputed_physical_polygon_minimum_nm": "44.531995530124993964860678346651961425291898838349",
+    "independent_high_precision_decimal_digits": 100
+  },
+  "classification": {
+    "reported_0_032_is_pillar_to_pillar_gap": false,
+    "reported_0_032_is_canonical_translated_polygon_gap": false,
+    "reported_0_032_is_cell_boundary_margin": true,
+    "reported_0_032_is_bounding_box_approximation": false,
+    "reported_0_032_is_floating_point_artifact": false,
+    "actual_nearest_direct_or_translated_polygon_gap_nm": "44.531995530124993964860678346651961425291898838349",
+    "actual_nearest_periodic_image_gap_nm": "52.531995530124993964860678346651961425291898838349",
+    "meaning": "REPORTING_DEFINITION_ARTIFACT; NO_0_032_PHYSICAL_PERIODIC_SEAM_GAP",
+    "correction_to_prior_boundary_doubling_interpretation": "A boundary margin is not converted into a self-image gap; translated image polygon distances are evaluated in ordinary coordinates under the canonical {-1,0,+1} shift convention."
+  },
+  "topology": {
+    "same_cell_polygon_intersection": false,
+    "periodic_polygon_intersection_count": 0,
+    "mathematical_non_overlap": true,
+    "two_distinct_pillar_objects_in_canonical_builder": true,
+    "canonical_builder_topology": "two separate rotated-rectangle objects; no merge operation",
+    "canonical_fsp_child_paths": [
+      "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\search_anisotropy_v1\\cases\\ANISO_A02_x\\ANISO_A02_x_pre.fsp",
+      "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\search_anisotropy_v1\\cases\\ANISO_A02_y\\ANISO_A02_y_pre.fsp"
+    ],
+    "canonical_fsp_child_exists": false,
+    "fsp_topology_evidence": "No instantiated A02 child FSP; topology conclusion is from the canonical two-object builder model."
+  },
+  "validity_and_contract": {
+    "cell_bounds_nm": [
+      [
+        -216.0,
+        216.0
+      ],
+      [
+        -216.0,
+        216.0
+      ]
+    ],
+    "cell_containment_pass": true,
+    "direct_polygon_clearance_nm": "44.531995530124993964860678346651961425291898838349",
+    "periodic_image_polygon_clearance_nm": "52.531995530124993964860678346651961425291898838349",
+    "direct_clearance_ge_60": false,
+    "periodic_clearance_ge_60": false,
+    "no_overlap_or_touch_pass": true,
+    "integer_lateral_dimensions_pass": false,
+    "half_grid_centers_pass": true,
+    "no_sub_grid_geometry_pass": false,
+    "benchmark_admission_safe": false
+  },
+  "authoritative_rules": {
+    "source_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\lp_anisotropy_feasible_space_v2.py",
+    "source_sha256": "513cc688043f0dadf91f0823d39368c945650d45fa13980d46eea2428de228d3",
+    "source_lines_with_clearance_rule": [
+      {
+        "line": 294,
+        "text": "    write_json(REPORT/\"feasible_space_parameterization.json\", {\"schema\":\"PAPER_A_LP_ANISOTROPY_FEASIBLE_SPACE_V2_PARAMETERIZATION_V1\",\"stage\":\"LP_ANISOTROPY_FEASIBLE_SPACE_V2\",\"box\":BOUNDS,\"base_geometry\":BASE,\"height_nm\":H,\"period_nm\":[PX,PY],\"material\":MATERIAL,\"source_span_nm\":[SOURCE_START,SOURCE_STOP],\"formal_window_nm\":[FORMAL_START,FORMAL_STOP],\"formal_points\":FORMAL_POINTS,\"quantization\":{\"lateral_dimensions\":\"round-half-up to integer nm\",\"D_nm\":\"round-half-up to integer nm; centers are +/-D/2 and therefore integer/half-grid compatible\",\"delta_theta_deg\":\"9 decimal places; no hidden optical or fabrication ranking\"},\"hard_gates\":{\"direct_polygon_clearance_nm_ge\":60.0,\"periodic_image_polygon_clearance_nm_ge\":60.0,\"no_overlap_or_touching\":True,\"cell_containment\":True,\"integer_lateral_dimensions\":True,\"half_grid_centers\":True,\"no_sub_grid_geometry\":True},\"diagnostic_only\":{\"minimum_lateral_feature_nm\":True,\"H_over_min_feature\":True,\"no_authoritative_minimum_linewidth_or_aspect_ratio_gate_found\":True},\"not_imported_old_lp_constraints\":[\"J1_side 108-112 nm\",\"J2_length 106-110 nm\",\"J2_width 98-102 nm\",\"D 196-204 nm\",\"Psi +/-1.2 deg\",\"H=500 nm\"],\"periodic_distance_definition\":\"exact polygon segment distance over all pillar/image pairs and translations {-1,0,+1} in each axis; cell-boundary distance is not used as a substitute\"})"
+      }
+    ],
+    "authority_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\integrated_aware_lp_redesign_contract_v1\\integrated_local_domain_authority.json",
+    "authority_sha256": "5fc38ef57cdca89345a9bf9d7666755b4a7cf74cd5bd5de2b8cac02d9f9b9df0",
+    "hard_gates": {
+      "direct_polygon_clearance_nm_ge": 60.0,
+      "periodic_image_polygon_clearance_nm_ge": 60.0,
+      "no_overlap_or_touching": true,
+      "cell_containment": true,
+      "integer_lateral_dimensions": true,
+      "half_grid_centers": true,
+      "no_sub_grid_geometry": true
+    },
+    "current_authoritative_minimum_gap_nm": 60.0,
+    "minimum_linewidth_or_aspect_ratio_gate": "none found in inherited authority; not invented",
+    "expanded_doe_validity_mismatch": "The A01-A08 bootstrap validity() records containment/overlap but does not apply the inherited 60 nm direct/periodic clearance or integer-lateral admission gates."
+  },
+  "audit_script": {
+    "path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\scripts\\a02_pre_admission_geometry_audit_v2.py",
+    "sha256": "00fc168f10bd00f648a3afd312ff39cfa4b3d72b5fb303e59d0bdb4b539954b8"
+  },
+  "a01_a08_rerun": {
+    "performed": true,
+    "method": "same exact high-precision polygon representation and {-1,0,+1} translated-image enumeration applied to all eight DOE rows; no solver",
+    "row_count": 8,
+    "rows": [
+      {
+        "geometry_id": "ANISO_A01",
+        "role": "ANISOTROPY_CONTRAST_J1_ENHANCED",
+        "L1_nm": 264.5,
+        "W1_nm": 85.0,
+        "L2_nm": 153.0,
+        "W2_nm": 103.49999999999999,
+        "delta_theta_deg": 25.0,
+        "D_nm": 178.0,
+        "direct_clearance_nm": "56.268274997689862065432980738162553439079763877327",
+        "periodic_image_clearance_nm": "132.26827499768986206543298073816255343907976387733",
+        "boundary_margin_nm": "47.768274997689862065432980738162553439079763877327",
+        "legacy_aggregate_minimum_nm": "47.768274997689862065432980738162553439079763877327",
+        "physical_polygon_minimum_nm": "56.268274997689862065432980738162553439079763877327",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "56.268274997689862065432980738162553439079763877327",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "47.46205066322252847847045010593239325898052272777",
+              "-9.7682749976898620654329807381625534390797638773268"
+            ],
+            "projection_nm": [
+              "47.46205066322252847847045010593239325898052272777",
+              "46.5"
+            ],
+            "projection_t": "0.6794406452295747768562209833872680274441607664566"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "132.26827499768986206543298073816255343907976387733",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "-47.46205066322252847847045010593239325898052272777",
+              "263.76827499768986206543298073816255343907976387733"
+            ],
+            "projection_nm": [
+              "-47.46205066322252847847045010593239325898052272777",
+              "131.5"
+            ],
+            "projection_t": "0.6794406452295747768562209833872680274441607664566"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": true,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "f65f6c10f993e1ad4b84f9fdb0abe8ca11757900816df2e0a00e9fac02041bd0"
+      },
+      {
+        "geometry_id": "ANISO_A02",
+        "role": "ANISOTROPY_CONTRAST_REVERSE",
+        "L1_nm": 195.5,
+        "W1_nm": 114.99999999999999,
+        "L2_nm": 206.99999999999997,
+        "W2_nm": 76.5,
+        "delta_theta_deg": 65.0,
+        "D_nm": 212.0,
+        "direct_clearance_nm": "44.531995530124993964860678346651961425291898838349",
+        "periodic_image_clearance_nm": "52.531995530124993964860678346651961425291898838349",
+        "boundary_margin_nm": "0.031995530124988964860678346651961425291898838349183",
+        "legacy_aggregate_minimum_nm": "0.031995530124988964860678346651961425291898838349183",
+        "physical_polygon_minimum_nm": "44.531995530124993964860678346651961425291898838349",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "44.531995530124993964860678346651961425291898838349",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "9.0747172360105242120507084471959063771165300447389",
+              "3.9680044698750110351393216533480385747081011616508"
+            ],
+            "projection_nm": [
+              "9.0747172360105242120507084471959063771165300447389",
+              "48.500000000000005"
+            ],
+            "projection_t": "0.54641799097703592947340515829767727047118429690404"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "52.531995530124993964860678346651961425291898838349",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "-9.0747172360105242120507084471959063771165300447389",
+              "216.03199553012498896486067834665196142529189883835"
+            ],
+            "projection_nm": [
+              "-9.0747172360105242120507084471959063771165300447389",
+              "163.499999999999995"
+            ],
+            "projection_t": "0.54641799097703592947340515829767727047118429690404"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": true,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "afb0c95fc10171e9cb41f0773c4213a7d5be1821a88703981706d59236f5ceb3"
+      },
+      {
+        "geometry_id": "ANISO_A03",
+        "role": "INITIAL_SOBOL",
+        "L1_nm": 221.37499999999997,
+        "W1_nm": 96.24999999999999,
+        "L2_nm": 186.74999999999997,
+        "W2_nm": 100.12499999999999,
+        "delta_theta_deg": 33.75,
+        "D_nm": 176.25,
+        "direct_clearance_nm": "34.62318202589848882428288639981889244492013648068",
+        "periodic_image_clearance_nm": "114.12318202589848882428288639981889244492013648068",
+        "boundary_margin_nm": "34.37318202589848382428288639981889244492013648068",
+        "legacy_aggregate_minimum_nm": "34.37318202589848382428288639981889244492013648068",
+        "physical_polygon_minimum_nm": "34.62318202589848882428288639981889244492013648068",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "34.62318202589848882428288639981889244492013648068",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "49.825240258206315441850877696606090544396228181225",
+              "5.3768179741015161757171136001811075550798635193196"
+            ],
+            "projection_nm": [
+              "49.825240258206315441850877696606090544396228181225",
+              "40.000000000000005"
+            ],
+            "projection_t": "0.72507166689195402459176006529746732150061292876452"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "114.12318202589848882428288639981889244492013648068",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "-49.825240258206315441850877696606090544396228181225",
+              "250.37318202589848382428288639981889244492013648068"
+            ],
+            "projection_nm": [
+              "-49.825240258206315441850877696606090544396228181225",
+              "136.249999999999995"
+            ],
+            "projection_t": "0.72507166689195402459176006529746732150061292876452"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": false,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "3625dcdc6fecec660439c8c549c7420e502b64b5b76fde9751f3c559b7e809b1"
+      },
+      {
+        "geometry_id": "ANISO_A04",
+        "role": "INITIAL_SOBOL",
+        "L1_nm": 255.87499999999997,
+        "W1_nm": 111.24999999999999,
+        "L2_nm": 159.75,
+        "W2_nm": 86.62499999999999,
+        "delta_theta_deg": 78.75,
+        "D_nm": 201.25,
+        "direct_clearance_nm": "58.834926155468418250318965603507970352950742436124",
+        "periodic_image_clearance_nm": "88.334926155468418250318965603507970352950742436124",
+        "boundary_margin_nm": "28.584926155468413250318965603507970352950742436124",
+        "legacy_aggregate_minimum_nm": "28.584926155468413250318965603507970352950742436124",
+        "physical_polygon_minimum_nm": "58.834926155468418250318965603507970352950742436124",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "58.834926155468418250318965603507970352950742436124",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "-26.897422986426668529469612216809831163922956080185",
+              "-13.834926155468413250318965603507970352950742436124"
+            ],
+            "projection_nm": [
+              "-26.897422986426668529469612216809831163922956080185",
+              "45.000000000000005"
+            ],
+            "projection_t": "0.39488061363389673988060106223778159356759711207919"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "88.334926155468418250318965603507970352950742436124",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "26.897422986426668529469612216809831163922956080185",
+              "244.58492615546841325031896560350797035295074243612"
+            ],
+            "projection_nm": [
+              "26.897422986426668529469612216809831163922956080185",
+              "156.249999999999995"
+            ],
+            "projection_t": "0.39488061363389673988060106223778159356759711207919"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": false,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "a520706b9818e1d15396bb844f17e263479ba4360a616eaeb5bfc00cef8dafd5"
+      },
+      {
+        "geometry_id": "ANISO_A05",
+        "role": "CONDITIONAL_SOBOL",
+        "L1_nm": 260.18749999999994,
+        "W1_nm": 86.875,
+        "L2_nm": 190.12499999999997,
+        "W2_nm": 81.5625,
+        "delta_theta_deg": 28.125,
+        "D_nm": 198.125,
+        "direct_clearance_nm": "73.909496143772252049586087856196271691360891385905",
+        "periodic_image_clearance_nm": "109.65949614377225204958608785619627169136089138591",
+        "boundary_margin_nm": "36.159496143772252049586087856196271691360891385905",
+        "legacy_aggregate_minimum_nm": "36.159496143772252049586087856196271691360891385905",
+        "physical_polygon_minimum_nm": "73.909496143772252049586087856196271691360891385905",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "73.909496143772252049586087856196271691360891385905",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "64.613492018430270178059801257441566694950068090601",
+              "-18.284496143772252049586087856196271691360891385905"
+            ],
+            "projection_nm": [
+              "64.613492018430270178059801257441566694950068090601",
+              "55.625"
+            ],
+            "projection_t": "0.74833434357311663734084233733150057994903793602935"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "109.65949614377225204958608785619627169136089138591",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "-64.613492018430270178059801257441566694950068090601",
+              "252.15949614377225204958608785619627169136089138591"
+            ],
+            "projection_nm": [
+              "-64.613492018430270178059801257441566694950068090601",
+              "142.5"
+            ],
+            "projection_t": "0.74833434357311663734084233733150057994903793602935"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": false,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "57b41ebfa965e147622bf30b39626d150b90d63aa22b1e09684b1959d223c89a"
+      },
+      {
+        "geometry_id": "ANISO_A06",
+        "role": "CONDITIONAL_SOBOL",
+        "L1_nm": 204.125,
+        "W1_nm": 103.74999999999999,
+        "L2_nm": 173.24999999999997,
+        "W2_nm": 79.875,
+        "delta_theta_deg": 11.25,
+        "D_nm": 188.75,
+        "direct_clearance_nm": "80.805188719248880662020250454490794564765262390018",
+        "periodic_image_clearance_nm": "135.30518871924888066202025045449079456476526239002",
+        "boundary_margin_nm": "65.555188719248875662020250454490794564765262390018",
+        "legacy_aggregate_minimum_nm": "65.555188719248875662020250454490794564765262390018",
+        "physical_polygon_minimum_nm": "80.805188719248880662020250454490794564765262390018",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "80.805188719248880662020250454490794564765262390018",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "77.169105179410700246585453221870643938083783441081",
+              "-38.305188719248875662020250454490794564765262390018"
+            ],
+            "projection_nm": [
+              "77.169105179410700246585453221870643938083783441081",
+              "42.500000000000005"
+            ],
+            "projection_t": "0.87804828011958701896673828890077474066421939224045"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "135.30518871924888066202025045449079456476526239002",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "-77.169105179410700246585453221870643938083783441081",
+              "281.55518871924887566202025045449079456476526239002"
+            ],
+            "projection_nm": [
+              "-77.169105179410700246585453221870643938083783441081",
+              "146.249999999999995"
+            ],
+            "projection_t": "0.87804828011958701896673828890077474066421939224045"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": false,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "5156e730cd7dc61fb423b87afe474bf288fe2942daffdc7f7a56adb3792fd5cb"
+      },
+      {
+        "geometry_id": "ANISO_A07",
+        "role": "CONDITIONAL_SOBOL",
+        "L1_nm": 208.4375,
+        "W1_nm": 94.375,
+        "L2_nm": 203.62499999999997,
+        "W2_nm": 88.3125,
+        "delta_theta_deg": 50.625,
+        "D_nm": 185.625,
+        "direct_clearance_nm": "31.722944763155383242032699688532013903336696461979",
+        "periodic_image_clearance_nm": "92.472944763155383242032699688532013903336696461979",
+        "boundary_margin_nm": "16.472944763155383242032699688532013903336696461979",
+        "legacy_aggregate_minimum_nm": "16.472944763155383242032699688532013903336696461979",
+        "physical_polygon_minimum_nm": "31.722944763155383242032699688532013903336696461979",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "31.722944763155383242032699688532013903336696461979",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "30.455923412612793845326302429690638425216651871521",
+              "13.902055236844616757967300311467986096663303538021"
+            ],
+            "projection_nm": [
+              "30.455923412612793845326302429690638425216651871521",
+              "45.625"
+            ],
+            "projection_t": "0.64611537469319481305104073129686663112547719038811"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "92.472944763155383242032699688532013903336696461979",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "-30.455923412612793845326302429690638425216651871521",
+              "232.47294476315538324203269968853201390333669646198"
+            ],
+            "projection_nm": [
+              "-30.455923412612793845326302429690638425216651871521",
+              "140.0"
+            ],
+            "projection_t": "0.64611537469319481305104073129686663112547719038811"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": false,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "07ab7ba196ba2c23fc86cafafee36e0e2a07ec3bac2c23fe47fd1bb2cb7bb8f5"
+      },
+      {
+        "geometry_id": "ANISO_A08",
+        "role": "CONDITIONAL_SOBOL",
+        "L1_nm": 242.93749999999997,
+        "W1_nm": 109.375,
+        "L2_nm": 176.625,
+        "W2_nm": 101.81249999999999,
+        "delta_theta_deg": 5.625,
+        "D_nm": 210.625,
+        "direct_clearance_nm": "96.620238802489161571910006480839285953871615562015",
+        "periodic_image_clearance_nm": "107.37023880248916157191000648083928595387161556202",
+        "boundary_margin_nm": "51.370238802489161571910006480839285953871615562015",
+        "legacy_aggregate_minimum_nm": "51.370238802489161571910006480839285953871615562015",
+        "physical_polygon_minimum_nm": "96.620238802489161571910006480839285953871615562015",
+        "nearest_direct_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            0
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "0.0"
+          ],
+          "distance_nm": "96.620238802489161571910006480839285953871615562015",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 2,
+            "edge_index": 0,
+            "point_nm": [
+              "82.897566124336693611315847145077781579243455019482",
+              "-45.995238802489161571910006480839285953871615562015"
+            ],
+            "projection_nm": [
+              "82.897566124336693611315847145077781579243455019482",
+              "50.625"
+            ],
+            "projection_t": "0.84123001234612484218457923346055280521377086220145"
+          }
+        },
+        "nearest_periodic_pair": {
+          "object_a": "pillar_1",
+          "object_b": "pillar_2",
+          "image_shift_cells": [
+            0,
+            1
+          ],
+          "image_shift_nm": [
+            "0.0",
+            "432.0"
+          ],
+          "distance_nm": "107.37023880248916157191000648083928595387161556202",
+          "intersects_or_touches": false,
+          "witness": {
+            "side": "B_to_A",
+            "vertex_index": 0,
+            "edge_index": 2,
+            "point_nm": [
+              "-82.897566124336693611315847145077781579243455019482",
+              "267.37023880248916157191000648083928595387161556202"
+            ],
+            "projection_nm": [
+              "-82.897566124336693611315847145077781579243455019482",
+              "160.0"
+            ],
+            "projection_t": "0.84123001234612484218457923346055280521377086220145"
+          }
+        },
+        "containment_pass": true,
+        "no_overlap_or_touch_pass": true,
+        "integer_lateral_dimensions_pass": false,
+        "half_grid_centers_pass": false,
+        "old_planning_geometry_valid": true,
+        "current_inherited_gate_pass": false,
+        "geometry_hash_sha256": "c14d4dce07391a1fd4c22cb80444fc2b76adca47909db846c01503fd287711ca"
+      }
+    ],
+    "csv_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\lp_anisotropy_expanded_search_v1\\a01_a08_corrected_validity_audit_v2.csv",
+    "json_path": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\lp_anisotropy_expanded_search_v1\\a01_a08_corrected_validity_audit_v2.json"
+  },
+  "safety_invariants": {
+    "NEW_FDTD_BUDGET": 0,
+    "solver_run_called": false,
+    "solver_entered": 0,
+    "active_fdtd": 0,
+    "active_fdtd_process_check": {
+      "matching_process_count": 0,
+      "matching_process_rows": [],
+      "query_returncode": 0
+    },
+    "RCWA": 0,
+    "ML": 0,
+    "ready_pending_hidden_auto_admission": 0,
+    "DOE_changed": false,
+    "validity_function_source_line_start": 74,
+    "validity_function_source_line_end": 99,
+    "git_snapshot": {
+      "branch": "work/paper-a-lp-cp-broadband-v1",
+      "head": "c6fe72ffbb0fb00818e6e8b3a390e01a73f95268",
+      "ahead_behind": "0\t0"
+    }
+  },
+  "decision": {
+    "status": "HARD_GATE_A02_NOT_SAFE_FOR_BENCHMARK_ADMISSION",
+    "benchmark_admission_safe": false,
+    "reason": "The 0.032 nm value is a boundary-margin reporting artifact, but A02 still fails the existing direct 60 nm gate, translated periodic-image 60 nm gate, and integer-lateral-dimension gate. DOE is unchanged and solver authority remains zero."
+  }
+}
