@@ -151,6 +151,11 @@ def active_fdtd_processes():
     return {"matching_process_count": len(rows), "matching_process_rows": rows, "query_returncode": p.returncode}
 
 
+def integer_grid_value(value):
+    x = mpf(value)
+    return abs(x - mp.nint(x)) <= mp.mpf("1e-12")
+
+
 def geometry_audit(g, px, py):
     polygons = {
         "pillar_1": polygon(g["L1_nm"], g["W1_nm"], g["j1_center_x_nm"], g["j1_center_y_nm"], g["j1_rotation_deg"]),
@@ -181,7 +186,7 @@ def geometry_audit(g, px, py):
     boundary_d = mpf(boundary_min["clearance_nm"])
     lateral_keys = ["L1_nm", "W1_nm", "L2_nm", "W2_nm"]
     center_keys = ["j1_center_x_nm", "j1_center_y_nm", "j2_center_x_nm", "j2_center_y_nm"]
-    integer_lateral = all(mpf(g[key]) == mp.floor(mpf(g[key])) for key in lateral_keys)
+    integer_lateral = all(integer_grid_value(g[key]) for key in lateral_keys)
     half_grid_centers = all(2 * mpf(g[key]) == mp.floor(2 * mpf(g[key])) for key in center_keys)
     return {
         "vertices_nm": {name: [point_fmt(point) for point in poly] for name, poly in polygons.items()},
@@ -319,6 +324,7 @@ def main():
             "authority_sha256": sha256_file(RULE_AUTH),
             "hard_gates": rules["hard_gates_inherited"],
             "current_authoritative_minimum_gap_nm": 60.0,
+            "integer_grid_numeric_equivalence_tolerance_nm": "1e-12; representation tolerance only, not a fabrication threshold",
             "minimum_linewidth_or_aspect_ratio_gate": "none found in inherited authority; not invented",
             "expanded_doe_validity_mismatch": "The A01-A08 bootstrap validity() records containment/overlap but does not apply the inherited 60 nm direct/periodic clearance or integer-lateral admission gates.",
         },
