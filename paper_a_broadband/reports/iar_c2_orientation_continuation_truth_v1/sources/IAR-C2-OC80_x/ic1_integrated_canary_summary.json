@@ -1,0 +1,102 @@
+{
+  "schema": "PAPER_A_IC1_INTEGRATED_CANARY_POSTPROCESS_SUMMARY_V1",
+  "case_id": "IAR-C2-OC80_x",
+  "classification": "VALID_FOR_IC1_INTEGRATED_CANARY_TRUTH",
+  "root_cause": null,
+  "pre_fsp_sha256": "596a436dcda7cb3379ed1f238c3d5b61024fa10d91489f7b2c56edf5ef7d6451",
+  "post_fsp_sha256": "d7e7df423171b2280c325177b8ab03c22923852f13c6159b45e74d473150714a",
+  "physics_semantic_fingerprint": null,
+  "integrated_instrumentation_fingerprint": null,
+  "spectral_grid_nm": {
+    "start": 400.00000000000006,
+    "stop": 500.00000000000006,
+    "points": 101
+  },
+  "sourcepower": {
+    "finite": true,
+    "positive": true,
+    "min_W": 1.5122214660608366e-15,
+    "max_W": 3.691946938625089e-15
+  },
+  "six_face_closed_flux": {
+    "finite": true,
+    "net_min_W": -3.714478236764315e-16,
+    "net_max_W": -2.718132931648253e-16
+  },
+  "near_to_far": {
+    "finite": true,
+    "samples": 101,
+    "450_nm": {
+      "wavelength_nm": 450.0000000000001,
+      "ux_points": 150,
+      "uy_points": 150,
+      "ux_min": -1.0,
+      "ux_max": 1.0,
+      "uy_min": -1.0,
+      "uy_max": 1.0,
+      "intensity_summary": {
+        "shape": [
+          150,
+          150
+        ],
+        "dtype": "float64",
+        "size": 22500,
+        "finite": true,
+        "real_min": 0.0,
+        "real_max": 4.266218902694036e-14,
+        "imag_min": null,
+        "imag_max": null
+      },
+      "vector_summary": {
+        "shape": [
+          3
+        ],
+        "dtype": "complex128",
+        "size": 3,
+        "finite": true,
+        "real_min": -1.9097010228727674e-08,
+        "real_max": 1.3674811760136547e-07,
+        "imag_min": -3.997641582457136e-08,
+        "imag_max": 0.0
+      },
+      "vector_Ex": [
+        1.3674811760136547e-07,
+        -3.997641582457136e-08
+      ],
+      "vector_Ey": [
+        -1.9097010228727674e-08,
+        -1.0174100687016133e-08
+      ],
+      "stokes": {
+        "S0": 1.0383184807080797e-14,
+        "S1": 9.914976682615123e-15,
+        "S2": -2.204756120887317e-15,
+        "S3": 2.1547191391459253e-15,
+        "DoLP": 0.9782307623961521,
+        "DoCP": 0.20752006048052982,
+        "psi_deg": 173.73166451557603
+      }
+    }
+  },
+  "stokes": {
+    "samples": 101,
+    "finite": true,
+    "DoLP_min": 0.17856100799848498,
+    "DoLP_max": 0.5839150465416518
+  },
+  "convergence": {
+    "sample_count": 10242,
+    "time_start_s": 0.0,
+    "time_end_s": 7.97774790837628e-13,
+    "late_window_count": 3414,
+    "late_first_proxy": 3.8601208173275915e-11,
+    "late_last_proxy": 1.172958801094452e-10,
+    "late_slope_per_s": -1486.4104827983822,
+    "positive_late_window_growth": false,
+    "native_auto_shutoff": "NOT_PERSISTED_BY_RUNNER"
+  },
+  "architecture_verdict": "PAPER_A_IC1_FINITE_INTEGRATED_CANARY_PASS",
+  "W_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+  "raw_solver_data_modified": false,
+  "timestamp_utc": "2026-09-02T00:19:21.523838+00:00"
+}

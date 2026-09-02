@@ -1,0 +1,105 @@
+{
+  "schema": "PAPER_A_IC1_INTEGRATED_CANARY_POSTPROCESS_SUMMARY_V1",
+  "case_id": "IAR-C2_y",
+  "classification": "VALID_FOR_IC1_INTEGRATED_CANARY_TRUTH",
+  "root_cause": null,
+  "pre_fsp_sha256": "82ee609a48b07389cf50ddf48ff77dbb714e5923f8a73adfb59f85e977f024d8",
+  "post_fsp_sha256": "931f1a3c0b683918d72d56354a42d7cea776ec5a35b71247df5dfbbaa11472ca",
+  "physics_semantic_fingerprint": null,
+  "integrated_instrumentation_fingerprint": null,
+  "spectral_grid_nm": {
+    "start": 400.00000000000006,
+    "stop": 500.00000000000006,
+    "points": 101
+  },
+  "sourcepower": {
+    "finite": true,
+    "positive": true,
+    "min_W": 1.5122214660608366e-15,
+    "max_W": 3.691946938625089e-15
+  },
+  "six_face_closed_flux": {
+    "finite": true,
+    "net_min_W": -3.714163730372526e-16,
+    "net_max_W": -2.7424256637987744e-16
+  },
+  "near_to_far": {
+    "finite": true,
+    "samples": 101,
+    "450_nm": {
+      "wavelength_nm": 450.0000000000001,
+      "ux_points": 150,
+      "uy_points": 150,
+      "ux_min": -1.0,
+      "ux_max": 1.0,
+      "uy_min": -1.0,
+      "uy_max": 1.0,
+      "intensity_summary": {
+        "shape": [
+          150,
+          150
+        ],
+        "dtype": "float64",
+        "size": 22500,
+        "finite": true,
+        "real_min": 0.0,
+        "real_max": 4.0179278691758934e-14,
+        "imag_min": null,
+        "imag_max": null
+      },
+      "vector_summary": {
+        "shape": [
+          3
+        ],
+        "dtype": "complex128",
+        "size": 3,
+        "finite": true,
+        "real_min": -3.332909244801057e-08,
+        "real_max": 0.0,
+        "imag_min": -1.3428139716111066e-08,
+        "imag_max": 1.9618991889090876e-07
+      },
+      "vector_Ex": [
+        -1.3358391783768086e-08,
+        -1.3428139716111066e-08
+      ],
+      "vector_Ey": [
+        -3.332909244801057e-08,
+        1.9618991889090876e-07
+      ],
+      "stokes": {
+        "S0": 1.9980037122556717e-14,
+        "S1": -1.9621275555272672e-14,
+        "S2": -2.189242567041669e-15,
+        "S3": 3.068329510573511e-15,
+        "DoLP": 0.9881378085766467,
+        "DoCP": 0.15356976024381264,
+        "psi_deg": 93.18322076813622
+      }
+    }
+  },
+  "stokes": {
+    "samples": 101,
+    "finite": true,
+    "DoLP_min": 0.29446352530015196,
+    "DoLP_max": 0.49900762402925364
+  },
+  "convergence": {
+    "sample_count": 9611,
+    "time_start_s": 0.0,
+    "time_end_s": 7.486198359485992e-13,
+    "late_window_count": 3204,
+    "late_first_proxy": 3.171862599840352e-11,
+    "late_last_proxy": 2.3203996130762772e-10,
+    "late_slope_per_s": -1960.7301920987884,
+    "positive_late_window_growth": false,
+    "native_auto_shutoff": "NOT_PERSISTED_BY_RUNNER"
+  },
+  "architecture_verdict": "PAPER_A_IC1_FINITE_INTEGRATED_CANARY_PASS",
+  "W_emit": "UNRESOLVED_FOR_PRODUCTION_CLOSURE",
+  "raw_solver_data_modified": false,
+  "timestamp_utc": "2026-09-01T20:46:39.641046+00:00",
+  "candidate_id": "IAR-C2",
+  "polarization": "y",
+  "validity_gate": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\reports\\iar_c2_orientation_continuation_truth_v1\\sources\\IAR-C2_y\\validity_gate_v2.json"
+}
