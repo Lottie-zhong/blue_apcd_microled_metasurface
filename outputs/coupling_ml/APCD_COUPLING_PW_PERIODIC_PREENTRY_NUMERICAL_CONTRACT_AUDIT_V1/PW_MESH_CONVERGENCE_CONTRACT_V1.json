@@ -1,0 +1,57 @@
+{
+  "acceptance": "mesh accepted only if every required metric meets predeclared tolerance and energy closure remains valid",
+  "baseline_authority": {
+    "BASELINE_MESH_CANDIDATE": {
+      "dx_nm": 10.0,
+      "dy_nm": 10.0,
+      "dz_nm": 10.0,
+      "mesh_accuracy": 2,
+      "override_span_nm": [
+        8700.0,
+        870.0,
+        750.0
+      ],
+      "pml_layers": 8
+    },
+    "planned_convergence": {
+      "maximum_initial_real_broadband_runs": 4,
+      "run_this_task": false,
+      "runs": [
+        {
+          "case": "CONTROL0",
+          "mesh": "baseline"
+        },
+        {
+          "case": "CONTROL0",
+          "mesh": "refined"
+        },
+        {
+          "case": "ALT1",
+          "mesh": "baseline"
+        },
+        {
+          "case": "ALT1",
+          "mesh": "refined"
+        }
+      ]
+    },
+    "provenance": {
+      "case_contract": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_15294\\attempt_001\\case_contract.json",
+      "static_builder_audit": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\THREED_BUILDER_STATIC_AUDIT.json",
+      "static_builder_audit_exists": true,
+      "validated_scope": "circular TiO2 NP, MDC interfaces, spacer, GaN, 450 nm region"
+    }
+  },
+  "metrics": {
+    "R_lambda": "relative and absolute per-wavelength comparison",
+    "T_lambda": "relative and absolute per-wavelength comparison",
+    "all_populated_propagating_orders": "per-order efficiencies",
+    "closure": "absolute closure residual",
+    "complex_modal_state": "E_C = ||C_refined-C_baseline||_2 / max(||C_refined||_2,epsilon)",
+    "complex_state_weighting": "power-normalized complex amplitudes; propagating channels weighted by reference power, evanescent channels retained as state-only with no power",
+    "eta_plus1_lambda": "absolute and relative per-wavelength comparison",
+    "near_zero_phase": "no standalone phase threshold for near-zero amplitudes; amplitude-weighted complex error only"
+  },
+  "solver_runs_this_task": 0,
+  "status": "FROZEN_PLAN_ONLY"
+}

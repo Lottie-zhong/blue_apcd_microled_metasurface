@@ -1,0 +1,33 @@
+{
+  "closure": "1 - (R + T + A)",
+  "definitions": {
+    "A": "actual integrated material absorption; PML leakage is a numerical residual and is not double-counted as material A",
+    "R": "upward/backward propagating modal power normalized by incident +z power at Z_IN_REF",
+    "T": "downward/+z transmitted propagating modal power on air side at Z_POSTNP_REF"
+  },
+  "materials": {
+    "APCD_GAN_NATIVE_M1": {
+      "accounting": "actual material absorption included in A",
+      "epsilon_imag_max_abs_440_460": 0.4230964847314285,
+      "lossy": true
+    },
+    "APCD_SIO2_NATIVE_M1": {
+      "accounting": "lossless over sampled native band within tolerance",
+      "epsilon_imag_max_abs_440_460": 0.0,
+      "lossy": false
+    },
+    "APCD_TIO2_NATIVE_M1": {
+      "accounting": "lossless over sampled native band within tolerance",
+      "epsilon_imag_max_abs_440_460": 0.0,
+      "lossy": false
+    },
+    "Air": {
+      "accounting": "lossless over sampled native band within tolerance",
+      "epsilon_imag_max_abs_440_460": 0.0,
+      "lossy": false
+    }
+  },
+  "no_field_evaluation_this_task": true,
+  "numerical_gate": "abs(1-(R+T+A)) < 0.01 at every wavelength after real calibration",
+  "status": "PASS_CONTRACT_ONLY"
+}

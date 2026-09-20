@@ -1,0 +1,35 @@
+{
+  "consistency_check": "target +1 is m=+1 and has positive kx; no field extraction or label remapping executed",
+  "coordinate_axes": {
+    "+x": "increasing x",
+    "+y": "increasing y",
+    "+z": "upward from GaN to air"
+  },
+  "inversion_guard": true,
+  "lattice": {
+    "Gx_1_per_nm": 0.0036110260386089574,
+    "Gy_1_per_nm": 0.021666156231653747,
+    "Lambda_x_nm": 1740.0,
+    "Lambda_y_nm": 290.0
+  },
+  "minus_order": {
+    "expected_kx_sign": "-",
+    "label": "-1",
+    "m": -1,
+    "n": 0
+  },
+  "monitor_orientation": {
+    "MON_IN": "-z-normal plane; incident +z",
+    "MON_POSTNP": "+z-facing transmitted plane; +z output",
+    "MON_PRENP": "-z-normal plane; incident +z"
+  },
+  "order_definition": "kx_m=kx0+2*pi*m/Lambda_x; ky_n=ky0+2*pi*n/Lambda_y; kx0=ky0=0",
+  "status": "PASS_SETUP_ONLY",
+  "target_order": {
+    "expected_kx_1_per_nm": 0.0036110260386089574,
+    "expected_kx_sign": "+",
+    "label": "+1",
+    "m": 1,
+    "n": 0
+  }
+}

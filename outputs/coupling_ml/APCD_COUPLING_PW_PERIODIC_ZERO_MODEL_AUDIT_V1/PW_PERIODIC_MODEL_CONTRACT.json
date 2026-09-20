@@ -1,0 +1,661 @@
+{
+  "boundaries": {
+    "fdtd_span_nm": [
+      1740,
+      290
+    ],
+    "x": "Periodic",
+    "y": "Periodic",
+    "z": "PML"
+  },
+  "cad_audit": "Required before PW0 admission; periodic continuity and no finite-island geometry must be proven from the generated CAD.",
+  "candidate_model": "3D_PW_PERIODIC_INTEGRATED_COUPLING",
+  "contract_id": "PW_PERIODIC_MODEL_CONTRACT_V1",
+  "current_2d_role": "STRUCTURED_LOW_FIDELITY_PRIOR_NOT_PRIMARY_3D_DIRECTIONAL_TRUTH",
+  "g2_verdict": "SOURCE_DIMENSIONALITY_PARTIAL_CONTRIBUTOR",
+  "generated_utc": "2026-09-20T10:30:26.468209Z",
+  "geometry": {
+    "K": 6,
+    "ordered_labels": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6"
+    ],
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "permutation_forbidden": true,
+    "pillar_height_nm": 500
+  },
+  "labels": [
+    "R(lambda)",
+    "T(lambda)",
+    "closure",
+    "all_propagating_order_efficiencies",
+    "target_+1_efficiency"
+  ],
+  "modal_extraction": {
+    "aggressive_truncation": false,
+    "air_open_orders": [
+      [
+        -3,
+        0
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ]
+    ],
+    "all_propagating_orders": true,
+    "basis": "deterministic_Floquet_modal_complex_amplitudes",
+    "candidate_evanescent": true,
+    "candidate_evanescent_orders": [
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -3
+      ],
+      [
+        -4,
+        -2
+      ],
+      [
+        -4,
+        -1
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -4,
+        1
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        3
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -3,
+        -4
+      ],
+      [
+        -3,
+        -3
+      ],
+      [
+        -3,
+        -2
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        -3,
+        1
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        3
+      ],
+      [
+        -3,
+        4
+      ],
+      [
+        -2,
+        -4
+      ],
+      [
+        -2,
+        -3
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        -2,
+        -1
+      ],
+      [
+        -2,
+        1
+      ],
+      [
+        -2,
+        2
+      ],
+      [
+        -2,
+        3
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -1,
+        -4
+      ],
+      [
+        -1,
+        -3
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        -1,
+        -1
+      ],
+      [
+        -1,
+        1
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        0,
+        -4
+      ],
+      [
+        0,
+        -3
+      ],
+      [
+        0,
+        -2
+      ],
+      [
+        0,
+        -1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        -4
+      ],
+      [
+        1,
+        -3
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        -4
+      ],
+      [
+        2,
+        -3
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        -4
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "target_order": [
+      1,
+      0
+    ]
+  },
+  "pilot": {
+    "geometries": [
+      {
+        "case_id": "W2H_15294",
+        "ordered_diameters_nm": [
+          155,
+          105,
+          195,
+          150,
+          180,
+          145
+        ],
+        "ordered_pillar_labels": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6"
+        ],
+        "period_x_nm": 1740,
+        "period_y_nm": 290,
+        "pillar_height_nm": 500,
+        "role": "matched_3d_emitter_anchor_historical_high_routing_representative",
+        "source_authority": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_15294\\attempt_001\\case_contract.json"
+      },
+      {
+        "case_id": "W2H_06824",
+        "ordered_diameters_nm": [
+          135,
+          210,
+          200,
+          105,
+          210,
+          165
+        ],
+        "ordered_pillar_labels": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6"
+        ],
+        "period_x_nm": 1740,
+        "period_y_nm": 290,
+        "pillar_height_nm": 500,
+        "role": "low_routing_representative",
+        "source_authority": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_06824\\attempt_001\\case_contract.json"
+      },
+      {
+        "case_id": "W2H_19451",
+        "ordered_diameters_nm": [
+          205,
+          220,
+          100,
+          125,
+          170,
+          110
+        ],
+        "ordered_pillar_labels": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6"
+        ],
+        "period_x_nm": 1740,
+        "period_y_nm": 290,
+        "pillar_height_nm": 500,
+        "role": "strong_asymmetry_anchor",
+        "source_authority": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_19451\\attempt_001\\case_contract.json"
+      },
+      {
+        "case_id": "W2H_10588",
+        "ordered_diameters_nm": [
+          160,
+          170,
+          135,
+          130,
+          130,
+          220
+        ],
+        "ordered_pillar_labels": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6"
+        ],
+        "period_x_nm": 1740,
+        "period_y_nm": 290,
+        "pillar_height_nm": 500,
+        "role": "diverse_anchor",
+        "source_authority": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_10588\\attempt_001\\case_contract.json"
+      },
+      {
+        "case_id": "CONTROL0",
+        "ordered_diameters_nm": [
+          125,
+          135,
+          150,
+          175,
+          190,
+          210
+        ],
+        "ordered_pillar_labels": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6"
+        ],
+        "period_x_nm": 1740,
+        "period_y_nm": 290,
+        "pillar_height_nm": 500,
+        "role": "frozen_design_reference",
+        "source_authority": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py"
+      },
+      {
+        "case_id": "ALT1",
+        "ordered_diameters_nm": [
+          100,
+          115,
+          130,
+          145,
+          155,
+          185
+        ],
+        "ordered_pillar_labels": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6"
+        ],
+        "period_x_nm": 1740,
+        "period_y_nm": 290,
+        "pillar_height_nm": 500,
+        "role": "frozen_design_reference",
+        "source_authority": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py"
+      }
+    ],
+    "planned_scientific_runs": 6,
+    "planned_solver_entries": 6,
+    "run": false,
+    "solver_entries_this_task": 0
+  },
+  "provenance": {
+    "native_material_config": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\configs\\material_reference_apcd_blue.yaml",
+    "traditional_controller": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py"
+  },
+  "raw_field_authority": "physical_complex_E_H_at_PRENP_and_POSTNP_for_all_21_wavelengths",
+  "raw_fields": [
+    "Ex",
+    "Ey",
+    "Ez",
+    "Hx",
+    "Hy",
+    "Hz"
+  ],
+  "reference_planes": {
+    "contract_id": "REFERENCE_PLANE_CONTRACT_V1",
+    "coordinate_system": "model_global_z_nm",
+    "derivation": {
+      "gan_mdc_interface_z_nm": 0,
+      "mdc_top_z_nm": 975,
+      "np_base_z_nm": 1212,
+      "np_top_z_nm": 1712,
+      "offset_from_homogeneous_region_nm": 10
+    },
+    "load_readback_required": true,
+    "normalization": "incident_+z_flux_through_full_periodic_cell_at_MON_IN",
+    "planes": {
+      "MON_IN": {
+        "delta_nm": 0,
+        "medium": "homogeneous_GaN_below_MDC",
+        "requested_z_nm": -50,
+        "sampled_z_nm": -50
+      },
+      "MON_POSTNP": {
+        "delta_nm": 0,
+        "medium": "homogeneous_air_immediately_above_NP",
+        "requested_z_nm": 1722,
+        "sampled_z_nm": 1722
+      },
+      "MON_PRENP": {
+        "delta_nm": 0,
+        "medium": "homogeneous_spacer_immediately_below_NP",
+        "requested_z_nm": 1202,
+        "sampled_z_nm": 1202
+      }
+    },
+    "solver_entries_this_task": 0,
+    "status": "DERIVED_COORDINATES_PENDING_LOAD_READBACK"
+  },
+  "source": {
+    "BFAST": false,
+    "incidence": "+z",
+    "oblique": false,
+    "path": "GaN -> MDC -> spacer -> NP -> air",
+    "polarization_pilot": "X",
+    "type": "broadband_plane_wave",
+    "ux": 0,
+    "uy": 0
+  },
+  "stack": {
+    "layers": "MDC",
+    "nanopillars": "circular_TiO2_K6",
+    "spacer": "237 nm",
+    "substrate": "GaN",
+    "superstrate": "air"
+  },
+  "stack_authority": {
+    "evidence": {
+      "case_contracts": {
+        "W2H_06824": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_06824\\attempt_001\\case_contract.json",
+        "W2H_10588": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_10588\\attempt_001\\case_contract.json",
+        "W2H_15294": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_15294\\attempt_001\\case_contract.json",
+        "W2H_19451": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G1_MATCHED_4CASE_3D_CYLINDER_PHASE_A_V1\\cases\\W2H_19451\\attempt_001\\case_contract.json"
+      },
+      "controller": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py",
+      "controller_values": {
+        "DIAMETERS": {
+          "ALT1": [
+            100,
+            115,
+            130,
+            145,
+            155,
+            185
+          ],
+          "CONTROL0": [
+            125,
+            135,
+            150,
+            175,
+            190,
+            210
+          ]
+        },
+        "PERIOD_X_NM": 1740.0,
+        "PERIOD_Y_NM": 290.0,
+        "PILLAR_TOP_NM": 1712.0,
+        "SPACER_NM": 237.0
+      },
+      "material_yaml": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\configs\\material_reference_apcd_blue.yaml"
+    },
+    "no_redesign": true,
+    "status": "PASS_FROM_FROZEN_3D_COUPLING_CONTRACTS_AND_NATIVE_M1_YAML"
+  },
+  "status": "FROZEN_AUDIT_CONTRACT_NO_SOLVER",
+  "termination_candidate": {
+    "auto_shutoff": 1e-06,
+    "exact_termination_criteria_pending_solver_implementation": true,
+    "max_simulation_time_ps": 2.0
+  },
+  "wavelength_nm": [
+    440,
+    441,
+    442,
+    443,
+    444,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455,
+    456,
+    457,
+    458,
+    459,
+    460
+  ]
+}

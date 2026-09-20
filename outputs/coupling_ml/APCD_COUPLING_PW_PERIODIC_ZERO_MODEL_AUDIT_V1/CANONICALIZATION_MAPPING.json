@@ -1,0 +1,60 @@
+{
+  "canonical_v3_worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+  "entries": [
+    {
+      "action": "VERIFIED_ALREADY_CANONICALIZED_SHARED_LAYER",
+      "canonical_destination": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\engine\\persistence.py",
+      "reason": "Validated persistence hardening is present in the canonical shared source; no fork or duplicate runtime copy is retained.",
+      "sha_after": "2ca20a2ce86490d304cfaca90ca841b25974b161de9da3b466cb8665ad9cb46c",
+      "sha_after_expected": "2ca20a2ce86490d304cfaca90ca841b25974b161de9da3b466cb8665ad9cb46c",
+      "sha_before": null,
+      "sha_before_status": "NOT_CAPTURED; canonical destination had no Git blob in the validated recovery transfer record",
+      "temporary_recovery_source": ".codex_stage\\apcd_v3\\scripts\\shared_fdtd\\engine\\persistence.py",
+      "verified": true
+    },
+    {
+      "action": "VERIFIED_ALREADY_CANONICALIZED_SHARED_LAYER",
+      "canonical_destination": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_g2_host.py",
+      "reason": "Canonical V3 host routes through the shared persistence layer and no recovery-only host fork is admitted.",
+      "sha_after": "d6a3dd43d411e365244726d066b14fc6d56c533cca978eab317b825c0e0693ab",
+      "sha_after_expected": "d6a3dd43d411e365244726d066b14fc6d56c533cca978eab317b825c0e0693ab",
+      "sha_before": null,
+      "sha_before_status": "NOT_CAPTURED; canonical destination had no Git blob in the validated recovery transfer record",
+      "temporary_recovery_source": ".codex_stage\\apcd_v3\\v3_g2_host.py",
+      "verified": true
+    },
+    {
+      "action": "VERIFIED_CANONICAL_REGRESSION_TEST",
+      "canonical_destination": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tests\\run_persistence_zero_solver_tests.py",
+      "reason": "Persistence zero-solver regression coverage is retained in the canonical shared test namespace.",
+      "sha_after": "769c3ec8c7a0aa3aee8a22ed627faf7031c1eae77983cdc64d22e5d555f93111",
+      "sha_after_expected": "769c3ec8c7a0aa3aee8a22ed627faf7031c1eae77983cdc64d22e5d555f93111",
+      "sha_before": null,
+      "sha_before_status": "NOT_CAPTURED; canonical destination had no Git blob in the validated recovery transfer record",
+      "temporary_recovery_source": ".codex_stage\\apcd_v3\\scripts\\shared_fdtd\\tests\\run_persistence_zero_solver_tests.py",
+      "verified": true
+    },
+    {
+      "action": "NOT_CANONICAL_RUNTIME_RETAINED_AS_AUDIT_PROVENANCE",
+      "canonical_destination": "previous G2 output provenance only; no canonical runtime destination",
+      "reason": "Analysis helper is not a shared runtime source and must not become a duplicate scientific entry.",
+      "sha_after": null,
+      "sha_before": "76237be06a32bbeb9617f4e16a8d408614cdea61c84e96367a3d9e91e30adc80c",
+      "temporary_recovery_source": ".codex_stage\\apcd_v3\\g2_final_two_case_analysis.py"
+    },
+    {
+      "action": "NOT_CANONICAL_RUNTIME_RETAINED_AS_AUDIT_PROVENANCE",
+      "canonical_destination": "previous G2 output provenance only; no canonical runtime destination",
+      "reason": "Authority audit helper is provenance-only.",
+      "sha_after": null,
+      "sha_before": "a67106e3047b7f2355d6f9ef29880cc8bb8dacecb1ee1fed3f5c078f23f4976c",
+      "temporary_recovery_source": ".codex_stage\\apcd_v3\\write_git_worktree_authority_audit.py"
+    }
+  ],
+  "generated_utc": "2026-09-20T10:30:26.481213Z",
+  "unique_recovery_only_files": [
+    ".codex_stage\\apcd_v3\\g1_production.py",
+    ".codex_stage\\apcd_v3\\g2_final_two_case_analysis.py",
+    ".codex_stage\\apcd_v3\\write_git_worktree_authority_audit.py"
+  ]
+}

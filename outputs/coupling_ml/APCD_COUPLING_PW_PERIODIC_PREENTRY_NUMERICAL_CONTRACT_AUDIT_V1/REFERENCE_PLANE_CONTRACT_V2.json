@@ -1,0 +1,45 @@
+{
+  "canonical_physical_planes_nm": {
+    "Z_IN_REF": -50.0,
+    "Z_POSTNP_REF": 1722.0,
+    "Z_PRENP_REF": 1202.0
+  },
+  "checks": {
+    "full_periodic_cell_monitors": true,
+    "sampled_plane_readback_exact": true,
+    "sampled_planes_homogeneous": true,
+    "sampled_planes_not_interface": true,
+    "sampled_planes_not_pml": true
+  },
+  "contract_id": "REFERENCE_PLANE_CONTRACT_V2",
+  "field_authority": "raw complex Ex/Ey/Ez/Hx/Hy/Hz at sampled planes; no field extraction in this task",
+  "interfaces_nm": {
+    "GaN_MDC": 0.0,
+    "MDC_top": 975.0,
+    "NP_base": 1212.0,
+    "NP_top": 1712.0,
+    "PML_z_max": 3000.0,
+    "PML_z_min": -600.0
+  },
+  "sampled_monitor_planes": {
+    "Z_IN_SAMPLE": {
+      "homogeneous_region": "GaN_-600_to_0",
+      "material": "APCD_GAN_NATIVE_M1",
+      "readback_z_nm": -100.00000000000001,
+      "requested_z_nm": -100.0
+    },
+    "Z_POSTNP_SAMPLE": {
+      "homogeneous_region": "air_above_1712_below_PML",
+      "material": "Air",
+      "readback_z_nm": 1800.0000000000002,
+      "requested_z_nm": 1800.0
+    },
+    "Z_PRENP_SAMPLE": {
+      "homogeneous_region": "spacer_975_to_1212",
+      "material": "APCD_SIO2_NATIVE_M1",
+      "readback_z_nm": 1150.0,
+      "requested_z_nm": 1150.0
+    }
+  },
+  "status": "PASS"
+}
