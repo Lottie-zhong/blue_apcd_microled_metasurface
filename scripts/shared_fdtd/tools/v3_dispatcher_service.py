@@ -48,6 +48,9 @@ def launch_factory(db_path):
             "mpi_ranks": payload.get("mpi_ranks", payload.get("processes", 12)),
             "threads": payload.get("threads", 1),
             "integrated_pw": bool(payload.get("integrated_pw", False)),
+            "scientific_launcher": payload.get("scientific_launcher"),
+            "pw_contract": payload.get("pw_contract"),
+            "entry_confirmation_poll_s": payload.get("entry_confirmation_poll_s", 0.5),
             "resource_monitor_interval_s": payload.get("resource_monitor_interval_s", 30.0),
         }
         atomic(config, cfg)

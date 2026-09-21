@@ -25,6 +25,13 @@ from shared_fdtd.engine.persistence import (
 )
 from shared_fdtd.control_v3.resources import ResourceRequest, RuntimeResourceMonitor
 from shared_fdtd.engine.attempt_state import write_durable_attempt_state
+from shared_fdtd.tools.pw_scientific_launcher import (
+    LAUNCHER_ID,
+    load_only_validate as pw_load_only_validate,
+    postprocess as pw_postprocess,
+    run_and_confirm_entry,
+    validate_config as validate_pw_config,
+)
 
 
 def now():
@@ -87,7 +94,10 @@ def mirror_initial(cfg):
         target.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
 
 
-def validate_load(fd):
+def validate_load(fd, cfg, is_pw):
+    if is_pw:
+        pw_load_only_validate(fd, cfg)
+        return
     _ = fd.getdata("top_farfield3d_monitor", "f")
     _ = fd.getdata("top_farfield3d_monitor", "Ex")
     _ = fd.farfield3d("top_farfield3d_monitor", 1)
@@ -97,6 +107,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("config")
     cfg = json.loads(Path(parser.parse_args().config).read_text(encoding="utf-8"))
+    is_pw = cfg.get("scientific_launcher") == "PW_PERIODIC_PLANAR"
+    if is_pw:
+        validate_pw_config(cfg)
     mirror_initial(cfg)
     from shared_fdtd.control_v3.allocator import Allocator, Lease
     from shared_fdtd.control_v3.db import ControlDB
@@ -125,6 +138,7 @@ def main():
     fd = None
     load_fd = None
     resource_monitor = None
+    adapter_identity = LAUNCHER_ID if is_pw else 'APCD_G2_ATTEMPT003'
     try:
         emit(cfg, "HOST_STARTED", host_pid=__import__("os").getpid(), runtime=str(Path(cfg["runtime"])))
         queue_state(db, cfg, "SLOT_ACQUIRED")
@@ -143,37 +157,46 @@ def main():
             cfg={**cfg, "scientific_invocation_count": 0, "canonical_state": "SETUP_READY"},
             lease=lease, setup_path=pre, runtime_fsp=run, native_target=native,
             post_target=post, raw_target=case_root / "raw_result.json",
-            logs=[case_root / "solver.log"], adapter_identity="APCD_G2_ATTEMPT003",
+            logs=[case_root / "solver.log"], adapter_identity=adapter_identity,
             persistence_preflight=preflight,
             scientific_contract_hash=cfg["physical_contract_hash"],
         )
         queue_state(db, cfg, "SOLVER_ENTRY_INTENT")
         emit(cfg, "SOLVER_ENTRY_INTENT", run_fsp=str(run), run_fsp_sha256=sha(run))
-        mod, g = import_authority(Path(cfg["output_root"]), cfg["task"])
+        mod = g = None
+        if not is_pw:
+            mod, g = import_authority(Path(cfg["output_root"]), cfg["task"])
         import lumapi
         fd = lumapi.FDTD(str(run), hide=True)
         fd.setresource("FDTD", 1, "processes", "12")
         fd.setresource("FDTD", 1, "threads", "1")
-        entered = True
-        ledger.update({"solver_entered": True, "physical_solver_entry": True, "entered_timestamp_utc": now(),
-                       "run_invocation_count": 1, "slot_id": lease.slot_id, "run_fsp": str(run), "run_fsp_sha256": sha(run)})
-        write(ledger_path, ledger)
-        write_durable_attempt_state(
-            case_root / "attempt_state.json",
-            cfg={**cfg, "scientific_invocation_count": 1, "canonical_state": "SCIENTIFIC_SOLVER_RUNNING"},
-            lease=lease, setup_path=pre, runtime_fsp=run, native_target=native,
-            post_target=post, raw_target=case_root / "raw_result.json",
-            logs=[case_root / "solver.log"], adapter_identity="APCD_G2_ATTEMPT003",
-            persistence_preflight=preflight,
-            expected_process_identity={"lineage_unknown": True, "controller_pid": __import__("os").getpid()},
-            scientific_contract_hash=cfg["physical_contract_hash"],
-            solver_entry_timestamp=ledger["entered_timestamp_utc"],
-        )
-        allocator.mark_entered(lease)
-        queue_state(db, cfg, "SCIENTIFIC_SOLVER_ENTERED")
-        emit(cfg, "SCIENTIFIC_SOLVER_ENTERED", slot_id=lease.slot_id, mpi_processes=12, threads=1)
-        queue_state(db, cfg, "SCIENTIFIC_SOLVER_RUNNING")
-        emit(cfg, "SCIENTIFIC_SOLVER_RUNNING", slot_id=lease.slot_id)
+        cfg["run_fsp"] = str(run)
+        def confirm_entry(evidence):
+            nonlocal entered
+            if entered:
+                return
+            entered = True
+            entry_timestamp = now()
+            ledger.update({"solver_entered": True, "physical_solver_entry": True, "entered_timestamp_utc": entry_timestamp,
+                           "run_invocation_count": 1, "slot_id": lease.slot_id, "run_fsp": str(run), "run_fsp_sha256": sha(run),
+                           "entry_evidence": evidence})
+            write(ledger_path, ledger)
+            write_durable_attempt_state(
+                case_root / "attempt_state.json",
+                cfg={**cfg, "scientific_invocation_count": 1, "canonical_state": "SCIENTIFIC_SOLVER_RUNNING"},
+                lease=lease, setup_path=pre, runtime_fsp=run, native_target=native,
+                post_target=post, raw_target=case_root / "raw_result.json",
+                logs=[case_root / "solver.log"], adapter_identity=adapter_identity,
+                persistence_preflight=preflight,
+                expected_process_identity=evidence,
+                scientific_contract_hash=cfg["physical_contract_hash"],
+                solver_entry_timestamp=entry_timestamp,
+            )
+            allocator.mark_entered(lease)
+            queue_state(db, cfg, "SCIENTIFIC_SOLVER_ENTERED")
+            emit(cfg, "SCIENTIFIC_SOLVER_ENTERED", slot_id=lease.slot_id, mpi_processes=12, threads=1, entry_evidence=evidence)
+            queue_state(db, cfg, "SCIENTIFIC_SOLVER_RUNNING")
+            emit(cfg, "SCIENTIFIC_SOLVER_RUNNING", slot_id=lease.slot_id)
         resource_request = ResourceRequest.from_payload(cfg)
         resource_monitor = RuntimeResourceMonitor(
             resource_request,
@@ -181,7 +204,11 @@ def main():
             interval_s=float(cfg.get("resource_monitor_interval_s", 30.0)),
         )
         resource_monitor.start()
-        fd.run()
+        if is_pw:
+            run_and_confirm_entry(fd, cfg, confirm_entry)
+        else:
+            confirm_entry({"observation": "legacy_api_entry_boundary"})
+            fd.run()
         returned = True
         ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
         write(ledger_path, ledger)
@@ -190,27 +217,32 @@ def main():
         emit(cfg, "NATIVE_TRUTH_DURABLE", native_fsp=str(native), native_fsp_sha256=native_record["sha256"])
         fd.close(); fd = None
         load_fd = lumapi.FDTD(str(native), hide=True)
-        validate_load(load_fd)
+        validate_load(load_fd, cfg, is_pw)
         emit(cfg, "NATIVE_TRUTH_LOAD_ONLY_VALIDATED", native_fsp=str(native), native_fsp_sha256=native_record["sha256"])
         load_fd.close(); load_fd = None
         post_record = persist_and_verify(native, post)
         write(case_root / "post_fsp_verification.json", {"status": "PASS", **post_record, "load_only": True, "source_native_fsp": str(native), "source_native_sha256": native_record["sha256"]})
         load_fd = lumapi.FDTD(str(post), hide=True)
-        validate_load(load_fd)
+        validate_load(load_fd, cfg, is_pw)
         queue_state(db, cfg, "POSTPROCESSING")
         emit(cfg, "POSTPROCESSING", post_fsp=str(post))
-        contract = mod.contract(cfg["case"])
-        contract["attempt_id"] = cfg["attempt"]
-        raw, metrics, paths = g.extract_and_project(load_fd, {"geometry_id": cfg["case"]}, post, case_root)
-        raw["attempt_id"] = cfg["attempt"]
-        raw["task_id"] = cfg["task"]
-        ensure_parent(paths["raw_json"])
-        g.atomic_json(paths["raw_json"], raw)
+        if is_pw:
+            raw, metrics, paths = pw_postprocess(load_fd, cfg, case_root)
+            transfer = {"schema": "APCD_PW_STANDARDIZED_DB_PAYLOAD_V1", "wavelength_count": len(metrics.get("rows", [])), "projection": str(paths["projection"]), "orders": str(paths["angular"])}
+        else:
+            contract = mod.contract(cfg["case"])
+            contract["attempt_id"] = cfg["attempt"]
+            raw, metrics, paths = g.extract_and_project(load_fd, {"geometry_id": cfg["case"]}, post, case_root)
+            raw["attempt_id"] = cfg["attempt"]
+            raw["task_id"] = cfg["task"]
+            ensure_parent(paths["raw_json"])
+            g.atomic_json(paths["raw_json"], raw)
         queue_state(db, cfg, "POST_FSP_VALID")
         emit(cfg, "POST_FSP_VALID", post_fsp=str(post), post_fsp_sha256=sha(post))
         queue_state(db, cfg, "RAW_VALID")
         emit(cfg, "RAW_VALID", raw_result=str(paths["raw_json"]), raw_sha256=sha(paths["raw_json"]))
-        transfer = g.transfer_metrics(cfg["case"], metrics, paths["projection"])
+        if not is_pw:
+            transfer = g.transfer_metrics(cfg["case"], metrics, paths["projection"])
         write(case_root / "scientific_validation.json", {"status": "PASS", "load_only": "PASS", "raw_fields": "PASS", "angular": "PASS", "projection": "PASS", "transfer_metrics": transfer})
         queue_state(db, cfg, "SCIENTIFIC_VALID")
         emit(cfg, "SCIENTIFIC_VALID", raw_result=str(paths["raw_json"]), projection=str(paths["projection"]))
