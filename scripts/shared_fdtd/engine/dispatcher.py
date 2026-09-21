@@ -51,10 +51,11 @@ def dispatch_once(db,branch,launch):
     return launched
 
 def recover_failed_preentry(db, branch, case, attempt, attempt_root=None):
+    from shared_fdtd.control_v3.allocator import Allocator, Lease
     from shared_fdtd.engine.event_log import append_event
     with db.immediate() as con:
         row = con.execute(
-            "SELECT state FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            "SELECT state,slot_id,fencing_generation FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
             (branch, case, attempt),
         ).fetchone()
         if row is None:
@@ -92,10 +93,32 @@ def recover_failed_preentry(db, branch, case, attempt, attempt_root=None):
             raise RuntimeError("PREENTRY_RECOVERY_BLOCKED_AFTER_SCIENTIFIC_ENTRY")
         if copies != 1 or active_other != 0:
             raise RuntimeError("PREENTRY_RECOVERY_BLOCKED_CASE_DUPLICATION")
-        con.execute(
+        lease = None
+        if row["slot_id"]:
+            slot = con.execute("SELECT * FROM slots WHERE slot_id=?", (row["slot_id"],)).fetchone()
+            if slot is None:
+                raise RuntimeError("ZERO_SOLVER_RECOVERY_MISSING_SLOT")
+            if slot["state"] != "FREE":
+                matches = (
+                    slot["owner_branch"] == branch
+                    and slot["logical_case_id"] == case
+                    and slot["attempt_id"] == attempt
+                    and int(slot["fencing_generation"]) == int(row["fencing_generation"] or -1)
+                )
+                if not matches:
+                    raise RuntimeError("ZERO_SOLVER_RECOVERY_FOREIGN_SLOT")
+                lease = Lease(slot["slot_id"], branch, case, attempt, slot["lease_token"], int(slot["fencing_generation"]))
+    if lease is not None:
+        released = Allocator(db).release_owned_idempotent(lease, scientific_terminal="FAILED_PREENTRY")
+        if released["status"] not in {"RELEASED", "ALREADY_FREE"}:
+            raise RuntimeError("ZERO_SOLVER_RECOVERY_RELEASE_FAILED")
+    with db.immediate() as con:
+        changed = con.execute(
             "UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state IN ('FAILED_PREENTRY','AMBIGUOUS_QUARANTINED','HOST_START_INTENT','SOLVER_ENTRY_INTENT')",
             (utc_now(), branch, case, attempt),
-        )
+        ).rowcount
+        if changed != 1:
+            raise RuntimeError("ZERO_SOLVER_RECOVERY_QUEUE_CHANGED")
     if attempt_root:
         append_event(
             Path(attempt_root) / "events.jsonl",

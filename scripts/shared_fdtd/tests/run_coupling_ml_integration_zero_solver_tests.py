@@ -281,13 +281,14 @@ def test_zero_solver_entry_intent_recovery(root: Path):
     attempt_root = root / case / attempt
     attempt_root.mkdir(parents=True)
     enqueue(db, "coupling_ml", case, attempt, {"attempt_root": str(attempt_root)})
+    lease = Allocator(db).acquire("coupling_ml", case, attempt)
     (attempt_root / "attempt_ledger.json").write_text(json.dumps({
         "solver_entered": False, "run_invocation_count": 0,
     }), encoding="utf-8")
     with db.immediate() as con:
         con.execute(
-            "UPDATE branch_queue SET state='SOLVER_ENTRY_INTENT' WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
-            ("coupling_ml", case, attempt),
+            "UPDATE branch_queue SET state='SOLVER_ENTRY_INTENT',slot_id=?,lease_token_hash=?,fencing_generation=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            (lease.slot_id, lease.token_hash, lease.fencing_generation, "coupling_ml", case, attempt),
         )
     result = recover_failed_preentry(db, "coupling_ml", case, attempt, attempt_root)
     assert result["status"] == "RECOVERED_WAIT_RESOURCE_CAPACITY", result
@@ -296,9 +297,15 @@ def test_zero_solver_entry_intent_recovery(root: Path):
             "SELECT state,slot_id,fencing_generation FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
             ("coupling_ml", case, attempt),
         ).fetchone()
+        releases = con.execute(
+            "SELECT COUNT(*) FROM lease_events WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND event_type='LEASE_RELEASED'",
+            ("coupling_ml", case, attempt),
+        ).fetchone()[0]
     assert row["state"] == "WAIT_RESOURCE_CAPACITY"
     assert row["slot_id"] is None and row["fencing_generation"] is None
-    return {"status": "PASS", "scientific_entries": 0}
+    assert next(x for x in Allocator(db).list_slots_readonly() if x["slot_id"] == lease.slot_id)["state"] == "FREE"
+    assert releases == 1
+    return {"status": "PASS", "scientific_entries": 0, "release_events": releases}
 
 
 def test_foreign_traditional_unchanged(root: Path):
