@@ -12,7 +12,7 @@ def enqueue(db,branch,case,attempt,payload=None):
 def dispatch_once(db,branch,launch):
     allocator=Allocator(db); launched=[]
     with db.connect(readonly=True) as con:
-        rows=[dict(r) for r in con.execute("SELECT * FROM branch_queue WHERE branch_id=? AND state='QUEUED' ORDER BY queue_id",(branch,))]
+        rows=[dict(r) for r in con.execute("SELECT * FROM branch_queue WHERE branch_id=? AND state IN ('QUEUED','WAIT_RESOURCE_CAPACITY') ORDER BY queue_id",(branch,))]
     for row in rows:
         payload=json.loads(row["payload_json"] or "{}")
         request=ResourceRequest.from_payload(payload)
@@ -20,11 +20,11 @@ def dispatch_once(db,branch,launch):
             lease=allocator.acquire(branch,row["logical_case_id"],row["attempt_id"],resource_request=request,resource_snapshot=read_resource_snapshot() if request is not None else None)
         except ResourceCapacityWait:
             with db.immediate() as con:
-                con.execute("UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',updated_at=? WHERE queue_id=? AND state='QUEUED'",(utc_now(),row["queue_id"]))
-            break
+                con.execute("UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',updated_at=? WHERE queue_id=? AND state IN ('QUEUED','WAIT_RESOURCE_CAPACITY')",(utc_now(),row["queue_id"]))
+            continue
         except (BranchCapReached,NoFreeSlot): break
         with db.immediate() as con:
-            changed=con.execute("UPDATE branch_queue SET state='HOST_START_INTENT',slot_id=?,lease_token_hash=?,fencing_generation=?,updated_at=? WHERE queue_id=? AND state='QUEUED'",(lease.slot_id,lease.token_hash,lease.fencing_generation,utc_now(),row["queue_id"])).rowcount
+            changed=con.execute("UPDATE branch_queue SET state='HOST_START_INTENT',slot_id=?,lease_token_hash=?,fencing_generation=?,updated_at=? WHERE queue_id=? AND state IN ('QUEUED','WAIT_RESOURCE_CAPACITY')",(lease.slot_id,lease.token_hash,lease.fencing_generation,utc_now(),row["queue_id"])).rowcount
         if changed!=1:
             allocator.release_owned(lease,scientific_terminal="FAILED_PREENTRY"); continue
         try:

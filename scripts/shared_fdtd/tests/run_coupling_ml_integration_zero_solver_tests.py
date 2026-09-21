@@ -1,0 +1,142 @@
+from __future__ import annotations
+
+import json
+import tempfile
+from pathlib import Path
+import sys
+
+PKG = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PKG.parent))
+
+from shared_fdtd.control_v3 import Allocator, ControlDB
+from shared_fdtd.control_v3.resources import ResourceSnapshot
+from shared_fdtd.engine.dispatcher import dispatch_once, enqueue
+from shared_fdtd.engine.event_log import append_event, read_events
+from shared_fdtd.engine.reconciler import closeout_owned_postentry_no_truth
+from shared_fdtd.engine.state_machine import replay_allowed, release_count
+
+SCHEMA = PKG / "control_v3" / "schema.sql"
+
+def init_db(root: Path) -> ControlDB:
+    db = ControlDB(root / "control.sqlite3")
+    db.initialize(SCHEMA)
+    return db
+
+def queue_row(db, branch, case, attempt, state, lease):
+    with db.immediate() as con:
+        con.execute(
+            "INSERT INTO branch_queue(branch_id,logical_case_id,attempt_id,state,payload_json,slot_id,lease_token_hash,fencing_generation,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?)",
+            (branch, case, attempt, state, "{}", lease.slot_id, lease.token_hash, lease.fencing_generation, "t", "t"),
+        )
+
+def test_postentry_no_truth_closeout(root: Path):
+    db = init_db(root)
+    case, attempt = "NO_TRUTH", "attempt_001"
+    attempt_root = root / case / attempt
+    attempt_root.mkdir(parents=True)
+    allocator = Allocator(db)
+    lease = allocator.acquire("coupling_ml", case, attempt)
+    allocator.mark_entered(lease)
+    queue_row(db, "coupling_ml", case, attempt, "SCIENTIFIC_SOLVER_RUNNING", lease)
+    events = attempt_root / "events.jsonl"
+    append_event(events, "SCIENTIFIC_SOLVER_ENTERED", solver_runs=1)
+    roots = {(case, attempt): attempt_root}
+    result = closeout_owned_postentry_no_truth(db, "coupling_ml", roots, process_probe=lambda state: [])
+    assert result and result[0]["status"] == "POSTENTRY_NO_TRUTH", result
+    assert allocator.list_slots_readonly()[1]["state"] == "FREE"
+    with db.connect(readonly=True) as con:
+        row = con.execute("SELECT state FROM branch_queue WHERE logical_case_id=?", (case,)).fetchone()
+        releases = con.execute("SELECT COUNT(*) FROM lease_events WHERE logical_case_id=? AND event_type='LEASE_RELEASED'", (case,)).fetchone()[0]
+    assert row["state"] == "POSTENTRY_NO_TRUTH"
+    assert releases == 1
+    rows = read_events(events)
+    assert not replay_allowed(rows)
+    assert release_count(rows) == 0
+    assert (attempt_root / "terminal.json").is_file()
+    second = closeout_owned_postentry_no_truth(db, "coupling_ml", roots, process_probe=lambda state: [])
+    assert second == [], second
+    return {"status": "PASS", "release_events": releases, "replay": 0}
+
+def test_autorefill(root: Path):
+    db = init_db(root)
+    launched = []
+    enqueue(db, "coupling_ml", "A", "attempt_001")
+    enqueue(db, "coupling_ml", "B", "attempt_001")
+    enqueue(db, "coupling_ml", "C", "attempt_001")
+    first = dispatch_once(db, "coupling_ml", lambda row, lease: launched.append((row["logical_case_id"], lease)))
+    assert first == ["A", "B"], first
+    with db.connect(readonly=True) as con:
+        rows = [dict(x) for x in con.execute("SELECT * FROM slots WHERE owner_branch='coupling_ml' ORDER BY slot_id")]
+    a = next(x for x in rows if x["logical_case_id"] == "A")
+    a_lease = next(lease for case, lease in launched if case == "A")
+    allocator = Allocator(db)
+    allocator.mark_entered(a_lease)
+    allocator.release_pending(a_lease, "TEST_TRUTH_DURABLE")
+    allocator.release_owned(a_lease, scientific_terminal="SCIENTIFIC_VALID")
+    with db.immediate() as con:
+        con.execute("UPDATE branch_queue SET state='RELEASED' WHERE logical_case_id='A'")
+    second = dispatch_once(db, "coupling_ml", lambda row, lease: launched.append((row["logical_case_id"], lease)))
+    assert second == ["C"], second
+    assert len(launched) == 3
+    return {"status": "PASS", "first": first, "second": second, "active_ml": 2}
+
+def test_wait_resource_rechecks(root: Path):
+    db = init_db(root)
+    payload = {
+        "production_science": True, "resource_class": "HEAVY",
+        "estimated_peak_ram_bytes": 1000, "estimated_commit_bytes": 1000,
+        "mpi_ranks": 12, "threads": 1, "integrated_pw": False,
+    }
+    enqueue(db, "coupling_ml", "WAIT", "attempt_001", payload)
+    import shared_fdtd.engine.dispatcher as dispatcher
+    low = ResourceSnapshot("PASS", "t", 10000, 10, 10000, 10, 9990, 10, 0, 0, 0, 0, 0)
+    high = ResourceSnapshot("PASS", "t", 10000, 10000, 10000, 10000, 0, 10000, 0, 0, 0, 0, 0)
+    dispatcher.read_resource_snapshot = lambda: low
+    assert dispatch_once(db, "coupling_ml", lambda row, lease: None) == []
+    with db.connect(readonly=True) as con:
+        assert con.execute("SELECT state FROM branch_queue WHERE logical_case_id='WAIT'").fetchone()["state"] == "WAIT_RESOURCE_CAPACITY"
+    dispatcher.read_resource_snapshot = lambda: high
+    assert dispatch_once(db, "coupling_ml", lambda row, lease: None) == ["WAIT"]
+    return {"status": "PASS", "reevaluated": True}
+
+def test_foreign_traditional_unchanged(root: Path):
+    db = init_db(root)
+    allocator = Allocator(db)
+    trad = allocator.acquire("traditional", "TRAD", "attempt_001")
+    before = allocator.list_slots_readonly()
+    from shared_fdtd.control_v3.allocator import Lease
+    foreign = Lease(trad.slot_id, "coupling_ml", trad.logical_case_id, trad.attempt_id, trad.lease_token, trad.fencing_generation)
+    try:
+        allocator.release_postentry_no_truth(foreign, reason="wrong branch")
+    except Exception:
+        pass
+    else:
+        raise AssertionError("foreign release unexpectedly succeeded")
+    after = allocator.list_slots_readonly()
+    assert before == after
+    return {"status": "PASS", "foreign_mutation_count": 0}
+
+def main():
+    rows = []
+    with tempfile.TemporaryDirectory(prefix="coupling-ml-integration-", dir=PKG.parent) as td:
+        root = Path(td)
+        for name, fn in (
+            ("postentry_no_truth_closeout", test_postentry_no_truth_closeout),
+            ("multislot_autorefill", test_autorefill),
+            ("wait_resource_rechecks", test_wait_resource_rechecks),
+            ("foreign_traditional_unchanged", test_foreign_traditional_unchanged),
+        ):
+            try:
+                rows.append({"test": name, **fn(root / name)})
+            except Exception as exc:
+                rows.append({"test": name, "status": "FAIL", "error": repr(exc)})
+    result = {
+        "status": "PASS" if all(x["status"] == "PASS" for x in rows) else "FAIL",
+        "tests": rows, "solver_runs": 0, "scientific_solver_entries": 0,
+        "replays": 0, "foreign_mutation_count": 0,
+    }
+    print(json.dumps(result, ensure_ascii=False))
+    return 0 if result["status"] == "PASS" else 1
+
+if __name__ == "__main__":
+    raise SystemExit(main())

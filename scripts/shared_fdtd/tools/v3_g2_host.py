@@ -24,6 +24,7 @@ from shared_fdtd.engine.persistence import (
     save_and_verify,
 )
 from shared_fdtd.control_v3.resources import ResourceRequest, RuntimeResourceMonitor
+from shared_fdtd.engine.attempt_state import write_durable_attempt_state
 
 
 def now():
@@ -137,6 +138,15 @@ def main():
         shutil.copy2(pre, run)
         if sha(run) != sha(pre):
             raise RuntimeError("RUNTIME_FSP_COPY_HASH_MISMATCH")
+        write_durable_attempt_state(
+            case_root / "attempt_state.json",
+            cfg={**cfg, "scientific_invocation_count": 0, "canonical_state": "SETUP_READY"},
+            lease=lease, setup_path=pre, runtime_fsp=run, native_target=native,
+            post_target=post, raw_target=case_root / "raw_result.json",
+            logs=[case_root / "solver.log"], adapter_identity="APCD_G2_ATTEMPT003",
+            persistence_preflight=preflight,
+            scientific_contract_hash=cfg["physical_contract_hash"],
+        )
         queue_state(db, cfg, "SOLVER_ENTRY_INTENT")
         emit(cfg, "SOLVER_ENTRY_INTENT", run_fsp=str(run), run_fsp_sha256=sha(run))
         mod, g = import_authority(Path(cfg["output_root"]), cfg["task"])
@@ -148,6 +158,17 @@ def main():
         ledger.update({"solver_entered": True, "physical_solver_entry": True, "entered_timestamp_utc": now(),
                        "run_invocation_count": 1, "slot_id": lease.slot_id, "run_fsp": str(run), "run_fsp_sha256": sha(run)})
         write(ledger_path, ledger)
+        write_durable_attempt_state(
+            case_root / "attempt_state.json",
+            cfg={**cfg, "scientific_invocation_count": 1, "canonical_state": "SCIENTIFIC_SOLVER_RUNNING"},
+            lease=lease, setup_path=pre, runtime_fsp=run, native_target=native,
+            post_target=post, raw_target=case_root / "raw_result.json",
+            logs=[case_root / "solver.log"], adapter_identity="APCD_G2_ATTEMPT003",
+            persistence_preflight=preflight,
+            expected_process_identity={"lineage_unknown": True, "controller_pid": __import__("os").getpid()},
+            scientific_contract_hash=cfg["physical_contract_hash"],
+            solver_entry_timestamp=ledger["entered_timestamp_utc"],
+        )
         allocator.mark_entered(lease)
         queue_state(db, cfg, "SCIENTIFIC_SOLVER_ENTERED")
         emit(cfg, "SCIENTIFIC_SOLVER_ENTERED", slot_id=lease.slot_id, mpi_processes=12, threads=1)

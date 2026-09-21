@@ -97,18 +97,69 @@ class Allocator:
     def release_pending(self, lease, reason: str): self._mutate(lease, "state='RELEASE_PENDING'", (), "RELEASE_PENDING", {"reason": reason}, resource_state="RELEASE_PENDING")
     def quarantine_owned(self, lease, reason: str): self._mutate(lease, "state='OWNER_QUARANTINED'", (), "OWNER_QUARANTINED", {"reason": reason}, resource_state="OWNER_QUARANTINED")
 
+    @staticmethod
+    def _check_release_terminal(scientific_terminal: str) -> None:
+        if scientific_terminal not in {"SCIENTIFIC_VALID", "FAILED_PREENTRY", "POSTENTRY_NO_TRUTH"}:
+            raise ValueError("unsupported scientific terminal: " + str(scientific_terminal))
+
     def release_owned(self, lease: Lease, *, scientific_terminal: str):
-        if scientific_terminal not in {"SCIENTIFIC_VALID", "FAILED_PREENTRY"}:
-            raise ValueError("release requires SCIENTIFIC_VALID or FAILED_PREENTRY")
-        with self.db.immediate() as con:
-            from .resources import ensure_resource_tables
-            ensure_resource_tables(con)
-            changed = con.execute("UPDATE slots SET state='FREE',owner_branch=NULL,logical_case_id=NULL,attempt_id=NULL,lease_token=NULL,acquired_at=NULL,solver_entered_at=NULL,heartbeat_at=NULL,updated_at=?,version=version+1 WHERE slot_id=? AND owner_branch=? AND logical_case_id=? AND attempt_id=? AND lease_token=? AND fencing_generation=? AND state<>'FREE'",
-                                  (utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id, lease.lease_token, lease.fencing_generation)).rowcount
-            if changed != 1: raise OwnershipMismatch(lease.slot_id)
-            con.execute("UPDATE resource_reservations SET state='RELEASED',released_at=?,updated_at=? WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=?",
-                        (utc_now(), utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id))
-            self._event(con, lease, "LEASE_RELEASED", {"scientific_terminal": scientific_terminal})
+        if scientific_terminal == "POSTENTRY_NO_TRUTH":
+            raise ValueError("use release_postentry_no_truth for entered-no-truth closeout")
+        result = self.release_owned_idempotent(lease, scientific_terminal=scientific_terminal)
+        if result["status"] != "RELEASED":
+            raise OwnershipMismatch(lease.slot_id)
+
+    def release_owned_idempotent(self, lease: Lease, *, scientific_terminal: str) -> dict:
+        if scientific_terminal == "POSTENTRY_NO_TRUTH":
+            raise ValueError("use release_postentry_no_truth_idempotent for entered-no-truth closeout")
+        return self._release_owned_idempotent(lease, scientific_terminal=scientific_terminal)
+
+    def release_postentry_no_truth(self, lease: Lease, *, reason: str, provenance=None) -> dict:
+        result = self.release_postentry_no_truth_idempotent(lease, reason=reason, provenance=provenance)
+        if result["status"] not in {"RELEASED", "ALREADY_FREE"}:
+            raise OwnershipMismatch(lease.slot_id)
+        return result
+
+    def release_postentry_no_truth_idempotent(self, lease: Lease, *, reason: str, provenance=None) -> dict:
+        metadata = {"reason": reason, "replay": 0, "provenance": provenance or {}}
+        return self._release_owned_idempotent(lease, scientific_terminal="POSTENTRY_NO_TRUTH", metadata=metadata)
+
+    def _release_owned_idempotent(self, lease: Lease, *, scientific_terminal: str, metadata=None) -> dict:
+        self._check_release_terminal(scientific_terminal)
+        try:
+            with self.db.immediate() as con:
+                from .resources import ensure_resource_tables
+                ensure_resource_tables(con)
+                row = con.execute("SELECT * FROM slots WHERE slot_id=?", (lease.slot_id,)).fetchone()
+                if row is None:
+                    raise OwnershipMismatch(lease.slot_id)
+                if row["state"] == "FREE":
+                    return {"status": "ALREADY_FREE", "duplicate_side_effects": 0}
+                matches = (
+                    row["owner_branch"] == lease.owner_branch
+                    and row["logical_case_id"] == lease.logical_case_id
+                    and row["attempt_id"] == lease.attempt_id
+                    and row["lease_token"] == lease.lease_token
+                    and int(row["fencing_generation"]) == int(lease.fencing_generation)
+                )
+                if not matches:
+                    raise OwnershipMismatch(lease.slot_id)
+                changed = con.execute(
+                    "UPDATE slots SET state='FREE',owner_branch=NULL,logical_case_id=NULL,attempt_id=NULL,lease_token=NULL,acquired_at=NULL,solver_entered_at=NULL,heartbeat_at=NULL,updated_at=?,version=version+1 WHERE slot_id=? AND state<>'FREE'",
+                    (utc_now(), lease.slot_id),
+                ).rowcount
+                if changed != 1:
+                    return {"status": "ALREADY_FREE", "duplicate_side_effects": 0}
+                con.execute(
+                    "UPDATE resource_reservations SET state='RELEASED',released_at=?,updated_at=? WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=?",
+                    (utc_now(), utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id),
+                )
+                self._event(con, lease, "LEASE_RELEASED", {"scientific_terminal": scientific_terminal, **(metadata or {})})
+                return {"status": "RELEASED", "duplicate_side_effects": 0}
+        except sqlite3.OperationalError as exc:
+            if "locked" in str(exc).lower():
+                raise ControlPlaneDeferred(str(exc)) from exc
+            raise
 
     def list_slots_readonly(self):
         with self.db.connect(readonly=True) as con:
