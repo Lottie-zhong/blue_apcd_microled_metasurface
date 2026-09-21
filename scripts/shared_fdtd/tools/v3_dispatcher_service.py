@@ -2,17 +2,17 @@ from __future__ import annotations
 
 import argparse
 import json
-import subprocess
+import ctypes
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
 sys.path.insert(0, str(ROOT / "scripts"))
 DB_PATH = Path(r"D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3")
-HOST_WRAPPER = r"D:\apcd_runtime\bin\v3g2h.cmd"
-
-
+HOST_PYTHON = r"C:\Users\DELL\anaconda3\pythonw.exe"
+HOST_SCRIPT = r"D:\apcd_runtime\bin\v3g2h.py"
 def now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -25,7 +25,42 @@ def atomic(path, value):
     tmp.replace(path)
 
 
-def launch_factory(db_path):
+def launch_process(command):
+    class StartupInfo(ctypes.Structure):
+        _fields_ = [
+            ("cb", ctypes.c_ulong), ("lpReserved", ctypes.c_void_p),
+            ("lpDesktop", ctypes.c_void_p), ("lpTitle", ctypes.c_void_p),
+            ("dwX", ctypes.c_ulong), ("dwY", ctypes.c_ulong),
+            ("dwXSize", ctypes.c_ulong), ("dwYSize", ctypes.c_ulong),
+            ("dwXCountChars", ctypes.c_ulong), ("dwYCountChars", ctypes.c_ulong),
+            ("dwFillAttribute", ctypes.c_ulong), ("dwFlags", ctypes.c_ulong),
+            ("wShowWindow", ctypes.c_ushort), ("cbReserved2", ctypes.c_ushort),
+            ("lpReserved2", ctypes.c_void_p), ("hStdInput", ctypes.c_void_p),
+            ("hStdOutput", ctypes.c_void_p), ("hStdError", ctypes.c_void_p),
+        ]
+
+    class ProcessInformation(ctypes.Structure):
+        _fields_ = [
+            ("hProcess", ctypes.c_void_p), ("hThread", ctypes.c_void_p),
+            ("dwProcessId", ctypes.c_ulong), ("dwThreadId", ctypes.c_ulong),
+        ]
+
+    startup = StartupInfo()
+    startup.cb = ctypes.sizeof(startup)
+    process = ProcessInformation()
+    command_line = ctypes.create_unicode_buffer(command)
+    ok = ctypes.windll.kernel32.CreateProcessW(
+        None, command_line, None, None, False, 0x08000000,
+        None, str(ROOT), ctypes.byref(startup), ctypes.byref(process),
+    )
+    if not ok:
+        raise ctypes.WinError(ctypes.get_last_error())
+    ctypes.windll.kernel32.CloseHandle(process.hThread)
+    ctypes.windll.kernel32.CloseHandle(process.hProcess)
+    return int(process.dwProcessId)
+
+
+def launch_factory(db_path, preentry_only=False):
     from shared_fdtd.engine.event_log import append_event
     def launch(row, lease):
         payload = json.loads(row["payload_json"])
@@ -52,16 +87,33 @@ def launch_factory(db_path):
             "pw_contract": payload.get("pw_contract"),
             "entry_confirmation_poll_s": payload.get("entry_confirmation_poll_s", 0.5),
             "resource_monitor_interval_s": payload.get("resource_monitor_interval_s", 30.0),
+            "scientific_entry_allowed": not preentry_only,
+            "zero_solver_boundary_only": bool(preentry_only),
         }
         atomic(config, cfg)
         append_event(runtime / "events.jsonl", "HOST_START_INTENT", task_name=payload["task_name"], config=str(config), slot_id=lease.slot_id)
-        command = f'{HOST_WRAPPER} "{config}"'
-        create = subprocess.run(["schtasks.exe", "/Create", "/TN", payload["task_name"], "/TR", command, "/SC", "ONCE", "/SD", "2099/01/01", "/ST", "00:00", "/F"], capture_output=True, text=True)
-        if create.returncode:
-            raise RuntimeError(create.stderr or create.stdout)
-        run = subprocess.run(["schtasks.exe", "/Run", "/TN", payload["task_name"]], capture_output=True, text=True)
-        if run.returncode:
-            raise RuntimeError(run.stderr or run.stdout)
+        command = f"{HOST_PYTHON} {HOST_SCRIPT} {config}"
+        host_pid = launch_process(command)
+        append_event(runtime / "events.jsonl", "HOST_PROCESS_STARTED", host_pid=host_pid, command=command)
+        if preentry_only:
+            boundary = Path(payload["attempt_root"]) / "scientific_entry_boundary.json"
+            previous_mtime_ns = boundary.stat().st_mtime_ns if boundary.is_file() else 0
+            deadline = time.monotonic() + 60.0
+            while time.monotonic() < deadline:
+                if boundary.is_file() and boundary.stat().st_mtime_ns > previous_mtime_ns:
+                    candidate = json.loads(boundary.read_text(encoding="utf-8"))
+                    if (
+                        candidate.get("status") == "PREENTRY_BOUNDARY_REACHED"
+                        and candidate.get("case_id") == row["logical_case_id"]
+                        and candidate.get("attempt_id") == row["attempt_id"]
+                        and candidate.get("fencing_generation") == lease.fencing_generation
+                        and candidate.get("solver_entered") is False
+                        and candidate.get("scientific_solver_entry_count") == 0
+                        and candidate.get("run_invocation_count") == 0
+                    ):
+                        return {"queue_state": "WAIT_RESOURCE_CAPACITY", "boundary": str(boundary)}
+                time.sleep(0.5)
+            raise RuntimeError("PREENTRY_BOUNDARY_TIMEOUT")
     return launch
 
 
@@ -71,12 +123,13 @@ def main():
     from shared_fdtd.engine.status import readonly_status
     parser = argparse.ArgumentParser()
     parser.add_argument("--once", action="store_true")
+    parser.add_argument("--preentry-only", action="store_true")
     parser.add_argument("--db", default=str(DB_PATH))
     parser.add_argument("--audit", default=r"D:\apcd_runtime\global_fdtd_control_v3\dispatcher_last.json")
     args = parser.parse_args()
     db = ControlDB(args.db)
-    launched = dispatch_once(db, "coupling_ml", launch_factory(Path(args.db)))
-    atomic(args.audit, {"timestamp_utc": now(), "branch": "coupling_ml", "launched": launched, "status": readonly_status(db)})
+    launched = dispatch_once(db, "coupling_ml", launch_factory(Path(args.db), preentry_only=args.preentry_only))
+    atomic(args.audit, {"timestamp_utc": now(), "branch": "coupling_ml", "launched": launched, "preentry_only": args.preentry_only, "status": readonly_status(db)})
     print(json.dumps({"status": "PASS", "launched": launched}, ensure_ascii=False), flush=True)
 
 

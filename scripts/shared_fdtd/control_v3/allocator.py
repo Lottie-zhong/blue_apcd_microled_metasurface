@@ -68,8 +68,27 @@ class Allocator:
                 lease = Lease(chosen, branch, logical_case_id, attempt_id, token, generation)
                 if admission is not None:
                     request = resource_request
-                    con.execute("INSERT INTO resource_reservations(branch_id,logical_case_id,attempt_id,slot_id,resource_class,estimated_peak_ram_bytes,estimated_commit_bytes,mpi_ranks,threads,integrated_pw,safety_margin_ratio,state,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                                (branch, logical_case_id, attempt_id, chosen, request.resource_class, request.estimated_peak_ram_bytes, request.estimated_commit_bytes, request.mpi_ranks, request.threads, int(request.integrated_pw), request.safety_margin_ratio, "RESERVED", now, now))
+                    reservation = con.execute(
+                        "SELECT reservation_id,state FROM resource_reservations WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+                        (branch, logical_case_id, attempt_id),
+                    ).fetchone()
+                    values = (
+                        chosen, request.resource_class, request.estimated_peak_ram_bytes,
+                        request.estimated_commit_bytes, request.mpi_ranks, request.threads,
+                        int(request.integrated_pw), request.safety_margin_ratio, now,
+                    )
+                    if reservation is None:
+                        con.execute(
+                            "INSERT INTO resource_reservations(branch_id,logical_case_id,attempt_id,slot_id,resource_class,estimated_peak_ram_bytes,estimated_commit_bytes,mpi_ranks,threads,integrated_pw,safety_margin_ratio,state,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                            (branch, logical_case_id, attempt_id, *values[:-1], "RESERVED", values[-1], values[-1]),
+                        )
+                    elif reservation["state"] == "RELEASED":
+                        con.execute(
+                            "UPDATE resource_reservations SET slot_id=?,resource_class=?,estimated_peak_ram_bytes=?,estimated_commit_bytes=?,mpi_ranks=?,threads=?,integrated_pw=?,safety_margin_ratio=?,state='RESERVED',released_at=NULL,updated_at=? WHERE reservation_id=?",
+                            (*values, reservation["reservation_id"]),
+                        )
+                    else:
+                        raise RuntimeError("RESOURCE_RESERVATION_ALREADY_ACTIVE")
                 self._event(con, lease, "LEASE_ACQUIRED", {"resource_admission": admission} if admission else None)
                 return lease
         except sqlite3.OperationalError as exc:

@@ -10,7 +10,7 @@ sys.path.insert(0, str(PKG.parent))
 
 from shared_fdtd.control_v3 import Allocator, ControlDB
 from shared_fdtd.control_v3.resources import ResourceSnapshot
-from shared_fdtd.engine.dispatcher import dispatch_once, enqueue
+from shared_fdtd.engine.dispatcher import dispatch_once, enqueue, recover_failed_preentry
 from shared_fdtd.engine.event_log import append_event, read_events
 from shared_fdtd.engine.reconciler import closeout_owned_postentry_no_truth
 from shared_fdtd.engine.state_machine import replay_allowed, release_count
@@ -131,6 +131,150 @@ def test_same_wait_attempt_after_foreign_release(root: Path):
     return {"status": "PASS", "same_attempt": True, "scientific_entries": entries}
 
 
+
+def test_controller_restart_preserves_waiting_case(root: Path):
+    db = init_db(root)
+    case, attempt = "RESTART_WAIT", "attempt_002"
+    payload = {
+        "production_science": True, "resource_class": "HEAVY",
+        "estimated_peak_ram_bytes": 1000, "estimated_commit_bytes": 1000,
+        "mpi_ranks": 12, "threads": 1, "integrated_pw": True,
+    }
+    enqueue(db, "coupling_ml", case, attempt, payload)
+    import shared_fdtd.engine.dispatcher as dispatcher
+    low = ResourceSnapshot("PASS", "t", 10000, 10, 10000, 10, 9990, 10, 0, 0, 0, 0, 0)
+    high = ResourceSnapshot("PASS", "t", 10000, 10000, 10000, 10000, 0, 10000, 0, 0, 0, 0, 0)
+    dispatcher.read_resource_snapshot = lambda: low
+    assert dispatch_once(db, "coupling_ml", lambda row, lease: None) == []
+    reopened = ControlDB(db.path)
+    launches = []
+    dispatcher.read_resource_snapshot = lambda: high
+    assert dispatch_once(
+        reopened, "coupling_ml",
+        lambda row, lease: launches.append((row["logical_case_id"], row["attempt_id"])),
+    ) == [case]
+    assert dispatch_once(
+        reopened, "coupling_ml",
+        lambda row, lease: launches.append((row["logical_case_id"], row["attempt_id"])),
+    ) == []
+    with reopened.connect(readonly=True) as con:
+        row = con.execute(
+            "SELECT state,attempt_id FROM branch_queue WHERE branch_id=? AND logical_case_id=?",
+            ("coupling_ml", case),
+        ).fetchone()
+        copies = con.execute(
+            "SELECT COUNT(*) FROM branch_queue WHERE branch_id=? AND logical_case_id=?",
+            ("coupling_ml", case),
+        ).fetchone()[0]
+        entries = con.execute(
+            "SELECT COUNT(*) FROM lease_events WHERE branch_id=? AND logical_case_id=? AND event_type='SCIENTIFIC_SOLVER_ENTERED'",
+            ("coupling_ml", case),
+        ).fetchone()[0]
+    assert launches == [(case, attempt)]
+    assert (row["state"], row["attempt_id"]) == ("HOST_STARTED", attempt)
+    assert copies == 1 and entries == 0
+    return {"status": "PASS", "restart_preserved": True, "same_attempt": True, "scientific_entries": entries}
+
+
+def test_preentry_boundary_preserves_wait(root: Path):
+    db = init_db(root)
+    case, attempt = "PW_PLANAR_STACK_REAL_CANARY", "attempt_002"
+    enqueue(db, "coupling_ml", case, attempt, {})
+    allocator = Allocator(db)
+    observed = []
+
+    def launch(row, lease):
+        observed.append((row["logical_case_id"], row["attempt_id"], lease.slot_id))
+        allocator.release_owned(lease, scientific_terminal="FAILED_PREENTRY")
+        return {"queue_state": "WAIT_RESOURCE_CAPACITY", "preentry_boundary": True}
+
+    assert dispatch_once(db, "coupling_ml", launch) == []
+    with db.connect(readonly=True) as con:
+        row = con.execute("SELECT state,attempt_id FROM branch_queue WHERE logical_case_id=?", (case,)).fetchone()
+        free = con.execute("SELECT COUNT(*) FROM slots WHERE state='FREE'").fetchone()[0]
+        entries = con.execute("SELECT COUNT(*) FROM lease_events WHERE logical_case_id=? AND event_type='SCIENTIFIC_SOLVER_ENTERED'", (case,)).fetchone()[0]
+    assert len(observed) == 1 and observed[0][:2] == (case, attempt) and observed[0][2].startswith("GLOBAL_SLOT_")
+    assert (row["state"], row["attempt_id"]) == ("WAIT_RESOURCE_CAPACITY", attempt)
+    assert free == 3
+    assert entries == 0
+    return {"status": "PASS", "same_attempt": True, "solver_entries": entries, "released": True}
+
+
+def test_same_attempt_reuses_released_reservation(root: Path):
+    db = init_db(root)
+    case, attempt = "REUSE", "attempt_002"
+    payload = {
+        "production_science": True, "resource_class": "HEAVY",
+        "estimated_peak_ram_bytes": 1000, "estimated_commit_bytes": 1000,
+        "mpi_ranks": 12, "threads": 1, "integrated_pw": True,
+    }
+    enqueue(db, "coupling_ml", case, attempt, payload)
+    import shared_fdtd.engine.dispatcher as dispatcher
+    dispatcher.read_resource_snapshot = lambda: ResourceSnapshot(
+        "PASS", "t", 10000, 10000, 10000, 10000, 0, 10000, 0, 0, 0, 0, 0
+    )
+    allocator = Allocator(db)
+    launches = []
+
+    def launch(row, lease):
+        launches.append(lease.slot_id)
+        allocator.release_owned(lease, scientific_terminal="FAILED_PREENTRY")
+        return {"queue_state": "WAIT_RESOURCE_CAPACITY"}
+
+    assert dispatch_once(db, "coupling_ml", launch) == []
+    assert dispatch_once(db, "coupling_ml", launch) == []
+    with db.connect(readonly=True) as con:
+        reservations = con.execute(
+            "SELECT COUNT(*) FROM resource_reservations WHERE branch_id='coupling_ml' AND logical_case_id=? AND attempt_id=?",
+            (case, attempt),
+        ).fetchone()[0]
+        acquired = con.execute(
+            "SELECT COUNT(*) FROM lease_events WHERE branch_id='coupling_ml' AND logical_case_id=? AND attempt_id=? AND event_type='LEASE_ACQUIRED'",
+            (case, attempt),
+        ).fetchone()[0]
+        entries = con.execute(
+            "SELECT COUNT(*) FROM lease_events WHERE branch_id='coupling_ml' AND logical_case_id=? AND attempt_id=? AND event_type='SCIENTIFIC_SOLVER_ENTERED'",
+            (case, attempt),
+        ).fetchone()[0]
+        state = con.execute(
+            "SELECT state FROM branch_queue WHERE branch_id='coupling_ml' AND logical_case_id=? AND attempt_id=?",
+            (case, attempt),
+        ).fetchone()["state"]
+    assert len(launches) == 2 and len(set(launches)) == 1 and launches[0].startswith("GLOBAL_SLOT_"), launches
+    assert reservations == 1
+    assert acquired == 2
+    assert entries == 0
+    assert state == "WAIT_RESOURCE_CAPACITY"
+    return {"status": "PASS", "reservation_rows": reservations, "reacquisitions": acquired, "scientific_entries": entries}
+
+
+
+def test_zero_solver_host_start_recovery(root: Path):
+    db = init_db(root)
+    case, attempt = "ABANDONED_HOST", "attempt_002"
+    attempt_root = root / case / attempt
+    attempt_root.mkdir(parents=True)
+    enqueue(db, "coupling_ml", case, attempt, {"attempt_root": str(attempt_root)})
+    (attempt_root / "attempt_ledger.json").write_text(json.dumps({
+        "solver_entered": False, "run_invocation_count": 0,
+    }), encoding="utf-8")
+    with db.immediate() as con:
+        con.execute(
+            "UPDATE branch_queue SET state='HOST_START_INTENT' WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            ("coupling_ml", case, attempt),
+        )
+    result = recover_failed_preentry(db, "coupling_ml", case, attempt, attempt_root)
+    assert result["status"] == "RECOVERED_WAIT_RESOURCE_CAPACITY", result
+    with db.connect(readonly=True) as con:
+        row = con.execute(
+            "SELECT state,slot_id,fencing_generation FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            ("coupling_ml", case, attempt),
+        ).fetchone()
+    assert row["state"] == "WAIT_RESOURCE_CAPACITY"
+    assert row["slot_id"] is None and row["fencing_generation"] is None
+    return {"status": "PASS", "same_attempt": True, "scientific_entries": 0}
+
+
 def test_foreign_traditional_unchanged(root: Path):
     db = init_db(root)
     allocator = Allocator(db)
@@ -157,6 +301,10 @@ def main():
             ("multislot_autorefill", test_autorefill),
             ("wait_resource_rechecks", test_wait_resource_rechecks),
             ("same_wait_attempt_after_foreign_release", test_same_wait_attempt_after_foreign_release),
+            ("preentry_boundary_preserves_wait", test_preentry_boundary_preserves_wait),
+            ("controller_restart_preserves_waiting_case", test_controller_restart_preserves_waiting_case),
+            ("same_attempt_reuses_released_reservation", test_same_attempt_reuses_released_reservation),
+            ("zero_solver_host_start_recovery", test_zero_solver_host_start_recovery),
             ("foreign_traditional_unchanged", test_foreign_traditional_unchanged),
         ):
             try:

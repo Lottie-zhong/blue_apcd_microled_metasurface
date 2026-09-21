@@ -163,6 +163,26 @@ def main():
         )
         queue_state(db, cfg, "SOLVER_ENTRY_INTENT")
         emit(cfg, "SOLVER_ENTRY_INTENT", run_fsp=str(run), run_fsp_sha256=sha(run))
+        if not bool(cfg.get("scientific_entry_allowed", True)):
+            boundary = {
+                "status": "PREENTRY_BOUNDARY_REACHED",
+                "case_id": cfg["case"],
+                "attempt_id": cfg["attempt"],
+                "slot_id": lease.slot_id,
+                "fencing_generation": lease.fencing_generation,
+                "solver_entered": False,
+                "scientific_solver_entry_count": 0,
+                "run_invocation_count": 0,
+                "next_action": "LUMERICAL_SCIENTIFIC_INVOCATION_BLOCKED",
+                "timestamp_utc": now(),
+            }
+            write(case_root / "scientific_entry_boundary.json", boundary)
+            emit(cfg, "SCIENTIFIC_ENTRY_BOUNDARY_REACHED", **boundary)
+            allocator.release_owned(lease, scientific_terminal="FAILED_PREENTRY")
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
+            emit(cfg, "PREENTRY_LEASE_RELEASED", slot_id=lease.slot_id)
+            print(json.dumps({"status": "PREENTRY_BOUNDARY_REACHED", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False}, ensure_ascii=False), flush=True)
+            return
         mod = g = None
         if not is_pw:
             mod, g = import_authority(Path(cfg["output_root"]), cfg["task"])

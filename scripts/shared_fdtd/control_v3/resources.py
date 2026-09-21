@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import csv
 import ctypes
+import io
 import json
 import os
 import subprocess
@@ -144,14 +146,53 @@ def _memory_status() -> dict[str, int]:
 
 
 def _processes_from_windows() -> tuple[list[dict[str, Any]], list[str]]:
-    command = "Get-CimInstance Win32_Process | Select-Object Name,ProcessId,WorkingSetSize,CommandLine | ConvertTo-Json -Compress"
-    result = subprocess.run(["powershell.exe", "-NoProfile", "-Command", command], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=20)
-    if result.returncode:
-        return [], [result.stderr.strip() or "process census failed"]
-    if not result.stdout.strip():
-        return [], ["process census returned no rows"]
-    value = json.loads(result.stdout)
-    return (value if isinstance(value, list) else [value]), []
+    if os.name != "nt":
+        return [], ["process census unavailable on non-Windows"]
+
+    class ProcessEntry32W(ctypes.Structure):
+        _fields_ = [
+            ("dwSize", ctypes.c_ulong), ("cntUsage", ctypes.c_ulong),
+            ("th32ProcessID", ctypes.c_ulong), ("th32DefaultHeapID", ctypes.c_void_p),
+            ("th32ModuleID", ctypes.c_ulong), ("cntThreads", ctypes.c_ulong),
+            ("th32ParentProcessID", ctypes.c_ulong), ("pcPriClassBase", ctypes.c_long),
+            ("dwFlags", ctypes.c_ulong), ("szExeFile", ctypes.c_wchar * 260),
+        ]
+
+    class ProcessMemoryCounters(ctypes.Structure):
+        _fields_ = [
+            ("cb", ctypes.c_ulong), ("PageFaultCount", ctypes.c_ulong),
+            ("PeakWorkingSetSize", ctypes.c_size_t), ("WorkingSetSize", ctypes.c_size_t),
+            ("QuotaPeakPagedPoolUsage", ctypes.c_size_t), ("QuotaPagedPoolUsage", ctypes.c_size_t),
+            ("QuotaPeakNonPagedPoolUsage", ctypes.c_size_t), ("QuotaNonPagedPoolUsage", ctypes.c_size_t),
+            ("PagefileUsage", ctypes.c_size_t), ("PeakPagefileUsage", ctypes.c_size_t),
+        ]
+
+    kernel32 = ctypes.windll.kernel32
+    psapi = ctypes.windll.psapi
+    snapshot = kernel32.CreateToolhelp32Snapshot(0x00000002, 0)
+    invalid_handle = ctypes.c_void_p(-1).value
+    if snapshot == invalid_handle:
+        return [], ["CreateToolhelp32Snapshot failed"]
+    rows: list[dict[str, Any]] = []
+    try:
+        entry = ProcessEntry32W()
+        entry.dwSize = ctypes.sizeof(entry)
+        first = kernel32.Process32FirstW(snapshot, ctypes.byref(entry))
+        while first:
+            pid = int(entry.th32ProcessID)
+            working_set = 0
+            handle = kernel32.OpenProcess(0x0410, False, pid)
+            if handle:
+                counters = ProcessMemoryCounters()
+                counters.cb = ctypes.sizeof(counters)
+                if psapi.GetProcessMemoryInfo(handle, ctypes.byref(counters), counters.cb):
+                    working_set = int(counters.WorkingSetSize)
+                kernel32.CloseHandle(handle)
+            rows.append({"Name": entry.szExeFile, "ProcessId": pid, "WorkingSetSize": working_set})
+            first = kernel32.Process32NextW(snapshot, ctypes.byref(entry))
+    finally:
+        kernel32.CloseHandle(snapshot)
+    return rows, [] if rows else ["process census returned no rows"]
 
 
 def read_resource_snapshot(process_provider: Callable[[], Iterable[dict[str, Any]]] | None = None) -> ResourceSnapshot:
