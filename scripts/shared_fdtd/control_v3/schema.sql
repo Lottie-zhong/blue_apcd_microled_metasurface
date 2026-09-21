@@ -65,6 +65,29 @@ CREATE TABLE IF NOT EXISTS health_metrics (
   updated_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS resource_reservations (
+  reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  branch_id TEXT NOT NULL,
+  logical_case_id TEXT NOT NULL,
+  attempt_id TEXT NOT NULL,
+  slot_id TEXT NOT NULL,
+  resource_class TEXT NOT NULL,
+  estimated_peak_ram_bytes INTEGER,
+  estimated_commit_bytes INTEGER,
+  mpi_ranks INTEGER NOT NULL,
+  threads INTEGER NOT NULL,
+  integrated_pw INTEGER NOT NULL DEFAULT 0,
+  safety_margin_ratio REAL NOT NULL,
+  state TEXT NOT NULL CHECK(state IN ('RESERVED','LIVE','RELEASE_PENDING','OWNER_QUARANTINED','RELEASED')),
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  released_at TEXT,
+  UNIQUE(branch_id, logical_case_id, attempt_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_resource_reservations_active
+  ON resource_reservations(state, branch_id, integrated_pw);
+
 CREATE TRIGGER IF NOT EXISTS lease_events_no_update
 BEFORE UPDATE ON lease_events BEGIN SELECT RAISE(ABORT, 'lease_events are append-only'); END;
 CREATE TRIGGER IF NOT EXISTS lease_events_no_delete

@@ -1,0 +1,14 @@
+{
+  "policy_id": "V3_RESOURCE_POLICY_FREEZE_V1",
+  "status": "TEMPORARY_VALIDATION_PHASE_FROZEN",
+  "global_capacity": 3,
+  "branch_caps": {"traditional": 1, "coupling_ml": 2},
+  "pw_integrated_max_concurrent": 1,
+  "admission_requires_all": ["slot_capacity", "branch_capacity", "resource_reservation_capacity", "ram_headroom", "commit_headroom", "mpi_health", "persistence_preflight"],
+  "resource_request_required_fields": ["resource_class", "estimated_peak_ram_bytes", "estimated_commit_bytes", "mpi_ranks", "threads", "integrated_pw", "safety_margin_ratio"],
+  "resource_classes": ["LIGHT", "STANDARD", "HEAVY"],
+  "default_safety_margin_ratio": 0.25,
+  "after_entry_pressure": "block_new_entries_only; never kill, close, replay, or release an entered solver",
+  "runtime_monitor": {"samples": ["physical_ram", "commit", "pagefile_headroom", "fdtd_engine_count", "engine_working_set", "smpd_count", "mpiexec_count", "process_errors"], "on_pressure": "RESOURCE_PRESSURE_WARNING", "on_monitor_failure": "RESOURCE_MONITOR_DEGRADED_WITH_OWNER_UNCHANGED"},
+  "legacy_quarantine": {"GLOBAL_SLOT_2": "OWNER_QUARANTINED", "GLOBAL_SLOT_3": "OWNER_QUARANTINED", "reuse_authorized": false}
+}

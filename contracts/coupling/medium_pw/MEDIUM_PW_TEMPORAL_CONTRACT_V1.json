@@ -1,0 +1,22 @@
+{
+  "contract_id": "MEDIUM_PW_TEMPORAL_CONTRACT_V1",
+  "status": "FROZEN_PREENTRY",
+  "case_id": "W2H_15294",
+  "maximum_physical_simulation_time_s": 3e-12,
+  "auto_shutoff_min": 1e-6,
+  "validation_checkpoints_ps": [1.0, 2.0, 3.0],
+  "checkpoint_window_fraction": 0.1,
+  "early_termination": {
+    "allowed": true,
+    "requires_two_consecutive_stable_windows": true,
+    "required_outputs": ["R(lambda)", "T(lambda)", "eta_m(lambda)", "complex_modal_state", "21_wavelength_grid"],
+    "relative_power_change_max": 0.001,
+    "complex_modal_state_normalized_l2_change_max": 0.005,
+    "spectral_trajectory_must_be_finite": true,
+    "energy_accounting_must_be_finite": true,
+    "auto_shutoff_alone_is_insufficient": true
+  },
+  "termination_metadata_required": ["actual_simulation_time_s", "iteration_count", "dt_s", "termination_reason", "last_stable_checkpoint_ps", "fsp_sha256", "monitor_contract_sha256", "resource_snapshot", "solver_entered_timestamp"],
+  "reference_relation": "3 ps recovered reference is the upper bound; 1 ps or 2 ps is admissible only after the stability gates pass",
+  "solver_entries_authorized_by_this_contract": 0
+}

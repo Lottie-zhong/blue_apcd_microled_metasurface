@@ -23,6 +23,7 @@ from shared_fdtd.engine.persistence import (
     persist_and_verify,
     save_and_verify,
 )
+from shared_fdtd.control_v3.resources import ResourceRequest, RuntimeResourceMonitor
 
 
 def now():
@@ -122,6 +123,7 @@ def main():
     returned = False
     fd = None
     load_fd = None
+    resource_monitor = None
     try:
         emit(cfg, "HOST_STARTED", host_pid=__import__("os").getpid(), runtime=str(Path(cfg["runtime"])))
         queue_state(db, cfg, "SLOT_ACQUIRED")
@@ -151,6 +153,13 @@ def main():
         emit(cfg, "SCIENTIFIC_SOLVER_ENTERED", slot_id=lease.slot_id, mpi_processes=12, threads=1)
         queue_state(db, cfg, "SCIENTIFIC_SOLVER_RUNNING")
         emit(cfg, "SCIENTIFIC_SOLVER_RUNNING", slot_id=lease.slot_id)
+        resource_request = ResourceRequest.from_payload(cfg)
+        resource_monitor = RuntimeResourceMonitor(
+            resource_request,
+            case_root / "resource_samples.jsonl",
+            interval_s=float(cfg.get("resource_monitor_interval_s", 30.0)),
+        )
+        resource_monitor.start()
         fd.run()
         returned = True
         ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
@@ -201,14 +210,25 @@ def main():
         queue_state(db, cfg, "RELEASED")
         emit(cfg, "RELEASED", slot_id=lease.slot_id)
         write(case_root / "terminal.json", {"status": "SCIENTIFIC_VALID", "case_id": cfg["case"], "attempt_id": cfg["attempt"], "solver_entered": True, "solver_returned": True, "solver_entry_count": 1, "rerun": False, "native_fsp": str(native), "native_fsp_sha256": native_record["sha256"], "post_fsp": str(post), "post_fsp_sha256": sha(post), "raw_result": str(paths["raw_json"]), "raw_result_sha256": sha(paths["raw_json"]), "slot_id": lease.slot_id, "slot_release_status": "RELEASED", "completed_utc": now(), "transfer_metrics": transfer})
+        if resource_monitor is not None:
+            resource_monitor.stop()
+            resource_monitor = None
         print(json.dumps({"status": "PASS", "case": cfg["case"], "attempt": cfg["attempt"], "slot": lease.slot_id, "post_fsp": str(post), "raw": str(paths["raw_json"])}, ensure_ascii=False), flush=True)
     except Exception as exc:
+        if resource_monitor is not None:
+            try:
+                resource_monitor.stop()
+            except BaseException:
+                pass
         if load_fd is not None:
             try: load_fd.close()
             except Exception: pass
         if fd is not None:
-            try: fd.close()
-            except Exception: pass
+            if not entered or returned:
+                try: fd.close()
+                except Exception: pass
+            # An exception after scientific entry must not close the live owner
+            # merely because bookkeeping or persistence failed.
         status = persistence_failure_status(returned) if returned else ("FAILED_AFTER_ENTRY" if entered else "FAILED_PREENTRY")
         queue_failure_state = "FAILED_AFTER_ENTRY" if entered else "FAILED_PREENTRY"
         write(case_root / "terminal_failure.json", {"status": status, "queue_state": queue_failure_state, "failure_class": status, "case_id": cfg["case"], "attempt_id": cfg["attempt"], "solver_entered": entered, "solver_returned": returned, "error": repr(exc), "rerun": False, "timestamp_utc": now()})

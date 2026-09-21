@@ -3,6 +3,7 @@ import hashlib, json, os, subprocess, sys
 from pathlib import Path
 from shared_fdtd.control_v3.allocator import Allocator, BranchCapReached, NoFreeSlot
 from shared_fdtd.control_v3.db import utc_now
+from shared_fdtd.control_v3.resources import ResourceCapacityWait, ResourceRequest, read_resource_snapshot
 
 def enqueue(db,branch,case,attempt,payload=None):
     with db.immediate() as con:
@@ -13,7 +14,14 @@ def dispatch_once(db,branch,launch):
     with db.connect(readonly=True) as con:
         rows=[dict(r) for r in con.execute("SELECT * FROM branch_queue WHERE branch_id=? AND state='QUEUED' ORDER BY queue_id",(branch,))]
     for row in rows:
-        try: lease=allocator.acquire(branch,row["logical_case_id"],row["attempt_id"])
+        payload=json.loads(row["payload_json"] or "{}")
+        request=ResourceRequest.from_payload(payload)
+        try:
+            lease=allocator.acquire(branch,row["logical_case_id"],row["attempt_id"],resource_request=request,resource_snapshot=read_resource_snapshot() if request is not None else None)
+        except ResourceCapacityWait:
+            with db.immediate() as con:
+                con.execute("UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',updated_at=? WHERE queue_id=? AND state='QUEUED'",(utc_now(),row["queue_id"]))
+            break
         except (BranchCapReached,NoFreeSlot): break
         with db.immediate() as con:
             changed=con.execute("UPDATE branch_queue SET state='HOST_START_INTENT',slot_id=?,lease_token_hash=?,fencing_generation=?,updated_at=? WHERE queue_id=? AND state='QUEUED'",(lease.slot_id,lease.token_hash,lease.fencing_generation,utc_now(),row["queue_id"])).rowcount

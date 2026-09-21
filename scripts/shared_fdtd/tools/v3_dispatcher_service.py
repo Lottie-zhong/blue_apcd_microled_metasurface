@@ -40,6 +40,15 @@ def launch_factory(db_path):
             "task": payload["task"], "slot_id": lease.slot_id, "lease_token": lease.lease_token,
             "fencing_generation": lease.fencing_generation, "task_name": payload["task_name"],
             "created_utc": now(),
+            "production_science": bool(payload.get("production_science", False)),
+            "resource_request": payload.get("resource_request"),
+            "resource_class": payload.get("resource_class"),
+            "estimated_peak_ram_bytes": payload.get("estimated_peak_ram_bytes"),
+            "estimated_commit_bytes": payload.get("estimated_commit_bytes"),
+            "mpi_ranks": payload.get("mpi_ranks", payload.get("processes", 12)),
+            "threads": payload.get("threads", 1),
+            "integrated_pw": bool(payload.get("integrated_pw", False)),
+            "resource_monitor_interval_s": payload.get("resource_monitor_interval_s", 30.0),
         }
         atomic(config, cfg)
         append_event(runtime / "events.jsonl", "HOST_START_INTENT", task_name=payload["task_name"], config=str(config), slot_id=lease.slot_id)

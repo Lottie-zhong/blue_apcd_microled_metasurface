@@ -1,0 +1,26 @@
+{
+  "contract_id": "MEDIUM_PW_MONITOR_CONTRACT_V1",
+  "status": "FROZEN_PREENTRY",
+  "case_id": "W2H_15294",
+  "frequency_grid_nm": [440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460],
+  "essential_production": {
+    "MON_PRENP": {"type": "2D Z-normal", "z_nm": 1200.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "complex_fields": ["Ex","Ey","Ez","Hx","Hy","Hz"], "role": "pre-NP modal/interface state"},
+    "MON_POSTNP": {"type": "2D Z-normal", "z_nm": 2212.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "complex_fields": ["Ex","Ey","Ez","Hx","Hy","Hz"], "role": "post-NP modal/interface state and T"},
+    "MON_REFLECTION": {"type": "2D Z-normal", "z_nm": -400.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "complex_fields": [], "role": "R power flux"}
+  },
+  "derived_outputs": {
+    "R": "MON_REFLECTION integrated signed Poynting flux normalized to incident source power",
+    "T": "MON_POSTNP integrated signed Poynting flux normalized to incident source power",
+    "floquet_grating_orders": "grating()/gratingvector() on MON_POSTNP after a later authorized solver return",
+    "eta_m": "order-resolved normalized power from MON_POSTNP with explicit propagating-order mask"
+  },
+  "existing_monitor_classification": {
+    "top_upward_power_monitor": "CALIBRATION_ONLY",
+    "top_farfield3d_monitor": "REMOVE_FROM_PRODUCTION",
+    "coupling_interface_monitor": "ESSENTIAL_PRODUCTION_AS_MON_PRENP",
+    "volumetric_or_duplicate_monitors": "REMOVE_FROM_PRODUCTION"
+  },
+  "raw_payload_policy": "retain only complex E/H for MON_PRENP and MON_POSTNP, R/T scalars, grating-order arrays, and provenance; no 3D volume monitor",
+  "physical_state_surrogate_fields_preserved": true,
+  "solver_entries_authorized_by_this_contract": 0
+}

@@ -1,0 +1,16 @@
+{
+  "contract_id": "MEDIUM_PW_VALIDATION_GATE_V1",
+  "status": "FROZEN_BEFORE_MEDIUM_RESULTS",
+  "case_id": "W2H_15294",
+  "reference": {"case_id": "W2H_15294", "role": "RECOVERED_VALID_COMPLETED_REFERENCE_TRUTH", "mesh": "NP-derived 5 nm", "wallclock_s": 29625.919359, "must_not_rerun": true},
+  "comparison_grid_nm": [440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460],
+  "required_comparisons": ["eta(+1)", "all_materially_populated_propagating_orders", "R", "T", "complex_modal_state", "spectral_trajectory", "routing_reconstruction"],
+  "normalization": "E_C(lambda)=||C_medium-C_5nm_reference||_2/||C_5nm_reference||_2; retain the frozen complex-state normalization and document zero denominators",
+  "criteria": {
+    "PASS": {"complex_state_E_C_max": 0.05, "R_absolute_error_max": 0.05, "T_absolute_error_max": 0.05, "populated_order_absolute_error_max": 0.05, "routing_spectral_trajectory_correlation_min": 0.98, "missing_required_wavelengths": 0},
+    "REVIEW": "any required observable exists but one PASS threshold is exceeded, or a material order mask differs",
+    "FAIL": "missing required observable/wavelength, non-finite output, contract mismatch, or evidence of solver replay"
+  },
+  "no_direct_np_residual_subtraction": true,
+  "solver_entries_authorized_by_this_contract": 0
+}

@@ -1,0 +1,62 @@
+{
+  "contract_id": "MEDIUM_PW_MESH_CONTRACT_V1",
+  "status": "FROZEN_PREENTRY_SETUP_CONTRACT",
+  "case_id": "W2H_15294",
+  "solver_entries_authorized_by_this_contract": 0,
+  "physics": {
+    "K": 6,
+    "p_nm": 290.0,
+    "Lambda_x_nm": 1740.0,
+    "Lambda_y_nm": 290.0,
+    "H_nm": 500.0,
+    "spacer_nm": 237.0,
+    "boundaries": {"x_min": "Periodic", "x_max": "Periodic", "y_min": "Periodic", "y_max": "Periodic", "z_min": "PML", "z_max": "PML"},
+    "z_coordinates_nm": {"gan_min": -600.0, "gan_mdc_interface": 0.0, "mdc_top": 975.0, "spacer_top": 1212.0, "pillar_top": 1712.0, "domain_max": 3000.0},
+    "ordered_x_centers_nm": [-725.0, -435.0, -145.0, 145.0, 435.0, 725.0],
+    "ordered_diameters_nm": [155.0, 105.0, 195.0, 150.0, 180.0, 145.0],
+    "pillar_material": "APCD_TIO2_NATIVE_M1",
+    "gan_material": "APCD_GAN_NATIVE_M1",
+    "spacer_material": "APCD_SIO2_NATIVE_M1",
+    "air_material": "Air",
+    "mdc_layers": [
+      ["APCD_TIO2_NATIVE_M1", 44.0], ["APCD_SIO2_NATIVE_M1", 79.0],
+      ["APCD_TIO2_NATIVE_M1", 44.0], ["APCD_SIO2_NATIVE_M1", 79.0],
+      ["APCD_TIO2_NATIVE_M1", 44.0], ["APCD_SIO2_NATIVE_M1", 316.0],
+      ["APCD_TIO2_NATIVE_M1", 44.0], ["APCD_SIO2_NATIVE_M1", 79.0],
+      ["APCD_TIO2_NATIVE_M1", 44.0], ["APCD_SIO2_NATIVE_M1", 79.0],
+      ["APCD_TIO2_NATIVE_M1", 44.0], ["APCD_SIO2_NATIVE_M1", 79.0]
+    ]
+  },
+  "mesh_global": {
+    "mesh_accuracy": 2,
+    "pml_layers": 8,
+    "conformal_mesh": "conformal variant 1",
+    "pml_mesh_interaction": "preserve_default_pml_refinement",
+    "override_rule": "higher priority means stricter local contract; overlapping regions resolve to the smallest requested step",
+    "no_override_may_intersect_pml_boundary": true
+  },
+  "mesh_overrides": [
+    {"name": "mesh_mdc_background_10nm", "priority": 70, "x_nm": 0.0, "y_nm": 0.0, "z_nm": 487.5, "x_span_nm": 1740.0, "y_span_nm": 290.0, "z_span_nm": 975.0, "dx_nm": 10.0, "dy_nm": 10.0, "dz_nm": 10.0, "coverage": "full MDC body z=0..975 nm"},
+    {"name": "mesh_spacer_background_10nm", "priority": 70, "x_nm": 0.0, "y_nm": 0.0, "z_nm": 1093.5, "x_span_nm": 1740.0, "y_span_nm": 290.0, "z_span_nm": 237.0, "dx_nm": 10.0, "dy_nm": 10.0, "dz_nm": 10.0, "coverage": "full spacer z=975..1212 nm"},
+    {"name": "mesh_gan_homogeneous_15nm", "priority": 40, "x_nm": 0.0, "y_nm": 0.0, "z_nm": -300.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "z_span_nm": 600.0, "dx_nm": 15.0, "dy_nm": 15.0, "dz_nm": 15.0, "coverage": "homogeneous GaN z=-600..0 nm"},
+    {"name": "mesh_air_homogeneous_20nm", "priority": 30, "x_nm": 0.0, "y_nm": 0.0, "z_nm": 2356.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "z_span_nm": 1288.0, "dx_nm": 20.0, "dy_nm": 20.0, "dz_nm": 20.0, "coverage": "homogeneous air z=1712..3000 nm"},
+    {"name": "mesh_mdc_spacer_interface_5nm", "priority": 90, "x_nm": 0.0, "y_nm": 0.0, "z_nm": 975.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "z_span_nm": 20.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "MDC/spacer interface z=965..985 nm"},
+    {"name": "mesh_spacer_pillar_interface_5nm", "priority": 90, "x_nm": 0.0, "y_nm": 0.0, "z_nm": 1212.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "z_span_nm": 20.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "spacer/pillar interface z=1202..1222 nm"},
+    {"name": "mesh_pillar_01_5nm", "priority": 100, "x_nm": -725.0, "y_nm": 0.0, "z_nm": 1462.0, "x_span_nm": 175.0, "y_span_nm": 175.0, "z_span_nm": 520.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "pillar 01 plus 10 nm xy and 5 nm z margins"},
+    {"name": "mesh_pillar_02_5nm", "priority": 100, "x_nm": -435.0, "y_nm": 0.0, "z_nm": 1462.0, "x_span_nm": 125.0, "y_span_nm": 125.0, "z_span_nm": 520.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "pillar 02 plus 10 nm xy and 5 nm z margins"},
+    {"name": "mesh_pillar_03_5nm", "priority": 100, "x_nm": -145.0, "y_nm": 0.0, "z_nm": 1462.0, "x_span_nm": 215.0, "y_span_nm": 215.0, "z_span_nm": 520.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "pillar 03 plus 10 nm xy and 5 nm z margins"},
+    {"name": "mesh_pillar_04_5nm", "priority": 100, "x_nm": 145.0, "y_nm": 0.0, "z_nm": 1462.0, "x_span_nm": 170.0, "y_span_nm": 170.0, "z_span_nm": 520.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "pillar 04 plus 10 nm xy and 5 nm z margins"},
+    {"name": "mesh_pillar_05_5nm", "priority": 100, "x_nm": 435.0, "y_nm": 0.0, "z_nm": 1462.0, "x_span_nm": 200.0, "y_span_nm": 200.0, "z_span_nm": 520.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "pillar 05 plus 10 nm xy and 5 nm z margins"},
+    {"name": "mesh_pillar_06_5nm", "priority": 100, "x_nm": 725.0, "y_nm": 0.0, "z_nm": 1462.0, "x_span_nm": 165.0, "y_span_nm": 165.0, "z_span_nm": 520.0, "dx_nm": 5.0, "dy_nm": 5.0, "dz_nm": 5.0, "coverage": "pillar 06 plus 10 nm xy and 5 nm z margins"}
+  ],
+  "estimated_cost": {
+    "status": "ESTIMATED_ONLY",
+    "method": "effective-axis upper-bound from override widths and ceil(region_width/step); Lumerical exact nonuniform mesh count is not requested from run()",
+    "reference_5nm": {"Nx": 348, "Ny": 58, "Nz": 720, "total_cells": 14532480, "minimum_step_nm": 5.0},
+    "medium_effective": {"Nx": 279, "Ny": 51, "Nz": 265, "total_cells": 3770685, "minimum_step_nm": 5.0},
+    "cell_count_reduction_fraction": 0.7405,
+    "ram_reduction_range_fraction": [0.65, 0.75],
+    "expected_speedup_range": [1.7, 2.5],
+    "all_speed_and_memory_values_are_estimates": true
+  }
+}
