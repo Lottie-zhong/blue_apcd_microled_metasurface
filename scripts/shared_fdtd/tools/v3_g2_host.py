@@ -186,6 +186,8 @@ def main():
         mod = g = None
         if not is_pw:
             mod, g = import_authority(Path(cfg["output_root"]), cfg["task"])
+        if str(LUMAPI) not in sys.path:
+            sys.path.insert(0, str(LUMAPI))
         import lumapi
         fd = lumapi.FDTD(str(run), hide=True)
         fd.setresource("FDTD", 1, "processes", "12")
