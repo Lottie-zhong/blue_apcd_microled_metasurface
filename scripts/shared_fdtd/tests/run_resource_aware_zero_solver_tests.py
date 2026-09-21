@@ -10,7 +10,7 @@ sys.path.insert(0, str(PKG.parent))
 
 from shared_fdtd.control_v3 import Allocator, ControlDB, ResourceCapacityWait, ResourceRequest, ResourceSnapshot
 from shared_fdtd.control_v3.allocator import OwnershipMismatch, Lease
-from shared_fdtd.control_v3.resources import runtime_resource_sample
+from shared_fdtd.control_v3.resources import resource_admission, runtime_resource_sample
 from shared_fdtd.engine.host_lifecycle import ScientificHostLifecycle
 
 SCHEMA = PKG / "control_v3" / "schema.sql"
@@ -62,6 +62,16 @@ def test_traditional_plus_one_heavy_pw(tmp: Path) -> None:
     pw = a.acquire("coupling_ml", "pw-1", "a1", resource_request=request(), resource_snapshot=snap())
     assert {traditional.slot_id, pw.slot_id} == {"GLOBAL_SLOT_1", "GLOBAL_SLOT_2"}
     a.release_owned(pw, scientific_terminal="FAILED_PREENTRY")
+    a.release_owned(traditional, scientific_terminal="FAILED_PREENTRY")
+
+
+def test_unreserved_foreign_traditional_is_valid_for_ml_gate(tmp: Path) -> None:
+    db = fresh(tmp); a = Allocator(db)
+    traditional = a.acquire("traditional", "legacy-traditional", "a1")
+    with db.connect(readonly=True) as con:
+        admission = resource_admission(con, "coupling_ml", request(), snap())
+    assert admission["RESOURCE_PREFLIGHT"] == "PASS", admission
+    assert admission["unknown_active_slot_count"] == 0
     a.release_owned(traditional, scientific_terminal="FAILED_PREENTRY")
 
 
@@ -135,6 +145,7 @@ def main() -> int:
         test_insufficient_ram,
         test_insufficient_commit,
         test_traditional_plus_one_heavy_pw,
+        test_unreserved_foreign_traditional_is_valid_for_ml_gate,
         test_second_integrated_pw_blocked,
         test_monitor_failure_does_not_change_ownership,
         test_resource_pressure_blocks_new_entry,

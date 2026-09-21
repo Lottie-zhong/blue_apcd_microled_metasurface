@@ -99,6 +99,38 @@ def test_wait_resource_rechecks(root: Path):
     assert dispatch_once(db, "coupling_ml", lambda row, lease: None) == ["WAIT"]
     return {"status": "PASS", "reevaluated": True}
 
+def test_same_wait_attempt_after_foreign_release(root: Path):
+    db = init_db(root)
+    allocator = Allocator(db)
+    traditional = allocator.acquire("traditional", "TRAD", "attempt_001")
+    payload = {
+        "production_science": True, "resource_class": "HEAVY",
+        "estimated_peak_ram_bytes": 1000, "estimated_commit_bytes": 1000,
+        "mpi_ranks": 12, "threads": 1, "integrated_pw": False,
+    }
+    case, attempt = "PW_PLANAR_STACK_REAL_CANARY", "attempt_002"
+    enqueue(db, "coupling_ml", case, attempt, payload)
+    import shared_fdtd.engine.dispatcher as dispatcher
+    low = ResourceSnapshot("PASS", "t", 10000, 10, 10000, 10, 9990, 10, 0, 0, 0, 0, 0)
+    high = ResourceSnapshot("PASS", "t", 10000, 10000, 10000, 10000, 0, 10000, 0, 0, 0, 0, 0)
+    dispatcher.read_resource_snapshot = lambda: low
+    assert dispatch_once(db, "coupling_ml", lambda row, lease: None) == []
+    with db.connect(readonly=True) as con:
+        row = con.execute("SELECT state,attempt_id FROM branch_queue WHERE logical_case_id=?", (case,)).fetchone()
+        assert (row["state"], row["attempt_id"]) == ("WAIT_RESOURCE_CAPACITY", attempt)
+    allocator.release_owned(traditional, scientific_terminal="FAILED_PREENTRY")
+    launched = []
+    dispatcher.read_resource_snapshot = lambda: high
+    assert dispatch_once(db, "coupling_ml", lambda row, lease: launched.append((row["logical_case_id"], row["attempt_id"]))) == [case]
+    assert launched == [(case, attempt)]
+    with db.connect(readonly=True) as con:
+        count = con.execute("SELECT COUNT(*) FROM branch_queue WHERE logical_case_id=?", (case,)).fetchone()[0]
+        entries = con.execute("SELECT COUNT(*) FROM lease_events WHERE logical_case_id=? AND event_type='SCIENTIFIC_SOLVER_ENTERED'", (case,)).fetchone()[0]
+    assert count == 1
+    assert entries == 0
+    return {"status": "PASS", "same_attempt": True, "scientific_entries": entries}
+
+
 def test_foreign_traditional_unchanged(root: Path):
     db = init_db(root)
     allocator = Allocator(db)
@@ -124,6 +156,7 @@ def main():
             ("postentry_no_truth_closeout", test_postentry_no_truth_closeout),
             ("multislot_autorefill", test_autorefill),
             ("wait_resource_rechecks", test_wait_resource_rechecks),
+            ("same_wait_attempt_after_foreign_release", test_same_wait_attempt_after_foreign_release),
             ("foreign_traditional_unchanged", test_foreign_traditional_unchanged),
         ):
             try:

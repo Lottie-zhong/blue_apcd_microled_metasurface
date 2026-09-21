@@ -210,7 +210,13 @@ def resource_admission(con, branch: str, request: ResourceRequest, snapshot: Res
         reasons.append("PW_INTEGRATED_CONCURRENCY_LIMIT")
     active_slots = [dict(row) for row in con.execute("SELECT slot_id,owner_branch,logical_case_id,attempt_id,state FROM slots WHERE state <> 'FREE'")]
     reservation_keys = {(row["branch_id"], row["logical_case_id"], row["attempt_id"]) for row in rows}
-    unknown_active = [row for row in active_slots if (row["owner_branch"], row["logical_case_id"], row["attempt_id"]) not in reservation_keys]
+    # Traditional is a valid foreign branch with no ML-specific reservation row.
+    known_unreserved_foreign_branches = {"traditional"}
+    unknown_active = [
+        row for row in active_slots
+        if row["owner_branch"] not in known_unreserved_foreign_branches
+        and (row["owner_branch"], row["logical_case_id"], row["attempt_id"]) not in reservation_keys
+    ]
     if unknown_active:
         reasons.append("ACTIVE_OWNER_WITHOUT_RESOURCE_RESERVATION")
     reserved_ram = sum(int(row["estimated_peak_ram_bytes"] or 0) for row in rows)
