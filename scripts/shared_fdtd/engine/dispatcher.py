@@ -59,9 +59,15 @@ def recover_failed_preentry(db, branch, case, attempt, attempt_root=None):
         ).fetchone()
         if row is None:
             return {"status": "NOT_FOUND", "case": case, "attempt": attempt}
-        if row["state"] not in {"FAILED_PREENTRY", "AMBIGUOUS_QUARANTINED", "HOST_START_INTENT"}:
+        eligible_states = {
+            "FAILED_PREENTRY",
+            "AMBIGUOUS_QUARANTINED",
+            "HOST_START_INTENT",
+            "SOLVER_ENTRY_INTENT",
+        }
+        if row["state"] not in eligible_states:
             return {"status": "NOT_ELIGIBLE", "state": row["state"], "case": case, "attempt": attempt}
-        if row["state"] in {"AMBIGUOUS_QUARANTINED", "HOST_START_INTENT"}:
+        if row["state"] in {"AMBIGUOUS_QUARANTINED", "HOST_START_INTENT", "SOLVER_ENTRY_INTENT"}:
             if not attempt_root:
                 raise RuntimeError("ZERO_SOLVER_RECOVERY_REQUIRES_ATTEMPT_ROOT")
             ledger_path = Path(attempt_root) / "attempt_ledger.json"
@@ -87,7 +93,7 @@ def recover_failed_preentry(db, branch, case, attempt, attempt_root=None):
         if copies != 1 or active_other != 0:
             raise RuntimeError("PREENTRY_RECOVERY_BLOCKED_CASE_DUPLICATION")
         con.execute(
-            "UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state IN ('FAILED_PREENTRY','AMBIGUOUS_QUARANTINED','HOST_START_INTENT')",
+            "UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state IN ('FAILED_PREENTRY','AMBIGUOUS_QUARANTINED','HOST_START_INTENT','SOLVER_ENTRY_INTENT')",
             (utc_now(), branch, case, attempt),
         )
     if attempt_root:

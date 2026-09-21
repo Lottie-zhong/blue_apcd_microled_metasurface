@@ -275,6 +275,32 @@ def test_zero_solver_host_start_recovery(root: Path):
     return {"status": "PASS", "same_attempt": True, "scientific_entries": 0}
 
 
+def test_zero_solver_entry_intent_recovery(root: Path):
+    db = init_db(root)
+    case, attempt = "ENTRY_INTENT_RECOVERY", "attempt_002"
+    attempt_root = root / case / attempt
+    attempt_root.mkdir(parents=True)
+    enqueue(db, "coupling_ml", case, attempt, {"attempt_root": str(attempt_root)})
+    (attempt_root / "attempt_ledger.json").write_text(json.dumps({
+        "solver_entered": False, "run_invocation_count": 0,
+    }), encoding="utf-8")
+    with db.immediate() as con:
+        con.execute(
+            "UPDATE branch_queue SET state='SOLVER_ENTRY_INTENT' WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            ("coupling_ml", case, attempt),
+        )
+    result = recover_failed_preentry(db, "coupling_ml", case, attempt, attempt_root)
+    assert result["status"] == "RECOVERED_WAIT_RESOURCE_CAPACITY", result
+    with db.connect(readonly=True) as con:
+        row = con.execute(
+            "SELECT state,slot_id,fencing_generation FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            ("coupling_ml", case, attempt),
+        ).fetchone()
+    assert row["state"] == "WAIT_RESOURCE_CAPACITY"
+    assert row["slot_id"] is None and row["fencing_generation"] is None
+    return {"status": "PASS", "scientific_entries": 0}
+
+
 def test_foreign_traditional_unchanged(root: Path):
     db = init_db(root)
     allocator = Allocator(db)
@@ -305,6 +331,7 @@ def main():
             ("controller_restart_preserves_waiting_case", test_controller_restart_preserves_waiting_case),
             ("same_attempt_reuses_released_reservation", test_same_attempt_reuses_released_reservation),
             ("zero_solver_host_start_recovery", test_zero_solver_host_start_recovery),
+            ("zero_solver_entry_intent_recovery", test_zero_solver_entry_intent_recovery),
             ("foreign_traditional_unchanged", test_foreign_traditional_unchanged),
         ):
             try:

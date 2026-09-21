@@ -1,20 +1,72 @@
 from __future__ import annotations
-import json, os, subprocess
+
+import json
+import os
+from datetime import datetime, timezone
 from pathlib import Path
+
+import psutil
+
 from shared_fdtd.control_v3.db import utc_now
 
+
+def _row(process):
+    info = process.info
+    created = info.get("create_time")
+    creation = (
+        datetime.fromtimestamp(created, timezone.utc).isoformat()
+        if created
+        else ""
+    )
+    command = info.get("cmdline") or []
+    if isinstance(command, (list, tuple)):
+        command = " ".join(str(value) for value in command)
+    return {
+        "ProcessId": int(info["pid"]),
+        "ParentProcessId": int(info.get("ppid") or 0),
+        "Name": info.get("name") or "",
+        "CreationDate": creation,
+        "CommandLine": str(command),
+    }
+
+
 def snapshot(case_text=""):
-    ps="$ErrorActionPreference='SilentlyContinue'; Get-CimInstance Win32_Process | Select-Object ProcessId,ParentProcessId,Name,CreationDate,CommandLine | ConvertTo-Json -Compress"
-    p=subprocess.run(["powershell.exe","-NoProfile","-Command",ps],capture_output=True,text=True,encoding="utf-8",errors="replace")
-    try: rows=json.loads(p.stdout) if p.stdout.strip() else []
-    except Exception: rows=[]
-    if isinstance(rows,dict): rows=[rows]
-    return [r for r in rows if not case_text or case_text.lower() in str(r.get("CommandLine") or "").lower()]
+    needle = case_text.lower()
+    rows = []
+    for process in psutil.process_iter(
+        ["pid", "ppid", "name", "create_time", "cmdline"]
+    ):
+        try:
+            row = _row(process)
+        except (psutil.AccessDenied, psutil.NoSuchProcess, psutil.ZombieProcess):
+            continue
+        if not needle or needle in row["CommandLine"].lower():
+            rows.append(row)
+    return rows
+
 
 def host_identity():
-    p=subprocess.run(["powershell.exe","-NoProfile","-Command",f"(Get-Process -Id {os.getpid()}).StartTime.ToUniversalTime().ToString('o')"],capture_output=True,text=True)
-    return {"pid":os.getpid(),"creation_time_utc":p.stdout.strip(),"recorded_at":utc_now()}
+    created = psutil.Process(os.getpid()).create_time()
+    return {
+        "pid": os.getpid(),
+        "creation_time_utc": datetime.fromtimestamp(
+            created, timezone.utc
+        ).isoformat(),
+        "recorded_at": utc_now(),
+    }
 
-def write_identity(path,case,attempt,lease):
-    data={"case":case,"attempt":attempt,"host":host_identity(),"slot_id":lease.slot_id,"fencing_generation":lease.fencing_generation,"processes":snapshot(case)}
-    Path(path).write_text(json.dumps(data,indent=2,default=str)+"\n",encoding="utf-8"); return data
+
+def write_identity(path, case, attempt, lease):
+    data = {
+        "case": case,
+        "attempt": attempt,
+        "host": host_identity(),
+        "slot_id": lease.slot_id,
+        "fencing_generation": lease.fencing_generation,
+        "processes": snapshot(case),
+    }
+    Path(path).write_text(
+        json.dumps(data, indent=2, default=str) + "\n",
+        encoding="utf-8",
+    )
+    return data
