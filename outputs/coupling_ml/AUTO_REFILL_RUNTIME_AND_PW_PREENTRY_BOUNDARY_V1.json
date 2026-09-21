@@ -1,0 +1,117 @@
+{
+  "status": "AUTO_REFILL_RUNTIME_READY",
+  "verdict": "PW_REAL_CANARY_READY_FOR_CHART_REVIEW",
+  "scope": {
+    "branch": "work/mdc-np-coupling-ml-v1",
+    "case_id": "PW_PLANAR_STACK_REAL_CANARY",
+    "attempt_id": "attempt_002",
+    "attempt_003_created": false,
+    "solver_authorized": false,
+    "solver_runs": 0,
+    "scientific_solver_entry_count": 0,
+    "replay_count": 0
+  },
+  "root_cause": [
+    "The scheduled dispatcher path used persistent python.exe/.cmd wrappers and did not reach service progress under Task Scheduler; IgnoreNew and stale wrapper processes prevented later timer ticks.",
+    "The scheduler context did not have the N: mapping used by the old wrapper.",
+    "Nested per-case schtasks launch was unreliable and the full /TR command exceeded the Windows Task Scheduler command length limit.",
+    "Same-attempt reacquisition inserted a second reservation and hit the unique branch/case/attempt constraint.",
+    "PowerShell/tasklist process census could hang under pythonw Task Scheduler context.",
+    "A stale scientific_entry_boundary.json could be accepted without requiring a new fencing-matched boundary."
+  ],
+  "runtime_model": {
+    "scheduler": "APCD_V3_COUPLING_DISPATCHER, one-minute trigger, transient pythonw service tick",
+    "dispatcher": "pythonw service performs resource admission and re-evaluates WAIT_RESOURCE_CAPACITY each tick",
+    "host_launch": "native CreateProcessW starts the short host shim directly; no nested per-case scheduled task",
+    "preentry_gate": "formal production proof ran with --preentry-only; host writes a fencing-matched boundary and releases the lease before any solver invocation",
+    "post_proof_state": "dispatcher and reconciler tasks intentionally disabled after proof because the zero-solver hard gate remains active"
+  },
+  "source_fix": {
+    "commit": "280aff2792b4dbbc351fc0e810a3e0dc787899ec",
+    "parent": "f037cabbae6df9a9365dd75ed9bef247ff4af97d",
+    "files": [
+      "scripts/shared_fdtd/control_v3/allocator.py",
+      "scripts/shared_fdtd/control_v3/resources.py",
+      "scripts/shared_fdtd/engine/dispatcher.py",
+      "scripts/shared_fdtd/tests/run_coupling_ml_integration_zero_solver_tests.py",
+      "scripts/shared_fdtd/tools/v3_dispatcher_service.py",
+      "scripts/shared_fdtd/tools/v3_g2_host.py"
+    ],
+    "changes": [
+      "reuse the released reservation for the same branch/case/attempt",
+      "use native Windows process census instead of child PowerShell/tasklist",
+      "preserve WAIT_RESOURCE_CAPACITY and clear lease fields after preentry release",
+      "add zero-solver recovery for HOST_START_INTENT/AMBIGUOUS_QUARANTINED with ledger checks",
+      "use native CreateProcessW and fencing/mtime-validated boundary polling",
+      "add restart, preentry, reservation-reuse, and zero-solver host-start regression tests"
+    ]
+  },
+  "tests": {
+    "global": "20/20 PASS",
+    "branch": "20/20 PASS",
+    "chaos": "12/12 PASS",
+    "coupling_ml_integration": "9/9 PASS",
+    "resource_aware": "9/9 PASS",
+    "persistence": "PASS",
+    "pw_launcher": "A-L PASS",
+    "medium_pw_preentry": "8/8 PASS",
+    "durable_postsolver_finisher": "20/20 PASS",
+    "entered_exception_isolation": "16/16 PASS",
+    "py_compile": "PASS",
+    "solver_runs": 0,
+    "scientific_solver_entries": 0,
+    "replays": 0,
+    "foreign_mutation_count": 0
+  },
+  "production_runtime_proof": {
+    "trigger": "formal APCD_V3_COUPLING_DISPATCHER scheduled-task action invoked once for validation; no per-case dispatcher or solver launch",
+    "task_result": 0,
+    "audit_timestamp_utc": "2026-09-21T13:01:34.343673+00:00",
+    "resource_admission": "PASS",
+    "boundary_timestamp_utc": "2026-09-21T13:01:33.910346+00:00",
+    "boundary": {
+      "status": "PREENTRY_BOUNDARY_REACHED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "fencing_generation": 20,
+      "solver_entered": false,
+      "scientific_solver_entry_count": 0,
+      "run_invocation_count": 0,
+      "next_action": "LUMERICAL_SCIENTIFIC_INVOCATION_BLOCKED"
+    },
+    "queue": {
+      "state": "WAIT_RESOURCE_CAPACITY",
+      "slot_id": null,
+      "lease_token_hash": null,
+      "fencing_generation": null,
+      "updated_at": "2026-09-21T13:01:34.272321+00:00"
+    },
+    "reservation": {
+      "reservation_id": 1,
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "released_at": "2026-09-21T13:01:33.982347+00:00"
+    },
+    "slots_after_proof": "GLOBAL_SLOT_1, GLOBAL_SLOT_2, GLOBAL_SLOT_3 all FREE",
+    "canonical_queue_row_count": 1,
+    "old_generated_per_case_task": "absent",
+    "dispatcher_task": "disabled after proof; LastTaskResult=0; action is pythonw v3_dispatcher_service.py --once --preentry-only",
+    "reconciler_task": "disabled after proof; no live process",
+    "foreign_traditional_mutation_count": 0
+  },
+  "answers": {
+    "why_auto_refill_failed": "The old Scheduler/wrapper process model was not progressing reliably, and the path also had a N: mapping dependency, nested schtasks launch, command-length, same-attempt reservation, process-census, and stale-boundary faults.",
+    "what_wakes_now": "The one-minute APCD_V3_COUPLING_DISPATCHER task wakes a transient pythonw dispatcher service. Each tick rechecks WAIT_RESOURCE_CAPACITY and invokes the native host process when admitted.",
+    "controller_restart": "PASS via controller_restart_preserves_waiting_case; reopening the DB preserved the same attempt and did not create a duplicate or scientific entry.",
+    "one_freed_slot": "PASS via multislot_autorefill; the next waiting case is admitted after a slot becomes available.",
+    "attempt_identity": "attempt_002 is the sole current canonical attempt; attempt_003 was not created.",
+    "production_boundary": "YES: the formal scheduled-task dispatcher path reached the real preentry boundary automatically for the canonical case, without a manual per-case launch and without solver invocation.",
+    "chart_review_readiness": "YES for chart review of the zero-solver runtime gate; scientific solver entry remains blocked and requires separate authorization."
+  },
+  "git": {
+    "pre_commit_head": "f037cabbae6df9a9365dd75ed9bef247ff4af97d",
+    "post_source_commit": "280aff2792b4dbbc351fc0e810a3e0dc787899ec",
+    "pushed": false,
+    "traditional_commit_unchanged": "e25725b55773ad8d0c66250bf3774179c8b73fe5"
+  },
+  "generated_at_utc": "2026-09-21T13:13:12.958773+00:00"
+}
