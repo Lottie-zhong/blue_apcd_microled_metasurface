@@ -1,0 +1,86 @@
+{
+  "contract_id": "FAST_PW_VALIDATION_GATE_V1",
+  "status": "FROZEN_PREENTRY",
+  "case_id": "W2H_15294",
+  "candidate": {
+    "name": "FAST_PW",
+    "role": "LOWER_COST_FIDELITY_CANDIDATE",
+    "mesh_authority": {
+      "source": "outputs/coupling_ml/PW_PERIODIC_W2H15294_NP_DERIVED_MESH_CALIBRATION_GATE_A_V1/PW_COST_DOWN_DESIGN_V1.json",
+      "source_sha256": "83040ecf040987e59c331e5ee64f7142853521a08d8ac5e33bdea83181292566",
+      "dx_dy_nm_in_pillar_boxes": 10.0,
+      "dz_nm_in_pillar_spacer_mdc_interface_bands": 5.0,
+      "dx_dy_dz_nm_integrated_background": 15.0,
+      "dx_dy_dz_nm_homogeneous_gan_air": 20.0,
+      "no_global_5nm_override": true,
+      "no_global_2_5nm_z_refinement": true
+    }
+  },
+  "reference": {
+    "case_id": "W2H_15294",
+    "role": "EXPENSIVE_NUMERICAL_REFERENCE_TRUTH",
+    "mesh": "NP-derived 5 nm x/y/z reference",
+    "wallclock_s": 29625.919359,
+    "must_not_rerun": true,
+    "recovery_record": "outputs/coupling_ml/PW_PERIODIC_W2H15294_NP_DERIVED_MESH_CALIBRATION_GATE_A_V1/BASELINE_RECOVERY_FINAL.json",
+    "recovery_record_sha256": "b294352f518f21d0c2313c44f680f56935adbc263236048033b1c26fd7ce4f8f",
+    "native_fsp_sha256": "aea4c8f642fb02fd1ba1717cc9e0d4612c316baf8d232f732c12121a4795472f",
+    "reference_truth_evidence": {
+      "solver_completed": true,
+      "fresh_load_native": "PASS",
+      "fresh_load_post": "PASS",
+      "raw_status": "PASS",
+      "solver_entry_count": 1,
+      "replay_count": 0,
+      "refined_2_5nm_pair_complete": false
+    },
+    "historical_status_clarification": "PW0_truth_status=NOT_ADMITTED_REFINED_TRUTH_MISSING means the completed refined 2.5 nm comparison truth is absent. It does not invalidate the completed 5 nm reference. The 5 nm result is the frozen EXPENSIVE_NUMERICAL_REFERENCE_TRUTH; the incomplete refined attempt is forensic-only and must not be rerun."
+  },
+  "physics": {
+    "domain": "integrated periodic 3D plane-wave FDTD",
+    "period_x_nm": 1740.0,
+    "period_y_nm": 290.0,
+    "pillar_height_nm": 500.0,
+    "spacer_nm": 237.0,
+    "boundaries": {"x_min": "Periodic", "x_max": "Periodic", "y_min": "Periodic", "y_max": "Periodic", "z_min": "PML", "z_max": "PML"},
+    "polarization": "X / P_XLIKE",
+    "incidence": "normal incidence, +z from GaN to air",
+    "materials": {"pillar": "APCD_TIO2_NATIVE_M1", "gan": "APCD_GAN_NATIVE_M1", "spacer": "APCD_SIO2_NATIVE_M1", "air": "Air"},
+    "geometry_authority": "contracts/coupling/medium_pw/MEDIUM_PW_MESH_CONTRACT_V1.json"
+  },
+  "comparison_grid_nm": [440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460],
+  "required_comparisons": ["eta(+1)", "all_materially_populated_propagating_orders", "R", "T", "complex_modal_state", "spectral_trajectory", "routing_reconstruction"],
+  "inherited_fidelity_gate": {
+    "source_contract": "contracts/coupling/medium_pw/MEDIUM_PW_VALIDATION_GATE_V1.json",
+    "source_sha256": "41419b4ba2558364707c52e00b941828346b310c8c1b852131214edcd6053741",
+    "inheritance_rule": "Metric definitions, aggregation rules, phase/gauge alignment, routing definition, materially-populated-order definition, REVIEW semantics, and FAIL semantics are inherited without reinterpretation from the source contract.",
+    "candidate_only_changes": ["candidate identity is FAST_PW", "FAST mesh/fidelity authority", "intended production role", "fallback action"],
+    "normalization": "E_C(lambda)=||C_FAST-C_5nm_reference||_2/||C_5nm_reference||_2; retain the frozen complex-state normalization and document zero denominators",
+    "thresholds": {"complex_state_E_C_max": 0.05, "R_absolute_error_max": 0.05, "T_absolute_error_max": 0.05, "populated_order_absolute_error_max": 0.05, "routing_spectral_trajectory_correlation_min": 0.98, "missing_required_wavelengths": 0},
+    "review": "Any required observable exists but one PASS threshold is exceeded, or a material order mask differs.",
+    "fail": "Missing required observable or wavelength, non-finite output, contract mismatch, or evidence of solver replay."
+  },
+  "semantic_authorities": {
+    "monitor_contract": {"path": "contracts/coupling/medium_pw/MEDIUM_PW_MONITOR_CONTRACT_V1.json", "sha256": "331cf445148ffc80803b6eafb53caa7c7cddcc64e684a68076a6564d73f0db1a"},
+    "reference_plane": {"path": "outputs/coupling_ml/APCD_COUPLING_PW_PERIODIC_PREENTRY_NUMERICAL_CONTRACT_AUDIT_V1/REFERENCE_PLANE_CONTRACT_V2.json", "sha256": "9d3c237ec65e994a335c00259dae4ee237ed6626691cf630fb0f86031ad55fec", "planes_nm": {"Z_IN_REF": -50.0, "Z_PRENP_REF": 1202.0, "Z_POSTNP_REF": 1722.0}, "same_planes_required": true},
+    "modal_normalization": {"path": "outputs/coupling_ml/APCD_COUPLING_PW_PERIODIC_PREENTRY_NUMERICAL_CONTRACT_AUDIT_V1/PW_MODAL_NORMALIZATION_CONTRACT.md", "sha256": "96ad9d978cab0bcff63562bd1f895d20121c57746283d926f458d91da463866c", "same_normalization_required": true, "gauge_alignment": "Use the inherited deterministic vector TE/TM basis and canonical-plane de-embedding; no new gauge or phase convention is permitted."},
+    "order_sign": {"path": "outputs/coupling_ml/APCD_COUPLING_PW_PERIODIC_PREENTRY_NUMERICAL_CONTRACT_AUDIT_V1/PW_DIFFRACTION_ORDER_SIGN_CONTRACT.json", "sha256": "b4a429c9a555fb6b8bea2cb8d4aa29f9139248635eacae0bd60e09ebb89a0fc1", "target_order": "+1 = m=+1,n=0 with positive kx", "same_indexing_and_sign_required": true},
+    "energy_accounting": {"path": "outputs/coupling_ml/APCD_COUPLING_PW_PERIODIC_PREENTRY_NUMERICAL_CONTRACT_AUDIT_V1/PW_ENERGY_ACCOUNTING_AUDIT.json", "sha256": "874c3b7fdc7581be0dc6e247f0e8765ce076a49a31908b25d463fd1e4b3867b7", "closure_gate": "abs(1-(R+T+A)) < 0.01 at every wavelength after native readback and reference-plane validation"}
+  },
+  "structural_gates": {
+    "all_21_wavelengths_present": true,
+    "no_missing_required_truth_payload": true,
+    "same_PRENP_POSTNP_reference_planes": true,
+    "same_normalization": true,
+    "same_diffraction_order_indexing_and_sign": true,
+    "same_materials_MDC_spacer_geometry": true,
+    "no_unexpected_diffraction_topology_change": true,
+    "no_new_energy_accounting_failure": true,
+    "no_hidden_solver_replay": true,
+    "no_truth_corruption": true,
+    "local_checks_before_aggregate": "Evaluate every required wavelength and materially populated order before reporting aggregate maxima or correlation. An aggregate cannot hide a local failure."
+  },
+  "solver_authorization": {"max_new_scientific_entries": 1, "retry_count_allowed": 0, "replay_allowed": false, "duplicate_entry_allowed": false, "seed_database_may_start_only_after": "FAST_PW_PRODUCTION_FIDELITY_ADMITTED"},
+  "fallback": {"on_fail": "Do not start PW_K6_SEED_DB_V1. Report exact failed metric, wavelength, order or state component, aggregate and worst-case errors, and localized versus systematic behavior.", "recommended_next_fallback": "MEDIUM_PW", "medium_solver_authorized_by_this_contract": false},
+  "provenance": {"created_before_FAST_solver_entry": true, "medium_contract_unchanged": true, "reference_unchanged": true}
+}
