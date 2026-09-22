@@ -281,6 +281,19 @@ def main():
         allocator.release_pending(lease, "SCIENTIFIC_VALID_TRUTH_DURABLE")
         queue_state(db, cfg, "RELEASE_PENDING")
         emit(cfg, "RELEASE_PENDING", reason="SCIENTIFIC_VALID_TRUTH_DURABLE")
+        prior_state = json.loads((case_root / "attempt_state.json").read_text(encoding="utf-8"))
+        write_durable_attempt_state(
+            case_root / "attempt_state.json",
+            cfg={**cfg, "scientific_invocation_count": 1, "canonical_state": "SCIENTIFIC_VALID"},
+            lease=lease, setup_path=pre, runtime_fsp=run, native_target=native,
+            post_target=post, raw_target=case_root / "raw_result.json",
+            logs=[case_root / "solver.log"], adapter_identity=adapter_identity,
+            persistence_preflight=prior_state.get("persistence_preflight") or preflight,
+            expected_process_identity=prior_state.get("expected_process_identity"),
+            scientific_contract_hash=cfg["physical_contract_hash"],
+            solver_entry_timestamp=prior_state.get("solver_entry_timestamp_utc"),
+            canonical_state="SCIENTIFIC_VALID",
+        )
         allocator.release_owned(lease, scientific_terminal="SCIENTIFIC_VALID")
         queue_state(db, cfg, "RELEASED")
         emit(cfg, "RELEASED", slot_id=lease.slot_id)

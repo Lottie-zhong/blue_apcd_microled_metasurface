@@ -1,0 +1,51 @@
+{
+  "schema_version": "PW_COMPLEX_FLOQUET_STATE_COMPARATOR_V1",
+  "status": "FROZEN_ZERO_SOLVER",
+  "solver_invocations_during_freeze": 0,
+  "implementation": "scripts/shared_fdtd/tools/pw_complex_floquet_state_v1.py",
+  "launcher_integration": "scripts/shared_fdtd/tools/pw_scientific_launcher.py::postprocess",
+  "state": {
+    "axis_order": ["plane", "wavelength", "order", "direction", "polarization"],
+    "shape_for_3_planes_21_wavelengths_81_orders": [3, 21, 81, 2, 2],
+    "planes": ["IN", "PRENP", "POSTNP"],
+    "reference_planes_nm": {"IN": -50.0, "PRENP": 1202.0, "POSTNP": 1722.0},
+    "sample_planes_nm": {"IN": -100.0, "PRENP": 1150.0, "POSTNP": 1800.0},
+    "wavelengths_nm": [440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460],
+    "orders": "m,n=-4..+4, lexicographic m then n",
+    "directions": ["+z", "-z"],
+    "polarizations": ["TE", "TM"],
+    "complex_encoding": "paired_float64_arrays_coefficients_real_coefficients_imag",
+    "primary_quantity": "C_PW",
+    "auxiliary_quantity": "R_T_order_power"
+  },
+  "raw_input": {
+    "components": ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+    "projection": "actual-coordinate trapezoidal NUDFT per wavelength and order",
+    "sampling_invariance": "no raw pointwise comparison; independent of Nx/Ny when coordinates represent the same field",
+    "local_medium": "construct basis independently at each plane from the plane material/index and periodicity",
+    "maxwell_constraint": "six-component least-squares fit to TE/TM E and H basis vectors",
+    "kz_branch": "passive branch Re(kz)>=0 and Im(kz)>=0",
+    "evanescent": "retain complex coefficients and metadata; never assign propagating power"
+  },
+  "normalization_and_gauge": {
+    "incident_channel": "IN reference plane, order (0,0), +z, TM",
+    "normalization": "unit incident power per wavelength",
+    "gauge": "one deterministic global phase per wavelength from the incident channel, reused at all planes/channels",
+    "relative_phase": "preserved",
+    "comparison_phase_alignment": "none"
+  },
+  "metric": {
+    "definition": "E_C(lambda,plane)=||C_candidate-C_reference||_2/||C_reference||_2",
+    "reported": ["per wavelength", "per plane", "aggregate max/median", "worst channel", "amplitude RMS", "weighted phase RMS"],
+    "threshold": "inherited frozen gate; this comparator does not change admission thresholds"
+  },
+  "zero_solver_regression": "scripts/shared_fdtd/tests/run_pw_complex_floquet_state_zero_solver_tests.py",
+  "reuse_map": {
+    "m2q_directional_projection_recovery_v2": "reuse synthetic/axis concepts only; Air-only scalar sentinel and finite-source assumptions are not canonical",
+    "pw_scientific_launcher": "reuse lifecycle and R/T/order output; former Ex/Hy scalar amplitude is not the primary state",
+    "r3_r4_outputs": "historical diagnostics only; not authority for coherent C_PW",
+    "this_comparator": "single canonical implementation for truth extraction, saved-state comparison, and future ML labels"
+  },
+  "fast_policy": "FAST remains REJECTED by its frozen R/order gate regardless of corrected complex-state recomputation",
+  "future_admission": "MEDIUM_PW may not enter until this schema is produced and the existing admission gates pass"
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import threading
 import time
 from pathlib import Path
@@ -252,8 +253,19 @@ def postprocess(fd, cfg, case_root):
     raw_path = Path(case_root) / "raw" / f"{prefix}_raw.json"
     projection_path = Path(case_root) / "projection" / f"{prefix}_projection.json"
     angular_path = Path(case_root) / "orders" / f"{prefix}_orders.json"
-    raw = {"schema": "APCD_PW_PERIODIC_PLANAR_CURRENT_RAW_V1", "task_id": cfg["task"], "case_id": cfg["case"], "attempt_id": cfg["attempt"], "contract": cfg["pw_contract"], "metrics": metrics}
+    try:
+        from shared_fdtd.tools.pw_complex_floquet_state_v1 import canonical_state_from_fdtd, save_state_npz, state_metadata
+    except ImportError:
+        from pw_complex_floquet_state_v1 import canonical_state_from_fdtd, save_state_npz, state_metadata
+    state_path = Path(case_root) / "state" / f"{prefix}_pw_complex_floquet_state.npz"
+    state_metadata_path = Path(case_root) / "state" / f"{prefix}_pw_complex_floquet_state.json"
+    state = canonical_state_from_fdtd(fd, cfg["pw_contract"])
+    save_state_npz(state_path, state)
+    state_meta = state_metadata(state, str(state_path))
+    state_meta["sha256"] = hashlib.sha256(state_path.read_bytes()).hexdigest()
+    _atomic(state_metadata_path, state_meta)
+    raw = {"schema": "APCD_PW_PERIODIC_PLANAR_CURRENT_RAW_V1", "task_id": cfg["task"], "case_id": cfg["case"], "attempt_id": cfg["attempt"], "contract": cfg["pw_contract"], "metrics": metrics, "canonical_state": state_meta}
     _atomic(raw_path, raw)
     _atomic(projection_path, {"schema": "APCD_PW_PERIODIC_21_WAVELENGTH_PROJECTION_V1", "wavelengths_nm": metrics["wavelengths_nm"], "rows": metrics["rows"], "R": [row["R_FDTD"] for row in metrics["rows"]], "T": [row["T_FDTD"] for row in metrics["rows"]], "A": [row["A_FDTD"] for row in metrics["rows"]]})
     _atomic(angular_path, {"schema": "APCD_PW_PERIODIC_DIFFRACTION_ORDERS_V1", "wavelengths_nm": metrics["wavelengths_nm"], **metrics["orders"]})
-    return raw, metrics, {"raw_json": raw_path, "projection": projection_path, "angular": angular_path}
+    return raw, metrics, {"raw_json": raw_path, "projection": projection_path, "angular": angular_path, "state_npz": state_path, "state_metadata": state_metadata_path}
