@@ -71,6 +71,9 @@ def expect_error(fn, token):
 
 def main():
     checks = {}
+    launcher_source = (ROOT / "shared_fdtd/tools/pw_scientific_launcher.py").read_text(encoding="utf-8")
+    assert "np.savez_compressed" in launcher_source and "raw_complex_fields" in launcher_source and all(name in launcher_source for name in ("Ex", "Ey", "Ez", "Hx", "Hy", "Hz"))
+    checks["M_raw_complex_fields_persisted"] = "PASS"
     validate_config(cfg())
     checks["A_payload_valid"] = "PASS"
     expect_error(lambda: validate_config(cfg(branch="traditional")), "PW_FOREIGN_BRANCH")

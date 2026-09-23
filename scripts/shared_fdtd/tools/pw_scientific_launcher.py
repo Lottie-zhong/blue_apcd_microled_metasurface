@@ -105,7 +105,8 @@ def load_only_validate(fd, cfg):
     monitors = _contract(cfg)["monitors"]
     for monitor in (monitors["input"], monitors["pre"], monitors["output"]):
         _ = fd.getdata(monitor, "f")
-        _ = fd.getdata(monitor, "Ex")
+        for component in ("Ex", "Ey", "Ez", "Hx", "Hy", "Hz"):
+            _ = fd.getdata(monitor, component)
     _ = fd.grating(monitors["output"], 1)
 
 
@@ -247,9 +248,37 @@ def _atomic(path, value):
     tmp.replace(path)
 
 
+def _save_raw_complex_fields(fd, cfg, case_root, prefix):
+    try:
+        from shared_fdtd.tools.pw_complex_floquet_state_v1 import read_fdtd_plane
+    except ImportError:
+        from pw_complex_floquet_state_v1 import read_fdtd_plane
+    contract = _contract(cfg)
+    monitor_by_plane = {"IN": contract["monitors"]["input"], "PRENP": contract["monitors"]["pre"], "POSTNP": contract["monitors"]["output"]}
+    field_names = ("Ex", "Ey", "Ez", "Hx", "Hy", "Hz")
+    arrays = {}
+    plane_metadata = {}
+    for plane, monitor in monitor_by_plane.items():
+        raw = read_fdtd_plane(fd, monitor)
+        for axis in ("x", "y", "z", "f"):
+            arrays[f"{plane}_{axis}"] = np.asarray(raw[axis])
+        fields = {}
+        for name in field_names:
+            key = f"{plane}_{name}"
+            value = np.asarray(raw[name], dtype=complex)
+            arrays[key] = value
+            fields[name] = {"array_key": key, "shape": list(value.shape), "dtype": str(value.dtype), "complex": bool(np.iscomplexobj(value))}
+        plane_metadata[plane] = {"monitor": monitor, "sample_nm": float(np.asarray(raw["z"]).reshape(-1)[0] * 1e9), "fields": fields}
+    path = Path(case_root) / "raw" / f"{prefix}_raw_complex_fields.npz"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(path, **arrays)
+    return {"schema": "APCD_PW_RAW_COMPLEX_FIELDS_V1", "path": str(path), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "planes": plane_metadata, "field_names": list(field_names), "frequency_order": "native_monitor_order"}
+
+
 def postprocess(fd, cfg, case_root):
     metrics = analyze(fd, cfg)
     prefix = f"{cfg['case']}__{cfg['attempt']}"
+    raw_fields = _save_raw_complex_fields(fd, cfg, case_root, prefix)
     raw_path = Path(case_root) / "raw" / f"{prefix}_raw.json"
     projection_path = Path(case_root) / "projection" / f"{prefix}_projection.json"
     angular_path = Path(case_root) / "orders" / f"{prefix}_orders.json"
@@ -264,8 +293,8 @@ def postprocess(fd, cfg, case_root):
     state_meta = state_metadata(state, str(state_path))
     state_meta["sha256"] = hashlib.sha256(state_path.read_bytes()).hexdigest()
     _atomic(state_metadata_path, state_meta)
-    raw = {"schema": "APCD_PW_PERIODIC_PLANAR_CURRENT_RAW_V1", "task_id": cfg["task"], "case_id": cfg["case"], "attempt_id": cfg["attempt"], "contract": cfg["pw_contract"], "metrics": metrics, "canonical_state": state_meta}
+    raw = {"schema": "APCD_PW_PERIODIC_PLANAR_CURRENT_RAW_V1", "task_id": cfg["task"], "case_id": cfg["case"], "attempt_id": cfg["attempt"], "contract": cfg["pw_contract"], "metrics": metrics, "raw_complex_fields": raw_fields, "canonical_state": state_meta}
     _atomic(raw_path, raw)
     _atomic(projection_path, {"schema": "APCD_PW_PERIODIC_21_WAVELENGTH_PROJECTION_V1", "wavelengths_nm": metrics["wavelengths_nm"], "rows": metrics["rows"], "R": [row["R_FDTD"] for row in metrics["rows"]], "T": [row["T_FDTD"] for row in metrics["rows"]], "A": [row["A_FDTD"] for row in metrics["rows"]]})
     _atomic(angular_path, {"schema": "APCD_PW_PERIODIC_DIFFRACTION_ORDERS_V1", "wavelengths_nm": metrics["wavelengths_nm"], **metrics["orders"]})
-    return raw, metrics, {"raw_json": raw_path, "projection": projection_path, "angular": angular_path, "state_npz": state_path, "state_metadata": state_metadata_path}
+    return raw, metrics, {"raw_json": raw_path, "raw_fields": Path(raw_fields["path"]), "projection": projection_path, "angular": angular_path, "state_npz": state_path, "state_metadata": state_metadata_path}

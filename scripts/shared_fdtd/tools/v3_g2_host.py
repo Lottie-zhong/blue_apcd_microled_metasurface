@@ -250,7 +250,7 @@ def main():
         emit(cfg, "POSTPROCESSING", post_fsp=str(post))
         if is_pw:
             raw, metrics, paths = pw_postprocess(load_fd, cfg, case_root)
-            transfer = {"schema": "APCD_PW_STANDARDIZED_DB_PAYLOAD_V1", "wavelength_count": len(metrics.get("rows", [])), "projection": str(paths["projection"]), "orders": str(paths["angular"])}
+            transfer = {"schema": "APCD_PW_STANDARDIZED_DB_PAYLOAD_V1", "wavelength_count": len(metrics.get("rows", [])), "projection": str(paths["projection"]), "orders": str(paths["angular"]), "raw_complex_fields": str(paths["raw_fields"]), "canonical_state_npz": str(paths["state_npz"]), "canonical_state_metadata": str(paths["state_metadata"])}
         else:
             contract = mod.contract(cfg["case"])
             contract["attempt_id"] = cfg["attempt"]
@@ -268,7 +268,7 @@ def main():
         write(case_root / "scientific_validation.json", {"status": "PASS", "load_only": "PASS", "raw_fields": "PASS", "angular": "PASS", "projection": "PASS", "transfer_metrics": transfer})
         queue_state(db, cfg, "SCIENTIFIC_VALID")
         emit(cfg, "SCIENTIFIC_VALID", raw_result=str(paths["raw_json"]), projection=str(paths["projection"]))
-        archive = {"status": "PASS", "case_id": cfg["case"], "attempt_id": cfg["attempt"], "post_fsp": str(post), "post_fsp_sha256": sha(post), "raw_json": str(paths["raw_json"]), "raw_json_sha256": sha(paths["raw_json"]), "angular": str(paths["angular"]), "projection": str(paths["projection"]), "training_admitted": False}
+        archive = {"status": "PASS", "case_id": cfg["case"], "attempt_id": cfg["attempt"], "post_fsp": str(post), "post_fsp_sha256": sha(post), "raw_json": str(paths["raw_json"]), "raw_json_sha256": sha(paths["raw_json"]), "raw_complex_fields": str(paths.get("raw_fields")) if is_pw else None, "canonical_state_npz": str(paths.get("state_npz")) if is_pw else None, "canonical_state_metadata": str(paths.get("state_metadata")) if is_pw else None, "angular": str(paths["angular"]), "projection": str(paths["projection"]), "training_admitted": False}
         archive_stage = case_root / "archive_staging" / f"HF_ARCHIVE_MANIFEST_{artifact_tag}.json"
         archive_path = case_root / "HF_ARCHIVE_MANIFEST.json"
         write(archive_stage, archive)
