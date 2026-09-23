@@ -11,7 +11,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 CONTRACT_DIR = ROOT / "contracts" / "coupling" / "medium_pw"
 OUT = ROOT / "outputs" / "coupling_ml" / "FREEZE_V3_RESOURCE_HARDENING_AND_MEDIUM_PW_PREENTRY_V1"
-FSP = OUT / "W2H_15294_MEDIUM_PW_SETUP_ONLY.fsp"
+FSP = OUT / "W2H_15294_MEDIUM_PW_SETUP_ONLY_WITH_MON_IN.fsp"
+READBACK = OUT / "W2H_15294_MEDIUM_PW_SETUP_WITH_MON_IN_READBACK.json"
+RESOURCE_METADATA = OUT / "W2H_15294_MEDIUM_PW_WITH_MON_IN_RESOURCE_METADATA.json"
 API = Path(r"N:\Program Files\ANSYS Inc\v251\Lumerical\api\python")
 MATERIAL_ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_hf_surrogate_v2\scripts")
 
@@ -100,6 +102,7 @@ def build():
             set_props(fd, {"name": f"NP_pillar_{index:02d}", "material": "APCD_TIO2_NATIVE_M1", "x": x_nm * 1e-9, "y": 0.0, "radius": diameter_nm * 0.5e-9, "z min": pillar_z0 * 1e-9, "z max": (pillar_z0 + 500.0) * 1e-9})
         fd.addplane()
         set_props(fd, {"name": "PW_SOURCE_X_NORMAL", "plane wave type": "Bloch/periodic", "injection axis": "z-axis", "direction": "Forward", "polarization angle": 0.0, "angle theta": 0.0, "angle phi": 0.0, "x": 0.0, "y": 0.0, "z": -276e-9, "x span": 1740e-9, "y span": 290e-9, "wavelength start": 440e-9, "wavelength stop": 460e-9})
+        add_monitor(fd, "MON_IN", -100.0, True)
         add_monitor(fd, "MON_PRENP", 1200.0, True)
         add_monitor(fd, "MON_POSTNP", 2212.0, True)
         add_monitor(fd, "MON_REFLECTION", -400.0, False)
@@ -114,15 +117,15 @@ def build():
     try:
         solver = {prop: get(fresh, "FDTD", prop) for prop in ("dimension", "x span", "y span", "z min", "z max", "x min bc", "x max bc", "y min bc", "y max bc", "z min bc", "z max bc", "pml layers", "mesh accuracy", "mesh refinement", "simulation time", "auto shutoff min")}
         source = {prop: get(fresh, "PW_SOURCE_X_NORMAL", prop) for prop in ("plane wave type", "injection axis", "direction", "polarization angle", "angle theta", "angle phi", "z", "x span", "y span", "wavelength start", "wavelength stop")}
-        monitors = {name: {prop: get(fresh, name, prop) for prop in ("monitor type", "z", "x span", "y span", "frequency points", "output E fields", "output H fields")} for name in ("MON_PRENP", "MON_POSTNP", "MON_REFLECTION")}
+        monitors = {name: {prop: get(fresh, name, prop) for prop in ("monitor type", "z", "x span", "y span", "frequency points", "output E fields", "output H fields")} for name in ("MON_IN", "MON_PRENP", "MON_POSTNP", "MON_REFLECTION")}
         overrides = {spec["name"]: {prop: get(fresh, spec["name"], prop) for prop in ("x", "y", "z", "x span", "y span", "z span", "dx", "dy", "dz", "override x mesh", "override y mesh", "override z mesh", "set maximum mesh step")} for spec in mesh["mesh_overrides"]}
     finally:
         fresh.close()
 
     metadata = {"case_id": "W2H_15294", "setup_only": True, "solver_runs": 0, "scientific_solver_entries": 0, "resource_class": "HEAVY", "estimated_peak_ram_bytes": 8_000_000_000, "estimated_commit_bytes": 12_000_000_000, "mpi_ranks": 12, "threads": 1, "integrated_pw": True, "pw_integrated_max_concurrent": 1, "mesh_contract_sha256": sha256(CONTRACT_DIR / "MEDIUM_PW_MESH_CONTRACT_V1.json"), "temporal_contract_sha256": sha256(CONTRACT_DIR / "MEDIUM_PW_TEMPORAL_CONTRACT_V1.json"), "monitor_contract_sha256": sha256(CONTRACT_DIR / "MEDIUM_PW_MONITOR_CONTRACT_V1.json"), "created_utc": datetime.now(timezone.utc).isoformat()}
-    (OUT / "W2H_15294_MEDIUM_PW_RESOURCE_METADATA.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+    RESOURCE_METADATA.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     readback = {"case_id": "W2H_15294", "fsp": str(FSP), "fsp_sha256": sha256(FSP), "solver": solver, "source": source, "monitors": monitors, "mesh_overrides": overrides, "resource_metadata": metadata, "load_only": True, "run_called": False, "solver_runs": 0}
-    (OUT / "W2H_15294_MEDIUM_PW_SETUP_READBACK.json").write_text(json.dumps(readback, indent=2, default=str) + "\n", encoding="utf-8")
+    READBACK.write_text(json.dumps(readback, indent=2, default=str) + "\n", encoding="utf-8")
     print(json.dumps({"status": "SETUP_ONLY_BUILT_AND_FRESH_LOADED", "fsp": str(FSP), "fsp_sha256": readback["fsp_sha256"], "solver_runs": 0}, ensure_ascii=False))
 
 

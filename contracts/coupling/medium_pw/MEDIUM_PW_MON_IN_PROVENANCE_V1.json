@@ -1,0 +1,38 @@
+{
+  "schema_version": "MEDIUM_PW_MON_IN_PROVENANCE_V1",
+  "status": "ZERO_SOLVER_SETUP_PAYLOAD_READY",
+  "case_id": "W2H_15294",
+  "scientific_solver_entries": 0,
+  "reason": "The frozen C_PW state requires measured IN-plane six-component total fields for normalization and gauge; analytic source fields are not production authority.",
+  "monitor": {
+    "name": "MON_IN",
+    "type": "2D Z-normal",
+    "z_sample_nm": -100.0,
+    "z_reference_nm": -50.0,
+    "x_span_nm": 1740.0,
+    "y_span_nm": 290.0,
+    "wavelengths_nm": [440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460],
+    "complex_fields": ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+    "local_medium": "APCD_GAN_NATIVE_M1"
+  },
+  "physical_audit": {
+    "gan_interval_nm": [-600.0, 0.0],
+    "source_z_nm": -276.0,
+    "pml_z_nm": [-600.0, 3000.0],
+    "interface_z_nm": 0.0,
+    "monitor_is_homogeneous_gan": true,
+    "source_boundary_coincident": false,
+    "pml_overlap": false,
+    "material_authority": "MEDIUM_PW_MESH_CONTRACT_V1"
+  },
+  "setup_artifact": "outputs/coupling_ml/FREEZE_V3_RESOURCE_HARDENING_AND_MEDIUM_PW_PREENTRY_V1/W2H_15294_MEDIUM_PW_SETUP_ONLY_WITH_MON_IN.fsp",
+  "setup_artifact_sha256": "1907d677c0a35e658ae3595c665e5899d093f97480bc1e79cbecf110f110489b",
+  "readback_artifact": "outputs/coupling_ml/FREEZE_V3_RESOURCE_HARDENING_AND_MEDIUM_PW_PREENTRY_V1/W2H_15294_MEDIUM_PW_SETUP_WITH_MON_IN_READBACK.json",
+  "readback_artifact_sha256": "0c57bf56511c45c3cfd9d56d7e3bff1996c5bfdaa2508b695755364b28fef033",
+  "readback_load_only": true,
+  "monitor_inventory": ["MON_IN", "MON_PRENP", "MON_POSTNP", "MON_REFLECTION"],
+  "physics_unchanged": true,
+  "comparator": "PW_COMPLEX_FLOQUET_STATE_V1",
+  "zero_solver_tests": "scripts/shared_fdtd/tests/run_medium_pw_mon_in_zero_solver_tests.py",
+  "analytic_source_crosscheck": "optional offline only; not production truth"
+}

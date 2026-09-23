@@ -2,11 +2,84 @@
   "contract_id": "MEDIUM_PW_MONITOR_CONTRACT_V1",
   "status": "FROZEN_PREENTRY",
   "case_id": "W2H_15294",
-  "frequency_grid_nm": [440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460],
+  "frequency_grid_nm": [
+    440,
+    441,
+    442,
+    443,
+    444,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455,
+    456,
+    457,
+    458,
+    459,
+    460
+  ],
   "essential_production": {
-    "MON_PRENP": {"type": "2D Z-normal", "z_nm": 1200.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "complex_fields": ["Ex","Ey","Ez","Hx","Hy","Hz"], "role": "pre-NP modal/interface state"},
-    "MON_POSTNP": {"type": "2D Z-normal", "z_nm": 2212.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "complex_fields": ["Ex","Ey","Ez","Hx","Hy","Hz"], "role": "post-NP modal/interface state and T"},
-    "MON_REFLECTION": {"type": "2D Z-normal", "z_nm": -400.0, "x_span_nm": 1740.0, "y_span_nm": 290.0, "complex_fields": [], "role": "R power flux"}
+    "MON_IN": {
+      "type": "2D Z-normal",
+      "z_nm": -100.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "complex_fields": [
+        "Ex",
+        "Ey",
+        "Ez",
+        "Hx",
+        "Hy",
+        "Hz"
+      ],
+      "role": "input reference-plane total-field state for canonical C_PW normalization and gauge",
+      "local_medium": "APCD_GAN_NATIVE_M1"
+    },
+    "MON_PRENP": {
+      "type": "2D Z-normal",
+      "z_nm": 1200.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "complex_fields": [
+        "Ex",
+        "Ey",
+        "Ez",
+        "Hx",
+        "Hy",
+        "Hz"
+      ],
+      "role": "pre-NP modal/interface state"
+    },
+    "MON_POSTNP": {
+      "type": "2D Z-normal",
+      "z_nm": 2212.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "complex_fields": [
+        "Ex",
+        "Ey",
+        "Ez",
+        "Hx",
+        "Hy",
+        "Hz"
+      ],
+      "role": "post-NP modal/interface state and T"
+    },
+    "MON_REFLECTION": {
+      "type": "2D Z-normal",
+      "z_nm": -400.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "complex_fields": [],
+      "role": "R power flux"
+    }
   },
   "derived_outputs": {
     "R": "MON_REFLECTION integrated signed Poynting flux normalized to incident source power",
@@ -20,7 +93,54 @@
     "coupling_interface_monitor": "ESSENTIAL_PRODUCTION_AS_MON_PRENP",
     "volumetric_or_duplicate_monitors": "REMOVE_FROM_PRODUCTION"
   },
-  "raw_payload_policy": "retain only complex E/H for MON_PRENP and MON_POSTNP, R/T scalars, grating-order arrays, and provenance; no 3D volume monitor",
+  "raw_payload_policy": "retain complex E/H for MON_IN, MON_PRENP, and MON_POSTNP; retain R/T scalars, grating-order arrays, and provenance; no 3D volume monitor",
   "physical_state_surrogate_fields_preserved": true,
-  "solver_entries_authorized_by_this_contract": 0
+  "solver_entries_authorized_by_this_contract": 0,
+  "canonical_state": {
+    "monitors": {
+      "input": "MON_IN",
+      "pre": "MON_PRENP",
+      "output": "MON_POSTNP"
+    },
+    "samples_nm": {
+      "MON_IN": -100.0,
+      "MON_PRENP": 1200.0,
+      "MON_POSTNP": 2212.0
+    },
+    "references_nm": {
+      "MON_IN": -50.0,
+      "MON_PRENP": 1202.0,
+      "MON_POSTNP": 1722.0
+    },
+    "materials": {
+      "substrate": "APCD_GAN_NATIVE_M1",
+      "mdc_tio2": "APCD_TIO2_NATIVE_M1",
+      "mdc_sio2": "APCD_SIO2_NATIVE_M1",
+      "superstrate": "Air"
+    },
+    "wavelengths_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ],
+    "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1"
+  }
 }
