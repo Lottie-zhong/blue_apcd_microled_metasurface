@@ -12,7 +12,7 @@ for the input-plane truth.
 - Sample plane: `z=-100 nm`
 - De-embedded reference: `z=-50 nm`
 - Coverage: `1740 x 290 nm`, the complete periodic supercell
-- Grid: 440¨C460 nm, exactly 21 points
+- Grid: 440-460 nm, exactly 21 points
 - Fields: complex `Ex,Ey,Ez,Hx,Hy,Hz`
 - Local medium: `APCD_GAN_NATIVE_M1`
 
@@ -36,11 +36,11 @@ through the same canonical comparator. It produces the unchanged state schema
 comparator or analytic incident-field definition is introduced.
 
 The generated setup-only and LOAD-only readback artifacts are kept under the
+existing output namespace and are not Git-tracked. The focused zero-solver test
+also reruns the existing MEDIUM pre-entry and comparator A-J suites.
 
 The generated setup-only artifact SHA256 is
 `1907d677c0a35e658ae3595c665e5899d093f97480bc1e79cbecf110f110489b`; the
 LOAD-only monitor-inventory readback SHA256 is
 `0c57bf56511c45c3cfd9d56d7e3bff1996c5bfdaa2508b695755364b28fef033`.
 No solver invocation or scientific solver entry occurred.
-existing output namespace and are not Git-tracked. The focused zero-solver test
-also reruns the existing MEDIUM pre-entry and comparator A¨CJ suites.
