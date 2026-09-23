@@ -1,0 +1,2561 @@
+{
+  "schema": "MEDIUM_PW_FIDELITY_COMPARISON_V1",
+  "solver_invocations": 0,
+  "run_calls": 0,
+  "load_only": true,
+  "reference": {
+    "role": "RECOVERED_VALID_COMPLETED_REFERENCE_TRUTH",
+    "fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_PERIODIC_W2H15294_NP_DERIVED_MESH_CALIBRATION_GATE_A_V1\\recovery\\baseline\\post_recovery.fsp",
+    "fsp_sha256": "aea4c8f642fb02fd1ba1717cc9e0d4612c316baf8d232f732c12121a4795472f",
+    "state_npz": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\FAST_PW_W2H15294_FIDELITY_ADMISSION_V1\\offline_canonical_state_recompute_v1\\reference_pw_complex_floquet_state.npz",
+    "state_npz_sha256": "a700632409af0fe654be23e9d971f2d4ffa399a6979212637a8daaaaddaa8a38",
+    "runtime_s": 29625.919359,
+    "runtime_h": 8.229422044166666
+  },
+  "medium": {
+    "case_id": "W2H_15294_MEDIUM_PW",
+    "attempt_id": "attempt_001",
+    "fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\MEDIUM_PW_W2H15294_FIDELITY_ADMISSION_V1\\cases\\W2H_15294_MEDIUM_PW\\attempt_001\\native\\W2H_15294_MEDIUM_PW__attempt_001_native_dc4283470a8f.fsp",
+    "fsp_sha256": "f6579034bd86edbb740596ff02ee5cb26119b5bfc9f31e582535d0fabebab0e3",
+    "state_npz": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\MEDIUM_PW_W2H15294_FIDELITY_ADMISSION_V1\\cases\\W2H_15294_MEDIUM_PW\\attempt_001\\state\\W2H_15294_MEDIUM_PW__attempt_001_pw_complex_floquet_state.npz",
+    "state_npz_sha256": "ee1b386f458036cf79f938217c71cbe1e7afc9e8de96cd09ef937751df7504a2",
+    "runtime_s": 18180.09302,
+    "runtime_h": 5.050025838888889,
+    "solver_entry_count": 1,
+    "replay": false
+  },
+  "canonical_state": {
+    "metric": "E_C(lambda,plane)=||C_candidate-C_reference||_2/||C_reference||_2",
+    "no_raw_grid_pointwise_comparison": true,
+    "phase_alignment": "none_after_input_reference_gauge",
+    "planes": {
+      "IN": {
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "E_C": 0.031923586822646906,
+            "reference_norm": 23.11610339670176,
+            "absolute_norm": 0.7379489337858918,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.011494812938206972,
+            "phase_rms_rad_weighted": 0.030380541426583692,
+            "worst_channel": {
+              "order_m": 2,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 6.7674533584802985
+            }
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "E_C": 0.029269197200666862,
+            "reference_norm": 22.99047866631952,
+            "absolute_norm": 0.6729128538222305,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.012070667841913895,
+            "phase_rms_rad_weighted": 0.027149752266698298,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "-z",
+              "polarization": "TE",
+              "relative_error": 16.543181484816316
+            }
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "E_C": 0.027059148736426418,
+            "reference_norm": 22.76470227804879,
+            "absolute_norm": 0.6159934648821875,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.013594011917272913,
+            "phase_rms_rad_weighted": 0.0237852484547504,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": 2,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 8.041102727698899
+            }
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "E_C": 0.08077112772300638,
+            "reference_norm": 22.7799471560847,
+            "absolute_norm": 1.839962021267453,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.06966140660871038,
+            "phase_rms_rad_weighted": 0.03835962225625666,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": 1,
+              "direction": "-z",
+              "polarization": "TE",
+              "relative_error": 10.798947735717487
+            }
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "E_C": 0.023927501910891352,
+            "reference_norm": 22.108256325547252,
+            "absolute_norm": 0.5289953454760077,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.01780641964254717,
+            "phase_rms_rad_weighted": 0.016082522699983587,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": 0,
+              "direction": "-z",
+              "polarization": "TE",
+              "relative_error": 4.231940679996045
+            }
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "E_C": 0.04809873890730527,
+            "reference_norm": 21.470802375950452,
+            "absolute_norm": 1.0327185176111904,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.04015896499659198,
+            "phase_rms_rad_weighted": 0.027106941281590458,
+            "worst_channel": {
+              "order_m": 2,
+              "order_n": 0,
+              "direction": "-z",
+              "polarization": "TE",
+              "relative_error": 3.2545733962876757
+            }
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "E_C": 0.28917603122892915,
+            "reference_norm": 21.30314040059481,
+            "absolute_norm": 6.160357593756667,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.07587016225473131,
+            "phase_rms_rad_weighted": 0.36004627717850884,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 5.305378784056766
+            }
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "E_C": 0.041098985650342,
+            "reference_norm": 20.27529178616717,
+            "absolute_norm": 0.8332939261761816,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.030029645685408404,
+            "phase_rms_rad_weighted": 0.023069252569906173,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 4.854121463323805
+            }
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "E_C": 0.05269657602955934,
+            "reference_norm": 19.532773984503855,
+            "absolute_norm": 1.0293103093426061,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.044214979408085546,
+            "phase_rms_rad_weighted": 0.02946792497597692,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 7.087941584999282
+            }
+          },
+          {
+            "wavelength_nm": 449.0,
+            "E_C": 0.06257498490644327,
+            "reference_norm": 18.902174999752685,
+            "absolute_norm": 1.1828033153084736,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.04466351773622044,
+            "phase_rms_rad_weighted": 0.046379414310456266,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 9.232335344159205
+            }
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "E_C": 0.07023099992531191,
+            "reference_norm": 18.630368611178973,
+            "absolute_norm": 1.308429416540244,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.02875308990036022,
+            "phase_rms_rad_weighted": 0.06449774476298706,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 6.346991801418673
+            }
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "E_C": 0.0630648874468948,
+            "reference_norm": 19.027634236145136,
+            "absolute_norm": 1.199975611483175,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.04667741276346188,
+            "phase_rms_rad_weighted": 0.03936076564460958,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 4.33118049939442
+            }
+          },
+          {
+            "wavelength_nm": 452.0,
+            "E_C": 0.048800618510662086,
+            "reference_norm": 20.00893955364044,
+            "absolute_norm": 0.9764486259601045,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.04396184290950017,
+            "phase_rms_rad_weighted": 0.019074594928084315,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 3.302547056625117
+            }
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "E_C": 0.03910423425666559,
+            "reference_norm": 21.377274887780732,
+            "absolute_norm": 0.8359419649809124,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.036281579819285356,
+            "phase_rms_rad_weighted": 0.012857027999319743,
+            "worst_channel": {
+              "order_m": -3,
+              "order_n": 0,
+              "direction": "-z",
+              "polarization": "TE",
+              "relative_error": 3.188148938419512
+            }
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "E_C": 0.0336875111046017,
+            "reference_norm": 21.812476435526474,
+            "absolute_norm": 0.734808042140661,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.027306646306970335,
+            "phase_rms_rad_weighted": 0.019358618638308886,
+            "worst_channel": {
+              "order_m": -4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 3.1245241499051923
+            }
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "E_C": 0.033263074897119264,
+            "reference_norm": 21.462154966161258,
+            "absolute_norm": 0.713897268093002,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.024168135973668705,
+            "phase_rms_rad_weighted": 0.02257879652915062,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": 1,
+              "direction": "-z",
+              "polarization": "TM",
+              "relative_error": 11.329387388025062
+            }
+          },
+          {
+            "wavelength_nm": 456.0,
+            "E_C": 0.03252407084074535,
+            "reference_norm": 21.633957935512605,
+            "absolute_norm": 0.7036243804603171,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.02212130489244552,
+            "phase_rms_rad_weighted": 0.023588857627935292,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 4.021166308578638
+            }
+          },
+          {
+            "wavelength_nm": 457.0,
+            "E_C": 0.031678838916505664,
+            "reference_norm": 21.92284907818529,
+            "absolute_norm": 0.6944904045386965,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.02007049040155597,
+            "phase_rms_rad_weighted": 0.024468760438378357,
+            "worst_channel": {
+              "order_m": -3,
+              "order_n": -4,
+              "direction": "-z",
+              "polarization": "TM",
+              "relative_error": 27.607243420173894
+            }
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "E_C": 0.03147623251430076,
+            "reference_norm": 22.31793856195753,
+            "absolute_norm": 0.7024846234160543,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.017351589301150706,
+            "phase_rms_rad_weighted": 0.025293399134449016,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": -1,
+              "direction": "-z",
+              "polarization": "TE",
+              "relative_error": 7.662103050477668
+            }
+          },
+          {
+            "wavelength_nm": 459.0,
+            "E_C": 0.03175357981347826,
+            "reference_norm": 22.70385245932386,
+            "absolute_norm": 0.7209285911405748,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.014794482129289735,
+            "phase_rms_rad_weighted": 0.02714684004805623,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 5.605470910573497
+            }
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "E_C": 0.031916367139656704,
+            "reference_norm": 23.01352625401946,
+            "absolute_norm": 0.7345081531014135,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.012577349301831617,
+            "phase_rms_rad_weighted": 0.02852544174972005,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 0,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 7.174121226397783
+            }
+          }
+        ],
+        "max": 0.28917603122892915,
+        "median": 0.0336875111046017,
+        "worst_wavelength_nm": 446.0000000000001,
+        "amplitude_max": {
+          "value": 0.07587016225473131,
+          "wavelength_nm": 446.0000000000001
+        },
+        "phase_max": {
+          "value": 0.36004627717850884,
+          "wavelength_nm": 446.0000000000001
+        }
+      },
+      "PRENP": {
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "E_C": 0.041465900559402066,
+            "reference_norm": 9.253277826593624,
+            "absolute_norm": 0.3836954982060513,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.030741121325351235,
+            "phase_rms_rad_weighted": 0.046735929733190296,
+            "worst_channel": {
+              "order_m": 0,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 893.8403573701324
+            }
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "E_C": 0.03950591444332415,
+            "reference_norm": 10.511842881065025,
+            "absolute_norm": 0.4152799655010209,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.030545439399280904,
+            "phase_rms_rad_weighted": 0.04328166842722716,
+            "worst_channel": {
+              "order_m": 0,
+              "order_n": 3,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 812.2407390410481
+            }
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "E_C": 0.04742901335720552,
+            "reference_norm": 12.247526925013117,
+            "absolute_norm": 0.5808881181191814,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.03681589513854453,
+            "phase_rms_rad_weighted": 0.04684351670985557,
+            "worst_channel": {
+              "order_m": 0,
+              "order_n": 3,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 906.647401195406
+            }
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "E_C": 0.1842526404065915,
+            "reference_norm": 15.792413583211284,
+            "absolute_norm": 2.9097939010996,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.14476380518227938,
+            "phase_rms_rad_weighted": 0.08544738433115599,
+            "worst_channel": {
+              "order_m": -3,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 1295.4690659018129
+            }
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "E_C": 0.048474864911353686,
+            "reference_norm": 16.07639678266849,
+            "absolute_norm": 0.7793011623011761,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.0412764589600239,
+            "phase_rms_rad_weighted": 0.04638530865236277,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": 2,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 507.9089533358865
+            }
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "E_C": 0.09418040486717826,
+            "reference_norm": 19.158817179126956,
+            "absolute_norm": 1.8043851587064268,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.08850259906133409,
+            "phase_rms_rad_weighted": 0.049918722430876715,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 412.33306671019193
+            }
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "E_C": 0.5375597290414934,
+            "reference_norm": 19.975681598916584,
+            "absolute_norm": 10.738121987732745,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.2913772404581375,
+            "phase_rms_rad_weighted": 1.0131751902895834,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 605.3717300963717
+            }
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "E_C": 0.06511358625925684,
+            "reference_norm": 22.882373857337726,
+            "absolute_norm": 1.4899534239763237,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.06183144833955095,
+            "phase_rms_rad_weighted": 0.03646964192395671,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 787.0795532993458
+            }
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "E_C": 0.045439136520335856,
+            "reference_norm": 25.442651053826037,
+            "absolute_norm": 1.1560920946740683,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.029891868453035937,
+            "phase_rms_rad_weighted": 0.043590099574089824,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 500.45027161676256
+            }
+          },
+          {
+            "wavelength_nm": 449.0,
+            "E_C": 0.04585334569947709,
+            "reference_norm": 27.545971281919687,
+            "absolute_norm": 1.2630749438177316,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.021612631790204402,
+            "phase_rms_rad_weighted": 0.0471191386152558,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 530.822637662321
+            }
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "E_C": 0.04750053058118985,
+            "reference_norm": 29.04512866126059,
+            "absolute_norm": 1.3796590222088025,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.016531382189751066,
+            "phase_rms_rad_weighted": 0.04941275302733459,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 587.292413452203
+            }
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "E_C": 0.04707428814296677,
+            "reference_norm": 29.131751110981707,
+            "absolute_norm": 1.3713564459075451,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.025570823162422235,
+            "phase_rms_rad_weighted": 0.044355800954674104,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 657.4073085457479
+            }
+          },
+          {
+            "wavelength_nm": 452.0,
+            "E_C": 0.044791836525825544,
+            "reference_norm": 28.18383278613224,
+            "absolute_norm": 1.2624056308276375,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.035424084662594627,
+            "phase_rms_rad_weighted": 0.03306794385227889,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 760.2389583720931
+            }
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "E_C": 0.041989523273007555,
+            "reference_norm": 29.100413070003516,
+            "absolute_norm": 1.2219124718570458,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.03921921728401796,
+            "phase_rms_rad_weighted": 0.02256412612333883,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 1096.322810911813
+            }
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "E_C": 0.036658079982948934,
+            "reference_norm": 26.228567555425986,
+            "absolute_norm": 0.9614889272849853,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.0345738611778649,
+            "phase_rms_rad_weighted": 0.02521034820047358,
+            "worst_channel": {
+              "order_m": -2,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 1046.9393453811215
+            }
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "E_C": 0.03672935973984229,
+            "reference_norm": 21.095956506729596,
+            "absolute_norm": 0.7748409755917379,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.03326916126633076,
+            "phase_rms_rad_weighted": 0.028319873088715097,
+            "worst_channel": {
+              "order_m": -2,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 738.8636195879761
+            }
+          },
+          {
+            "wavelength_nm": 456.0,
+            "E_C": 0.035250848447351185,
+            "reference_norm": 19.87447547720754,
+            "absolute_norm": 0.7005921230176406,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.030847112319810053,
+            "phase_rms_rad_weighted": 0.028977656355127862,
+            "worst_channel": {
+              "order_m": -2,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 656.0398636187653
+            }
+          },
+          {
+            "wavelength_nm": 457.0,
+            "E_C": 0.03453723444979766,
+            "reference_norm": 18.134521980519114,
+            "absolute_norm": 0.6263162372761976,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.028872770397701617,
+            "phase_rms_rad_weighted": 0.03356611805449435,
+            "worst_channel": {
+              "order_m": 2,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 996.4428293421229
+            }
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "E_C": 0.03213137650891706,
+            "reference_norm": 15.456055626278905,
+            "absolute_norm": 0.49662434267073335,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.02543434579624208,
+            "phase_rms_rad_weighted": 0.02912194380101743,
+            "worst_channel": {
+              "order_m": 2,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 660.0562678384186
+            }
+          },
+          {
+            "wavelength_nm": 459.0,
+            "E_C": 0.029789254407779457,
+            "reference_norm": 12.535974371542745,
+            "absolute_norm": 0.37343732980329003,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.022151299647694894,
+            "phase_rms_rad_weighted": 0.02752457356554081,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 1493.5431014750445
+            }
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "E_C": 0.027347812987754058,
+            "reference_norm": 10.007016820842308,
+            "absolute_norm": 0.2736700245817046,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 0.019094303339810593,
+            "phase_rms_rad_weighted": 0.024979932940433974,
+            "worst_channel": {
+              "order_m": -2,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TM",
+              "relative_error": 705.9493993562752
+            }
+          }
+        ],
+        "max": 0.5375597290414934,
+        "median": 0.044791836525825544,
+        "worst_wavelength_nm": 446.0000000000001,
+        "amplitude_max": {
+          "value": 0.2913772404581375,
+          "wavelength_nm": 446.0000000000001
+        },
+        "phase_max": {
+          "value": 1.0131751902895834,
+          "wavelength_nm": 446.0000000000001
+        }
+      },
+      "POSTNP": {
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "E_C": 105368399003.51225,
+            "reference_norm": 11.862512554281993,
+            "absolute_norm": 1249933956003.7583,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 105368399003.51176,
+            "phase_rms_rad_weighted": 0.038766405014129035,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 507980492288702.75
+            }
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "E_C": 79927994404.23834,
+            "reference_norm": 13.700037692275524,
+            "absolute_norm": 1095016536006.0525,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 79927994404.23788,
+            "phase_rms_rad_weighted": 0.03678703183044983,
+            "worst_channel": {
+              "order_m": -3,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 382625430958844.44
+            }
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "E_C": 71686707706.2861,
+            "reference_norm": 16.255247195373098,
+            "absolute_norm": 1165285154388.1382,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 71686707706.28569,
+            "phase_rms_rad_weighted": 0.03869534523636063,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 435754150023661.44
+            }
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "E_C": 92910535938.29549,
+            "reference_norm": 16.458579509382172,
+            "absolute_norm": 1529175442999.746,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 92910535938.2951,
+            "phase_rms_rad_weighted": 0.07313133546769386,
+            "worst_channel": {
+              "order_m": -2,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 650688615789433.1
+            }
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "E_C": 93617099439.51582,
+            "reference_norm": 20.770457005384877,
+            "absolute_norm": 1944469938877.3042,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 93617099439.51521,
+            "phase_rms_rad_weighted": 0.03092816581671356,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 348236462418961.6
+            }
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "E_C": 91482071128.6366,
+            "reference_norm": 24.925521381078628,
+            "absolute_norm": 2280238319902.1875,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 91482071128.636,
+            "phase_rms_rad_weighted": 0.035486238906447164,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 412829790186670.0
+            }
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "E_C": 88489326624.47963,
+            "reference_norm": 25.27359195430614,
+            "absolute_norm": 2236443133418.4165,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 88489326624.479,
+            "phase_rms_rad_weighted": 0.13658206342880863,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 418622498025376.06
+            }
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "E_C": 51618715706.01887,
+            "reference_norm": 30.72578947332398,
+            "absolute_norm": 1586025791666.4978,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 51618715706.01818,
+            "phase_rms_rad_weighted": 0.025499911483567766,
+            "worst_channel": {
+              "order_m": -4,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 177295252028925.4
+            }
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "E_C": 38446742990.164764,
+            "reference_norm": 34.39679576017741,
+            "absolute_norm": 1322444766276.73,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 38446742990.16408,
+            "phase_rms_rad_weighted": 0.03652278236622871,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 227526131781287.28
+            }
+          },
+          {
+            "wavelength_nm": 449.0,
+            "E_C": 39644169700.234665,
+            "reference_norm": 37.58013534178128,
+            "absolute_norm": 1489833262847.3633,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 39644169700.2342,
+            "phase_rms_rad_weighted": 0.04172040959933654,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 194037331642158.25
+            }
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "E_C": 37204610919.031136,
+            "reference_norm": 40.06542987831151,
+            "absolute_norm": 1490618729926.3047,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 37204610919.030655,
+            "phase_rms_rad_weighted": 0.04756513904568129,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 245285289738889.78
+            }
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "E_C": 36967584283.49663,
+            "reference_norm": 40.53939983088087,
+            "absolute_norm": 1498643680050.4573,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 36967584283.49612,
+            "phase_rms_rad_weighted": 0.04471763718700887,
+            "worst_channel": {
+              "order_m": -3,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 330044265884265.25
+            }
+          },
+          {
+            "wavelength_nm": 452.0,
+            "E_C": 69656315677.60712,
+            "reference_norm": 39.05659948396124,
+            "absolute_norm": 2720538822948.6714,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 69656315677.60684,
+            "phase_rms_rad_weighted": 0.033677961481663375,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 645531628664013.6
+            }
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "E_C": 54016259527.71714,
+            "reference_norm": 37.23022484125869,
+            "absolute_norm": 2011037487300.6912,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 54016259527.71674,
+            "phase_rms_rad_weighted": 0.030619074557791535,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 1998417997594122.8
+            }
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "E_C": 46980589110.3283,
+            "reference_norm": 27.515018981058322,
+            "absolute_norm": 1292671801111.985,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 46980589110.32767,
+            "phase_rms_rad_weighted": 0.03364904352828475,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 584972171703080.6
+            }
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "E_C": 139199904576.59412,
+            "reference_norm": 27.44862764094736,
+            "absolute_norm": 3820846348378.3364,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 139199904576.5938,
+            "phase_rms_rad_weighted": 0.02933814620250347,
+            "worst_channel": {
+              "order_m": 1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 1468223272836898.5
+            }
+          },
+          {
+            "wavelength_nm": 456.0,
+            "E_C": 51704774183.38236,
+            "reference_norm": 26.7724745794743,
+            "absolute_norm": 1384264752462.0632,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 51704774183.38196,
+            "phase_rms_rad_weighted": 0.029747711969602218,
+            "worst_channel": {
+              "order_m": 4,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 257630097266793.28
+            }
+          },
+          {
+            "wavelength_nm": 457.0,
+            "E_C": 96869291744.39769,
+            "reference_norm": 24.319134448170157,
+            "absolute_norm": 2355777329831.027,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 96869291744.39738,
+            "phase_rms_rad_weighted": 0.03217492415308736,
+            "worst_channel": {
+              "order_m": -1,
+              "order_n": -4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 620740688884310.1
+            }
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "E_C": 88154958448.37273,
+            "reference_norm": 20.40115936077178,
+            "absolute_norm": 1798463355747.4666,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 88154958448.37227,
+            "phase_rms_rad_weighted": 0.03342798995020946,
+            "worst_channel": {
+              "order_m": -4,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 554710177471179.1
+            }
+          },
+          {
+            "wavelength_nm": 459.0,
+            "E_C": 181154188054.60522,
+            "reference_norm": 16.142304401672064,
+            "absolute_norm": 2924246047215.1826,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 181154188054.6049,
+            "phase_rms_rad_weighted": 0.03465769570826059,
+            "worst_channel": {
+              "order_m": 3,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 1131511130381898.8
+            }
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "E_C": 290230425420.711,
+            "reference_norm": 12.394939384621807,
+            "absolute_norm": 3597388530662.713,
+            "zero_denominator": false,
+            "zero_channel_denominator_count": 0,
+            "amplitude_rms_relative": 290230425420.71063,
+            "phase_rms_rad_weighted": 0.036683524375254156,
+            "worst_channel": {
+              "order_m": -2,
+              "order_n": 4,
+              "direction": "+z",
+              "polarization": "TE",
+              "relative_error": 2810299858342041.0
+            }
+          }
+        ],
+        "max": 290230425420.711,
+        "median": 79927994404.23834,
+        "worst_wavelength_nm": 459.99999999999994,
+        "amplitude_max": {
+          "value": 290230425420.71063,
+          "wavelength_nm": 459.99999999999994
+        },
+        "phase_max": {
+          "value": 0.13658206342880863,
+          "wavelength_nm": 446.0000000000001
+        }
+      }
+    },
+    "aggregate": {
+      "max": 290230425420.711,
+      "median": 0.048800618510662086,
+      "worst": {
+        "plane": "POSTNP",
+        "wavelength_nm": 459.99999999999994,
+        "channel": {
+          "order_m": -2,
+          "order_n": 4,
+          "direction": "+z",
+          "polarization": "TE"
+        }
+      }
+    }
+  },
+  "power_routing": {
+    "wavelength_grid_match": true,
+    "wavelength_count_medium": 21,
+    "wavelength_count_reference": 21,
+    "R": {
+      "max": 0.08938041870749253,
+      "wavelength_nm": 446.0000000000001,
+      "per_wavelength": [
+        {
+          "wavelength_nm": 440.00000000000006,
+          "error": 0.022109558896463044,
+          "medium": 0.5308853681906112,
+          "reference": 0.5529949270870742
+        },
+        {
+          "wavelength_nm": 441.0000000000001,
+          "error": 0.024009123359347906,
+          "medium": 0.5125516991792405,
+          "reference": 0.5365608225385884
+        },
+        {
+          "wavelength_nm": 442.0000000000001,
+          "error": 0.02322083245364487,
+          "medium": 0.4845392829358019,
+          "reference": 0.5077601153894468
+        },
+        {
+          "wavelength_nm": 443.00000000000006,
+          "error": 0.029370024515806448,
+          "medium": 0.4720073507896801,
+          "reference": 0.5013773753054865
+        },
+        {
+          "wavelength_nm": 444.00000000000006,
+          "error": 0.025937364749735237,
+          "medium": 0.4008520152171875,
+          "reference": 0.42678937996692273
+        },
+        {
+          "wavelength_nm": 445.00000000000006,
+          "error": 0.017819900325745652,
+          "medium": 0.32347978163704616,
+          "reference": 0.3412996819627918
+        },
+        {
+          "wavelength_nm": 446.0000000000001,
+          "error": 0.08938041870749253,
+          "medium": 0.2366471420343063,
+          "reference": 0.32602756074179884
+        },
+        {
+          "wavelength_nm": 447.00000000000006,
+          "error": 0.02693110355223935,
+          "medium": 0.20081541373050762,
+          "reference": 0.22774651728274697
+        },
+        {
+          "wavelength_nm": 448.0000000000001,
+          "error": 0.031200346207827453,
+          "medium": 0.1140238846461185,
+          "reference": 0.14522423085394595
+        },
+        {
+          "wavelength_nm": 449.0,
+          "error": 0.019963999385189064,
+          "medium": 0.054358309413093255,
+          "reference": 0.07432230879828232
+        },
+        {
+          "wavelength_nm": 450.0000000000001,
+          "error": 0.002098658154548745,
+          "medium": 0.03231974434107346,
+          "reference": 0.034418402495622204
+        },
+        {
+          "wavelength_nm": 450.99999999999994,
+          "error": 0.015412488937795989,
+          "medium": 0.07249672478750674,
+          "reference": 0.05708423584971075
+        },
+        {
+          "wavelength_nm": 452.0,
+          "error": 0.02026666490896073,
+          "medium": 0.16044421733648764,
+          "reference": 0.1401775524275269
+        },
+        {
+          "wavelength_nm": 453.00000000000006,
+          "error": 0.013972263249378947,
+          "medium": 0.2697600959130832,
+          "reference": 0.25578783266370425
+        },
+        {
+          "wavelength_nm": 453.9999999999999,
+          "error": 0.0038568366801195464,
+          "medium": 0.35236445813129713,
+          "reference": 0.3485076214511776
+        },
+        {
+          "wavelength_nm": 455.00000000000006,
+          "error": 0.0025451883793505825,
+          "medium": 0.33338873798074403,
+          "reference": 0.33084354960139345
+        },
+        {
+          "wavelength_nm": 456.0,
+          "error": 0.00019851722247860026,
+          "medium": 0.34854977524284775,
+          "reference": 0.34874829246532635
+        },
+        {
+          "wavelength_nm": 457.0,
+          "error": 0.004725174845828406,
+          "medium": 0.38124245119906186,
+          "reference": 0.38596762604489027
+        },
+        {
+          "wavelength_nm": 457.99999999999994,
+          "error": 0.010133752960226616,
+          "medium": 0.42998599612020344,
+          "reference": 0.44011974908043006
+        },
+        {
+          "wavelength_nm": 459.0,
+          "error": 0.014170537275644324,
+          "medium": 0.47937666887992825,
+          "reference": 0.49354720615557257
+        },
+        {
+          "wavelength_nm": 459.99999999999994,
+          "error": 0.017137142837357233,
+          "medium": 0.5185428219856155,
+          "reference": 0.5356799648229728
+        }
+      ]
+    },
+    "T": {
+      "max": 0.018669177273302175,
+      "wavelength_nm": 446.0000000000001,
+      "per_wavelength": [
+        {
+          "wavelength_nm": 440.00000000000006,
+          "error": 5.528756054911342e-05,
+          "medium": 0.010123658006394894,
+          "reference": 0.01006837044584578
+        },
+        {
+          "wavelength_nm": 441.0000000000001,
+          "error": 7.74741007131853e-05,
+          "medium": 0.012630369876561609,
+          "reference": 0.012552895775848423
+        },
+        {
+          "wavelength_nm": 442.0000000000001,
+          "error": 0.0002954943703171852,
+          "medium": 0.014416056503058161,
+          "reference": 0.014120562132740976
+        },
+        {
+          "wavelength_nm": 443.00000000000006,
+          "error": 0.0010228034001756488,
+          "medium": 0.01755866709624815,
+          "reference": 0.0165358636960725
+        },
+        {
+          "wavelength_nm": 444.00000000000006,
+          "error": 0.0008025385878838512,
+          "medium": 0.03538281454112304,
+          "reference": 0.03458027595323919
+        },
+        {
+          "wavelength_nm": 445.00000000000006,
+          "error": 9.34006577288371e-06,
+          "medium": 0.048465893522648636,
+          "reference": 0.04847523358842152
+        },
+        {
+          "wavelength_nm": 446.0000000000001,
+          "error": 0.018669177273302175,
+          "medium": 0.06852414162630875,
+          "reference": 0.04985496435300658
+        },
+        {
+          "wavelength_nm": 447.00000000000006,
+          "error": 0.0010309687580479232,
+          "medium": 0.08146865985112277,
+          "reference": 0.08043769109307485
+        },
+        {
+          "wavelength_nm": 448.0000000000001,
+          "error": 0.0014830459689350595,
+          "medium": 0.10739688463851065,
+          "reference": 0.10591383866957559
+        },
+        {
+          "wavelength_nm": 449.0,
+          "error": 0.0008862124815939287,
+          "medium": 0.1301480016769126,
+          "reference": 0.13103421415850652
+        },
+        {
+          "wavelength_nm": 450.0000000000001,
+          "error": 0.0050621315752364116,
+          "medium": 0.14702128725127206,
+          "reference": 0.15208341882650847
+        },
+        {
+          "wavelength_nm": 450.99999999999994,
+          "error": 0.00983609665455154,
+          "medium": 0.14404551341144145,
+          "reference": 0.153881610065993
+        },
+        {
+          "wavelength_nm": 452.0,
+          "error": 0.010672442921054459,
+          "medium": 0.1203193126588129,
+          "reference": 0.13099175557986736
+        },
+        {
+          "wavelength_nm": 453.00000000000006,
+          "error": 0.007455632532652065,
+          "medium": 0.08033194458157693,
+          "reference": 0.08778757711422899
+        },
+        {
+          "wavelength_nm": 453.9999999999999,
+          "error": 0.005620462757985369,
+          "medium": 0.06121025794697455,
+          "reference": 0.06683072070495992
+        },
+        {
+          "wavelength_nm": 455.00000000000006,
+          "error": 0.005098434217425757,
+          "medium": 0.06291209719723045,
+          "reference": 0.06801053141465621
+        },
+        {
+          "wavelength_nm": 456.0,
+          "error": 0.0035146367767825565,
+          "medium": 0.04754420948263079,
+          "reference": 0.05105884625941335
+        },
+        {
+          "wavelength_nm": 457.0,
+          "error": 0.0021292542068470782,
+          "medium": 0.030861214022056854,
+          "reference": 0.03299046822890393
+        },
+        {
+          "wavelength_nm": 457.99999999999994,
+          "error": 0.0012263299333836915,
+          "medium": 0.016995865819726553,
+          "reference": 0.018222195753110244
+        },
+        {
+          "wavelength_nm": 459.0,
+          "error": 0.0006401441554469978,
+          "medium": 0.008362354552172742,
+          "reference": 0.00900249870761974
+        },
+        {
+          "wavelength_nm": 459.99999999999994,
+          "error": 0.00032036741435511424,
+          "medium": 0.003877159112031139,
+          "reference": 0.004197526526386253
+        }
+      ]
+    },
+    "orders": {
+      "(-3, 0)": {
+        "order": [
+          -3,
+          0
+        ],
+        "max_absolute_error": 0.001281460479422519,
+        "worst_wavelength_nm": 446.0000000000001,
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "error": 1.7048267096638836e-06,
+            "medium": 0.0004210291635858848,
+            "reference": 0.0004227339902955487
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "error": 2.1583818289031735e-06,
+            "medium": 0.0005409311237060815,
+            "reference": 0.0005430895055349847
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "error": 1.458884000400955e-06,
+            "medium": 0.00063321272417111,
+            "reference": 0.000631753840170709
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "error": 0.00020952768570206657,
+            "medium": 0.0004734731898516673,
+            "reference": 0.0002639455041496007
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "error": 7.980855050336404e-05,
+            "medium": 0.0023765914192772114,
+            "reference": 0.0022967828687738474
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "error": 0.00010699962511028036,
+            "medium": 0.004033271964790598,
+            "reference": 0.0039262723396803175
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "error": 0.001281460479422519,
+            "medium": 0.00659539442772347,
+            "reference": 0.005313933948300951
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "error": 0.0002761155925824262,
+            "medium": 0.009201158855259014,
+            "reference": 0.008925043262676588
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "error": 0.00031168513667617463,
+            "medium": 0.012508544124934533,
+            "reference": 0.012196858988258358
+          },
+          {
+            "wavelength_nm": 449.0,
+            "error": 6.49900559526427e-05,
+            "medium": 0.014972496020761061,
+            "reference": 0.014907505964808419
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "error": 0.0003608549419390275,
+            "medium": 0.015724090528069782,
+            "reference": 0.01608494547000881
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "error": 0.000793857413890214,
+            "medium": 0.013525303266949023,
+            "reference": 0.014319160680839237
+          },
+          {
+            "wavelength_nm": 452.0,
+            "error": 0.0007710856817887239,
+            "medium": 0.009378946191573373,
+            "reference": 0.010150031873362097
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "error": 0.00036589276804071483,
+            "medium": 0.004451892021641327,
+            "reference": 0.004817784789682041
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "error": 0.00022194174797319707,
+            "medium": 0.003252966626759018,
+            "reference": 0.003474908374732215
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "error": 0.00023139628307126134,
+            "medium": 0.0033347311302066476,
+            "reference": 0.003566127413277909
+          },
+          {
+            "wavelength_nm": 456.0,
+            "error": 0.00015205012223520843,
+            "medium": 0.002263773990798173,
+            "reference": 0.0024158241130333813
+          },
+          {
+            "wavelength_nm": 457.0,
+            "error": 6.011230428370324e-05,
+            "medium": 0.001431597217356939,
+            "reference": 0.0014917095216406423
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "error": 7.975421814260903e-05,
+            "medium": 0.0008204795526842048,
+            "reference": 0.0009002337708268138
+          },
+          {
+            "wavelength_nm": 459.0,
+            "error": 3.271073987813958e-05,
+            "medium": 0.0004729743746416191,
+            "reference": 0.0005056851145197587
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "error": 1.9269206438859586e-05,
+            "medium": 0.0002762855095373669,
+            "reference": 0.0002955547159762265
+          }
+        ]
+      },
+      "(-2, 0)": {
+        "order": [
+          -2,
+          0
+        ],
+        "max_absolute_error": 0.0014956574423987392,
+        "worst_wavelength_nm": 446.0000000000001,
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "error": 9.757999154420436e-06,
+            "medium": 0.0011088030439244908,
+            "reference": 0.0010990450447700703
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "error": 1.2974878389817061e-05,
+            "medium": 0.00139820908992471,
+            "reference": 0.0013852342115348928
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "error": 2.5157429165737497e-05,
+            "medium": 0.0016359458266081263,
+            "reference": 0.0016107883974423888
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "error": 0.0003108998397953421,
+            "medium": 0.0019422045009728228,
+            "reference": 0.0016313046611774807
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "error": 0.00010721184184581687,
+            "medium": 0.003038943388893171,
+            "reference": 0.002931731547047354
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "error": 5.034059189049089e-05,
+            "medium": 0.0042156331641847854,
+            "reference": 0.0041652925722942945
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "error": 0.0014956574423987392,
+            "medium": 0.005803182830328448,
+            "reference": 0.004307525387929709
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "error": 7.361007408585724e-05,
+            "medium": 0.006528411421416959,
+            "reference": 0.006454801347331102
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "error": 3.491712376808842e-05,
+            "medium": 0.00751917793927358,
+            "reference": 0.007484260815505492
+          },
+          {
+            "wavelength_nm": 449.0,
+            "error": 0.00017457797341495062,
+            "medium": 0.007048823369848299,
+            "reference": 0.007223401343263249
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "error": 0.00032194697459289774,
+            "medium": 0.005053501792524943,
+            "reference": 0.005375448767117841
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "error": 0.000260754110241344,
+            "medium": 0.0023434619729253035,
+            "reference": 0.0026042160831666475
+          },
+          {
+            "wavelength_nm": 452.0,
+            "error": 8.041535914287692e-05,
+            "medium": 0.0008721361877321367,
+            "reference": 0.0009525515468750136
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "error": 0.00010578745000309553,
+            "medium": 0.001188515376556072,
+            "reference": 0.0012943028265591675
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "error": 0.0008934658466645401,
+            "medium": 0.010784594680184816,
+            "reference": 0.011678060526849356
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "error": 0.0008475935664071892,
+            "medium": 0.011428488069768433,
+            "reference": 0.012276081636175622
+          },
+          {
+            "wavelength_nm": 456.0,
+            "error": 0.0007648364358968322,
+            "medium": 0.011410602767777245,
+            "reference": 0.012175439203674077
+          },
+          {
+            "wavelength_nm": 457.0,
+            "error": 0.0005502631575698257,
+            "medium": 0.00913359780873111,
+            "reference": 0.009683860966300936
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "error": 0.0003672834538451684,
+            "medium": 0.005654221851590719,
+            "reference": 0.006021505305435887
+          },
+          {
+            "wavelength_nm": 459.0,
+            "error": 0.00020566008079591106,
+            "medium": 0.0029332359351586746,
+            "reference": 0.0031388960159545857
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "error": 0.00010916487029329308,
+            "medium": 0.0013881362166204636,
+            "reference": 0.0014973010869137567
+          }
+        ]
+      },
+      "(-1, 0)": {
+        "order": [
+          -1,
+          0
+        ],
+        "max_absolute_error": 0.0030528069872215163,
+        "worst_wavelength_nm": 446.0000000000001,
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "error": 4.703705460616138e-05,
+            "medium": 0.0022476417936491736,
+            "reference": 0.0022006047390430122
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "error": 5.762547675576676e-05,
+            "medium": 0.0029673293350154176,
+            "reference": 0.002909703858259651
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "error": 7.262465312282565e-05,
+            "medium": 0.0037880576072965373,
+            "reference": 0.0037154329541737117
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "error": 0.0005585718245871346,
+            "medium": 0.004516166015341203,
+            "reference": 0.003957594190754069
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "error": 0.00029434893705601855,
+            "medium": 0.007730164016453064,
+            "reference": 0.0074358150793970455
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "error": 0.00019708393531965226,
+            "medium": 0.010723654674239694,
+            "reference": 0.010526570738920042
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "error": 0.0030528069872215163,
+            "medium": 0.014411343426958679,
+            "reference": 0.011358536439737162
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "error": 0.0004181439626013972,
+            "medium": 0.01693737354542324,
+            "reference": 0.016519229582821843
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "error": 0.00040521789391931295,
+            "medium": 0.02055589762975864,
+            "reference": 0.020150679735839328
+          },
+          {
+            "wavelength_nm": 449.0,
+            "error": 8.66166895018422e-05,
+            "medium": 0.022925227690843725,
+            "reference": 0.022838611001341883
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "error": 0.00044038336222656377,
+            "medium": 0.023120201949990107,
+            "reference": 0.02356058531221667
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "error": 0.0009188067214339624,
+            "medium": 0.019296942965160498,
+            "reference": 0.02021574968659446
+          },
+          {
+            "wavelength_nm": 452.0,
+            "error": 0.0008166992932238347,
+            "medium": 0.012754499931667601,
+            "reference": 0.013571199224891436
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "error": 0.00040217090635832117,
+            "medium": 0.0050166395701855765,
+            "reference": 0.005418810476543898
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "error": 0.00121390981487466,
+            "medium": 0.01192920957422572,
+            "reference": 0.01314311938910038
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "error": 0.00097852504505435,
+            "medium": 0.010875002164001633,
+            "reference": 0.011853527209055983
+          },
+          {
+            "wavelength_nm": 456.0,
+            "error": 0.0007676864806468349,
+            "medium": 0.00886599963268614,
+            "reference": 0.009633686113332976
+          },
+          {
+            "wavelength_nm": 457.0,
+            "error": 0.0005325668395273859,
+            "medium": 0.006597973094064037,
+            "reference": 0.007130539933591423
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "error": 0.00032740447866766876,
+            "medium": 0.004071554021501916,
+            "reference": 0.004398958500169585
+          },
+          {
+            "wavelength_nm": 459.0,
+            "error": 0.00018060821353201506,
+            "medium": 0.002131223913691512,
+            "reference": 0.002311832127223527
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "error": 9.116101766296699e-05,
+            "medium": 0.000989930324247693,
+            "reference": 0.00108109134191066
+          }
+        ]
+      },
+      "(0, 0)": {
+        "order": [
+          0,
+          0
+        ],
+        "max_absolute_error": 0.003714840241426683,
+        "worst_wavelength_nm": 446.0000000000001,
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "error": 4.516527005457701e-06,
+            "medium": 0.001209982824283839,
+            "reference": 0.0012144993512892967
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "error": 4.232957930338198e-06,
+            "medium": 0.0014687161907604544,
+            "reference": 0.0014729491486907926
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "error": 3.254112429902493e-05,
+            "medium": 0.0014620835531914723,
+            "reference": 0.0014295424288924474
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "error": 6.228703905937364e-05,
+            "medium": 0.002162864669046558,
+            "reference": 0.0021005776299871846
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "error": 6.719173504219928e-05,
+            "medium": 0.005296068971978481,
+            "reference": 0.005228877236936282
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "error": 0.0001066924738855491,
+            "medium": 0.0074645926846609,
+            "reference": 0.007571285158546449
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "error": 0.003714840241426683,
+            "medium": 0.011554334246360175,
+            "reference": 0.007839494004933492
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "error": 7.229012063407828e-05,
+            "medium": 0.014530170227163868,
+            "reference": 0.014602460347797946
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "error": 1.7123669962735427e-05,
+            "medium": 0.021321942162647975,
+            "reference": 0.02130481849268524
+          },
+          {
+            "wavelength_nm": 449.0,
+            "error": 0.0005848897534575445,
+            "medium": 0.028567693278309696,
+            "reference": 0.02915258303176724
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "error": 0.0016787697901168575,
+            "medium": 0.035561392829107884,
+            "reference": 0.03724016261922474
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "error": 0.003017209425467418,
+            "medium": 0.03778880799087099,
+            "reference": 0.04080601741633841
+          },
+          {
+            "wavelength_nm": 452.0,
+            "error": 0.003301990747693072,
+            "medium": 0.033262766099945135,
+            "reference": 0.036564756847638206
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "error": 0.0023888640694990013,
+            "medium": 0.023132449852421574,
+            "reference": 0.025521313921920575
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "error": 0.001733566216239487,
+            "medium": 0.01886024178377272,
+            "reference": 0.020593808000012207
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "error": 0.0012500039701679178,
+            "medium": 0.01580829217706464,
+            "reference": 0.017058296147232557
+          },
+          {
+            "wavelength_nm": 456.0,
+            "error": 0.0006772249036840865,
+            "medium": 0.009884591483159373,
+            "reference": 0.01056181638684346
+          },
+          {
+            "wavelength_nm": 457.0,
+            "error": 0.00029909503013480013,
+            "medium": 0.005033237044927977,
+            "reference": 0.005332332075062777
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "error": 0.0001447663967170899,
+            "medium": 0.002095510712960293,
+            "reference": 0.0022402771096773828
+          },
+          {
+            "wavelength_nm": 459.0,
+            "error": 6.00859612940283e-05,
+            "medium": 0.000774700864479636,
+            "reference": 0.0008347868257736643
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "error": 2.4569270696203844e-05,
+            "medium": 0.00027334999098997713,
+            "reference": 0.000297919261686181
+          }
+        ]
+      },
+      "(1, 0)": {
+        "order": [
+          1,
+          0
+        ],
+        "max_absolute_error": 0.003666305453372251,
+        "worst_wavelength_nm": 446.0000000000001,
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "error": 8.18379051545793e-06,
+            "medium": 0.0021135758133304246,
+            "reference": 0.0021053920228149667
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "error": 1.4335594610945853e-05,
+            "medium": 0.0026685213258958473,
+            "reference": 0.0026541857312849014
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "error": 0.00011440165185910541,
+            "medium": 0.0029284806038460095,
+            "reference": 0.002814078951986904
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "error": 0.00041588611527092634,
+            "medium": 0.0016931280027314118,
+            "reference": 0.002109014118002338
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "error": 0.0001236632643832787,
+            "medium": 0.007363241721459339,
+            "reference": 0.00723957845707606
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "error": 9.576462678557301e-05,
+            "medium": 0.00941562664508752,
+            "reference": 0.009511391271873093
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "error": 0.003666305453372251,
+            "medium": 0.01229158453961246,
+            "reference": 0.008625279086240209
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "error": 0.0001021264981507005,
+            "medium": 0.012755251026801867,
+            "reference": 0.012653124528651166
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "error": 0.00018060976710598461,
+            "medium": 0.014595326764243336,
+            "reference": 0.014414716997137351
+          },
+          {
+            "wavelength_nm": 449.0,
+            "error": 0.00013621503543901313,
+            "medium": 0.014758095114516364,
+            "reference": 0.014894310149955377
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "error": 0.0005296958349908388,
+            "medium": 0.013776641477392432,
+            "reference": 0.01430633731238327
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "error": 0.000827705543852789,
+            "medium": 0.011518867317016637,
+            "reference": 0.012346572860869426
+          },
+          {
+            "wavelength_nm": 452.0,
+            "error": 0.0007577687640617798,
+            "medium": 0.008624630778511149,
+            "reference": 0.009382399542572929
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "error": 0.0004389042672710945,
+            "medium": 0.0049743851056625,
+            "reference": 0.0054132893729335945
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "error": 0.000425840641425629,
+            "medium": 0.0045750439336918825,
+            "reference": 0.0050008845751175115
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "error": 0.0003246604252004079,
+            "medium": 0.004408388848427876,
+            "reference": 0.004733049273628284
+          },
+          {
+            "wavelength_nm": 456.0,
+            "error": 0.00017500897958991303,
+            "medium": 0.0028714097465764974,
+            "reference": 0.0030464187261664104
+          },
+          {
+            "wavelength_nm": 457.0,
+            "error": 7.981390677487305e-05,
+            "medium": 0.0015764899460135016,
+            "reference": 0.0016563038527883747
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "error": 2.3318577134560448e-05,
+            "medium": 0.0007590076172156881,
+            "reference": 0.0007823261943502485
+          },
+          {
+            "wavelength_nm": 459.0,
+            "error": 8.488192915813604e-06,
+            "medium": 0.0003530072934069822,
+            "reference": 0.0003614954863227958
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "error": 5.022796043088469e-06,
+            "medium": 0.00017232662016650362,
+            "reference": 0.00017734941620959209
+          }
+        ]
+      },
+      "(2, 0)": {
+        "order": [
+          2,
+          0
+        ],
+        "max_absolute_error": 0.004302264528297288,
+        "worst_wavelength_nm": 452.0,
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "error": 5.412416700066591e-07,
+            "medium": 0.0020690969643934374,
+            "reference": 0.002069638206063444
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "error": 1.3503427943122558e-06,
+            "medium": 0.0023323508478482213,
+            "reference": 0.002331000505053909
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "error": 2.303085074689768e-05,
+            "medium": 0.002486133263403249,
+            "reference": 0.0024631024126563514
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "error": 0.000100487231578092,
+            "medium": 0.0022456100227556427,
+            "reference": 0.0021451227911775507
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "error": 2.4595629773394544e-05,
+            "medium": 0.0044387766684431075,
+            "reference": 0.004414181038669713
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "error": 0.00019824087969446194,
+            "medium": 0.0059362638243416685,
+            "reference": 0.0061345047040361304
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "error": 0.003115764922116151,
+            "medium": 0.00854192269387987,
+            "reference": 0.00542615777176372
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "error": 2.5612824659553696e-05,
+            "medium": 0.010314598522721928,
+            "reference": 0.010340211347381481
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "error": 0.00023024524300658405,
+            "medium": 0.016820635739748454,
+            "reference": 0.01659039049674187
+          },
+          {
+            "wavelength_nm": 449.0,
+            "error": 0.0001690620406898137,
+            "medium": 0.026295683604129275,
+            "reference": 0.02646474564481909
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "error": 0.001346202292490481,
+            "medium": 0.03861575730344384,
+            "reference": 0.03996195959593432
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "error": 0.003289314568012326,
+            "medium": 0.047364907335273675,
+            "reference": 0.050654221903286
+          },
+          {
+            "wavelength_nm": 452.0,
+            "error": 0.004302264528297288,
+            "medium": 0.047073572972667836,
+            "reference": 0.051375837500965124
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "error": 0.0034142230371433033,
+            "medium": 0.03637301456438424,
+            "reference": 0.039787237601527546
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "error": 0.0010524306195556846,
+            "medium": 0.011359233982402411,
+            "reference": 0.012411664601958096
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "error": 0.001354489090819623,
+            "medium": 0.016174080945571427,
+            "reference": 0.01752857003639105
+          },
+          {
+            "wavelength_nm": 456.0,
+            "error": 0.0008708982963943068,
+            "medium": 0.011350539349912354,
+            "reference": 0.012221437646306661
+          },
+          {
+            "wavelength_nm": 457.0,
+            "error": 0.0004894709785375562,
+            "medium": 0.0062712885411748956,
+            "reference": 0.006760759519712452
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "error": 0.0002394284310343526,
+            "medium": 0.0029694997617717394,
+            "reference": 0.003208928192806092
+          },
+          {
+            "wavelength_nm": 459.0,
+            "error": 0.00011798318076187823,
+            "medium": 0.0013219760434139216,
+            "reference": 0.0014399592241757999
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "error": 5.422492294727716e-05,
+            "medium": 0.0005822868952567705,
+            "reference": 0.0006365118182040477
+          }
+        ]
+      },
+      "(3, 0)": {
+        "order": [
+          3,
+          0
+        ],
+        "max_absolute_error": 0.0023423417473443274,
+        "worst_wavelength_nm": 446.0000000000001,
+        "per_wavelength": [
+          {
+            "wavelength_nm": 440.00000000000006,
+            "error": 2.9286883417969966e-06,
+            "medium": 0.0009535284032276449,
+            "reference": 0.0009564570915694419
+          },
+          {
+            "wavelength_nm": 441.0000000000001,
+            "error": 2.4208520784155772e-06,
+            "medium": 0.0012543119634108755,
+            "reference": 0.001256732815489291
+          },
+          {
+            "wavelength_nm": 442.0000000000001,
+            "error": 2.6279777123194284e-05,
+            "medium": 0.0014821429245416562,
+            "reference": 0.001455863147418462
+          },
+          {
+            "wavelength_nm": 443.00000000000006,
+            "error": 0.00019691589472456677,
+            "medium": 0.004525220695548843,
+            "reference": 0.0043283048008242765
+          },
+          {
+            "wavelength_nm": 444.00000000000006,
+            "error": 0.0001057186292797753,
+            "medium": 0.005139028354618665,
+            "reference": 0.005033309725338889
+          },
+          {
+            "wavelength_nm": 445.00000000000006,
+            "error": 3.6933762272284634e-05,
+            "medium": 0.006676850565343478,
+            "reference": 0.006639916803071194
+          },
+          {
+            "wavelength_nm": 446.0000000000001,
+            "error": 0.0023423417473443274,
+            "medium": 0.009326379461445657,
+            "reference": 0.0069840377141013295
+          },
+          {
+            "wavelength_nm": 447.00000000000006,
+            "error": 0.0002588755759211723,
+            "medium": 0.01120169625233589,
+            "reference": 0.010942820676414718
+          },
+          {
+            "wavelength_nm": 448.0000000000001,
+            "error": 0.0003032471344961724,
+            "medium": 0.01407536027790412,
+            "reference": 0.013772113143407948
+          },
+          {
+            "wavelength_nm": 449.0,
+            "error": 2.6925575952890107e-05,
+            "medium": 0.015579982598504145,
+            "reference": 0.015553057022551255
+          },
+          {
+            "wavelength_nm": 450.0000000000001,
+            "error": 0.0003842783788797297,
+            "medium": 0.01516970137074307,
+            "reference": 0.0155539797496228
+          },
+          {
+            "wavelength_nm": 450.99999999999994,
+            "error": 0.0007284488716534903,
+            "medium": 0.01220722256324532,
+            "reference": 0.01293567143489881
+          },
+          {
+            "wavelength_nm": 452.0,
+            "error": 0.0006422185468468733,
+            "medium": 0.008352760496715676,
+            "reference": 0.00899497904356255
+          },
+          {
+            "wavelength_nm": 453.00000000000006,
+            "error": 0.0003397900343365375,
+            "medium": 0.005195048090725648,
+            "reference": 0.005534838125062186
+          },
+          {
+            "wavelength_nm": 453.9999999999999,
+            "error": 7.930787125216295e-05,
+            "medium": 0.00044896736593798633,
+            "reference": 0.0005282752371901493
+          },
+          {
+            "wavelength_nm": 455.00000000000006,
+            "error": 0.00011176583670499782,
+            "medium": 0.0008831138621898016,
+            "reference": 0.0009948796988947994
+          },
+          {
+            "wavelength_nm": 456.0,
+            "error": 0.00010693155833537164,
+            "medium": 0.0008972925117210126,
+            "reference": 0.0010042240700563843
+          },
+          {
+            "wavelength_nm": 457.0,
+            "error": 0.00011793199001893808,
+            "medium": 0.0008170303697883942,
+            "reference": 0.0009349623598073323
+          },
+          {
+            "wavelength_nm": 457.99999999999994,
+            "error": 4.437437784224243e-05,
+            "medium": 0.0006255923020019896,
+            "reference": 0.000669966679844232
+          },
+          {
+            "wavelength_nm": 459.0,
+            "error": 3.460778626921242e-05,
+            "medium": 0.0003752361273803966,
+            "reference": 0.000409843913649609
+          },
+          {
+            "wavelength_nm": 459.99999999999994,
+            "error": 1.6955330273425012e-05,
+            "medium": 0.0001948435552123645,
+            "reference": 0.0002117988854857895
+          }
+        ]
+      }
+    },
+    "worst_order": {
+      "absolute_error": 0.004302264528297288,
+      "wavelength_nm": 452.0,
+      "order": [
+        2,
+        0
+      ],
+      "medium": 0.047073572972667836,
+      "reference": 0.051375837500965124
+    },
+    "routing_plus1_spectral_trajectory_correlation": 0.9849114286350438,
+    "order_mask_change_count_post": 0,
+    "order_mask_change_count_input": 0,
+    "energy_closure_medium_max": 1.1102230246251565e-16,
+    "energy_closure_reference_max": 0.0
+  },
+  "runtime_comparison": {
+    "medium_s": 18180.09302,
+    "medium_h": 5.050025838888889,
+    "reference_s": 29625.919359,
+    "reference_h": 8.229422044166666,
+    "speedup_reference_over_medium": 1.629580185668379,
+    "fast_s": 4179.629727,
+    "fast_h": 1.1610082574999998
+  },
+  "provenance": {
+    "medium_terminal_status": "SCIENTIFIC_VALID",
+    "queue": "RELEASED",
+    "slot_release": "RELEASED",
+    "native_truth_load_only": "PASS",
+    "historical_terminal_failure_non_authoritative": true
+  },
+  "gate": {
+    "contract": "contracts/coupling/medium_pw/MEDIUM_PW_VALIDATION_GATE_V1.json",
+    "thresholds": {
+      "complex_state_E_C_max": 0.05,
+      "R_absolute_error_max": 0.05,
+      "T_absolute_error_max": 0.05,
+      "populated_order_absolute_error_max": 0.05,
+      "routing_spectral_trajectory_correlation_min": 0.98,
+      "missing_required_wavelengths": 0
+    },
+    "metrics": {
+      "complex_state_E_C_max": 290230425420.711,
+      "R_absolute_error_max": 0.08938041870749253,
+      "T_absolute_error_max": 0.018669177273302175,
+      "populated_order_absolute_error_max": 0.004302264528297288,
+      "routing_spectral_trajectory_correlation_min": 0.9849114286350438,
+      "missing_required_wavelengths": 0
+    },
+    "checks": {
+      "complex_state_E_C_max": false,
+      "R_absolute_error_max": false,
+      "T_absolute_error_max": true,
+      "populated_order_absolute_error_max": true,
+      "routing_spectral_trajectory_correlation_min": true,
+      "missing_required_wavelengths": true,
+      "wavelength_ordering": true,
+      "state_shape": true,
+      "replay": true,
+      "solver_entry_count": true,
+      "energy_closure_finite": true,
+      "post_order_topology": true,
+      "input_order_topology": true,
+      "state_finite": true
+    },
+    "all_frozen_numeric_and_structural_criteria_pass": false
+  },
+  "decision": "MEDIUM_PW_PRODUCTION_FIDELITY_NOT_ADMITTED",
+  "report_status": "BLOCKED_FIDELITY_GATE",
+  "final_gate_table": [
+    {
+      "metric": "complex_state_E_C_max",
+      "threshold": 0.05,
+      "measured": 290230425420.711,
+      "pass": false
+    },
+    {
+      "metric": "R_absolute_error_max",
+      "threshold": 0.05,
+      "measured": 0.08938041870749253,
+      "pass": false
+    },
+    {
+      "metric": "T_absolute_error_max",
+      "threshold": 0.05,
+      "measured": 0.018669177273302175,
+      "pass": true
+    },
+    {
+      "metric": "populated_order_absolute_error_max",
+      "threshold": 0.05,
+      "measured": 0.004302264528297288,
+      "pass": true
+    },
+    {
+      "metric": "routing_spectral_trajectory_correlation_min",
+      "threshold": 0.98,
+      "measured": 0.9849114286350438,
+      "pass": true
+    },
+    {
+      "metric": "missing_required_wavelengths",
+      "threshold": 0,
+      "measured": 0,
+      "pass": true
+    }
+  ],
+  "failed_criteria": [
+    "complex_state_E_C_max",
+    "R_absolute_error_max"
+  ],
+  "failure_diagnosis": {
+    "primary": "canonical state amplitude",
+    "details": [
+      "POSTNP E_C max is dominated by a finite but extreme evanescent/modal channel at order (-2,+4), direction +z, TE, 460 nm.",
+      "PRENP phase RMS peaks at 1.013175 rad at 446 nm, but it is not the aggregate worst case.",
+      "R fails at 446 nm; T, propagating-order error, +1 trajectory, topology, wavelength completeness, and closure pass."
+    ]
+  },
+  "comparison_vs_fast": {
+    "medium": {
+      "complex_state_E_C_max": 290230425420.711,
+      "R_absolute_error_max": 0.08938041870749253,
+      "T_absolute_error_max": 0.018669177273302175,
+      "populated_order_absolute_error_max": 0.004302264528297288,
+      "routing_spectral_trajectory_correlation_min": 0.9849114286350438,
+      "missing_required_wavelengths": 0
+    },
+    "fast_authoritative_decision": {
+      "complex_state_E_C_max": 0.93282168098036,
+      "complex_state_worst_wavelength_nm": 445.00000000000006,
+      "R_absolute_error_max": 0.116286711597198,
+      "R_worst_wavelength_nm": 445.00000000000006,
+      "T_absolute_error_max": 0.02980412901740847,
+      "T_worst_wavelength_nm": 445.00000000000006,
+      "all_propagating_order_absolute_error_max": {
+        "error": 0.014780192865414548,
+        "wavelength_nm": 453.9999999999999,
+        "order": [
+          2,
+          0
+        ],
+        "fast": 0.027191857467372644,
+        "reference": 0.012411664601958096
+      },
+      "routing_plus1_spectral_correlation": 0.9486309754295671,
+      "energy_closure_max": 1.1102230246251565e-16,
+      "order_mask_change_count": 0
+    },
+    "fast_decision": "REVIEW",
+    "interpretation": "mixed_not_materially_better_overall; Medium improves R/T/order/routing but is much worse in canonical complex-state E_C and still fails R."
+  },
+  "seed_database": {
+    "PW_K6_SEED_DB_V1_STARTED": false,
+    "reason": "medium_fidelity_gate_not_passed",
+    "W2H_15294_reused": false
+  },
+  "no_further_solver_action": true,
+  "scientific_entries_during_comparison": 0,
+  "evidence_consistency": {
+    "terminal_status": "SCIENTIFIC_VALID",
+    "attempt_state": "SCIENTIFIC_VALID",
+    "queue_state": "RELEASED",
+    "slot_id": "GLOBAL_SLOT_2",
+    "slot_state": "FREE",
+    "reservation_state": "RELEASED",
+    "lease_event_entry_count": 1,
+    "solver_entry_count": 1,
+    "replay": false,
+    "stale_scientific_solver_running_mirror": false,
+    "foreign_mutation_count": 0,
+    "duplicate_scientific_entry_count": 0,
+    "historical_terminal_failure_non_authoritative": true
+  }
+}
