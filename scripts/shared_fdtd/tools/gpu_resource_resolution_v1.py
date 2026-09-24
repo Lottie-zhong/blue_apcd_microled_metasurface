@@ -141,9 +141,6 @@ def lumerical_probe_script(output_path: str | Path) -> str:
         f'write({target}, "PROCESSES="+getresource("FDTD",i,"processes"));',
         f'write({target}, "THREADS="+getresource("FDTD",i,"threads"));',
         '}',
-        'g=gpuspecs;',
-        f'write({target}, "GPU_NAME="+g.userReadableDeviceName);',
-        f'write({target}, "GPU_UUID="+g.deviceUUID);',
     ]
     return "\n".join(lines) + "\n"
 
