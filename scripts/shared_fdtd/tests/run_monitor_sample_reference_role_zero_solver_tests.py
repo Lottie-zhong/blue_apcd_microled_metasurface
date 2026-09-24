@@ -12,7 +12,7 @@ from shared_fdtd.tools.pw_complex_floquet_state_v1 import _synthetic_raw, canoni
 
 CONTRACT = ROOT / "contracts/coupling/medium_pw/MEDIUM_PW_MONITOR_CONTRACT_V1.json"
 SCHEMA = ROOT / "contracts/coupling/medium_pw/PW_GPU_MONITOR_TRUTH_SCHEMA_V1.json"
-SETUP = ROOT / "outputs/coupling_ml/W2H_15294_5NM_GPU_PRODUCTION_SCHEMA_V3/attempt_001/run/runtime.fsp"
+SETUP = ROOT / "outputs/coupling_ml/W2H_15294_5NM_GPU_PRODUCTION_SCHEMA_V3/attempt_001/setup/runtime.fsp"
 
 
 def payload(z: float) -> dict:
