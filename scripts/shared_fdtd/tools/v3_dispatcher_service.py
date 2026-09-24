@@ -62,8 +62,17 @@ def launch_process(command):
 
 def launch_factory(db_path, preentry_only=False):
     from shared_fdtd.engine.event_log import append_event
+    from shared_fdtd.control_v3.allocator import Allocator
+    from shared_fdtd.control_v3.db import ControlDB
+    from shared_fdtd.control_v3.resources import ResourceRequest, read_resource_snapshot
     def launch(row, lease):
         payload = json.loads(row["payload_json"])
+        request = ResourceRequest.from_payload(payload)
+        backend_type = payload.get("backend_type")
+        if backend_type is None and (payload.get("production_science") or row["branch_id"] == "traditional"):
+            backend_type = "CPU"
+        boundary_snapshot = read_resource_snapshot() if (request is not None or backend_type is not None) else None
+        allocator = Allocator(ControlDB(db_path))
         runtime = Path(payload["runtime"])
         runtime.mkdir(parents=True, exist_ok=True)
         config = runtime / "host_config.json"
@@ -73,10 +82,14 @@ def launch_factory(db_path, preentry_only=False):
             "pre_fsp_sha256": payload["pre_fsp_sha256"], "physical_contract_hash": payload["physical_contract_hash"],
             "branch": row["branch_id"], "case": row["logical_case_id"], "attempt": row["attempt_id"],
             "task": payload["task"], "slot_id": lease.slot_id, "lease_token": lease.lease_token,
-            "fencing_generation": lease.fencing_generation, "task_name": payload["task_name"],
+            "fencing_generation": lease.fencing_generation, "admission_control_generation": lease.control_generation,
+            "admission_provenance": lease.admission_provenance, "task_name": payload["task_name"],
             "created_utc": now(),
             "production_science": bool(payload.get("production_science", False)),
             "resource_request": payload.get("resource_request"),
+            "resource_policy": payload.get("resource_policy"),
+            "backend_type": payload.get("backend_type", "CPU"),
+            "gpu_resource_name": payload.get("gpu_resource_name"),
             "resource_class": payload.get("resource_class"),
             "estimated_peak_ram_bytes": payload.get("estimated_peak_ram_bytes"),
             "estimated_commit_bytes": payload.get("estimated_commit_bytes"),
@@ -91,10 +104,22 @@ def launch_factory(db_path, preentry_only=False):
             "zero_solver_boundary_only": bool(preentry_only),
         }
         atomic(config, cfg)
-        append_event(runtime / "events.jsonl", "HOST_START_INTENT", task_name=payload["task_name"], config=str(config), slot_id=lease.slot_id)
         command = f"{HOST_PYTHON} {HOST_SCRIPT} {config}"
-        host_pid = launch_process(command)
-        append_event(runtime / "events.jsonl", "HOST_PROCESS_STARTED", host_pid=host_pid, command=command)
+        def start_host(provenance):
+            cfg.update(provenance)
+            atomic(config, cfg)
+            append_event(runtime / "events.jsonl", "HOST_START_INTENT", task_name=payload["task_name"], config=str(config), slot_id=lease.slot_id, provenance=provenance)
+            host_pid = launch_process(command)
+            append_event(runtime / "events.jsonl", "HOST_PROCESS_STARTED", host_pid=host_pid, command=command, provenance=provenance)
+            return host_pid
+        boundary = allocator.final_launch_revalidation(
+            lease, resource_request=request, resource_snapshot=boundary_snapshot,
+            resource_policy=payload.get("resource_policy"), backend_type=backend_type,
+            admission_timestamp=(lease.admission_provenance or {}).get("admission_timestamp"),
+            start=start_host,
+        )
+        if not boundary["eligible"]:
+            return {"queue_state": "WAIT_RESOURCE_CAPACITY", "admission": boundary}
         if preentry_only:
             boundary = Path(payload["attempt_root"]) / "scientific_entry_boundary.json"
             previous_mtime_ns = boundary.stat().st_mtime_ns if boundary.is_file() else 0

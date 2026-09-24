@@ -23,8 +23,19 @@ from shared_fdtd.engine.persistence import (
     persist_and_verify,
     save_and_verify,
 )
-from shared_fdtd.control_v3.resources import ResourceRequest, RuntimeResourceMonitor
+from shared_fdtd.engine.gpu_bundle import persist_gpu_bundle
+from shared_fdtd.control_v3.resources import ResourceRequest, RuntimeResourceMonitor, read_resource_snapshot
 from shared_fdtd.engine.attempt_state import write_durable_attempt_state
+
+
+class AdmissionGateBlocked(RuntimeError):
+    def __init__(self, evidence):
+        super().__init__("FINAL_LAUNCH_REVALIDATION_BLOCKED")
+        self.evidence = evidence
+
+
+
+
 from shared_fdtd.tools.pw_scientific_launcher import (
     LAUNCHER_ID,
     load_only_validate as pw_load_only_validate,
@@ -104,6 +115,16 @@ def validate_load(fd, cfg, is_pw):
     _ = fd.farfield3d("top_farfield3d_monitor", 1)
 
 
+def fresh_load_validate_path(path, cfg, is_pw):
+    import lumapi
+    handle = lumapi.FDTD(str(path), hide=True)
+    try:
+        validate_load(handle, cfg, is_pw)
+        return {"passed": True, "mode": "LOAD_ONLY", "path": str(path)}
+    finally:
+        handle.close()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("config")
@@ -117,14 +138,19 @@ def main():
 
     db = ControlDB(cfg["db"])
     allocator = Allocator(db)
-    lease = Lease(cfg["slot_id"], cfg["branch"], cfg["case"], cfg["attempt"], cfg["lease_token"], int(cfg["fencing_generation"]))
+    lease = Lease(
+        cfg["slot_id"], cfg["branch"], cfg["case"], cfg["attempt"],
+        cfg["lease_token"], int(cfg["fencing_generation"]),
+        int(cfg.get("admission_control_generation", -1)),
+        cfg.get("admission_provenance"),
+    )
     attempt_root = Path(cfg["attempt_root"])
     case_root = attempt_root
+    artifact_tag = f"{cfg['case']}__{cfg['attempt']}"
     pre = Path(cfg["pre_fsp"])
     run = case_root / "run" / f"{cfg['case']}__{cfg['attempt']}_runtime.fsp"
-    artifact_tag = uuid.uuid4().hex[:12]
-    native = case_root / "native" / f"{cfg['case']}__{cfg['attempt']}_native_{artifact_tag}.fsp"
-    post = case_root / "post" / f"{cfg['case']}__{cfg['attempt']}_post_{artifact_tag}.fsp"
+    native = case_root / "native" / run.name
+    post = case_root / "post" / run.name
     ledger_path = case_root / "attempt_ledger.json"
     ledger = {
         "schema": "APCD_COUPLING_V3_ATTEMPT_LEDGER_V1",
@@ -219,6 +245,8 @@ def main():
                 solver_entry_timestamp=entry_timestamp,
             )
             allocator.mark_entered(lease)
+            if backend_type == "GPU":
+                emit(cfg, "GPU_ENGINE_ENTRY_CONFIRMED", slot_id=lease.slot_id, entry_evidence=evidence)
             queue_state(db, cfg, "SCIENTIFIC_SOLVER_ENTERED")
             emit(cfg, "SCIENTIFIC_SOLVER_ENTERED", slot_id=lease.slot_id, mpi_processes=12, threads=1, entry_evidence=evidence)
             queue_state(db, cfg, "SCIENTIFIC_SOLVER_RUNNING")
@@ -230,6 +258,20 @@ def main():
             interval_s=float(cfg.get("resource_monitor_interval_s", 30.0)),
         )
         resource_monitor.start()
+        launch_snapshot = read_resource_snapshot() if (resource_request is not None or backend_type is not None) else None
+        def guarded_start(start_child):
+            result = allocator.final_launch_revalidation(
+                lease, resource_request=resource_request, resource_snapshot=launch_snapshot,
+                resource_policy=cfg.get("resource_policy"), backend_type=backend_type,
+                admission_timestamp=(lease.admission_provenance or {}).get("admission_timestamp"),
+                start=lambda _provenance: start_child(),
+            )
+            if not result["eligible"]:
+                raise AdmissionGateBlocked(result)
+            cfg.update(result["provenance"])
+            ledger.update(result["provenance"])
+            write(ledger_path, ledger)
+            return result["launch_result"]
         if is_pw:
             if backend_type == "GPU":
                 fd.close()
@@ -238,13 +280,14 @@ def main():
                     {**cfg, "run_fsp": str(run)},
                     confirm_entry,
                     launcher_id=LAUNCHER_ID + ":GPU_STANDALONE",
+                    launch_guard=guarded_start,
                 )
                 load_fd = lumapi.FDTD(str(run), hide=True)
                 validate_load(load_fd, cfg, is_pw)
                 fd, load_fd = load_fd, None
                 gpu_completion_barrier = True
             else:
-                run_and_confirm_entry(fd, cfg, confirm_entry)
+                run_and_confirm_entry(fd, cfg, confirm_entry, launch_guard=guarded_start)
         else:
             confirm_entry({"observation": "legacy_api_entry_boundary"})
             fd.run()
@@ -253,9 +296,27 @@ def main():
             ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
             write(ledger_path, ledger)
             emit(cfg, "SOLVER_RETURNED", slot_id=lease.slot_id)
-        native_record = save_and_verify(fd, native)
-        emit(cfg, "NATIVE_TRUTH_DURABLE", native_fsp=str(native), native_fsp_sha256=native_record["sha256"])
-        fd.close(); fd = None
+        if backend_type == "GPU":
+            fd.close(); fd = None
+            native_record = persist_gpu_bundle(
+                run,
+                native,
+                staging_root=case_root / "bundle_stage_native",
+                require_sidecars=True,
+                validator=lambda staged: fresh_load_validate_path(staged, cfg, is_pw),
+            )
+            native = Path(native_record["fsp_path"])
+        else:
+            native_record = save_and_verify(fd, native)
+        emit(
+            cfg,
+            "NATIVE_TRUTH_DURABLE",
+            native_fsp=str(native),
+            native_fsp_sha256=native_record["sha256"],
+            native_bundle_manifest=native_record.get("manifest"),
+        )
+        if backend_type != "GPU":
+            fd.close(); fd = None
         load_fd = lumapi.FDTD(str(native), hide=True)
         validate_load(load_fd, cfg, is_pw)
         emit(cfg, "NATIVE_TRUTH_LOAD_ONLY_VALIDATED", native_fsp=str(native), native_fsp_sha256=native_record["sha256"])
@@ -265,7 +326,17 @@ def main():
             ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
             write(ledger_path, ledger)
             emit(cfg, "SOLVER_RETURNED", slot_id=lease.slot_id)
-        post_record = persist_and_verify(native, post)
+        if backend_type == "GPU":
+            post_record = persist_gpu_bundle(
+                native,
+                post,
+                staging_root=case_root / "bundle_stage_post",
+                require_sidecars=True,
+                validator=lambda staged: fresh_load_validate_path(staged, cfg, is_pw),
+            )
+            post = Path(post_record["fsp_path"])
+        else:
+            post_record = persist_and_verify(native, post)
         write(case_root / "post_fsp_verification.json", {"status": "PASS", **post_record, "load_only": True, "source_native_fsp": str(native), "source_native_sha256": native_record["sha256"]})
         load_fd = lumapi.FDTD(str(post), hide=True)
         validate_load(load_fd, cfg, is_pw)
@@ -340,6 +411,24 @@ def main():
                 except Exception: pass
             # An exception after scientific entry must not close the live owner
             # merely because bookkeeping or persistence failed.
+        if isinstance(exc, AdmissionGateBlocked):
+            write(case_root / "admission_revalidation_blocked.json", exc.evidence)
+            emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
+            print(json.dumps({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence}, ensure_ascii=False), flush=True)
+            return
+        if isinstance(exc, AdmissionGateBlocked):
+            write(case_root / "admission_revalidation_blocked.json", exc.evidence)
+            emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
+            print(json.dumps({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence}, ensure_ascii=False), flush=True)
+            return
+        if isinstance(exc, AdmissionGateBlocked):
+            write(case_root / "admission_revalidation_blocked.json", exc.evidence)
+            emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
+            print(json.dumps({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence}, ensure_ascii=False), flush=True)
+            return
         status = persistence_failure_status(returned) if returned else ("FAILED_AFTER_ENTRY" if entered else "FAILED_PREENTRY")
         queue_failure_state = "FAILED_AFTER_ENTRY" if entered else "FAILED_PREENTRY"
         write(case_root / "terminal_failure.json", {"status": status, "queue_state": queue_failure_state, "failure_class": status, "case_id": cfg["case"], "attempt_id": cfg["attempt"], "solver_entered": entered, "solver_returned": returned, "error": repr(exc), "rerun": False, "timestamp_utc": now()})

@@ -22,8 +22,10 @@ release, post-solver persistence, durable-truth completion, and idempotent
 release are mandatory. A foreign branch must receive an ownership error and
 must not mutate the lease.
 
-The current adoption state is `READY_READ_ONLY_FOR_CHART_REVIEW`. No
-Traditional solver entry was made by this task.
+The current adoption state is `BLOCKED_REAL_CANARY_NO_DURABLE_TRUTH`. The
+shared V3 launch path now requires final launch-generation revalidation, but
+the current real K6 canary ended `POSTENTRY_NO_TRUTH`; Traditional remains
+not production-ready. No Traditional solver entry was made by this task.
 
 ## Included authority
 

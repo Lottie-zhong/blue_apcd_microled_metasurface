@@ -1,16 +1,29 @@
 {
   "package": "SHARED_V3_GPU_BACKEND_TRADITIONAL_ADOPTION_V1",
-  "status": "READY_READ_ONLY_FOR_CHART_REVIEW",
+  "status": "BLOCKED_REAL_CANARY_NO_DURABLE_TRUTH",
   "traditional_solver_entries": 0,
   "foreign_mutation_count": 0,
   "gpu_physical_concurrency_cap": "PENDING_CHART_REVIEW",
   "source_sha256": {
     "scripts/shared_fdtd/control_v3/gpu_capacity.py": "3854859ce10280e86c71414ba5d768f188afaeb60ead7df4708cf99ab26a56c3",
-    "scripts/shared_fdtd/control_v3/allocator.py": "eea90322dbf8f3ede2eb6c884bce57107fcdfb0db396fafdebc1dd3c10c8ddbe",
+    "scripts/shared_fdtd/control_v3/allocator.py": "b63f37e79c43d8063ec266e1a7c389f2756101edf5dfd0d9853c23575ed3eec4",
     "scripts/shared_fdtd/control_v3/resources.py": "81493a26f0944df54d6c2706fc5affdbc50a39923c0017aa8cedf6f7e1868082",
     "scripts/shared_fdtd/control_v3/schema.sql": "1a7878c9a62fc0b8fb770e7cc126e8f572c7531ca0133e7a4398721ded2141af",
     "scripts/shared_fdtd/engine/dispatcher.py": "be4ba4f0905bf77acb5ac2949e687d7788bb5cd8bb275d878b72dd1ff3d7ad69",
     "scripts/shared_fdtd/tests/run_gpu_concurrency_autofill_zero_solver_tests.py": "a425ebf172d909d1fbae92f0f8eab07fc93128c7ea42de2a983a1a9739095e33",
-    "scripts/shared_fdtd/tests/run_gpu_autofill_sandbox_zero_solver.py": "34eeed326a2f5684dd4fa40a907d3338548c11c7d004a569a7c4fe20f9c60796"
+    "scripts/shared_fdtd/tests/run_gpu_autofill_sandbox_zero_solver.py": "34eeed326a2f5684dd4fa40a907d3338548c11c7d004a569a7c4fe20f9c60796",
+    "scripts/shared_fdtd/tools/pw_scientific_launcher.py": "70fb4ef2ad1f9bb44ac958576ac7cf031f87dd345ad209956d7b7a9a065941de",
+    "scripts/shared_fdtd/tools/v3_dispatcher_service.py": "880b1bb1dbdbbdfcbf2adcb6e72640d73d209f0d398d35286c6c1bbb511c0e7f",
+    "scripts/shared_fdtd/tools/v3_g2_host.py": "bf017fc0a9063ed509fadb04ac42d166ed1e727e5e3591e9635db4417173530b"
+  },
+  "shared_v3_launch_generation_revalidation": "IMPLEMENTED_ZERO_SOLVER_PASS_REAL_CANARY_BLOCKED",
+  "shared_v3_admission_control_stable": false,
+  "real_canary": {
+    "case_id": "K6V1_S12",
+    "attempt_id": "attempt_001",
+    "scientific_entry_count": 1,
+    "truth_durable": false,
+    "terminal_status": "POSTENTRY_NO_TRUTH",
+    "replay": 0
   }
 }

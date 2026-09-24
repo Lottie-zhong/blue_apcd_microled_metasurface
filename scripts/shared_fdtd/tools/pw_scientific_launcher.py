@@ -58,7 +58,7 @@ def _new_solver_processes(before, rows, run_fsp):
     return result
 
 
-def run_and_confirm_entry(fd, cfg, on_confirmed, process_snapshot=None, run_callable=None, launcher_id=LAUNCHER_ID):
+def run_and_confirm_entry(fd, cfg, on_confirmed, process_snapshot=None, run_callable=None, launcher_id=LAUNCHER_ID, launch_guard=None):
     """Run once and call on_confirmed at the first durable entry evidence.
 
     A normal API return is the fallback boundary for hosts that do not expose
@@ -82,7 +82,11 @@ def run_and_confirm_entry(fd, cfg, on_confirmed, process_snapshot=None, run_call
 
     def target():
         try:
-            (run_callable or fd.run)()
+            run = run_callable or fd.run
+            if launch_guard is None:
+                run()
+            else:
+                launch_guard(run)
         except BaseException as exc:
             result["error"] = exc
 
@@ -156,7 +160,7 @@ def _gpu_completion_evidence(cfg, process_snapshot, run_fsp):
 
 
 def run_gpu_and_confirm_completion(
-    fd, cfg, on_confirmed, process_snapshot=None, run_callable=None, launcher_id=LAUNCHER_ID
+    fd, cfg, on_confirmed, process_snapshot=None, run_callable=None, launcher_id=LAUNCHER_ID, launch_guard=None
 ):
     """Run one GPU job and cross a completion barrier before returning."""
     snapshot = process_snapshot or _snapshot
@@ -177,7 +181,11 @@ def run_gpu_and_confirm_completion(
 
     def target():
         try:
-            (run_callable or fd.run)()
+            run = run_callable or fd.run
+            if launch_guard is None:
+                run()
+            else:
+                launch_guard(run)
         except BaseException as exc:
             result["error"] = exc
 
@@ -221,7 +229,7 @@ def _standalone_gpu_script(resource_name, monitor_names):
 
 
 def run_standalone_gpu_and_confirm_completion(
-    cfg, on_confirmed, process_snapshot=None, popen_factory=None, launcher_id=LAUNCHER_ID
+    cfg, on_confirmed, process_snapshot=None, popen_factory=None, launcher_id=LAUNCHER_ID, launch_guard=None
 ):
     """Run GPU in a child process; caller must fresh-LOAD and validate monitors."""
     run_fsp = Path(cfg["run_fsp"])
@@ -250,11 +258,13 @@ def run_standalone_gpu_and_confirm_completion(
     before = snapshot()
     try:
         with log_path.open("w", encoding="utf-8") as stream:
-            child = (popen_factory or subprocess.Popen)(
-                command, stdout=stream, stderr=subprocess.STDOUT,
-                cwd=str(run_fsp.parent),
-                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-            )
+            def start_child():
+                return (popen_factory or subprocess.Popen)(
+                    command, stdout=stream, stderr=subprocess.STDOUT,
+                    cwd=str(run_fsp.parent),
+                    creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+                )
+            child = launch_guard(start_child) if launch_guard is not None else start_child()
             confirmed = False
             callback_error = []
             poll_s = max(float(cfg.get("entry_confirmation_poll_s", 0.5)), 0.05)
