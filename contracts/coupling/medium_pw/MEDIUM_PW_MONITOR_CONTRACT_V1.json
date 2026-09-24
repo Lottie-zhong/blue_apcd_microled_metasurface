@@ -39,12 +39,12 @@
         "Hy",
         "Hz"
       ],
-      "role": "input reference-plane total-field state for canonical C_PW normalization and gauge",
+      "role": "input sample-plane total-field state for canonical C_PW normalization and gauge",
       "local_medium": "APCD_GAN_NATIVE_M1"
     },
     "MON_PRENP": {
       "type": "2D Z-normal",
-      "z_nm": 1200.0,
+      "z_nm": 1150.0,
       "x_span_nm": 1740.0,
       "y_span_nm": 290.0,
       "complex_fields": [
@@ -55,11 +55,13 @@
         "Hy",
         "Hz"
       ],
-      "role": "pre-NP modal/interface state"
+      "role": "pre-NP sample-plane modal/interface state; projected/de-embedded to PRENP_REF=1202 nm",
+      "sample_plane_nm": 1150.0,
+      "reference_plane_nm": 1202.0
     },
     "MON_POSTNP": {
       "type": "2D Z-normal",
-      "z_nm": 2212.0,
+      "z_nm": 1800.0,
       "x_span_nm": 1740.0,
       "y_span_nm": 290.0,
       "complex_fields": [
@@ -70,7 +72,9 @@
         "Hy",
         "Hz"
       ],
-      "role": "post-NP modal/interface state and T"
+      "role": "post-NP sample-plane modal/interface state; projected/de-embedded to POSTNP_REF=1722 nm",
+      "sample_plane_nm": 1800.0,
+      "reference_plane_nm": 1722.0
     },
     "MON_REFLECTION": {
       "type": "2D Z-normal",
@@ -104,8 +108,8 @@
     },
     "samples_nm": {
       "MON_IN": -100.0,
-      "MON_PRENP": 1200.0,
-      "MON_POSTNP": 2212.0
+      "MON_PRENP": 1150.0,
+      "MON_POSTNP": 1800.0
     },
     "references_nm": {
       "MON_IN": -50.0,
@@ -142,5 +146,19 @@
       460
     ],
     "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1"
+  },
+  "plane_authority": {
+    "sample_planes_nm": {
+      "MON_IN": -100.0,
+      "MON_PRENP": 1150.0,
+      "MON_POSTNP": 1800.0,
+      "MON_REFLECTION": -400.0
+    },
+    "reference_planes_nm": {
+      "IN": -50.0,
+      "PRENP": 1202.0,
+      "POSTNP": 1722.0
+    },
+    "sample_and_reference_are_distinct": true
   }
 }

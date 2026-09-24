@@ -103,8 +103,8 @@ def build():
         fd.addplane()
         set_props(fd, {"name": "PW_SOURCE_X_NORMAL", "plane wave type": "Bloch/periodic", "injection axis": "z-axis", "direction": "Forward", "polarization angle": 0.0, "angle theta": 0.0, "angle phi": 0.0, "x": 0.0, "y": 0.0, "z": -276e-9, "x span": 1740e-9, "y span": 290e-9, "wavelength start": 440e-9, "wavelength stop": 460e-9})
         add_monitor(fd, "MON_IN", -100.0, True)
-        add_monitor(fd, "MON_PRENP", 1200.0, True)
-        add_monitor(fd, "MON_POSTNP", 2212.0, True)
+        add_monitor(fd, "MON_PRENP", 1150.0, True)
+        add_monitor(fd, "MON_POSTNP", 1800.0, True)
         add_monitor(fd, "MON_REFLECTION", -400.0, False)
         for spec in sorted(mesh["mesh_overrides"], key=lambda item: -item["priority"]):
             add_mesh(fd, spec)

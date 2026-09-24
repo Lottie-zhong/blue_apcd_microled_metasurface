@@ -6,10 +6,10 @@ from typing import Any, Mapping, Sequence
 WAVELENGTHS_NM = list(range(440, 461))
 FIELDS = ("Ex", "Ey", "Ez", "Hx", "Hy", "Hz")
 MONITOR_ROLES = {
-    "MON_IN": {"z_nm": -100.0, "required_fields": FIELDS},
-    "MON_PRENP": {"z_nm": 1200.0, "required_fields": FIELDS},
-    "MON_POSTNP": {"z_nm": 2212.0, "required_fields": FIELDS},
-    "MON_REFLECTION": {"z_nm": -400.0, "required_fields": ()},
+    "MON_IN": {"sample_z_nm": -100.0, "required_fields": FIELDS},
+    "MON_PRENP": {"sample_z_nm": 1150.0, "reference_z_nm": 1202.0, "required_fields": FIELDS},
+    "MON_POSTNP": {"sample_z_nm": 1800.0, "reference_z_nm": 1722.0, "required_fields": FIELDS},
+    "MON_REFLECTION": {"sample_z_nm": -400.0, "required_fields": ()},
 }
 
 
@@ -32,7 +32,7 @@ def validate_monitor(name: str, payload: Mapping[str, Any], wavelengths_nm: Sequ
         errors.append("wavelength_grid_mismatch")
     if payload.get("type") != "2D Z-normal":
         errors.append("type_mismatch")
-    if abs(float(payload.get("z_nm", 1e99)) - role["z_nm"]) > 1e-9:
+    if abs(float(payload.get("z_nm", 1e99)) - role["sample_z_nm"]) > 1e-9:
         errors.append("z_mismatch")
     if abs(float(payload.get("x_span_nm", -1.0)) - 1740.0) > 1e-9:
         errors.append("x_span_mismatch")

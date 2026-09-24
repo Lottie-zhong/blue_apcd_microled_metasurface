@@ -12,7 +12,7 @@ from gpu_native_truth_validator_v1 import FIELDS, WAVELENGTHS_NM, validate_truth
 
 
 def payload(name: str) -> dict:
-    base = {"present": True, "type": "2D Z-normal", "z_nm": {"MON_IN": -100.0, "MON_PRENP": 1200.0, "MON_POSTNP": 2212.0, "MON_REFLECTION": -400.0}[name], "x_span_nm": 1740.0, "y_span_nm": 290.0, "wavelengths_nm": WAVELENGTHS_NM}
+    base = {"present": True, "type": "2D Z-normal", "z_nm": {"MON_IN": -100.0, "MON_PRENP": 1150.0, "MON_POSTNP": 1800.0, "MON_REFLECTION": -400.0}[name], "x_span_nm": 1740.0, "y_span_nm": 290.0, "wavelengths_nm": WAVELENGTHS_NM}
     if name == "MON_REFLECTION":
         return base | {"fields": [], "signed_poynting": [1.0] * 21, "R": [0.1] * 21}
     return base | {"fields": list(FIELDS)}

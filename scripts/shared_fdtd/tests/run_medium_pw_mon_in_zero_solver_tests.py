@@ -41,7 +41,7 @@ def main() -> None:
     amplitudes = {(0, 0, 1, "TM"): 1.0 + 0.2j, (0, 0, -1, "TM"): 0.3 - 0.1j}
     synthetic_planes = {
         plane: _synthetic_raw(65, 17, z_nm * 1e-9, 1.7 + 0.002j, amplitudes)
-        for plane, z_nm in (("IN", -100.0), ("PRENP", 1200.0), ("POSTNP", 2212.0))
+        for plane, z_nm in (("IN", -100.0), ("PRENP", 1150.0), ("POSTNP", 1800.0))
     }
     synthetic_state = canonical_state_from_raw(synthetic_planes, {plane: [1.7 + 0.002j] for plane in synthetic_planes})
     incident_order = list(map(tuple, synthetic_state["orders"])).index((0, 0))
