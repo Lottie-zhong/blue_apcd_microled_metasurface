@@ -30,6 +30,7 @@ from shared_fdtd.tools.pw_scientific_launcher import (
     load_only_validate as pw_load_only_validate,
     postprocess as pw_postprocess,
     run_and_confirm_entry,
+    run_standalone_gpu_and_confirm_completion,
     validate_config as validate_pw_config,
 )
 
@@ -135,6 +136,7 @@ def main():
     write(ledger_path, ledger)
     entered = False
     returned = False
+    gpu_completion_barrier = False
     fd = None
     load_fd = None
     resource_monitor = None
@@ -190,8 +192,10 @@ def main():
             sys.path.insert(0, str(LUMAPI))
         import lumapi
         fd = lumapi.FDTD(str(run), hide=True)
-        fd.setresource("FDTD", 1, "processes", "12")
-        fd.setresource("FDTD", 1, "threads", "1")
+        backend_type = str(cfg.get("backend_type", "CPU")).upper()
+        if backend_type != "GPU":
+            fd.setresource("FDTD", 1, "processes", "12")
+            fd.setresource("FDTD", 1, "threads", "1")
         cfg["run_fsp"] = str(run)
         def confirm_entry(evidence):
             nonlocal entered
@@ -227,14 +231,28 @@ def main():
         )
         resource_monitor.start()
         if is_pw:
-            run_and_confirm_entry(fd, cfg, confirm_entry)
+            if backend_type == "GPU":
+                fd.close()
+                fd = None
+                run_standalone_gpu_and_confirm_completion(
+                    {**cfg, "run_fsp": str(run)},
+                    confirm_entry,
+                    launcher_id=LAUNCHER_ID + ":GPU_STANDALONE",
+                )
+                load_fd = lumapi.FDTD(str(run), hide=True)
+                validate_load(load_fd, cfg, is_pw)
+                fd, load_fd = load_fd, None
+                gpu_completion_barrier = True
+            else:
+                run_and_confirm_entry(fd, cfg, confirm_entry)
         else:
             confirm_entry({"observation": "legacy_api_entry_boundary"})
             fd.run()
-        returned = True
-        ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
-        write(ledger_path, ledger)
-        emit(cfg, "SOLVER_RETURNED", slot_id=lease.slot_id)
+        if not gpu_completion_barrier:
+            returned = True
+            ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
+            write(ledger_path, ledger)
+            emit(cfg, "SOLVER_RETURNED", slot_id=lease.slot_id)
         native_record = save_and_verify(fd, native)
         emit(cfg, "NATIVE_TRUTH_DURABLE", native_fsp=str(native), native_fsp_sha256=native_record["sha256"])
         fd.close(); fd = None
@@ -242,6 +260,11 @@ def main():
         validate_load(load_fd, cfg, is_pw)
         emit(cfg, "NATIVE_TRUTH_LOAD_ONLY_VALIDATED", native_fsp=str(native), native_fsp_sha256=native_record["sha256"])
         load_fd.close(); load_fd = None
+        if gpu_completion_barrier:
+            returned = True
+            ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
+            write(ledger_path, ledger)
+            emit(cfg, "SOLVER_RETURNED", slot_id=lease.slot_id)
         post_record = persist_and_verify(native, post)
         write(case_root / "post_fsp_verification.json", {"status": "PASS", **post_record, "load_only": True, "source_native_fsp": str(native), "source_native_sha256": native_record["sha256"]})
         load_fd = lumapi.FDTD(str(post), hide=True)

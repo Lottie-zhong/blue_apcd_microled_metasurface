@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import subprocess
 import threading
 import time
 from pathlib import Path
@@ -57,7 +58,7 @@ def _new_solver_processes(before, rows, run_fsp):
     return result
 
 
-def run_and_confirm_entry(fd, cfg, on_confirmed, process_snapshot=None):
+def run_and_confirm_entry(fd, cfg, on_confirmed, process_snapshot=None, run_callable=None, launcher_id=LAUNCHER_ID):
     """Run once and call on_confirmed at the first durable entry evidence.
 
     A normal API return is the fallback boundary for hosts that do not expose
@@ -75,13 +76,13 @@ def run_and_confirm_entry(fd, cfg, on_confirmed, process_snapshot=None):
             return
         confirmed = True
         try:
-            on_confirmed({"launcher": LAUNCHER_ID, **evidence})
+            on_confirmed({"launcher": launcher_id, **evidence})
         except BaseException as exc:  # keep waiting for the solver thread
             callback_error.append(exc)
 
     def target():
         try:
-            fd.run()
+            (run_callable or fd.run)()
         except BaseException as exc:
             result["error"] = exc
 
@@ -101,6 +102,198 @@ def run_and_confirm_entry(fd, cfg, on_confirmed, process_snapshot=None):
         raise result["error"]
 
 
+GPU_COMPLETION_MARKERS = (
+    "simulation complete",
+    "simulation finished",
+    "finished simulation",
+    "early shutoff",
+    "autoshutoff",
+)
+
+
+def _solver_processes_for_run(rows, run_fsp):
+    run_name = Path(run_fsp).name.lower()
+    result = []
+    for row in rows:
+        name = str(row.get("Name") or "").lower()
+        command = str(row.get("CommandLine") or "")
+        is_solver = "fdtd-engine" in name or name in {"mpiexec.exe", "mpiexec"}
+        if is_solver and run_name in command.lower():
+            result.append(row)
+    return result
+
+
+def _gpu_completion_logs(run_fsp):
+    return sorted(Path(run_fsp).parent.glob("*_p*.log"))
+
+
+def _gpu_completion_evidence(cfg, process_snapshot, run_fsp):
+    active = _solver_processes_for_run(process_snapshot(), run_fsp)
+    if active:
+        raise RuntimeError("GPU_COMPLETION_BARRIER_ACTIVE_PROCESS")
+    logs = _gpu_completion_logs(run_fsp)
+    if not logs:
+        raise RuntimeError("GPU_COMPLETION_BARRIER_LOG_MISSING")
+    text = "\n".join(
+        path.read_text(encoding="utf-8", errors="replace") for path in logs
+    ).lower()
+    if not any(marker in text for marker in GPU_COMPLETION_MARKERS):
+        raise RuntimeError("GPU_COMPLETION_BARRIER_LOG_INCOMPLETE")
+    run_path = Path(run_fsp)
+    if not run_path.is_file():
+        raise RuntimeError("GPU_COMPLETION_BARRIER_FSP_MISSING")
+    first = run_path.stat()
+    second = run_path.stat()
+    if (first.st_size, first.st_mtime_ns) != (second.st_size, second.st_mtime_ns):
+        raise RuntimeError("GPU_COMPLETION_BARRIER_FSP_UNSTABLE")
+    return {
+        "observation": "gpu_job_completed",
+        "completion_logs": [str(path) for path in logs],
+        "active_processes": [],
+        "run_fsp_size": first.st_size,
+        "run_fsp_mtime_ns": first.st_mtime_ns,
+    }
+
+
+def run_gpu_and_confirm_completion(
+    fd, cfg, on_confirmed, process_snapshot=None, run_callable=None, launcher_id=LAUNCHER_ID
+):
+    """Run one GPU job and cross a completion barrier before returning."""
+    snapshot = process_snapshot or _snapshot
+    before = snapshot()
+    result = {"error": None}
+    confirmed = False
+    callback_error = []
+
+    def call_confirmed(evidence):
+        nonlocal confirmed
+        if confirmed:
+            return
+        confirmed = True
+        try:
+            on_confirmed({"launcher": launcher_id, **evidence})
+        except BaseException as exc:
+            callback_error.append(exc)
+
+    def target():
+        try:
+            (run_callable or fd.run)()
+        except BaseException as exc:
+            result["error"] = exc
+
+    worker = threading.Thread(target=target, name="pw-gpu-run", daemon=True)
+    worker.start()
+    while worker.is_alive():
+        if not confirmed:
+            rows = _new_solver_processes(before, snapshot(), cfg["run_fsp"])
+            if rows:
+                call_confirmed({"observation": "new_solver_process", "processes": rows})
+        worker.join(timeout=float(cfg.get("entry_confirmation_poll_s", 0.5)))
+    if result["error"] is not None:
+        raise result["error"]
+    evidence = _gpu_completion_evidence(cfg, snapshot, cfg["run_fsp"])
+    if not confirmed:
+        call_confirmed({
+            "observation": "job_manager_returned_with_completion",
+            **{key: value for key, value in evidence.items() if key != "observation"},
+        })
+    if callback_error:
+        raise callback_error[0]
+    return evidence
+
+
+def _lumerical_string(value):
+    return json.dumps(str(value), ensure_ascii=True)
+
+
+def _standalone_gpu_command(fdtd_solutions, script_path, run_fsp):
+    return [
+        str(fdtd_solutions), "-nw", "-hide", "-trust-script", "-run",
+        str(script_path), str(run_fsp),
+    ]
+
+
+def _standalone_gpu_script(resource_name, monitor_names):
+    lines = [f'run("FDTD","GPU",{_lumerical_string(resource_name)});']
+    lines.extend(f'getdata({_lumerical_string(name)},"f");' for name in monitor_names)
+    lines.append("save;")
+    return "\n".join(lines) + "\n"
+
+
+def run_standalone_gpu_and_confirm_completion(
+    cfg, on_confirmed, process_snapshot=None, popen_factory=None, launcher_id=LAUNCHER_ID
+):
+    """Run GPU in a child process; caller must fresh-LOAD and validate monitors."""
+    run_fsp = Path(cfg["run_fsp"])
+    if not run_fsp.is_file():
+        raise RuntimeError("GPU_STANDALONE_RUN_FSP_MISSING")
+    resource_name = str(cfg.get("gpu_resource_name") or "").strip()
+    if not resource_name:
+        raise RuntimeError("GPU_RESOURCE_NAME_REQUIRED")
+    monitors = _contract(cfg)["monitors"]
+    monitor_names = []
+    for key in ("input", "pre", "output"):
+        name = str(monitors[key])
+        if name not in monitor_names:
+            monitor_names.append(name)
+    root = run_fsp.parent / "gpu_standalone"
+    root.mkdir(parents=True, exist_ok=True)
+    script_path = root / "run_gpu.lsf"
+    log_path = root / "child.log"
+    script_path.write_text(_standalone_gpu_script(resource_name, monitor_names), encoding="utf-8")
+    executable = Path(
+        cfg.get("fdtd_solutions_exe")
+        or r"N:\Program Files\ANSYS Inc\v251\Lumerical\bin\fdtd-solutions.exe"
+    )
+    command = _standalone_gpu_command(executable, script_path, run_fsp)
+    snapshot = process_snapshot or _snapshot
+    before = snapshot()
+    try:
+        with log_path.open("w", encoding="utf-8") as stream:
+            child = (popen_factory or subprocess.Popen)(
+                command, stdout=stream, stderr=subprocess.STDOUT,
+                cwd=str(run_fsp.parent),
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+            confirmed = False
+            callback_error = []
+            poll_s = max(float(cfg.get("entry_confirmation_poll_s", 0.5)), 0.05)
+            while True:
+                rows = _new_solver_processes(before, snapshot(), run_fsp)
+                if rows and not confirmed:
+                    confirmed = True
+                    try:
+                        on_confirmed({
+                            "launcher": launcher_id, "observation": "new_solver_process",
+                            "processes": rows, "command": command,
+                        })
+                    except BaseException as exc:
+                        callback_error.append(exc)
+                returncode = child.poll()
+                if returncode is not None:
+                    break
+                time.sleep(poll_s)
+    except FileNotFoundError as exc:
+        raise RuntimeError("GPU_STANDALONE_EXECUTABLE_MISSING") from exc
+    if returncode != 0:
+        raise RuntimeError(f"GPU_STANDALONE_CHILD_FAILED:{returncode}:{log_path}")
+    active = _solver_processes_for_run(snapshot(), run_fsp)
+    if active:
+        raise RuntimeError("GPU_STANDALONE_ACTIVE_PROCESS")
+    if callback_error:
+        raise callback_error[0]
+    if not confirmed:
+        on_confirmed({
+            "launcher": launcher_id, "observation": "standalone_child_returned",
+            "returncode": returncode, "child_log": str(log_path), "command": command,
+        })
+    stat = run_fsp.stat()
+    return {
+        "observation": "standalone_gpu_child_returned", "returncode": returncode,
+        "child_log": str(log_path), "script": str(script_path), "command": command,
+        "run_fsp_size": stat.st_size, "run_fsp_mtime_ns": stat.st_mtime_ns,
+        "active_processes": [],
+    }
 def load_only_validate(fd, cfg):
     monitors = _contract(cfg)["monitors"]
     for monitor in (monitors["input"], monitors["pre"], monitors["output"]):
