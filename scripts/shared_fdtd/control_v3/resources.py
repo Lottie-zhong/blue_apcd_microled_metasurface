@@ -12,6 +12,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
+from .gpu_capacity import ensure_gpu_capacity_tables
+
 ACTIVE_RESERVATION_STATES = ("RESERVED", "LIVE", "RELEASE_PENDING", "OWNER_QUARANTINED")
 
 
@@ -94,6 +96,7 @@ def ensure_resource_tables(con) -> None:
           attempt_id TEXT NOT NULL,
           slot_id TEXT NOT NULL,
           resource_class TEXT NOT NULL,
+          backend_type TEXT NOT NULL DEFAULT 'CPU',
           estimated_peak_ram_bytes INTEGER,
           estimated_commit_bytes INTEGER,
           mpi_ranks INTEGER NOT NULL,
@@ -110,6 +113,10 @@ def ensure_resource_tables(con) -> None:
           ON resource_reservations(state, branch_id, integrated_pw);
         """
     )
+    columns = {row[1] for row in con.execute("PRAGMA table_info(resource_reservations)")}
+    if "backend_type" not in columns:
+        con.execute("ALTER TABLE resource_reservations ADD COLUMN backend_type TEXT NOT NULL DEFAULT 'CPU'")
+    ensure_gpu_capacity_tables(con)
 
 
 def _memory_status() -> dict[str, int]:
@@ -212,7 +219,8 @@ def read_resource_snapshot(process_provider: Callable[[], Iterable[dict[str, Any
     except Exception as exc:
         processes = []
         errors.append("process:" + repr(exc))
-    engine_names = {"fdtd-engine-msmpi.exe", "fdtd-solutions.exe"}
+    # Lumerical's resident "-server -hide" process is control infrastructure, not a scientific solver.
+    engine_names = {"fdtd-engine-msmpi.exe"}
     smpd_names = {"smpd.exe", "smpd-intel-4.0.3.009-x64.exe"}
     mpiexec_names = {"mpiexec.exe", "mpiexec.hydra.exe"}
     engine = [row for row in processes if str(row.get("Name", "")).lower() in engine_names]
@@ -232,9 +240,65 @@ def read_resource_snapshot(process_provider: Callable[[], Iterable[dict[str, Any
     )
 
 
+def _connection_is_readonly(con) -> bool:
+    try:
+        return bool(con.execute("PRAGMA query_only").fetchone()[0])
+    except Exception:
+        return False
+
+
 def _active_reservations(con) -> list[dict[str, Any]]:
-    ensure_resource_tables(con)
+    if not _connection_is_readonly(con):
+        ensure_resource_tables(con)
     return [dict(row) for row in con.execute("SELECT * FROM resource_reservations WHERE state IN (?,?,?,?)", ACTIVE_RESERVATION_STATES)]
+
+
+def normalize_backend(value: Any) -> str | None:
+    if value is None or str(value).strip() == "":
+        return None
+    value = str(value).strip().upper()
+    return value if value in {"CPU", "GPU"} else value
+
+
+def _active_backend_owners(con) -> list[dict[str, Any]]:
+    if not _connection_is_readonly(con):
+        ensure_resource_tables(con)
+    owners = []
+    for slot in con.execute("SELECT slot_id,owner_branch,logical_case_id,attempt_id FROM slots WHERE state <> 'FREE'"):
+        backend = None
+        gpu_lease = con.execute("SELECT 1 FROM gpu_capacity_leases WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=? AND state IN (?,?,?,?) LIMIT 1", (slot["slot_id"], slot["owner_branch"], slot["logical_case_id"], slot["attempt_id"], "RESERVED", "LIVE", "RELEASE_PENDING", "OWNER_QUARANTINED")).fetchone()
+        if gpu_lease is not None:
+            backend = "GPU"
+        reservation = con.execute("SELECT backend_type FROM resource_reservations WHERE slot_id=? AND state IN (?,?,?,?) ORDER BY reservation_id DESC LIMIT 1", (slot["slot_id"], *ACTIVE_RESERVATION_STATES)).fetchone()
+        if backend is None and reservation is not None:
+            backend = normalize_backend(reservation["backend_type"])
+        if backend is None:
+            queue = con.execute("SELECT payload_json FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?", (slot["owner_branch"], slot["logical_case_id"], slot["attempt_id"])).fetchone()
+            if queue is not None:
+                try:
+                    backend = normalize_backend(json.loads(queue["payload_json"] or "{}").get("backend_type"))
+                except (TypeError, ValueError):
+                    pass
+        if backend is None and slot["owner_branch"] == "traditional":
+            backend = "CPU"
+        owners.append({"slot_id": slot["slot_id"], "owner_branch": slot["owner_branch"], "logical_case_id": slot["logical_case_id"], "attempt_id": slot["attempt_id"], "backend_type": backend})
+    return owners
+
+
+def backend_admission(con, requested_backend: Any, *, branch: str, logical_case_id: str, attempt_id: str, snapshot: ResourceSnapshot | None = None) -> dict[str, Any]:
+    requested = normalize_backend(requested_backend)
+    owners = _active_backend_owners(con) if requested else []
+    reasons = []
+    if requested not in {"CPU", "GPU"}:
+        reasons.append("BACKEND_UNDECLARED")
+    conflicts = [o for o in owners if o["backend_type"] in {"CPU", "GPU"} and o["backend_type"] != requested and (o["owner_branch"], o["logical_case_id"], o["attempt_id"]) != (branch, logical_case_id, attempt_id)]
+    if conflicts:
+        reasons.append(f"{conflicts[0]['backend_type']}_FDTD_ACTIVE_FOREIGN_OWNER")
+    if snapshot is not None and snapshot.process_errors:
+        reasons.append("BACKEND_PROCESS_CENSUS_UNAVAILABLE")
+    if snapshot is not None and snapshot.engine_process_count and not owners:
+        reasons.append("BACKEND_PROCESS_WITHOUT_ACTIVE_LIFECYCLE")
+    return {"BACKEND_PREFLIGHT": "PASS" if not reasons else "WAIT_BACKEND_EXCLUSIVE", "RESOURCE_PREFLIGHT": "PASS" if not reasons else "WAIT_RESOURCE_CAPACITY", "status": "PASS" if not reasons else "WAIT_RESOURCE_CAPACITY", "requested_backend": requested, "active_backend_owners": owners, "reasons": reasons, "branch": branch, "logical_case_id": logical_case_id, "attempt_id": attempt_id}
 
 
 def resource_admission(con, branch: str, request: ResourceRequest, snapshot: ResourceSnapshot, *, pw_integrated_max_concurrent: int = 1) -> dict[str, Any]:

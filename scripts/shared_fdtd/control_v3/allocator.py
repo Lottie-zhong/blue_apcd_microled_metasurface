@@ -39,21 +39,35 @@ class Allocator:
         con.execute("INSERT INTO lease_events(timestamp,slot_id,branch_id,logical_case_id,attempt_id,event_type,lease_token_hash,fencing_generation,metadata_json) VALUES(?,?,?,?,?,?,?,?,?)",
                     (utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id, event, lease.token_hash, lease.fencing_generation, json.dumps(metadata or {}, sort_keys=True)))
 
-    def acquire(self, branch: str, logical_case_id: str, attempt_id: str, *, resource_request=None, resource_snapshot=None, resource_policy=None) -> Lease:
+    def acquire(self, branch: str, logical_case_id: str, attempt_id: str, *, resource_request=None, resource_snapshot=None, resource_policy=None, backend_type=None) -> Lease:
         admission = None
         try:
             with self.db.immediate() as con:
-                if resource_request is not None:
-                    from .resources import ResourceCapacityWait, ResourceRequest, ensure_resource_tables, read_resource_snapshot, resource_admission
-                    ensure_resource_tables(con)
-                    if not isinstance(resource_request, ResourceRequest):
-                        resource_request = ResourceRequest.from_payload(resource_request)
-                    if resource_request is None:
-                        raise ResourceCapacityWait({"RESOURCE_PREFLIGHT": "WAIT_RESOURCE_CAPACITY", "reasons": ["RESOURCE_ESTIMATE_REQUIRED"]})
+                from .resources import ResourceCapacityWait, ResourceRequest, backend_admission, ensure_resource_tables, normalize_backend, read_resource_snapshot, resource_admission
+                from .gpu_capacity import gpu_capacity_status, reserve_gpu_capacity
+                ensure_resource_tables(con)
+                backend_type = normalize_backend(backend_type)
+                if resource_request is not None and not isinstance(resource_request, ResourceRequest):
+                    resource_request = ResourceRequest.from_payload(resource_request)
+                if resource_request is None and backend_type is not None:
                     resource_snapshot = resource_snapshot or read_resource_snapshot()
-                    admission = resource_admission(con, branch, resource_request, resource_snapshot, pw_integrated_max_concurrent=int((resource_policy or {}).get("pw_integrated_max_concurrent", 1)))
-                    if admission["RESOURCE_PREFLIGHT"] != "PASS":
-                        raise ResourceCapacityWait(admission)
+                if backend_type is not None:
+                    backend = backend_admission(con, backend_type, branch=branch, logical_case_id=logical_case_id, attempt_id=attempt_id, snapshot=resource_snapshot)
+                    if backend["BACKEND_PREFLIGHT"] != "PASS":
+                        raise ResourceCapacityWait(backend)
+                    admission = {"backend": backend}
+                if backend_type == "GPU":
+                    cap_override = (resource_policy or {}).get("gpu_physical_concurrency_cap")
+                    capacity = gpu_capacity_status(con, cap_override=int(cap_override) if cap_override is not None else None)
+                    if capacity["status"] != "PASS":
+                        raise ResourceCapacityWait({"GPU_CAPACITY": capacity, "RESOURCE_PREFLIGHT": "WAIT_RESOURCE_CAPACITY", "status": "WAIT_RESOURCE_CAPACITY"})
+                    admission = {**(admission or {}), "gpu_capacity": capacity}
+                if resource_request is not None:
+                    resource_snapshot = resource_snapshot or read_resource_snapshot()
+                    resource = resource_admission(con, branch, resource_request, resource_snapshot, pw_integrated_max_concurrent=int((resource_policy or {}).get("pw_integrated_max_concurrent", 1)))
+                    if resource["RESOURCE_PREFLIGHT"] != "PASS":
+                        raise ResourceCapacityWait(resource)
+                    admission = {**(admission or {}), "resource": resource}
                 limit = con.execute("SELECT * FROM branch_limits WHERE branch_id=? AND enabled=1", (branch,)).fetchone()
                 if not limit: raise BranchCapReached(f"branch disabled or absent: {branch}")
                 active = con.execute("SELECT COUNT(*) FROM slots WHERE owner_branch=? AND state IN (?,?,?,?)", (branch, *ACTIVE_STATES)).fetchone()[0]
@@ -66,29 +80,31 @@ class Allocator:
                                       (branch, logical_case_id, attempt_id, token, generation, now, now, now, chosen)).rowcount
                 if changed != 1: raise NoFreeSlot("concurrent acquisition won")
                 lease = Lease(chosen, branch, logical_case_id, attempt_id, token, generation)
-                if admission is not None:
+                if resource_request is not None:
                     request = resource_request
                     reservation = con.execute(
                         "SELECT reservation_id,state FROM resource_reservations WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
                         (branch, logical_case_id, attempt_id),
                     ).fetchone()
                     values = (
-                        chosen, request.resource_class, request.estimated_peak_ram_bytes,
+                        chosen, request.resource_class, backend_type or "CPU", request.estimated_peak_ram_bytes,
                         request.estimated_commit_bytes, request.mpi_ranks, request.threads,
                         int(request.integrated_pw), request.safety_margin_ratio, now,
                     )
                     if reservation is None:
                         con.execute(
-                            "INSERT INTO resource_reservations(branch_id,logical_case_id,attempt_id,slot_id,resource_class,estimated_peak_ram_bytes,estimated_commit_bytes,mpi_ranks,threads,integrated_pw,safety_margin_ratio,state,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                            "INSERT INTO resource_reservations(branch_id,logical_case_id,attempt_id,slot_id,resource_class,backend_type,estimated_peak_ram_bytes,estimated_commit_bytes,mpi_ranks,threads,integrated_pw,safety_margin_ratio,state,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                             (branch, logical_case_id, attempt_id, *values[:-1], "RESERVED", values[-1], values[-1]),
                         )
                     elif reservation["state"] == "RELEASED":
                         con.execute(
-                            "UPDATE resource_reservations SET slot_id=?,resource_class=?,estimated_peak_ram_bytes=?,estimated_commit_bytes=?,mpi_ranks=?,threads=?,integrated_pw=?,safety_margin_ratio=?,state='RESERVED',released_at=NULL,updated_at=? WHERE reservation_id=?",
+                            "UPDATE resource_reservations SET slot_id=?,resource_class=?,backend_type=?,estimated_peak_ram_bytes=?,estimated_commit_bytes=?,mpi_ranks=?,threads=?,integrated_pw=?,safety_margin_ratio=?,state='RESERVED',released_at=NULL,updated_at=? WHERE reservation_id=?",
                             (*values, reservation["reservation_id"]),
                         )
                     else:
                         raise RuntimeError("RESOURCE_RESERVATION_ALREADY_ACTIVE")
+                if backend_type == "GPU":
+                    admission = {**(admission or {}), "gpu_capacity_reserved": reserve_gpu_capacity(con, lease)}
                 self._event(con, lease, "LEASE_ACQUIRED", {"resource_admission": admission} if admission else None)
                 return lease
         except sqlite3.OperationalError as exc:
@@ -106,6 +122,8 @@ class Allocator:
                     ensure_resource_tables(con)
                     con.execute("UPDATE resource_reservations SET state=?,updated_at=? WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=?",
                                 (resource_state, utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id))
+                    from .gpu_capacity import mutate_gpu_capacity
+                    mutate_gpu_capacity(con, lease, resource_state)
                 self._event(con, lease, event, metadata)
         except sqlite3.OperationalError as exc:
             if "locked" in str(exc).lower(): raise ControlPlaneDeferred(str(exc)) from exc
@@ -173,6 +191,8 @@ class Allocator:
                     "UPDATE resource_reservations SET state='RELEASED',released_at=?,updated_at=? WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=?",
                     (utc_now(), utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id),
                 )
+                from .gpu_capacity import release_gpu_capacity
+                release_gpu_capacity(con, lease)
                 self._event(con, lease, "LEASE_RELEASED", {"scientific_terminal": scientific_terminal, **(metadata or {})})
                 return {"status": "RELEASED", "duplicate_side_effects": 0}
         except sqlite3.OperationalError as exc:
@@ -190,6 +210,16 @@ class Allocator:
                 return [dict(row) for row in con.execute("SELECT * FROM resource_reservations ORDER BY reservation_id")]
             except sqlite3.OperationalError:
                 return []
+
+    def gpu_capacity_status_readonly(self):
+        from .gpu_capacity import gpu_capacity_status
+        with self.db.connect(readonly=True) as con:
+            return gpu_capacity_status(con, ensure=False)
+
+    def set_gpu_physical_cap(self, physical_cap: int) -> None:
+        from .gpu_capacity import set_gpu_physical_cap
+        with self.db.immediate() as con:
+            set_gpu_physical_cap(con, physical_cap)
 
     def set_branch_limit(self, branch: str, cap: int, enabled=True, preferred=None):
         preferred = preferred or ["GLOBAL_SLOT_1","GLOBAL_SLOT_2","GLOBAL_SLOT_3"]

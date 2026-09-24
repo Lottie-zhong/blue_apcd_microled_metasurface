@@ -17,10 +17,21 @@ def dispatch_once(db,branch,launch):
         payload=json.loads(row["payload_json"] or "{}")
         request=ResourceRequest.from_payload(payload)
         try:
-            lease=allocator.acquire(branch,row["logical_case_id"],row["attempt_id"],resource_request=request,resource_snapshot=read_resource_snapshot() if request is not None else None)
-        except ResourceCapacityWait:
+            backend_type = payload.get("backend_type")
+            if backend_type is None and (payload.get("production_science") or branch == "traditional"):
+                backend_type = "CPU"
+            lease=allocator.acquire(
+                branch, row["logical_case_id"], row["attempt_id"],
+                resource_request=request,
+                resource_snapshot=read_resource_snapshot() if (request is not None or backend_type is not None) else None,
+                resource_policy=payload.get("resource_policy"),
+                backend_type=backend_type,
+            )
+        except ResourceCapacityWait as exc:
+            wait_payload = dict(payload)
+            wait_payload["_v3_admission"] = {**dict(exc.evidence or {}), "updated_utc": utc_now()}
             with db.immediate() as con:
-                con.execute("UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',updated_at=? WHERE queue_id=? AND state IN ('QUEUED','WAIT_RESOURCE_CAPACITY')",(utc_now(),row["queue_id"]))
+                con.execute("UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',payload_json=?,updated_at=? WHERE queue_id=? AND state IN ('QUEUED','WAIT_RESOURCE_CAPACITY')", (json.dumps(wait_payload, sort_keys=True), utc_now(), row["queue_id"]))
             continue
         except (BranchCapReached,NoFreeSlot): break
         with db.immediate() as con:
