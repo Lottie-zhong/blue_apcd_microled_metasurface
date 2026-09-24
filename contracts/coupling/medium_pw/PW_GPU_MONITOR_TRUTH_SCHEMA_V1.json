@@ -1,0 +1,42 @@
+{
+  "schema": "PW_GPU_MONITOR_TRUTH_SCHEMA_V1",
+  "status": "FROZEN_ROLE_AWARE",
+  "wavelength_grid_nm": [440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460],
+  "monitors": {
+    "MON_IN": {
+      "type": "2D Z-normal",
+      "z_nm": -100.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "required_complex_fields": ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+      "role": "input reference-plane total-field state for canonical C_PW normalization and gauge"
+    },
+    "MON_PRENP": {
+      "type": "2D Z-normal",
+      "z_nm": 1200.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "required_complex_fields": ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+      "role": "pre-NP modal/interface state"
+    },
+    "MON_POSTNP": {
+      "type": "2D Z-normal",
+      "z_nm": 2212.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "required_complex_fields": ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+      "role": "post-NP modal/interface state and T"
+    },
+    "MON_REFLECTION": {
+      "type": "2D Z-normal",
+      "z_nm": -400.0,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "required_complex_fields": [],
+      "required_power_payload": ["signed_poynting", "R"],
+      "role": "reflected-power monitor; R from signed Poynting flux normalized to incident source power"
+    }
+  },
+  "bundle_required_relative_paths": ["runtime.fsp", "runtime/runtime_output.h5", "solver/runtime_p0.log", "provenance/monitor_schema_manifest.json", "bundle_manifest.json"],
+  "mon_reflection_complex_fields_empty_is_valid": true
+}
