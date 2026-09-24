@@ -29,3 +29,9 @@ Evidence:
 - Restored bundle: `outputs/coupling_ml/W2H_15294_5NM_GPU_HIGH_FIDELITY_CANARY_V1/attempt_001/archive/gpu_native_truth_bundle_v1/restore_attempt_001`
 
 Decision: stop before seed-DB initialization. No solver replay, no new scientific entry, and no attempt-002 is authorized by this report.
+
+## Role-aware schema correction and V2 attempt
+
+The technical-lead decision freezes `MON_REFLECTION` as R-only. Its `complex_fields=[]` is valid when the signed Poynting payload and normalized R are readable; E/H is required only for `MON_IN`, `MON_PRENP`, and `MON_POSTNP`.
+
+`5NM_GPU_PRODUCTION_SETUP_V2` passed zero-solver structural diff with `+ MON_REFLECTION` only. Its sole authorized run attempt failed before an FDTD engine was observed because the LSF resource name did not match an installed resource. No V2 H5 or truth payload was produced, so the bundle remains blocked.

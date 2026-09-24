@@ -24,3 +24,7 @@ Admission boundary:
 - FAST and MEDIUM remain NOT ADMITTED.
 
 This report does not authorize a rerun. The next scientific or setup action requires a separately authorized contract decision for the missing reflection monitor; until then the current canary evidence remains quarantined as backend-parity evidence only.
+
+## V2 production-schema attempt
+
+The contract conflict is resolved by `PW_GPU_MONITOR_TRUTH_SCHEMA_V1`: `MON_REFLECTION` is R-only. V2 structural setup validation passed, but the single authorized V2 run attempt is `FAILED_AFTER_ENTRY` under the conservative entry ledger. `run_gpu.xml` records `in run: could not match resource name provided`; no `fdtd-engine-msmpi.exe` was observed, no H5 was created, and the runtime FSP SHA remained equal to the setup FSP SHA. Replay and `attempt_002` are forbidden.
