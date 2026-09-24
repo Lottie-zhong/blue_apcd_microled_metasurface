@@ -1,0 +1,11 @@
+{
+  "authority": "SHARED_V3_GPU_RESOURCE_RESOLUTION_V1",
+  "solver": "FDTD",
+  "resolver_version": "SHARED_V3_GPU_RESOURCE_RESOLUTION_V1",
+  "candidate_requirements": ["active", "device_type=GPU", "positive_processes", "compatible_system_and_license"],
+  "selection": "exactly_one_candidate_or_preentry_block",
+  "frozen_before_engine_entry": ["resource_name", "device_type", "processes", "gpu_model", "gpu_uuid", "lumerical_version", "resolver_version", "resolved_at_utc"],
+  "entry_boundary": "GPU_ENGINE_ENTRY_CONFIRMED",
+  "preentry_resource_reject_is_not_engine_entry": true,
+  "case_name_cannot_select_resource": true
+}

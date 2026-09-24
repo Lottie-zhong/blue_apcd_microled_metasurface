@@ -2,6 +2,10 @@
 
 Status: **FAILED_AFTER_ENTRY / NO_REPLAY**
 
+Forensic classification: `GPU_RESOURCE_NAME_RESOLUTION_FAILURE_BEFORE_ENGINE_ENTRY`
+
+Separate evidence: `launcher_entry_recorded=YES`; `actual_fdtd_engine_entry=NO`; `maxwell_solver_iterations_started=NO`; `truth_generated=NO`. The historical ledger remains unchanged; this classification does not authorize replay.
+
 Case: `W2H_15294_5NM_GPU_PRODUCTION_SCHEMA_V2`, `attempt_001`
 
 Evidence:
