@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import ctypes
+from ctypes import wintypes
 import sys
 import time
 from datetime import datetime, timezone
@@ -15,6 +16,17 @@ HOST_PYTHON = r"C:\Users\DELL\anaconda3\pythonw.exe"
 HOST_SCRIPT = r"D:\apcd_runtime\bin\v3g2h.py"
 CREATE_NO_WINDOW = 0x08000000
 CREATE_BREAKAWAY_FROM_JOB = 0x01000000
+JOB_OBJECT_EXTENDED_LIMIT_INFORMATION = 9
+JOB_OBJECT_LIMIT_BREAKAWAY_OK = 0x00000800
+JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK = 0x00001000
+JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x00002000
+
+
+class LaunchContextError(RuntimeError):
+    def __init__(self, message, evidence):
+        super().__init__(message)
+        self.evidence = evidence
+
 def now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -47,18 +59,93 @@ def launch_process(command):
             ("dwProcessId", ctypes.c_ulong), ("dwThreadId", ctypes.c_ulong),
         ]
 
+    class BasicLimit(ctypes.Structure):
+        _fields_ = [
+            ("PerProcessUserTimeLimit", ctypes.c_longlong), ("PerJobUserTimeLimit", ctypes.c_longlong),
+            ("LimitFlags", ctypes.c_uint32), ("MinimumWorkingSetSize", ctypes.c_size_t),
+            ("MaximumWorkingSetSize", ctypes.c_size_t), ("ActiveProcessLimit", ctypes.c_uint32),
+            ("Affinity", ctypes.c_size_t), ("PriorityClass", ctypes.c_uint32),
+            ("SchedulingClass", ctypes.c_uint32),
+        ]
+
+    class IoCounters(ctypes.Structure):
+        _fields_ = [
+            ("ReadOperationCount", ctypes.c_ulonglong), ("WriteOperationCount", ctypes.c_ulonglong),
+            ("OtherOperationCount", ctypes.c_ulonglong), ("ReadTransferCount", ctypes.c_ulonglong),
+            ("WriteTransferCount", ctypes.c_ulonglong), ("OtherTransferCount", ctypes.c_ulonglong),
+        ]
+
+    class ExtendedLimit(ctypes.Structure):
+        _fields_ = [
+            ("BasicLimitInformation", BasicLimit), ("IoInfo", IoCounters),
+            ("ProcessMemoryLimit", ctypes.c_size_t), ("JobMemoryLimit", ctypes.c_size_t),
+            ("PeakProcessMemoryUsed", ctypes.c_size_t), ("PeakJobMemoryUsed", ctypes.c_size_t),
+        ]
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.GetCurrentProcess.restype = ctypes.c_void_p
+    kernel32.GetCurrentProcessId.restype = wintypes.DWORD
+    kernel32.IsProcessInJob.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.POINTER(wintypes.BOOL)]
+    kernel32.IsProcessInJob.restype = wintypes.BOOL
+    kernel32.QueryInformationJobObject.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD, ctypes.POINTER(wintypes.DWORD)]
+    kernel32.QueryInformationJobObject.restype = wintypes.BOOL
+    kernel32.CreateProcessW.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, ctypes.c_void_p, ctypes.c_void_p, wintypes.BOOL, wintypes.DWORD, ctypes.c_void_p, wintypes.LPCWSTR, ctypes.POINTER(StartupInfo), ctypes.POINTER(ProcessInformation)]
+    kernel32.CreateProcessW.restype = wintypes.BOOL
+
+    in_job = wintypes.BOOL()
+    is_job_ok = bool(kernel32.IsProcessInJob(kernel32.GetCurrentProcess(), None, ctypes.byref(in_job)))
+    is_job_error = ctypes.get_last_error() if not is_job_ok else 0
+    job_flags = None
+    query_job_ok = False
+    query_job_error = 0
+    if is_job_ok and in_job.value:
+        limits = ExtendedLimit()
+        returned = wintypes.DWORD()
+        query_job_ok = bool(kernel32.QueryInformationJobObject(None, JOB_OBJECT_EXTENDED_LIMIT_INFORMATION, ctypes.byref(limits), ctypes.sizeof(limits), ctypes.byref(returned)))
+        query_job_error = ctypes.get_last_error() if not query_job_ok else 0
+        if query_job_ok:
+            job_flags = int(limits.BasicLimitInformation.LimitFlags)
+    context = {
+        "process_id": int(kernel32.GetCurrentProcessId()),
+        "is_process_in_job": bool(in_job.value) if is_job_ok else None,
+        "is_process_in_job_ok": is_job_ok,
+        "is_process_in_job_error": is_job_error,
+        "query_job_extended_ok": query_job_ok,
+        "query_job_extended_error": query_job_error,
+        "job_limit_flags": job_flags,
+        "job_breakaway_ok": bool(job_flags is not None and job_flags & JOB_OBJECT_LIMIT_BREAKAWAY_OK),
+        "job_silent_breakaway_ok": bool(job_flags is not None and job_flags & JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK),
+        "job_kill_on_close": bool(job_flags is not None and job_flags & JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE),
+    }
+    if not is_job_ok or (in_job.value and not query_job_ok):
+        raise LaunchContextError("BLOCKED_TASK_JOB_CONTEXT", {"launch_context": context, "policy": "job_context_unobservable"})
+    if not in_job.value or (job_flags is not None and job_flags & JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK):
+        creation_flags = CREATE_NO_WINDOW
+        policy = "no_job_no_breakaway" if not in_job.value else "silent_breakaway_no_explicit_flag"
+    elif job_flags & JOB_OBJECT_LIMIT_BREAKAWAY_OK:
+        creation_flags = CREATE_NO_WINDOW | CREATE_BREAKAWAY_FROM_JOB
+        policy = "explicit_breakaway_allowed"
+    else:
+        raise LaunchContextError("BLOCKED_TASK_JOB_CONTEXT", {"launch_context": context, "policy": "restrictive_job_no_safe_breakaway"})
+
     startup = StartupInfo()
     startup.cb = ctypes.sizeof(startup)
     process = ProcessInformation()
     command_line = ctypes.create_unicode_buffer(command)
-    ok = ctypes.windll.kernel32.CreateProcessW(
-        None, command_line, None, None, False, CREATE_NO_WINDOW | CREATE_BREAKAWAY_FROM_JOB,
-        None, str(ROOT), ctypes.byref(startup), ctypes.byref(process),
-    )
+    ok = kernel32.CreateProcessW(None, command_line, None, None, False, creation_flags, None, str(ROOT), ctypes.byref(startup), ctypes.byref(process))
     if not ok:
-        raise ctypes.WinError(ctypes.get_last_error())
-    ctypes.windll.kernel32.CloseHandle(process.hThread)
-    ctypes.windll.kernel32.CloseHandle(process.hProcess)
+        error_code = ctypes.get_last_error()
+        raise LaunchContextError("CREATEPROCESS_FAILED", {
+            "launch_context": context,
+            "policy": policy,
+            "creation_flags": creation_flags,
+            "command_line": command,
+            "createprocess_ok": False,
+            "get_last_error": error_code,
+            "get_last_error_message": ctypes.FormatError(error_code),
+        })
+    kernel32.CloseHandle(process.hThread)
+    kernel32.CloseHandle(process.hProcess)
     return int(process.dwProcessId)
 
 
@@ -112,7 +199,11 @@ def launch_factory(db_path, preentry_only=False):
             cfg.update(provenance)
             atomic(config, cfg)
             append_event(runtime / "events.jsonl", "HOST_START_INTENT", task_name=payload["task_name"], config=str(config), slot_id=lease.slot_id, provenance=provenance)
-            host_pid = launch_process(command)
+            try:
+                host_pid = launch_process(command)
+            except LaunchContextError as exc:
+                append_event(runtime / "events.jsonl", "HOST_PROCESS_START_FAILED", command=command, error=str(exc), evidence=exc.evidence, provenance=provenance)
+                raise
             append_event(runtime / "events.jsonl", "HOST_PROCESS_STARTED", host_pid=host_pid, command=command, provenance=provenance)
             return host_pid
         boundary = allocator.final_launch_revalidation(
