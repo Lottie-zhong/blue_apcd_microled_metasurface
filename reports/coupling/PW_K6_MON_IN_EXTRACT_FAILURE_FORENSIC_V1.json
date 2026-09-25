@@ -1,0 +1,310 @@
+{
+  "schema": "PW_K6_MON_IN_EXTRACT_FAILURE_FORENSIC_AND_ZERO_SOLVER_FIX_V1",
+  "generated_utc": "2026-09-25T19:40:06.620147+00:00",
+  "status": "ZERO_SOLVER_FORENSIC_COMPLETE",
+  "root_cause": {
+    "primary": "E_FDTD_SAVE_LOAD_PERSISTENCE_TIMING_RACE",
+    "manifestation": "C_EXTRACTION_SEES_FSP_BEFORE_H5_SIDECAR_IS_MATERIALIZED",
+    "setup_or_extraction": "persistence/readiness race, not monitor setup or field schema",
+    "mechanism": "FDTD child returned and the host's retained forensic observation recorded h5_exists=false at the persistence boundary; the current retained events.jsonl does not preserve that watcher row, and current H5 mtime is not a creation timestamp. Therefore the confirmed class is a bundle sidecar readiness/path-observation race in native persistence, not a proven single write-order submechanism.",
+    "evidence_limit": "Current failed-run FSP plus its now-present H5 sidecar loads MON_IN Ex successfully; the original failure was observed only during the earlier native persistence/fresh-load boundary."
+  },
+  "solver_actions_this_task": {
+    "scientific_solver_invocations": 0,
+    "scientific_solver_entries": 0,
+    "replay": 0,
+    "EXT03_created": 0
+  },
+  "monitor_contract": {
+    "hash": "6c0c434f680302664ff752b8dfa9d6ec7669909c42c8f66f1cab2b2c2bd86e28",
+    "S16_hash": "6c0c434f680302664ff752b8dfa9d6ec7669909c42c8f66f1cab2b2c2bd86e28",
+    "EXT01_hash": "6c0c434f680302664ff752b8dfa9d6ec7669909c42c8f66f1cab2b2c2bd86e28",
+    "EXT02_hash": "6c0c434f680302664ff752b8dfa9d6ec7669909c42c8f66f1cab2b2c2bd86e28",
+    "all_equal": true,
+    "names": [
+      "MON_IN",
+      "MON_PRENP",
+      "MON_POSTNP",
+      "MON_REFLECTION"
+    ],
+    "type": "2D Z-normal",
+    "positions_nm": {
+      "MON_IN": -100,
+      "MON_PRENP": 1150,
+      "MON_POSTNP": 1800,
+      "MON_REFLECTION": -400
+    },
+    "spans_nm": {
+      "x": 1740,
+      "y": 290,
+      "z": 0
+    },
+    "frequency_points": 21,
+    "wavelengths_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ],
+    "fields": [
+      "Ex",
+      "Ey",
+      "Ez",
+      "Hx",
+      "Hy",
+      "Hz"
+    ]
+  },
+  "fsp_sha256": {
+    "S16": "641d0fdb57b6c5ecf1267841a41d6edbfd0ca13e38f068fc1611ae1a18b7ac08",
+    "EXT01": "944aa95b5d2e8bedbc9a0f9d42678ed94bdcd7b6b6cf2ff9c7a8bdefc9e58b88",
+    "EXT02": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143"
+  },
+  "static_contract_audit": {
+    "monitor_configuration_drift": false,
+    "geometry_dependent_setup_loss": false,
+    "field_extraction_schema_regression": false,
+    "wavelength_frequency_mismatch": false,
+    "save_load_persistence_timing_issue": true,
+    "setup_fsp_has_no_data_cards_before_solver": true,
+    "failed_runtime_fsp_current_load_only_MON_IN_Ex": "PASS",
+    "failed_runtime_fsp_current_fields": "Ex/Ey/Ez/Hx/Hy/Hz all present; complex128; shape (349, 59, 1, 21)",
+    "exact_production_sequence": "getdata(mon, f) plus Ex/Ey/Ez/Hx/Hy/Hz for MON_IN/MON_PRENP/MON_POSTNP"
+  },
+  "S16_vs_EXT": "No MON_IN contract difference. EXT setup FSPs differ only in NP geometry objects; monitor contract and field schema are identical.",
+  "cases": {
+    "K6V1_EXT01": {
+      "queue_policy": "FAILED_AFTER_ENTRY; consumed; no replay",
+      "runtime_events_tail": [
+        {
+          "event": "NATIVE_TRUTH_PERSISTING",
+          "timestamp": "2026-09-25T07:30:27.036030+00:00",
+          "fsp_size": null,
+          "h5_exists": null,
+          "h5_size": null,
+          "child_alive": null,
+          "gpu_process_present": null,
+          "mpiexec_alive": null,
+          "error": null
+        },
+        {
+          "event": "FAILED_AFTER_ENTRY",
+          "timestamp": "2026-09-25T07:30:35.665123+00:00",
+          "fsp_size": null,
+          "h5_exists": null,
+          "h5_size": null,
+          "child_alive": null,
+          "gpu_process_present": null,
+          "mpiexec_alive": null,
+          "error": "LumApiError('in getdata, the d-card named MON_IN did not contain the data Ex\\n  Try the command \\'?getdata(\"MON_IN\");\\' to see the data contained in MON_IN.')"
+        }
+      ],
+      "artifacts": {
+        "fsp": [
+          {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\run\\K6V1_EXT01__attempt_001_runtime.fsp",
+            "size": 170552876,
+            "mtime_utc": "2026-09-25T07:30:12.848994+00:00"
+          },
+          {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\setup\\runtime.fsp",
+            "size": 520183,
+            "mtime_utc": "2026-09-25T07:01:03.060076+00:00"
+          }
+        ],
+        "h5": [
+          {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\run\\K6V1_EXT01__attempt_001_runtime\\K6V1_EXT01__attempt_001_runtime_output.h5",
+            "size": 76541393,
+            "mtime_utc": "2026-09-25T07:30:09.228160+00:00"
+          }
+        ],
+        "evidence_note": "H5 mtime precedes FSP mtime in retained filesystem metadata; this does not establish creation order and is not used as the sole race proof."
+      }
+    },
+    "K6V1_EXT02": {
+      "queue_policy": "FAILED_AFTER_ENTRY; consumed; no replay",
+      "runtime_events_tail": [
+        {
+          "event": "NATIVE_TRUTH_PERSISTING",
+          "timestamp": "2026-09-25T07:30:27.000438+00:00",
+          "fsp_size": null,
+          "h5_exists": null,
+          "h5_size": null,
+          "child_alive": null,
+          "gpu_process_present": null,
+          "mpiexec_alive": null,
+          "error": null
+        },
+        {
+          "event": "FAILED_AFTER_ENTRY",
+          "timestamp": "2026-09-25T07:30:35.452888+00:00",
+          "fsp_size": null,
+          "h5_exists": null,
+          "h5_size": null,
+          "child_alive": null,
+          "gpu_process_present": null,
+          "mpiexec_alive": null,
+          "error": "LumApiError('in getdata, the d-card named MON_IN did not contain the data Ex\\n  Try the command \\'?getdata(\"MON_IN\");\\' to see the data contained in MON_IN.')"
+        }
+      ],
+      "artifacts": {
+        "fsp": [
+          {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\run\\K6V1_EXT02__attempt_001_runtime.fsp",
+            "size": 170552876,
+            "mtime_utc": "2026-09-25T07:30:12.886912+00:00"
+          },
+          {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\setup\\runtime.fsp",
+            "size": 520183,
+            "mtime_utc": "2026-09-25T07:01:14.324697+00:00"
+          }
+        ],
+        "h5": [
+          {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\run\\K6V1_EXT02__attempt_001_runtime\\K6V1_EXT02__attempt_001_runtime_output.h5",
+            "size": 76596458,
+            "mtime_utc": "2026-09-25T07:30:08.923289+00:00"
+          }
+        ],
+        "evidence_note": "H5 mtime precedes FSP mtime in retained filesystem metadata; this does not establish creation order and is not used as the sole race proof."
+      }
+    }
+  },
+  "queue_snapshot": {
+    "branch_queue": [
+      {
+        "logical_case_id": "K6V1_EXT01",
+        "state": "FAILED_AFTER_ENTRY",
+        "attempt_id": "attempt_001",
+        "slot_id": "GLOBAL_SLOT_2"
+      },
+      {
+        "logical_case_id": "K6V1_EXT02",
+        "state": "FAILED_AFTER_ENTRY",
+        "attempt_id": "attempt_001",
+        "slot_id": "GLOBAL_SLOT_3"
+      },
+      {
+        "logical_case_id": "K6V1_EXT03",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT04",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT05",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT06",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT07",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT08",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT09",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT10",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT11",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT12",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT13",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      },
+      {
+        "logical_case_id": "K6V1_EXT14",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "attempt_id": "attempt_001",
+        "slot_id": null
+      }
+    ]
+  },
+  "fix": {
+    "files": [
+      "scripts/shared_fdtd/engine/gpu_bundle.py",
+      "scripts/shared_fdtd/tools/v3_g2_host.py",
+      "scripts/shared_fdtd/tests/run_gpu_native_bundle_zero_solver_tests.py"
+    ],
+    "change": "wait_for_bundle_ready waits for non-empty sidecar set and stable size/mtime before persist_gpu_bundle and fresh-load validation; host emits GPU_NATIVE_BUNDLE_READY",
+    "physics_geometry_wavelength_unchanged": true,
+    "no_solver_in_fix": true
+  },
+  "zero_solver_tests": {
+    "targeted_gpu_native_bundle": "PASS; solver_invocations=0; replay=0",
+    "global": {
+      "count": 20,
+      "pass": 20
+    },
+    "branch": {
+      "count": 20,
+      "pass": 20
+    },
+    "chaos": {
+      "count": 12,
+      "pass": 12
+    },
+    "monitor_contract": "PASS",
+    "EXT_setup_generation": "PASS via run_pw_k6_seed_manifest_zero_solver_tests.py; solver_invocations=0",
+    "relevant_regressions": "PASS"
+  },
+  "EXT03_EXT14": "WAIT_RESOURCE_CAPACITY; solver_entry_count=0; no admission",
+  "authority": "EXT01/EXT02 scientific entries consumed; no replay or attempt_003; Chart review required before any future scientific entry"
+}

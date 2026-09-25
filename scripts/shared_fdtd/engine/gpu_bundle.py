@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import time
 import uuid
 from pathlib import Path
 from typing import Any, Callable
@@ -32,6 +33,51 @@ def _relative_files(root: Path) -> list[Path]:
         if path.is_file() and path.name != "bundle_manifest.json"
     )
 
+
+def _bundle_sidecar_paths(source: Path) -> list[Path]:
+    root = source.parent
+    paths: list[Path] = []
+    sidecar_root = root / source.stem
+    if sidecar_root.is_dir():
+        paths.extend(path for path in sidecar_root.rglob("*") if path.is_file() and path.name != "bundle_manifest.json")
+    paths.extend(path for path in root.iterdir() if path.is_file() and path.suffix.lower() in H5_SUFFIXES)
+    return sorted(set(paths))
+
+def wait_for_bundle_ready(source_fsp: str | Path, *, timeout_s: float = 120.0, poll_s: float = 0.5, stable_polls: int = 2, readiness_validator: Callable[[Path], Any] | None = None) -> dict[str, Any]:
+    source = Path(source_fsp)
+    deadline = time.monotonic() + max(float(timeout_s), 0.0)
+    previous = None
+    stable = 0
+    last_validation_error = None
+    while True:
+        if source.is_file() and source.stat().st_size > 0:
+            sidecars = _bundle_sidecar_paths(source)
+            signature = tuple((str(path.relative_to(source.parent)), path.stat().st_size, path.stat().st_mtime_ns) for path in sidecars if path.is_file())
+            if signature:
+                if signature == previous:
+                    stable += 1
+                else:
+                    previous = signature
+                    stable = 1
+                if stable >= max(int(stable_polls), 1):
+                    manifest = discover_bundle(source)
+                    if manifest["sidecar_paths"]:
+                        if readiness_validator is not None:
+                            try:
+                                readiness_validator(source)
+                            except Exception as exc:
+                                last_validation_error = repr(exc)
+                                if time.monotonic() >= deadline:
+                                    detail = f":{last_validation_error}"
+                                    raise GpuBundleError(f"NATIVE_SIDECAR_READINESS_TIMEOUT:{source}{detail}")
+                                time.sleep(max(float(poll_s), 0.01))
+                                continue
+                        manifest["readiness"] = {"validated": readiness_validator is not None, "last_validation_error": last_validation_error}
+                        return manifest
+        if time.monotonic() >= deadline:
+            detail = f":{last_validation_error}" if last_validation_error else ""
+            raise GpuBundleError(f"NATIVE_SIDECAR_READINESS_TIMEOUT:{source}{detail}")
+        time.sleep(max(float(poll_s), 0.01))
 
 def discover_bundle(source_fsp: str | Path) -> dict[str, Any]:
     source = Path(source_fsp)

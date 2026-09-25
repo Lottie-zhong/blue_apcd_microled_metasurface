@@ -24,7 +24,7 @@ from shared_fdtd.engine.persistence import (
     save_and_verify,
     sha256_equal,
 )
-from shared_fdtd.engine.gpu_bundle import persist_gpu_bundle
+from shared_fdtd.engine.gpu_bundle import persist_gpu_bundle, wait_for_bundle_ready
 from shared_fdtd.control_v3.resources import ResourceRequest, RuntimeResourceMonitor, read_resource_snapshot
 from shared_fdtd.engine.attempt_state import write_durable_attempt_state
 
@@ -307,6 +307,19 @@ def main():
         if backend_type == "GPU":
             emit(cfg, "NATIVE_TRUTH_PERSISTING", runtime_fsp=str(run))
             fd.close(); fd = None
+            ready_manifest = wait_for_bundle_ready(
+                run,
+                timeout_s=float(cfg.get("gpu_bundle_ready_timeout_s", 120.0)),
+                poll_s=float(cfg.get("gpu_bundle_ready_poll_s", 0.5)),
+                stable_polls=int(cfg.get("gpu_bundle_ready_stable_polls", 2)),
+                readiness_validator=lambda candidate: fresh_load_validate_path(candidate, cfg, is_pw),
+            )
+            emit(
+                cfg,
+                "GPU_NATIVE_BUNDLE_READY",
+                runtime_fsp=str(run),
+                sidecar_paths=ready_manifest.get("sidecar_paths", []),
+            )
             native_record = persist_gpu_bundle(
                 run,
                 native,

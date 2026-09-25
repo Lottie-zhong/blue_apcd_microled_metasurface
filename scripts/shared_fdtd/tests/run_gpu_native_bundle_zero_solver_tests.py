@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import tempfile
+import threading
+import time
 from pathlib import Path
 import sys
 
@@ -12,6 +14,7 @@ from shared_fdtd.engine.gpu_bundle import (
     discover_bundle,
     persist_gpu_bundle,
     verify_bundle,
+    wait_for_bundle_ready,
 )
 
 
@@ -47,6 +50,37 @@ def main():
             "GPU_BUNDLE_REQUIRED_SIDECAR_MISSING",
         )
         checks["A_fsp_without_h5_fails"] = "PASS"
+        expect_error(
+            lambda: wait_for_bundle_ready(no_sidecar, timeout_s=0.02, poll_s=0.01),
+            "NATIVE_SIDECAR_READINESS_TIMEOUT",
+        )
+        checks["A1_missing_h5_readiness_times_out"] = "PASS"
+        delayed = make_runtime(root / "a_delayed", with_sidecar=False)
+        def create_delayed_sidecar():
+            time.sleep(0.03)
+            sidecar = delayed.parent / delayed.stem
+            sidecar.mkdir()
+            (sidecar / f"{delayed.stem}_output.h5").write_bytes(b"H5-DELAYED")
+        worker = threading.Thread(target=create_delayed_sidecar)
+        worker.start()
+        ready = wait_for_bundle_ready(delayed, timeout_s=1.0, poll_s=0.01, stable_polls=2)
+        worker.join()
+        assert ready["sidecar_paths"]
+        checks["A2_delayed_h5_readiness_barrier_passes"] = "PASS"
+        validation_attempts = []
+        def readiness_probe(path):
+            validation_attempts.append(str(path))
+            if len(validation_attempts) < 3:
+                raise RuntimeError("DATASET_NOT_READY")
+        validated = wait_for_bundle_ready(delayed, timeout_s=1.0, poll_s=0.01, stable_polls=1, readiness_validator=readiness_probe)
+        assert validated["readiness"]["validated"] is True
+        assert len(validation_attempts) >= 3
+        checks["A3_readiness_validator_retries_and_passes"] = "PASS"
+        expect_error(
+            lambda: wait_for_bundle_ready(delayed, timeout_s=0.03, poll_s=0.01, stable_polls=1, readiness_validator=lambda path: (_ for _ in ()).throw(RuntimeError("DATASET_NOT_READY"))),
+            "NATIVE_SIDECAR_READINESS_TIMEOUT",
+        )
+        checks["A4_validation_timeout_is_distinct"] = "PASS"
 
         source = make_runtime(root / "b")
         expect_error(
