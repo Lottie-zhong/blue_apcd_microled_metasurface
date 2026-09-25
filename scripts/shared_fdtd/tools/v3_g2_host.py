@@ -22,6 +22,7 @@ from shared_fdtd.engine.persistence import (
     persistence_path_preflight,
     persist_and_verify,
     save_and_verify,
+    sha256_equal,
 )
 from shared_fdtd.engine.gpu_bundle import persist_gpu_bundle
 from shared_fdtd.control_v3.resources import ResourceRequest, RuntimeResourceMonitor, read_resource_snapshot
@@ -86,8 +87,14 @@ def import_authority(output_root, task):
 
 def queue_state(db, cfg, state):
     with db.immediate() as con:
-        con.execute("UPDATE branch_queue SET state=?,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
-                    (state, datetime.now(timezone.utc).isoformat(), cfg["branch"], cfg["case"], cfg["attempt"]))
+        if state == "WAIT_RESOURCE_CAPACITY":
+            con.execute(
+                "UPDATE branch_queue SET state=?,slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+                (state, datetime.now(timezone.utc).isoformat(), cfg["branch"], cfg["case"], cfg["attempt"]),
+            )
+        else:
+            con.execute("UPDATE branch_queue SET state=?,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+                        (state, datetime.now(timezone.utc).isoformat(), cfg["branch"], cfg["case"], cfg["attempt"]))
 
 
 def emit(cfg, event_type, **payload):
@@ -171,14 +178,14 @@ def main():
         emit(cfg, "HOST_STARTED", host_pid=__import__("os").getpid(), runtime=str(Path(cfg["runtime"])))
         queue_state(db, cfg, "SLOT_ACQUIRED")
         emit(cfg, "SLOT_ACQUIRED", slot_id=lease.slot_id, fencing_generation=lease.fencing_generation)
-        if not pre.is_file() or sha(pre) != cfg["pre_fsp_sha256"]:
+        if not pre.is_file() or not sha256_equal(sha(pre), cfg["pre_fsp_sha256"]):
             raise RuntimeError("PRE_FSP_HASH_MISMATCH")
         preflight = persistence_path_preflight(case_root, cfg["runtime"])
         write(case_root / "persistence_path_preflight.json", preflight)
         emit(cfg, "PERSISTENCE_PATH_PREFLIGHT", **preflight)
         run.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(pre, run)
-        if sha(run) != sha(pre):
+        if not sha256_equal(sha(run), sha(pre)):
             raise RuntimeError("RUNTIME_FSP_COPY_HASH_MISMATCH")
         write_durable_attempt_state(
             case_root / "attempt_state.json",
@@ -263,6 +270,7 @@ def main():
             result = allocator.final_launch_revalidation(
                 lease, resource_request=resource_request, resource_snapshot=launch_snapshot,
                 resource_policy=cfg.get("resource_policy"), backend_type=backend_type,
+                exact_permit_id=cfg.get("exact_launch_permit_id"),
                 admission_timestamp=(lease.admission_provenance or {}).get("admission_timestamp"),
                 start=lambda _provenance: start_child(),
             )
@@ -297,6 +305,7 @@ def main():
             write(ledger_path, ledger)
             emit(cfg, "SOLVER_RETURNED", slot_id=lease.slot_id)
         if backend_type == "GPU":
+            emit(cfg, "NATIVE_TRUTH_PERSISTING", runtime_fsp=str(run))
             fd.close(); fd = None
             native_record = persist_gpu_bundle(
                 run,
@@ -307,6 +316,7 @@ def main():
             )
             native = Path(native_record["fsp_path"])
         else:
+            emit(cfg, "NATIVE_TRUTH_PERSISTING", runtime_fsp=str(run))
             native_record = save_and_verify(fd, native)
         emit(
             cfg,
@@ -368,7 +378,7 @@ def main():
         write(archive_stage, archive)
         ensure_parent(archive_path)
         shutil.copy2(archive_stage, archive_path)
-        if sha(archive_stage) != sha(archive_path):
+        if not sha256_equal(sha(archive_stage), sha(archive_path)):
             raise RuntimeError("HF_ARCHIVE_MANIFEST_SHA_MISMATCH")
         queue_state(db, cfg, "HF_ARCHIVED")
         emit(cfg, "HF_ARCHIVED", archive=str(archive_path), archive_staging=str(archive_stage))

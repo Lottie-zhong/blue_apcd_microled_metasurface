@@ -31,6 +31,15 @@ CREATE TABLE IF NOT EXISTS branch_limits (
   updated_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS admission_control (
+  control_id INTEGER PRIMARY KEY CHECK(control_id = 1),
+  new_entry_hold INTEGER NOT NULL CHECK(new_entry_hold IN (0,1)),
+  temporary_runtime_cap INTEGER CHECK(temporary_runtime_cap IS NULL OR temporary_runtime_cap >= 1),
+  health_status TEXT NOT NULL CHECK(health_status IN ('PASS','BLOCKED')),
+  control_generation INTEGER NOT NULL CHECK(control_generation >= 0),
+  updated_at TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS lease_events (
   event_id INTEGER PRIMARY KEY AUTOINCREMENT,
   timestamp TEXT NOT NULL,
@@ -56,6 +65,45 @@ CREATE TABLE IF NOT EXISTS branch_queue (
   fencing_generation INTEGER,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
+  UNIQUE(branch_id, logical_case_id, attempt_id)
+);
+
+CREATE TABLE IF NOT EXISTS recovery_adoption_fences (
+  fence_id TEXT PRIMARY KEY,
+  branch_id TEXT NOT NULL,
+  logical_case_id TEXT NOT NULL,
+  attempt_id TEXT NOT NULL,
+  expected_queue_state TEXT NOT NULL,
+  expected_queue_updated_at TEXT NOT NULL,
+  expected_slot_id TEXT NOT NULL,
+  expected_lease_token_hash TEXT NOT NULL,
+  expected_fencing_generation INTEGER NOT NULL,
+  expected_control_generation INTEGER NOT NULL,
+  evidence_manifest_sha256 TEXT NOT NULL,
+  artifact_identity_sha256 TEXT NOT NULL,
+  state TEXT NOT NULL CHECK(state IN ('ARMED','CONSUMED','ABORTED')),
+  created_at TEXT NOT NULL,
+  consumed_at TEXT,
+  recovery_transaction_id TEXT,
+  metadata_json TEXT NOT NULL DEFAULT '{}',
+  UNIQUE(branch_id, logical_case_id, attempt_id)
+);
+
+CREATE TABLE IF NOT EXISTS exact_launch_permits (
+  permit_id TEXT PRIMARY KEY,
+  branch_id TEXT NOT NULL,
+  logical_case_id TEXT NOT NULL,
+  attempt_id TEXT NOT NULL,
+  slot_id TEXT,
+  lease_token_hash TEXT,
+  fencing_generation INTEGER,
+  authorization_generation INTEGER NOT NULL,
+  state TEXT NOT NULL CHECK(state IN ('ARMED','CONSUMED','CANCELLED')),
+  created_at TEXT NOT NULL,
+  bound_at TEXT,
+  consumed_at TEXT,
+  cancelled_at TEXT,
+  metadata_json TEXT NOT NULL DEFAULT '{}',
   UNIQUE(branch_id, logical_case_id, attempt_id)
 );
 

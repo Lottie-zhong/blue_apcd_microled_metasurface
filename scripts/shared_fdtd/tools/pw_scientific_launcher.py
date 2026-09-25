@@ -9,6 +9,8 @@ from pathlib import Path
 
 import numpy as np
 
+from shared_fdtd.engine.gpu_observability import GpuEngineObservability
+
 Z0 = 376.730313668
 LAUNCHER_ID = "APCD_PW_PERIODIC_PLANAR_CURRENT_V1"
 
@@ -256,6 +258,8 @@ def run_standalone_gpu_and_confirm_completion(
     command = _standalone_gpu_command(executable, script_path, run_fsp)
     snapshot = process_snapshot or _snapshot
     before = snapshot()
+    observability = GpuEngineObservability(root, {**cfg, "run_fsp": str(run_fsp), "log_paths": [str(log_path)]}, snapshot)
+    child = None
     try:
         with log_path.open("w", encoding="utf-8") as stream:
             def start_child():
@@ -265,11 +269,13 @@ def run_standalone_gpu_and_confirm_completion(
                     creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
                 )
             child = launch_guard(start_child) if launch_guard is not None else start_child()
+            observability.child_started(child, command=command, cwd=run_fsp.parent)
             confirmed = False
             callback_error = []
             poll_s = max(float(cfg.get("entry_confirmation_poll_s", 0.5)), 0.05)
             while True:
                 rows = _new_solver_processes(before, snapshot(), run_fsp)
+                observability.observe(child=child, event="POLL")
                 if rows and not confirmed:
                     confirmed = True
                     try:
@@ -284,7 +290,12 @@ def run_standalone_gpu_and_confirm_completion(
                     break
                 time.sleep(poll_s)
     except FileNotFoundError as exc:
+        observability.finalize("CHILD_LAUNCH_FILE_NOT_FOUND", child=child, command=command, cwd=run_fsp.parent)
         raise RuntimeError("GPU_STANDALONE_EXECUTABLE_MISSING") from exc
+    except BaseException:
+        observability.finalize("CHILD_OR_LAUNCH_ABNORMAL", child=child, command=command, cwd=run_fsp.parent)
+        raise
+    observability.finalize("CHILD_RETURNED", child=child, command=command, cwd=run_fsp.parent)
     if returncode != 0:
         raise RuntimeError(f"GPU_STANDALONE_CHILD_FAILED:{returncode}:{log_path}")
     active = _solver_processes_for_run(snapshot(), run_fsp)

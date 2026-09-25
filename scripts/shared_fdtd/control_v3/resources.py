@@ -301,8 +301,10 @@ def backend_admission(con, requested_backend: Any, *, branch: str, logical_case_
     return {"BACKEND_PREFLIGHT": "PASS" if not reasons else "WAIT_BACKEND_EXCLUSIVE", "RESOURCE_PREFLIGHT": "PASS" if not reasons else "WAIT_RESOURCE_CAPACITY", "status": "PASS" if not reasons else "WAIT_RESOURCE_CAPACITY", "requested_backend": requested, "active_backend_owners": owners, "reasons": reasons, "branch": branch, "logical_case_id": logical_case_id, "attempt_id": attempt_id}
 
 
-def resource_admission(con, branch: str, request: ResourceRequest, snapshot: ResourceSnapshot, *, pw_integrated_max_concurrent: int = 1) -> dict[str, Any]:
+def resource_admission(con, branch: str, request: ResourceRequest, snapshot: ResourceSnapshot, *, pw_integrated_max_concurrent: int = 1, exclude_key: tuple[str, str, str] | None = None) -> dict[str, Any]:
     rows = _active_reservations(con)
+    if exclude_key is not None:
+        rows = [row for row in rows if (row["branch_id"], row["logical_case_id"], row["attempt_id"]) != tuple(exclude_key)]
     reasons: list[str] = []
     if request.resource_class not in {"LIGHT", "STANDARD", "HEAVY"}:
         reasons.append("RESOURCE_CLASS_UNDECLARED")
@@ -314,6 +316,8 @@ def resource_admission(con, branch: str, request: ResourceRequest, snapshot: Res
     if request.integrated_pw and integrated_count >= pw_integrated_max_concurrent:
         reasons.append("PW_INTEGRATED_CONCURRENCY_LIMIT")
     active_slots = [dict(row) for row in con.execute("SELECT slot_id,owner_branch,logical_case_id,attempt_id,state FROM slots WHERE state <> 'FREE'")]
+    if exclude_key is not None:
+        active_slots = [row for row in active_slots if (row["owner_branch"], row["logical_case_id"], row["attempt_id"]) != tuple(exclude_key)]
     reservation_keys = {(row["branch_id"], row["logical_case_id"], row["attempt_id"]) for row in rows}
     # Traditional is a valid foreign branch with no ML-specific reservation row.
     known_unreserved_foreign_branches = {"traditional"}

@@ -12,6 +12,7 @@ from shared_fdtd.engine.dispatcher import dispatch_once, enqueue
 from shared_fdtd.engine.event_log import append_event, read_events
 from shared_fdtd.engine.reconciler import reconcile_owned
 from shared_fdtd.engine.state_machine import release_allowed, replay_allowed
+from shared_fdtd.control_v3.resources import ResourceCapacityWait
 
 SCHEMA=PKG/"control_v3"/"schema.sql"
 
@@ -39,7 +40,10 @@ def run_global(td):
     t("coupling_two_plus_traditional_one",isolated(three))
     t("traditional_cap_enforced",isolated(lambda db:(lease(Allocator(db),"traditional","T1","a1"),assert_true(rejected(lambda:lease(Allocator(db),"traditional","T2","a1"),BranchCapReached)))))
     t("coupling_cap_enforced",isolated(lambda db:(lease(Allocator(db),"coupling_ml","A","a1"),lease(Allocator(db),"coupling_ml","B","a1"),assert_true(rejected(lambda:lease(Allocator(db),"coupling_ml","C","a1"),BranchCapReached)))))
-    t("global_cap_enforced",isolated(lambda db:(three(db),assert_true(rejected(lambda:lease(Allocator(db),"test","X","a1"),BranchCapReached)))))
+    def global_cap(db):
+        a=Allocator(db); a.set_branch_limit("test",1,enabled=True)
+        three(db); assert_true(rejected(lambda:lease(a,"test","X","a1"),ResourceCapacityWait))
+    t("global_cap_enforced",isolated(global_cap))
     def foreign(db,op):
         a=Allocator(db); l=lease(a,"traditional","T","a1"); bad=Lease(l.slot_id,"coupling_ml",l.logical_case_id,l.attempt_id,l.lease_token,l.fencing_generation); assert rejected(lambda:op(a,bad),OwnershipMismatch)
     t("foreign_heartbeat_rejected",isolated(lambda db:foreign(db,lambda a,l:a.heartbeat(l))))

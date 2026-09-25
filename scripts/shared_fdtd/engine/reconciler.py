@@ -36,6 +36,57 @@ def _append_once(path: Path, event_type: str, **payload: Any) -> None:
         return
     append_event(path, event_type, **payload)
 
+
+_TRUTH_FINALIZATION_PENDING_EVENTS = {
+    "TRUTH_FINALIZATION_PENDING",
+    "NATIVE_TRUTH_PERSISTING",
+    "POSTPROCESSING",
+    "PERSISTENCE_PENDING",
+    "FRESH_LOAD_PENDING",
+    "RELEASE_PENDING",
+    "PENDING_RECONCILE",
+}
+_POSTENTRY_FAILURE_EVIDENCE = {
+    "POSTENTRY_FAILURE_ADJUDICATED",
+    "TRUTH_PRESERVATION_COMPLETE",
+}
+
+
+def _preserve_truth_finalization_pending(db, branch, slot, events_path, *, reason):
+    _append_once(
+        events_path,
+        "TRUTH_FINALIZATION_PENDING",
+        reason=reason,
+        owner_branch=branch,
+        case_id=slot["logical_case_id"],
+        attempt_id=slot["attempt_id"],
+        slot_id=slot["slot_id"],
+        fencing_generation=slot["fencing_generation"],
+        release_allowed=False,
+    )
+    with db.immediate() as con:
+        con.execute(
+            "UPDATE branch_queue SET state='PENDING_RECONCILE',updated_at=? "
+            "WHERE branch_id=? AND logical_case_id=? AND attempt_id=? "
+            "AND state IN ('SCIENTIFIC_SOLVER_RUNNING','SOLVER_RETURNED',"
+            "'NATIVE_TRUTH_PERSISTING','POSTPROCESSING','RELEASE_PENDING',"
+            "'PENDING_RECONCILE')",
+            (
+                utc_now(),
+                branch,
+                slot["logical_case_id"],
+                slot["attempt_id"],
+            ),
+        )
+    return {
+        "slot_id": slot["slot_id"],
+        "status": "TRUTH_FINALIZATION_PENDING",
+        "reason": reason,
+        "release": "PRESERVED",
+        "replay": 0,
+    }
+
+
 def closeout_owned_postentry_no_truth(
     db, branch: str, attempt_roots: Mapping[tuple[str, str], str | Path],
     *, process_probe: Callable[[Mapping[str, Any]], list[Mapping[str, Any]]] | None = None,
@@ -73,6 +124,42 @@ def closeout_owned_postentry_no_truth(
         live = list(process_probe(state) or [])
         if live:
             results.append({"slot_id": slot["slot_id"], "status": "SOLVER_STILL_RUNNING", "live_processes": live})
+            continue
+
+        event_types = {event.get("event_type") for event in events}
+        if "SOLVER_RETURNED" not in event_types:
+            results.append(
+                _preserve_truth_finalization_pending(
+                    db,
+                    branch,
+                    slot,
+                    events_path,
+                    reason="SOLVER_RETURN_NOT_PROVEN",
+                )
+            )
+            continue
+        pending = sorted(event_types & _TRUTH_FINALIZATION_PENDING_EVENTS)
+        if pending and not _POSTENTRY_FAILURE_EVIDENCE.issubset(event_types):
+            results.append(
+                _preserve_truth_finalization_pending(
+                    db,
+                    branch,
+                    slot,
+                    events_path,
+                    reason=",".join(pending),
+                )
+            )
+            continue
+        if not _POSTENTRY_FAILURE_EVIDENCE.issubset(event_types):
+            results.append(
+                _preserve_truth_finalization_pending(
+                    db,
+                    branch,
+                    slot,
+                    events_path,
+                    reason="POSTENTRY_FAILURE_REVIEW_REQUIRED",
+                )
+            )
             continue
         with db.connect(readonly=True) as con:
             row = con.execute("SELECT * FROM slots WHERE slot_id=?", (slot["slot_id"],)).fetchone()

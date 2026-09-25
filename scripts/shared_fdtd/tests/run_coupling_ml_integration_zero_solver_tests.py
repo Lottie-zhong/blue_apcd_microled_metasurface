@@ -40,6 +40,9 @@ def test_postentry_no_truth_closeout(root: Path):
     queue_row(db, "coupling_ml", case, attempt, "SCIENTIFIC_SOLVER_RUNNING", lease)
     events = attempt_root / "events.jsonl"
     append_event(events, "SCIENTIFIC_SOLVER_ENTERED", solver_runs=1)
+    append_event(events, "SOLVER_RETURNED")
+    append_event(events, "POSTENTRY_FAILURE_ADJUDICATED")
+    append_event(events, "TRUTH_PRESERVATION_COMPLETE")
     roots = {(case, attempt): attempt_root}
     result = closeout_owned_postentry_no_truth(db, "coupling_ml", roots, process_probe=lambda state: [])
     assert result and result[0]["status"] == "POSTENTRY_NO_TRUTH", result
@@ -249,6 +252,30 @@ def test_same_attempt_reuses_released_reservation(root: Path):
 
 
 
+def test_async_host_wait_clears_released_refs(root: Path):
+    db = init_db(root)
+    case, attempt = "ASYNC_HOST_WAIT", "attempt_003"
+    enqueue(db, "coupling_ml", case, attempt)
+    lease = Allocator(db).acquire("coupling_ml", case, attempt)
+    with db.immediate() as con:
+        con.execute(
+            "UPDATE branch_queue SET state='HOST_START_INTENT',slot_id=?,lease_token_hash=?,fencing_generation=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            (lease.slot_id, lease.token_hash, lease.fencing_generation, "coupling_ml", case, attempt),
+        )
+    Allocator(db).release_owned(lease, scientific_terminal="FAILED_PREENTRY")
+    from shared_fdtd.tools.v3_g2_host import queue_state
+    queue_state(db, {"branch": "coupling_ml", "case": case, "attempt": attempt}, "WAIT_RESOURCE_CAPACITY")
+    with db.connect(readonly=True) as con:
+        row = con.execute(
+            "SELECT state,slot_id,lease_token_hash,fencing_generation FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            ("coupling_ml", case, attempt),
+        ).fetchone()
+    assert row["state"] == "WAIT_RESOURCE_CAPACITY"
+    assert row["slot_id"] is None and row["lease_token_hash"] is None and row["fencing_generation"] is None
+    assert all(x["state"] == "FREE" for x in Allocator(db).list_slots_readonly())
+    return {"status": "PASS", "scientific_entries": 0, "stale_refs": 0}
+
+
 def test_zero_solver_host_start_recovery(root: Path):
     db = init_db(root)
     case, attempt = "ABANDONED_HOST", "attempt_002"
@@ -337,6 +364,7 @@ def main():
             ("preentry_boundary_preserves_wait", test_preentry_boundary_preserves_wait),
             ("controller_restart_preserves_waiting_case", test_controller_restart_preserves_waiting_case),
             ("same_attempt_reuses_released_reservation", test_same_attempt_reuses_released_reservation),
+            ("async_host_wait_clears_released_refs", test_async_host_wait_clears_released_refs),
             ("zero_solver_host_start_recovery", test_zero_solver_host_start_recovery),
             ("zero_solver_entry_intent_recovery", test_zero_solver_entry_intent_recovery),
             ("foreign_traditional_unchanged", test_foreign_traditional_unchanged),

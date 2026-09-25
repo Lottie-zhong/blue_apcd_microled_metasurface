@@ -13,6 +13,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 DB_PATH = Path(r"D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3")
 HOST_PYTHON = r"C:\Users\DELL\anaconda3\pythonw.exe"
 HOST_SCRIPT = r"D:\apcd_runtime\bin\v3g2h.py"
+CREATE_NO_WINDOW = 0x08000000
+CREATE_BREAKAWAY_FROM_JOB = 0x01000000
 def now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -50,7 +52,7 @@ def launch_process(command):
     process = ProcessInformation()
     command_line = ctypes.create_unicode_buffer(command)
     ok = ctypes.windll.kernel32.CreateProcessW(
-        None, command_line, None, None, False, 0x08000000,
+        None, command_line, None, None, False, CREATE_NO_WINDOW | CREATE_BREAKAWAY_FROM_JOB,
         None, str(ROOT), ctypes.byref(startup), ctypes.byref(process),
     )
     if not ok:
@@ -84,6 +86,7 @@ def launch_factory(db_path, preentry_only=False):
             "task": payload["task"], "slot_id": lease.slot_id, "lease_token": lease.lease_token,
             "fencing_generation": lease.fencing_generation, "admission_control_generation": lease.control_generation,
             "admission_provenance": lease.admission_provenance, "task_name": payload["task_name"],
+            "exact_launch_permit_id": payload.get("exact_launch_permit_id"),
             "created_utc": now(),
             "production_science": bool(payload.get("production_science", False)),
             "resource_request": payload.get("resource_request"),
@@ -116,6 +119,7 @@ def launch_factory(db_path, preentry_only=False):
             lease, resource_request=request, resource_snapshot=boundary_snapshot,
             resource_policy=payload.get("resource_policy"), backend_type=backend_type,
             admission_timestamp=(lease.admission_provenance or {}).get("admission_timestamp"),
+            exact_permit_id=payload.get("exact_launch_permit_id"), consume_permit=False,
             start=start_host,
         )
         if not boundary["eligible"]:

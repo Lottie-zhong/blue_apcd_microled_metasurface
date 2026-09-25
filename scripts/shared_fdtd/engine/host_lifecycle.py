@@ -7,6 +7,7 @@ from typing import Callable, Any
 
 from shared_fdtd.control_v3.db import utc_now
 from shared_fdtd.engine.event_log import append_event, read_events
+from shared_fdtd.engine.attempt_state import write_durable_attempt_state
 
 
 @dataclass
@@ -32,18 +33,15 @@ class ScientificHostLifecycle:
         except Exception:
             self._deferred = set()
 
+    def persist_durable_state(self, path: str | Path, *, cfg: dict[str, Any], lease: Any, **paths: Any) -> dict[str, Any]:
+        return write_durable_attempt_state(path, cfg=cfg, lease=lease, **paths)
+
     def mark_entered(self, **metadata: Any) -> None:
         self.entered = True
         self.phase = "SCIENTIFIC_EXECUTION"
-        append_event(
-            self.events,
-            "SCIENTIFIC_SOLVER_ENTERED",
-            process_identity=self.identity,
-            **metadata,
-        )
+        append_event(self.events, "SCIENTIFIC_SOLVER_ENTERED", process_identity=self.identity, **metadata)
 
     def control_plane(self, operation: str, callback: Callable[[], Any], *, state: str | None = None) -> bool:
-        """Run only a control-plane mutation; never close or terminate the scientific owner."""
         try:
             callback()
         except BaseException as exc:
@@ -104,3 +102,4 @@ def lifecycle_identity(cfg: dict[str, Any], lease: Any) -> dict[str, Any]:
         "lease_token_hash": lease.token_hash,
         "fencing_generation": lease.fencing_generation,
     }
+

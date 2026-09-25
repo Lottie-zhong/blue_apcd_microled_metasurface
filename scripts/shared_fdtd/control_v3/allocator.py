@@ -50,7 +50,141 @@ class Allocator:
             bad.append({"metric_name": row["metric_name"], "metric_value": int(row["metric_value"])})
         return bad
 
-    def _admission_decision(self, con, branch: str, *, lease=None, resource_request=None, resource_snapshot=None, resource_policy=None, backend_type=None, final=False):
+    def arm_exact_launch_permit(self, branch: str, logical_case_id: str, attempt_id: str, *, metadata=None, authorization_generation=None) -> dict[str, Any]:
+        with self.db.immediate() as con:
+            control = self.db.ensure_admission_control(con)
+            if int(control["new_entry_hold"]) != 1:
+                raise RuntimeError("EXACT_PERMIT_REQUIRES_GLOBAL_HOLD")
+            generation = int(control["control_generation"])
+            if authorization_generation is not None and int(authorization_generation) != generation:
+                raise RuntimeError("EXACT_PERMIT_GENERATION_MISMATCH")
+            existing = con.execute(
+                "SELECT * FROM exact_launch_permits WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+                (branch, logical_case_id, attempt_id),
+            ).fetchone()
+            if existing is not None:
+                if existing["state"] == "ARMED" and int(existing["authorization_generation"]) == generation:
+                    return dict(existing)
+                raise RuntimeError("EXACT_PERMIT_ALREADY_TERMINAL")
+            active = con.execute("SELECT COUNT(*) FROM exact_launch_permits WHERE state='ARMED'").fetchone()[0]
+            if active:
+                raise RuntimeError("EXACT_PERMIT_ALREADY_ARMED")
+            permit_id = secrets.token_urlsafe(24)
+            now = utc_now()
+            con.execute(
+                "INSERT INTO exact_launch_permits(permit_id,branch_id,logical_case_id,attempt_id,authorization_generation,state,created_at,metadata_json) VALUES(?,?,?,?,?,?,?,?)",
+                (permit_id, branch, logical_case_id, attempt_id, generation, "ARMED", now, json.dumps(metadata or {}, sort_keys=True)),
+            )
+            return dict(con.execute("SELECT * FROM exact_launch_permits WHERE permit_id=?", (permit_id,)).fetchone())
+
+    def _exact_permit_decision(self, con, permit_id, branch, logical_case_id, attempt_id, control, lease=None) -> dict[str, Any]:
+        if not permit_id:
+            return {"valid": False, "reason": "EXACT_PERMIT_MISSING"}
+        row = con.execute("SELECT * FROM exact_launch_permits WHERE permit_id=?", (permit_id,)).fetchone()
+        if row is None:
+            return {"valid": False, "reason": "EXACT_PERMIT_NOT_FOUND"}
+        if row["state"] != "ARMED":
+            return {"valid": False, "reason": "EXACT_PERMIT_NOT_ARMED", "state": row["state"]}
+        if (row["branch_id"], row["logical_case_id"], row["attempt_id"]) != (branch, logical_case_id, attempt_id):
+            return {"valid": False, "reason": "EXACT_PERMIT_IDENTITY_MISMATCH"}
+        if int(row["authorization_generation"]) != int(control["control_generation"]):
+            return {"valid": False, "reason": "EXACT_PERMIT_GENERATION_STALE"}
+        if int(control["new_entry_hold"]) != 1:
+            return {"valid": False, "reason": "EXACT_PERMIT_REQUIRES_GLOBAL_HOLD"}
+        entries = con.execute("SELECT COUNT(*) FROM lease_events WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND event_type='SCIENTIFIC_SOLVER_ENTERED'", (branch, logical_case_id, attempt_id)).fetchone()[0]
+        gpu_entries = con.execute("SELECT COUNT(*) FROM lease_events WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND event_type='GPU_ENGINE_ENTRY_CONFIRMED'", (branch, logical_case_id, attempt_id)).fetchone()[0]
+        if entries or gpu_entries:
+            return {"valid": False, "reason": "EXACT_PERMIT_ENTRY_ALREADY_RECORDED", "scientific_entry_count": entries, "gpu_engine_entry_count": gpu_entries}
+        if lease is None:
+            if row["slot_id"] is not None or row["lease_token_hash"] is not None or row["fencing_generation"] is not None:
+                return {"valid": False, "reason": "EXACT_PERMIT_ALREADY_BOUND"}
+        else:
+            if (row["slot_id"], row["lease_token_hash"], row["fencing_generation"]) != (lease.slot_id, lease.token_hash, lease.fencing_generation):
+                return {"valid": False, "reason": "EXACT_PERMIT_OWNER_MISMATCH"}
+        return {"valid": True, "permit_id": permit_id, "state": row["state"], "authorization_generation": int(row["authorization_generation"]) }
+
+    @staticmethod
+    def _bind_exact_launch_permit_in_con(con, permit_id, lease: Lease) -> None:
+        if not permit_id:
+            return
+        row = con.execute("SELECT * FROM exact_launch_permits WHERE permit_id=?", (permit_id,)).fetchone()
+        control = con.execute("SELECT * FROM admission_control WHERE control_id=1").fetchone()
+        if row is None or control is None:
+            raise RuntimeError("EXACT_PERMIT_NOT_FOUND")
+        check = Allocator._exact_permit_static_check(row, control, lease)
+        if not check["valid"]:
+            raise RuntimeError(check["reason"])
+        changed = con.execute(
+            "UPDATE exact_launch_permits SET slot_id=?,lease_token_hash=?,fencing_generation=?,bound_at=? WHERE permit_id=? AND state='ARMED' AND slot_id IS NULL",
+            (lease.slot_id, lease.token_hash, lease.fencing_generation, utc_now(), permit_id),
+        ).rowcount
+        if changed != 1:
+            raise RuntimeError("EXACT_PERMIT_BIND_RACE")
+
+    @staticmethod
+    def _exact_permit_static_check(row, control, lease) -> dict[str, Any]:
+        if row["state"] != "ARMED":
+            return {"valid": False, "reason": "EXACT_PERMIT_NOT_ARMED"}
+        if int(control["new_entry_hold"]) != 1:
+            return {"valid": False, "reason": "EXACT_PERMIT_REQUIRES_GLOBAL_HOLD"}
+        if int(row["authorization_generation"]) != int(control["control_generation"]):
+            return {"valid": False, "reason": "EXACT_PERMIT_GENERATION_STALE"}
+        return {"valid": True}
+
+    @staticmethod
+    def _cancel_armed_permit_in_con(con, lease: Lease) -> int:
+        return con.execute(
+            "UPDATE exact_launch_permits SET state='CANCELLED',cancelled_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state='ARMED' AND (slot_id IS NULL OR (slot_id=? AND lease_token_hash=? AND fencing_generation=?))",
+            (utc_now(), lease.owner_branch, lease.logical_case_id, lease.attempt_id, lease.slot_id, lease.token_hash, lease.fencing_generation),
+        ).rowcount
+
+    def cancel_exact_launch_permit(self, permit_id: str) -> dict[str, Any]:
+        with self.db.immediate() as con:
+            self.db.ensure_admission_control(con)
+            row = con.execute("SELECT * FROM exact_launch_permits WHERE permit_id=?", (permit_id,)).fetchone()
+            if row is None:
+                return {"status": "NOT_FOUND", "permit_id": permit_id}
+            if row["state"] == "ARMED":
+                con.execute("UPDATE exact_launch_permits SET state='CANCELLED',cancelled_at=? WHERE permit_id=? AND state='ARMED'", (utc_now(), permit_id))
+                row = con.execute("SELECT * FROM exact_launch_permits WHERE permit_id=?", (permit_id,)).fetchone()
+            return {"status": "CANCELLED" if row["state"] == "CANCELLED" else "ALREADY_TERMINAL", **dict(row)}
+
+    def cancel_exact_launch_permit_for_attempt(self, branch: str, logical_case_id: str, attempt_id: str) -> dict[str, Any]:
+        with self.db.immediate() as con:
+            self.db.ensure_admission_control(con)
+            rows = con.execute(
+                "SELECT * FROM exact_launch_permits WHERE branch_id=? AND logical_case_id=? AND attempt_id=? ORDER BY created_at",
+                (branch, logical_case_id, attempt_id),
+            ).fetchall()
+            cancelled = con.execute(
+                "UPDATE exact_launch_permits SET state='CANCELLED',cancelled_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state='ARMED'",
+                (utc_now(), branch, logical_case_id, attempt_id),
+            ).rowcount
+            final = con.execute(
+                "SELECT * FROM exact_launch_permits WHERE branch_id=? AND logical_case_id=? AND attempt_id=? ORDER BY created_at",
+                (branch, logical_case_id, attempt_id),
+            ).fetchall()
+            return {
+                "status": "CANCELLED" if cancelled else ("ALREADY_TERMINAL" if rows else "NOT_FOUND"),
+                "cancelled_count": cancelled,
+                "permits": [dict(row) for row in final],
+            }
+
+    def _consume_exact_launch_permit_in_con(self, con, permit_id, lease: Lease) -> dict[str, Any]:
+        control = self.db.ensure_admission_control(con)
+        decision = self._exact_permit_decision(con, permit_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id, control, lease=lease)
+        if not decision["valid"]:
+            return decision
+        changed = con.execute(
+            "UPDATE exact_launch_permits SET state='CONSUMED',consumed_at=? WHERE permit_id=? AND state='ARMED' AND slot_id=? AND lease_token_hash=? AND fencing_generation=? AND authorization_generation=?",
+            (utc_now(), permit_id, lease.slot_id, lease.token_hash, lease.fencing_generation, lease.control_generation),
+        ).rowcount
+        if changed != 1:
+            return {"valid": False, "reason": "EXACT_PERMIT_CONSUME_RACE"}
+        self._event(con, lease, "EXACT_LAUNCH_PERMIT_CONSUMED", {"permit_id": permit_id, "control_generation": lease.control_generation})
+        return {"valid": True, "permit_id": permit_id, "state": "CONSUMED"}
+
+    def _admission_decision(self, con, branch: str, *, logical_case_id=None, attempt_id=None, lease=None, resource_request=None, resource_snapshot=None, resource_policy=None, backend_type=None, final=False, exact_permit_id=None):
         from .gpu_capacity import ensure_gpu_capacity_tables, gpu_capacity_status
         from .resources import backend_admission, read_resource_snapshot, resource_admission
         control = self.db.ensure_admission_control(con)
@@ -58,8 +192,14 @@ class Allocator:
         reasons = []
         if branch_row is None or not int(branch_row["enabled"]):
             reasons.append("BRANCH_DISABLED")
-        if bool(control["new_entry_hold"]):
+        permit = self._exact_permit_decision(
+            con, exact_permit_id, branch, logical_case_id or (lease.logical_case_id if lease else ""),
+            attempt_id or (lease.attempt_id if lease else ""), control, lease=lease,
+        ) if exact_permit_id else {"valid": False, "reason": "EXACT_PERMIT_NOT_REQUESTED"}
+        if bool(control["new_entry_hold"]) and not permit["valid"]:
             reasons.append("NEW_ENTRY_HOLD")
+        if exact_permit_id and not permit["valid"]:
+            reasons.append(permit["reason"])
         formal_cap = int(branch_row["cap"]) if branch_row is not None else 0
         temporary_cap = control.get("temporary_runtime_cap")
         effective_cap = min(formal_cap, int(temporary_cap)) if temporary_cap is not None else formal_cap
@@ -128,10 +268,11 @@ class Allocator:
             "health_status": control["health_status"], "health_blockers": health_blockers,
             "control_generation": int(control["control_generation"]),
             "backend": backend_evidence, "resource": resource_evidence, "owner_fencing_reservation": owner_evidence,
+            "exact_launch_permit": permit,
             "final_recheck": bool(final),
         }
 
-    def acquire(self, branch: str, logical_case_id: str, attempt_id: str, *, resource_request=None, resource_snapshot=None, resource_policy=None, backend_type=None) -> Lease:
+    def acquire(self, branch: str, logical_case_id: str, attempt_id: str, *, resource_request=None, resource_snapshot=None, resource_policy=None, backend_type=None, exact_permit_id=None) -> Lease:
         try:
             with self.db.immediate() as con:
                 from .resources import ResourceRequest, ensure_resource_tables, normalize_backend, read_resource_snapshot
@@ -141,7 +282,7 @@ class Allocator:
                     resource_request = ResourceRequest.from_payload(resource_request)
                 if resource_request is not None or backend_type is not None:
                     resource_snapshot = resource_snapshot or read_resource_snapshot()
-                decision = self._admission_decision(con, branch, resource_request=resource_request, resource_snapshot=resource_snapshot, resource_policy=resource_policy, backend_type=backend_type)
+                decision = self._admission_decision(con, branch, logical_case_id=logical_case_id, attempt_id=attempt_id, resource_request=resource_request, resource_snapshot=resource_snapshot, resource_policy=resource_policy, backend_type=backend_type, exact_permit_id=exact_permit_id)
                 if not decision["eligible"]:
                     branch_only = set(decision["reasons"]).issubset({"BRANCH_DISABLED", "BRANCH_EFFECTIVE_CAP_REACHED"})
                     if branch_only:
@@ -165,8 +306,11 @@ class Allocator:
                         "admission_new_entry_hold": bool(decision["new_entry_hold"]),
                         "admission_branch_enabled": bool(decision["branch_enabled"]),
                         "admission_effective_branch_cap": int(decision["effective_branch_entry_limit"]),
+                        "exact_launch_permit_id": exact_permit_id,
                     },
                 )
+                if exact_permit_id:
+                    self._bind_exact_launch_permit_in_con(con, exact_permit_id, lease)
                 if resource_request is not None:
                     request = resource_request
                     reservation = con.execute("SELECT reservation_id,state FROM resource_reservations WHERE branch_id=? AND logical_case_id=? AND attempt_id=?", (branch, logical_case_id, attempt_id)).fetchone()
@@ -186,12 +330,12 @@ class Allocator:
             if "locked" in str(exc).lower(): raise ControlPlaneDeferred(str(exc)) from exc
             raise
 
-    def final_admission(self, lease: Lease, *, resource_request=None, resource_snapshot=None, resource_policy=None, backend_type=None) -> dict[str, Any]:
+    def final_admission(self, lease: Lease, *, resource_request=None, resource_snapshot=None, resource_policy=None, backend_type=None, exact_permit_id=None) -> dict[str, Any]:
         from .resources import ResourceRequest
         if resource_request is not None and not isinstance(resource_request, ResourceRequest):
             resource_request = ResourceRequest.from_payload(resource_request)
         with self.db.immediate() as con:
-            decision = self._admission_decision(con, lease.owner_branch, lease=lease, resource_request=resource_request, resource_snapshot=resource_snapshot, resource_policy=resource_policy, backend_type=backend_type, final=True)
+            decision = self._admission_decision(con, lease.owner_branch, logical_case_id=lease.logical_case_id, attempt_id=lease.attempt_id, lease=lease, resource_request=resource_request, resource_snapshot=resource_snapshot, resource_policy=resource_policy, backend_type=backend_type, final=True, exact_permit_id=exact_permit_id)
             self._event(con, lease, "FINAL_ADMISSION_PASS" if decision["eligible"] else "FINAL_ADMISSION_BLOCKED", decision)
             return decision
 
@@ -230,6 +374,7 @@ class Allocator:
     def final_launch_revalidation(
         self, lease: Lease, *, resource_request=None, resource_snapshot=None,
         resource_policy=None, backend_type=None, admission_timestamp=None, start=None,
+        exact_permit_id=None, consume_permit=True,
     ) -> dict[str, Any]:
         """Revalidate authority while holding the write lock through child start."""
         from .resources import ResourceRequest
@@ -237,12 +382,20 @@ class Allocator:
             resource_request = ResourceRequest.from_payload(resource_request)
         with self.db.immediate() as con:
             decision = self._admission_decision(
-                con, lease.owner_branch, lease=lease, resource_request=resource_request,
-                resource_snapshot=resource_snapshot, resource_policy=resource_policy,
-                backend_type=backend_type, final=True,
+                con, lease.owner_branch, logical_case_id=lease.logical_case_id, attempt_id=lease.attempt_id,
+                lease=lease, resource_request=resource_request, resource_snapshot=resource_snapshot,
+                resource_policy=resource_policy, backend_type=backend_type, final=True,
+                exact_permit_id=exact_permit_id,
             )
             if lease.control_generation is None:
                 decision = {**decision, "eligible": False, "reasons": sorted(set(decision["reasons"]) | {"ADMISSION_GENERATION_MISSING"})}
+            permit_consumed = False
+            if decision["eligible"] and exact_permit_id and consume_permit:
+                consumed = self._consume_exact_launch_permit_in_con(con, exact_permit_id, lease)
+                if not consumed["valid"]:
+                    decision = {**decision, "eligible": False, "reasons": sorted(set(decision["reasons"]) | {consumed["reason"]}), "exact_launch_permit": consumed}
+                else:
+                    permit_consumed = True
             admission = dict(lease.admission_provenance or {})
             provenance = {
                 "admission_generation": lease.control_generation,
@@ -256,13 +409,20 @@ class Allocator:
                 "final_new_entry_hold": decision["new_entry_hold"],
                 "final_branch_enabled": decision["branch_enabled"],
                 "final_effective_branch_cap": decision["effective_branch_entry_limit"],
+                "exact_launch_permit_id": exact_permit_id,
+                "exact_launch_permit_consumed": permit_consumed,
             }
             if not decision["eligible"]:
                 self._event(con, lease, "FINAL_LAUNCH_REVALIDATION_BLOCKED", {"decision": decision, "provenance": provenance})
                 owner = decision.get("owner_fencing_reservation") or {}
+                permit_state = (decision.get("exact_launch_permit") or {}).get("state")
                 released = (
-                    self._release_provisional_in_con(con, lease, "FINAL_LAUNCH_REVALIDATION_BLOCKED")
-                    if owner.get("slot") else {"status": "NOT_RELEASED_OWNER_MISMATCH", "duplicate_side_effects": 0}
+                    {"status": "NOT_RELEASED_CONSUMED_PERMIT", "duplicate_side_effects": 0}
+                    if exact_permit_id and permit_state == "CONSUMED"
+                    else (
+                        self._release_provisional_in_con(con, lease, "FINAL_LAUNCH_REVALIDATION_BLOCKED")
+                        if owner.get("slot") else {"status": "NOT_RELEASED_OWNER_MISMATCH", "duplicate_side_effects": 0}
+                    )
                 )
                 self._event(con, lease, "STALE_ADMISSION_REJECTED", {"decision": decision, "provenance": provenance, "release": released})
                 return {"eligible": False, "decision": decision, "provenance": provenance, "release": released}
@@ -340,7 +500,15 @@ class Allocator:
                 if row is None:
                     raise OwnershipMismatch(lease.slot_id)
                 if row["state"] == "FREE":
-                    return {"status": "ALREADY_FREE", "duplicate_side_effects": 0}
+                    now = utc_now()
+                    released_reservations = con.execute(
+                        "UPDATE resource_reservations SET state='RELEASED',released_at=?,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state<>'RELEASED'",
+                        (now, now, lease.owner_branch, lease.logical_case_id, lease.attempt_id),
+                    ).rowcount
+                    from .gpu_capacity import release_gpu_capacity
+                    released_gpu = release_gpu_capacity(con, lease)
+                    cancelled_permit = self._cancel_armed_permit_in_con(con, lease)
+                    return {"status": "ALREADY_FREE", "duplicate_side_effects": 0, "released_reservations": released_reservations, "released_gpu_capacity": released_gpu, "cancelled_permit": cancelled_permit}
                 matches = (
                     row["owner_branch"] == lease.owner_branch
                     and row["logical_case_id"] == lease.logical_case_id
@@ -355,15 +523,24 @@ class Allocator:
                     (utc_now(), lease.slot_id),
                 ).rowcount
                 if changed != 1:
-                    return {"status": "ALREADY_FREE", "duplicate_side_effects": 0}
+                    now = utc_now()
+                    released_reservations = con.execute(
+                        "UPDATE resource_reservations SET state='RELEASED',released_at=?,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state<>'RELEASED'",
+                        (now, now, lease.owner_branch, lease.logical_case_id, lease.attempt_id),
+                    ).rowcount
+                    from .gpu_capacity import release_gpu_capacity
+                    released_gpu = release_gpu_capacity(con, lease)
+                    cancelled_permit = self._cancel_armed_permit_in_con(con, lease)
+                    return {"status": "ALREADY_FREE", "duplicate_side_effects": 0, "released_reservations": released_reservations, "released_gpu_capacity": released_gpu, "cancelled_permit": cancelled_permit}
                 con.execute(
                     "UPDATE resource_reservations SET state='RELEASED',released_at=?,updated_at=? WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=?",
                     (utc_now(), utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id),
                 )
                 from .gpu_capacity import release_gpu_capacity
-                release_gpu_capacity(con, lease)
-                self._event(con, lease, "LEASE_RELEASED", {"scientific_terminal": scientific_terminal, **(metadata or {})})
-                return {"status": "RELEASED", "duplicate_side_effects": 0}
+                released_gpu = release_gpu_capacity(con, lease)
+                cancelled_permit = self._cancel_armed_permit_in_con(con, lease)
+                self._event(con, lease, "LEASE_RELEASED", {"scientific_terminal": scientific_terminal, "cancelled_permit": cancelled_permit, **(metadata or {})})
+                return {"status": "RELEASED", "duplicate_side_effects": 0, "released_gpu_capacity": released_gpu, "cancelled_permit": cancelled_permit}
         except sqlite3.OperationalError as exc:
             if "locked" in str(exc).lower():
                 raise ControlPlaneDeferred(str(exc)) from exc

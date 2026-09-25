@@ -12,6 +12,7 @@ from shared_fdtd.control_v3.db import ControlDB, utc_now
 from shared_fdtd.engine.attempt_state import read_durable_attempt_state, RUNTIME_PATCH_VERSION
 from shared_fdtd.engine.event_log import append_event, read_events
 from shared_fdtd.engine.persistence import atomic_json, sha256_file
+from shared_fdtd.engine.gpu_bundle import discover_bundle, persist_gpu_bundle
 
 TERMINAL_LOG_RE = re.compile(
     r"(simulation\s+(?:finished|complete|completed)|"
@@ -225,14 +226,25 @@ class DurablePostSolverFinisher:
             "runtime_fsp_signature": signature,
         }
 
-    def _copy_native(self, source: Path, destination: Path) -> dict[str, Any]:
+    def _copy_native(self, source: Path, destination: Path, state: Mapping[str, Any]) -> dict[str, Any]:
+        bundle = discover_bundle(source)
+        if bundle["sidecar_paths"]:
+            if destination.name != source.name:
+                destination = destination.parent / source.name
+            return persist_gpu_bundle(
+                source,
+                destination,
+                staging_root=self.root / "bundle_stage_native",
+                require_sidecars=True,
+                validator=lambda staged: self.adapter.fresh_load_validate(staged, state),
+            )
         destination.parent.mkdir(parents=True, exist_ok=True)
         if destination.is_file() and destination.stat().st_size > 0:
-            return {"status": "ALREADY_DURABLE", "path": str(destination), "sha256": sha256_file(destination)}
+            return {"status": "ALREADY_DURABLE", "path": str(destination), "fsp_path": str(destination), "sha256": sha256_file(destination)}
         tmp = destination.with_name(destination.name + ".finisher.tmp")
         shutil.copyfile(source, tmp)
         tmp.replace(destination)
-        return {"status": "DURABLE", "path": str(destination), "sha256": sha256_file(destination)}
+        return {"status": "DURABLE", "path": str(destination), "fsp_path": str(destination), "sha256": sha256_file(destination)}
 
     def _release(self, state: Mapping[str, Any], lease: Lease | None) -> dict[str, Any]:
         if lease is None:
@@ -293,7 +305,8 @@ class DurablePostSolverFinisher:
         self._advance_queue(state, "SOLVER_RETURNED")
         self._append_once("SOLVER_RETURNED", evidence=evidence)
 
-        native = self._copy_native(runtime_fsp, native_target)
+        native = self._copy_native(runtime_fsp, native_target, state)
+        native_target = Path(native.get("fsp_path") or native.get("path") or native_target)
         self._append_once("NATIVE_TRUTH_DURABLE", artifact=native)
         try:
             fresh = self.adapter.fresh_load_validate(native_target, state)
