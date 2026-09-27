@@ -1,0 +1,2682 @@
+{
+  "schema": "PW_K6_20G_DATASET_FREEZE_MANIFEST_V1",
+  "status": "PASS",
+  "created_utc": "2026-09-27T14:26:55Z",
+  "source_provenance_manifest": "reports/coupling/PW_K6_20G_SOURCE_PROVENANCE_MANIFEST_V1.json",
+  "source_provenance_manifest_sha256": "e32d72cd0898d17dad0f0fb7cf2879e514139cafe1d2b5328f1fbbe229f20d5d",
+  "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "base_cases": [
+    "K6V1_S02",
+    "K6V1_S03",
+    "K6V1_S04",
+    "K6V1_S05",
+    "K6V1_S15",
+    "K6V1_S16"
+  ],
+  "recovered_cases": [
+    "K6V1_EXT01",
+    "K6V1_EXT02"
+  ],
+  "extension_cases": [
+    "K6V1_EXT03",
+    "K6V1_EXT04",
+    "K6V1_EXT05",
+    "K6V1_EXT06",
+    "K6V1_EXT07",
+    "K6V1_EXT08",
+    "K6V1_EXT09",
+    "K6V1_EXT10",
+    "K6V1_EXT11",
+    "K6V1_EXT12",
+    "K6V1_EXT13",
+    "K6V1_EXT14"
+  ],
+  "snapshots": {
+    "8G": {
+      "case_count": 8,
+      "cases": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02"
+      ]
+    },
+    "12G": {
+      "case_count": 12,
+      "cases": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06"
+      ]
+    },
+    "20G": {
+      "case_count": 20,
+      "cases": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ]
+    }
+  },
+  "selected_cases": [
+    {
+      "dataset_index": 1,
+      "case_id": "K6V1_S02",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        215,
+        105,
+        215,
+        230,
+        105,
+        130
+      ],
+      "geometry_hash_sha256": "947cf4b1a3b31e4bb4f5733805286f68335fc5caa2cdf244ad58b4b16312e2d3",
+      "control_path": "NORMAL_S16_ATTEMPT_002",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-24T09:12:02.479404+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-24T09:12:40.108397+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-24T09:35:58.890478+00:00",
+            "event_type": "OWNER_QUARANTINED"
+          },
+          {
+            "timestamp": "2026-09-24T10:11:40.603564+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-24T10:11:41.416606+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5902,
+          "sha256": "65d6ad97f47a07b61e08fd8e90a8db5c8211f7c35e6023cf6ecbedf613e180ff"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\state\\K6V1_S02__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6745,
+          "sha256": "fd98f45ba92c6705d823ff4cef89fa06281e62197fafef97b2ea3626ca03ed58"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\raw\\K6V1_S02__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503887,
+          "sha256": "c46ca5378ad7a8dfb5ca6f6c2e4a1d399bf8a877fab19806dc6b230d9ff5ab67"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\projection\\K6V1_S02__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23678,
+          "sha256": "13a9b6187cee91b1ebf71777b7e0cd8a8c29e03509b41639f832a64f820b6bfc"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\orders\\K6V1_S02__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388013,
+          "sha256": "ea35fd4c104fdfa3caacedb6dacd18c0cb01222456e836706b90fa2c46544a16"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1337,
+          "sha256": "e987492ee76991d07b6172650910579fffa0d7110277313a4a9d9bf48b4e777a"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1114,
+          "sha256": "ea1a34ac1a0242630de1c34c2e2410dd621068caf41ff0b844950fb9ffd4a53b"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 9078,
+          "sha256": "1a37cdc075b354538ef30a40975c77863c608cfa65702d586480ba80d0feb9df"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\run\\K6V1_S02__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552852,
+          "sha256": "9b9af813f55c9ac49e7139d212a73adb89db399be52973d27c8c143617ba1f6f"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\run\\K6V1_S02__attempt_001_runtime\\K6V1_S02__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76386531,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 2,
+      "case_id": "K6V1_S03",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        100,
+        130,
+        120,
+        230,
+        100
+      ],
+      "geometry_hash_sha256": "5383cc1b85e33126508aaff6f550b9138b83d145c539b919327ecbd3cb266263",
+      "control_path": "NORMAL_S16_ATTEMPT_002",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-24T09:13:02.008501+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-24T09:13:32.858601+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-24T09:36:48.725053+00:00",
+            "event_type": "OWNER_QUARANTINED"
+          },
+          {
+            "timestamp": "2026-09-24T10:14:32.987928+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-24T10:14:33.784385+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 6156,
+          "sha256": "c447c548237cc75fe3e75bdac53c4aefd19b4fae15242a3aef8867ef564de7e4"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\state\\K6V1_S03__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6748,
+          "sha256": "22b0a29392c22b85fb5acb491095595af74774a28be9c95deef8d2a5517beaae"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\raw\\K6V1_S03__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503911,
+          "sha256": "092aabaa6a49159890eee5a396e656b42f379842ba0d55361ad40f480043463a"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\projection\\K6V1_S03__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23710,
+          "sha256": "b56cc56eaf359e4e381496b3ac8d27b8e1380ec3d89c0b9ddeab78687d23340e"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\orders\\K6V1_S03__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388033,
+          "sha256": "a7cb969de7e43331798e0473a0ee4187942ff62d0763f81460e5b03d369b0444"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1337,
+          "sha256": "93db176ccf60c44915baa7a3d4c0caf57b65039f01eb75654f6051b5b885c37a"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1115,
+          "sha256": "768acbac4d223d477ee29852e5c6419b95ab119eb519a151007e71e0bf1c8628"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 4216,
+          "sha256": "080183b684da2023a3a0c543022376aa07ebbeaac87651b1929e74a70572c11c"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\run\\K6V1_S03__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552852,
+          "sha256": "77ee8111e850784e2d78701f0e4d303ea3930e4ca4272b1e37fc0fc597bc67d6"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\run\\K6V1_S03__attempt_001_runtime\\K6V1_S03__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76506413,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 3,
+      "case_id": "K6V1_S04",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        205,
+        215,
+        105,
+        225,
+        180,
+        100
+      ],
+      "geometry_hash_sha256": "269db32fc25f6a85ff9d934aab5c99627265a9f87d8b2ba4b3887c8770a114a9",
+      "control_path": "NORMAL_S16_ATTEMPT_002",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-24T10:21:01.607326+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-24T10:21:01.827859+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-24T10:21:01.962080+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-24T10:21:39.080898+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-24T10:33:22.789754+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-24T10:33:23.097806+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5103,
+          "sha256": "69647b0d56dff709790bdf69f1ed1b245f1d86338d527c632f340ec7849bcb8a"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\state\\K6V1_S04__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6743,
+          "sha256": "3bf760d9cb1427581e03d24ddbf73d2ccb66b56328cae639e362c2cdcaa8f8bf"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\raw\\K6V1_S04__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503775,
+          "sha256": "e6d9aea40e6a7a188f9c39167cd588fac97081256ed71d18eb3852cd48da26d8"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\projection\\K6V1_S04__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23674,
+          "sha256": "e4abdc30fe202130c6a4e12598e89dfe9e2e16c0b5f790a02644d88348a12628"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\orders\\K6V1_S04__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387953,
+          "sha256": "91af5357ff7645ba053ab4e2a24add189b9e2e924d05a42855f7f469a720336e"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1300,
+          "sha256": "e710e5279a89f1d7790bac9cc98f97b28e078ccec3794a845a259cab6d1e7cb1"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1115,
+          "sha256": "042fa338aecbbba41cfdff24daf27ded7e1c0006fe312cd50885a26713aed7bb"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1732,
+          "sha256": "f6c948b50cbe9117baa22ef015d71dc68629642889a07ac841a295b08859c36c"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\run\\K6V1_S04__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552852,
+          "sha256": "d8f0c402dc97482dee79b963d06a9082fc6b855502ac1351f5895e6d2598eac0"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\run\\K6V1_S04__attempt_001_runtime\\K6V1_S04__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76551595,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 4,
+      "case_id": "K6V1_S05",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        215,
+        225,
+        100,
+        125,
+        110,
+        220
+      ],
+      "geometry_hash_sha256": "c9214e73410f695ba239c80b39638afa2796b085e3efb062cbd34b6b11c6bd6b",
+      "control_path": "NORMAL_S16_ATTEMPT_002",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-24T10:34:01.684659+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-24T10:34:01.907431+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-24T10:34:02.020976+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-24T10:34:39.524860+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-24T10:46:20.216866+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-24T10:46:20.499546+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5070,
+          "sha256": "65d737bf9b0be70d9f74fbb79be5bc544d23c99e5f214f402e1e0e52e0e77ec7"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\state\\K6V1_S05__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6743,
+          "sha256": "a8a90fe17715a8305520e23bfd20fa65f1bca95e5bf93108398073a0f5e4002d"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\raw\\K6V1_S05__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503852,
+          "sha256": "07315a7c2d5abfc34ca582ee9846cece649b6e614c93a2b64f4f01ed6c4b5614"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\projection\\K6V1_S05__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23662,
+          "sha256": "283e50e0bc90befbc5db4d0cba08ccef8fe739036cd4a710bfd3eb85819b2d4a"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\orders\\K6V1_S05__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388022,
+          "sha256": "0af651d0e6215c759bfae5deef72d500fe106e8ca3c05ebab0fb81cddb44b7bc"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1300,
+          "sha256": "244b185bf2d33d247ccdbaf49b77e120deb2cb46aa7cefc04e78657aa0c16cb3"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1115,
+          "sha256": "fa380effca422dfbf4d037e89fd761d759b0d165a48d474737f3da6a5b880fc0"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1732,
+          "sha256": "fb989ba17df9484522e38991aea0359fa3e33e35776112a8db3cbca7e6cabea7"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\run\\K6V1_S05__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552852,
+          "sha256": "2920d8e06d7f8fc4d4dad3f9c335c53c6622fd67d271eee4227387a07fb30418"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\run\\K6V1_S05__attempt_001_runtime\\K6V1_S05__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76562113,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 5,
+      "case_id": "K6V1_S15",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        110,
+        135,
+        180,
+        230,
+        230,
+        100
+      ],
+      "geometry_hash_sha256": "44ce888fac542b11c7a88046c937e9bb189cb1b7352c6153e97dee844a274ac1",
+      "control_path": "NORMAL_S16_ATTEMPT_002",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T04:25:39.298229+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T04:25:39.606878+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T04:25:39.753758+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T04:25:39.814847+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T04:25:51.656984+00:00",
+            "event_type": "EXACT_LAUNCH_PERMIT_CONSUMED"
+          },
+          {
+            "timestamp": "2026-09-25T04:25:51.656984+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T04:25:51.724584+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T04:26:02.924109+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T04:37:21.048012+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T04:37:21.382306+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5655,
+          "sha256": "6e19efb348f698fa7e866150d84545ed20a90fa27b9618512e120ab48236bdcb"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\state\\K6V1_S15__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6749,
+          "sha256": "2665c37ab834b8a71e283595bb015d09ce3fef51dc3e878ab7c734526808858a"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\raw\\K6V1_S15__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503857,
+          "sha256": "586d828a0ec0c077ae28a46e2e84d4ab8e56165610374de4ffe45cb323cb0d97"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\projection\\K6V1_S15__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23740,
+          "sha256": "e436cdf997acb784bad4215a162ad79ac1b8f82169eb77364cf91f56761d4d30"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\orders\\K6V1_S15__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387976,
+          "sha256": "df9b5ce7403bc0badfb6060f21a89a5dd975d98d76a2690ac4d006a191f28f4a"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1300,
+          "sha256": "5fafa54c09a8c64d583189f2bff20b6229e03b741b200bbe8bfedf59c1f1f296"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1114,
+          "sha256": "16c051a80c707560c00152dd083a41324974d91651c9d3b1fa0f3365cf111b1b"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1732,
+          "sha256": "f06474f30ba2435c71ecb6190df3fd2835226e19f303b71ecfbf7398ac0184d9"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\run\\K6V1_S15__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552852,
+          "sha256": "4a374af152eef7485d979710842c21e195689afa791971cca6cc4ce582914e30"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\run\\K6V1_S15__attempt_001_runtime\\K6V1_S15__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76414117,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 6,
+      "case_id": "K6V1_S16",
+      "attempt_id": "attempt_002",
+      "ordered_D_nm": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "geometry_hash_sha256": "909d242ab2c06ff40f591603f19a546423cdf12a38e05459e99ff336ef6e69af",
+      "control_path": "NORMAL_S16_ATTEMPT_002",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T05:40:49.339249+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T05:40:49.570540+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T05:40:49.720578+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T05:40:49.782130+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T05:41:02.287155+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_BLOCKED"
+          },
+          {
+            "timestamp": "2026-09-25T05:41:02.373986+00:00",
+            "event_type": "STALE_ADMISSION_REJECTED"
+          },
+          {
+            "timestamp": "2026-09-25T05:48:58.952257+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T05:48:59.186918+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T05:48:59.360860+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T05:48:59.434905+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T05:49:11.356661+00:00",
+            "event_type": "EXACT_LAUNCH_PERMIT_CONSUMED"
+          },
+          {
+            "timestamp": "2026-09-25T05:49:11.357208+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T05:49:11.428786+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T05:49:22.660638+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T06:00:29.876870+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T06:00:30.194081+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5653,
+          "sha256": "27d9adf5a4b8c603b6f2019b2687dd38b81e8ba6cd9a93399229b20b4ddf24e0"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\state\\K6V1_S16__attempt_002_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6751,
+          "sha256": "2cda8dd5eb2695742f29a011fc470d2e15c16a9cb740958dbafb10b05e6be90e"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\raw\\K6V1_S16__attempt_002_raw.json",
+          "exists": true,
+          "bytes": 503899,
+          "sha256": "c838c5ec692eb00dcb8e7fc85b01f7dc487e2594914509a2b42c73dd5ec6faa8"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\projection\\K6V1_S16__attempt_002_projection.json",
+          "exists": true,
+          "bytes": 23711,
+          "sha256": "c29fd250f487661e74ae54ecf3d17dc2666685e9c030ca8a6918fccb1455fdbe"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\orders\\K6V1_S16__attempt_002_orders.json",
+          "exists": true,
+          "bytes": 387994,
+          "sha256": "e3a433341bfe85dc47794acb27fab831f823b9f0545f447e6eeaa20b40bebc64"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1300,
+          "sha256": "ec5b11808a75ac2c27f7ad9b1d4728f1c7684bfe8d441df4131774a28e2e4fa4"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\pre_entry_manifest.json",
+          "exists": false,
+          "bytes": 0,
+          "sha256": null
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1732,
+          "sha256": "5bcae0af84396d080489882b609cf1e51b975065571f97520f1dfe284fbf5b7c"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\run\\K6V1_S16__attempt_002_runtime.fsp",
+          "exists": true,
+          "bytes": 170552852,
+          "sha256": "641d0fdb57b6c5ecf1267841a41d6edbfd0ca13e38f068fc1611ae1a18b7ac08"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\run\\K6V1_S16__attempt_002_runtime\\K6V1_S16__attempt_002_runtime_output.h5",
+          "exists": true,
+          "bytes": 76603189,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 7,
+      "case_id": "K6V1_EXT01",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        220,
+        210,
+        230,
+        225,
+        205,
+        105
+      ],
+      "geometry_hash_sha256": "f80b416b2794336a00873f440c4091fcbd940618fe11f9cf10f8e9a78985252f",
+      "control_path": "RECOVERED_AFTER_SIDECAR_READINESS_RACE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T07:08:12.306427+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:12.495690+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:12.625911+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:12.685204+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:26.581023+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:26.658086+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:37.820685+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T07:30:35.871608+00:00",
+            "event_type": "OWNER_QUARANTINED"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:31.605749+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:32.454452+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 6484,
+          "sha256": "9948e05137f0ce2bc84887b3c37f99a8a2009995e33ca27fa65a7b48ab820166"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\state\\K6V1_EXT01__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6750,
+          "sha256": "68a84165884e7276645b96e5acb6b51b9fca078a7cc3c4c1c8930b94d93beaae"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\raw\\K6V1_EXT01__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503919,
+          "sha256": "c4ac076a1ce4aeb6ddde384d67a0c25671d7b760da3c6a6f4fd945221c5dda6f"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\projection\\K6V1_EXT01__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23636,
+          "sha256": "9a8216f0392e1c04010f547842b92fa1b0ca0748267c4da3796613541dba3249"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\orders\\K6V1_EXT01__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388109,
+          "sha256": "58a1defe9b4a760e9c48975d06be934a3b81ecd12a72d5021754a465c048792b"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1357,
+          "sha256": "a1bc813be28959a25fce1fd5fd24185ddf366e509fe0562ddd46e06b952a12f4"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "05be61cf63b44b94e82fb73bb1f684cadde13ad7af59209aff1bb31156cb1655"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 7805,
+          "sha256": "bc4dcaf0f942ee2364135f69287ff40d3af10a1623c86c6d2afb488374573daa"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\run\\K6V1_EXT01__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "944aa95b5d2e8bedbc9a0f9d42678ed94bdcd7b6b6cf2ff9c7a8bdefc9e58b88"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\run\\K6V1_EXT01__attempt_001_runtime\\K6V1_EXT01__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76541393,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 8,
+      "case_id": "K6V1_EXT02",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+      "control_path": "RECOVERED_AFTER_SIDECAR_READINESS_RACE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T07:08:12.940965+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:13.161899+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:13.319698+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:13.418713+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:26.425151+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:26.493187+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T07:08:37.882954+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T07:30:35.588913+00:00",
+            "event_type": "OWNER_QUARANTINED"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:12.482043+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:13.304940+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "8G",
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 6485,
+          "sha256": "691d5ae872d808a11776ac6fe2dd229e1a4eca04729feb419776edc38843ebeb"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\state\\K6V1_EXT02__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6747,
+          "sha256": "bcb4d2c3d48bb6d033396cc0725eca9e1bfbe57759c5f002b0347e3ccfc61cf4"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\raw\\K6V1_EXT02__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503832,
+          "sha256": "204c98703d9dddddbf3acfa7fd0d175cb7d206fdbb18ce6c1374a0c7310cc7bd"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\projection\\K6V1_EXT02__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23647,
+          "sha256": "6b465c3093787f66010a1db91cae774ae67365d9c072652f8fd2e9e2444147eb"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\orders\\K6V1_EXT02__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388001,
+          "sha256": "3c7cbe2ff4825d2f59249bac975ccd97f16a082a2c17c53e0ae24b3ef0b413cc"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1357,
+          "sha256": "5d8de536b2c521ec86b764393070fe5f1916957342a37c469829c6acc0bd28d6"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "bc44bc4c9054f3182ea653762e0988668c42e0cbc06b37b212df692868349c3d"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 7805,
+          "sha256": "34793ebe2f07540d50bfe6c709f062c3fe0a683d3df5f6b26d821a2871bef401"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\run\\K6V1_EXT02__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\run\\K6V1_EXT02__attempt_001_runtime\\K6V1_EXT02__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76596458,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 9,
+      "case_id": "K6V1_EXT03",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "geometry_hash_sha256": "604933a97fe3ecc2ae06531bdb3aab4713ec68c0d9d199a3f85c8321e7c70c12",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T22:36:33.678027+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:34.016525+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:34.165841+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:34.238151+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:46.701253+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:46.769238+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T22:36:54.853133+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T22:56:46.832118+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T22:56:47.180373+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 4084,
+          "sha256": "a294978f1f09114a6b75672587577effe31a5fc59ad05af9724005a321cc121f"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\state\\K6V1_EXT03__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6748,
+          "sha256": "e84318af238c25f796b7fe749e6c31d60ba98ac4e71894707776680e02ba78bb"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\raw\\K6V1_EXT03__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503691,
+          "sha256": "9f75550b62ea81071f67986f9a31f5ff844b7c259d9d9ba4ae6eb751f9f1ccca"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\projection\\K6V1_EXT03__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23650,
+          "sha256": "c660e28fe1b108780a0a9b1ca169a68e374e276bf313fd3205afa98083d62451"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\orders\\K6V1_EXT03__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387919,
+          "sha256": "84b292fd2e9c7ccd8f9bdc51b6166b730b1766578bd76000ca6b2d331cb9f06c"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "3df627b60df0d5d0c9c1378b95673c0f2e56d829e132ed1af4c774f18424d643"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "d59d21f544eeb4b9ca1d1b16bfa661814f339b2e028e7f8196a9860e64a184ea"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "d27ac36cfdea5228c3ce5765789e896a7ef9a09a8505cb7308c56d9330f4bc4e"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\run\\K6V1_EXT03__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "fb5a966a815dfc7d8db15a16e42bbca69e6eae72f79d8f80e6d98fecb8beafe6"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\run\\K6V1_EXT03__attempt_001_runtime\\K6V1_EXT03__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76576324,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 10,
+      "case_id": "K6V1_EXT04",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "geometry_hash_sha256": "eecdbefc7ea91f551832695f16bee24e8fc75dd7a1d0531ffedbe0ee1e24c589",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T22:39:18.742905+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:18.979203+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:19.113784+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:19.181769+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:31.804236+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:31.894438+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T22:39:43.286853+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T22:59:35.748284+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T22:59:36.052776+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5649,
+          "sha256": "7dc897a8f2f63dd99ed751c3c153a9cb0f75a02947358776fd82874f81e487b3"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\state\\K6V1_EXT04__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6746,
+          "sha256": "b5bac4ec0a7624b1774e8f9e75f9e9fa5fd6d6db4134b47d08226730877cac19"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\raw\\K6V1_EXT04__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503923,
+          "sha256": "edc9b371fb6553f2ead913aac69455e5b969f3bd424eb1d9c44500e8b91e1b5a"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\projection\\K6V1_EXT04__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23674,
+          "sha256": "41aba550f06484986e99d96056a960589f71f2b00327458d84faaf41ef91dbaf"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\orders\\K6V1_EXT04__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388063,
+          "sha256": "bff827a0cb75f69f42634396ec4bde128eec5fb9b95555b6bca5ad97bbf14675"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "561775eeed12f7e8ae1c8464c37b09384adebe139114c2cd3739a067549b547d"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "fc456d1d6ec016613f7d7153b6828bdfc3adc7a68e918957966330399f5b0ad3"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "391e5ad4552b4fefabe8370856db0f4436fde96afe564f252b36e35a6cf8e93d"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\run\\K6V1_EXT04__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "c230305888b5e11c790e3d7b2136b2bd88b916df654331e687224648e2eadcfe"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\run\\K6V1_EXT04__attempt_001_runtime\\K6V1_EXT04__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76587890,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 11,
+      "case_id": "K6V1_EXT05",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        210,
+        220,
+        100,
+        230,
+        195,
+        225
+      ],
+      "geometry_hash_sha256": "ec006f107038b5c8e51b994822679d974e5f54fa76eb2e5bbb2e062b3fc5485a",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T22:56:50.315021+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T22:56:50.549896+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:56:50.681462+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:56:50.774708+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T22:57:02.495928+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:57:02.565073+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T22:57:14.008086+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T23:16:59.359210+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T23:16:59.726722+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5650,
+          "sha256": "53bf6a47ffd63b3d4020cd6df6845e73bdb057189843b2b94a4ae99238f2ef7d"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\state\\K6V1_EXT05__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6753,
+          "sha256": "971998a5cf3f33d54eb39f2605ffe5396ea07005bfe02f6f03ad15b3f3256bfc"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\raw\\K6V1_EXT05__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503767,
+          "sha256": "b84337d79afc577c80e0cc2141bfbc826eec287282d258bf1456447dd1b08907"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\projection\\K6V1_EXT05__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23635,
+          "sha256": "d1efe996b190a265e32d3c81261fb1374f8ef9ca6cd09e6498237e2a5ac070de"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\orders\\K6V1_EXT05__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387992,
+          "sha256": "964cd99773f7d84f392d01e339d3019a54c1ee70a25d8af876f7a7848cb577df"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "0dd7b6c6adcd1119fb4c24738734eb1fda8f0317f3f94db79334a2fd3d09ad81"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "20e2df8f68f811082b93d3debfb28c8609915409e4e622a4f8e647c53cd193c8"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "a45ed0e01791ffb7a3626fe7005a470a8c0ae40a2adb84f2ea0852d9b0b80854"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\run\\K6V1_EXT05__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "4d2d7e554ee7adff7cacbe9170cd87f4056b12f077db9d7a711f4e548fb4e45e"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\run\\K6V1_EXT05__attempt_001_runtime\\K6V1_EXT05__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76549580,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 12,
+      "case_id": "K6V1_EXT06",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        165,
+        110,
+        115,
+        230,
+        155,
+        115
+      ],
+      "geometry_hash_sha256": "ba1a57e8c76f266871ef0f762ecca8d59db926ac495205deda700e83eeb10897",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T22:59:42.014931+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T22:59:42.264233+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:59:42.418101+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:59:42.494050+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T22:59:54.553904+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T22:59:54.635100+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:00:05.830771+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T23:19:44.391032+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T23:19:44.738138+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "12G",
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5650,
+          "sha256": "7d6f0d1d29572118c8dfe18450ebcf2dafd68bbbe997456f7c81c69f742348c6"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\state\\K6V1_EXT06__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6755,
+          "sha256": "2ec4cc9957d3e6baf38b70c98eb87a1376153bf33bd46abc78c86bffc496c0ce"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\raw\\K6V1_EXT06__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503799,
+          "sha256": "4330f1de0f97e8c51bfd44bb0d6a0f1cff08e59cbe3de145069917553badf185"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\projection\\K6V1_EXT06__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23644,
+          "sha256": "b182f8f32846e8deee62293a791857bded27043c9c63b36904493c0611007a02"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\orders\\K6V1_EXT06__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388021,
+          "sha256": "3a3359077f0d567e6b7906f8ce1d9601e0a70312bfadd08e2270897744bff020"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "b46d80605c1dc0650b6e5ed79de4837536c8e944c891ff8feef27d81702a31b8"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "1b9ea129091ed7add0cb454472bfa5a4d3e27797ee4333adf952ba80f8cf2e4b"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "1781192ffea2b017c82637ba9ca85fc6c5726fed4b70ffe8ca0bc78dd76d769b"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\run\\K6V1_EXT06__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "6ed6cc513aa3f5604e6679575cb6ba843f4878c495ad64bbf960f1d3c50c0ebe"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\run\\K6V1_EXT06__attempt_001_runtime\\K6V1_EXT06__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76431510,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 13,
+      "case_id": "K6V1_EXT07",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "geometry_hash_sha256": "b450ae6aa3f086cdbdd9f3c3908e3abe30384a426860e2d8f06d97ae94267765",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T23:16:59.859330+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T23:17:00.109294+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:17:00.256486+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:17:00.326337+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:17:12.347193+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:17:12.426529+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:17:20.394695+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:16.903395+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:17.255571+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 4068,
+          "sha256": "eeb1abf15aeec618dea9bfb27f4b9e6a6eefafb165b9fde89adaadaa2bbd51f6"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\state\\K6V1_EXT07__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6752,
+          "sha256": "4b437fb779ca72b65fd1b888e7b3cec49c4898e978864454a292281f07b4db46"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\raw\\K6V1_EXT07__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503813,
+          "sha256": "c5f73879abeed148f10bebfd20fe32e29d42f2e01b1b5fcf5f065d5b21b55aef"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\projection\\K6V1_EXT07__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23663,
+          "sha256": "a129d280f02b352b29c0ec456f0b654c04059d9b28520fd7fc08df7dfbcc6af3"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\orders\\K6V1_EXT07__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387976,
+          "sha256": "904fc546471a03d4dcd466cd72d815337add682c46258220f1b4a3696c2e57f2"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "ef050f0b6181f62956d5d4c8b3f9a0db0cbaf34b2c0caa685c57f7185e7d4605"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "17a719ebd3ad7f2c806554be19ac6ad211d08b95ffd8266629048a331d873a78"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "9eeb0d8a4666b2aff5ceac7fe81f4aad3ffc103bc3570c3f91ed4b16b260d226"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\run\\K6V1_EXT07__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "6b52487ac9c2231052dac5092d813fc111fba5e335cac6e06df99095b179e1cc"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\run\\K6V1_EXT07__attempt_001_runtime\\K6V1_EXT07__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76521661,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 14,
+      "case_id": "K6V1_EXT08",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "geometry_hash_sha256": "997a6002e429cf2246ee640c5680edb72e653b052f69e1a5b88cd772a5673518",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T23:19:46.775609+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T23:19:47.001154+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:19:47.139190+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:19:47.225521+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:19:59.144618+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:19:59.210352+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:20:07.142098+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:10.934867+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:11.285819+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 4084,
+          "sha256": "f3de85a72285f35647d72228708800f9dacf11d9e644813311a78bd0ee9ff2f4"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\state\\K6V1_EXT08__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6754,
+          "sha256": "7ca61209b7080807754b6c9a67b127388e0ea90cf838eae5ecf23a22a1861e46"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\raw\\K6V1_EXT08__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503910,
+          "sha256": "80601c0a64771fafe4d73cf98aa7f933a5bb26bc80b0a9d69bfe56c1aab6f87c"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\projection\\K6V1_EXT08__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23701,
+          "sha256": "873a58e2332e1e9233e5620675bb516df14a39291475272aee4b5fc1f1c68bef"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\orders\\K6V1_EXT08__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388017,
+          "sha256": "f5f11157e0f08f878887b274d4d9b6dd12aaf109bfd0bd2a05bd78aa86784eda"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "64239eb2824e547c54a482c0cee9ee25ac8423ef0e5f11891504e5e25cee89b5"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "34f50541157bc70c462817ad88592583f4337d92539fdae0895dfd427d6af893"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "3704d11a9984848a8ff4065736c8ab66505954297525ed5669b646342098e3b5"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\run\\K6V1_EXT08__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "4968bb888d7af71175fd1482d7176a9b447a1cd4ae571b0c5de0a54ad92394f5"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\run\\K6V1_EXT08__attempt_001_runtime\\K6V1_EXT08__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76614874,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 15,
+      "case_id": "K6V1_EXT09",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        110,
+        225,
+        125,
+        210,
+        200,
+        145
+      ],
+      "geometry_hash_sha256": "826412effb8c3fff846db9d61c6bd6b22524c4ca3fe8f10a44557bb378b3a749",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T23:37:23.205807+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:23.428148+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:23.653900+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:23.720630+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:35.870354+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:35.949969+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:37:43.870003+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:29.547654+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:29.881560+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 4067,
+          "sha256": "b351b17bdc6fe2143e893638ec098130f29f80c98b53d7f4e3d3a5d007d2864d"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\state\\K6V1_EXT09__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6750,
+          "sha256": "dbde1443c49f3fcda3ae74703ec8309704950eb6b925fb698aa0bfb4cad16a9f"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\raw\\K6V1_EXT09__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503869,
+          "sha256": "5ae7895eb1b533b2d3f1171d3b613862f467e1aded509b6910346154d05b692b"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\projection\\K6V1_EXT09__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23671,
+          "sha256": "164cb306b276e3d914736a9d7f705a934c29737016a60cd6109d9071a8d3f81f"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\orders\\K6V1_EXT09__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387998,
+          "sha256": "7ded37ec7c9186d9e80d2a985e54df7595db749c8d48d54cce3b363f5573b281"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "83ac8125aeab2972089221b5081bd1b775c3c7a1a03ba35bcfedac1abcadfaee"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "2c5ca11d816fdc98e8359648e689658429adbd1f1a3a846a7aaee63a3bfe42ca"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "c1b15ededcacb4d070ec2fb22429d8d05a9058ad1b6df7b45b78b0efd2716f4f"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\run\\K6V1_EXT09__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "4c694e826df167da998270671eb702b0de213f01fa62ac7e641667e81fc0fa8c"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\run\\K6V1_EXT09__attempt_001_runtime\\K6V1_EXT09__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76598441,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 16,
+      "case_id": "K6V1_EXT10",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        225,
+        190,
+        225,
+        105,
+        135
+      ],
+      "geometry_hash_sha256": "c44ce83df5c29d98f03a243ac3ff11e3f8211da0e1f95d48c8209fe1df26357d",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T23:40:17.019152+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:17.264661+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:17.406445+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:17.477404+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:29.169315+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:29.236258+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:40:40.435331+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:23.214175+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:23.506248+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5650,
+          "sha256": "4f150270826b1407afbf3131df87e773537a39cfe6438f20945100f0b058c0b8"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\state\\K6V1_EXT10__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6751,
+          "sha256": "b0c4b68999f2ce29340787bb4fd15d46ad8be57a81729063ccf46ff4023c5aa9"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\raw\\K6V1_EXT10__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503756,
+          "sha256": "5f77f58a159cb1c76417666911d4119589226f1c5753e95b22cd8e0babb42c5c"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\projection\\K6V1_EXT10__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23666,
+          "sha256": "2197e44ceff1509954b40ed6887affdffd46ebe91f43f431470c52119517183f"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\orders\\K6V1_EXT10__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387966,
+          "sha256": "ccaf329151dc07ae73f8c37c6c571c480b49c1d4685d8f458c2dd76aa50cef76"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "22e901f24156c90418da5539fa85cd2d3f37f0d57dcdf6efd938e71b62382098"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "5e7952ebcff076ffca656752ccfc1e16f2d329212f99a2fc3b9e2d030fd33f55"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "14645493bbe33ab5b3d286c93e70a1ab13ff1278f8acac7464285ce6d52d41af"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\run\\K6V1_EXT10__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "0caad40824463cb579e8b28e74c203b3e809b46bd7fc33f158b5c7449da412c1"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\run\\K6V1_EXT10__attempt_001_runtime\\K6V1_EXT10__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76635364,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 17,
+      "case_id": "K6V1_EXT11",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "geometry_hash_sha256": "616cc661ef0a6ffca34d71da5afa4c7c01a1fec677302205fdd0eebcda7cb561",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-25T23:57:36.210668+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:36.445435+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:36.592436+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:36.649226+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:48.631355+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:48.711808+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-25T23:57:59.981000+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-26T00:17:58.205473+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-26T00:17:58.514314+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5649,
+          "sha256": "381f103bd489b21f5ad78690c7347420437176d7c2c942a2ac32e09a39d3f77f"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\state\\K6V1_EXT11__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6745,
+          "sha256": "156e19df500629f6bf5306746aac4b61e10a3764c0bff10f636c46c556df9df9"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\raw\\K6V1_EXT11__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503775,
+          "sha256": "71b11bd7e5b40089910423d8240f7d974a3cab6390181634fbc1fa68b8ecbc75"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\projection\\K6V1_EXT11__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23700,
+          "sha256": "5da9978463059e2909d4475859280068552f0756dc87b13352f5909369161096"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\orders\\K6V1_EXT11__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387950,
+          "sha256": "8b14574bbd05d3c24d2e90ddf9bfa4c786217a8c135a9b8cfb941cc25d4f6053"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "a7d6e31896fc6829da5a810db47090f1003443d7bfcd910ed4b8e1510781e2b2"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "e38955da2d5a2512d650b2668801dc8fe77f9de3b58d795142d12290397e6f69"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "da0e10d749b7374606b183a0fe816ebba135e2ef51c44844c73e0315c95fa584"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\run\\K6V1_EXT11__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "89f47dccb4b233b0a5e3843c16e34a62a9d1fc62bb27703825c6e461653b4540"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\run\\K6V1_EXT11__attempt_001_runtime\\K6V1_EXT11__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76554710,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 18,
+      "case_id": "K6V1_EXT12",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        100,
+        230,
+        230,
+        185,
+        225,
+        120
+      ],
+      "geometry_hash_sha256": "d172f4895359a2d29f5feb8a65f51b56ddb6c1b27ec712329d3b61ab5b0964a1",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-26T00:00:25.047250+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:25.263948+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:25.411535+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:25.496832+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:37.412054+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:37.498664+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-26T00:00:45.572543+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-26T00:20:38.324493+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-26T00:20:38.645733+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 4084,
+          "sha256": "b81b44802657d483bcb1b93352f3d52088f277655f7689ab335a814d086c164c"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\state\\K6V1_EXT12__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6752,
+          "sha256": "208b2540ecbf6859eab98b44c96a270841e13158e1691d8e3ebbd4f908eb403e"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\raw\\K6V1_EXT12__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503808,
+          "sha256": "90193af760f2ee270ceb3a81b22f5ecbf61796e23ecc45d9c85cc8e40ac63f39"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\projection\\K6V1_EXT12__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23646,
+          "sha256": "40efdf02874cc6e23bd5ebcc9497d9b5a947ccdf4c8a7ade0d87af1ff8f060a4"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\orders\\K6V1_EXT12__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387988,
+          "sha256": "2c729139f276240898714448fcaa77f42a0f4313b9fdebe1b2f7b411d02a3222"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "81f551d5719810ad2fc516d4353ae14716f16b6979581413cf48a9aa0c200718"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "8a7fab36f5226de95c12077813f07e39e5d954029d571fe4890420b6872380d8"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "fb9ef02ce16c70d0f0ef381c24eb7909b8d5b98818420a7bc53131135317ffa4"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\run\\K6V1_EXT12__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "24111fc226119c699b2836c2d0035c67b536467768a818d19021b6af403a4da6"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\run\\K6V1_EXT12__attempt_001_runtime\\K6V1_EXT12__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76655887,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 19,
+      "case_id": "K6V1_EXT13",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        100,
+        110,
+        115,
+        120,
+        225,
+        100
+      ],
+      "geometry_hash_sha256": "65493812dc8103a02b7ecf74fe915ba913a2d96bf04d09999bf69fcc0fd1bc36",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-26T00:20:42.443312+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-26T00:20:42.657106+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:20:42.791373+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:20:42.876071+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-26T00:20:55.207372+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:20:55.312955+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-26T00:21:03.435498+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-26T00:40:53.583951+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-26T00:40:53.868832+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 4068,
+          "sha256": "5bd8101ade4ea345e30481b189eaa187dd7cb840599f019f9877ca5db420e353"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\state\\K6V1_EXT13__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6751,
+          "sha256": "a30f04d221bc7869bace67a67ebda7c3ee950da404aad6a9e0e9c421108eb9a2"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\raw\\K6V1_EXT13__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503869,
+          "sha256": "c3c7d5d1a1e978bbb4e56f4bbfca4f4bfe69863d32dcaf68d443bc99191914ac"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\projection\\K6V1_EXT13__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23692,
+          "sha256": "34003e41c8bbac124aa2c5ae6239c5182ce3b9190e0b018fe3f96296c261ca64"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\orders\\K6V1_EXT13__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 388026,
+          "sha256": "739cf896d78171383fd2191a599be7c822b3214f17a62b6bef819ca55cd3b812"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "89b4782307c730c9bd8b6cae3b337279696b3164614ecac1d73607483b9ac2c6"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "1d0fadaa34a5ccd7bf67dfd850b4ac88291c659dd2a18e45c050667cd5782190"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "1f725e97363aa6ebdea3a5b02568c4983dcd9fdc45293233fce95b9aea93ee87"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\run\\K6V1_EXT13__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "7a5a195ce309fcdc3c74c5161774290638ab09f3e4b492eca2f9d6e9934a7bbd"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\run\\K6V1_EXT13__attempt_001_runtime\\K6V1_EXT13__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76582725,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "dataset_index": 20,
+      "case_id": "K6V1_EXT14",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        110,
+        120,
+        100,
+        225,
+        105,
+        190
+      ],
+      "geometry_hash_sha256": "e17accef6e9fa3ff4d5a887a35d00c358dac04c7cdda60fc4ae3504c828bbb6d",
+      "control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+      "solver_entered": true,
+      "solver_returned": true,
+      "run_invocation_count": 1,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "load_only_existing": "PASS",
+      "hf_archive": "PASS",
+      "entry_evidence": {
+        "entry_count": 1,
+        "replay_entry_count": 0,
+        "events": [
+          {
+            "timestamp": "2026-09-26T00:17:58.825261+00:00",
+            "event_type": "LEASE_ACQUIRED"
+          },
+          {
+            "timestamp": "2026-09-26T00:17:59.066807+00:00",
+            "event_type": "FINAL_ADMISSION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:17:59.196565+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:17:59.258786+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-26T00:18:11.210938+00:00",
+            "event_type": "FINAL_LAUNCH_REVALIDATION_PASS"
+          },
+          {
+            "timestamp": "2026-09-26T00:18:11.287674+00:00",
+            "event_type": "CHILD_PROCESS_STARTED"
+          },
+          {
+            "timestamp": "2026-09-26T00:18:22.825114+00:00",
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED"
+          },
+          {
+            "timestamp": "2026-09-26T00:38:12.901170+00:00",
+            "event_type": "RELEASE_PENDING"
+          },
+          {
+            "timestamp": "2026-09-26T00:38:13.369187+00:00",
+            "event_type": "LEASE_RELEASED"
+          }
+        ]
+      },
+      "snapshot_membership": [
+        "20G"
+      ],
+      "artifacts": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\attempt_ledger.json",
+          "exists": true,
+          "bytes": 5648,
+          "sha256": "a9b69b33ba048462abd9208006f068a2bc7db320bfa0ab146daab0d69e825aaa"
+        },
+        "state": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\state\\K6V1_EXT14__attempt_001_pw_complex_floquet_state.json",
+          "exists": true,
+          "bytes": 6751,
+          "sha256": "ebadbd554bd27e9a984ad94f74863be681fd73a482b8802fe11a655afdc6da2c"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\raw\\K6V1_EXT14__attempt_001_raw.json",
+          "exists": true,
+          "bytes": 503806,
+          "sha256": "f37e20745735803d2800067b93f7800ac7cdfed6dc239be90f18b3f378ccefda"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\projection\\K6V1_EXT14__attempt_001_projection.json",
+          "exists": true,
+          "bytes": 23652,
+          "sha256": "83d799594f699117c0b3b0213a70a6be3ed28536fe7bcb1729071f1c06c6673e"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\orders\\K6V1_EXT14__attempt_001_orders.json",
+          "exists": true,
+          "bytes": 387994,
+          "sha256": "64e28c82f87a0b28d130d732f2c4d73ef9c4c6cada8f860a91851459413d16f2"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\scientific_validation.json",
+          "exists": true,
+          "bytes": 1320,
+          "sha256": "8248b51e086a8b41fc2fa8ebab7eb45dd862f08dea33c8fa03cda0f83ac146cb"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\pre_entry_manifest.json",
+          "exists": true,
+          "bytes": 1633,
+          "sha256": "cdcacff125045f31cb28a5aa7cc555486d2fceaca8ae819c26adfa19b61c15a8"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "exists": true,
+          "bytes": 1762,
+          "sha256": "1cc2ec9bc312b6a78c4d197fcbaedc2c4933402472887ac60ff9eba3e90539ff"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\run\\K6V1_EXT14__attempt_001_runtime.fsp",
+          "exists": true,
+          "bytes": 170552876,
+          "sha256": "e6cdc37cc31344ee6b1e51102d86a5330814a2518323a1e98f0d43a70f27b894"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\run\\K6V1_EXT14__attempt_001_runtime\\K6V1_EXT14__attempt_001_runtime_output.h5",
+          "exists": true,
+          "bytes": 76506058,
+          "sha256": null
+        }
+      }
+    }
+  ],
+  "missing_cases": [],
+  "scientific_entry_total": 20,
+  "duplicate_scientific_entry_count": 0,
+  "replay_count": 0,
+  "freeze_boundary": "ZERO_SOLVER; no FDTD run or replay performed."
+}

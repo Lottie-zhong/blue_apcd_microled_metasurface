@@ -469,6 +469,15 @@ def _recover_legacy_preentry(db, branch, case, attempt, attempt_root):
         append_event(Path(attempt_root) / "events.jsonl", "PREENTRY_RECOVERED_FOR_ZERO_SOLVER_BOUNDARY", branch_id=branch, case_id=case, attempt_id=attempt, scientific_solver_entry_count=0, replay=0, release=released)
     return {"status": "RECOVERED_WAIT_RESOURCE_CAPACITY", "case": case, "attempt": attempt, "scientific_solver_entry_count": 0, "replay": 0, "release": released}
 
+def _autofill_gate(payload, exact_permit_id=None):
+    # Explicit validation-only rows never become scientific entries through release refill.
+    gate = str(payload.get('validation_gate') or '').upper()
+    blocked = gate in {'VALIDATION_ONLY', 'MANUAL_ONLY'} or payload.get('autofill_enabled') is False
+    if blocked and not exact_permit_id:
+        return {'status': 'WAIT_RESOURCE_CAPACITY', 'reason': 'AUTOFILL_DISABLED_VALIDATION_GATE', 'validation_gate': gate or None, 'autofill_enabled': payload.get('autofill_enabled'), 'exact_permit_required': True}
+    return None
+
+
 def enqueue(db,branch,case,attempt,payload=None):
     with db.immediate() as con:
         now=utc_now(); con.execute("INSERT OR IGNORE INTO branch_queue(branch_id,logical_case_id,attempt_id,state,payload_json,created_at,updated_at) VALUES(?,?,?,'QUEUED',?,?,?)",(branch,case,attempt,json.dumps(payload or {}),now,now))
@@ -489,6 +498,13 @@ def dispatch_once(db,branch,launch,logical_case_id=None,attempt_id=None,exact_pe
     for row in rows:
         payload=json.loads(row["payload_json"] or "{}")
         permit_id = exact_permit_id or payload.get("exact_launch_permit_id")
+        autofill_gate = _autofill_gate(payload, permit_id)
+        if autofill_gate is not None:
+            wait_payload = dict(payload)
+            wait_payload["_v3_admission"] = {**autofill_gate, "updated_utc": utc_now()}
+            with db.immediate() as con:
+                con.execute("UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',payload_json=?,updated_at=? WHERE queue_id=? AND state IN ('QUEUED','WAIT_RESOURCE_CAPACITY')", (json.dumps(wait_payload, sort_keys=True), utc_now(), row["queue_id"]))
+            continue
         if permit_id:
             payload["exact_launch_permit_id"] = permit_id
         request=ResourceRequest.from_payload(payload)

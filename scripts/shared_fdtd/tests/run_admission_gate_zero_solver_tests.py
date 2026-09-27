@@ -253,6 +253,12 @@ def main():
 
         db, a = fresh(base, "AF"); p = {**payload(), "integrated_pw": False}; l1 = a.acquire("coupling_ml", "AF1", "attempt_001", backend_type="GPU", resource_snapshot=GOOD, resource_request=p); l2 = a.acquire("coupling_ml", "AF2", "attempt_001", backend_type="GPU", resource_snapshot=GOOD, resource_request=p); db.set_admission_control(new_entry_hold=True); starts = []; r1 = gate(a, l1, starts, request=p); r2 = gate(a, l2, starts, request=p)
         tests["AF_multiple_pending_all_stale_after_generation_bump"] = (not r1["eligible"] and not r2["eligible"] and not starts)
+        db, a = fresh(base, 'AG'); p = {**payload(), 'autofill_enabled': False, 'validation_gate': 'VALIDATION_ONLY'}; enqueue(db, 'coupling_ml', 'AG', 'attempt_001', p); starts = []
+        dispatch_once(db, 'coupling_ml', lambda row, lease: starts.append(row['logical_case_id']))
+        tests['AG_validation_only_row_blocks_release_autofill'] = not starts and state(db, 'AG') == 'WAIT_RESOURCE_CAPACITY'
+        db, a = fresh(base, 'AH'); p = {**payload(), 'validation_gate': 'MANUAL_ONLY'}; enqueue(db, 'coupling_ml', 'AH', 'attempt_001', p); starts = []
+        dispatch_once(db, 'coupling_ml', lambda row, lease: starts.append(row['logical_case_id']))
+        tests['AH_manual_only_alias_blocks_release_autofill'] = not starts and state(db, 'AH') == 'WAIT_RESOURCE_CAPACITY'
         solver_invocations = 0
 
     result = {"schema": "APCD_SHARED_V3_ADMISSION_GATE_ZERO_SOLVER_TESTS_V1", "status": "PASS" if all(tests.values()) else "FAIL", "tests": tests, "solver_invocations": solver_invocations, "scientific_solver_entries": 0, "replay": 0, "direct_sqlite_mutations": 0}

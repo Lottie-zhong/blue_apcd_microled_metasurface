@@ -1,0 +1,1721 @@
+{
+  "schema": "PW_K6_20G_SOURCE_PROVENANCE_MANIFEST_V1",
+  "created_utc": "2026-09-27T13:59:19.015589+00:00",
+  "immutable_scope": "source/runtime provenance captured before further edits; scientific artifacts not modified",
+  "branch": "work/mdc-np-coupling-ml-v1",
+  "head": "c63b6631b0e5968c0d14e20f80447ffa5d8ff66e",
+  "upstream_ahead_behind": null,
+  "git_status_porcelain": " M scripts/shared_fdtd/engine/gpu_bundle.py\n M scripts/shared_fdtd/tools/v3_g2_host.py\n?? $null\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_FUTURE_ROUTING_RAW_EVIDENCE_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_RT_RESIDUAL_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_RESOURCE_ADMISSION_AT_SOLVER_ENTRY_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_SETUP_ONLY_AUDIT_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/attempt_ledger.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/case.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/completion.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/controller_events.jsonl\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/controller_identity.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/controller_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/engine_lineage.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/heartbeat.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/physics_audit.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest_sha256.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/pre_fsp.sha256\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/raw_result.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/setup_contract.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/setup_gate.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/setup_readback.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/slot_release.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/worker_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T0_P_XLIKE_UX_P0d378689399989/attempt_001/worker_terminal.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_FUTURE_ROUTING_RAW_EVIDENCE_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_RT_RESIDUAL_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_RESOURCE_ADMISSION_AT_SOLVER_ENTRY_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/attempt_ledger.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/case.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/completion.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/controller_events.jsonl\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/controller_identity.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/controller_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/engine_lineage.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/heartbeat.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/physics_audit.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest_sha256.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/pre_fsp.sha256\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/raw_result.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/setup_contract.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/setup_gate.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/setup_readback.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/slot_release.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/worker_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_P_XLIKE_UX_P0d378689399989/attempt_001/worker_terminal.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_FUTURE_ROUTING_RAW_EVIDENCE_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_RT_RESIDUAL_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/M2B_RESOURCE_ADMISSION_AT_SOLVER_ENTRY_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/attempt_ledger.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/case.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/completion.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/controller_events.jsonl\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/controller_identity.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/controller_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/engine_lineage.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/heartbeat.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/physics_audit.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest_sha256.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/pre_fsp.sha256\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/raw_result.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/setup_contract.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/setup_gate.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/setup_readback.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/slot_release.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/worker_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G7_T237_S_YLIKE_UX_P0d378689399989/attempt_001/worker_terminal.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_FUTURE_ROUTING_RAW_EVIDENCE_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_RT_RESIDUAL_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_RESOURCE_ADMISSION_AT_SOLVER_ENTRY_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/attempt_ledger.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/case.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/completion.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/controller_events.jsonl\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/controller_identity.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/controller_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/engine_lineage.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/heartbeat.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/physics_audit.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest_sha256.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/pre_fsp.sha256\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/raw_result.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/setup_contract.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/setup_gate.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/setup_readback.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/slot_release.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/worker_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T0_P_XLIKE_UX_P0d378689399989/attempt_001/worker_terminal.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_FUTURE_ROUTING_RAW_EVIDENCE_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_RT_RESIDUAL_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/M2B_RESOURCE_ADMISSION_AT_SOLVER_ENTRY_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/attempt_ledger.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/case.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/completion.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/controller_events.jsonl\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/controller_identity.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/controller_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/engine_lineage.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/heartbeat.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/physics_audit.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest_sha256.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/pre_fsp.sha256\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/raw_result.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/setup_contract.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/setup_gate.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/setup_readback.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/slot_release.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/worker_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_P_XLIKE_UX_P0d378689399989/attempt_001/worker_terminal.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_FUTURE_ROUTING_RAW_EVIDENCE_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/M2B_LEVEL2A_RT_RESIDUAL_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/M2B_RESOURCE_ADMISSION_AT_SOLVER_ENTRY_V1.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/attempt_ledger.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/case.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/completion.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/controller_events.jsonl\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/controller_identity.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/controller_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/engine_lineage.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/heartbeat.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/physics_audit.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/pre_entry_manifest_sha256.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/pre_fsp.sha256\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/raw_result.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/setup_contract.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/setup_gate.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/setup_readback.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/slot_release.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/worker_status.json\n?? M2I_LEVEL2A_RUNTIME_V1/cases/M2I_G8_T237_S_YLIKE_UX_P0d378689399989/attempt_001/worker_terminal.json\n?? entered_exception_isolation_results.csv\n?? reports/coupling/GPU_FEASIBILITY_AUDIT_V1.md\n?? reports/coupling/GPU_LICENSE_READINESS_AUDIT_V1.md\n?? reports/coupling/MEDIUM_PW_GPU_SYSTEMCHECK_V1.json\n?? reports/coupling/MEDIUM_PW_POSTNP_STATE_AND_R_FORENSIC_V1.json\n?? reports/coupling/PW_K6_DIRECT_PRODUCTION_ENTRY_AND_AUTOFILL_RESUME_V1.md\n?? reports/coupling/PW_K6_EXTENSION_ELIGIBLE_CANDIDATE_POOL_V1.json\n?? reports/coupling/PW_K6_EXTENSION_QUEUE_ENQUEUE_V1.json\n?? reports/coupling/PW_K6_FRESH_ELIGIBILITY_MANIFEST_V1.json\n?? reports/coupling/PW_K6_FRESH_GEOMETRY_PRODUCTION_TO_12G_V1.md\n?? reports/coupling/PW_K6_GEOMETRY_DOMAIN_AUTHORITY_V1.json\n?? reports/coupling/PW_K6_GEOMETRY_DOMAIN_AUTHORITY_V1.md\n?? reports/coupling/PW_K6_GEOMETRY_EXCLUSION_REGISTRY_V1.json\n?? reports/coupling/PW_K6_K6V1_EXT01_RECOVERY_EVIDENCE_MANIFEST_V1.json\n?? reports/coupling/PW_K6_K6V1_EXT02_RECOVERY_EVIDENCE_MANIFEST_V1.json\n?? reports/coupling/PW_K6_PRODUCTION_RESUME_AND_AUTOFILL_V1.md\n?? reports/coupling/PW_K6_SEED_DB_V1_EXTENSION_20G_V1.json\n?? reports/coupling/PW_K6_SEED_MANIFEST_EXTENSION_TO_20G_V1.md\n?? reports/coupling/SHARED_V3_ATTEMPT004_RECOVERY_EVIDENCE_MANIFEST_V1.json\n?? reports/coupling/SHARED_V3_DURABLE_EXTERNAL_WATCHER_AND_HOST_CHILD_LIFETIME_REPRO_V1.md\n?? reports/coupling/SHARED_V3_EXACT_ATTEMPT_ONE_SHOT_PERMIT_AND_STALE_QUEUE_RECOVERY_V1.md\n?? reports/coupling/SHARED_V3_INSTRUMENTED_REAL_GPU_CANARY_S14_V1.md\n?? reports/coupling/SHARED_V3_POSTENTRY_RUNTIME_SUPERVISION_FORENSIC_V1.md\n?? reports/coupling/SHARED_V3_POSTENTRY_TRUTH_BEFORE_RELEASE_RACE_FIX_AND_ATTEMPT004_RECOVERY_V1.md\n?? reports/coupling/SHARED_V3_PREENTRY_STALE_OWNER_TERMINALIZATION_FIX_AND_S14_CANARY_V3.md\n?? reports/coupling/SHARED_V3_S14_PREENTRY_RECOVERY_AND_INSTRUMENTED_CANARY_V2.md\n?? reports/coupling/SHARED_V3_SHA256_CANONICALIZATION_FIX_AND_S14_CANARY_V4.md\n?? reports/coupling/SHARED_V3_STRICT_FENCED_ORPHAN_TRUTH_ADOPTION_V1.md\n?? reports/coupling/SHARED_V3_STRICT_FENCED_ORPHAN_TRUTH_ADOPTION_V1_POST_ADOPTION_VALIDATION.json\n?? reports/coupling/SHARED_V3_STRICT_FENCED_ORPHAN_TRUTH_ADOPTION_V1_PRE_ADOPTION_SNAPSHOT.json\n?? reports/coupling/SHARED_V3_STRICT_FENCED_ORPHAN_TRUTH_ADOPTION_V1_RUNTIME_RESULT.json\n?? reports/coupling/SHARED_V3_STRICT_FENCED_ORPHAN_TRUTH_ADOPTION_V1_ZERO_SOLVER_REGRESSION.json\n?? reports/coupling/zero_solver_regression_v1/BRANCH_ENGINE_ZERO_SOLVER_TEST_RESULTS.csv\n?? reports/coupling/zero_solver_regression_v1/CHAOS_TEST_RESULTS.csv\n?? reports/coupling/zero_solver_regression_v1/FENCING_TOKEN_TEST_AUDIT.json\n?? reports/coupling/zero_solver_regression_v1/FOREIGN_MUTATION_AUDIT.json\n?? reports/coupling/zero_solver_regression_v1/GLOBAL_ZERO_SOLVER_TEST_RESULTS.csv\n?? reports/coupling/zero_solver_regression_v1/SQLITE_TRANSACTION_AUDIT.json\n?? scripts/coupling_ml/apcd_2d_ml_v1_active_learning_readiness_v1.py\n?? scripts/coupling_ml/apcd_2d_ml_v1_blind_8g_two_slot_prospective_v1.py\n?? scripts/coupling_ml/apcd_2d_ml_v1_compositional_np_prior_repair_v1.py\n?? scripts/coupling_ml/apcd_2d_ml_v1_finalize_zero_solver_audit_v1.py\n?? scripts/coupling_ml/apcd_2d_ml_v1_train_only_pca_prior_ablation_v1.py\n?? scripts/coupling_ml/apcd_2d_ml_v1_trainval_acquisition_v1.py\n?? scripts/coupling_ml/apcd_al_round1_acquisition_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g1_matched_4case_3d_cylinder_phase_a_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g1_phase_a_terminal_continuation_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g1w_zero_solver_spectral_warp_upper_bound_audit_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g2_attempt002_control_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g2_attempt002_runtime_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g2_attempt003_production_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g2_source_dimensionality_2case_control_v1.py\n?? scripts/coupling_ml/apcd_coupling_2d3d_g2r_zero_solver_forensic_recovery_v1.py\n?? scripts/coupling_ml/apcd_coupling_v3a_w2v_pipeline_v1.py\n?? scripts/coupling_ml/apcd_coupling_v3a_w2v_server_controller_v1.py\n?? scripts/coupling_ml/apcd_coupling_v3a_w2w_stage1_controller_v1.py\n?? scripts/coupling_ml/apcd_database_authority_audit_v1.py\n?? scripts/coupling_ml/apcd_surrogate_v2_nonlinear_reevaluation_v1.py\n?? scripts/coupling_ml/apcd_v2_prospective_8g_paired_eval_v1.py\n?? scripts/coupling_ml/coupling_fdtd_adapter_v1.py\n?? scripts/coupling_ml/direct_mdc_3d_complex_source_builder_v1.py\n?? scripts/coupling_ml/direct_mdc_3d_complex_source_lateral_robustness_builder_v1.py\n?? scripts/coupling_ml/direct_mdc_complex_source_operator_builder_v2.py\n?? scripts/coupling_ml/finite_k6_23um_19um_two_slot_baseline_completion_v1.py\n?? scripts/coupling_ml/finite_k6_23um_domain_19um_monitor_singlecase_convergence_probe_v1.py\n?? scripts/coupling_ml/finite_k6_control0_alt1_2d_integrated_pilot_v1.py\n?? scripts/coupling_ml/finite_k6_source_only_2d_scientific_pilot_v1.py\n?? scripts/coupling_ml/g2r_supervision_v1.py\n?? scripts/coupling_ml/interface_state_v1/finalize_audit.py\n?? scripts/coupling_ml/interface_state_v1/prototype.py\n?? scripts/coupling_ml/interface_state_v1/r1_angular_spectrum.py\n?? scripts/coupling_ml/interface_state_v1/r1_finalize.py\n?? scripts/coupling_ml/interface_state_v1/r1_test.py\n?? scripts/coupling_ml/interface_state_v1/r1_window_probe.py\n?? scripts/coupling_ml/interface_state_v1/run_analysis.py\n?? scripts/coupling_ml/k6_2d_fdtd_pilot_gate0a_v1.py\n?? scripts/coupling_ml/k6_finite_pml_10um_model_precheck_v1.py\n?? scripts/coupling_ml/level2b_source_transfer_builder_v2.py\n?? scripts/coupling_ml/m0f_direct_mdc_target_runner_v1.py\n?? scripts/coupling_ml/m0f_full_component_reconciliation_finalizer_v1.py\n?? scripts/coupling_ml/m0f_pilot_post_fsp_recovery_v1.py\n?? scripts/coupling_ml/m0f_remaining_direct_mdc_runner_v1.py\n?? scripts/coupling_ml/m0f_remote_batch_scheduler_v1.py\n?? scripts/coupling_ml/m0f_resource_snapshot_only_remote.py\n?? scripts/coupling_ml/m1_materialize_reconcile_v1.py\n?? scripts/coupling_ml/m1_verify_v1.py\n?? scripts/coupling_ml/m1b_materialize_audit_v1.py\n?? scripts/coupling_ml/m1b_verify_outputs_v1.py\n?? scripts/coupling_ml/m2a_check_missing_v1.py\n?? scripts/coupling_ml/m2a_condition_provider_probe_v1.py\n?? scripts/coupling_ml/m2a_final_readback_v1.py\n?? scripts/coupling_ml/m2a_generate_planning_v1.py\n?? scripts/coupling_ml/m2a_inspect_evidence_v1.py\n?? scripts/coupling_ml/m2a_inspect_pool_v1.py\n?? scripts/coupling_ml/m2a_inventory_v1.py\n?? scripts/coupling_ml/m2a_probe_compact_v1.py\n?? scripts/coupling_ml/m2a_verify_planning_v1.py\n?? scripts/coupling_ml/m2b_dependency_audit_v1.py\n?? scripts/coupling_ml/m2b_finalize_provider_v1.py\n?? scripts/coupling_ml/m2b_g2_attempt002_state_v1.py\n?? scripts/coupling_ml/m2b_g2_preserve_first_audit_v1.py\n?? scripts/coupling_ml/m2b_g2_provider_recovery_v2.py\n?? scripts/coupling_ml/m2b_g2_recovery_preflight_v1.py\n?? scripts/coupling_ml/m2b_g2_replacement_manifest_v1.py\n?? scripts/coupling_ml/m2b_g3_g4_provider_runner_v2.py\n?? scripts/coupling_ml/m2b_integrated_worker_v1.py\n?? scripts/coupling_ml/m2b_isolated_provider_runner_v1.py\n?? scripts/coupling_ml/m2b_preflight_inspect_v1.py\n?? scripts/coupling_ml/m2b_read_provider_ranges_v1.py\n?? scripts/coupling_ml/m2b_read_provider_scripts_v1.py\n?? scripts/coupling_ml/m2f_g5_attempt002_launcher_v1.ps1\n?? scripts/coupling_ml/m2f_g5_readonly_monitor_v1.py\n?? scripts/coupling_ml/m2f_g6_attempt001_launcher_v1.ps1\n?? scripts/coupling_ml/m2f_g6_readonly_monitor_v1.py\n?? scripts/coupling_ml/m2f_level1_ridge_blind_freeze_v1.py\n?? scripts/coupling_ml/m2f_level2a_c3_preentry_recovery_v1.py\n?? scripts/coupling_ml/m2f_level2a_preentry_recovery_all_v1.py\n?? scripts/coupling_ml/m2f_level2a_runner_v1.py\n?? scripts/coupling_ml/m2f_level2a_scheduler_v1.py\n?? scripts/coupling_ml/m2f_provider_entrypoint_v2.py\n?? scripts/coupling_ml/m2i_context3_blind_freeze_v1.py\n?? scripts/coupling_ml/m2i_controller_v1.py\n?? scripts/coupling_ml/m2i_level2a_runner_v1.py\n?? scripts/coupling_ml/m2i_level2a_scheduler_v1.py\n?? scripts/coupling_ml/m2q_3d_source_controller_v1.py\n?? scripts/coupling_ml/m2q_directional_projection_recovery_v2.py\n?? scripts/coupling_ml/m2s_coupling_source_lateral_robustness_controller_v1.py\n?? scripts/coupling_ml/patch_finite_k6_17um_13um_v1.py\n?? scripts/coupling_ml/patch_finite_k6_19um_15um_v1.py\n?? scripts/coupling_ml/postsolver_persistence_v1.py\n?? scripts/coupling_ml/postsolver_production_validation_v1.py\n?? scripts/coupling_ml/postsolver_tiny_validation_v1.py\n?? scripts/coupling_ml/rebuild_finite_k6_geometry_v1.py\n?? scripts/coupling_ml/wideband_a_plus_extractor_v1.py\n?? scripts/coupling_ml/wideband_builder_v1.py\n?? scripts/entered_exception_isolation_results.csv\n?? scripts/postentry-race-p6816tot/control.sqlite3\n?? scripts/postentry-race-p6816tot/control.sqlite3-shm\n?? scripts/postentry-race-p6816tot/control.sqlite3-wal\n?? scripts/shared_fdtd/tests/durable_finisher_test_results.csv\n?? scripts/shared_fdtd/tools/adopt_orphan_truth_v1.py\n?? scripts/shared_fdtd/tools/durable_canary_host.py\n?? scripts/shared_fdtd/tools/durable_finisher_worker.py\n?? scripts/shared_fdtd/tools/post_validate_orphan_truth_v1.py\n?? scripts/shared_fdtd/tools/recover_pw_gpu_bundle_zero_solver_v1.py\n?? scripts/shared_fdtd/tools/recover_pw_k6_ext_zero_solver_v1.py\n?? scripts/shared_fdtd/tools/run_durable_real_canary.py\n?? tests/coupling_ml/interface_state_v1/test_prototype.py\n?? tests/coupling_ml/test_finite_k6_17um_13um_patch_v1.py\n?? tests/coupling_ml/test_finite_k6_19um_15um_patch_v1.py\n?? tests/coupling_ml/test_finite_k6_23um_domain_19um_monitor_singlecase_convergence_probe_v1.py\n?? tests/coupling_ml/test_finite_k6_control0_alt1_2d_integrated_pilot_v1.py\n?? tests/coupling_ml/test_finite_k6_geometry_authority_resolution_v1.py\n?? tests/coupling_ml/test_finite_k6_source_only_2d_scientific_pilot_v1.py\n?? tests/coupling_ml/test_finite_pml_10um_model_precheck_v1.py\n?? tests/coupling_ml/test_g1_autocontinue_release_reconcile_v1.py\n?? tests/coupling_ml/test_g2r_supervision_v1.py\n?? tests/coupling_ml/test_global_capacity_aware_scheduler_v1.py\n?? tests/coupling_ml/test_k6_2d_pilot_gate0a_v1.py\n?? tests/coupling_ml/test_w2w_runtime_hardening_v1.py\n?? tests/test_postsolver_persistence_v1.py\n?? tests/test_postsolver_production_integration_v1.py\n",
+  "full_tracked_diff": "diff --git a/scripts/shared_fdtd/engine/gpu_bundle.py b/scripts/shared_fdtd/engine/gpu_bundle.py\nindex e015de4..8052f0d 100644\n--- a/scripts/shared_fdtd/engine/gpu_bundle.py\n+++ b/scripts/shared_fdtd/engine/gpu_bundle.py\n@@ -188,7 +188,7 @@ def persist_gpu_bundle(\n         staging_root = final_dir.parent.parent / \"native_staging\" / final_dir.name\n     staging_parent = Path(staging_root)\n     staging_parent.mkdir(parents=True, exist_ok=True)\n-    stage_dir = staging_parent / (uuid.uuid4().hex + \".staging\")\n+    stage_dir = staging_parent / (f\"stage-{uuid.uuid4().hex[:16]}.staging\")\n     stage_dir.mkdir(parents=True, exist_ok=False)\n     try:\n         for index, record in enumerate(source_manifest[\"files\"], start=1):\ndiff --git a/scripts/shared_fdtd/tools/v3_g2_host.py b/scripts/shared_fdtd/tools/v3_g2_host.py\nindex 801de50..e8d3e20 100644\n--- a/scripts/shared_fdtd/tools/v3_g2_host.py\n+++ b/scripts/shared_fdtd/tools/v3_g2_host.py\n@@ -325,7 +325,6 @@ def main():\n                 native,\n                 staging_root=case_root / \"bundle_stage_native\",\n                 require_sidecars=True,\n-                validator=lambda staged: fresh_load_validate_path(staged, cfg, is_pw),\n             )\n             native = Path(native_record[\"fsp_path\"])\n         else:\n@@ -355,7 +354,6 @@ def main():\n                 post,\n                 staging_root=case_root / \"bundle_stage_post\",\n                 require_sidecars=True,\n-                validator=lambda staged: fresh_load_validate_path(staged, cfg, is_pw),\n             )\n             post = Path(post_record[\"fsp_path\"])\n         else:\n",
+  "tracked_modified_files": {
+    "scripts/shared_fdtd/engine/gpu_bundle.py": {
+      "sha256": "4dc467624bd4e987701034a3ff3ded1492a45693cea7511a416d16e8593f5c91",
+      "size": 10499
+    },
+    "scripts/shared_fdtd/tools/v3_g2_host.py": {
+      "sha256": "ef28b15735680df9f7bc46ff4335ecc94fe11e25e85796b1c7614deae991b2d4",
+      "size": 24259
+    }
+  },
+  "shared_v3_controller_host_fingerprints": {
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\engine\\gpu_bundle.py": {
+      "sha256": "4dc467624bd4e987701034a3ff3ded1492a45693cea7511a416d16e8593f5c91",
+      "size": 10499
+    },
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_g2_host.py": {
+      "sha256": "ef28b15735680df9f7bc46ff4335ecc94fe11e25e85796b1c7614deae991b2d4",
+      "size": 24259
+    },
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_scientific_launcher.py": {
+      "sha256": "48d3c332fde679a9d8dc991a5ba8cd75aecdcb54750d7ec1774f732203ef08be",
+      "size": 25913
+    },
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\recover_pw_k6_ext_zero_solver_v1.py": {
+      "sha256": "052e5f67f6f4f056e539df0b6a458f7250129b61b293183d67e2d8c4d08a39c8",
+      "size": 16186
+    },
+    "D:\\apcd_runtime\\bin\\v3g2h.py": {
+      "sha256": "26881dfdff86c6dbe532ccc71f4b1f7efb0d27ff0fe12c6daec9ca54b81ee31e",
+      "size": 148
+    }
+  },
+  "sidecar_readiness_implementation": {
+    "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\engine\\gpu_bundle.py",
+    "source_sha256": "4dc467624bd4e987701034a3ff3ded1492a45693cea7511a416d16e8593f5c91",
+    "wait_for_bundle_ready_sha256": "c5426471a5afbd5399706571375bce74c97e6793eb35a5eccc0bc22faecfc4a1",
+    "wait_for_bundle_ready_source": "def wait_for_bundle_ready(source_fsp: str | Path, *, timeout_s: float = 120.0, poll_s: float = 0.5, stable_polls: int = 2, readiness_validator: Callable[[Path], Any] | None = None) -> dict[str, Any]:\n    source = Path(source_fsp)\n    deadline = time.monotonic() + max(float(timeout_s), 0.0)\n    previous = None\n    stable = 0\n    last_validation_error = None\n    while True:\n        if source.is_file() and source.stat().st_size > 0:\n            sidecars = _bundle_sidecar_paths(source)\n            signature = tuple((str(path.relative_to(source.parent)), path.stat().st_size, path.stat().st_mtime_ns) for path in sidecars if path.is_file())\n            if signature:\n                if signature == previous:\n                    stable += 1\n                else:\n                    previous = signature\n                    stable = 1\n                if stable >= max(int(stable_polls), 1):\n                    manifest = discover_bundle(source)\n                    if manifest[\"sidecar_paths\"]:\n                        if readiness_validator is not None:\n                            try:\n                                readiness_validator(source)\n                            except Exception as exc:\n                                last_validation_error = repr(exc)\n                                if time.monotonic() >= deadline:\n                                    detail = f\":{last_validation_error}\"\n                                    raise GpuBundleError(f\"NATIVE_SIDECAR_READINESS_TIMEOUT:{source}{detail}\")\n                                time.sleep(max(float(poll_s), 0.01))\n                                continue\n                        manifest[\"readiness\"] = {\"validated\": readiness_validator is not None, \"last_validation_error\": last_validation_error}\n                        return manifest\n        if time.monotonic() >= deadline:\n            detail = f\":{last_validation_error}\" if last_validation_error else \"\"\n            raise GpuBundleError(f\"NATIVE_SIDECAR_READINESS_TIMEOUT:{source}{detail}\")\n        time.sleep(max(float(poll_s), 0.01))\n\n",
+    "persist_gpu_bundle_sha256": "64c16aa9f5d324bace9c84a7f2f810dcf442a6157bd33dabf99b866c1128a364"
+  },
+  "queue_rows_ext01_ext14": [
+    {
+      "logical_case_id": "K6V1_EXT01",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "updated_at": "2026-09-25T22:36:32.542699+00:00",
+      "created_at": "2026-09-25T07:07:24.630138+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT02",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_3",
+      "updated_at": "2026-09-25T22:39:13.391736+00:00",
+      "created_at": "2026-09-25T07:07:24.703237+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT03",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "updated_at": "2026-09-25T22:56:47.260829+00:00",
+      "created_at": "2026-09-25T07:07:24.728195+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT04",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_3",
+      "updated_at": "2026-09-25T22:59:36.130854+00:00",
+      "created_at": "2026-09-25T07:07:24.749569+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT05",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "updated_at": "2026-09-25T23:16:59.747274+00:00",
+      "created_at": "2026-09-25T07:07:24.774626+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT06",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_3",
+      "updated_at": "2026-09-25T23:19:44.825298+00:00",
+      "created_at": "2026-09-25T07:07:24.800134+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT07",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "updated_at": "2026-09-25T23:37:17.325207+00:00",
+      "created_at": "2026-09-25T07:07:24.825479+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT08",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_3",
+      "updated_at": "2026-09-25T23:40:11.374645+00:00",
+      "created_at": "2026-09-25T07:07:24.851036+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT09",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "updated_at": "2026-09-25T23:57:29.979652+00:00",
+      "created_at": "2026-09-25T07:07:24.876491+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT10",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_3",
+      "updated_at": "2026-09-26T00:00:23.579640+00:00",
+      "created_at": "2026-09-25T07:07:24.903733+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT11",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "updated_at": "2026-09-26T00:17:58.534293+00:00",
+      "created_at": "2026-09-25T07:07:24.925801+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT12",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_3",
+      "updated_at": "2026-09-26T00:20:38.750165+00:00",
+      "created_at": "2026-09-25T07:07:24.952134+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT13",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_3",
+      "updated_at": "2026-09-26T00:40:53.947238+00:00",
+      "created_at": "2026-09-25T07:07:24.976874+00:00"
+    },
+    {
+      "logical_case_id": "K6V1_EXT14",
+      "attempt_id": "attempt_001",
+      "state": "RELEASED",
+      "slot_id": "GLOBAL_SLOT_2",
+      "updated_at": "2026-09-26T00:38:13.435700+00:00",
+      "created_at": "2026-09-25T07:07:25.010542+00:00"
+    }
+  ],
+  "schema_tables_relevant_to_control": [
+    {
+      "name": "admission_control",
+      "columns": [
+        "control_id",
+        "new_entry_hold",
+        "temporary_runtime_cap",
+        "health_status",
+        "control_generation",
+        "updated_at"
+      ]
+    },
+    {
+      "name": "branch_limits",
+      "columns": [
+        "branch_id",
+        "cap",
+        "enabled",
+        "preferred_slot_order",
+        "updated_at"
+      ]
+    },
+    {
+      "name": "branch_queue",
+      "columns": [
+        "queue_id",
+        "branch_id",
+        "logical_case_id",
+        "attempt_id",
+        "state",
+        "payload_json",
+        "slot_id",
+        "lease_token_hash",
+        "fencing_generation",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "name": "exact_launch_permits",
+      "columns": [
+        "permit_id",
+        "branch_id",
+        "logical_case_id",
+        "attempt_id",
+        "slot_id",
+        "lease_token_hash",
+        "fencing_generation",
+        "authorization_generation",
+        "state",
+        "created_at",
+        "bound_at",
+        "consumed_at",
+        "cancelled_at",
+        "metadata_json"
+      ]
+    },
+    {
+      "name": "gpu_capacity_leases",
+      "columns": [
+        "capacity_lease_id",
+        "branch_id",
+        "logical_case_id",
+        "attempt_id",
+        "slot_id",
+        "lease_token_hash",
+        "fencing_generation",
+        "state",
+        "created_at",
+        "updated_at",
+        "released_at"
+      ]
+    },
+    {
+      "name": "lease_events",
+      "columns": [
+        "event_id",
+        "timestamp",
+        "slot_id",
+        "branch_id",
+        "logical_case_id",
+        "attempt_id",
+        "event_type",
+        "lease_token_hash",
+        "fencing_generation",
+        "metadata_json"
+      ]
+    },
+    {
+      "name": "recovery_adoption_fences",
+      "columns": [
+        "fence_id",
+        "branch_id",
+        "logical_case_id",
+        "attempt_id",
+        "expected_queue_state",
+        "expected_queue_updated_at",
+        "expected_slot_id",
+        "expected_lease_token_hash",
+        "expected_fencing_generation",
+        "expected_control_generation",
+        "evidence_manifest_sha256",
+        "artifact_identity_sha256",
+        "state",
+        "created_at",
+        "consumed_at",
+        "recovery_transaction_id",
+        "metadata_json"
+      ]
+    },
+    {
+      "name": "resource_reservations",
+      "columns": [
+        "reservation_id",
+        "branch_id",
+        "logical_case_id",
+        "attempt_id",
+        "slot_id",
+        "resource_class",
+        "estimated_peak_ram_bytes",
+        "estimated_commit_bytes",
+        "mpi_ranks",
+        "threads",
+        "integrated_pw",
+        "safety_margin_ratio",
+        "state",
+        "created_at",
+        "updated_at",
+        "released_at",
+        "backend_type"
+      ]
+    },
+    {
+      "name": "slots",
+      "columns": [
+        "slot_id",
+        "state",
+        "owner_branch",
+        "logical_case_id",
+        "attempt_id",
+        "lease_token",
+        "fencing_generation",
+        "acquired_at",
+        "solver_entered_at",
+        "heartbeat_at",
+        "updated_at",
+        "version"
+      ]
+    }
+  ],
+  "runtime_event_history_ext01_ext14": {
+    "K6V1_EXT01": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\events.jsonl",
+      "sha256": "381397d3922bb6ba8c7914c3b4aaefc9417d5e2ab1ee8cdca792a018c9da2806",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T07:08:12.632167+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:12.657962+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:13.311824+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:13.566389+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_2",
+          "fencing_generation": 52
+        },
+        {
+          "timestamp": "2026-09-25T07:08:13.989486+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:14.198842+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:37.834725+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:38.044228+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:38.244917+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T07:30:27.036030+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T07:30:35.665123+00:00",
+          "event_type": "FAILED_AFTER_ENTRY",
+          "error": "LumApiError('in getdata, the d-card named MON_IN did not contain the data Ex\\n  Try the command \\'?getdata(\"MON_IN\");\\' to see the data contained in MON_IN.')"
+        },
+        {
+          "timestamp": "2026-09-25T22:08:57.853541+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T22:08:57.923225+00:00",
+          "event_type": "ZERO_SOLVER_RECOVERY_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:34:13.039271+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T22:34:13.162585+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T22:34:13.334978+00:00",
+          "event_type": "SOLVER_RETURNED"
+        },
+        {
+          "timestamp": "2026-09-25T22:34:23.290157+00:00",
+          "event_type": "POST_FSP_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T22:34:23.362366+00:00",
+          "event_type": "POST_FSP_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T22:34:23.536679+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:20.472635+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:20.620050+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:20.839452+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:31.497865+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:31.806424+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:32.665476+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_2"
+        }
+      ]
+    },
+    "K6V1_EXT02": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\events.jsonl",
+      "sha256": "5c96cbb74963f4fbd3aedb8a98a9996e65cd637da70e192261c6df418bb8de0f",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T07:08:13.322921+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:13.373602+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:13.899227+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:14.141419+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_3",
+          "fencing_generation": 7
+        },
+        {
+          "timestamp": "2026-09-25T07:08:14.599887+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:14.865543+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:37.925078+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:38.149857+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T07:08:38.362367+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T07:30:27.000438+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T07:30:35.452888+00:00",
+          "event_type": "FAILED_AFTER_ENTRY",
+          "error": "LumApiError('in getdata, the d-card named MON_IN did not contain the data Ex\\n  Try the command \\'?getdata(\"MON_IN\");\\' to see the data contained in MON_IN.')"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:47.214220+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:47.309615+00:00",
+          "event_type": "ZERO_SOLVER_RECOVERY_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:59.248681+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:59.371209+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:59.638061+00:00",
+          "event_type": "SOLVER_RETURNED"
+        },
+        {
+          "timestamp": "2026-09-25T22:37:09.821425+00:00",
+          "event_type": "POST_FSP_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T22:37:09.872938+00:00",
+          "event_type": "POST_FSP_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T22:37:10.023813+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:01.332883+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:01.459449+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:01.587641+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:12.382676+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:12.684201+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:13.502249+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_3"
+        }
+      ]
+    },
+    "K6V1_EXT03": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\events.jsonl",
+      "sha256": "ece843186da735dfdfc7e69460b62c554e2b7ab47c7a9c34adf18d7b70bb41d4",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T22:36:34.173071+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:34.219035+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:35.054758+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:35.397120+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_2",
+          "fencing_generation": 53
+        },
+        {
+          "timestamp": "2026-09-25T22:36:35.847496+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:35.988021+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:54.936235+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:55.104660+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:36:55.454231+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:54:32.918719+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T22:54:43.162155+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T22:54:45.215683+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T22:54:52.548826+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T22:54:53.166326+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:55:02.299642+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:45.706513+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:45.868219+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:46.012523+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:46.705131+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:47.015042+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:47.377788+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_2"
+        }
+      ]
+    },
+    "K6V1_EXT04": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\events.jsonl",
+      "sha256": "ef096303a99247e454fe7b7797d0e8ef2402993241f8d11d346e2a398994c24e",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T22:39:19.120025+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:19.155559+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:19.791796+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:19.974868+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_3",
+          "fencing_generation": 8
+        },
+        {
+          "timestamp": "2026-09-25T22:39:20.479446+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:20.654699+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:43.326221+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:43.594445+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T22:39:43.766370+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:18.049192+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:28.154950+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:29.935382+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:37.678969+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:38.377503+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:47.764956+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:34.564573+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:34.749420+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:34.897501+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:35.613971+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:35.899119+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:36.232275+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_3"
+        }
+      ]
+    },
+    "K6V1_EXT05": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\events.jsonl",
+      "sha256": "0818ec0e25b5160437dbfb88f9c692986ed5b6f156d43565c8a1aeec3068f46a",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T22:56:50.696395+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:50.743983+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:51.323712+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:51.491982+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_2",
+          "fencing_generation": 54
+        },
+        {
+          "timestamp": "2026-09-25T22:56:51.992266+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T22:56:52.187918+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:14.081851+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:14.266138+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T22:57:14.423144+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:14:40.221192+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T23:14:50.570116+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T23:14:52.326763+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T23:14:59.963638+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T23:15:00.593211+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:15:09.943804+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T23:16:57.956837+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:16:58.142779+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:16:58.348379+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:16:59.197737+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T23:16:59.558914+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T23:16:59.770396+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_2"
+        }
+      ]
+    },
+    "K6V1_EXT06": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\events.jsonl",
+      "sha256": "5cdf90f8fbf9e37d8289b7f13f610bbd695fac6ba246c014bd6edbecf8c2e824",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T22:59:42.422098+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:42.466568+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:42.985429+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:43.181076+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_3",
+          "fencing_generation": 9
+        },
+        {
+          "timestamp": "2026-09-25T22:59:43.731419+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T22:59:43.914647+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T23:00:05.871425+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:00:06.064283+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:00:06.280921+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:31.542254+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:41.202695+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:42.731904+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:50.076667+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:50.742806+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:18:00.217072+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:43.173164+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:43.355041+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:43.525363+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:44.235416+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:44.576071+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:44.930074+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_3"
+        }
+      ]
+    },
+    "K6V1_EXT07": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\events.jsonl",
+      "sha256": "7b34e092047bd6905c75c44b9d0dde24af3c0a62bbc7802ffac99f92405d14c6",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T23:17:00.259087+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:00.304539+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:00.807890+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:01.036875+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_2",
+          "fencing_generation": 55
+        },
+        {
+          "timestamp": "2026-09-25T23:17:01.500749+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:01.702645+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:20.466442+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:20.740801+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:17:21.014493+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:34:57.993010+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T23:35:08.287366+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T23:35:09.871060+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T23:35:17.200455+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T23:35:17.853987+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:35:26.880433+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:15.670268+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:15.876751+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:16.051497+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:16.756204+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:17.103577+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:17.433300+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_2"
+        }
+      ]
+    },
+    "K6V1_EXT08": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\events.jsonl",
+      "sha256": "7946e5a5c04ea807b9a138e6c26fe56adfded0042f572eccdb3a081a73ae0183",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T23:19:47.141660+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:47.193857+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:47.756318+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:47.940247+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_3",
+          "fencing_generation": 10
+        },
+        {
+          "timestamp": "2026-09-25T23:19:48.390208+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T23:19:48.619495+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T23:20:07.223233+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:20:07.440460+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:20:07.623169+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:45.103887+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:55.994910+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:57.769131+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T23:38:05.882772+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T23:38:07.492466+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:38:16.911564+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:09.585427+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:09.769494+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:09.955740+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:10.769964+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:11.128130+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:11.479603+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_3"
+        }
+      ]
+    },
+    "K6V1_EXT09": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\events.jsonl",
+      "sha256": "1cc0abdff7a32747c814b20aeabfe439c957c01a0126493c35d04d5429de610f",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T23:37:23.653900+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:23.703469+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:24.237390+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:24.431887+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_2",
+          "fencing_generation": 56
+        },
+        {
+          "timestamp": "2026-09-25T23:37:24.979496+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:25.187089+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:43.955620+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:44.134122+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:37:44.268007+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:55:10.815271+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T23:55:21.474684+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T23:55:23.098327+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T23:55:31.274563+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T23:55:32.841860+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:55:42.915168+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:28.331117+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:28.511812+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:28.665052+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:29.395876+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:29.754577+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:30.097884+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_2"
+        }
+      ]
+    },
+    "K6V1_EXT10": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\events.jsonl",
+      "sha256": "a1448adb215f6994fe93bb26e3f382c729735a392871d144b3ece6560e53872b",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T23:40:17.410445+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:17.451838+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:17.903494+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:18.097278+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_3",
+          "fencing_generation": 11
+        },
+        {
+          "timestamp": "2026-09-25T23:40:18.569127+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:18.755700+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:40.519923+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:40.690465+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:40:40.869386+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:08.379352+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:19.372838+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:21.043757+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:28.631041+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:29.340958+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:38.530855+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:22.007944+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:22.197043+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:22.374108+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:23.067800+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:23.363325+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:23.681757+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_3"
+        }
+      ]
+    },
+    "K6V1_EXT11": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\events.jsonl",
+      "sha256": "10f6a73ee4dd9d7c3721b4b0e22e27e4f9fc51a2bf65838dc78e848417d59e48",
+      "rows": [
+        {
+          "timestamp": "2026-09-25T23:57:36.596190+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:36.631224+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:37.089136+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:37.259876+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_2",
+          "fencing_generation": 57
+        },
+        {
+          "timestamp": "2026-09-25T23:57:37.638309+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-25T23:57:37.822551+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:00.048106+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:00.238935+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-25T23:58:00.372502+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-26T00:15:36.967095+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-26T00:15:46.675910+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-26T00:15:48.458860+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-26T00:15:56.290919+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-26T00:15:57.010139+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-26T00:16:05.859991+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:56.961504+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:57.134162+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:57.315071+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:58.075324+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:58.348371+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:58.555229+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_2"
+        }
+      ]
+    },
+    "K6V1_EXT12": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\events.jsonl",
+      "sha256": "75939e4120ce1c57b2bfcc730559eb444b969579d5f653c1b64d594a7b3357bb",
+      "rows": [
+        {
+          "timestamp": "2026-09-26T00:00:25.416992+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:25.471485+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:26.113584+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:26.302051+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_3",
+          "fencing_generation": 12
+        },
+        {
+          "timestamp": "2026-09-26T00:00:26.593107+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:26.780378+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:45.630494+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:45.797978+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:00:45.963882+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:22.009250+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:32.020379+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:33.704688+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:41.484015+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:43.221488+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:52.234263+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:37.019701+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:37.174120+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:37.493990+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:38.179784+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:38.504251+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:38.856994+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_3"
+        }
+      ]
+    },
+    "K6V1_EXT13": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\events.jsonl",
+      "sha256": "f3abbe969dff5c19381842970c04902314dcfd0665fc5a9aa12795dbe89e32ab",
+      "rows": [
+        {
+          "timestamp": "2026-09-26T00:20:42.810493+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:42.840761+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:43.606816+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:43.779757+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_3",
+          "fencing_generation": 13
+        },
+        {
+          "timestamp": "2026-09-26T00:20:44.055867+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-26T00:20:44.257841+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-26T00:21:03.498877+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:21:03.666450+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:21:03.808748+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:40.848727+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:50.545522+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:52.302962+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-26T00:39:00.079466+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-26T00:39:00.752658+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_3"
+        },
+        {
+          "timestamp": "2026-09-26T00:39:09.719321+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-26T00:40:52.317669+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:40:52.469201+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:40:52.651990+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:40:53.450465+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-26T00:40:53.746610+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-26T00:40:54.035058+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_3"
+        }
+      ]
+    },
+    "K6V1_EXT14": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\events.jsonl",
+      "sha256": "ca7ee02521cf665b76dddf3eb144048472dffa9331ddeb24403e1ad173174cb5",
+      "rows": [
+        {
+          "timestamp": "2026-09-26T00:17:59.202885+00:00",
+          "event_type": "HOST_START_INTENT",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:59.239809+00:00",
+          "event_type": "HOST_PROCESS_STARTED"
+        },
+        {
+          "timestamp": "2026-09-26T00:17:59.921956+00:00",
+          "event_type": "HOST_STARTED"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:00.117153+00:00",
+          "event_type": "SLOT_ACQUIRED",
+          "slot_id": "GLOBAL_SLOT_2",
+          "fencing_generation": 58
+        },
+        {
+          "timestamp": "2026-09-26T00:18:00.393600+00:00",
+          "event_type": "PERSISTENCE_PATH_PREFLIGHT"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:00.633463+00:00",
+          "event_type": "SOLVER_ENTRY_INTENT"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:22.920462+00:00",
+          "event_type": "GPU_ENGINE_ENTRY_CONFIRMED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:23.092545+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-26T00:18:23.235191+00:00",
+          "event_type": "SCIENTIFIC_SOLVER_RUNNING",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-26T00:35:59.933961+00:00",
+          "event_type": "NATIVE_TRUTH_PERSISTING"
+        },
+        {
+          "timestamp": "2026-09-26T00:36:10.186370+00:00",
+          "event_type": "GPU_NATIVE_BUNDLE_READY"
+        },
+        {
+          "timestamp": "2026-09-26T00:36:11.908891+00:00",
+          "event_type": "NATIVE_TRUTH_DURABLE"
+        },
+        {
+          "timestamp": "2026-09-26T00:36:19.042388+00:00",
+          "event_type": "NATIVE_TRUTH_LOAD_ONLY_VALIDATED"
+        },
+        {
+          "timestamp": "2026-09-26T00:36:19.727759+00:00",
+          "event_type": "SOLVER_RETURNED",
+          "slot_id": "GLOBAL_SLOT_2"
+        },
+        {
+          "timestamp": "2026-09-26T00:36:28.680050+00:00",
+          "event_type": "POSTPROCESSING"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:11.727735+00:00",
+          "event_type": "POST_FSP_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:11.900559+00:00",
+          "event_type": "RAW_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:12.065544+00:00",
+          "event_type": "SCIENTIFIC_VALID"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:12.748812+00:00",
+          "event_type": "HF_ARCHIVED"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:13.225514+00:00",
+          "event_type": "RELEASE_PENDING"
+        },
+        {
+          "timestamp": "2026-09-26T00:38:13.536060+00:00",
+          "event_type": "RELEASED",
+          "slot_id": "GLOBAL_SLOT_2"
+        }
+      ]
+    }
+  },
+  "runtime_db": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+  "runtime_root": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_SEED_DB_V1_PRODUCTION_V1"
+}

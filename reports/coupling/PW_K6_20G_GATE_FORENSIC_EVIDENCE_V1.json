@@ -1,0 +1,53 @@
+{
+  "schema": "PW_K6_20G_GATE_FORENSIC_EVIDENCE_V1",
+  "status": "PASS",
+  "created_utc": "2026-09-27T14:50:28Z",
+  "root_cause": {
+    "classification": [
+      "A_CONTROL_STATE_NOT_HELD",
+      "D_NO_EXPLICIT_VALIDATION_ONLY_AUTOFILL_GATE"
+    ],
+    "evidence": [
+      "admission_control.new_entry_hold=0 at control_generation=20",
+      "EXT03-EXT14 FINAL_ADMISSION_PASS and FINAL_LAUNCH_REVALIDATION_PASS recorded new_entry_hold=false and exact_launch_permit_consumed=false",
+      "queue payloads lacked autofill_enabled=false/validation_gate=VALIDATION_ONLY",
+      "allocator correctly applied ordinary capacity autofill semantics under hold=false"
+    ],
+    "not_caused_by": [
+      "geometry",
+      "wavelength",
+      "field extraction",
+      "FDTD persistence",
+      "solver return truth"
+    ]
+  },
+  "production_db_forensics": {
+    "foreign_mutation_count": 0,
+    "duplicate_scientific_entry_count": 0,
+    "pw_scientific_entry_count": 20,
+    "pw_replay_count": 0,
+    "ext01_ext02_control_path": "RECOVERED_AFTER_SIDECAR_READINESS_RACE",
+    "ext03_ext14_control_path": "NORMAL_AUTOFILL_AFTER_RELEASE",
+    "current_admission_control": {
+      "new_entry_hold": 0,
+      "control_generation": 20,
+      "health_status": "PASS"
+    },
+    "current_queue_states": "all selected K6 EXT rows RELEASED; no active solver"
+  },
+  "gate_fix": {
+    "file": "scripts/shared_fdtd/engine/dispatcher.py",
+    "contract": "payload validation_gate in {VALIDATION_ONLY,MANUAL_ONLY} or autofill_enabled=false remains WAIT_RESOURCE_CAPACITY during dispatch; only an explicit exact permit may proceed to normal final gate",
+    "schema_change": false,
+    "production_db_mutated": false,
+    "solver_invocations": 0
+  },
+  "tests": {
+    "admission_gate": "PASS; 34 checks including AG/AH",
+    "global": "PASS; 20/20",
+    "branch": "PASS; 20/20 plus integration PASS",
+    "chaos": "PASS; 12/12 plus post-entry/pre-entry/orphan tests PASS",
+    "persistence": "PASS; 20/20",
+    "solver_invocations": 0
+  }
+}
