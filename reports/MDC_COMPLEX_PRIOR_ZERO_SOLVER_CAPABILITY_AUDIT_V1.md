@@ -6,7 +6,7 @@
 
 - Worktree: `D:\project\worktrees\blue_apcd_mdc_hf_surrogate_v2`
 - Branch: `work/mdc-hf-surrogate-v2`
-- Audited HEAD: `8d1380355ae2c5548d7f0c66a783b413982c8a7`
+- Audited pre-report HEAD: `8d1380355ae2c5548d7f0c66a783b413982c8a7c` (the supplied authority literal is 39 characters and is therefore malformed; the repository's verified 40-character commit is used).
 - DOE96 authority: 96 geometries × 6 source cases = 576 accepted 2D-FDTD cases.
 - Current V3-C authority: `MDC_HF_SURROGATE_V3_C_FINAL_5SEED_PROFILE_ONLY_V1`; normalized spectral-angular profile only.
 - FSP access was LOAD-only. No `run`, `runanalysis`, `runsetup`, `mesh`, `save`, or property mutation was issued.
