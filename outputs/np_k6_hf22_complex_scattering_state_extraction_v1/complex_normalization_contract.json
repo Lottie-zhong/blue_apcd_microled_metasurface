@@ -1,0 +1,25 @@
+{
+  "contract_id": "NP_K6_HF22_COMPLEX_SCATTERING_STATE_V1_NORMALIZATION",
+  "solver_calls": 0,
+  "transmission_amplitude": "sqrt(formal_T_total)*gratingvector component",
+  "reflection_amplitude": "sqrt(formal_R_total)*gratingvector component",
+  "order_set": [
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "period_x_m": 1.74e-06,
+  "period_y_m": 2.9e-07,
+  "m_plus_1_physical_direction": "+x",
+  "input_basis": "P=TM, S=TE; P TM projection uses (kz/k0,0,-kx/k0), S uses y",
+  "incident_medium": "Native-M1 SiO2 (sio222) interpolated complex epsilon vs frequency",
+  "exit_medium": "air n=1.0",
+  "sourcepower": "sourcepower(f) read from loaded FSP; raw Poynting divided by sourcepower",
+  "absolute_efficiency": "|complex_amplitude|^2",
+  "historical_complex_convention_authority": false,
+  "no_arbitrary_per_case_rescaling": true
+}
