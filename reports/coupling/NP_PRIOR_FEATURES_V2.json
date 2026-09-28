@@ -1,0 +1,57 @@
+{
+  "id": "NP_PRIOR_FEATURES_V2",
+  "provider": "NP_K6_DEPLOYMENT_PRIOR_PROVIDER_V2",
+  "scope": {
+    "u_x": 0.0,
+    "k_y": 0.0,
+    "polarizations": [
+      "P",
+      "S"
+    ],
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "feature_order": [
+    "D1_nm",
+    "D2_nm",
+    "D3_nm",
+    "D4_nm",
+    "D5_nm",
+    "D6_nm",
+    "wavelength_nm",
+    "u_x",
+    "pol_P",
+    "pol_S"
+  ],
+  "outputs": [
+    "R",
+    "T",
+    "eta_-3",
+    "eta_-2",
+    "eta_-1",
+    "eta_0",
+    "eta_+1",
+    "eta_+2",
+    "eta_+3"
+  ],
+  "wavelength_mask": {
+    "440-444_nm": "UNSUPPORTED_MASK",
+    "445-455_nm": "VALID_NP_PRIOR",
+    "456-460_nm": "UNSUPPORTED_MASK",
+    "outside": "UNSUPPORTED_MASK"
+  },
+  "unsupported_encoding": "validity mask plus explicit supported-range rejection; unsupported is never physical zero",
+  "ranking_component": "frozen executable LF response directly",
+  "spectral_component": "LF spectral response plus Ridge residual correction"
+}

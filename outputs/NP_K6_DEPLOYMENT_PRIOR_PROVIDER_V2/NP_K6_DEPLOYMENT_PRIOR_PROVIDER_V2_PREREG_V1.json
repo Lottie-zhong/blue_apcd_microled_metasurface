@@ -1,0 +1,81 @@
+{
+  "id": "NP_K6_DEPLOYMENT_PRIOR_PROVIDER_V2_PREREG_V1",
+  "source_authority_commit": "c8e6eb4",
+  "role": "LOW_FIDELITY_PHYSICS_FEATURE_PROVIDER",
+  "input_contract": {
+    "ordered_geometry": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6"
+    ],
+    "condition": [
+      "wavelength_nm",
+      "u_x",
+      "polarization"
+    ],
+    "ux_scope": "0 only",
+    "polarization_encoding": [
+      "pol_P",
+      "pol_S"
+    ],
+    "feature_order": [
+      "D1_nm",
+      "D2_nm",
+      "D3_nm",
+      "D4_nm",
+      "D5_nm",
+      "D6_nm",
+      "wavelength_nm",
+      "u_x",
+      "pol_P",
+      "pol_S"
+    ]
+  },
+  "output_contract": [
+    "R",
+    "T",
+    "eta_-3",
+    "eta_-2",
+    "eta_-1",
+    "eta_0",
+    "eta_+1",
+    "eta_+2",
+    "eta_+3"
+  ],
+  "baseline_contract": {
+    "lf_outputs": [
+      "T",
+      "eta_-3",
+      "eta_-2",
+      "eta_-1",
+      "eta_0",
+      "eta_+1",
+      "eta_+2",
+      "eta_+3"
+    ],
+    "R_baseline": "zero; direct ridge target",
+    "residual_definition": "HF - LF baseline"
+  },
+  "model": {
+    "family": "multi-output Ridge residual",
+    "ridge_formulation": "centered standardized features; (X'X + alpha I)^-1 X'Y",
+    "alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      1.0,
+      100.0
+    ],
+    "selection": "inner geometry-LOGO within each outer training set",
+    "random_state": null,
+    "dtype": "float64",
+    "units": "nm for geometry/wavelength; powers dimensionless"
+  },
+  "cv": "22-fold Leave-One-Geometry-Out; held geometry P/S/all 11 wavelengths outside training",
+  "selection_frozen_before_fit": true,
+  "historical_oof_not_used_for_tuning": true,
+  "coupling_h1_not_read": true
+}
