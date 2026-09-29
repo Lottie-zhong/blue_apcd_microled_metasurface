@@ -53,8 +53,9 @@ def _early_config_context():
 
 _EARLY_CONTEXT = _early_config_context()
 
-ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
-G2_SOURCE = ROOT / r"scripts\coupling_ml\apcd_coupling_2d3d_g2_attempt003_production_v1.py"
+ROOT = Path(__file__).resolve().parents[3]
+SCIENCE_ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
+G2_SOURCE = SCIENCE_ROOT / r"scripts\coupling_ml\apcd_coupling_2d3d_g2_attempt003_production_v1.py"
 LUMAPI = Path(r"N:\Program Files\ANSYS Inc\v251\Lumerical\api\python")
 BRANCH = "coupling_ml"
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -142,7 +143,7 @@ def queue_state(db, cfg, state):
 
 def emit(cfg, event_type, **payload):
     from shared_fdtd.engine.event_log import append_event
-    row = {"task_id": cfg["task"], "case_id": cfg["case"], "attempt_id": cfg["attempt"], **payload}
+    row = {"task_id": cfg["task"], "case_id": cfg["case"], "attempt_id": cfg["attempt"], "launch_id": cfg.get("launch_id"), **payload}
     for path in (Path(cfg["runtime"]) / "events.jsonl", Path(cfg["attempt_root"]) / "events.jsonl"):
         append_event(path, event_type, **row)
 
@@ -175,10 +176,7 @@ def fresh_load_validate_path(path, cfg, is_pw):
         handle.close()
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("config")
-    cfg = json.loads(Path(parser.parse_args().config).read_text(encoding="utf-8"))
+def _main_owned(cfg):
     is_pw = cfg.get("scientific_launcher") == "PW_PERIODIC_PLANAR"
     if is_pw:
         validate_pw_config(cfg)
@@ -211,6 +209,7 @@ def main():
     }
     write(ledger_path, ledger)
     entered = False
+    entry_confirmed = False
     returned = False
     gpu_completion_barrier = False
     fd = None
@@ -274,12 +273,28 @@ def main():
             fd.setresource("FDTD", 1, "threads", "1")
         cfg["run_fsp"] = str(run)
         def confirm_entry(evidence):
-            nonlocal entered
-            if entered:
+            nonlocal entered, entry_confirmed
+            if entry_confirmed:
                 return
+            entry_confirmed = True
             entered = True
             entry_timestamp = now()
+            process_binding = None
+            if cfg.get("launch_id"):
+                rows = evidence.get("processes") or []
+                candidate = next((row for row in rows if row.get("ProcessId")), None)
+                if candidate is not None and candidate.get("CreationDate") and (candidate.get("ExecutablePath") or candidate.get("Name")):
+                    from shared_fdtd.control_v3.launch_authority import ScientificLaunchAuthority
+                    process_binding = {
+                        "pid": int(candidate["ProcessId"]),
+                        "created_at": str(candidate["CreationDate"]),
+                        "executable": str(candidate.get("ExecutablePath") or candidate.get("Name")),
+                    }
+                    ScientificLaunchAuthority(db).record_process(lease, cfg["launch_id"], **process_binding)
+                elif candidate is not None:
+                    process_binding = {"launch_id": cfg["launch_id"], "observation": "PID_WITHOUT_CREATION_OR_EXECUTABLE_EVIDENCE", "pid": candidate.get("ProcessId")}
             ledger.update({"solver_entered": True, "physical_solver_entry": True, "entered_timestamp_utc": entry_timestamp,
+                           "process_identity": process_binding or {"launch_id": cfg.get("launch_id"), "observation": "NO_PID_EXPOSED"},
                            "run_invocation_count": 1, "slot_id": lease.slot_id, "run_fsp": str(run), "run_fsp_sha256": sha(run),
                            "entry_evidence": evidence})
             write(ledger_path, ledger)
@@ -310,19 +325,38 @@ def main():
         resource_monitor.start()
         launch_snapshot = read_resource_snapshot() if (resource_request is not None or backend_type is not None) else None
         def guarded_start(start_child):
-            result = allocator.final_launch_revalidation(
-                lease, resource_request=resource_request, resource_snapshot=launch_snapshot,
-                resource_policy=cfg.get("resource_policy"), backend_type=backend_type,
-                exact_permit_id=cfg.get("exact_launch_permit_id"),
-                admission_timestamp=(lease.admission_provenance or {}).get("admission_timestamp"),
-                start=lambda _provenance: start_child(),
-            )
-            if not result["eligible"]:
-                raise AdmissionGateBlocked(result)
-            cfg.update(result["provenance"])
-            ledger.update(result["provenance"])
-            write(ledger_path, ledger)
-            return result["launch_result"]
+            nonlocal entered
+            from shared_fdtd.control_v3.launch_authority import ScientificLaunchAuthority
+            from shared_fdtd.control_v3.allocator import AdmissionGateBlocked as LaunchAdmissionBlocked
+            authority = ScientificLaunchAuthority(db)
+            def invoke_claimed(claim):
+                nonlocal entered
+                # Conservative entry is already durable in the DB before this
+                # callback. A bookkeeping error cannot make this retryable.
+                entered = True
+                cfg["launch_id"] = claim["launch_id"]
+                ledger.update({"solver_entered": True, "launch_id": claim["launch_id"],
+                               "entered_timestamp_utc": claim["claimed_at"],
+                               "run_invocation_count": 1, "launch_identity": claim})
+                write(ledger_path, ledger)
+                emit(cfg, "SCIENTIFIC_LAUNCH_CLAIMED", launch_identity=claim)
+                return start_child()
+            try:
+                claim = authority.claim(
+                    lease, pre_fsp_hash=cfg["pre_fsp_sha256"],
+                    physical_contract_hash=cfg["physical_contract_hash"],
+                    command=getattr(start_child, "launch_command", ["lumapi.FDTD.run", str(run)]),
+                    executable=getattr(start_child, "launch_executable", sys.executable),
+                    resource_request=resource_request, resource_snapshot=launch_snapshot,
+                    resource_policy=cfg.get("resource_policy"), backend_type=backend_type,
+                    exact_permit_id=cfg.get("exact_launch_permit_id"),
+                )
+            except LaunchAdmissionBlocked as exc:
+                allocator.release_provisional(lease, "SCIENTIFIC_LAUNCH_ADMISSION_BLOCKED")
+                raise AdmissionGateBlocked({"eligible": False, "reason": str(exc)}) from exc
+            entered = True
+            allocator.mark_entered(lease, launch_identity=claim)
+            return invoke_claimed(claim)
         if is_pw:
             if backend_type == "GPU":
                 fd.close()
@@ -340,8 +374,8 @@ def main():
             else:
                 run_and_confirm_entry(fd, cfg, confirm_entry, launch_guard=guarded_start)
         else:
-            confirm_entry({"observation": "legacy_api_entry_boundary"})
-            fd.run()
+            guarded_start(fd.run)
+            confirm_entry({"observation": "legacy_api_run_returned"})
         if not gpu_completion_barrier:
             returned = True
             ledger.update({"solver_returned": True, "solver_returned_timestamp_utc": now()})
@@ -495,6 +529,11 @@ def main():
             queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
             print(json.dumps({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence}, ensure_ascii=False), flush=True)
             return
+        from shared_fdtd.control_v3.launch_authority import LaunchAlreadyClaimed
+        if isinstance(exc, LaunchAlreadyClaimed):
+            # Another committed launch is authoritative. Never release or
+            # overwrite its queue/terminal state from this duplicate host.
+            raise
         status = persistence_failure_status(returned) if returned else ("FAILED_AFTER_ENTRY" if entered else "FAILED_PREENTRY")
         queue_failure_state = "FAILED_AFTER_ENTRY" if entered else "FAILED_PREENTRY"
         write(case_root / "terminal_failure.json", {"status": status, "queue_state": queue_failure_state, "failure_class": status, "case_id": cfg["case"], "attempt_id": cfg["attempt"], "solver_entered": entered, "solver_returned": returned, "error": repr(exc), "rerun": False, "timestamp_utc": now()})
@@ -511,6 +550,15 @@ def main():
             queue_state(db, cfg, "AMBIGUOUS_QUARANTINED")
         print(json.dumps({"status": status, "case": cfg["case"], "attempt": cfg["attempt"], "error": repr(exc)}, ensure_ascii=False), flush=True)
         raise
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("config")
+    cfg = json.loads(Path(parser.parse_args().config).read_text(encoding="utf-8"))
+    from shared_fdtd.engine.attempt_guard import exclusive_attempt
+    with exclusive_attempt(cfg):
+        return _main_owned(cfg)
 
 
 def _record_uncaught_exception(exc):
@@ -551,5 +599,7 @@ if __name__ == "__main__":
     try:
         main()
     except BaseException as exc:
-        _record_uncaught_exception(exc)
+        from shared_fdtd.control_v3.launch_authority import LaunchAlreadyClaimed
+        if not isinstance(exc, LaunchAlreadyClaimed):
+            _record_uncaught_exception(exc)
         raise

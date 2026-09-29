@@ -107,6 +107,36 @@ CREATE TABLE IF NOT EXISTS exact_launch_permits (
   UNIQUE(branch_id, logical_case_id, attempt_id)
 );
 
+CREATE TABLE IF NOT EXISTS hold_lifecycle (
+  hold_id TEXT PRIMARY KEY,
+  scope TEXT NOT NULL,
+  status TEXT NOT NULL CHECK(status IN ('ACTIVE','RELEASED','CANCELLED')),
+  reason_code TEXT NOT NULL,
+  free_text_reason TEXT NOT NULL DEFAULT '',
+  linked_incident_ids_json TEXT NOT NULL DEFAULT '[]',
+  linked_case_ids_json TEXT NOT NULL DEFAULT '[]',
+  release_requirements_json TEXT NOT NULL DEFAULT '{}',
+  created_at TEXT NOT NULL,
+  created_by TEXT NOT NULL,
+  released_at TEXT,
+  released_by TEXT,
+  release_authority_hash TEXT,
+  metadata_json TEXT NOT NULL DEFAULT '{}'
+);
+
+CREATE TABLE IF NOT EXISTS hold_events (
+  event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  hold_id TEXT NOT NULL,
+  timestamp TEXT NOT NULL,
+  event_type TEXT NOT NULL,
+  actor TEXT NOT NULL,
+  metadata_json TEXT NOT NULL DEFAULT '{}'
+);
+
+CREATE INDEX IF NOT EXISTS idx_hold_lifecycle_active ON hold_lifecycle(status,scope);
+CREATE TRIGGER IF NOT EXISTS hold_events_no_update BEFORE UPDATE ON hold_events BEGIN SELECT RAISE(ABORT, 'hold_events are append-only'); END;
+CREATE TRIGGER IF NOT EXISTS hold_events_no_delete BEFORE DELETE ON hold_events BEGIN SELECT RAISE(ABORT, 'hold_events are append-only'); END;
+
 CREATE TABLE IF NOT EXISTS health_metrics (
   metric_name TEXT PRIMARY KEY,
   metric_value INTEGER NOT NULL DEFAULT 0,

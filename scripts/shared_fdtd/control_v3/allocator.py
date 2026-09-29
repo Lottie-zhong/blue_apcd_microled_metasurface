@@ -39,9 +39,48 @@ class Allocator:
     def __init__(self, db: ControlDB): self.db = db
 
     @staticmethod
+    def semantic_event_key(lease: Lease, event: str, launch_identity=None) -> str:
+        identity = launch_identity if isinstance(launch_identity, dict) else {}
+        launch_id = identity.get("launch_id") or f"legacy:{lease.token_hash}"
+        return hashlib.sha256(json.dumps(
+            [lease.owner_branch, lease.logical_case_id, lease.attempt_id,
+             event, str(launch_id)],
+            separators=(",", ":"),
+        ).encode()).hexdigest()
+
+    @staticmethod
     def _event(con, lease: Lease, event: str, metadata=None):
-        con.execute("INSERT INTO lease_events(timestamp,slot_id,branch_id,logical_case_id,attempt_id,event_type,lease_token_hash,fencing_generation,metadata_json) VALUES(?,?,?,?,?,?,?,?,?)",
-                    (utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id, event, lease.token_hash, lease.fencing_generation, json.dumps(metadata or {}, sort_keys=True)))
+        metadata = dict(metadata or {})
+        semantic_key = metadata.get("semantic_event_key")
+        if event == "SCIENTIFIC_SOLVER_ENTERED" and semantic_key:
+            prior = con.execute(
+                "SELECT event_id,metadata_json FROM lease_events "
+                "WHERE branch_id=? AND logical_case_id=? AND attempt_id=? "
+                "AND event_type=? AND lease_token_hash=? AND fencing_generation=? "
+                "ORDER BY event_id",
+                (lease.owner_branch, lease.logical_case_id, lease.attempt_id,
+                 event, lease.token_hash, lease.fencing_generation),
+            ).fetchall()
+            for row in prior:
+                try:
+                    prior_metadata = json.loads(row["metadata_json"])
+                except (TypeError, ValueError):
+                    prior_metadata = {}
+                if prior_metadata.get("semantic_event_key") == semantic_key:
+                    return {
+                        "status": "IDEMPOTENT_REPLAY_OF_EVENT",
+                        "event_id": row["event_id"],
+                        "semantic_event_key": semantic_key,
+                    }
+        con.execute(
+            "INSERT INTO lease_events(timestamp,slot_id,branch_id,logical_case_id,attempt_id,event_type,lease_token_hash,fencing_generation,metadata_json) VALUES(?,?,?,?,?,?,?,?,?)",
+            (utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id,
+             lease.attempt_id, event, lease.token_hash,
+             lease.fencing_generation, json.dumps(metadata, sort_keys=True)),
+        )
+        if event == "SCIENTIFIC_SOLVER_ENTERED":
+            ControlDB.refresh_entry_metrics(con)
+        return {"status": "RECORDED", "semantic_event_key": semantic_key}
 
     @staticmethod
     def _health_blockers(con):
@@ -458,7 +497,100 @@ class Allocator:
             if "locked" in str(exc).lower(): raise ControlPlaneDeferred(str(exc)) from exc
             raise
 
-    def mark_entered(self, lease): self._mutate(lease, "state='LIVE',solver_entered_at=?,heartbeat_at=?", (utc_now(), utc_now()), "SCIENTIFIC_SOLVER_ENTERED", resource_state="LIVE")
+    def mark_entered(self, lease, *, launch_identity=None):
+        """Record one solver entry observation with launch-aware idempotency.
+
+        Reconciliation and the returning worker may report the same launch.
+        A different launch identity for one logical attempt is a hard conflict;
+        the durable launch claim must reject it before any solver invocation.
+        """
+        identity = dict(launch_identity) if isinstance(launch_identity, dict) else {}
+        incoming_launch_id = identity.get("launch_id")
+        try:
+            with self.db.immediate() as con:
+                row = con.execute(
+                    "SELECT * FROM slots WHERE slot_id=?", (lease.slot_id,)
+                ).fetchone()
+                if row is None or row["state"] == "FREE" or (
+                    row["owner_branch"], row["logical_case_id"], row["attempt_id"],
+                    row["lease_token"], row["fencing_generation"]
+                ) != (
+                    lease.owner_branch, lease.logical_case_id, lease.attempt_id,
+                    lease.lease_token, lease.fencing_generation
+                ):
+                    raise OwnershipMismatch(lease.slot_id)
+                prior = con.execute(
+                    "SELECT event_id,lease_token_hash,fencing_generation,metadata_json "
+                    "FROM lease_events WHERE branch_id=? AND logical_case_id=? "
+                    "AND attempt_id=? AND event_type='SCIENTIFIC_SOLVER_ENTERED' "
+                    "ORDER BY event_id",
+                    (lease.owner_branch, lease.logical_case_id, lease.attempt_id),
+                ).fetchall()
+                if prior:
+                    if any(
+                        r["lease_token_hash"] != lease.token_hash
+                        or r["fencing_generation"] != lease.fencing_generation
+                        for r in prior
+                    ):
+                        raise OwnershipMismatch("SCIENTIFIC_ENTRY_AUTHORITY_CONFLICT")
+                    prior_launch_ids = set()
+                    for entry in prior:
+                        try:
+                            prior_metadata = json.loads(entry["metadata_json"])
+                        except (TypeError, ValueError):
+                            prior_metadata = {}
+                        prior_identity = prior_metadata.get("launch_identity") or {}
+                        prior_id = (
+                            prior_identity.get("launch_id")
+                            if isinstance(prior_identity, dict)
+                            else None
+                        )
+                        if prior_id:
+                            prior_launch_ids.add(str(prior_id))
+                    if incoming_launch_id and prior_launch_ids:
+                        if str(incoming_launch_id) not in prior_launch_ids:
+                            raise OwnershipMismatch("SCIENTIFIC_ENTRY_LAUNCH_CONFLICT")
+                    elif incoming_launch_id and not prior_launch_ids:
+                        raise OwnershipMismatch("SCIENTIFIC_ENTRY_IDENTITY_UNRESOLVED")
+                    return {
+                        "status": "IDEMPOTENT_REPLAY_OF_EVENT",
+                        "event_id": prior[0]["event_id"],
+                        "identity_status": (
+                            "MATCHED" if incoming_launch_id and prior_launch_ids
+                            else "UNRESOLVED" if incoming_launch_id
+                            else "NOT_PROVIDED"
+                        ),
+                    }
+                if row["state"] != "RESERVED":
+                    raise OwnershipMismatch("SCIENTIFIC_ENTRY_STATE_CONFLICT")
+                now = utc_now()
+                con.execute(
+                    "UPDATE slots SET state='LIVE',solver_entered_at=?,heartbeat_at=?,updated_at=?,version=version+1 WHERE slot_id=?",
+                    (now, now, now, lease.slot_id),
+                )
+                from .resources import ensure_resource_tables
+                ensure_resource_tables(con)
+                con.execute(
+                    "UPDATE resource_reservations SET state='LIVE',updated_at=? "
+                    "WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=?",
+                    (now, lease.slot_id, lease.owner_branch,
+                     lease.logical_case_id, lease.attempt_id),
+                )
+                from .gpu_capacity import mutate_gpu_capacity
+                mutate_gpu_capacity(con, lease, "LIVE")
+                key = self.semantic_event_key(
+                    lease, "SCIENTIFIC_SOLVER_ENTERED", identity
+                )
+                metadata = {"semantic_event_key": key}
+                if identity:
+                    metadata["launch_identity"] = identity
+                self._event(con, lease, "SCIENTIFIC_SOLVER_ENTERED", metadata)
+                return {"status": "RECORDED", "semantic_event_key": key}
+        except sqlite3.OperationalError as exc:
+            if "locked" in str(exc).lower():
+                raise ControlPlaneDeferred(str(exc)) from exc
+            raise
+
     def heartbeat(self, lease): self._mutate(lease, "heartbeat_at=?", (utc_now(),), "HEARTBEAT")
     def release_pending(self, lease, reason: str): self._mutate(lease, "state='RELEASE_PENDING'", (), "RELEASE_PENDING", {"reason": reason}, resource_state="RELEASE_PENDING")
     def quarantine_owned(self, lease, reason: str): self._mutate(lease, "state='OWNER_QUARANTINED'", (), "OWNER_QUARANTINED", {"reason": reason}, resource_state="OWNER_QUARANTINED")

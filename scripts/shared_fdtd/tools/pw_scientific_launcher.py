@@ -5,6 +5,7 @@ import hashlib
 import subprocess
 import threading
 import time
+from datetime import datetime, timezone
 from collections.abc import Mapping
 from pathlib import Path
 
@@ -14,6 +15,10 @@ from shared_fdtd.engine.gpu_observability import GpuEngineObservability
 
 Z0 = 376.730313668
 LAUNCHER_ID = "APCD_PW_PERIODIC_PLANAR_CURRENT_V1"
+
+
+def now():
+    return datetime.now(timezone.utc).isoformat()
 
 
 _REQUIRED_CONTRACT_FIELDS = (
@@ -336,6 +341,8 @@ def run_standalone_gpu_and_confirm_completion(
                     cwd=str(run_fsp.parent),
                     creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
                 )
+            start_child.launch_command = list(command)
+            start_child.launch_executable = str(executable)
             child = launch_guard(start_child) if launch_guard is not None else start_child()
             observability.child_started(child, command=command, cwd=run_fsp.parent)
             confirmed = False
@@ -350,6 +357,7 @@ def run_standalone_gpu_and_confirm_completion(
                         on_confirmed({
                             "launcher": launcher_id, "observation": "new_solver_process",
                             "processes": rows, "command": command,
+                            "child_pid": getattr(child, "pid", None),
                         })
                     except BaseException as exc:
                         callback_error.append(exc)
@@ -375,6 +383,7 @@ def run_standalone_gpu_and_confirm_completion(
         on_confirmed({
             "launcher": launcher_id, "observation": "standalone_child_returned",
             "returncode": returncode, "child_log": str(log_path), "command": command,
+            "child_pid": getattr(child, "pid", None), "child_created_at": now(),
         })
     stat = run_fsp.stat()
     return {
