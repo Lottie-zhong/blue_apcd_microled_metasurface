@@ -1,140 +1,86 @@
 {
-  "backend_commit": "c0bafb38bbc26b9a3f8ed18e06d64d86dc5dbae6",
-  "base_commit": "f0cd93d1407d080bf93259fd1153cb664235e8c8",
-  "cached_duplicate_metric_before_deploy": 0,
-  "control": {
-    "control_generation": 23,
-    "control_id": 1,
-    "health_status": "PASS",
-    "new_entry_hold": 1,
-    "temporary_runtime_cap": null,
-    "updated_at": "2026-09-29T04:31:17.858902+00:00"
-  },
-  "control_generation": 23,
-  "deployed": false,
-  "entry_idempotency_hardening": {
-    "distinct_launch_conflict_is_rejected": true,
-    "legacy_identity_is_not_silently_claimed": true,
-    "same_launch_replay_is_idempotent": true,
-    "semantic_key_includes_launch_id": true,
-    "status": "PASS",
-    "targeted_tests": 26,
-    "targeted_tests_pass": 26
-  },
-  "global_new_entry_hold": true,
-  "global_new_entry_hold_release_recommended": "NO",
-  "historical_incident_count": 7,
-  "launch_increment": "atomic claim + conservative entry before callback; same-checkout host; attempt OS lock",
-  "legacy_controller_task_audit": {
-    "after_enabled": false,
-    "after_process_count": 0,
-    "before_enabled": true,
-    "before_process_count": 0,
-    "post_xml_sha256": "68ec988407b7339a11ae9d43fb01f2b9e94e01e6862d1cbcced56a2bf68bf316",
-    "pre_xml_sha256": "39bc7a3a594e03448b35e82e35709b78ed3a9de917cd19feca496ce7b6ff660e",
-    "status": "PASS",
-    "task": "APCD_PW_K6_SEED_DB_V1_CONTROLLER"
-  },
-  "live_duplicate_scientific_entry_count": 1,
-  "live_metric_refresh": {
-    "duplicate_scientific_attempt_count": 1,
-    "duplicate_scientific_entry_count": 1,
-    "source": "ControlDB.refresh_entry_metrics",
-    "status": "PASS",
-    "updated_at": "2026-09-29T14:57:51.363973+00:00"
-  },
-  "open_gates": [
-    "solver PID/OS creation-time/executable binding on actual GPU launch path",
-    "persistence/restart matrix coverage audit against current checkout",
-    "GPU production-path infrastructure canary with launch authority and FSP/H5 evidence",
-    "production dispatcher/runtime/migration verification",
-    "historical incident disposition and controlled hold release"
-  ],
-  "production_claim_table_exists": false,
+  "schema": "SHARED_V3_PRODUCTION_READINESS_V1",
+  "generated_at_utc": "2026-09-29T20:46:30.825773+00:00",
+  "backend_commit": "ac7e1f2f6f238179be348629fa01d591c5b70e4c",
+  "production_db_sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+  "classification": "SHARED_V3_BLOCKED_BY_UNRESOLVED_PROVENANCE",
   "production_ready": false,
-  "queue21_entry_events": [
-    {
-      "event_id": 1499,
-      "event_type": "SCIENTIFIC_SOLVER_ENTERED",
-      "fencing_generation": 14,
-      "timestamp": "2026-09-23T00:39:11.269437+00:00"
+  "safe_for_traditional_production": false,
+  "safe_for_coupling_ml_production": false,
+  "global_new_entry_hold_release_recommended": false,
+  "gates": {
+    "A_provenance": {
+      "status": "FAIL",
+      "evidence": [
+        "tracked Shared V3 code diff clean",
+        "untracked runtime artifacts remain",
+        "deployed runtime blob/hash not yet independently matched to commit"
+      ]
     },
-    {
-      "event_id": 1506,
-      "event_type": "SCIENTIFIC_SOLVER_ENTERED",
-      "fencing_generation": 14,
-      "timestamp": "2026-09-23T02:38:41.983302+00:00"
+    "B_unique_entry": {
+      "status": "FAIL_HISTORICAL_PARTIAL_PROSPECTIVE",
+      "evidence": [
+        "queue21 forensic 5f5428a classification LINEAGE_NOT_RECOVERABLE",
+        "focused idempotency/launch tests 26 passed",
+        "historical two-entry ambiguity remains"
+      ]
+    },
+    "C_liveness": {
+      "status": "PARTIAL",
+      "evidence": [
+        "pre-entry/chaos tests passed",
+        "real controller restart durable-state evidence missing"
+      ]
+    },
+    "D_persistence": {
+      "status": "PARTIAL",
+      "evidence": [
+        "A3 FSP/H5/fresh LOAD/truth/release evidence",
+        "full crash/restart/partial-promotion matrix not bound to current deployed runtime"
+      ]
+    },
+    "E_hold_lifecycle": {
+      "status": "FAIL",
+      "evidence": [
+        "production global hold remains true generation 23",
+        "reason/owner/incident links/release authority not durably recorded"
+      ]
+    },
+    "F_historical_isolation": {
+      "status": "CONDITIONAL_PASS",
+      "evidence": [
+        "read-only incident audit: 7 terminal incidents, zero active slots",
+        "queue21 incident immutable report committed",
+        "no replay performed"
+      ]
+    },
+    "G_test_authority": {
+      "status": "PARTIAL",
+      "evidence": [
+        "26 focused tests passed",
+        "50 regression/20+20 zero-solver/12 chaos prior evidence",
+        "latest complete matrix not yet bound to deployed hash"
+      ]
+    },
+    "old_scheduler": {
+      "status": "PASS_CONTAINED",
+      "evidence": [
+        "\\APCD_PW_K6_SEED_DB_V1_CONTROLLER disabled",
+        "no next run",
+        "no controller process observed",
+        "audit ac7e1f2"
+      ]
     }
-  ],
-  "reason": "Evidence scope corrected: generic fd.run canaries do not prove GPU execution, launch authority, GPU H5 persistence or solver process identity. Previous all-technical-gates-pass claim withdrawn.",
-  "safe_for_coupling_ml_production": "NO",
-  "safe_for_traditional_production": "NO",
-  "slots": [
-    {
-      "slot_id": "GLOBAL_SLOT_1",
-      "state": "FREE"
-    },
-    {
-      "slot_id": "GLOBAL_SLOT_2",
-      "state": "FREE"
-    },
-    {
-      "slot_id": "GLOBAL_SLOT_3",
-      "state": "FREE"
-    }
-  ],
-  "solver_invocations_this_work": 6,
-  "solver_runs_this_turn": 0,
-  "source_sha256": {
-    "scripts/shared_fdtd/control_v3/allocator.py": "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
-    "scripts/shared_fdtd/control_v3/gpu_capacity.py": "ecea56bcef13adf59381af30af5a74c0ccbf8d9a7f6a761a33822ea33a749a62",
-    "scripts/shared_fdtd/control_v3/launch_authority.py": "15349008b6121d5353cbf46d621bb9e149dd0b879abdb9ec9d9db08759bd3d71",
-    "scripts/shared_fdtd/control_v3/resources.py": "d1f99d25788e4862d09328f2e5e489c5890571cb0aa19151f788a53605408a9b",
-    "scripts/shared_fdtd/engine/attempt_guard.py": "984f098b24911a5c2cf9c804dbc6c098ccb59b0d709ffbdffd11c8e4cc12ee4b",
-    "scripts/shared_fdtd/tests/test_attempt_guard.py": "00ecb7c24776ad42e4da5df0f5e813dab344f93a4a1361c31f48666637028fcd",
-    "scripts/shared_fdtd/tests/test_entry_event_idempotency.py": "3245ef251a84696f670ff018afe13b85778e5c7c29349487cf24a885a51be6eb",
-    "scripts/shared_fdtd/tests/test_launch_authority.py": "b11ef015dd09b3e045dd939492467038d568453a8b31473f82d14b1bbee8d969",
-    "scripts/shared_fdtd/tools/pw_scientific_launcher.py": "b01de4f7a638e804cf8d395cc29ebb223352fb517d8176a1c6ae33119b1fb310",
-    "scripts/shared_fdtd/tools/v3_dispatcher_service.py": "19fdfa10719116246c0e23ad0176546fc08c8dc09915c81b93580966b3ebe0e4",
-    "scripts/shared_fdtd/tools/v3_g2_host.py": "79d2f3d73af87ee556aa5a53ddb4493bf5cfc3bc620be710fc0e740596131c4f",
-    "scripts/shared_fdtd/engine/event_log.py": "034e49990e42fdfb6cdeca56687e3b6659529ef88a740fa94f1ce3f383715aaa"
   },
-  "timestamp": "2026-09-29T16:07:58.030986Z",
-  "zero_solver_entry_hardening": {
-    "branch": {
-      "count": 20,
-      "pass": 20
-    },
-    "chaos": {
-      "count": 12,
-      "pass": 12
-    },
-    "global": {
-      "count": 20,
-      "pass": 20
-    }
+  "canary": {
+    "A3": "SCIENTIFIC_VALID_RELEASED_GPU_CANARY_EXISTING",
+    "A4": "not newly run; previous A4 was infrastructure lifecycle evidence without explicit -gpu",
+    "new_canary_authorization": "not assumed"
   },
-  "persistence_restart_matrix": {
-    "status": "PARTIAL_COVERAGE_AUDIT_REQUIRED",
-    "script_count": 6,
-    "solver_runs": 0,
-    "scientific_solver_entries": 0,
-    "evidence": "reports/shared_v3/SHARED_V3_PERSISTENCE_RESTART_MATRIX_V1.json"
-  },
-  "deployed_runtime_commit": "ececbcd384d1f2824f28728e7ebe9d18067705dc",
-  "deployment_and_canary": {
-    "status": "PARTIAL_GENERIC_CANARY_ONLY",
-    "production_unittest": "36/36",
-    "canary_cases": "3/3",
-    "canary_solver_runs": 3,
-    "canary_scientific_entries": 3,
-    "canary_all_released": true,
-    "fresh_load_points": [
-      3,
-      3,
-      3
-    ],
-    "evidence": "reports/shared_v3/SHARED_V3_DEPLOYMENT_AND_CANARY_VERIFICATION_V1.json"
-  },
-  "evidence_correction_utc": "2026-09-29T16:17:04.981654+00:00"
+  "constraints": [
+    "no production solver launch",
+    "no replay of solver_entered attempts",
+    "no direct SQLite mutation",
+    "global hold remains enabled"
+  ]
 }
