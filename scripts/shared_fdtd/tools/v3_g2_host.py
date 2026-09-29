@@ -91,6 +91,15 @@ from shared_fdtd.tools.pw_scientific_launcher import (
 )
 
 
+def safe_stdout(payload):
+    """Best-effort operator output; never changes durable scientific state."""
+    try:
+        print(json.dumps(payload, ensure_ascii=False), flush=True)
+    except (OSError, ValueError):
+        return False
+    return True
+
+
 def now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -258,7 +267,7 @@ def _main_owned(cfg):
             allocator.release_owned(lease, scientific_terminal="FAILED_PREENTRY")
             queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
             emit(cfg, "PREENTRY_LEASE_RELEASED", slot_id=lease.slot_id)
-            print(json.dumps({"status": "PREENTRY_BOUNDARY_REACHED", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False}, ensure_ascii=False), flush=True)
+            safe_stdout({"status": "PREENTRY_BOUNDARY_REACHED", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False})
             return
         mod = g = None
         if not is_pw:
@@ -495,7 +504,7 @@ def _main_owned(cfg):
         if resource_monitor is not None:
             resource_monitor.stop()
             resource_monitor = None
-        print(json.dumps({"status": "PASS", "case": cfg["case"], "attempt": cfg["attempt"], "slot": lease.slot_id, "post_fsp": str(post), "raw": str(paths["raw_json"])}, ensure_ascii=False), flush=True)
+        safe_stdout({"status": "PASS", "case": cfg["case"], "attempt": cfg["attempt"], "slot": lease.slot_id, "post_fsp": str(post), "raw": str(paths["raw_json"])})
     except Exception as exc:
         if resource_monitor is not None:
             try:
@@ -515,19 +524,19 @@ def _main_owned(cfg):
             write(case_root / "admission_revalidation_blocked.json", exc.evidence)
             emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
             queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
-            print(json.dumps({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence}, ensure_ascii=False), flush=True)
+            safe_stdout({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
             return
         if isinstance(exc, AdmissionGateBlocked):
             write(case_root / "admission_revalidation_blocked.json", exc.evidence)
             emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
             queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
-            print(json.dumps({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence}, ensure_ascii=False), flush=True)
+            safe_stdout({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
             return
         if isinstance(exc, AdmissionGateBlocked):
             write(case_root / "admission_revalidation_blocked.json", exc.evidence)
             emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
             queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
-            print(json.dumps({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence}, ensure_ascii=False), flush=True)
+            safe_stdout({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
             return
         from shared_fdtd.control_v3.launch_authority import LaunchAlreadyClaimed
         if isinstance(exc, LaunchAlreadyClaimed):
@@ -548,7 +557,7 @@ def _main_owned(cfg):
         except Exception as release_exc:
             emit(cfg, "CONTROL_PLANE_DEGRADED", error=repr(release_exc), original_error=repr(exc))
             queue_state(db, cfg, "AMBIGUOUS_QUARANTINED")
-        print(json.dumps({"status": status, "case": cfg["case"], "attempt": cfg["attempt"], "error": repr(exc)}, ensure_ascii=False), flush=True)
+        safe_stdout({"status": status, "case": cfg["case"], "attempt": cfg["attempt"], "error": repr(exc)})
         raise
 
 
