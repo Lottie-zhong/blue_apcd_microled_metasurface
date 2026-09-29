@@ -108,9 +108,13 @@ class ScientificLaunchAuthority:
                         (now, lease.slot_id, *key))
             from .gpu_capacity import mutate_gpu_capacity
             mutate_gpu_capacity(con, lease, 'LIVE')
-            semantic_key = hashlib.sha256(json.dumps([*key, 'SCIENTIFIC_SOLVER_ENTERED'], separators=(',', ':')).encode()).hexdigest()
-            allocator._event(con, lease, 'SCIENTIFIC_SOLVER_ENTERED',
-                             {'semantic_event_key': semantic_key, 'launch_identity': identity})
+            semantic_key = Allocator.semantic_event_key(
+                lease, 'SCIENTIFIC_SOLVER_ENTERED', identity
+            )
+            allocator._event(
+                con, lease, 'SCIENTIFIC_SOLVER_ENTERED',
+                {'semantic_event_key': semantic_key, 'launch_identity': identity},
+            )
         return identity
 
     def invoke(self, lease, callback: Callable, **identity):

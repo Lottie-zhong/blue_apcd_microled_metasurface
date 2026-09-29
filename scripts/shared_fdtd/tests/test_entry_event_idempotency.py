@@ -37,6 +37,29 @@ class EntryIdempotencyTests(unittest.TestCase):
         before = self.snapshot()
         Allocator(ControlDB(self.db.path)).mark_entered(self.lease)
         self.assertEqual(before, self.snapshot())
+
+    def test_distinct_launch_identity_is_a_hard_conflict(self):
+        first = {"launch_id": "launch-one"}
+        second = {"launch_id": "launch-two"}
+        self.assertEqual(
+            self.a.mark_entered(self.lease, launch_identity=first)["status"],
+            "RECORDED",
+        )
+        with self.assertRaisesRegex(
+            OwnershipMismatch, "SCIENTIFIC_ENTRY_LAUNCH_CONFLICT"
+        ):
+            self.a.mark_entered(self.lease, launch_identity=second)
+        self.assertEqual(len(self.snapshot()[1]), 1)
+
+    def test_legacy_entry_identity_is_not_silently_claimed(self):
+        self.a.mark_entered(self.lease)
+        with self.assertRaisesRegex(
+            OwnershipMismatch, "SCIENTIFIC_ENTRY_IDENTITY_UNRESOLVED"
+        ):
+            self.a.mark_entered(
+                self.lease, launch_identity={"launch_id": "late-claim"}
+            )
+        self.assertEqual(len(self.snapshot()[1]), 1)
     def test_release_pending_does_not_regress(self):
         self.a.mark_entered(self.lease)
         self.a.release_pending(self.lease, 'TRUTH_PENDING')
