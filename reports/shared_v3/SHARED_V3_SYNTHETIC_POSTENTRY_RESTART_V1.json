@@ -1,0 +1,356 @@
+{
+  "schema": "SHARED_V3_SYNTHETIC_POSTENTRY_RESTART_V1",
+  "classification": "ISOLATED_SYNTHETIC_POSTENTRY_RESTART_NO_SOLVER",
+  "generated_at_utc": "2026-09-29T21:27:11Z",
+  "backend": {
+    "root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc",
+    "manifest": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc\\manifest.json",
+    "manifest_sha256": "4a913425f3783e03d314fe6bdb1bd661dfb32cfb45b8c558e84d4e2284c6ca00",
+    "commit_dir": "b3a331b248e0d931c608d333965557c7f56e33cc"
+  },
+  "production_db_before": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "exists": true,
+    "size_bytes": 1454080,
+    "sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0"
+  },
+  "production_db_after": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "exists": true,
+    "size_bytes": 1454080,
+    "sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0"
+  },
+  "production_db_unchanged": true,
+  "isolated_root": "D:\\apcd_runtime\\gpu_reliability_restart_matrix\\synthetic_postentry_r1r6_20260930_05",
+  "isolated_db_mode": "fresh_schema_fixture_after_production_snapshot",
+  "isolated_db_note": "The production DB is copied to production_snapshot.sqlite3 and never mutated; the test control.sqlite3 is initialized from the deployed backend schema so historical global hold/duplicate health blockers cannot be treated as a restart failure.",
+  "production_db_snapshot": {
+    "path": "D:\\apcd_runtime\\gpu_reliability_restart_matrix\\synthetic_postentry_r1r6_20260930_05\\production_snapshot.sqlite3",
+    "exists": true,
+    "size_bytes": 1454080,
+    "sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0"
+  },
+  "isolated_db_after": {
+    "path": "D:\\apcd_runtime\\gpu_reliability_restart_matrix\\synthetic_postentry_r1r6_20260930_05\\control.sqlite3",
+    "exists": true,
+    "size_bytes": 139264,
+    "sha256": "f03f546fb6676d8b1ac61510226e410dae0d7066f329a0ff85c5f49bdfe43906"
+  },
+  "case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+  "attempt_id": "attempt_001",
+  "child_processes": [
+    {
+      "phase": "entry",
+      "returncode": 0,
+      "stdout": "{\"phase\": \"entry\", \"returncode\": 0, \"entry_result\": {\"status\": \"RECORDED\", \"semantic_event_key\": \"3c1dd4cb3676e026f27f90c0ce72330f38a2dcae59cd3e279e2cab5134c687e6\"}, \"case_id\": \"SYNTH_POSTENTRY_RESTART_20260930_052708\", \"attempt_id\": \"attempt_001\", \"attempt_root\": \"D:\\\\apcd_runtime\\\\gpu_reliability_restart_matrix\\\\synthetic_postentry_r1r6_20260930_05\\\\cases\\\\SYNTH_POSTENTRY_RESTART_20260930_052708\\\\attempt_001\", \"lease_slot_id\": \"GLOBAL_SLOT_2\", \"lease_fencing_generation\": 1, \"slot_after_entry\": {\"slot_id\": \"GLOBAL_SLOT_2\", \"state\": \"LIVE\", \"owner_branch\": \"coupling_ml\", \"logical_case_id\": \"SYNTH_POSTENTRY_RESTART_20260930_052708\", \"attempt_id\": \"attempt_001\", \"lease_token\": \"FaMCatXBzD-jriPshsUt6ceXdzZ8AiFXfa7dJrNqXQs\", \"fencing_generation\": 1, \"acquired_at\": \"2026-09-29T21:27:09.369187+00:00\", \"solver_entered_at\": \"2026-09-29T21:27:09.464592+00:00\", \"heartbeat_at\": \"2026-09-29T21:27:09.464592+00:00\", \"updated_at\": \"2026-09-29T21:27:09.464592+00:00\", \"version\": 2}, \"queue_after_entry\": {\"logical_case_id\": \"SYNTH_POSTENTRY_RESTART_20260930_052708\", \"attempt_id\": \"attempt_001\", \"state\": \"QUEUED\", \"slot_id\": null, \"fencing_generation\": null}, \"db_scientific_entry_events\": 1, \"event_types\": [\"SCIENTIFIC_SOLVER_ENTERED\", \"SYNTHETIC_POSTENTRY_MARKER\", \"SOLVER_RETURNED\", \"POSTENTRY_FAILURE_ADJUDICATED\", \"TRUTH_PRESERVATION_COMPLETE\", \"CONTROLLER_TERMINATED_SYNTHETIC\"], \"solver_invocations\": 0, \"replay\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "phase": "resume",
+      "returncode": 0,
+      "stdout": "{\"phase\": \"resume\", \"returncode\": 0, \"closeout_result\": [{\"slot_id\": \"GLOBAL_SLOT_2\", \"status\": \"POSTENTRY_NO_TRUTH\", \"release\": {\"status\": \"RELEASED\", \"duplicate_side_effects\": 0, \"released_gpu_capacity\": 0, \"cancelled_permit\": 0}, \"replay\": 0}], \"events_before\": 6, \"events_after\": 9, \"event_types_after\": [\"SCIENTIFIC_SOLVER_ENTERED\", \"SYNTHETIC_POSTENTRY_MARKER\", \"SOLVER_RETURNED\", \"POSTENTRY_FAILURE_ADJUDICATED\", \"TRUTH_PRESERVATION_COMPLETE\", \"CONTROLLER_TERMINATED_SYNTHETIC\", \"POSTENTRY_NO_TRUTH\", \"TERMINAL_QUARANTINED\", \"POSTENTRY_NO_TRUTH_RELEASED\"], \"entry_count\": 1, \"release_count\": 1, \"slot_rows\": [{\"slot_id\": \"GLOBAL_SLOT_1\", \"state\": \"FREE\", \"owner_branch\": null, \"logical_case_id\": null, \"attempt_id\": null, \"lease_token\": null, \"fencing_generation\": 0, \"acquired_at\": null, \"solver_entered_at\": null, \"heartbeat_at\": null, \"updated_at\": \"2026-09-29T21:27:08.517740+00:00\", \"version\": 0}, {\"slot_id\": \"GLOBAL_SLOT_2\", \"state\": \"FREE\", \"owner_branch\": null, \"logical_case_id\": null, \"attempt_id\": null, \"lease_token\": null, \"fencing_generation\": 1, \"acquired_at\": null, \"solver_entered_at\": null, \"heartbeat_at\": null, \"updated_at\": \"2026-09-29T21:27:10.687377+00:00\", \"version\": 3}, {\"slot_id\": \"GLOBAL_SLOT_3\", \"state\": \"FREE\", \"owner_branch\": null, \"logical_case_id\": null, \"attempt_id\": null, \"lease_token\": null, \"fencing_generation\": 0, \"acquired_at\": null, \"solver_entered_at\": null, \"heartbeat_at\": null, \"updated_at\": \"2026-09-29T21:27:08.517740+00:00\", \"version\": 0}], \"queue\": {\"logical_case_id\": \"SYNTH_POSTENTRY_RESTART_20260930_052708\", \"attempt_id\": \"attempt_001\", \"state\": \"POSTENTRY_NO_TRUTH\", \"slot_id\": null, \"fencing_generation\": null}, \"terminal\": {\"attempt_id\": \"attempt_001\", \"case_id\": \"SYNTH_POSTENTRY_RESTART_20260930_052708\", \"created_utc\": \"2026-09-29T21:27:10.563085+00:00\", \"fencing_generation\": 1, \"owner_branch\": \"coupling_ml\", \"reason\": \"SYNTHETIC_RESTART_R6_NO_TRUTH\", \"release\": {\"cancelled_permit\": 0, \"duplicate_side_effects\": 0, \"released_gpu_capacity\": 0, \"status\": \"RELEASED\"}, \"release_allowed\": false, \"replay\": 0, \"scientific_entry_count\": 1, \"slot_id\": \"GLOBAL_SLOT_2\", \"status\": \"POSTENTRY_NO_TRUTH\", \"terminalized_utc\": \"2026-09-29T21:27:10.918165+00:00\", \"truth_durable\": false}, \"solver_invocations\": 0, \"replay\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "phase": "repeat",
+      "returncode": 0,
+      "stdout": "{\"phase\": \"repeat\", \"returncode\": 0, \"closeout_result\": [], \"events_before\": 9, \"events_after\": 9, \"event_types_after\": [\"SCIENTIFIC_SOLVER_ENTERED\", \"SYNTHETIC_POSTENTRY_MARKER\", \"SOLVER_RETURNED\", \"POSTENTRY_FAILURE_ADJUDICATED\", \"TRUTH_PRESERVATION_COMPLETE\", \"CONTROLLER_TERMINATED_SYNTHETIC\", \"POSTENTRY_NO_TRUTH\", \"TERMINAL_QUARANTINED\", \"POSTENTRY_NO_TRUTH_RELEASED\"], \"entry_count\": 1, \"release_count\": 1, \"slot_rows\": [{\"slot_id\": \"GLOBAL_SLOT_1\", \"state\": \"FREE\", \"owner_branch\": null, \"logical_case_id\": null, \"attempt_id\": null, \"lease_token\": null, \"fencing_generation\": 0, \"acquired_at\": null, \"solver_entered_at\": null, \"heartbeat_at\": null, \"updated_at\": \"2026-09-29T21:27:08.517740+00:00\", \"version\": 0}, {\"slot_id\": \"GLOBAL_SLOT_2\", \"state\": \"FREE\", \"owner_branch\": null, \"logical_case_id\": null, \"attempt_id\": null, \"lease_token\": null, \"fencing_generation\": 1, \"acquired_at\": null, \"solver_entered_at\": null, \"heartbeat_at\": null, \"updated_at\": \"2026-09-29T21:27:10.687377+00:00\", \"version\": 3}, {\"slot_id\": \"GLOBAL_SLOT_3\", \"state\": \"FREE\", \"owner_branch\": null, \"logical_case_id\": null, \"attempt_id\": null, \"lease_token\": null, \"fencing_generation\": 0, \"acquired_at\": null, \"solver_entered_at\": null, \"heartbeat_at\": null, \"updated_at\": \"2026-09-29T21:27:08.517740+00:00\", \"version\": 0}], \"queue\": {\"logical_case_id\": \"SYNTH_POSTENTRY_RESTART_20260930_052708\", \"attempt_id\": \"attempt_001\", \"state\": \"POSTENTRY_NO_TRUTH\", \"slot_id\": null, \"fencing_generation\": null}, \"terminal\": {\"attempt_id\": \"attempt_001\", \"case_id\": \"SYNTH_POSTENTRY_RESTART_20260930_052708\", \"created_utc\": \"2026-09-29T21:27:10.563085+00:00\", \"fencing_generation\": 1, \"owner_branch\": \"coupling_ml\", \"reason\": \"SYNTHETIC_RESTART_R6_NO_TRUTH\", \"release\": {\"cancelled_permit\": 0, \"duplicate_side_effects\": 0, \"released_gpu_capacity\": 0, \"status\": \"RELEASED\"}, \"release_allowed\": false, \"replay\": 0, \"scientific_entry_count\": 1, \"slot_id\": \"GLOBAL_SLOT_2\", \"status\": \"POSTENTRY_NO_TRUTH\", \"terminalized_utc\": \"2026-09-29T21:27:10.918165+00:00\", \"truth_durable\": false}, \"solver_invocations\": 0, \"replay\": 0}\n",
+      "stderr": ""
+    }
+  ],
+  "entry_phase": {
+    "phase": "entry",
+    "returncode": 0,
+    "entry_result": {
+      "status": "RECORDED",
+      "semantic_event_key": "3c1dd4cb3676e026f27f90c0ce72330f38a2dcae59cd3e279e2cab5134c687e6"
+    },
+    "case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+    "attempt_id": "attempt_001",
+    "attempt_root": "D:\\apcd_runtime\\gpu_reliability_restart_matrix\\synthetic_postentry_r1r6_20260930_05\\cases\\SYNTH_POSTENTRY_RESTART_20260930_052708\\attempt_001",
+    "lease_slot_id": "GLOBAL_SLOT_2",
+    "lease_fencing_generation": 1,
+    "slot_after_entry": {
+      "slot_id": "GLOBAL_SLOT_2",
+      "state": "LIVE",
+      "owner_branch": "coupling_ml",
+      "logical_case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+      "attempt_id": "attempt_001",
+      "lease_token": "FaMCatXBzD-jriPshsUt6ceXdzZ8AiFXfa7dJrNqXQs",
+      "fencing_generation": 1,
+      "acquired_at": "2026-09-29T21:27:09.369187+00:00",
+      "solver_entered_at": "2026-09-29T21:27:09.464592+00:00",
+      "heartbeat_at": "2026-09-29T21:27:09.464592+00:00",
+      "updated_at": "2026-09-29T21:27:09.464592+00:00",
+      "version": 2
+    },
+    "queue_after_entry": {
+      "logical_case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+      "attempt_id": "attempt_001",
+      "state": "QUEUED",
+      "slot_id": null,
+      "fencing_generation": null
+    },
+    "db_scientific_entry_events": 1,
+    "event_types": [
+      "SCIENTIFIC_SOLVER_ENTERED",
+      "SYNTHETIC_POSTENTRY_MARKER",
+      "SOLVER_RETURNED",
+      "POSTENTRY_FAILURE_ADJUDICATED",
+      "TRUTH_PRESERVATION_COMPLETE",
+      "CONTROLLER_TERMINATED_SYNTHETIC"
+    ],
+    "solver_invocations": 0,
+    "replay": 0
+  },
+  "resume_phase": {
+    "phase": "resume",
+    "returncode": 0,
+    "closeout_result": [
+      {
+        "slot_id": "GLOBAL_SLOT_2",
+        "status": "POSTENTRY_NO_TRUTH",
+        "release": {
+          "status": "RELEASED",
+          "duplicate_side_effects": 0,
+          "released_gpu_capacity": 0,
+          "cancelled_permit": 0
+        },
+        "replay": 0
+      }
+    ],
+    "events_before": 6,
+    "events_after": 9,
+    "event_types_after": [
+      "SCIENTIFIC_SOLVER_ENTERED",
+      "SYNTHETIC_POSTENTRY_MARKER",
+      "SOLVER_RETURNED",
+      "POSTENTRY_FAILURE_ADJUDICATED",
+      "TRUTH_PRESERVATION_COMPLETE",
+      "CONTROLLER_TERMINATED_SYNTHETIC",
+      "POSTENTRY_NO_TRUTH",
+      "TERMINAL_QUARANTINED",
+      "POSTENTRY_NO_TRUTH_RELEASED"
+    ],
+    "entry_count": 1,
+    "release_count": 1,
+    "slot_rows": [
+      {
+        "slot_id": "GLOBAL_SLOT_1",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 0,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T21:27:08.517740+00:00",
+        "version": 0
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_2",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 1,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T21:27:10.687377+00:00",
+        "version": 3
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_3",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 0,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T21:27:08.517740+00:00",
+        "version": 0
+      }
+    ],
+    "queue": {
+      "logical_case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+      "attempt_id": "attempt_001",
+      "state": "POSTENTRY_NO_TRUTH",
+      "slot_id": null,
+      "fencing_generation": null
+    },
+    "terminal": {
+      "attempt_id": "attempt_001",
+      "case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+      "created_utc": "2026-09-29T21:27:10.563085+00:00",
+      "fencing_generation": 1,
+      "owner_branch": "coupling_ml",
+      "reason": "SYNTHETIC_RESTART_R6_NO_TRUTH",
+      "release": {
+        "cancelled_permit": 0,
+        "duplicate_side_effects": 0,
+        "released_gpu_capacity": 0,
+        "status": "RELEASED"
+      },
+      "release_allowed": false,
+      "replay": 0,
+      "scientific_entry_count": 1,
+      "slot_id": "GLOBAL_SLOT_2",
+      "status": "POSTENTRY_NO_TRUTH",
+      "terminalized_utc": "2026-09-29T21:27:10.918165+00:00",
+      "truth_durable": false
+    },
+    "solver_invocations": 0,
+    "replay": 0
+  },
+  "repeat_phase": {
+    "phase": "repeat",
+    "returncode": 0,
+    "closeout_result": [],
+    "events_before": 9,
+    "events_after": 9,
+    "event_types_after": [
+      "SCIENTIFIC_SOLVER_ENTERED",
+      "SYNTHETIC_POSTENTRY_MARKER",
+      "SOLVER_RETURNED",
+      "POSTENTRY_FAILURE_ADJUDICATED",
+      "TRUTH_PRESERVATION_COMPLETE",
+      "CONTROLLER_TERMINATED_SYNTHETIC",
+      "POSTENTRY_NO_TRUTH",
+      "TERMINAL_QUARANTINED",
+      "POSTENTRY_NO_TRUTH_RELEASED"
+    ],
+    "entry_count": 1,
+    "release_count": 1,
+    "slot_rows": [
+      {
+        "slot_id": "GLOBAL_SLOT_1",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 0,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T21:27:08.517740+00:00",
+        "version": 0
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_2",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 1,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T21:27:10.687377+00:00",
+        "version": 3
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_3",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 0,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T21:27:08.517740+00:00",
+        "version": 0
+      }
+    ],
+    "queue": {
+      "logical_case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+      "attempt_id": "attempt_001",
+      "state": "POSTENTRY_NO_TRUTH",
+      "slot_id": null,
+      "fencing_generation": null
+    },
+    "terminal": {
+      "attempt_id": "attempt_001",
+      "case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+      "created_utc": "2026-09-29T21:27:10.563085+00:00",
+      "fencing_generation": 1,
+      "owner_branch": "coupling_ml",
+      "reason": "SYNTHETIC_RESTART_R6_NO_TRUTH",
+      "release": {
+        "cancelled_permit": 0,
+        "duplicate_side_effects": 0,
+        "released_gpu_capacity": 0,
+        "status": "RELEASED"
+      },
+      "release_allowed": false,
+      "replay": 0,
+      "scientific_entry_count": 1,
+      "slot_id": "GLOBAL_SLOT_2",
+      "status": "POSTENTRY_NO_TRUTH",
+      "terminalized_utc": "2026-09-29T21:27:10.918165+00:00",
+      "truth_durable": false
+    },
+    "solver_invocations": 0,
+    "replay": 0
+  },
+  "event_types": [
+    "SCIENTIFIC_SOLVER_ENTERED",
+    "SYNTHETIC_POSTENTRY_MARKER",
+    "SOLVER_RETURNED",
+    "POSTENTRY_FAILURE_ADJUDICATED",
+    "TRUTH_PRESERVATION_COMPLETE",
+    "CONTROLLER_TERMINATED_SYNTHETIC",
+    "POSTENTRY_NO_TRUTH",
+    "TERMINAL_QUARANTINED",
+    "POSTENTRY_NO_TRUTH_RELEASED"
+  ],
+  "scientific_solver_entered_event_count": 1,
+  "replay_event_count": 0,
+  "lease_released_event_count": 1,
+  "terminal_path": "D:\\apcd_runtime\\gpu_reliability_restart_matrix\\synthetic_postentry_r1r6_20260930_05\\cases\\SYNTH_POSTENTRY_RESTART_20260930_052708\\attempt_001\\terminal.json",
+  "terminal_exists": true,
+  "terminal": {
+    "attempt_id": "attempt_001",
+    "case_id": "SYNTH_POSTENTRY_RESTART_20260930_052708",
+    "created_utc": "2026-09-29T21:27:10.563085+00:00",
+    "fencing_generation": 1,
+    "owner_branch": "coupling_ml",
+    "reason": "SYNTHETIC_RESTART_R6_NO_TRUTH",
+    "release": {
+      "cancelled_permit": 0,
+      "duplicate_side_effects": 0,
+      "released_gpu_capacity": 0,
+      "status": "RELEASED"
+    },
+    "release_allowed": false,
+    "replay": 0,
+    "scientific_entry_count": 1,
+    "slot_id": "GLOBAL_SLOT_2",
+    "status": "POSTENTRY_NO_TRUTH",
+    "terminalized_utc": "2026-09-29T21:27:10.918165+00:00",
+    "truth_durable": false
+  },
+  "solver_invocations": 0,
+  "gpu_or_fdtd_launched": false,
+  "pass_conditions": {
+    "production_db_unchanged": true,
+    "production_snapshot_matches": true,
+    "entry_count_exactly_one": true,
+    "replay_count_zero": true,
+    "lease_release_once": true,
+    "terminal_postentry_no_truth": true,
+    "repeat_has_no_new_release": true,
+    "all_child_processes_passed": true
+  },
+  "status": "PASS"
+}

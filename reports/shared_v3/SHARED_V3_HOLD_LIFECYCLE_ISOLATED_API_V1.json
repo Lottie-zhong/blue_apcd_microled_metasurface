@@ -1,0 +1,33 @@
+{
+  "schema": "SHARED_V3_HOLD_LIFECYCLE_ISOLATED_API_V1",
+  "classification": "ISOLATED_API_TEST_ONLY",
+  "set": {
+    "hold_id": "hold-658d3d7fb9a14bf99694a43976e53533",
+    "scope": "GLOBAL",
+    "status": "ACTIVE",
+    "generation": 24,
+    "created_at": "2026-09-29T21:24:14.137331+00:00"
+  },
+  "release": {
+    "status": "RELEASED",
+    "hold_id": "hold-658d3d7fb9a14bf99694a43976e53533",
+    "generation": 25,
+    "global_hold": false
+  },
+  "hold_events": [
+    {
+      "event_type": "HOLD_SET",
+      "actor": "shared-v3-reliability-test",
+      "metadata_json": "{\"generation\": 24, \"reason_code\": \"SYNTHETIC_FORENSIC_GATE\", \"scope\": \"GLOBAL\"}"
+    },
+    {
+      "event_type": "HOLD_RELEASED",
+      "actor": "shared-v3-reliability-test",
+      "metadata_json": "{\"authority_hash\": \"synthetic-authority-sha256\", \"evidence\": {\"synthetic\": true}, \"generation\": 25}"
+    }
+  ],
+  "production_db_sha256_before": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+  "production_db_sha256_after": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+  "production_db_unchanged": true,
+  "verdict": "PASS_HOLD_LIFECYCLE_API"
+}
