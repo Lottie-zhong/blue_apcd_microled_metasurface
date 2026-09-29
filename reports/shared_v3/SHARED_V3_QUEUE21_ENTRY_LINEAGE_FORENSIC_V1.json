@@ -1,0 +1,90 @@
+{
+  "report_id": "SHARED_V3_QUEUE21_ENTRY_LINEAGE_FORENSIC_V1",
+  "generated_at_utc": "2026-09-29T20:37:58.653804+00:00",
+  "classification": "LINEAGE_NOT_RECOVERABLE",
+  "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+  "attempt_id": "attempt_001",
+  "evidence_scope": "read-only production SQLite; no truth or DB mutation",
+  "production_db": {
+    "path": "D:/apcd_runtime/global_fdtd_control_v3/control.sqlite3",
+    "sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+    "size_bytes": 1454080
+  },
+  "reliability_head": "6fb554309246facab43dbb4baff749a923922a09",
+  "events": [
+    {
+      "event_id": 1498,
+      "timestamp": "2026-09-23T00:36:49.842184+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_ACQUIRED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": {}
+    },
+    {
+      "event_id": 1499,
+      "timestamp": "2026-09-23T00:39:11.269437+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": {}
+    },
+    {
+      "event_id": 1506,
+      "timestamp": "2026-09-23T02:38:41.983302+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": {}
+    },
+    {
+      "event_id": 1507,
+      "timestamp": "2026-09-23T02:39:55.566139+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "RELEASE_PENDING",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": {
+        "reason": "FINISHER_TRUTH_BEFORE_RELEASE"
+      }
+    },
+    {
+      "event_id": 1508,
+      "timestamp": "2026-09-23T02:39:55.629076+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_RELEASED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": {
+        "scientific_terminal": "SCIENTIFIC_VALID"
+      }
+    }
+  ],
+  "findings": {
+    "scientific_solver_entered_count": 2,
+    "same_lease_token": true,
+    "same_fencing_generation": true,
+    "entry_metadata_empty": true,
+    "process_identity_in_lease_event": false,
+    "process_tables_in_control_db": false,
+    "independent_solver_launch_proven": false
+  },
+  "reason": "Both entry events have empty metadata_json; control schema has no process identity/process table evidence. Same lease/fence does not distinguish duplicate event recording from two launches. Conservative classification required; no replay/adjudication mutation performed."
+}
