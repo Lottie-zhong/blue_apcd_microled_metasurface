@@ -13,24 +13,20 @@ def _semantic_key(event_type, payload):
     return None
 
 def _lock_file(path):
-    lock=path.with_name(path.name+'.lock').open('a+b')
-    if os.name=='nt':
-        import msvcrt
-        lock.seek(0);lock.write(b'0');lock.flush();lock.seek(0);msvcrt.locking(lock.fileno(),msvcrt.LK_LOCK,1)
-    else:
-        import fcntl
-        fcntl.flock(lock.fileno(),fcntl.LOCK_EX)
-    return lock
+    import time
+    lock = path.with_name(path.name + ".lockdir")
+    deadline = time.monotonic() + 30.0
+    while True:
+        try:
+            lock.mkdir()
+            return lock
+        except FileExistsError:
+            if time.monotonic() >= deadline:
+                raise TimeoutError("EVENT_LOG_LOCK_TIMEOUT:" + str(path))
+            time.sleep(0.01)
 
 def _unlock(lock):
-    try:
-        if os.name=='nt':
-            import msvcrt
-            lock.seek(0);msvcrt.locking(lock.fileno(),msvcrt.LK_UNLCK,1)
-        else:
-            import fcntl
-            fcntl.flock(lock.fileno(),fcntl.LOCK_UN)
-    finally: lock.close()
+    lock.rmdir()
 
 def append_event(path,event_type,**payload):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)

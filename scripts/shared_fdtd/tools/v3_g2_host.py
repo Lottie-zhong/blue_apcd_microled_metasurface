@@ -283,14 +283,16 @@ def _main_owned(cfg):
             if cfg.get("launch_id"):
                 rows = evidence.get("processes") or []
                 candidate = next((row for row in rows if row.get("ProcessId")), None)
-                if candidate is not None:
+                if candidate is not None and candidate.get("CreationDate") and (candidate.get("ExecutablePath") or candidate.get("Name")):
                     from shared_fdtd.control_v3.launch_authority import ScientificLaunchAuthority
                     process_binding = {
                         "pid": int(candidate["ProcessId"]),
-                        "created_at": str(candidate.get("CreationDate") or entry_timestamp),
-                        "executable": str(candidate.get("ExecutablePath") or candidate.get("Name") or "UNKNOWN"),
+                        "created_at": str(candidate["CreationDate"]),
+                        "executable": str(candidate.get("ExecutablePath") or candidate.get("Name")),
                     }
                     ScientificLaunchAuthority(db).record_process(lease, cfg["launch_id"], **process_binding)
+                elif candidate is not None:
+                    process_binding = {"launch_id": cfg["launch_id"], "observation": "PID_WITHOUT_CREATION_OR_EXECUTABLE_EVIDENCE", "pid": candidate.get("ProcessId")}
             ledger.update({"solver_entered": True, "physical_solver_entry": True, "entered_timestamp_utc": entry_timestamp,
                            "process_identity": process_binding or {"launch_id": cfg.get("launch_id"), "observation": "NO_PID_EXPOSED"},
                            "run_invocation_count": 1, "slot_id": lease.slot_id, "run_fsp": str(run), "run_fsp_sha256": sha(run),
