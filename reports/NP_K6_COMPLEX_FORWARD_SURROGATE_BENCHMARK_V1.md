@@ -1,6 +1,6 @@
 # NP_K6_COMPLEX_FORWARD_SURROGATE_BENCHMARK_V1
 
-**Status:** `COMPLETE_ZERO_SOLVER`  
+**Status:** `COMPLETE_ZERO_SOLVER`
 **Learnability verdict:** `COMPLEX_FORWARD_LEARNABILITY_PARTIAL`
 
 ## Source complex truth
