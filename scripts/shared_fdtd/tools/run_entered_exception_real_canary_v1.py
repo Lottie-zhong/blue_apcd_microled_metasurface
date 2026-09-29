@@ -1,4 +1,5 @@
 from __future__ import annotations
+import argparse
 import csv, hashlib, json, os, psutil, sqlite3, subprocess, sys, time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -12,8 +13,9 @@ from shared_fdtd.engine.event_log import append_event, read_events
 from shared_fdtd.engine.persistence import atomic_json, sha256_file
 from shared_fdtd.tools.real_canary_driver import launch_factory
 
-DB_PATH=Path(r'D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3')
-OUT=Path(r'D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\outputs\shared_infra\APCD_GLOBAL_FDTD_V3_ENTERED_EXCEPTION_REAL_CANARY_V1')
+PRODUCTION_DB_PATH=Path(r'D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3')
+PRODUCTION_DB_ROOT=PRODUCTION_DB_PATH.parent
+DEFAULT_OUT=Path(r'D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\outputs\shared_infra\APCD_GLOBAL_FDTD_V3_ENTERED_EXCEPTION_REAL_CANARY_V1')
 SCHEDULER=Path(r'D:\project\worktrees\blue_apcd_mdc_np_coupling_v1\scripts\coupling\apcd_global_fdtd_slot_v1.py')
 REQUIRED_SCHEDULER_SHA='7cce95205ae4f7a598b08b5f73ff664ec717eab54cdd9de470b80a77d41d7a30'
 ACTIVE_STATES=('RESERVED','LIVE','RELEASE_PENDING','OWNER_QUARANTINED')
@@ -28,8 +30,8 @@ def safe_slot(row):
     if row is None: return None
     return {k:row[k] for k in ('slot_id','state','owner_branch','logical_case_id','attempt_id','fencing_generation')}
 
-def read_db():
-    db=sqlite3.connect(f'file:{DB_PATH.as_posix()}?mode=ro',uri=True); db.row_factory=sqlite3.Row
+def read_db(db_path):
+    db=sqlite3.connect(f'file:{Path(db_path).as_posix()}?mode=ro',uri=True); db.row_factory=sqlite3.Row
     slots=[dict(x) for x in db.execute('select slot_id,state,owner_branch,logical_case_id,attempt_id,fencing_generation,heartbeat_at,updated_at from slots order by slot_id')]
     limits=[dict(x) for x in db.execute('select branch_id,cap,enabled from branch_limits order by branch_id')]
     queue=[dict(x) for x in db.execute('select queue_id,branch_id,logical_case_id,attempt_id,state,slot_id,lease_token_hash,fencing_generation from branch_queue order by queue_id')]
@@ -60,7 +62,64 @@ def redact(x):
 def append_timeline(events_path, event_type, **data):
     append_event(events_path,event_type,**data)
 
-def main():
+def _is_relative_to(path, root):
+    try:
+        Path(path).relative_to(Path(root))
+        return True
+    except ValueError:
+        return False
+
+def _has_symlink_component(path):
+    candidate=Path(path)
+    for component in (candidate, *candidate.parents):
+        try:
+            if component.is_symlink():
+                return True
+        except OSError as exc:
+            raise ValueError(f'cannot inspect path component: {component}') from exc
+    return False
+
+def validate_isolated_paths(db_path, output_root, isolated_db):
+    if not isolated_db:
+        raise ValueError('--isolated-db is required for this infrastructure-only canary')
+    db_path=Path(db_path)
+    output_root=Path(output_root)
+    if not db_path:
+        raise ValueError('--db-path is required')
+    if _has_symlink_component(db_path) or _has_symlink_component(output_root):
+        raise ValueError('symlink DB/output paths are rejected')
+    resolved_db=db_path.resolve(strict=False)
+    resolved_output=output_root.resolve(strict=False)
+    production_root=PRODUCTION_DB_ROOT.resolve(strict=False)
+    if _is_relative_to(resolved_db, production_root):
+        raise ValueError('production DB/root is rejected; use a separate isolated DB path')
+    if _is_relative_to(resolved_output, production_root):
+        raise ValueError('production DB/root is rejected; use a separate output root')
+    if resolved_db == resolved_output:
+        raise ValueError('DB path and output root must be distinct')
+    if db_path.exists() and not db_path.is_file():
+        raise ValueError('--db-path must name a file or a not-yet-created file')
+    return resolved_db, resolved_output
+
+def parse_args(argv=None):
+    parser=argparse.ArgumentParser(description='Run the isolated Shared V3 entered-exception infrastructure canary')
+    parser.add_argument('--db-path', required=True, type=Path)
+    parser.add_argument('--isolated-db', required=True, action='store_true')
+    parser.add_argument('--output-root', type=Path, default=DEFAULT_OUT)
+    return parser.parse_args(argv)
+
+def main(argv=None):
+    args=parse_args(argv)
+    try:
+        db_path, out=validate_isolated_paths(args.db_path, args.output_root, args.isolated_db)
+    except ValueError as exc:
+        print(json.dumps({'status':'STOP','classification':'ISOLATION_GATE_FAILED','solver_runs':0,'error':str(exc)}))
+        return 2
+    return run_canary(db_path, out)
+
+def run_canary(db_path, out):
+    DB_PATH=Path(db_path)
+    OUT=Path(out)
     if OUT.exists() and any(OUT.iterdir()):
         print(json.dumps({'status':'STOP','classification':'CANARY_OUTPUT_ALREADY_EXISTS_STOP','solver_runs':0}))
         return 2
@@ -84,7 +143,7 @@ def main():
         'output_root':str(OUT),
         'attempt_root':str(runtime_base/alias/'a1'),
     }
-    before=read_db()
+    before=read_db(DB_PATH)
     limits={x['branch_id']:x for x in before['limits']}
     slots=before['slots']
     active=[x for x in slots if x['state'] in ACTIVE_STATES]
@@ -134,7 +193,7 @@ def main():
         marker=read_json(runtime/'fault_injection.json')
         if marker and not fault_seen:
             fault_seen=True
-            fault_snapshot={'timestamp':marker.get('timestamp'),'processes':relevant_processes(),'db':read_db()}
+            fault_snapshot={'timestamp':marker.get('timestamp'),'processes':relevant_processes(),'db':read_db(DB_PATH)}
         for proc in relevant_processes():
             cmd_match=False
             try:
@@ -161,8 +220,8 @@ def main():
     deferred=[x for x in ev if x.get('event_type')=='CONTROL_PLANE_UPDATE_DEFERRED']
     close_events=[x for x in ev if x.get('event_type')=='SCIENTIFIC_OWNER_CLOSE']
     entry_count=types.count('SCIENTIFIC_SOLVER_ENTERED')
-    w2h_after=next((x for x in read_db()['slots'] if x['logical_case_id']=='W2H_06824' and x['attempt_id']=='attempt_004'),None)
-    after=read_db()
+    w2h_after=next((x for x in read_db(DB_PATH)['slots'] if x['logical_case_id']=='W2H_06824' and x['attempt_id']=='attempt_004'),None)
+    after=read_db(DB_PATH)
     canary_queue=next((x for x in after['queue'] if x['logical_case_id']==case and x['attempt_id']==attempt),None)
     canary_slot=next((x for x in after['slots'] if x['logical_case_id']==case and x['attempt_id']==attempt),None)
     w2h_untouched=bool(w2h_before and w2h_after and all(w2h_before.get(k)==w2h_after.get(k) for k in ('slot_id','state','owner_branch','logical_case_id','attempt_id','fencing_generation')))
