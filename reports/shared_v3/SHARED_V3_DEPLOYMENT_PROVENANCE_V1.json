@@ -1,0 +1,93 @@
+{
+  "schema": "SHARED_V3_DEPLOYMENT_PROVENANCE_V1",
+  "generated_at_utc": "2026-09-29T20:51:54.650104+00:00",
+  "source": {
+    "root": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1",
+    "branch": "codex/shared-v3-gpu-reliability-v1",
+    "head": "8a27578706b61420c730393d44aa314d12a8f31e",
+    "tracked_status": "?? ._finalize_a4c_audit.py\n?? prep_a3_remote.py\n?? reports/shared_v3/SHARED_V3_GPU_LONG_PATH_FORENSIC_V1.json\n?? reports/shared_v3/control.sqlite3\n?? reports/shared_v3/infra_canary_20260929/\n?? reports/shared_v3/infra_canary_deployed_20260929/\n?? reports/shared_v3/isolation_preflight_zero_solver/\n?? reports/shared_v3/real_gpu_canary_20260930/\n?? reports/shared_v3/real_gpu_canary_20260930_attempt002/\n?? reports/shared_v3/real_gpu_canary_20260930_attempt003/\n?? reports/shared_v3/real_infra_exception_canary_20260930/\n?? reports/shared_v3/real_infra_exception_canary_20260930_b/\n?? reports/shared_v3/real_infra_exception_canary_20260930_fresh/\n?? reports/shared_v3/real_infra_exception_canary_20260930_hold_off/\n?? reports/shared_v3/test_zero_solver_latest.json/\n?? reports/shared_v3/test_zero_solver_stdout_fix/\n?? scripts/shared_fdtd/tests/durable_finisher_test_results.csv\n",
+    "tracked_executable_tree_clean": true
+  },
+  "runtime": {
+    "root": "D:\\apcd_runtime\\global_fdtd_control_v3",
+    "manifest_commit": null,
+    "deployment_manifest_found": false,
+    "files": [
+      {
+        "path": "scripts/shared_fdtd/control_v3/allocator.py",
+        "exists": true,
+        "sha256": "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
+        "size_bytes": 47364,
+        "git_blob": "22f2ab878c188d50b711a7d26a71f5b12a795e1e",
+        "runtime_candidates": [],
+        "runtime_match": false
+      },
+      {
+        "path": "scripts/shared_fdtd/control_v3/launch_authority.py",
+        "exists": true,
+        "sha256": "15349008b6121d5353cbf46d621bb9e149dd0b879abdb9ec9d9db08759bd3d71",
+        "size_bytes": 8465,
+        "git_blob": "c4aa182026bc6d4e81dd2d27b71ba85802c202d3",
+        "runtime_candidates": [],
+        "runtime_match": false
+      },
+      {
+        "path": "scripts/shared_fdtd/engine/event_log.py",
+        "exists": true,
+        "sha256": "034e49990e42fdfb6cdeca56687e3b6659529ef88a740fa94f1ce3f383715aaa",
+        "size_bytes": 2485,
+        "git_blob": "4dd7a215d8c2be46ce390ab9cdb86218406c35c0",
+        "runtime_candidates": [],
+        "runtime_match": false
+      },
+      {
+        "path": "scripts/shared_fdtd/engine/gpu_bundle.py",
+        "exists": true,
+        "sha256": "d5947e80678c262bd8c71d2d9c76a245f640c8269461bab99419bc3f5b6d627c",
+        "size_bytes": 11560,
+        "git_blob": "73710253e0485bc58c89dc0ca0201b33c7240503",
+        "runtime_candidates": [],
+        "runtime_match": false
+      },
+      {
+        "path": "scripts/shared_fdtd/engine/finisher.py",
+        "exists": true,
+        "sha256": "d03dd19709ee055fbd26a645449e4e808686ccc9f9448a463c4309852dbc8807",
+        "size_bytes": 17792,
+        "git_blob": "2b6e10769e0c1d2494414f7064a8b5acf5bd8aa7",
+        "runtime_candidates": [],
+        "runtime_match": false
+      },
+      {
+        "path": "scripts/shared_fdtd/tools/v3_g2_host.py",
+        "exists": true,
+        "sha256": "006869eb8435ab7ddd8b6589736d3bc188099f4db2a131665a0bef31ceca36bf",
+        "size_bytes": 30743,
+        "git_blob": "96f32f8b03be4f035b361200159e7cfef791b2ec",
+        "runtime_candidates": [],
+        "runtime_match": false
+      },
+      {
+        "path": "scripts/shared_fdtd/tools/shared_v3_incident_audit.py",
+        "exists": true,
+        "sha256": "999f7c4a6ba25916b26c04cbdbc04328efad9710dea9addd81136a8987e8a1fd",
+        "size_bytes": 2523,
+        "git_blob": "0b70fee803321ad4f63f95f908b4155c2a74c6e9",
+        "runtime_candidates": [],
+        "runtime_match": false
+      },
+      {
+        "path": "scripts/shared_fdtd/configs/pw_contract.json",
+        "exists": false,
+        "runtime_candidates": [],
+        "runtime_match": false
+      }
+    ],
+    "production_db_sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+    "production_db_size_bytes": 1454080
+  },
+  "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "lumerical_engine": "C:/Program Files/ANSYS Inc/v251/Lumerical/bin/fdtd-engine-msmpi.exe",
+  "verdict": "FAIL_RUNTIME_DEPLOYMENT_PROVENANCE_INCOMPLETE",
+  "reason": "Runtime root has no authoritative deployment manifest or matching canonical shared_fdtd package; source/runtime equality cannot be proven. Production DB was read only."
+}
