@@ -1,0 +1,56 @@
+[
+  {
+    "command": [
+      "-m",
+      "pytest",
+      "-q",
+      "scripts/shared_fdtd/tests/test_launch_authority.py",
+      "scripts/shared_fdtd/tests/test_attempt_guard.py",
+      "scripts/shared_fdtd/tests/test_entry_event_idempotency.py"
+    ],
+    "exit_code": 0,
+    "stdout": ".......................                                                  [100%]\n23 passed in 4.56s\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_zero_solver_tests.py",
+      "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\core_launch_zero_solver"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"global\": {\"count\": 20, \"pass\": 20}, \"branch\": {\"count\": 20, \"pass\": 20}, \"chaos\": {\"count\": 12, \"pass\": 12}}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_gpu_concurrency_autofill_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"schema\": \"SHARED_V3_GPU_CONCURRENCY_AUTOFILL_ZERO_SOLVER_TESTS_V1\",\n  \"status\": \"PASS\",\n  \"tests\": {\n    \"A_cap1_second_waits\": true,\n    \"B_cap2_two_admit_third_waits\": true,\n    \"C_cap3_three_admit_fourth_waits\": true,\n    \"D_traditional_cap1_waits\": true,\n    \"E_ml_cap2_waits\": true,\n    \"F_global_cap3_fourth_blocked\": true,\n    \"G_ml_release_refills_while_other_active\": true,\n    \"H_traditional_release_refills_while_ml_active\": true,\n    \"I_repeated_ticks_no_duplicate_owner_or_entry\": true,\n    \"J_controller_restart_capacity_preserved\": true,\n    \"K_dispatcher_restart_waiting_rediscovered\": true,\n    \"L_postsolver_persistence_keeps_token\": true,\n    \"M_incomplete_h5_keeps_token\": true,\n    \"N_durable_terminal_releases_once\": true,\n    \"O_foreign_owner_cannot_mutate\": true,\n    \"P_stale_process_census_does_not_override_owner\": true,\n    \"Q_entry_distinct_from_launch_intent\": true,\n    \"R_no_direct_sqlite_mutation_in_test_path\": true\n  },\n  \"solver_invocations\": 0,\n  \"scientific_solver_entries\": 0,\n  \"direct_sqlite_mutations\": 0\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_admission_gate_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"schema\": \"APCD_SHARED_V3_ADMISSION_GATE_ZERO_SOLVER_TESTS_V1\",\n  \"status\": \"PASS\",\n  \"tests\": {\n    \"A_enabled_hold0_capacity_available_eligible\": true,\n    \"B_hold_veto\": true,\n    \"C_disabled_veto\": true,\n    \"D_formal2_temp1_active1_blocks_second\": true,\n    \"E_formal2_without_temp_allows_second\": true,\n    \"F_wait_wake_hold_becomes_true_stays_waiting\": true,\n    \"G_slot_release_hold_no_autofill\": true,\n    \"H_disabled_after_reservation_final_recheck\": true,\n    \"I_generation_invalidates_stale_admission\": true,\n    \"J_two_dispatchers_one_reservation_entry\": true,\n    \"K_dispatcher_restart_preserves_control\": true,\n    \"L_controller_restart_preserves_veto\": true,\n    \"M_repeated_tick_no_duplicate\": true,\n    \"N_manual_path_uses_canonical_predicate\": true,\n    \"O_autofill_uses_canonical_predicate\": true,\n    \"P_wait_resource_wake_uses_canonical_predicate\": true,\n    \"Q_no_solver_invocation_in_all_tests\": true,\n    \"R_generation_bump_hold_blocks_before_launch\": true,\n    \"S_generation_bump_disable_blocks_before_launch\": true,\n    \"T_temporary_cap_reduction_rejects_stale\": true,\n    \"U_global_capacity_consumed_blocks\": true,\n    \"V_gpu_capacity_consumed_blocks\": true,\n    \"W_owner_fencing_invalid_blocks\": true,\n    \"X_all_authority_valid_launch_eligible\": true,\n    \"Y_stale_reject_requires_new_admission\": true,\n    \"Z_all_scientific_entry_points_use_final_gate_hook\": true,\n    \"AA_autofill_cannot_bypass_final_gate\": true,\n    \"AB_wait_resource_wake_cannot_bypass\": true,\n    \"AC_manual_dispatch_cannot_bypass\": true,\n    \"AD_controller_restart_cannot_resurrect_stale\": true,\n    \"AE_dispatcher_restart_cannot_resurrect_stale\": true,\n    \"AF_multiple_pending_all_stale_after_generation_bump\": true,\n    \"AG_validation_only_row_blocks_release_autofill\": true,\n    \"AH_manual_only_alias_blocks_release_autofill\": true\n  },\n  \"solver_invocations\": 0,\n  \"scientific_solver_entries\": 0,\n  \"replay\": 0,\n  \"direct_sqlite_mutations\": 0\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_exact_permit_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"count\": 14, \"pass\": 14, \"fail\": 0, \"solver_invocations\": 0, \"scientific_solver_entries\": 0, \"results\": [[\"A_hold_veto_without_permit\", \"PASS\", \"\"], [\"B_exact_permit_consumed_at_final_gate\", \"PASS\", \"\"], [\"C_consumed_permit_blocks_duplicate_gate_without_releasing_slot\", \"PASS\", \"\"], [\"D_permit_is_attempt_scoped\", \"PASS\", \"\"], [\"E_generation_revalidation_blocks_stale_permit\", \"PASS\", \"\"], [\"F_only_one_armed_permit\", \"PASS\", \"\"], [\"G_cancelled_permit_cannot_admit\", \"PASS\", \"\"], [\"H_dispatch_path_consumes_exact_permit_once\", \"PASS\", \"\"], [\"I_wait_row_with_proven_stale_identity_recovers_and_cancels_permit\", \"PASS\", \"\"], [\"J_unproven_stale_identity_blocks\", \"PASS\", \"\"], [\"K_entry_blocks_stale_recovery\", \"PASS\", \"\"], [\"M_setup_only_fsp_copy_is_allowed\", \"PASS\", \"\"], [\"N_changed_nonsetup_fsp_blocks\", \"PASS\", \"\"], [\"L_no_solver_invocations\", \"PASS\", \"\"]]}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_same_launcher_preentry_handshake_zero_solver_test.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"solver_runs\": 0, \"scientific_solver_entries\": 0, \"queue_state\": \"WAIT_RESOURCE_CAPACITY\", \"owner_released\": true, \"stdout_captured\": true, \"stderr_captured\": true}\n",
+    "stderr": ""
+  }
+]
