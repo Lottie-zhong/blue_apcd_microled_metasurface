@@ -1,0 +1,200 @@
+{
+  "schema_version": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_MANIFEST_V1",
+  "interface_name": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_V1",
+  "interface_version": "V1",
+  "status": "NP_COUPLING_FORWARD_FEATURE_INTERFACE_READY",
+  "route_decision": "NP_COMPLEX_COEFFICIENT_NOT_COMPOSABLE_AS_SCATTERING_STATE",
+  "input_schema": {
+    "geometry": {
+      "fields": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "unit": "nm",
+      "ordered_physical_x": true,
+      "sorting_forbidden": true
+    },
+    "wavelength_nm": {
+      "allowed_inclusive": [
+        445,
+        455
+      ],
+      "exact_integer_points": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ]
+    },
+    "polarization": {
+      "allowed": [
+        "P",
+        "P_XLIKE",
+        "S",
+        "S_YLIKE"
+      ],
+      "canonical": [
+        "P_XLIKE",
+        "S_YLIKE"
+      ],
+      "averaging_forbidden": true
+    },
+    "ux": {
+      "normal_incidence_only": 0.0,
+      "angular_value_outputs": false
+    },
+    "k_y": 0.0
+  },
+  "output_schema": {
+    "normal_incidence": [
+      "LF order vector",
+      "LF propagating order powers",
+      "LF T_proxy",
+      "optional exact HF R/T/order vector"
+    ],
+    "provenance_on_each_bundle": true,
+    "unsupported_values_are_structured": true
+  },
+  "provider_components": {
+    "ranking": {
+      "provider_id": "NP_K6_NORMAL_INCIDENCE_SCREENING_PROVIDER_V1",
+      "model": "LF_only",
+      "variant": "ensemble_raw",
+      "runtime_status": "UNAVAILABLE_NP_PROVIDER_RECOVERY_FAIL"
+    },
+    "spectral": {
+      "provider_id": "NP_K6_NORMAL_INCIDENCE_SCREENING_PROVIDER_V1",
+      "model": "LF_ridge_residual",
+      "variant": "ensemble_raw",
+      "runtime_status": "UNAVAILABLE_NOT_ENABLED_UNTIL_PROVIDER_PARITY_PASS"
+    },
+    "auxiliary_lf": {
+      "provider_id": "FROZEN_D0_FULL_VECTOR_ARRAY_AUTHORITY",
+      "status": "AVAILABLE_READ_ONLY"
+    }
+  },
+  "authority_hashes": {
+    "provider_manifest": {
+      "path": "outputs/np_k6_final_freeze_closeout_v1/provider_manifest.json",
+      "sha256": "e5fb496d0d4263598798ae438299d0e3f7d498788502a402dc92ee0e26ab34b3"
+    },
+    "prior_features": {
+      "path": "outputs/np_k6_final_freeze_closeout_v1/NP_PRIOR_FEATURES_V1.json",
+      "sha256": "2b6cfd2d5ed36666de1857df43e620a5971f8bc8fa47e2bae4b352802ef27b95"
+    },
+    "coupling_handoff": {
+      "path": "outputs/np_k6_final_freeze_closeout_v1/coupling_handoff.json",
+      "sha256": "b4a507054a0db8b241943fa7ba59127430b8e1df3a4f242817d58951bca14e8c"
+    },
+    "hf22_csv": {
+      "path": "outputs/np_k6_m8a_primary2_closeout_v1/hf22_formal_development_484rows.csv",
+      "sha256": "5c5dca90928498c927663ad3eedbf502394a68c741feef836195573846ba1599"
+    },
+    "lf22_csv": {
+      "path": "outputs/np_k6_m9_22g_forward_retraining_v1/lf22_full_vector_authority.csv",
+      "sha256": "bbf893209cc0fe8df0ae6ef4426071f5c7960f17bc11263139e06f2fe15a0665"
+    },
+    "lf_array_manifest": {
+      "path": "outputs/np_k6_ml_d0_database_foundation_v1/k6_lf_arrays_manifest.json",
+      "sha256": "d571b3e8b7e99e4f54eafcc2d27346179f4d929b1014cad18b6d527465087d44"
+    },
+    "lf_master": {
+      "path": "outputs/np_k6_ml_d0_database_foundation_v1/k6_design_space_master.csv.gz",
+      "sha256": "1927b46d16446b8f45628eaf7223533d962b57d188567b32f06955ce3a5117a6"
+    },
+    "coupling_20g_manifest": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_20G_DATASET_FREEZE_MANIFEST_V1.json",
+      "sha256": "e17a22cc34b7f0390fb272ded5245a61b52edbfff215d7ba83799e25a7c8570c"
+    }
+  },
+  "support_distance_definition": "sqrt(sum(((D_i-g_i)/130 nm)^2)) over ordered HF22 geometries",
+  "normal_incidence_capabilities": {
+    "u_x": 0.0,
+    "k_y": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "tracked_orders": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "propagating_orders": [
+      -1,
+      0,
+      1
+    ],
+    "polarizations": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "lf_T_definition": "sum of LF eta_m_proxy for m=-1,0,+1",
+    "lf_R": "UNAVAILABLE"
+  },
+  "angular_capabilities": {
+    "provider_type": "sparse_angular_handoff_metadata_only",
+    "usable_metadata_cases": 5,
+    "unresolved": {
+      "ux": 0.22413793103448276,
+      "polarization": "P_XLIKE",
+      "status": "UNRESOLVED_NOT_TRUTH_NO_ATTEMPT_003"
+    },
+    "stress_only": {
+      "ux": -0.48275862069,
+      "polarization": "P_XLIKE",
+      "status": "RAYLEIGH_STRESS_TEST_ONLY_NOT_QUANTITATIVE_ANCHOR"
+    },
+    "symmetry_fill": false,
+    "invented_interpolation": false
+  },
+  "complex_capabilities": {
+    "COMPLEX_SCATTERING_STATE_AVAILABLE": false,
+    "COMPOSABLE_COMPLEX_PHASE_AVAILABLE": false,
+    "FULL_2x2_JONES_MATRIX": false,
+    "MULTI_INPUT_FLOQUET_SCATTERING_MATRIX": false,
+    "ARBITRARY_RETURNING_ORDER_RESCATTERING": false
+  },
+  "ood_semantics": "exact HF22 match is in-domain; otherwise expose per-position support, nearest distance, and OOD warning; no interpolation is performed",
+  "provenance_enums": [
+    "LF_ONLY",
+    "FROZEN_HF_TRUTH",
+    "FROZEN_D0_FULL_VECTOR_ARRAY_AUTHORITY",
+    "UNAVAILABLE_PROVIDER_RECOVERY_FAIL",
+    "UNSUPPORTED_COMPLEX",
+    "SPARSE_ANGULAR_HANDOFF_METADATA_ONLY"
+  ],
+  "unsupported_requests": [
+    "complex_scattering_state",
+    "composable_complex_coefficient",
+    "jones_matrix",
+    "unsupported_angular_case"
+  ],
+  "consumer_use_policy": "PHYSICS_INFORMED_AUXILIARY_FEATURES_ONLY; not integrated truth, cascade, or FDTD replacement",
+  "adapter_path": "scripts/np_k6_coupling_forward_feature_interface_v1.py",
+  "handoff_extension_path": "outputs/np_k6_coupling_forward_feature_interface_v1/canonical_handoff_extension_v1.json"
+}

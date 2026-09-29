@@ -1,0 +1,76 @@
+{
+  "schema_version": "NP_K6_COUPLING_FORWARD_CAPABILITY_BOUNDARY_V1",
+  "interface": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_V1",
+  "supported": [
+    "ordered K6 geometry validation",
+    "normal-incidence u_x=0 LF order-power feature bundle",
+    "exact HF22 truth lookup with FROZEN_HF_TRUTH provenance",
+    "geometry support/OOD audit",
+    "explicit P/S request separation",
+    "sparse angular handoff metadata only"
+  ],
+  "unsupported_or_fail_closed": [
+    "composable complex scattering state",
+    "complex modal phase composition",
+    "full 2x2 Jones matrix",
+    "multi-input Floquet scattering matrix",
+    "arbitrary returning-order rescattering",
+    "FDTD replacement",
+    "integrated MDC-NP truth",
+    "exact angular response values",
+    "hidden geometry interpolation",
+    "symmetry or +/-u_x substitution",
+    "NP_K6_COMPLEX_DEPLOYMENT_PROVIDER_V1"
+  ],
+  "complex_capabilities": {
+    "COMPLEX_SCATTERING_STATE_AVAILABLE": false,
+    "COMPOSABLE_COMPLEX_PHASE_AVAILABLE": false,
+    "FULL_2x2_JONES_MATRIX": false,
+    "MULTI_INPUT_FLOQUET_SCATTERING_MATRIX": false,
+    "ARBITRARY_RETURNING_ORDER_RESCATTERING": false
+  },
+  "normal_incidence": {
+    "u_x": 0.0,
+    "k_y": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "tracked_orders": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "propagating_orders": [
+      -1,
+      0,
+      1
+    ],
+    "polarizations": [
+      "P_XLIKE",
+      "S_YLIKE"
+    ],
+    "lf_T_definition": "sum of LF eta_m_proxy for m=-1,0,+1",
+    "lf_R": "UNAVAILABLE"
+  },
+  "provider_recovery_boundary": {
+    "provider_id": "NP_K6_NORMAL_INCIDENCE_SCREENING_PROVIDER_V1",
+    "ranking": "LF_only / ensemble_raw; runtime score unavailable while NP_PROVIDER_RECOVERY_FAIL remains",
+    "spectral": "LF_ridge_residual / ensemble_raw; runtime surrogate unavailable until provider parity pass",
+    "preserved_without_overwrite": true
+  },
+  "consumer_policy": "PHYSICS_INFORMED_AUXILIARY_FEATURES_ONLY"
+}

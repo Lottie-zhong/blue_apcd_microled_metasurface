@@ -1,0 +1,1487 @@
+{
+  "schema_version": "NP_K6_COUPLING_20G_DOMAIN_SUPPORT_V1",
+  "status": "PASS",
+  "support_definition": {
+    "reference": "HF22 ordered physical D1..D6 support",
+    "per_dimension": "min/max over 22 HF geometries at each physical position",
+    "nearest_distance": "sqrt(sum(((D_i - g_i)/130 nm)^2))",
+    "interpolation_performed": false,
+    "geometry_sorting_or_permutation": false
+  },
+  "hf22_geometry_count": 22,
+  "hf22_positionwise_bounds_nm": [
+    {
+      "field": "D1",
+      "min_nm": 100.0,
+      "max_nm": 200.0
+    },
+    {
+      "field": "D2",
+      "min_nm": 105.0,
+      "max_nm": 205.0
+    },
+    {
+      "field": "D3",
+      "min_nm": 110.0,
+      "max_nm": 215.0
+    },
+    {
+      "field": "D4",
+      "min_nm": 115.0,
+      "max_nm": 220.0
+    },
+    {
+      "field": "D5",
+      "min_nm": 125.0,
+      "max_nm": 225.0
+    },
+    {
+      "field": "D6",
+      "min_nm": 130.0,
+      "max_nm": 230.0
+    }
+  ],
+  "coupling_20g_case_count": 20,
+  "exact_overlap_count": 0,
+  "extrapolative_count": 20,
+  "all_20g_ordered_domain_extrapolative": true,
+  "cases": [
+    {
+      "case_id": "K6V1_S02",
+      "ordered_D_nm": [
+        215,
+        105,
+        215,
+        230,
+        105,
+        130
+      ],
+      "geometry_id": "K6X_D215_D105_D215_D230_D105_D130",
+      "geometry_hash_sha256": "51bc943f13c33d870f7fc8f2a03803e731072a6c8c9d9b12e74029592a2b2f16",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 215.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 105.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 215.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 230.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 105.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 130.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.1910663513232325,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_S03",
+      "ordered_D_nm": [
+        230,
+        100,
+        130,
+        120,
+        230,
+        100
+      ],
+      "geometry_id": "K6X_D230_D100_D130_D120_D230_D100",
+      "geometry_hash_sha256": "97805622645c5a450e4a5e43babd8d0465f5b946af9f9d3ac60f080e3d01cce1",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 230.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 100.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 130.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 120.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D5",
+          "value_nm": 230.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 100.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.2409435234539752,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_S04",
+      "ordered_D_nm": [
+        205,
+        215,
+        105,
+        225,
+        180,
+        100
+      ],
+      "geometry_id": "K6X_D205_D215_D105_D225_D180_D100",
+      "geometry_hash_sha256": "2dcbe022369e8412cf80de5aa65c32cfc71221124491a4832cae44de31ebbcfd",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 205.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 215.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 105.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 225.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 180.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 100.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.140305160028738,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_S05",
+      "ordered_D_nm": [
+        215,
+        225,
+        100,
+        125,
+        110,
+        220
+      ],
+      "geometry_id": "K6X_D215_D225_D100_D125_D110_D220",
+      "geometry_hash_sha256": "cf03dc585dd7473090d1654b0373b8770b03809328ee4898512fadad653a3bfc",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 215.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 225.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 100.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 125.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D5",
+          "value_nm": 110.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 220.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.1383575836114417,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_S15",
+      "ordered_D_nm": [
+        110,
+        135,
+        180,
+        230,
+        230,
+        100
+      ],
+      "geometry_id": "K6X_D110_D135_D180_D230_D230_D100",
+      "geometry_hash_sha256": "a7217ebbd454e90487085de5514fea2f59335de0bf3dd1b4511605c0def25550",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 110.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 135.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 180.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 230.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 230.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 100.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.871983388365741,
+      "nearest_HF22_geometry_id": "K6X_D120_D125_D180_D185_D190_D195",
+      "nearest_HF22_geometry": [
+        120.0,
+        125.0,
+        180.0,
+        185.0,
+        190.0,
+        195.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_S16",
+      "ordered_D_nm": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "geometry_id": "K6X_D175_D230_D230_D230_D100_D220",
+      "geometry_hash_sha256": "e6245725200a628d9e1f2e5e84a5a7eaf8616a5b9098f65ab9fc7cd7fdad9fce",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 175.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 230.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 230.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 230.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 100.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 220.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.011765110612762,
+      "nearest_HF22_geometry_id": "K6X_D150_D205_D215_D220_D225_D230",
+      "nearest_HF22_geometry": [
+        150.0,
+        205.0,
+        215.0,
+        220.0,
+        225.0,
+        230.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT01",
+      "ordered_D_nm": [
+        220,
+        210,
+        230,
+        225,
+        205,
+        105
+      ],
+      "geometry_id": "K6X_D220_D210_D230_D225_D205_D105",
+      "geometry_hash_sha256": "0c290d2b8dc97076dfae06fddcff00a2ba818e91da001053474fe72372d42dea",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 220.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 210.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 230.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 225.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 205.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 105.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.9940652294861605,
+      "nearest_HF22_geometry_id": "K6X_D200_D205_D215_D220_D225_D230",
+      "nearest_HF22_geometry": [
+        200.0,
+        205.0,
+        215.0,
+        220.0,
+        225.0,
+        230.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT02",
+      "ordered_D_nm": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "geometry_id": "K6X_D220_D120_D155_D100_D105_D110",
+      "geometry_hash_sha256": "0d4cb31945f6fb2ca61ffe67b230c999b402010c93488cf3272f77ea6df3ab14",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 220.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 120.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 155.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 100.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 105.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 110.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.015413752495699,
+      "nearest_HF22_geometry_id": "K6X_D100_D105_D115_D120_D125_D130",
+      "nearest_HF22_geometry": [
+        100.0,
+        105.0,
+        115.0,
+        120.0,
+        125.0,
+        130.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT03",
+      "ordered_D_nm": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "geometry_id": "K6X_D120_D110_D225_D225_D100_D205",
+      "geometry_hash_sha256": "45f33a430c8a43a8ad9561fc5b509feb6519b501d599f5bdf68c7914c4ae4792",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 120.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 110.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 225.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 225.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 100.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 205.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.8444037846192365,
+      "nearest_HF22_geometry_id": "K6X_D120_D125_D180_D185_D190_D195",
+      "nearest_HF22_geometry": [
+        120.0,
+        125.0,
+        180.0,
+        185.0,
+        190.0,
+        195.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT04",
+      "ordered_D_nm": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "geometry_id": "K6X_D105_D230_D100_D100_D230_D220",
+      "geometry_hash_sha256": "d1423d66822d4bb772fb924a5a14dd70ec3e2ec051613f095cd89bc2d421c6ea",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 105.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 230.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 100.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 100.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 230.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 220.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.8871201995900612,
+      "nearest_HF22_geometry_id": "K6X_D100_D140_D145_D155_D225_D230",
+      "nearest_HF22_geometry": [
+        100.0,
+        140.0,
+        145.0,
+        155.0,
+        225.0,
+        230.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT05",
+      "ordered_D_nm": [
+        210,
+        220,
+        100,
+        230,
+        195,
+        225
+      ],
+      "geometry_id": "K6X_D210_D220_D100_D230_D195_D225",
+      "geometry_hash_sha256": "661cd9a95878bc84a1c6fb459644a80cea946aa367a636437fd392003458c24e",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 210.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 220.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 100.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 230.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 195.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 225.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.928668959049972,
+      "nearest_HF22_geometry_id": "K6X_D200_D205_D215_D220_D225_D230",
+      "nearest_HF22_geometry": [
+        200.0,
+        205.0,
+        215.0,
+        220.0,
+        225.0,
+        230.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT06",
+      "ordered_D_nm": [
+        165,
+        110,
+        115,
+        230,
+        155,
+        115
+      ],
+      "geometry_id": "K6X_D165_D110_D115_D230_D155_D115",
+      "geometry_hash_sha256": "15860cd40047154e984dedc44264f09016f23b80c02e350f3da9f322141e6a56",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 165.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 110.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 115.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 230.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 155.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 115.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.9569119465095944,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT07",
+      "ordered_D_nm": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "geometry_id": "K6X_D115_D230_D125_D105_D100_D130",
+      "geometry_hash_sha256": "5dee71666c8d3e15124de02668b03fa6e2313edc9872e1f25d10f2aa341fc29f",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 115.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 230.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 125.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 105.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 100.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 130.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.9970370305242863,
+      "nearest_HF22_geometry_id": "K6X_D100_D105_D115_D120_D125_D130",
+      "nearest_HF22_geometry": [
+        100.0,
+        105.0,
+        115.0,
+        120.0,
+        125.0,
+        130.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT08",
+      "ordered_D_nm": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "geometry_id": "K6X_D230_D115_D185_D220_D220_D155",
+      "geometry_hash_sha256": "684d839d01fb2c0a330bcc5f954c162bef0e017273a92963a682b31073728c22",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 230.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 115.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 185.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 220.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D5",
+          "value_nm": 220.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 155.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.9592279933338405,
+      "nearest_HF22_geometry_id": "K6X_D200_D205_D215_D220_D225_D230",
+      "nearest_HF22_geometry": [
+        200.0,
+        205.0,
+        215.0,
+        220.0,
+        225.0,
+        230.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT09",
+      "ordered_D_nm": [
+        110,
+        225,
+        125,
+        210,
+        200,
+        145
+      ],
+      "geometry_id": "K6X_D110_D225_D125_D210_D200_D145",
+      "geometry_hash_sha256": "89b49a5fa7a63ddab9722f95f56f354db1e464f4a856db16f3d84d68c765ff39",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 110.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 225.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 125.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 210.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D5",
+          "value_nm": 200.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 145.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.7975554366664508,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT10",
+      "ordered_D_nm": [
+        230,
+        225,
+        190,
+        225,
+        105,
+        135
+      ],
+      "geometry_id": "K6X_D230_D225_D190_D225_D105_D135",
+      "geometry_hash_sha256": "0b5dfa234bd8ef7129593ac288fd24d39a51dd07606af59022bb290109df4f7a",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 230.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 225.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 190.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 225.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 105.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 135.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.2071042174211704,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT11",
+      "ordered_D_nm": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "geometry_id": "K6X_D230_D150_D225_D110_D205_D105",
+      "geometry_hash_sha256": "afaa91f4d99a6f1cccf7e2bafd89fed0b007b89fd151947f10f19b4da0a5e626",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 230.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D2",
+          "value_nm": 150.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 225.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 110.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 205.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 105.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 1.1729192832289927,
+      "nearest_HF22_geometry_id": "K6X_D140_D160_D165_D170_D180_D190",
+      "nearest_HF22_geometry": [
+        140.0,
+        160.0,
+        165.0,
+        170.0,
+        180.0,
+        190.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT12",
+      "ordered_D_nm": [
+        100,
+        230,
+        230,
+        185,
+        225,
+        120
+      ],
+      "geometry_id": "K6X_D100_D230_D230_D185_D225_D120",
+      "geometry_hash_sha256": "4c4c0014bf3f37ecf47b77e462d3ba8310e15aa6a33bc9aec1bf65c80441ab9b",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 100.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 230.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D3",
+          "value_nm": 230.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 185.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D5",
+          "value_nm": 225.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 120.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.8513824469684098,
+      "nearest_HF22_geometry_id": "K6X_D100_D200_D205_D210_D215_D220",
+      "nearest_HF22_geometry": [
+        100.0,
+        200.0,
+        205.0,
+        210.0,
+        215.0,
+        220.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT13",
+      "ordered_D_nm": [
+        100,
+        110,
+        115,
+        120,
+        225,
+        100
+      ],
+      "geometry_id": "K6X_D100_D110_D115_D120_D225_D100",
+      "geometry_hash_sha256": "d7db2fae9907845f1f6c5cad90436cb18338ada85a25bd92fae79791a004fe91",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 100.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 110.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 115.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D4",
+          "value_nm": 120.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D5",
+          "value_nm": 225.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D6",
+          "value_nm": 100.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": false
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.8040209600141105,
+      "nearest_HF22_geometry_id": "K6X_D100_D105_D115_D120_D125_D130",
+      "nearest_HF22_geometry": [
+        100.0,
+        105.0,
+        115.0,
+        120.0,
+        125.0,
+        130.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    },
+    {
+      "case_id": "K6V1_EXT14",
+      "ordered_D_nm": [
+        110,
+        120,
+        100,
+        225,
+        105,
+        190
+      ],
+      "geometry_id": "K6X_D110_D120_D100_D225_D105_D190",
+      "geometry_hash_sha256": "eb2edf2c27ba1aecaf2588bfc40e9d83311ea4c73bb8884f31565cb16c19c505",
+      "exact_HF22_match": false,
+      "per_dimension_support": [
+        {
+          "field": "D1",
+          "value_nm": 110.0,
+          "hf22_min_nm": 100.0,
+          "hf22_max_nm": 200.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D2",
+          "value_nm": 120.0,
+          "hf22_min_nm": 105.0,
+          "hf22_max_nm": 205.0,
+          "within_positionwise_support": true
+        },
+        {
+          "field": "D3",
+          "value_nm": 100.0,
+          "hf22_min_nm": 110.0,
+          "hf22_max_nm": 215.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D4",
+          "value_nm": 225.0,
+          "hf22_min_nm": 115.0,
+          "hf22_max_nm": 220.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D5",
+          "value_nm": 105.0,
+          "hf22_min_nm": 125.0,
+          "hf22_max_nm": 225.0,
+          "within_positionwise_support": false
+        },
+        {
+          "field": "D6",
+          "value_nm": 190.0,
+          "hf22_min_nm": 130.0,
+          "hf22_max_nm": 230.0,
+          "within_positionwise_support": true
+        }
+      ],
+      "normalized_nearest_HF22_distance": 0.767305282433077,
+      "nearest_HF22_geometry_id": "K6X_D100_D115_D130_D145_D155_D185",
+      "nearest_HF22_geometry": [
+        100.0,
+        115.0,
+        130.0,
+        145.0,
+        155.0,
+        185.0
+      ],
+      "classification": "extrapolation",
+      "training_domain_warning": "OOD_EXTRAPOLATIVE"
+    }
+  ],
+  "source_authority_hashes": {
+    "provider_manifest": {
+      "path": "outputs/np_k6_final_freeze_closeout_v1/provider_manifest.json",
+      "sha256": "e5fb496d0d4263598798ae438299d0e3f7d498788502a402dc92ee0e26ab34b3"
+    },
+    "prior_features": {
+      "path": "outputs/np_k6_final_freeze_closeout_v1/NP_PRIOR_FEATURES_V1.json",
+      "sha256": "2b6cfd2d5ed36666de1857df43e620a5971f8bc8fa47e2bae4b352802ef27b95"
+    },
+    "coupling_handoff": {
+      "path": "outputs/np_k6_final_freeze_closeout_v1/coupling_handoff.json",
+      "sha256": "b4a507054a0db8b241943fa7ba59127430b8e1df3a4f242817d58951bca14e8c"
+    },
+    "hf22_csv": {
+      "path": "outputs/np_k6_m8a_primary2_closeout_v1/hf22_formal_development_484rows.csv",
+      "sha256": "5c5dca90928498c927663ad3eedbf502394a68c741feef836195573846ba1599"
+    },
+    "lf22_csv": {
+      "path": "outputs/np_k6_m9_22g_forward_retraining_v1/lf22_full_vector_authority.csv",
+      "sha256": "bbf893209cc0fe8df0ae6ef4426071f5c7960f17bc11263139e06f2fe15a0665"
+    },
+    "lf_array_manifest": {
+      "path": "outputs/np_k6_ml_d0_database_foundation_v1/k6_lf_arrays_manifest.json",
+      "sha256": "d571b3e8b7e99e4f54eafcc2d27346179f4d929b1014cad18b6d527465087d44"
+    },
+    "lf_master": {
+      "path": "outputs/np_k6_ml_d0_database_foundation_v1/k6_design_space_master.csv.gz",
+      "sha256": "1927b46d16446b8f45628eaf7223533d962b57d188567b32f06955ce3a5117a6"
+    },
+    "coupling_20g_manifest": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_20G_DATASET_FREEZE_MANIFEST_V1.json",
+      "sha256": "e17a22cc34b7f0390fb272ded5245a61b52edbfff215d7ba83799e25a7c8570c"
+    }
+  },
+  "solver_calls": 0,
+  "training_runs": 0,
+  "coupling_target_or_performance_labels_read": 0
+}
