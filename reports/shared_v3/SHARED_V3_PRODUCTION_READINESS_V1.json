@@ -1,7 +1,7 @@
 {
   "schema": "SHARED_V3_PRODUCTION_READINESS_V1",
-  "generated_at_utc": "2026-09-29T20:46:30.825773+00:00",
-  "backend_commit": "ac7e1f2f6f238179be348629fa01d591c5b70e4c",
+  "generated_at_utc": "2026-09-29T21:04:07.966583+00:00",
+  "backend_commit": "375b661f0712dc8dd7d819dc859c2a7720054b97",
   "production_db_sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
   "classification": "SHARED_V3_BLOCKED_BY_UNRESOLVED_PROVENANCE",
   "production_ready": false,
@@ -10,11 +10,12 @@
   "global_new_entry_hold_release_recommended": false,
   "gates": {
     "A_provenance": {
-      "status": "FAIL",
+      "status": "PASS_CONDITIONAL",
       "evidence": [
-        "tracked Shared V3 code diff clean",
-        "untracked runtime artifacts remain",
-        "deployed runtime blob/hash not yet independently matched to commit"
+        "versioned runtime package b3a331b 204/204 SHA256 matches source",
+        "controllers import BACKEND_ROOT versioned package",
+        "import/py_compile smoke PASS",
+        "untracked non-executable runtime artifacts remain; runtime controller artifacts are backed up but not Git-tracked"
       ]
     },
     "B_unique_entry": {
@@ -28,15 +29,17 @@
     "C_liveness": {
       "status": "PARTIAL",
       "evidence": [
-        "pre-entry/chaos tests passed",
-        "real controller restart durable-state evidence missing"
+        "isolated deployed-controller --once restart twice PASS with zero dispatch",
+        "pre-entry/chaos tests PASS",
+        "real post-entry controller restart durability still missing"
       ]
     },
     "D_persistence": {
       "status": "PARTIAL",
       "evidence": [
-        "A3 FSP/H5/fresh LOAD/truth/release evidence",
-        "full crash/restart/partial-promotion matrix not bound to current deployed runtime"
+        "isolated DB clone restart no-dispatch PASS; production DB unchanged",
+        "FSP/H5/fresh LOAD synthetic matrix PASS",
+        "real post-entry crash/restart and full partial-promotion matrix missing"
       ]
     },
     "E_hold_lifecycle": {
@@ -59,7 +62,8 @@
       "evidence": [
         "26 focused tests passed",
         "50 regression/20+20 zero-solver/12 chaos prior evidence",
-        "latest complete matrix not yet bound to deployed hash"
+        "latest complete matrix not yet bound to deployed hash",
+        "isolated deployed-controller restart report 375b661"
       ]
     },
     "old_scheduler": {
@@ -75,12 +79,18 @@
   "canary": {
     "A3": "SCIENTIFIC_VALID_RELEASED_GPU_CANARY_EXISTING",
     "A4": "not newly run; previous A4 was infrastructure lifecycle evidence without explicit -gpu",
-    "new_canary_authorization": "not assumed"
+    "new_canary_authorization": "not assumed",
+    "isolated_restart": "PASS_ISOLATED_CONTROLLER_RESTART_NO_DISPATCH"
   },
   "constraints": [
     "no production solver launch",
     "no replay of solver_entered attempts",
     "no direct SQLite mutation",
     "global hold remains enabled"
+  ],
+  "limitations": [
+    "real post-entry controller restart and real GPU crash/restart remain unverified",
+    "hold lifecycle/release authority remains incomplete",
+    "untracked runtime test artifacts remain outside commit"
   ]
 }
