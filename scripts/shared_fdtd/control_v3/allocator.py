@@ -458,7 +458,55 @@ class Allocator:
             if "locked" in str(exc).lower(): raise ControlPlaneDeferred(str(exc)) from exc
             raise
 
-    def mark_entered(self, lease): self._mutate(lease, "state='LIVE',solver_entered_at=?,heartbeat_at=?", (utc_now(), utc_now()), "SCIENTIFIC_SOLVER_ENTERED", resource_state="LIVE")
+    def mark_entered(self, lease):
+        """Record an observation once; this is not authorization to invoke a solver.
+
+        Reconciliation and the returning worker may report the same entry. Keep
+        the first timestamp and never move RELEASE_PENDING/quarantined owners
+        back to LIVE. Historical duplicate rows remain immutable.
+        """
+        try:
+            with self.db.immediate() as con:
+                row = con.execute("SELECT * FROM slots WHERE slot_id=?", (lease.slot_id,)).fetchone()
+                if row is None or row["state"] == "FREE" or (
+                    row["owner_branch"], row["logical_case_id"], row["attempt_id"],
+                    row["lease_token"], row["fencing_generation"]
+                ) != (lease.owner_branch, lease.logical_case_id, lease.attempt_id,
+                      lease.lease_token, lease.fencing_generation):
+                    raise OwnershipMismatch(lease.slot_id)
+                prior = con.execute(
+                    "SELECT event_id,lease_token_hash,fencing_generation FROM lease_events "
+                    "WHERE branch_id=? AND logical_case_id=? AND attempt_id=? "
+                    "AND event_type='SCIENTIFIC_SOLVER_ENTERED' ORDER BY event_id",
+                    (lease.owner_branch, lease.logical_case_id, lease.attempt_id),
+                ).fetchall()
+                if prior:
+                    if any(r["lease_token_hash"] != lease.token_hash or
+                           r["fencing_generation"] != lease.fencing_generation for r in prior):
+                        raise OwnershipMismatch("SCIENTIFIC_ENTRY_AUTHORITY_CONFLICT")
+                    return {"status": "IDEMPOTENT_REPLAY_OF_EVENT", "event_id": prior[0]["event_id"]}
+                if row["state"] != "RESERVED":
+                    raise OwnershipMismatch("SCIENTIFIC_ENTRY_STATE_CONFLICT")
+                now = utc_now()
+                con.execute("UPDATE slots SET state='LIVE',solver_entered_at=?,heartbeat_at=?,updated_at=?,version=version+1 WHERE slot_id=?",
+                            (now, now, now, lease.slot_id))
+                from .resources import ensure_resource_tables
+                ensure_resource_tables(con)
+                con.execute("UPDATE resource_reservations SET state='LIVE',updated_at=? WHERE slot_id=? AND branch_id=? AND logical_case_id=? AND attempt_id=?",
+                            (now, lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id))
+                from .gpu_capacity import mutate_gpu_capacity
+                mutate_gpu_capacity(con, lease, "LIVE")
+                key = hashlib.sha256(json.dumps([
+                    lease.owner_branch, lease.logical_case_id, lease.attempt_id,
+                    "SCIENTIFIC_SOLVER_ENTERED"
+                ], separators=(",", ":")).encode()).hexdigest()
+                self._event(con, lease, "SCIENTIFIC_SOLVER_ENTERED", {"semantic_event_key": key})
+                return {"status": "RECORDED", "semantic_event_key": key}
+        except sqlite3.OperationalError as exc:
+            if "locked" in str(exc).lower():
+                raise ControlPlaneDeferred(str(exc)) from exc
+            raise
+
     def heartbeat(self, lease): self._mutate(lease, "heartbeat_at=?", (utc_now(),), "HEARTBEAT")
     def release_pending(self, lease, reason: str): self._mutate(lease, "state='RELEASE_PENDING'", (), "RELEASE_PENDING", {"reason": reason}, resource_state="RELEASE_PENDING")
     def quarantine_owned(self, lease, reason: str): self._mutate(lease, "state='OWNER_QUARANTINED'", (), "OWNER_QUARANTINED", {"reason": reason}, resource_state="OWNER_QUARANTINED")

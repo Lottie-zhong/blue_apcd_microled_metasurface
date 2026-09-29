@@ -1,0 +1,72 @@
+[
+  {
+    "test": "test_entry_event_idempotency.py",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_concurrent_reconciliation_and_worker (__main__.EntryIdempotencyTests) ... ok\ntest_foreign_and_stale_identity_fail (__main__.EntryIdempotencyTests) ... ok\ntest_historical_duplicates_preserved (__main__.EntryIdempotencyTests) ... ok\ntest_new_lease_same_attempt_rejected (__main__.EntryIdempotencyTests) ... ok\ntest_quarantine_does_not_regress (__main__.EntryIdempotencyTests) ... ok\ntest_release_pending_does_not_regress (__main__.EntryIdempotencyTests) ... ok\ntest_released_owner_cannot_resurrect (__main__.EntryIdempotencyTests) ... ok\ntest_repeat_preserves_timestamp_version_and_event (__main__.EntryIdempotencyTests) ... ok\ntest_restart_keeps_event (__main__.EntryIdempotencyTests) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 1.407s\n\nOK\n"
+  },
+  {
+    "test": "run_zero_solver_tests.py",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\scripts\\shared_fdtd\\tests\\run_zero_solver_tests.py\", line 174, in <module>\n    if __name__==\"__main__\":raise SystemExit(main())\n  File \"D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\scripts\\shared_fdtd\\tests\\run_zero_solver_tests.py\", line 164, in main\n    out=Path(sys.argv[1]); out.mkdir(parents=True,exist_ok=True)\nIndexError: list index out of range\n"
+  },
+  {
+    "test": "run_gpu_concurrency_autofill_zero_solver_tests.py",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\scripts\\shared_fdtd\\tests\\run_gpu_concurrency_autofill_zero_solver_tests.py\", line 7, in <module>\n    from shared_fdtd.control_v3.allocator import Allocator, BranchCapReached, Lease, OwnershipMismatch, NoFreeSlot\nModuleNotFoundError: No module named 'shared_fdtd'\n"
+  },
+  {
+    "test": "run_coupling_ml_integration_zero_solver_tests.py",
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"tests\": [{\"test\": \"postentry_no_truth_closeout\", \"status\": \"PASS\", \"release_events\": 1, \"replay\": 0}, {\"test\": \"multislot_autorefill\", \"status\": \"PASS\", \"first\": [\"A\", \"B\"], \"second\": [\"C\"], \"active_ml\": 2}, {\"test\": \"wait_resource_rechecks\", \"status\": \"PASS\", \"reevaluated\": true}, {\"test\": \"same_wait_attempt_after_foreign_release\", \"status\": \"PASS\", \"same_attempt\": true, \"scientific_entries\": 0}, {\"test\": \"preentry_boundary_preserves_wait\", \"status\": \"PASS\", \"same_attempt\": true, \"solver_entries\": 0, \"released\": true}, {\"test\": \"controller_restart_preserves_waiting_case\", \"status\": \"PASS\", \"restart_preserved\": true, \"same_attempt\": true, \"scientific_entries\": 0}, {\"test\": \"same_attempt_reuses_released_reservation\", \"status\": \"PASS\", \"reservation_rows\": 1, \"reacquisitions\": 2, \"scientific_entries\": 0}, {\"test\": \"async_host_wait_clears_released_refs\", \"status\": \"PASS\", \"scientific_entries\": 0, \"stale_refs\": 0}, {\"test\": \"zero_solver_host_start_recovery\", \"status\": \"PASS\", \"same_attempt\": true, \"scientific_entries\": 0}, {\"test\": \"zero_solver_entry_intent_recovery\", \"status\": \"PASS\", \"scientific_entries\": 0, \"release_events\": 1}, {\"test\": \"foreign_traditional_unchanged\", \"status\": \"PASS\", \"foreign_mutation_count\": 0}], \"solver_runs\": 0, \"scientific_solver_entries\": 0, \"replays\": 0, \"foreign_mutation_count\": 0}\n",
+    "stderr": ""
+  },
+  {
+    "test": "run_preentry_host_liveness_zero_solver_tests.py",
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"solver_runs\": 0, \"scientific_solver_entries\": 0, \"queue_state\": \"FAILED_PREENTRY\", \"owner_released\": true, \"classification\": \"PRE_ENTRY_HOST_LAUNCH_FAILURE\"}\n",
+    "stderr": ""
+  },
+  {
+    "test": "run_pw_contract_schema_accessor_zero_solver_tests.py",
+    "exit_code": 0,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"solver_invocations\": 0,\n  \"checks\": {\n    \"A_canonical_nested_production_schema\": \"PASS\",\n    \"B_required_field_missing\": \"PASS\",\n    \"C_nested_and_legacy_identical\": \"PASS\",\n    \"D_nested_and_legacy_conflict\": \"PASS\",\n    \"E_legacy_compatibility\": \"PASS\",\n    \"F_schema_path_error\": \"PASS\"\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "test": "run_postentry_truth_before_release_race_tests.py",
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"count\": 17, \"passed\": 17, \"solver_invocations\": 0, \"scientific_solver_entries\": 0, \"replays\": 0, \"tests\": [{\"test\": \"test_pending_without_solver_return\", \"status\": \"PASS\"}, {\"test\": \"test_fsp_present_h5_pending\", \"status\": \"PASS\"}, {\"test\": \"test_native_present_archive_pending\", \"status\": \"PASS\"}, {\"test\": \"test_archive_present_load_pending\", \"status\": \"PASS\"}, {\"test\": \"test_durable_truth_not_released_by_reconciler\", \"status\": \"PASS\"}, {\"test\": \"test_explicit_failure_can_release_once\", \"status\": \"PASS\"}, {\"test\": \"test_host_disappears_after_return_pending\", \"status\": \"PASS\"}, {\"test\": \"test_observer_disappears_after_return_pending\", \"status\": \"PASS\"}, {\"test\": \"test_controller_disappears_after_return_pending\", \"status\": \"PASS\"}, {\"test\": \"test_repeated_reconciler_no_early_release\", \"status\": \"PASS\"}, {\"test\": \"test_owner_ttl_during_persistence\", \"status\": \"PASS\"}, {\"test\": \"test_stale_process_probe_is_not_authority\", \"status\": \"PASS\"}, {\"test\": \"test_finalization_between_passes_releases_once\", \"status\": \"PASS\"}, {\"test\": \"test_duplicate_reconciler_no_double_release\", \"status\": \"PASS\"}, {\"test\": \"test_persistence_failure_quarantines_without_release\", \"status\": \"PASS\"}, {\"test\": \"test_ownership_mismatch_not_created_by_reconciler\", \"status\": \"PASS\"}, {\"test\": \"test_hold_blocks_successor\", \"status\": \"PASS\"}]}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_zero_solver_tests.py",
+      "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\core_zero_solver"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"global\": {\"count\": 20, \"pass\": 20}, \"branch\": {\"count\": 20, \"pass\": 20}, \"chaos\": {\"count\": 12, \"pass\": 12}}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_gpu_concurrency_autofill_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"schema\": \"SHARED_V3_GPU_CONCURRENCY_AUTOFILL_ZERO_SOLVER_TESTS_V1\",\n  \"status\": \"PASS\",\n  \"tests\": {\n    \"A_cap1_second_waits\": true,\n    \"B_cap2_two_admit_third_waits\": true,\n    \"C_cap3_three_admit_fourth_waits\": true,\n    \"D_traditional_cap1_waits\": true,\n    \"E_ml_cap2_waits\": true,\n    \"F_global_cap3_fourth_blocked\": true,\n    \"G_ml_release_refills_while_other_active\": true,\n    \"H_traditional_release_refills_while_ml_active\": true,\n    \"I_repeated_ticks_no_duplicate_owner_or_entry\": true,\n    \"J_controller_restart_capacity_preserved\": true,\n    \"K_dispatcher_restart_waiting_rediscovered\": true,\n    \"L_postsolver_persistence_keeps_token\": true,\n    \"M_incomplete_h5_keeps_token\": true,\n    \"N_durable_terminal_releases_once\": true,\n    \"O_foreign_owner_cannot_mutate\": true,\n    \"P_stale_process_census_does_not_override_owner\": true,\n    \"Q_entry_distinct_from_launch_intent\": true,\n    \"R_no_direct_sqlite_mutation_in_test_path\": true\n  },\n  \"solver_invocations\": 0,\n  \"scientific_solver_entries\": 0,\n  \"direct_sqlite_mutations\": 0\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "-m",
+      "pytest",
+      "-q",
+      "scripts/shared_fdtd/tests/test_entry_event_idempotency.py"
+    ],
+    "exit_code": 0,
+    "stdout": ".........                                                                [100%]\n9 passed in 1.76s\n",
+    "stderr": ""
+  }
+]
