@@ -42,6 +42,10 @@ class Allocator:
     def _event(con, lease: Lease, event: str, metadata=None):
         con.execute("INSERT INTO lease_events(timestamp,slot_id,branch_id,logical_case_id,attempt_id,event_type,lease_token_hash,fencing_generation,metadata_json) VALUES(?,?,?,?,?,?,?,?,?)",
                     (utc_now(), lease.slot_id, lease.owner_branch, lease.logical_case_id, lease.attempt_id, event, lease.token_hash, lease.fencing_generation, json.dumps(metadata or {}, sort_keys=True)))
+        if event == "SCIENTIFIC_SOLVER_ENTERED":
+            ControlDB.refresh_entry_metrics(con)
+        if event == "SCIENTIFIC_SOLVER_ENTERED":
+            ControlDB.refresh_entry_metrics(con)
 
     @staticmethod
     def _health_blockers(con):

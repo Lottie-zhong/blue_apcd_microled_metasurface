@@ -56,6 +56,20 @@ class EntryIdempotencyTests(unittest.TestCase):
         self.a.release_owned(self.lease, scientific_terminal='SCIENTIFIC_VALID')
         with self.assertRaises(OwnershipMismatch): self.a.mark_entered(self.lease)
         self.assertEqual(self.snapshot()[0]['state'], 'FREE')
+    def test_duplicate_metric_is_recomputed_from_events(self):
+        self.a.mark_entered(self.lease)
+        with self.db.immediate() as con:
+            self.a._event(con, self.lease, "SCIENTIFIC_SOLVER_ENTERED", {"legacy_fixture": True})
+            value = con.execute("SELECT metric_value FROM health_metrics WHERE metric_name='DUPLICATE_SCIENTIFIC_ENTRY_COUNT'").fetchone()[0]
+        self.assertEqual(value, 1)
+
+    def test_duplicate_metric_is_recomputed_from_events(self):
+        self.a.mark_entered(self.lease)
+        with self.db.immediate() as con:
+            self.a._event(con, self.lease, "SCIENTIFIC_SOLVER_ENTERED", {"legacy_fixture": True})
+            value = con.execute("SELECT metric_value FROM health_metrics WHERE metric_name='DUPLICATE_SCIENTIFIC_ENTRY_COUNT'").fetchone()[0]
+        self.assertEqual(value, 1)
+
     def test_historical_duplicates_preserved(self):
         self.a.mark_entered(self.lease)
         with self.db.immediate() as con: self.a._event(con, self.lease, 'SCIENTIFIC_SOLVER_ENTERED', {'legacy_fixture': True})

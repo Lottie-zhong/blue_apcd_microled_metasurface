@@ -61,6 +61,58 @@ class ControlDB:
             )"""
         )
 
+    @staticmethod
+    def refresh_entry_metrics(con) -> dict[str, int]:
+        """Recompute entry anomalies from append-only canonical lease_events.
+
+        The value is deliberately derived at read/write time rather than from
+        a stale counter. Historical duplicate rows remain evidence and count as
+        anomalies; idempotent replays do not append rows and therefore add zero.
+        """
+        row = con.execute("""
+            SELECT COALESCE(SUM(extra), 0) AS duplicate_count,
+                   COALESCE(SUM(CASE WHEN entries > 1 THEN 1 ELSE 0 END), 0) AS duplicate_attempts
+            FROM (
+              SELECT branch_id, logical_case_id, attempt_id,
+                     COUNT(*) AS entries, COUNT(*) - 1 AS extra
+              FROM lease_events
+              WHERE event_type='SCIENTIFIC_SOLVER_ENTERED'
+                AND branch_id IS NOT NULL AND logical_case_id IS NOT NULL AND attempt_id IS NOT NULL
+              GROUP BY branch_id, logical_case_id, attempt_id
+            )
+        """).fetchone()
+        now = utc_now()
+        con.execute("UPDATE health_metrics SET metric_value=?,updated_at=? WHERE metric_name='DUPLICATE_SCIENTIFIC_ENTRY_COUNT'",
+                    (int(row["duplicate_count"]), now))
+        return {"duplicate_scientific_entry_count": int(row["duplicate_count"]),
+                "duplicate_scientific_attempt_count": int(row["duplicate_attempts"])}
+
+    @staticmethod
+    def refresh_entry_metrics(con) -> dict[str, int]:
+        """Recompute entry anomalies from append-only canonical lease_events.
+
+        The value is deliberately derived at read/write time rather than from
+        a stale counter. Historical duplicate rows remain evidence and count as
+        anomalies; idempotent replays do not append rows and therefore add zero.
+        """
+        row = con.execute("""
+            SELECT COALESCE(SUM(extra), 0) AS duplicate_count,
+                   COALESCE(SUM(CASE WHEN entries > 1 THEN 1 ELSE 0 END), 0) AS duplicate_attempts
+            FROM (
+              SELECT branch_id, logical_case_id, attempt_id,
+                     COUNT(*) AS entries, COUNT(*) - 1 AS extra
+              FROM lease_events
+              WHERE event_type='SCIENTIFIC_SOLVER_ENTERED'
+                AND branch_id IS NOT NULL AND logical_case_id IS NOT NULL AND attempt_id IS NOT NULL
+              GROUP BY branch_id, logical_case_id, attempt_id
+            )
+        """).fetchone()
+        now = utc_now()
+        con.execute("UPDATE health_metrics SET metric_value=?,updated_at=? WHERE metric_name='DUPLICATE_SCIENTIFIC_ENTRY_COUNT'",
+                    (int(row["duplicate_count"]), now))
+        return {"duplicate_scientific_entry_count": int(row["duplicate_count"]),
+                "duplicate_scientific_attempt_count": int(row["duplicate_attempts"])}
+
     def ensure_admission_control(self, con):
         con.execute(
             """CREATE TABLE IF NOT EXISTS admission_control (
