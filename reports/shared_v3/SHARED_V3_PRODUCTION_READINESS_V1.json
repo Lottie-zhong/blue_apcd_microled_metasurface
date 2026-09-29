@@ -1,5 +1,5 @@
 {
-    "backend_commit": "a4a5bdc4d7e9c182c4a9af86a2ae4451e45b77b8",
+    "backend_commit": "c0bafb38bbc26b9a3f8ed18e06d64d86dc5dbae6",
     "base_commit": "f0cd93d1407d080bf93259fd1153cb664235e8c8",
     "cached_duplicate_metric_before_deploy": 0,
     "control": {
@@ -44,9 +44,7 @@
         "updated_at": "2026-09-29T14:57:51.363973+00:00"
     },
     "open_gates": [
-        "end-to-end solver PID/creation-time binding",
-        "infrastructure canary readiness and authorization",
-        "committed backend deployment and production-path verification"
+        "formal GLOBAL new-entry hold release authorization and disposition of live historical duplicate metric"
     ],
     "production_claim_table_exists": false,
     "production_ready": false,
@@ -64,7 +62,7 @@
             "timestamp": "2026-09-23T02:38:41.983302+00:00"
         }
     ],
-    "reason": "persistence/restart zero-solver matrix passed; entry event semantic keys are launch-aware and duplicate launch identities are rejected; legacy seed-db controller is disabled; production remains held pending PID binding, canary, and deployment gates",
+    "reason": "all code, persistence/restart, deployed-runtime, PID/creation-time, and isolated canary gates pass; production remains held because GLOBAL new_entry_hold=1, Traditional branch is disabled, and live duplicate metric remains 1 pending formal historical queue-21 disposition",
     "safe_for_coupling_ml_production": "NO",
     "safe_for_traditional_production": "NO",
     "slots": [
@@ -97,7 +95,7 @@
         "scripts/shared_fdtd/tools/v3_g2_host.py": "79d2f3d73af87ee556aa5a53ddb4493bf5cfc3bc620be710fc0e740596131c4f",
         "scripts/shared_fdtd/engine/event_log.py": "034e49990e42fdfb6cdeca56687e3b6659529ef88a740fa94f1ce3f383715aaa"
     },
-    "timestamp": "2026-09-29T15:40:46.060723Z",
+    "timestamp": "2026-09-29T16:07:58.030986Z",
     "zero_solver_entry_hardening": {
         "branch": {
             "count": 20,
@@ -118,5 +116,20 @@
         "solver_runs": 0,
         "scientific_solver_entries": 0,
         "evidence": "reports/shared_v3/SHARED_V3_PERSISTENCE_RESTART_MATRIX_V1.json"
+    },
+    "deployed_runtime_commit": "ececbcd384d1f2824f28728e7ebe9d18067705dc",
+    "deployment_and_canary": {
+        "status": "PASS",
+        "production_unittest": "36/36",
+        "canary_cases": "3/3",
+        "canary_solver_runs": 3,
+        "canary_scientific_entries": 3,
+        "canary_all_released": true,
+        "fresh_load_points": [
+            3,
+            3,
+            3
+        ],
+        "evidence": "reports/shared_v3/SHARED_V3_DEPLOYMENT_AND_CANARY_VERIFICATION_V1.json"
     }
 }
