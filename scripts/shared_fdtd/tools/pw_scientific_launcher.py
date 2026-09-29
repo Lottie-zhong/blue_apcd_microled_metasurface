@@ -352,6 +352,7 @@ def run_standalone_gpu_and_confirm_completion(
                         on_confirmed({
                             "launcher": launcher_id, "observation": "new_solver_process",
                             "processes": rows, "command": command,
+                            "child_pid": getattr(child, "pid", None),
                         })
                     except BaseException as exc:
                         callback_error.append(exc)
@@ -377,6 +378,7 @@ def run_standalone_gpu_and_confirm_completion(
         on_confirmed({
             "launcher": launcher_id, "observation": "standalone_child_returned",
             "returncode": returncode, "child_log": str(log_path), "command": command,
+            "child_pid": getattr(child, "pid", None), "child_created_at": now(),
         })
     stat = run_fsp.stat()
     return {

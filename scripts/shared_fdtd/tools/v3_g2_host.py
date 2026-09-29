@@ -279,7 +279,20 @@ def _main_owned(cfg):
             entry_confirmed = True
             entered = True
             entry_timestamp = now()
+            process_binding = None
+            if cfg.get("launch_id"):
+                rows = evidence.get("processes") or []
+                candidate = next((row for row in rows if row.get("ProcessId")), None)
+                if candidate is not None:
+                    from shared_fdtd.control_v3.launch_authority import ScientificLaunchAuthority
+                    process_binding = {
+                        "pid": int(candidate["ProcessId"]),
+                        "created_at": str(candidate.get("CreationDate") or entry_timestamp),
+                        "executable": str(candidate.get("ExecutablePath") or candidate.get("Name") or "UNKNOWN"),
+                    }
+                    ScientificLaunchAuthority(db).record_process(lease, cfg["launch_id"], **process_binding)
             ledger.update({"solver_entered": True, "physical_solver_entry": True, "entered_timestamp_utc": entry_timestamp,
+                           "process_identity": process_binding or {"launch_id": cfg.get("launch_id"), "observation": "NO_PID_EXPOSED"},
                            "run_invocation_count": 1, "slot_id": lease.slot_id, "run_fsp": str(run), "run_fsp_sha256": sha(run),
                            "entry_evidence": evidence})
             write(ledger_path, ledger)
