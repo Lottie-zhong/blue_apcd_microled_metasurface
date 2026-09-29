@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import time
 import uuid
@@ -144,6 +145,25 @@ def _write_manifest(path: Path, manifest: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+def _select_staging_parent(
+    requested: str | Path,
+    destination: Path,
+    source_manifest: dict[str, Any],
+) -> Path:
+    """Choose a staging directory that keeps Windows sidecar paths loadable."""
+    parent = Path(requested)
+    if os.name != "nt":
+        return parent
+    probe = parent / ("0" * 32 + ".staging")
+    longest = max((len(str(probe / record["relative_path"])) for record in source_manifest["files"]), default=len(str(probe)))
+    if longest < 240:
+        return parent
+    anchor = destination.anchor or parent.anchor or os.getcwd()
+    fallback = Path(anchor) / "apcd_gpu_bundle_stage" / hashlib.sha256(str(destination).encode("utf-8")).hexdigest()[:16]
+    fallback.mkdir(parents=True, exist_ok=True)
+    return fallback
+
+
 def persist_gpu_bundle(
     source_fsp: str | Path,
     destination_fsp: str | Path,
@@ -186,7 +206,7 @@ def persist_gpu_bundle(
             raise GpuBundleError(f"GPU_BUNDLE_PARTIAL_FINAL_EXISTS:{final_dir}")
     if staging_root is None:
         staging_root = final_dir.parent.parent / "native_staging" / final_dir.name
-    staging_parent = Path(staging_root)
+    staging_parent = _select_staging_parent(staging_root, destination, source_manifest)
     staging_parent.mkdir(parents=True, exist_ok=True)
     stage_dir = staging_parent / (uuid.uuid4().hex + ".staging")
     stage_dir.mkdir(parents=True, exist_ok=False)
