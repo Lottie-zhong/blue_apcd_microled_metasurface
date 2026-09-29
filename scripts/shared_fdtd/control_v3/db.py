@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import sqlite3
+import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -87,6 +88,63 @@ class ControlDB:
         return {"duplicate_scientific_entry_count": int(row["duplicate_count"]),
                 "duplicate_scientific_attempt_count": int(row["duplicate_attempts"])}
 
+    def ensure_hold_lifecycle(self, con):
+        con.execute("""CREATE TABLE IF NOT EXISTS hold_lifecycle (
+            hold_id TEXT PRIMARY KEY, scope TEXT NOT NULL,
+            status TEXT NOT NULL CHECK(status IN ('ACTIVE','RELEASED','CANCELLED')),
+            reason_code TEXT NOT NULL, free_text_reason TEXT NOT NULL DEFAULT '',
+            linked_incident_ids_json TEXT NOT NULL DEFAULT '[]',
+            linked_case_ids_json TEXT NOT NULL DEFAULT '[]',
+            release_requirements_json TEXT NOT NULL DEFAULT '{}',
+            created_at TEXT NOT NULL, created_by TEXT NOT NULL,
+            released_at TEXT, released_by TEXT, release_authority_hash TEXT,
+            metadata_json TEXT NOT NULL DEFAULT '{}'
+        )""")
+        con.execute("""CREATE TABLE IF NOT EXISTS hold_events (
+            event_id INTEGER PRIMARY KEY AUTOINCREMENT, hold_id TEXT NOT NULL,
+            timestamp TEXT NOT NULL, event_type TEXT NOT NULL,
+            actor TEXT NOT NULL, metadata_json TEXT NOT NULL DEFAULT '{}'
+        )""")
+        con.execute("CREATE INDEX IF NOT EXISTS idx_hold_lifecycle_active ON hold_lifecycle(status,scope)")
+        con.execute("CREATE TRIGGER IF NOT EXISTS hold_events_no_update BEFORE UPDATE ON hold_events BEGIN SELECT RAISE(ABORT,'hold_events are append-only'); END")
+        con.execute("CREATE TRIGGER IF NOT EXISTS hold_events_no_delete BEFORE DELETE ON hold_events BEGIN SELECT RAISE(ABORT,'hold_events are append-only'); END")
+
+    def set_hold(self, *, scope, reason_code, free_text_reason='', created_by='unknown', linked_incident_ids=None, linked_case_ids=None, release_requirements=None, metadata=None):
+        scope=str(scope).upper()
+        if scope not in {'GLOBAL','TRADITIONAL','COUPLING_ML','CASE'}: raise ValueError('invalid hold scope')
+        if not reason_code or not created_by: raise ValueError('hold reason and owner required')
+        linked_incident_ids=list(linked_incident_ids or []); linked_case_ids=list(linked_case_ids or [])
+        requirements=dict(release_requirements or {})
+        with self.immediate() as con:
+            self.ensure_admission_control(con); self.ensure_hold_lifecycle(con)
+            hold_id='hold-'+uuid.uuid4().hex
+            now=utc_now(); active=con.execute("SELECT hold_id FROM hold_lifecycle WHERE scope=? AND status='ACTIVE'",(scope,)).fetchall()
+            if active: raise RuntimeError('ACTIVE_HOLD_ALREADY_EXISTS:'+scope)
+            con.execute("INSERT INTO hold_lifecycle(hold_id,scope,status,reason_code,free_text_reason,linked_incident_ids_json,linked_case_ids_json,release_requirements_json,created_at,created_by,metadata_json) VALUES(?,?,?,?,?,?,?,?,?,?,?)",(hold_id,scope,'ACTIVE',reason_code,str(free_text_reason),json.dumps(linked_incident_ids,sort_keys=True),json.dumps(linked_case_ids,sort_keys=True),json.dumps(requirements,sort_keys=True),now,created_by,json.dumps(metadata or {},sort_keys=True)))
+            old=con.execute("SELECT control_generation FROM admission_control WHERE control_id=1").fetchone();generation=int(old['control_generation'])+1
+            con.execute("UPDATE admission_control SET new_entry_hold=1,control_generation=?,updated_at=? WHERE control_id=1",(generation,now))
+            con.execute("INSERT INTO hold_events(hold_id,timestamp,event_type,actor,metadata_json) VALUES(?,?,?,?,?)",(hold_id,now,'HOLD_SET',created_by,json.dumps({'scope':scope,'reason_code':reason_code,'generation':generation},sort_keys=True)))
+            return {'hold_id':hold_id,'scope':scope,'status':'ACTIVE','generation':generation,'created_at':now}
+
+    def release_hold(self, hold_id, *, released_by, release_authority_hash, evidence=None):
+        if not released_by or not release_authority_hash: raise ValueError('release authority required')
+        with self.immediate() as con:
+            self.ensure_admission_control(con); self.ensure_hold_lifecycle(con)
+            row=con.execute("SELECT * FROM hold_lifecycle WHERE hold_id=?",(hold_id,)).fetchone()
+            if row is None: raise KeyError('HOLD_NOT_FOUND')
+            if row['status']!='ACTIVE': return {'status':row['status'],'hold_id':hold_id}
+            now=utc_now();old=con.execute("SELECT control_generation FROM admission_control WHERE control_id=1").fetchone();generation=int(old['control_generation'])+1
+            con.execute("UPDATE hold_lifecycle SET status='RELEASED',released_at=?,released_by=?,release_authority_hash=?,metadata_json=? WHERE hold_id=? AND status='ACTIVE'",(now,released_by,release_authority_hash,json.dumps({'evidence':evidence or {}},sort_keys=True),hold_id))
+            remaining=con.execute("SELECT COUNT(*) FROM hold_lifecycle WHERE status='ACTIVE' AND scope='GLOBAL'").fetchone()[0]
+            con.execute("UPDATE admission_control SET new_entry_hold=?,control_generation=?,updated_at=? WHERE control_id=1",(1 if remaining else 0,generation,now))
+            con.execute("INSERT INTO hold_events(hold_id,timestamp,event_type,actor,metadata_json) VALUES(?,?,?,?,?)",(hold_id,now,'HOLD_RELEASED',released_by,json.dumps({'authority_hash':release_authority_hash,'generation':generation,'evidence':evidence or {}},sort_keys=True)))
+            return {'status':'RELEASED','hold_id':hold_id,'generation':generation,'global_hold':bool(remaining)}
+
+    def list_holds_readonly(self):
+        with self.connect(readonly=True) as con:
+            try:return [dict(r) for r in con.execute("SELECT * FROM hold_lifecycle ORDER BY created_at")]
+            except sqlite3.OperationalError:return []
+
     def ensure_admission_control(self, con):
         con.execute(
             """CREATE TABLE IF NOT EXISTS admission_control (
@@ -113,6 +171,7 @@ class ControlDB:
             )
             row = con.execute("SELECT * FROM admission_control WHERE control_id=1").fetchone()
         self.ensure_exact_launch_permits(con)
+        self.ensure_hold_lifecycle(con)
         return dict(row)
 
     def ensure_recovery_adoption_fences(self, con):
