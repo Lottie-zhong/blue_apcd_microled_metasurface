@@ -1,0 +1,59 @@
+{
+  "schema": "SHARED_V3_DEPLOYMENT_PROVENANCE_V2",
+  "generated_at_utc": "2026-09-29T20:56:43.339015+00:00",
+  "source_commit": "b3a331b248e0d931c608d333965557c7f56e33cc",
+  "source_branch": "codex/shared-v3-gpu-reliability-v1",
+  "tracked_status": "?? ._finalize_a4c_audit.py\n?? prep_a3_remote.py\n?? reports/shared_v3/SHARED_V3_GPU_LONG_PATH_FORENSIC_V1.json\n?? reports/shared_v3/control.sqlite3\n?? reports/shared_v3/infra_canary_20260929/\n?? reports/shared_v3/infra_canary_deployed_20260929/\n?? reports/shared_v3/isolation_preflight_zero_solver/\n?? reports/shared_v3/real_gpu_canary_20260930/\n?? reports/shared_v3/real_gpu_canary_20260930_attempt002/\n?? reports/shared_v3/real_gpu_canary_20260930_attempt003/\n?? reports/shared_v3/real_infra_exception_canary_20260930/\n?? reports/shared_v3/real_infra_exception_canary_20260930_b/\n?? reports/shared_v3/real_infra_exception_canary_20260930_fresh/\n?? reports/shared_v3/real_infra_exception_canary_20260930_hold_off/\n?? reports/shared_v3/test_zero_solver_latest.json/\n?? reports/shared_v3/test_zero_solver_stdout_fix/\n?? scripts/shared_fdtd/tests/durable_finisher_test_results.csv\n",
+  "source_executable_tree_clean": false,
+  "runtime_package": {
+    "root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc",
+    "manifest": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc\\manifest.json",
+    "manifest_sha256": "4a913425f3783e03d314fe6bdb1bd661dfb32cfb45b8c558e84d4e2284c6ca00",
+    "commit_dir": "b3a331b248e0d931c608d333965557c7f56e33cc",
+    "file_count": 204
+  },
+  "runtime_controllers": [
+    {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1_controller.py",
+      "sha256": "6bb5f810864a3bd2cedf31baa314ab960063dc72328b374cc4196b492379898f",
+      "backup": "D:\\apcd_runtime\\global_fdtd_control_v3\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1_controller.py.pre_sharedv3_backend.bak",
+      "backend_root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc"
+    },
+    {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\PW_K6_SEED_DB_V1_controller.py",
+      "sha256": "275ad826bb18a36cacc64d7510eee41e27c70f0e35ec9d8b136b732050c8e1af",
+      "backup": "D:\\apcd_runtime\\global_fdtd_control_v3\\PW_K6_SEED_DB_V1_controller.py.pre_sharedv3_backend.bak",
+      "backend_root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc"
+    },
+    {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\close_failed_retry_no_replay_v1.py",
+      "sha256": "5dc78ee75c0f15d9e07407be8f1e9f29c1d3721b94958dcc6a9ef5553178a028",
+      "backup": "D:\\apcd_runtime\\global_fdtd_control_v3\\close_failed_retry_no_replay_v1.py.pre_sharedv3_backend.bak",
+      "backend_root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc"
+    },
+    {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\reconcile_and_retry_s35_s39_v1.py",
+      "sha256": "f416e95995de88340e1c6a094e638293044ff1fa063f6c84da0d45d4e71c7259",
+      "backup": "D:\\apcd_runtime\\global_fdtd_control_v3\\reconcile_and_retry_s35_s39_v1.py.pre_sharedv3_backend.bak",
+      "backend_root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc"
+    }
+  ],
+  "import_smoke": {
+    "status": "PASS",
+    "backend_module_root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc\\scripts\\shared_fdtd",
+    "compiled_controller_count": 4
+  },
+  "production_db": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+    "size_bytes": 1454080
+  },
+  "process_snapshot": [],
+  "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "verdict": "PASS_SOURCE_PACKAGE_DEPLOYED_RUNTIME_IMPORTS_STABLE_BACKEND",
+  "limitations": [
+    "controller scripts are runtime artifacts with versioned backups, not tracked in reliability Git",
+    "full controller restart/persistence matrix remains open",
+    "untracked test artifact remains in reliability worktree"
+  ]
+}
