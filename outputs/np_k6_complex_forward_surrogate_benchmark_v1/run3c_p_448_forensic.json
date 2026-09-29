@@ -1,0 +1,39 @@
+{
+  "task_id": "NP_K6_COMPLEX_FORWARD_SURROGATE_BENCHMARK_V1",
+  "solver_calls": 0,
+  "save_calls": 0,
+  "case_id": "RUN3C_P_PILOT_HF_V1",
+  "geometry_id": "K6X_D130_D145_D155_D180_D195_D230",
+  "polarization": "p",
+  "wavelength_nm": 448.0,
+  "classification": "RAW_POYNTING_CROSSCHECK_LOCAL_OUTLIER_COMPLEX_STATE_VALID",
+  "raw_eh_crosscheck": {
+    "formal_T": 0.5017703282746444,
+    "raw_signed_flux_over_sourcepower": 0.5320700792053928,
+    "abs_error": 0.030299750930748437,
+    "raw_positive_flux_over_sourcepower": 0.5320700792053928,
+    "monitor_keys": "E|H|P|T|farfield|x|y|z|surface_normal|dimension|f|Ex|Ey|Ez|Hx|Hy|Hz|power|grid",
+    "sourcepower_W": 9.408090576289273e-16,
+    "medium_index_used": 1.0
+  },
+  "complex_modal_decomposition": {
+    "modal_sum_abs_efficiency": 0.5017703282746442,
+    "modal_minus_formal": -2.220446049250313e-16,
+    "order_count": 7,
+    "closure_pass": true
+  },
+  "stored_truth": {
+    "formal_R_total": 0.4937159041124496,
+    "formal_T_total": 0.5017703282746444,
+    "eta_plus1": 0.4369482676175689,
+    "post_fsp_sha256": null,
+    "source_case_id": "RUN3C_P_PILOT_HF_SIMTIME_3PS_CONTROL_V1"
+  },
+  "adjacent_wavelength_raw_errors": {
+    "447.0": 9.53560577521273e-06,
+    "449.0": 0.029016437125392258
+  },
+  "same_geometry_S_448_raw_error": 2.220446049250313e-15,
+  "decision_basis": "Modal complex/order closure is exact at 448 nm; sourcepower and monitor contract are finite/consistent; the anomaly is confined to the raw E/H Poynting cross-check, with the same-geometry S branch clean. The complex row is retained and flagged; no row removal or correction.",
+  "quality_flag": "RAW_POYNTING_CROSSCHECK_LOCAL_OUTLIER_COMPLEX_STATE_VALID"
+}

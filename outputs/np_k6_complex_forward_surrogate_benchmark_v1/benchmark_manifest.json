@@ -1,0 +1,307 @@
+{
+  "task_id": "NP_K6_COMPLEX_FORWARD_SURROGATE_BENCHMARK_V1",
+  "status": "COMPLETE_ZERO_SOLVER",
+  "completed_utc": "2026-09-29T01:53:17.922446+00:00",
+  "source_dataset": "NP_K6_HF22_COMPLEX_SCATTERING_STATE_V1",
+  "source_commit": "4f343b6dbe4b5b28125e576693d861735b5f27da",
+  "preregistration_id": "NP_K6_COMPLEX_FORWARD_SURROGATE_BENCHMARK_PREREG_V1",
+  "preregistration_sha256": "4b846fa88b1b75dc43a6398a604222af53345590634f1245d0f4c473d3b834cc",
+  "dataset_contract": {
+    "rows": 8712,
+    "logical_cases": 44,
+    "geometries": 22,
+    "polarizations": [
+      "p",
+      "s"
+    ],
+    "wavelengths_nm": [
+      445.0,
+      446.0,
+      447.0,
+      448.0,
+      449.0,
+      450.0,
+      451.0,
+      452.0,
+      453.00000000000006,
+      453.9999999999999,
+      455.00000000000006
+    ],
+    "inputs": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "wavelength_nm",
+      "polarization"
+    ],
+    "geometry_order": "physical +x order; no sorting/permutation invariance",
+    "outputs": {
+      "transmission_orders": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "reflection_orders": [
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "components": [
+        "Re",
+        "Im"
+      ],
+      "primary": "complex monitor-plane modal state"
+    }
+  },
+  "phase_significance_threshold": 0.000124632217632877,
+  "forensic": "run3c_p_448_forensic.json",
+  "representations": {
+    "row_wise": "[D1..D6,wavelength,pol] -> full state",
+    "spectral": "[D1..D6,pol] -> all 11 wavelengths"
+  },
+  "model_families": {
+    "M0_Ridge": {
+      "estimator": "StandardScaler + Ridge",
+      "alpha": 1.0
+    },
+    "M1_RBF_KernelRidge": {
+      "estimator": "StandardScaler + KernelRidge(RBF)",
+      "alpha": 0.01,
+      "gamma": 0.1
+    },
+    "M2_compact_MLP": {
+      "estimator": "StandardScaler + MLPRegressor",
+      "hidden_layer_sizes": [
+        32,
+        32
+      ],
+      "activation": "relu",
+      "alpha": 0.0001,
+      "max_iter": 800,
+      "random_state": 0
+    },
+    "M3_order_local_spectral_latent": {
+      "estimator": "per-side/order fold-fitted PCA(n_components=min(6, n_train-1)) + Ridge(alpha=1.0)",
+      "applicable_representation": "spectral"
+    }
+  },
+  "oof_predictions": [
+    {
+      "formulation": "row_wise",
+      "model": "M0_Ridge",
+      "path": "outputs\\np_k6_complex_forward_surrogate_benchmark_v1\\oof_row_wise__M0_Ridge.npz"
+    },
+    {
+      "formulation": "row_wise",
+      "model": "M1_RBF_KernelRidge",
+      "path": "outputs\\np_k6_complex_forward_surrogate_benchmark_v1\\oof_row_wise__M1_RBF_KernelRidge.npz"
+    },
+    {
+      "formulation": "row_wise",
+      "model": "M2_compact_MLP",
+      "path": "outputs\\np_k6_complex_forward_surrogate_benchmark_v1\\oof_row_wise__M2_compact_MLP.npz"
+    },
+    {
+      "formulation": "spectral",
+      "model": "M0_Ridge",
+      "path": "outputs\\np_k6_complex_forward_surrogate_benchmark_v1\\oof_spectral__M0_Ridge.npz"
+    },
+    {
+      "formulation": "spectral",
+      "model": "M1_RBF_KernelRidge",
+      "path": "outputs\\np_k6_complex_forward_surrogate_benchmark_v1\\oof_spectral__M1_RBF_KernelRidge.npz"
+    },
+    {
+      "formulation": "spectral",
+      "model": "M2_compact_MLP",
+      "path": "outputs\\np_k6_complex_forward_surrogate_benchmark_v1\\oof_spectral__M2_compact_MLP.npz"
+    },
+    {
+      "formulation": "spectral",
+      "model": "M3_order_local_spectral_latent",
+      "path": "outputs\\np_k6_complex_forward_surrogate_benchmark_v1\\oof_spectral__M3_order_local_spectral_latent.npz"
+    }
+  ],
+  "comparison": [
+    {
+      "id": "row_wise__M0_Ridge",
+      "formulation": "row_wise",
+      "model": "M0_Ridge",
+      "complex_rmse": 0.23828705915011433,
+      "normalized_rmse_median": 1.0022352882668044,
+      "normalized_rmse_q95": 1.1599392451870072,
+      "normalized_rmse_max": 1.3165376396967807,
+      "phase_mae": 1.5013598134777784,
+      "T_mae": 0.7395477745698185,
+      "R_mae": 0.2012869144126173,
+      "eta_plus1_rmse": 0.46871893612343996,
+      "routing_fraction_rmse": 0.1865377733972229,
+      "rank_p": -0.4285714285714286,
+      "rank_s": -0.21513269339356297,
+      "P_complex_rmse": 0.2379276798104512,
+      "S_complex_rmse": 0.23864589729730443,
+      "transmission_complex_rmse": 0.339775029842538,
+      "reflection_complex_rmse": 0.1394546227011426
+    },
+    {
+      "id": "row_wise__M1_RBF_KernelRidge",
+      "formulation": "row_wise",
+      "model": "M1_RBF_KernelRidge",
+      "complex_rmse": 0.2237270968316576,
+      "normalized_rmse_median": 0.9267210346472808,
+      "normalized_rmse_q95": 1.196684056796022,
+      "normalized_rmse_max": 1.312419714328579,
+      "phase_mae": 1.3221335104505227,
+      "T_mae": 0.6621307823992799,
+      "R_mae": 0.14664213172554705,
+      "eta_plus1_rmse": 0.1842475920445126,
+      "routing_fraction_rmse": 0.11010572132619265,
+      "rank_p": 0.9288537549407117,
+      "rank_s": 0.8994918125352909,
+      "P_complex_rmse": 0.22320980444835195,
+      "S_complex_rmse": 0.22424319590920092,
+      "transmission_complex_rmse": 0.31095208027530497,
+      "reflection_complex_rmse": 0.14274270426451544
+    },
+    {
+      "id": "row_wise__M2_compact_MLP",
+      "formulation": "row_wise",
+      "model": "M2_compact_MLP",
+      "complex_rmse": 0.26418325963611333,
+      "normalized_rmse_median": 1.0725544320203841,
+      "normalized_rmse_q95": 1.4838606925077442,
+      "normalized_rmse_max": 1.7363596405802997,
+      "phase_mae": 1.5489154561553016,
+      "T_mae": 0.6748785446469663,
+      "R_mae": 0.17767337375991551,
+      "eta_plus1_rmse": 0.4162888750195048,
+      "routing_fraction_rmse": 0.2099008459110095,
+      "rank_p": 0.0942970073404856,
+      "rank_s": 0.05702992659514399,
+      "P_complex_rmse": 0.26389421242357874,
+      "S_complex_rmse": 0.2644719909428279,
+      "transmission_complex_rmse": 0.351508881450219,
+      "reflection_complex_rmse": 0.1886220000488298
+    },
+    {
+      "id": "spectral__M0_Ridge",
+      "formulation": "spectral",
+      "model": "M0_Ridge",
+      "complex_rmse": 0.2725094320682894,
+      "normalized_rmse_median": 0.958495901842086,
+      "normalized_rmse_q95": 2.1944163699782657,
+      "normalized_rmse_max": 2.2202865678575843,
+      "phase_mae": 1.3390442115794352,
+      "T_mae": 0.5267050210789164,
+      "R_mae": 0.15800709005374872,
+      "eta_plus1_rmse": 0.4336494060257751,
+      "routing_fraction_rmse": 0.18137927795018646,
+      "rank_p": -0.21287408243929987,
+      "rank_s": -0.005081874647092039,
+      "P_complex_rmse": 0.27193254101179726,
+      "S_complex_rmse": 0.27308510444773526,
+      "transmission_complex_rmse": 0.3992545252662192,
+      "reflection_complex_rmse": 0.14170256896766395
+    },
+    {
+      "id": "spectral__M1_RBF_KernelRidge",
+      "formulation": "spectral",
+      "model": "M1_RBF_KernelRidge",
+      "complex_rmse": 0.1740478020770694,
+      "normalized_rmse_median": 0.6848665440291806,
+      "normalized_rmse_q95": 1.0457965207526667,
+      "normalized_rmse_max": 1.1433656188068986,
+      "phase_mae": 1.039862011593765,
+      "T_mae": 0.18953995826462752,
+      "R_mae": 0.09058771447746257,
+      "eta_plus1_rmse": 0.1891071737905542,
+      "routing_fraction_rmse": 0.10228041186572845,
+      "rank_p": 0.909655561829475,
+      "rank_s": 0.8870694522868439,
+      "P_complex_rmse": 0.17341135447682748,
+      "S_complex_rmse": 0.17468193081778532,
+      "transmission_complex_rmse": 0.20846536487478656,
+      "reflection_complex_rmse": 0.14803648655738763
+    },
+    {
+      "id": "spectral__M2_compact_MLP",
+      "formulation": "spectral",
+      "model": "M2_compact_MLP",
+      "complex_rmse": 0.2279333602761729,
+      "normalized_rmse_median": 0.8832034909385698,
+      "normalized_rmse_q95": 1.2524999606668155,
+      "normalized_rmse_max": 1.8610543190273823,
+      "phase_mae": 1.3686142201494604,
+      "T_mae": 0.5797929737412078,
+      "R_mae": 0.17419858801181742,
+      "eta_plus1_rmse": 0.3577685594492827,
+      "routing_fraction_rmse": 0.15467833608384343,
+      "rank_p": 0.4884246188594016,
+      "rank_s": 0.4274421230942971,
+      "P_complex_rmse": 0.22796279331531244,
+      "S_complex_rmse": 0.2279039234358535,
+      "transmission_complex_rmse": 0.31021427934510526,
+      "reflection_complex_rmse": 0.15419433055105147
+    },
+    {
+      "id": "spectral__M3_order_local_spectral_latent",
+      "formulation": "spectral",
+      "model": "M3_order_local_spectral_latent",
+      "complex_rmse": 0.2723635230763216,
+      "normalized_rmse_median": 0.9577798042526329,
+      "normalized_rmse_q95": 2.193617044228778,
+      "normalized_rmse_max": 2.219509623320819,
+      "phase_mae": 1.3375584823282751,
+      "T_mae": 0.5269292297024681,
+      "R_mae": 0.15897784851128996,
+      "eta_plus1_rmse": 0.4339511812745602,
+      "routing_fraction_rmse": 0.181552038386043,
+      "rank_p": -0.2241671372106155,
+      "rank_s": -0.005081874647092039,
+      "P_complex_rmse": 0.2717874629004014,
+      "S_complex_rmse": 0.2729383674298191,
+      "transmission_complex_rmse": 0.3991916630837929,
+      "reflection_complex_rmse": 0.1413558081633322
+    }
+  ],
+  "champion": {
+    "id": "spectral__M1_RBF_KernelRidge",
+    "basis": "spectral formulation + RBF KernelRidge is the most reliable complex-state model; row-wise RBF has better eta(+1) ranking, so this is a benchmark champion with ranking caveat, not a production provider."
+  },
+  "solver_calls": 0,
+  "new_data": 0,
+  "sealed_target_read": 0,
+  "coupling_h1_read": 0,
+  "full_data_fit": 0,
+  "jones_matrix": "FULL_2x2_JONES_MATRIX_NOT_AVAILABLE",
+  "coupling_interface": "DEFINED_ONLY_NOT_EXECUTED: NP complex normal-incidence state + MDC TMM complex transfer + spacer propagation -> C_component; current data are one incident modal column per P/S and cannot exactly rescatters arbitrary returning orders.",
+  "source_truth_sha256": "5937a30e9407bf71e45599883b888069c1f2894e29c49018e169ff5f2233294a",
+  "source_closure_sha256": "0f3b47b80f3195e472fd8141e0aa1860e686f9cae4c25f3a46a1af9ebb732e66",
+  "learnability_verdict": "COMPLEX_FORWARD_LEARNABILITY_PARTIAL",
+  "governance": {
+    "new_solver": 0,
+    "new_data_acquisition": 0,
+    "sealed_target_read": 0,
+    "coupling_h1_read": 0,
+    "coupling_candidate_labels_read": 0,
+    "historical_scalar_provider_retrained": 0,
+    "full_data_fit": 0,
+    "deployment_provider_created": 0,
+    "active_learning": 0
+  }
+}

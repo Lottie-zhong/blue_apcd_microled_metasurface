@@ -1,0 +1,153 @@
+{
+  "task_id": "NP_K6_COMPLEX_FORWARD_SURROGATE_BENCHMARK_V1",
+  "preregistration_id": "NP_K6_COMPLEX_FORWARD_SURROGATE_BENCHMARK_PREREG_V1",
+  "created_utc": "2026-09-29T01:50:25.448191+00:00",
+  "status": "FROZEN_BEFORE_MODEL_FIT",
+  "solver_calls": 0,
+  "source_dataset": "NP_K6_HF22_COMPLEX_SCATTERING_STATE_V1",
+  "source_commit": "4f343b6dbe4b5b28125e576693d861735b5f27da",
+  "dataset_contract": {
+    "rows": 8712,
+    "logical_cases": 44,
+    "geometries": 22,
+    "polarizations": [
+      "p",
+      "s"
+    ],
+    "wavelengths_nm": [
+      445.0,
+      446.0,
+      447.0,
+      448.0,
+      449.0,
+      450.0,
+      451.0,
+      452.0,
+      453.00000000000006,
+      453.9999999999999,
+      455.00000000000006
+    ],
+    "inputs": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "wavelength_nm",
+      "polarization"
+    ],
+    "geometry_order": "physical +x order; no sorting/permutation invariance",
+    "outputs": {
+      "transmission_orders": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "reflection_orders": [
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "components": [
+        "Re",
+        "Im"
+      ],
+      "primary": "complex monitor-plane modal state"
+    }
+  },
+  "phase_contract": {
+    "source": "raw monitor-plane complex phase",
+    "arbitrary_phase_alignment": false,
+    "deembedding": false,
+    "physical_component_composition_reference_plane": "PENDING",
+    "significance_threshold_absolute_efficiency": 0.000124632217632877,
+    "threshold_rule": "max(1e-8, 1st percentile of positive truth |c|^2 across all 8712 state rows)"
+  },
+  "split_contract": {
+    "outer": "22-fold Leave-One-Geometry-Out",
+    "held_out_per_fold": "both P/S and all 11 wavelengths",
+    "row_wise_no_wavelength_random_split": true
+  },
+  "representations": [
+    "row-wise [geometry,wavelength,pol] -> full complex state",
+    "spectral [geometry,pol] -> complete 11-wavelength complex state"
+  ],
+  "model_contracts": {
+    "M0_Ridge": {
+      "estimator": "StandardScaler + Ridge",
+      "alpha": 1.0
+    },
+    "M1_RBF_KernelRidge": {
+      "estimator": "StandardScaler + KernelRidge(RBF)",
+      "alpha": 0.01,
+      "gamma": 0.1
+    },
+    "M2_compact_MLP": {
+      "estimator": "StandardScaler + MLPRegressor",
+      "hidden_layer_sizes": [
+        32,
+        32
+      ],
+      "activation": "relu",
+      "alpha": 0.0001,
+      "max_iter": 800,
+      "random_state": 0
+    },
+    "M3_order_local_spectral_latent": {
+      "estimator": "per-side/order fold-fitted PCA(n_components=min(6, n_train-1)) + Ridge(alpha=1.0)",
+      "applicable_representation": "spectral"
+    }
+  },
+  "evaluation_contract": {
+    "complex_state": [
+      "normalized RMSE",
+      "Re RMSE",
+      "Im RMSE",
+      "per-order",
+      "P/S",
+      "transmission/reflection",
+      "median/q95/worst geometry"
+    ],
+    "phase": [
+      "circular MAE/q95 only where true |c|^2 > threshold"
+    ],
+    "decoded": [
+      "power MAE/RMSE",
+      "T/R",
+      "eta(+1)",
+      "routing fractions",
+      "broadband geometry eta(+1) Spearman"
+    ],
+    "physics": [
+      "negative-power violation",
+      "T/R legality",
+      "order identity completeness",
+      "P/S and wavelength identity"
+    ]
+  },
+  "model_selection": "No single-metric champion; prefer consistent complex + decoded + held-out geometry stability; allow no unique champion. No full-data fit or deployment provider.",
+  "forensics": {
+    "RUN3C_P_448": "RAW_POYNTING_CROSSCHECK_LOCAL_OUTLIER_COMPLEX_STATE_VALID; retain flagged row."
+  },
+  "governance": {
+    "coupling_h1_read": 0,
+    "sealed_target_read": 0,
+    "new_solver": 0,
+    "new_training_before_prereg": 0,
+    "active_learning": 0,
+    "full_data_fit": 0
+  }
+}
