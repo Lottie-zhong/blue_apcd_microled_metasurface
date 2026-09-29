@@ -80,7 +80,7 @@ def main():
     checks["B_foreign_owner_rejected"] = "PASS"
     expect_error(lambda: validate_config(cfg(fencing_generation=0)), "PW_INVALID_FENCING_GENERATION")
     checks["C_invalid_fencing_rejected"] = "PASS"
-    expect_error(lambda: validate_config(cfg(pw_contract={})), "PW_CONTRACT_MISSING")
+    expect_error(lambda: validate_config(cfg(pw_contract={})), "SCIENTIFIC_CONTRACT_FIELD_MISSING:monitors,samples_nm,references_nm,materials,stack_layers,wavelengths_nm")
     checks["D_contract_gate"] = "PASS"
 
     fd = ReturnFD(failure=True)

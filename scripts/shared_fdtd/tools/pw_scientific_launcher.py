@@ -5,6 +5,7 @@ import hashlib
 import subprocess
 import threading
 import time
+from collections.abc import Mapping
 from pathlib import Path
 
 import numpy as np
@@ -15,13 +16,80 @@ Z0 = 376.730313668
 LAUNCHER_ID = "APCD_PW_PERIODIC_PLANAR_CURRENT_V1"
 
 
-def _contract(cfg):
-    contract = cfg.get("pw_contract") or {}
-    required = ("monitors", "samples_nm", "references_nm", "materials", "stack_layers", "wavelengths_nm")
-    missing = [key for key in required if key not in contract]
+_REQUIRED_CONTRACT_FIELDS = (
+    "monitors",
+    "samples_nm",
+    "references_nm",
+    "materials",
+    "stack_layers",
+    "wavelengths_nm",
+)
+
+
+def _semantic_json(value):
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def _resolve_contract(cfg):
+    """Resolve the frozen PW contract without supplying scientific defaults.
+
+    Current production payloads store the scientific fields at
+    ``pw_contract.contract``. Older valid payloads stored those fields
+    directly under ``pw_contract``. The two forms are never merged: when
+    both complete forms are present they must be semantically identical.
+    """
+    if not isinstance(cfg, Mapping) or "pw_contract" not in cfg:
+        raise ValueError("PW_CONTRACT_SCHEMA_PATH_ERROR:pw_contract")
+    wrapper = cfg["pw_contract"]
+    if not isinstance(wrapper, Mapping):
+        raise ValueError("PW_CONTRACT_SCHEMA_PATH_ERROR:pw_contract")
+
+    nested_present = "contract" in wrapper
+    legacy_keys = [key for key in _REQUIRED_CONTRACT_FIELDS if key in wrapper]
+    if nested_present:
+        nested = wrapper["contract"]
+        if not isinstance(nested, Mapping):
+            raise ValueError("PW_CONTRACT_SCHEMA_PATH_ERROR:pw_contract.contract")
+        nested_missing = [key for key in _REQUIRED_CONTRACT_FIELDS if key not in nested]
+        if nested_missing:
+            raise ValueError("SCIENTIFIC_CONTRACT_FIELD_MISSING:" + ",".join(nested_missing))
+        if legacy_keys:
+            conflicts = [
+                key
+                for key in legacy_keys
+                if _semantic_json(nested[key]) != _semantic_json(wrapper[key])
+            ]
+            if conflicts:
+                raise ValueError("PW_CONTRACT_SCHEMA_CONFLICT:" + ",".join(conflicts))
+            return nested, {
+                "schema_path": "pw_contract.contract",
+                "legacy_schema_present": True,
+                "legacy_overlap_fields": legacy_keys,
+                "resolution": "canonical_nested_verified_against_legacy_overlap",
+            }
+        return nested, {
+            "schema_path": "pw_contract.contract",
+            "legacy_schema_present": False,
+            "resolution": "canonical_nested",
+        }
+
+    missing = [key for key in _REQUIRED_CONTRACT_FIELDS if key not in wrapper]
     if missing:
-        raise ValueError("PW_CONTRACT_MISSING:" + ",".join(missing))
-    return contract
+        raise ValueError("SCIENTIFIC_CONTRACT_FIELD_MISSING:" + ",".join(missing))
+    return {key: wrapper[key] for key in _REQUIRED_CONTRACT_FIELDS}, {
+        "schema_path": "pw_contract",
+        "legacy_schema_present": True,
+        "resolution": "legacy_top_level",
+    }
+
+
+def _contract(cfg):
+    return _resolve_contract(cfg)[0]
+
+
+def contract_resolution_provenance(cfg):
+    """Return the accessor decision for audit/reporting without changing cfg."""
+    return dict(_resolve_contract(cfg)[1])
 
 
 def validate_config(cfg):
@@ -502,7 +570,7 @@ def postprocess(fd, cfg, case_root):
         from pw_complex_floquet_state_v1 import canonical_state_from_fdtd, save_state_npz, state_metadata
     state_path = Path(case_root) / "state" / f"{prefix}_pw_complex_floquet_state.npz"
     state_metadata_path = Path(case_root) / "state" / f"{prefix}_pw_complex_floquet_state.json"
-    state = canonical_state_from_fdtd(fd, cfg["pw_contract"])
+    state = canonical_state_from_fdtd(fd, _contract(cfg))
     save_state_npz(state_path, state)
     state_meta = state_metadata(state, str(state_path))
     state_meta["sha256"] = hashlib.sha256(state_path.read_bytes()).hexdigest()

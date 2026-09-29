@@ -3,6 +3,9 @@ from __future__ import annotations
 import argparse
 import json
 import ctypes
+import os
+import msvcrt
+import subprocess
 from ctypes import wintypes
 import sys
 import time
@@ -12,7 +15,7 @@ from pathlib import Path
 ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
 sys.path.insert(0, str(ROOT / "scripts"))
 DB_PATH = Path(r"D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3")
-HOST_PYTHON = r"C:\Users\DELL\anaconda3\pythonw.exe"
+HOST_PYTHON = r"C:\Users\DELL\anaconda3\python.exe"
 HOST_SCRIPT = r"D:\apcd_runtime\bin\v3g2h.py"
 CREATE_NO_WINDOW = 0x08000000
 CREATE_BREAKAWAY_FROM_JOB = 0x01000000
@@ -39,7 +42,7 @@ def atomic(path, value):
     tmp.replace(path)
 
 
-def launch_process(command):
+def launch_process(command, stdout_path=None, stderr_path=None):
     class StartupInfo(ctypes.Structure):
         _fields_ = [
             ("cb", ctypes.c_ulong), ("lpReserved", ctypes.c_void_p),
@@ -128,25 +131,52 @@ def launch_process(command):
     else:
         raise LaunchContextError("BLOCKED_TASK_JOB_CONTEXT", {"launch_context": context, "policy": "restrictive_job_no_safe_breakaway"})
 
-    startup = StartupInfo()
-    startup.cb = ctypes.sizeof(startup)
-    process = ProcessInformation()
-    command_line = ctypes.create_unicode_buffer(command)
-    ok = kernel32.CreateProcessW(None, command_line, None, None, False, creation_flags, None, str(ROOT), ctypes.byref(startup), ctypes.byref(process))
-    if not ok:
-        error_code = ctypes.get_last_error()
-        raise LaunchContextError("CREATEPROCESS_FAILED", {
-            "launch_context": context,
-            "policy": policy,
-            "creation_flags": creation_flags,
-            "command_line": command,
-            "createprocess_ok": False,
-            "get_last_error": error_code,
-            "get_last_error_message": ctypes.FormatError(error_code),
-        })
-    kernel32.CloseHandle(process.hThread)
-    kernel32.CloseHandle(process.hProcess)
-    return int(process.dwProcessId)
+    stdout_file = None
+    stderr_file = None
+    try:
+        startup = StartupInfo()
+        startup.cb = ctypes.sizeof(startup)
+        if stdout_path is not None or stderr_path is not None:
+            stdout_path = str(stdout_path or stderr_path)
+            stderr_path = str(stderr_path or stdout_path)
+            Path(stdout_path).parent.mkdir(parents=True, exist_ok=True)
+            Path(stderr_path).parent.mkdir(parents=True, exist_ok=True)
+            stdout_file = open(stdout_path, "ab", buffering=0)
+            stderr_file = open(stderr_path, "ab", buffering=0)
+            os.set_handle_inheritable(msvcrt.get_osfhandle(stdout_file.fileno()), True)
+            os.set_handle_inheritable(msvcrt.get_osfhandle(stderr_file.fileno()), True)
+            startup.dwFlags = 0x00000100  # STARTF_USESTDHANDLES
+            startup.hStdOutput = msvcrt.get_osfhandle(stdout_file.fileno())
+            startup.hStdError = msvcrt.get_osfhandle(stderr_file.fileno())
+        process = ProcessInformation()
+        command_line = ctypes.create_unicode_buffer(command)
+        ok = kernel32.CreateProcessW(
+            None, command_line, None, None, bool(stdout_file is not None),
+            creation_flags, None, str(ROOT), ctypes.byref(startup), ctypes.byref(process)
+        )
+        if not ok:
+            error_code = ctypes.get_last_error()
+            raise LaunchContextError("CREATEPROCESS_FAILED", {
+                "launch_context": context,
+                "policy": policy,
+                "creation_flags": creation_flags,
+                "command_line": command,
+                "cwd": str(ROOT),
+                "stdout_path": str(stdout_path) if stdout_path else None,
+                "stderr_path": str(stderr_path) if stderr_path else None,
+                "createprocess_ok": False,
+                "get_last_error": error_code,
+                "get_last_error_message": ctypes.FormatError(error_code),
+            })
+        pid = int(process.dwProcessId)
+        kernel32.CloseHandle(process.hThread)
+        kernel32.CloseHandle(process.hProcess)
+        return pid
+    finally:
+        if stdout_file is not None:
+            stdout_file.close()
+        if stderr_file is not None:
+            stderr_file.close()
 
 
 def launch_factory(db_path, preentry_only=False):
@@ -194,17 +224,29 @@ def launch_factory(db_path, preentry_only=False):
             "zero_solver_boundary_only": bool(preentry_only),
         }
         atomic(config, cfg)
-        command = f"{HOST_PYTHON} {HOST_SCRIPT} {config}"
+        command = subprocess.list2cmdline([HOST_PYTHON, "-u", HOST_SCRIPT, str(config)])
+        stdout_path = runtime / "host_stdout.log"
+        stderr_path = runtime / "host_stderr.log"
         def start_host(provenance):
             cfg.update(provenance)
             atomic(config, cfg)
             append_event(runtime / "events.jsonl", "HOST_START_INTENT", task_name=payload["task_name"], config=str(config), slot_id=lease.slot_id, provenance=provenance)
             try:
-                host_pid = launch_process(command)
+                host_pid = launch_process(command, stdout_path=stdout_path, stderr_path=stderr_path)
             except LaunchContextError as exc:
-                append_event(runtime / "events.jsonl", "HOST_PROCESS_START_FAILED", command=command, error=str(exc), evidence=exc.evidence, provenance=provenance)
+                append_event(runtime / "events.jsonl", "HOST_PROCESS_START_FAILED", command=command, cwd=str(ROOT), stdout_path=str(stdout_path), stderr_path=str(stderr_path), error=str(exc), evidence=exc.evidence, provenance=provenance)
                 raise
-            append_event(runtime / "events.jsonl", "HOST_PROCESS_STARTED", host_pid=host_pid, command=command, provenance=provenance)
+            launch_record = {
+                "host_pid": host_pid,
+                "command": command,
+                "cwd": str(ROOT),
+                "stdout_path": str(stdout_path),
+                "stderr_path": str(stderr_path),
+                "launch_timestamp_utc": now(),
+                "provenance": provenance,
+            }
+            append_event(runtime / "events.jsonl", "HOST_PROCESS_CREATED", **launch_record)
+            append_event(runtime / "events.jsonl", "HOST_PROCESS_STARTED", **launch_record)
             return host_pid
         boundary = allocator.final_launch_revalidation(
             lease, resource_request=request, resource_snapshot=boundary_snapshot,

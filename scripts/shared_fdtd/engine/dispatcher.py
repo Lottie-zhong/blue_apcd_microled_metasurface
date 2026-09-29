@@ -146,6 +146,26 @@ def _call_preentry_process_probe(process_probe, attempt_root, events):
     return result
 
 
+def _event_sources(attempt_root, runtime_root=None):
+    roots = [Path(attempt_root)]
+    if runtime_root is not None and Path(runtime_root) not in roots:
+        roots.append(Path(runtime_root))
+    events = []
+    for root in roots:
+        events.extend(read_events(root / "events.jsonl"))
+    return events
+
+
+def _write_json_durable(path, value):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(json.dumps(value, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8")
+    with tmp.open("r+b") as handle:
+        os.fsync(handle.fileno())
+    tmp.replace(path)
+
+
 def _active_attempt_resource_refs(con, branch, case, attempt):
     active = ("RESERVED", "LIVE", "RELEASE_PENDING", "OWNER_QUARANTINED")
     result = {"resource_reservations": [], "gpu_capacity_leases": []}
@@ -277,6 +297,199 @@ def _stale_preentry_snapshot(con, branch, case, attempt, attempt_root, process_p
         "ledger": ledger,
         "permit_rows": permit_rows,
         "resources": resources,
+    }
+
+
+def _dead_host_snapshot(con, branch, case, attempt, attempt_root, runtime_root=None, process_probe=None):
+    """Strict snapshot for a host that died before creating an attempt ledger."""
+    row = con.execute(
+        "SELECT * FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+        (branch, case, attempt),
+    ).fetchone()
+    if row is None:
+        return {"ok": False, "status": "NOT_FOUND", "case": case, "attempt": attempt}
+    if row["state"] != "HOST_STARTED":
+        return {"ok": False, "status": "NOT_ELIGIBLE", "state": row["state"], "case": case, "attempt": attempt}
+    control = con.execute("SELECT * FROM admission_control WHERE control_id=1").fetchone()
+    if control is None:
+        return {"ok": False, "status": "BLOCKED", "reason": "MISSING_ADMISSION_CONTROL"}
+    copies = con.execute(
+        "SELECT COUNT(*) FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+        (branch, case, attempt),
+    ).fetchone()[0]
+    if copies != 1:
+        return {"ok": False, "status": "BLOCKED", "reason": "DUPLICATE_QUEUE_ROWS", "count": copies}
+    entries = con.execute(
+        "SELECT COUNT(*) FROM lease_events WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND event_type='SCIENTIFIC_SOLVER_ENTERED'",
+        (branch, case, attempt),
+    ).fetchone()[0]
+    gpu_entries = con.execute(
+        "SELECT COUNT(*) FROM lease_events WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND event_type='GPU_ENGINE_ENTRY_CONFIRMED'",
+        (branch, case, attempt),
+    ).fetchone()[0]
+    events = _event_sources(attempt_root, runtime_root)
+    event_types = {event.get("event_type") for event in events}
+    if entries or gpu_entries or {"SCIENTIFIC_SOLVER_ENTERED", "GPU_ENGINE_ENTRY_CONFIRMED"} & event_types:
+        return {"ok": False, "status": "BLOCKED", "reason": "SCIENTIFIC_ENTRY_ALREADY_RECORDED", "scientific_entry_count": entries, "gpu_engine_entry_count": gpu_entries}
+    if "HOST_PROCESS_STARTED" not in event_types:
+        return {"ok": False, "status": "BLOCKED", "reason": "MISSING_HOST_PROCESS_START_EVIDENCE"}
+    pending = sorted(event_types & _PREENTRY_PENDING_EVENTS)
+    if pending:
+        return {"ok": False, "status": "BLOCKED", "reason": "PERSISTENCE_OR_POSTPROCESS_PENDING", "pending_events": pending}
+    truth_blockers = _attempt_truth_blockers(attempt_root)
+    if truth_blockers:
+        return {"ok": False, "status": "BLOCKED", "reason": "TRUTH_BUNDLE_PRESENT", "truth_blockers": truth_blockers}
+    process = _call_preentry_process_probe(process_probe, attempt_root, events)
+    if process.get("status") != "PASS":
+        return {"ok": False, "status": "BLOCKED", "reason": process.get("reason", "PROCESS_FAMILY_ALIVE_OR_AMBIGUOUS"), "process": process}
+    refs = (row["slot_id"], row["lease_token_hash"], row["fencing_generation"])
+    if not all(value is not None for value in refs):
+        return {"ok": False, "status": "BLOCKED", "reason": "PARTIAL_STALE_QUEUE_IDENTITY"}
+    slot = con.execute("SELECT * FROM slots WHERE slot_id=?", (row["slot_id"],)).fetchone()
+    if slot is None or slot["state"] == "FREE":
+        return {"ok": False, "status": "BLOCKED", "reason": "MISSING_ACTIVE_OWNER"}
+    matches = (
+        slot["owner_branch"] == branch and slot["logical_case_id"] == case and slot["attempt_id"] == attempt
+        and slot["lease_token"]
+        and hashlib.sha256(slot["lease_token"].encode()).hexdigest() == row["lease_token_hash"]
+        and int(slot["fencing_generation"]) == int(row["fencing_generation"])
+    )
+    if not matches:
+        return {"ok": False, "status": "BLOCKED", "reason": "OWNER_OR_FENCING_MISMATCH"}
+    control_generation = int(control["control_generation"])
+    lease = Lease(slot["slot_id"], branch, case, attempt, slot["lease_token"], int(slot["fencing_generation"]), control_generation)
+    host_event = next((event for event in reversed(events) if event.get("event_type") == "HOST_PROCESS_STARTED"), {})
+    return {"ok": True, "row": dict(row), "slot": dict(slot), "lease": lease, "events": events, "process": process, "host_event": host_event}
+
+
+def reconcile_dead_preentry_host(db, branch, case, attempt, attempt_root, runtime_root=None, process_probe=None):
+    """Terminalize a dead pre-entry host through the normal allocator/fence path."""
+    with db.connect(readonly=True) as con:
+        initial = _dead_host_snapshot(con, branch, case, attempt, attempt_root, runtime_root, process_probe)
+    if not initial.get("ok"):
+        return initial
+    with db.immediate() as con:
+        final = _dead_host_snapshot(con, branch, case, attempt, attempt_root, runtime_root, process_probe)
+        if not final.get("ok"):
+            return final
+        changed = con.execute(
+            "UPDATE branch_queue SET state='FAILED_PREENTRY',updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state='HOST_STARTED' AND slot_id=? AND fencing_generation=?",
+            (utc_now(), branch, case, attempt, final["row"]["slot_id"], final["row"]["fencing_generation"]),
+        ).rowcount
+        if changed != 1:
+            return {"status": "BLOCKED", "reason": "PREENTRY_RECOVERY_QUEUE_REVALIDATION_FAILED", "case": case, "attempt": attempt}
+    lease = final["lease"]
+    released = Allocator(db).release_owned_idempotent(lease, scientific_terminal="FAILED_PREENTRY")
+    if released["status"] not in {"RELEASED", "ALREADY_FREE"}:
+        return {"status": "RECOVERY_PENDING_RELEASE", "release": released, "case": case, "attempt": attempt}
+    with db.immediate() as con:
+        con.execute(
+            "UPDATE branch_queue SET slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state='FAILED_PREENTRY'",
+            (utc_now(), branch, case, attempt),
+        )
+    host_event = final.get("host_event") or {}
+    evidence = {
+        "schema": "APCD_SHARED_V3_PREENTRY_HOST_EXIT_V1",
+        "classification": "PRE_ENTRY_HOST_LAUNCH_FAILURE",
+        "queue_state": "FAILED_PREENTRY",
+        "branch_id": branch,
+        "case_id": case,
+        "attempt_id": attempt,
+        "host_pid": host_event.get("host_pid"),
+        "launch_timestamp_utc": host_event.get("launch_timestamp_utc") or host_event.get("timestamp"),
+        "exit_detection_timestamp_utc": utc_now(),
+        "return_code": None,
+        "stdout_path": host_event.get("stdout_path"),
+        "stderr_path": host_event.get("stderr_path"),
+        "scientific_solver_entry_count": 0,
+        "solver_entered": False,
+        "retry_eligibility": "PENDING_ZERO_SOLVER_VALIDATION",
+        "release": released,
+        "process_probe": final.get("process"),
+    }
+    _write_json_durable(Path(attempt_root) / "preentry_host_exit.json", evidence)
+    _write_json_durable(Path(attempt_root) / "terminal_failure.json", {
+        **evidence,
+        "status": "PRE_ENTRY_HOST_LAUNCH_FAILURE",
+        "solver_returned": False,
+        "rerun": False,
+    })
+    roots = [Path(attempt_root)]
+    if runtime_root is not None and Path(runtime_root) not in roots:
+        roots.append(Path(runtime_root))
+    for root in roots:
+        append_event(root / "events.jsonl", "PRE_ENTRY_HOST_EXIT", **evidence)
+    return {
+        "status": "RECOVERED_DEAD_PREENTRY_HOST",
+        "case": case,
+        "attempt": attempt,
+        "scientific_solver_entry_count": 0,
+        "retry_eligibility": "PENDING_ZERO_SOLVER_VALIDATION",
+        "release": released,
+        "host_pid": evidence["host_pid"],
+    }
+
+
+def mark_preentry_retry_eligible(db, branch, case, attempt, attempt_root, validation_manifest):
+    """Promote a recorded zero-entry pre-entry failure only after validation evidence passes."""
+    manifest = Path(validation_manifest)
+    try:
+        validation = json.loads(manifest.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return {"status": "BLOCKED", "reason": "ZERO_SOLVER_VALIDATION_MANIFEST_INVALID"}
+    if not (
+        validation.get("status") == "PASS"
+        and int(validation.get("solver_runs", -1)) == 0
+        and int(validation.get("scientific_solver_entries", -1)) == 0
+    ):
+        return {"status": "BLOCKED", "reason": "ZERO_SOLVER_VALIDATION_NOT_PASS"}
+    evidence_path = Path(attempt_root) / "preentry_host_exit.json"
+    failure_path = Path(attempt_root) / "terminal_failure.json"
+    try:
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        failure = json.loads(failure_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return {"status": "BLOCKED", "reason": "PREENTRY_FAILURE_EVIDENCE_MISSING"}
+    if not (
+        evidence.get("classification") == "PRE_ENTRY_HOST_LAUNCH_FAILURE"
+        and evidence.get("scientific_solver_entry_count") == 0
+        and failure.get("solver_entered") is False
+        and failure.get("solver_returned") is False
+        and failure.get("rerun") is False
+    ):
+        return {"status": "BLOCKED", "reason": "PREENTRY_FAILURE_NOT_ZERO_ENTRY"}
+    with db.connect(readonly=True) as con:
+        row = con.execute(
+            "SELECT * FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+            (branch, case, attempt),
+        ).fetchone()
+        entries = con.execute(
+            "SELECT COUNT(*) FROM lease_events WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND event_type IN ('SCIENTIFIC_SOLVER_ENTERED','GPU_ENGINE_ENTRY_CONFIRMED')",
+            (branch, case, attempt),
+        ).fetchone()[0]
+    if row is None:
+        return {"status": "NOT_FOUND", "case": case, "attempt": attempt}
+    if row["state"] != "FAILED_PREENTRY" or row["slot_id"] is not None or entries:
+        return {"status": "BLOCKED", "reason": "RETRY_ELIGIBILITY_STATE_CHANGED", "state": row["state"], "entries": entries}
+    with db.immediate() as con:
+        changed = con.execute(
+            "UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=? AND state='FAILED_PREENTRY' AND slot_id IS NULL",
+            (utc_now(), branch, case, attempt),
+        ).rowcount
+        if changed != 1:
+            return {"status": "BLOCKED", "reason": "RETRY_ELIGIBILITY_QUEUE_REVALIDATION_FAILED"}
+    append_event(
+        Path(attempt_root) / "events.jsonl",
+        "PREENTRY_RETRY_ELIGIBLE",
+        branch_id=branch, case_id=case, attempt_id=attempt,
+        scientific_solver_entry_count=0, replay=0,
+        validation_manifest=str(manifest), validation_status="PASS",
+    )
+    return {
+        "status": "PREENTRY_RETRY_ELIGIBLE",
+        "case": case, "attempt": attempt,
+        "scientific_solver_entry_count": 0, "replay": 0,
+        "validation_manifest": str(manifest),
     }
 
 

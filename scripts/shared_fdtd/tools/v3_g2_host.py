@@ -7,8 +7,51 @@ import json
 import shutil
 import sys
 import uuid
+import os
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
+
+
+def _early_event_path(path, event_type, **payload):
+    """Write startup/uncaught telemetry without importing project modules."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    row = {"timestamp": datetime.now(timezone.utc).isoformat(), "event_type": event_type, **payload}
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(row, sort_keys=True, ensure_ascii=False, default=str) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    return row
+
+
+def _early_config_context():
+    if len(sys.argv) < 2:
+        return None
+    config_path = Path(sys.argv[1])
+    try:
+        cfg = json.loads(config_path.read_text(encoding="utf-8"))
+    except BaseException:
+        return {"config_path": str(config_path)}
+    runtime = Path(cfg.get("runtime", config_path.parent))
+    attempt_root = Path(cfg.get("attempt_root", config_path.parent))
+    context = {
+        "config_path": str(config_path),
+        "runtime": str(runtime),
+        "attempt_root": str(attempt_root),
+        "host_pid": os.getpid(),
+        "task_id": cfg.get("task"),
+        "case_id": cfg.get("case"),
+        "attempt_id": cfg.get("attempt"),
+        "scientific_entry_count": 0,
+    }
+    for root in (runtime, attempt_root):
+        _early_event_path(root / "events.jsonl", "HOST_RUNTIME_ENTERED", **context)
+        _early_event_path(root / "events.jsonl", "PREENTRY_VALIDATION_STARTED", **context)
+    return {"cfg": cfg, "runtime": runtime, "attempt_root": attempt_root, "context": context}
+
+
+_EARLY_CONTEXT = _early_config_context()
 
 ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
 G2_SOURCE = ROOT / r"scripts\coupling_ml\apcd_coupling_2d3d_g2_attempt003_production_v1.py"
@@ -470,5 +513,43 @@ def main():
         raise
 
 
+def _record_uncaught_exception(exc):
+    context = (_EARLY_CONTEXT or {}).get("context", {})
+    cfg = (_EARLY_CONTEXT or {}).get("cfg", {})
+    runtime = (_EARLY_CONTEXT or {}).get("runtime")
+    attempt_root = (_EARLY_CONTEXT or {}).get("attempt_root")
+    entered = False
+    for root in (runtime, attempt_root):
+        if root is None:
+            continue
+        try:
+            events = (Path(root) / "events.jsonl").read_text(encoding="utf-8")
+            entered = entered or "SCIENTIFIC_SOLVER_ENTERED" in events or "GPU_ENGINE_ENTRY_CONFIRMED" in events
+        except OSError:
+            pass
+    evidence = {
+        **context,
+        "event_type": "HOST_EXIT_PREENTRY" if not entered else "HOST_EXIT_AFTER_ENTRY",
+        "scientific_solver_entry_count": 1 if entered else 0,
+        "solver_entered": entered,
+        "exception": repr(exc),
+        "traceback": traceback.format_exc(),
+        "exit_detection_timestamp_utc": now(),
+        "return_code": 1,
+    }
+    for root in (runtime, attempt_root):
+        if root is None:
+            continue
+        try:
+            write(Path(root) / "host_uncaught_exception.json", evidence)
+            _early_event_path(Path(root) / "events.jsonl", evidence["event_type"], **evidence)
+        except BaseException:
+            pass
+
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except BaseException as exc:
+        _record_uncaught_exception(exc)
+        raise
