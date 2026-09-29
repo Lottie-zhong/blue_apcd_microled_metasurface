@@ -298,7 +298,14 @@ def _standalone_gpu_command(fdtd_solutions, script_path, run_fsp):
 
 def _standalone_gpu_script(resource_name, monitor_names):
     lines = [f'run("FDTD","GPU",{_lumerical_string(resource_name)});']
-    lines.extend(f'getdata({_lumerical_string(name)},"f");' for name in monitor_names)
+    # Force field cards into the GPU sidecar/H5; frequency-only probes leave
+    # Ex/Ey/Ez/Hx/Hy/Hz absent after fresh LOAD, so the truth barrier rejects
+    # otherwise valid PW monitors.
+    for name in monitor_names:
+        monitor = _lumerical_string(name)
+        lines.append(f'getdata({monitor},"f");')
+        for component in ("Ex", "Ey", "Ez", "Hx", "Hy", "Hz"):
+            lines.append(f'getdata({monitor},{_lumerical_string(component)});')
     lines.append("save;")
     return "\n".join(lines) + "\n"
 
