@@ -5,6 +5,7 @@ import hashlib
 import subprocess
 import threading
 import time
+from datetime import datetime, timezone
 from collections.abc import Mapping
 from pathlib import Path
 
@@ -14,6 +15,10 @@ from shared_fdtd.engine.gpu_observability import GpuEngineObservability
 
 Z0 = 376.730313668
 LAUNCHER_ID = "APCD_PW_PERIODIC_PLANAR_CURRENT_V1"
+
+
+def now():
+    return datetime.now(timezone.utc).isoformat()
 
 
 _REQUIRED_CONTRACT_FIELDS = (

@@ -20,7 +20,10 @@ def _lock_file(path):
         try:
             lock.mkdir()
             return lock
-        except FileExistsError:
+        except (FileExistsError, PermissionError):
+            # Windows can transiently report access denied while another
+            # thread is creating/removing the lock directory. Treat it as
+            # contention and keep the bounded retry semantics.
             if time.monotonic() >= deadline:
                 raise TimeoutError("EVENT_LOG_LOCK_TIMEOUT:" + str(path))
             time.sleep(0.01)
