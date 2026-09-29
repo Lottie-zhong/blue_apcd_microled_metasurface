@@ -1,0 +1,100 @@
+{
+  "schema": "SHARED_V3_RESTART_PERSISTENCE_MATRIX_V1",
+  "generated_at_utc": "2026-09-29T21:12:44.352171+00:00",
+  "classification": "SYNTHETIC_FAULT_MATRIX_ONLY",
+  "runtime_backend_commit": "b3a331b248e0d931c608d333965557c7f56e33cc",
+  "current_reliability_head": "be628fdf375cb930d6a4998148a87b3d496c76d4",
+  "production_solver_invocations": 0,
+  "production_db_touched": false,
+  "rows": [
+    {
+      "script": "run_zero_solver_tests.py",
+      "status": "FAIL",
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\scripts\\shared_fdtd\\tests\\run_zero_solver_tests.py\", line 174, in <module>\n    if __name__==\"__main__\":raise SystemExit(main())\n  File \"D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\scripts\\shared_fdtd\\tests\\run_zero_solver_tests.py\", line 164, in main\n    out=Path(sys.argv[1]); out.mkdir(parents=True,exist_ok=True)\nIndexError: list index out of range\n"
+    },
+    {
+      "script": "run_backend_mutex_zero_solver_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS\", \"tests\": [{\"test\": \"test_a_cpu_active_blocks_gpu_and_free_slot_does_not_bypass\", \"status\": \"PASS\"}, {\"test\": \"test_b_gpu_active_blocks_cpu\", \"status\": \"PASS\"}, {\"test\": \"test_c_auto_wake_d_same_attempt_no_duplicate\", \"status\": \"PASS\"}, {\"test\": \"test_d_gpu_release_allows_waiting_cpu\", \"status\": \"PASS\"}, {\"test\": \"test_e_stale_process_without_lifecycle_blocks\", \"status\": \"PASS\"}, {\"test\": \"test_f_active_lifecycle_missing_census_blocks\", \"status\": \"PASS\"}, {\"test\": \"test_g_controller_restart_preserves_wait\", \"status\": \"PASS\"}], \"solver_runs\": 0, \"scientific_solver_entries\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "script": "run_gpu_completion_barrier_zero_solver_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS\", \"tests\": [{\"test\": \"test_missing_log\", \"status\": \"PASS\"}, {\"test\": \"test_api_early_return\", \"status\": \"PASS\"}, {\"test\": \"test_active_job\", \"status\": \"PASS\"}, {\"test\": \"test_missing_monitor\", \"status\": \"PASS\"}, {\"test\": \"test_completed_job\", \"status\": \"PASS\"}, {\"test\": \"test_restart_replay_is_blocked\", \"status\": \"PASS\"}, {\"test\": \"test_idempotent_evidence\", \"status\": \"PASS\"}, {\"test\": \"test_mutex_blocks_active_job\", \"status\": \"PASS\"}, {\"test\": \"<lambda>\", \"status\": \"PASS\"}, {\"test\": \"<lambda>\", \"status\": \"PASS\"}, {\"test\": \"<lambda>\", \"status\": \"PASS\"}, {\"test\": \"test_completed_job_with_entry_process\", \"status\": \"PASS\"}, {\"test\": \"test_standalone_command_and_script\", \"status\": \"PASS\"}, {\"test\": \"test_standalone_child_success\", \"status\": \"PASS\"}, {\"test\": \"test_standalone_child_failure\", \"status\": \"PASS\"}], \"test_count\": 15, \"solver_runs\": 0, \"scientific_solver_entries\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "script": "run_preentry_host_liveness_zero_solver_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS\", \"solver_runs\": 0, \"scientific_solver_entries\": 0, \"queue_state\": \"FAILED_PREENTRY\", \"owner_released\": true, \"classification\": \"PRE_ENTRY_HOST_LAUNCH_FAILURE\"}\n",
+      "stderr": ""
+    },
+    {
+      "script": "run_preentry_recovery_zero_solver_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "{\"count\": 16, \"pass\": 16, \"fail\": 0, \"results\": [[\"A_dead_host_zero_entry_terminalizes_and_releases\", \"PASS\", \"\"], [\"B_repeated_recovery_is_idempotent\", \"PASS\", \"\"], [\"C_host_alive_blocks\", \"PASS\", \"\"], [\"D_descendant_alive_blocks\", \"PASS\", \"\"], [\"E_scientific_entry_blocks\", \"PASS\", \"\"], [\"F_gpu_entry_blocks\", \"PASS\", \"\"], [\"G_native_truth_blocks\", \"PASS\", \"\"], [\"H_persistence_pending_blocks\", \"PASS\", \"\"], [\"I_fencing_mismatch_blocks\", \"PASS\", \"\"], [\"J_foreign_slot_blocks\", \"PASS\", \"\"], [\"K_newer_attempt_blocks\", \"PASS\", \"\"], [\"L_pid_reuse_ambiguity_blocks\", \"PASS\", \"\"], [\"M_process_appears_before_final_revalidation_blocks\", \"PASS\", \"\"], [\"N_hold_prevents_waiting_successor_launch\", \"PASS\", \"\"], [\"O_release_failure_leaves_terminal_retryable_state\", \"PASS\", \"\"], [\"P_recovery_requires_hold\", \"PASS\", \"\"]]}\n",
+      "stderr": ""
+    },
+    {
+      "script": "run_postentry_runtime_supervision_zero_solver_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "PASS A_entered_child_alive_past_reconcile\nPASS B_long_meshing\nPASS C_delayed_heartbeat_engine_alive\nPASS D_lease_ttl_engine_alive\nPASS E_controller_exits_detached_child_survives\nPASS F_task_wrapper_exits_child_survives\nPASS G_hold_after_entry_child_continues\nPASS H_branch_disabled_after_entry_child_continues\nPASS I_observer_failure_child_unaffected\nPASS J_no_truth_before_return_wait\nPASS K_process_disappears_quarantine_no_replay\nPASS L_zero_solver\n{\"status\": \"PASS\", \"count\": 12, \"passed\": 12, \"failed\": 0, \"failures\": [], \"solver_invocations\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "script": "run_external_process_watcher_zero_solver_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"PROCESS_CREATED\",\n      \"pid\": 35484,\n      \"name\": \"python.exe\",\n      \"command_line\": \"C:\\\\Users\\\\DELL\\\\anaconda3\\\\python.exe D:\\\\project\\\\worktrees\\\\blue_apcd_shared_v3_gpu_reliability_v1\\\\scripts\\\\shared_fdtd\\\\tests\\\\run_external_process_watcher_zero_solver_tests.py --dummy-mode child EXTWATCH_76847b7593ae4e83abedf3d30434fd66 C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\external-watcher-topology-6pzgf8vj\\\\h_child.json C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\external-watcher-topology-6pzgf8vj\\\\h_child.stop\"\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"PROCESS_DISAPPEARED\",\n      \"pid\": 35484,\n      \"name\": \"python.exe\",\n      \"command_line\": \"C:\\\\Users\\\\DELL\\\\anaconda3\\\\python.exe D:\\\\project\\\\worktrees\\\\blue_apcd_shared_v3_gpu_reliability_v1\\\\scripts\\\\shared_fdtd\\\\tests\\\\run_external_process_watcher_zero_solver_tests.py --dummy-mode child EXTWATCH_76847b7593ae4e83abedf3d30434fd66 C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\external-watcher-topology-6pzgf8vj\\\\h_child.json C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\external-watcher-topology-6pzgf8vj\\\\h_child.stop\"\n    },\n    {\n      \"event_type\": \"PROCESS_DISAPPEARED\",\n      \"pid\": 37104,\n      \"name\": \"python.exe\",\n      \"command_line\": \"C:\\\\Users\\\\DELL\\\\anaconda3\\\\python.exe D:\\\\project\\\\worktrees\\\\blue_apcd_shared_v3_gpu_reliability_v1\\\\scripts\\\\shared_fdtd\\\\tests\\\\run_external_process_watcher_zero_solver_tests.py --dummy-mode host-finally EXTWATCH_76847b7593ae4e83abedf3d30434fd66 C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\external-watcher-topology-6pzgf8vj\\\\h.json C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\external-watcher-topology-6pzgf8vj\\\\h.stop\"\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_HEARTBEAT\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    },\n    {\n      \"event_type\": \"WATCHER_STOPPED\",\n      \"pid\": null,\n      \"name\": null,\n      \"command_line\": null\n    }\n  ],\n  \"watcher_stderr\": \"\",\n  \"watcher_returncode_value\": 0,\n  \"solver_invocations\": 0,\n  \"root\": \"C:\\\\Users\\\\DELL\\\\AppData\\\\Local\\\\Temp\\\\external-watcher-topology-6pzgf8vj\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "run_strict_fenced_orphan_truth_adoption_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"pass\": 30,\n  \"total\": 30,\n  \"fails\": {}\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "run_coupling_ml_integration_zero_solver_tests.py",
+      "status": "PASS",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS\", \"tests\": [{\"test\": \"postentry_no_truth_closeout\", \"status\": \"PASS\", \"release_events\": 1, \"replay\": 0}, {\"test\": \"multislot_autorefill\", \"status\": \"PASS\", \"first\": [\"A\", \"B\"], \"second\": [\"C\"], \"active_ml\": 2}, {\"test\": \"wait_resource_rechecks\", \"status\": \"PASS\", \"reevaluated\": true}, {\"test\": \"same_wait_attempt_after_foreign_release\", \"status\": \"PASS\", \"same_attempt\": true, \"scientific_entries\": 0}, {\"test\": \"preentry_boundary_preserves_wait\", \"status\": \"PASS\", \"same_attempt\": true, \"solver_entries\": 0, \"released\": true}, {\"test\": \"controller_restart_preserves_waiting_case\", \"status\": \"PASS\", \"restart_preserved\": true, \"same_attempt\": true, \"scientific_entries\": 0}, {\"test\": \"same_attempt_reuses_released_reservation\", \"status\": \"PASS\", \"reservation_rows\": 1, \"reacquisitions\": 2, \"scientific_entries\": 0}, {\"test\": \"async_host_wait_clears_released_refs\", \"status\": \"PASS\", \"scientific_entries\": 0, \"stale_refs\": 0}, {\"test\": \"zero_solver_host_start_recovery\", \"status\": \"PASS\", \"same_attempt\": true, \"scientific_entries\": 0}, {\"test\": \"zero_solver_entry_intent_recovery\", \"status\": \"PASS\", \"scientific_entries\": 0, \"release_events\": 1}, {\"test\": \"foreign_traditional_unchanged\", \"status\": \"PASS\", \"foreign_mutation_count\": 0}], \"solver_runs\": 0, \"scientific_solver_entries\": 0, \"replays\": 0, \"foreign_mutation_count\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "row_id": "SYNTH_POSTENTRY_RESTART",
+      "status": "PASS",
+      "evidence": "gpu_reliability_restart_matrix/synthetic_postentry_20260930_01",
+      "entry_count": 1,
+      "replay_count": 0,
+      "real_solver_invocations": 0,
+      "production_db_unchanged": true
+    }
+  ],
+  "covered_invariants": [
+    "pre-entry failures do not create scientific entry",
+    "post-entry restart/reconcile does not replay",
+    "FSP/H5 delayed-sidecar barrier",
+    "partial bundle never promoted",
+    "release idempotency",
+    "foreign mutation rejected",
+    "stale owner/fence rejected",
+    "external process watcher lifecycle"
+  ],
+  "missing_or_not_real": [
+    "real controller process restart against deployed runtime",
+    "production DB restart test",
+    "real GPU solver post-entry crash"
+  ],
+  "verdict": "PARTIAL_SYNTHETIC_MATRIX_PASS_REAL_GPU_POSTENTRY_RESTART_EVIDENCE_MISSING",
+  "synthetic_postentry_report": "SHARED_V3_SYNTHETIC_POSTENTRY_RESTART_MATRIX_V1.json"
+}
