@@ -1,0 +1,512 @@
+{
+  "baseline_plan": {
+    "B0": {
+      "available_cases": 20,
+      "name": "direct_integrated_Coupling_HF_characterization",
+      "reason": "Existing Coupling 20G direct HF archive is a characterization reference, not a matched NP development domain.",
+      "status": "EXISTING_AUTHORITY_NOT_USED_FOR_MODEL_SELECTION"
+    },
+    "B1": {
+      "direct_stage_a_ready": false,
+      "name": "current_Level_1_baseline",
+      "offline_screening_authorized": false,
+      "reason": "Existing NP Level-1 provider is partial and the source contract does not authorize offline screening.",
+      "status": "UNAVAILABLE_NOT_AUTHORITATIVE"
+    },
+    "B2": {
+      "composition_rows": 0,
+      "name": "NP_complex_plus_MDC_TMM_plus_spacer",
+      "reason": "NP raw monitor-plane phase is not deterministically mapped to NP_PILLAR_BOTTOM.",
+      "status": "BLOCKED_BEFORE_NUMERICAL_CONSTRUCTION"
+    }
+  },
+  "coupling_authority": {
+    "branch": "work/mdc-np-coupling-ml-v1",
+    "dataset_manifest": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_20G_DATASET_FREEZE_MANIFEST_V1.json",
+    "dataset_manifest_sha256": "e17a22cc34b7f0390fb272ded5245a61b52edbfff215d7ba83799e25a7c8570c",
+    "dataset_status": "PASS",
+    "direct_stage_a_ready": false,
+    "directions": [
+      "+z",
+      "-z"
+    ],
+    "geometries": 20,
+    "head": "789ceac980368cd90d7fb812e78347f2b0059407",
+    "note": "Coupling authority is read-only evidence; no Coupling-H1 errors or candidate labels were used for model selection.",
+    "offline_screening_authorized": false,
+    "orders": {
+      "count": 81,
+      "m": [
+        -4,
+        4
+      ],
+      "n": [
+        -4,
+        4
+      ]
+    },
+    "planes": [
+      "IN",
+      "PRENP",
+      "POSTNP"
+    ],
+    "polarizations": [
+      "TE",
+      "TM"
+    ],
+    "raw_complex_state": true,
+    "reference_planes_nm": {
+      "IN": -50.0,
+      "POSTNP": 1722.0,
+      "PRENP": 1202.0
+    },
+    "valid_cases": 20,
+    "wavelengths_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ],
+    "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1"
+  },
+  "created_utc": "2026-09-29T03:11:31.678979+00:00",
+  "matched_domain": {
+    "coupling_domain": {
+      "geometries": 20,
+      "np_overlap_wavelengths_nm": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ],
+      "polarizations": [
+        "TM",
+        "TE"
+      ],
+      "potential_metadata_rows": 440,
+      "source_cases": 20,
+      "wavelengths_nm": [
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460
+      ]
+    },
+    "geometry_identity": {
+      "basis": "frozen geometry identity/hash audit from authoritative manifests; no target rows read",
+      "np_vs_coupling_overlap": false,
+      "overlap_count": 0
+    },
+    "leakage_and_selection": {
+      "coupling_candidate_labels_used": false,
+      "coupling_h1_errors_used": false,
+      "full_hf22_refit": false,
+      "new_model_fit": false,
+      "note": "A fit on the 20 Coupling geometries would be POC_REFIT_ONLY and is not executed.",
+      "sealed_hf_target_read": false
+    },
+    "np_domain": {
+      "geometries": 22,
+      "polarizations": [
+        "P",
+        "S"
+      ],
+      "potential_rows": 484,
+      "source_dataset_rows": 8712,
+      "wavelengths_nm": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ]
+    },
+    "row_accounting": {
+      "metadata_candidate_rows": 440,
+      "reason": "reference-plane hard gate; no numerical component labels constructed",
+      "valid_C_component_rows": 0
+    },
+    "schema": "NP_K6_COMPLEX_PROVIDER_COUPLING_RESIDUAL_POC_MATCHED_DOMAIN_AUDIT_V1",
+    "status": "METADATA_MATCH_ONLY_NUMERICAL_COMPONENT_ROWS_ZERO"
+  },
+  "np_authority": {
+    "benchmark_champion": {
+      "P_complex_rmse": 0.17341135447682748,
+      "S_complex_rmse": 0.17468193081778532,
+      "complex_rmse": 0.1740478020770694,
+      "id": "spectral__M1_RBF_KernelRidge",
+      "learnability_verdict": "COMPLEX_FORWARD_LEARNABILITY_PARTIAL",
+      "normalized_rmse_q95": 1.0457965207526667,
+      "reflection_complex_rmse": 0.14803648655738763,
+      "transmission_complex_rmse": 0.20846536487478656
+    },
+    "benchmark_manifest": "outputs/np_k6_complex_forward_surrogate_benchmark_v1/benchmark_manifest.json",
+    "benchmark_manifest_sha256": "4157a26da24a213264f9e51652aeeaf2ddfbcf5c892aeecaf87d09963b11830b",
+    "benchmark_source_commit": "4f343b6dbe4b5b28125e576693d861735b5f27da",
+    "branch": "work/np-k6-mdc-v1",
+    "current_checkout_head": "10252a6072497d0ef077d3c51a2c19a47362e41b",
+    "frozen_scientific_authority": "c8e6eb422ed7d63d6a4608fd823341c929bd2b8f",
+    "geometries": 22,
+    "k_y": 0.0,
+    "logical_cases": 44,
+    "phase_contract": {
+      "arbitrary_phase_alignment": false,
+      "deembedding": false,
+      "physical_component_composition_reference_plane": "PENDING",
+      "reflection_monitor_nominal_z_nm": -300.0,
+      "source": "raw monitor-plane complex phase",
+      "transmission_monitor_nominal_z_nm": 900.0
+    },
+    "polarizations": [
+      "P",
+      "S"
+    ],
+    "preregistration": "outputs/np_k6_complex_forward_surrogate_benchmark_v1/preregistration.json",
+    "preregistration_sha256": "4b846fa88b1b75dc43a6398a604222af53345590634f1245d0f4c473d3b834cc",
+    "reflection_orders": [
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "representation_audit_sha256": "5b05acd088a4ab5fe1c5c1ecdcf6f69ef13bd46ed087112e254d5e08a88a8841",
+    "rows": 8712,
+    "source_closure_sha256": "0f3b47b80f3195e472fd8141e0aa1860e686f9cae4c25f3a46a1af9ebb732e66",
+    "source_truth_sha256": "5937a30e9407bf71e45599883b888069c1f2894e29c49018e169ff5f2233294a",
+    "transmission_orders": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "u_x": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "worktree": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1"
+  },
+  "provider": {
+    "capability_flags": {
+      "ARBITRARY_RETURNING_ORDER_RESCATTERING": false,
+      "FULL_2x2_JONES_MATRIX": false,
+      "MULTI_INPUT_FLOQUET_SCATTERING_MATRIX": false,
+      "NORMAL_INCIDENCE_ONLY": true,
+      "PHYSICAL_COMPONENT_COMPOSITION_REFERENCE_PLANE": "PENDING",
+      "PRODUCTION_APPROVED": false
+    },
+    "governance": {
+      "coupling_candidate_label_read": 0,
+      "coupling_h1_error_read": 0,
+      "deployment_provider_created": 0,
+      "historical_scalar_provider_retrained": 0,
+      "inverse_design": 0,
+      "new_hf_acquisition": 0,
+      "new_solver": 0,
+      "new_training": 0,
+      "sealed_hf_target_read": 0
+    },
+    "historical_provider_modified": false,
+    "input_contract": {
+      "geometry": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "geometry_order": "physical +x order; no sorting/permutation invariance",
+      "k_y": 0.0,
+      "polarization": [
+        "P",
+        "S"
+      ],
+      "u_x": 0.0,
+      "wavelength_nm": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ]
+    },
+    "output_contract": {
+      "complex_encoding": "Re/Im paired modal coefficients at raw NP monitor planes",
+      "order_identity": "signed 1D transmitted/reflected m order; +1 is physical +x",
+      "power_outputs": "decoded diagnostics only; not replacement for complex state",
+      "reflection_orders": [
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "transmission_orders": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "production_approved": false,
+    "provenance": {
+      "coupling_authority": {
+        "branch": "work/mdc-np-coupling-ml-v1",
+        "dataset_manifest": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_20G_DATASET_FREEZE_MANIFEST_V1.json",
+        "dataset_manifest_sha256": "e17a22cc34b7f0390fb272ded5245a61b52edbfff215d7ba83799e25a7c8570c",
+        "dataset_status": "PASS",
+        "direct_stage_a_ready": false,
+        "directions": [
+          "+z",
+          "-z"
+        ],
+        "geometries": 20,
+        "head": "789ceac980368cd90d7fb812e78347f2b0059407",
+        "note": "Coupling authority is read-only evidence; no Coupling-H1 errors or candidate labels were used for model selection.",
+        "offline_screening_authorized": false,
+        "orders": {
+          "count": 81,
+          "m": [
+            -4,
+            4
+          ],
+          "n": [
+            -4,
+            4
+          ]
+        },
+        "planes": [
+          "IN",
+          "PRENP",
+          "POSTNP"
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "raw_complex_state": true,
+        "reference_planes_nm": {
+          "IN": -50.0,
+          "POSTNP": 1722.0,
+          "PRENP": 1202.0
+        },
+        "valid_cases": 20,
+        "wavelengths_nm": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1"
+      },
+      "np_authority": {
+        "benchmark_champion": {
+          "P_complex_rmse": 0.17341135447682748,
+          "S_complex_rmse": 0.17468193081778532,
+          "complex_rmse": 0.1740478020770694,
+          "id": "spectral__M1_RBF_KernelRidge",
+          "learnability_verdict": "COMPLEX_FORWARD_LEARNABILITY_PARTIAL",
+          "normalized_rmse_q95": 1.0457965207526667,
+          "reflection_complex_rmse": 0.14803648655738763,
+          "transmission_complex_rmse": 0.20846536487478656
+        },
+        "benchmark_manifest": "outputs/np_k6_complex_forward_surrogate_benchmark_v1/benchmark_manifest.json",
+        "benchmark_manifest_sha256": "4157a26da24a213264f9e51652aeeaf2ddfbcf5c892aeecaf87d09963b11830b",
+        "benchmark_source_commit": "4f343b6dbe4b5b28125e576693d861735b5f27da",
+        "branch": "work/np-k6-mdc-v1",
+        "current_checkout_head": "10252a6072497d0ef077d3c51a2c19a47362e41b",
+        "frozen_scientific_authority": "c8e6eb422ed7d63d6a4608fd823341c929bd2b8f",
+        "geometries": 22,
+        "k_y": 0.0,
+        "logical_cases": 44,
+        "phase_contract": {
+          "arbitrary_phase_alignment": false,
+          "deembedding": false,
+          "physical_component_composition_reference_plane": "PENDING",
+          "reflection_monitor_nominal_z_nm": -300.0,
+          "source": "raw monitor-plane complex phase",
+          "transmission_monitor_nominal_z_nm": 900.0
+        },
+        "polarizations": [
+          "P",
+          "S"
+        ],
+        "preregistration": "outputs/np_k6_complex_forward_surrogate_benchmark_v1/preregistration.json",
+        "preregistration_sha256": "4b846fa88b1b75dc43a6398a604222af53345590634f1245d0f4c473d3b834cc",
+        "reflection_orders": [
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "representation_audit_sha256": "5b05acd088a4ab5fe1c5c1ecdcf6f69ef13bd46ed087112e254d5e08a88a8841",
+        "rows": 8712,
+        "source_closure_sha256": "0f3b47b80f3195e472fd8141e0aa1860e686f9cae4c25f3a46a1af9ebb732e66",
+        "source_truth_sha256": "5937a30e9407bf71e45599883b888069c1f2894e29c49018e169ff5f2233294a",
+        "transmission_orders": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "u_x": 0.0,
+        "wavelengths_nm": [
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455
+        ],
+        "worktree": "D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1"
+      }
+    },
+    "provider_id": "NP_K6_COMPLEX_FORWARD_PROVIDER_POC_V1",
+    "status": "POC_ONLY_REFERENCE_PLANE_BLOCKED"
+  },
+  "reference_plane_gate": {
+    "classification": "COMPLEX_COMPONENT_COMPOSITION_BLOCKED_REFERENCE_PLANE",
+    "composition_allowed": false,
+    "coupling_contract": {
+      "mdc_right_plane_id": "MDC_TOP_UPWARD_OUTPUT_PLANE",
+      "mdc_right_plane_z_nm": 975.0,
+      "medium": "APCD_SIO2_NATIVE_M1",
+      "np_component_plane_id": "NP_PILLAR_BOTTOM",
+      "np_component_plane_z_nm": 1212.0,
+      "propagation_contract": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\contracts\\coupling\\level1_interface_propagation_v1.json",
+      "propagation_contract_sha256": "cadc47de98aa7ccf3fdb9c03da369327db6fdb6aeaa7ac065e676e86c979b613",
+      "propagation_operator": "exp(+i*kz_sio2*d)",
+      "spacer_distance_nm": 237.0
+    },
+    "deterministic_transform_available": false,
+    "np_raw_state": {
+      "arbitrary_phase_alignment": false,
+      "deembedding": false,
+      "phase_origin": "raw monitor plane",
+      "reference_plane_id": "UNRESOLVED_FOR_COMPONENT_COMPOSITION",
+      "reflection_monitor_nominal_z_nm": -300.0,
+      "transmission_monitor_nominal_z_nm": 900.0
+    },
+    "reason": "No frozen deterministic transform connects the NP raw monitor-plane phase to NP_PILLAR_BOTTOM in the Coupling coordinate convention. Multiplying MDC/spacer phase with NP raw coefficients would create an unregistered gauge/reference-plane assumption.",
+    "status": "HARD_GATE"
+  },
+  "schema": "NP_K6_COMPLEX_PROVIDER_AND_COUPLING_RESIDUAL_POC_V1",
+  "scientific_decision": "Do not compose NP raw complex coefficients with MDC/spacer phase until reference-plane contract is frozen.",
+  "status": "COMPLEX_COMPONENT_COMPOSITION_BLOCKED_REFERENCE_PLANE",
+  "task_id": "NP_K6_COMPLEX_PROVIDER_AND_COUPLING_RESIDUAL_POC_V1",
+  "zero_solver": true
+}

@@ -1,0 +1,26 @@
+{
+  "classification": "COMPLEX_COMPONENT_COMPOSITION_BLOCKED_REFERENCE_PLANE",
+  "composition_allowed": false,
+  "coupling_contract": {
+    "mdc_right_plane_id": "MDC_TOP_UPWARD_OUTPUT_PLANE",
+    "mdc_right_plane_z_nm": 975.0,
+    "medium": "APCD_SIO2_NATIVE_M1",
+    "np_component_plane_id": "NP_PILLAR_BOTTOM",
+    "np_component_plane_z_nm": 1212.0,
+    "propagation_contract": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\contracts\\coupling\\level1_interface_propagation_v1.json",
+    "propagation_contract_sha256": "cadc47de98aa7ccf3fdb9c03da369327db6fdb6aeaa7ac065e676e86c979b613",
+    "propagation_operator": "exp(+i*kz_sio2*d)",
+    "spacer_distance_nm": 237.0
+  },
+  "deterministic_transform_available": false,
+  "np_raw_state": {
+    "arbitrary_phase_alignment": false,
+    "deembedding": false,
+    "phase_origin": "raw monitor plane",
+    "reference_plane_id": "UNRESOLVED_FOR_COMPONENT_COMPOSITION",
+    "reflection_monitor_nominal_z_nm": -300.0,
+    "transmission_monitor_nominal_z_nm": 900.0
+  },
+  "reason": "No frozen deterministic transform connects the NP raw monitor-plane phase to NP_PILLAR_BOTTOM in the Coupling coordinate convention. Multiplying MDC/spacer phase with NP raw coefficients would create an unregistered gauge/reference-plane assumption.",
+  "status": "HARD_GATE"
+}
