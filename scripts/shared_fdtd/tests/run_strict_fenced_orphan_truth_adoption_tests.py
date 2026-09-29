@@ -5,7 +5,7 @@ import tempfile
 import threading
 from pathlib import Path
 
-root = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
+root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(root / "scripts"))
 from shared_fdtd.control_v3 import ControlDB, OrphanTruthAdoption, RecoveryBlocked, artifact_identity_sha256
 from shared_fdtd.engine.state_machine import replay_allowed

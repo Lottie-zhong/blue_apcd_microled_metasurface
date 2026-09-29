@@ -89,5 +89,13 @@
   },
   "production_cases_started": 0,
   "global_hold_changed": false,
-  "status": "PASS"
+  "status": "PARTIAL",
+  "limitations": [
+    "Canary host uses fd.run with 12 processes; GPU execution not verified",
+    "Canary bypasses new production launch authority",
+    "Host creation time does not prove solver OS identity",
+    "GPU H5 artifact verification missing",
+    "AUTO_REFILL_COUNT follows explicit dispatch; autonomous refill not proved",
+    "Six total canary entries across pre/post deployment batches; no claim of zero solver work"
+  ]
 }
