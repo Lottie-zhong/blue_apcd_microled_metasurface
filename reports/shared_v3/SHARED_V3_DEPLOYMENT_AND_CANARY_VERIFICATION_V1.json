@@ -1,0 +1,93 @@
+{
+  "schema": "SHARED_V3_DEPLOYMENT_AND_CANARY_VERIFICATION_V1",
+  "timestamp": "2026-09-29T16:03:12.262659Z",
+  "runtime_worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+  "runtime_commit": "ececbcd384d1f2824f28728e7ebe9d18067705dc",
+  "reliability_backend_commit": "06535e9c6706038d78509a707d033e0847fbf136",
+  "deployed_backend_commit": "ececbcd384d1f2824f28728e7ebe9d18067705dc",
+  "deployment_file_count": 20,
+  "production_unittest": {
+    "count": 36,
+    "passed": 36,
+    "status": "PASS"
+  },
+  "infrastructure_canary": {
+    "cases": 3,
+    "passed": 3,
+    "solver_runs": 3,
+    "scientific_entries": 3,
+    "all_released": true,
+    "fresh_load_points": [
+      3,
+      3,
+      3
+    ],
+    "evidence_dir": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929",
+    "terminals": [
+      {
+        "attempt": "attempt_001",
+        "case": "ML_CANARY_A",
+        "completed_at": "2026-09-29T15:57:37.803230+00:00",
+        "fresh_load": {
+          "T": [
+            1.0000126315255324,
+            0.9999994626409706,
+            0.9999639473767689
+          ],
+          "finite": true,
+          "points": 3
+        },
+        "post_fsp": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\A\\a1\\post\\2966e2e8-07c0-431f-97ca-dbcccc3e66ba__post.fsp",
+        "post_sha256": "1914bb4ad095cc09becf9dc8592cc4bc2d484d91a0ca372b6eba4dc4f84cf7dc",
+        "release_state": "RELEASED",
+        "status": "PASS"
+      },
+      {
+        "attempt": "attempt_001",
+        "case": "ML_CANARY_B",
+        "completed_at": "2026-09-29T15:58:53.138697+00:00",
+        "fresh_load": {
+          "T": [
+            0.15123466113923006,
+            0.1512347810647745,
+            0.15123485355510707
+          ],
+          "finite": true,
+          "points": 3
+        },
+        "post_fsp": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\B\\a1\\post\\87f2f9db-1f96-47bc-b62c-d8703dfa62ae__post.fsp",
+        "post_sha256": "9b4ba0731e5d9231e9f8e1560a5d4ce84c906f6ebc61b6f22810c5ca706fc330",
+        "release_state": "RELEASED",
+        "status": "PASS"
+      },
+      {
+        "attempt": "attempt_001",
+        "case": "ML_CANARY_C",
+        "completed_at": "2026-09-29T16:01:07.438499+00:00",
+        "fresh_load": {
+          "T": [
+            1.0000126315255324,
+            0.9999994626409706,
+            0.9999639473767689
+          ],
+          "finite": true,
+          "points": 3
+        },
+        "post_fsp": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\C\\a1\\post\\33d886fa-ee2b-4e2e-9175-c0fcf565e83f__post.fsp",
+        "post_sha256": "46a32d488aa9ef715eebdcce3b745a1946545abbe1783dd14c282a8c45711ec8",
+        "release_state": "RELEASED",
+        "status": "PASS"
+      }
+    ]
+  },
+  "status_metrics": {
+    "duplicate": 0,
+    "truth_loss": 0,
+    "capacity_violation": 0,
+    "host_crash": 0,
+    "foreign_mutation": 0
+  },
+  "production_cases_started": 0,
+  "global_hold_changed": false,
+  "status": "PASS"
+}
