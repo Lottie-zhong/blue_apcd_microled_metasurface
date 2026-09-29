@@ -1,6 +1,6 @@
 {
   "schema": "SHARED_V3_RESTART_PERSISTENCE_MATRIX_V1",
-  "generated_at_utc": "2026-09-29T21:12:44.352171+00:00",
+  "generated_at_utc": "2026-09-29T21:22:07.514433+00:00",
   "classification": "SYNTHETIC_FAULT_MATRIX_ONLY",
   "runtime_backend_commit": "b3a331b248e0d931c608d333965557c7f56e33cc",
   "current_reliability_head": "be628fdf375cb930d6a4998148a87b3d496c76d4",
@@ -78,6 +78,16 @@
       "replay_count": 0,
       "real_solver_invocations": 0,
       "production_db_unchanged": true
+    },
+    {
+      "row_id": "ALLOCATOR_POSTENTRY_RESTART",
+      "status": "PASS",
+      "evidence": "gpu_reliability_restart_matrix/allocator_postentry_20260930_01",
+      "entry_count": 1,
+      "release_count": 1,
+      "replay_count": 0,
+      "real_solver_invocations": 0,
+      "production_db_unchanged": true
     }
   ],
   "covered_invariants": [
@@ -96,5 +106,6 @@
     "real GPU solver post-entry crash"
   ],
   "verdict": "PARTIAL_SYNTHETIC_MATRIX_PASS_REAL_GPU_POSTENTRY_RESTART_EVIDENCE_MISSING",
-  "synthetic_postentry_report": "SHARED_V3_SYNTHETIC_POSTENTRY_RESTART_MATRIX_V1.json"
+  "synthetic_postentry_report": "SHARED_V3_SYNTHETIC_POSTENTRY_RESTART_MATRIX_V1.json",
+  "allocator_postentry_report": "SHARED_V3_ALLOCATOR_POSTENTRY_RESTART_MATRIX_V1.json"
 }

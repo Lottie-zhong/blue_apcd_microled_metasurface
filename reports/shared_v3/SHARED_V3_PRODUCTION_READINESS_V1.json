@@ -1,7 +1,7 @@
 {
   "schema": "SHARED_V3_PRODUCTION_READINESS_V1",
-  "generated_at_utc": "2026-09-29T21:14:18.498035+00:00",
-  "backend_commit": "e20fd126c41cc6aaa7dfe0c870dd4a13f4f7a880",
+  "generated_at_utc": "2026-09-29T21:22:07.517432+00:00",
+  "backend_commit": "2fd7c34d6d345dcc86212f83d7ee8d90c59d6dda",
   "production_db_sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
   "classification": "SHARED_V3_BLOCKED_BY_UNRESOLVED_PROVENANCE",
   "production_ready": false,
@@ -31,7 +31,8 @@
       "evidence": [
         "isolated deployed-controller restart twice PASS with zero dispatch",
         "synthetic post-entry restart PASS: one entry/one launch/no replay",
-        "real post-entry controller restart durability still missing"
+        "real post-entry controller restart durability still missing",
+        "allocator-backed synthetic post-entry restart PASS: queue RELEASED, slot/fence cleared, entry=1, replay=0"
       ]
     },
     "D_persistence": {
@@ -39,7 +40,8 @@
       "evidence": [
         "synthetic post-entry FSP/H5/truth-before-release sequence PASS",
         "production DB unchanged",
-        "real GPU post-entry crash/restart and full partial-promotion matrix missing"
+        "real GPU post-entry crash/restart and full partial-promotion matrix missing",
+        "allocator-backed synthetic post-entry truth-before-release and idempotent release PASS"
       ]
     },
     "E_hold_lifecycle": {
