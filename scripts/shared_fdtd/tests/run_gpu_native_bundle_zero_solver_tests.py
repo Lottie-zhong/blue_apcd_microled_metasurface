@@ -15,6 +15,7 @@ from shared_fdtd.engine.gpu_bundle import (
     persist_gpu_bundle,
     verify_bundle,
     wait_for_bundle_ready,
+    _select_staging_parent,
 )
 
 
@@ -161,6 +162,17 @@ def main():
         solver_calls = 0
         assert solver_calls == 0
         checks["K_no_solver_invocation"] = "PASS"
+
+        long_requested = root / ("deep-" * 60)
+        selected = _select_staging_parent(
+            long_requested,
+            root / "destination" / source.name,
+            {"files": [{"relative_path": source.name}, {"relative_path": source.stem + "/" + source.stem + "_output.h5"}]},
+        )
+        if sys.platform == "win32":
+            assert selected != long_requested
+            assert len(str(selected)) < len(str(long_requested))
+        checks["L_windows_long_staging_uses_short_same_volume_root"] = "PASS"
 
     print(json.dumps({
         "schema": "APCD_GPU_NATIVE_BUNDLE_ZERO_SOLVER_TESTS_V1",
