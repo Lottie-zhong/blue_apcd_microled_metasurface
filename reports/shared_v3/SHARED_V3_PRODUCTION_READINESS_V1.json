@@ -1,115 +1,122 @@
-﻿{
-    "backend_commit":  "e29cdbdb32eef0fb10913492af77070155442954",
-    "base_commit":  "f0cd93d1407d080bf93259fd1153cb664235e8c8",
-    "cached_duplicate_metric_before_deploy":  0,
-    "control":  {
-                    "control_generation":  23,
-                    "control_id":  1,
-                    "health_status":  "PASS",
-                    "new_entry_hold":  1,
-                    "temporary_runtime_cap":  null,
-                    "updated_at":  "2026-09-29T04:31:17.858902+00:00"
-                },
-    "control_generation":  23,
-    "deployed":  false,
-    "entry_idempotency_hardening":  {
-                                        "distinct_launch_conflict_is_rejected":  true,
-                                        "legacy_identity_is_not_silently_claimed":  true,
-                                        "same_launch_replay_is_idempotent":  true,
-                                        "semantic_key_includes_launch_id":  true,
-                                        "status":  "PASS",
-                                        "targeted_tests":  26,
-                                        "targeted_tests_pass":  26
-                                    },
-    "global_new_entry_hold":  true,
-    "global_new_entry_hold_release_recommended":  "NO",
-    "historical_incident_count":  7,
-    "launch_increment":  "atomic claim + conservative entry before callback; same-checkout host; attempt OS lock",
-    "legacy_controller_task_audit":  {
-                                         "after_enabled":  false,
-                                         "after_process_count":  0,
-                                         "before_enabled":  true,
-                                         "before_process_count":  0,
-                                         "post_xml_sha256":  "68ec988407b7339a11ae9d43fb01f2b9e94e01e6862d1cbcced56a2bf68bf316",
-                                         "pre_xml_sha256":  "39bc7a3a594e03448b35e82e35709b78ed3a9de917cd19feca496ce7b6ff660e",
-                                         "status":  "PASS",
-                                         "task":  "APCD_PW_K6_SEED_DB_V1_CONTROLLER"
-                                     },
-    "live_duplicate_scientific_entry_count":  1,
-    "live_metric_refresh":  {
-                                "duplicate_scientific_attempt_count":  1,
-                                "duplicate_scientific_entry_count":  1,
-                                "source":  "ControlDB.refresh_entry_metrics",
-                                "status":  "PASS",
-                                "updated_at":  "2026-09-29T14:57:51.363973+00:00"
-                            },
-    "open_gates":  [
-                       "end-to-end solver PID/creation-time binding",
-                       "full persistence/restart fault matrix",
-                       "infrastructure canary readiness and authorization",
-                       "committed backend deployment and production-path verification"
-                   ],
-    "production_claim_table_exists":  false,
-    "production_ready":  false,
-    "queue21_entry_events":  [
-                                 {
-                                     "event_id":  1499,
-                                     "event_type":  "SCIENTIFIC_SOLVER_ENTERED",
-                                     "fencing_generation":  14,
-                                     "timestamp":  "2026-09-23T00:39:11.269437+00:00"
-                                 },
-                                 {
-                                     "event_id":  1506,
-                                     "event_type":  "SCIENTIFIC_SOLVER_ENTERED",
-                                     "fencing_generation":  14,
-                                     "timestamp":  "2026-09-23T02:38:41.983302+00:00"
-                                 }
-                             ],
-    "reason":  "entry event semantic keys are launch-aware and duplicate launch identities are rejected; legacy seed-db controller is disabled; production remains held pending persistence/canary/deployment gates",
-    "safe_for_coupling_ml_production":  "NO",
-    "safe_for_traditional_production":  "NO",
-    "slots":  [
-                  {
-                      "slot_id":  "GLOBAL_SLOT_1",
-                      "state":  "FREE"
-                  },
-                  {
-                      "slot_id":  "GLOBAL_SLOT_2",
-                      "state":  "FREE"
-                  },
-                  {
-                      "slot_id":  "GLOBAL_SLOT_3",
-                      "state":  "FREE"
-                  }
-              ],
-    "solver_invocations_this_work":  0,
-    "solver_runs_this_turn":  0,
-    "source_sha256":  {
-                          "scripts/shared_fdtd/control_v3/allocator.py":  "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
-                          "scripts/shared_fdtd/control_v3/gpu_capacity.py":  "ecea56bcef13adf59381af30af5a74c0ccbf8d9a7f6a761a33822ea33a749a62",
-                          "scripts/shared_fdtd/control_v3/launch_authority.py":  "15349008b6121d5353cbf46d621bb9e149dd0b879abdb9ec9d9db08759bd3d71",
-                          "scripts/shared_fdtd/control_v3/resources.py":  "d1f99d25788e4862d09328f2e5e489c5890571cb0aa19151f788a53605408a9b",
-                          "scripts/shared_fdtd/engine/attempt_guard.py":  "984f098b24911a5c2cf9c804dbc6c098ccb59b0d709ffbdffd11c8e4cc12ee4b",
-                          "scripts/shared_fdtd/tests/test_attempt_guard.py":  "00ecb7c24776ad42e4da5df0f5e813dab344f93a4a1361c31f48666637028fcd",
-                          "scripts/shared_fdtd/tests/test_entry_event_idempotency.py":  "3245ef251a84696f670ff018afe13b85778e5c7c29349487cf24a885a51be6eb",
-                          "scripts/shared_fdtd/tests/test_launch_authority.py":  "b11ef015dd09b3e045dd939492467038d568453a8b31473f82d14b1bbee8d969",
-                          "scripts/shared_fdtd/tools/pw_scientific_launcher.py":  "e8d49d1a5bb373de04b326d8682ee8e02e69eaca57630d3a69f2ca3544928834",
-                          "scripts/shared_fdtd/tools/v3_dispatcher_service.py":  "19fdfa10719116246c0e23ad0176546fc08c8dc09915c81b93580966b3ebe0e4",
-                          "scripts/shared_fdtd/tools/v3_g2_host.py":  "79d2f3d73af87ee556aa5a53ddb4493bf5cfc3bc620be710fc0e740596131c4f"
-                      },
-    "timestamp":  "2026-09-29T15:09:41.2658018Z",
-    "zero_solver_entry_hardening":  {
-                                        "branch":  {
-                                                       "count":  20,
-                                                       "pass":  20
-                                                   },
-                                        "chaos":  {
-                                                      "count":  12,
-                                                      "pass":  12
-                                                  },
-                                        "global":  {
-                                                       "count":  20,
-                                                       "pass":  20
-                                                   }
-                                    }
+{
+    "backend_commit": "a4a5bdc4d7e9c182c4a9af86a2ae4451e45b77b8",
+    "base_commit": "f0cd93d1407d080bf93259fd1153cb664235e8c8",
+    "cached_duplicate_metric_before_deploy": 0,
+    "control": {
+        "control_generation": 23,
+        "control_id": 1,
+        "health_status": "PASS",
+        "new_entry_hold": 1,
+        "temporary_runtime_cap": null,
+        "updated_at": "2026-09-29T04:31:17.858902+00:00"
+    },
+    "control_generation": 23,
+    "deployed": false,
+    "entry_idempotency_hardening": {
+        "distinct_launch_conflict_is_rejected": true,
+        "legacy_identity_is_not_silently_claimed": true,
+        "same_launch_replay_is_idempotent": true,
+        "semantic_key_includes_launch_id": true,
+        "status": "PASS",
+        "targeted_tests": 26,
+        "targeted_tests_pass": 26
+    },
+    "global_new_entry_hold": true,
+    "global_new_entry_hold_release_recommended": "NO",
+    "historical_incident_count": 7,
+    "launch_increment": "atomic claim + conservative entry before callback; same-checkout host; attempt OS lock",
+    "legacy_controller_task_audit": {
+        "after_enabled": false,
+        "after_process_count": 0,
+        "before_enabled": true,
+        "before_process_count": 0,
+        "post_xml_sha256": "68ec988407b7339a11ae9d43fb01f2b9e94e01e6862d1cbcced56a2bf68bf316",
+        "pre_xml_sha256": "39bc7a3a594e03448b35e82e35709b78ed3a9de917cd19feca496ce7b6ff660e",
+        "status": "PASS",
+        "task": "APCD_PW_K6_SEED_DB_V1_CONTROLLER"
+    },
+    "live_duplicate_scientific_entry_count": 1,
+    "live_metric_refresh": {
+        "duplicate_scientific_attempt_count": 1,
+        "duplicate_scientific_entry_count": 1,
+        "source": "ControlDB.refresh_entry_metrics",
+        "status": "PASS",
+        "updated_at": "2026-09-29T14:57:51.363973+00:00"
+    },
+    "open_gates": [
+        "end-to-end solver PID/creation-time binding",
+        "infrastructure canary readiness and authorization",
+        "committed backend deployment and production-path verification"
+    ],
+    "production_claim_table_exists": false,
+    "production_ready": false,
+    "queue21_entry_events": [
+        {
+            "event_id": 1499,
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+            "fencing_generation": 14,
+            "timestamp": "2026-09-23T00:39:11.269437+00:00"
+        },
+        {
+            "event_id": 1506,
+            "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+            "fencing_generation": 14,
+            "timestamp": "2026-09-23T02:38:41.983302+00:00"
+        }
+    ],
+    "reason": "persistence/restart zero-solver matrix passed; entry event semantic keys are launch-aware and duplicate launch identities are rejected; legacy seed-db controller is disabled; production remains held pending PID binding, canary, and deployment gates",
+    "safe_for_coupling_ml_production": "NO",
+    "safe_for_traditional_production": "NO",
+    "slots": [
+        {
+            "slot_id": "GLOBAL_SLOT_1",
+            "state": "FREE"
+        },
+        {
+            "slot_id": "GLOBAL_SLOT_2",
+            "state": "FREE"
+        },
+        {
+            "slot_id": "GLOBAL_SLOT_3",
+            "state": "FREE"
+        }
+    ],
+    "solver_invocations_this_work": 0,
+    "solver_runs_this_turn": 0,
+    "source_sha256": {
+        "scripts/shared_fdtd/control_v3/allocator.py": "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
+        "scripts/shared_fdtd/control_v3/gpu_capacity.py": "ecea56bcef13adf59381af30af5a74c0ccbf8d9a7f6a761a33822ea33a749a62",
+        "scripts/shared_fdtd/control_v3/launch_authority.py": "15349008b6121d5353cbf46d621bb9e149dd0b879abdb9ec9d9db08759bd3d71",
+        "scripts/shared_fdtd/control_v3/resources.py": "d1f99d25788e4862d09328f2e5e489c5890571cb0aa19151f788a53605408a9b",
+        "scripts/shared_fdtd/engine/attempt_guard.py": "984f098b24911a5c2cf9c804dbc6c098ccb59b0d709ffbdffd11c8e4cc12ee4b",
+        "scripts/shared_fdtd/tests/test_attempt_guard.py": "00ecb7c24776ad42e4da5df0f5e813dab344f93a4a1361c31f48666637028fcd",
+        "scripts/shared_fdtd/tests/test_entry_event_idempotency.py": "3245ef251a84696f670ff018afe13b85778e5c7c29349487cf24a885a51be6eb",
+        "scripts/shared_fdtd/tests/test_launch_authority.py": "b11ef015dd09b3e045dd939492467038d568453a8b31473f82d14b1bbee8d969",
+        "scripts/shared_fdtd/tools/pw_scientific_launcher.py": "b01de4f7a638e804cf8d395cc29ebb223352fb517d8176a1c6ae33119b1fb310",
+        "scripts/shared_fdtd/tools/v3_dispatcher_service.py": "19fdfa10719116246c0e23ad0176546fc08c8dc09915c81b93580966b3ebe0e4",
+        "scripts/shared_fdtd/tools/v3_g2_host.py": "79d2f3d73af87ee556aa5a53ddb4493bf5cfc3bc620be710fc0e740596131c4f",
+        "scripts/shared_fdtd/engine/event_log.py": "034e49990e42fdfb6cdeca56687e3b6659529ef88a740fa94f1ce3f383715aaa"
+    },
+    "timestamp": "2026-09-29T15:40:46.060723Z",
+    "zero_solver_entry_hardening": {
+        "branch": {
+            "count": 20,
+            "pass": 20
+        },
+        "chaos": {
+            "count": 12,
+            "pass": 12
+        },
+        "global": {
+            "count": 20,
+            "pass": 20
+        }
+    },
+    "persistence_restart_matrix": {
+        "status": "PASS",
+        "script_count": 6,
+        "solver_runs": 0,
+        "scientific_solver_entries": 0,
+        "evidence": "reports/shared_v3/SHARED_V3_PERSISTENCE_RESTART_MATRIX_V1.json"
+    }
 }

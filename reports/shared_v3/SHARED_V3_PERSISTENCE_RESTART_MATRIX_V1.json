@@ -1,0 +1,45 @@
+{
+  "schema": "SHARED_V3_PERSISTENCE_RESTART_MATRIX_V1",
+  "backend_commit": "a4a5bdc4d7e9c182c4a9af86a2ae4451e45b77b8",
+  "solver_runs": 0,
+  "scientific_solver_entries": 0,
+  "all_pass": true,
+  "tests": [
+    {
+      "script": "scripts/shared_fdtd/tests/run_persistence_zero_solver_tests.py",
+      "returncode": 0,
+      "stdout": "shared V3 persistence zero-solver tests: PASS\n",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/shared_fdtd/tests/run_durable_postsolver_finisher_tests.py",
+      "returncode": 0,
+      "stdout": "{\"count\": 20, \"passed\": 20, \"solver_runs\": 0, \"replay\": 0, \"failed\": []}\n",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/shared_fdtd/tests/run_gpu_completion_barrier_zero_solver_tests.py",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS\", \"tests\": [{\"test\": \"test_missing_log\", \"status\": \"PASS\"}, {\"test\": \"test_api_early_return\", \"status\": \"PASS\"}, {\"test\": \"test_active_job\", \"status\": \"PASS\"}, {\"test\": \"test_missing_monitor\", \"status\": \"PASS\"}, {\"test\": \"test_completed_job\", \"status\": \"PASS\"}, {\"test\": \"test_restart_replay_is_blocked\", \"status\": \"PASS\"}, {\"test\": \"test_idempotent_evidence\", \"status\": \"PASS\"}, {\"test\": \"test_mutex_blocks_active_job\", \"status\": \"PASS\"}, {\"test\": \"<lambda>\", \"status\": \"PASS\"}, {\"test\": \"<lambda>\", \"status\": \"PASS\"}, {\"test\": \"<lambda>\", \"status\": \"PASS\"}, {\"test\": \"test_completed_job_with_entry_process\", \"status\": \"PASS\"}, {\"test\": \"test_standalone_command_and_script\", \"status\": \"PASS\"}, {\"test\": \"test_standalone_child_success\", \"status\": \"PASS\"}, {\"test\": \"test_standalone_child_failure\", \"status\": \"PASS\"}], \"test_count\": 15, \"solver_runs\": 0, \"scientific_solver_entries\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/shared_fdtd/tests/run_gpu_truth_schema_zero_solver_tests.py",
+      "returncode": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"solver_entries\": 0,\n  \"tests\": {\n    \"MON_IN_missing_EH_FAIL\": true,\n    \"MON_PRENP_missing_EH_FAIL\": true,\n    \"MON_POSTNP_missing_EH_FAIL\": true,\n    \"MON_REFLECTION_power_only_PASS\": true,\n    \"MON_REFLECTION_missing_FAIL\": true,\n    \"MON_REFLECTION_power_unreadable_FAIL\": true,\n    \"MON_REFLECTION_wrong_geometry_FAIL\": true,\n    \"all_role_contracts_PASS\": true,\n    \"CPU_truth_role_path_unchanged\": true,\n    \"archive_restore_role_valid_truth_PASS\": true\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/shared_fdtd/tests/run_postentry_truth_before_release_race_tests.py",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS\", \"count\": 17, \"passed\": 17, \"solver_invocations\": 0, \"scientific_solver_entries\": 0, \"replays\": 0, \"tests\": [{\"test\": \"test_pending_without_solver_return\", \"status\": \"PASS\"}, {\"test\": \"test_fsp_present_h5_pending\", \"status\": \"PASS\"}, {\"test\": \"test_native_present_archive_pending\", \"status\": \"PASS\"}, {\"test\": \"test_archive_present_load_pending\", \"status\": \"PASS\"}, {\"test\": \"test_durable_truth_not_released_by_reconciler\", \"status\": \"PASS\"}, {\"test\": \"test_explicit_failure_can_release_once\", \"status\": \"PASS\"}, {\"test\": \"test_host_disappears_after_return_pending\", \"status\": \"PASS\"}, {\"test\": \"test_observer_disappears_after_return_pending\", \"status\": \"PASS\"}, {\"test\": \"test_controller_disappears_after_return_pending\", \"status\": \"PASS\"}, {\"test\": \"test_repeated_reconciler_no_early_release\", \"status\": \"PASS\"}, {\"test\": \"test_owner_ttl_during_persistence\", \"status\": \"PASS\"}, {\"test\": \"test_stale_process_probe_is_not_authority\", \"status\": \"PASS\"}, {\"test\": \"test_finalization_between_passes_releases_once\", \"status\": \"PASS\"}, {\"test\": \"test_duplicate_reconciler_no_double_release\", \"status\": \"PASS\"}, {\"test\": \"test_persistence_failure_quarantines_without_release\", \"status\": \"PASS\"}, {\"test\": \"test_ownership_mismatch_not_created_by_reconciler\", \"status\": \"PASS\"}, {\"test\": \"test_hold_blocks_successor\", \"status\": \"PASS\"}]}\n",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/shared_fdtd/tests/run_strict_fenced_orphan_truth_adoption_tests.py",
+      "returncode": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"pass\": 30,\n  \"total\": 30,\n  \"fails\": {}\n}\n",
+      "stderr": ""
+    }
+  ]
+}
