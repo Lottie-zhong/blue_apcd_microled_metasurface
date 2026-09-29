@@ -1,0 +1,55 @@
+[
+  {
+    "command": [
+      "-m",
+      "pytest",
+      "-q",
+      "scripts/shared_fdtd/tests/test_launch_authority.py",
+      "scripts/shared_fdtd/tests/test_attempt_guard.py",
+      "scripts/shared_fdtd/tests/test_entry_event_idempotency.py"
+    ],
+    "exit_code": 0,
+    "stdout": ".......................                                                  [100%]\n23 passed in 4.39s\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_same_launcher_preentry_handshake_zero_solver_test.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"solver_runs\": 0, \"scientific_solver_entries\": 0, \"queue_state\": \"WAIT_RESOURCE_CAPACITY\", \"owner_released\": true, \"stdout_captured\": true, \"stderr_captured\": true}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_pw_launcher_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"solver_invocations\": 0,\n  \"checks\": {\n    \"M_raw_complex_fields_persisted\": \"PASS\",\n    \"A_payload_valid\": \"PASS\",\n    \"B_foreign_owner_rejected\": \"PASS\",\n    \"C_invalid_fencing_rejected\": \"PASS\",\n    \"D_contract_gate\": \"PASS\",\n    \"E_preentry_failure_no_entry\": \"PASS\",\n    \"F_confirmed_entry_boundary\": \"PASS\",\n    \"G_single_confirmation\": \"PASS\",\n    \"H_no_replay\": \"PASS\",\n    \"I_load_only_no_solver\": \"PASS\",\n    \"J_two_slot_isolation\": \"PASS\",\n    \"K_process_entry_evidence\": \"PASS\",\n    \"L_launcher_selector_gate\": \"PASS\"\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_gpu_engine_exit_observability_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"solver_invocations\": 0,\n  \"passed\": 11,\n  \"count\": 11,\n  \"tests\": [\n    [\n      \"A_normal_return_code_persisted\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"B_nonzero_return_code_persisted\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"C_last_seen_preserved\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"D_unknown_descendant_exit_is_unknown\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"E_final_log_tail_capture\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"F_append_only_timeline\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"G_two_case_evidence_isolation\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"H_restart_preserves_timeline\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"I_observer_does_not_mutate_control\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"K_launcher_persists_observability_without_solver\",\n      \"PASS\",\n      \"\"\n    ],\n    [\n      \"J_solver_invocations_zero\",\n      \"PASS\",\n      \"solver_invocations=0\"\n    ]\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_preentry_host_liveness_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"solver_runs\": 0, \"scientific_solver_entries\": 0, \"queue_state\": \"FAILED_PREENTRY\", \"owner_released\": true, \"classification\": \"PRE_ENTRY_HOST_LAUNCH_FAILURE\"}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "scripts/shared_fdtd/tests/run_exact_permit_zero_solver_tests.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"count\": 14, \"pass\": 14, \"fail\": 0, \"solver_invocations\": 0, \"scientific_solver_entries\": 0, \"results\": [[\"A_hold_veto_without_permit\", \"PASS\", \"\"], [\"B_exact_permit_consumed_at_final_gate\", \"PASS\", \"\"], [\"C_consumed_permit_blocks_duplicate_gate_without_releasing_slot\", \"PASS\", \"\"], [\"D_permit_is_attempt_scoped\", \"PASS\", \"\"], [\"E_generation_revalidation_blocks_stale_permit\", \"PASS\", \"\"], [\"F_only_one_armed_permit\", \"PASS\", \"\"], [\"G_cancelled_permit_cannot_admit\", \"PASS\", \"\"], [\"H_dispatch_path_consumes_exact_permit_once\", \"PASS\", \"\"], [\"I_wait_row_with_proven_stale_identity_recovers_and_cancels_permit\", \"PASS\", \"\"], [\"J_unproven_stale_identity_blocks\", \"PASS\", \"\"], [\"K_entry_blocks_stale_recovery\", \"PASS\", \"\"], [\"M_setup_only_fsp_copy_is_allowed\", \"PASS\", \"\"], [\"N_changed_nonsetup_fsp_blocks\", \"PASS\", \"\"], [\"L_no_solver_invocations\", \"PASS\", \"\"]]}\n",
+    "stderr": ""
+  }
+]

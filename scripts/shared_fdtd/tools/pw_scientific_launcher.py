@@ -336,6 +336,8 @@ def run_standalone_gpu_and_confirm_completion(
                     cwd=str(run_fsp.parent),
                     creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
                 )
+            start_child.launch_command = list(command)
+            start_child.launch_executable = str(executable)
             child = launch_guard(start_child) if launch_guard is not None else start_child()
             observability.child_started(child, command=command, cwd=run_fsp.parent)
             confirmed = False

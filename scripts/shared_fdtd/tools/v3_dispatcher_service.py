@@ -12,11 +12,11 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "scripts"))
 DB_PATH = Path(r"D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3")
 HOST_PYTHON = r"C:\Users\DELL\anaconda3\python.exe"
-HOST_SCRIPT = r"D:\apcd_runtime\bin\v3g2h.py"
+HOST_SCRIPT = str(ROOT / "scripts" / "shared_fdtd" / "tools" / "v3_g2_host.py")
 CREATE_NO_WINDOW = 0x08000000
 CREATE_BREAKAWAY_FROM_JOB = 0x01000000
 JOB_OBJECT_EXTENDED_LIMIT_INFORMATION = 9

@@ -9,31 +9,10 @@ GPU_ACTIVE_STATES = ("RESERVED", "LIVE", "RELEASE_PENDING", "OWNER_QUARANTINED")
 
 
 def ensure_gpu_capacity_tables(con, default_cap: int = 1) -> None:
-    con.executescript(
-        """
-        CREATE TABLE IF NOT EXISTS backend_capacity (
-          backend_type TEXT PRIMARY KEY,
-          physical_cap INTEGER NOT NULL CHECK(physical_cap BETWEEN 1 AND 3),
-          updated_at TEXT NOT NULL
-        );
-        CREATE TABLE IF NOT EXISTS gpu_capacity_leases (
-          capacity_lease_id INTEGER PRIMARY KEY AUTOINCREMENT,
-          branch_id TEXT NOT NULL,
-          logical_case_id TEXT NOT NULL,
-          attempt_id TEXT NOT NULL,
-          slot_id TEXT NOT NULL,
-          lease_token_hash TEXT NOT NULL,
-          fencing_generation INTEGER NOT NULL,
-          state TEXT NOT NULL CHECK(state IN ('RESERVED','LIVE','RELEASE_PENDING','OWNER_QUARANTINED','RELEASED')),
-          created_at TEXT NOT NULL,
-          updated_at TEXT NOT NULL,
-          released_at TEXT,
-          UNIQUE(branch_id, logical_case_id, attempt_id)
-        );
-        CREATE INDEX IF NOT EXISTS idx_gpu_capacity_leases_active
-          ON gpu_capacity_leases(state);
-        """
-    )
+    # execute each DDL statement without implicitly committing the owner transaction.
+    con.execute('CREATE TABLE IF NOT EXISTS backend_capacity (\n          backend_type TEXT PRIMARY KEY,\n          physical_cap INTEGER NOT NULL CHECK(physical_cap BETWEEN 1 AND 3),\n          updated_at TEXT NOT NULL\n        )')
+    con.execute("CREATE TABLE IF NOT EXISTS gpu_capacity_leases (\n          capacity_lease_id INTEGER PRIMARY KEY AUTOINCREMENT,\n          branch_id TEXT NOT NULL,\n          logical_case_id TEXT NOT NULL,\n          attempt_id TEXT NOT NULL,\n          slot_id TEXT NOT NULL,\n          lease_token_hash TEXT NOT NULL,\n          fencing_generation INTEGER NOT NULL,\n          state TEXT NOT NULL CHECK(state IN ('RESERVED','LIVE','RELEASE_PENDING','OWNER_QUARANTINED','RELEASED')),\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          released_at TEXT,\n          UNIQUE(branch_id, logical_case_id, attempt_id)\n        )")
+    con.execute('CREATE INDEX IF NOT EXISTS idx_gpu_capacity_leases_active\n          ON gpu_capacity_leases(state)')
     con.execute(
         "INSERT OR IGNORE INTO backend_capacity(backend_type,physical_cap,updated_at) VALUES('GPU',?,?)",
         (int(default_cap), utc_now()),

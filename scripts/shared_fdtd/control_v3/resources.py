@@ -87,32 +87,9 @@ def _positive_int(value: Any) -> int | None:
 
 
 def ensure_resource_tables(con) -> None:
-    con.executescript(
-        """
-        CREATE TABLE IF NOT EXISTS resource_reservations (
-          reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
-          branch_id TEXT NOT NULL,
-          logical_case_id TEXT NOT NULL,
-          attempt_id TEXT NOT NULL,
-          slot_id TEXT NOT NULL,
-          resource_class TEXT NOT NULL,
-          backend_type TEXT NOT NULL DEFAULT 'CPU',
-          estimated_peak_ram_bytes INTEGER,
-          estimated_commit_bytes INTEGER,
-          mpi_ranks INTEGER NOT NULL,
-          threads INTEGER NOT NULL,
-          integrated_pw INTEGER NOT NULL DEFAULT 0,
-          safety_margin_ratio REAL NOT NULL,
-          state TEXT NOT NULL CHECK(state IN ('RESERVED','LIVE','RELEASE_PENDING','OWNER_QUARANTINED','RELEASED')),
-          created_at TEXT NOT NULL,
-          updated_at TEXT NOT NULL,
-          released_at TEXT,
-          UNIQUE(branch_id, logical_case_id, attempt_id)
-        );
-        CREATE INDEX IF NOT EXISTS idx_resource_reservations_active
-          ON resource_reservations(state, branch_id, integrated_pw);
-        """
-    )
+    # execute each DDL statement without implicitly committing the owner transaction.
+    con.execute("CREATE TABLE IF NOT EXISTS resource_reservations (\n          reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,\n          branch_id TEXT NOT NULL,\n          logical_case_id TEXT NOT NULL,\n          attempt_id TEXT NOT NULL,\n          slot_id TEXT NOT NULL,\n          resource_class TEXT NOT NULL,\n          backend_type TEXT NOT NULL DEFAULT 'CPU',\n          estimated_peak_ram_bytes INTEGER,\n          estimated_commit_bytes INTEGER,\n          mpi_ranks INTEGER NOT NULL,\n          threads INTEGER NOT NULL,\n          integrated_pw INTEGER NOT NULL DEFAULT 0,\n          safety_margin_ratio REAL NOT NULL,\n          state TEXT NOT NULL CHECK(state IN ('RESERVED','LIVE','RELEASE_PENDING','OWNER_QUARANTINED','RELEASED')),\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          released_at TEXT,\n          UNIQUE(branch_id, logical_case_id, attempt_id)\n        )")
+    con.execute('CREATE INDEX IF NOT EXISTS idx_resource_reservations_active\n          ON resource_reservations(state, branch_id, integrated_pw)')
     columns = {row[1] for row in con.execute("PRAGMA table_info(resource_reservations)")}
     if "backend_type" not in columns:
         con.execute("ALTER TABLE resource_reservations ADD COLUMN backend_type TEXT NOT NULL DEFAULT 'CPU'")

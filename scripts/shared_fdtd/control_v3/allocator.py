@@ -458,7 +458,7 @@ class Allocator:
             if "locked" in str(exc).lower(): raise ControlPlaneDeferred(str(exc)) from exc
             raise
 
-    def mark_entered(self, lease):
+    def mark_entered(self, lease, *, launch_identity=None):
         """Record an observation once; this is not authorization to invoke a solver.
 
         Reconciliation and the returning worker may report the same entry. Keep
@@ -500,7 +500,7 @@ class Allocator:
                     lease.owner_branch, lease.logical_case_id, lease.attempt_id,
                     "SCIENTIFIC_SOLVER_ENTERED"
                 ], separators=(",", ":")).encode()).hexdigest()
-                self._event(con, lease, "SCIENTIFIC_SOLVER_ENTERED", {"semantic_event_key": key})
+                self._event(con, lease, "SCIENTIFIC_SOLVER_ENTERED", {"semantic_event_key": key, "launch_identity": launch_identity})
                 return {"status": "RECORDED", "semantic_event_key": key}
         except sqlite3.OperationalError as exc:
             if "locked" in str(exc).lower():
