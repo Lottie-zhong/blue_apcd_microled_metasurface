@@ -289,7 +289,7 @@ def run_canary(db_path, out):
         'GIT_STATUS':'dirty_uncommitted_no_push',
     }
     write_final = f"Status: {final['STATUS']}\nClassification: {classification}\n\n" + json.dumps(redact(final),indent=2,ensure_ascii=False) + "\n"
-    (OUT/'FINAL_REPORT.md').write_text(write_final,encoding='utf-8',newline='\n')
+    (OUT/'FINAL_REPORT.md').write_text(write_final,encoding='utf-8')
     files['FINAL_REPORT.md']=sha(OUT/'FINAL_REPORT.md')
     atomic_json(OUT/'SHA256_MANIFEST_V1.json',{'generated_at_utc':utc_now(),'files':files})
     print(json.dumps(redact(final),ensure_ascii=False))
