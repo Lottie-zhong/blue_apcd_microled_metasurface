@@ -1,0 +1,19 @@
+{
+  "formula": {
+    "reflection": "sqrt(formal_R_total) * gratingvector_component",
+    "transmission": "sqrt(formal_T_total) * gratingvector_component"
+  },
+  "historical_complex_convention_authority": false,
+  "incident_complex_amplitude_division": false,
+  "per_case_phase_rescaling": false,
+  "power_bookkeeping": "gratingvector order sum closure passes; this does not prove scattering normalization",
+  "projections": "P=TM projection; S=y/TE component",
+  "reflection_flux": "raw reflection E/H Poynting is non-isolated and includes incident standing-field contribution",
+  "source_reference_deembedding": false,
+  "source_script": "scripts/np_k6_hf22_complex_scattering_state_extractor_v1.py",
+  "source_script_sha256": "6fc70aeb5ffd3c1a3f57adab4e49d3deacf0fca9fa7b06b7706df54d4ddd968d",
+  "source_truth_sha256": "5937a30e9407bf71e45599883b888069c1f2894e29c49018e169ff5f2233294a",
+  "sourcepower": "sourcepower(f) is real power normalization; no complex incident modal amplitude division",
+  "status": "PASS_EXTRACTOR_SEMANTICS_AUDITED_NOT_SCATTERING_NORMALIZED",
+  "stored_semantics": "raw monitor-plane complex field proxy normalized by real formal power"
+}

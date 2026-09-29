@@ -1,0 +1,12 @@
+{
+  "blocking_condition": "Requires scattering-normalized coefficient and common incident phase gauge; neither is established.",
+  "kx": "2*pi*m/Px; ky=0",
+  "medium_branch": "kz=sqrt((n*k0)^2-kx^2), passive branch Re(kz)>=0 and Im(kz)>=0",
+  "open_order_rule": "real propagating orders only; evanescent orders excluded from power",
+  "power_invariance": "|a|^2 invariant in homogeneous lossless medium for propagating order under phase-only transform",
+  "reflection_transform": "a_R(z=0-) = a_R(z=-300) * exp(-i*kz_sio2*(0-(-300) nm)) for backward wave",
+  "round_trip_identity": "a(z2)=a(z1)*exp(+i*kz*(z2-z1)); inverse uses exp(-i*kz*delta_z)",
+  "solver_calls": 0,
+  "status": "CONDITIONAL_ANALYTIC_ONLY_NOT_FROZEN",
+  "transmission_transform": "a_out(z=500+) = a_T(z=900) * exp(-i*kz_air*(900-500) nm)"
+}
