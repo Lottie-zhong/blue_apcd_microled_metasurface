@@ -5,8 +5,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
-sys.path.insert(0, str(ROOT / "scripts"))
+BACKEND_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(BACKEND_ROOT / "scripts"))
 DB_PATH = Path(r"D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3")
 AUDIT = Path(r"D:\apcd_runtime\global_fdtd_control_v3\reconciler_last.json")
 
