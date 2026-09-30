@@ -1,0 +1,172 @@
+{
+  "audit_source_bundle_sha256": "b5fe0601dc1e95a7a4d1dce4f192add4f23fc97509929bfd278715ff71647ece",
+  "d180_provenance_reconciliation": {
+    "attempt2_formal_quality": "pass / warning_valid",
+    "attempt2_post_fsp_sha256": "142c40bc78aa6605ad77b84a9be1a62508c35d46045885506828d014d19f419d",
+    "attempt2_result_sha256": "7f8e2909a91349ace2f45e2564c568c6526ede62dcd7d693029549e8b8debc67",
+    "historical_anomaly_preserved": true,
+    "legacy_snapshot_says_excluded": true,
+    "resolved_by_later_authoritative_state": "explicitly authorized single attempt-2; persisted post-FSP; formal read-only case extraction; case result hash equals library_manifest source_result_hashes[180]; 11-row exact txx/T parity",
+    "run_manifest_pre_fsp_warning": [
+      "D180 setup heartbeat pre-FSP path now contains different bytes; do not treat the current file as the setup artifact",
+      "D180 run_manifest pre_fsp pointer does not match setup heartbeat; setup hash is retained from the heartbeat, but the referenced pre-FSP bytes are not currently recoverable"
+    ],
+    "setup_pre_fsp_audit": {
+      "current_bytes_match_heartbeat": false,
+      "current_path_exists": true,
+      "current_path_sha256": "36cfefa1ca037e07aec9f1296100facff3962492a9da7f1715d14809672dc6cd",
+      "heartbeat_path": "runtime_fsp\\np_k6_p1d2_d180_explicit_rerun_v1\\NP_P1D2_BROADBAND_PILLAR_H500_D180_X_EXPLICIT_RERUN_V1_pre.fsp",
+      "heartbeat_recorded_sha256": "f23b022fbddad11b57d5fc51f507e3a1abbdee1b25adbd3ce9e0b0aca11cd107"
+    }
+  },
+  "hf22_lf_parity": {
+    "max_abs_delta": 1.7881393432617188e-07,
+    "pass": true,
+    "rows": 242,
+    "tolerance": 2e-06
+  },
+  "is_learned_model": false,
+  "material_geometry_contract": {
+    "background_material": "APCD_SIO2_NATIVE_M1",
+    "diameter_grid_nm": [
+      100,
+      230,
+      5
+    ],
+    "fixed_x_positions_nm": [
+      -725,
+      -435,
+      -145,
+      145,
+      435,
+      725
+    ],
+    "full_k6_height_nm": 500,
+    "period_x_nm": 1740,
+    "period_y_nm": 290,
+    "physical_D1_to_D6_order": true,
+    "single_pillar_material": "APCD_TIO2_NATIVE_M1"
+  },
+  "method": "frozen D0 single-pillar txx library followed by the exact ordered six-bin DFT proxy from stage_np_k6_ml_d0_build_database_foundation.py",
+  "not_integrated_truth": true,
+  "output_fields": {
+    "R": "UNAVAILABLE",
+    "T_proxy": "sum eta_m_proxy for m=-1,0,+1",
+    "complex_amplitude": "NOT_EXPOSED",
+    "order_vector": [
+      "eta_m-3_proxy",
+      "eta_m-2_proxy",
+      "eta_m-1_proxy",
+      "eta_m+0_proxy",
+      "eta_m+1_proxy",
+      "eta_m+2_proxy",
+      "eta_m+3_proxy"
+    ]
+  },
+  "provenance_hash": "ca58ab027fe20655f9e70d897c3c6c426266fcf67f531ef9b8d10fc518c66e1b",
+  "provider_id": "NP_LF_FEATURE_PROVIDER_V2",
+  "runtime_domain": {
+    "cardinality": 387420489,
+    "interpolation": false,
+    "k_y": 0.0,
+    "ordered_domain": "all 27^6 ordered sequences drawn from {100,105,...,230} nm",
+    "polarization": [
+      "P_XLIKE"
+    ],
+    "sorting_or_permutation": false,
+    "u_x": 0.0,
+    "wavelengths_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "software_runtime": {
+    "numpy": "2.2.5",
+    "python": "3.10.20"
+  },
+  "source_authority": {
+    "d0_array_manifest": {
+      "path": "outputs/np_k6_ml_d0_database_foundation_v1/k6_lf_arrays_manifest.json",
+      "sha256": "d571b3e8b7e99e4f54eafcc2d27346179f4d929b1014cad18b6d527465087d44"
+    },
+    "d0_generator": {
+      "path": "scripts/stage_np_k6_ml_d0_build_database_foundation.py",
+      "sha256": "2ebed2ed35929cc5bee3564369bfd9b271868732564afc69ad416703689503dd"
+    },
+    "d180_explicit_attempt2": {
+      "explicit_contract": {
+        "path": "outputs/np_k6_p1d2_d180_explicit_rerun_v1/execution_contract.json",
+        "sha256": "f11d47bd6a05fec601fd4132aaf937f4ca0dc81d8a17aeea9c4a3f175cddb749"
+      },
+      "post_fsp": {
+        "path": "runtime_fsp/np_k6_p1d2_d180_explicit_rerun_v1/NP_P1D2_BROADBAND_PILLAR_H500_D180_X_EXPLICIT_RERUN_V1_post.fsp",
+        "sha256": "142c40bc78aa6605ad77b84a9be1a62508c35d46045885506828d014d19f419d"
+      },
+      "results": {
+        "path": "outputs/np_k6_p1d2b_broadband_d180_x_v1/results.json",
+        "sha256": "7f8e2909a91349ace2f45e2564c568c6526ede62dcd7d693029549e8b8debc67"
+      },
+      "run_manifest": {
+        "path": "outputs/np_k6_p1d2b_broadband_d180_x_v1/run_manifest.json",
+        "sha256": "b46f7aac209210850a1bb6098963201233dce2f073b34475a31dfb877ada6a0a"
+      },
+      "setup_heartbeat": {
+        "path": "outputs/np_k6_p1d2_d180_explicit_rerun_v1/heartbeat.json",
+        "sha256": "d0a0518fb78dd9658f5a3796ef352fce3cfa0f0121fd50377aaed82d86563ae0"
+      },
+      "verification": {
+        "path": "outputs/np_k6_p1d2b_broadband_d180_x_v1/verification_summary.json",
+        "sha256": "f2ec7763d760cf7af881c3179a7e115154064abee8d180f838adb385658baf62"
+      }
+    },
+    "legacy_provenance_snapshot": {
+      "path": "outputs/np_k6_p1d2_broadband_library_27point_v1/provenance_verification.json",
+      "sha256": "a90fb35c5ed328ad02030d94ad2ee9470a1f3de55dafab901ab36647de3f7b32"
+    },
+    "lf22_full_vector_csv": {
+      "path": "outputs/np_k6_m9_22g_forward_retraining_v1/lf22_full_vector_authority.csv",
+      "sha256": "bbf893209cc0fe8df0ae6ef4426071f5c7960f17bc11263139e06f2fe15a0665"
+    },
+    "lf22_geometry_support_manifest": {
+      "path": "outputs/np_k6_m9_22g_forward_retraining_v1/lf22_full_vector_authority_manifest.json",
+      "sha256": "6cbe9a40cb6577704d75384bfc31a5b933a08317b2ea5a0b3e2098848c07a08f"
+    },
+    "single_pillar_library": {
+      "path": "outputs/np_k6_p1d2_broadband_library_27point_v1/library_long.csv",
+      "sha256": "b0e332690deef33dbcd8f3bcc169a72681c4bebb705af13221f2125df6bcd0d6"
+    },
+    "single_pillar_library_manifest": {
+      "path": "outputs/np_k6_p1d2_broadband_library_27point_v1/library_manifest.json",
+      "sha256": "b1fd276ffc042e1e6485cf192c0a1ba1c145ea30013da97e5086411a9043791d"
+    },
+    "v1_unlabeled_query_geometry_cache": {
+      "path": "outputs/np_k6_coupling_forward_feature_interface_v1/coupling_20g_domain_support.json",
+      "sha256": "9f17668d95b14faabcb162f5d15e9a51357d0f31cb199df576ced3f8f169dca8"
+    }
+  },
+  "status": "CALLABLE_DETERMINISTIC_LF_ONLY",
+  "training_support": {
+    "exact_20g_hf22_overlap": 0,
+    "fit_status": "NOT_APPLICABLE_DETERMINISTIC_PROVIDER",
+    "fit_training_geometries": 0,
+    "full_k6_hf22_empirical_reference_geometries": 22,
+    "source_calibration": "27 single-pillar diameters x 11 wavelengths, x-only"
+  },
+  "v1_interface_audit": {
+    "classification": "B_EXECUTABLE_PROVIDER_BUT_DOMAIN_GUARD_BLOCKS_COUPLING_GEOMETRIES",
+    "coupling_v1_exact_hf22_geometry_overlap": "0/20",
+    "coupling_v1_exact_lf_query_coverage": "0/220",
+    "runtime_domain": "exact key entries only for 22 HF22 geometries and 296010 strictly increasing combinations emitted by itertools.combinations(DS,6); no unseen ordered-sequence DFT evaluation",
+    "runtime_path": "adapter.request -> lf_features -> exact geometry/wavelength/polarization key -> LF22 table, else exact geometry_id scan in D0 sorted-combination master, then precomputed chunk array lookup",
+    "strictly_increasing_coupling_geometry_count": 0
+  }
+}
