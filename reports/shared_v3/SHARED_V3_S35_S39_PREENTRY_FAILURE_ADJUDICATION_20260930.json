@@ -1,0 +1,496 @@
+{
+  "aggregate": {
+    "all_four_preentry_leases_released": true,
+    "all_slots_free": true,
+    "all_terminal_classifications": "FAILED_PREENTRY",
+    "each_entry_count_zero": true,
+    "first_launch_cause_for_each_case": "NOT_RECOVERABLE_FROM_RETAINED_ARTIFACTS",
+    "host_launches_observed": 4,
+    "lease_acquire_events": [
+      1795,
+      1805,
+      1799,
+      1809
+    ],
+    "lease_release_events": [
+      1803,
+      1813,
+      1804,
+      1814
+    ],
+    "no_active_host_fdtd_or_mpiexec_process_at_snapshot": true,
+    "scientific_solver_entered_events": 0,
+    "scientific_solver_invocation_count": 0,
+    "second_launch_error": "PW_CONTRACT_MISSING on nested pw_contract fields in the legacy coupling-worktree validator path"
+  },
+  "attempt_runs": [
+    {
+      "attempt_id": "attempt_001",
+      "case_id": "K6V1_S35",
+      "cwd_observed": null,
+      "failure_cause": "NOT_RECOVERABLE_FROM_RETAINED_ARTIFACTS",
+      "fencing_generation": 59,
+      "host_command": "C:\\Users\\DELL\\anaconda3\\pythonw.exe D:\\apcd_runtime\\bin\\v3g2h.py D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\host_config.json",
+      "host_pid": 29948,
+      "launch_ordinal": 1,
+      "lease_event_ids": [
+        1795,
+        1796,
+        1797,
+        1798,
+        1803
+      ],
+      "lease_events": [
+        {
+          "event_id": 1795,
+          "event_type": "LEASE_ACQUIRED",
+          "fencing_generation": 59,
+          "lease_token_hash": "c277b30c9a60421fa6dd7e95485dc26a13bc445a22d58c35f86177beec997757",
+          "metadata_json_sha256": "62e0818c1ce33d174cf3a618247dd0f7b0f8a42e08c893bbb97ac2fb13883fe0",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-28T15:14:16.776566+00:00"
+        },
+        {
+          "event_id": 1796,
+          "event_type": "FINAL_ADMISSION_PASS",
+          "fencing_generation": 59,
+          "lease_token_hash": "c277b30c9a60421fa6dd7e95485dc26a13bc445a22d58c35f86177beec997757",
+          "metadata_json_sha256": "2de63513049f152473b2df82d68dd516909373bcf06f28408ddf636ae26f296f",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-28T15:14:17.011441+00:00"
+        },
+        {
+          "event_id": 1797,
+          "event_type": "FINAL_LAUNCH_REVALIDATION_PASS",
+          "fencing_generation": 59,
+          "lease_token_hash": "c277b30c9a60421fa6dd7e95485dc26a13bc445a22d58c35f86177beec997757",
+          "metadata_json_sha256": "b2d7834dd2fb3d540e29a3a1fbea39decbc10d0d8bb80448de831cf0ca331911",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-28T15:14:17.166588+00:00"
+        },
+        {
+          "event_id": 1798,
+          "event_type": "CHILD_PROCESS_STARTED",
+          "fencing_generation": 59,
+          "lease_token_hash": "c277b30c9a60421fa6dd7e95485dc26a13bc445a22d58c35f86177beec997757",
+          "metadata_json_sha256": "926916dfdcf2c479de36f7ee6ac96fc63f5d02ac843d334f7e2665724b4c323b",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-28T15:14:17.251684+00:00"
+        },
+        {
+          "event_id": 1803,
+          "event_type": "LEASE_RELEASED",
+          "fencing_generation": 59,
+          "lease_token_hash": "c277b30c9a60421fa6dd7e95485dc26a13bc445a22d58c35f86177beec997757",
+          "metadata_json_sha256": "1349370b1b29667faf7b2fc3f8ced6363dea4cf8d5865bca8eb2b36ea2d7a431",
+          "scientific_terminal": "FAILED_PREENTRY",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-29T04:13:24.644617+00:00"
+        }
+      ],
+      "lease_token_hash": "c277b30c9a60421fa6dd7e95485dc26a13bc445a22d58c35f86177beec997757",
+      "queue_id": 65,
+      "scientific_entry_count": 0,
+      "slot_id": "GLOBAL_SLOT_2",
+      "solver_entered": false
+    },
+    {
+      "attempt_id": "attempt_001",
+      "case_id": "K6V1_S35",
+      "cwd_observed": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+      "evidence_files": {
+        "host_config.json": "82506eacc9a5ced7b14d4654e28f5d094752896bf92b32579d30df618ed27a19",
+        "host_stderr.log": "78aade4f590fa5e4ad46609b382ad669b015cc1128a94e7c7a9068e9bcbe98ad",
+        "host_uncaught_exception.json": "1db22e7fd869e562d63af1d831d18d0b359b81a2b19e1a175ee2303f560e5ceb",
+        "preentry_host_exit.json": "24bfda4fb94e8fb2bf8631525913a58faa8f22602698ffb029905d33bbe17284",
+        "runtime_events.jsonl": "4fd2586ada18fbd56529f1cb0eeed908b3f4dc1d324b965a441577467c1dffd7",
+        "terminal_failure.json": "479961edf94dd4c96a789b04de106d3f0d84df9873432ef8df44b89531168c65"
+      },
+      "exception": "ValueError: PW_CONTRACT_MISSING:monitors,samples_nm,references_nm,materials,stack_layers",
+      "fencing_generation": 60,
+      "host_command": "C:\\Users\\DELL\\anaconda3\\python.exe -u D:\\apcd_runtime\\bin\\v3g2h.py D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\host_config.json",
+      "host_pid": 17164,
+      "host_pid_exit_detected_utc": "2026-09-29T04:13:31.997378+00:00",
+      "launch_ordinal": 2,
+      "lease_event_ids": [
+        1805,
+        1806,
+        1807,
+        1808,
+        1813
+      ],
+      "lease_events": [
+        {
+          "event_id": 1805,
+          "event_type": "LEASE_ACQUIRED",
+          "fencing_generation": 60,
+          "lease_token_hash": "f5c41421416f67abb8da40183ff089bcd220ea2d0fdfdd8125ec4bc04ecc6aa5",
+          "metadata_json_sha256": "6bd43162733ae9b07fd6ba00d0771fa27d8258c41accb3752bdc74a5e5e20122",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-29T04:13:30.263051+00:00"
+        },
+        {
+          "event_id": 1806,
+          "event_type": "FINAL_ADMISSION_PASS",
+          "fencing_generation": 60,
+          "lease_token_hash": "f5c41421416f67abb8da40183ff089bcd220ea2d0fdfdd8125ec4bc04ecc6aa5",
+          "metadata_json_sha256": "996cd47bd01bdc8e427ddbfda34f256f1d0b37a785338cbf0142ce572ccd20dc",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-29T04:13:30.465179+00:00"
+        },
+        {
+          "event_id": 1807,
+          "event_type": "FINAL_LAUNCH_REVALIDATION_PASS",
+          "fencing_generation": 60,
+          "lease_token_hash": "f5c41421416f67abb8da40183ff089bcd220ea2d0fdfdd8125ec4bc04ecc6aa5",
+          "metadata_json_sha256": "6e74d6a1be1995c4d8a9ac14d4bbac8a7002a28d3f2a8db78f3a203a838b3072",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-29T04:13:30.609371+00:00"
+        },
+        {
+          "event_id": 1808,
+          "event_type": "CHILD_PROCESS_STARTED",
+          "fencing_generation": 60,
+          "lease_token_hash": "f5c41421416f67abb8da40183ff089bcd220ea2d0fdfdd8125ec4bc04ecc6aa5",
+          "metadata_json_sha256": "11469f9c9e8796db429168c20ea095db95b847f7077df9bbd10a779ca621dc1a",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-29T04:13:30.722863+00:00"
+        },
+        {
+          "event_id": 1813,
+          "event_type": "LEASE_RELEASED",
+          "fencing_generation": 60,
+          "lease_token_hash": "f5c41421416f67abb8da40183ff089bcd220ea2d0fdfdd8125ec4bc04ecc6aa5",
+          "metadata_json_sha256": "1349370b1b29667faf7b2fc3f8ced6363dea4cf8d5865bca8eb2b36ea2d7a431",
+          "scientific_terminal": "FAILED_PREENTRY",
+          "slot_id": "GLOBAL_SLOT_2",
+          "timestamp_utc": "2026-09-29T04:30:39.855171+00:00"
+        }
+      ],
+      "lease_token_hash": "f5c41421416f67abb8da40183ff089bcd220ea2d0fdfdd8125ec4bc04ecc6aa5",
+      "queue_id": 65,
+      "return_code": 1,
+      "scientific_entry_count": 0,
+      "slot_id": "GLOBAL_SLOT_2",
+      "solver_entered": false
+    },
+    {
+      "attempt_id": "attempt_001",
+      "case_id": "K6V1_S39",
+      "cwd_observed": null,
+      "failure_cause": "NOT_RECOVERABLE_FROM_RETAINED_ARTIFACTS",
+      "fencing_generation": 14,
+      "host_command": "C:\\Users\\DELL\\anaconda3\\pythonw.exe D:\\apcd_runtime\\bin\\v3g2h.py D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\host_config.json",
+      "host_pid": 5252,
+      "launch_ordinal": 1,
+      "lease_event_ids": [
+        1799,
+        1800,
+        1801,
+        1802,
+        1804
+      ],
+      "lease_events": [
+        {
+          "event_id": 1799,
+          "event_type": "LEASE_ACQUIRED",
+          "fencing_generation": 14,
+          "lease_token_hash": "963ccad5685f2526160c27820c9db21e1e647799e763f43e50a5c0077b356a69",
+          "metadata_json_sha256": "f8eecaca51e5fb1716661a500611498d4f7d725b2b233620c3938b16d0bbd73b",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-28T15:14:17.628770+00:00"
+        },
+        {
+          "event_id": 1800,
+          "event_type": "FINAL_ADMISSION_PASS",
+          "fencing_generation": 14,
+          "lease_token_hash": "963ccad5685f2526160c27820c9db21e1e647799e763f43e50a5c0077b356a69",
+          "metadata_json_sha256": "aaa92ea59a914841c3430885dc78d3b1a06e8b6d9cce7c8d755e358cefbd82c5",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-28T15:14:17.863408+00:00"
+        },
+        {
+          "event_id": 1801,
+          "event_type": "FINAL_LAUNCH_REVALIDATION_PASS",
+          "fencing_generation": 14,
+          "lease_token_hash": "963ccad5685f2526160c27820c9db21e1e647799e763f43e50a5c0077b356a69",
+          "metadata_json_sha256": "eb3ddb0be4809fcf846b6d817810b5895d0fea990acf844762f5de79ec4088b6",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-28T15:14:18.013706+00:00"
+        },
+        {
+          "event_id": 1802,
+          "event_type": "CHILD_PROCESS_STARTED",
+          "fencing_generation": 14,
+          "lease_token_hash": "963ccad5685f2526160c27820c9db21e1e647799e763f43e50a5c0077b356a69",
+          "metadata_json_sha256": "48745af10aa3b57b5a72fdf2ddad35cb044fae2c646840b255bd7deca35148e5",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-28T15:14:18.089634+00:00"
+        },
+        {
+          "event_id": 1804,
+          "event_type": "LEASE_RELEASED",
+          "fencing_generation": 14,
+          "lease_token_hash": "963ccad5685f2526160c27820c9db21e1e647799e763f43e50a5c0077b356a69",
+          "metadata_json_sha256": "1349370b1b29667faf7b2fc3f8ced6363dea4cf8d5865bca8eb2b36ea2d7a431",
+          "scientific_terminal": "FAILED_PREENTRY",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-29T04:13:29.562377+00:00"
+        }
+      ],
+      "lease_token_hash": "963ccad5685f2526160c27820c9db21e1e647799e763f43e50a5c0077b356a69",
+      "queue_id": 66,
+      "scientific_entry_count": 0,
+      "slot_id": "GLOBAL_SLOT_3",
+      "solver_entered": false
+    },
+    {
+      "attempt_id": "attempt_001",
+      "case_id": "K6V1_S39",
+      "cwd_observed": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+      "evidence_files": {
+        "host_config.json": "f8e032479013cdd9147f1015ef482bfce11e9994490aca4cb52a04cfdbd657af",
+        "host_stderr.log": "78aade4f590fa5e4ad46609b382ad669b015cc1128a94e7c7a9068e9bcbe98ad",
+        "host_uncaught_exception.json": "6f090c640bcf7123b96017f816c97bf36ca208e17fb4af96d2e878e63ca81857",
+        "preentry_host_exit.json": "adbbb5bd3d62449507dab84edee7f5f33510871f01e44fc3e40fbb2d4f146869",
+        "runtime_events.jsonl": "6df5a2b05e9fef962e5808ceab4158bfe8652425c18c3ec388828eff920ea15e",
+        "terminal_failure.json": "7e91600e73ce7a2d83039b83877be518d58c7f5c084723a15b7975509a8c42ed"
+      },
+      "exception": "ValueError: PW_CONTRACT_MISSING:monitors,samples_nm,references_nm,materials,stack_layers",
+      "fencing_generation": 15,
+      "host_command": "C:\\Users\\DELL\\anaconda3\\python.exe -u D:\\apcd_runtime\\bin\\v3g2h.py D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\host_config.json",
+      "host_pid": 32580,
+      "host_pid_exit_detected_utc": "2026-09-29T04:13:32.908602+00:00",
+      "launch_ordinal": 2,
+      "lease_event_ids": [
+        1809,
+        1810,
+        1811,
+        1812,
+        1814
+      ],
+      "lease_events": [
+        {
+          "event_id": 1809,
+          "event_type": "LEASE_ACQUIRED",
+          "fencing_generation": 15,
+          "lease_token_hash": "5a94eb914539e4a2d49ba4fe11983aaae0b2d12e3c76f99c4bdb04efe054751d",
+          "metadata_json_sha256": "4774cc989c9aefe84afb12b2557e36781e9925c1186e58f184746d4d5e747780",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-29T04:13:31.112523+00:00"
+        },
+        {
+          "event_id": 1810,
+          "event_type": "FINAL_ADMISSION_PASS",
+          "fencing_generation": 15,
+          "lease_token_hash": "5a94eb914539e4a2d49ba4fe11983aaae0b2d12e3c76f99c4bdb04efe054751d",
+          "metadata_json_sha256": "8e4684d176e909601266c8362b8b9c68a7b60d66d6b5f3f81004b4e0afe9ee00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-29T04:13:31.426061+00:00"
+        },
+        {
+          "event_id": 1811,
+          "event_type": "FINAL_LAUNCH_REVALIDATION_PASS",
+          "fencing_generation": 15,
+          "lease_token_hash": "5a94eb914539e4a2d49ba4fe11983aaae0b2d12e3c76f99c4bdb04efe054751d",
+          "metadata_json_sha256": "9388070a70026b4b9c5202f1aac1a8fbd6b646f7a58f522ab56ee0df64b501d0",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-29T04:13:31.561073+00:00"
+        },
+        {
+          "event_id": 1812,
+          "event_type": "CHILD_PROCESS_STARTED",
+          "fencing_generation": 15,
+          "lease_token_hash": "5a94eb914539e4a2d49ba4fe11983aaae0b2d12e3c76f99c4bdb04efe054751d",
+          "metadata_json_sha256": "91805584234c85e51c065fb91c744225a2d07854875aa468b6e4d30ae9bee9f2",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-29T04:13:31.681098+00:00"
+        },
+        {
+          "event_id": 1814,
+          "event_type": "LEASE_RELEASED",
+          "fencing_generation": 15,
+          "lease_token_hash": "5a94eb914539e4a2d49ba4fe11983aaae0b2d12e3c76f99c4bdb04efe054751d",
+          "metadata_json_sha256": "1349370b1b29667faf7b2fc3f8ced6363dea4cf8d5865bca8eb2b36ea2d7a431",
+          "scientific_terminal": "FAILED_PREENTRY",
+          "slot_id": "GLOBAL_SLOT_3",
+          "timestamp_utc": "2026-09-29T04:30:44.514222+00:00"
+        }
+      ],
+      "lease_token_hash": "5a94eb914539e4a2d49ba4fe11983aaae0b2d12e3c76f99c4bdb04efe054751d",
+      "queue_id": 66,
+      "return_code": 1,
+      "scientific_entry_count": 0,
+      "slot_id": "GLOBAL_SLOT_3",
+      "solver_entered": false
+    }
+  ],
+  "authority_reference": {
+    "committed_sha256": "b511106445fbba220779824d8f19fa4472ce6f9ff43067916a11e8fc1c77d865",
+    "path": "reports/shared_v3/SHARED_V3_PRODUCTION_RELEASE_AUTHORITY_V3.json"
+  },
+  "candidate_pinned_host_preflight": {
+    "HOST_PYTHON": "C:\\Users\\DELL\\anaconda3\\python.exe",
+    "HOST_SCRIPT": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_g2_host.py",
+    "PYTHONPATH": "UNSET; service child inherits caller environment",
+    "captured_utc": "2026-09-30T13:27:02.883599+00:00",
+    "cwd": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob",
+    "host_main_guard_entered": false,
+    "host_sha256": "e1717cad0fc175f9b3a726e558924a693b9290848bdf5a8fc8c82419d6473317",
+    "lumapi_loaded": false,
+    "production_db_sha256_before_after": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "scope_limit": "Import/config validation only; did not call host main, launch child host, load FSP, use lumapi, or run FDTD/solver.",
+    "service": {
+      "path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_dispatcher_service.py",
+      "sha256": "dc3e1baed4ee459d306b4be37ac2eb2eeea3f39a0d4539b93447f0b2303654f0"
+    },
+    "validation_results": {
+      "K6V1_S35": true,
+      "K6V1_S39": true
+    },
+    "validator_module_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\pw_scientific_launcher.py",
+    "validator_sha256": "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908"
+  },
+  "created_utc": "2026-09-30T13:32:30+00:00",
+  "decision": "PRE_ENTRY_RETRY_EVIDENCE_CONFIRMED; RELEASE_GATE_REMAINS_SEPARATE",
+  "evidence_files": {
+    "S35_current_host_config": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\host_config.json",
+      "sha256": "82506eacc9a5ced7b14d4654e28f5d094752896bf92b32579d30df618ed27a19"
+    },
+    "S35_exception_json": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\host_uncaught_exception.json",
+      "sha256": "1db22e7fd869e562d63af1d831d18d0b359b81a2b19e1a175ee2303f560e5ceb"
+    },
+    "S35_preentry_json": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\preentry_host_exit.json",
+      "sha256": "24bfda4fb94e8fb2bf8631525913a58faa8f22602698ffb029905d33bbe17284"
+    },
+    "S35_runtime_events_jsonl": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\events.jsonl",
+      "sha256": "4fd2586ada18fbd56529f1cb0eeed908b3f4dc1d324b965a441577467c1dffd7"
+    },
+    "S39_current_host_config": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\host_config.json",
+      "sha256": "f8e032479013cdd9147f1015ef482bfce11e9994490aca4cb52a04cfdbd657af"
+    },
+    "S39_exception_json": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\host_uncaught_exception.json",
+      "sha256": "6f090c640bcf7123b96017f816c97bf36ca208e17fb4af96d2e878e63ca81857"
+    },
+    "S39_preentry_json": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\preentry_host_exit.json",
+      "sha256": "adbbb5bd3d62449507dab84edee7f5f33510871f01e44fc3e40fbb2d4f146869"
+    },
+    "S39_runtime_events_jsonl": {
+      "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\cases\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\events.jsonl",
+      "sha256": "6df5a2b05e9fef962e5808ceab4158bfe8652425c18c3ec388828eff920ea15e"
+    },
+    "current_old_wrapper": {
+      "mtime_utc": "2026-09-21T12:56:31.813203+00:00",
+      "path": "D:\\apcd_runtime\\bin\\v3g2h.py",
+      "sha256": "26881dfdff86c6dbe532ccc71f4b1f7efb0d27ff0fe12c6daec9ca54b81ee31e",
+      "text": "import runpy\nrunpy.run_path(r\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_g2_host.py\", run_name=\"__main__\")\n"
+    }
+  },
+  "limitations": [
+    "Current host_config files are runtime snapshots from the later failed pre-entry launch; their hashes are reported, not assumed to be byte-identical to the first launch.",
+    "The pure import/config probe establishes current pinned host and validator resolution plus config acceptance; it is not a production host execution, GPU entry, FSP load, or truth validation.",
+    "This addendum does not release GLOBAL hold or authorize dispatch; a separate fresh pre-release gate and official API action remain required."
+  ],
+  "production_snapshot": {
+    "active_gpu_capacity_leases": 0,
+    "active_resource_reservations": 0,
+    "admission_control": {
+      "control_generation": 23,
+      "health_status": "PASS",
+      "new_entry_hold": true,
+      "temporary_runtime_cap": null
+    },
+    "capacity_lease_records": [
+      {
+        "attempt_id": "attempt_001",
+        "capacity_lease_id": 38,
+        "case_id": "K6V1_S35",
+        "fence": 60,
+        "state": "RELEASED"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "capacity_lease_id": 39,
+        "case_id": "K6V1_S39",
+        "fence": 15,
+        "state": "RELEASED"
+      }
+    ],
+    "captured_utc": "2026-09-30T13:31:28.905531+00:00",
+    "db_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "resource_reservations": [
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6V1_S35",
+        "reservation_id": 42,
+        "state": "RELEASED"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6V1_S39",
+        "reservation_id": 43,
+        "state": "RELEASED"
+      }
+    ],
+    "sha256_after": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "sha256_before": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "slots": [
+      {
+        "fencing_generation": 18,
+        "slot_id": "GLOBAL_SLOT_1",
+        "state": "FREE"
+      },
+      {
+        "fencing_generation": 60,
+        "slot_id": "GLOBAL_SLOT_2",
+        "state": "FREE"
+      },
+      {
+        "fencing_generation": 15,
+        "slot_id": "GLOBAL_SLOT_3",
+        "state": "FREE"
+      }
+    ],
+    "target_queue_rows": [
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6V1_S35",
+        "entry_events_counted": 0,
+        "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+        "geometry_hash": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+        "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "pre_fsp_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+        "queue_id": 65,
+        "state": "WAIT_RESOURCE_CAPACITY"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6V1_S39",
+        "entry_events_counted": 0,
+        "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+        "geometry_hash": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729",
+        "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "pre_fsp_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+        "queue_id": 66,
+        "state": "WAIT_RESOURCE_CAPACITY"
+      }
+    ],
+    "unchanged_during_read": true
+  },
+  "purpose": "Append-only disposition of the four S35/S39 attempt_001 host exits preceding any scientific solver entry. Does not amend or supersede the release authority or earlier incident records.",
+  "release_or_dispatch_authorized_by_this_addendum": false,
+  "schema": "SHARED_V3_PREENTRY_FAILURE_ADJUDICATION_V1",
+  "source_provenance_adjudication": {
+    "current_candidate_host_resolution": "The current versioned launch_factory sets HOST_SCRIPT directly to pinned backend scripts/shared_fdtd/tools/v3_g2_host.py; isolated current source import resolves pw_scientific_launcher.py from that same pinned backend.",
+    "failure_time_exact_host_or_validator_sha256": "UNRECOVERABLE: runtime events and error traceback retain paths but no source hash; current source timestamps are after the failing launches. Do not infer current bytes were the failure-time bytes.",
+    "first_round_error": "NOT RECOVERABLE: no per-launch exception artifact with cause was retained for the first host process in either case.",
+    "historical_launch_command_evidence": "The retained runtime events identify D:\\apcd_runtime\\bin\\v3g2h.py; second-round events record cwd at the mutable coupling worktree. The current wrapper body resolves v3_g2_host.py through that worktree."
+  }
+}
