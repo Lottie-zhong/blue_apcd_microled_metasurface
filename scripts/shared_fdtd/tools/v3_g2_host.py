@@ -138,12 +138,24 @@ def import_authority(output_root, task):
     return mod, g
 
 
-def queue_state(db, cfg, state):
+def queue_state(db, cfg, state, admission_evidence=None):
     with db.immediate() as con:
         if state == "WAIT_RESOURCE_CAPACITY":
+            payload_json = None
+            if admission_evidence is not None:
+                row = con.execute(
+                    "SELECT payload_json FROM branch_queue WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+                    (cfg["branch"], cfg["case"], cfg["attempt"]),
+                ).fetchone()
+                payload = json.loads(row["payload_json"] or "{}") if row is not None else {}
+                evidence = dict(admission_evidence)
+                evidence.setdefault("status", "WAIT_RESOURCE_CAPACITY")
+                evidence.setdefault("updated_utc", datetime.now(timezone.utc).isoformat())
+                payload["_v3_admission"] = evidence
+                payload_json = json.dumps(payload, sort_keys=True)
             con.execute(
-                "UPDATE branch_queue SET state=?,slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
-                (state, datetime.now(timezone.utc).isoformat(), cfg["branch"], cfg["case"], cfg["attempt"]),
+                "UPDATE branch_queue SET state=?,payload_json=COALESCE(?,payload_json),slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
+                (state, payload_json, datetime.now(timezone.utc).isoformat(), cfg["branch"], cfg["case"], cfg["attempt"]),
             )
         else:
             con.execute("UPDATE branch_queue SET state=?,updated_at=? WHERE branch_id=? AND logical_case_id=? AND attempt_id=?",
@@ -183,6 +195,58 @@ def fresh_load_validate_path(path, cfg, is_pw):
         return {"passed": True, "mode": "LOAD_ONLY", "path": str(path)}
     finally:
         handle.close()
+
+
+def _gpu_capacity_guarded_start(db, cfg, lease, allocator, authority, start_child, invoke_claimed,
+                                resource_request, launch_snapshot):
+    """Persist the final GPU capacity sample before claiming or starting a solver."""
+    from shared_fdtd.control_v3.allocator import AdmissionGateBlocked as LaunchAdmissionBlocked
+    from shared_fdtd.control_v3.gpu_capacity import (
+        capture_external_gpu_capacity_snapshot,
+        persist_external_gpu_capacity_snapshot,
+    )
+
+    try:
+        snapshot = capture_external_gpu_capacity_snapshot(db, cfg.get("gpu_resource_name"))
+        gpu_capacity_ref = persist_external_gpu_capacity_snapshot(
+            cfg["attempt_root"],
+            branch_id=cfg["branch"], case_id=cfg["case"], attempt_id=cfg["attempt"],
+            lease=lease, phase="HOST_FINAL_PRE_SOLVER_POPEN", snapshot=snapshot,
+            event_paths=(Path(cfg["attempt_root"]) / "events.jsonl", Path(cfg["runtime"]) / "events.jsonl"),
+        )
+    except Exception as exc:
+        allocator.release_provisional(lease, "WAIT_EXTERNAL_GPU_CAPACITY")
+        raise AdmissionGateBlocked({
+            "status": "WAIT_EXTERNAL_GPU_CAPACITY",
+            "reason": "GPU_CAPACITY_SNAPSHOT_PERSISTENCE_FAILED",
+            "error": str(exc),
+            "scientific_solver_entry_count": 0,
+            "replay": 0,
+        }) from exc
+    if gpu_capacity_ref.get("status") != "PASS":
+        allocator.release_provisional(lease, "WAIT_EXTERNAL_GPU_CAPACITY")
+        raise AdmissionGateBlocked({
+            **gpu_capacity_ref,
+            "status": "WAIT_EXTERNAL_GPU_CAPACITY",
+            "scientific_solver_entry_count": 0,
+            "replay": 0,
+        })
+    try:
+        claim = authority.claim(
+            lease, pre_fsp_hash=cfg["pre_fsp_sha256"],
+            physical_contract_hash=cfg["physical_contract_hash"],
+            command=getattr(start_child, "launch_command", ["lumapi.FDTD.run", cfg.get("run_fsp", "")]),
+            executable=getattr(start_child, "launch_executable", sys.executable),
+            resource_request=resource_request, resource_snapshot=launch_snapshot,
+            resource_policy=cfg.get("resource_policy"), backend_type="GPU",
+            exact_permit_id=cfg.get("exact_launch_permit_id"),
+            gpu_capacity_snapshot_ref=gpu_capacity_ref,
+        )
+    except LaunchAdmissionBlocked as exc:
+        allocator.release_provisional(lease, "SCIENTIFIC_LAUNCH_ADMISSION_BLOCKED")
+        raise AdmissionGateBlocked({"eligible": False, "reason": str(exc)}) from exc
+    allocator.mark_entered(lease, launch_identity=claim)
+    return invoke_claimed(claim)
 
 
 def _main_owned(cfg):
@@ -265,7 +329,7 @@ def _main_owned(cfg):
             write(case_root / "scientific_entry_boundary.json", boundary)
             emit(cfg, "SCIENTIFIC_ENTRY_BOUNDARY_REACHED", **boundary)
             allocator.release_owned(lease, scientific_terminal="FAILED_PREENTRY")
-            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY", admission_evidence=exc.evidence)
             emit(cfg, "PREENTRY_LEASE_RELEASED", slot_id=lease.slot_id)
             safe_stdout({"status": "PREENTRY_BOUNDARY_REACHED", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False})
             return
@@ -335,8 +399,6 @@ def _main_owned(cfg):
         launch_snapshot = read_resource_snapshot() if (resource_request is not None or backend_type is not None) else None
         def guarded_start(start_child):
             nonlocal entered
-            from shared_fdtd.control_v3.launch_authority import ScientificLaunchAuthority
-            from shared_fdtd.control_v3.allocator import AdmissionGateBlocked as LaunchAdmissionBlocked
             authority = ScientificLaunchAuthority(db)
             def invoke_claimed(claim):
                 nonlocal entered
@@ -350,6 +412,11 @@ def _main_owned(cfg):
                 write(ledger_path, ledger)
                 emit(cfg, "SCIENTIFIC_LAUNCH_CLAIMED", launch_identity=claim)
                 return start_child()
+            if backend_type == "GPU":
+                return _gpu_capacity_guarded_start(
+                    db, cfg, lease, allocator, authority, start_child, invoke_claimed,
+                    resource_request, launch_snapshot,
+                )
             try:
                 claim = authority.claim(
                     lease, pre_fsp_hash=cfg["pre_fsp_sha256"],
@@ -523,20 +590,20 @@ def _main_owned(cfg):
         if isinstance(exc, AdmissionGateBlocked):
             write(case_root / "admission_revalidation_blocked.json", exc.evidence)
             emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
-            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
-            safe_stdout({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY", admission_evidence=exc.evidence)
+            safe_stdout({"status": exc.evidence.get("status") or "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
             return
         if isinstance(exc, AdmissionGateBlocked):
             write(case_root / "admission_revalidation_blocked.json", exc.evidence)
             emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
-            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
-            safe_stdout({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY", admission_evidence=exc.evidence)
+            safe_stdout({"status": exc.evidence.get("status") or "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
             return
         if isinstance(exc, AdmissionGateBlocked):
             write(case_root / "admission_revalidation_blocked.json", exc.evidence)
             emit(cfg, "FINAL_LAUNCH_REVALIDATION_BLOCKED", evidence=exc.evidence)
-            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY")
-            safe_stdout({"status": "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
+            queue_state(db, cfg, "WAIT_RESOURCE_CAPACITY", admission_evidence=exc.evidence)
+            safe_stdout({"status": exc.evidence.get("status") or "WAIT_RESOURCE_CAPACITY", "case": cfg["case"], "attempt": cfg["attempt"], "solver_entered": False, "admission": exc.evidence})
             return
         from shared_fdtd.control_v3.launch_authority import LaunchAlreadyClaimed
         if isinstance(exc, LaunchAlreadyClaimed):

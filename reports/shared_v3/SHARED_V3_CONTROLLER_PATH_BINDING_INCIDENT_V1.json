@@ -1,0 +1,171 @@
+{
+  "report_id": "SHARED_V3_CONTROLLER_PATH_BINDING_INCIDENT_V1",
+  "status": "INCIDENT_CONFIRMED_NO_SCIENTIFIC_ENTRY",
+  "test_result": "FAIL_ISOLATION_BOUNDARY",
+  "scope": "Read-only incident evidence. No production DB repair, hold change, release, or solver invocation.",
+  "incident": {
+    "root_cause": "The bootstrap called runpy.run_path(), assigned isolated paths to the returned namespace dictionary, then called ns['main'](). The actual function globals were not rebound; production DB/log/event paths were used. The intended isolated restart qualification did not pass.",
+    "bootstrap_path": "D:\\apcd_runtime\\shared_v3_v3qual_20260930\\postentry_restart_20260930T032412Z_54aaaca6\\run_deployed_controller_isolated.py",
+    "bootstrap_sha256": "f7b5be6ce3bd085dc98354375e3285f08a911bb51b31a7833f757957eaa3fb99",
+    "deployed_controller_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1_controller.py",
+    "deployed_controller_sha256": "6bb5f810864a3bd2cedf31baa314ab960063dc72328b374cc4196b492379898f",
+    "versioned_backend_root": "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc",
+    "versioned_reconciler_sha256": "965caf112343a5e8213ec950735a10b67166c160e359182fa5147bdab5e08fe8",
+    "observed_controller_log": {
+      "controller_started_count": 1,
+      "started_utc": "2026-09-30T03:24:15.922807+00:00",
+      "tick_utc": [
+        "2026-09-30T03:24:18.096057+00:00",
+        "2026-09-30T03:24:30.107240+00:00"
+      ],
+      "launched": [],
+      "scientific_entry_count": 0,
+      "duplicate_entry_count": 0,
+      "pid_recorded": false,
+      "second_start_recorded": false
+    },
+    "real_solver_invocations": 0
+  },
+  "production": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "pretest_raw_sha256_previously_recorded": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+    "pretest_raw_sha_note": "The raw pretest file is not retained here for an independent byte comparison.",
+    "post_incident_raw_sha256": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "size_bytes": 1458176,
+    "mtime_utc": "2026-09-30T03:24:30.064600+00:00",
+    "wal": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_utc": "2026-09-30T03:24:30.085720+00:00"
+    },
+    "shm": {
+      "size_bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "latest_mtime_utc": "2026-09-30T03:37:02.466409+00:00",
+      "earlier_mtime_utc": "2026-09-30T03:29:59.064966+00:00",
+      "mtime_cause": "Uncertain; size/hash remained unchanged. Read-only SQLite access occurred during the audit; attribution versus another process is not established."
+    },
+    "journal_exists": false,
+    "repair_or_restore_attempted": false
+  },
+  "snapshots": {
+    "logical_comparison_path": "D:\\apcd_runtime\\shared_v3_v3qual_20260930\\postentry_restart_20260930T032412Z_54aaaca6\\production_snapshot.sqlite3",
+    "logical_comparison_sha256": "4be859d620d9cffc0efeb70fda4f7185db6129067591069fb4889014308ba952",
+    "logical_comparison_size_bytes": 1454080,
+    "logical_comparison_mtime_utc": "2026-09-30T03:24:12.449540+00:00",
+    "equals_pretest_raw_sha256": false,
+    "raw_hash_mapping_available": false,
+    "worktree_untracked_control_db_path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\control.sqlite3",
+    "worktree_untracked_control_db_size_bytes": 0,
+    "worktree_untracked_control_db_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logical_diff_snapshot_to_current": {
+    "changed_tables": [
+      "branch_queue"
+    ],
+    "changed_row_count": 12,
+    "changed_rows_queue_id_to_case": [
+      [
+        65,
+        "K6V1_S35"
+      ],
+      [
+        66,
+        "K6V1_S39"
+      ],
+      [
+        67,
+        "K6V1_S21"
+      ],
+      [
+        68,
+        "K6V1_S42"
+      ],
+      [
+        69,
+        "K6V1_S36"
+      ],
+      [
+        70,
+        "K6V1_S31"
+      ],
+      [
+        71,
+        "K6V1_S45"
+      ],
+      [
+        72,
+        "K6V1_S32"
+      ],
+      [
+        73,
+        "K6V1_S47"
+      ],
+      [
+        74,
+        "K6V1_S33"
+      ],
+      [
+        75,
+        "K6V1_S37"
+      ],
+      [
+        76,
+        "K6V1_S48"
+      ]
+    ],
+    "changed_columns_each": [
+      "payload_json",
+      "updated_at"
+    ],
+    "state_before_after": "WAIT_RESOURCE_CAPACITY",
+    "slot_id_before_after": null,
+    "fencing_generation_before_after": null,
+    "payload_outside__v3_admission_identical": true,
+    "admission": {
+      "S35_S39_old": "generation 23, hold=true, NEW_ENTRY_HOLD, no health blocker",
+      "S35_S39_new": "generation 23, hold=true, ADMISSION_HEALTH_BLOCKED + NEW_ENTRY_HOLD, DUPLICATE_SCIENTIFIC_ENTRY_COUNT=1",
+      "other_10_old": "generation 20, hold=false, branch-cap/PW concurrency reasons",
+      "other_10_new": "generation 23, hold=true, ADMISSION_HEALTH_BLOCKED + NEW_ENTRY_HOLD, DUPLICATE_SCIENTIFIC_ENTRY_COUNT=1"
+    },
+    "all_other_tables_identical": true,
+    "other_tables": [
+      "admission_control",
+      "backend_capacity",
+      "branch_limits",
+      "exact_launch_permits",
+      "gpu_capacity_leases",
+      "health_metrics",
+      "lease_events",
+      "recovery_adoption_fences",
+      "resource_reservations",
+      "schema_meta",
+      "slots"
+    ]
+  },
+  "invariants_snapshot_and_current": {
+    "lease_events": 1814,
+    "max_event_id": 1814,
+    "global_scientific_entries": 50,
+    "global_lease_releases": 91,
+    "target_12_attempt_001_entries_each": 0,
+    "slots": "3 total; 3 FREE",
+    "gpu_capacity_leases": "39 total; 0 active",
+    "resource_reservations": "43 total; 0 active",
+    "hold_currently_true": true,
+    "production_hold_changed_by_incident": false
+  },
+  "corrected_isolated_test_requirements": [
+    "Bind isolated values on the actual invoked controller function's __globals__; do not use assignments to the dictionary returned by runpy.run_path() as isolation proof.",
+    "Before process start, fail closed unless DB_PATH, ROOT, LOG, STATUS, EVENTS, output/runtime paths all resolve beneath one unique temp root and DB_PATH differs from production.",
+    "Record production DB SHA before the test and require the same SHA afterward.",
+    "Use the versioned deployed reconciler and actual controller/state/event logic; no production path access; no real solver."
+  ],
+  "git_at_report_creation": {
+    "branch": "codex/shared-v3-gpu-reliability-v1",
+    "head": "5fa4c0a74ad9e9bb90ecca6874da65f97df4e037",
+    "ahead_behind": "2 0",
+    "tracked_changes_before_report": false,
+    "preexisting_untracked_preserved": true
+  }
+}

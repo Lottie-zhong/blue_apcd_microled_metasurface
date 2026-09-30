@@ -7,7 +7,8 @@ from pathlib import Path
 from shared_fdtd.control_v3.allocator import Allocator, BranchCapReached, Lease, OwnershipMismatch, NoFreeSlot
 from shared_fdtd.control_v3.db import ControlDB
 from shared_fdtd.control_v3.resources import ResourceCapacityWait, ResourceSnapshot
-from shared_fdtd.engine.dispatcher import dispatch_once, enqueue
+from shared_fdtd.engine.dispatcher import dispatch_once, enqueue as _enqueue
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -39,7 +40,38 @@ def waits(fn):
     return False
 
 
-def main() -> None:
+def enqueue(db, branch: str, case: str, attempt: str, payload: dict):
+    adapted = dict(payload)
+    if adapted.get("backend_type") == "GPU":
+        attempt_root = Path(db.path).parent / "gpu_capacity_fixture" / branch / case / attempt
+        attempt_root.mkdir(parents=True, exist_ok=True)
+        adapted["attempt_root"] = str(attempt_root)
+        adapted["gpu_resource_name"] = "GPU capacity fixture"
+    return _enqueue(db, branch, case, attempt, adapted)
+
+
+def _gpu_capacity_snapshot_fixture(db, resource_name=None):
+    return {
+        "schema": "SHARED_V3_EXTERNAL_GPU_CAPACITY_SNAPSHOT_V1",
+        "captured_at_utc": "2026-09-30T00:00:00+00:00",
+        "capture_status": "PASS",
+        "selected_gpu": {
+            "index": 0,
+            "name": "NVIDIA GeForce RTX 3080 fixture",
+            "uuid": "GPU-fixture",
+            "utilization_gpu_percent": 0,
+            "memory_total_mib": 10240,
+            "memory_used_mib": 4096,
+            "memory_free_mib": 6144,
+        },
+        "compute_processes": [],
+        "external_compute_processes": [],
+        "shared_v3_active_owners": [],
+        "process_attribution_status": "PASS",
+    }
+
+
+def _main_body() -> None:
     tests = {}
     with tempfile.TemporaryDirectory(prefix="apcd_gpu_capacity_zero_") as tmp:
         base = Path(tmp)
@@ -148,6 +180,14 @@ def main() -> None:
     result = {"schema": "SHARED_V3_GPU_CONCURRENCY_AUTOFILL_ZERO_SOLVER_TESTS_V1", "status": "PASS" if all(tests.values()) else "FAIL", "tests": tests, "solver_invocations": 0, "scientific_solver_entries": 0, "direct_sqlite_mutations": 0}
     print(json.dumps(result, indent=2))
     if result["status"] != "PASS": raise SystemExit(1)
+
+
+def main() -> None:
+    with patch(
+        "shared_fdtd.control_v3.gpu_capacity.capture_external_gpu_capacity_snapshot",
+        side_effect=_gpu_capacity_snapshot_fixture,
+    ):
+        _main_body()
 
 
 if __name__ == "__main__":

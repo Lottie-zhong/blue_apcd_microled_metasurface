@@ -44,7 +44,8 @@ class ScientificLaunchAuthority:
 
     def claim(self, lease, *, pre_fsp_hash, physical_contract_hash,
               command, executable, resource_request=None, resource_snapshot=None,
-              resource_policy=None, backend_type=None, exact_permit_id=None):
+              resource_policy=None, backend_type=None, exact_permit_id=None,
+              gpu_capacity_snapshot_ref=None):
         for label, value in [('pre_fsp_hash', pre_fsp_hash),
                              ('physical_contract_hash', physical_contract_hash)]:
             if not isinstance(value, str) or len(value) != 64 or any(c not in '0123456789abcdefABCDEF' for c in value):
@@ -56,6 +57,14 @@ class ScientificLaunchAuthority:
         from .resources import ResourceRequest
         if resource_request is not None and not isinstance(resource_request, ResourceRequest):
             resource_request = ResourceRequest.from_payload(resource_request)
+        if gpu_capacity_snapshot_ref is not None:
+            if (not isinstance(gpu_capacity_snapshot_ref, dict)
+                    or gpu_capacity_snapshot_ref.get('status') != 'PASS'
+                    or gpu_capacity_snapshot_ref.get('event_schema') != 'SHARED_V3_GPU_CAPACITY_SNAPSHOT_EVENT_V1'
+                    or not gpu_capacity_snapshot_ref.get('snapshot_id')
+                    or len(str(gpu_capacity_snapshot_ref.get('snapshot_sha256') or '')) != 64
+                    or any(c not in '0123456789abcdef' for c in str(gpu_capacity_snapshot_ref.get('snapshot_sha256') or '').lower())):
+                raise ValueError('INVALID_GPU_CAPACITY_SNAPSHOT_REF')
         allocator = Allocator(self.db)
         key = (lease.owner_branch, lease.logical_case_id, lease.attempt_id)
         with self.db.immediate() as con:
@@ -92,6 +101,15 @@ class ScientificLaunchAuthority:
                 'physical_process_confirmed': False,
                 'automatic_retry_allowed': False,
             }
+            if gpu_capacity_snapshot_ref is not None:
+                identity['gpu_capacity_snapshot_ref'] = {
+                    'event_schema': gpu_capacity_snapshot_ref['event_schema'],
+                    'snapshot_id': gpu_capacity_snapshot_ref['snapshot_id'],
+                    'snapshot_sha256': str(gpu_capacity_snapshot_ref['snapshot_sha256']).lower(),
+                    'phase': gpu_capacity_snapshot_ref.get('phase'),
+                    'required_free_mib': gpu_capacity_snapshot_ref.get('required_free_mib'),
+                    'observed_free_mib': gpu_capacity_snapshot_ref.get('observed_free_mib'),
+                }
             con.execute('INSERT INTO scientific_launch_claims VALUES(?,?,?,?,?,?,?,?)',
                         (*key, identity['launch_id'], lease.token_hash,
                          lease.fencing_generation, identity['claimed_at'], json.dumps(identity, sort_keys=True)))

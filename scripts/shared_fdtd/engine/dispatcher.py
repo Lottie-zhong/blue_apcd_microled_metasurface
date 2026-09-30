@@ -757,6 +757,44 @@ def dispatch_once(db,branch,launch,logical_case_id=None,attempt_id=None,exact_pe
             with db.immediate() as con:
                 con.execute("UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',payload_json=?,slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE queue_id=?", (json.dumps(wait_payload, sort_keys=True), utc_now(), row["queue_id"]))
             continue
+        if backend_type == "GPU":
+            from shared_fdtd.control_v3.gpu_capacity import (
+                capture_external_gpu_capacity_snapshot,
+                persist_external_gpu_capacity_snapshot,
+            )
+            capacity_ref = None
+            try:
+                attempt_root = payload.get("attempt_root")
+                if not attempt_root:
+                    raise RuntimeError("GPU_CAPACITY_ATTEMPT_ROOT_REQUIRED")
+                snapshot = capture_external_gpu_capacity_snapshot(db, payload.get("gpu_resource_name"))
+                capacity_ref = persist_external_gpu_capacity_snapshot(
+                    attempt_root,
+                    branch_id=row["branch_id"], case_id=row["logical_case_id"], attempt_id=row["attempt_id"],
+                    lease=lease, phase="DISPATCHER_PRE_HOST_START", snapshot=snapshot,
+                )
+            except Exception as exc:
+                capacity_ref = {
+                    "status": "WAIT_EXTERNAL_GPU_CAPACITY",
+                    "reason": "GPU_CAPACITY_SNAPSHOT_PERSISTENCE_FAILED",
+                    "error": str(exc),
+                }
+            if capacity_ref.get("status") != "PASS":
+                allocator.release_provisional(lease, "WAIT_EXTERNAL_GPU_CAPACITY")
+                wait_payload = dict(payload)
+                wait_payload["_v3_admission"] = {
+                    **capacity_ref,
+                    "status": "WAIT_EXTERNAL_GPU_CAPACITY",
+                    "updated_utc": utc_now(),
+                    "scientific_solver_entry_count": 0,
+                    "replay": 0,
+                }
+                with db.immediate() as con:
+                    con.execute(
+                        "UPDATE branch_queue SET state='WAIT_RESOURCE_CAPACITY',payload_json=?,slot_id=NULL,lease_token_hash=NULL,fencing_generation=NULL,updated_at=? WHERE queue_id=?",
+                        (json.dumps(wait_payload, sort_keys=True), utc_now(), row["queue_id"]),
+                    )
+                continue
         try:
             launch_row = dict(row)
             launch_row["payload_json"] = json.dumps(payload, sort_keys=True)
