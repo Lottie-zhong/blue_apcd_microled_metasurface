@@ -1,0 +1,618 @@
+{
+  "schema": "SHARED_V3_FINAL_READINESS_PROCESS_CLASSIFICATION_ADDENDUM_V1",
+  "captured_start_utc": "2026-09-30T12:13:44.470795+00:00",
+  "captured_end_utc": "2026-09-30T12:13:48.630860+00:00",
+  "production_db": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "sha256_before": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "sha256_after": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "raw_hash_unchanged": true,
+    "size_before": 1458176,
+    "size_after": 1458176,
+    "mtime_ns_before": 1790738670064600500,
+    "mtime_ns_after": 1790738670064600500,
+    "read_only_connection": true
+  },
+  "control_state": {
+    "admission_control": [
+      {
+        "control_id": 1,
+        "new_entry_hold": 1,
+        "temporary_runtime_cap": null,
+        "health_status": "PASS",
+        "control_generation": 23,
+        "updated_at": "2026-09-29T04:31:17.858902+00:00"
+      }
+    ],
+    "slots": [
+      {
+        "slot_id": "GLOBAL_SLOT_1",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 18,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-23T14:06:42.074589+00:00",
+        "version": 178
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_2",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 60,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T04:30:39.791750+00:00",
+        "version": 1398
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_3",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 15,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T04:30:44.457273+00:00",
+        "version": 91
+      }
+    ],
+    "gpu_capacity_lease_states": [
+      [
+        "RELEASED",
+        39
+      ]
+    ],
+    "active_gpu_capacity_leases": 0,
+    "reservation_states": [
+      [
+        "RELEASED",
+        43
+      ]
+    ],
+    "active_reservations": 0,
+    "S35_S39_entry_counts": []
+  },
+  "pid_8168": {
+    "classification": "INACTIVE_MPI_RUNTIME_DAEMON_NO_ACTIVE_SOLVER_LINK_OBSERVED",
+    "process": {
+      "pid": 8168,
+      "ppid": 2736,
+      "name": "smpd-intel-4.0.3.009-x64.exe",
+      "exe": "C:\\Program Files\\Intel MPI 4.0\\x64\\smpd-intel-4.0.3.009-x64.exe",
+      "cmdline": [
+        "C:\\Program Files\\Intel MPI 4.0\\x64\\smpd-intel-4.0.3.009-x64.exe"
+      ],
+      "create_time_epoch": 1790584049.37485,
+      "status": "running",
+      "cpu_times": {
+        "user": 0.1875,
+        "system": 0.109375,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 1282048,
+      "username": "NT AUTHORITY\\SYSTEM",
+      "children": []
+    },
+    "ancestors": [
+      {
+        "pid": 2736,
+        "ppid": 3012,
+        "name": "services.exe",
+        "exe": "C:\\Windows\\System32\\services.exe",
+        "cmdline": [
+          "C:\\WINDOWS\\system32\\services.exe"
+        ],
+        "create_time_epoch": 1790584046.2744277,
+        "status": "running",
+        "cpu_times": {
+          "user": 77.25,
+          "system": 185.5,
+          "children_user": 0.0,
+          "children_system": 0.0
+        },
+        "rss_bytes": 9363456,
+        "username": "NT AUTHORITY\\SYSTEM",
+        "children": [
+          3236,
+          3392,
+          3444,
+          3556,
+          3744,
+          3792,
+          3864,
+          3872,
+          3976,
+          3996,
+          4052,
+          3148,
+          4196,
+          4236,
+          4380,
+          4428,
+          4484,
+          4492,
+          4676,
+          4732,
+          4904,
+          4912,
+          4920,
+          5044,
+          5056,
+          4892,
+          5260,
+          5480,
+          5540,
+          5632,
+          6116,
+          6124,
+          6152,
+          6220,
+          6228,
+          6292,
+          6484,
+          6580,
+          6588,
+          6664,
+          6704,
+          6808,
+          6852,
+          7160,
+          6540,
+          7192,
+          7332,
+          7368,
+          7400,
+          7808,
+          8092,
+          8100,
+          8108,
+          8116,
+          8124,
+          8160,
+          8168,
+          8176,
+          7268,
+          5208,
+          5168,
+          4596,
+          7636,
+          6480,
+          5628,
+          8196,
+          8204,
+          8212,
+          8220,
+          8228,
+          8256,
+          8276,
+          8288,
+          8296,
+          8396,
+          8404,
+          8412,
+          8420,
+          8428,
+          8512,
+          8576,
+          8684,
+          9008,
+          9260,
+          9896,
+          11560,
+          15476,
+          15704,
+          15780,
+          16428,
+          17152,
+          16560,
+          18152,
+          14696,
+          14920,
+          14632,
+          13020,
+          20096,
+          20492,
+          21376,
+          21652,
+          20312,
+          24712,
+          23916,
+          20508,
+          13364,
+          21832,
+          30880,
+          30244,
+          30300,
+          30956,
+          2900,
+          2788,
+          4304,
+          6288,
+          7024,
+          32072,
+          31944,
+          14312,
+          3880,
+          14128,
+          33956,
+          32592,
+          16568,
+          7076,
+          21608,
+          33072,
+          35764,
+          29400,
+          32620,
+          6744,
+          28008,
+          17128,
+          35724,
+          37452,
+          21460,
+          35060
+        ]
+      },
+      {
+        "pid": 3012,
+        "ppid": 2792,
+        "name": "wininit.exe",
+        "exe": "C:\\Windows\\System32\\wininit.exe",
+        "cmdline": [
+          "wininit.exe"
+        ],
+        "create_time_epoch": 1790584045.9443643,
+        "status": "running",
+        "cpu_times": {
+          "user": 0.53125,
+          "system": 0.53125,
+          "children_user": 0.0,
+          "children_system": 0.0
+        },
+        "rss_bytes": 1544192,
+        "username": "NT AUTHORITY\\SYSTEM",
+        "children": [
+          2736,
+          3004,
+          3088,
+          3268
+        ]
+      }
+    ],
+    "descendants": [],
+    "cpu_sample_before": {
+      "user": 0.1875,
+      "system": 0.109375,
+      "children_user": 0.0,
+      "children_system": 0.0
+    },
+    "cpu_sample_after_2s": {
+      "user": 0.1875,
+      "system": 0.109375,
+      "children_user": 0.0,
+      "children_system": 0.0
+    },
+    "cpu_delta_seconds": {
+      "user": 0.0,
+      "system": 0.0
+    },
+    "nvidia_smi_matching_lines": [
+      "3624, C:\\Windows\\System32\\dwm.exe, [N/A]",
+      "4236, D:\\software_install_location\\huorong\\Sysdiag\\bin\\HipsDaemon.exe, [N/A]",
+      "14704, C:\\Windows\\System32\\ShellHost.exe, [N/A]",
+      "18600, C:\\Program Files\\ToDesk\\ToDesk.exe, [N/A]",
+      "14316, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe, [N/A]",
+      "6252, C:\\Windows\\explorer.exe, [N/A]",
+      "20992, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe, [N/A]",
+      "21040, C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe, [N/A]",
+      "23100, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]",
+      "17004, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe, [N/A]",
+      "12028, C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe, [N/A]",
+      "25392, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]",
+      "25512, C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewer.exe, [N/A]",
+      "17404, C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe, [N/A]",
+      "9308, C:\\Windows\\System32\\ApplicationFrameHost.exe, [N/A]",
+      "37856, D:\\software_install_location\\xiangrikui\\AweSun\\flutter\\AweSun.exe, [N/A]",
+      "7660, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]",
+      "7996, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]",
+      "36664, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe, [N/A]",
+      "37252, C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe, [N/A]",
+      "6164, C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe, [N/A]",
+      "5384, C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.26072.257.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe, [N/A]",
+      "10484, C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerServer.exe, [N/A]",
+      "24736, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe, [N/A]",
+      "35356, D:\\Program Files\\AutoCAD 2025\\acad.exe, [N/A]"
+    ],
+    "classification_limit": "WDDM can report per-process GPU memory as N/A; absence from compute-app rows does not prove zero graphics context."
+  },
+  "relevant_processes": [
+    {
+      "pid": 7660,
+      "ppid": 6252,
+      "name": "ansysedt.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "N:\\ZBB\\ercixiaoyan\\culue10um\\dancengpingpu10um.aedt"
+      ],
+      "create_time_epoch": 1790739287.7971334,
+      "status": "running",
+      "cpu_times": {
+        "user": 1179.625,
+        "system": 805.546875,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 123473920,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": [
+        30436
+      ]
+    },
+    {
+      "pid": 7996,
+      "ppid": 6252,
+      "name": "ansysedt.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "N:\\ZBB\\ercixiaoyan\\culue5um\\dancengpingpu5um.aedt"
+      ],
+      "create_time_epoch": 1790739305.7724223,
+      "status": "running",
+      "cpu_times": {
+        "user": 37.765625,
+        "system": 156.21875,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 40755200,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": [
+        12272
+      ]
+    },
+    {
+      "pid": 8168,
+      "ppid": 2736,
+      "name": "smpd-intel-4.0.3.009-x64.exe",
+      "exe": "C:\\Program Files\\Intel MPI 4.0\\x64\\smpd-intel-4.0.3.009-x64.exe",
+      "cmdline": [
+        "C:\\Program Files\\Intel MPI 4.0\\x64\\smpd-intel-4.0.3.009-x64.exe"
+      ],
+      "create_time_epoch": 1790584049.37485,
+      "status": "running",
+      "cpu_times": {
+        "user": 0.1875,
+        "system": 0.109375,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 1282048,
+      "username": "NT AUTHORITY\\SYSTEM",
+      "children": []
+    },
+    {
+      "pid": 17436,
+      "ppid": 33316,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790606661.694775,
+      "status": "running",
+      "cpu_times": {
+        "user": 145.34375,
+        "system": 535.640625,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 13463552,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": []
+    },
+    {
+      "pid": 17576,
+      "ppid": 28420,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790607450.8102887,
+      "status": "running",
+      "cpu_times": {
+        "user": 142.21875,
+        "system": 534.875,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 12849152,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": []
+    },
+    {
+      "pid": 26372,
+      "ppid": 27248,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790607301.2214863,
+      "status": "running",
+      "cpu_times": {
+        "user": 146.6875,
+        "system": 525.671875,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 13406208,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": []
+    },
+    {
+      "pid": 29816,
+      "ppid": 24800,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790607268.6805904,
+      "status": "running",
+      "cpu_times": {
+        "user": 146.65625,
+        "system": 533.328125,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 13479936,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": []
+    },
+    {
+      "pid": 31844,
+      "ppid": 18080,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790607404.2256026,
+      "status": "running",
+      "cpu_times": {
+        "user": 147.921875,
+        "system": 522.953125,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 13053952,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": []
+    },
+    {
+      "pid": 31848,
+      "ppid": 30336,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790605801.1656568,
+      "status": "running",
+      "cpu_times": {
+        "user": 154.03125,
+        "system": 535.6875,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 13479936,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": [
+        8448
+      ]
+    },
+    {
+      "pid": 32256,
+      "ppid": 16572,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790607349.8376627,
+      "status": "running",
+      "cpu_times": {
+        "user": 148.015625,
+        "system": 520.59375,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 13721600,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": []
+    },
+    {
+      "pid": 33824,
+      "ppid": 29236,
+      "name": "fdtd-solutions.exe",
+      "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+      "cmdline": [
+        "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "-server",
+        "-hide",
+        ""
+      ],
+      "create_time_epoch": 1790605930.7656145,
+      "status": "running",
+      "cpu_times": {
+        "user": 149.515625,
+        "system": 532.984375,
+        "children_user": 0.0,
+        "children_system": 0.0
+      },
+      "rss_bytes": 13991936,
+      "username": "DESKTOP-NNE313K\\DELL",
+      "children": []
+    }
+  ],
+  "active_solver_or_mpi_engine_processes": [],
+  "gpu": {
+    "query": {
+      "exit_code": 0,
+      "stdout": "0, NVIDIA GeForce RTX 3080, GPU-15ded1d4-3837-27b9-d22a-fa67c55420f4, 1, 2412, 7642, 10240",
+      "stderr": ""
+    },
+    "compute_apps": {
+      "exit_code": 0,
+      "stdout": "3624, C:\\Windows\\System32\\dwm.exe, [N/A]\n4236, D:\\software_install_location\\huorong\\Sysdiag\\bin\\HipsDaemon.exe, [N/A]\n14704, C:\\Windows\\System32\\ShellHost.exe, [N/A]\n18600, C:\\Program Files\\ToDesk\\ToDesk.exe, [N/A]\n14316, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe, [N/A]\n6252, C:\\Windows\\explorer.exe, [N/A]\n20992, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe, [N/A]\n21040, C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe, [N/A]\n23100, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]\n17004, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe, [N/A]\n12028, C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe, [N/A]\n25392, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]\n25512, C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewer.exe, [N/A]\n17404, C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe, [N/A]\n9308, C:\\Windows\\System32\\ApplicationFrameHost.exe, [N/A]\n37856, D:\\software_install_location\\xiangrikui\\AweSun\\flutter\\AweSun.exe, [N/A]\n7660, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]\n7996, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]\n36664, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe, [N/A]\n37252, C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe, [N/A]\n6164, C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe, [N/A]\n5384, C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.26072.257.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe, [N/A]\n10484, C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerServer.exe, [N/A]\n24736, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe, [N/A]\n35356, D:\\Program Files\\AutoCAD 2025\\acad.exe, [N/A]",
+      "stderr": ""
+    },
+    "threshold_mib": 1369
+  },
+  "assertions": {
+    "production_db_hash_stable": true,
+    "no_active_gpu_lease": true,
+    "no_active_reservation": true,
+    "pid8168_has_no_children": true,
+    "no_fdtd_engine_or_mpiexec_process": true,
+    "pid8168_zero_cpu_delta_over_2s": true,
+    "classification_is_inactive_daemon": true
+  },
+  "release_gate_note": "This addendum classifies the observed Intel MPI daemon only; it does not release hold and does not establish a complete production release authority."
+}

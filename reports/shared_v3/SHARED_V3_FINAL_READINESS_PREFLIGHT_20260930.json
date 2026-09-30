@@ -1,0 +1,1167 @@
+{
+  "schema": "SHARED_V3_FINAL_READINESS_PREFLIGHT_V1",
+  "captured_utc": "2026-09-30T12:10:16.986959+00:00",
+  "status": "PASS",
+  "production_db": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "sha256_before": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "sha256_after": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "size_before": 1458176,
+    "size_after": 1458176,
+    "mtime_ns_before": 1790738670064600500,
+    "mtime_ns_after": 1790738670064600500,
+    "raw_hash_unchanged_during_snapshot": true,
+    "wal": {
+      "exists": true,
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "shm": {
+      "exists": true,
+      "size": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    }
+  },
+  "control": {
+    "admission_control": [
+      {
+        "control_id": 1,
+        "new_entry_hold": 1,
+        "temporary_runtime_cap": null,
+        "health_status": "PASS",
+        "control_generation": 23,
+        "updated_at": "2026-09-29T04:31:17.858902+00:00"
+      }
+    ],
+    "legacy_hold_lifecycle_tables_present": false,
+    "slots": [
+      {
+        "slot_id": "GLOBAL_SLOT_1",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 18,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-23T14:06:42.074589+00:00",
+        "version": 178
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_2",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 60,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T04:30:39.791750+00:00",
+        "version": 1398
+      },
+      {
+        "slot_id": "GLOBAL_SLOT_3",
+        "state": "FREE",
+        "owner_branch": null,
+        "logical_case_id": null,
+        "attempt_id": null,
+        "lease_token": null,
+        "fencing_generation": 15,
+        "acquired_at": null,
+        "solver_entered_at": null,
+        "heartbeat_at": null,
+        "updated_at": "2026-09-29T04:30:44.457273+00:00",
+        "version": 91
+      }
+    ],
+    "branch_limits": [
+      {
+        "branch_id": "coupling_ml",
+        "cap": 2,
+        "enabled": 1,
+        "preferred_slot_order": "[\"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\", \"GLOBAL_SLOT_1\"]",
+        "updated_at": "2026-09-24T12:54:39.098856+00:00"
+      },
+      {
+        "branch_id": "traditional",
+        "cap": 1,
+        "enabled": 0,
+        "preferred_slot_order": "[\"GLOBAL_SLOT_1\", \"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\"]",
+        "updated_at": "2026-09-25T04:43:12.718624+00:00"
+      }
+    ],
+    "gpu_capacity_leases_by_state": [
+      {
+        "status": "RELEASED",
+        "count": 39
+      }
+    ],
+    "active_gpu_capacity_lease_count": 0,
+    "reservations_by_state": [
+      {
+        "status": "RELEASED",
+        "count": 43
+      }
+    ],
+    "active_reservation_count": 0,
+    "launch_permits_by_state": [
+      {
+        "status": "CONSUMED",
+        "count": 3
+      }
+    ],
+    "nonterminal_launch_permit_count": 0,
+    "health_metrics": [
+      {
+        "metric_name": "AUTO_REFILL_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "BRANCH_CAP_VIOLATION_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "CONTROL_PLANE_DEFERRED_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "DISPATCHER_CRASH_KILLED_SOLVER_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "DISPATCHER_CRASH_RECOVERY_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "DUPLICATE_SCIENTIFIC_ENTRY_COUNT",
+        "metric_value": 1,
+        "updated_at": "2026-09-29T14:57:51.363973+00:00"
+      },
+      {
+        "metric_name": "FOREIGN_MUTATION_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "GLOBAL_CAPACITY_VIOLATION_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "PENDING_RECONCILE_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "PENDING_RECONCILE_RECOVERED_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "SCHEDULER_FAILURE_KILLED_SOLVER_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "SCIENTIFIC_HOST_CRASH_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "SCIENTIFIC_VALID_REPLAY_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "SSH_DISCONNECT_KILLED_SOLVER_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      },
+      {
+        "metric_name": "TRUTH_LOSS_AFTER_SOLVER_RETURN_COUNT",
+        "metric_value": 0,
+        "updated_at": "2026-09-20T07:21:55.767045+00:00"
+      }
+    ],
+    "lease_events": {
+      "schema": [
+        "event_id",
+        "timestamp",
+        "slot_id",
+        "branch_id",
+        "logical_case_id",
+        "attempt_id",
+        "event_type",
+        "lease_token_hash",
+        "fencing_generation",
+        "metadata_json"
+      ],
+      "max_event_id": 1814,
+      "scientific_entry_rows": [
+        {
+          "event_id": 1790,
+          "timestamp": "2026-09-26T00:21:03.435498+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT13",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "c05e12f02b4f5a6c874a2a4adff87200adf22b146cb2b915c40bf4486b36b4f4",
+          "fencing_generation": 13,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1781,
+          "timestamp": "2026-09-26T00:18:22.825114+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT14",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "30929f4bb3535bce24e73c1d7794fae80d62b9be451f2bb9a01cc74fe67af57d",
+          "fencing_generation": 58,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1772,
+          "timestamp": "2026-09-26T00:00:45.572543+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT12",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "7f19b4717c7cca50023213e6a1436c8a90a8362e093571504e9d1c75c7f89a65",
+          "fencing_generation": 12,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1763,
+          "timestamp": "2026-09-25T23:57:59.981000+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT11",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "9b88fbd296b34d93687562cbb98f34c1a6d2281d76a0bec17ffd99794907e544",
+          "fencing_generation": 57,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1754,
+          "timestamp": "2026-09-25T23:40:40.435331+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT10",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "9c3d741a18f03d329653ef1dab5231aaeea36d8439d07e1c6c6e31975f2b74a7",
+          "fencing_generation": 11,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1745,
+          "timestamp": "2026-09-25T23:37:43.870003+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT09",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "2496b7363db8d80db1f67cb914abf7075486f040942060c3cb271f90136de27c",
+          "fencing_generation": 56,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1736,
+          "timestamp": "2026-09-25T23:20:07.142098+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT08",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "1293dc9a14dc0571f45af43f2ff1cfc0138b22e50038648f5c8353b36ba863ef",
+          "fencing_generation": 10,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1727,
+          "timestamp": "2026-09-25T23:17:20.394695+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT07",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "d04200b39bb461977a9ad5362cd980046ea992b6f43485174888f1c532e0b654",
+          "fencing_generation": 55,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1718,
+          "timestamp": "2026-09-25T23:00:05.830771+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT06",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "25eadc8de0261937dd9fc7f079333297a085d150f1f01946373fc7825124c590",
+          "fencing_generation": 9,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1709,
+          "timestamp": "2026-09-25T22:57:14.008086+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT05",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "d55e5766e58292e4e794858ee7decc5499f2c83371d3403270ada33b69916af8",
+          "fencing_generation": 54,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1700,
+          "timestamp": "2026-09-25T22:39:43.286853+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT04",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "2c26b0274ace0f44786a154cf00db8b0d0046f3a2807c5c26c2b4dc5d5909c11",
+          "fencing_generation": 8,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1691,
+          "timestamp": "2026-09-25T22:36:54.853133+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT03",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "161a0fdf7b45f33312673e6beca9ced5e5ab709d775498cea34e9d3573902be7",
+          "fencing_generation": 53,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1680,
+          "timestamp": "2026-09-25T07:08:37.882954+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT02",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "218c9f45ee093417166793a03d697757abdb5b5b43fd6ddffa80393b7e7ccb18",
+          "fencing_generation": 7,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1679,
+          "timestamp": "2026-09-25T07:08:37.820685+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_EXT01",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "9274a4425967a7b9f4424a380ad4b472a1ae42ff8ca5fdfe18c3fdb967beebe1",
+          "fencing_generation": 52,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1664,
+          "timestamp": "2026-09-25T05:49:22.660638+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S16",
+          "attempt_id": "attempt_002",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "9bbf75a4d5f2f99bb349af3f23392c2c495aeb66ae0a0b39deedaea39abdd5b7",
+          "fencing_generation": 51,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1645,
+          "timestamp": "2026-09-25T04:26:02.924109+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S15",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "042eb3e532a0d002bd5dc29a7e1288da9a27d792f441a25a95086cde7c89eb2b",
+          "fencing_generation": 48,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1635,
+          "timestamp": "2026-09-25T02:27:15.068670+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S14",
+          "attempt_id": "attempt_004",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "09f239d01f47058dc8f9b8deaa0caa66a4e9fc38c33d567763db272bc113a56b",
+          "fencing_generation": 47,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1610,
+          "timestamp": "2026-09-24T12:55:02.583172+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S13",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "e223836185877aea7011692e45c5065330255f4677babbf2f039d23e622a0917",
+          "fencing_generation": 43,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1602,
+          "timestamp": "2026-09-24T12:10:20.153088+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S12",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "2f59089badfb021389b362229b85437f337222b771f8de8c47771bbcee6a65fe",
+          "fencing_generation": 42,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1563,
+          "timestamp": "2026-09-24T10:34:39.524860+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S05",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "1abc561fa819eb8233816d2b3ba679799143f9b478578595e4db35c59ea6f03a",
+          "fencing_generation": 35,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1557,
+          "timestamp": "2026-09-24T10:21:39.080898+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S04",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "26d2cf9cb8d87202121a6ee8584fbdec4b963af4b12c422945822ce3db2b4dac",
+          "fencing_generation": 34,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1547,
+          "timestamp": "2026-09-24T09:13:32.858601+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S03",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "1dbf86d7f08fd750e846023fad70efdacaed8675adcc6588d7c201e7e16d5174",
+          "fencing_generation": 33,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1545,
+          "timestamp": "2026-09-24T09:12:40.108397+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "K6V1_S02",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "d5c7de49ad05a030c5d15c2fa53c5bb16154a74a2c3864a276e0e708dc52286e",
+          "fencing_generation": 6,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1535,
+          "timestamp": "2026-09-24T07:42:43.868547+00:00",
+          "slot_id": "GLOBAL_SLOT_3",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "W2H_10588",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "75b54eaa5ec66ba2af72cfef1dd1e130dfffd52a9d1a1479cf1b087618228166",
+          "fencing_generation": 5,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1534,
+          "timestamp": "2026-09-24T07:42:41.076196+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "W2H_19451",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "3e8f0bf9eac09de80d97a87356f052e6036b2d3b13274c97ab85a192bc1a2244",
+          "fencing_generation": 31,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1528,
+          "timestamp": "2026-09-24T07:34:50.582414+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "W2H_06824",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "6bc02d940efd615361fb330d76e126d75c9f4673e0cba7818d379389c2e081f1",
+          "fencing_generation": 30,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1524,
+          "timestamp": "2026-09-23T14:17:27.663165+00:00",
+          "slot_id": "GLOBAL_SLOT_2",
+          "branch_id": "coupling_ml",
+          "logical_case_id": "GPU_CPU_PARITY_AND_RUNTIME_CANARY_V1",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "24909d9989a500683f81c045ae44bf2a10ad23142f58033d0be1e680232d79e8",
+          "fencing_generation": 29,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1521,
+          "timestamp": "2026-09-23T13:40:59.942969+00:00",
+          "slot_id": "GLOBAL_SLOT_1",
+          "branch_id": "traditional",
+          "logical_case_id": "PW_TRADITIONAL_SPACER_T150_P",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "ef0a08d414d3f512614fa031841befd96d98f5c587318e57fd7116b40cb46986",
+          "fencing_generation": 18,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1518,
+          "timestamp": "2026-09-23T08:38:35.193117+00:00",
+          "slot_id": "GLOBAL_SLOT_1",
+          "branch_id": "traditional",
+          "logical_case_id": "PW_TRADITIONAL_BASELINE_P",
+          "attempt_id": "attempt_002",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "3ad5f8afa69b98b331bcd5d96cd563b86a86a7b728cc48002cd6d50d050aff56",
+          "fencing_generation": 17,
+          "metadata_json": "{}"
+        },
+        {
+          "event_id": 1512,
+          "timestamp": "2026-09-23T07:51:12.042896+00:00",
+          "slot_id": "GLOBAL_SLOT_1",
+          "branch_id": "traditional",
+          "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS3",
+          "attempt_id": "attempt_001",
+          "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+          "lease_token_hash": "8512fb34eed40c1abb439f6ce0cdce5b0e66bff54d7c15f12893690d574a8b59",
+          "fencing_generation": 15,
+          "metadata_json": "{}"
+        }
+      ]
+    }
+  },
+  "targets": [
+    {
+      "queue_id": 65,
+      "case_id": "K6V1_S35",
+      "attempt_id": "attempt_001",
+      "branch_id": "coupling_ml",
+      "state": "WAIT_RESOURCE_CAPACITY",
+      "slot_id": null,
+      "lease_token_hash": null,
+      "fencing_generation": null,
+      "entry_count": 0,
+      "entry_events_for_attempt": [],
+      "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "geometry_hash": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+      "extension_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "pre_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\setup\\runtime.fsp",
+      "pre_fsp_declared_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+      "pre_fsp_actual_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+      "pre_fsp_size_bytes": 522322,
+      "attempt_files": [
+        "case.json",
+        "events.jsonl",
+        "host_uncaught_exception.json",
+        "preentry_host_exit.json",
+        "setup_readback.json",
+        "terminal_failure.json",
+        "setup\\runtime.fsp"
+      ],
+      "native_or_post_h5_truth_present": false,
+      "truth_absence_reason": "scientific_entry_count=0"
+    },
+    {
+      "queue_id": 66,
+      "case_id": "K6V1_S39",
+      "attempt_id": "attempt_001",
+      "branch_id": "coupling_ml",
+      "state": "WAIT_RESOURCE_CAPACITY",
+      "slot_id": null,
+      "lease_token_hash": null,
+      "fencing_generation": null,
+      "entry_count": 0,
+      "entry_events_for_attempt": [],
+      "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "geometry_hash": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729",
+      "extension_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "pre_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\setup\\runtime.fsp",
+      "pre_fsp_declared_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+      "pre_fsp_actual_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+      "pre_fsp_size_bytes": 522322,
+      "attempt_files": [
+        "case.json",
+        "events.jsonl",
+        "host_uncaught_exception.json",
+        "preentry_host_exit.json",
+        "setup_readback.json",
+        "terminal_failure.json",
+        "setup\\runtime.fsp"
+      ],
+      "native_or_post_h5_truth_present": false,
+      "truth_absence_reason": "scientific_entry_count=0"
+    }
+  ],
+  "gpu": {
+    "nvidia_smi_gpu_query": {
+      "exit": 0,
+      "stdout": "0, NVIDIA GeForce RTX 3080, GPU-15ded1d4-3837-27b9-d22a-fa67c55420f4, 1, 2412, 7642, 10240",
+      "stderr": ""
+    },
+    "gpu_rows": [
+      {
+        "index": "0",
+        "name": "NVIDIA GeForce RTX 3080",
+        "uuid": "GPU-15ded1d4-3837-27b9-d22a-fa67c55420f4",
+        "utilization_percent": "1",
+        "memory_used_mib": "2412",
+        "memory_free_mib": "7642",
+        "memory_total_mib": "10240"
+      }
+    ],
+    "minimum_free_mib": 1369,
+    "passes_threshold": true,
+    "compute_apps_query": {
+      "exit": 0,
+      "stdout": "3624, C:\\Windows\\System32\\dwm.exe, [N/A]\n4236, D:\\software_install_location\\huorong\\Sysdiag\\bin\\HipsDaemon.exe, [N/A]\n14704, C:\\Windows\\System32\\ShellHost.exe, [N/A]\n18600, C:\\Program Files\\ToDesk\\ToDesk.exe, [N/A]\n14316, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe, [N/A]\n6252, C:\\Windows\\explorer.exe, [N/A]\n20992, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe, [N/A]\n21040, C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe, [N/A]\n23100, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]\n17004, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe, [N/A]\n12028, C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe, [N/A]\n25392, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]\n25512, C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewer.exe, [N/A]\n17404, C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe, [N/A]\n9308, C:\\Windows\\System32\\ApplicationFrameHost.exe, [N/A]\n37856, D:\\software_install_location\\xiangrikui\\AweSun\\flutter\\AweSun.exe, [N/A]\n7660, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]\n7996, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]\n36664, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe, [N/A]\n37252, C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe, [N/A]\n6164, C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe, [N/A]\n5384, C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.26072.257.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe, [N/A]\n10484, C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerServer.exe, [N/A]\n24736, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe, [N/A]\n35356, D:\\Program Files\\AutoCAD 2025\\acad.exe, [N/A]",
+      "stderr": ""
+    },
+    "compute_app_rows": [
+      [
+        "3624",
+        "C:\\Windows\\System32\\dwm.exe",
+        "[N/A]"
+      ],
+      [
+        "4236",
+        "D:\\software_install_location\\huorong\\Sysdiag\\bin\\HipsDaemon.exe",
+        "[N/A]"
+      ],
+      [
+        "14704",
+        "C:\\Windows\\System32\\ShellHost.exe",
+        "[N/A]"
+      ],
+      [
+        "18600",
+        "C:\\Program Files\\ToDesk\\ToDesk.exe",
+        "[N/A]"
+      ],
+      [
+        "14316",
+        "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe",
+        "[N/A]"
+      ],
+      [
+        "6252",
+        "C:\\Windows\\explorer.exe",
+        "[N/A]"
+      ],
+      [
+        "20992",
+        "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe",
+        "[N/A]"
+      ],
+      [
+        "21040",
+        "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe",
+        "[N/A]"
+      ],
+      [
+        "23100",
+        "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe",
+        "[N/A]"
+      ],
+      [
+        "17004",
+        "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe",
+        "[N/A]"
+      ],
+      [
+        "12028",
+        "C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe",
+        "[N/A]"
+      ],
+      [
+        "25392",
+        "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe",
+        "[N/A]"
+      ],
+      [
+        "25512",
+        "C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewer.exe",
+        "[N/A]"
+      ],
+      [
+        "17404",
+        "C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe",
+        "[N/A]"
+      ],
+      [
+        "9308",
+        "C:\\Windows\\System32\\ApplicationFrameHost.exe",
+        "[N/A]"
+      ],
+      [
+        "37856",
+        "D:\\software_install_location\\xiangrikui\\AweSun\\flutter\\AweSun.exe",
+        "[N/A]"
+      ],
+      [
+        "7660",
+        "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "[N/A]"
+      ],
+      [
+        "7996",
+        "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "[N/A]"
+      ],
+      [
+        "36664",
+        "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe",
+        "[N/A]"
+      ],
+      [
+        "37252",
+        "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        "[N/A]"
+      ],
+      [
+        "6164",
+        "C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe",
+        "[N/A]"
+      ],
+      [
+        "5384",
+        "C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.26072.257.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe",
+        "[N/A]"
+      ],
+      [
+        "10484",
+        "C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerServer.exe",
+        "[N/A]"
+      ],
+      [
+        "24736",
+        "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe",
+        "[N/A]"
+      ],
+      [
+        "35356",
+        "D:\\Program Files\\AutoCAD 2025\\acad.exe",
+        "[N/A]"
+      ]
+    ],
+    "wddm_process_memory_visibility": "N/A"
+  },
+  "processes": [
+    {
+      "pid": 7660,
+      "ppid": 6252,
+      "name": "ansysedt.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe N:\\ZBB\\ercixiaoyan\\culue10um\\dancengpingpu10um.aedt",
+      "create_time": 1790739287.7971334,
+      "rss_bytes": 123408384
+    },
+    {
+      "pid": 7996,
+      "ppid": 6252,
+      "name": "ansysedt.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe N:\\ZBB\\ercixiaoyan\\culue5um\\dancengpingpu5um.aedt",
+      "create_time": 1790739305.7724223,
+      "rss_bytes": 40685568
+    },
+    {
+      "pid": 8168,
+      "ppid": 2736,
+      "name": "smpd-intel-4.0.3.009-x64.exe",
+      "cmdline": "C:\\Program Files\\Intel MPI 4.0\\x64\\smpd-intel-4.0.3.009-x64.exe",
+      "create_time": 1790584049.37485,
+      "rss_bytes": 1282048
+    },
+    {
+      "pid": 17436,
+      "ppid": 33316,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790606661.694775,
+      "rss_bytes": 13496320
+    },
+    {
+      "pid": 17576,
+      "ppid": 28420,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790607450.8102887,
+      "rss_bytes": 12845056
+    },
+    {
+      "pid": 26372,
+      "ppid": 27248,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790607301.2214863,
+      "rss_bytes": 13430784
+    },
+    {
+      "pid": 29816,
+      "ppid": 24800,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790607268.6805904,
+      "rss_bytes": 13512704
+    },
+    {
+      "pid": 31844,
+      "ppid": 18080,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790607404.2256026,
+      "rss_bytes": 13049856
+    },
+    {
+      "pid": 31848,
+      "ppid": 30336,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790605801.1656568,
+      "rss_bytes": 13512704
+    },
+    {
+      "pid": 32256,
+      "ppid": 16572,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790607349.8376627,
+      "rss_bytes": 13754368
+    },
+    {
+      "pid": 33824,
+      "ppid": 29236,
+      "name": "fdtd-solutions.exe",
+      "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+      "create_time": 1790605930.7656145,
+      "rss_bytes": 14020608
+    }
+  ],
+  "process_classification": {
+    "controller_processes": [],
+    "dispatcher_processes": [],
+    "solver_or_mpi_processes": [],
+    "idle_lumapi_server_daemons": [
+      {
+        "pid": 17436,
+        "ppid": 33316,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790606661.694775,
+        "rss_bytes": 13496320
+      },
+      {
+        "pid": 17576,
+        "ppid": 28420,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790607450.8102887,
+        "rss_bytes": 12845056
+      },
+      {
+        "pid": 26372,
+        "ppid": 27248,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790607301.2214863,
+        "rss_bytes": 13430784
+      },
+      {
+        "pid": 29816,
+        "ppid": 24800,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790607268.6805904,
+        "rss_bytes": 13512704
+      },
+      {
+        "pid": 31844,
+        "ppid": 18080,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790607404.2256026,
+        "rss_bytes": 13049856
+      },
+      {
+        "pid": 31848,
+        "ppid": 30336,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790605801.1656568,
+        "rss_bytes": 13512704
+      },
+      {
+        "pid": 32256,
+        "ppid": 16572,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790607349.8376627,
+        "rss_bytes": 13754368
+      },
+      {
+        "pid": 33824,
+        "ppid": 29236,
+        "name": "fdtd-solutions.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe -server -hide ",
+        "create_time": 1790605930.7656145,
+        "rss_bytes": 14020608
+      }
+    ],
+    "aedt_gui_processes": [
+      {
+        "pid": 7660,
+        "ppid": 6252,
+        "name": "ansysedt.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe N:\\ZBB\\ercixiaoyan\\culue10um\\dancengpingpu10um.aedt",
+        "create_time": 1790739287.7971334,
+        "rss_bytes": 123408384
+      },
+      {
+        "pid": 7996,
+        "ppid": 6252,
+        "name": "ansysedt.exe",
+        "cmdline": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe N:\\ZBB\\ercixiaoyan\\culue5um\\dancengpingpu5um.aedt",
+        "create_time": 1790739305.7724223,
+        "rss_bytes": 40685568
+      }
+    ]
+  },
+  "scheduled_tasks": {
+    "powershell_exit": 0,
+    "tasks": [
+      {
+        "Name": "APCD_PW_K6_SEED_DB_V1_CONTROLLER",
+        "Path": "\\",
+        "State": "Disabled",
+        "Enabled": false,
+        "Actions": [
+          {
+            "Execute": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+            "Arguments": "\"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\PW_K6_SEED_DB_V1_controller.py\"",
+            "WorkingDirectory": null
+          }
+        ],
+        "Triggers": [
+          {
+            "Type": "MSFT_TaskTimeTrigger",
+            "Enabled": true,
+            "StartBoundary": "2099-01-01T00:00:00",
+            "Interval": null,
+            "Duration": null
+          }
+        ],
+        "LastRun": "/Date(1790235714000)/",
+        "NextRun": "/Date(4070880000000)/",
+        "LastTaskResult": 3221225786
+      },
+      {
+        "Name": "APCD_V3_COUPLING_DISPATCHER",
+        "Path": "\\",
+        "State": "Disabled",
+        "Enabled": false,
+        "Actions": [
+          {
+            "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+            "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_dispatcher_service.py\" --once",
+            "WorkingDirectory": null
+          }
+        ],
+        "Triggers": [
+          {
+            "Type": "MSFT_TaskTimeTrigger",
+            "Enabled": true,
+            "StartBoundary": "2026-09-21T20:39:00",
+            "Interval": "PT1M",
+            "Duration": null
+          }
+        ],
+        "LastRun": "/Date(1790316241000)/",
+        "NextRun": "/Date(1790770260000)/",
+        "LastTaskResult": 0
+      },
+      {
+        "Name": "APCD_V3_COUPLING_RECONCILER",
+        "Path": "\\",
+        "State": "Ready",
+        "Enabled": true,
+        "Actions": [
+          {
+            "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+            "Arguments": "\"D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_reconciler_service.py\"",
+            "WorkingDirectory": null
+          }
+        ],
+        "Triggers": [
+          {
+            "Type": "MSFT_TaskTimeTrigger",
+            "Enabled": true,
+            "StartBoundary": "2026-09-21T20:56:00",
+            "Interval": "PT1M",
+            "Duration": null
+          }
+        ],
+        "LastRun": "/Date(1790770201000)/",
+        "NextRun": "/Date(1790770260000)/",
+        "LastTaskResult": 0
+      }
+    ],
+    "reconciler": {
+      "Name": "APCD_V3_COUPLING_RECONCILER",
+      "Path": "\\",
+      "State": "Ready",
+      "Enabled": true,
+      "Actions": [
+        {
+          "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+          "Arguments": "\"D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_reconciler_service.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "Triggers": [
+        {
+          "Type": "MSFT_TaskTimeTrigger",
+          "Enabled": true,
+          "StartBoundary": "2026-09-21T20:56:00",
+          "Interval": "PT1M",
+          "Duration": null
+        }
+      ],
+      "LastRun": "/Date(1790770201000)/",
+      "NextRun": "/Date(1790770260000)/",
+      "LastTaskResult": 0
+    },
+    "dispatcher": {
+      "Name": "APCD_V3_COUPLING_DISPATCHER",
+      "Path": "\\",
+      "State": "Disabled",
+      "Enabled": false,
+      "Actions": [
+        {
+          "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_dispatcher_service.py\" --once",
+          "WorkingDirectory": null
+        }
+      ],
+      "Triggers": [
+        {
+          "Type": "MSFT_TaskTimeTrigger",
+          "Enabled": true,
+          "StartBoundary": "2026-09-21T20:39:00",
+          "Interval": "PT1M",
+          "Duration": null
+        }
+      ],
+      "LastRun": "/Date(1790316241000)/",
+      "NextRun": "/Date(1790770260000)/",
+      "LastTaskResult": 0
+    },
+    "legacy_controller": {
+      "Name": "APCD_PW_K6_SEED_DB_V1_CONTROLLER",
+      "Path": "\\",
+      "State": "Disabled",
+      "Enabled": false,
+      "Actions": [
+        {
+          "Execute": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+          "Arguments": "\"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\PW_K6_SEED_DB_V1_controller.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "Triggers": [
+        {
+          "Type": "MSFT_TaskTimeTrigger",
+          "Enabled": true,
+          "StartBoundary": "2099-01-01T00:00:00",
+          "Interval": null,
+          "Duration": null
+        }
+      ],
+      "LastRun": "/Date(1790235714000)/",
+      "NextRun": "/Date(4070880000000)/",
+      "LastTaskResult": 3221225786
+    }
+  },
+  "pinned_files": {
+    "backend_manifest_file_count": 91,
+    "backend_manifest_sha256": "88161d48340f14c6bfb07ee98c8cf46e1cff82ce1e0ffe381be82d39c885a5a2",
+    "backend_file_mismatches": [],
+    "candidate_inventory_count": 5,
+    "candidate_inventory_sha256": "b8d64a602ff5014ed90806575abe4b5195de4b8e3714d6ddea267b286fa259db",
+    "candidate_bundle_mismatches": [],
+    "hashes": {
+      "backend_manifest_sha256": "88161d48340f14c6bfb07ee98c8cf46e1cff82ce1e0ffe381be82d39c885a5a2",
+      "controller_candidate_sha256": "e4cd8429b81a838933edefb147ccf5d0b907013fd581fb9a2f5b68aa1bb04e99",
+      "candidate_patch_sha256": "49ba825e3474a86326252c4d8c9b83a5bf8aefa54c09be73e995b0736f07e24c",
+      "candidate_source_manifest_sha256": "aacb3f8429c8953c878631bb74a078babbc4e540284a805e1a79513dff6eacc5",
+      "bundle_inventory_sha256": "b8d64a602ff5014ed90806575abe4b5195de4b8e3714d6ddea267b286fa259db",
+      "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "seed_manifest_raw_sha256": "463ceaece52121b1a968d22881944c082a26041c16b4489c25b6a0b8f44db62b",
+      "authority_json_sha256": "1ef57c143f3197c276f5c5a323599a79be6095e60734f7ee857451fe97dfe6e8",
+      "authority_md_sha256": "bd7aefc825c806931f9a4f6692f93e8a959224114c71775faabec67e0b93388d",
+      "seed_manifest_normalized_sha256": "4a85eeda07e18a5ee098183b1303d8a2e6f1ed08a8dfc4cb72687b00ebe998ee"
+    }
+  },
+  "checks": {
+    "legacy_global_hold_on": true,
+    "health_pass": true,
+    "all_slots_free_and_unowned": true,
+    "no_active_capacity_leases": true,
+    "no_active_reservations": true,
+    "no_nonterminal_launch_permits": true,
+    "exactly_two_targets_attempt001_entry_zero": true,
+    "target_pre_fsp_declared_actual_match": true,
+    "gpu_free_at_least_1369_mib": true,
+    "no_candidate_or_controller_process": true,
+    "no_dispatcher_process": true,
+    "no_solver_or_mpi_process": true,
+    "dispatcher_task_disabled": true,
+    "legacy_controller_task_disabled": true,
+    "versioned_reconciler_task_enabled_result0": true,
+    "backend_manifest_all_pins_match": true,
+    "candidate_bundle_all_inventory_hashes_match": true,
+    "expansion_and_seed_pins_match": true,
+    "production_db_hash_stable_during_snapshot": true
+  },
+  "production_db_written": false,
+  "hold_changed": false,
+  "controller_started_by_this_audit": false,
+  "solver_invocations_by_this_audit": 0
+}

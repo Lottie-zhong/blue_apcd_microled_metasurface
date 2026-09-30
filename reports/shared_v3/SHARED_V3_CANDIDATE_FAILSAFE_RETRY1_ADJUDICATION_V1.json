@@ -1,0 +1,94 @@
+{
+  "schema": "SHARED_V3_V3_FAILSAFE_ADJUDICATION_ADDENDUM_V1",
+  "created_utc": "2026-09-30T11:03:32.601648+00:00",
+  "adjudication_status": "PASS",
+  "scope": "V3 isolated post-entry controller-restart fail-safe criterion only",
+  "original_runner_status": "FAIL",
+  "original_runner_report_path": "D:\\apcd_runtime\\shared_v3_v3qual_20260930\\candidate_failsafe_01e2320_retry1_20260930\\candidate_failsafe_restart_report.json",
+  "original_runner_report_sha256": "4193e04476a20697bc77987bb6c3f221784c027a6b5fcce1c3a0de7599d130ad",
+  "wrapper_report_path": "D:\\apcd_runtime\\shared_v3_v3qual_20260930\\candidate_failsafe_retry1_execution_wrapper_report.json",
+  "wrapper_report_sha256": "8d648b294b48e1c0b11e0893c3cd7f431f5dfd6eb04aad9005d8bb8b9cd55a4e",
+  "faulty_runner_assertion": {
+    "name": "dispatch_calls_only_for_two_candidate_targets",
+    "runner_expected_dispatch_calls": 4,
+    "observed_dispatch_calls": 0,
+    "excluded_from_v3_fail_safe_adjudication": true,
+    "reason": "candidate main explicitly skips dispatch_once unless state is QUEUED or WAIT_RESOURCE_CAPACITY; the actual RUNNING then POSTENTRY_NO_TRUTH states are not dispatchable. The controller source has been hash-pinned and the function reference identity verified. This is a coverage assertion mismatch, not a safety violation."
+  },
+  "evidence_hashes": {
+    "runner_sha256": "b74344e753b5f6ff47e99c0ee6ab9edcb1e2db3cf0ab93a2709dcecfc0d9a798",
+    "candidate_controller_sha256": "e4cd8429b81a838933edefb147ccf5d0b907013fd581fb9a2f5b68aa1bb04e99",
+    "candidate_expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+    "candidate_bundle_inventory_sha256": "b8d64a602ff5014ed90806575abe4b5195de4b8e3714d6ddea267b286fa259db",
+    "candidate_source_manifest_sha256": "aacb3f8429c8953c878631bb74a078babbc4e540284a805e1a79513dff6eacc5",
+    "backend_manifest_sha256": "88161d48340f14c6bfb07ee98c8cf46e1cff82ce1e0ffe381be82d39c885a5a2",
+    "dispatcher_py_sha256": "c34ae9900cacafcb527c6e3e8fab97e80c7194b267b089fe8dc56e22fa626162",
+    "schema_py_sha256": "728cd2925780da93f6b7c449d09ae62727af176a7f8f771a871127d578bc3b00",
+    "reconciler_service_sha256": "2a023e7d36ffcfc2a554f1091c32c869b48f5be6f948de6e2d4619bb2b7e1549",
+    "reconciler_impl_sha256": "27c9c66eb58b24bdae48327e27a2b3e44ae2ad8da21671c1e3feade287998126",
+    "attempt_events_jsonl_sha256": "fdd9079b8b92481f002db798f7b8feffd64645ec374436dc49fccd795c8dacb0",
+    "controller_events_jsonl_sha256": "5a735fcd0b8516ac333fec1d741ef0b493ba091f70bb0253428531630d3a241f",
+    "isolated_control_db_sha256": "3127ecb65b463c943ccc5d5a23d101458d2ded86bef6b7d2c10559320026ad98",
+    "reconciler_stdout_sha256": "f228676a734dc9845b79f2aca58e8e84041aef3956a88ae675063508456b4527"
+  },
+  "production_read_only_snapshot": {
+    "database_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "database_sha256_before_retry": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "database_sha256_after_retry": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "database_sha256_current": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "hash_unchanged": true,
+    "admission_control": {
+      "new_entry_hold": true,
+      "health_status": "PASS",
+      "control_generation": 23
+    }
+  },
+  "verified_criteria": {
+    "two_actual_controller_processes": true,
+    "distinct_controller_pids": [
+      34072,
+      17500
+    ],
+    "one_tick_each": true,
+    "state_transition": [
+      "SCIENTIFIC_SOLVER_RUNNING",
+      "POSTENTRY_NO_TRUTH"
+    ],
+    "dispatch_once_calls": 0,
+    "dispatch_once_zero_reason": "candidate main line 109 gates calls to dispatch_once on QUEUED or WAIT_RESOURCE_CAPACITY; neither target is in those states on either tick, so zero calls is required; line 110 is inside that branch and dispatcher has the same queue-state filter",
+    "dispatch_function_identity_same": true,
+    "launch_factory_setup_calls": 2,
+    "actual_launches_each_tick": [
+      [],
+      []
+    ],
+    "host_callback_calls": 0,
+    "semantic_entry_count": 1,
+    "launch_claim_count": 1,
+    "lease_acquire_count": 1,
+    "lease_release_count": 1,
+    "real_solver_invocation_count": 0,
+    "synthetic_solver_invocation_count": 0,
+    "replay_count": 0,
+    "attempt_002_count": 0,
+    "terminal_queue_state": "POSTENTRY_NO_TRUTH",
+    "terminal_release_status": "RELEASED",
+    "active_slots": 0,
+    "active_reservations": 0,
+    "isolated_admission": {
+      "new_entry_hold": false,
+      "health_status": "PASS",
+      "free_slots_before_fixture": 3
+    },
+    "reconciler": {
+      "status": "PASS",
+      "closeout_status": "POSTENTRY_NO_TRUTH",
+      "release_status": "RELEASED",
+      "replay": 0,
+      "service_sha256": "2a023e7d36ffcfc2a554f1091c32c869b48f5be6f948de6e2d4619bb2b7e1549",
+      "implementation_sha256": "27c9c66eb58b24bdae48327e27a2b3e44ae2ad8da21671c1e3feade287998126"
+    }
+  },
+  "controller_processes_after": [],
+  "original_fail_report_preserved": true
+}

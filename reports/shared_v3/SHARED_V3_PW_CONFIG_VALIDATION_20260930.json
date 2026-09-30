@@ -1,0 +1,100 @@
+{
+  "schema": "SHARED_V3_PW_CONFIG_VALIDATION_EVIDENCE_V1",
+  "captured_utc": "2026-09-30T12:01:49.133870+00:00",
+  "status": "PASS_CONFIG_CONTRACT_VALIDATION_ONLY",
+  "backend_commit": "01e2320ebf237bdbcd52573665520d57705d2800",
+  "backend_manifest_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\manifest.json",
+  "backend_manifest_sha256": "88161d48340f14c6bfb07ee98c8cf46e1cff82ce1e0ffe381be82d39c885a5a2",
+  "backend_manifest_file_count": 91,
+  "launcher_source_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\pw_scientific_launcher.py",
+  "launcher_source_sha256": "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908",
+  "host_source_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_g2_host.py",
+  "host_source_sha256": "e1717cad0fc175f9b3a726e558924a693b9290848bdf5a8fc8c82419d6473317",
+  "host_callsite": "v3_g2_host._main_owned calls validate_pw_config(cfg) before host setup; no host main was invoked.",
+  "validator_function": "validate_config(cfg), source lines 100-113; pure field/selector/branch/fence/canonical-contract validation.",
+  "validation_boundary": "Actual S35/S39 production queue payloads were copied in memory. slot_id and lease_token were explicit validation-only sentinels because no production lease is active under hold. The function does not open cfg.db, start a host, call lumapi, load/run FDTD, or write production state. This is not a live-lease/resource admission check.",
+  "cases": [
+    {
+      "queue_id": 65,
+      "case_id": "K6V1_S35",
+      "attempt_id": "attempt_001",
+      "queue_state": "WAIT_RESOURCE_CAPACITY",
+      "branch_id": "coupling_ml",
+      "production_payload_sha256": "651bb50df7ce553f6e6c095335e5b9b048bf51bfd0b7be91b82bdf29a1d014ef",
+      "validator_result": true,
+      "validator": "shared_fdtd.tools.pw_scientific_launcher.validate_config",
+      "contract_resolution": {
+        "schema_path": "pw_contract.contract",
+        "legacy_schema_present": true,
+        "legacy_overlap_fields": [
+          "wavelengths_nm"
+        ],
+        "resolution": "canonical_nested_verified_against_legacy_overlap"
+      },
+      "contract_required_fields": [
+        "materials",
+        "monitors",
+        "references_nm",
+        "samples_nm",
+        "stack_layers",
+        "wavelengths_nm"
+      ],
+      "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "geometry_hash_sha256": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+      "extension_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "pre_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\setup\\runtime.fsp",
+      "pre_fsp_declared_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+      "pre_fsp_actual_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+      "pre_fsp_size_bytes": 522322,
+      "validation_lease_fields": "synthetic sentinels only; no slot/lease claim or DB operation",
+      "fencing_generation_sentinel": 1
+    },
+    {
+      "queue_id": 66,
+      "case_id": "K6V1_S39",
+      "attempt_id": "attempt_001",
+      "queue_state": "WAIT_RESOURCE_CAPACITY",
+      "branch_id": "coupling_ml",
+      "production_payload_sha256": "1348f154277fe2f083c51a47f4b56c2abdaaf3719adef37c6c1f334b011f43ec",
+      "validator_result": true,
+      "validator": "shared_fdtd.tools.pw_scientific_launcher.validate_config",
+      "contract_resolution": {
+        "schema_path": "pw_contract.contract",
+        "legacy_schema_present": true,
+        "legacy_overlap_fields": [
+          "wavelengths_nm"
+        ],
+        "resolution": "canonical_nested_verified_against_legacy_overlap"
+      },
+      "contract_required_fields": [
+        "materials",
+        "monitors",
+        "references_nm",
+        "samples_nm",
+        "stack_layers",
+        "wavelengths_nm"
+      ],
+      "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "geometry_hash_sha256": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729",
+      "extension_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "pre_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\setup\\runtime.fsp",
+      "pre_fsp_declared_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+      "pre_fsp_actual_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+      "pre_fsp_size_bytes": 522322,
+      "validation_lease_fields": "synthetic sentinels only; no slot/lease claim or DB operation",
+      "fencing_generation_sentinel": 1
+    }
+  ],
+  "production_db": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "sha256_before": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "sha256_after": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "unchanged": true
+  },
+  "production_hold_changed": false,
+  "production_db_written": false,
+  "controller_started": false,
+  "host_callback_count": 0,
+  "real_solver_invocation_count": 0,
+  "lumapi_imported": false
+}

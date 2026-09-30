@@ -1,0 +1,1196 @@
+{
+  "schema": "SHARED_V3_PRODUCTION_RELEASE_AUTHORITY_V3",
+  "authority_id": "SHARED_V3_PRODUCTION_RELEASE_AUTHORITY_V3_PROSPECTIVE_20260930",
+  "status": "PROSPECTIVE_READY_FOR_AUTHORITY_REVIEW_AND_CONDITIONAL_RELEASE; NOT_RELEASED",
+  "captured_utc": "2026-09-30T11:41:09Z",
+  "authorization": {
+    "chart_authorization": "The V3 task text defines no separate external Chart approval artifact. This prospective authority cites the user instruction in this Codex task to complete Shared V3 production readiness and conditionally release only after all V3 gates pass; initial scope is S35/S39 attempt_001 only.",
+    "external_chart_artifact": "NOT_SPECIFIED_IN_V3_TASK",
+    "draft_alone_releases_production": false
+  },
+  "release_scope": {
+    "case_ids": [
+      "K6V1_S35",
+      "K6V1_S39"
+    ],
+    "attempt_id": "attempt_001",
+    "attempt_002_or_other_cases_authorized": false,
+    "remaining_stage1_cases": "Defer 10 remaining cases until both S35/S39 are GPU-confirmed.",
+    "physics_or_contract_changes_authorized": false
+  },
+  "v3_gate_status": {
+    "backend_runtime_provenance": "PASS_AT_2026-09-30T12:10Z",
+    "candidate_restart_fail_safe": "PASS_FOR_V3_FAIL_SAFE_CRITERION_WITH_ORIGINAL_REPORT_CAVEAT",
+    "no_replay_after_scientific_entry": "PASS",
+    "automatic_postentry_truth_recovery": "DEFERRED_NOT_IMPLEMENTED_PER_V3",
+    "postentry_no_truth_terminalization": "PASS",
+    "current_slots_leases_reservations_health": "PASS_AT_2026-09-30T12:17Z",
+    "external_gpu_capacity": "PASS_AT_2026-09-30T12:17Z_REFRESH_BEFORE_EACH_LAUNCH",
+    "s35_s39_attempt_001_entry_zero": "PASS_AT_2026-09-30T12:10Z_DB_HASH_STABLE_THROUGH_12:17Z",
+    "physical_hash_linkage_and_pre_fsp_match": "PASS",
+    "formal_current_pw_scientific_launcher_validate_config": "PASS_CONFIG_CONTRACT_VALIDATION_ONLY",
+    "isolated_legacy_hold_api_qualification": "PASS",
+    "authority_commit_push": "PENDING_REVIEW",
+    "production_hold_release": "PENDING_OFFICIAL_API",
+    "production_dispatch": "PENDING_AFTER_RELEASE",
+    "live_lease_and_resource_preentry_validation": "PENDING_UNTIL_REAL_DISPATCH; pre-entry validator used sentinels only."
+  },
+  "provenance": {
+    "reliability_branch": "codex/shared-v3-gpu-reliability-v1",
+    "reliability_head": "01e2320ebf237bdbcd52573665520d57705d2800",
+    "ahead_behind": "0/0",
+    "backend": {
+      "commit": "01e2320ebf237bdbcd52573665520d57705d2800",
+      "root": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob",
+      "manifest_sha256": "88161d48340f14c6bfb07ee98c8cf46e1cff82ce1e0ffe381be82d39c885a5a2",
+      "pinned_source_count": 91,
+      "reconciler_service_sha256": "2a023e7d36ffcfc2a554f1091c32c869b48f5be6f948de6e2d4619bb2b7e1549",
+      "reconciler_implementation_sha256": "27c9c66eb58b24bdae48327e27a2b3e44ae2ad8da21671c1e3feade287998126",
+      "runtime_manifest_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\manifest.json",
+      "runtime_manifest_sha256": "88161d48340f14c6bfb07ee98c8cf46e1cff82ce1e0ffe381be82d39c885a5a2",
+      "runtime_manifest_complete": {
+        "schema": "SHARED_V3_RUNTIME_PACKAGE_MANIFEST_V1",
+        "commit": "01e2320ebf237bdbcd52573665520d57705d2800",
+        "destination_root": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob",
+        "file_count": 91,
+        "files": [
+          {
+            "path": "scripts\\shared_fdtd\\__init__.py",
+            "sha256": "6cc6104ec15d12a9bd4bf3b94b151447a132a6345faf19404fb221ee9bbd86a5",
+            "size_bytes": 270
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\__init__.py",
+            "sha256": "e7822760eee6f1df8b8c0c1d7b6e03466f7c1ab87e83695e913866224b0593fb",
+            "size_bytes": 536
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\allocator.py",
+            "sha256": "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
+            "size_bytes": 47364
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\db.py",
+            "sha256": "265cef637105fc45c9fd9645fc6672a5f640c744ba3da9e85e791cf4ef0618b0",
+            "size_bytes": 16218
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\gpu_capacity.py",
+            "sha256": "6c2eeffbbb160013b1b8bd3c3e6f0d9b1021ceea56749d3eb4e64d388460601d",
+            "size_bytes": 19301
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\launch_authority.py",
+            "sha256": "0f88140f6f1e5d070950af7b415b4fe06ee5134841e142d819eced99f06e1e83",
+            "size_bytes": 9823
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\orphan_truth.py",
+            "sha256": "b098edf8d011f0d3433640d78d10db108f73fb347fabf655c47b1105b2528a4d",
+            "size_bytes": 17997
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\resources.py",
+            "sha256": "4a3f547ae70a6c37376aff322e135d24be6b3c6f4eff541f33f017de68cb3514",
+            "size_bytes": 20155
+          },
+          {
+            "path": "scripts\\shared_fdtd\\control_v3\\schema.sql",
+            "sha256": "728cd2925780da93f6b7c449d09ae62727af176a7f8f771a871127d578bc3b00",
+            "size_bytes": 6739
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\__init__.py",
+            "sha256": "fa05f927efae65a923024cf23b6311e75a62a03a100517022c300c153ddaaad5",
+            "size_bytes": 32
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\attempt_guard.py",
+            "sha256": "6eedf906113760ded32aaa7ad93005d4c7b576d1ae7142f9568eb794ad276724",
+            "size_bytes": 2752
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\attempt_state.py",
+            "sha256": "5459aff604786243d47d618526a2553322f5f28eac8221d937f2d8005d57d4ed",
+            "size_bytes": 3302
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\dispatcher.py",
+            "sha256": "c34ae9900cacafcb527c6e3e8fab97e80c7194b267b089fe8dc56e22fa626162",
+            "size_bytes": 49604
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\event_log.py",
+            "sha256": "0e2e9f85b6659f9be42c7b4641d2363ebe807f1a87bec54eedca57e53c2e7b83",
+            "size_bytes": 2431
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\finisher.py",
+            "sha256": "9aa38567d1b2807a4b34b24e2a89aaa7b06b0f93d5e15650fab53513ac3bec80",
+            "size_bytes": 17433
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\gpu_bundle.py",
+            "sha256": "2712e3c221a742af32db43b6c899fe79369e961fee2c4a3e8739950fbaa72d9f",
+            "size_bytes": 11299
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\gpu_observability.py",
+            "sha256": "e6b01c985e79fa2adcb280ab0d6cca4609dcbefc23e7d781e3fba147cbd89861",
+            "size_bytes": 7504
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\host_lifecycle.py",
+            "sha256": "9687e9f7d05c34362a803f193189407ae7fefe5da919e9f7459994626712b615",
+            "size_bytes": 4049
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\persistence.py",
+            "sha256": "50ba2d231c1d0051769412c6a9e05f513e536efa3882f00bb2561b2461fadeda",
+            "size_bytes": 4005
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\process_identity.py",
+            "sha256": "6f687e6f7e819e4fc2f4805976bba4de714189a8f6999380f2779469bc3aec7d",
+            "size_bytes": 1875
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\reconciler.py",
+            "sha256": "27c9c66eb58b24bdae48327e27a2b3e44ae2ad8da21671c1e3feade287998126",
+            "size_bytes": 8078
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\state_machine.py",
+            "sha256": "fb81f159937a79af0178e125ff0983291f989bd84d7337c7826219223d9c3879",
+            "size_bytes": 1865
+          },
+          {
+            "path": "scripts\\shared_fdtd\\engine\\status.py",
+            "sha256": "abcfcee20bb7a6217bc2eaec1ecdefeb31f67fc8f9f74fe6a4ee47806bb49708",
+            "size_bytes": 1502
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_admission_gate_zero_solver_tests.py",
+            "sha256": "283a773afe30e3b0fb1143f40a1c6a81ceede57a622f2d19f561cdc7bc3d8f3e",
+            "size_bytes": 20800
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_backend_mutex_zero_solver_tests.py",
+            "sha256": "64bf8feebacd47a63d1e69dc9513d86111e92106f6765bc02b8c870c8e8f9b2e",
+            "size_bytes": 8070
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_coupling_ml_integration_zero_solver_tests.py",
+            "sha256": "b89a42970020720851b64f58fc36df8392fee6d8e6ea85ca2325260dce64e190",
+            "size_bytes": 19908
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_durable_postsolver_finisher_tests.py",
+            "sha256": "28e1b0e22fa608f497eff35f6ebe4e0ab8f5b74dc8f1aac682781714856cd410",
+            "size_bytes": 14463
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_entered_exception_isolation_tests.py",
+            "sha256": "dc8f2b55647e0e0627058c01586878374fc92580c7bca1be28b92ec10c5d386d",
+            "size_bytes": 6042
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_exact_permit_zero_solver_tests.py",
+            "sha256": "a79084ad3a15d6568cee957e696273813f9cc49a3c1b82c9aa5f035be95657c8",
+            "size_bytes": 16712
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_external_gpu_capacity_guard_unit_tests.py",
+            "sha256": "8073ce016d584b31d91613acd760437bfb94aa671821e9ad396e79fff8d2d5b6",
+            "size_bytes": 18941
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_external_process_watcher_zero_solver_tests.py",
+            "sha256": "bf27f3eae9a2a13b353405dc19026bbf2126a1c7aeadb6cdf0c370ad3ebf9e44",
+            "size_bytes": 13953
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_gpu_autofill_sandbox_zero_solver.py",
+            "sha256": "34eeed326a2f5684dd4fa40a907d3338548c11c7d004a569a7c4fe20f9c60796",
+            "size_bytes": 3932
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_gpu_completion_barrier_zero_solver_tests.py",
+            "sha256": "f47f486bc5a5a662c13b02a3db1148ef399b12b587b1fa6b25ab4222b79b6e4e",
+            "size_bytes": 8626
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_gpu_concurrency_autofill_zero_solver_tests.py",
+            "sha256": "0aa2762ed104175af3fcb47393df5442805a05a7736538182f01bcdd0b8afe71",
+            "size_bytes": 9233
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_gpu_engine_exit_observability_zero_solver_tests.py",
+            "sha256": "8f51f84a2bdd4be30bc2495092a7ef24b2b1040191f5636db5c5a0a4a7b2f4ab",
+            "size_bytes": 8545
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_gpu_native_bundle_zero_solver_tests.py",
+            "sha256": "83f5f08414ad1d33b378e567736d54add3f963930ae95b793328ebbc202250e8",
+            "size_bytes": 7991
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_gpu_resource_resolution_zero_solver_tests.py",
+            "sha256": "bb5f73d7ebec5b00016e73e5648f87b93e872dce09bf49a16a08802f09478c1d",
+            "size_bytes": 3346
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_gpu_truth_schema_zero_solver_tests.py",
+            "sha256": "7d5bfd0149625202a4f9fef38bb27b6e31d4786a21cfe4850a44f7424dde4cc1",
+            "size_bytes": 2828
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_medium_pw_mon_in_zero_solver_tests.py",
+            "sha256": "5aa0169d2032f9c6d423d82e5309c655d40b81b0cf4840610306dfb2bd31e608",
+            "size_bytes": 4558
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_medium_pw_preentry_zero_solver_tests.py",
+            "sha256": "fb550a04aab2b507e867c56464cea87913ef62a34d67ef7c1dacae271f8b5948",
+            "size_bytes": 2855
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_monitor_sample_reference_role_zero_solver_tests.py",
+            "sha256": "ae8536f0fbf12d4a233f4591ce06d44157bc679251ca61aa93ea6059d43c7ce7",
+            "size_bytes": 3435
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_persistence_zero_solver_tests.py",
+            "sha256": "769c3ec8c7a0aa3aee8a22ed627faf7031c1eae77983cdc64d22e5d555f93111",
+            "size_bytes": 1804
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_postentry_runtime_supervision_zero_solver_tests.py",
+            "sha256": "898334cc0778495d4c1115e8f2020fddbbf4a53b9f48fb759fd63aa4b0cb3c53",
+            "size_bytes": 5262
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_postentry_truth_before_release_race_tests.py",
+            "sha256": "a3a473922067721f34370ac8057520a83aa3f3cb3d7bbb873d4a5247e6e32613",
+            "size_bytes": 10164
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_preentry_host_liveness_zero_solver_tests.py",
+            "sha256": "d99a9673c6daaf86489e70b505eb93a3487ece47458afc1496220b986596d934",
+            "size_bytes": 4431
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_preentry_recovery_zero_solver_tests.py",
+            "sha256": "cf2ef71248bd518bec7e5b2ff01daefcb4bd998cdbfe7553b14d0f6e068bf94c",
+            "size_bytes": 10262
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_pw_complex_floquet_state_zero_solver_tests.py",
+            "sha256": "b0256ba76ec8c99433fd2e2d1a3f2aa4d0e81056b6ab824c50f77dce7822f553",
+            "size_bytes": 1146
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_pw_contract_schema_accessor_zero_solver_tests.py",
+            "sha256": "86d4d68411cbc70c143444209f05de0c7a167ac9ac24828493e34c640401a13a",
+            "size_bytes": 3405
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_pw_k6_seed_manifest_zero_solver_tests.py",
+            "sha256": "a1bef21abd4bc36eefad737b280d6dbdad1f78df6fa9fdb49528ecc4802c4942",
+            "size_bytes": 1125
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_pw_launcher_zero_solver_tests.py",
+            "sha256": "4a986cf271780328a9199090833c9aaa19a6c3626dda906f383a28db8525d6ce",
+            "size_bytes": 4640
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_resource_aware_zero_solver_tests.py",
+            "sha256": "e4b72e5980503230f29bb733e0aa29ffe7e2ab30d4b5fbb44e36c42d34bc9fed",
+            "size_bytes": 7547
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_same_launcher_preentry_handshake_zero_solver_test.py",
+            "sha256": "ed4ef78c4d9d877e8e5211a6a655a1a622b3ac72775d0250a2607a585ad78ed6",
+            "size_bytes": 4478
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_sha256_canonicalization_zero_solver_tests.py",
+            "sha256": "91302bce711c5571cadc80d08a3222c63baf413f5af7204d29f599c0cf1a61b1",
+            "size_bytes": 2735
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_strict_fenced_orphan_truth_adoption_tests.py",
+            "sha256": "63e5dbff1579ff16b3644e36f6e0bac532cb4c2f954dbd779d46a994491ce8e0",
+            "size_bytes": 11323
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_synthetic_postentry_restart_persistence.py",
+            "sha256": "249bb023425d27713a6e3cad9f9dcdf86c2be0eb24808f53b4b99fc2d99859b9",
+            "size_bytes": 14344
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_v3_dispatcher_detach_zero_solver_tests.py",
+            "sha256": "8c3d8c84623801eca2f1f5251d2abbaaab4677284bedaaf2a8823c2538d8f9ad",
+            "size_bytes": 2429
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\run_zero_solver_tests.py",
+            "sha256": "37768113df067bf640810a2fc9b3637c13a444250e3b38ecb94b66a6cad00f50",
+            "size_bytes": 13300
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_attempt_guard.py",
+            "sha256": "f1f5030249ba6ebf57cd22a2561fba8f0f99c3b82e01a57561b2f196ebc7da7c",
+            "size_bytes": 2315
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_canary_report_write_api.py",
+            "sha256": "3216b5d96e995ccea53c3402b2331bbe6b748b21b4ada1695cb051edc7bb5a48",
+            "size_bytes": 317
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_entered_exception_canary_isolation.py",
+            "sha256": "45b9d38057573a71931fc3dc51051b3122b63841de4e5f07a7860e52f1679e67",
+            "size_bytes": 2729
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_entry_event_idempotency.py",
+            "sha256": "3245ef251a84696f670ff018afe13b85778e5c7c29349487cf24a885a51be6eb",
+            "size_bytes": 5911
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_hold_lifecycle.py",
+            "sha256": "b8772fcdb77058818faf608ce90af93f81e475a7ffb46e20191721b5983112d9",
+            "size_bytes": 1985
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_incident_audit.py",
+            "sha256": "197a04854f6ce6f3d5097ec2fd44f633d3a2b373bb25768e05ec46fa40a740a4",
+            "size_bytes": 1236
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_jsonl_event_idempotency.py",
+            "sha256": "57b7adf808ad1ffbcfaad83cdff09ef9b7f6b8fe6a81d0b19261347b4072b468",
+            "size_bytes": 1364
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_launch_authority.py",
+            "sha256": "42322dadc1ae610e015977f613e895ed9710f96e1514fbe209acf97e364662f5",
+            "size_bytes": 5481
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_status_live_metric.py",
+            "sha256": "3f7a4910a435b9540e3a4d9544d0a46bf20f878b0bc673fa07d81b169343a95b",
+            "size_bytes": 869
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_v3_g2_host_safe_stdout.py",
+            "sha256": "fcb165b0bc1aca5b63807a170cb6d71a035aaf2cb8ac00b3864b99a5450f0b64",
+            "size_bytes": 908
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tests\\test_v3_reconciler_service_backend_root.py",
+            "sha256": "c9e01c722157dd923d363aeee625a19e8905f7f92417ef42dbd74b7fb34a72fc",
+            "size_bytes": 920
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\__init__.py",
+            "sha256": "e0f99c315fae1c7e4ea509dd67bf29de38a4d1fe54f115418e85a4da6e9e1273",
+            "size_bytes": 46
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\build_medium_pw_setup_only_v1.py",
+            "sha256": "2ca8b4b24a17f40d64a1a27c732e5bbc738f8f9a8a2e577ded6eeffab5ae92a8",
+            "size_bytes": 7966
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\build_pw_k6_seed_db_v1_manifest.py",
+            "sha256": "35d8b7818064b0934676ccd33ecb30fb30c788564d90ca9fd21effb4ed9edf72",
+            "size_bytes": 11718
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\compare_pw_complex_floquet_state_saved_truth_v1.py",
+            "sha256": "7bbd09e2025a1250e621b21478faed50f97aa5f5589710a9d8854061087d0295",
+            "size_bytes": 3784
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\cross_branch_canary_driver.py",
+            "sha256": "ec0af976e0e7696bac8417c9863e795bf883895934fb1c2dd66a4f360dba0cb8",
+            "size_bytes": 2576
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\external_process_watcher.py",
+            "sha256": "37d83cdfea971f09d9601e2b61ff5a2828146deb8d4329de2cf544d1999f9ab9",
+            "size_bytes": 8167
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\g2_attempt003_load_only_recovery.py",
+            "sha256": "1a24ad4f6fa5d403c6c7c8a2565f93133de9d42a829cb641c6d253d8b2a86e8b",
+            "size_bytes": 3545
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\generate_platform_outputs.py",
+            "sha256": "656ab58a22dc163d9adaa9e37dad6cdffba555804c733de6b02bc069ef41ed35",
+            "size_bytes": 16775
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\gpu_attempt_ledger_v1.py",
+            "sha256": "991ceba9ffccb439e60af34ccbe28af6fb77756e9a087bf301900799ee9dd572",
+            "size_bytes": 1069
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\gpu_native_truth_validator_v1.py",
+            "sha256": "6ef6736d3e8f4699b35646808edb9f794cffc19a28f15db8582945846e5cbfd4",
+            "size_bytes": 3067
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\gpu_resource_resolution_v1.py",
+            "sha256": "54c0ecc1bbfb0eec2b8d8172845c7a49d93030ccb5fe27cd8f98b42dbb6e6077",
+            "size_bytes": 6023
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\medium_pw_quarantine_audit_v1.py",
+            "sha256": "10a19cbf7c67b0c24f082569da154b95ae9b462d250ab359e95981d60a88934e",
+            "size_bytes": 5730
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+            "sha256": "31cb2b602b1fa74ff09404c8111239f9dcf4a8c4b5ac1944a9300b2c23efaafb",
+            "size_bytes": 29716
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\pw_scientific_launcher.py",
+            "sha256": "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908",
+            "size_bytes": 28698
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\real_canary_driver.py",
+            "sha256": "36bddff7b9d57079ad816dd37bca028943bc2b4d3428bbe5536f5f57f422adaa",
+            "size_bytes": 3259
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\real_canary_host.py",
+            "sha256": "523d538677464b5fbcd2af9461c4850d9ee57783ce20457da19ee516c78d7111",
+            "size_bytes": 10595
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\recover_canary_fresh_load.py",
+            "sha256": "9cf4825c6bf0bdf546ebc008958480b58a6e6b14c6510cdf36a11b5baed25436",
+            "size_bytes": 2375
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\run_entered_exception_real_canary_v1.py",
+            "sha256": "31cc2d98270326577c8bdef5477eb8f918b673d4998c38155d09bb0ee392d247",
+            "size_bytes": 20459
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\shared_v3_incident_audit.py",
+            "sha256": "e16777917cc460315a465c3e3b84a6bf17b645841bee4467e2e2996f2a215bcd",
+            "size_bytes": 2503
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\v3_dispatcher_service.py",
+            "sha256": "dc3e1baed4ee459d306b4be37ac2eb2eeea3f39a0d4539b93447f0b2303654f0",
+            "size_bytes": 16045
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\v3_g2_host.py",
+            "sha256": "e1717cad0fc175f9b3a726e558924a693b9290848bdf5a8fc8c82419d6473317",
+            "size_bytes": 34496
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\v3_reconciler_service.py",
+            "sha256": "2a023e7d36ffcfc2a554f1091c32c869b48f5be6f948de6e2d4619bb2b7e1549",
+            "size_bytes": 1941
+          },
+          {
+            "path": "scripts\\shared_fdtd\\tools\\v3_resource_hardening_audit.py",
+            "sha256": "622d58f48bf82eb400596ddb3edcd175dcaf0f40cf173958f81e5117ea577b68",
+            "size_bytes": 15541
+          }
+        ]
+      }
+    },
+    "controller_candidate": {
+      "bundle_root": "D:\\apcd_runtime\\shared_v3_controller_release_bundles\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1__backend_01e2320__expansion_4cf521c1",
+      "controller_sha256": "e4cd8429b81a838933edefb147ccf5d0b907013fd581fb9a2f5b68aa1bb04e99",
+      "inventory_sha256": "b8d64a602ff5014ed90806575abe4b5195de4b8e3714d6ddea267b286fa259db",
+      "source_manifest_sha256": "aacb3f8429c8953c878631bb74a078babbc4e540284a805e1a79513dff6eacc5",
+      "target_scope": [
+        "K6V1_S35",
+        "K6V1_S39"
+      ],
+      "runtime_target_case_count": 2,
+      "full_stage1_authority_gate": 12,
+      "gate_unchanged": true,
+      "activated": false,
+      "patch": {
+        "path": "D:\\apcd_runtime\\shared_v3_controller_release_bundles\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1__backend_01e2320__expansion_4cf521c1\\candidate.patch",
+        "sha256": "49ba825e3474a86326252c4d8c9b83a5bf8aefa54c09be73e995b0736f07e24c",
+        "source_edits": [
+          "BACKEND_ROOT",
+          "TARGET_IDS",
+          "runtime target_case_count fields",
+          "pinned expansion manifest path/raw-SHA guard"
+        ],
+        "full_12_case_authority_gate_preserved": true,
+        "physical_root_preserved": true
+      }
+    },
+    "physical_inputs": {
+      "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "seed_manifest_raw_sha256": "463ceaece52121b1a968d22881944c082a26041c16b4489c25b6a0b8f44db62b",
+      "seed_manifest_normalized_sha256": "4a85eeda07e18a5ee098183b1303d8a2e6f1ed08a8dfc4cb72687b00ebe998ee",
+      "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "geometry_hashes": {
+        "K6V1_S35": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+        "K6V1_S39": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729"
+      },
+      "pre_fsp": {
+        "K6V1_S35": {
+          "path": "setup/runtime.fsp",
+          "sha256_declared_and_actual": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+          "size": 522322
+        },
+        "K6V1_S39": {
+          "path": "setup/runtime.fsp",
+          "sha256_declared_and_actual": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+          "size": 522322
+        }
+      },
+      "gpu_bundle_source": {
+        "path": "scripts/shared_fdtd/engine/gpu_bundle.py",
+        "blob_sha256": "2712e3c221a742af32db43b6c899fe79369e961fee2c4a3e8739950fbaa72d9f",
+        "meaning": "Python source code hash, not native FSP/H5 truth artifact hash."
+      }
+    }
+  },
+  "production_snapshot": {
+    "database_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "captured_utc": "2026-09-30T12:17:08Z",
+    "sha256": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "size": 1458176,
+    "mtime_ns": 1790738670064600500,
+    "legacy_boolean_hold": true,
+    "health": "PASS",
+    "generation": 23,
+    "temporary_runtime_cap": null,
+    "slots": {
+      "free": 3,
+      "total": 3
+    },
+    "active_gpu_leases": 0,
+    "active_reservations": 0,
+    "nonterminal_launch_permits": 0,
+    "targets": {
+      "K6V1_S35": {
+        "queue_id": 65,
+        "attempt": "attempt_001",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "entry_count": 0,
+        "geometry_hash": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+        "native_truth_artifact_present": false,
+        "native_truth_absence_reason": "This attempt has scientific_entry_count=0; only setup/runtime.fsp and pre-entry metadata exist. No native/post FSP or H5 is expected yet.",
+        "observed_attempt_files": [
+          "case.json",
+          "events.jsonl",
+          "host_uncaught_exception.json",
+          "preentry_host_exit.json",
+          "setup_readback.json",
+          "terminal_failure.json",
+          "setup\\runtime.fsp"
+        ]
+      },
+      "K6V1_S39": {
+        "queue_id": 66,
+        "attempt": "attempt_001",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "entry_count": 0,
+        "geometry_hash": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729",
+        "native_truth_artifact_present": false,
+        "native_truth_absence_reason": "This attempt has scientific_entry_count=0; only setup/runtime.fsp and pre-entry metadata exist. No native/post FSP or H5 is expected yet.",
+        "observed_attempt_files": [
+          "case.json",
+          "events.jsonl",
+          "host_uncaught_exception.json",
+          "preentry_host_exit.json",
+          "setup_readback.json",
+          "terminal_failure.json",
+          "setup\\runtime.fsp"
+        ]
+      }
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 3080",
+      "uuid": "GPU-15ded1d4-3837-27b9-d22a-fa67c55420f4",
+      "utilization_percent": 1,
+      "memory_used_mib": 2412,
+      "memory_free_mib": 7642,
+      "minimum_free_mib": 1369,
+      "passes": true,
+      "visibility": "WDDM per-process memory N/A; two AEDT GUI PIDs 7660/7996 and desktop consumers visible; total RTX 3080 free memory measured.",
+      "snapshot_time_utc": "2026-09-30T12:17:06Z",
+      "wddm_process_memory": "N/A",
+      "aedt_gui_pids": [
+        7660,
+        7996
+      ],
+      "visible_lumerical_server_process_count": 8,
+      "lumerical_server_command_line": "fdtd-solutions.exe -server -hide; no project args; idle LumAPI helper family",
+      "active_fdtd_engine_owners": 0,
+      "active_mpi_owners": 0,
+      "shared_v3_gpu_owners": 0,
+      "active_gpu_reservations": 0,
+      "intel_mpi_service_pid_8168": "live SYSTEM service, zero CPU delta over 2s, no children/solver link observed; disclosed as idle runtime daemon, not killed."
+    },
+    "lumerical_server_daemons": {
+      "count": 8,
+      "classification": "idle lumapi -server -hide helpers, no project args, no solver/MPI child observed",
+      "modified_or_killed": false,
+      "license_client_child": "PID 8448 ansyscl.exe, Ansys licensing client child of PID 31848; not solver engine.",
+      "helper_attribution_caveat": "Named helper scripts indicate inventory/metadata; two python.exe - command lines do not expose source and remain unattributed. No project args or solver descendants observed."
+    },
+    "scheduled_tasks": {
+      "reconciler": {
+        "name": "APCD_V3_COUPLING_RECONCILER",
+        "enabled": true,
+        "trigger": "every minute",
+        "versioned_backend_commit": "01e2320ebf237bdbcd52573665520d57705d2800",
+        "last_result": 0
+      },
+      "dispatcher": {
+        "name": "APCD_V3_COUPLING_DISPATCHER",
+        "enabled": false
+      },
+      "legacy_controller": {
+        "name": "APCD_PW_K6_SEED_DB_V1_CONTROLLER",
+        "enabled": false
+      }
+    }
+  },
+  "hold_lifecycle": {
+    "legacy_origin": "INCOMPLETE: production has legacy boolean hold but no hold_lifecycle/hold_events record; origin will not be reconstructed.",
+    "isolated_qualification": {
+      "status": "PASS",
+      "report_path": "D:\\apcd_runtime\\shared_v3_release_api_qualification_20260930\\legacy_hold_api_4ff42780cdee43939505ac143cd79a50\\qualification.json",
+      "report_sha256": "23fe41c50505455f899b8842e0335999bd4d130eb87e75238adf0b319a7ac4f5",
+      "backup_method": "SQLite backup from production mode=ro/query_only source",
+      "isolated_db_sha256": "3c30883f3c2b10656b675cde7ee8b1308d5710f4ca5d49a46af69c9b5e0af4d6",
+      "production_db_sha256_before_after": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+      "api_sequence": [
+        "ControlDB.set_hold(GLOBAL) creates prospective lifecycle row",
+        "ControlDB.release_hold(authority_hash,evidence) writes linked HOLD_RELEASED event"
+      ],
+      "generation": "23 -> 24 -> 25",
+      "caps_unchanged": true,
+      "production_api_called": false,
+      "production_hold_changed": false,
+      "report_json": {
+        "after_isolated": {
+          "admission_control": {
+            "control_generation": 25,
+            "control_id": 1,
+            "health_status": "PASS",
+            "new_entry_hold": 0,
+            "temporary_runtime_cap": null,
+            "updated_at": "2026-09-30T11:41:09.407248+00:00"
+          },
+          "caps": {
+            "backend_capacity": [
+              {
+                "backend_type": "GPU",
+                "physical_cap": 3
+              }
+            ],
+            "branch_limits": [
+              {
+                "branch_id": "coupling_ml",
+                "cap": 2,
+                "enabled": 1,
+                "preferred_slot_order": "[\"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\", \"GLOBAL_SLOT_1\"]"
+              },
+              {
+                "branch_id": "traditional",
+                "cap": 1,
+                "enabled": 0,
+                "preferred_slot_order": "[\"GLOBAL_SLOT_1\", \"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\"]"
+              }
+            ]
+          },
+          "events": [
+            {
+              "actor": "Shared V3 Release Authority V3 isolated API qualification",
+              "event_id": 1,
+              "event_type": "HOLD_SET",
+              "hold_id": "hold-a5841a8a7a3141bc9381f429c55d1afe",
+              "metadata_json": "{\"generation\": 24, \"reason_code\": \"V3_RELEASE_API_QUALIFICATION\", \"scope\": \"GLOBAL\"}"
+            },
+            {
+              "actor": "Shared V3 Release Authority V3 isolated API qualification",
+              "event_id": 2,
+              "event_type": "HOLD_RELEASED",
+              "hold_id": "hold-a5841a8a7a3141bc9381f429c55d1afe",
+              "metadata_json": "{\"authority_hash\": \"sha256:0000000000000000000000000000000000000000000000000000000000000000\", \"evidence\": {\"no_production_release\": true, \"qualification_only\": true, \"synthetic_authority_hash\": \"sha256:0000000000000000000000000000000000000000000000000000000000000000\"}, \"generation\": 25}"
+            }
+          ],
+          "hold_tables_present": true,
+          "holds": [
+            {
+              "created_at": "2026-09-30T11:41:09.275107+00:00",
+              "created_by": "Shared V3 Release Authority V3 isolated API qualification",
+              "free_text_reason": "Isolated qualification only: prospective lifecycle entry for pre-existing legacy boolean hold; original legacy provenance is not reconstructed.",
+              "hold_id": "hold-a5841a8a7a3141bc9381f429c55d1afe",
+              "metadata_json": "{\"evidence\": {\"no_production_release\": true, \"qualification_only\": true, \"synthetic_authority_hash\": \"sha256:0000000000000000000000000000000000000000000000000000000000000000\"}}",
+              "reason_code": "V3_RELEASE_API_QUALIFICATION",
+              "release_authority_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+              "released_at": "2026-09-30T11:41:09.407248+00:00",
+              "released_by": "Shared V3 Release Authority V3 isolated API qualification",
+              "scope": "GLOBAL",
+              "status": "RELEASED"
+            }
+          ]
+        },
+        "api_calls": [
+          {
+            "method": "ControlDB.set_hold",
+            "purpose": "create a prospective lifecycle row without claiming legacy origin",
+            "return": {
+              "created_at": "2026-09-30T11:41:09.275107+00:00",
+              "generation": 24,
+              "hold_id": "hold-a5841a8a7a3141bc9381f429c55d1afe",
+              "scope": "GLOBAL",
+              "status": "ACTIVE"
+            }
+          },
+          {
+            "method": "ControlDB.release_hold",
+            "purpose": "test official release event linkage only",
+            "release_authority_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "return": {
+              "generation": 25,
+              "global_hold": false,
+              "hold_id": "hold-a5841a8a7a3141bc9381f429c55d1afe",
+              "status": "RELEASED"
+            }
+          }
+        ],
+        "before_isolated": {
+          "admission_control": {
+            "control_generation": 23,
+            "control_id": 1,
+            "health_status": "PASS",
+            "new_entry_hold": 1,
+            "temporary_runtime_cap": null,
+            "updated_at": "2026-09-29T04:31:17.858902+00:00"
+          },
+          "caps": {
+            "backend_capacity": [
+              {
+                "backend_type": "GPU",
+                "physical_cap": 3
+              }
+            ],
+            "branch_limits": [
+              {
+                "branch_id": "coupling_ml",
+                "cap": 2,
+                "enabled": 1,
+                "preferred_slot_order": "[\"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\", \"GLOBAL_SLOT_1\"]"
+              },
+              {
+                "branch_id": "traditional",
+                "cap": 1,
+                "enabled": 0,
+                "preferred_slot_order": "[\"GLOBAL_SLOT_1\", \"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\"]"
+              }
+            ]
+          },
+          "events": [],
+          "hold_tables_present": false,
+          "holds": []
+        },
+        "captured_utc": "2026-09-30T11:41:09.551990+00:00",
+        "checks": {
+          "all_holds_terminal": true,
+          "caps_unchanged": true,
+          "generation_after_release": 25,
+          "generation_after_set_hold": 24,
+          "generation_before": 23,
+          "health_unchanged_pass": true,
+          "hold_false_after": true,
+          "release_event_count": 1,
+          "release_event_linked_authority_hash": true
+        },
+        "isolated_database": {
+          "logical_initial_state_match": {
+            "admission_control": true,
+            "caps": true
+          },
+          "path": "D:\\apcd_runtime\\shared_v3_release_api_qualification_20260930\\legacy_hold_api_4ff42780cdee43939505ac143cd79a50\\control.sqlite3",
+          "snapshot_method": "sqlite3 backup from mode=ro/query_only source",
+          "snapshot_sha256": "3c30883f3c2b10656b675cde7ee8b1308d5710f4ca5d49a46af69c9b5e0af4d6",
+          "source_main_sha256_at_start": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+          "source_raw_and_snapshot_hash_equal": false
+        },
+        "isolated_root": "D:\\apcd_runtime\\shared_v3_release_api_qualification_20260930\\legacy_hold_api_4ff42780cdee43939505ac143cd79a50",
+        "production": {
+          "after": {
+            "db_sha256": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+            "mtime_ns": 1790738670064600500,
+            "shm": {
+              "exists": true,
+              "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3-shm",
+              "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+              "size": 32768
+            },
+            "size": 1458176,
+            "wal": {
+              "exists": true,
+              "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3-wal",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size": 0
+            }
+          },
+          "before": {
+            "db_sha256": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+            "mtime_ns": 1790738670064600500,
+            "shm": {
+              "exists": true,
+              "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3-shm",
+              "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+              "size": 32768
+            },
+            "size": 1458176,
+            "wal": {
+              "exists": true,
+              "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3-wal",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size": 0
+            }
+          },
+          "main_db_hash_unchanged": true
+        },
+        "schema": "SHARED_V3_LEGACY_HOLD_API_QUALIFICATION_V1",
+        "status": "PASS"
+      },
+      "synthetic_authority_hash_used_only_on_copy": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "production_plan": "Only after authority commit/push and fresh gates, call versioned set_hold then release_hold with committed authority JSON SHA/evidence; verify event ID, generation, health, hold and unchanged caps."
+  },
+  "failsafe": {
+    "original_runner_report_status": "FAIL, preserved; expected_dispatch_calls=4 assertion invalid because RUNNING -> POSTENTRY_NO_TRUTH correctly skips dispatch.",
+    "original_report_sha256": "4193e04476a20697bc77987bb6c3f221784c027a6b5fcce1c3a0de7599d130ad",
+    "adjudication_addendum_runtime_sha256": "4c350923074010283b2fe2891a5dfce0d630550e5d85207e9e9f4129f3b0a6b2",
+    "adjudication_addendum_repo_path": "reports/shared_v3/SHARED_V3_CANDIDATE_FAILSAFE_RETRY1_ADJUDICATION_V1.json",
+    "adjudication_addendum_status": "PASS_FOR_V3_FAIL_SAFE_CRITERION_ONLY",
+    "wrapper_report_sha256": "8d648b294b48e1c0b11e0893c3cd7f431f5dfd6eb04aad9005d8bb8b9cd55a4e",
+    "asserted_evidence": "Two controller starts; durable entry=1, claim=1, acquire/release=1, real solver=0, replay/new attempt=0, POSTENTRY_NO_TRUTH terminal, slots/reservations=0; versioned reconciler hashes match."
+  },
+  "policy": {
+    "no_replay_after_entry": true,
+    "truth_before_success_and_release": true,
+    "postentry_no_truth": "Quarantine as POSTENTRY_NO_TRUTH or POSTENTRY_RECOVERY_REQUIRED; no second solver launch.",
+    "automatic_postentry_truth_recovery": "NOT_IMPLEMENTED / DEFERRED per V3.",
+    "gpu_capacity": {
+      "per_launch_snapshot_required": true,
+      "minimum_free_mib": 1369,
+      "basis": "Ceiling of validated 1.336057 GiB peak; no extra unvalidated margin.",
+      "9246_mib": "Historical launch baseline, not threshold.",
+      "low_or_missing": "WAIT_EXTERNAL_GPU_CAPACITY; entry=0; no global hold; durable snapshot/event before claim/start.",
+      "logical_label": "GPU license audit; only map to a sole visible GPU with requested/resolved identity recorded; ambiguous mapping fails closed."
+    }
+  },
+  "historical_incidents": {
+    "postentry_no_truth_count": 6,
+    "disposition": "Preserve, no replay, no current active resource owner conflict at snapshot.",
+    "queue21": {
+      "disposition": "LINEAGE_NOT_RECOVERABLE: duplicate same-token/fence entry events with empty metadata and no PID/launch identity; preserve/no replay.",
+      "forensic_sha256": "12cff822935ca852daeebb3b06073fbbeedb9a5fbc2d39ab67e04a617b2375eb"
+    },
+    "path_binding_incident": {
+      "disposition": "Historical non-scientific queue/cache side effect; retain incident evidence, do not rewrite DB/cache.",
+      "sha256": "ee4f40c3e0c0f116fbb6d431eae4cb77294f80dd35d483564cc722cf7556b878"
+    },
+    "A3_contradiction": {
+      "disposition": "Preserve both success and failure markers; durable post-FSP/load/validation/archive artifacts exist, but contradictory terminal_failure means it is not clean release proof and not in current production queue/events.",
+      "terminal_success_sha256": "d170d8a1c228b714fd21fd9b056a163eba96867f3fd32f9cbf3f9467eaa4f4c0",
+      "terminal_failure_sha256": "9f00ae1d67722c2062b24a0e06dd8d9d1d2ad18a7e0672b9a2dbe943784f6a72",
+      "post_fsp_sha256": "856b51bee8fc873af092457504a07eb2e1ec972f36eb285db246a526255d2911",
+      "validation_sha256": "f71693b6a8acaad260b60792d6c2fc128dbc9d77e18218e1eaa4a2ab2d1bcb5a",
+      "archive_sha256": "d5d5dfcfbc62189641ebb536c81a53621773bb930e51956915621be53e6dd169",
+      "attempt_root": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\real_gpu_canary_20260930_attempt003\\attempt_001",
+      "terminal_success_path": "attempt_001/terminal.json",
+      "terminal_failure_path": "attempt_001/terminal_failure.json",
+      "post_fsp_verification_path": "attempt_001/post_fsp_verification.json",
+      "scientific_validation_path": "attempt_001/scientific_validation.json",
+      "hf_archive_manifest_path": "attempt_001/HF_ARCHIVE_MANIFEST.json",
+      "terminal_failure_error": "OSError(22, Invalid argument), status SOLVER_COMPLETED_TRUTH_PERSISTENCE_FAILED",
+      "timestamp_order": "post-FSP durable validation -> terminal success -> later terminal_failure marker; preserve both."
+    },
+    "A4_exception_canary": {
+      "status": "PASS",
+      "audit_sha256": "ef2ee30e5a48e0cc79f7046040cf64ae0ac03e60644c6244c937aa18c134dbd0",
+      "meaning": "one-entry infrastructure exception canary; not S35/S39 GPU execution proof",
+      "audit_path": "reports/shared_v3/real_infra_exception_canary_20260930_fresh/SHARED_V3_EXCEPTION_CANARY_AUDIT_V1.json",
+      "subreport_hashes": {
+        "fresh_load": "18e26a...5a15",
+        "fault_injection": "2dc3a...7b31",
+        "durable_truth": "ebd7f...df1f",
+        "release_reconcile": "0e25bd...3928",
+        "process_cleanliness": "469873...a46c"
+      }
+    }
+  },
+  "pre_release_required": [
+    "Fresh read-only production DB gate: PASS at 2026-09-30T12:17Z; refresh immediately before release/dispatch",
+    "S35/S39 attempt_001 entry_count=0: PASS",
+    "clear slots/leases/reservations/owners: PASS; disclose idle MPI/LumAPI service processes",
+    "health PASS and hold/generation/caps recorded: PASS (hold remains on; generation 23)",
+    "GPU >=1369 MiB free and durable per-launch snapshot path: PASS at snapshot; recheck and persist snapshot before each launch",
+    "task/action/process scan: PASS with disclosed WDDM, idle services, and unattributed stdin helpers",
+    "candidate/backend/physical hash recheck: PASS from pinned manifests",
+    "formal current pre-entry validator: PASS_CONFIG_ONLY; live resource lease validation occurs at dispatch",
+    "authority commit/push: PENDING before any official hold release"
+  ],
+  "release_event_record": [
+    "hold_id",
+    "HOLD_RELEASED event_id",
+    "authority JSON SHA-256",
+    "generation before/after",
+    "caps before/after",
+    "health after"
+  ],
+  "production_solver_invocation_count_before_release": 0,
+  "updated_utc": "2026-09-30T12:36:07.917372+00:00",
+  "readiness_claims": {
+    "SAFE_FOR_TRADITIONAL_PRODUCTION": {
+      "value": "YES",
+      "scope": "Only readiness to authorize the bounded Shared V3 S35/S39 attempt_001 rollout; traditional branch cap remains disabled, and no blanket Traditional throughput claim is made."
+    },
+    "SAFE_FOR_COUPLING_ML_PRODUCTION": {
+      "value": "YES",
+      "scope": "Only the controlled initial S35/S39 attempt_001 release; not a claim that GPU results, truth artifacts, or all 12 cases are complete."
+    },
+    "GLOBAL_NEW_ENTRY_HOLD_RELEASE_RECOMMENDED": {
+      "value": "YES",
+      "scope": "Conditionally after authority commit/push; release by official API only; no release has occurred."
+    }
+  },
+  "v3_contract": {
+    "new_scientific_entry_exactly_once_per_attempt": true,
+    "durable_launch_identity_and_fence_required": true,
+    "no_replay_after_scientific_solver_entered": true,
+    "truth_validation_before_success_and_release": true,
+    "postentry_auto_truth_recovery": "NOT_IMPLEMENTED / DEFERRED",
+    "postentry_no_truth_quarantine_allowed": true,
+    "external_gpu_snapshot_before_each_launch": true,
+    "below_threshold_action": "WAIT_EXTERNAL_GPU_CAPACITY with entry_count=0; do not set global hold",
+    "initial_release_target_scope": [
+      "K6V1_S35",
+      "K6V1_S39"
+    ],
+    "initial_release_attempt": "attempt_001",
+    "remaining_ten_cases_deferred_until_both_confirmed": true,
+    "official_hold_lifecycle_api_only": true,
+    "production_solver_invocations_before_authorized_release": 0
+  },
+  "formal_preentry_validation": {
+    "report_path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_PW_CONFIG_VALIDATION_20260930.json",
+    "report_sha256": "fce0e3af2429187ca3527091b1c241c62a75bfa130b0fe8ec72e7e8ae1dec712",
+    "report": {
+      "schema": "SHARED_V3_PW_CONFIG_VALIDATION_EVIDENCE_V1",
+      "captured_utc": "2026-09-30T12:01:49.133870+00:00",
+      "status": "PASS_CONFIG_CONTRACT_VALIDATION_ONLY",
+      "backend_commit": "01e2320ebf237bdbcd52573665520d57705d2800",
+      "backend_manifest_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\manifest.json",
+      "backend_manifest_sha256": "88161d48340f14c6bfb07ee98c8cf46e1cff82ce1e0ffe381be82d39c885a5a2",
+      "backend_manifest_file_count": 91,
+      "launcher_source_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\pw_scientific_launcher.py",
+      "launcher_source_sha256": "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908",
+      "host_source_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_g2_host.py",
+      "host_source_sha256": "e1717cad0fc175f9b3a726e558924a693b9290848bdf5a8fc8c82419d6473317",
+      "host_callsite": "v3_g2_host._main_owned calls validate_pw_config(cfg) before host setup; no host main was invoked.",
+      "validator_function": "validate_config(cfg), source lines 100-113; pure field/selector/branch/fence/canonical-contract validation.",
+      "validation_boundary": "Actual S35/S39 production queue payloads were copied in memory. slot_id and lease_token were explicit validation-only sentinels because no production lease is active under hold. The function does not open cfg.db, start a host, call lumapi, load/run FDTD, or write production state. This is not a live-lease/resource admission check.",
+      "cases": [
+        {
+          "queue_id": 65,
+          "case_id": "K6V1_S35",
+          "attempt_id": "attempt_001",
+          "queue_state": "WAIT_RESOURCE_CAPACITY",
+          "branch_id": "coupling_ml",
+          "production_payload_sha256": "651bb50df7ce553f6e6c095335e5b9b048bf51bfd0b7be91b82bdf29a1d014ef",
+          "validator_result": true,
+          "validator": "shared_fdtd.tools.pw_scientific_launcher.validate_config",
+          "contract_resolution": {
+            "schema_path": "pw_contract.contract",
+            "legacy_schema_present": true,
+            "legacy_overlap_fields": [
+              "wavelengths_nm"
+            ],
+            "resolution": "canonical_nested_verified_against_legacy_overlap"
+          },
+          "contract_required_fields": [
+            "materials",
+            "monitors",
+            "references_nm",
+            "samples_nm",
+            "stack_layers",
+            "wavelengths_nm"
+          ],
+          "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+          "geometry_hash_sha256": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+          "extension_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+          "pre_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\setup\\runtime.fsp",
+          "pre_fsp_declared_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+          "pre_fsp_actual_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+          "pre_fsp_size_bytes": 522322,
+          "validation_lease_fields": "synthetic sentinels only; no slot/lease claim or DB operation",
+          "fencing_generation_sentinel": 1
+        },
+        {
+          "queue_id": 66,
+          "case_id": "K6V1_S39",
+          "attempt_id": "attempt_001",
+          "queue_state": "WAIT_RESOURCE_CAPACITY",
+          "branch_id": "coupling_ml",
+          "production_payload_sha256": "1348f154277fe2f083c51a47f4b56c2abdaaf3719adef37c6c1f334b011f43ec",
+          "validator_result": true,
+          "validator": "shared_fdtd.tools.pw_scientific_launcher.validate_config",
+          "contract_resolution": {
+            "schema_path": "pw_contract.contract",
+            "legacy_schema_present": true,
+            "legacy_overlap_fields": [
+              "wavelengths_nm"
+            ],
+            "resolution": "canonical_nested_verified_against_legacy_overlap"
+          },
+          "contract_required_fields": [
+            "materials",
+            "monitors",
+            "references_nm",
+            "samples_nm",
+            "stack_layers",
+            "wavelengths_nm"
+          ],
+          "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+          "geometry_hash_sha256": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729",
+          "extension_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+          "pre_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\setup\\runtime.fsp",
+          "pre_fsp_declared_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+          "pre_fsp_actual_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+          "pre_fsp_size_bytes": 522322,
+          "validation_lease_fields": "synthetic sentinels only; no slot/lease claim or DB operation",
+          "fencing_generation_sentinel": 1
+        }
+      ],
+      "production_db": {
+        "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+        "sha256_before": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+        "sha256_after": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+        "unchanged": true
+      },
+      "production_hold_changed": false,
+      "production_db_written": false,
+      "controller_started": false,
+      "host_callback_count": 0,
+      "real_solver_invocation_count": 0,
+      "lumapi_imported": false
+    },
+    "scope_note": "The pinned production function validate_config(cfg) passed for both actual payloads. Synthetic slot/token/fence sentinels satisfy its required config fields without claiming a production lease. No host/main, database mutation, lumapi, FDTD load, or solver run occurred."
+  },
+  "draft_revision_history": [
+    {
+      "captured_utc": "2026-09-30T12:26:06.982502+00:00",
+      "prior_json_sha256": "1ef57c143f3197c276f5c5a323599a79be6095e60734f7ee857451fe97dfe6e8",
+      "prior_md_sha256": "bd7aefc825c806931f9a4f6692f93e8a959224114c71775faabec67e0b93388d",
+      "change": "Fresh read-only gate adjudication and bounded readiness claims; no production action."
+    },
+    {
+      "captured_utc": "2026-09-30T12:36:07.917372+00:00",
+      "prior_json_sha256": "0c41b916436de4304b613e0445a59e340980561c7d75765b91831f57777b1ac7",
+      "prior_md_sha256": "66319f701b25801b252164e2e55d1e46fa4bf3a703f3e096f7d90b5561ec7081",
+      "change": "Clarified distinct primary-preflight, PID-classification, process-tree/GPU snapshot, and consolidated-adjudication timestamps; no gate or production state changed."
+    }
+  ],
+  "fresh_readiness_adjudication": {
+    "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_RELEASE_GATE_ADJUDICATION_20260930.json",
+    "sha256": "8e73140f72dfa2cb17f5e6a83058ff9bb4abcb1e80ae78f3c670110c61097044",
+    "captured_utc": "2026-09-30T12:24:11.306091+00:00",
+    "decision": "PASS_FOR_AUTHORITY_REVIEW_AND_CONDITIONAL_RELEASE_OF_S35_S39_ATTEMPT001_ONLY",
+    "all_prerelease_operational_gates_pass": true,
+    "pending_after_review": [
+      "authority commit/push",
+      "official production hold release event",
+      "live S35/S39 resource admission and GPU execution/truth"
+    ],
+    "production_hold_still_on": true,
+    "production_db_sha256": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "process_classification_addendum_sha256": "bb3a9fe905c4357381354fc46d968d51e0854298e791337b2723779eaf5d790e",
+    "process_tree_addendum_sha256": "728154036682b97a4dd0d89f78ecac4fd47f715cd675210165233d9ebc270ed4",
+    "wddm_limitation": "per-process compute memory N/A; total free memory 7642 MiB"
+  },
+  "final_process_snapshot": {
+    "intel_mpi_runtime_daemon": {
+      "pid": 8168,
+      "name": "smpd-intel-4.0.3.009-x64.exe",
+      "parent": "services.exe (NT AUTHORITY\\SYSTEM)",
+      "children": 0,
+      "cpu_delta_2s": {
+        "user": 0.0,
+        "system": 0.0
+      },
+      "classification": "Inactive MPI runtime daemon; no active solver link observed. Process remains running and was not modified."
+    },
+    "lumapi_server_daemons": 8,
+    "license_client_pid_8448": "Ansys licensing client child of FDTD server PID 31848; not a solver engine.",
+    "aedt_gui_pids": [
+      7660,
+      7996
+    ],
+    "wddm_per_process_gpu_memory": "N/A",
+    "active_fdtd_engine_or_mpiexec": 0,
+    "free_mib": 7642,
+    "minimum_free_mib": 1369,
+    "process_tree_addendum_sha256": "728154036682b97a4dd0d89f78ecac4fd47f715cd675210165233d9ebc270ed4",
+    "process_classification_addendum_sha256": "bb3a9fe905c4357381354fc46d968d51e0854298e791337b2723779eaf5d790e"
+  },
+  "fresh_production_gate_evidence": {
+    "primary_report_path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PREFLIGHT_20260930.json",
+    "primary_report_sha256": "861f436bf266d5aec91521be8070b78e31991a693a693dc5a20d388e3b5b4d64",
+    "process_classification_path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PROCESS_CLASSIFICATION_ADDENDUM_20260930.json",
+    "process_classification_sha256": "bb3a9fe905c4357381354fc46d968d51e0854298e791337b2723779eaf5d790e",
+    "process_tree_path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PROCESS_TREE_ADDENDUM_20260930.json",
+    "process_tree_sha256": "728154036682b97a4dd0d89f78ecac4fd47f715cd675210165233d9ebc270ed4",
+    "adjudication_path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_RELEASE_GATE_ADJUDICATION_20260930.json",
+    "adjudication_sha256": "8e73140f72dfa2cb17f5e6a83058ff9bb4abcb1e80ae78f3c670110c61097044"
+  },
+  "authority_commit_push": "PENDING_REVIEW",
+  "production_hold_release": "PENDING_OFFICIAL_API",
+  "production_dispatch": "PENDING_AFTER_RELEASE",
+  "snapshot_timestamp_ledger": {
+    "primary_preflight": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PREFLIGHT_20260930.json",
+      "captured_utc": "2026-09-30T12:10:16.986959+00:00",
+      "sha256": "861f436bf266d5aec91521be8070b78e31991a693a693dc5a20d388e3b5b4d64"
+    },
+    "mpi_process_classification": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PROCESS_CLASSIFICATION_ADDENDUM_20260930.json",
+      "captured_start_utc": "2026-09-30T12:13:44.470795+00:00",
+      "captured_end_utc": "2026-09-30T12:13:48.630860+00:00",
+      "sha256": "bb3a9fe905c4357381354fc46d968d51e0854298e791337b2723779eaf5d790e"
+    },
+    "process_tree_db_gpu": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PROCESS_TREE_ADDENDUM_20260930.json",
+      "captured_start_utc": "2026-09-30T12:16:59.714025+00:00",
+      "captured_end_utc": "2026-09-30T12:17:08.168390+00:00",
+      "sha256": "728154036682b97a4dd0d89f78ecac4fd47f715cd675210165233d9ebc270ed4"
+    },
+    "consolidated_gate_adjudication": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_RELEASE_GATE_ADJUDICATION_20260930.json",
+      "captured_utc": "2026-09-30T12:24:11.306091+00:00",
+      "sha256": "8e73140f72dfa2cb17f5e6a83058ff9bb4abcb1e80ae78f3c670110c61097044"
+    }
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "schema": "SHARED_V3_RELEASE_GATE_ADJUDICATION_V1",
+  "captured_utc": "2026-09-30T12:24:11.306091+00:00",
+  "decision": "PASS_FOR_AUTHORITY_REVIEW_AND_CONDITIONAL_RELEASE_OF_S35_S39_ATTEMPT001_ONLY",
+  "production_release_performed": false,
+  "dispatch_performed": false,
+  "solver_invocations_by_assessment": 0,
+  "fresh_evidence": {
+    "fresh_gate": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PREFLIGHT_20260930.json",
+      "sha256": "861f436bf266d5aec91521be8070b78e31991a693a693dc5a20d388e3b5b4d64",
+      "size_bytes": 42926
+    },
+    "mpi_process": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PROCESS_CLASSIFICATION_ADDENDUM_20260930.json",
+      "sha256": "bb3a9fe905c4357381354fc46d968d51e0854298e791337b2723779eaf5d790e",
+      "size_bytes": 19559
+    },
+    "process_tree": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_FINAL_READINESS_PROCESS_TREE_ADDENDUM_20260930.json",
+      "sha256": "728154036682b97a4dd0d89f78ecac4fd47f715cd675210165233d9ebc270ed4",
+      "size_bytes": 27666
+    },
+    "config_validation": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_PW_CONFIG_VALIDATION_20260930.json",
+      "sha256": "fce0e3af2429187ca3527091b1c241c62a75bfa130b0fe8ec72e7e8ae1dec712",
+      "size_bytes": 5549
+    },
+    "failsafe": {
+      "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_CANDIDATE_FAILSAFE_RETRY1_ADJUDICATION_V1.json",
+      "sha256": "4c350923074010283b2fe2891a5dfce0d630550e5d85207e9e9f4129f3b0a6b2",
+      "size_bytes": 5048
+    },
+    "legacy_hold_api": {
+      "path": "D:\\apcd_runtime\\shared_v3_release_api_qualification_20260930\\legacy_hold_api_4ff42780cdee43939505ac143cd79a50\\qualification.json",
+      "sha256": "23fe41c50505455f899b8842e0335999bd4d130eb87e75238adf0b319a7ac4f5",
+      "status": "PASS"
+    }
+  },
+  "production_snapshot": {
+    "db_sha256": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "db_sha256_after_latest_process_scan": "253e0811178f93163178f420e5a16e8da5e4c52d434be4bff317a21809d02fcc",
+    "db_hash_stable": true,
+    "hold": true,
+    "generation": 23,
+    "health": "PASS",
+    "slots_free": 3,
+    "active_gpu_capacity_leases": 0,
+    "active_reservations": 0,
+    "target_rows": [
+      {
+        "case_id": "K6V1_S35",
+        "attempt_id": "attempt_001",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "entry_count": 0,
+        "pre_fsp_declared_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+        "pre_fsp_actual_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a"
+      },
+      {
+        "case_id": "K6V1_S39",
+        "attempt_id": "attempt_001",
+        "state": "WAIT_RESOURCE_CAPACITY",
+        "entry_count": 0,
+        "pre_fsp_declared_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+        "pre_fsp_actual_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2"
+      }
+    ],
+    "gpu": "0, NVIDIA GeForce RTX 3080, GPU-15ded1d4-3837-27b9-d22a-fa67c55420f4, 1, 2412, 7642, 10240",
+    "minimum_free_mib": 1369,
+    "free_mib": 7642,
+    "task_snapshot": [
+      {
+        "Name": "APCD_PW_K6_SEED_DB_V1_CONTROLLER",
+        "State": "Disabled",
+        "Enabled": false,
+        "Actions": [
+          {
+            "Execute": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+            "Arguments": "\"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\PW_K6_SEED_DB_V1_controller.py\"",
+            "WorkingDirectory": null
+          }
+        ],
+        "LastRun": "/Date(1790235714000)/",
+        "NextRun": "/Date(4070880000000)/",
+        "LastTaskResult": 3221225786
+      },
+      {
+        "Name": "APCD_V3_COUPLING_DISPATCHER",
+        "State": "Disabled",
+        "Enabled": false,
+        "Actions": [
+          {
+            "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+            "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_dispatcher_service.py\" --once",
+            "WorkingDirectory": null
+          }
+        ],
+        "LastRun": "/Date(1790316241000)/",
+        "NextRun": "/Date(1790771100000)/",
+        "LastTaskResult": 0
+      },
+      {
+        "Name": "APCD_V3_COUPLING_RECONCILER",
+        "State": "Ready",
+        "Enabled": true,
+        "Actions": [
+          {
+            "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+            "Arguments": "\"D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_reconciler_service.py\"",
+            "WorkingDirectory": null
+          }
+        ],
+        "LastRun": "/Date(1790771042000)/",
+        "NextRun": "/Date(1790771100000)/",
+        "LastTaskResult": 0
+      }
+    ]
+  },
+  "gate_matrix": [
+    {
+      "gate": "Versioned backend and runtime manifest",
+      "status": "PASS",
+      "evidence": "861f436bf266d5aec91521be8070b78e31991a693a693dc5a20d388e3b5b4d64",
+      "detail": "91/91 backend manifest file hashes and 5/5 candidate inventory hashes matched; candidate remains non-activated."
+    },
+    {
+      "gate": "Candidate scope and physical source chain",
+      "status": "PASS",
+      "evidence": "861f436bf266d5aec91521be8070b78e31991a693a693dc5a20d388e3b5b4d64",
+      "detail": "S35/S39 only; attempt_001; both entries zero; exact physical contract, extension manifest, geometry, and declared/actual pre-FSP hashes matched."
+    },
+    {
+      "gate": "Formal pre-entry config validator",
+      "status": "PASS_CONFIG_ONLY",
+      "evidence": "fce0e3af2429187ca3527091b1c241c62a75bfa130b0fe8ec72e7e8ae1dec712",
+      "detail": "Production payloads passed validate_config; validation sentinels only; no live lease or host/solver was invoked."
+    },
+    {
+      "gate": "Restart/no-replay fail-safe",
+      "status": "PASS_FOR_V3_CRITERION_WITH_CAVEAT",
+      "evidence": "4c350923074010283b2fe2891a5dfce0d630550e5d85207e9e9f4129f3b0a6b2",
+      "detail": "Two controller starts, durable entry=1, zero new launch/solver/replay, terminal POSTENTRY_NO_TRUTH, resources released. Original FAIL retained because expected_dispatch_calls=4 was invalid."
+    },
+    {
+      "gate": "Hold, health, slots, leases, reservations, target entries",
+      "status": "PASS_AT_FRESH_SNAPSHOT",
+      "evidence": "861f436bf266d5aec91521be8070b78e31991a693a693dc5a20d388e3b5b4d64",
+      "detail": "Hold remains on at generation 23; health PASS; 3/3 slots free; no active leases/reservations; S35/S39 attempt_001 entry=0."
+    },
+    {
+      "gate": "External GPU headroom",
+      "status": "PASS_AT_SNAPSHOT_RECHECK_PER_LAUNCH",
+      "evidence": "728154036682b97a4dd0d89f78ecac4fd47f715cd675210165233d9ebc270ed4",
+      "detail": "RTX 3080 free=7642 MiB, utilization=1%, used=2412 MiB; threshold=1369 MiB. WDDM per-process GPU memory is N/A, so every actual launch must use the durable guard snapshot."
+    },
+    {
+      "gate": "Process and owner scan",
+      "status": "PASS_WITH_DISCLOSED_IDLE_SERVICES",
+      "evidence": "728154036682b97a4dd0d89f78ecac4fd47f715cd675210165233d9ebc270ed4",
+      "detail": "No controller/dispatcher/FDTD engine/mpiexec or active Shared V3 owner. Eight LumAPI servers have no project args or solver descendants; PID 8448 is Ansys license client. PID 8168 is a live but idle SYSTEM Intel MPI daemon with no solver link; two python.exe - helper identities remain not fully attributable."
+    },
+    {
+      "gate": "Scheduled task state",
+      "status": "PASS",
+      "evidence": "861f436bf266d5aec91521be8070b78e31991a693a693dc5a20d388e3b5b4d64",
+      "detail": "Current query confirms versioned reconciler enabled/result 0; dispatcher and legacy controller disabled. Reconciler Action resolves under pinned backend commit."
+    },
+    {
+      "gate": "Official hold lifecycle API",
+      "status": "PASS_ON_ISOLATED_COPY_ONLY",
+      "evidence": "23fe41c50505455f899b8842e0335999bd4d130eb87e75238adf0b319a7ac4f5",
+      "detail": "set_hold then release_hold produced linked event and generation 23→24→25 with caps unchanged on SQLite backup only; production API was not called."
+    },
+    {
+      "gate": "Historical dispositions and no-replay policy",
+      "status": "PASS_WITH_RECORDED_UNRESOLVED_HISTORY",
+      "evidence": "4c350923074010283b2fe2891a5dfce0d630550e5d85207e9e9f4129f3b0a6b2",
+      "detail": "Six POSTENTRY_NO_TRUTH rows, queue21 LINEAGE_NOT_RECOVERABLE, path-binding incident, and A3 contradiction are preserved and disclosed; no historical replay is authorized."
+    },
+    {
+      "gate": "Authority commit/push",
+      "status": "PENDING",
+      "evidence": null,
+      "detail": "Must be reviewed and committed/pushed before official hold release."
+    },
+    {
+      "gate": "Official production hold release",
+      "status": "PENDING",
+      "evidence": null,
+      "detail": "Not performed. Only use official APIs after authority commit/push."
+    },
+    {
+      "gate": "Live resource admission and GPU execution/truth for S35/S39",
+      "status": "PENDING_UNTIL_DISPATCH",
+      "evidence": null,
+      "detail": "No real lease, scientific entry, FDTD invocation, native post-FSP/H5, or truth-validation result exists yet; real launch must pass durable GPU snapshot and validation gates."
+    }
+  ],
+  "corrected_process_interpretation": {
+    "status": "PASS_WITH_DISCLOSED_IDLE_SERVICES",
+    "candidate_controller_or_dispatcher_processes": 0,
+    "fdtd_engine_or_mpiexec_processes": 0,
+    "lumapi_server_daemons": 8,
+    "lumapi_owner_details": [
+      {
+        "server_pid": 17436,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 33316,
+        "helper_cmdline": [
+          "C:\\Users\\DELL\\anaconda3\\envs\\my_env\\python.exe",
+          "-"
+        ],
+        "solver_related_descendants": []
+      },
+      {
+        "server_pid": 17576,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 28420,
+        "helper_cmdline": [
+          "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py"
+        ],
+        "solver_related_descendants": []
+      },
+      {
+        "server_pid": 26372,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 27248,
+        "helper_cmdline": [
+          "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py"
+        ],
+        "solver_related_descendants": []
+      },
+      {
+        "server_pid": 29816,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 24800,
+        "helper_cmdline": [
+          "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py"
+        ],
+        "solver_related_descendants": []
+      },
+      {
+        "server_pid": 31844,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 18080,
+        "helper_cmdline": [
+          "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py"
+        ],
+        "solver_related_descendants": []
+      },
+      {
+        "server_pid": 31848,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 30336,
+        "helper_cmdline": [
+          "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_inventory.py"
+        ],
+        "solver_related_descendants": [
+          {
+            "pid": 8448,
+            "ppid": 31848,
+            "name": "ansyscl.exe",
+            "exe": "N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe",
+            "cmdline": [
+              "N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe",
+              "-acl",
+              "DESKTOP-NNE313K_DELL_251",
+              "-nodaemon",
+              "-aclport",
+              "61208",
+              "-log",
+              "C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log"
+            ],
+            "create_time_epoch": 1790605802.3483458,
+            "status": "running",
+            "cpu_times": {
+              "user": 336.671875,
+              "system": 802.03125,
+              "children_user": 0.0,
+              "children_system": 0.0
+            },
+            "rss_bytes": 11358208,
+            "username": "DESKTOP-NNE313K\\DELL",
+            "children": [],
+            "open_files": [
+              "C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log",
+              "C:\\Program Files\\WindowsApps\\Microsoft.LanguageExperiencePackzh-CN_26100.163.263.0_neutral__8wekyb3d8bbwe\\Windows\\System32\\zh-CN\\596ef218acccabf1837015c9e3781f93\\mswsock.dll.mui",
+              "C:\\Program Files\\WindowsApps\\Microsoft.LanguageExperiencePackzh-CN_26100.163.263.0_neutral__8wekyb3d8bbwe\\Windows\\System32\\zh-CN\\92efefa355f550f93b4c4aa5c9542851\\winnlsres.dll.mui"
+            ],
+            "cwd": "N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64"
+          }
+        ]
+      },
+      {
+        "server_pid": 32256,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 16572,
+        "helper_cmdline": [
+          "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py"
+        ],
+        "solver_related_descendants": []
+      },
+      {
+        "server_pid": 33824,
+        "server_cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ],
+        "helper_pid": 29236,
+        "helper_cmdline": [
+          "C:\\Users\\DELL\\anaconda3\\envs\\my_env\\python.exe",
+          "-"
+        ],
+        "solver_related_descendants": []
+      }
+    ],
+    "license_client_child": {
+      "pid": 8448,
+      "parent_fdtd_server_pid": 31848,
+      "name": "ansyscl.exe",
+      "cmdline": [
+        "ansyscl.exe",
+        "-acl",
+        "DESKTOP-NNE313K_DELL_251",
+        "-nodaemon",
+        "-aclport",
+        "61208",
+        "-log",
+        "C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log"
+      ],
+      "classification": "Ansys licensing client, not FDTD engine."
+    },
+    "intel_mpi_service": {
+      "pid": 8168,
+      "name": "smpd-intel-4.0.3.009-x64.exe",
+      "parent": "services.exe (NT AUTHORITY\\SYSTEM)",
+      "children": 0,
+      "cpu_delta_2s": {
+        "user": 0.0,
+        "system": 0.0
+      },
+      "classification": "Inactive MPI runtime daemon; no active solver link observed. Process remains running and was not modified."
+    },
+    "helper_identity_caveat": "Named mdc_complex_prior_fsp_inventory.py and mdc_complex_prior_fsp_result_meta.py helpers explain most LumAPI servers. Two python.exe - helper identities are not recoverable from command line alone; they had no project args or solver children. Treat as disclosed background helper context, not proof of zero process activity.",
+    "wddm_gpu_memory_visibility": "Per-process compute-app memory is N/A; two AEDT GUI PIDs and ordinary desktop GPU clients are visible. Total device memory query is authoritative for capacity admission."
+  },
+  "pre_release_readiness_claims": {
+    "SAFE_FOR_TRADITIONAL_PRODUCTION": {
+      "value": "YES",
+      "scope": "Only readiness to authorize the bounded Shared V3 S35/S39 attempt_001 rollout; traditional branch cap remains disabled, and no blanket Traditional throughput claim is made."
+    },
+    "SAFE_FOR_COUPLING_ML_PRODUCTION": {
+      "value": "YES",
+      "scope": "Only the controlled initial S35/S39 attempt_001 release; not a claim that GPU results, truth artifacts, or all 12 cases are complete."
+    },
+    "GLOBAL_NEW_ENTRY_HOLD_RELEASE_RECOMMENDED": {
+      "value": "YES",
+      "scope": "Conditionally after authority commit/push; release by official API only; no release has occurred."
+    }
+  },
+  "limitations": [
+    "Original preflight literal no_solver_or_mpi_process predicate matched only exact smpd.exe and omitted smpd-intel; its output is superseded by the attached process classification/tree addenda.",
+    "The two python.exe - helper processes could not be attributed by command line alone; no solver child or project argument was observed.",
+    "WDDM per-process compute memory is N/A; total device free memory and just-in-time durable GPU guard must govern admission.",
+    "Fresh preflight is a point-in-time snapshot; repeat immediately before official release/dispatch.",
+    "This adjudication is not the authority commit, production hold release, solver dispatch, or GPU execution result."
+  ]
+}
