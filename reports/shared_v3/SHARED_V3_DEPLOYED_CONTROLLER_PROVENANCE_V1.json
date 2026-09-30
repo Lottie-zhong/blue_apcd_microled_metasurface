@@ -1,0 +1,44 @@
+{
+    "schema":  "SHARED_V3_DEPLOYED_CONTROLLER_PROVENANCE_V1",
+    "generated_at_utc":  "2026-09-30T02:04:59.6398921Z",
+    "verdict":  "PASS_EXACT_DEPLOYED_CONTROLLER_SNAPSHOT_HASH_BOUND_TO_GIT",
+    "runtime_controller":  {
+                               "sha256":  "6bb5f810864a3bd2cedf31baa314ab960063dc72328b374cc4196b492379898f",
+                               "credential_keyword_scan":  {
+                                                               "matches":  0,
+                                                               "patterns":  [
+                                                                                "password",
+                                                                                "passwd",
+                                                                                "secret",
+                                                                                "credential",
+                                                                                "api_key",
+                                                                                "token="
+                                                                            ]
+                                                           },
+                               "backup_sha256":  "186fceb5b8fb361aad99d72e0ef23b3614d2756df9975df9aafad4792237fc42",
+                               "path":  "D:\\apcd_runtime\\global_fdtd_control_v3\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1_controller.py",
+                               "size_bytes":  11778,
+                               "backup_path":  "D:\\apcd_runtime\\global_fdtd_control_v3\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1_controller.py.pre_sharedv3_backend.bak"
+                           },
+    "git_snapshot":  {
+                         "sha256":  "6bb5f810864a3bd2cedf31baa314ab960063dc72328b374cc4196b492379898f",
+                         "branch":  "codex/shared-v3-gpu-reliability-v1",
+                         "commit":  "cab537a6b1c6b9356abca8c91a6486ec435b7f2c",
+                         "artifact_is_byte_identical":  true,
+                         "path":  "reports/shared_v3/deployed_sources/PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1_controller.py",
+                         "git_blob_sha1":  "a2f7aacaac2774702b411d83db43350fc4435dbe"
+                     },
+    "backend":  {
+                    "commit_dir":  "b3a331b248e0d931c608d333965557c7f56e33cc",
+                    "root":  "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc",
+                    "controller_backend_root_literal":  "D:\\apcd_runtime\\shared_v3_backend\\b3a331b248e0d931c608d333965557c7f56e33cc",
+                    "manifest_sha256":  "4a913425f3783e03d314fe6bdb1bd661dfb32cfb45b8c558e84d4e2284c6ca00",
+                    "controller_backend_root_literal_present":  true
+                },
+    "behavior_changed":  false,
+    "production_runtime_modified":  false,
+    "limitations":  [
+                        "The runtime controller remains an external mutable file; current bytes were hashed and snapshotted in Git.",
+                        "The previous pre_sharedv3 backup is distinct and retained unchanged."
+                    ]
+}
