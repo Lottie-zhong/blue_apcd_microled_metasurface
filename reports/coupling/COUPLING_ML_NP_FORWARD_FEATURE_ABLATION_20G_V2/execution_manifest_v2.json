@@ -1,0 +1,56 @@
+{
+  "P_scale": "RBF Kernel Ridge alpha .1/1/10 gamma .1/1; train-only X/y StandardScaler; group-inner MSE selection; clamp negative prediction at zero",
+  "contract_sha256": "3c6b0bb9d498982811910a4be2da87e13ad82eba2a3bc493140bdd6834688081",
+  "created_utc": "2026-09-30T07:42:35.198112+00:00",
+  "fold_sha256": "f881a505ce11de970bcc6ba88bc77fa7d060d091bd9fc7efccdf3b2f23040df9",
+  "input_preprocessing": {
+    "A0": "D/130 then train-only StandardScaler",
+    "A1": "D plus 88 NP fields; train-only StandardScaler then full SVD PCA to 6"
+  },
+  "metrics": {
+    "P_scale": "RMS relative error per geometry",
+    "abs_order": "RMSE of POSTNP_TOTAL_POWER_V2*GRATING_ETA_V2",
+    "pearson": "pooled values",
+    "q95": "NumPy linear quantile",
+    "qualitative_key_no_degrade": "conservative no-worsening of absolute-order and P_scale medians/q95",
+    "routing": "RMSE over 11x7 eta per geometry",
+    "state": "complex L2 relative error per geometry",
+    "thresholded_abs": "median relative error where true absolute-order power >= frozen threshold",
+    "ties": "exact equality"
+  },
+  "runtime_parity": {
+    "adapter_sha256": "e68db57c2e144f60cf24f1c03ca6279bd50b6c94c8465e8f9f9f75dec68fdbfd",
+    "cache_sha256": "acdbeab1ff20eba081aaf20d433d3d4b9a75dae3485e852ad519c54cbea1accc",
+    "exact_matches": 15,
+    "queries": 15,
+    "status": "PASS"
+  },
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_EXECUTION_V2",
+  "solver_invocations": 0,
+  "state": "POSTNP +z C_hat; seven order-local rank2 PCA, trained on split-train geometries only; wavelength-major ReTE,ReTM,ImTE,ImTM",
+  "status": "FROZEN_BEFORE_MODEL_METRICS",
+  "supplement_only": true,
+  "training": {
+    "AdamW_lr": 0.002,
+    "CPU_only": true,
+    "aggregation": "mean of three fixed-seed predictions",
+    "final_epoch": "per seed median best epoch across the three fixed inner folds, refit on outer train",
+    "full_batch": true,
+    "gradient_clip_norm": 5.0,
+    "loss": "mean(((prediction-latent_score)/training-fold population std per output)^2); output remains PCA scores; train-only scale",
+    "max_epochs": 320,
+    "patience": 45,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "weight_decay": 0.0001
+  },
+  "truth_decoder_closure": {
+    "max": 0.00033095077122424765,
+    "median": 2.8585180662892007e-05,
+    "q95": 0.00017541120519474067,
+    "samples": 1540
+  }
+}

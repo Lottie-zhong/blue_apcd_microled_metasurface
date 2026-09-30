@@ -1,0 +1,167 @@
+{
+  "authority_head": "d5143de18309f395000e7e2161eb5a83068ac090",
+  "branch": "work/np-k6-mdc-v1",
+  "build_script_sha256": "f20c728d5e1ba9fbde6aedc953c736b5d05c9f24ec4767f83720166d6e501fb5",
+  "cache_path": "outputs/np_k6_coupling_forward_runtime_coverage_v2/coupling_20g_lf_feature_cache.jsonl",
+  "cache_rows": 220,
+  "cache_sha256": "acdbeab1ff20eba081aaf20d433d3d4b9a75dae3485e852ad519c54cbea1accc",
+  "coverage": "20/20 geometries; 220/220 geometry-wavelength queries",
+  "feature_definition": {
+    "R": "UNAVAILABLE",
+    "complex_amplitude": "NOT_EXPOSED",
+    "count_per_wavelength": 8,
+    "count_total": 88,
+    "fields_per_wavelength": [
+      "eta_m_proxy[m-3]",
+      "eta_m_proxy[m-2]",
+      "eta_m_proxy[m-1]",
+      "eta_m_proxy[m+0]",
+      "eta_m_proxy[m+1]",
+      "eta_m_proxy[m+2]",
+      "eta_m_proxy[m+3]",
+      "T_proxy"
+    ],
+    "flatten_order": "wavelength-major; within wavelength eta_m_proxy m=-3..+3, then T_proxy",
+    "k_y": 0.0,
+    "polarization": "P_XLIKE only",
+    "proxy_semantics": "eta_m_proxy normalized over tracked m=-3..+3; T_proxy=sum eta for m=-1,0,+1; not absolute integrated Coupling truth",
+    "support_metadata_as_features": false,
+    "u_x": 0.0,
+    "wavelength_order_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ]
+  },
+  "interface_id": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_V2",
+  "interface_manifest_sha256": "931da1aa25eb3c396080b3ab478f5fa4621fae1384c5c6655b788a0637606b0e",
+  "known_provenance_warnings": [
+    "D180 setup heartbeat pre-FSP path now contains different bytes; do not treat the current file as the setup artifact",
+    "D180 run_manifest pre_fsp pointer does not match setup heartbeat; setup hash is retained from the heartbeat, but the referenced pre-FSP bytes are not currently recoverable"
+  ],
+  "ood": {
+    "accuracy_claim": false,
+    "exact_hf22_overlap": 0,
+    "ood_geometries": 20
+  },
+  "provenance_hash": "ca58ab027fe20655f9e70d897c3c6c426266fcf67f531ef9b8d10fc518c66e1b",
+  "provider_id": "NP_LF_FEATURE_PROVIDER_V2",
+  "runtime_adapter_path": "scripts/np_k6_coupling_forward_feature_interface_v2.py",
+  "runtime_adapter_sha256": "e68db57c2e144f60cf24f1c03ca6279bd50b6c94c8465e8f9f9f75dec68fdbfd",
+  "runtime_sample_parity": {
+    "comparison": "exact features dict equality, geometry identity/hash, provenance hash, support status and OOD flag",
+    "details": {
+      "checked": [
+        {
+          "case_id": "K6V1_S02",
+          "exact_features": true,
+          "geometry_id": "K6X_D215_D105_D215_D230_D105_D130",
+          "wavelength_nm": 445
+        },
+        {
+          "case_id": "K6V1_S15",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D135_D180_D230_D230_D100",
+          "wavelength_nm": 450
+        },
+        {
+          "case_id": "K6V1_EXT04",
+          "exact_features": true,
+          "geometry_id": "K6X_D105_D230_D100_D100_D230_D220",
+          "wavelength_nm": 455
+        },
+        {
+          "case_id": "K6V1_EXT09",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D225_D125_D210_D200_D145",
+          "wavelength_nm": 445
+        },
+        {
+          "case_id": "K6V1_EXT14",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D120_D100_D225_D105_D190",
+          "wavelength_nm": 450
+        },
+        {
+          "case_id": "K6V1_EXT14",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D120_D100_D225_D105_D190",
+          "wavelength_nm": 455
+        },
+        {
+          "case_id": "K6V1_S02",
+          "exact_features": true,
+          "geometry_id": "K6X_D215_D105_D215_D230_D105_D130",
+          "wavelength_nm": 455
+        },
+        {
+          "case_id": "K6V1_S15",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D135_D180_D230_D230_D100",
+          "wavelength_nm": 445
+        },
+        {
+          "case_id": "K6V1_EXT04",
+          "exact_features": true,
+          "geometry_id": "K6X_D105_D230_D100_D100_D230_D220",
+          "wavelength_nm": 450
+        },
+        {
+          "case_id": "K6V1_EXT09",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D225_D125_D210_D200_D145",
+          "wavelength_nm": 455
+        },
+        {
+          "case_id": "K6V1_S02",
+          "exact_features": true,
+          "geometry_id": "K6X_D215_D105_D215_D230_D105_D130",
+          "wavelength_nm": 450
+        },
+        {
+          "case_id": "K6V1_S15",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D135_D180_D230_D230_D100",
+          "wavelength_nm": 455
+        },
+        {
+          "case_id": "K6V1_EXT04",
+          "exact_features": true,
+          "geometry_id": "K6X_D105_D230_D100_D100_D230_D220",
+          "wavelength_nm": 445
+        },
+        {
+          "case_id": "K6V1_EXT09",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D225_D125_D210_D200_D145",
+          "wavelength_nm": 450
+        },
+        {
+          "case_id": "K6V1_EXT14",
+          "exact_features": true,
+          "geometry_id": "K6X_D110_D120_D100_D225_D105_D190",
+          "wavelength_nm": 445
+        }
+      ],
+      "numpy": "2.2.5",
+      "provenance_warnings": [
+        "D180 setup heartbeat pre-FSP path now contains different bytes; do not treat the current file as the setup artifact",
+        "D180 run_manifest pre_fsp pointer does not match setup heartbeat; setup hash is retained from the heartbeat, but the referenced pre-FSP bytes are not currently recoverable"
+      ],
+      "provider_provenance_hash": "ca58ab027fe20655f9e70d897c3c6c426266fcf67f531ef9b8d10fc518c66e1b",
+      "python": "3.10.20",
+      "status": "PASS"
+    },
+    "queries": 15,
+    "status": "PASS"
+  },
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_MANIFEST_V2"
+}
