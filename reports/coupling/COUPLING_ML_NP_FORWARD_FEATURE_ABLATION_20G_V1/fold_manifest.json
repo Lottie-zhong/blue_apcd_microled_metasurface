@@ -1,0 +1,2070 @@
+{
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_FOLD_MANIFEST_V1",
+  "outer_split": "strict leave-one-complete-ordered-geometry-out (20 folds)",
+  "inner_split": "3-fold sklearn GroupKFold, geometry IDs are groups",
+  "statistical_unit": "one complete ordered geometry; all wavelength rows grouped with it",
+  "folds": [
+    {
+      "outer_fold": 1,
+      "test_geometry_id": "K6V1_S02",
+      "train_geometry_ids": [
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 2,
+      "test_geometry_id": "K6V1_S03",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 3,
+      "test_geometry_id": "K6V1_S04",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 4,
+      "test_geometry_id": "K6V1_S05",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 5,
+      "test_geometry_id": "K6V1_S15",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 6,
+      "test_geometry_id": "K6V1_S16",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 7,
+      "test_geometry_id": "K6V1_EXT01",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 8,
+      "test_geometry_id": "K6V1_EXT02",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 9,
+      "test_geometry_id": "K6V1_EXT03",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 10,
+      "test_geometry_id": "K6V1_EXT04",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 11,
+      "test_geometry_id": "K6V1_EXT05",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 12,
+      "test_geometry_id": "K6V1_EXT06",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 13,
+      "test_geometry_id": "K6V1_EXT07",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 14,
+      "test_geometry_id": "K6V1_EXT08",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 15,
+      "test_geometry_id": "K6V1_EXT09",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 16,
+      "test_geometry_id": "K6V1_EXT10",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT11",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 17,
+      "test_geometry_id": "K6V1_EXT11",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT12",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT12"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 18,
+      "test_geometry_id": "K6V1_EXT12",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT13",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT13",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 19,
+      "test_geometry_id": "K6V1_EXT13",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT14"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT14"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT14"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    },
+    {
+      "outer_fold": 20,
+      "test_geometry_id": "K6V1_EXT14",
+      "train_geometry_ids": [
+        "K6V1_S02",
+        "K6V1_S03",
+        "K6V1_S04",
+        "K6V1_S05",
+        "K6V1_S15",
+        "K6V1_S16",
+        "K6V1_EXT01",
+        "K6V1_EXT02",
+        "K6V1_EXT03",
+        "K6V1_EXT04",
+        "K6V1_EXT05",
+        "K6V1_EXT06",
+        "K6V1_EXT07",
+        "K6V1_EXT08",
+        "K6V1_EXT09",
+        "K6V1_EXT10",
+        "K6V1_EXT11",
+        "K6V1_EXT12",
+        "K6V1_EXT13"
+      ],
+      "inner_group_folds": [
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S03",
+            "K6V1_S05",
+            "K6V1_S15",
+            "K6V1_EXT02",
+            "K6V1_EXT03",
+            "K6V1_EXT05",
+            "K6V1_EXT06",
+            "K6V1_EXT08",
+            "K6V1_EXT09",
+            "K6V1_EXT11",
+            "K6V1_EXT12"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S04",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT04",
+            "K6V1_EXT07",
+            "K6V1_EXT10",
+            "K6V1_EXT13"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S04",
+            "K6V1_S05",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT02",
+            "K6V1_EXT04",
+            "K6V1_EXT05",
+            "K6V1_EXT07",
+            "K6V1_EXT08",
+            "K6V1_EXT10",
+            "K6V1_EXT11",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S15",
+            "K6V1_EXT03",
+            "K6V1_EXT06",
+            "K6V1_EXT09",
+            "K6V1_EXT12"
+          ]
+        },
+        {
+          "train_geometry_ids": [
+            "K6V1_S03",
+            "K6V1_S04",
+            "K6V1_S15",
+            "K6V1_S16",
+            "K6V1_EXT01",
+            "K6V1_EXT03",
+            "K6V1_EXT04",
+            "K6V1_EXT06",
+            "K6V1_EXT07",
+            "K6V1_EXT09",
+            "K6V1_EXT10",
+            "K6V1_EXT12",
+            "K6V1_EXT13"
+          ],
+          "validation_geometry_ids": [
+            "K6V1_S02",
+            "K6V1_S05",
+            "K6V1_EXT02",
+            "K6V1_EXT05",
+            "K6V1_EXT08",
+            "K6V1_EXT11"
+          ]
+        }
+      ],
+      "test_metrics_computed": false
+    }
+  ],
+  "predictions_generated": false,
+  "metrics_computed": false
+}

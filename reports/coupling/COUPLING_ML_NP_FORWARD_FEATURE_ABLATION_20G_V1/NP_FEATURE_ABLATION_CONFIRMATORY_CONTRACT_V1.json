@@ -1,0 +1,152 @@
+{
+  "arms_A0_A1_A2_A3_availability_rules": {
+    "A0": "COUPLING_BASELINE; current formal integrated 3D PW inputs only; always required when labels are valid",
+    "A1": "NP_LF_PHYSICS; legal only when the frozen provider returns provenance-tagged LF values for every paired geometry×wavelength row; no ordering permutation, interpolation, or fallback",
+    "A2": "NP_FROZEN_LEARNED_SCALAR; legal only when provider parity is formally PASS and the frozen interface declares reproducible runtime availability; otherwise SKIP with the exact reason",
+    "A3": "NP_LF_AND_LEARNED; legal only when A1 and A2 are both available on the exact A0 rows; compare incrementally against A1",
+    "availability_is_not_imputed": true
+  },
+  "feature_field_identities": {
+    "A0": [
+      "ordered_D1_nm",
+      "ordered_D2_nm",
+      "ordered_D3_nm",
+      "ordered_D4_nm",
+      "ordered_D5_nm",
+      "ordered_D6_nm"
+    ],
+    "A1": {
+      "interface": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_V1",
+      "provider": "FROZEN_D0_FULL_VECTOR_ARRAY_AUTHORITY",
+      "fields_per_wavelength": [
+        "LF order_vector[-3]",
+        "LF order_vector[-2]",
+        "LF order_vector[-1]",
+        "LF order_vector[0]",
+        "LF order_vector[+1]",
+        "LF order_vector[+2]",
+        "LF order_vector[+3]",
+        "LF T_proxy = LF_order_vector[-1] + LF_order_vector[0] + LF_order_vector[+1]"
+      ],
+      "order": "445,446,...,455 nm; P_XLIKE only for current Coupling branch; ux=0; ky=0",
+      "support_metadata_is_feature": false
+    },
+    "A2": "only the frozen learned scalar response explicitly declared reproducibly callable by the NP authority",
+    "A3": "A1 fields concatenated with the exact A2 scalar field; no other engineered fields",
+    "support_diagnostics_not_features": [
+      "exact_HF22_match",
+      "nearest_HF22_distance",
+      "nearest_HF22_geometry_id",
+      "OOD flag",
+      "support warnings"
+    ]
+  },
+  "preprocessing": {
+    "baseline_geometry": "D1..D6 ordered; divide by 130 nm; StandardScaler fit on training geometries only",
+    "NP_arm_capacity_control": "concatenate only authorized NP features; fit StandardScaler then PCA to six input components on each training fold only, preserving the frozen 6-input width-32 model capacity; no test-fit transformation",
+    "state_target": "seven order-local rank-2 PCA bases fitted on training geometries only; inverse transform for scoring",
+    "P_scale": "RBF Kernel Ridge with StandardScaler for X/y fit on training geometries only; alpha in {0.1,1,10}, gamma in {0.1,1}; 3-fold grouped inner selection",
+    "missing_or_unsupported": "fail closed; no fill, interpolation, extrapolation, sorting, or symmetry substitution"
+  },
+  "geometry_split_philosophy": {
+    "outer": "strict leave-one-complete-ordered-geometry-out",
+    "inner": "3-fold geometry-grouped validation inside each outer training set",
+    "wavelength_random_split": false,
+    "geometry_sorting_or_permutation": false,
+    "all_wavelengths_of_heldout_geometry_stay_heldout": true
+  },
+  "paired_band_nm": [
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455
+  ],
+  "current_target_schema": {
+    "authority": "PW_K6_GRATING_TRUTH_V2 + PW_COMPLEX_FLOQUET_STATE_V1",
+    "state": "integrated 3D PW POSTNP; original C_PW / C_hat factorization; seven order-local rank-2 spectral latents; deterministic H2 decoder",
+    "scale": "POSTNP_TOTAL_POWER_V2 / P_scale; predicted, never oracle substituted",
+    "polarization": "P_XLIKE only; no P/S averaging or fabricated S target",
+    "domain": "445–455 nm paired rows only"
+  },
+  "metrics": {
+    "state": [
+      "relative/state RMSE by geometry",
+      "median",
+      "q95",
+      "worst geometry"
+    ],
+    "routing": [
+      "eta/routing RMSE by geometry",
+      "Pearson correlation",
+      "median",
+      "q95",
+      "worst geometry"
+    ],
+    "absolute_order": [
+      "source-normalized error",
+      "thresholded meaningful-power relative error",
+      "frozen significance threshold 0.0009885656815447454"
+    ],
+    "total_power": [
+      "relative error",
+      "Pearson correlation",
+      "median",
+      "q95"
+    ],
+    "stability": [
+      "seed state-median standard deviation"
+    ],
+    "paired": [
+      "per-geometry delta vs A0",
+      "win/tie/loss for each legal NP arm"
+    ],
+    "H1_gates": {
+      "state_relative_rmse": {
+        "median_max": 0.5,
+        "q95_max": 0.8
+      },
+      "routing_eta_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1,
+        "pearson_min": 0.95
+      },
+      "absolute_order_source_normalized_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1
+      },
+      "thresholded_absolute_order_relative": {
+        "median_max": 0.3,
+        "q95_max": 0.75,
+        "significance_threshold": 0.0009885656815447454
+      },
+      "total_power_relative": {
+        "median_max": 0.15,
+        "q95_max": 0.3,
+        "pearson_min": 0.95
+      },
+      "seed_state_median_std_max": 0.03,
+      "conjunctive": true
+    }
+  },
+  "acceptance_logic": {
+    "supported": "at least one legal NP arm improves both state and routing median RMSE by >=5%, wins on >=60% of geometries for both endpoints (12/20 for 20G; 20/32 for 32G), and does not worsen state/routing q95 by >10% or worst-case error by >25%; key absolute-order and total-power medians/q95 must not materially degrade; report OOD strata and seed stability",
+    "partial": "measurable but target-specific/small improvement, OOD-stratum sensitivity, or unstable q95/worst-case behavior",
+    "not_supported": "no meaningful incremental improvement or consistent degradation",
+    "blocked": "formal matched labels/provider values are insufficient or fail integrity/coverage gates",
+    "production_H1_is_separate": "all frozen conjunctive H1 gates must pass; feature utility never implies production admission",
+    "no_posthoc_threshold_changes": true
+  },
+  "ood_analysis_rule": {
+    "distance": "sqrt(sum(((D_i-g_i)/130 nm)^2)) over ordered HF22 geometries",
+    "strata": "stable sort by (distance, case_id), split nearest/middle/farthest thirds (7/7/6 for 20; analogous thirds for 32)",
+    "use": "diagnostics/stratification only; never a model feature",
+    "exact_match_and_extrapolation_counts": "report from frozen support authority; no interpolation"
+  }
+}

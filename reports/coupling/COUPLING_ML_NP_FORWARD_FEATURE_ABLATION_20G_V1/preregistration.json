@@ -1,0 +1,181 @@
+{
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_PREREGISTRATION_V1",
+  "study": "COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_20G_V1",
+  "status": "FROZEN_BEFORE_OUTER_METRICS; ABORTED_AT_MATCHED_FEATURE_COVERAGE_GATE",
+  "registered_utc": "2026-09-30T03:28:03.379932+00:00",
+  "outer_fold_test_metrics_computed_before_registration": false,
+  "outer_fold_test_metrics_computed_at_all": false,
+  "dataset": {
+    "manifest": "reports/coupling/PW_K6_20G_DATASET_FREEZE_MANIFEST_V1.json",
+    "manifest_sha256": "e17a22cc34b7f0390fb272ded5245a61b52edbfff215d7ba83799e25a7c8570c",
+    "source_manifest_sha256": "e32d72cd0898d17dad0f0fb7cf2879e514139cafe1d2b5328f1fbbe229f20d5d",
+    "case_ids_in_frozen_order": [
+      "K6V1_S02",
+      "K6V1_S03",
+      "K6V1_S04",
+      "K6V1_S05",
+      "K6V1_S15",
+      "K6V1_S16",
+      "K6V1_EXT01",
+      "K6V1_EXT02",
+      "K6V1_EXT03",
+      "K6V1_EXT04",
+      "K6V1_EXT05",
+      "K6V1_EXT06",
+      "K6V1_EXT07",
+      "K6V1_EXT08",
+      "K6V1_EXT09",
+      "K6V1_EXT10",
+      "K6V1_EXT11",
+      "K6V1_EXT12",
+      "K6V1_EXT13",
+      "K6V1_EXT14"
+    ],
+    "geometry_count": 20,
+    "target_geometry_wavelength_rows": 220,
+    "state_order_wavelength_rows": 1540,
+    "paired_wavelength_nm": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "polarization": "P_XLIKE only",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
+  },
+  "target_schema": {
+    "baseline_authority": "PW_K6_STRUCTURED_FORWARD_MODEL_V1",
+    "baseline_freeze_report_sha256": "8a4680008870ba4cba0f2ca22e59cee93f6d31a375c7d81087d2dfa6edda4228",
+    "state": "PW_COMPLEX_FLOQUET_STATE_V1; integrated 3D Coupling truth; POSTNP +z; seven ordered propagating orders; TE/TM complex coordinates over 445–455 nm",
+    "state_representation": "original C_PW and C_hat/P_scale factorization; seven order-local rank-2 PCA representations fit only on outer-training geometries",
+    "scale": "POSTNP_TOTAL_POWER_V2 / P_scale; frozen RBF Kernel Ridge scale branch; no oracle substitution",
+    "decoder": "frozen deterministic H2; source scripts/shared_fdtd/tools/pw_complex_floquet_state_v1.py",
+    "decoder_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "truth_authority": "PW_K6_GRATING_TRUTH_V2"
+  },
+  "geometry_grouping": {
+    "statistical_unit": "complete ordered [D1,D2,D3,D4,D5,D6] geometry",
+    "outer": "strict LOGO, 20 folds",
+    "inner": "3-fold geometry GroupKFold within the outer training geometries",
+    "all_wavelengths_of_a_geometry_stay_together": true,
+    "wavelength_random_split": false,
+    "geometry_sorting_or_permutation": false
+  },
+  "feature_arms": {
+    "A0": {
+      "name": "COUPLING_BASELINE",
+      "definition": "six ordered geometry dimensions only",
+      "status": "AVAILABLE_BUT_NOT_TRAINED_BECAUSE_PAIRED_ABLATION_GATE_FAILED"
+    },
+    "A1": {
+      "name": "NP_LF_PHYSICS",
+      "definition": "seven LF order-vector scalars plus LF T_proxy at each paired wavelength; P_XLIKE, ux=0, ky=0",
+      "status": "BLOCKED_NO_MATCHED_PROVIDER_VALUES",
+      "provider_authority": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_V1",
+      "requested_rows": 220,
+      "available_rows": 0,
+      "unavailable_rows": 220
+    },
+    "A2": {
+      "name": "NP_FROZEN_LEARNED_SCALAR",
+      "status": "SKIPPED",
+      "reason": "LEARNED_SCALAR_FEATURE_ARM_NOT_REPRODUCIBLY_AVAILABLE"
+    },
+    "A3": {
+      "name": "NP_LF_AND_LEARNED",
+      "status": "SKIPPED",
+      "reason": "A1_AND_A2_NOT_BOTH_AVAILABLE"
+    }
+  },
+  "preprocessing": {
+    "A0_input_scaling": "D1..D6 divided by 130 nm; StandardScaler fit only on each training split",
+    "A1_input_capacity_match_if_enabled_in_future": "concatenate six ordered geometry values and 88 LF values; training-fold StandardScaler then training-fold PCA to six inputs before the same width-32 model; no test fold fit",
+    "state_pca": "seven order-specific rank-2 PCA transformations fit using training geometries only",
+    "P_scale_model": "RBF Kernel Ridge; train-fold X/y StandardScaler; alpha {0.1,1,10}, gamma {0.1,1}; grouped inner selection",
+    "support_metadata_as_model_input": false
+  },
+  "model_selection": {
+    "state_model": "frozen PW_K6_STRUCTURED_FORWARD_MODEL_V1; shared Linear(6,32)-ReLU-Linear(32,32)-ReLU encoder; seven Linear(32,2) order heads; 14→32→14 residual fusion",
+    "trainable_parameters": 2684,
+    "optimizer": "AdamW",
+    "learning_rate": 0.002,
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 5.0,
+    "maximum_epochs": 320,
+    "early_stopping_patience": 45,
+    "early_stopping_objective": "normalized MSE on geometry-held inner validation fold",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "prediction_aggregation": "mean of the three fixed-seed predictions; no post-hoc seed selection"
+  },
+  "primary_metrics": [
+    "state-relative RMSE",
+    "routing eta RMSE and Pearson",
+    "absolute-order source-normalized error",
+    "thresholded meaningful-power relative error",
+    "P_scale relative error and Pearson",
+    "per-geometry paired deltas",
+    "win/tie/loss",
+    "median/q95/worst",
+    "seed state-median std"
+  ],
+  "h1_gate_authority": {
+    "source": "PW_K6_H1_NUMERIC_GATE_AUTHORITY_V1.json",
+    "source_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "gates": {
+      "state_relative_rmse": {
+        "median_max": 0.5,
+        "q95_max": 0.8
+      },
+      "routing_eta_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1,
+        "pearson_min": 0.95
+      },
+      "absolute_order_source_normalized_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1
+      },
+      "thresholded_absolute_order_relative": {
+        "median_max": 0.3,
+        "q95_max": 0.75,
+        "significance_threshold": 0.0009885656815447454
+      },
+      "total_power_relative": {
+        "median_max": 0.15,
+        "q95_max": 0.3,
+        "pearson_min": 0.95
+      },
+      "seed_state_median_std_max": 0.03,
+      "conjunctive": true
+    },
+    "production_admission_is_separate": true
+  },
+  "comparative_acceptance_logic": {
+    "supported": "at least one legal NP arm improves both state and routing median RMSE by >=5%, wins on >=60% of geometries for both endpoints (12/20 for 20G; 20/32 for 32G), and does not worsen state/routing q95 by >10% or worst-case error by >25%; key absolute-order and total-power medians/q95 must not materially degrade; report OOD strata and seed stability",
+    "partial": "measurable but target-specific/small improvement, OOD-stratum sensitivity, or unstable q95/worst-case behavior",
+    "not_supported": "no meaningful incremental improvement or consistent degradation",
+    "blocked": "formal matched labels/provider values are insufficient or fail integrity/coverage gates",
+    "production_H1_is_separate": "all frozen conjunctive H1 gates must pass; feature utility never implies production admission",
+    "no_posthoc_threshold_changes": true
+  },
+  "ood_stratification": "stable sort by normalized nearest HF22 distance then case_id; 7/7/6 nearest/middle/farthest; diagnostics only",
+  "feature_coverage_gate": {
+    "NP_interface": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_V1",
+    "interface_manifest_sha256": "e7325852bb0533088339966ba6c2ae4312ce38564e6d563563e9210ce8b53dbe",
+    "adapter_sha256": "7838c0cf10b84f1c11ea37c66d436280771d15a8706e6b26492a1aa3740c5ede",
+    "method": "FrozenAuthority.lf_features(ordered_geometry, integer_wavelength_nm, 'P')",
+    "availability": "0/220 rows; all return UNAVAILABLE / geometry_not_present_in_frozen_LF_design_space",
+    "rule": "no sorting, interpolation, synthetic LF extrapolation, HF truth substitution, or missing-value imputation; stop before training"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_MANIFEST_V1",
+  "paired_rows": 220,
+  "arms": {
+    "A0": {
+      "name": "COUPLING_BASELINE",
+      "fields": [
+        "D1_nm",
+        "D2_nm",
+        "D3_nm",
+        "D4_nm",
+        "D5_nm",
+        "D6_nm"
+      ],
+      "status": "AVAILABLE_NOT_RUN"
+    },
+    "A1": {
+      "name": "NP_LF_PHYSICS",
+      "provider": "FROZEN_D0_FULL_VECTOR_ARRAY_AUTHORITY",
+      "fields_per_wavelength": [
+        "LF_order_vector[-3]",
+        "LF_order_vector[-2]",
+        "LF_order_vector[-1]",
+        "LF_order_vector[0]",
+        "LF_order_vector[+1]",
+        "LF_order_vector[+2]",
+        "LF_order_vector[+3]",
+        "LF_T_proxy=sum(m=-1,0,+1)"
+      ],
+      "wavelengths_nm": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ],
+      "polarization": "P_XLIKE",
+      "ux": 0.0,
+      "ky": 0.0,
+      "status": "BLOCKED",
+      "available_rows": 0,
+      "unavailable_rows": 220,
+      "reason": "geometry_not_present_in_frozen_LF_design_space"
+    },
+    "A2": {
+      "status": "SKIPPED",
+      "reason": "LEARNED_SCALAR_FEATURE_ARM_NOT_REPRODUCIBLY_AVAILABLE"
+    },
+    "A3": {
+      "status": "SKIPPED",
+      "reason": "A1_AND_A2_NOT_BOTH_AVAILABLE"
+    }
+  },
+  "support_metadata_used_as_feature": false,
+  "feature_generation": {
+    "called_method": "FrozenAuthority.lf_features(ordered_geometry, integer_wavelength_nm, 'P')",
+    "called_220_times": true,
+    "general_request_method_called": false,
+    "coupling_truth_passed_to_adapter": false,
+    "unsupported_fields_invented": false
+  }
+}

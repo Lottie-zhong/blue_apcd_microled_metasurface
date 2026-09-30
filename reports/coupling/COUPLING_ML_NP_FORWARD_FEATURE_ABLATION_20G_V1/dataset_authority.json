@@ -1,0 +1,2033 @@
+{
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_DATASET_AUTHORITY_V1",
+  "status": "PASS_INTEGRATED_LABELS; NP_FEATURE_COVERAGE_BLOCKED",
+  "coupling_git": {
+    "branch": "work/mdc-np-coupling-ml-v1",
+    "head": "f01f0dcd1a53a02592d9b7ea55c8f8e70dfdeb55",
+    "upstream_divergence_left_right": "0\t0"
+  },
+  "np_git": {
+    "branch": "work/np-k6-mdc-v1",
+    "head": "f8dad0e8438167ffca5ab22c19aa4790fa94b8d6",
+    "upstream_divergence_left_right": "0\t0"
+  },
+  "np_interface_provenance_authority_head": "c8e6eb422ed7d63d6a4608fd823341c929bd2b8f",
+  "dataset_freeze_manifest": {
+    "path": "reports\\coupling\\PW_K6_20G_DATASET_FREEZE_MANIFEST_V1.json",
+    "sha256": "e17a22cc34b7f0390fb272ded5245a61b52edbfff215d7ba83799e25a7c8570c",
+    "status": "PASS",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "scientific_entry_total": 20,
+    "duplicate_scientific_entry_count": 0,
+    "replay_count": 0
+  },
+  "source_provenance_manifest_sha256": "e32d72cd0898d17dad0f0fb7cf2879e514139cafe1d2b5328f1fbbe229f20d5d",
+  "included_geometry_count": 20,
+  "target_geometry_wavelength_rows": 220,
+  "target_order_wavelength_rows": 1540,
+  "wavelength_grid_full_nm": [
+    440,
+    441,
+    442,
+    443,
+    444,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455,
+    456,
+    457,
+    458,
+    459,
+    460
+  ],
+  "paired_wavelength_grid_nm": [
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455
+  ],
+  "polarization": "P_XLIKE only",
+  "target_schema": {
+    "baseline_authority": "PW_K6_STRUCTURED_FORWARD_MODEL_V1",
+    "baseline_freeze_report_sha256": "8a4680008870ba4cba0f2ca22e59cee93f6d31a375c7d81087d2dfa6edda4228",
+    "state": "PW_COMPLEX_FLOQUET_STATE_V1; integrated 3D Coupling truth; POSTNP +z; seven ordered propagating orders; TE/TM complex coordinates over 445–455 nm",
+    "state_representation": "original C_PW and C_hat/P_scale factorization; seven order-local rank-2 PCA representations fit only on outer-training geometries",
+    "scale": "POSTNP_TOTAL_POWER_V2 / P_scale; frozen RBF Kernel Ridge scale branch; no oracle substitution",
+    "decoder": "frozen deterministic H2; source scripts/shared_fdtd/tools/pw_complex_floquet_state_v1.py",
+    "decoder_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "truth_authority": "PW_K6_GRATING_TRUTH_V2"
+  },
+  "cases": [
+    {
+      "case_id": "K6V1_S02",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        215,
+        105,
+        215,
+        230,
+        105,
+        130
+      ],
+      "geometry_hash_sha256": "947cf4b1a3b31e4bb4f5733805286f68335fc5caa2cdf244ad58b4b16312e2d3",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\state\\K6V1_S02__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "fd98f45ba92c6705d823ff4cef89fa06281e62197fafef97b2ea3626ca03ed58",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "9b9af813f55c9ac49e7139d212a73adb89db399be52973d27c8c143617ba1f6f",
+      "post_solver_runtime_fsp_sha256": "c24c56bbbf0118aba5982c7494b4b126a84455739ac92c146b8130fe7fc8d3fe",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\attempt_ledger.json",
+          "bytes": 5902,
+          "sha256": "65d6ad97f47a07b61e08fd8e90a8db5c8211f7c35e6023cf6ecbedf613e180ff"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\state\\K6V1_S02__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6745,
+          "metadata_sha256": "811fd9ddf7bf112ab7470fabdbc4b31842d2f09bd7648d5e5bcc1f814d57dac5",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\state\\K6V1_S02__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353865,
+          "npz_sha256": "fd98f45ba92c6705d823ff4cef89fa06281e62197fafef97b2ea3626ca03ed58"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\raw\\K6V1_S02__attempt_001_raw.json",
+          "bytes": 503887,
+          "sha256": "c46ca5378ad7a8dfb5ca6f6c2e4a1d399bf8a877fab19806dc6b230d9ff5ab67"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\projection\\K6V1_S02__attempt_001_projection.json",
+          "bytes": 23678,
+          "sha256": "13a9b6187cee91b1ebf71777b7e0cd8a8c29e03509b41639f832a64f820b6bfc"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\orders\\K6V1_S02__attempt_001_orders.json",
+          "bytes": 388013,
+          "sha256": "ea35fd4c104fdfa3caacedb6dacd18c0cb01222456e836706b90fa2c46544a16"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\scientific_validation.json",
+          "bytes": 1337,
+          "sha256": "e987492ee76991d07b6172650910579fffa0d7110277313a4a9d9bf48b4e777a"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1114,
+          "sha256": "ea1a34ac1a0242630de1c34c2e2410dd621068caf41ff0b844950fb9ffd4a53b"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 9078,
+          "sha256": "1a37cdc075b354538ef30a40975c77863c608cfa65702d586480ba80d0feb9df"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\run\\K6V1_S02__attempt_001_runtime.fsp",
+          "bytes": 170552852,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "9b9af813f55c9ac49e7139d212a73adb89db399be52973d27c8c143617ba1f6f",
+          "post_solver_runtime_fsp_sha256": "c24c56bbbf0118aba5982c7494b4b126a84455739ac92c146b8130fe7fc8d3fe",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\run\\K6V1_S02__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "c24c56bbbf0118aba5982c7494b4b126a84455739ac92c146b8130fe7fc8d3fe"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S02\\attempt_001\\run\\K6V1_S02__attempt_001_runtime\\K6V1_S02__attempt_001_runtime_output.h5",
+          "bytes": 76386531,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_S03",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        100,
+        130,
+        120,
+        230,
+        100
+      ],
+      "geometry_hash_sha256": "5383cc1b85e33126508aaff6f550b9138b83d145c539b919327ecbd3cb266263",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\state\\K6V1_S03__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "22b0a29392c22b85fb5acb491095595af74774a28be9c95deef8d2a5517beaae",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "77ee8111e850784e2d78701f0e4d303ea3930e4ca4272b1e37fc0fc597bc67d6",
+      "post_solver_runtime_fsp_sha256": "27f7555fe7cd9bc9c8df643c43707a2127c8ada2200cbeee8b248dd7908838f3",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\attempt_ledger.json",
+          "bytes": 6156,
+          "sha256": "c447c548237cc75fe3e75bdac53c4aefd19b4fae15242a3aef8867ef564de7e4"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\state\\K6V1_S03__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6748,
+          "metadata_sha256": "a31147c482a84560900722953758d63d831069bd8b611d58aa97bc386c3294e5",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\state\\K6V1_S03__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353923,
+          "npz_sha256": "22b0a29392c22b85fb5acb491095595af74774a28be9c95deef8d2a5517beaae"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\raw\\K6V1_S03__attempt_001_raw.json",
+          "bytes": 503911,
+          "sha256": "092aabaa6a49159890eee5a396e656b42f379842ba0d55361ad40f480043463a"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\projection\\K6V1_S03__attempt_001_projection.json",
+          "bytes": 23710,
+          "sha256": "b56cc56eaf359e4e381496b3ac8d27b8e1380ec3d89c0b9ddeab78687d23340e"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\orders\\K6V1_S03__attempt_001_orders.json",
+          "bytes": 388033,
+          "sha256": "a7cb969de7e43331798e0473a0ee4187942ff62d0763f81460e5b03d369b0444"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\scientific_validation.json",
+          "bytes": 1337,
+          "sha256": "93db176ccf60c44915baa7a3d4c0caf57b65039f01eb75654f6051b5b885c37a"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1115,
+          "sha256": "768acbac4d223d477ee29852e5c6419b95ab119eb519a151007e71e0bf1c8628"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 4216,
+          "sha256": "080183b684da2023a3a0c543022376aa07ebbeaac87651b1929e74a70572c11c"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\run\\K6V1_S03__attempt_001_runtime.fsp",
+          "bytes": 170552852,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "77ee8111e850784e2d78701f0e4d303ea3930e4ca4272b1e37fc0fc597bc67d6",
+          "post_solver_runtime_fsp_sha256": "27f7555fe7cd9bc9c8df643c43707a2127c8ada2200cbeee8b248dd7908838f3",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\run\\K6V1_S03__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "27f7555fe7cd9bc9c8df643c43707a2127c8ada2200cbeee8b248dd7908838f3"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S03\\attempt_001\\run\\K6V1_S03__attempt_001_runtime\\K6V1_S03__attempt_001_runtime_output.h5",
+          "bytes": 76506413,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_S04",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        205,
+        215,
+        105,
+        225,
+        180,
+        100
+      ],
+      "geometry_hash_sha256": "269db32fc25f6a85ff9d934aab5c99627265a9f87d8b2ba4b3887c8770a114a9",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\state\\K6V1_S04__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "3bf760d9cb1427581e03d24ddbf73d2ccb66b56328cae639e362c2cdcaa8f8bf",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "d8f0c402dc97482dee79b963d06a9082fc6b855502ac1351f5895e6d2598eac0",
+      "post_solver_runtime_fsp_sha256": "4ef9bf331792ea53664d67405aa8334ddf23d693de71c3b7ddaf52f0ccc24b9e",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\attempt_ledger.json",
+          "bytes": 5103,
+          "sha256": "69647b0d56dff709790bdf69f1ed1b245f1d86338d527c632f340ec7849bcb8a"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\state\\K6V1_S04__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6743,
+          "metadata_sha256": "9ef10cc919064b0b7aeaa13b779faa944923d4c0adc232e8d811c59344b3a109",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\state\\K6V1_S04__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353727,
+          "npz_sha256": "3bf760d9cb1427581e03d24ddbf73d2ccb66b56328cae639e362c2cdcaa8f8bf"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\raw\\K6V1_S04__attempt_001_raw.json",
+          "bytes": 503775,
+          "sha256": "e6d9aea40e6a7a188f9c39167cd588fac97081256ed71d18eb3852cd48da26d8"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\projection\\K6V1_S04__attempt_001_projection.json",
+          "bytes": 23674,
+          "sha256": "e4abdc30fe202130c6a4e12598e89dfe9e2e16c0b5f790a02644d88348a12628"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\orders\\K6V1_S04__attempt_001_orders.json",
+          "bytes": 387953,
+          "sha256": "91af5357ff7645ba053ab4e2a24add189b9e2e924d05a42855f7f469a720336e"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\scientific_validation.json",
+          "bytes": 1300,
+          "sha256": "e710e5279a89f1d7790bac9cc98f97b28e078ccec3794a845a259cab6d1e7cb1"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1115,
+          "sha256": "042fa338aecbbba41cfdff24daf27ded7e1c0006fe312cd50885a26713aed7bb"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1732,
+          "sha256": "f6c948b50cbe9117baa22ef015d71dc68629642889a07ac841a295b08859c36c"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\run\\K6V1_S04__attempt_001_runtime.fsp",
+          "bytes": 170552852,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "d8f0c402dc97482dee79b963d06a9082fc6b855502ac1351f5895e6d2598eac0",
+          "post_solver_runtime_fsp_sha256": "4ef9bf331792ea53664d67405aa8334ddf23d693de71c3b7ddaf52f0ccc24b9e",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\post\\K6V1_S04__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "4ef9bf331792ea53664d67405aa8334ddf23d693de71c3b7ddaf52f0ccc24b9e"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S04\\attempt_001\\run\\K6V1_S04__attempt_001_runtime\\K6V1_S04__attempt_001_runtime_output.h5",
+          "bytes": 76551595,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_S05",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        215,
+        225,
+        100,
+        125,
+        110,
+        220
+      ],
+      "geometry_hash_sha256": "c9214e73410f695ba239c80b39638afa2796b085e3efb062cbd34b6b11c6bd6b",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\state\\K6V1_S05__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "a8a90fe17715a8305520e23bfd20fa65f1bca95e5bf93108398073a0f5e4002d",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "2920d8e06d7f8fc4d4dad3f9c335c53c6622fd67d271eee4227387a07fb30418",
+      "post_solver_runtime_fsp_sha256": "63737c20651b93ae5f126e4c001ede8fca9d3e2e672b6521ab4032866197c02c",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\attempt_ledger.json",
+          "bytes": 5070,
+          "sha256": "65d737bf9b0be70d9f74fbb79be5bc544d23c99e5f214f402e1e0e52e0e77ec7"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\state\\K6V1_S05__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6743,
+          "metadata_sha256": "8169f1ad7278fbb3d717311181c1283a5bfd724fb22b0fa83f8b9e35fd38441d",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\state\\K6V1_S05__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353782,
+          "npz_sha256": "a8a90fe17715a8305520e23bfd20fa65f1bca95e5bf93108398073a0f5e4002d"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\raw\\K6V1_S05__attempt_001_raw.json",
+          "bytes": 503852,
+          "sha256": "07315a7c2d5abfc34ca582ee9846cece649b6e614c93a2b64f4f01ed6c4b5614"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\projection\\K6V1_S05__attempt_001_projection.json",
+          "bytes": 23662,
+          "sha256": "283e50e0bc90befbc5db4d0cba08ccef8fe739036cd4a710bfd3eb85819b2d4a"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\orders\\K6V1_S05__attempt_001_orders.json",
+          "bytes": 388022,
+          "sha256": "0af651d0e6215c759bfae5deef72d500fe106e8ca3c05ebab0fb81cddb44b7bc"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\scientific_validation.json",
+          "bytes": 1300,
+          "sha256": "244b185bf2d33d247ccdbaf49b77e120deb2cb46aa7cefc04e78657aa0c16cb3"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1115,
+          "sha256": "fa380effca422dfbf4d037e89fd761d759b0d165a48d474737f3da6a5b880fc0"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1732,
+          "sha256": "fb989ba17df9484522e38991aea0359fa3e33e35776112a8db3cbca7e6cabea7"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\run\\K6V1_S05__attempt_001_runtime.fsp",
+          "bytes": 170552852,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "2920d8e06d7f8fc4d4dad3f9c335c53c6622fd67d271eee4227387a07fb30418",
+          "post_solver_runtime_fsp_sha256": "63737c20651b93ae5f126e4c001ede8fca9d3e2e672b6521ab4032866197c02c",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\post\\K6V1_S05__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "63737c20651b93ae5f126e4c001ede8fca9d3e2e672b6521ab4032866197c02c"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S05\\attempt_001\\run\\K6V1_S05__attempt_001_runtime\\K6V1_S05__attempt_001_runtime_output.h5",
+          "bytes": 76562113,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_S15",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        110,
+        135,
+        180,
+        230,
+        230,
+        100
+      ],
+      "geometry_hash_sha256": "44ce888fac542b11c7a88046c937e9bb189cb1b7352c6153e97dee844a274ac1",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\state\\K6V1_S15__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "2665c37ab834b8a71e283595bb015d09ce3fef51dc3e878ab7c734526808858a",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "4a374af152eef7485d979710842c21e195689afa791971cca6cc4ce582914e30",
+      "post_solver_runtime_fsp_sha256": "8baed5a333e5130140f7f9c108583e7c4af4d751dccac7c898e556323af20e87",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\attempt_ledger.json",
+          "bytes": 5655,
+          "sha256": "6e19efb348f698fa7e866150d84545ed20a90fa27b9618512e120ab48236bdcb"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\state\\K6V1_S15__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6749,
+          "metadata_sha256": "5a04d595ffe2ea800b72fd096af2e20b7c4af693dc94d72eeabe1c0d0777673b",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\state\\K6V1_S15__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353649,
+          "npz_sha256": "2665c37ab834b8a71e283595bb015d09ce3fef51dc3e878ab7c734526808858a"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\raw\\K6V1_S15__attempt_001_raw.json",
+          "bytes": 503857,
+          "sha256": "586d828a0ec0c077ae28a46e2e84d4ab8e56165610374de4ffe45cb323cb0d97"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\projection\\K6V1_S15__attempt_001_projection.json",
+          "bytes": 23740,
+          "sha256": "e436cdf997acb784bad4215a162ad79ac1b8f82169eb77364cf91f56761d4d30"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\orders\\K6V1_S15__attempt_001_orders.json",
+          "bytes": 387976,
+          "sha256": "df9b5ce7403bc0badfb6060f21a89a5dd975d98d76a2690ac4d006a191f28f4a"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\scientific_validation.json",
+          "bytes": 1300,
+          "sha256": "5fafa54c09a8c64d583189f2bff20b6229e03b741b200bbe8bfedf59c1f1f296"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1114,
+          "sha256": "16c051a80c707560c00152dd083a41324974d91651c9d3b1fa0f3365cf111b1b"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1732,
+          "sha256": "f06474f30ba2435c71ecb6190df3fd2835226e19f303b71ecfbf7398ac0184d9"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\run\\K6V1_S15__attempt_001_runtime.fsp",
+          "bytes": 170552852,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "4a374af152eef7485d979710842c21e195689afa791971cca6cc4ce582914e30",
+          "post_solver_runtime_fsp_sha256": "8baed5a333e5130140f7f9c108583e7c4af4d751dccac7c898e556323af20e87",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\post\\K6V1_S15__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "8baed5a333e5130140f7f9c108583e7c4af4d751dccac7c898e556323af20e87"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S15\\attempt_001\\run\\K6V1_S15__attempt_001_runtime\\K6V1_S15__attempt_001_runtime_output.h5",
+          "bytes": 76414117,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_S16",
+      "attempt_id": "attempt_002",
+      "ordered_D_nm": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "geometry_hash_sha256": "909d242ab2c06ff40f591603f19a546423cdf12a38e05459e99ff336ef6e69af",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\state\\K6V1_S16__attempt_002_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "2cda8dd5eb2695742f29a011fc470d2e15c16a9cb740958dbafb10b05e6be90e",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "641d0fdb57b6c5ecf1267841a41d6edbfd0ca13e38f068fc1611ae1a18b7ac08",
+      "post_solver_runtime_fsp_sha256": "177e8274f34335356412fe5916c2f38d28a1a6b567584b3158150c4bd3d67b91",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\attempt_ledger.json",
+          "bytes": 5653,
+          "sha256": "27d9adf5a4b8c603b6f2019b2687dd38b81e8ba6cd9a93399229b20b4ddf24e0"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\state\\K6V1_S16__attempt_002_pw_complex_floquet_state.json",
+          "metadata_bytes": 6751,
+          "metadata_sha256": "b0fa4e38d15f715b38291d6890f61253e3aef1936632e41dc3623be9069bf413",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\state\\K6V1_S16__attempt_002_pw_complex_floquet_state.npz",
+          "npz_bytes": 353658,
+          "npz_sha256": "2cda8dd5eb2695742f29a011fc470d2e15c16a9cb740958dbafb10b05e6be90e"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\raw\\K6V1_S16__attempt_002_raw.json",
+          "bytes": 503899,
+          "sha256": "c838c5ec692eb00dcb8e7fc85b01f7dc487e2594914509a2b42c73dd5ec6faa8"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\projection\\K6V1_S16__attempt_002_projection.json",
+          "bytes": 23711,
+          "sha256": "c29fd250f487661e74ae54ecf3d17dc2666685e9c030ca8a6918fccb1455fdbe"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\orders\\K6V1_S16__attempt_002_orders.json",
+          "bytes": 387994,
+          "sha256": "e3a433341bfe85dc47794acb27fab831f823b9f0545f447e6eeaa20b40bebc64"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\scientific_validation.json",
+          "bytes": 1300,
+          "sha256": "ec5b11808a75ac2c27f7ad9b1d4728f1c7684bfe8d441df4131774a28e2e4fa4"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\pre_entry_manifest.json",
+          "status": "ABSENT_IN_FROZEN_MANIFEST; ENTRY_HASH_LINEAGE_VERIFIED_FROM_LEDGER"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1732,
+          "sha256": "5bcae0af84396d080489882b609cf1e51b975065571f97520f1dfe284fbf5b7c"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\run\\K6V1_S16__attempt_002_runtime.fsp",
+          "bytes": 170552852,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "641d0fdb57b6c5ecf1267841a41d6edbfd0ca13e38f068fc1611ae1a18b7ac08",
+          "post_solver_runtime_fsp_sha256": "177e8274f34335356412fe5916c2f38d28a1a6b567584b3158150c4bd3d67b91",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\post\\K6V1_S16__attempt_002_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "177e8274f34335356412fe5916c2f38d28a1a6b567584b3158150c4bd3d67b91"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\run\\K6V1_S16__attempt_002_runtime\\K6V1_S16__attempt_002_runtime_output.h5",
+          "bytes": 76603189,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT01",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        220,
+        210,
+        230,
+        225,
+        205,
+        105
+      ],
+      "geometry_hash_sha256": "f80b416b2794336a00873f440c4091fcbd940618fe11f9cf10f8e9a78985252f",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\state\\K6V1_EXT01__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "68a84165884e7276645b96e5acb6b51b9fca078a7cc3c4c1c8930b94d93beaae",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "944aa95b5d2e8bedbc9a0f9d42678ed94bdcd7b6b6cf2ff9c7a8bdefc9e58b88",
+      "post_solver_runtime_fsp_sha256": "b088e620bdea057087fa9622fd9ec2f8a23e64340ad50bcba810e35b8f05bf1d",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\attempt_ledger.json",
+          "bytes": 6484,
+          "sha256": "9948e05137f0ce2bc84887b3c37f99a8a2009995e33ca27fa65a7b48ab820166"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\state\\K6V1_EXT01__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6750,
+          "metadata_sha256": "4847ed88d23b0a59c5cdf3ffab8601153e488bd12d9dd8183e856b8fee5d998f",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\state\\K6V1_EXT01__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353905,
+          "npz_sha256": "68a84165884e7276645b96e5acb6b51b9fca078a7cc3c4c1c8930b94d93beaae"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\raw\\K6V1_EXT01__attempt_001_raw.json",
+          "bytes": 503919,
+          "sha256": "c4ac076a1ce4aeb6ddde384d67a0c25671d7b760da3c6a6f4fd945221c5dda6f"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\projection\\K6V1_EXT01__attempt_001_projection.json",
+          "bytes": 23636,
+          "sha256": "9a8216f0392e1c04010f547842b92fa1b0ca0748267c4da3796613541dba3249"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\orders\\K6V1_EXT01__attempt_001_orders.json",
+          "bytes": 388109,
+          "sha256": "58a1defe9b4a760e9c48975d06be934a3b81ecd12a72d5021754a465c048792b"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\scientific_validation.json",
+          "bytes": 1357,
+          "sha256": "a1bc813be28959a25fce1fd5fd24185ddf366e509fe0562ddd46e06b952a12f4"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "05be61cf63b44b94e82fb73bb1f684cadde13ad7af59209aff1bb31156cb1655"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 7805,
+          "sha256": "bc4dcaf0f942ee2364135f69287ff40d3af10a1623c86c6d2afb488374573daa"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\run\\K6V1_EXT01__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "944aa95b5d2e8bedbc9a0f9d42678ed94bdcd7b6b6cf2ff9c7a8bdefc9e58b88",
+          "post_solver_runtime_fsp_sha256": "b088e620bdea057087fa9622fd9ec2f8a23e64340ad50bcba810e35b8f05bf1d",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\run\\K6V1_EXT01__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "b088e620bdea057087fa9622fd9ec2f8a23e64340ad50bcba810e35b8f05bf1d"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT01\\attempt_001\\run\\K6V1_EXT01__attempt_001_runtime\\K6V1_EXT01__attempt_001_runtime_output.h5",
+          "bytes": 76541393,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT02",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\state\\K6V1_EXT02__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "bcb4d2c3d48bb6d033396cc0725eca9e1bfbe57759c5f002b0347e3ccfc61cf4",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143",
+      "post_solver_runtime_fsp_sha256": "65739584081c3ef0ba946d0be506c7847507dcabe6f3424c8d4dff4b9cb7d0d1",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\attempt_ledger.json",
+          "bytes": 6485,
+          "sha256": "691d5ae872d808a11776ac6fe2dd229e1a4eca04729feb419776edc38843ebeb"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\state\\K6V1_EXT02__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6747,
+          "metadata_sha256": "0fef469ddcf518034dc6a1ce23fcb172e8a8421d186af7a35f151fca351ce8cf",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\state\\K6V1_EXT02__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353971,
+          "npz_sha256": "bcb4d2c3d48bb6d033396cc0725eca9e1bfbe57759c5f002b0347e3ccfc61cf4"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\raw\\K6V1_EXT02__attempt_001_raw.json",
+          "bytes": 503832,
+          "sha256": "204c98703d9dddddbf3acfa7fd0d175cb7d206fdbb18ce6c1374a0c7310cc7bd"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\projection\\K6V1_EXT02__attempt_001_projection.json",
+          "bytes": 23647,
+          "sha256": "6b465c3093787f66010a1db91cae774ae67365d9c072652f8fd2e9e2444147eb"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\orders\\K6V1_EXT02__attempt_001_orders.json",
+          "bytes": 388001,
+          "sha256": "3c7cbe2ff4825d2f59249bac975ccd97f16a082a2c17c53e0ae24b3ef0b413cc"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\scientific_validation.json",
+          "bytes": 1357,
+          "sha256": "5d8de536b2c521ec86b764393070fe5f1916957342a37c469829c6acc0bd28d6"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "bc44bc4c9054f3182ea653762e0988668c42e0cbc06b37b212df692868349c3d"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 7805,
+          "sha256": "34793ebe2f07540d50bfe6c709f062c3fe0a683d3df5f6b26d821a2871bef401"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\run\\K6V1_EXT02__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143",
+          "post_solver_runtime_fsp_sha256": "65739584081c3ef0ba946d0be506c7847507dcabe6f3424c8d4dff4b9cb7d0d1",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\run\\K6V1_EXT02__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "65739584081c3ef0ba946d0be506c7847507dcabe6f3424c8d4dff4b9cb7d0d1"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\run\\K6V1_EXT02__attempt_001_runtime\\K6V1_EXT02__attempt_001_runtime_output.h5",
+          "bytes": 76596458,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT03",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "geometry_hash_sha256": "604933a97fe3ecc2ae06531bdb3aab4713ec68c0d9d199a3f85c8321e7c70c12",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\state\\K6V1_EXT03__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "e84318af238c25f796b7fe749e6c31d60ba98ac4e71894707776680e02ba78bb",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "fb5a966a815dfc7d8db15a16e42bbca69e6eae72f79d8f80e6d98fecb8beafe6",
+      "post_solver_runtime_fsp_sha256": "834938588d3fb09673e3ab408ac88687b0679f9ce1667315662d886e215cd2b5",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\attempt_ledger.json",
+          "bytes": 4084,
+          "sha256": "a294978f1f09114a6b75672587577effe31a5fc59ad05af9724005a321cc121f"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\state\\K6V1_EXT03__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6748,
+          "metadata_sha256": "2b1016d09e86cd4d060fe02857f861a33f8678b48515c7c11fe9195997e49068",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\state\\K6V1_EXT03__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353798,
+          "npz_sha256": "e84318af238c25f796b7fe749e6c31d60ba98ac4e71894707776680e02ba78bb"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\raw\\K6V1_EXT03__attempt_001_raw.json",
+          "bytes": 503691,
+          "sha256": "9f75550b62ea81071f67986f9a31f5ff844b7c259d9d9ba4ae6eb751f9f1ccca"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\projection\\K6V1_EXT03__attempt_001_projection.json",
+          "bytes": 23650,
+          "sha256": "c660e28fe1b108780a0a9b1ca169a68e374e276bf313fd3205afa98083d62451"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\orders\\K6V1_EXT03__attempt_001_orders.json",
+          "bytes": 387919,
+          "sha256": "84b292fd2e9c7ccd8f9bdc51b6166b730b1766578bd76000ca6b2d331cb9f06c"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "3df627b60df0d5d0c9c1378b95673c0f2e56d829e132ed1af4c774f18424d643"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "d59d21f544eeb4b9ca1d1b16bfa661814f339b2e028e7f8196a9860e64a184ea"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "d27ac36cfdea5228c3ce5765789e896a7ef9a09a8505cb7308c56d9330f4bc4e"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\run\\K6V1_EXT03__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "fb5a966a815dfc7d8db15a16e42bbca69e6eae72f79d8f80e6d98fecb8beafe6",
+          "post_solver_runtime_fsp_sha256": "834938588d3fb09673e3ab408ac88687b0679f9ce1667315662d886e215cd2b5",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\post\\K6V1_EXT03__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "834938588d3fb09673e3ab408ac88687b0679f9ce1667315662d886e215cd2b5"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT03\\attempt_001\\run\\K6V1_EXT03__attempt_001_runtime\\K6V1_EXT03__attempt_001_runtime_output.h5",
+          "bytes": 76576324,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT04",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "geometry_hash_sha256": "eecdbefc7ea91f551832695f16bee24e8fc75dd7a1d0531ffedbe0ee1e24c589",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\state\\K6V1_EXT04__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "b5bac4ec0a7624b1774e8f9e75f9e9fa5fd6d6db4134b47d08226730877cac19",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "c230305888b5e11c790e3d7b2136b2bd88b916df654331e687224648e2eadcfe",
+      "post_solver_runtime_fsp_sha256": "99994058b3ce5457666f7a153c84bdd82ef127963a9b0c870297242eefb72e52",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\attempt_ledger.json",
+          "bytes": 5649,
+          "sha256": "7dc897a8f2f63dd99ed751c3c153a9cb0f75a02947358776fd82874f81e487b3"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\state\\K6V1_EXT04__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6746,
+          "metadata_sha256": "67219471d6929ae7f37391a90a90c846f9f86eb454ae7953226929755b6a47d9",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\state\\K6V1_EXT04__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353752,
+          "npz_sha256": "b5bac4ec0a7624b1774e8f9e75f9e9fa5fd6d6db4134b47d08226730877cac19"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\raw\\K6V1_EXT04__attempt_001_raw.json",
+          "bytes": 503923,
+          "sha256": "edc9b371fb6553f2ead913aac69455e5b969f3bd424eb1d9c44500e8b91e1b5a"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\projection\\K6V1_EXT04__attempt_001_projection.json",
+          "bytes": 23674,
+          "sha256": "41aba550f06484986e99d96056a960589f71f2b00327458d84faaf41ef91dbaf"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\orders\\K6V1_EXT04__attempt_001_orders.json",
+          "bytes": 388063,
+          "sha256": "bff827a0cb75f69f42634396ec4bde128eec5fb9b95555b6bca5ad97bbf14675"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "561775eeed12f7e8ae1c8464c37b09384adebe139114c2cd3739a067549b547d"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "fc456d1d6ec016613f7d7153b6828bdfc3adc7a68e918957966330399f5b0ad3"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "391e5ad4552b4fefabe8370856db0f4436fde96afe564f252b36e35a6cf8e93d"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\run\\K6V1_EXT04__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "c230305888b5e11c790e3d7b2136b2bd88b916df654331e687224648e2eadcfe",
+          "post_solver_runtime_fsp_sha256": "99994058b3ce5457666f7a153c84bdd82ef127963a9b0c870297242eefb72e52",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\post\\K6V1_EXT04__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "99994058b3ce5457666f7a153c84bdd82ef127963a9b0c870297242eefb72e52"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT04\\attempt_001\\run\\K6V1_EXT04__attempt_001_runtime\\K6V1_EXT04__attempt_001_runtime_output.h5",
+          "bytes": 76587890,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT05",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        210,
+        220,
+        100,
+        230,
+        195,
+        225
+      ],
+      "geometry_hash_sha256": "ec006f107038b5c8e51b994822679d974e5f54fa76eb2e5bbb2e062b3fc5485a",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\state\\K6V1_EXT05__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "971998a5cf3f33d54eb39f2605ffe5396ea07005bfe02f6f03ad15b3f3256bfc",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "4d2d7e554ee7adff7cacbe9170cd87f4056b12f077db9d7a711f4e548fb4e45e",
+      "post_solver_runtime_fsp_sha256": "c938f6e3285651ecfa81a20d17e8c24e2d3014b4e1a43ad054cc08def998edcc",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\attempt_ledger.json",
+          "bytes": 5650,
+          "sha256": "53bf6a47ffd63b3d4020cd6df6845e73bdb057189843b2b94a4ae99238f2ef7d"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\state\\K6V1_EXT05__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6753,
+          "metadata_sha256": "d3000760ad2a25106d3766efc9a31ae107dac0cb180518e6f27d74fa4b0c69ab",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\state\\K6V1_EXT05__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353693,
+          "npz_sha256": "971998a5cf3f33d54eb39f2605ffe5396ea07005bfe02f6f03ad15b3f3256bfc"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\raw\\K6V1_EXT05__attempt_001_raw.json",
+          "bytes": 503767,
+          "sha256": "b84337d79afc577c80e0cc2141bfbc826eec287282d258bf1456447dd1b08907"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\projection\\K6V1_EXT05__attempt_001_projection.json",
+          "bytes": 23635,
+          "sha256": "d1efe996b190a265e32d3c81261fb1374f8ef9ca6cd09e6498237e2a5ac070de"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\orders\\K6V1_EXT05__attempt_001_orders.json",
+          "bytes": 387992,
+          "sha256": "964cd99773f7d84f392d01e339d3019a54c1ee70a25d8af876f7a7848cb577df"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "0dd7b6c6adcd1119fb4c24738734eb1fda8f0317f3f94db79334a2fd3d09ad81"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "20e2df8f68f811082b93d3debfb28c8609915409e4e622a4f8e647c53cd193c8"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "a45ed0e01791ffb7a3626fe7005a470a8c0ae40a2adb84f2ea0852d9b0b80854"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\run\\K6V1_EXT05__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "4d2d7e554ee7adff7cacbe9170cd87f4056b12f077db9d7a711f4e548fb4e45e",
+          "post_solver_runtime_fsp_sha256": "c938f6e3285651ecfa81a20d17e8c24e2d3014b4e1a43ad054cc08def998edcc",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\post\\K6V1_EXT05__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "c938f6e3285651ecfa81a20d17e8c24e2d3014b4e1a43ad054cc08def998edcc"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT05\\attempt_001\\run\\K6V1_EXT05__attempt_001_runtime\\K6V1_EXT05__attempt_001_runtime_output.h5",
+          "bytes": 76549580,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT06",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        165,
+        110,
+        115,
+        230,
+        155,
+        115
+      ],
+      "geometry_hash_sha256": "ba1a57e8c76f266871ef0f762ecca8d59db926ac495205deda700e83eeb10897",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\state\\K6V1_EXT06__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "2ec4cc9957d3e6baf38b70c98eb87a1376153bf33bd46abc78c86bffc496c0ce",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "6ed6cc513aa3f5604e6679575cb6ba843f4878c495ad64bbf960f1d3c50c0ebe",
+      "post_solver_runtime_fsp_sha256": "55182dd5977c841dd730444a0c27c2b9304757908a6c9d77f7acaa378e8bc4ed",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\attempt_ledger.json",
+          "bytes": 5650,
+          "sha256": "7d6f0d1d29572118c8dfe18450ebcf2dafd68bbbe997456f7c81c69f742348c6"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\state\\K6V1_EXT06__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6755,
+          "metadata_sha256": "8995456bb7f85c9e079b9f06998186a261518d8aa492ac93955224af02674e98",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\state\\K6V1_EXT06__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353752,
+          "npz_sha256": "2ec4cc9957d3e6baf38b70c98eb87a1376153bf33bd46abc78c86bffc496c0ce"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\raw\\K6V1_EXT06__attempt_001_raw.json",
+          "bytes": 503799,
+          "sha256": "4330f1de0f97e8c51bfd44bb0d6a0f1cff08e59cbe3de145069917553badf185"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\projection\\K6V1_EXT06__attempt_001_projection.json",
+          "bytes": 23644,
+          "sha256": "b182f8f32846e8deee62293a791857bded27043c9c63b36904493c0611007a02"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\orders\\K6V1_EXT06__attempt_001_orders.json",
+          "bytes": 388021,
+          "sha256": "3a3359077f0d567e6b7906f8ce1d9601e0a70312bfadd08e2270897744bff020"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "b46d80605c1dc0650b6e5ed79de4837536c8e944c891ff8feef27d81702a31b8"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "1b9ea129091ed7add0cb454472bfa5a4d3e27797ee4333adf952ba80f8cf2e4b"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "1781192ffea2b017c82637ba9ca85fc6c5726fed4b70ffe8ca0bc78dd76d769b"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\run\\K6V1_EXT06__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "6ed6cc513aa3f5604e6679575cb6ba843f4878c495ad64bbf960f1d3c50c0ebe",
+          "post_solver_runtime_fsp_sha256": "55182dd5977c841dd730444a0c27c2b9304757908a6c9d77f7acaa378e8bc4ed",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\post\\K6V1_EXT06__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "55182dd5977c841dd730444a0c27c2b9304757908a6c9d77f7acaa378e8bc4ed"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT06\\attempt_001\\run\\K6V1_EXT06__attempt_001_runtime\\K6V1_EXT06__attempt_001_runtime_output.h5",
+          "bytes": 76431510,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT07",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "geometry_hash_sha256": "b450ae6aa3f086cdbdd9f3c3908e3abe30384a426860e2d8f06d97ae94267765",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\state\\K6V1_EXT07__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "4b437fb779ca72b65fd1b888e7b3cec49c4898e978864454a292281f07b4db46",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "6b52487ac9c2231052dac5092d813fc111fba5e335cac6e06df99095b179e1cc",
+      "post_solver_runtime_fsp_sha256": "f2f21c406f267d7d7d865a1690c118eef05e08048fc6dec546075a6666f8d2f9",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\attempt_ledger.json",
+          "bytes": 4068,
+          "sha256": "eeb1abf15aeec618dea9bfb27f4b9e6a6eefafb165b9fde89adaadaa2bbd51f6"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\state\\K6V1_EXT07__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6752,
+          "metadata_sha256": "04a7469bf91a0f2fe611a5dad666ba56fdca4d3e0d5b3c7c92489c18da22b907",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\state\\K6V1_EXT07__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353672,
+          "npz_sha256": "4b437fb779ca72b65fd1b888e7b3cec49c4898e978864454a292281f07b4db46"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\raw\\K6V1_EXT07__attempt_001_raw.json",
+          "bytes": 503813,
+          "sha256": "c5f73879abeed148f10bebfd20fe32e29d42f2e01b1b5fcf5f065d5b21b55aef"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\projection\\K6V1_EXT07__attempt_001_projection.json",
+          "bytes": 23663,
+          "sha256": "a129d280f02b352b29c0ec456f0b654c04059d9b28520fd7fc08df7dfbcc6af3"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\orders\\K6V1_EXT07__attempt_001_orders.json",
+          "bytes": 387976,
+          "sha256": "904fc546471a03d4dcd466cd72d815337add682c46258220f1b4a3696c2e57f2"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "ef050f0b6181f62956d5d4c8b3f9a0db0cbaf34b2c0caa685c57f7185e7d4605"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "17a719ebd3ad7f2c806554be19ac6ad211d08b95ffd8266629048a331d873a78"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "9eeb0d8a4666b2aff5ceac7fe81f4aad3ffc103bc3570c3f91ed4b16b260d226"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\run\\K6V1_EXT07__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "6b52487ac9c2231052dac5092d813fc111fba5e335cac6e06df99095b179e1cc",
+          "post_solver_runtime_fsp_sha256": "f2f21c406f267d7d7d865a1690c118eef05e08048fc6dec546075a6666f8d2f9",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\post\\K6V1_EXT07__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "f2f21c406f267d7d7d865a1690c118eef05e08048fc6dec546075a6666f8d2f9"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT07\\attempt_001\\run\\K6V1_EXT07__attempt_001_runtime\\K6V1_EXT07__attempt_001_runtime_output.h5",
+          "bytes": 76521661,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT08",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "geometry_hash_sha256": "997a6002e429cf2246ee640c5680edb72e653b052f69e1a5b88cd772a5673518",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\state\\K6V1_EXT08__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "7ca61209b7080807754b6c9a67b127388e0ea90cf838eae5ecf23a22a1861e46",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "4968bb888d7af71175fd1482d7176a9b447a1cd4ae571b0c5de0a54ad92394f5",
+      "post_solver_runtime_fsp_sha256": "926105cca660107f6fbabb441c3a1fbd50c7835ca9842fdefdddde40a5eb2d44",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\attempt_ledger.json",
+          "bytes": 4084,
+          "sha256": "f3de85a72285f35647d72228708800f9dacf11d9e644813311a78bd0ee9ff2f4"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\state\\K6V1_EXT08__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6754,
+          "metadata_sha256": "433c3cb73750275062df2e5e48e4456482962a23156d21f21750d89af072d0ec",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\state\\K6V1_EXT08__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353759,
+          "npz_sha256": "7ca61209b7080807754b6c9a67b127388e0ea90cf838eae5ecf23a22a1861e46"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\raw\\K6V1_EXT08__attempt_001_raw.json",
+          "bytes": 503910,
+          "sha256": "80601c0a64771fafe4d73cf98aa7f933a5bb26bc80b0a9d69bfe56c1aab6f87c"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\projection\\K6V1_EXT08__attempt_001_projection.json",
+          "bytes": 23701,
+          "sha256": "873a58e2332e1e9233e5620675bb516df14a39291475272aee4b5fc1f1c68bef"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\orders\\K6V1_EXT08__attempt_001_orders.json",
+          "bytes": 388017,
+          "sha256": "f5f11157e0f08f878887b274d4d9b6dd12aaf109bfd0bd2a05bd78aa86784eda"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "64239eb2824e547c54a482c0cee9ee25ac8423ef0e5f11891504e5e25cee89b5"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "34f50541157bc70c462817ad88592583f4337d92539fdae0895dfd427d6af893"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "3704d11a9984848a8ff4065736c8ab66505954297525ed5669b646342098e3b5"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\run\\K6V1_EXT08__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "4968bb888d7af71175fd1482d7176a9b447a1cd4ae571b0c5de0a54ad92394f5",
+          "post_solver_runtime_fsp_sha256": "926105cca660107f6fbabb441c3a1fbd50c7835ca9842fdefdddde40a5eb2d44",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\post\\K6V1_EXT08__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "926105cca660107f6fbabb441c3a1fbd50c7835ca9842fdefdddde40a5eb2d44"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT08\\attempt_001\\run\\K6V1_EXT08__attempt_001_runtime\\K6V1_EXT08__attempt_001_runtime_output.h5",
+          "bytes": 76614874,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT09",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        110,
+        225,
+        125,
+        210,
+        200,
+        145
+      ],
+      "geometry_hash_sha256": "826412effb8c3fff846db9d61c6bd6b22524c4ca3fe8f10a44557bb378b3a749",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\state\\K6V1_EXT09__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "dbde1443c49f3fcda3ae74703ec8309704950eb6b925fb698aa0bfb4cad16a9f",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "4c694e826df167da998270671eb702b0de213f01fa62ac7e641667e81fc0fa8c",
+      "post_solver_runtime_fsp_sha256": "60d03dc1d3b65933a9d5e44183c5d265550f9ec2a855a13bc706034e4a5b3d35",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\attempt_ledger.json",
+          "bytes": 4067,
+          "sha256": "b351b17bdc6fe2143e893638ec098130f29f80c98b53d7f4e3d3a5d007d2864d"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\state\\K6V1_EXT09__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6750,
+          "metadata_sha256": "51ad8f39ec655166a6d0815aa27e6a05aabb4731577b132b788fb99103786b94",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\state\\K6V1_EXT09__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353753,
+          "npz_sha256": "dbde1443c49f3fcda3ae74703ec8309704950eb6b925fb698aa0bfb4cad16a9f"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\raw\\K6V1_EXT09__attempt_001_raw.json",
+          "bytes": 503869,
+          "sha256": "5ae7895eb1b533b2d3f1171d3b613862f467e1aded509b6910346154d05b692b"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\projection\\K6V1_EXT09__attempt_001_projection.json",
+          "bytes": 23671,
+          "sha256": "164cb306b276e3d914736a9d7f705a934c29737016a60cd6109d9071a8d3f81f"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\orders\\K6V1_EXT09__attempt_001_orders.json",
+          "bytes": 387998,
+          "sha256": "7ded37ec7c9186d9e80d2a985e54df7595db749c8d48d54cce3b363f5573b281"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "83ac8125aeab2972089221b5081bd1b775c3c7a1a03ba35bcfedac1abcadfaee"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "2c5ca11d816fdc98e8359648e689658429adbd1f1a3a846a7aaee63a3bfe42ca"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "c1b15ededcacb4d070ec2fb22429d8d05a9058ad1b6df7b45b78b0efd2716f4f"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\run\\K6V1_EXT09__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "4c694e826df167da998270671eb702b0de213f01fa62ac7e641667e81fc0fa8c",
+          "post_solver_runtime_fsp_sha256": "60d03dc1d3b65933a9d5e44183c5d265550f9ec2a855a13bc706034e4a5b3d35",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\post\\K6V1_EXT09__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "60d03dc1d3b65933a9d5e44183c5d265550f9ec2a855a13bc706034e4a5b3d35"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT09\\attempt_001\\run\\K6V1_EXT09__attempt_001_runtime\\K6V1_EXT09__attempt_001_runtime_output.h5",
+          "bytes": 76598441,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT10",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        225,
+        190,
+        225,
+        105,
+        135
+      ],
+      "geometry_hash_sha256": "c44ce83df5c29d98f03a243ac3ff11e3f8211da0e1f95d48c8209fe1df26357d",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\state\\K6V1_EXT10__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "b0c4b68999f2ce29340787bb4fd15d46ad8be57a81729063ccf46ff4023c5aa9",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "0caad40824463cb579e8b28e74c203b3e809b46bd7fc33f158b5c7449da412c1",
+      "post_solver_runtime_fsp_sha256": "7c767a5b10d56c05e56c62cd7ed94171681e028c5b47ff3436681297a7c69f16",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\attempt_ledger.json",
+          "bytes": 5650,
+          "sha256": "4f150270826b1407afbf3131df87e773537a39cfe6438f20945100f0b058c0b8"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\state\\K6V1_EXT10__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6751,
+          "metadata_sha256": "3d47753fff73bdf7fd79def2a207db98904ac8edfa7ab3bcc433ca95a3271a4b",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\state\\K6V1_EXT10__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353742,
+          "npz_sha256": "b0c4b68999f2ce29340787bb4fd15d46ad8be57a81729063ccf46ff4023c5aa9"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\raw\\K6V1_EXT10__attempt_001_raw.json",
+          "bytes": 503756,
+          "sha256": "5f77f58a159cb1c76417666911d4119589226f1c5753e95b22cd8e0babb42c5c"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\projection\\K6V1_EXT10__attempt_001_projection.json",
+          "bytes": 23666,
+          "sha256": "2197e44ceff1509954b40ed6887affdffd46ebe91f43f431470c52119517183f"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\orders\\K6V1_EXT10__attempt_001_orders.json",
+          "bytes": 387966,
+          "sha256": "ccaf329151dc07ae73f8c37c6c571c480b49c1d4685d8f458c2dd76aa50cef76"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "22e901f24156c90418da5539fa85cd2d3f37f0d57dcdf6efd938e71b62382098"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "5e7952ebcff076ffca656752ccfc1e16f2d329212f99a2fc3b9e2d030fd33f55"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "14645493bbe33ab5b3d286c93e70a1ab13ff1278f8acac7464285ce6d52d41af"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\run\\K6V1_EXT10__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "0caad40824463cb579e8b28e74c203b3e809b46bd7fc33f158b5c7449da412c1",
+          "post_solver_runtime_fsp_sha256": "7c767a5b10d56c05e56c62cd7ed94171681e028c5b47ff3436681297a7c69f16",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\post\\K6V1_EXT10__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "7c767a5b10d56c05e56c62cd7ed94171681e028c5b47ff3436681297a7c69f16"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT10\\attempt_001\\run\\K6V1_EXT10__attempt_001_runtime\\K6V1_EXT10__attempt_001_runtime_output.h5",
+          "bytes": 76635364,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT11",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "geometry_hash_sha256": "616cc661ef0a6ffca34d71da5afa4c7c01a1fec677302205fdd0eebcda7cb561",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\state\\K6V1_EXT11__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "156e19df500629f6bf5306746aac4b61e10a3764c0bff10f636c46c556df9df9",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "89f47dccb4b233b0a5e3843c16e34a62a9d1fc62bb27703825c6e461653b4540",
+      "post_solver_runtime_fsp_sha256": "03ddb6bd7f262a74f1f82f38de9490f5fc27dd17055cf3db9cabde527a1b0e07",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\attempt_ledger.json",
+          "bytes": 5649,
+          "sha256": "381f103bd489b21f5ad78690c7347420437176d7c2c942a2ac32e09a39d3f77f"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\state\\K6V1_EXT11__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6745,
+          "metadata_sha256": "cf55d4bfb5831f3967d48d35dd7ce6e80ffb6cc688d03fed5ecbd68b1d1e5ee5",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\state\\K6V1_EXT11__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353759,
+          "npz_sha256": "156e19df500629f6bf5306746aac4b61e10a3764c0bff10f636c46c556df9df9"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\raw\\K6V1_EXT11__attempt_001_raw.json",
+          "bytes": 503775,
+          "sha256": "71b11bd7e5b40089910423d8240f7d974a3cab6390181634fbc1fa68b8ecbc75"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\projection\\K6V1_EXT11__attempt_001_projection.json",
+          "bytes": 23700,
+          "sha256": "5da9978463059e2909d4475859280068552f0756dc87b13352f5909369161096"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\orders\\K6V1_EXT11__attempt_001_orders.json",
+          "bytes": 387950,
+          "sha256": "8b14574bbd05d3c24d2e90ddf9bfa4c786217a8c135a9b8cfb941cc25d4f6053"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "a7d6e31896fc6829da5a810db47090f1003443d7bfcd910ed4b8e1510781e2b2"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "e38955da2d5a2512d650b2668801dc8fe77f9de3b58d795142d12290397e6f69"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "da0e10d749b7374606b183a0fe816ebba135e2ef51c44844c73e0315c95fa584"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\run\\K6V1_EXT11__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "89f47dccb4b233b0a5e3843c16e34a62a9d1fc62bb27703825c6e461653b4540",
+          "post_solver_runtime_fsp_sha256": "03ddb6bd7f262a74f1f82f38de9490f5fc27dd17055cf3db9cabde527a1b0e07",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\post\\K6V1_EXT11__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "03ddb6bd7f262a74f1f82f38de9490f5fc27dd17055cf3db9cabde527a1b0e07"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT11\\attempt_001\\run\\K6V1_EXT11__attempt_001_runtime\\K6V1_EXT11__attempt_001_runtime_output.h5",
+          "bytes": 76554710,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT12",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        100,
+        230,
+        230,
+        185,
+        225,
+        120
+      ],
+      "geometry_hash_sha256": "d172f4895359a2d29f5feb8a65f51b56ddb6c1b27ec712329d3b61ab5b0964a1",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\state\\K6V1_EXT12__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "208b2540ecbf6859eab98b44c96a270841e13158e1691d8e3ebbd4f908eb403e",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "24111fc226119c699b2836c2d0035c67b536467768a818d19021b6af403a4da6",
+      "post_solver_runtime_fsp_sha256": "0f60e5aa269a97f480f99204b1ff502fdc77e519bc1fad82ea018f166fe98d41",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\attempt_ledger.json",
+          "bytes": 4084,
+          "sha256": "b81b44802657d483bcb1b93352f3d52088f277655f7689ab335a814d086c164c"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\state\\K6V1_EXT12__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6752,
+          "metadata_sha256": "95dd36c37906bb747886026870223a562e930aadd8a344553550b10491f29356",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\state\\K6V1_EXT12__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353686,
+          "npz_sha256": "208b2540ecbf6859eab98b44c96a270841e13158e1691d8e3ebbd4f908eb403e"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\raw\\K6V1_EXT12__attempt_001_raw.json",
+          "bytes": 503808,
+          "sha256": "90193af760f2ee270ceb3a81b22f5ecbf61796e23ecc45d9c85cc8e40ac63f39"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\projection\\K6V1_EXT12__attempt_001_projection.json",
+          "bytes": 23646,
+          "sha256": "40efdf02874cc6e23bd5ebcc9497d9b5a947ccdf4c8a7ade0d87af1ff8f060a4"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\orders\\K6V1_EXT12__attempt_001_orders.json",
+          "bytes": 387988,
+          "sha256": "2c729139f276240898714448fcaa77f42a0f4313b9fdebe1b2f7b411d02a3222"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "81f551d5719810ad2fc516d4353ae14716f16b6979581413cf48a9aa0c200718"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "8a7fab36f5226de95c12077813f07e39e5d954029d571fe4890420b6872380d8"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "fb9ef02ce16c70d0f0ef381c24eb7909b8d5b98818420a7bc53131135317ffa4"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\run\\K6V1_EXT12__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "24111fc226119c699b2836c2d0035c67b536467768a818d19021b6af403a4da6",
+          "post_solver_runtime_fsp_sha256": "0f60e5aa269a97f480f99204b1ff502fdc77e519bc1fad82ea018f166fe98d41",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\post\\K6V1_EXT12__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "0f60e5aa269a97f480f99204b1ff502fdc77e519bc1fad82ea018f166fe98d41"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT12\\attempt_001\\run\\K6V1_EXT12__attempt_001_runtime\\K6V1_EXT12__attempt_001_runtime_output.h5",
+          "bytes": 76655887,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT13",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        100,
+        110,
+        115,
+        120,
+        225,
+        100
+      ],
+      "geometry_hash_sha256": "65493812dc8103a02b7ecf74fe915ba913a2d96bf04d09999bf69fcc0fd1bc36",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\state\\K6V1_EXT13__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "a30f04d221bc7869bace67a67ebda7c3ee950da404aad6a9e0e9c421108eb9a2",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "7a5a195ce309fcdc3c74c5161774290638ab09f3e4b492eca2f9d6e9934a7bbd",
+      "post_solver_runtime_fsp_sha256": "357b847079bcc45ca2d5a2a02aa9ed0aee2ccebf7bc2ac0bfe64113c0bae4b2a",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\attempt_ledger.json",
+          "bytes": 4068,
+          "sha256": "5bd8101ade4ea345e30481b189eaa187dd7cb840599f019f9877ca5db420e353"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\state\\K6V1_EXT13__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6751,
+          "metadata_sha256": "17143143ec4e78ea91258d4f89158a1b4fc6b50957f42e3fa7bd3942976a68c4",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\state\\K6V1_EXT13__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353798,
+          "npz_sha256": "a30f04d221bc7869bace67a67ebda7c3ee950da404aad6a9e0e9c421108eb9a2"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\raw\\K6V1_EXT13__attempt_001_raw.json",
+          "bytes": 503869,
+          "sha256": "c3c7d5d1a1e978bbb4e56f4bbfca4f4bfe69863d32dcaf68d443bc99191914ac"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\projection\\K6V1_EXT13__attempt_001_projection.json",
+          "bytes": 23692,
+          "sha256": "34003e41c8bbac124aa2c5ae6239c5182ce3b9190e0b018fe3f96296c261ca64"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\orders\\K6V1_EXT13__attempt_001_orders.json",
+          "bytes": 388026,
+          "sha256": "739cf896d78171383fd2191a599be7c822b3214f17a62b6bef819ca55cd3b812"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "89b4782307c730c9bd8b6cae3b337279696b3164614ecac1d73607483b9ac2c6"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "1d0fadaa34a5ccd7bf67dfd850b4ac88291c659dd2a18e45c050667cd5782190"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "1f725e97363aa6ebdea3a5b02568c4983dcd9fdc45293233fce95b9aea93ee87"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\run\\K6V1_EXT13__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "7a5a195ce309fcdc3c74c5161774290638ab09f3e4b492eca2f9d6e9934a7bbd",
+          "post_solver_runtime_fsp_sha256": "357b847079bcc45ca2d5a2a02aa9ed0aee2ccebf7bc2ac0bfe64113c0bae4b2a",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\post\\K6V1_EXT13__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "357b847079bcc45ca2d5a2a02aa9ed0aee2ccebf7bc2ac0bfe64113c0bae4b2a"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT13\\attempt_001\\run\\K6V1_EXT13__attempt_001_runtime\\K6V1_EXT13__attempt_001_runtime_output.h5",
+          "bytes": 76582725,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "case_id": "K6V1_EXT14",
+      "attempt_id": "attempt_001",
+      "ordered_D_nm": [
+        110,
+        120,
+        100,
+        225,
+        105,
+        190
+      ],
+      "geometry_hash_sha256": "e17accef6e9fa3ff4d5a887a35d00c358dac04c7cdda60fc4ae3504c828bbb6d",
+      "scientific_entry_count": 1,
+      "solver_returned": true,
+      "replay": false,
+      "scientific_validation": "PASS",
+      "hf_archive": "PASS",
+      "state_schema": "PW_COMPLEX_FLOQUET_STATE_V1",
+      "state_planes": [
+        "IN",
+        "PRENP",
+        "POSTNP"
+      ],
+      "state_normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+      "state_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\state\\K6V1_EXT14__attempt_001_pw_complex_floquet_state.npz",
+      "state_npz_sha256": "ebadbd554bd27e9a984ad94f74863be681fd73a482b8802fe11a655afdc6da2c",
+      "state_shape": [
+        3,
+        21,
+        81,
+        2,
+        2
+      ],
+      "pre_entry_fsp_sha256": "e6cdc37cc31344ee6b1e51102d86a5330814a2518323a1e98f0d43a70f27b894",
+      "post_solver_runtime_fsp_sha256": "7c19f0e87a902d73eb3aa09702b73c7cf8597947ac12a102ad73627a5e395a1e",
+      "artifact_hashes": {
+        "ledger": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\attempt_ledger.json",
+          "bytes": 5648,
+          "sha256": "a9b69b33ba048462abd9208006f068a2bc7db320bfa0ab146daab0d69e825aaa"
+        },
+        "state": {
+          "metadata_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\state\\K6V1_EXT14__attempt_001_pw_complex_floquet_state.json",
+          "metadata_bytes": 6751,
+          "metadata_sha256": "aff2e54ddb8066b0d1a47c592cfcfc5ce80a7694ba91d6f6dcd4cf2af7f8d31a",
+          "npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\state\\K6V1_EXT14__attempt_001_pw_complex_floquet_state.npz",
+          "npz_bytes": 353726,
+          "npz_sha256": "ebadbd554bd27e9a984ad94f74863be681fd73a482b8802fe11a655afdc6da2c"
+        },
+        "raw": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\raw\\K6V1_EXT14__attempt_001_raw.json",
+          "bytes": 503806,
+          "sha256": "f37e20745735803d2800067b93f7800ac7cdfed6dc239be90f18b3f378ccefda"
+        },
+        "projection": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\projection\\K6V1_EXT14__attempt_001_projection.json",
+          "bytes": 23652,
+          "sha256": "83d799594f699117c0b3b0213a70a6be3ed28536fe7bcb1729071f1c06c6673e"
+        },
+        "orders": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\orders\\K6V1_EXT14__attempt_001_orders.json",
+          "bytes": 387994,
+          "sha256": "64e28c82f87a0b28d130d732f2c4d73ef9c4c6cada8f860a91851459413d16f2"
+        },
+        "validation": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\scientific_validation.json",
+          "bytes": 1320,
+          "sha256": "8248b51e086a8b41fc2fa8ebab7eb45dd862f08dea33c8fa03cda0f83ac146cb"
+        },
+        "pre": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\pre_entry_manifest.json",
+          "bytes": 1633,
+          "sha256": "cdcacff125045f31cb28a5aa7cc555486d2fceaca8ae819c26adfa19b61c15a8"
+        },
+        "hf": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\HF_ARCHIVE_MANIFEST.json",
+          "bytes": 1762,
+          "sha256": "1cc2ec9bc312b6a78c4d197fcbaedc2c4933402472887ac60ff9eba3e90539ff"
+        },
+        "fsp": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\run\\K6V1_EXT14__attempt_001_runtime.fsp",
+          "bytes": 170552876,
+          "manifest_sha256_semantics": "pre-entry FSP digest, confirmed by pre_entry_manifest and attempt ledger",
+          "pre_entry_fsp_sha256": "e6cdc37cc31344ee6b1e51102d86a5330814a2518323a1e98f0d43a70f27b894",
+          "post_solver_runtime_fsp_sha256": "7c19f0e87a902d73eb3aa09702b73c7cf8597947ac12a102ad73627a5e395a1e",
+          "hf_archive_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\post\\K6V1_EXT14__attempt_001_runtime.fsp",
+          "hf_archive_runtime_fsp_sha256": "7c19f0e87a902d73eb3aa09702b73c7cf8597947ac12a102ad73627a5e395a1e"
+        },
+        "h5": {
+          "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT14\\attempt_001\\run\\K6V1_EXT14__attempt_001_runtime\\K6V1_EXT14__attempt_001_runtime_output.h5",
+          "bytes": 76506058,
+          "sha256": null
+        }
+      }
+    }
+  ],
+  "excluded_expansion_cases": [
+    "K6V1_EXT03",
+    "K6V1_EXT04",
+    "K6V1_EXT05",
+    "K6V1_EXT06",
+    "K6V1_EXT07",
+    "K6V1_EXT08",
+    "K6V1_EXT09",
+    "K6V1_EXT10",
+    "K6V1_EXT11",
+    "K6V1_EXT12",
+    "K6V1_EXT13",
+    "K6V1_EXT14"
+  ],
+  "exclusion_rule": "Only cases selected as SCIENTIFIC_VALID in the frozen 20G authority with directly verified case-local validation, HF archive, state metadata/NPZ, raw/projection/order truth and FSP/H5 are included; no newer 12G expansion is assumed valid.",
+  "model_authorities": {
+    "baseline_report_sha256": "8a4680008870ba4cba0f2ca22e59cee93f6d31a375c7d81087d2dfa6edda4228",
+    "h1_gate_authority_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "h1_gate_values": {
+      "state_relative_rmse": {
+        "median_max": 0.5,
+        "q95_max": 0.8
+      },
+      "routing_eta_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1,
+        "pearson_min": 0.95
+      },
+      "absolute_order_source_normalized_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1
+      },
+      "thresholded_absolute_order_relative": {
+        "median_max": 0.3,
+        "q95_max": 0.75,
+        "significance_threshold": 0.0009885656815447454
+      },
+      "total_power_relative": {
+        "median_max": 0.15,
+        "q95_max": 0.3,
+        "pearson_min": 0.95
+      },
+      "seed_state_median_std_max": 0.03,
+      "conjunctive": true
+    },
+    "h2_decoder_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15"
+  },
+  "np_interface_authorities": {
+    "provider_manifest_sha256": "e5fb496d0d4263598798ae438299d0e3f7d498788502a402dc92ee0e26ab34b3",
+    "interface_manifest_sha256": "e7325852bb0533088339966ba6c2ae4312ce38564e6d563563e9210ce8b53dbe",
+    "adapter_source_sha256": "7838c0cf10b84f1c11ea37c66d436280771d15a8706e6b26492a1aa3740c5ede",
+    "provenance_sha256": "4cbaba04e79cba840c04f309716bf55ae39cc01227048bcb18e8a228890b072d",
+    "support_manifest_sha256": "9f17668d95b14faabcb162f5d15e9a51357d0f31cb199df576ced3f8f169dca8",
+    "authority_head": "c8e6eb422ed7d63d6a4608fd823341c929bd2b8f"
+  },
+  "no_solver": true,
+  "no_shared_v3_control_access": true
+}
