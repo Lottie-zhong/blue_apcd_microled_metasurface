@@ -51,8 +51,10 @@
   "not_integrated_truth": true,
   "output_fields": {
     "R": "UNAVAILABLE",
-    "T_proxy": "sum eta_m_proxy for m=-1,0,+1",
+    "T_proxy": "sum eta_m_proxy for m=-1,0,+1; not absolute HF transmission",
+    "amplitude_formula": "A_m=sum_j txx_j*exp(-2*pi*i*m*j/6), j is physical D1..D6 order",
     "complex_amplitude": "NOT_EXPOSED",
+    "normalization": "eta_m_proxy=|A_m|^2/sum(|A_m|^2 for tracked m=-3..+3)",
     "order_vector": [
       "eta_m-3_proxy",
       "eta_m-2_proxy",

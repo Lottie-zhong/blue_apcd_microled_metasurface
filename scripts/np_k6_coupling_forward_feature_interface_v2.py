@@ -364,6 +364,7 @@ class NP_LF_FEATURE_PROVIDER_V2_Runtime:
             "features": {
                 "eta_m_proxy": eta_by_order,
                 "T_proxy": t_proxy,
+                "normalization_contract": "eta_m_proxy = |A_m|^2 / sum(|A_m|^2 for tracked m=-3..+3); T_proxy is eta_-1+eta_0+eta_+1 and is not absolute HF transmission",
                 "R": {"status": "UNAVAILABLE", "reason": "not produced by the authorized D0 full-K6 LF contract"},
             },
             "support_status": support["hf22_empirical_support"]["status"],

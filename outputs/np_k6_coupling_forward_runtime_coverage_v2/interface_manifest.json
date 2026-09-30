@@ -157,7 +157,8 @@
   "output_contract": {
     "Jones": "unsupported",
     "R": "structured unavailable",
-    "T_proxy": "sum eta_m_proxy for m=-1,0,+1",
+    "T_proxy": "sum eta_m_proxy for m=-1,0,+1; not absolute HF transmission",
+    "amplitude_formula": "A_m=sum_j txx_j*exp(-2*pi*i*m*j/6), j is physical D1..D6 order",
     "complex_coefficients": "unsupported",
     "eta_m_proxy_orders": [
       -3,
@@ -167,24 +168,25 @@
       1,
       2,
       3
-    ]
+    ],
+    "normalization": "eta_m_proxy=|A_m|^2/sum(|A_m|^2 for tracked m=-3..+3)"
   },
   "provider_id": "NP_LF_FEATURE_PROVIDER_V2",
   "query_cache": {
     "path": "outputs/np_k6_coupling_forward_runtime_coverage_v2/coupling_20g_lf_feature_cache.jsonl",
     "records": 220,
-    "sha256": "00f803992ddc57f7d8f3c4a8cd82c8898d63fceb64f3578e287f7eba36b36d4f"
+    "sha256": "acdbeab1ff20eba081aaf20d433d3d4b9a75dae3485e852ad519c54cbea1accc"
   },
   "report": {
     "path": "reports/NP_K6_COUPLING_FORWARD_RUNTIME_COVERAGE_V2.md",
-    "sha256": "de377102284f93f81f60212abcb694bc50a44046ac3436da3f926c89a269249e"
+    "sha256": "d88ad1392531f6a3ab9ffe740effbd9f64b5ed71fb00a6445798e216f58aec1f"
   },
   "role": "PHYSICS_INFORMED_AUXILIARY_FEATURE_PROVIDER",
   "runtime_code": {
     "adapter": "scripts/np_k6_coupling_forward_feature_interface_v2.py",
     "build_script": "scripts/build_np_k6_coupling_forward_runtime_coverage_v2.py",
-    "sha256": "7a8eb096ca3caad9f7d2218129e1706259278a2d6b918befd222ea7610a06176",
-    "sha256_build_script": "8d92c308c9ecb3f9f458171ffafdf3b6bb31e15cb31eab31aa2a0dbde8ee48ff"
+    "sha256": "e68db57c2e144f60cf24f1c03ca6279bd50b6c94c8465e8f9f9f75dec68fdbfd",
+    "sha256_build_script": "f20c728d5e1ba9fbde6aedc953c736b5d05c9f24ec4767f83720166d6e501fb5"
   },
   "status": "NP_K6_COUPLING_FORWARD_FEATURE_INTERFACE_V2_READY",
   "training_support": {

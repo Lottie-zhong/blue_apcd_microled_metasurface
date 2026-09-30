@@ -10,7 +10,7 @@ Classification: `B_EXECUTABLE_PROVIDER_BUT_DOMAIN_GUARD_BLOCKS_COUPLING_GEOMETRI
 
 `NP_LF_FEATURE_PROVIDER_V2(D1,...,D6, lambda, polarization)` is a callable deterministic implementation of the frozen D0 single-pillar `txx` + ordered six-bin DFT proxy. It does not fit a model, sort/permute the six physical +x positions, interpolate, or substitute a neighbor. Its finite runtime domain is all `27^6` ordered diameter vectors drawn from 100–230 nm in 5 nm steps, 445–455 nm integer samples, normal incidence, and `P_XLIKE` only.
 
-Outputs are normalized `eta_m_proxy` for tracked `m=-3..+3` and `T_proxy=sum(eta_-1, eta_0, eta_+1)`. `R` is unavailable; complex amplitudes, Jones, angular response, and coupled-device truth are not exposed. HF22 parity was checked on 242 geometry-wavelength points; maximum absolute delta was `1.78813934e-07` (gate `<=2e-6`).
+Outputs use `A_m=sum_j txx_j*exp(-2πi*m*j/6)` with j in physical D1..D6 order, then `eta_m_proxy=|A_m|^2/sum_{m=-3..+3}|A_m|^2`; `T_proxy=sum(eta_-1, eta_0, eta_+1)` is not absolute HF transmission. `R` is unavailable; complex amplitudes, Jones, angular response, and coupled-device truth are not exposed. HF22 parity was checked on 242 geometry-wavelength points; maximum absolute delta was `1.78813934e-07` (gate `<=2e-6`).
 
 The provider has no fitted geometry set. Its source calibration is the 27-diameter × 11-wavelength x-polarized single-pillar library. Separately, the full-K6 HF22 empirical support contains 22 exact ordered geometries; the 20 query geometries are `0/20` exact matches and `20/20` OOD relative to that empirical support. This is runtime coverage, not an in-domain accuracy claim.
 
@@ -48,7 +48,7 @@ Physical grammar valid: 20/20. Runtime domain supported: 20/20. Exact HF22 match
 - A1 deterministic LF: available, callable, P/XLIKE only, power-level auxiliary features.
 - A2 learned provider: unavailable; frozen parity gate remains failed/not enabled.
 - Complex provider: runtime not ready; not added to V2.
-- Runtime feature cache: `20/20` geometries and `220/220` geometry-wavelength queries; SHA256 `00f803992ddc57f7d8f3c4a8cd82c8898d63fceb64f3578e287f7eba36b36d4f`.
+- Runtime feature cache: `20/20` geometries and `220/220` geometry-wavelength queries; SHA256 `acdbeab1ff20eba081aaf20d433d3d4b9a75dae3485e852ad519c54cbea1accc`.
 - All 20 geometries remain OOD versus exact HF22 support. Coupling outcomes were not read or used.
 - Future Stage-1 geometry-only metadata was not found in the checked frozen execution plan; no future labels were read.
 - Immutable V1 confirmatory contract SHA256 remains `b8e156432c8ebd3b3087386b2dd768a177b6e0ef912f8eba4f1e40d3843e255c`.
@@ -56,6 +56,6 @@ Physical grammar valid: 20/20. Runtime domain supported: 20/20. Exact HF22 match
 
 ## Authority
 
-V1 authority base: `f8dad0e8438167ffca5ab22c19aa4790fa94b8d6`; repository branch at build: `work/np-k6-mdc-v1`; HEAD at build: `f8dad0e8438167ffca5ab22c19aa4790fa94b8d6`.
+V1 authority base: `f8dad0e8438167ffca5ab22c19aa4790fa94b8d6`; repository branch at build: `work/np-k6-mdc-v1`; HEAD at build: `aeb8411f9c8300bc84fa9554caa4f25f1d57cc0f`.
 
 Machine-readable detailed audit: `outputs/np_k6_coupling_forward_runtime_coverage_v2/`. This provider is not integrated Coupling truth, an FDTD replacement, a complex scattering operator, or a guarantee of OOD accuracy.
