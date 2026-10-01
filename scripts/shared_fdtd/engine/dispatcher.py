@@ -725,6 +725,8 @@ def dispatch_once(db,branch,launch,logical_case_id=None,attempt_id=None,exact_pe
             backend_type = payload.get("backend_type")
             if backend_type is None and (payload.get("production_science") or branch == "traditional"):
                 backend_type = "CPU"
+            if str(backend_type or "").strip().upper() == "GPU":
+                continue
             lease=allocator.acquire(
                 branch, row["logical_case_id"], row["attempt_id"],
                 resource_request=request,

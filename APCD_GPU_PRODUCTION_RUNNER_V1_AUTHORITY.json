@@ -1,0 +1,112 @@
+{
+  "schema": "APCD_GPU_PRODUCTION_RUNNER_V1_AUTHORITY",
+  "authority_status": "CONDITIONAL_CANARIES_AUTHORIZED_BLOCKED_BY_APPROVED_PRE_FSP",
+  "branch": "codex/apcd-gpu-production-runner-v1",
+  "base_commit": "ad840517d76f7125f51351f2ef2ccdcde39a2834",
+  "approved_cases": {
+    "K6V1_S35": {
+      "geometry_D_nm_ordered": [
+        110,
+        145,
+        225,
+        105,
+        185,
+        215
+      ]
+    },
+    "K6V1_S39": {
+      "geometry_D_nm_ordered": [
+        175,
+        100,
+        125,
+        120,
+        100,
+        230
+      ],
+      "requires": {
+        "case_id": "K6V1_S35",
+        "state": "DONE"
+      }
+    }
+  },
+  "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+  "pre_fsp": {
+    "path": null,
+    "sha256": null,
+    "status": "UNVERIFIED_REQUIRED_IN_RUN_MANIFEST"
+  },
+  "runtime_bundle": {
+    "path": "D:/apcd_runtime/shared_v3_backend/01e2320ebf237bdbcd52573665520d57705d2800_gitblob/scripts/shared_fdtd/tools/pw_scientific_launcher.py",
+    "sha256": "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908",
+    "mutable": false,
+    "legacy_v3_validate_config_allowed": false
+  },
+  "dispatch_policy": {
+    "shared_v3_gpu_dispatch": "REJECT_BEFORE_ALLOCATOR_ACQUIRE",
+    "shared_v3_cpu_dispatch": "PRESERVED",
+    "production_database_modified": false,
+    "solver_run_performed": false
+  },
+  "run_manifest_requirements": [
+    "physical_contract_path",
+    "pre_fsp_path",
+    "pre_fsp_sha256",
+    "run_id",
+    "case_id",
+    "attempt_id",
+    "geometry",
+    "physical_contract_sha256",
+    "expansion_manifest_sha256"
+  ],
+  "production_runner": {
+    "cli": "adapter.py run-one <case_manifest>",
+    "cli_output_root_override": false,
+    "global_root": "D:\\apcd_runtime\\gpu_production_runner_v1",
+    "slot_count": 1,
+    "execution_policy": "SERIAL_EXCLUSIVE_ROOT_LOCK"
+  },
+  "gpu_capacity_policy": {
+    "minimum_free_mib": 1369,
+    "snapshot_fields": [
+      "captured_utc",
+      "captured_unix",
+      "requested_resource_name",
+      "GPU index/UUID/name",
+      "memory total/used/free MiB",
+      "GPU utilization percent",
+      "visible compute process PID/name/used memory",
+      "external-or-unattributed consumers",
+      "process query availability/error"
+    ],
+    "process_query_unavailable": "Record unavailable; do not block solely on process-query failure or nonzero contexts; never kill processes.",
+    "low_headroom_result": "WAIT_GPU_CAPACITY; keep status/registry PENDING; solver_entered=false; solver_invocations=0; same run_id may resume.",
+    "threshold_provenance": {
+      "retained_threshold_mib": 1369,
+      "prior_v3_authority_path": "reports/shared_v3/SHARED_V3_PRODUCTION_RELEASE_AUTHORITY_V3.json",
+      "prior_v3_authority_sha256": "d398bfb1552b9a0b2295d12e26a80b40262c78221516b7308976e2cffccb74cc",
+      "prior_basis": "Ceiling of validated 1.336057 GiB peak; no extra unvalidated margin.",
+      "successful_gpu_canary_support": "NOT_VERIFIED_BY_READ_ONLY_AUDIT",
+      "A3_disposition": "Preserve both success and failure markers; durable post-FSP/load/validation/archive artifacts exist, but contradictory terminal_failure means it is not clean release proof and not in current production queue/events.",
+      "A4_status": "one-entry infrastructure exception canary; not S35/S39 GPU execution proof",
+      "decision": "Retain the existing 1369 MiB policy; do not claim clean S35/S39 canary validation or invent a replacement threshold."
+    }
+  },
+  "canary_execution": {
+    "authorization": "CONDITIONAL_USER_AUTHORIZATION",
+    "allowed_sequence": [
+      "K6V1_S35 attempt_001",
+      "K6V1_S39 attempt_001 only after K6V1_S35 reaches DONE"
+    ],
+    "case_status": {
+      "K6V1_S35": "NOT_RUN",
+      "K6V1_S39": "NOT_RUN"
+    },
+    "run_id": null,
+    "solver_invocations": 0,
+    "replay_count": 0,
+    "production_ready": false,
+    "blocker": "The approved S35 pre-FSP path and matching SHA-256 have not been located and pinned.",
+    "next_action": "Locate and pin the approved S35 pre-FSP artifact and exact SHA-256 before preflight or solver entry."
+  }
+}

@@ -1,0 +1,192 @@
+# -*- coding: utf-8 -*-
+"""Offline tests: injected callbacks only, no Lumerical or solver process."""
+import hashlib,json,sys,tempfile,unittest
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from runner import CONTRACT_SHA256,EXPANSION_SHA256,GEOMETRIES,RunnerError,atomic_json,run_one
+import runner as runner_module
+
+class RunnerTests(unittest.TestCase):
+ def setUp(self):
+  self.tmp=tempfile.TemporaryDirectory(); self.base=Path(self.tmp.name)
+  self.pre=self.base/"approved.fsp"; self.pre.write_bytes(b"fixture FSP")
+  self.m={"case_id":"K6V1_S35","attempt_id":"attempt_001","run_id":"run-s35-001",
+   "geometry":GEOMETRIES["K6V1_S35"],"physical_contract_sha256":CONTRACT_SHA256,
+   "expansion_manifest_sha256":EXPANSION_SHA256,"pre_fsp_path":str(self.pre),
+   "pre_fsp_sha256":hashlib.sha256(b"fixture FSP").hexdigest()}
+  self.root=self.base/"runner"; self.gpu=lambda:{"free_mib":8192,"processes":[]}
+  self.owner=lambda _r:False
+  self.truth=lambda _m,_d:{"fresh_load_verified":True,"monitors_valid":True,
+   "state_valid":True,"scientific_valid":True}
+ def tearDown(self): self.tmp.cleanup()
+ def _seed_entered_attempt(self,root,manifest,registry_state=None):
+  run_dir=root/"runs"/manifest["case_id"]/manifest["attempt_id"]/manifest["run_id"]
+  run_dir.mkdir(parents=True)
+  atomic_json(run_dir/"manifest.json",manifest)
+  atomic_json(run_dir/"status.json",{"schema":"APCD_GPU_RUN_STATUS_V1",
+   "case_id":manifest["case_id"],"attempt_id":manifest["attempt_id"],
+   "run_id":manifest["run_id"],"state":"SOLVER_ENTERED",
+   "solver_entered":True,"solver_invocations":1})
+  if registry_state is not None:
+   row={k:manifest[k] for k in ("case_id","attempt_id","run_id")}
+   row.update(state=registry_state,run_dir=str(run_dir))
+   atomic_json(root/"registry.json",{"schema":"APCD_GPU_RUNNER_REGISTRY_V1","runs":[row]})
+
+ def test_crash_window_new_run_id_cannot_relaunch(self):
+  self._seed_entered_attempt(self.root,self.m,"PRECHECK_PASS")
+  retry=dict(self.m,run_id="new-run-after-crash"); calls=[]
+  with self.assertRaisesRegex(RunnerError,"POST_ENTRY_REPLAY_FORBIDDEN"):
+   run_one(retry,self.root,lambda *_:calls.append(1),self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[])
+  rows=json.loads((self.root/"registry.json").read_text())["runs"]
+  self.assertEqual(rows[0]["state"],"SOLVER_ENTERED")
+
+ def test_registry_rebuilt_from_entered_run_directory(self):
+  self._seed_entered_attempt(self.root,self.m)
+  self.assertFalse((self.root/"registry.json").exists())
+  retry=dict(self.m,run_id="reconstructed-run"); calls=[]
+  with self.assertRaisesRegex(RunnerError,"POST_ENTRY_REPLAY_FORBIDDEN"):
+   run_one(retry,self.root,lambda *_:calls.append(1),self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[])
+  rows=json.loads((self.root/"registry.json").read_text())["runs"]
+  self.assertEqual(rows[0]["state"],"SOLVER_ENTERED")
+
+ def test_entry_barrier_truth_before_done(self):
+  calls=[]
+  def solver(_m,d):
+   calls.append(1); state=json.loads((d/"status.json").read_text())
+   self.assertEqual(state["state"],"SOLVER_ENTERED"); self.assertEqual(state["solver_invocations"],1)
+   (d/"truth.h5").write_bytes(b"fixture truth")
+  result=run_one(self.m,self.root,solver,self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[1]); self.assertEqual(result["status"]["state"],"DONE")
+  self.assertTrue((Path(result["run_dir"])/"hashes.json").is_file())
+  self.assertFalse((self.root/"active_run.json").exists())
+ def test_input_hash_and_capacity_wait_stays_pending_and_resumes_same_run(self):
+  calls=[]; bad=dict(self.m,pre_fsp_sha256="0"*64)
+  with self.assertRaisesRegex(RunnerError,"PRE_FSP_HASH_MISMATCH"):
+   run_one(bad,self.root,lambda *_:calls.append("bad"),self.truth,self.gpu,self.owner)
+  low=self.base/"low"
+  waiting=dict(self.m,run_id="low-run")
+  result=run_one(waiting,low,lambda *_:calls.append("unexpected"),self.truth,
+   lambda:{"free_mib":1368,"processes":[]},self.owner)
+  self.assertEqual(result["result"],"WAIT_GPU_CAPACITY")
+  self.assertEqual(result["result_classification"],"NON_SCIENTIFIC_CAPACITY_WAIT")
+  self.assertFalse(result["solver_entered"])
+  self.assertEqual(result["solver_invocations"],0)
+  status_path=low/"runs/K6V1_S35/attempt_001/low-run/status.json"
+  status=json.loads(status_path.read_text())
+  self.assertEqual(status["state"],"PENDING")
+  self.assertFalse(status["solver_entered"])
+  self.assertEqual(status["solver_invocations"],0)
+  self.assertEqual(status["capacity_wait_reason"],"INSUFFICIENT_OR_UNKNOWN_GPU_HEADROOM")
+  self.assertFalse((status_path.parent/"run.fsp").exists())
+  rows=json.loads((low/"registry.json").read_text())["runs"]
+  self.assertEqual(rows[0]["state"],"PENDING")
+  with self.assertRaisesRegex(RunnerError,"PENDING_RUN_ID_CONFLICT"):
+   run_one(dict(waiting,run_id="different-run"),low,lambda *_:calls.append("bypass"),
+    self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[])
+  def resume_solver(_m,run_dir):
+   calls.append("resumed")
+   (run_dir/"truth.h5").write_bytes(b"fixture truth")
+  resumed=run_one(waiting,low,resume_solver,self.truth,self.gpu,self.owner)
+  self.assertEqual(resumed["status"]["state"],"DONE")
+  self.assertEqual(calls,["resumed"])
+ def test_postentry_failure_never_replays(self):
+  calls=[]
+  def crash(*_): calls.append(1); raise RuntimeError("synthetic crash")
+  with self.assertRaisesRegex(RunnerError,"synthetic crash"):
+   run_one(self.m,self.root,crash,self.truth,self.gpu,self.owner)
+  p=self.root/"runs/K6V1_S35/attempt_001/run-s35-001/status.json"
+  self.assertEqual(json.loads(p.read_text())["state"],"FAILED_POSTENTRY")
+  with self.assertRaisesRegex(RunnerError,"DUPLICATE_RUN_ID"):
+   run_one(self.m,self.root,crash,self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[1])
+ def test_lock_and_s39_order(self):
+  calls=[]; second=dict(self.m,run_id="second-run")
+  def solver(_m,d):
+   with self.assertRaisesRegex(RunnerError,"RUNNER_LOCKED"):
+    run_one(second,self.root,lambda *_:calls.append(1),self.truth,self.gpu,self.owner)
+   (d/"truth.h5").write_bytes(b"fixture truth")
+  s39=dict(self.m,case_id="K6V1_S39",run_id="s39-run",geometry=GEOMETRIES["K6V1_S39"])
+  with self.assertRaisesRegex(RunnerError,"S39_REQUIRES_S35_DONE"):
+   run_one(s39,self.root,lambda *_:calls.append(1),self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[])
+  run_one(self.m,self.root,solver,self.truth,self.gpu,self.owner)
+  def solver39(_m,d):
+   calls.append("S39"); (d/"truth.h5").write_bytes(b"fixture truth")
+  result=run_one(s39,self.root,solver39,self.truth,self.gpu,self.owner)
+  self.assertEqual(result["status"]["state"],"DONE")
+  self.assertEqual(calls,["S39"])
+
+ def test_manifest_hashes_and_geometry_order_reject_before_runner_creation(self):
+  bad_cases = [
+   (dict(self.m,geometry=list(reversed(self.m["geometry"]))),"GEOMETRY_MISMATCH"),
+   (dict(self.m,physical_contract_sha256="0"*64),"PHYSICAL_CONTRACT_HASH_MISMATCH"),
+   (dict(self.m,expansion_manifest_sha256="0"*64),"EXPANSION_MANIFEST_HASH_MISMATCH"),
+  ]
+  calls=[]
+  for manifest,reason in bad_cases:
+   with self.subTest(reason=reason), self.assertRaisesRegex(RunnerError,reason):
+    run_one(manifest,self.root,lambda *_:calls.append(1),self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[])
+  self.assertFalse(self.root.exists())
+
+ def test_active_marker_identity_corruption_fails_preentry(self):
+  calls=[]
+  original_atomic_json=runner_module.atomic_json
+  def corrupt_active_marker(path,obj):
+   original_atomic_json(path,obj)
+   path=Path(path)
+   if path.name=="active_run.json" and obj.get("state")=="PRECHECK_PASS":
+    original_atomic_json(path,dict(obj,attempt_id="tampered-attempt"))
+  runner_module.atomic_json=corrupt_active_marker
+  try:
+   with self.assertRaisesRegex(RunnerError,"ACTIVE_RUN_OWNERSHIP_MISMATCH"):
+    run_one(self.m,self.root,lambda *_:calls.append(1),self.truth,self.gpu,self.owner)
+  finally:
+   runner_module.atomic_json=original_atomic_json
+  run_dir=self.root/"runs/K6V1_S35/attempt_001/run-s35-001"
+  status=json.loads((run_dir/"status.json").read_text())
+  self.assertEqual(status["state"],"FAILED_PREENTRY")
+  self.assertFalse(status["solver_entered"])
+  self.assertEqual(status["solver_invocations"],0)
+  self.assertEqual(calls,[])
+  self.assertFalse((self.root/"active_run.json").exists())
+  self.assertFalse((self.root/".runner.lock").exists())
+
+ def test_active_run_marker_blocks_before_solver_entry(self):
+  self.root.mkdir(parents=True)
+  marker={"run_id":"another-run","state":"SOLVER_ENTERED"}
+  atomic_json(self.root/"active_run.json",marker)
+  calls=[]
+  with self.assertRaisesRegex(RunnerError,"ACTIVE_RUN_PRESENT"):
+   run_one(self.m,self.root,lambda *_:calls.append(1),self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[])
+  self.assertEqual(json.loads((self.root/"active_run.json").read_text()),marker)
+  self.assertFalse((self.root/".runner.lock").exists())
+
+ def test_legacy_v3_database_and_external_inputs_are_unchanged(self):
+  import sqlite3
+  legacy_db=self.base/"legacy_v3_control.sqlite3"
+  con=sqlite3.connect(legacy_db)
+  try:
+   con.execute("CREATE TABLE sentinel(value TEXT)")
+   con.execute("INSERT INTO sentinel VALUES('unchanged')")
+   con.commit()
+  finally:
+   con.close()
+  db_hash=hashlib.sha256(legacy_db.read_bytes()).hexdigest()
+  pre_hash=hashlib.sha256(self.pre.read_bytes()).hexdigest()
+  def solver(_m,run_dir):
+   (run_dir/"truth.h5").write_bytes(b"fixture truth")
+   return {"test":"zero_solver_fixture"}
+  result=run_one(self.m,self.root,solver,self.truth,self.gpu,self.owner)
+  run_dir=Path(result["run_dir"]).resolve()
+  self.assertTrue(run_dir.is_relative_to(self.root.resolve()))
+  self.assertEqual(hashlib.sha256(legacy_db.read_bytes()).hexdigest(),db_hash)
+  self.assertEqual(hashlib.sha256(self.pre.read_bytes()).hexdigest(),pre_hash)
+  self.assertTrue(all(p.resolve().is_relative_to(self.root.resolve()) for p in self.root.rglob("*")))
+  self.assertFalse((self.root/"active_run.json").exists())
+
+if __name__=="__main__": unittest.main(verbosity=2)
