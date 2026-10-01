@@ -4,6 +4,8 @@
 
 This document records the bounded V1 implementation contract and the user's conditional authorization for one S35 canary, followed by S39 only if S35 reaches DONE. Execution is blocked until the approved pre-FSP artifact and its matching SHA-256 are located and pinned; no canary has run. Deployment, database mutation, and release of the existing production hold are outside this authorization. The V1 runner is filesystem-authoritative and isolated from the Shared V3 database, lease, and queue path. The one Shared V3 change rejects GPU work before acquisition; CPU dispatch remains available.
 
+Implementation source: commit `f41f1b6823d04b2ad93f4d95792005fbbf6a1f3e` on branch `codex/apcd-gpu-production-runner-v1`; worktree: `D:\project\worktrees\blue_apcd_gpu_production_runner_v1`.
+
 The only approved cases and ordered geometry inputs are:
 
 | Case | Ordered D (nm) |
