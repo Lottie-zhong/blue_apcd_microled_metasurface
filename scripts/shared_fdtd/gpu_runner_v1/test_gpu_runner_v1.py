@@ -61,6 +61,20 @@ class RunnerTests(unittest.TestCase):
   self.assertEqual(calls,[1]); self.assertEqual(result["status"]["state"],"DONE")
   self.assertTrue((Path(result["run_dir"])/"hashes.json").is_file())
   self.assertFalse((self.root/"active_run.json").exists())
+ def test_truth_bundle_created_by_fresh_load_validator_before_truth_gate(self):
+  calls=[]
+  def solver(_manifest,run_dir):
+   calls.append("solver")
+   self.assertFalse((run_dir/"truth.h5").exists())
+  def validator(_manifest,run_dir):
+   self.assertFalse((run_dir/"truth.h5").exists())
+   (run_dir/"truth.h5").write_bytes(b"fresh-load truth")
+   return {"fresh_load_verified":True,"monitors_valid":True,
+           "state_valid":True,"scientific_valid":True}
+  result=run_one(self.m,self.root,solver,validator,self.gpu,self.owner)
+  self.assertEqual(calls,["solver"])
+  self.assertEqual(result["status"]["state"],"DONE")
+  self.assertEqual(result["status"]["solver_invocations"],1)
  def test_input_hash_and_capacity_wait_stays_pending_and_resumes_same_run(self):
   calls=[]; bad=dict(self.m,pre_fsp_sha256="0"*64)
   with self.assertRaisesRegex(RunnerError,"PRE_FSP_HASH_MISMATCH"):

@@ -234,12 +234,14 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
             status=_transition(run_dir,status,"SOLVER_RETURNED",solver_returned_unix=time.time(),
                                solver_result=str(result)[:400])
             row["state"]="SOLVER_RETURNED"; atomic_json(root/"registry.json",registry)
-            if not _durable(run_dir/"run.fsp") or not _durable(run_dir/"truth.h5"):
-                raise RunnerError("TRUTH_ARTIFACT_NOT_DURABLE")
+            if not _durable(run_dir/"run.fsp"):
+                raise RunnerError("POST_FSP_NOT_DURABLE")
             validation=fresh_load_validate(manifest,run_dir)
             flags=("fresh_load_verified","monitors_valid","state_valid","scientific_valid")
             if not isinstance(validation,dict) or any(validation.get(k) is not True for k in flags):
                 raise RunnerError("FRESH_LOAD_TRUTH_VALIDATION_FAILED")
+            if not _durable(run_dir/"truth.h5"):
+                raise RunnerError("TRUTH_ARTIFACT_NOT_DURABLE")
             fsp_hash=sha256_file(run_dir/"run.fsp"); truth_hash=sha256_file(run_dir/"truth.h5")
             validation=dict(validation,run_id=manifest["run_id"],run_fsp_sha256=fsp_hash,
                             truth_h5_sha256=truth_hash,validated_unix=time.time())
