@@ -1,9 +1,20 @@
 {
   "canonical_input_requirements": {
     "authority": "PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1",
+    "authority_manifest_path_pattern": "outputs/coupling_ml/PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1/{case_id}/{attempt_id}/authority_input_manifest.json",
+    "case_specific_pre_fsp_path_and_sha256": "Read from the matching approved case authority manifest; source and staged FSP SHA256 must match exactly.",
     "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
-    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
-    "pre_fsp_sha256_required": "23c7d66cf8a73dc838b772c1cae048464451b0cb1584f3305d10938a2ebafe0d"
+    "expected_science": [
+      "case and attempt identity plus ordered D1-D6 geometry",
+      "MDC, spacer and material stack",
+      "source and polarization",
+      "wavelength grid",
+      "boundaries",
+      "monitor object definitions and sample/reference planes",
+      "PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1 mesh expectations"
+    ],
+    "load_only_validation_path_pattern": "outputs/coupling_ml/PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1/{case_id}/{attempt_id}/load_only_validation.json",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
   },
   "dependency_preflight": {
     "authority_commit": "46af82357f269aea0c77105a03e7ca9da645ca8f",
@@ -12,9 +23,10 @@
     "required_module": "mdc_tmm_complex_incident_power_v1"
   },
   "entrypoint": {
-    "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe <adapter.py> run-one <case_manifest.json>",
+    "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe <adapter.py> run-one <immutable-case-manifest.json>",
+    "manifest_example_case": "K6V1_S21 demonstrates the generic input shape; any approved Stage-1 case uses its own authority artifacts.",
     "required_environment": {
-      "APCD_GPU_RESOURCE_NAME": "exact resource name from frozen case spec"
+      "APCD_GPU_RESOURCE_NAME": "exact resource name from the frozen case specification"
     },
     "script": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py"
   },
@@ -38,13 +50,24 @@
     "automatic_replay": false,
     "branch": "codex/apcd-gpu-production-runner-v1",
     "gpu_only": true,
-    "head": "dede87c3aaa210892fd4dcbe67e92fabfe5c9c4c",
+    "head": "783bd5741eb5e6853a3be5532624f4282f9488b7",
     "name": "APCD_GPU_PRODUCTION_RUNNER_V1",
+    "previous_qualified_head": "578bdb714fe1455064a8b750968d3afac92b4a12",
+    "revision": "Narrow manifest-driven pre-entry validator maintenance; remains V1.",
     "serial": true,
     "slots": 1
   },
+  "gpu_capacity_policy": {
+    "low_headroom_behavior": "WAIT_GPU_CAPACITY before solver entry; retain PENDING and zero solver invocations; resume the same run_id when capacity is available.",
+    "minimum_free_mib": 1369,
+    "policy_changed_by_this_patch": false,
+    "process_query_unavailable": "Record unavailable; do not block solely on process-query failure or nonzero contexts; never kill processes."
+  },
   "manifest": {
-    "cli_envelope_extra_key": "physical_contract_path",
+    "cli_envelope_extra_keys": [
+      "physical_contract_path",
+      "setup_authority"
+    ],
     "core_required_keys": [
       "case_id",
       "attempt_id",
@@ -55,7 +78,14 @@
       "pre_fsp_path",
       "pre_fsp_sha256"
     ],
-    "run_id_policy": "one immutable run_id per logical case attempt; never rerun after solver entry"
+    "run_id_policy": "One immutable run_id per logical case attempt; never rerun after solver entry.",
+    "setup_authority_required_keys": [
+      "authority_manifest_path",
+      "authority_manifest_sha256",
+      "load_only_validation_path",
+      "load_only_validation_sha256"
+    ],
+    "setup_expectations_source": "Per-case authority_input_manifest.json, its source case.json, pinned Coupling assets, and matching Stage-1 LOAD-only proof."
   },
   "outputs": {
     "forensics": "gpu_standalone/forensics/{process_exit_provenance.json,runtime_timeline.jsonl,final_log_tail.json}",
@@ -65,9 +95,31 @@
     "run_template": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\<case_id>\\<attempt_id>\\<run_id>",
     "truth_h5": "truth.h5"
   },
+  "production_diff_boundary": {
+    "changed": [
+      "generic per-case setup authority consumption",
+      "removal of S39-specific pre-entry case/FSP assumptions",
+      "generic positive six-integer geometry shape validation before authority binding",
+      "focused zero-solver regression tests and handoff/authority evidence"
+    ],
+    "unchanged_assertions": {
+      "FSP_H5_persistence_and_truth_postprocessor": true,
+      "GPU_launch_implementation_and_pinned_launcher": true,
+      "NativeAdapter.fresh_load_validate": true,
+      "NativeAdapter.solver": true,
+      "runner.run_one_body": true,
+      "single_slot_and_no_replay": true
+    }
+  },
   "qualification_evidence": {
     "evidence_path": "reports/apcd_gpu_production_runner_v1/S39_CANARY_20261002.json",
     "evidence_sha256": "06338557e28a473e880d5becd057b4c5b24ccf40b49e6758203bb360bf778a3a",
+    "generic_setup_validation": {
+      "path": "reports/apcd_gpu_production_runner_v1/GENERIC_SETUP_VALIDATOR_ZERO_SOLVER_20261002.json",
+      "result": "12/12 case-specific LOAD PASS; 12/12 LOAD-only semantic parity PASS with zero mismatches; dependency preflight PASS; zero solver calls and entries.",
+      "runner_code_commit": "783bd5741eb5e6853a3be5532624f4282f9488b7",
+      "sha256": "45f22f900ab07157527645815fb5ec14a98631a0ebaac9da25aad1c6e8b36c5f"
+    },
     "lineage_status_field_note": "S39 final status.json has null solver_process_lineage; run-correlated process-exit/timeline sidecars hash engine PID 21564 with -gpu and target run.fsp.",
     "run_id": "S39-20261002T075624Z-30a1c44a"
   },
@@ -89,15 +141,307 @@
     "other_failed_postentry": "does not qualify"
   },
   "schema": "APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF_V1",
-  "scope_note": "No remaining Stage-1 cases were launched by this qualification.",
+  "scope_note": "APCD_GPU_PRODUCTION_RUNNER_V1_READY after a narrow manifest-driven validator maintenance revision. All 12 approved Stage-1 inputs passed zero-solver compatibility qualification; no new scientific case was run. S35 recovery and S39 GPU canary histories remain immutable.",
   "serial_batch_invocation": "Dispatch one case, wait for terminal DONE/TRUTH_VALID, verify artifacts, then dispatch the next manifest. Never parallelize GPU solves.",
-  "status": "READY",
+  "stage1_zero_solver_qualification": {
+    "cases": [
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "e48ed4488c025adf34d699779726a96bd6831a05fc9bf4f5a43a86144cebf11e",
+        "case_id": "K6V1_S21",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "c7e39cd41aff41bc643199e92289fcc2a6415cb1781fe4e5db3e4d05004b5358",
+        "ordered_D_nm": [
+          120,
+          115,
+          230,
+          140,
+          110,
+          115
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "c1ff163da2f2ccac43343be2bc79f50c380144af133dd41694f6533e0fac5e30",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "c1ff163da2f2ccac43343be2bc79f50c380144af133dd41694f6533e0fac5e30"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "c31e7b2305bd6c0894ff86b5776fe44d6031dd641ba312958e5fbab13d03b4a4",
+        "case_id": "K6V1_S42",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "ac668f33f82b289ef346616673e7b80212b0b0b74a8528c6e4b962b6457c05c9",
+        "ordered_D_nm": [
+          195,
+          210,
+          165,
+          130,
+          230,
+          230
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "27c26bb89d544ce65e73719a913ee594221b3bb582302a3f8ec97fffa8e0431f",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "27c26bb89d544ce65e73719a913ee594221b3bb582302a3f8ec97fffa8e0431f"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "1f8fc3c259934363b1f790fe00c4bc11d3d28fb97e1e6a34705e28ea897995ec",
+        "case_id": "K6V1_S36",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "f6a3aa168d4a7f059a8138ba1fabc8b23c945f506d6456df1d81074678e97e05",
+        "ordered_D_nm": [
+          115,
+          210,
+          220,
+          100,
+          150,
+          100
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "38653f5175d8dcc323ba9bcb97b3f17c2a1796d5194ae2855b88bd6be1a10d06",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "38653f5175d8dcc323ba9bcb97b3f17c2a1796d5194ae2855b88bd6be1a10d06"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "2d40b628a60d1ae70f0cadf313177e6e76dd628158cf4d1b308cbdc85bc005d0",
+        "case_id": "K6V1_S31",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "2633e43ec2093eb1fcf39d4d0b2701fe08ef0aa5d0351eeed559648763074cb4",
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "b3e25fa164629bba50e4d32f651e29b97e8d37aa67c8a99492dbbd7771730790",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "b3e25fa164629bba50e4d32f651e29b97e8d37aa67c8a99492dbbd7771730790"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "fc84fcb4f2dcdd23f2cb5616d2ef285d460b4b90845cf8d6257d16cc680ce075",
+        "case_id": "K6V1_S45",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "ca9304e5c29a7a12afd11f8643d33dcf3798d2d0d2b69dff2176ae83f2b8b16b",
+        "ordered_D_nm": [
+          195,
+          120,
+          105,
+          210,
+          220,
+          215
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "4f497772a25c1a06b286dee5dc0ca3803288d6c223db4f183ab626eb821b2e61",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "4f497772a25c1a06b286dee5dc0ca3803288d6c223db4f183ab626eb821b2e61"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "d9120edf0a2dd9da0fd06e6075816197a5e698b0236a7856cf682fb5b71eaba0",
+        "case_id": "K6V1_S32",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "e6f731f7972cbd9463ed8b57b397bcad2796a6bf66a8b586ee3255c0d5981978",
+        "ordered_D_nm": [
+          105,
+          190,
+          105,
+          115,
+          105,
+          225
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "35abc36f4962843c11291416ca2ca74d8f65d3b712e8184f16717a77b3df936a",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "35abc36f4962843c11291416ca2ca74d8f65d3b712e8184f16717a77b3df936a"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "4ab65f5e4c5e4ca8a6dd696fae6e15b915af9b15d225581d3fda2759b5f0a90c",
+        "case_id": "K6V1_S47",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "b9218728d5af4751d37b91cd250003367848fad8303970b8569a102021c17b77",
+        "ordered_D_nm": [
+          165,
+          160,
+          105,
+          100,
+          230,
+          170
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "2875944717f09d9178a6051aff781444d0b3e02dbdf1bc493b2096314f913ebf",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "2875944717f09d9178a6051aff781444d0b3e02dbdf1bc493b2096314f913ebf"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "6ef6b850bb9a407de157c1359c01c67b5bbda89bbcba4444e93bda1e1de97c4e",
+        "case_id": "K6V1_S33",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "6e9a4e0b646c6a446ba96000a23f2b5563153f467c20b83a00f5ec41d83f1bc8",
+        "ordered_D_nm": [
+          170,
+          175,
+          155,
+          150,
+          190,
+          105
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "b1d3fb7321e28e375d8fa8744b5fce77ac56885624b4bcff6cde7ee982475c7a",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "b1d3fb7321e28e375d8fa8744b5fce77ac56885624b4bcff6cde7ee982475c7a"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "7b2ab8773a38bdb0e878a61c3069204d6f59f9d2e1e24f2b4231c0c5d35371cd",
+        "case_id": "K6V1_S37",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "fef5441b101a07021c33e457b7a3c89a7bc3de6101947d6b02b8a1ede75c3198",
+        "ordered_D_nm": [
+          215,
+          170,
+          110,
+          180,
+          105,
+          130
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "b8a1a816153fd18b0144f3e059f9319f2fbccc62f4a1114e19a0b32782e77ad9",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "b8a1a816153fd18b0144f3e059f9319f2fbccc62f4a1114e19a0b32782e77ad9"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "84324513cdc496304f38be2512ebd74215d21bf8555d18428776a62fec1af6cb",
+        "case_id": "K6V1_S48",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "e3f673652c526ab6ad95a858585ab0adfcc900693d5c48a5a6b716b6c5614530",
+        "ordered_D_nm": [
+          110,
+          100,
+          225,
+          205,
+          195,
+          175
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "6e08af252eba39672890be9e03fdb429de88a3aab0620255e6bb7bc7131ce163",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "6e08af252eba39672890be9e03fdb429de88a3aab0620255e6bb7bc7131ce163"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "c05cf3dd8eb23a8c7e531212dc97556025c2c296de38bfd5400ff45d755dfda0",
+        "case_id": "K6V1_S35",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "435580f595204c82574e7ff83176f8e09f405ed2816b42e9295cf912e1b029ca",
+        "ordered_D_nm": [
+          110,
+          145,
+          225,
+          105,
+          185,
+          215
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "fc7b3f5dab639b7b8816f42438a6eba7c2090266570253e4da043e0bda25b892",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "fc7b3f5dab639b7b8816f42438a6eba7c2090266570253e4da043e0bda25b892"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "authority_manifest_sha256": "c083d946e833d38a56c3ee7f773898390530c0db69c9e3bd688438037afac82a",
+        "case_id": "K6V1_S39",
+        "load_only_mismatch_count": 0,
+        "load_only_semantic_parity": "PASS",
+        "load_only_validation_sha256": "5ad9843088ecc3ded9b8ff01d81efe12efd6d78c6ef0bd9837e7330fd2b364b1",
+        "ordered_D_nm": [
+          175,
+          100,
+          125,
+          120,
+          100,
+          230
+        ],
+        "postprocess_dependency_preflight": "PASS",
+        "pre_fsp_sha256": "23c7d66cf8a73dc838b772c1cae048464451b0cb1584f3305d10938a2ebafe0d",
+        "scientific_entry_performed": false,
+        "setup_structural_load": "PASS",
+        "solver_invocations": 0,
+        "staged_fsp_sha256": "23c7d66cf8a73dc838b772c1cae048464451b0cb1584f3305d10938a2ebafe0d"
+      }
+    ],
+    "cases_passed": 12,
+    "cases_requested": 12,
+    "cases_with_postprocess_dependency_preflight_pass": 12,
+    "qualification_report_path": "reports/apcd_gpu_production_runner_v1/GENERIC_SETUP_VALIDATOR_ZERO_SOLVER_20261002.json",
+    "qualification_report_sha256": "45f22f900ab07157527645815fb5ec14a98631a0ebaac9da25aad1c6e8b36c5f",
+    "result": "PASS",
+    "scientific_entries": 0,
+    "scope": "Pre-entry setup compatibility only; no scientific case was dispatched by this maintenance qualification.",
+    "solver_invocations": 0
+  },
+  "status": "APCD_GPU_PRODUCTION_RUNNER_V1_READY",
   "validators": {
     "post_run_truth": {
-      "semantics": "strict solved-artifact validation of MON_IN/result cards, raw E/H, C_PW, powers, P_scale, energy closure, durable native H5/FSP/truth H5 and fresh LOAD"
+      "semantics": "Unchanged strict solved-artifact validation of monitor result cards, finite complex E/H, C_PW, power terms, P_scale, energy closure, durable native H5/FSP/truth H5, and fresh LOAD."
     },
     "setup_pre_entry": {
-      "semantics": "LOAD unsolved FSP; validate setup objects and frozen physical/mesh contract only; no result d-cards or solver calls",
+      "case_authority_is_dynamic": true,
+      "qualified_cases": [
+        "K6V1_S21",
+        "K6V1_S42",
+        "K6V1_S36",
+        "K6V1_S31",
+        "K6V1_S45",
+        "K6V1_S32",
+        "K6V1_S47",
+        "K6V1_S33",
+        "K6V1_S37",
+        "K6V1_S48",
+        "K6V1_S35",
+        "K6V1_S39"
+      ],
+      "semantics": "Manifest-driven LOAD of the case's unsolved FSP; compare exact geometry, contract, materials, source, polarization, wavelength grid, boundaries, monitor definitions/sample planes, and mesh against its approved Coupling authority and Stage-1 LOAD-only proof. No solver call or result d-card requirement.",
       "validator_sha256": "b694ecf692376a33673b785774a8ea734c452f11009aad1cfe553f444817e2a8"
     }
   }
