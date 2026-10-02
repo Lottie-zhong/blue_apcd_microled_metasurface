@@ -1,0 +1,35 @@
+{
+  "32g_fold_manifest_sha256": "4a2c40339f58073e46f9e830d5b619bd620f6ab26091c8a3961c532f000a944a",
+  "OOD_support_as_model_input": false,
+  "contract_feature_acceptance": {
+    "blocked": "formal matched labels/provider values are insufficient or fail integrity/coverage gates",
+    "no_posthoc_threshold_changes": true,
+    "not_supported": "no meaningful incremental improvement or consistent degradation",
+    "partial": "measurable but target-specific/small improvement, OOD-stratum sensitivity, or unstable q95/worst-case behavior",
+    "production_H1_is_separate": "all frozen conjunctive H1 gates must pass; feature utility never implies production admission",
+    "supported": "at least one legal NP arm improves both state and routing median RMSE by >=5%, wins on >=60% of geometries for both endpoints (12/20 for 20G; 20/32 for 32G), and does not worsen state/routing q95 by >10% or worst-case error by >25%; key absolute-order and total-power medians/q95 must not materially degrade; report OOD strata and seed stability"
+  },
+  "contract_thresholds_modified": false,
+  "contract_verdict_mapping": {
+    "blocked": "COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_BLOCKED",
+    "no_posthoc_threshold_changes": true,
+    "not_supported": "COUPLING_ML_NP_FORWARD_FEATURES_NOT_SUPPORTED",
+    "partial": "COUPLING_ML_NP_FORWARD_FEATURES_PARTIAL",
+    "supported": "COUPLING_ML_NP_FORWARD_FEATURES_SUPPORTED"
+  },
+  "created_utc": "2026-10-02T19:10:18.867649+00:00",
+  "fold_rule": "strict LOGO by complete ordered geometry; three GroupKFold geometry splits within each outer training set",
+  "frozen_at_coupling_head": "374b7b57310d4a9e83006c9e536247eccaba04b6",
+  "geometry_count": 32,
+  "model_or_preprocessing_modified": false,
+  "order_rows": 2464,
+  "outer_fold_metrics_computed": false,
+  "paired_rows": 352,
+  "same_folds_A0_A1": true,
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_32G_PREREGISTRATION_V2",
+  "source_20g_fold_manifest_sha256": "f881a505ce11de970bcc6ba88bc77fa7d060d091bd9fc7efccdf3b2f23040df9",
+  "source_20g_preregistration_sha256": "ccd1c777aea4c880b78603a618a08d66ad7f06d05ed2ad70f7c64c9aa39abacc",
+  "source_contract_sha256": "3c6b0bb9d498982811910a4be2da87e13ad82eba2a3bc493140bdd6834688081",
+  "status": "FROZEN_BEFORE_32G_OUTER_METRICS",
+  "wavelength_row_random_split": false
+}

@@ -1,0 +1,223 @@
+{
+  "20G_feature_verdict": "COUPLING_ML_NP_FORWARD_FEATURES_PARTIAL",
+  "32G_feature_verdict": "COUPLING_ML_NP_FORWARD_FEATURES_PARTIAL",
+  "baseline_H1_independence_preserved": true,
+  "classification_rule": "compare the sign and absolute magnitude of paired per-geometry median(A1-A0) for routing and source-normalized absolute-order errors; lower is favorable. This is descriptive only and does not change frozen gates.",
+  "gpu_used": false,
+  "metrics": {
+    "absolute_order_source_normalized_rmse": {
+      "20G": {
+        "A1_minus_A0_arm_median": -3.8695379189213064e-05,
+        "A1_minus_A0_arm_q95": -0.03387793423987187,
+        "losses": 8,
+        "paired_delta_distribution": {
+          "max": 0.020829672872537397,
+          "mean": -0.008990204098806073,
+          "median": -0.001326991033837644,
+          "min": -0.06673093239956226,
+          "q95": 0.005603634244982685
+        },
+        "ties": 0,
+        "wins": 12
+      },
+      "32G": {
+        "A1_minus_A0_arm_median": -0.0029338626305305537,
+        "A1_minus_A0_arm_q95": -0.023774505350216774,
+        "losses": 17,
+        "paired_delta_distribution": {
+          "max": 0.026875568566655322,
+          "mean": -0.005803022642709163,
+          "median": 0.0014249519217160236,
+          "min": -0.06348119917146611,
+          "q95": 0.020516372926798674
+        },
+        "ties": 0,
+        "wins": 15
+      },
+      "direction_status": "REVERSES"
+    },
+    "routing_eta_rmse": {
+      "20G": {
+        "A1_minus_A0_arm_median": -0.0031078833284319263,
+        "A1_minus_A0_arm_q95": -0.05577052306578806,
+        "losses": 8,
+        "paired_delta_distribution": {
+          "max": 0.010426632227851104,
+          "mean": -0.017222710831567907,
+          "median": -0.0023105321373619037,
+          "min": -0.10382416884610451,
+          "q95": 0.008583510173491883
+        },
+        "ties": 0,
+        "wins": 12
+      },
+      "32G": {
+        "A1_minus_A0_arm_median": -0.01651233279749062,
+        "A1_minus_A0_arm_q95": -0.045366663883839864,
+        "losses": 12,
+        "paired_delta_distribution": {
+          "max": 0.013851303261649961,
+          "mean": -0.01764098008799394,
+          "median": -0.0020689199577838685,
+          "min": -0.12783559324098293,
+          "q95": 0.010848522465508475
+        },
+        "ties": 0,
+        "wins": 20
+      },
+      "direction_status": "WEAKENS"
+    },
+    "state_relative_rmse": {
+      "20G": {
+        "A1_minus_A0_arm_median": -0.002710226559257345,
+        "A1_minus_A0_arm_q95": 0.11865246224197867,
+        "losses": 9,
+        "paired_delta_distribution": {
+          "max": 0.18824225388331461,
+          "mean": -0.0011747098559174607,
+          "median": -0.0034169881068973895,
+          "min": -0.07146282082003497,
+          "q95": 0.0669928764035534
+        },
+        "ties": 0,
+        "wins": 11
+      },
+      "32G": {
+        "A1_minus_A0_arm_median": -0.010554390009360204,
+        "A1_minus_A0_arm_q95": -0.014434127917210438,
+        "losses": 11,
+        "paired_delta_distribution": {
+          "max": 0.33813991866084514,
+          "mean": -6.734549476850732e-06,
+          "median": -0.015491896879602007,
+          "min": -0.10849214249828099,
+          "q95": 0.11973790846363955
+        },
+        "ties": 0,
+        "wins": 21
+      },
+      "direction_status": "STRENGTHENS"
+    },
+    "thresholded_absolute_order_relative_median": {
+      "20G": {
+        "A1_minus_A0_arm_median": -0.007382392859376585,
+        "A1_minus_A0_arm_q95": -0.05256805167870238,
+        "losses": 8,
+        "paired_delta_distribution": {
+          "max": 0.14061985270623212,
+          "mean": -0.011611757421939877,
+          "median": -0.019361519340757694,
+          "min": -0.22829699164370265,
+          "q95": 0.1360741569311093
+        },
+        "ties": 0,
+        "wins": 12
+      },
+      "32G": {
+        "A1_minus_A0_arm_median": -0.049818755905612244,
+        "A1_minus_A0_arm_q95": -0.03421738467447499,
+        "losses": 8,
+        "paired_delta_distribution": {
+          "max": 0.10055691314155502,
+          "mean": -0.045919000767077826,
+          "median": -0.025357221545207864,
+          "min": -0.32547993819822085,
+          "q95": 0.054023504411525536
+        },
+        "ties": 0,
+        "wins": 24
+      },
+      "direction_status": "STRENGTHENS"
+    },
+    "total_power_relative_rmse": {
+      "20G": {
+        "A1_minus_A0_arm_median": -0.004136628341704418,
+        "A1_minus_A0_arm_q95": 0.004433486535288911,
+        "losses": 10,
+        "paired_delta_distribution": {
+          "max": 0.08958375860482837,
+          "mean": 0.0006111058073595882,
+          "median": -2.672235797501754e-07,
+          "min": -0.06392072833571355,
+          "q95": 0.008181430260483763
+        },
+        "ties": 0,
+        "wins": 10
+      },
+      "32G": {
+        "A1_minus_A0_arm_median": -0.0491212350496576,
+        "A1_minus_A0_arm_q95": 0.027045096807562174,
+        "losses": 13,
+        "paired_delta_distribution": {
+          "max": 0.1557315358390144,
+          "mean": -0.014772960201024334,
+          "median": -0.006614588607272483,
+          "min": -0.10552994773975269,
+          "q95": 0.03886536064377405
+        },
+        "ties": 0,
+        "wins": 19
+      },
+      "direction_status": "STRENGTHENS"
+    }
+  },
+  "ood_strata": {
+    "farthest": {
+      "20G": {
+        "median_routing_delta": -0.003913505567958331,
+        "median_state_delta": 0.014276973040954488,
+        "n": 6,
+        "routing_wins": 3,
+        "state_wins": 2
+      },
+      "32G": {
+        "median_routing_delta": -0.0010644938624600753,
+        "median_state_delta": -0.00252857648774657,
+        "n": 10,
+        "routing_wins": 6,
+        "state_wins": 5
+      }
+    },
+    "middle": {
+      "20G": {
+        "median_routing_delta": -0.005488001325737152,
+        "median_state_delta": 8.339152280623097e-05,
+        "n": 7,
+        "routing_wins": 4,
+        "state_wins": 3
+      },
+      "32G": {
+        "median_routing_delta": -0.00032174884322622166,
+        "median_state_delta": -0.007417136466378316,
+        "n": 11,
+        "routing_wins": 6,
+        "state_wins": 8
+      }
+    },
+    "nearest": {
+      "20G": {
+        "median_routing_delta": -0.0021702942087050703,
+        "median_state_delta": -0.03281376004729464,
+        "n": 7,
+        "routing_wins": 5,
+        "state_wins": 6
+      },
+      "32G": {
+        "median_routing_delta": -0.012017002703222673,
+        "median_state_delta": -0.034604139431058445,
+        "n": 11,
+        "routing_wins": 8,
+        "state_wins": 8
+      }
+    }
+  },
+  "overall_feature_effect_replication_status": "REVERSES",
+  "primary_metrics": {
+    "absolute_order_source_normalized_rmse": "REVERSES",
+    "routing_eta_rmse": "WEAKENS"
+  },
+  "production_H1_changed": false,
+  "schema": "COUPLING_ML_NP_FORWARD_FEATURE_EFFECT_20G_VS_32G_V2",
+  "solver_invocations": 0,
+  "status": "COMPLETE"
+}
