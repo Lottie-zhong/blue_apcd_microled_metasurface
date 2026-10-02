@@ -51,6 +51,18 @@ class AdapterBarrierTests(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+    def test_postprocess_dependency_preflight_is_pinned_and_zero_solver(self):
+        report = adapter_module.postprocess_dependency_preflight()
+        self.assertEqual(report["result"], "PASS")
+        self.assertFalse(report["scientific_entry_performed"])
+        self.assertFalse(report["solver_run_called"])
+        tmm = report["dependencies"]["mdc_tmm_complex_incident_power_v1"]
+        self.assertEqual(tmm["authority_commit"], "46af82357f269aea0c77105a03e7ca9da645ca8f")
+        self.assertEqual(tmm["sha256"], "12d2d95bd99fc6e18fec9ac17ab066a5a1fc4a3ddf1a6e5a8c0a625da959ff4b")
+        self.assertIn("normal_stack_power", tmm["callables"])
+        self.assertIn("canonical_state_from_fdtd",
+                      report["dependencies"]["pw_complex_floquet_state_v1"]["callables"])
+
     def test_cli_contract_hash_failure_happens_before_adapter_or_solver(self):
         p = self.base / "manifest.json"
         p.write_text(json.dumps(self.manifest), encoding="utf-8")
@@ -180,9 +192,26 @@ class AdapterBarrierTests(unittest.TestCase):
                     main(["run-one", "manifest.json", "--output-root", str(self.base / "other")])
             call.assert_not_called()
 
+    def test_run_cli_fails_closed_without_postprocess_preflight(self):
+        manifest = {key: value for key, value in self.manifest.items() if key in MANIFEST_KEYS}
+        adapter_without_preflight = object()
+        with unittest.mock.patch.object(
+                adapter_module, "read_cli_manifest", return_value=(manifest, self.contract)):
+            with unittest.mock.patch.object(adapter_module, "run_one") as run:
+                with self.assertRaisesRegex(RunnerError, "POSTPROCESS_DEPENDENCY_PREFLIGHT_FAILED"):
+                    run_cli("manifest.json", adapter_factory=lambda _p: adapter_without_preflight,
+                            test_output_root=self.base / "runs")
+        run.assert_not_called()
+        self.assertFalse((self.base / "runs").exists())
+
     def test_run_cli_defaults_to_fixed_root(self):
         manifest = {key: value for key, value in self.manifest.items() if key in MANIFEST_KEYS}
         class Callbacks:
+            postprocess_dependency_preflight = {
+                "schema": "APCD_GPU_RUNNER_V1_POSTPROCESS_DEPENDENCY_PREFLIGHT_V1",
+                "result": "PASS", "scientific_entry_performed": False,
+                "solver_run_called": False,
+            }
             def solver(self, *_): return None
             def fresh_load_validate(self, *_): return {}
             def gpu_snapshot(self): return {"free_mib": 8192}
@@ -191,8 +220,13 @@ class AdapterBarrierTests(unittest.TestCase):
         with unittest.mock.patch.object(
                 adapter_module, "read_cli_manifest", return_value=(manifest, self.contract)):
             with unittest.mock.patch.object(adapter_module, "run_one", return_value="ok") as run:
-                self.assertEqual(run_cli("manifest.json", adapter_factory=lambda _p: callbacks), "ok")
-        self.assertEqual(run.call_args.args[1], PRODUCTION_RUNNER_ROOT)
+                self.assertEqual(run_cli("manifest.json", adapter_factory=lambda _p: callbacks,
+                                         test_output_root=self.base / "runs"), "ok")
+        self.assertEqual(run.call_args.args[1], self.base / "runs")
+        record = self.base / "runs" / "preflight" / manifest["case_id"] / manifest["attempt_id"] / manifest["run_id"] / "postprocess_dependency_preflight.json"
+        payload = json.loads(record.read_text(encoding="utf-8"))
+        self.assertEqual(payload["result"], "PASS")
+        self.assertEqual(payload["run_id"], manifest["run_id"])
 
     def test_gpu_snapshot_captures_device_and_visible_compute_processes(self):
         adapter = NativeAdapter(self.contract, launcher=FakeLauncher(), gpu_resource_name="logical-gpu-0")

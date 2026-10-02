@@ -4,6 +4,7 @@ import argparse
 import csv
 import io
 import hashlib
+import importlib
 import importlib.util
 import json
 import math
@@ -15,10 +16,26 @@ import time
 from pathlib import Path
 
 from runner import (CONTRACT_SHA256, MIN_GPU_FREE_MIB, PRODUCTION_RUNNER_ROOT,
-                    RunnerError, run_one)
+                    RunnerError, atomic_json, run_one)
 
 LAUNCHER_PATH = Path(r"D:\apcd_runtime\shared_v3_backend\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\scripts\shared_fdtd\tools\pw_scientific_launcher.py")
 LAUNCHER_SHA256 = "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908"
+PINNED_BACKEND_ID = "01e2320ebf237bdbcd52573665520d57705d2800"
+PINNED_SCRIPTS_ROOT = LAUNCHER_PATH.parents[2]
+PINNED_TOOLS_DIR = LAUNCHER_PATH.parent
+VENDOR_DIR = Path(__file__).resolve().parent / "vendor"
+MDC_MODULE_NAME = "mdc_tmm_complex_incident_power_v1"
+MDC_SOURCE_BRANCH = "work/mdc-np-coupling-ml-v1"
+MDC_SOURCE_COMMIT = "46af82357f269aea0c77105a03e7ca9da645ca8f"
+MDC_MODULE_SHA256 = "12d2d95bd99fc6e18fec9ac17ab066a5a1fc4a3ddf1a6e5a8c0a625da959ff4b"
+STATE_MODULE_SHA256 = "31cb2b602b1fa74ff09404c8111239f9dcf4a8c4b5ac1944a9300b2c23efaafb"
+GPU_OBSERVABILITY_SHA256 = "e6b01c985e79fa2adcb280ab0d6cca4609dcbefc23e7d781e3fba147cbd89861"
+LUMERICAL_API_DIR = Path("N:/Program Files/ANSYS Inc/v251/Lumerical/api/python")
+LUMERICAL_API_FILE = LUMERICAL_API_DIR / "lumapi.py"
+LUMERICAL_API_SHA256 = "feb0f99c7e79c053def676a2ee97e24cd0994dc56e5815f52300804915ae55c9"
+POSTPROCESS_PYTHON_VERSION = (3, 10, 20)
+POSTPROCESS_NUMPY_VERSION = "2.2.5"
+POSTPROCESS_H5PY_VERSION = "3.16.0"
 
 
 def _sha256(path):
@@ -56,7 +73,70 @@ def read_cli_manifest(path):
     return manifest, contract_file
 
 
+def _prepare_postprocess_import_paths():
+    paths = (LUMERICAL_API_DIR, PINNED_SCRIPTS_ROOT, PINNED_TOOLS_DIR, VENDOR_DIR)
+    normalized = {os.path.normcase(os.path.abspath(value)) for value in sys.path if value}
+    for path in paths:
+        if not path.is_dir():
+            raise RunnerError("POSTPROCESS_IMPORT_PATH_MISSING:" + str(path))
+        key = os.path.normcase(os.path.abspath(str(path)))
+        if key not in normalized:
+            sys.path.insert(0, str(path))
+            normalized.add(key)
+
+
+def _verify_pinned_module(module, expected_path, expected_sha256, required_callables):
+    actual_value = getattr(module, "__file__", None)
+    if not actual_value:
+        raise RunnerError("POSTPROCESS_MODULE_PATH_MISSING:" + module.__name__)
+    actual_path = Path(actual_value).resolve()
+    expected_path = Path(expected_path).resolve()
+    if os.path.normcase(str(actual_path)) != os.path.normcase(str(expected_path)):
+        raise RunnerError("POSTPROCESS_MODULE_PATH_MISMATCH:" + module.__name__)
+    actual_sha = _sha256(actual_path)
+    if actual_sha != expected_sha256:
+        raise RunnerError("POSTPROCESS_MODULE_HASH_MISMATCH:" + module.__name__)
+    missing = [name for name in required_callables if not callable(getattr(module, name, None))]
+    if missing:
+        raise RunnerError("POSTPROCESS_CALLABLE_MISSING:" + module.__name__ + ":" + ",".join(missing))
+    return {
+        "module": module.__name__,
+        "path": str(actual_path),
+        "sha256": actual_sha,
+        "callables": list(required_callables),
+    }
+
+
+def _load_pinned_module_from_file(module_name, expected_path, expected_sha256, required_callables):
+    expected_path = Path(expected_path).resolve()
+    parent_name, separator, child_name = module_name.rpartition(".")
+    parent = importlib.import_module(parent_name) if separator else None
+    module = sys.modules.get(module_name)
+    loaded_path = Path(getattr(module, "__file__", "")).resolve() if module else None
+    if (module is None or loaded_path is None or
+            os.path.normcase(str(loaded_path)) != os.path.normcase(str(expected_path)) or
+            _sha256(loaded_path) != expected_sha256):
+        spec = importlib.util.spec_from_file_location(module_name, str(expected_path))
+        if spec is None or spec.loader is None:
+            raise RunnerError("POSTPROCESS_MODULE_IMPORT_FAILED:" + module_name)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        try:
+            spec.loader.exec_module(module)
+        except Exception:
+            sys.modules.pop(module_name, None)
+            raise
+    if parent is not None:
+        setattr(parent, child_name, module)
+    return _verify_pinned_module(module, expected_path, expected_sha256, required_callables)
+
+
 def load_pinned_launcher(path=LAUNCHER_PATH):
+    _prepare_postprocess_import_paths()
+    _load_pinned_module_from_file(
+        "shared_fdtd.engine.gpu_observability",
+        PINNED_SCRIPTS_ROOT / "shared_fdtd" / "engine" / "gpu_observability.py",
+        GPU_OBSERVABILITY_SHA256, ("GpuEngineObservability",))
     if not Path(path).is_file() or _sha256(path) != LAUNCHER_SHA256:
         raise RunnerError("PINNED_LAUNCHER_HASH_MISMATCH")
     spec = importlib.util.spec_from_file_location("apcd_pw_scientific_launcher_v1", str(path))
@@ -67,10 +147,78 @@ def load_pinned_launcher(path=LAUNCHER_PATH):
     return module
 
 
+def postprocess_dependency_preflight(launcher=None):
+    """Import and hash every lazy dependency needed after solver return."""
+    _prepare_postprocess_import_paths()
+    if tuple(sys.version_info[:3]) != POSTPROCESS_PYTHON_VERSION:
+        raise RunnerError("POSTPROCESS_PYTHON_VERSION_MISMATCH:" + ".".join(map(str, sys.version_info[:3])))
+    numpy = importlib.import_module("numpy")
+    h5py = importlib.import_module("h5py")
+    lumapi = importlib.import_module("lumapi")
+    if getattr(numpy, "__version__", None) != POSTPROCESS_NUMPY_VERSION:
+        raise RunnerError("POSTPROCESS_NUMPY_VERSION_MISMATCH")
+    if getattr(h5py, "__version__", None) != POSTPROCESS_H5PY_VERSION:
+        raise RunnerError("POSTPROCESS_H5PY_VERSION_MISMATCH")
+    if not callable(getattr(h5py, "File", None)):
+        raise RunnerError("POSTPROCESS_H5PY_FILE_MISSING")
+    lumapi_info = _verify_pinned_module(
+        lumapi, LUMERICAL_API_FILE, LUMERICAL_API_SHA256, ("FDTD",))
+    if not Path(LAUNCHER_PATH).is_file() or _sha256(LAUNCHER_PATH) != LAUNCHER_SHA256:
+        raise RunnerError("PINNED_LAUNCHER_HASH_MISMATCH")
+    launcher = launcher or load_pinned_launcher()
+    launcher_callables = ("load_only_validate", "analyze", "postprocess",
+                          "run_standalone_gpu_and_confirm_completion")
+    if any(not callable(getattr(launcher, name, None)) for name in launcher_callables):
+        raise RunnerError("PINNED_LAUNCHER_CALLABLE_MISSING")
+    tmm = importlib.import_module(MDC_MODULE_NAME)
+    tmm_info = _verify_pinned_module(
+        tmm, VENDOR_DIR / (MDC_MODULE_NAME + ".py"), MDC_MODULE_SHA256,
+        ("normal_stack_power",))
+    state_info = _load_pinned_module_from_file(
+        "shared_fdtd.tools.pw_complex_floquet_state_v1",
+        PINNED_TOOLS_DIR / "pw_complex_floquet_state_v1.py",
+        STATE_MODULE_SHA256,
+        ("read_fdtd_plane", "canonical_state_from_fdtd", "save_state_npz", "state_metadata"))
+    gpu_module = importlib.import_module("shared_fdtd.engine.gpu_observability")
+    gpu_info = _verify_pinned_module(
+        gpu_module, PINNED_SCRIPTS_ROOT / "shared_fdtd" / "engine" / "gpu_observability.py",
+        GPU_OBSERVABILITY_SHA256, ("GpuEngineObservability",))
+    adapter_path = Path(__file__).resolve()
+    return {
+        "schema": "APCD_GPU_RUNNER_V1_POSTPROCESS_DEPENDENCY_PREFLIGHT_V1",
+        "result": "PASS",
+        "scientific_entry_performed": False,
+        "solver_run_called": False,
+        "runner_adapter_sha256": _sha256(adapter_path),
+        "python": {"version": ".".join(map(str, sys.version_info[:3])),
+                   "executable": str(Path(sys.executable).resolve())},
+        "packages": {"numpy": numpy.__version__, "h5py": h5py.__version__},
+        "lumerical": {"release": "2025 R1", **lumapi_info},
+        "launcher": {"path": str(Path(LAUNCHER_PATH).resolve()),
+                     "sha256": LAUNCHER_SHA256,
+                     "callables": list(launcher_callables),
+                     "pinned_backend_id": PINNED_BACKEND_ID},
+        "dependencies": {
+            MDC_MODULE_NAME: {
+                **tmm_info,
+                "authority_branch": MDC_SOURCE_BRANCH,
+                "authority_commit": MDC_SOURCE_COMMIT,
+            },
+            "pw_complex_floquet_state_v1": {
+                **state_info, "pinned_backend_id": PINNED_BACKEND_ID},
+            "gpu_observability": {
+                **gpu_info, "pinned_backend_id": PINNED_BACKEND_ID},
+        },
+    }
+
+
 class NativeAdapter:
     """Production callbacks over the immutable standalone GPU launcher."""
     def __init__(self, contract_path, launcher=None, fdtd_exe=None, gpu_resource_name=None):
-        self.launcher = launcher or load_pinned_launcher()
+        _prepare_postprocess_import_paths()
+        pinned_launcher = load_pinned_launcher()
+        self.postprocess_dependency_preflight = postprocess_dependency_preflight(pinned_launcher)
+        self.launcher = launcher or pinned_launcher
         self.contract_path = Path(contract_path)
         with self.contract_path.open("r", encoding="utf-8") as stream:
             self.contract = json.load(stream)
@@ -158,17 +306,22 @@ class NativeAdapter:
                 stream.write(Path(child_log).read_text(encoding="utf-8", errors="replace"))
         return result
 
-    def fresh_load_validate(self, manifest, run_dir):
+    def fresh_load_validate(self, manifest, run_dir, output_root=None):
         try:
             import lumapi
             import h5py
         except ImportError as exc:
             raise RunnerError("NATIVE_FRESH_LOAD_DEPENDENCY_MISSING:" + str(exc)) from exc
-        cfg = self._cfg(manifest, run_dir)
+        source_root = Path(run_dir)
+        destination_root = source_root if output_root is None else Path(output_root)
+        if output_root is not None and os.path.normcase(str(destination_root.resolve())) == os.path.normcase(str(source_root.resolve())):
+            raise RunnerError("RECOVERY_OUTPUT_MUST_BE_SEPARATE")
+        destination_root.mkdir(parents=True, exist_ok=True)
+        cfg = self._cfg(manifest, source_root)
         with lumapi.FDTD(hide=True) as fd:
             fd.load(cfg["run_fsp"])
             self.launcher.load_only_validate(fd, cfg)
-            raw, metrics, paths = self.launcher.postprocess(fd, cfg, str(run_dir))
+            raw, metrics, paths = self.launcher.postprocess(fd, cfg, str(destination_root))
         state_valid = all(Path(paths[key]).is_file() for key in ("state_npz", "state_metadata"))
         closure = metrics.get("max_energy_closure", {}).get("max")
         scientific_valid = (
@@ -181,22 +334,25 @@ class NativeAdapter:
             raise RunnerError("CANONICAL_STATE_ARTIFACT_MISSING")
         if not scientific_valid:
             raise RunnerError("SCIENTIFIC_VALIDATION_FAILED")
-        # Preserve postprocessed evidence and bind its HDF5 container to this run.
-        raw_path = Path(run_dir) / "raw" / (manifest["case_id"] + "__" + manifest["attempt_id"] + "_raw.json")
+        raw_path = destination_root / "raw" / (manifest["case_id"] + "__" + manifest["attempt_id"] + "_raw.json")
         if raw_path.is_file():
             raw["run_id"] = manifest["run_id"]
             raw_path.write_text(json.dumps(raw, sort_keys=True, indent=2) + "\n", encoding="utf-8")
-        truth_path = Path(run_dir) / "truth.h5"
-        with h5py.File(truth_path, "w") as h5:
+        truth_path = destination_root / "truth.h5"
+        temporary_truth_path = destination_root / "truth.h5.tmp"
+        with h5py.File(temporary_truth_path, "w") as h5:
             h5.attrs["run_id"] = manifest["run_id"]
             h5.attrs["case_id"] = manifest["case_id"]
             h5.attrs["attempt_id"] = manifest["attempt_id"]
             h5.attrs["launcher_id"] = "pw_scientific_launcher.py@" + LAUNCHER_SHA256
             h5.create_dataset("raw_json", data=json.dumps(raw, sort_keys=True), dtype=h5py.string_dtype("utf-8"))
             h5.create_dataset("metrics_json", data=json.dumps(metrics, sort_keys=True, default=str), dtype=h5py.string_dtype("utf-8"))
+            h5.flush()
+        os.replace(str(temporary_truth_path), str(truth_path))
         return {"fresh_load_verified": True, "monitors_valid": True,
                 "state_valid": state_valid, "scientific_valid": scientific_valid,
                 "run_id": manifest["run_id"], "truth_h5": str(truth_path),
+                "truth_h5_sha256": _sha256(truth_path),
                 "max_energy_closure": float(closure)}
 
 
@@ -352,8 +508,28 @@ class NativeAdapter:
 def run_cli(manifest_path, adapter_factory=NativeAdapter, test_output_root=None):
     manifest, contract_path = read_cli_manifest(manifest_path)
     adapter = adapter_factory(contract_path)
+    preflight = getattr(adapter, "postprocess_dependency_preflight", None)
+    if not isinstance(preflight, dict) or preflight.get("result") != "PASS":
+        raise RunnerError("POSTPROCESS_DEPENDENCY_PREFLIGHT_FAILED")
     output_root = (PRODUCTION_RUNNER_ROOT if test_output_root is None
                    else Path(test_output_root))
+    preflight_path = (output_root / "preflight" / manifest["case_id"] /
+                      manifest["attempt_id"] / manifest["run_id"] /
+                      "postprocess_dependency_preflight.json")
+    preflight_record = {
+        "schema": "APCD_GPU_RUNNER_V1_POSTPROCESS_PREFLIGHT_RECORD_V1",
+        "result": "PASS",
+        "case_id": manifest["case_id"],
+        "attempt_id": manifest["attempt_id"],
+        "run_id": manifest["run_id"],
+        "preflight": preflight,
+    }
+    if preflight_path.exists():
+        existing = json.loads(preflight_path.read_text(encoding="utf-8"))
+        if existing != preflight_record:
+            raise RunnerError("POSTPROCESS_PREFLIGHT_CONFLICT")
+    else:
+        atomic_json(preflight_path, preflight_record)
     return run_one(manifest, output_root, adapter.solver, adapter.fresh_load_validate,
                    adapter.gpu_snapshot, adapter.runner_owner_probe)
 
