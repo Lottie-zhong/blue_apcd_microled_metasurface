@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """Offline tests: injected callbacks only, no Lumerical or solver process."""
-import hashlib,json,sys,tempfile,unittest
+import hashlib,json,sys,tempfile,unittest,unittest.mock
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from runner import CONTRACT_SHA256,EXPANSION_SHA256,GEOMETRIES,RunnerError,atomic_json,run_one
+from adapter import NativeAdapter
 import runner as runner_module
 
 class RunnerTests(unittest.TestCase):
@@ -19,6 +20,57 @@ class RunnerTests(unittest.TestCase):
   self.truth=lambda _m,_d:{"fresh_load_verified":True,"monitors_valid":True,
    "state_valid":True,"scientific_valid":True}
  def tearDown(self): self.tmp.cleanup()
+
+ def _seed_s35_predecessor(self,root,with_recovery=True):
+  run_id=runner_module.S35_RECOVERY_RUN_ID
+  run_dir=root/"runs/K6V1_S35/attempt_001"/run_id
+  run_dir.mkdir(parents=True)
+  original_manifest={"case_id":"K6V1_S35","attempt_id":"attempt_001","run_id":run_id,
+   "geometry":GEOMETRIES["K6V1_S35"],"physical_contract_sha256":CONTRACT_SHA256,
+   "expansion_manifest_sha256":EXPANSION_SHA256,"pre_fsp_path":str(self.pre),
+   "pre_fsp_sha256":hashlib.sha256(self.pre.read_bytes()).hexdigest()}
+  atomic_json(run_dir/"manifest.json",original_manifest)
+  original_status={"schema":"APCD_GPU_RUN_STATUS_V1","case_id":"K6V1_S35",
+   "attempt_id":"attempt_001","run_id":run_id,"state":"FAILED_POSTENTRY",
+   "failure":"No module named 'mdc_tmm_complex_incident_power_v1'",
+   "solver_entered":True,"solver_invocations":1}
+  atomic_json(run_dir/"status.json",original_status)
+  row={"case_id":"K6V1_S35","attempt_id":"attempt_001","run_id":run_id,
+       "state":"FAILED_POSTENTRY","run_dir":str(run_dir)}
+  atomic_json(root/"registry.json",{"schema":"APCD_GPU_RUNNER_REGISTRY_V1","runs":[row]})
+  status_sha=runner_module.sha256_file(run_dir/"status.json")
+  if not with_recovery:
+   return {"original":status_sha}
+  recovery=root/runner_module.S35_RECOVERY_RELATIVE
+  recovery.mkdir(parents=True)
+  truth=recovery/"truth.h5"; truth.write_bytes(b"pinned test truth")
+  truth_sha=runner_module.sha256_file(truth)
+  required=runner_module.S35_RECOVERY_REQUIRED_CHECKS
+  validation={"schema":"APCD_GPU_RUNNER_V1_POSTENTRY_TRUTH_RECOVERY_VALIDATION_V1",
+   "case_id":"K6V1_S35","attempt_id":"attempt_001","run_id":run_id,"result":"PASS",
+   "checks":{name:True for name in required},
+   "fresh_load_validation":{"fresh_load_verified":True,"monitors_valid":True,
+    "state_valid":True,"scientific_valid":True,"max_energy_closure":1e-12,
+    "truth_h5_sha256":truth_sha},"truth_h5_sha256":truth_sha}
+  validation_path=recovery/"validation.json"; atomic_json(validation_path,validation)
+  validation_sha=runner_module.sha256_file(validation_path)
+  recovery_status={"schema":"APCD_GPU_RUNNER_V1_POSTENTRY_RECOVERY_STATUS_V1",
+   "case_id":"K6V1_S35","attempt_id":"attempt_001","run_id":run_id,
+   "recovery_state":"LOAD_ONLY_POSTENTRY_TRUTH_RECOVERY","scientific_truth_status":"TRUTH_VALID",
+   "original_status_preserved":True,"solver_invocations_before":1,"solver_invocations_after":1,
+   "replay_count":0,"solver_run_called_during_recovery":False,
+   "truth_h5_sha256":truth_sha,"validation_sha256":validation_sha}
+  rs_path=recovery/"recovery_status.json"; atomic_json(rs_path,recovery_status)
+  records={}
+  for path in (truth,validation_path,rs_path):
+   records[str(path)]={"sha256":runner_module.sha256_file(path),"size_bytes":path.stat().st_size}
+  hashes={"schema":"APCD_GPU_RUNNER_V1_POSTENTRY_TRUTH_RECOVERY_HASHES_V1",
+   "run_id":run_id,"recovery_artifacts":records,
+   "original_artifacts":{"original_status":{"sha256":status_sha,
+    "size_bytes":(run_dir/"status.json").stat().st_size}}}
+  hashes_path=recovery/"hashes.json"; atomic_json(hashes_path,hashes)
+  return {"original":status_sha,"truth":truth_sha,"validation":validation_sha,
+          "hashes":runner_module.sha256_file(hashes_path)}
  def _seed_entered_attempt(self,root,manifest,registry_state=None):
   run_dir=root/"runs"/manifest["case_id"]/manifest["attempt_id"]/manifest["run_id"]
   run_dir.mkdir(parents=True)
@@ -202,5 +254,44 @@ class RunnerTests(unittest.TestCase):
   self.assertEqual(hashlib.sha256(self.pre.read_bytes()).hexdigest(),pre_hash)
   self.assertTrue(all(p.resolve().is_relative_to(self.root.resolve()) for p in self.root.rglob("*")))
   self.assertFalse((self.root/"active_run.json").exists())
+
+
+ def test_s39_accepts_only_hash_pinned_recovered_s35_without_solver_entry(self):
+  pins=self._seed_s35_predecessor(self.root)
+  s39=dict(self.m,case_id="K6V1_S39",geometry=GEOMETRIES["K6V1_S39"],
+           run_id="s39-capacity-check",attempt_id="attempt_001")
+  calls=[]
+  with unittest.mock.patch.object(runner_module,"S35_ORIGINAL_STATUS_SHA256",pins["original"]):
+   with unittest.mock.patch.object(runner_module,"S35_RECOVERY_PINS",
+       {"truth_h5":pins["truth"],"validation":pins["validation"],"hashes":pins["hashes"]}):
+    result=run_one(s39,self.root,lambda *_:calls.append("solver"),self.truth,
+       lambda:{"free_mib":0},self.owner)
+  self.assertEqual(result["result"],"WAIT_GPU_CAPACITY")
+  self.assertEqual(calls,[])
+  status=json.loads((Path(result["run_dir"])/"status.json").read_text())
+  self.assertEqual(status["s35_predecessor"]["effective_scientific_outcome"],"RECOVERED_TRUTH_VALID")
+  self.assertEqual(status["solver_invocations"],0)
+
+ def test_plain_failed_postentry_s35_without_recovery_blocks_s39_before_solver(self):
+  self._seed_s35_predecessor(self.root,with_recovery=False)
+  s39=dict(self.m,case_id="K6V1_S39",geometry=GEOMETRIES["K6V1_S39"],
+           run_id="s39-no-recovery",attempt_id="attempt_001")
+  calls=[]
+  with self.assertRaisesRegex(RunnerError,"S39_REQUIRES_S35_DONE"):
+   run_one(s39,self.root,lambda *_:calls.append("solver"),self.truth,self.gpu,self.owner)
+  self.assertEqual(calls,[])
+  self.assertFalse((self.root/"runs/K6V1_S39/attempt_001/s39-no-recovery").exists())
+
+ def test_recovered_s35_missing_historical_lineage_does_not_block_idle_owner_probe(self):
+  pins=self._seed_s35_predecessor(self.root)
+  self.assertFalse((self.root/".runner.lock").exists())
+  self.assertFalse((self.root/"active_run.json").exists())
+  with unittest.mock.patch.object(runner_module,"S35_ORIGINAL_STATUS_SHA256",pins["original"]):
+   with unittest.mock.patch.object(runner_module,"S35_RECOVERY_PINS",
+       {"truth_h5":pins["truth"],"validation":pins["validation"],"hashes":pins["hashes"]}):
+    self.assertFalse(NativeAdapter.runner_owner_probe(self.root))
+  original=json.loads((self.root/"runs/K6V1_S35/attempt_001"/
+      runner_module.S35_RECOVERY_RUN_ID/"status.json").read_text())
+  self.assertNotIn("solver_process_lineage",original)
 
 if __name__=="__main__": unittest.main(verbosity=2)

@@ -16,7 +16,7 @@ import time
 from pathlib import Path
 
 from runner import (CONTRACT_SHA256, MIN_GPU_FREE_MIB, PRODUCTION_RUNNER_ROOT,
-                    RunnerError, atomic_json, run_one)
+                    RunnerError, atomic_json, read_json, run_one)
 
 LAUNCHER_PATH = Path(r"D:\apcd_runtime\shared_v3_backend\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\scripts\shared_fdtd\tools\pw_scientific_launcher.py")
 LAUNCHER_SHA256 = "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908"
@@ -36,6 +36,19 @@ LUMERICAL_API_SHA256 = "feb0f99c7e79c053def676a2ee97e24cd0994dc56e5815f523008049
 POSTPROCESS_PYTHON_VERSION = (3, 10, 20)
 POSTPROCESS_NUMPY_VERSION = "2.2.5"
 POSTPROCESS_H5PY_VERSION = "3.16.0"
+COUPLING_AUTHORITY_ROOT = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1")
+SETUP_VALIDATOR_PATH = COUPLING_AUTHORITY_ROOT / "scripts/coupling_ml/validate_pw_k6_5nm_full_period_prefsp_v1.py"
+SETUP_VALIDATOR_SHA256 = "b694ecf692376a33673b785774a8ea734c452f11009aad1cfe553f444817e2a8"
+SETUP_BUILDER_PATH = COUPLING_AUTHORITY_ROOT / "scripts/coupling_ml/build_pw_k6_5nm_full_period_prefsp_v1.py"
+SETUP_BUILDER_SHA256 = "fbd3a3e73212568023c47d84223a41b32d5cb3cf8fd48a04d09bef7bb94eded1"
+SETUP_CASE_SPEC_PATH = COUPLING_AUTHORITY_ROOT / "outputs/coupling_ml/PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1/K6V1_S39/attempt_001/case.json"
+SETUP_CASE_SPEC_SHA256 = "02171fd0fb45e6d2d604e8c99b73024ef22dcb426faa9f0109fb90e985ed8891"
+SETUP_AUTHORITY_MANIFEST_PATH = COUPLING_AUTHORITY_ROOT / "outputs/coupling_ml/PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1/K6V1_S39/attempt_001/authority_input_manifest.json"
+SETUP_AUTHORITY_MANIFEST_SHA256 = "c083d946e833d38a56c3ee7f773898390530c0db69c9e3bd688438037afac82a"
+SETUP_CANONICAL_FSP_PATH = Path(r"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\outputs\coupling_ml\PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1\K6V1_S39\attempt_001\setup\runtime.fsp")
+SETUP_CANONICAL_FSP_SHA256 = "23c7d66cf8a73dc838b772c1cae048464451b0cb1584f3305d10938a2ebafe0d"
+SETUP_MONITOR_CONTRACT_PATH = COUPLING_AUTHORITY_ROOT / "contracts/coupling/medium_pw/MEDIUM_PW_MONITOR_CONTRACT_V1.json"
+SETUP_MONITOR_CONTRACT_SHA256 = "a84d8526889084f2b3b09022402ca93b2947939cb744f071a4b19bc6eb09172f"
 
 
 def _sha256(path):
@@ -144,6 +157,28 @@ def load_pinned_launcher(path=LAUNCHER_PATH):
         raise RunnerError("PINNED_LAUNCHER_IMPORT_FAILED")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
+    return module
+
+
+def load_pinned_setup_validator():
+    for path,digest,label in (
+            (SETUP_BUILDER_PATH,SETUP_BUILDER_SHA256,"BUILDER"),
+            (SETUP_CASE_SPEC_PATH,SETUP_CASE_SPEC_SHA256,"CASE_SPEC"),
+            (SETUP_AUTHORITY_MANIFEST_PATH,SETUP_AUTHORITY_MANIFEST_SHA256,"AUTHORITY_MANIFEST"),
+            (SETUP_MONITOR_CONTRACT_PATH,SETUP_MONITOR_CONTRACT_SHA256,"MONITOR_CONTRACT")):
+        if not path.is_file() or _sha256(path)!=digest:
+            raise RunnerError("SETUP_"+label+"_PIN_MISMATCH")
+    if not SETUP_VALIDATOR_PATH.is_file() or _sha256(SETUP_VALIDATOR_PATH)!=SETUP_VALIDATOR_SHA256:
+        raise RunnerError("SETUP_VALIDATOR_PIN_MISMATCH")
+    module_spec=importlib.util.spec_from_file_location(
+        "apcd_pinned_pw_k6_setup_validator",str(SETUP_VALIDATOR_PATH))
+    if module_spec is None or module_spec.loader is None:
+        raise RunnerError("SETUP_VALIDATOR_LOAD_FAILED")
+    module=importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(module)
+    if any(not callable(getattr(module,name,None)) for name in
+           ("inspect_fsp","validate_expected","semantic_projection")):
+        raise RunnerError("SETUP_VALIDATOR_CALLABLE_MISSING")
     return module
 
 
@@ -305,6 +340,70 @@ class NativeAdapter:
             if child_log and Path(child_log).is_file():
                 stream.write(Path(child_log).read_text(encoding="utf-8", errors="replace"))
         return result
+
+    def setup_structural_validate(self, manifest, source_fsp=None, staged_fsp=None):
+        """Validate the frozen setup model without querying solved result d-cards."""
+        source=Path(source_fsp or manifest["pre_fsp_path"]).resolve()
+        staged=Path(staged_fsp or source).resolve()
+        ordered=[175,100,125,120,100,230]
+        if (manifest.get("case_id")!="K6V1_S39" or manifest.get("attempt_id")!="attempt_001"
+                or manifest.get("geometry")!=ordered
+                or manifest.get("physical_contract_sha256")!=CONTRACT_SHA256
+                or manifest.get("expansion_manifest_sha256")!="4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f"
+                or manifest.get("pre_fsp_sha256")!=SETUP_CANONICAL_FSP_SHA256
+                or os.path.normcase(str(source))!=os.path.normcase(str(SETUP_CANONICAL_FSP_PATH))):
+            raise RunnerError("SETUP_CASE_OR_AUTHORITY_MISMATCH")
+        if (not source.is_file() or _sha256(source)!=SETUP_CANONICAL_FSP_SHA256
+                or not staged.is_file() or _sha256(staged)!=SETUP_CANONICAL_FSP_SHA256):
+            raise RunnerError("SETUP_SOURCE_OR_STAGED_HASH_MISMATCH")
+        if _sha256(self.contract_path)!=CONTRACT_SHA256:
+            raise RunnerError("SETUP_PHYSICAL_CONTRACT_HASH_MISMATCH")
+        authority=json.loads(SETUP_AUTHORITY_MANIFEST_PATH.read_text(encoding="utf-8"))
+        spec=json.loads(SETUP_CASE_SPEC_PATH.read_text(encoding="utf-8"))
+        if (authority.get("case_id")!="K6V1_S39" or authority.get("attempt_id")!="attempt_001"
+                or authority.get("canonical_pre_fsp_sha256")!=SETUP_CANONICAL_FSP_SHA256
+                or authority.get("physical_contract_hash")!=CONTRACT_SHA256
+                or authority.get("ordered_D_nm")!=ordered
+                or authority.get("geometry_hash_sha256")!="7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729"
+                or authority.get("stage1_expansion_manifest_sha256")!="4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f"
+                or authority.get("builder_source_sha256")!=SETUP_BUILDER_SHA256
+                or authority.get("source_case_json_sha256")!=SETUP_CASE_SPEC_SHA256
+                or authority.get("mesh_implementation_authority")!="PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1"
+                or authority.get("solver_run_called") is not False
+                or authority.get("scientific_entry_count")!=0
+                or spec.get("case_id")!="K6V1_S39" or spec.get("attempt_id")!="attempt_001"
+                or spec.get("ordered_D_nm")!=ordered
+                or spec.get("physical_contract_hash")!=CONTRACT_SHA256
+                or spec.get("geometry_hash_sha256")!=authority.get("geometry_hash_sha256")):
+            raise RunnerError("SETUP_AUTHORITY_SPEC_MISMATCH")
+        validator=load_pinned_setup_validator()
+        row=validator.inspect_fsp(staged,spec)
+        validation=validator.validate_expected(row,spec)
+        monitor_names=["MON_IN","MON_PRENP","MON_POSTNP","MON_REFLECTION"]
+        if (not isinstance(validation,dict) or validation.get("status")!="PASS"
+                or validation.get("errors") not in ([],None)
+                or row.get("case_id")!="K6V1_S39" or row.get("attempt_id")!="attempt_001"
+                or row.get("ordered_D_nm")!=ordered
+                or row.get("fsp_sha256")!=SETUP_CANONICAL_FSP_SHA256
+                or not set(monitor_names).issubset(set(row.get("object_names",[])))
+                or row.get("run_called") is not False
+                or row.get("save_called_by_validator") is not False):
+            errors=validation.get("errors",[]) if isinstance(validation,dict) else []
+            raise RunnerError("SETUP_STRUCTURAL_VALIDATION_FAILED:"+json.dumps(errors,default=str))
+        return {
+            "schema":"APCD_GPU_RUNNER_V1_SETUP_STRUCTURAL_VALIDATION_V1",
+            "result":"PASS","solver_run_called":False,"scientific_entry_performed":False,
+            "validator_path":str(SETUP_VALIDATOR_PATH),"validator_sha256":SETUP_VALIDATOR_SHA256,
+            "authority_manifest_sha256":SETUP_AUTHORITY_MANIFEST_SHA256,
+            "case_spec_sha256":SETUP_CASE_SPEC_SHA256,
+            "case_id":"K6V1_S39","attempt_id":"attempt_001",
+            "source_pre_fsp_sha256":_sha256(source),"staged_pre_fsp_sha256":_sha256(staged),
+            "physical_contract_sha256":CONTRACT_SHA256,
+            "geometry_hash_sha256":authority["geometry_hash_sha256"],
+            "ordered_D_nm":ordered,"mesh_authority":"PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1",
+            "monitor_object_names":monitor_names,"validation":validation,
+            "setup_readback":row,
+        }
 
     def fresh_load_validate(self, manifest, run_dir, output_root=None):
         try:
@@ -477,6 +576,11 @@ class NativeAdapter:
         root = Path(root)
         if (root / "active_run.json").exists():
             return True
+        lock_path=root/".runner.lock"
+        if lock_path.exists():
+            lock_record=read_json(lock_path,{})
+            if not isinstance(lock_record,dict) or lock_record.get("pid")!=os.getpid():
+                return True
         # Only inspect PIDs recorded by this runner after the pinned launcher
         # observed a new process for the exact run.fsp. No OS-wide census.
         for status_path in (root / "runs").glob("*/*/*/status.json"):
@@ -484,8 +588,20 @@ class NativeAdapter:
             if status.get("state") not in {"SOLVER_ENTERED", "SOLVER_RETURNED", "FAILED_POSTENTRY"}:
                 continue
             lineage = status.get("solver_process_lineage")
-            if (not isinstance(lineage, dict)
-                    or lineage.get("run_id") != status.get("run_id")
+            if not isinstance(lineage,dict):
+                registry=read_json(root/"registry.json",{})
+                rows=registry.get("runs",[]) if isinstance(registry,dict) else []
+                from runner import s35_effective_predecessor
+                recovered=s35_effective_predecessor(root,rows)
+                if (status.get("case_id")=="K6V1_S35"
+                        and status.get("attempt_id")=="attempt_001"
+                        and status.get("run_id")=="S35-20261002T044427Z-e702b2ac"
+                        and status.get("state")=="FAILED_POSTENTRY"
+                        and isinstance(recovered,dict)
+                        and recovered.get("effective_scientific_outcome")=="RECOVERED_TRUTH_VALID"):
+                    continue
+                return True
+            if (lineage.get("run_id") != status.get("run_id")
                     or lineage.get("observation") != "new_solver_process"):
                 return True
             identities = list(lineage.get("processes") or [])
@@ -511,6 +627,9 @@ def run_cli(manifest_path, adapter_factory=NativeAdapter, test_output_root=None)
     preflight = getattr(adapter, "postprocess_dependency_preflight", None)
     if not isinstance(preflight, dict) or preflight.get("result") != "PASS":
         raise RunnerError("POSTPROCESS_DEPENDENCY_PREFLIGHT_FAILED")
+    setup_validator=getattr(adapter,"setup_structural_validate",None)
+    if not callable(setup_validator):
+        raise RunnerError("SETUP_STRUCTURAL_VALIDATOR_MISSING")
     output_root = (PRODUCTION_RUNNER_ROOT if test_output_root is None
                    else Path(test_output_root))
     preflight_path = (output_root / "preflight" / manifest["case_id"] /
@@ -531,7 +650,7 @@ def run_cli(manifest_path, adapter_factory=NativeAdapter, test_output_root=None)
     else:
         atomic_json(preflight_path, preflight_record)
     return run_one(manifest, output_root, adapter.solver, adapter.fresh_load_validate,
-                   adapter.gpu_snapshot, adapter.runner_owner_probe)
+                   adapter.gpu_snapshot, adapter.runner_owner_probe, setup_validator)
 
 
 def main(argv=None):

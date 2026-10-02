@@ -247,6 +247,8 @@ class AdapterBarrierTests(unittest.TestCase):
             }
             def solver(self, *_): return None
             def fresh_load_validate(self, *_): return {}
+            def setup_structural_validate(self, *_):
+                return {"result":"PASS","solver_run_called":False}
             def gpu_snapshot(self): return {"free_mib": 8192}
             def runner_owner_probe(self, *_): return False
         callbacks = Callbacks()
@@ -303,6 +305,90 @@ class AdapterBarrierTests(unittest.TestCase):
             lambda:snapshot,adapter.runner_owner_probe)
         self.assertEqual(result["status"]["state"],"DONE")
         self.assertEqual(calls,["injected"])
+
+
+    def test_setup_structural_validator_loads_unsolved_authority_fsp_without_result_cards(self):
+        if not adapter_module.SETUP_CANONICAL_FSP_PATH.is_file():
+            self.skipTest("remote Lumerical authority input is unavailable")
+        contract = Path(r"D:\\apcd_runtime\\gpu_production_runner_v1\\contracts\\pw_contract_32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5.json")
+        manifest = {
+            "case_id":"K6V1_S39", "attempt_id":"attempt_001", "run_id":"setup-only-test",
+            "geometry":[175,100,125,120,100,230], "physical_contract_sha256":CONTRACT_SHA256,
+            "expansion_manifest_sha256":"4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+            "pre_fsp_path":str(adapter_module.SETUP_CANONICAL_FSP_PATH),
+            "pre_fsp_sha256":adapter_module.SETUP_CANONICAL_FSP_SHA256,
+        }
+        adapter = object.__new__(NativeAdapter)
+        adapter.contract_path = contract
+        report = adapter.setup_structural_validate(manifest)
+        self.assertEqual(report["result"], "PASS")
+        self.assertFalse(report["solver_run_called"])
+        self.assertFalse(report["scientific_entry_performed"])
+        readback = report["setup_readback"]
+        self.assertEqual(readback["ordered_D_nm"], manifest["geometry"])
+        self.assertEqual(readback["monitors"]["MON_IN"]["z_nm"], -100.0)
+        self.assertEqual(readback["meshes"]["NP_DERIVED_BASELINE_N2"]["step_nm"], [5.0,5.0,5.0])
+        self.assertEqual(readback["sources"]["PW_SRC_X_FORWARD"]["direction"], "Forward")
+        self.assertEqual(readback["sources"]["PW_SRC_X_FORWARD"]["polarization_angle_deg"], 0.0)
+
+    def test_postrun_truth_validator_still_rejects_setup_fsp_without_result_dcards(self):
+        if not adapter_module.SETUP_CANONICAL_FSP_PATH.is_file():
+            self.skipTest("remote Lumerical authority input is unavailable")
+        import shutil
+        import sys
+        run_dir = self.base / "postrun-strictness"
+        run_dir.mkdir()
+        shutil.copyfile(adapter_module.SETUP_CANONICAL_FSP_PATH, run_dir / "run.fsp")
+        strict_launcher = adapter_module.load_pinned_launcher()
+        adapter = object.__new__(NativeAdapter)
+        adapter.contract_path = Path(r"D:\\apcd_runtime\\gpu_production_runner_v1\\contracts\\pw_contract_32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5.json")
+        adapter.contract = json.loads(adapter.contract_path.read_text(encoding="utf-8"))
+        adapter.gpu_resource_name = "GPU license audit"
+        adapter.fdtd_exe = None
+        adapter.launcher = strict_launcher
+        manifest = {
+            "case_id":"K6V1_S39", "attempt_id":"attempt_001", "run_id":"strictness-test",
+            "geometry":[175,100,125,120,100,230], "physical_contract_sha256":CONTRACT_SHA256,
+            "expansion_manifest_sha256":"4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+            "pre_fsp_path":str(adapter_module.SETUP_CANONICAL_FSP_PATH),
+            "pre_fsp_sha256":adapter_module.SETUP_CANONICAL_FSP_SHA256,
+        }
+        adapter_module._prepare_postprocess_import_paths()
+        with self.assertRaises(Exception) as caught:
+            adapter.fresh_load_validate(manifest, run_dir)
+        self.assertIn("MON_IN", str(caught.exception))
+        self.assertFalse((run_dir / "truth.h5").exists())
+
+    def test_dependency_preflight_is_persisted_before_runner_entry_callback(self):
+        manifest = {key:value for key,value in self.manifest.items() if key in MANIFEST_KEYS}
+        events = []
+        class Callbacks:
+            postprocess_dependency_preflight = {
+                "schema":"APCD_GPU_RUNNER_V1_POSTPROCESS_DEPENDENCY_PREFLIGHT_V1",
+                "result":"PASS", "scientific_entry_performed":False, "solver_run_called":False}
+            def setup_structural_validate(self, *_):
+                events.append("setup")
+                return {"result":"PASS","solver_run_called":False}
+            def solver(self, *_): events.append("solver")
+            def fresh_load_validate(self, *_): return {}
+            def gpu_snapshot(self): return {"free_mib":8192}
+            def runner_owner_probe(self, *_): return False
+        callbacks = Callbacks()
+        output = self.base / "ordered-preflight"
+        def before_run_one(*args):
+            record = output / "preflight" / manifest["case_id"] / manifest["attempt_id"] / manifest["run_id"] / "postprocess_dependency_preflight.json"
+            self.assertTrue(record.is_file())
+            self.assertEqual(json.loads(record.read_text())["result"],"PASS")
+            self.assertIs(args[-1].__self__,callbacks)
+            events.append("runner-entry-boundary")
+            return {"state":"NOT_ENTERED"}
+        with unittest.mock.patch.object(adapter_module,"read_cli_manifest",return_value=(manifest,self.contract)):
+            with unittest.mock.patch.object(adapter_module,"run_one",side_effect=before_run_one) as run:
+                result = run_cli("manifest.json",adapter_factory=lambda _p:callbacks,test_output_root=output)
+        self.assertEqual(result,{"state":"NOT_ENTERED"})
+        self.assertEqual(events,["runner-entry-boundary"])
+        run.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
