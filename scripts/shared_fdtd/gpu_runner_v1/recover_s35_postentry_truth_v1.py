@@ -1,10 +1,12 @@
 """One-shot LOAD-only recovery for the already-entered S35 attempt. Never calls run()."""
 from pathlib import Path
+from contextlib import contextmanager, ExitStack
 import hashlib
 import json
 import math
 import subprocess
 import sys
+from unittest.mock import patch
 
 from adapter import NativeAdapter, _sha256
 from runner import atomic_json
@@ -14,7 +16,7 @@ RUNNER_ROOT = Path(r"D:\apcd_runtime\gpu_production_runner_v1")
 RUN_DIR = RUNNER_ROOT / "runs" / "K6V1_S35" / "attempt_001" / "S35-20261002T044427Z-e702b2ac"
 PREFLIGHT_DIR = RUNNER_ROOT / "preflight" / "K6V1_S35" / "S35-20261002T044427Z-e702b2ac"
 CONTRACT_PATH = RUNNER_ROOT / "contracts" / "pw_contract_32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5.json"
-RECOVERY_ROOT = RUNNER_ROOT / "recovery" / "K6V1_S35" / "attempt_001" / "S35-20261002T044427Z-e702b2ac" / "recovery_001"
+RECOVERY_ROOT = RUNNER_ROOT / "recovery" / "K6V1_S35" / "attempt_001" / "S35-20261002T044427Z-e702b2ac" / "recovery_002"
 
 RUN_ID = "S35-20261002T044427Z-e702b2ac"
 CASE_ID = "K6V1_S35"
@@ -64,22 +66,17 @@ def verify_originals(manifest):
 def finite(value):
     return isinstance(value, (int, float)) and math.isfinite(float(value))
 
-class NoRunSession:
-    def __init__(self, inner, calls):
-        self.inner = inner
-        self.calls = calls
-    def __enter__(self):
-        entered = self.inner.__enter__()
-        if entered is not None:
-            self.inner = entered
-        return self
-    def __exit__(self, *args):
-        return self.inner.__exit__(*args)
-    def __getattr__(self, name):
-        if name.lower() in {"run", "runanalysis", "runsetup"}:
-            self.calls.append(name)
-            raise RuntimeError("ZERO_SOLVER_POLICY_BLOCKED:" + name)
-        return getattr(self.inner, name)
+@contextmanager
+def zero_solver_guard(fdtd_class, calls):
+    """Block solver entry points without replacing lumapi.FDTD itself."""
+    with ExitStack() as stack:
+        for method_name in ("run", "runanalysis", "runsetup"):
+            def blocked(_self, *args, _method=method_name, **kwargs):
+                calls.append(_method)
+                raise RuntimeError("ZERO_SOLVER_POLICY_BLOCKED:" + _method)
+            stack.enter_context(patch.object(
+                fdtd_class, method_name, blocked, create=True))
+        yield
 
 def recovery_git_head():
     result = subprocess.run(
@@ -128,13 +125,11 @@ def main():
     import lumapi
     original_fdtd = lumapi.FDTD
     blocked_solver_calls = []
-    lumapi.FDTD = lambda *args, **kwargs: NoRunSession(
-        original_fdtd(*args, **kwargs), blocked_solver_calls)
-    try:
+    with zero_solver_guard(original_fdtd, blocked_solver_calls):
         fresh_validation = adapter.fresh_load_validate(
             manifest, RUN_DIR, output_root=RECOVERY_ROOT)
-    finally:
-        lumapi.FDTD = original_fdtd
+    if lumapi.FDTD is not original_fdtd:
+        raise RuntimeError("LUMAPI_FDTD_CLASS_IDENTITY_CHANGED")
     if blocked_solver_calls:
         raise RuntimeError("ZERO_SOLVER_ASSERTION_FAILED")
 

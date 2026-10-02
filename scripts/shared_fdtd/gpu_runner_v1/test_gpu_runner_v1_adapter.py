@@ -14,6 +14,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import adapter as adapter_module
 from adapter import NativeAdapter, PRODUCTION_RUNNER_ROOT, main, run_cli
+from recover_s35_postentry_truth_v1 import zero_solver_guard
 from runner import CONTRACT_SHA256, EXPANSION_SHA256, GEOMETRIES, MANIFEST_KEYS, RunnerError, run_one
 
 
@@ -62,6 +63,30 @@ class AdapterBarrierTests(unittest.TestCase):
         self.assertIn("normal_stack_power", tmm["callables"])
         self.assertIn("canonical_state_from_fdtd",
                       report["dependencies"]["pw_complex_floquet_state_v1"]["callables"])
+
+    def test_zero_solver_guard_preserves_fdtd_class_and_blocks_solver_methods(self):
+        class FakeFDTD:
+            def load(self):
+                return "loaded"
+            def run(self):
+                return "ran"
+            def runanalysis(self):
+                return "ran"
+            def runsetup(self):
+                return "ran"
+        original_class = FakeFDTD
+        original_methods = {name: getattr(FakeFDTD, name)
+                            for name in ("run", "runanalysis", "runsetup")}
+        blocked = []
+        with zero_solver_guard(FakeFDTD, blocked):
+            self.assertIs(FakeFDTD, original_class)
+            self.assertEqual(FakeFDTD().load(), "loaded")
+            for name in ("run", "runanalysis", "runsetup"):
+                with self.assertRaisesRegex(RuntimeError, "ZERO_SOLVER_POLICY_BLOCKED"):
+                    getattr(FakeFDTD(), name)()
+        self.assertEqual(blocked, ["run", "runanalysis", "runsetup"])
+        for name, method in original_methods.items():
+            self.assertIs(getattr(FakeFDTD, name), method)
 
     def test_cli_contract_hash_failure_happens_before_adapter_or_solver(self):
         p = self.base / "manifest.json"
