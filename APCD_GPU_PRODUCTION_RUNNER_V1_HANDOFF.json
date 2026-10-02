@@ -1,0 +1,104 @@
+{
+  "canonical_input_requirements": {
+    "authority": "PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1",
+    "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "pre_fsp_sha256_required": "23c7d66cf8a73dc838b772c1cae048464451b0cb1584f3305d10938a2ebafe0d"
+  },
+  "dependency_preflight": {
+    "authority_commit": "46af82357f269aea0c77105a03e7ca9da645ca8f",
+    "callable": "normal_stack_power",
+    "module_sha256": "12d2d95bd99fc6e18fec9ac17ab066a5a1fc4a3ddf1a6e5a8c0a625da959ff4b",
+    "required_module": "mdc_tmm_complex_incident_power_v1"
+  },
+  "entrypoint": {
+    "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe <adapter.py> run-one <case_manifest.json>",
+    "required_environment": {
+      "APCD_GPU_RESOURCE_NAME": "exact resource name from frozen case spec"
+    },
+    "script": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py"
+  },
+  "execution_contract": {
+    "no_replay": true,
+    "post_entry_failure": "FAILED_POSTENTRY; never replay the same attempt",
+    "pre_entry_failure": "FAILED_PREENTRY; stop and inspect, do not create another attempt automatically",
+    "serial_only": true,
+    "single_slot": true,
+    "success_states": [
+      "PENDING",
+      "PRECHECK_PASS",
+      "SOLVER_ENTERED",
+      "SOLVER_RETURNED",
+      "TRUTH_VALID",
+      "DONE"
+    ],
+    "truth_before_DONE": true
+  },
+  "frozen_runner": {
+    "automatic_replay": false,
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "gpu_only": true,
+    "head": "dede87c3aaa210892fd4dcbe67e92fabfe5c9c4c",
+    "name": "APCD_GPU_PRODUCTION_RUNNER_V1",
+    "serial": true,
+    "slots": 1
+  },
+  "manifest": {
+    "cli_envelope_extra_key": "physical_contract_path",
+    "core_required_keys": [
+      "case_id",
+      "attempt_id",
+      "run_id",
+      "geometry",
+      "physical_contract_sha256",
+      "expansion_manifest_sha256",
+      "pre_fsp_path",
+      "pre_fsp_sha256"
+    ],
+    "run_id_policy": "one immutable run_id per logical case attempt; never rerun after solver entry"
+  },
+  "outputs": {
+    "forensics": "gpu_standalone/forensics/{process_exit_provenance.json,runtime_timeline.jsonl,final_log_tail.json}",
+    "native_fsp": "run.fsp",
+    "native_h5": "run/run_output.h5",
+    "production_root": "D:\\apcd_runtime\\gpu_production_runner_v1",
+    "run_template": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\<case_id>\\<attempt_id>\\<run_id>",
+    "truth_h5": "truth.h5"
+  },
+  "qualification_evidence": {
+    "evidence_path": "reports/apcd_gpu_production_runner_v1/S39_CANARY_20261002.json",
+    "evidence_sha256": "06338557e28a473e880d5becd057b4c5b24ccf40b49e6758203bb360bf778a3a",
+    "lineage_status_field_note": "S39 final status.json has null solver_process_lineage; run-correlated process-exit/timeline sidecars hash engine PID 21564 with -gpu and target run.fsp.",
+    "run_id": "S39-20261002T075624Z-30a1c44a"
+  },
+  "ready_coupling_stage1_cases": [
+    {
+      "case_id": "K6V1_S35",
+      "effective_status": "RECOVERED_TRUTH_VALID",
+      "role": "qualified predecessor; original failure record unchanged"
+    },
+    {
+      "case_id": "K6V1_S39",
+      "effective_status": "DONE",
+      "role": "clean end-to-end GPU canary"
+    }
+  ],
+  "recovery_aware_status": {
+    "effective_S35": "RECOVERED_TRUTH_VALID from exact pinned recovery artifacts only",
+    "original_S35": "FAILED_POSTENTRY remains immutable",
+    "other_failed_postentry": "does not qualify"
+  },
+  "schema": "APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF_V1",
+  "scope_note": "No remaining Stage-1 cases were launched by this qualification.",
+  "serial_batch_invocation": "Dispatch one case, wait for terminal DONE/TRUTH_VALID, verify artifacts, then dispatch the next manifest. Never parallelize GPU solves.",
+  "status": "READY",
+  "validators": {
+    "post_run_truth": {
+      "semantics": "strict solved-artifact validation of MON_IN/result cards, raw E/H, C_PW, powers, P_scale, energy closure, durable native H5/FSP/truth H5 and fresh LOAD"
+    },
+    "setup_pre_entry": {
+      "semantics": "LOAD unsolved FSP; validate setup objects and frozen physical/mesh contract only; no result d-cards or solver calls",
+      "validator_sha256": "b694ecf692376a33673b785774a8ea734c452f11009aad1cfe553f444817e2a8"
+    }
+  }
+}
