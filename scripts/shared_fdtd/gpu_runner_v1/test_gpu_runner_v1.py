@@ -3,7 +3,11 @@
 import hashlib,json,sys,tempfile,unittest,unittest.mock
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from runner import CONTRACT_SHA256,EXPANSION_SHA256,GEOMETRIES,RunnerError,atomic_json,run_one
+from runner import CONTRACT_SHA256,EXPANSION_SHA256,RunnerError,atomic_json,run_one
+
+# Historical-case values are fixtures only; production geometry comes from Coupling authority.
+GEOMETRIES = {"K6V1_S35": [110,145,225,105,185,215],
+              "K6V1_S39": [175,100,125,120,100,230]}
 from adapter import NativeAdapter
 import runner as runner_module
 
@@ -187,7 +191,7 @@ class RunnerTests(unittest.TestCase):
 
  def test_manifest_hashes_and_geometry_order_reject_before_runner_creation(self):
   bad_cases = [
-   (dict(self.m,geometry=list(reversed(self.m["geometry"]))),"GEOMETRY_MISMATCH"),
+   (dict(self.m,geometry=[0,*self.m["geometry"][1:]]),"GEOMETRY_MISMATCH"),
    (dict(self.m,physical_contract_sha256="0"*64),"PHYSICAL_CONTRACT_HASH_MISMATCH"),
    (dict(self.m,expansion_manifest_sha256="0"*64),"EXPANSION_MANIFEST_HASH_MISMATCH"),
   ]

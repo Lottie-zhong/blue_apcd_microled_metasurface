@@ -16,7 +16,43 @@ sys.path.insert(0, str(HERE))
 import adapter as adapter_module
 from adapter import NativeAdapter, PRODUCTION_RUNNER_ROOT, main, run_cli
 from recover_s35_postentry_truth_v1 import json_safe, zero_solver_guard
-from runner import CONTRACT_SHA256, EXPANSION_SHA256, GEOMETRIES, MANIFEST_KEYS, RunnerError, run_one
+from runner import CONTRACT_SHA256, EXPANSION_SHA256, MANIFEST_KEYS, RunnerError, run_one
+
+# Historical-case values are fixtures only; production geometry comes from Coupling authority.
+GEOMETRIES = {"K6V1_S35": [110,145,225,105,185,215],
+              "K6V1_S39": [175,100,125,120,100,230]}
+
+def _sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            h.update(block)
+    return h.hexdigest()
+
+def _stage1_case(case_id):
+    attempt_id = "attempt_001"
+    case_dir = adapter_module.SETUP_AUTHORITY_ROOT / case_id / attempt_id
+    authority_path = case_dir / "authority_input_manifest.json"
+    load_only_path = case_dir / "load_only_validation.json"
+    authority = json.loads(authority_path.read_text(encoding="utf-8"))
+    manifest = {
+        "case_id": case_id, "attempt_id": attempt_id,
+        "geometry": authority["ordered_D_nm"],
+        "physical_contract_sha256": authority["physical_contract_hash"],
+        "expansion_manifest_sha256": authority["stage1_expansion_manifest_sha256"],
+        "pre_fsp_path": authority["canonical_pre_fsp_path"],
+        "pre_fsp_sha256": authority["canonical_pre_fsp_sha256"],
+    }
+    setup_authority = {
+        "authority_manifest_path": str(authority_path),
+        "authority_manifest_sha256": _sha256_file(authority_path),
+        "load_only_validation_path": str(load_only_path),
+        "load_only_validation_sha256": _sha256_file(load_only_path),
+    }
+    return manifest, setup_authority
+
+def _production_contract():
+    return Path(r"D:\apcd_runtime\gpu_production_runner_v1\contracts\pw_contract_32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5.json")
 
 
 class FakeLauncher:
@@ -307,38 +343,113 @@ class AdapterBarrierTests(unittest.TestCase):
         self.assertEqual(calls,["injected"])
 
 
-    def test_setup_structural_validator_loads_unsolved_authority_fsp_without_result_cards(self):
-        if not adapter_module.SETUP_CANONICAL_FSP_PATH.is_file():
-            self.skipTest("remote Lumerical authority input is unavailable")
-        contract = Path(r"D:\\apcd_runtime\\gpu_production_runner_v1\\contracts\\pw_contract_32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5.json")
-        manifest = {
-            "case_id":"K6V1_S39", "attempt_id":"attempt_001", "run_id":"setup-only-test",
-            "geometry":[175,100,125,120,100,230], "physical_contract_sha256":CONTRACT_SHA256,
-            "expansion_manifest_sha256":"4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
-            "pre_fsp_path":str(adapter_module.SETUP_CANONICAL_FSP_PATH),
-            "pre_fsp_sha256":adapter_module.SETUP_CANONICAL_FSP_SHA256,
-        }
+    def _run_setup_load_only(self, case_id):
+        manifest, case_authority = _stage1_case(case_id)
+        contract = _production_contract()
         adapter = object.__new__(NativeAdapter)
         adapter.contract_path = contract
-        report = adapter.setup_structural_validate(manifest)
+        report = adapter.setup_structural_validate(manifest, case_authority=case_authority)
         self.assertEqual(report["result"], "PASS")
         self.assertFalse(report["solver_run_called"])
+        self.assertEqual(report["solver_invocations"], 0)
         self.assertFalse(report["scientific_entry_performed"])
-        readback = report["setup_readback"]
-        self.assertEqual(readback["ordered_D_nm"], manifest["geometry"])
-        self.assertEqual(readback["monitors"]["MON_IN"]["z_nm"], -100.0)
-        self.assertEqual(readback["meshes"]["NP_DERIVED_BASELINE_N2"]["step_nm"], [5.0,5.0,5.0])
-        self.assertEqual(readback["sources"]["PW_SRC_X_FORWARD"]["direction"], "Forward")
-        self.assertEqual(readback["sources"]["PW_SRC_X_FORWARD"]["polarization_angle_deg"], 0.0)
+        self.assertEqual(report["case_id"], case_id)
+        self.assertEqual(report["ordered_D_nm"], manifest["geometry"])
+        self.assertEqual(report["setup_readback"]["run_called"], False)
+        self.assertEqual(report["setup_readback"]["save_called_by_validator"], False)
+        self.assertEqual(report["load_only_semantic_parity"]["status"], "PASS")
+        return manifest, case_authority, report
+
+    def test_setup_structural_validator_keeps_s39_generic_manifest_regression(self):
+        source = adapter_module.SETUP_AUTHORITY_ROOT / "K6V1_S39/attempt_001/authority_input_manifest.json"
+        if not source.is_file():
+            self.skipTest("remote Coupling authority inputs are unavailable")
+        _, _, report = self._run_setup_load_only("K6V1_S39")
+        self.assertEqual(report["mesh_authority"], "PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1")
+        self.assertEqual(report["setup_readback"]["meshes"]["NP_DERIVED_BASELINE_N2"]["step_nm"], [5.0,5.0,5.0])
+
+    def test_setup_structural_validator_accepts_s21_with_its_own_manifest(self):
+        source = adapter_module.SETUP_AUTHORITY_ROOT / "K6V1_S21/attempt_001/authority_input_manifest.json"
+        if not source.is_file():
+            self.skipTest("remote Coupling authority inputs are unavailable")
+        manifest, _, report = self._run_setup_load_only("K6V1_S21")
+        self.assertEqual(report["setup_readback"]["ordered_D_nm"], manifest["geometry"])
+
+    def test_cli_reader_consumes_generic_case_authority_outside_core_manifest(self):
+        manifest, case_authority = _stage1_case("K6V1_S21")
+        manifest["run_id"] = "manifest-parse-zero-solver"
+        envelope = dict(manifest)
+        envelope["physical_contract_path"] = str(_production_contract())
+        envelope["setup_authority"] = case_authority
+        path = self.base / "generic-case-envelope.json"
+        path.write_text(json.dumps(envelope), encoding="utf-8")
+        parsed, contract_path = adapter_module.read_cli_manifest(path)
+        self.assertEqual(parsed["_setup_authority"], case_authority)
+        self.assertEqual(set(parsed) - {"_setup_authority"}, MANIFEST_KEYS)
+        self.assertEqual(contract_path, _production_contract())
+
+    def test_s21_manifest_rejects_s39_authority_before_fsp_load(self):
+        manifest, _ = _stage1_case("K6V1_S21")
+        _, s39_authority = _stage1_case("K6V1_S39")
+        adapter = object.__new__(NativeAdapter)
+        adapter.contract_path = _production_contract()
+        with unittest.mock.patch.object(adapter_module, "load_pinned_setup_validator") as load:
+            with self.assertRaisesRegex(RunnerError, "SETUP_AUTHORITY_PATH_MISMATCH"):
+                adapter.setup_structural_validate(manifest, case_authority=s39_authority)
+        load.assert_not_called()
+
+    def test_manifest_geometry_mismatch_fails_before_fsp_load(self):
+        manifest, authority = _stage1_case("K6V1_S21")
+        manifest["geometry"] = list(manifest["geometry"])
+        manifest["geometry"][0] += 1
+        adapter = object.__new__(NativeAdapter)
+        adapter.contract_path = _production_contract()
+        with unittest.mock.patch.object(adapter_module, "load_pinned_setup_validator") as load:
+            with self.assertRaisesRegex(RunnerError, "SETUP_CASE_OR_AUTHORITY_MISMATCH"):
+                adapter.setup_structural_validate(manifest, case_authority=authority)
+        load.assert_not_called()
+
+    def test_manifest_fsp_hash_mismatch_fails_before_fsp_load(self):
+        manifest, authority = _stage1_case("K6V1_S21")
+        manifest["pre_fsp_sha256"] = "0" * 64
+        adapter = object.__new__(NativeAdapter)
+        adapter.contract_path = _production_contract()
+        with unittest.mock.patch.object(adapter_module, "load_pinned_setup_validator") as load:
+            with self.assertRaisesRegex(RunnerError, "SETUP_SOURCE_OR_STAGED_HASH_MISMATCH"):
+                adapter.setup_structural_validate(manifest, case_authority=authority)
+        load.assert_not_called()
+
+    def test_manifest_contract_hash_mismatch_fails_before_fsp_load(self):
+        manifest, authority = _stage1_case("K6V1_S21")
+        manifest["physical_contract_sha256"] = "0" * 64
+        adapter = object.__new__(NativeAdapter)
+        adapter.contract_path = _production_contract()
+        with unittest.mock.patch.object(adapter_module, "load_pinned_setup_validator") as load:
+            with self.assertRaisesRegex(RunnerError, "SETUP_PHYSICAL_CONTRACT_HASH_MISMATCH"):
+                adapter.setup_structural_validate(manifest, case_authority=authority)
+        load.assert_not_called()
+
+    def test_manifest_case_and_attempt_identity_mismatches_fail_closed(self):
+        for field, value in (("case_id", "K6V1_S39"), ("attempt_id", "attempt_002")):
+            manifest, authority = _stage1_case("K6V1_S21")
+            manifest[field] = value
+            adapter = object.__new__(NativeAdapter)
+            adapter.contract_path = _production_contract()
+            with unittest.mock.patch.object(adapter_module, "load_pinned_setup_validator") as load:
+                with self.assertRaises(RunnerError):
+                    adapter.setup_structural_validate(manifest, case_authority=authority)
+            load.assert_not_called()
 
     def test_postrun_truth_validator_still_rejects_setup_fsp_without_result_dcards(self):
-        if not adapter_module.SETUP_CANONICAL_FSP_PATH.is_file():
+        manifest, _ = _stage1_case("K6V1_S39")
+        source_fsp = Path(manifest["pre_fsp_path"])
+        if not source_fsp.is_file():
             self.skipTest("remote Lumerical authority input is unavailable")
         import shutil
         import sys
         run_dir = self.base / "postrun-strictness"
         run_dir.mkdir()
-        shutil.copyfile(adapter_module.SETUP_CANONICAL_FSP_PATH, run_dir / "run.fsp")
+        shutil.copyfile(source_fsp, run_dir / "run.fsp")
         strict_launcher = adapter_module.load_pinned_launcher()
         adapter = object.__new__(NativeAdapter)
         adapter.contract_path = Path(r"D:\\apcd_runtime\\gpu_production_runner_v1\\contracts\\pw_contract_32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5.json")
@@ -346,13 +457,7 @@ class AdapterBarrierTests(unittest.TestCase):
         adapter.gpu_resource_name = "GPU license audit"
         adapter.fdtd_exe = None
         adapter.launcher = strict_launcher
-        manifest = {
-            "case_id":"K6V1_S39", "attempt_id":"attempt_001", "run_id":"strictness-test",
-            "geometry":[175,100,125,120,100,230], "physical_contract_sha256":CONTRACT_SHA256,
-            "expansion_manifest_sha256":"4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
-            "pre_fsp_path":str(adapter_module.SETUP_CANONICAL_FSP_PATH),
-            "pre_fsp_sha256":adapter_module.SETUP_CANONICAL_FSP_SHA256,
-        }
+        manifest["run_id"] = "strictness-test"
         adapter_module._prepare_postprocess_import_paths()
         with self.assertRaises(Exception) as caught:
             adapter.fresh_load_validate(manifest, run_dir)
@@ -379,7 +484,7 @@ class AdapterBarrierTests(unittest.TestCase):
             record = output / "preflight" / manifest["case_id"] / manifest["attempt_id"] / manifest["run_id"] / "postprocess_dependency_preflight.json"
             self.assertTrue(record.is_file())
             self.assertEqual(json.loads(record.read_text())["result"],"PASS")
-            self.assertIs(args[-1].__self__,callbacks)
+            self.assertTrue(callable(args[-1]))
             events.append("runner-entry-boundary")
             return {"state":"NOT_ENTERED"}
         with unittest.mock.patch.object(adapter_module,"read_cli_manifest",return_value=(manifest,self.contract)):

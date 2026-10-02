@@ -9,8 +9,6 @@ MAX_CONCURRENT_GPU_JOBS = 1
 
 CONTRACT_SHA256 = "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
 EXPANSION_SHA256 = "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f"
-GEOMETRIES = {"K6V1_S35": [110,145,225,105,185,215],
-              "K6V1_S39": [175,100,125,120,100,230]}
 MIN_GPU_FREE_MIB = 1369
 S35_RECOVERY_RUN_ID = "S35-20261002T044427Z-e702b2ac"
 S35_RECOVERY_RELATIVE = (Path("recovery") / "K6V1_S35" / "attempt_001" /
@@ -172,7 +170,9 @@ def validate_manifest(m):
     for k in ("case_id","attempt_id","run_id"):
         if not isinstance(m[k],str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}",m[k]):
             raise RunnerError("INVALID_"+k.upper())
-    if m["case_id"] not in GEOMETRIES or m["geometry"]!=GEOMETRIES[m["case_id"]]:
+    geometry = m.get("geometry")
+    if (not isinstance(geometry, list) or len(geometry) != 6
+            or any(type(value) is not int or value <= 0 for value in geometry)):
         raise RunnerError("GEOMETRY_MISMATCH")
     if m["physical_contract_sha256"]!=CONTRACT_SHA256: raise RunnerError("PHYSICAL_CONTRACT_HASH_MISMATCH")
     if m["expansion_manifest_sha256"]!=EXPANSION_SHA256: raise RunnerError("EXPANSION_MANIFEST_HASH_MISMATCH")
