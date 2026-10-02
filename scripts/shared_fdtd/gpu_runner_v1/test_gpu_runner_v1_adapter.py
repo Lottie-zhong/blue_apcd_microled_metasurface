@@ -8,13 +8,14 @@ import sys
 import tempfile
 import unittest
 import unittest.mock
+import numpy as np
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import adapter as adapter_module
 from adapter import NativeAdapter, PRODUCTION_RUNNER_ROOT, main, run_cli
-from recover_s35_postentry_truth_v1 import zero_solver_guard
+from recover_s35_postentry_truth_v1 import json_safe, zero_solver_guard
 from runner import CONTRACT_SHA256, EXPANSION_SHA256, GEOMETRIES, MANIFEST_KEYS, RunnerError, run_one
 
 
@@ -87,6 +88,13 @@ class AdapterBarrierTests(unittest.TestCase):
         self.assertEqual(blocked, ["run", "runanalysis", "runsetup"])
         for name, method in original_methods.items():
             self.assertIs(getattr(FakeFDTD, name), method)
+
+    def test_recovery_json_safe_converts_numpy_scalars_and_arrays(self):
+        payload = {"accepted": np.bool_(True), "values": np.asarray([1.0, 2.0])}
+        converted = json_safe(payload)
+        self.assertIs(type(converted["accepted"]), bool)
+        self.assertEqual(converted, {"accepted": True, "values": [1.0, 2.0]})
+        json.dumps(converted, allow_nan=False)
 
     def test_cli_contract_hash_failure_happens_before_adapter_or_solver(self):
         p = self.base / "manifest.json"

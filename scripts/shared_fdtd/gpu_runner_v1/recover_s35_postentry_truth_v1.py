@@ -16,7 +16,7 @@ RUNNER_ROOT = Path(r"D:\apcd_runtime\gpu_production_runner_v1")
 RUN_DIR = RUNNER_ROOT / "runs" / "K6V1_S35" / "attempt_001" / "S35-20261002T044427Z-e702b2ac"
 PREFLIGHT_DIR = RUNNER_ROOT / "preflight" / "K6V1_S35" / "S35-20261002T044427Z-e702b2ac"
 CONTRACT_PATH = RUNNER_ROOT / "contracts" / "pw_contract_32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5.json"
-RECOVERY_ROOT = RUNNER_ROOT / "recovery" / "K6V1_S35" / "attempt_001" / "S35-20261002T044427Z-e702b2ac" / "recovery_002"
+RECOVERY_ROOT = RUNNER_ROOT / "recovery" / "K6V1_S35" / "attempt_001" / "S35-20261002T044427Z-e702b2ac" / "recovery_003"
 
 RUN_ID = "S35-20261002T044427Z-e702b2ac"
 CASE_ID = "K6V1_S35"
@@ -65,6 +65,17 @@ def verify_originals(manifest):
 
 def finite(value):
     return isinstance(value, (int, float)) and math.isfinite(float(value))
+
+def json_safe(value):
+    if isinstance(value, dict):
+        return {str(key): json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [json_safe(item) for item in value]
+    if hasattr(value, "tolist"):
+        return json_safe(value.tolist())
+    if hasattr(value, "item"):
+        return json_safe(value.item())
+    return value
 
 @contextmanager
 def zero_solver_guard(fdtd_class, calls):
@@ -293,6 +304,7 @@ def main():
         "solver_invocations_after_recovery": original_status.get("solver_invocations"),
         "replay_count": 0,
     }
+    validation_record = json_safe(validation_record)
     validation_path = RECOVERY_ROOT / "validation.json"
     atomic_json(validation_path, validation_record)
     validation_durable = (
@@ -357,7 +369,7 @@ def main():
         "s39_run": False,
         "recovery_root": str(RECOVERY_ROOT),
     }
-    print(json.dumps(final, sort_keys=True))
+    print(json.dumps(json_safe(final), sort_keys=True))
     return 0 if result == "PASS" else 1
 
 if __name__ == "__main__":
