@@ -1,0 +1,185 @@
+{
+  "DOE": {
+    "all_rows_unique_from_truth32_reserve_and_exclusion_registry": true,
+    "axis_rule": "for each ordered coordinate D_i, one case anchor with D_i-5 and one with D_i+5; all other coordinates fixed at anchor",
+    "axis_step_nm": 5,
+    "clip_or_asymmetric_truncation": false,
+    "confirmation_rule": "all six coordinates move +/-5 nm, each coordinate has two plus and two minus across four cases; combinations remain sealed until model/protocol freeze",
+    "confirmation_sign_patterns_by_ordered_D1_to_D6": [
+      [
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      [
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      [
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        -1
+      ]
+    ],
+    "cyclic_permutation_augmentation": false,
+    "development_axis_cases": 12,
+    "new_logical_cases": 16,
+    "sealed_confirmation_cases": 4
+  },
+  "anchor_selection": {
+    "32G_geometry_centroid_nm": [
+      165.9375,
+      165.78125,
+      161.25,
+      167.96875,
+      165.3125,
+      157.8125
+    ],
+    "boundary_margin_nm": 10,
+    "eligibility": "anchor supports exact +/-5 nm on each of D1..D6 and all four frozen sign combinations; all points on 5 nm grid, within [100,230], non-overlap and no match with 32G, reserve, or protected ordered geometry",
+    "min_periodic_neighbor_clearance_nm": 75.0,
+    "ordered_rule": [
+      "maximize minimum diameter-boundary margin min_i(min(D_i-100,230-D_i))",
+      "maximize minimum cyclic neighbor geometric clearance 290-(D_i+D_(i+1))/2; geometric non-overlap only, not a manufacturing threshold",
+      "minimize normalized Euclidean distance to coordinatewise centroid of formal 32G",
+      "lexicographic case_id"
+    ],
+    "response_or_model_metrics_used": false,
+    "selected_anchor_case_id": "K6V1_S31",
+    "selected_anchor_geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+    "selected_anchor_ordered_D_nm": [
+      220,
+      195,
+      210,
+      150,
+      140,
+      210
+    ],
+    "truth_valid_source": "32G formal dataset authority only"
+  },
+  "authority": {
+    "32G_dataset": "reports/coupling/PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1/PW_K6_32G_DATASET_AUTHORITY_V1.json",
+    "32G_dataset_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+    "geometry_domain": "reports/coupling/PW_K6_GEOMETRY_DOMAIN_AUTHORITY_V1.json",
+    "geometry_domain_sha256": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+    "geometry_exclusion_registry_sha256": "78f48a4400d5ab469a2054a8ad849d5cae16cb4bee042e2b542529a78973bb80",
+    "ordered_geometry": "D1..D6 are position sensitive; sorting/cyclic registration/permutation augmentation forbidden",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
+  },
+  "coverage_protocol": {
+    "fixed_distance_bins": [
+      [
+        0,
+        0.5
+      ],
+      [
+        0.5,
+        1.0
+      ],
+      [
+        1.0,
+        1.5
+      ],
+      [
+        1.5,
+        null
+      ]
+    ],
+    "geometry_distance": "sqrt(sum(((D_i-D'_i)/130)^2)); formal geometry-domain authority",
+    "interpretation": "descriptive dependent pair comparisons only; no causal D_i derivative, no geometry*wavelength pseudo-replication, no ML fit/OOD feature use",
+    "neighbor_count_radii": [
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5
+    ],
+    "pairwise_responses": {
+      "C_hat": "symmetric complex-state relative L2 = 2||C_i-C_j||2/(||C_i||2+||C_j||2), aggregating 21 wavelengths x 7 transmitted orders x TE/TM; coordinates use formal C_PW reconstruction/H2 normalization",
+      "P_scale": "mean absolute log ratio |ln(P_i/P_j)| over 21 wavelength values from official truth P_scale",
+      "routing": "RMS eta difference over same paired 21x7 values from frozen H2"
+    },
+    "summaries": "per-coordinate ranges/quantiles; nearest-neighbor and radius neighbor counts; sample-cluster summary; Pearson/Spearman and fixed-bin summaries for pairwise geometry-distance vs response-difference"
+  },
+  "data_dependencies": {
+    "C_hat": "POSTNP +z, orders m=-3..+3, n=0, TE/TM, formal H2 normalization",
+    "P_scale": "20G formal truth scalar; Stage-1 raw POSTNP E/H trapezoidal Poynting integration / unit-cell area / incident power per area",
+    "existing_truth": "official 32 individual PW_COMPLEX_FLOQUET_STATE_V1 cases, verified against dataset authority SHA; do not consume prior aggregate prediction archives",
+    "future_extraction": "frozen Runner truth path must generate state and raw E/H provenance; current novel-case authority missing; no label extraction or solve in this task"
+  },
+  "frozen_utc": "2026-10-03T16:26:35.846759+00:00",
+  "future_local_validation": {
+    "candidate": "single local affine Taylor/Ridge-free OLS baseline on centered deltaD/5 features; independent output channels for C_hat real/imaginary coordinates and separate P_scale; no PCA/rank truncation, no neural architecture search, no oracle physics labels",
+    "confirmation": "freeze code, coefficients, preprocessing, metrics and protocol after development; only then open 4 combo truth once; no tuning/selection on confirmation; 4 points support only local check, not full-domain inference",
+    "decoder_and_gates": "predicted C_hat and predicted P_scale through original physical-state reconstruction and frozen H2; report original H1 component thresholds unchanged, including N/A/FAIL. No production admission; deterministic OLS cannot establish original seed-stability gate, so complete conjunctive H1 PASS is not claimable",
+    "development_evaluation": "12 leave-one-axial-geometry-out folds; anchor plus other 11 development geometries train, all 21 wavelengths of held geometry test; after CV, one final fit on anchor+12 axial groups",
+    "inputs": "six ordered diameters, fixed positions/origin and wavelength grid; wavelength remains grouped within geometry",
+    "limits": "axial finite differences diagnose local coordinate response only; cannot show cross-coordinate interactions vanish; combo points assess only these four locations",
+    "local_domain": "ordered six-dimensional discrete hypercube around anchor, each D_i in {anchor_i-5,anchor_i,anchor_i+5}; only anchor, 12 axial development points and 4 of 64 possible combined vertices sampled",
+    "outputs": "Cartesian normalized C_hat per transmitted order and TE/TM coordinate plus independent positive scalar P_scale; same formal reference, source normalization and units",
+    "training_budget": "zero neural optimizer updates; 12 deterministic geometry-grouped OLS solves for development CV plus one final OLS fit; 4 sealed evaluations once after freeze; no model selection or additional candidates"
+  },
+  "schema": "COUPLING_ML_K6_LOCAL_LEARNABILITY_DOE_PLAN_PROTOCOL_V1",
+  "scope": {
+    "K": 6,
+    "contract": "current integrated 3D periodic plane-wave FDTD contract",
+    "fixed_MDC": true,
+    "grid_nm": 5,
+    "ordered_diameter_domain_nm": [
+      100,
+      230
+    ],
+    "pitch_nm": 290,
+    "reserve_cases": false,
+    "solver_entries_authorized": 0,
+    "spacer_nm": 237,
+    "training_fits_authorized": 0,
+    "wavelength_nm": [
+      440,
+      460,
+      1
+    ]
+  },
+  "setup_status": {
+    "candidate_manifest": "design-only; no runner attempt or run ID",
+    "canonical_pre_fsp": "Runner canonical identity remains unestablished: frozen Runner allows only 12 approved Stage-1 IDs and exact per-case authority manifest/load proof. The 16 task-private setup FSPs are outside the Runner canonical authority path.",
+    "current_generic_setup_builder": {
+      "paired_fresh_load_only_validator": "scripts/coupling_ml/validate_pw_k6_5nm_full_period_prefsp_v1.py",
+      "path": "scripts/coupling_ml/build_pw_k6_5nm_full_period_prefsp_v1.py",
+      "result": "16 task-private setup FSPs saved and fresh LOAD-only checks PASS; this is setup preparation only, not Runner novel-case authority or solver entry",
+      "sha256": "fbd3a3e73212568023c47d84223a41b32d5cb3cf8fd48a04d09bef7bb94eded1",
+      "validator_sha256": "b694ecf692376a33673b785774a8ea734c452f11009aad1cfe553f444817e2a8"
+    },
+    "diagnostic_overlay_supported": false,
+    "monitor_launch_dependency": "The prior two-air-plane POSTNP validation did not execute and has no independent second-air-plane field. Candidate FSPs inherit the current production monitor unchanged; Chat must review monitor validation/contract before any future launch.",
+    "production_monitor": "inherit current authority unchanged; independent two-air-plane audit blocked before setup/entry; monitor review is a launch dependency",
+    "runner_frozen_code_head": "783bd5741eb5e6853a3be5532624f4282f9488b7",
+    "runner_head": "1afa3e30f1de5e0192be6240a3754c89e2eb6f25",
+    "setup_builders_reviewed": [
+      "scripts/shared_fdtd/tools/build_medium_pw_setup_only_v1.py: fixed W2H setup only, not generic K6 case builder",
+      "PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1: 12 approved cases only"
+    ],
+    "zero_solver_structure_check": "All 16 geometry hashes/order/grid/domain/duplicate/protected exclusions/periodic no-overlap and builder mesh checks pass; all 16 setup-only saves and fresh LOAD-only readbacks pass; no solver entry or training."
+  },
+  "status": "FROZEN_GEOMETRY_RULES_BEFORE_RESPONSE_ANALYSIS",
+  "task": "COUPLING_ML_K6_LOCAL_LEARNABILITY_DOE_PLAN_V1"
+}
