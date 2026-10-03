@@ -6,7 +6,7 @@ COMPLETE; train-only development audit; no held-out generalization or production
 ## AUTHORITY / GIT
 Remote DESKTOP-NNE313K / dell; worktree D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1; canonical root D:/project/blue_apcd_microled_metasurface.
 Branch work/mdc-np-coupling-ml-v1; start HEAD f0f47023af9c306590414232155c0d539c3dfa4d; start ahead/behind 0/0. Expected HEAD verified.
-All 332 unrelated pre-existing worktree entries retain the same status hash. Frozen source and authority SHA-256 inputs are in protocol.json. No AGENTS.md was present in the formal worktree or canonical root; the user-provided project instructions governed this run.
+All 332 unrelated pre-existing worktree entries retain status hash 4d2ee81fb8d25f5c14d6513d147042b46547d0e42f22f90887ab39b9b097e893. Frozen source and authority SHA-256 inputs are in protocol.json. No AGENTS.md was present in the formal worktree or canonical root; the user-provided project instructions governed this run. Payload commit 211d0120ea3324b1a12221a750dfd91d7bc64b23 (parent f0f47023af9c306590414232155c0d539c3dfa4d) contains exactly the task allowlist; `git ls-remote origin refs/heads/work/mdc-np-coupling-ml-v1` verified the same SHA at 2026-10-03T12:13:26Z.
 
 ## ZERO-SOLVER / EXACT FIT COUNT
 ZERO solver, FDTD, GPU Runner, new HF, reserve, inverse search, P_scale fit, platform work, and full LOGO rerun. Exactly two fit IDs were started once: T0 and T1, 1,500 optimizer updates each and 3,000 total. CPU-only RCP_LCP runtime.
@@ -56,7 +56,7 @@ Three diagnostic-harness issues were repaired before their fit ID took any optim
 G0 saved predictions are close to constant under the true loss, output-variance, and correlation checks. Training code is correctly wired, and both architectures fit the four selected samples to the rank-2 floor. The saved G0 protocol selected short refits and did not fit its 31-geometry training sets. Review and preregister the early-stop/refit budget and train/validation trajectories before changing representation or claiming data insufficiency. Whether more training improves held-out performance remains untested. The tiny train-only fits do not establish generalization, physical correctness, H1 admission, or a need for new samples.
 
 ## ARTIFACTS / HASHES / COMMIT / PUSH
-Protocol, source checks, baseline comparisons, curves, fit/resume/final/minimum checkpoints, PCA floor, implementation fix log, and continuation are in this directory. Hash inventory is artifact_hashes.json. Exact-allowlist commit and normal push are pending.
+Protocol, source checks, baseline comparisons, curves, fit/resume/final/minimum checkpoints, PCA floor, implementation fix log, and continuation are in this directory. Hash inventory is artifact_hashes.json. Payload commit 211d0120ea3324b1a12221a750dfd91d7bc64b23 and normal push were verified against origin. The evidence follow-up is restricted to the six paths listed in audit.json; its final SHA is the repository HEAD reported at completion.
 
 ## NEXT - DO NOT EXECUTE
 Chat review: choose whether to preregister a training-protocol validation trajectory before any representation or data-coverage experiment. No follow-on fit or sample expansion was run or authorized.

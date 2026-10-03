@@ -2,16 +2,18 @@
 
 Read this file first, then protocol.json, checkpoint.json, source_audit.json, constant_baselines.json, four_geometry_pre_fit.json, fit_summary.json, reconstruction_and_training_audit.json, and artifact_hashes.json.
 
-Remote DESKTOP-NNE313K / dell. Canonical root D:/project/blue_apcd_microled_metasurface. Formal worktree D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1. Branch work/mdc-np-coupling-ml-v1. Start HEAD f0f47023af9c306590414232155c0d539c3dfa4d. Runtime N:/anaconda_envs/RCP_LCP/python.exe with CUDA disabled. No AGENTS.md exists in the worktree or canonical root; follow user-provided project instructions and frozen protocol.
+Remote DESKTOP-NNE313K / dell. Canonical root D:/project/blue_apcd_microled_metasurface. Formal worktree D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1. Branch work/mdc-np-coupling-ml-v1. Runtime N:/anaconda_envs/RCP_LCP/python.exe with CUDA disabled. No AGENTS.md exists in the worktree or canonical root; user-provided project instructions govern.
 
-Authority consists of the committed G0 ordered-periodic POC and C0 amplitude/circular-phase POC, plus frozen input hashes in protocol.json. Expected HEAD was verified; no authority conflict was found.
+Authority: committed G0 ordered-periodic POC and C0 amplitude/circular-phase POC, with frozen input hashes in protocol.json. This audit started at f0f47023af9c306590414232155c0d539c3dfa4d; the expected start HEAD was verified, with no authority conflict.
 
 Scope: trainability diagnosis only. ZERO solver, GPU Runner, new HF, reserve, inverse search, P_scale fit, full LOGO rerun, or platform work. No held-out truth was evaluated.
 
-Fold 0 held out K6V1_S02. Its four selected train cases, chosen lexicographically from outer train, are K6V1_EXT01, K6V1_EXT02, K6V1_EXT03, K6V1_EXT04. The outer-train scaler/PCA were reconstructed deterministically; saved PCA parity was exact.
+Fold 0 held out K6V1_S02. Four lexicographically selected outer-train cases were K6V1_EXT01, K6V1_EXT02, K6V1_EXT03, K6V1_EXT04, each with the complete 21-wavelength spectrum. Outer-train scaler/PCA were reconstructed deterministically and saved PCA parity was exact.
 
-Exactly two fits completed once: T0 frozen C0 M5 and T1 frozen G0, seed 0, full batch, same four geometries, CPU AdamW lr 0.002 / weight_decay 0.0001 / clip 5, no validation, exactly 1,500 updates each. Total 3,000. Final, minimum-loss, and resumable checkpoints plus step curves are persisted. Do not launch more fits.
+Exactly two fits completed once: T0 frozen C0 M5 and T1 frozen G0, seed 0, same four geometries, CPU AdamW lr 0.002 / weight_decay 0.0001 / clip 5, no validation, exactly 1,500 updates each (3,000 total). Final, minimum-loss, and resumable checkpoints plus step curves are persisted. Do not launch more fits.
 
-Current phase: report and audit complete; exact-allowlist commit and normal push pending. Saved G0 outputs are near-constant relative to actual zero/mean baselines. Both tiny fits reach the rank-2 train floor by about step 300. This is not held-out evidence. Review the early-stop/refit budget before a next representation or data experiment; do not execute the proposal without Chat selection.
+Finding: saved G0 outputs are near-constant relative to the actual zero/mean baselines (median train loss 0.997874, median output/target latent variance ratio 0.000133, median coordinate correlation 0.132). The training chain passed gradient, optimizer, checkpoint, and refit-step reconciliation checks. Both tiny fits reached the nonzero rank-2 reconstruction floor by about step 300; this is train-only evidence, not generalization. The saved protocol did not fit its 31-geometry G0 outer-train set well; whether a longer/preregistered training budget improves held-out results remains untested.
 
-Recovery: no fit needs resumption. Read the report and artifact_hashes.json; preserve all 332 unrelated worktree entries. Stage only exact paths recorded in audit.json, then normal push.
+Payload commit 211d0120ea3324b1a12221a750dfd91d7bc64b23 (parent f0f47023af9c306590414232155c0d539c3dfa4d) contains exactly the 32 paths in audit.json. At 2026-10-03T12:13:26Z, `git ls-remote origin refs/heads/work/mdc-np-coupling-ml-v1` returned 211d0120ea3324b1a12221a750dfd91d7bc64b23; the branch was 0 ahead / 0 behind, and the 332 unrelated worktree entries retained status hash 4d2ee81fb8d25f5c14d6513d147042b46547d0e42f22f90887ab39b9b097e893. This continuation records the payload push evidence. The evidence follow-up is limited to the exact six paths in audit.json; obtain its final commit with `git rev-parse HEAD`.
+
+Recovery: no fit needs resumption. Read the final report and artifact_hashes.json. Preserve all unrelated worktree entries. No follow-on fit, representation experiment, or sample expansion has been run or authorized.
