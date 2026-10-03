@@ -1,0 +1,164 @@
+{
+  "task": "COUPLING_ML_POSTNP_MONITOR_VALIDITY_AUDIT_V1",
+  "date": "2026-10-03",
+  "status": "PARTIAL",
+  "zero_execution": {
+    "solver_runs_started": 0,
+    "new_training_fits": 0,
+    "gpu_runner_started": false,
+    "production_monitor_moved": false,
+    "truth_or_contract_modified": false,
+    "historical_hf_rerun": false
+  },
+  "repository": {
+    "host": "DESKTOP-NNE313K",
+    "user": "desktop-nne313k\\dell",
+    "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+    "branch": "work/mdc-np-coupling-ml-v1",
+    "input_head": "ddda6b302d9282f416028386903ba8e7b39cbc50",
+    "upstream": "0 0",
+    "preexisting_status_entries": 332,
+    "preexisting_status_sha256": "e26c3debc7523bb4d157ac679656032d99c544ea675d770887afa7b236d964bc"
+  },
+  "input_evidence": [
+    {
+      "path": "reports/coupling/PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1/PW_K6_32G_DATASET_AUTHORITY_V1.json",
+      "expected_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+      "actual_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+      "match": true
+    },
+    {
+      "path": "contracts/coupling/medium_pw/MONITOR_SAMPLE_AND_REFERENCE_PLANE_AUTHORITY_V1.json",
+      "expected_sha256": "f49e0f9dcd07f2621cebd337854d507e284ead6e4b99ee774916a58695e6dcc9",
+      "actual_sha256": "f49e0f9dcd07f2621cebd337854d507e284ead6e4b99ee774916a58695e6dcc9",
+      "match": true
+    },
+    {
+      "path": "contracts/coupling/medium_pw/MEDIUM_PW_MONITOR_CONTRACT_V1.json",
+      "expected_sha256": "a84d8526889084f2b3b09022402ca93b2947939cb744f071a4b19bc6eb09172f",
+      "actual_sha256": "a84d8526889084f2b3b09022402ca93b2947939cb744f071a4b19bc6eb09172f",
+      "match": true
+    },
+    {
+      "path": "reports/coupling/PW_K6_K6V1_EXT02_RECOVERY_EVIDENCE_MANIFEST_V1.json",
+      "expected_sha256": "3c9659818bbaebd9ea616bc5c1f2ff9f3361e9765faf49c3eddae027425393e6",
+      "actual_sha256": "3c9659818bbaebd9ea616bc5c1f2ff9f3361e9765faf49c3eddae027425393e6",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/setup/runtime.fsp",
+      "expected_sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143",
+      "actual_sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/raw/K6V1_EXT02__attempt_001_raw_complex_fields.npz",
+      "expected_sha256": "805b4f9e8e83db950f77fed0b4e29d7afa1423d02d9c679cdb00ed80c1753af1",
+      "actual_sha256": "805b4f9e8e83db950f77fed0b4e29d7afa1423d02d9c679cdb00ed80c1753af1",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/raw/K6V1_EXT02__attempt_001_raw.json",
+      "expected_sha256": "204c98703d9dddddbf3acfa7fd0d175cb7d206fdbb18ce6c1374a0c7310cc7bd",
+      "actual_sha256": "204c98703d9dddddbf3acfa7fd0d175cb7d206fdbb18ce6c1374a0c7310cc7bd",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/archive_restore/K6V1_EXT02__attempt_001_runtime/K6V1_EXT02__attempt_001_runtime_output.h5",
+      "expected_sha256": "838a9809a22c206df1f7f40f5d70ff3a404a07da4a329178ea9bf41c195017b8",
+      "actual_sha256": "838a9809a22c206df1f7f40f5d70ff3a404a07da4a329178ea9bf41c195017b8",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/state/K6V1_EXT02__attempt_001_pw_complex_floquet_state.npz",
+      "expected_sha256": "bcb4d2c3d48bb6d033396cc0725eca9e1bfbe57759c5f002b0347e3ccfc61cf4",
+      "actual_sha256": "bcb4d2c3d48bb6d033396cc0725eca9e1bfbe57759c5f002b0347e3ccfc61cf4",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/state/K6V1_EXT02__attempt_001_pw_complex_floquet_state.json",
+      "expected_sha256": "0fef469ddcf518034dc6a1ce23fcb172e8a8421d186af7a35f151fca351ce8cf",
+      "actual_sha256": "0fef469ddcf518034dc6a1ce23fcb172e8a8421d186af7a35f151fca351ce8cf",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/projection/K6V1_EXT02__attempt_001_projection.json",
+      "expected_sha256": "6b465c3093787f66010a1db91cae774ae67365d9c072652f8fd2e9e2444147eb",
+      "actual_sha256": "6b465c3093787f66010a1db91cae774ae67365d9c072652f8fd2e9e2444147eb",
+      "match": true
+    },
+    {
+      "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/orders/K6V1_EXT02__attempt_001_orders.json",
+      "expected_sha256": "3c7cbe2ff4825d2f59249bac975ccd97f16a082a2c17c53e0ae24b3ef0b413cc",
+      "actual_sha256": "3c7cbe2ff4825d2f59249bac975ccd97f16a082a2c17c53e0ae24b3ef0b413cc",
+      "match": true
+    },
+    {
+      "path": "scripts/shared_fdtd/tools/pw_complex_floquet_state_v1.py",
+      "expected_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+      "actual_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+      "match": true
+    },
+    {
+      "path": "scripts/shared_fdtd/tools/pw_scientific_launcher.py",
+      "expected_sha256": "9c103393c8fedfd8a7d5e5e769a94ca341f6a5a1c42b1a84f0511685c7f93b36",
+      "actual_sha256": "9c103393c8fedfd8a7d5e5e769a94ca341f6a5a1c42b1a84f0511685c7f93b36",
+      "match": true
+    },
+    {
+      "path": "scripts/shared_fdtd/tools/build_medium_pw_setup_only_v1.py",
+      "expected_sha256": "2b297e8ecfe203e56def9e0f10b0550b3eaa6ae09e6e2157cba6d0cc2381ac05",
+      "actual_sha256": "2b297e8ecfe203e56def9e0f10b0550b3eaa6ae09e6e2157cba6d0cc2381ac05",
+      "match": true
+    },
+    {
+      "path": "reports/coupling/PW_K6_MODAL_TO_GRATING_POWER_NORMALIZATION_RECONCILIATION_V1.md",
+      "expected_sha256": "a32c3b043782cab4133f2193bc5f9d9d62e5bd4996a6c7d7ab0c61c7c8c55c19",
+      "actual_sha256": "a32c3b043782cab4133f2193bc5f9d9d62e5bd4996a6c7d7ab0c61c7c8c55c19",
+      "match": true
+    },
+    {
+      "path": "reports/coupling/MONITOR_SAMPLE_AND_REFERENCE_PLANE_AUTHORITY_V1.md",
+      "expected_sha256": "9da0bb13309b1daede2c55a388b8bd3db408541dde1c4281e51ae6861495f6fc",
+      "actual_sha256": "9da0bb13309b1daede2c55a388b8bd3db408541dde1c4281e51ae6861495f6fc",
+      "match": true
+    },
+    {
+      "path": "reports/coupling/PW_K6_5NM_FULL_PERIOD_MESH_PROSPECTIVE_AUTHORITY_V1.md",
+      "expected_sha256": "d12b560a0db87179cf6276184148bcdf74e5274b632135709da937fe048b1105",
+      "actual_sha256": "d12b560a0db87179cf6276184148bcdf74e5274b632135709da937fe048b1105",
+      "match": true
+    }
+  ],
+  "history": [
+    {
+      "sha": "7c0bb4374d59017ee64e099bfcb0a63b2cd4aed",
+      "date": "2026-09-21",
+      "finding": "older POSTNP=2212 setup"
+    },
+    {
+      "sha": "997efcdb97da7ed86f127ce152c191c623564e46",
+      "date": "2026-09-24",
+      "finding": "froze POSTNP=1800 and POSTNP_REF=1722"
+    }
+  ],
+  "gaps": [
+    "No independent second E/H plane in uniform Air above NP.",
+    "No separate screenshot file available in current user attachments."
+  ],
+  "outputs": [
+    {
+      "path": "reports/coupling/COUPLING_ML_POSTNP_MONITOR_VALIDITY_AUDIT_V1/POSTNP_MONITOR_VALIDITY_AUDIT_REPORT_V1.md",
+      "sha256": "7069c764e780f8e5a98f980a026e0cd497268705a211da596bab38c8bb05e71f"
+    },
+    {
+      "path": "reports/coupling/COUPLING_ML_POSTNP_MONITOR_VALIDITY_AUDIT_V1/CONTINUATION.md",
+      "sha256": "b4cd6e42fef431208084262079976102f31691924e69c727d6696f9097ada3ae"
+    }
+  ],
+  "external_sources": [
+    "https://optics.ansys.com/hc/en-us/articles/360034902393-Frequency-domain-monitor-Simulation-object",
+    "https://optics.ansys.com/hc/en-us/articles/360034382574-Tips-for-getting-the-actual-mesh-size-in-FDTD",
+    "https://optics.ansys.com/hc/en-us/articles/360034382414-Always-extend-structures-through-PML-boundary-conditions"
+  ]
+}
