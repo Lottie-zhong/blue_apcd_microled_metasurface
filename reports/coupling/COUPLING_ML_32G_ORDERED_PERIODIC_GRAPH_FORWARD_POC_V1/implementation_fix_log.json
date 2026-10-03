@@ -1,0 +1,16 @@
+{
+  "issues": [
+    {
+      "cause": "the audit-only calculation omitted explicit axes",
+      "fix": "broadcast coefficient axes before comparison; no evaluator or prediction changed",
+      "issue": "initial H2-vs-H1 audit diagnostic compared arrays with incompatible geometry/polarization axes"
+    },
+    {
+      "cause": "H1 modal_weights are normalized modal power ratios while H2 power_z_per_abs_e2 uses absolute wavelength-dependent units",
+      "fix": "normalize frozen H2 coefficients by the m=0 TE coefficient at each wavelength, then compare ratios; record the removed physical scale separately",
+      "issue": "raw H2 coefficient values differ from H1 modal_weights"
+    }
+  ],
+  "science_path_changed": false,
+  "training_or_solver_invocations_before_fix": 0
+}
