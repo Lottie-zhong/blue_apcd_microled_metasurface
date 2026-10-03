@@ -1,0 +1,141 @@
+{
+  "C0_available_training_audit": {
+    "completed_seed_fits": 96,
+    "inner_best_epoch_count": 288,
+    "inner_best_epoch_distribution": {
+      "mean": 11.32638888888889,
+      "median": 12.0,
+      "min": 1.0,
+      "q95": 23.0,
+      "worst": 32.0
+    },
+    "inner_best_validation_losses_available": false,
+    "inner_epochs_executed_available": false,
+    "parameter_delta_from_initialization_available": false,
+    "reason": "seed_progress stores each C0 selected epoch and three inner best epochs, but not inner executed epochs, validation losses, fitted parameter vectors, or train predictions; predictions_partial.npz contains only complex OOF C0/C1 arrays.",
+    "resume_or_recompute": false,
+    "saved_final_train_latent_predictions_available": false,
+    "saved_model_parameters_available": false,
+    "selected_outer_refit_epoch_distribution": {
+      "mean": 11.458333333333334,
+      "median": 12.0,
+      "min": 1.0,
+      "q95": 20.25,
+      "worst": 24.0
+    },
+    "selected_outer_refit_le_10": 40,
+    "selected_outer_refit_le_20": 91,
+    "sum_known_outer_refit_optimizer_updates": 1100,
+    "train_loss_curves_available": false
+  },
+  "C0_source_evidence": {
+    "inner_fit": "pw_k6_stage1_32g_frozen_model_v1.py:57-70",
+    "loss": "pw_k6_stage1_32g_frozen_model_v1.py:36",
+    "model": "pw_k6_stage1_32g_frozen_model_v1.py:20-28",
+    "outer_refit": "pw_k6_stage1_32g_frozen_model_v1.py:72-80",
+    "pca": "coupling_ml_32g_amplitude_circular_phase_forward_poc_v1.py:237-245",
+    "train_fold_and_epoch_conversion": "coupling_ml_32g_amplitude_circular_phase_forward_poc_v1.py:264-297"
+  },
+  "G0_checkpoint_load_audit": {
+    "all_saved_parameters_finite": true,
+    "format": "flattened float32 final_parameters array stored by direct model.parameters() iteration order; no optimizer state/checkpoint history saved",
+    "initial_train_loss_summary": {
+      "mean": 1.04908713361497,
+      "median": 1.037401369709763,
+      "min": 1.0323470805241635,
+      "q95": 1.0775752972196613,
+      "worst": 1.0797890057545774
+    },
+    "parameter_relative_l2_change_summary": {
+      "mean": 0.11093239303833495,
+      "median": 0.10300016030669212,
+      "min": 0.0343557633459568,
+      "q95": 0.18416456133127213,
+      "worst": 0.2503030598163605
+    },
+    "reconstructed_saved_parameter_train_loss_max_abs_delta": 3.907437529093727e-08,
+    "reconstructed_saved_train_state_max_abs_delta": 0.0,
+    "saved_train_loss_summary": {
+      "mean": 0.9954691441613989,
+      "median": 0.9978741206895512,
+      "min": 0.9272921758746043,
+      "q95": 1.0041653036148188,
+      "worst": 1.0149902527243795
+    },
+    "training_loss_drop_summary": {
+      "mean": 0.053617989453571234,
+      "median": 0.0397478075160852,
+      "min": 0.026570964042057943,
+      "q95": 0.08332023838148017,
+      "worst": 0.15249682987997304
+    }
+  },
+  "G0_early_stop_audit": {
+    "all_final_refit_counts_equal_median_inner_best_epoch": true,
+    "checkpoint_parameter_vector_count": 234624,
+    "final_fits": 96,
+    "inner_best_epoch_distribution": {
+      "mean": 20.791666666666668,
+      "median": 16.0,
+      "min": 1.0,
+      "q95": 49.0,
+      "worst": 60.0
+    },
+    "inner_best_epoch_le_10": 72,
+    "inner_best_epoch_le_20": 167,
+    "inner_epochs_executed_distribution": {
+      "mean": 65.79166666666667,
+      "median": 61.0,
+      "min": 46.0,
+      "q95": 94.0,
+      "worst": 105.0
+    },
+    "inner_fits": 288,
+    "outer_refit_le_10": 12,
+    "outer_refit_le_20": 61,
+    "outer_refit_steps_exactly_match_selected_epoch_count": true,
+    "outer_refit_updates_reconciled_with_total_step_count": true,
+    "per_fit_parameters": 2444,
+    "recorded_actual_optimizer_steps": 20786,
+    "saved_final_train_loss_present": true,
+    "saved_optimizer_moments_present": false,
+    "saved_training_curves_present": false,
+    "selected_outer_refit_epoch_distribution": {
+      "mean": 19.145833333333332,
+      "median": 17.0,
+      "min": 4.0,
+      "q95": 40.25,
+      "worst": 52.0
+    },
+    "sum_inner_and_outer_steps": 20786,
+    "sum_inner_optimizer_updates": 18948,
+    "sum_outer_refit_optimizer_updates": 1838
+  },
+  "G0_source_evidence": {
+    "basis_and_selected_epoch_conversion": "g0_run.py:173-204",
+    "inner_fit": "g0_run.py:122-138",
+    "loss": "g0_run.py:119-121",
+    "model": "COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/g0_ordered_periodic_model.py:31-68",
+    "outer_refit_and_checkpoint_output": "g0_run.py:140-152"
+  },
+  "actual_loss": "mean(((prediction-target)/maximum(std(target, axis=0),1e-12))**2); scale divides only, no target-mean subtraction; weight decay is optimizer-only, not included in reported loss.",
+  "input_scaler": "M5 Xform StandardScaler.fit(geometry/130); scaler fitted on outer train in frozen runners; G0 adds fixed physical positions divided by 1740 nm and keeps six positions ordered.",
+  "limits": [
+    "Prior fold-local PCA/scaler objects were not serialized; this audit reconstructs the deterministic same fit using only the matching outer-train rows and checks saved variance-ratio metadata.",
+    "No C0 parameter tensor, optimizer state, outer final train loss, or epoch curves are stored, so those quantities cannot be recovered without a prohibited C0 LOGO refit.",
+    "Static source checks show implementation wiring, but do not prove generalization or physical fidelity."
+  ],
+  "optimizer_audit": {
+    "both": "AdamW(model.parameters(), lr=0.002, weight_decay=0.0001); all model parameters are passed through parameters(); loss.backward(); clip_grad_norm_(...,5.0); optimizer.step(); training loss measured before update in each loop body; validation evaluated after update in eval/no_grad mode.",
+    "detach_audit": "No detach/no_grad is present between model forward and training loss/backward in the fit functions; no known broken gradient path from source.",
+    "validation": "inner validation is model.eval plus no_grad; final refit is model.train each step then final outputs/loss measured after the last update in eval/no_grad."
+  },
+  "selection_audit": {
+    "C0_refit_train_loss": "not saved by the frozen run",
+    "G0_refit_train_loss": "computed after the final update from the final checkpoint outputs",
+    "inner_best_epoch": "validation standardized latent MSE is computed after each optimizer update",
+    "outer_refit": "reset deterministic initialization, then train on all outer-train rows for integer median of the three inner best epochs"
+  },
+  "status": "PASS_STATIC_AND_CHECKPOINT_STRUCTURE_AUDIT",
+  "target": "one rank-2 Cartesian PCA fit independently for each of seven orders; order slots [-3..3], two scores/order; scores are not whitened or standardized by PCA."
+}

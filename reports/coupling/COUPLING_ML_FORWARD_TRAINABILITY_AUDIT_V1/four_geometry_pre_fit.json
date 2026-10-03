@@ -1,0 +1,176 @@
+{
+  "constant_baselines": {
+    "train_latent_mean": {
+      "original_loss": 1.0,
+      "raw_latent_mse": 0.3640578550196256,
+      "state": {
+        "median": 0.5736844065116318,
+        "min": 0.5444732755726676,
+        "per_geometry": {
+          "K6V1_EXT01": 0.5794072898071719,
+          "K6V1_EXT02": 0.6894493898733411,
+          "K6V1_EXT03": 0.5679615232160915,
+          "K6V1_EXT04": 0.5444732755726676
+        },
+        "q95": 0.6729430748634158,
+        "worst": 0.6894493898733411
+      }
+    },
+    "zero_prediction": {
+      "original_loss": 1.5675242312662732,
+      "raw_latent_mse": 0.5253525637053947,
+      "state": {
+        "median": 0.6234341334958169,
+        "min": 0.5731026843779033,
+        "per_geometry": {
+          "K6V1_EXT01": 0.5936882206240988,
+          "K6V1_EXT02": 0.8444980557797084,
+          "K6V1_EXT03": 0.653180046367535,
+          "K6V1_EXT04": 0.5731026843779033
+        },
+        "q95": 0.8158003543678823,
+        "worst": 0.8444980557797084
+      }
+    }
+  },
+  "fold_index_zero_based": 0,
+  "heldout_geometry_id": "K6V1_S02",
+  "heldout_truth_used": false,
+  "latent_order": "-3 to +3, two Cartesian PCA scores per order",
+  "latent_target_shape": [
+    4,
+    14
+  ],
+  "leakage": {
+    "PCA_and_scaler_truth_geometry_ids": [
+      "K6V1_S03",
+      "K6V1_S04",
+      "K6V1_S05",
+      "K6V1_S15",
+      "K6V1_S16",
+      "K6V1_EXT01",
+      "K6V1_EXT02",
+      "K6V1_EXT03",
+      "K6V1_EXT04",
+      "K6V1_EXT05",
+      "K6V1_EXT06",
+      "K6V1_EXT07",
+      "K6V1_EXT08",
+      "K6V1_EXT09",
+      "K6V1_EXT10",
+      "K6V1_EXT11",
+      "K6V1_EXT12",
+      "K6V1_EXT13",
+      "K6V1_EXT14",
+      "K6V1_S35",
+      "K6V1_S39",
+      "K6V1_S21",
+      "K6V1_S42",
+      "K6V1_S36",
+      "K6V1_S31",
+      "K6V1_S45",
+      "K6V1_S32",
+      "K6V1_S47",
+      "K6V1_S33",
+      "K6V1_S37",
+      "K6V1_S48"
+    ],
+    "heldout_geometry_truth_used": false,
+    "truth_geometry_ids_read_for_metrics": [
+      "K6V1_EXT01",
+      "K6V1_EXT02",
+      "K6V1_EXT03",
+      "K6V1_EXT04"
+    ],
+    "wavelength_random_split": false
+  },
+  "loss_scale": {
+    "definition": "population standard deviation per latent coordinate on the four selected training rows, floor 1e-12; denominator-only, no centering",
+    "maximum": 0.9212858628047489,
+    "minimum": 0.33026022939800426,
+    "values": [
+      0.49843807665208467,
+      0.6209887730252244,
+      0.5631536292016737,
+      0.33026022939800426,
+      0.40589909342612246,
+      0.35858972942805795,
+      0.4248776888692295,
+      0.5451407882955142,
+      0.7949420218390345,
+      0.6057826044485709,
+      0.6680011303611054,
+      0.9212858628047489,
+      0.8657933519323565,
+      0.47115996177102365
+    ]
+  },
+  "oracle_rank2_reconstruction_floor": {
+    "complex_max_abs_error": 0.5249284993735995,
+    "complex_rmse": 0.10131813924972252,
+    "source": "true selected-four latent scores inverse-transformed through the frozen outer-train basis; train-only projection ceiling, not model fit",
+    "state_per_geometry": {
+      "K6V1_EXT01": 0.4848988438853164,
+      "K6V1_EXT02": 0.3036708689982712,
+      "K6V1_EXT03": 0.33752766360716663,
+      "K6V1_EXT04": 0.31057954437624685
+    },
+    "state_summary": {
+      "median": 0.32405360399170674,
+      "min": 0.3036708689982712,
+      "q95": 0.4627931668435939,
+      "worst": 0.4848988438853164
+    }
+  },
+  "outer_train_geometry_count": 31,
+  "preprocessing": {
+    "PCA_fit_geometry_ids": [
+      "K6V1_S03",
+      "K6V1_S04",
+      "K6V1_S05",
+      "K6V1_S15",
+      "K6V1_S16",
+      "K6V1_EXT01",
+      "K6V1_EXT02",
+      "K6V1_EXT03",
+      "K6V1_EXT04",
+      "K6V1_EXT05",
+      "K6V1_EXT06",
+      "K6V1_EXT07",
+      "K6V1_EXT08",
+      "K6V1_EXT09",
+      "K6V1_EXT10",
+      "K6V1_EXT11",
+      "K6V1_EXT12",
+      "K6V1_EXT13",
+      "K6V1_EXT14",
+      "K6V1_S35",
+      "K6V1_S39",
+      "K6V1_S21",
+      "K6V1_S42",
+      "K6V1_S36",
+      "K6V1_S31",
+      "K6V1_S45",
+      "K6V1_S32",
+      "K6V1_S47",
+      "K6V1_S33",
+      "K6V1_S37",
+      "K6V1_S48"
+    ],
+    "PCA_fit_matches_frozen_outer_fold": true,
+    "PCA_fit_rows": 31,
+    "explained_variance_ratio_max_abs_parity_vs_saved_C0_outer_PCA": 0.0,
+    "input_scaler": "same M5 Xform fitted on the 31 outer-train geometries",
+    "input_scaler_fit_rows": 31
+  },
+  "selected_case_ids": [
+    "K6V1_EXT01",
+    "K6V1_EXT02",
+    "K6V1_EXT03",
+    "K6V1_EXT04"
+  ],
+  "selection_rule": "lexicographically first four case IDs from frozen outer-train list",
+  "timestamp_local": "2026-10-03",
+  "training_rows": 4,
+  "wavelengths_per_geometry": 21
+}
