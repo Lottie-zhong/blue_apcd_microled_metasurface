@@ -1,0 +1,80 @@
+{
+  "schema": "APCD_GPU_RUNNER_CONTROLLED_CASE_ADMISSION_OFFLINE_VALIDATION_V1",
+  "status": "PASS_DESIGN_AND_OFFLINE_IMPLEMENTATION_ONLY",
+  "runner_baseline": {
+    "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1",
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "input_head": "1afa3e30f1de5e0192be6240a3754c89e2eb6f25",
+    "upstream_ahead_behind_at_start": "0 0",
+    "production_adapter_sha256_unchanged": "e9b105c7ab71274c619d8c9f0aa27ef4a204cc8a8466f0ab4a354e3bcc97cfcf",
+    "production_runner_sha256_unchanged": "82932d356b71b4d26d022d457e9d06bf082a54cd77a1ea7e481becb7b5a276bf",
+    "production_authority_sha256_unchanged": "021951707cd94d62ca93076f5f2a6867b400df4c9921932286b32ffc1840972c",
+    "legacy_case_ids_unchanged": [
+      "K6V1_S21",
+      "K6V1_S42",
+      "K6V1_S36",
+      "K6V1_S31",
+      "K6V1_S45",
+      "K6V1_S32",
+      "K6V1_S47",
+      "K6V1_S33",
+      "K6V1_S37",
+      "K6V1_S48",
+      "K6V1_S35",
+      "K6V1_S39"
+    ],
+    "legacy_stage1_load_only_passes": 12,
+    "legacy_stage1_load_only_source": "latest APCD GPU Production Runner V1 handoff; not reopened during this offline task"
+  },
+  "offline_tests": {
+    "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe -m pytest -q -p no:cacheprovider scripts/shared_fdtd/gpu_runner_v1/design_only/test_controlled_admission_policy_v1.py scripts/shared_fdtd/gpu_runner_v1/test_gpu_runner_v1_adapter.py scripts/shared_fdtd/gpu_runner_v1/test_gpu_runner_v1.py",
+    "result": "PASS",
+    "passed": 48,
+    "subtests_passed": 3,
+    "failed": 0,
+    "git_status_unchanged_by_tests": true,
+    "scenarios": [
+      "accept synthetic K6 case with only ordered D1...D6 changed and a new per-case setup fingerprint",
+      "accept synthetic EXT02 setup with exactly one declared E/H monitor and a newly calculated contract hash",
+      "reject K6 source/physical-contract change",
+      "reject EXT02 wavelength change alongside monitor addition",
+      "reject reuse of the old production contract hash for the diagnostic overlay",
+      "reject staged FSP byte-hash mismatch",
+      "reject provenance path outside the authorized case root",
+      "accept first admission with a pre-entry setup LOAD proof and no post-entry truth-recovery artifact",
+      "reject a new case with no pre-entry setup LOAD proof",
+      "assert the original 12 IDs and production adapter/runner hashes are unchanged"
+    ]
+  },
+  "scientific_execution": {
+    "solver_entries": 0,
+    "fdtd_runs": 0,
+    "run_one_or_dispatch_once_invoked": false,
+    "real_fsp_opened": false,
+    "synthetic_fsp_bytes_used_only": true,
+    "ext02_started": false,
+    "new_k6_dataset_case_started": false
+  },
+  "production_readiness": {
+    "existing_12_case_route_unchanged": true,
+    "ext02_admitted_by_production_runner": false,
+    "new_k6_geometry_admitted_by_production_runner": false,
+    "design_only_reference_validator_wired_into_production": false,
+    "actual_ext02_sampled_z_or_local_mesh_verified": false,
+    "remaining_boundary": "The design is reviewable and its reference implementation is offline-tested. Production V1 still accepts only its original 12 cases. A versioned admission-authority route and a materialized EXT02 5 nm setup with a fresh pre-entry LOAD proof are needed before a real EXT02 dispatch."
+  },
+  "preserved_coupling_worktree": {
+    "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+    "captured_porcelain_untracked_count": 346,
+    "captured_porcelain_sha256": "55b742c0459898b70f5447fd2c529323690db3db6e2ff9163aef01fa00ff6297",
+    "changed_by_this_task": false,
+    "note": "The live baseline had already changed from the earlier 332-entry audit before this task wrote any remote file. During this task it advanced to 343 entries through unrelated activity; each Runner write verified the Coupling status bytes were unchanged across that write. This task did not stage or edit the Coupling worktree."
+  },
+  "next_real_validation": {
+    "case_id": "K6V1_EXT02",
+    "attempt_id": "attempt_001 under the new controlled authority root; distinct from historical seed-DB attempt_001",
+    "prerequisite": "Materialize its own 5 nm setup, actual contract fingerprint, provenance/source manifest, staged FSP and passing pre-entry LOAD-only proof under the versioned authority route.",
+    "entered_solver_budget": 1,
+    "automatic_replays": 0
+  }
+}

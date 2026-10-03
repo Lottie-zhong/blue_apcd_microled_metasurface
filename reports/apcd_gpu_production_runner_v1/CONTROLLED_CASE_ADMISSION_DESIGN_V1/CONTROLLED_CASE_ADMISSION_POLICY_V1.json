@@ -1,0 +1,135 @@
+{
+  "schema": "APCD_GPU_RUNNER_CONTROLLED_CASE_ADMISSION_POLICY_V1",
+  "status": "DESIGN_ONLY_REFERENCE_NOT_PRODUCTION_AUTHORITY",
+  "source_task": "APCD_GPU_RUNNER_CONTROLLED_CASE_ADMISSION_DESIGN_V1",
+  "production_runner_baseline": {
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "head": "1afa3e30f1de5e0192be6240a3754c89e2eb6f25",
+    "pinned_adapter_sha256": "e9b105c7ab71274c619d8c9f0aa27ef4a204cc8a8466f0ab4a354e3bcc97cfcf",
+    "pinned_runner_core_sha256": "82932d356b71b4d26d022d457e9d06bf082a54cd77a1ea7e481becb7b5a276bf",
+    "pinned_authority_sha256": "021951707cd94d62ca93076f5f2a6867b400df4c9921932286b32ffc1840972c",
+    "pinned_production_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "pinned_expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+    "existing_authorized_case_ids": [
+      "K6V1_S21", "K6V1_S42", "K6V1_S36", "K6V1_S31",
+      "K6V1_S45", "K6V1_S32", "K6V1_S47", "K6V1_S33",
+      "K6V1_S37", "K6V1_S48", "K6V1_S35", "K6V1_S39"
+    ],
+    "legacy_route": "unchanged; the above 12 IDs still use the original frozen per-case authority, path/hash/provenance validator, and versioned dispatch_once contract"
+  },
+  "k6_geometry": {
+    "case_class": "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1",
+    "allowed_scientific_delta": ["geometry.ordered_D_nm"],
+    "ordered_geometry": "exactly six finite positive values D1 through D6 in declared order; preserve canonical array order",
+    "geometry_source": {
+      "required_schema": "APCD_GPU_RUNNER_K6_GEOMETRY_SOURCE_V1",
+      "required_fields": ["case_id", "attempt_id", "eligible", "ordered_D_nm", "expansion_manifest_sha256"],
+      "required_expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "eligibility_rule": "The exact case_id and ordered D1...D6 vector must be present in an owner-controlled, immutable source authority referenced by the versioned dispatch envelope. Do not infer eligibility from numeric ranges or from a matching geometry hash alone. If a new source authority replaces or extends the pinned expansion, its exact file hash must be explicitly bound in the admission authority."
+    },
+    "must_remain_identical_to_base": [
+      "physical contract bytes and semantic content",
+      "materials and material model",
+      "source and polarization",
+      "wavelengths and sample points",
+      "boundary conditions and stack layers",
+      "monitor set, positions, sampling, references, and de-embedding",
+      "mesh implementation and mesh settings",
+      "solver stopping rule and precision",
+      "all launcher, GPU, persistence, postprocessing, and truth-validation settings"
+    ],
+    "not_science_fields": [
+      "case_id", "attempt_id", "run_id", "per-case authority/source manifest path and hash",
+      "per-case source/staged FSP path and hash", "per-case pre-entry LOAD proof path and hash",
+      "resolved setup fingerprint"
+    ],
+    "fingerprint_rule": "Compute a new resolved setup contract fingerprint for every case from case class, case_id, attempt_id, ordered_D_nm, byte-level physical contract SHA256, and canonical semantic physical-contract SHA256. The physical contract hash must remain equal to the pinned production contract for this route; the resolved setup fingerprint and all case provenance/FSP hashes are case-specific."
+  },
+  "ext02_diagnostic": {
+    "case_class": "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1",
+    "case_id": "K6V1_EXT02",
+    "allowed_scientific_delta": ["physical_contract.monitors: append exactly one monitor"],
+    "base_setup_invariants": [
+      "ordered D1...D6 geometry",
+      "materials and material model",
+      "source and polarization",
+      "wavelengths and sample points",
+      "boundary conditions and stack layers",
+      "mesh implementation and solver stopping rule",
+      "all existing monitors including historical POSTNP",
+      "launcher, GPU, persistence, postprocessing, and truth-validation settings"
+    ],
+    "added_monitor": {
+      "name": "EXT02_POSTNP_DIAG_Z2000",
+      "type": "2D Z-normal frequency-domain monitor",
+      "normal_axis": "z",
+      "nominal_z_nm": 2000,
+      "span_nm": {"x": 1740, "y": 290},
+      "components": ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+      "wavelengths_nm": {"start": 440, "stop": 460, "step": 1, "points": 21},
+      "sampling_policy": "copy the existing POSTNP interpolation, downsampling, and coordinate policy exactly",
+      "actual_sampled_z_nm": "must be measured from the materialized setup/result and recorded; do not substitute nominal_z_nm",
+      "local_mesh_spacing": "must be recorded from the actual materialized mesh/result; not established by this offline design"
+    },
+    "proposal_reference_sha256": "0842d2d3dcbab38cb193227f6c11c8cf0d759b3bf69671005fd20586cdd50153",
+    "hash_rule": "The proposal reference hash is design metadata only. Compute and persist the actual diagnostic physical contract byte hash and semantic fingerprint from the materialized contract. Both must be distinct from the old production contract; never write the old contract SHA into the diagnostic manifest.",
+    "forbidden": [
+      "any other monitor addition/removal/edit",
+      "any geometry, material, source, polarization, wavelength, boundary, mesh, stopping-rule, normalization, reference-plane, or launcher change",
+      "using the historical 2 nm/seed FSP as the new 5 nm setup",
+      "treating the proposal fingerprint as the actual setup or contract hash"
+    ]
+  },
+  "per_setup_provenance": {
+    "source_manifest_schema": "APCD_GPU_RUNNER_CONTROLLED_CASE_SOURCE_MANIFEST_V1",
+    "required_artifacts": [
+      "resolved setup contract JSON and byte hash",
+      "actual physical contract JSON and byte hash",
+      "source FSP and byte hash",
+      "staged FSP and byte hash",
+      "case provenance source manifest and byte hash",
+      "pre-entry setup LOAD-only proof and byte hash"
+    ],
+    "path_rules": [
+      "one immutable authority root/case_id/attempt_id directory per attempt",
+      "all case-local artifacts resolve under that exact case/attempt directory",
+      "only the owner-pinned geometry/diagnostic source authority may be referenced outside the case directory",
+      "reject missing files, path traversal, symlinks, unexpected manifest keys, duplicate JSON keys, and hash mismatches",
+      "source FSP and staged FSP byte hashes must match exactly"
+    ],
+    "fingerprint_schema": "APCD_GPU_RUNNER_RESOLVED_SETUP_FINGERPRINT_V1"
+  },
+  "first_admission": {
+    "required_before_dispatch": [
+      "case class and identity are authorized by the versioned admission authority",
+      "a fresh case-specific setup/contract/source manifest is materialized and content-hashed",
+      "the exact staged FSP is produced and byte-compared to its source FSP",
+      "a pre-entry LOAD-only readback passes on that exact staged FSP with solver_run_called=false and scientific_entry_count=0",
+      "the dispatch envelope binds the new manifest, contract, FSP, provenance, and LOAD-proof hashes"
+    ],
+    "not_required_before_first_solver_entry": [
+      "post-entry truth recovery from a prior run",
+      "a historical NATIVE_TRUTH_DURABLE record for this never-run case",
+      "a prior scientific result or prior attempt's fresh LOAD proof"
+    ],
+    "proof_semantics": "Pre-entry LOAD-only proof establishes that this new staged setup loads and reads back the declared settings. It is not a scientific truth result. After a single solver entry, the unchanged post-entry path must separately establish GPU process lineage, durable FSP/H5, fresh LOAD truth recovery, SCIENTIFIC_VALID, completion barrier, truth-before-DONE, and RELEASED."
+  },
+  "preserved_execution_invariants": {
+    "gpu_slots": 1,
+    "dispatch": "versioned dispatch_once; serial only",
+    "automatic_replay_after_solver_entry": false,
+    "completion_barrier": true,
+    "truth_before_done": true,
+    "fresh_load_validation_after_solver": true,
+    "release_before_durable_truth": false,
+    "legacy_12_case_route_modified": false
+  },
+  "offline_validation_scope": {
+    "solver_entries": 0,
+    "fdtd_runs": 0,
+    "production_adapter_or_runner_changed": false,
+    "production_authority_changed": false,
+    "real_fsp_opened": false,
+    "synthetic_fsp_fixtures_are_not_lumerical_files": true
+  }
+}
