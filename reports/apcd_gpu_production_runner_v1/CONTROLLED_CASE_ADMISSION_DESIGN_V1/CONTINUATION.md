@@ -11,8 +11,10 @@ Read these files first, in order:
 - Host: `DESKTOP-NNE313K`; user: `desktop-nne313k\dell`.
 - Runner worktree: `D:\project\worktrees\blue_apcd_gpu_production_runner_v1`.
 - Runner branch baseline: `codex/apcd-gpu-production-runner-v1`, starting HEAD `1afa3e30f1de5e0192be6240a3754c89e2eb6f25`.
+- Design commit pushed: `85f57994df6e29d42475958ef0c214058490a22f`; Runner was clean and `0/0` against upstream at final closeout.
 - Coupling worktree: `D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1`.
-- Current Coupling worktree snapshot: 346 porcelain entries, SHA256 `55b742c0459898b70f5447fd2c529323690db3db6e2ff9163aef01fa00ff6297`. It differed from the earlier 332-entry audit before this task's remote write and advanced through unrelated activity while this task ran. Preserve the captured snapshot. Each Runner write compared the Coupling porcelain bytes before and after and found no task mutation.
+- Snapshot captured before commit: 346 porcelain entries, SHA256 `55b742c0459898b70f5447fd2c529323690db3db6e2ff9163aef01fa00ff6297`.
+- Final read-only closeout observed Coupling HEAD `cd0531632b1d9ba4fac3bed15457820f2f7c3882` with 332 porcelain entries, SHA256 `71ac80c1e3531dc10d5af5161c52f6bb309ac5fedd9a4927e0b8d1c015314596`. HEAD advanced since the recorded task input: `true`; no Coupling write or Git mutation command was issued by this task. Preserve the observed state.
 - Source handoff inputs in `D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\reports\coupling\COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_V1`: `CONTINUATION.md` SHA256 `d77a27d3131cb7e8ce5144d8f3a1c9b2c65d6e9da4cef00a4a99bac3a5de9621`; `RUNNER_COMPATIBILITY_AUDIT_V1.json` SHA256 `847ddf174bae8fe8d6016253b454e756cac7a6687d5097b2e68bb5ccd44d4fd8`; `PROPOSED_DIAGNOSTIC_CONTRACT_V1.json` SHA256 `7cdd82b56c7538e7b295806958a43c1e9d041229e803d4e6b38d9e7621b08a8d`.
 - Source Runner handoff is `D:\project\worktrees\blue_apcd_gpu_production_runner_v1\docs\APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF.md` at input HEAD `1afa3e30f1de5e0192be6240a3754c89e2eb6f25`.
 - The production authority contains exactly the original 12 IDs. The production adapter and runner core remain frozen and unchanged.
