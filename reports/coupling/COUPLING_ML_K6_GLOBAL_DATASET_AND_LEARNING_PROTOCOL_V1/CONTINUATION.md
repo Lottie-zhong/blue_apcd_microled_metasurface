@@ -43,5 +43,4 @@ The task directory contains protocol, generator, candidate CSV, development-fold
 ## Resumption and Git
 First re-check hostname, user, worktree, branch, HEAD, upstream and tracked/untracked status. Preserve the pre-existing untracked worktree state; do not clean or stage it.
 Re-run only the geometry-only generator for deterministic checks, if needed, with N:\anaconda_envs\RCP_LCP\python.exe. It creates no FSP and reads no response values.
-The remaining task actions are to verify the report and artifact hash catalog, stage only the exact files under reports/coupling/COUPLING_ML_K6_GLOBAL_DATASET_AND_LEARNING_PROTOCOL_V1, commit, and normal-push. Never force-push or stage unrelated files.
-After the commit/push, record the resulting commit in the final response. This continuation is not authorization for training, HF, FSP generation, Runner admission, or monitor changes.
+The design task is complete. Commit 60ad000666610c4c7340f82998441c72b1e57100 was pushed, and the post-push hash/status audit passed. The next action is to await Chat scientific review. On resume, first re-check live Git state and read this file and the report. Do not generate responses, construct FSPs, train, or launch Runner/HF without a separate authorization. No task artifact actions remain.
