@@ -1,0 +1,65 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_DATASET_AND_LEARNING_PROTOCOL_V1_LOCAL_AFFINE_PROTOCOL",
+  "status": "FROZEN_DESIGN_ONLY_NO_FITS",
+  "anchor": {
+    "case_id": "K6V1_S31",
+    "ordered_D_nm": [
+      220,
+      195,
+      210,
+      150,
+      140,
+      210
+    ],
+    "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+    "boundary_margin_nm": 10,
+    "minimum_cyclic_gap_nm": 75
+  },
+  "development_ids": [
+    "K6LDA1_DEV_D1_M05",
+    "K6LDA1_DEV_D1_P05",
+    "K6LDA1_DEV_D2_M05",
+    "K6LDA1_DEV_D2_P05",
+    "K6LDA1_DEV_D3_M05",
+    "K6LDA1_DEV_D3_P05",
+    "K6LDA1_DEV_D4_M05",
+    "K6LDA1_DEV_D4_P05",
+    "K6LDA1_DEV_D5_M05",
+    "K6LDA1_DEV_D5_P05",
+    "K6LDA1_DEV_D6_M05",
+    "K6LDA1_DEV_D6_P05"
+  ],
+  "sealed_confirmation_ids": [
+    "K6LDA1_SEAL_C1",
+    "K6LDA1_SEAL_C2",
+    "K6LDA1_SEAL_C3",
+    "K6LDA1_SEAL_C4"
+  ],
+  "counts": {
+    "anchor_existing": 1,
+    "axial_development": 12,
+    "combination_confirmation": 4
+  },
+  "domain": "Anchor +/-5nm in one ordered D coordinate; physical origin and D1..D6 remain fixed.",
+  "model": {
+    "features": "[1,(D1-anchor1)/5,...,(D6-anchor6)/5]",
+    "outputs": "Direct full Cartesian C_hat[21,7,2] and independent positive P_scale[21] through log transform; no PCA.",
+    "future_fits": {
+      "leave_one_axial_out": 12,
+      "final_fit": 1,
+      "total": 13
+    },
+    "each_LOO_training_groups": "Anchor plus other 11 axial geometries; all 21 wavelengths remain grouped."
+  },
+  "leakage_controls": [
+    "Exclude held-out whole geometry and all 21 wavelengths.",
+    "Refit preprocessing and sensitivity using only each fold training responses.",
+    "Held-out point excluded from finite differences/Jacobian, normalization, preprocessing and fitting.",
+    "Freeze local model and predictions before opening four combination responses."
+  ],
+  "interpretation": {
+    "axial_differences": "Local response clues only; not proof cross-coordinate interactions vanish.",
+    "resolution": "No validated cross-run repeatability floor exists; pending EXT02 cross-height consistency is not repeatability. Do not claim +/-5nm resolvability before numerical/repeatability error is measured."
+  },
+  "setup": "The prior 16 private FSPs are hash-verified with prior LOAD-only PASS; none is Runner-authorized. This task made no FSP."
+}

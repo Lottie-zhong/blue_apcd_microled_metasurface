@@ -1,0 +1,346 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_DATASET_AND_LEARNING_PROTOCOL_V1",
+  "status": "FROZEN_BEFORE_CANDIDATE_GENERATION",
+  "scope": {
+    "solver_entries": 0,
+    "training_fits": 0,
+    "pscale_fits": 0,
+    "current_authorization": "Data design, protocol freeze, read-only audit and documentation only; no HF or training authorization.",
+    "new_case_budget_proposal_only": {
+      "development_total": 128,
+      "confirmation_total": 32,
+      "solver_authorized": false
+    },
+    "local_points_included": {
+      "axial_development": 12,
+      "combination_confirmation": 4
+    }
+  },
+  "authorities": {
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "geometry_domain_sha256": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+    "dataset_32g_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "H1_gate_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+    "exclusion_registry_sha256": "78f48a4400d5ab469a2054a8ad849d5cae16cb4bee042e2b542529a78973bb80",
+    "local_16_manifest_sha256": "66fef2027885ac5c479072da3af78b6a5f975b53ef1dc1f6894751c96ee73cd4",
+    "truth_32g_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "candidate_pool_csv_sha256": "a623d61b1d5e0fdec7ee7cbd006b816ad00f4a8a35298cd12bb0e41afccbd2a1",
+    "runner_handoff_md_sha256": "397e41476938392d43e7eaf6c5252425991a8bfa62b7fb88442bf5da4fe0feb7",
+    "runner_handoff_json_sha256": "ca7e4a9fcc15ccb60f4921feb788bf3663e1b8fd3c56f64892894cc8299df599",
+    "runner_authority_sha256": "021951707cd94d62ca93076f5f2a6867b400df4c9921932286b32ffc1840972c",
+    "runner_design_offline_report_sha256": "358ee9923858c3edabcc91549602a7e437700d12e668bcb7512c1a4d48020133",
+    "monitor_audit_report_sha256": "7069c764e780f8e5a98f980a026e0cd497268705a211da596bab38c8bb05e71f",
+    "ext02_two_plane_report_sha256": "f7e77c323fac9798236a4e32c727b7b673b9e2417ec42095cb55ff5cd35951b5",
+    "continuations": {
+      "local_doe": "e8e210122197aca0181ea243a2f642212f159dee71d404f2b9c51a154ccb7e94",
+      "train_validation": "e1ec647c9e6744159acdb858e6b8fb659a71b9d450504c5b98a838b39acf79d2",
+      "monitor": "b4cd6e42fef431208084262079976102f31691924e69c727d6696f9097ada3ae",
+      "ext02": "d77a27d3131cb7e8ce5144d8f3a1c9b2c65d6e9da4cef00a4a99bac3a5de9621"
+    }
+  },
+  "physical_contract": {
+    "geometry": {
+      "K": 6,
+      "ordered": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "sort_or_permute": false,
+      "fixed_mdc": "P1_ZL1_ALTERNATIVE_G3_A3",
+      "spacer_nm": 237,
+      "pillar_height_nm": 500,
+      "pitch_nm": 290,
+      "period_x_nm": 1740,
+      "period_y_nm": 290,
+      "boundaries": {
+        "x": "Periodic",
+        "y": "Periodic",
+        "z": "PML"
+      }
+    },
+    "domain": {
+      "observed_candidate_envelope_nm": [
+        100,
+        230
+      ],
+      "grid_nm": 5,
+      "grid_cardinality": 387420489,
+      "status": "Recovered closed candidate envelope; not open-ended production authority.",
+      "manufacturing": "Independent fabrication constraint authority unresolved."
+    },
+    "source": {
+      "incident": "+z normal-incidence X polarization from GaN to air",
+      "wavelength_nm": [
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460
+      ]
+    },
+    "state": "PW_COMPLEX_FLOQUET_STATE_V1; POSTNP +z, m=-3..+3,n=0, TE/TM complex Cartesian coordinates.",
+    "factorization": "Direct C_hat plus independent positive P_scale -> frozen H2 -> original conjunctive H1."
+  },
+  "existing_data": {
+    "groups": 32,
+    "geometry_wavelength_rows": 672,
+    "order_rows": 4704,
+    "wavelengths_per_geometry": 21,
+    "all_D_dimensions_span_nm": [
+      100,
+      230
+    ],
+    "normalized_distance": "sqrt(sum(((D_i-Dp_i)/130)^2)); ordered coordinates retained.",
+    "nearest_neighbor_distance": {
+      "min": 0.7892,
+      "median": 0.82266,
+      "mean": 0.83497,
+      "max": 0.9366,
+      "pairs_below_0.75": 0
+    },
+    "P_scale_truth": {
+      "finite_count": 672,
+      "zero_count": 0,
+      "min": 0.05392305337590832,
+      "max": 0.8316797396845396,
+      "rule": "Use log(P_scale); no epsilon or clipping. Any non-positive future label is a preflight stop."
+    },
+    "interpretation": "Existing 32G is development-only and has prior model-analysis exposure; never use it as independent confirmation. Pairwise response relationships are descriptive, not coordinate derivatives."
+  },
+  "pointset_freeze": {
+    "new_total": 160,
+    "development": {
+      "total": 128,
+      "local_axial": 12,
+      "global": 116
+    },
+    "confirmation": {
+      "total": 32,
+      "local_combinations": 4,
+      "global": 28
+    },
+    "anchor": {
+      "case_id": "K6V1_S31",
+      "ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "boundary_margin_nm": 10,
+      "min_cyclic_gap_nm": 75
+    },
+    "local_points": "Use exact K6LDA1_DEV_D1..D6_M05/P05 and K6LDA1_SEAL_C1..C4 vectors from CANDIDATE_MANIFEST_V1.json; no edits or permutation augmentation.",
+    "global_sampler": {
+      "method": "Scrambled 6D Sobol over 27^6 discrete grid; D=100+5*floor(27*u) nm.",
+      "seed": 20261004,
+      "sobol_n": 32768,
+      "scipy": "1.15.3",
+      "dedup": "Stable first occurrence by ordered integer vector.",
+      "exclude": [
+        "existing 32G",
+        "frozen local 16",
+        "six reserves",
+        "25 protected geometries",
+        "all 48 frozen S01-S48 candidate-pool vectors"
+      ],
+      "feasibility": "Require range/grid, positive periodic neighbor gap including D6-D1, and half-cell lateral margin >=30nm. No response/performance data used.",
+      "selection": "Greedy sequential maximin against all excluded/reference geometries and prior selected global vectors; distance normalized by 130nm; exact ties choose earliest unique Sobol stream index.",
+      "role_assignment": "From the ordered 144 global maximin sequence, 1-based indices 5,10,...,140 are 28 global confirmation points; other 116 are global development.",
+      "coverage_probe": {
+        "method": "Independent scrambled Sobol 2^15 grid, same quantization.",
+        "seed": 20261005,
+        "interpretation": "Approximate sampled coverage only, not exhaustive over 27^6."
+      }
+    },
+    "case_ids": {
+      "global_development": "K6GDP1_DEV_G001..G116",
+      "global_confirmation": "K6GDP1_CONF_G001..G028"
+    },
+    "authority_status": "All new identities/vectors are proposal-only, outside the frozen 48-vector source pool, not enrolled in owner case authority, not Runner-approved, and have no canonical FSP. Exact source-authority amendment/enrollment is required before any future HF."
+  },
+  "confirmation_access": {
+    "before_responses": "Freeze point vectors, roles, and access rules before any new response generation.",
+    "development_phase": "Only existing32 plus the 128 development responses may be used for training, grouped CV and model/config selection.",
+    "pre_confirmation_freeze": "Before confirmation responses are generated/opened, save and hash model weights, hyperparameters, all train-only preprocessing, loss, applicable domain, evaluator and predictions for all 32 confirmation geometries.",
+    "confirmation_phase": "Then open the 4 local combination responses and 28 global confirmation responses once; evaluate without choosing models or settings from results.",
+    "failure_conversion": "If confirmation responses later become development data, record conversion and establish a new sealed confirmation set.",
+    "scope": "Four local cases test only the local affine hypothesis; 28 global cases test only the frozen global model. Neither proves all-domain reliability."
+  },
+  "models": {
+    "only_candidates": [
+      "A_SMALL_SAMPLE_RBF_KRR",
+      "B_CARTESIAN_MLP"
+    ],
+    "input": "Six ordered D coordinates per geometry, mean/std fit on current training groups only. No wavelength/node/patch random rows, NP features, OOD/support-distance inputs, or PCA.",
+    "target": "588 Cartesian Re/Im C_hat values for 21x7x2 complex coordinates plus 21 log(P_scale) values; one 609-value spectrum per geometry.",
+    "normalization_and_loss": "Train-only per-channel C means and one shared C residual RMS; train-only log(P_scale) mean/std. L = mean squared normalized Cartesian state error + mean squared normalized log-P_scale error, equal term weights. No outcome-tuned floors.",
+    "pscale_inverse": "Separate regression/head predicts standardized log(P_scale); inverse with train-only normalization and exp. No oracle scale, epsilon, or clipping; nonfinite/overflow/underflow is reported as failure.",
+    "A_KRR": {
+      "kernel": "RBF on six training-standardized ordered geometry inputs; C and log-P_scale output matrices fitted independently with shared selected geometry kernel/ridge values.",
+      "gamma": [
+        0.16666666666666666,
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "ridge_alpha": [
+        0.0001,
+        0.01,
+        1.0
+      ],
+      "configs": 9,
+      "random_seed": "Deterministic; seed-stability gate is not applicable and cannot be claimed passed."
+    },
+    "B_MLP": {
+      "architecture": "Shared trunk 6 -> Linear(32)+GELU -> Linear(32)+GELU; separate linear heads 32->588 C_hat and 32->21 log(P_scale).",
+      "trainable_parameters": 21377,
+      "optimizer": "AdamW, lr=0.001, full geometry batch, max 1000 updates, no scheduler.",
+      "weight_decay": [
+        1e-05,
+        0.0001,
+        0.001
+      ],
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "early_stop": "Inner grouped validation; min L_C+L_P; patience 50, min_delta 1e-5, earliest-step tie."
+    },
+    "selection": "Tune only inside 3-fold inner geometry CV at the largest outer-train size. Select minimum mean L_C+L_P; no outer-validation/confirmation truth for hyperparameters or epochs. Retain both predeclared families for confirmation; do not pick a winner using confirmation.",
+    "fit_ceiling_future_only": {
+      "outer_inner_search": "108 KRR +108 MLP fits",
+      "learning_curve_refits": "16 KRR +48 MLP fits",
+      "final_development_refits": "1 KRR +3 MLP fits",
+      "total": 284,
+      "MLP_max_epochs_each": 1000
+    }
+  },
+  "validation": {
+    "outer": "Four fixed geometry folds of the 128 new development groups only; each holds 32 groups (3 local axial,29 global). Existing32 is always train-only.",
+    "outer_assignment": "Local axial cases sorted by ID round-robin across folds 0..3; global development maximin order assigned by (selection_index-1) mod 4.",
+    "inner": "Within each outer train, sort SHA256(comma-joined ordered D), assign whole groups by index mod 3; all 21 wavelengths stay with geometry.",
+    "learning_curve_total_groups": [
+      32,
+      64,
+      96,
+      128
+    ],
+    "learning_curve_composition": "Every point includes all existing32 plus a nested maximin subset of 0,32,64,96 new development groups from that outer train. Geometry-only tie-break by case ID.",
+    "final_fit": "Aggregate each model's four outer-fold inner-selected configurations by mode; tie chooses smallest KRR gamma then largest alpha, or largest MLP weight decay. MLP final epoch is each seed's median inner best epoch. Refit on all 160 development groups before confirmation."
+  },
+  "local_affine": {
+    "features": "[1,(D1-anchor1)/5,...,(D6-anchor6)/5], ordered.",
+    "output": "Full Cartesian C_hat and independent log-P_scale spectrum; no PCA.",
+    "fits_future_only": "12 leave-one-axial-geometry-out fits, each trained on anchor plus other 11 axial groups; then one final fit on anchor+12.",
+    "preprocessing": "Refit all sensitivity/normalization from each fold's training responses only; no held-out finite differences/Jacobian.",
+    "interpretation": "Axial differences are local clues, not evidence that cross-coordinate interactions vanish.",
+    "resolution": "No validated cross-run repeatability error exists; pending EXT02 cross-height consistency is not repeatability. Do not claim +/-5nm response is resolvable until compared to validated numerical/repeatability error."
+  },
+  "metrics_and_original_gates": {
+    "metrics": [
+      "full complex state",
+      "P_scale",
+      "H2 routing eta",
+      "source-normalized absolute-order power",
+      "propagating total power",
+      "significant-coordinate phase",
+      "every original H1 item"
+    ],
+    "phase_diagnostic": "Evaluation-only mask |C_truth|^2/sum_propagating(|C_truth|^2) >=1e-4 per wavelength; report masked/unmasked and amplitude-weighted phase.",
+    "H1": {
+      "state_relative_rmse": {
+        "median_max": 0.5,
+        "q95_max": 0.8
+      },
+      "routing_eta_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1,
+        "pearson_min": 0.95
+      },
+      "absolute_order_source_normalized_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1
+      },
+      "thresholded_absolute_order_relative": {
+        "median_max": 0.3,
+        "q95_max": 0.75,
+        "significance_threshold": 0.0009885656815447454
+      },
+      "total_power_relative": {
+        "median_max": 0.15,
+        "q95_max": 0.3,
+        "pearson_min": 0.95
+      },
+      "seed_state_median_std_max": 0.03,
+      "conjunctive": true,
+      "admission": "No threshold changes; numeric attainment on proposed data is not production admission. Undefined KRR seed stability remains unevaluated, not a pass."
+    }
+  },
+  "runner_monitor_dependencies": {
+    "production_authority": "READY, one serial slot/no replay; 12 original case IDs only.",
+    "admission_prototype": "DESIGN_ONLY_REFERENCE_NOT_PRODUCTION_AUTHORITY; offline tests do not enroll new cases.",
+    "required_before_future_case": [
+      "owner-approved ordered geometry source authority",
+      "case-specific source manifest",
+      "canonical FSP/path/hash authority",
+      "fresh pre-entry LOAD-only proof and exact source/staged hash parity",
+      "immutable Runner envelope"
+    ],
+    "distinction": "Setup LOAD-only is not Runner admission and is not post-entry truth recovery.",
+    "monitor": "EXT02 two-plane validation remains BLOCKED_PREENTRY because current Runner does not admit EXT02/monitor overlays; this is not a numerical failure. Near-field cross-height validity remains unverified; do not move production monitor or reuse old contract hash.",
+    "launch": "Requires later Chat review, exact authority enrollment, Runner admission and explicit HF authorization."
+  },
+  "resource_estimate": {
+    "basis": "11 completed Stage-1 created-to-DONE records: median 668.129s, mean 673.759s, range 653.241..698.565s per case; one serial Runner slot.",
+    "development_128_seconds": {
+      "median": 85520.512,
+      "mean": 86241.152,
+      "min": 83614.848,
+      "max": 89416.32
+    },
+    "confirmation_32_seconds": {
+      "median": 21380.128,
+      "mean": 21560.288,
+      "min": 20903.712,
+      "max": 22354.08
+    },
+    "total_160_seconds": {
+      "median": 106900.64,
+      "mean": 107801.44,
+      "min": 104518.56,
+      "max": 111769.6
+    },
+    "retained_case_bundle_bytes_median": 369628975,
+    "storage_bytes": {
+      "development_128": 47312508800,
+      "confirmation_32": 11828127200,
+      "total_160": 59140636000
+    },
+    "exclusions": "Failure/recovery duplication, monitor overlay payload, and unmeasured temporary workspace overhead. Estimates only; no parallel slot."
+  },
+  "generated_at_utc": "2026-10-03T17:22:04.944317+00:00"
+}
