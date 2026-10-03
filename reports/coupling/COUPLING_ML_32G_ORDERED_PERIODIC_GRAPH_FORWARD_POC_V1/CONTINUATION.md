@@ -10,4 +10,4 @@ Scope: one offline G0 ordered periodic graph candidate, 288 grouped inner fits p
 
 Current phase: MIXED_OR_TAIL_DETERIORATION. Training and held-out summaries are in `results.json`; full paired metrics, attribution, checkpoints and predictions are in CSV/NPZ/JSON artifacts. This is a development POC, not an independent geometry confirmation or production admission. Do not change width, rounds, edges, loss, rank, seeds or add candidates.
 
-Commit/push status is recorded in `audit.json`. Stop at science review.
+The exact payload allowlist was committed and pushed successfully. Commit: `cd4e79f42c86f04b957b765e13a28c6ed48e5300` (parent `aeae982ecb555df1b38ab08173119408486a7b10`). The verified push and clean task status are recorded in `audit.json`. Stop at science review.
