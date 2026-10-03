@@ -1,0 +1,73 @@
+{
+  "CUDA_VISIBLE_DEVICES": "-1",
+  "cuda_available_after_mask": false,
+  "gpu_runner_invocations": 0,
+  "h2_synthetic_regression": {
+    "schema_version": "PW_COMPLEX_FLOQUET_STATE_ZERO_SOLVER_TESTS_V1",
+    "status": "PASS",
+    "tests": {
+      "global_representation_phase": {
+        "max_error": 1.3788805211007368e-14,
+        "pass": true
+      },
+      "known_single_floquet_mode": {
+        "max_abs_error": 1.2412670766236366e-16,
+        "pass": true
+      },
+      "local_medium_basis": {
+        "pass": true
+      },
+      "multimode_superposition": {
+        "max_abs_error": 7.894497640785698e-16,
+        "pass": true
+      },
+      "no_power_only_collapse": {
+        "max_error": 0.19007378075593886,
+        "pass": true
+      },
+      "order_indexing_positive_x": {
+        "direction": "+x",
+        "order": [
+          1,
+          0
+        ],
+        "pass": true
+      },
+      "reference_plane_deembedding": {
+        "max_abs_error": 4.290664173757405e-15,
+        "pass": true
+      },
+      "relative_phase_perturbation": {
+        "max_error": 0.20181066483921872,
+        "pass": true
+      },
+      "same_data_different_spatial_sampling": {
+        "max_abs_error": 1.1337835530899993e-16,
+        "pass": true
+      },
+      "wavelength_order": {
+        "pass": true,
+        "wavelengths_nm": [
+          450.0000000000001
+        ]
+      }
+    }
+  },
+  "python_executable": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+  "schema": "AMPLITUDE_CIRCULAR_PHASE_POC_PRETRAINING_TESTS_V1",
+  "solver_invocations": 0,
+  "status": "PASS",
+  "torch_version": "2.5.1+cu121",
+  "training_device": "CPU",
+  "unit_test_count": 8,
+  "unit_tests": [
+    "test_uncompressed_amplitude_unit_phase_roundtrip_including_weak_coordinates",
+    "test_phase_decoder_returns_unit_complex_and_handles_near_zero_vectors",
+    "test_circular_phase_is_continuous_across_principal_angle_wrap",
+    "test_circular_phase_loss_is_independent_of_predicted_amplitude",
+    "test_common_phase_alignment_remains_oracle_only_and_relative_phase_is_invariant",
+    "test_error_attribution_reports_geometry_wavelength_and_order_dimensions",
+    "test_c1_basis_rank_budget_is_fit_only_and_prediction_reconstruction_is_finite",
+    "test_frozen_cartesian_and_amplitude_phase_parameter_counts"
+  ]
+}

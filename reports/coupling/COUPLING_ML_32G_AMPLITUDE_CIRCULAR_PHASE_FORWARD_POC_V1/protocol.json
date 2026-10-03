@@ -1,0 +1,83 @@
+{
+  "analysis_code_sha256": "1aeabbb9b47a7073e47a1361077699d5f6549bcdb5a5827c8181857080164df9",
+  "branch": "work/mdc-np-coupling-ml-v1",
+  "c1_phase": "Absolute phase through unit complex Re/Im; no angle regression, no gauge/reference, no held-out alignment. Predicted vector norm <1e-8 falls back to +1+0i. Predicted amplitude is amp_ref*expm1(max(predicted log amplitude,0)); numerical upper clip 50 only prevents overflow.",
+  "candidate_rule": "First report original H1 conjunctive gates. If both candidates fail, assess state/routing change and geometry-tail deterioration as research evidence only; no new combined admission score, no significance test treating folds/wavelengths/seeds as independent.",
+  "configs": {
+    "C0": {
+      "architecture": "frozen M5 exact 6-32-32 encoder, seven local 2-score heads, 14-32-14 residual cross-order fusion",
+      "name": "Cartesian matched control",
+      "parameters": 2684,
+      "representation": "per-order rank-2 PCA on [ReTE,ReTM,ImTE,ImTM] spectra (order-local)"
+    },
+    "C1": {
+      "architecture": "same width-32 encoder; seven local 4-score heads; 28-32-28 residual cross-order fusion; no hidden-width increase",
+      "name": "amplitude plus circular absolute phase",
+      "parameter_delta_vs_C0": 1372,
+      "parameter_percent_delta_vs_C0": 51.12,
+      "parameters": 4056,
+      "representation": "each order: rank-2 PCA of log1p(nonnegative amplitude/ref) across 42 wavelength-coordinate values, and rank-2 PCA of absolute unit-phase Re/Im across 84 values; retain TE/TM separately"
+    }
+  },
+  "frozen_head": "a9257143025969f800f04b1761a5dabf1811defa",
+  "frozen_utc": "2026-10-03T06:05:05.447536+00:00",
+  "gpu_runner": false,
+  "inner_split": "same three existing grouped geometry splits inside each outer training set",
+  "input_sha256": {
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\pretraining_tests.json": "9b4a9935631886422bd8f5ac580c943bdfb6738cd97f7e324b29e10e5ad01014",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\CONTINUATION.md": "e3e45a5816c0eb2b4c967a712a74d4fb7bc05fda2a4abb7a4ec840c25585675c",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\artifact_hashes.json": "d5e015d10c7ef817bd8f553c887a3c3fb9078354112eca5336f435b03fb36dbc",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\audit.json": "3710d518513992b1a3549637ca3f03b5662f907fd9aae640e6dff8b480e31ea1",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\checkpoint.json": "bb8ed73391fd02f301dc1c951ea1471a80bca56ef88a9a879a17c41f7c194a80",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\protocol.json": "35ffc70d6b459ef7b58b682178cc509a3ee9e9efce45425a406c256a6833051b",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\results.json": "a83484fd3189cd277cd63577b781c9ee83820280d11d293bab7d9c6bd3701129",
+    "reports\\coupling\\COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_32G_CONFIRMATORY_V2\\fold_manifest_v2.json": "4a2c40339f58073e46f9e830d5b619bd620f6ab26091c8a3961c532f000a944a",
+    "reports\\coupling\\PW_K6_H1_NUMERIC_GATE_AUTHORITY_V1.json": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\PW_K6_FROZEN_FORWARD_H1_32G_V1.json": "2374e7c18e2a4094a5db4c32c7b0c491039ee39abd51987a9b1e2ad84e37dec8",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\artifact_hashes.json": "c19ba975817bde9ea09f0b42ffb09fb16eec11b67adc5bb06e933f43ef8edc03",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\oof_predictions_20g_32g.npz": "68c78cb437cdde8e222fd12aee323f906c8501cf5777bcfdcf5a49f6d24044a0",
+    "scripts\\coupling_ml\\pw_k6_stage1_32g_frozen_model_v1.py": "919471fce7d9d324947c9dfa4fc63e1ae7384061195f174d943879a745d6712f",
+    "scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "tests\\coupling\\test_amplitude_circular_phase_forward_poc_v1.py": "4c3697df47d799f466400a5f4d7daec1e3b307615eaad109c48c0856a80d7e38"
+  },
+  "inverse_search": false,
+  "loss": "C0 exactly frozen M5 standardized rank-2 latent MSE. C1 fixed equal-weight sum: standardized latent MSE + train-scaled log-amplitude reconstruction MSE + binary-strong-truth masked circular loss mean(1-Re(Uhat*conj(Utrue))) + complex reconstruction MSE divided by outer-train mean |C_hat|^2. No SSE-derived weights or posthoc tuning.",
+  "metrics": "Original conjunctive H1 gates; per geometry state/routing/absolute/thresholded/P_scale; amplitude/circular/relative phase; paired geometry deltas and tails; same-scale P_scale comparison; frozen H2 physical reconstruction.",
+  "new_hf": false,
+  "no_wavelength_random_split": true,
+  "optimizer": "CPU AdamW lr 0.002, weight_decay 0.0001; grad norm clip 5; max 320 epochs; patience45 on inner-validation standardized latent MSE (both configs); refit at median of three inner-fold best epochs for each seed.",
+  "outer_split": "exact existing 32-fold geometry LOGO manifest; every wavelength for a geometry held together",
+  "pca": "All bases fit on the current model-fit training geometries only; C0/C1 outer-train rank-2 bases refit within every outer fold. Compression ceilings are separately measured using held-out truth projections and labeled oracle ceilings.",
+  "polar_roundtrip": "Uses original truth amplitude and unit phase, including weak but nonzero amplitudes; exact C_hat round trip must pass 1e-12. The deterministic +1 weak rule applies to C1 fit targets/loss only; its effect is separately reported in the C1 compression ceiling.",
+  "reserves": false,
+  "runner_development": false,
+  "runtime": {
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "python_executable": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "require_torch_cuda_available": false,
+    "training_device": "CPU"
+  },
+  "scale_branch": "reuse exact archived 32G OOF RBF KRR P_scale prediction for all candidates; no oracle scale and no retraining.",
+  "schema": "COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1_PREREGISTRATION_V1",
+  "scientific_scope": "32G ordered D1..D6; integrated periodic plane-wave FDTD truth already on disk; geometry-only forward; P/XLIKE; TE/TM complex outgoing coordinates; 440-460 nm",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "status": "FROZEN_BEFORE_ANY_C0_C1_TRAINING",
+  "test_code_sha256": "4c3697df47d799f466400a5f4d7daec1e3b307615eaad109c48c0856a80d7e38",
+  "training_budget": {
+    "configurations": 2,
+    "inner_early_stop_fits_per_config": 288,
+    "maximum_epochs_per_fit": 320,
+    "maximum_optimizer_steps_per_config": 122880,
+    "maximum_optimizer_steps_total": 245760,
+    "no_extra_seeds_or_configs": true,
+    "outer_refits_per_config": 96
+  },
+  "weak_amplitude_rule": "At each geometry/wavelength, weak iff a truth coordinate amplitude <=0.01*maximum amplitude across all 14 TE/TM/order coordinates (max floor 1e-30). Weak phase labels deterministically +1+0i; only their circular training-loss weight is zero. Masks used in optimization are generated only from fit-subset truth. Validation selects epochs by standardized latent MSE only.",
+  "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+  "zero_solver": true
+}
