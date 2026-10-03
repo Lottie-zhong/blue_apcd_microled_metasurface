@@ -1,6 +1,6 @@
 # COUPLING_ML_TRAIN_VALIDATION_TRAJECTORY_AUDIT_V1
 
-Status: COMPLETE one-fold, seed-0 development audit. No held-out truth state, prediction, or metric was opened; this is not full LOGO validation or H1 admission.
+Status: PARTIAL. All eight authorized trajectory fits and audits completed, with a disclosed pre-registration exposure of held-out geometry metadata. No held-out truth state, prediction, or metric was opened; this is not full LOGO validation or H1 admission.
 
 ## Execution and authority
 
