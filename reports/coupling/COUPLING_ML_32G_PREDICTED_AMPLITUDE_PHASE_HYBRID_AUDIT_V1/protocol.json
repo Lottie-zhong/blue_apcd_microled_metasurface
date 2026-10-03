@@ -1,0 +1,327 @@
+{
+  "P_scale_diagnostics": {
+    "per_geometry": [
+      "relative RMSE",
+      "mean signed relative error",
+      "mean prediction/truth scale ratio",
+      "within-spectrum correlation",
+      "unit-sum spectral-shape RMSE"
+    ],
+    "tail_overlap": "Pearson and Spearman with geometry state/routing errors plus rank overlap; diagnostic correlation only",
+    "truth_sum_check": "compare frozen P_scale truth with sum of stored absolute_order_power; report numerical residual only; do not redefine either label"
+  },
+  "aggregation_and_metrics": {
+    "H1_gate_source": "reports\\coupling\\PW_K6_H1_NUMERIC_GATE_AUTHORITY_V1.json",
+    "H1_metrics": [
+      "state",
+      "routing",
+      "absolute_order",
+      "thresholded_relative",
+      "P_scale_total",
+      "seed_stability"
+    ],
+    "gate_values_from_frozen_authority": {
+      "absolute_order_source_normalized_rmse": {
+        "median_max": 0.05,
+        "q95_max": 0.1
+      },
+      "conjunctive": true,
+      "routing_eta_rmse": {
+        "median_max": 0.05,
+        "pearson_min": 0.95,
+        "q95_max": 0.1
+      },
+      "seed_state_median_std_max": 0.03,
+      "state_relative_rmse": {
+        "median_max": 0.5,
+        "q95_max": 0.8
+      },
+      "thresholded_absolute_order_relative": {
+        "median_max": 0.3,
+        "q95_max": 0.75,
+        "significance_threshold": 0.0009885656815447454
+      },
+      "total_power_relative": {
+        "median_max": 0.15,
+        "pearson_min": 0.95,
+        "q95_max": 0.3
+      }
+    },
+    "geometry_is_unit": true,
+    "paired_tie_abs_tolerance": 1e-12,
+    "phase": "report frozen POC truth-amplitude-weighted phase, predicted-amplitude-weighted phase as a weight-sensitive diagnostic, cross-order relative phase, truth-weighted relative-phase diagnostic, and oracle common-phase diagnostic; none outside original H1 enters gates",
+    "primary_H1_prediction": "arithmetic mean of three seed complex predictions; HYBRID is first formed within each matching seed and then averaged",
+    "seed_stability": "std (population, ddof=0) of per-seed median geometry state error",
+    "thresholded_relative_significance_threshold": 0.0009885656815447454
+  },
+  "analysis_script_sha256": "dac75e984a57540723028511308c689f1e3253c16609c9a5b9c05897b16c9267",
+  "authority_sha256": {
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\CONTINUATION.md": "a2060490101b74c30200d941bf2d8017a1e01a57162132b74a31e40d16c78898",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\artifact_hashes.json": "eed822a874f70f1f90914bc1f3bb8b39eea5884affbd1459950191600d40ad21",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\audit.json": "6eab4b402a35c859714d941383e84c2f2b9f617dadd19d11e141865e38168ddd",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\oof_predictions.npz": "f3a99617f9c67329b3fb234a48c1be7212a09175c9474432b9a6884826653406",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\protocol.json": "ec0a4dcab346b0700bca7f5fabe7ff7a7c84eeff6f5fe20a09ec8e5dc9dd4c57",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\results.json": "f6285b7d17725cf64ac19d1d78f7f7dd53a9f9f881b4c67fac817104f73f3cf7",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\CONTINUATION.md": "e3e45a5816c0eb2b4c967a712a74d4fb7bc05fda2a4abb7a4ec840c25585675c",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\artifact_hashes.json": "d5e015d10c7ef817bd8f553c887a3c3fb9078354112eca5336f435b03fb36dbc",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\audit.json": "3710d518513992b1a3549637ca3f03b5662f907fd9aae640e6dff8b480e31ea1",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\protocol.json": "35ffc70d6b459ef7b58b682178cc509a3ee9e9efce45425a406c256a6833051b",
+    "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\results.json": "a83484fd3189cd277cd63577b781c9ee83820280d11d293bab7d9c6bd3701129",
+    "reports\\coupling\\COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_32G_CONFIRMATORY_V2\\fold_manifest_v2.json": "4a2c40339f58073e46f9e830d5b619bd620f6ab26091c8a3961c532f000a944a",
+    "reports\\coupling\\PW_K6_H1_NUMERIC_GATE_AUTHORITY_V1.json": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\PW_K6_32G_DATASET_AUTHORITY_V1.json": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\PW_K6_FROZEN_FORWARD_H1_32G_V1.json": "2374e7c18e2a4094a5db4c32c7b0c491039ee39abd51987a9b1e2ad84e37dec8",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\artifact_hashes.json": "c19ba975817bde9ea09f0b42ffb09fb16eec11b67adc5bb06e933f43ef8edc03",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\oof_predictions_20g_32g.npz": "68c78cb437cdde8e222fd12aee323f906c8501cf5777bcfdcf5a49f6d24044a0",
+    "scripts\\coupling_ml\\coupling_ml_32g_amplitude_circular_phase_forward_poc_v1.py": "c89975c75467e8049c5c973b034a780a8514bf93eaa1f30dc804e7a8ffff8667",
+    "scripts\\coupling_ml\\coupling_ml_32g_predicted_amplitude_phase_hybrid_audit_v1.py": "dac75e984a57540723028511308c689f1e3253c16609c9a5b9c05897b16c9267",
+    "scripts\\coupling_ml\\pw_k6_stage1_32g_frozen_model_v1.py": "919471fce7d9d324947c9dfa4fc63e1ae7384061195f174d943879a745d6712f",
+    "scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "tests\\coupling\\test_amplitude_circular_phase_forward_poc_v1.py": "819e8830e3ca2abc0bfc8efaf53943fb6b6fb08ea0185e5e97623061455ec1eb"
+  },
+  "branch": "work/mdc-np-coupling-ml-v1",
+  "dataset": {
+    "geometries": 32,
+    "geometry_wavelength_rows": 672,
+    "orders_m": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "polarization_order": [
+      "TE",
+      "TM"
+    ],
+    "prediction_axes": [
+      "seed",
+      "geometry",
+      "wavelength",
+      "order",
+      "polarization"
+    ],
+    "prediction_shape": [
+      3,
+      32,
+      21,
+      7,
+      2
+    ],
+    "seed_order": [
+      0,
+      1,
+      2
+    ],
+    "truth_schema": "PW_K6_32G_DATASET_AUTHORITY_V1",
+    "wavelengths_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ]
+  },
+  "factorization": {
+    "H2_physical_reconstruction": "use frozen mode power_z_per_abs_e2 per wavelength/order/polarization; unscaled modal power=sum(power_z_per_abs_e2*abs(C_hat)^2); apply only the existing global sqrt(P_scale_pred/unscaled_modal_power) scale",
+    "P_scale": "same archived full-band 32G OOF RBF KRR prediction for FULL/C0/C1/HYBRID; no clipping, fitting, oracle substitution or extra normalization",
+    "official_C_hat": "raw ordered complex state [geometry,wavelength,order,TE/TM] remains the state-gate input",
+    "phase_cross_terms": "verify frozen H2 modal-power calculation; do not assume routing/order-power equality"
+  },
+  "fallback": {
+    "C0_phase_defined_if": "abs(C0_pred)>=1e-8",
+    "C1_exact_zero_note": "the POC persists reconstructed complex C1, not the separate unit-phase latent; when the saved coordinate is exactly zero its phase cannot be recovered without refitting/replaying, so fixed unit phase is the prescribed both-undefined fallback",
+    "report": [
+      "coordinate fallback frequency",
+      "amplitude share",
+      "H2 physically reconstructed modal-power share",
+      "per-geometry fallback counts and shares"
+    ],
+    "threshold": 1e-08,
+    "threshold_source": "frozen C0/C1 POC EPS_PHASE unit-safe phase rule",
+    "when_C0_phase_undefined": "use C1 saved complex phase if abs(C1_pred)>0; otherwise fixed +1+0i"
+  },
+  "frozen_utc": "2026-10-03T07:58:52.981947+00:00",
+  "hybrid": {
+    "candidate_count": 1,
+    "combination_per_seed_then_seed_mean": true,
+    "formula": "for each same-seed/same-fold/same-geometry/same-wavelength/same-order/same-polarization coordinate: A1=abs(C1_pred); u0=C0_pred/abs(C0_pred); C_hybrid=A1*u0",
+    "no_fit_or_blend_weight": true,
+    "no_oracle_phase_alignment": true,
+    "no_truth_based_arm_selection": true,
+    "no_truth_used_in_construction": true
+  },
+  "input_sha256": {
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\audit.json": "6eab4b402a35c859714d941383e84c2f2b9f617dadd19d11e141865e38168ddd",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\oof_predictions.npz": "f3a99617f9c67329b3fb234a48c1be7212a09175c9474432b9a6884826653406",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\protocol.json": "ec0a4dcab346b0700bca7f5fabe7ff7a7c84eeff6f5fe20a09ec8e5dc9dd4c57",
+    "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\results.json": "f6285b7d17725cf64ac19d1d78f7f7dd53a9f9f881b4c67fac817104f73f3cf7",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\oof_predictions_20g_32g.npz": "68c78cb437cdde8e222fd12aee323f906c8501cf5777bcfdcf5a49f6d24044a0"
+  },
+  "inputs": {
+    "authority_sha256": {
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\CONTINUATION.md": "a2060490101b74c30200d941bf2d8017a1e01a57162132b74a31e40d16c78898",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\artifact_hashes.json": "eed822a874f70f1f90914bc1f3bb8b39eea5884affbd1459950191600d40ad21",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\audit.json": "6eab4b402a35c859714d941383e84c2f2b9f617dadd19d11e141865e38168ddd",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\oof_predictions.npz": "f3a99617f9c67329b3fb234a48c1be7212a09175c9474432b9a6884826653406",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\protocol.json": "ec0a4dcab346b0700bca7f5fabe7ff7a7c84eeff6f5fe20a09ec8e5dc9dd4c57",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\results.json": "f6285b7d17725cf64ac19d1d78f7f7dd53a9f9f881b4c67fac817104f73f3cf7",
+      "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\CONTINUATION.md": "e3e45a5816c0eb2b4c967a712a74d4fb7bc05fda2a4abb7a4ec840c25585675c",
+      "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\artifact_hashes.json": "d5e015d10c7ef817bd8f553c887a3c3fb9078354112eca5336f435b03fb36dbc",
+      "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\audit.json": "3710d518513992b1a3549637ca3f03b5662f907fd9aae640e6dff8b480e31ea1",
+      "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\protocol.json": "35ffc70d6b459ef7b58b682178cc509a3ee9e9efce45425a406c256a6833051b",
+      "reports\\coupling\\COUPLING_ML_32G_COMPLEX_STATE_REPRESENTATION_DIAGNOSTIC_V1\\results.json": "a83484fd3189cd277cd63577b781c9ee83820280d11d293bab7d9c6bd3701129",
+      "reports\\coupling\\COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_32G_CONFIRMATORY_V2\\fold_manifest_v2.json": "4a2c40339f58073e46f9e830d5b619bd620f6ab26091c8a3961c532f000a944a",
+      "reports\\coupling\\PW_K6_H1_NUMERIC_GATE_AUTHORITY_V1.json": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+      "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\PW_K6_32G_DATASET_AUTHORITY_V1.json": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+      "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\PW_K6_FROZEN_FORWARD_H1_32G_V1.json": "2374e7c18e2a4094a5db4c32c7b0c491039ee39abd51987a9b1e2ad84e37dec8",
+      "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\artifact_hashes.json": "c19ba975817bde9ea09f0b42ffb09fb16eec11b67adc5bb06e933f43ef8edc03",
+      "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+      "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\oof_predictions_20g_32g.npz": "68c78cb437cdde8e222fd12aee323f906c8501cf5777bcfdcf5a49f6d24044a0",
+      "scripts\\coupling_ml\\coupling_ml_32g_amplitude_circular_phase_forward_poc_v1.py": "c89975c75467e8049c5c973b034a780a8514bf93eaa1f30dc804e7a8ffff8667",
+      "scripts\\coupling_ml\\coupling_ml_32g_predicted_amplitude_phase_hybrid_audit_v1.py": "dac75e984a57540723028511308c689f1e3253c16609c9a5b9c05897b16c9267",
+      "scripts\\coupling_ml\\pw_k6_stage1_32g_frozen_model_v1.py": "919471fce7d9d324947c9dfa4fc63e1ae7384061195f174d943879a745d6712f",
+      "scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+      "tests\\coupling\\test_amplitude_circular_phase_forward_poc_v1.py": "819e8830e3ca2abc0bfc8efaf53943fb6b6fb08ea0185e5e97623061455ec1eb"
+    },
+    "c0_c1_analysis_script_sha256": "dac75e984a57540723028511308c689f1e3253c16609c9a5b9c05897b16c9267",
+    "input_sha256": {
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\audit.json": "6eab4b402a35c859714d941383e84c2f2b9f617dadd19d11e141865e38168ddd",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\oof_predictions.npz": "f3a99617f9c67329b3fb234a48c1be7212a09175c9474432b9a6884826653406",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\protocol.json": "ec0a4dcab346b0700bca7f5fabe7ff7a7c84eeff6f5fe20a09ec8e5dc9dd4c57",
+      "reports\\coupling\\COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1\\results.json": "f6285b7d17725cf64ac19d1d78f7f7dd53a9f9f881b4c67fac817104f73f3cf7",
+      "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+      "reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\oof_predictions_20g_32g.npz": "68c78cb437cdde8e222fd12aee323f906c8501cf5777bcfdcf5a49f6d24044a0"
+    },
+    "test_sha256": "b367fa81c8fd756c737310aec51e35d75dc1f8aaa4ed85feed18105495308bc2"
+  },
+  "outputs": [
+    "hybrid_oof_predictions.npz",
+    "per_geometry.csv",
+    "per_wavelength.csv",
+    "per_order.csv",
+    "seed_metrics.csv",
+    "fallback_by_geometry.csv",
+    "pscale_by_geometry.csv",
+    "h2_reconstruction.csv",
+    "results.json",
+    "audit.json",
+    "CONTINUATION.md",
+    "artifact_hashes.json"
+  ],
+  "post_hoc_limitation": "This uses C0/C1 outer-fold OOF predictions after the development POC and is not independent confirmatory validation. Even full H1 gate attainment is not production admission.",
+  "pre_result_protocol_amendments": [
+    {
+      "amendment": "Added top-level code/test digest aliases required by executable integrity check; all values equal the already-frozen inputs hashes.",
+      "comparison_metrics_computed_before_amendment": false,
+      "old_protocol_sha256": "bce3a971f6185ae36238401ee9b83f4f9f89dc12e54101dbd0f2da18641e064b",
+      "prediction_arrays_loaded_before_amendment": false,
+      "scientific_rule_changed": false,
+      "utc": "2026-10-03T08:00:30.349526+00:00"
+    },
+    {
+      "amendment": "Added top-level code/test and input/authority digest aliases required by executable integrity checks; all values are exact copies of the already-frozen inputs hashes.",
+      "comparison_metrics_computed_before_amendment": false,
+      "old_protocol_sha256": "2db8c6e5c89a039330c7c56a5b242d9eb45d953840eb09d7345a2720d2859eae",
+      "prediction_arrays_loaded_before_amendment": false,
+      "scientific_rule_changed": false,
+      "utc": "2026-10-03T08:01:22.286116+00:00"
+    },
+    {
+      "amendment": "Added top-level digest aliases required by executable integrity checks; then updated the analysis source hash after a non-scientific ndarray-to-JSON serialization fix. All prediction, fallback, metric, gate and H2 rules remain identical to the original frozen protocol.",
+      "analysis_sha256": "08d458f38c874ce7ca6f64a4253fdbd5fcf0bf2d4780c0b0b0d277c10e961351",
+      "comparison_metrics_computed_before_code_fix": true,
+      "comparison_metrics_persisted_before_code_fix": false,
+      "first_attempt_failure": "results.json serialization rejected internal numpy arrays; no results.json was committed or used for interpretation",
+      "old_protocol_sha256": "29cb50738f0bfe4a53c7e6f4e191546c3a5a83a92db42e3f61679fe86dbca3cd",
+      "prediction_arrays_loaded_before_code_fix": true,
+      "previous_analysis_sha256": "b9ac6e68164e64f18c339cbfb7c8e8a33e92af35b71dd1bd9887718ddfeecc01",
+      "scientific_rule_changed": false,
+      "solver_or_training_invocations": 0,
+      "utc": "2026-10-03T08:04:13.028727+00:00"
+    },
+    {
+      "amendment": "Fixed the exact test-path manifest entry after the first full metrics and reports were persisted. The existing results.json is reused for final manifest completion; no metrics were recomputed after this fix. All prediction, fallback, metric, gate and H2 rules remain identical to the original frozen protocol.",
+      "analysis_sha256": "6900b8379afbde0dd939eb8f21dcedf497d42526ecdbfc7a6666c4d706ad93c9",
+      "comparison_metrics_computed_before_amendment": true,
+      "comparison_metrics_persisted_before_amendment": true,
+      "first_attempt_failure": "artifact hashing referenced a nonexistent tests/coupling_ml path after results had already been persisted",
+      "old_protocol_sha256": "289e83c59a90aa684d9d775344c7ee286afc90d2e10bee4858e8701aa6b38484",
+      "persisted_results_sha256_before_amendment": "e2ea66350d0f00a6a5b28178e9a6b687e1d5f97e13ab90139ed214aa1aa83fc7",
+      "prediction_arrays_loaded_before_amendment": true,
+      "previous_analysis_sha256": "08d458f38c874ce7ca6f64a4253fdbd5fcf0bf2d4780c0b0b0d277c10e961351",
+      "recomputed_metrics_after_amendment": false,
+      "scientific_rule_changed": false,
+      "solver_or_training_invocations": 0,
+      "utc": "2026-10-03T08:10:45.069744+00:00"
+    },
+    {
+      "amendment": "Expanded the persisted report with numeric phase, paired-geometry, seed, tail, H2 and P_scale summaries. The existing results.json is reused; no metrics were recomputed. Scientific comparison rules remain unchanged.",
+      "analysis_sha256": "78141c93459acaae917a6d5b1c0c3936b9e0eddf22a2ff86878d80c3656d2985",
+      "comparison_metrics_computed_before_amendment": true,
+      "comparison_metrics_persisted_before_amendment": true,
+      "first_attempt_failure": "initial report generator omitted detailed numeric summaries although the full metrics were already persisted",
+      "old_protocol_sha256": "916c49f59b11b9fff63e2616e2d4fdb127bb6ee57ee8ebbb1800795306d5accf",
+      "persisted_results_sha256_before_amendment": "e2ea66350d0f00a6a5b28178e9a6b687e1d5f97e13ab90139ed214aa1aa83fc7",
+      "prediction_arrays_loaded_before_amendment": true,
+      "previous_analysis_sha256": "6900b8379afbde0dd939eb8f21dcedf497d42526ecdbfc7a6666c4d706ad93c9",
+      "recomputed_metrics_after_amendment": false,
+      "scientific_rule_changed": false,
+      "solver_or_training_invocations": 0,
+      "utc": "2026-10-03T08:20:13.716101+00:00"
+    },
+    {
+      "amendment": "Expanded the persisted report with numeric phase, paired-geometry, seed, tail, H2 and P_scale summaries, and made CONTINUATION.md self-contained for project/authority/recovery. The existing results.json is reused; no metrics were recomputed. Scientific comparison rules remain unchanged.",
+      "analysis_sha256": "dac75e984a57540723028511308c689f1e3253c16609c9a5b9c05897b16c9267",
+      "comparison_metrics_computed_before_amendment": true,
+      "comparison_metrics_persisted_before_amendment": true,
+      "first_attempt_failure": "initial report/continuation summaries lacked numeric findings and explicit authority/route recovery pointers although the full metrics were already persisted",
+      "old_protocol_sha256": "6641adb99af5ed2a95c8db3b9a847ad3d69564a1edffde08c56c2ee27a6d3b55",
+      "persisted_results_sha256_before_amendment": "e2ea66350d0f00a6a5b28178e9a6b687e1d5f97e13ab90139ed214aa1aa83fc7",
+      "prediction_arrays_loaded_before_amendment": true,
+      "previous_analysis_sha256": "78141c93459acaae917a6d5b1c0c3936b9e0eddf22a2ff86878d80c3656d2985",
+      "recomputed_metrics_after_amendment": false,
+      "scientific_rule_changed": false,
+      "solver_or_training_invocations": 0,
+      "utc": "2026-10-03T08:23:56.465996+00:00"
+    }
+  ],
+  "schema": "COUPLING_ML_32G_PREDICTED_AMPLITUDE_PHASE_HYBRID_AUDIT_PROTOCOL_V1",
+  "starting_head": "456cf707880e25283b325dad4b3fc5904aae58d1",
+  "status": "FROZEN_BEFORE_HYBRID_COMPARISON",
+  "task_scope": {
+    "FDTD": 0,
+    "GPU_Runner": 0,
+    "hybrid_candidates": 1,
+    "inverse_search": 0,
+    "new_HF": 0,
+    "new_model_fits": 0,
+    "platform_development": 0,
+    "post_hoc_development_audit": true,
+    "reserve": 0,
+    "zero_new_training": true,
+    "zero_solver": true
+  },
+  "test_sha256": "b367fa81c8fd756c737310aec51e35d75dc1f8aaa4ed85feed18105495308bc2",
+  "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1"
+}
