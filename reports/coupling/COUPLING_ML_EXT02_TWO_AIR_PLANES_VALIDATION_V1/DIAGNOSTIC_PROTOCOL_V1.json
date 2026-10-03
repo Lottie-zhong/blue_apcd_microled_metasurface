@@ -1,0 +1,73 @@
+{
+  "candidate_selection": "none; one geometry and one solver attempt",
+  "dataset_case": "K6V1_EXT02",
+  "engineering_thresholds": {
+    "per_order_routing_max_abs_difference": 0.005,
+    "propagating_complex_state_relative_l2_max": 0.02,
+    "propagating_total_power_relative_difference_max": 0.01,
+    "scope": "one-case inter-plane consistency only; not absolute convergence, H1, complete 32G validation, or production admission",
+    "significant_coordinate_amplitude_weighted_phase_rmse_rad_max": 0.05,
+    "source_normalized_absolute_order_max_abs_difference": 0.005
+  },
+  "floquet_extraction": {
+    "air_propagating_orders": "m=-3..+3,n=0 across 440..460 nm at 1 nm",
+    "basis": "official full-period E/H Floquet least squares; +z/-z and TE/TM",
+    "coordinate_alignment": "same wavelength/order/direction/polarization coordinates",
+    "deembedding": {
+      "+z": "c_ref=c_sample*exp(+1j*kz*delta_z)",
+      "-z": "c_ref=c_sample*exp(-1j*kz*delta_z)",
+      "delta_z": "z_ref - z_actual_sample",
+      "kz": "official passive square-root branch and extractor sign convention"
+    },
+    "implementation": "scripts/shared_fdtd/tools/pw_complex_floquet_state_v1.py",
+    "implementation_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "oracle_common_phase_alignment": "prohibited"
+  },
+  "frozen_at_utc": "2026-10-03T16:02:52+00:00",
+  "historical_comparison": "cross-height comparison remains separate from historical EXT02 repeatability; never replace old truth",
+  "maximum_solver_entries": 1,
+  "metric_definitions": {
+    "absolute_order": "per-order modal power divided by the official incident-source power normalization",
+    "amplitude": "report magnitude and relative magnitude difference by wavelength/order/direction/polarization",
+    "complex_state": "||c_far_ref-c_near_ref||2 / ||c_near_ref||2 across seven propagating orders and both polarizations",
+    "routing": "per-order propagating modal power divided by total propagating modal power, no fitted normalization",
+    "total_power": "sum of propagating modal powers at each plane before post-hoc scaling"
+  },
+  "planes": {
+    "added_diagnostic_plane": {
+      "actual_sample_and_mesh": "unknown until materialized and read back",
+      "actual_sample_z_nm": null,
+      "name": "EXT02_POSTNP_DIAG_Z2000",
+      "nominal_z_nm": 2000
+    },
+    "existing_postnp": {
+      "actual_sample_z_nm": 1801.9999999999932,
+      "nominal_z_nm": 1800,
+      "source_report": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_ML_POSTNP_MONITOR_VALIDITY_AUDIT_V1\\POSTNP_MONITOR_VALIDITY_AUDIT_REPORT_V1.md"
+    },
+    "reference_z_nm": 1722,
+    "z_rule": "de-embed from actual sampled z, not nominal z"
+  },
+  "post_entry_automatic_replays": 0,
+  "schema": "COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_PROTOCOL_V1",
+  "secondary_diagnostics": {
+    "directionality": "up-going and down-going components separately",
+    "dispersion": "continuous-medium kz de-embedding approximates FDTD numerical dispersion; report local mesh spacing at both planes",
+    "evanescent": "report separately including upward decay and fit; not far-field power and no propagating-state threshold",
+    "least_squares": "residual, rank and condition number by wavelength/order/plane",
+    "normalization": "official source normalization only; no post-hoc fitted scale",
+    "periodic_endpoints": "first/last x and y field closure; extractor trapezoidal endpoint half-weights",
+    "poynting": "independent plane-integrated Poynting flux versus modal power"
+  },
+  "significance_and_phase": {
+    "amplitude_weighted_phase_rmse": "sqrt(sum(|c_near_ref| * wrapped_difference^2)/sum(|c_near_ref|)) within significant mask",
+    "mask": "per wavelength, include coordinate iff |c_near|^2 / sum_propagating(|c_near|^2) >= 1e-4",
+    "mask_source": "near/existing POSTNP truth",
+    "weak_amplitude": "report all amplitudes and unmasked metrics; exact-zero phase is undefined and excluded by mask",
+    "wrapped_difference": "principal angle(c_far_ref * conjugate(c_near_ref))"
+  },
+  "solver_scope": "one independent EXT02 diagnostic case only",
+  "status": "FROZEN_PREENTRY_NOT_EXECUTED",
+  "stop_rule": "if the frozen Runner cannot accept the independent case/monitor overlay through its supported authority schema, do not invoke solver-capable entry; report exact interface limitation",
+  "task": "COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_V1"
+}

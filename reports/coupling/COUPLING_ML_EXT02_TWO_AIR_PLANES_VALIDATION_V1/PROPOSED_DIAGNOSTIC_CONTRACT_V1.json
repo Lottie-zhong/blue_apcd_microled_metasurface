@@ -1,0 +1,61 @@
+{
+  "base_setup": {
+    "authority": "historical PW_K6_SEED_DB_V1_PRODUCTION_V1 EXT02; not an approved 5nm Runner case",
+    "path": "outputs/coupling_ml/PW_K6_SEED_DB_V1_PRODUCTION_V1/K6V1_EXT02/attempt_001/setup/runtime.fsp",
+    "sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143"
+  },
+  "contract_diff": [
+    {
+      "actual_sample_z_nm": "unresolved until a setup containing this monitor is read back",
+      "components": [
+        "Ex",
+        "Ey",
+        "Ez",
+        "Hx",
+        "Hy",
+        "Hz"
+      ],
+      "coverage": "full periodic x/y cell",
+      "local_mesh": "capture actual x/y/z coordinates and local spacing; expected to differ from existing POSTNP region",
+      "name": "EXT02_POSTNP_DIAG_Z2000",
+      "nominal_z_nm": 2000,
+      "operation": "ADD_ONE_DIAGNOSTIC_MONITOR",
+      "sampling": "copy existing POSTNP interpolation/downsampling and coordinate policy",
+      "span_nm": {
+        "x": 1740,
+        "y": 290
+      },
+      "type": "2D Z-normal frequency-domain monitor",
+      "wavelengths_nm": {
+        "points": 21,
+        "start": 440,
+        "step": 1,
+        "stop": 460
+      }
+    }
+  ],
+  "diagnostic_contract_proposal_sha256": "0842d2d3dcbab38cb193227f6c11c8cf0d759b3bf69671005fd20586cdd50153",
+  "existing_monitor_contract": {
+    "path": "contracts/coupling/medium_pw/MEDIUM_PW_MONITOR_CONTRACT_V1.json",
+    "sha256": "a84d8526889084f2b3b09022402ca93b2947939cb744f071a4b19bc6eb09172f"
+  },
+  "fingerprint_type": "proposal/design fingerprint only",
+  "hash_definition": "SHA256 of canonical UTF-8 JSON with sorted keys, compact separators and ensure_ascii=False, before adding this hash field",
+  "invariants": [
+    "ordered EXT02 geometry",
+    "materials",
+    "source/polarization",
+    "440-460 nm wavelengths",
+    "x/y periodic boundaries",
+    "z PML",
+    "production mesh and stopping rule",
+    "existing POSTNP monitor"
+  ],
+  "runner_acceptance": "not accepted: no EXT02 case authority or LOAD-only proof; Runner pins a distinct production contract and canonical FSP",
+  "runner_production_contract": {
+    "note": "pinned Runner contract; not the diagnostic overlay fingerprint",
+    "sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
+  },
+  "schema": "COUPLING_ML_EXT02_TWO_AIR_PLANES_DIAGNOSTIC_CONTRACT_PROPOSAL_V1",
+  "status": "DESIGN_ONLY_NOT_MATERIALIZED_OR_RUNNER_ACCEPTED"
+}
