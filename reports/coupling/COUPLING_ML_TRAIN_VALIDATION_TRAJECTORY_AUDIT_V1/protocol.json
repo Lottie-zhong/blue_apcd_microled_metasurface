@@ -1,0 +1,262 @@
+{
+  "authority_paths": [
+    "reports/coupling/COUPLING_ML_FORWARD_TRAINABILITY_AUDIT_V1/CONTINUATION.md",
+    "reports/coupling/COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/protocol.json",
+    "reports/coupling/COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1/protocol.json",
+    "reports/coupling/PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1/PW_K6_32G_DATASET_AUTHORITY_V1.json",
+    "reports/coupling/COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_32G_CONFIRMATORY_V2/fold_manifest_v2.json"
+  ],
+  "branch": "work/mdc-np-coupling-ml-v1",
+  "canonical_root": "D:\\project\\blue_apcd_microled_metasurface",
+  "comparison_rule": "report every fold and all fixed milestones, train and validation separately; summarize paired C0/G0 by same fold/step only. No candidate selection or H1 claim.",
+  "data_scope": {
+    "forbidden_aggregate_archives": [
+      "reports/coupling/PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1/dataset_truth_32g.npz",
+      "reports/coupling/COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/oof_predictions.npz",
+      "reports/coupling/COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/g0_predictions_partial.npz",
+      "reports/coupling/COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1/oof_predictions.npz"
+    ],
+    "heldout_truth_or_prediction_read": false,
+    "only_per_case_training_state_npz_and_sidecar_for_31_outer_train_ids": true,
+    "permitted_external_case_exception": {
+      "S35_recovery_status": {
+        "fresh_load_verified": true,
+        "max_energy_closure": 1.1102230246251565e-16,
+        "metadata_path_absolute": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\K6V1_S35\\attempt_001\\S35-20261002T044427Z-e702b2ac\\recovery_003\\state\\K6V1_S35__attempt_001_pw_complex_floquet_state.json",
+        "metadata_sha256": "4add71c91d46c7fa08e618cab3306e00233a35533df3aab8a721a7b8baf799ff",
+        "monitors_valid": true,
+        "recovery_state": "LOAD_ONLY_POSTENTRY_TRUTH_RECOVERY",
+        "recovery_status_path_absolute": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\K6V1_S35\\attempt_001\\S35-20261002T044427Z-e702b2ac\\recovery_003\\recovery_status.json",
+        "recovery_status_sha256": "73de0616fef16880c8c680441ec74c6f83aa4d3a9c193fc05dca339147f3ce0f",
+        "replay_count": 0,
+        "scientific_truth_status": "TRUTH_VALID",
+        "scientific_valid": true,
+        "solver_invocations_after": 1,
+        "solver_invocations_before": 1,
+        "solver_run_called_during_recovery": false,
+        "state_path_absolute": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\K6V1_S35\\attempt_001\\S35-20261002T044427Z-e702b2ac\\recovery_003\\state\\K6V1_S35__attempt_001_pw_complex_floquet_state.npz",
+        "state_sha256": "be538907ecdb74d5096a54995ce9f65157a162ad681ae486b9ec480a891cffbe",
+        "state_valid": true,
+        "validation_path_absolute": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\K6V1_S35\\attempt_001\\S35-20261002T044427Z-e702b2ac\\recovery_003\\validation.json",
+        "validation_sha256": "8415ba09a3ca54eb7869dcd783257fedda3474a9afaef49d7ae656f938e1153f"
+      },
+      "external_stage1_case_ids": [
+        "K6V1_S35",
+        "K6V1_S39",
+        "K6V1_S21",
+        "K6V1_S42",
+        "K6V1_S36",
+        "K6V1_S31",
+        "K6V1_S45",
+        "K6V1_S32",
+        "K6V1_S47",
+        "K6V1_S33",
+        "K6V1_S37",
+        "K6V1_S48"
+      ],
+      "metadata_hash_missing_case_ids": [
+        "K6V1_S35",
+        "K6V1_S39",
+        "K6V1_S21",
+        "K6V1_S42",
+        "K6V1_S36",
+        "K6V1_S31",
+        "K6V1_S45",
+        "K6V1_S32",
+        "K6V1_S47",
+        "K6V1_S33",
+        "K6V1_S37",
+        "K6V1_S48"
+      ]
+    }
+  },
+  "expected_parent_head": "ddda6b302d9282f416028386903ba8e7b39cbc50",
+  "fit_budget": {
+    "full_batch": true,
+    "max_total_optimizer_updates": 8000,
+    "no_additional_fits": true,
+    "seed": 0,
+    "unique_model_fits": 8,
+    "updates_per_fit": 1000
+  },
+  "fit_plan": [
+    {
+      "fit_id": "C0_inner1_seed0",
+      "model": "C0",
+      "seed": 0,
+      "split_id": "inner1",
+      "updates": 1000
+    },
+    {
+      "fit_id": "C0_inner2_seed0",
+      "model": "C0",
+      "seed": 0,
+      "split_id": "inner2",
+      "updates": 1000
+    },
+    {
+      "fit_id": "C0_inner3_seed0",
+      "model": "C0",
+      "seed": 0,
+      "split_id": "inner3",
+      "updates": 1000
+    },
+    {
+      "fit_id": "G0_inner1_seed0",
+      "model": "G0",
+      "seed": 0,
+      "split_id": "inner1",
+      "updates": 1000
+    },
+    {
+      "fit_id": "G0_inner2_seed0",
+      "model": "G0",
+      "seed": 0,
+      "split_id": "inner2",
+      "updates": 1000
+    },
+    {
+      "fit_id": "G0_inner3_seed0",
+      "model": "G0",
+      "seed": 0,
+      "split_id": "inner3",
+      "updates": 1000
+    },
+    {
+      "fit_id": "C0_outer31_seed0",
+      "model": "C0",
+      "seed": 0,
+      "split_id": "outer31",
+      "updates": 1000
+    },
+    {
+      "fit_id": "G0_outer31_seed0",
+      "model": "G0",
+      "seed": 0,
+      "split_id": "outer31",
+      "updates": 1000
+    }
+  ],
+  "fold": {
+    "all_21_wavelengths_stay_with_geometry": true,
+    "excluded_outer_holdout_id": "K6V1_S02",
+    "geometry_grouped": true,
+    "inner_fold_count": 3,
+    "outer_fold_number": 1,
+    "outer_train_count": 31,
+    "selection_rule": "first fold in formal G0 LOGO fold list; no error/tail based choice"
+  },
+  "fold_manifest_sha256": "6b15e93630514e079da11b39fda99d8696be9a0d8bfad42e2992bf80b577deb6",
+  "frozen_utc": "2026-10-03T14:27:07.855492+00:00",
+  "host": "DESKTOP-NNE313K",
+  "input_manifest_sha256": "f5fabac262992501823fb93f654988a2514ba00ea9bd792260291663c8d0fc9d",
+  "intervening_commit": {
+    "authority_conflict": false,
+    "parent": "ddda6b302d9282f416028386903ba8e7b39cbc50",
+    "paths": [
+      "reports/coupling/COUPLING_ML_POSTNP_MONITOR_VALIDITY_AUDIT_V1/CONTINUATION.md",
+      "reports/coupling/COUPLING_ML_POSTNP_MONITOR_VALIDITY_AUDIT_V1/EVIDENCE_INDEX_V1.json",
+      "reports/coupling/COUPLING_ML_POSTNP_MONITOR_VALIDITY_AUDIT_V1/POSTNP_MONITOR_VALIDITY_AUDIT_REPORT_V1.md"
+    ],
+    "sha": "bdc540baa0b0455b4c13b4a3f3471b2af86e8b7e"
+  },
+  "loss": "mean(((predicted latent-target latent)/train-fitted sd)^2), equal to frozen C0/G0 source",
+  "models": {
+    "C0": {
+      "architecture": "frozen M5 ordered geometry Net: 6-32-32 encoder, seven 2-score heads, 14-32-14 residual fusion",
+      "source": "scripts/coupling_ml/pw_k6_stage1_32g_frozen_model_v1.py",
+      "trainable_parameters": 2684
+    },
+    "G0": {
+      "architecture": "frozen width-4 three-round directed periodic ring G0; ordered physical readout and same rank-2 heads/fusion",
+      "source": "reports/coupling/COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/g0_ordered_periodic_model.py",
+      "trainable_parameters": 2444
+    }
+  },
+  "optimizer": {
+    "batching": "full batch, one optimizer update per step",
+    "device": "CPU; CUDA_VISIBLE_DEVICES=-1",
+    "gradient_clip_norm": 5.0,
+    "lr": 0.002,
+    "name": "AdamW",
+    "torch_threads": 1,
+    "weight_decay": 0.0001
+  },
+  "original_early_stop_replay": {
+    "max_updates": 320,
+    "patience": 45,
+    "post_stop_minimum": "diagnostic only, never used to choose outer fit/candidate",
+    "selected_checkpoint": "first strict minimum up to simulated original stop",
+    "strict_improvement": true,
+    "validation_loss": "standardized latent MSE on the current fold-local PCA"
+  },
+  "outer_refit_reference": {
+    "epoch_count": "after matching model's three inner fits, int(median(inner selected best epochs)); record exact outer-train checkpoint at this step and continue fixed 1000 updates",
+    "no_outer_validation": true
+  },
+  "pca_floor": "for each inner validation, transform truth through PCA fitted on inner train and inverse-transform; report complex state error as rank-2 projection floor separately from model prediction error",
+  "preexisting_worktree_status": {
+    "count": 164,
+    "sha256": "06c8b876db25bcf2dd0bb67ef928852ed9c00148a5215ec45c5710718b1c6c86"
+  },
+  "preprocessing": {
+    "geometry": "frozen C0 Xform StandardScaler fit on D_nm/130 using each fit's train IDs only",
+    "loss_scale": "sd=max(std(train latent scores across geometry, ddof=0),1e-12); no latent mean subtraction",
+    "pca": "seven independent PCA(n_components=2,svd_solver=full), separately fit on outer-train for outer fits and inner-train for each inner fold; validation never enters scaler/PCA"
+  },
+  "representation": "Cartesian C_hat; per-order rank-2 PCA over 21 wavelengths packed ReTE,ReTM,ImTE,ImTM; no rank or output change",
+  "routing_h2": {
+    "rule": "do not read outer OOF P_scale or oracle scale; do not fit P_scale; report routing/H2 unavailable if no lawful same outer-fold inner-train-fitted frozen predictions exist",
+    "status": "NOT_AVAILABLE_NO_LEGAL_NESTED_PSCALE"
+  },
+  "runner_sha256": "3918efae377cd3c4fe5cbec5b05c463fd9ed64d751d5b6b998b56a7d51220df0",
+  "source_sha256": {
+    "reports/coupling/COUPLING_ML_32G_AMPLITUDE_CIRCULAR_PHASE_FORWARD_POC_V1/protocol.json": "ec0a4dcab346b0700bca7f5fabe7ff7a7c84eeff6f5fe20a09ec8e5dc9dd4c57",
+    "reports/coupling/COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/g0_ordered_periodic_model.py": "b66fdc02cd815244121f5790329c0011fdb7da8f3e2c50df2645c4eff877e5ed",
+    "reports/coupling/COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/g0_run.py": "c703c33c0c5b31d3a263c435aef7717b169a10b5fe9d014b64b3cfad9f787180",
+    "reports/coupling/COUPLING_ML_32G_ORDERED_PERIODIC_GRAPH_FORWARD_POC_V1/protocol.json": "a4c13a28b4c95533fcbc32c8944603d47eaf3c5423baca4060353055bf1517dc",
+    "reports/coupling/COUPLING_ML_FORWARD_TRAINABILITY_AUDIT_V1/CONTINUATION.md": "34ba24e61c3978fbaaada6a0830b94619b105654d4c956ddc02939aac596a7ed",
+    "reports/coupling/COUPLING_ML_FORWARD_TRAINABILITY_AUDIT_V1/protocol.json": "46f3831233e3d6f9b3d7bb81aeb2cc86734c0b507b985a2b295367167d14caba",
+    "reports/coupling/COUPLING_ML_NP_FORWARD_FEATURE_ABLATION_32G_CONFIRMATORY_V2/fold_manifest_v2.json": "4a2c40339f58073e46f9e830d5b619bd620f6ab26091c8a3961c532f000a944a",
+    "reports/coupling/PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1/PW_K6_32G_DATASET_AUTHORITY_V1.json": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "scripts/coupling_ml/coupling_ml_32g_amplitude_circular_phase_forward_poc_v1.py": "c89975c75467e8049c5c973b034a780a8514bf93eaa1f30dc804e7a8ffff8667",
+    "scripts/coupling_ml/pw_k6_stage1_32g_frozen_forward_h1_v1.py": "2bb4988e2324f09e4ee6710a0eb60fb38ac6e7e628c6c90a23d9a62766297416",
+    "scripts/coupling_ml/pw_k6_stage1_32g_frozen_model_v1.py": "919471fce7d9d324947c9dfa4fc63e1ae7384061195f174d943879a745d6712f"
+  },
+  "start_head": "bdc540baa0b0455b4c13b4a3f3471b2af86e8b7e",
+  "task": "COUPLING_ML_TRAIN_VALIDATION_TRAJECTORY_AUDIT_V1",
+  "trajectory": {
+    "fixed_steps": [
+      0,
+      10,
+      25,
+      50,
+      100,
+      200,
+      300,
+      500,
+      750,
+      1000
+    ],
+    "phase_rule": {
+      "predicted_phase_defined_if_abs_C_pred_at_least": 1e-08,
+      "truth_weight": "abs(C_true)**2",
+      "undefined_prediction_truth_power_fraction_reported": true
+    },
+    "record_every_update": [
+      "train and validation standardized latent loss",
+      "raw latent MSE",
+      "predicted/target latent variance ratio",
+      "preclip global gradient norm",
+      "parameter update L2 and relative update"
+    ],
+    "state_metrics_at_fixed_and_replay_checkpoints": [
+      "complex state relative L2",
+      "amplitude relative L2",
+      "truth-amplitude-squared-weighted circular phase RMSE"
+    ]
+  },
+  "upstream_ahead_behind": "0\t0",
+  "user": "desktop-nne313k\\dell",
+  "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1"
+}

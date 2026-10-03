@@ -1,0 +1,28 @@
+{
+  "amendment": "protocol_amendment_01",
+  "base_protocol_sha256": "0ba6590ec408b3188f59e329dcb08ebeebb428736f3a022844c1ea97c360c1bb",
+  "cause": "The empty outer31 validation index list became a float NumPy array, so the pretraining split-preparation check failed before fit initialization.",
+  "created_utc": "2026-10-03T15:07:03.650584+00:00",
+  "implementation_fix": "Use explicit int64 dtype for both train and validation index arrays, including empty outer validation. Add COUPLING_TRAJECTORY_PREFLIGHT_ONLY=1 guard after pretraining checks are persisted; this tooling-only mode returns before the fit plan is read.",
+  "invariants_unchanged": {
+    "checkpoint_and_comparison_rules": "unchanged",
+    "fits": 8,
+    "folds_and_seeds": "unchanged",
+    "heldout_access": "forbidden and unchanged",
+    "max_total_optimizer_updates": 8000,
+    "models_and_parameter_counts": "unchanged",
+    "representation_rank_loss_optimizer": "unchanged",
+    "solver_hf_runner_reserve_inverse_or_pscale_fit": "none",
+    "training_data_scope": "unchanged",
+    "updates_per_fit": 1000
+  },
+  "pre_amendment_execution": {
+    "failure_phase": "data/split preparation before pretraining_checks.json",
+    "fits_started": 0,
+    "optimizer_updates": 0
+  },
+  "protocol_json_modified": false,
+  "runner_sha256_after": "fcaeb39f9b8d4a769c40c2af237cdbfa9fedab11a2d2975666252f6edb2d907a",
+  "runner_sha256_before": "3918efae377cd3c4fe5cbec5b05c463fd9ed64d751d5b6b998b56a7d51220df0",
+  "task": "COUPLING_ML_TRAIN_VALIDATION_TRAJECTORY_AUDIT_V1"
+}
