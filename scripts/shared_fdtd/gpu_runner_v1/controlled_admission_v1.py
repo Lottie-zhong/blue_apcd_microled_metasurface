@@ -271,6 +271,22 @@ def _trusted_k6_geometry(provenance: dict, authority: dict, case_id: str,
     return source
 
 
+def validate_ext02_entry_budget(entry: dict, *, preflight: bool) -> int:
+    """Fail closed on EXT02's per-attempt entry cap and replay policy."""
+    if not isinstance(entry, dict):
+        raise ControlledAdmissionError("EXT02_SOLVER_ENTRY_BUDGET_INVALID")
+    authorized = entry.get("solver_entry_authorized")
+    max_entries = entry.get("max_solver_entries")
+    automatic_replays = entry.get("post_entry_automatic_replays")
+    if (type(authorized) is not bool or type(max_entries) is not int
+            or max_entries not in (0, 1) or authorized != (max_entries == 1)
+            or type(automatic_replays) is not int or automatic_replays != 0):
+        raise ControlledAdmissionError("EXT02_SOLVER_ENTRY_BUDGET_INVALID")
+    if not preflight and max_entries != 1:
+        raise ControlledAdmissionError("EXT02_SOLVER_ENTRY_NOT_AUTHORIZED")
+    return max_entries
+
+
 def validate_case_pack(*, route_version: str, case_class: str, case_id: str,
                        attempt_id: str, geometry: list[int], expansion_sha256: str,
                        pre_fsp_path: str, pre_fsp_sha256: str,
@@ -295,6 +311,15 @@ def validate_case_pack(*, route_version: str, case_class: str, case_id: str,
     geometry = validate_geometry(geometry)
     if expansion_sha256 != authority.get("expansion_manifest_sha256"):
         raise ControlledAdmissionError("CONTROLLED_EXPANSION_MANIFEST_MISMATCH")
+    ext02_authority = None
+    if case_class == "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1":
+        ext02_authority = authority.get("ext02", {})
+        if (case_id != ext02_authority.get("case_id")
+                or attempt_id != ext02_authority.get("attempt_id")
+                or geometry != ext02_authority.get("ordered_D_nm")
+                or ext02_authority.get("protocol_sha256") != _expected_monitor(policy)["protocol_sha256"]):
+            raise ControlledAdmissionError("EXT02_CASE_NOT_AUTHORIZED")
+        validate_ext02_entry_budget(ext02_authority, preflight=preflight)
     case_root = Path(case_root).resolve(strict=True)
     case_dir = case_root / case_id / attempt_id
     if not case_dir.is_dir() or case_dir.is_symlink():
@@ -359,13 +384,7 @@ def validate_case_pack(*, route_version: str, case_class: str, case_id: str,
     provenance = read_json(provenance_path)
     geometry_authority = None
     if case_class == "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1":
-        ext = authority.get("ext02", {})
-        if (case_id != ext.get("case_id") or attempt_id != ext.get("attempt_id")
-                or geometry != ext.get("ordered_D_nm")
-                or authority.get("ext02", {}).get("protocol_sha256") != _expected_monitor(policy)["protocol_sha256"]):
-            raise ControlledAdmissionError("EXT02_CASE_NOT_AUTHORIZED")
-        if not preflight and ext.get("solver_entry_authorized") is not True:
-            raise ControlledAdmissionError("EXT02_SOLVER_ENTRY_NOT_AUTHORIZED")
+        ext = ext02_authority
         if contract_sha == base_contract_sha256:
             raise ControlledAdmissionError("EXT02_CONTRACT_HASH_REUSED_OR_UNCHANGED")
         _compare_ext02_contract(base_contract, contract, policy)

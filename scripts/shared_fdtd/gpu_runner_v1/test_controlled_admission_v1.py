@@ -31,7 +31,7 @@ def _policy():
         "route_version": controlled.ROUTE_VERSION,
         "case_classes": {
             "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1": {
-                "case_id": "K6V1_EXT02",
+                "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
                 "attempt_id": "attempt_001",
                 "monitor_contract_key": "diagnostic",
                 "monitor_name": "EXT02_POSTNP_DIAG_Z2000",
@@ -66,7 +66,7 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
         self.case_root = self.root / "setup_root"
         self.trust = self.root / "trusted"
         self.policy = _policy()
-        self.case_id = "K6V1_EXT02"
+        self.case_id = "K6V1_EXT02_TWO_AIR_PLANES_DIAG"
         self.attempt_id = "attempt_001"
         self.case_class = "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1"
         self.geometry = [220, 120, 155, 100, 105, 110]
@@ -229,6 +229,9 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
                 "geometry_source_manifest_path": str(self.geometry_source_path),
                 "geometry_source_manifest_sha256": self.geometry_source_sha,
                 "protocol_path": str(self.protocol_path),
+                "solver_entry_authorized": False,
+                "max_solver_entries": 0,
+                "post_entry_automatic_replays": 0,
             },
             "k6_geometry_authorities": [],
         }
@@ -270,8 +273,35 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
                                     "EXT02_SOLVER_ENTRY_NOT_AUTHORIZED"):
             self.call_pack(preflight=False)
 
+    def test_ext02_exact_single_entry_authority_is_accepted_without_solver_execution(self):
+        ext = self.authority["ext02"]
+        ext["solver_entry_authorized"] = True
+        ext["max_solver_entries"] = 1
+        ext["post_entry_automatic_replays"] = 0
+        self.assertEqual(1, controlled.validate_ext02_entry_budget(ext, preflight=False))
+        result = self.call_pack(preflight=False)
+        self.assertTrue(result["accepted"])
+        self.assertFalse(result["solver_entry_performed"])
+        self.assertFalse(result["post_entry_truth_proved"])
+
+    def test_ext02_budget_rejects_overrun_mismatch_and_replay_authority(self):
+        invalid = (
+            {"solver_entry_authorized": True, "max_solver_entries": 2, "post_entry_automatic_replays": 0},
+            {"solver_entry_authorized": True, "max_solver_entries": 0, "post_entry_automatic_replays": 0},
+            {"solver_entry_authorized": False, "max_solver_entries": 1, "post_entry_automatic_replays": 0},
+            {"solver_entry_authorized": True, "max_solver_entries": 1, "post_entry_automatic_replays": 1},
+            {"solver_entry_authorized": True, "max_solver_entries": True, "post_entry_automatic_replays": 0},
+        )
+        for entry in invalid:
+            with self.subTest(entry=entry), self.assertRaisesRegex(
+                    controlled.ControlledAdmissionError, "EXT02_SOLVER_ENTRY_BUDGET_INVALID"):
+                controlled.validate_ext02_entry_budget(entry, preflight=True)
+        self.authority["ext02"]["max_solver_entries"] = 2
+        with self.assertRaisesRegex(controlled.ControlledAdmissionError,
+                                    "EXT02_SOLVER_ENTRY_BUDGET_INVALID"):
+            self.call_pack(preflight=True)
+
     def test_retired_historical_ext02_identity_rejected_by_successor_authority(self):
-        self.authority["ext02"]["case_id"] = "K6V1_EXT02_TWO_AIR_PLANES_DIAG"
         with self.assertRaisesRegex(controlled.ControlledAdmissionError,
                                     "EXT02_CASE_NOT_AUTHORIZED"):
             self.call_pack(case_id="K6V1_EXT02")
