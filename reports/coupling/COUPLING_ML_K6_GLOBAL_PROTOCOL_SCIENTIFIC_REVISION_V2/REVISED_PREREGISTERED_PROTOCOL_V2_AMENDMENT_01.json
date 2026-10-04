@@ -1,0 +1,194 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2_AMENDMENT",
+  "protocol_id": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2",
+  "amendment": "AMENDMENT_01_BOUNDARY_LAYER_BALANCE",
+  "status": "FROZEN_BEFORE_AMENDED_POINT_GENERATION",
+  "frozen_utc": "2026-10-04T04:28:41.048706+00:00",
+  "base_protocol": {
+    "path": "reports/coupling/COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2/REVISED_PREREGISTERED_PROTOCOL_V2.json",
+    "sha256": "4a041dfc9b9fd8bbc79edfd792d698d0240163de157144029ad51a41c104f44a"
+  },
+  "trigger_evidence": {
+    "kind": "response_blind_geometry_only_sampler_audit",
+    "pre_amendment_protocol_sha256": "4a041dfc9b9fd8bbc79edfd792d698d0240163de157144029ad51a41c104f44a",
+    "first_v2_global144": {
+      "exact_face": 142,
+      "within10_nm": 142,
+      "n": 144,
+      "exact_fraction": 0.9861111111111112,
+      "within10_fraction": 0.9861111111111112
+    },
+    "sobol_candidate_pool": {
+      "seed": 20261006,
+      "power_m": 20,
+      "unique": 1048453,
+      "exact_face": 387799,
+      "within10_nm": 816308,
+      "numeric_rejections": 0
+    },
+    "reason": "Fixing only the exact-face quota left the no-exact-boundary maximin selection concentrated in the 10 nm boundary band. The geometry-only first attempt shows the sampler rule needs an explicit near-boundary stratum before final point generation. No response arrays, truth metrics, model errors, efficiency targets, or predictions were inspected."
+  },
+  "point_budget": {
+    "new_development": 128,
+    "new_confirmation": 32,
+    "development_components": {
+      "frozen_local_axis": 12,
+      "global": 116
+    },
+    "confirmation_components": {
+      "frozen_local_combinations": 4,
+      "global": 28
+    },
+    "old32_role": "development_train_only; not part of new budget and never confirmation"
+  },
+  "reference_boundary_probabilities": {
+    "domain": "27 levels per ordered coordinate: 100,105,...,230 nm",
+    "exact_face_probability": "1-(25/27)^6",
+    "within10_nm_any_face_probability": "1-(21/27)^6",
+    "expected_exact_fraction": 0.36983037311689515,
+    "expected_within10_fraction": 0.7786226504917761,
+    "numeric_constraints_reject_grid_points": false,
+    "manufacturing_authority": "UNRESOLVED"
+  },
+  "global_strata": {
+    "deep_interior": {
+      "definition": "All six coordinates are 115..215 nm inclusive; no coordinate is within 10 nm of either domain face.",
+      "n": 32,
+      "development": 26,
+      "confirmation": 6,
+      "confirmation_selected_maximin_ranks": [
+        5,
+        10,
+        15,
+        20,
+        25,
+        30
+      ]
+    },
+    "near_boundary_nonexact": {
+      "definition": "No coordinate equals 100 or 230 nm, and at least one coordinate is in {105,110,220,225} nm.",
+      "n": 56,
+      "development": 45,
+      "confirmation": 11,
+      "confirmation_selected_maximin_ranks": [
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55
+      ]
+    },
+    "exact_boundary": {
+      "definition": "At least one coordinate equals 100 or 230 nm; exact faces are further partitioned below.",
+      "n": 56,
+      "development": 45,
+      "confirmation": 11,
+      "components": {
+        "single_face": {
+          "total": 36,
+          "development": 28,
+          "confirmation": 8,
+          "selection": "Three maximin candidates per each of 12 signed coordinate faces; rank 1 on the first eight face labels is confirmation."
+        },
+        "two_face_intersection": {
+          "total": 12,
+          "development": 10,
+          "confirmation": 2,
+          "selection": "Two sealed D5/D6 same-side intersections: both low and both high; ten seeded development patterns across other dimension pairs."
+        },
+        "triple_face_stress": {
+          "total": 8,
+          "development": 7,
+          "confirmation": 1,
+          "selection": "Eight seeded signed triple-face patterns; rank 1 is a separately reported sealed stress case."
+        }
+      }
+    }
+  },
+  "confirmation_design": {
+    "global_core_n": 27,
+    "global_core_composition": {
+      "deep_interior": 6,
+      "near_boundary_nonexact": 11,
+      "single_face": 8,
+      "two_face_intersection": 2
+    },
+    "global_core_exact_face_n": 10,
+    "global_core_within10_n": 21,
+    "separate_stress_n": 1,
+    "all28_exact_face_n": 11,
+    "all28_within10_n": 22,
+    "access": "All geometry vectors may be inspected for coverage and feasibility. No confirmation responses may be opened before both final model families, all preprocessing, configurations, evaluators, seed outputs and prediction files are frozen and hashed. One pre-registered reveal/evaluation; report both candidates and core/stress strata. No post-reveal tuning."
+  },
+  "sampling": {
+    "candidate_generation": "Scrambled 6-D Sobol, seed 20261006, 2^20 points, quantized to the 27-level grid, deduplicated in first-encounter order; apply formal numeric feasibility and exclude old32, frozen local16, reserve6, protected25, eligible source-pool48 and V1 global144 identities.",
+    "selection": "Deterministic maximin independently within each explicit stratum, against the reference union and previously selected points. Preserve first-encounter candidate order to resolve ties. Selection order: deep interior, near-boundary nonexact, then exact faces/intersections/stress. No response-dependent ranking.",
+    "boundary_targets": {
+      "global_all144": {
+        "exact_face": 56,
+        "within10": 112
+      },
+      "global_development116": {
+        "exact_face": 45,
+        "within10": 90
+      },
+      "global_confirmation_core27": {
+        "exact_face": 10,
+        "within10": 21
+      },
+      "global_confirmation_all28_including_stress": {
+        "exact_face": 11,
+        "within10": 22
+      }
+    },
+    "retention": "Keep V1, base V2 protocol, and the first V2 generated set unchanged in their own locations/archive; canonical V2 candidate/manifests/audit will represent only this amendment."
+  },
+  "fold_and_learning_curve": {
+    "outer": "Four fixed geometry-only folds on new128 development; each holds 3 local axial plus 29 global groups. Existing32 remains train-only. All 21 wavelengths follow geometry.",
+    "inner": "Retain the base V2 3-fold geometry-grouped inner protocol, only inside the corresponding outer-train pool; train-only preprocessing.",
+    "actual_training_sizes": [
+      32,
+      64,
+      128
+    ],
+    "size32": "Existing32 only.",
+    "size64": "Existing32 plus nested 32 new outer-train groups: 3 local axial, 7 deep interior, 11 near-boundary nonexact, 11 exact boundary; selected geometry-only/maximin within stratum and using only outer-train points.",
+    "size128": "Existing32 plus all 96 new development groups available inside the fixed outer fold (9 local axial, 87 global).",
+    "validation": "Same fixed outer-validation groups at all sizes; no validation group counted as a training geometry; fit all preprocessing only on the current train subset."
+  },
+  "unchanged_scientific_contract": {
+    "models": "Retain only the base V2 RBF KRR and 6->32->32 Cartesian MLP (21,377 parameters, including C_hat and P_scale heads), with inherited finite hyperparameter grid, seeds, loss and selection protocol.",
+    "targets": "Complete 588-coordinate Cartesian C_hat and independently predicted positive P_scale; no rank-2 compression, oracle P_scale or added model family.",
+    "h2_h1": "Frozen H2 and all original conjunctive H1 thresholds unchanged.",
+    "fits": {
+      "inner_krr": 108,
+      "inner_mlp": 108,
+      "learning_curves_krr": 12,
+      "learning_curves_mlp": 36,
+      "final_global": 4,
+      "local_affine": 13,
+      "all_in": 281,
+      "ceiling": 284
+    },
+    "execution_counts": {
+      "solver_entries": 0,
+      "training_fits": 0,
+      "pscale_only_fits": 0,
+      "new_fsps": 0,
+      "runner_invocations": 0
+    }
+  },
+  "unchanged_dependencies": {
+    "runner": "Use only committed official Runner handoff; do not use uncommitted controlled-route draft as authority.",
+    "ext02": "BLOCKED_PREENTRY remains launch dependency, not a numerical validation failure; no monitor change or overlay route assumed.",
+    "manufacturing": "Manufacturing authority remains unresolved; numeric geometry feasibility is not manufacturing approval."
+  },
+  "confirmation_decision": "Report both global candidates against every applicable original conjunctive H1 gate. If exactly one meets all, report numeric gate attainment only; no production admission. If neither or both, report both. If confirmation responses are later reused for development, record the conversion and establish a new sealed confirmation set. Local four combinations evaluate only the local affine model, not global admission.",
+  "post_reveal_rule": "No threshold, model, preprocessing, configuration, or hyperparameter changes after confirmation response access. Any new development use requires a new sealed confirmation design."
+}

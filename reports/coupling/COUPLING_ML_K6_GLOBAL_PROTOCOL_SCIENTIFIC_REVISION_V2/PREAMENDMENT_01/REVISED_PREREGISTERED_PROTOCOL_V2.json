@@ -1,0 +1,201 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENT_REVISION_V2",
+  "status": "FROZEN_BEFORE_V2_POINT_GENERATION",
+  "scope": {
+    "solver_entries": 0,
+    "training_fits": 0,
+    "pscale_only_fits": 0,
+    "new_fsps": 0,
+    "runner_invocations": 0,
+    "reserve_launches": 0,
+    "authorization": "Geometry-only dataset design, protocol revision, read-only authority audit, and documentation; no HF/training authorization."
+  },
+  "authority": {
+    "domain_path": "reports/coupling/PW_K6_GEOMETRY_DOMAIN_AUTHORITY_V1.json",
+    "domain_sha256": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+    "domain": "Ordered D1..D6; 100-230 nm inclusive, 5 nm grid, 27^6=387420489; recovered closed candidate envelope, not open-ended production authority.",
+    "numeric_constraints": "Periodic cyclic gap >=60 nm including D6-D1; half-cell margin >=30 nm. Every point in this grid satisfies both; independent manufacturing authority unresolved.",
+    "contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "dataset32_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "h1_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "science": "GaN + fixed MDC P1_ZL1_ALTERNATIVE_G3_A3 + 237 nm spacer + ordered K6, 500 nm pillars, 290 nm pitch, 1740x290 nm period, air; +z normal X incidence; native M1; 440-460 nm/1 nm; x/y periodic, z PML. Predict full C_hat m=-3..+3,n=0 TE/TM Cartesian and independent positive P_scale through frozen H2 and original H1; no order sorting/permutation."
+  },
+  "v1_immutable": {
+    "preserve": true,
+    "protocol_sha256": "e18ea780917107c437d425293ff1da5628241221197e889cc22696e90d242abd",
+    "candidate_csv_sha256": "f09d238177054e71741670ae263411949731ff78108ac9fd00801a277fdd8c31",
+    "fold_sha256": "5e36a0628222de1b565505dc5c05ecd29b21f966cab422ad99a300b049c0e098",
+    "audit_sha256": "3137d5721f7524e0abe7c6df24ad3439cf908df69572376e9cd3f86cdf9d8d70"
+  },
+  "boundary": {
+    "exact": "any coordinate equals 100 or 230 nm",
+    "near10": "any coordinate in {100,105,110,220,225,230} nm",
+    "uniform_discrete": {
+      "exact_fraction": 0.36983037,
+      "exact_formula": "1-(25/27)^6",
+      "within10_fraction": 0.77862265,
+      "within10_formula": "1-(21/27)^6"
+    },
+    "quotas": {
+      "global144": {
+        "interior": 88,
+        "one_face": 36,
+        "two_face": 12,
+        "triple_face_stress": 8
+      },
+      "one_face": "3 points for each of 12 lower/upper coordinate faces",
+      "confirmation28": {
+        "core_interior": 17,
+        "core_one_face": 8,
+        "core_two_face": 2,
+        "separately_reported_triple_face_stress": 1
+      },
+      "development116": {
+        "interior": 71,
+        "one_face": 28,
+        "two_face": 10,
+        "triple_face_stress": 7
+      }
+    },
+    "projections": "Report per each of 15 ordered-coordinate pairs unique exact cells /729 and occupancy of 3x3 coarse low/mid/high bins. Do not infer coverage from nearest-neighbor distance alone."
+  },
+  "sampler": {
+    "method": "Scrambled Sobol discrete 27^6 candidates plus maximin within preregistered strata; ties choose earliest Sobol row.",
+    "seed": 20261006,
+    "power_m": 20,
+    "environment": "N:\\anaconda_envs\\RCP_LCP\\python.exe; SciPy 1.15.3",
+    "distance": "sqrt(sum(((D_i-Dj_i)/130)^2))",
+    "exclude": [
+      "existing32",
+      "frozen local16",
+      "reserve6",
+      "protected25",
+      "source pool48",
+      "all 144 V1 global proposals"
+    ],
+    "confirmation_core": "17 interior+8 single-face+2 two-face=27; 10/27=37.04% exact-face, close to 36.98% uniform expectation.",
+    "stress": "One three-face intersection is flagged and reported separately; do not interpret it as domain-average evidence.",
+    "response_blind": "No truth, response, model error, routing, power, or prediction enters selection."
+  },
+  "pointset": {
+    "new_total": 160,
+    "development": 128,
+    "confirmation": 32,
+    "retained_local_axis": 12,
+    "retained_local_combinations": 4,
+    "global_dev": 116,
+    "global_confirm": 28,
+    "ids": {
+      "dev": "K6GDP2_DEV_G001..G116",
+      "confirm": "K6GDP2_CONF_G001..G028"
+    },
+    "authority": "New global vectors are proposal-only, outside source pool48, unenrolled, not Runner-approved, and have no canonical FSP."
+  },
+  "models": {
+    "only": [
+      "RBF KRR",
+      "Cartesian MLP"
+    ],
+    "input": "Six ordered D coordinates; train-only mean/std. No wavelength/node/patch random rows, NP feature, or OOD input.",
+    "target": "One 609-real-output spectrum per geometry: 588 Cartesian C_hat values (21x7x2) plus 21 log(P_scale); all 21 wavelengths remain grouped.",
+    "pscale": "Require finite positive truth; train-only log statistics; inverse by exp, no epsilon/clipping. Nonpositive labels or nonfinite/overflow/underflow predictions are failures.",
+    "loss": "Train-only C channel mean/shared residual RMS and log(P_scale) mean/std; equal-weight normalized C-state MSE + log(P_scale) MSE.",
+    "krr": "RBF gamma {1/6,1/3,2/3} x ridge {1e-4,1e-2,1}; 9 settings; deterministic.",
+    "mlp": "6->32 GELU->32 GELU; separate 32->588 C_hat and 32->21 log(P_scale) heads; 21377 trainable parameters including both heads; AdamW lr=1e-3, wd {1e-5,1e-4,1e-3}, seeds {0,1,2}, max 1000 full-geometry updates, inner patience50/min_delta1e-5.",
+    "selection": "Both model families retained. Hyperparameter selection only in 3-fold geometry-grouped inner CV of each outer-train pool; no outer-validation/confirm truth."
+  },
+  "validation": {
+    "outer": "Four folds over new128 development only; each holds 32 groups (3 local axial+29 global). Old32 is train-only. All wavelengths stay with geometry.",
+    "per_fold_capacity": "32 existing+96 new=128 outer-train groups.",
+    "learning_curve_sizes_total": [
+      32,
+      64,
+      128
+    ],
+    "added_new": [
+      0,
+      32,
+      96
+    ],
+    "curve": "Same fixed outer validation. Nested geometry-only train subsets. Size64 adds 3 local axial+29 global; size128 uses all 96 new outer-train groups. Inner-selected configuration is fixed across sizes. Across folds every new development group is held out once and used in training in other folds.",
+    "final": "Refit final candidates on all 160 development groups before confirm prediction freeze."
+  },
+  "fits": {
+    "inner_search": {
+      "krr": 108,
+      "mlp": 108,
+      "total": 216
+    },
+    "curves": {
+      "krr": 12,
+      "mlp": 36,
+      "total": 48
+    },
+    "final_global": {
+      "krr": 1,
+      "mlp": 3,
+      "total": 4
+    },
+    "local_affine": {
+      "leave_one_axial_out": 12,
+      "final": 1,
+      "total": 13
+    },
+    "all_in_total": 281,
+    "ceiling": 284,
+    "explanation": "V1's 284 count covered global model fits but not 13 local fits. V2 uses curve sizes 32/64/128 (omits total-size96), preserving inner search and final models and including all 13 local fits within 281 total; 3 fits remain unused. Each global fit predicts both C_hat and P_scale; no separate P_scale-only fits. Proposal only."
+  },
+  "local": {
+    "model": "Full Cartesian C_hat plus independently predicted positive P_scale local affine model.",
+    "evaluation": "12 leave-one-axial-out fits; recompute all response-dependent preprocessing/sensitivity per fold using only training responses; freeze final fit/predictions before opening the four combinations."
+  },
+  "confirmation": {
+    "global": "Save/hash both final candidate families, all MLP seeds/complex seed mean, preprocessing, configs, evaluator, and predictions for all 28 before generating/opening responses. One reveal/evaluation; report both, all 28 and strata core27/stress1.",
+    "local": "Four exact retained combinations confirm only local affine behavior.",
+    "outcome": "Apply every original conjunctive H1 gate unchanged. If one satisfies all applicable gates, report numeric attainment only; no production admission. If neither/both, report both. KRR seed-stability N/A is not a pass. No post-reveal model/threshold changes.",
+    "conversion": "If responses are later reused for development, document conversion and create a new sealed confirmation set."
+  },
+  "h1": {
+    "state_relative_rmse": {
+      "median_max": 0.5,
+      "q95_max": 0.8
+    },
+    "routing_eta_rmse": {
+      "median_max": 0.05,
+      "q95_max": 0.1,
+      "pearson_min": 0.95
+    },
+    "source_normalized_absolute_order_rmse": {
+      "median_max": 0.05,
+      "q95_max": 0.1
+    },
+    "thresholded_absolute_order_relative": {
+      "median_max": 0.3,
+      "q95_max": 0.75,
+      "significance_threshold": 0.0009885656815447454
+    },
+    "total_power_relative": {
+      "median_max": 0.15,
+      "q95_max": 0.3,
+      "pearson_min": 0.95
+    },
+    "seed_state_median_std_max": 0.03,
+    "conjunctive": true,
+    "pscale": "Report predicted P_scale diagnostics; original H1 has no standalone P_scale numeric gate. Do not add one."
+  },
+  "dependencies": {
+    "runner_head": "2a6f515a1d28002bca3c4e30094dbf66e463fb17",
+    "runner_status": "Committed READY, one serial slot, no replay, only 12 approved Stage-1 IDs.",
+    "draft": "Runner worktree has uncommitted adapter.py/runner.py changes and untracked controlled-admission artifacts; not formal authority. Do not write that worktree.",
+    "ext02": "BLOCKED_PREENTRY under committed Runner authority; no approved monitor overlay route or second independent POSTNP plane. Not a numerical validation failure.",
+    "future_prerequisites": [
+      "owner-approved per-vector source authority and exact IDs",
+      "per-case source manifest",
+      "canonical FSP path/hash",
+      "fresh LOAD-only proof and source/staged hash parity",
+      "immutable Runner envelope",
+      "separate explicit solver authorization"
+    ],
+    "semantics": "LOAD-only setup proof is not Runner admission and not post-entry truth recovery; retain current POSTNP monitor pending Chat review."
+  }
+}

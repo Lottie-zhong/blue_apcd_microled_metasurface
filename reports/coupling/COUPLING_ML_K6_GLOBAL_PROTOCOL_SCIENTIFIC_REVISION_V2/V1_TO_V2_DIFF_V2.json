@@ -1,0 +1,42 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2_CHANGELOG",
+  "preserve_v1_as_immutable_history": true,
+  "changes": [
+    {
+      "area": "boundary",
+      "v1": "Unconstrained maximin selected 112/144 global points on an exact face and 138/144 within 10 nm of a face.",
+      "v2": "Quota-controlled 88 interior,36 single-face,12 two-face,8 separately flagged triple-face stress; confirmation core27 has 17 interior+8 single-face+2 two-face, plus one stress point."
+    },
+    {
+      "area": "local",
+      "v1": "12 axial development +4 combination confirmation.",
+      "v2": "Same vectors, IDs, roles and use; no edits."
+    },
+    {
+      "area": "sampler",
+      "v1": "Sobol seed20261004 then unconstrained global maximin; every fifth selected point was confirmation.",
+      "v2": "Sobol seed20261006; maximin within frozen strata/quotas; excludes all V1 global proposal vectors and every formal reference set."
+    },
+    {
+      "area": "learning_curve",
+      "v1": "32/64/96/128 total proposed sizes; per-fold maximum 128 training groups (old32+96 new).",
+      "v2": "32/64/128 total; fixed outer validation and nested additions 0/32/96. Omits total-size96 to include 13 local fits within the 284 all-in ceiling."
+    },
+    {
+      "area": "fits",
+      "v1": "284 global fits; local 13 fitted separately.",
+      "v2": "216 inner+48 curve+4 final+13 local=281 total; no added configurations or seeds."
+    },
+    {
+      "area": "confirmation",
+      "v1": "General pre-response freeze and one-time reveal.",
+      "v2": "Hash both candidates and all confirmation predictions before response access; report both, separate core27/stress1, apply original H1 conjunctive gates unchanged."
+    }
+  ],
+  "unchanged": [
+    "128 development +32 confirmation proposal",
+    "existing32 remains development-only with prior analysis exposure",
+    "fixed MDC/237 nm spacer/ordered K6/full Cartesian C_hat/independent positive P_scale/frozen H2/original H1",
+    "zero solver/training/FSP/Runner execution"
+  ]
+}

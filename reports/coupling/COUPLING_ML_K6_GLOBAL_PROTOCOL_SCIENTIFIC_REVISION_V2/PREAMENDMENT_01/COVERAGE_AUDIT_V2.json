@@ -1,0 +1,3300 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2_COVERAGE_AUDIT",
+  "status": "GEOMETRY_ONLY_RESPONSE_BLIND",
+  "preregistered_protocol_sha256": "4a041dfc9b9fd8bbc79edfd792d698d0240163de157144029ad51a41c104f44a",
+  "generator": {
+    "path": "reports/coupling/COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2/generate_global_dataset_design_v2.py",
+    "sha256": "cc66819d2ffd1cf4e958a5f2ca97d008ba034629788e0457f2697b21a3d04d3f",
+    "python": "3.10.20",
+    "numpy": "2.2.5",
+    "scipy": "1.15.3"
+  },
+  "input_sha256": {
+    "domain": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+    "dataset_authority": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "truth_geometry": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "expansion": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+    "exclusion": "78f48a4400d5ab469a2054a8ad849d5cae16cb4bee042e2b542529a78973bb80",
+    "pool": "387112fda12b2fbee0b2e6e4185014e0fad4bbb825b2d9e6cded865b4988073d",
+    "local": "66fef2027885ac5c479072da3af78b6a5f975b53ef1dc1f6894751c96ee73cd4",
+    "h1": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "v1protocol": "e18ea780917107c437d425293ff1da5628241221197e889cc22696e90d242abd",
+    "v1csv": "f09d238177054e71741670ae263411949731ff78108ac9fd00801a277fdd8c31",
+    "v1folds": "5e36a0628222de1b565505dc5c05ecd29b21f966cab422ad99a300b049c0e098",
+    "v1audit": "3137d5721f7524e0abe7c6df24ad3439cf908df69572376e9cd3f86cdf9d8d70",
+    "v1report": "f0ea9ec5691bf57ddb9ca7d9c2f25b39f6e0ce520a7b256cdd4165d9bd6fe766",
+    "v1generator": "295d2598fc97a9a1fa1282c1512155a8e27430c7f4f259d55fdd188136f67345",
+    "runner_md": "397e41476938392d43e7eaf6c5252425991a8bfa62b7fb88442bf5da4fe0feb7",
+    "runner_json": "ca7e4a9fcc15ccb60f4921feb788bf3663e1b8fd3c56f64892894cc8299df599",
+    "runner_authority": "021951707cd94d62ca93076f5f2a6867b400df4c9921932286b32ffc1840972c",
+    "monitor_report": "7069c764e780f8e5a98f980a026e0cd497268705a211da596bab38c8bb05e71f",
+    "monitor_cont": "b4cd6e42fef431208084262079976102f31691924e69c727d6696f9097ada3ae",
+    "ext02_cont": "d77a27d3131cb7e8ce5144d8f3a1c9b2c65d6e9da4cef00a4a99bac3a5de9621",
+    "trainval_cont": "e1ec647c9e6744159acdb858e6b8fb659a71b9d450504c5b98a838b39acf79d2",
+    "local_cont": "e8e210122197aca0181ea243a2f642212f159dee71d404f2b9c51a154ccb7e94"
+  },
+  "uniform_discrete_domain": {
+    "levels_per_coordinate": 27,
+    "grid_cardinality": 387420489,
+    "exact_boundary_probability": 0.36983037311689515,
+    "within10_probability": 0.7786226504917761,
+    "geometry_filters": {
+      "all_grid_points_pass": true,
+      "minimum_cyclic_gap_nm": 60,
+      "minimum_half_cell_margin_nm": 30,
+      "manufacturing_authority": "UNRESOLVED"
+    }
+  },
+  "V1_boundary_bias": {
+    "raw_sobol_seed20261004": {
+      "draws": 32768,
+      "unique": 32768,
+      "duplicates": 0,
+      "boundary": {
+        "exact_any": 12133,
+        "exact_fraction": 0.370269775390625,
+        "within10_any": 25527,
+        "within10_fraction": 0.779022216796875,
+        "boundary_coordinate_count_hist": {
+          "0": 20635,
+          "1": 9949,
+          "2": 1950,
+          "3": 221,
+          "4": 12,
+          "5": 1,
+          "6": 0
+        },
+        "at100": [
+          1214,
+          1214,
+          1213,
+          1214,
+          1214,
+          1214
+        ],
+        "at230": [
+          1214,
+          1213,
+          1213,
+          1214,
+          1214,
+          1214
+        ]
+      }
+    },
+    "after_numeric_filter": {
+      "n": 32768,
+      "rejected": 0,
+      "boundary": {
+        "exact_any": 12133,
+        "exact_fraction": 0.370269775390625,
+        "within10_any": 25527,
+        "within10_fraction": 0.779022216796875,
+        "boundary_coordinate_count_hist": {
+          "0": 20635,
+          "1": 9949,
+          "2": 1950,
+          "3": 221,
+          "4": 12,
+          "5": 1,
+          "6": 0
+        },
+        "at100": [
+          1214,
+          1214,
+          1213,
+          1214,
+          1214,
+          1214
+        ],
+        "at230": [
+          1214,
+          1213,
+          1213,
+          1214,
+          1214,
+          1214
+        ]
+      }
+    },
+    "maximin144": {
+      "exact_any": 112,
+      "exact_fraction": 0.7777777777777778,
+      "within10_any": 138,
+      "within10_fraction": 0.9583333333333334,
+      "boundary_coordinate_count_hist": {
+        "0": 32,
+        "1": 57,
+        "2": 40,
+        "3": 13,
+        "4": 2,
+        "5": 0,
+        "6": 0
+      },
+      "at100": [
+        15,
+        17,
+        16,
+        17,
+        12,
+        17
+      ],
+      "at230": [
+        8,
+        19,
+        20,
+        15,
+        17,
+        11
+      ]
+    },
+    "development116": {
+      "exact_any": 89,
+      "exact_fraction": 0.7672413793103449,
+      "within10_any": 111,
+      "within10_fraction": 0.9568965517241379,
+      "boundary_coordinate_count_hist": {
+        "0": 27,
+        "1": 49,
+        "2": 28,
+        "3": 10,
+        "4": 2,
+        "5": 0,
+        "6": 0
+      },
+      "at100": [
+        13,
+        13,
+        12,
+        8,
+        10,
+        13
+      ],
+      "at230": [
+        7,
+        15,
+        18,
+        13,
+        13,
+        8
+      ]
+    },
+    "confirmation28": {
+      "exact_any": 23,
+      "exact_fraction": 0.8214285714285714,
+      "within10_any": 27,
+      "within10_fraction": 0.9642857142857143,
+      "boundary_coordinate_count_hist": {
+        "0": 5,
+        "1": 8,
+        "2": 12,
+        "3": 3,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "at100": [
+        2,
+        4,
+        4,
+        9,
+        2,
+        4
+      ],
+      "at230": [
+        1,
+        4,
+        2,
+        2,
+        4,
+        3
+      ]
+    },
+    "explanation": "No response objective was used. Numeric filters reject no grid point; high-dimensional bounded-cube maximin selected edge extremes disproportionately."
+  },
+  "V2_sampler": {
+    "seed": 20261006,
+    "sobol_power_m": 20,
+    "raw_unique": 1048453,
+    "duplicates": 123,
+    "raw_boundary": {
+      "exact_any": 387799,
+      "exact_fraction": 0.3698773335571552,
+      "within10_any": 816308,
+      "within10_fraction": 0.7785833032095859,
+      "boundary_coordinate_count_hist": {
+        "0": 660654,
+        "1": 317239,
+        "2": 63328,
+        "3": 6830,
+        "4": 386,
+        "5": 16,
+        "6": 0
+      },
+      "at100": [
+        38836,
+        38834,
+        38835,
+        38836,
+        38836,
+        38832
+      ],
+      "at230": [
+        38829,
+        38831,
+        38836,
+        38834,
+        38834,
+        38836
+      ]
+    },
+    "after_numeric_filter": {
+      "n": 1048453,
+      "rejected": 0,
+      "boundary": {
+        "exact_any": 387799,
+        "exact_fraction": 0.3698773335571552,
+        "within10_any": 816308,
+        "within10_fraction": 0.7785833032095859,
+        "boundary_coordinate_count_hist": {
+          "0": 660654,
+          "1": 317239,
+          "2": 63328,
+          "3": 6830,
+          "4": 386,
+          "5": 16,
+          "6": 0
+        },
+        "at100": [
+          38836,
+          38834,
+          38835,
+          38836,
+          38836,
+          38832
+        ],
+        "at230": [
+          38829,
+          38831,
+          38836,
+          38834,
+          38834,
+          38836
+        ]
+      }
+    },
+    "after_identity_exclusions": {
+      "n": 1048453,
+      "excluded": 0,
+      "boundary": {
+        "exact_any": 387799,
+        "exact_fraction": 0.3698773335571552,
+        "within10_any": 816308,
+        "within10_fraction": 0.7785833032095859,
+        "boundary_coordinate_count_hist": {
+          "0": 660654,
+          "1": 317239,
+          "2": 63328,
+          "3": 6830,
+          "4": 386,
+          "5": 16,
+          "6": 0
+        },
+        "at100": [
+          38836,
+          38834,
+          38835,
+          38836,
+          38836,
+          38832
+        ],
+        "at230": [
+          38829,
+          38831,
+          38836,
+          38834,
+          38834,
+          38836
+        ]
+      },
+      "reference_overlap_nonexclusive": {
+        "existing32": 0,
+        "frozen_local16": 0,
+        "reserve6": 0,
+        "protected25": 0,
+        "source_pool48": 0,
+        "V1_global144": 0
+      }
+    },
+    "selected": {
+      "n": 144,
+      "roles": {
+        "DEVELOPMENT_GLOBAL": 116,
+        "SEALED_CONFIRMATION_GLOBAL": 28
+      },
+      "role_strata": {
+        "DEVELOPMENT_GLOBAL:INTERIOR": 71,
+        "SEALED_CONFIRMATION_GLOBAL:INTERIOR": 17,
+        "SEALED_CONFIRMATION_GLOBAL:SINGLE_FACE": 8,
+        "DEVELOPMENT_GLOBAL:SINGLE_FACE": 28,
+        "SEALED_CONFIRMATION_GLOBAL:TWO_FACE_INTERSECTION": 2,
+        "DEVELOPMENT_GLOBAL:TWO_FACE_INTERSECTION": 10,
+        "SEALED_CONFIRMATION_GLOBAL:TRIPLE_FACE_STRESS": 1,
+        "DEVELOPMENT_GLOBAL:TRIPLE_FACE_STRESS": 7
+      },
+      "confirmation_core": {
+        "interior": 17,
+        "single_face": 8,
+        "two_face": 2,
+        "n": 27,
+        "exact_face_fraction": 0.37037037037037035
+      },
+      "separate_stress": {
+        "triple_face": 1,
+        "n": 1
+      },
+      "dev_two_face_patterns": [
+        {
+          "dimensions": [
+            3,
+            4
+          ],
+          "faces": [
+            "D3=230",
+            "D4=100"
+          ],
+          "mask": 96
+        },
+        {
+          "dimensions": [
+            1,
+            4
+          ],
+          "faces": [
+            "D1=100",
+            "D4=100"
+          ],
+          "mask": 65
+        },
+        {
+          "dimensions": [
+            1,
+            6
+          ],
+          "faces": [
+            "D1=230",
+            "D6=230"
+          ],
+          "mask": 2050
+        },
+        {
+          "dimensions": [
+            1,
+            3
+          ],
+          "faces": [
+            "D1=230",
+            "D3=100"
+          ],
+          "mask": 18
+        },
+        {
+          "dimensions": [
+            2,
+            3
+          ],
+          "faces": [
+            "D2=100",
+            "D3=230"
+          ],
+          "mask": 36
+        },
+        {
+          "dimensions": [
+            2,
+            6
+          ],
+          "faces": [
+            "D2=230",
+            "D6=100"
+          ],
+          "mask": 1032
+        },
+        {
+          "dimensions": [
+            3,
+            6
+          ],
+          "faces": [
+            "D3=100",
+            "D6=230"
+          ],
+          "mask": 2064
+        },
+        {
+          "dimensions": [
+            2,
+            4
+          ],
+          "faces": [
+            "D2=230",
+            "D4=100"
+          ],
+          "mask": 72
+        },
+        {
+          "dimensions": [
+            3,
+            5
+          ],
+          "faces": [
+            "D3=230",
+            "D5=100"
+          ],
+          "mask": 288
+        },
+        {
+          "dimensions": [
+            4,
+            5
+          ],
+          "faces": [
+            "D4=230",
+            "D5=230"
+          ],
+          "mask": 640
+        }
+      ],
+      "triple_face_patterns": [
+        {
+          "mask": 532,
+          "faces": [
+            "D2=100",
+            "D3=100",
+            "D5=230"
+          ]
+        },
+        {
+          "mask": 530,
+          "faces": [
+            "D1=230",
+            "D3=100",
+            "D5=230"
+          ]
+        },
+        {
+          "mask": 97,
+          "faces": [
+            "D1=100",
+            "D3=230",
+            "D4=100"
+          ]
+        },
+        {
+          "mask": 133,
+          "faces": [
+            "D1=100",
+            "D2=100",
+            "D4=230"
+          ]
+        },
+        {
+          "mask": 584,
+          "faces": [
+            "D2=230",
+            "D4=100",
+            "D5=230"
+          ]
+        },
+        {
+          "mask": 1029,
+          "faces": [
+            "D1=100",
+            "D2=100",
+            "D6=100"
+          ]
+        },
+        {
+          "mask": 134,
+          "faces": [
+            "D1=230",
+            "D2=100",
+            "D4=230"
+          ]
+        },
+        {
+          "mask": 2561,
+          "faces": [
+            "D1=100",
+            "D5=230",
+            "D6=230"
+          ]
+        }
+      ]
+    }
+  },
+  "required_group_coverage": {
+    "existing32": {
+      "n": 32,
+      "boundary": {
+        "exact_any": 25,
+        "exact_fraction": 0.78125,
+        "within10_any": 32,
+        "within10_fraction": 1.0,
+        "boundary_coordinate_count_hist": {
+          "0": 7,
+          "1": 13,
+          "2": 6,
+          "3": 3,
+          "4": 3,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          2,
+          3,
+          4,
+          4,
+          4,
+          5
+        ],
+        "at230": [
+          4,
+          4,
+          4,
+          5,
+          5,
+          2
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 14,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            165,
+            170,
+            175,
+            195,
+            205,
+            210,
+            215,
+            220,
+            230
+          ],
+          "at100": 2,
+          "at230": 4,
+          "within10": 16
+        },
+        "D2": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 18,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            135,
+            145,
+            150,
+            160,
+            170,
+            175,
+            190,
+            195,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 3,
+          "at230": 4,
+          "within10": 15
+        },
+        "D3": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 16,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            125,
+            130,
+            155,
+            165,
+            180,
+            185,
+            190,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 4,
+          "at230": 4,
+          "within10": 18
+        },
+        "D4": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 16,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            140,
+            150,
+            180,
+            185,
+            205,
+            210,
+            220,
+            225,
+            230
+          ],
+          "at100": 4,
+          "at230": 5,
+          "within10": 18
+        },
+        "D5": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 15,
+          "levels": [
+            100,
+            105,
+            110,
+            140,
+            150,
+            155,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            220,
+            225,
+            230
+          ],
+          "at100": 4,
+          "at230": 5,
+          "within10": 21
+        },
+        "D6": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 18,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            130,
+            135,
+            145,
+            155,
+            170,
+            175,
+            190,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 5,
+          "at230": 2,
+          "within10": 16
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 29,
+          "median": 31.0,
+          "max": 32,
+          "all_pairs": [
+            32,
+            31,
+            32,
+            29,
+            31,
+            30,
+            31,
+            30,
+            31,
+            32,
+            31,
+            31,
+            30,
+            31,
+            29
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 7,
+          "median": 9.0,
+          "max": 9,
+          "all_pairs": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            7,
+            9,
+            9,
+            9,
+            8,
+            9,
+            8,
+            8,
+            7
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 32,
+        "min": 0.7891647895647381,
+        "q05": 0.792758327460573,
+        "q25": 0.8076923076923077,
+        "median": 0.8226603768697838,
+        "q75": 0.8548386626008349,
+        "q95": 0.8971031578830176,
+        "max": 0.936599666298917,
+        "mean": 0.8349696011915617
+      },
+      "clearance_nm": {
+        "n": 32,
+        "min": 60.0,
+        "q05": 60.0,
+        "q25": 66.875,
+        "median": 77.5,
+        "q75": 101.25,
+        "q95": 122.25,
+        "max": 125.0,
+        "mean": 85.546875
+      },
+      "half_cell_margin_nm": {
+        "n": 32,
+        "min": 30.0,
+        "q05": 30.0,
+        "q25": 30.0,
+        "median": 30.0,
+        "q75": 32.5,
+        "q95": 36.125,
+        "max": 50.0,
+        "mean": 32.1875
+      }
+    },
+    "frozen_local12_axis": {
+      "n": 12,
+      "boundary": {
+        "exact_any": 0,
+        "exact_fraction": 0.0,
+        "within10_any": 11,
+        "within10_fraction": 0.9166666666666666,
+        "boundary_coordinate_count_hist": {
+          "0": 12,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "at230": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 215,
+          "max": 225,
+          "unique_levels": 3,
+          "levels": [
+            215,
+            220,
+            225
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 11
+        },
+        "D2": {
+          "min": 190,
+          "max": 200,
+          "unique_levels": 3,
+          "levels": [
+            190,
+            195,
+            200
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D3": {
+          "min": 205,
+          "max": 215,
+          "unique_levels": 3,
+          "levels": [
+            205,
+            210,
+            215
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D4": {
+          "min": 145,
+          "max": 155,
+          "unique_levels": 3,
+          "levels": [
+            145,
+            150,
+            155
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D5": {
+          "min": 135,
+          "max": 145,
+          "unique_levels": 3,
+          "levels": [
+            135,
+            140,
+            145
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D6": {
+          "min": 205,
+          "max": 215,
+          "unique_levels": 3,
+          "levels": [
+            205,
+            210,
+            215
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 5,
+          "median": 5.0,
+          "max": 5,
+          "all_pairs": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 1,
+          "median": 1.0,
+          "max": 2,
+          "all_pairs": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 12,
+        "min": 0.05439282932204212,
+        "q05": 0.05439282932204212,
+        "q25": 0.05439282932204212,
+        "median": 0.05439282932204212,
+        "q75": 0.05439282932204212,
+        "q95": 0.05439282932204212,
+        "max": 0.05439282932204212,
+        "mean": 0.054392829322042126
+      },
+      "clearance_nm": {
+        "n": 12,
+        "min": 72.5,
+        "q05": 72.5,
+        "q25": 75.0,
+        "median": 75.0,
+        "q75": 75.0,
+        "q95": 77.5,
+        "max": 77.5,
+        "mean": 75.0
+      },
+      "half_cell_margin_nm": {
+        "n": 12,
+        "min": 32.5,
+        "q05": 33.875,
+        "q25": 35.0,
+        "median": 35.0,
+        "q75": 35.0,
+        "q95": 36.125,
+        "max": 37.5,
+        "mean": 35.0
+      }
+    },
+    "frozen_local4_combinations": {
+      "n": 4,
+      "boundary": {
+        "exact_any": 0,
+        "exact_fraction": 0.0,
+        "within10_any": 2,
+        "within10_fraction": 0.5,
+        "boundary_coordinate_count_hist": {
+          "0": 4,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "at230": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 215,
+          "max": 225,
+          "unique_levels": 2,
+          "levels": [
+            215,
+            225
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 2
+        },
+        "D2": {
+          "min": 190,
+          "max": 200,
+          "unique_levels": 2,
+          "levels": [
+            190,
+            200
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D3": {
+          "min": 205,
+          "max": 215,
+          "unique_levels": 2,
+          "levels": [
+            205,
+            215
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D4": {
+          "min": 145,
+          "max": 155,
+          "unique_levels": 2,
+          "levels": [
+            145,
+            155
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D5": {
+          "min": 135,
+          "max": 145,
+          "unique_levels": 2,
+          "levels": [
+            135,
+            145
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        },
+        "D6": {
+          "min": 205,
+          "max": 215,
+          "unique_levels": 2,
+          "levels": [
+            205,
+            215
+          ],
+          "at100": 0,
+          "at230": 0,
+          "within10": 0
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 2,
+          "median": 4.0,
+          "max": 4,
+          "all_pairs": [
+            4,
+            4,
+            2,
+            4,
+            4,
+            4,
+            4,
+            2,
+            4,
+            4,
+            4,
+            2,
+            4,
+            4,
+            4
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 1,
+          "median": 1.0,
+          "max": 2,
+          "all_pairs": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 4,
+        "min": 0.15384615384615385,
+        "q05": 0.15384615384615385,
+        "q25": 0.15384615384615385,
+        "median": 0.15384615384615385,
+        "q75": 0.15384615384615385,
+        "q95": 0.15384615384615385,
+        "max": 0.15384615384615385,
+        "mean": 0.15384615384615385
+      },
+      "clearance_nm": {
+        "n": 4,
+        "min": 70.0,
+        "q05": 70.75,
+        "q25": 73.75,
+        "median": 75.0,
+        "q75": 76.25,
+        "q95": 79.25,
+        "max": 80.0,
+        "mean": 75.0
+      },
+      "half_cell_margin_nm": {
+        "n": 4,
+        "min": 32.5,
+        "q05": 32.5,
+        "q25": 32.5,
+        "median": 35.0,
+        "q75": 37.5,
+        "q95": 37.5,
+        "max": 37.5,
+        "mean": 35.0
+      }
+    },
+    "V1_global_development116": {
+      "n": 116,
+      "boundary": {
+        "exact_any": 89,
+        "exact_fraction": 0.7672413793103449,
+        "within10_any": 111,
+        "within10_fraction": 0.9568965517241379,
+        "boundary_coordinate_count_hist": {
+          "0": 27,
+          "1": 49,
+          "2": 28,
+          "3": 10,
+          "4": 2,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          13,
+          13,
+          12,
+          8,
+          10,
+          13
+        ],
+        "at230": [
+          7,
+          15,
+          18,
+          13,
+          13,
+          8
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 24,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            130,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 13,
+          "at230": 7,
+          "within10": 51
+        },
+        "D2": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 24,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            195,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 13,
+          "at230": 15,
+          "within10": 50
+        },
+        "D3": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 26,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 12,
+          "at230": 18,
+          "within10": 58
+        },
+        "D4": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 25,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 8,
+          "at230": 13,
+          "within10": 43
+        },
+        "D5": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 26,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 10,
+          "at230": 13,
+          "within10": 46
+        },
+        "D6": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 25,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 13,
+          "at230": 8,
+          "within10": 46
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 96,
+          "median": 102.0,
+          "max": 107,
+          "all_pairs": [
+            102,
+            97,
+            102,
+            101,
+            107,
+            99,
+            105,
+            97,
+            102,
+            97,
+            98,
+            102,
+            102,
+            105,
+            96
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 9,
+          "median": 9.0,
+          "max": 9,
+          "all_pairs": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 116,
+        "min": 0.521717691009636,
+        "q05": 0.5241924576893559,
+        "q25": 0.5384615384615384,
+        "median": 0.5573606440842092,
+        "q75": 0.5794815066661294,
+        "q95": 0.6240375099033892,
+        "max": 0.6739005949205857,
+        "mean": 0.5626248751535143
+      },
+      "clearance_nm": {
+        "n": 116,
+        "min": 60.0,
+        "q05": 60.0,
+        "q25": 70.0,
+        "median": 87.5,
+        "q75": 100.0,
+        "q95": 130.0,
+        "max": 137.5,
+        "mean": 89.18103448275862
+      },
+      "half_cell_margin_nm": {
+        "n": 116,
+        "min": 30.0,
+        "q05": 30.0,
+        "q25": 30.0,
+        "median": 32.5,
+        "q75": 35.0,
+        "q95": 57.5,
+        "max": 65.0,
+        "mean": 35.064655172413794
+      }
+    },
+    "V1_global_confirmation28": {
+      "n": 28,
+      "boundary": {
+        "exact_any": 23,
+        "exact_fraction": 0.8214285714285714,
+        "within10_any": 27,
+        "within10_fraction": 0.9642857142857143,
+        "boundary_coordinate_count_hist": {
+          "0": 5,
+          "1": 8,
+          "2": 12,
+          "3": 3,
+          "4": 0,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          2,
+          4,
+          4,
+          9,
+          2,
+          4
+        ],
+        "at230": [
+          1,
+          4,
+          2,
+          2,
+          4,
+          3
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 17,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            210,
+            225,
+            230
+          ],
+          "at100": 2,
+          "at230": 1,
+          "within10": 8
+        },
+        "D2": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 15,
+          "levels": [
+            100,
+            105,
+            110,
+            135,
+            140,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            200,
+            215,
+            225,
+            230
+          ],
+          "at100": 4,
+          "at230": 4,
+          "within10": 16
+        },
+        "D3": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 15,
+          "levels": [
+            100,
+            120,
+            125,
+            145,
+            155,
+            165,
+            170,
+            175,
+            180,
+            185,
+            195,
+            205,
+            220,
+            225,
+            230
+          ],
+          "at100": 4,
+          "at230": 2,
+          "within10": 10
+        },
+        "D4": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 15,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            130,
+            140,
+            170,
+            175,
+            180,
+            200,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 9,
+          "at230": 2,
+          "within10": 19
+        },
+        "D5": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 17,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            125,
+            130,
+            150,
+            155,
+            160,
+            170,
+            175,
+            185,
+            190,
+            195,
+            220,
+            225,
+            230
+          ],
+          "at100": 2,
+          "at230": 4,
+          "within10": 11
+        },
+        "D6": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 16,
+          "levels": [
+            100,
+            105,
+            130,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            190,
+            200,
+            205,
+            215,
+            220,
+            230
+          ],
+          "at100": 4,
+          "at230": 3,
+          "within10": 11
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 24,
+          "median": 27.0,
+          "max": 28,
+          "all_pairs": [
+            27,
+            27,
+            26,
+            28,
+            28,
+            26,
+            27,
+            27,
+            24,
+            24,
+            28,
+            28,
+            27,
+            27,
+            27
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 7,
+          "median": 9.0,
+          "max": 9,
+          "all_pairs": [
+            9,
+            8,
+            8,
+            9,
+            9,
+            9,
+            7,
+            9,
+            9,
+            8,
+            9,
+            9,
+            8,
+            8,
+            9
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 28,
+        "min": 0.5343247688249925,
+        "q05": 0.5465236768682474,
+        "q25": 0.5832939580195323,
+        "median": 0.6319864826925202,
+        "q75": 0.6912384906004395,
+        "q95": 0.7459501558492374,
+        "max": 0.9278721601396015,
+        "mean": 0.6423824338919534
+      },
+      "clearance_nm": {
+        "n": 28,
+        "min": 60.0,
+        "q05": 63.375,
+        "q25": 79.375,
+        "median": 91.25,
+        "q75": 100.0,
+        "q95": 137.375,
+        "max": 147.5,
+        "mean": 93.75
+      },
+      "half_cell_margin_nm": {
+        "n": 28,
+        "min": 30.0,
+        "q05": 30.0,
+        "q25": 30.0,
+        "median": 32.5,
+        "q75": 42.5,
+        "q95": 56.625,
+        "max": 57.5,
+        "mean": 36.785714285714285
+      }
+    },
+    "V2_global_development116": {
+      "n": 116,
+      "boundary": {
+        "exact_any": 45,
+        "exact_fraction": 0.3879310344827586,
+        "within10_any": 114,
+        "within10_fraction": 0.9827586206896551,
+        "boundary_coordinate_count_hist": {
+          "0": 71,
+          "1": 28,
+          "2": 10,
+          "3": 7,
+          "4": 0,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          7,
+          6,
+          5,
+          7,
+          4,
+          5
+        ],
+        "at230": [
+          6,
+          5,
+          6,
+          5,
+          7,
+          6
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 26,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 7,
+          "at230": 6,
+          "within10": 51
+        },
+        "D2": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 25,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 6,
+          "at230": 5,
+          "within10": 58
+        },
+        "D3": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 27,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 5,
+          "at230": 6,
+          "within10": 42
+        },
+        "D4": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 27,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 7,
+          "at230": 5,
+          "within10": 46
+        },
+        "D5": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 22,
+          "levels": [
+            100,
+            105,
+            110,
+            120,
+            125,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            175,
+            180,
+            185,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 4,
+          "at230": 7,
+          "within10": 60
+        },
+        "D6": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 27,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 5,
+          "at230": 6,
+          "within10": 53
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 96,
+          "median": 101.0,
+          "max": 107,
+          "all_pairs": [
+            99,
+            107,
+            97,
+            101,
+            105,
+            104,
+            96,
+            96,
+            100,
+            103,
+            106,
+            105,
+            98,
+            103,
+            99
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 9,
+          "median": 9.0,
+          "max": 9,
+          "all_pairs": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 116,
+        "min": 0.46790481002294,
+        "q05": 0.47574295680203776,
+        "q25": 0.4970326147430802,
+        "median": 0.5181608001981876,
+        "q75": 0.5469790198022182,
+        "q95": 0.5911640628374745,
+        "max": 0.6319875663521147,
+        "mean": 0.5240117445676322
+      },
+      "clearance_nm": {
+        "n": 116,
+        "min": 60.0,
+        "q05": 62.5,
+        "q25": 70.0,
+        "median": 88.75,
+        "q75": 105.0,
+        "q95": 128.125,
+        "max": 157.5,
+        "mean": 89.35344827586206
+      },
+      "half_cell_margin_nm": {
+        "n": 116,
+        "min": 30.0,
+        "q05": 30.0,
+        "q25": 31.875,
+        "median": 32.5,
+        "q75": 35.0,
+        "q95": 55.625,
+        "max": 65.0,
+        "mean": 35.775862068965516
+      }
+    },
+    "V2_global_confirmation28": {
+      "n": 28,
+      "boundary": {
+        "exact_any": 11,
+        "exact_fraction": 0.39285714285714285,
+        "within10_any": 28,
+        "within10_fraction": 1.0,
+        "boundary_coordinate_count_hist": {
+          "0": 17,
+          "1": 8,
+          "2": 2,
+          "3": 1,
+          "4": 0,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          1,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "at230": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          1
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 14,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            145,
+            160,
+            165,
+            175,
+            180,
+            195,
+            200,
+            220,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 1,
+          "within10": 17
+        },
+        "D2": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 17,
+          "levels": [
+            100,
+            105,
+            110,
+            125,
+            140,
+            150,
+            160,
+            165,
+            170,
+            175,
+            185,
+            190,
+            205,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 2,
+          "at230": 1,
+          "within10": 9
+        },
+        "D3": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 17,
+          "levels": [
+            100,
+            105,
+            110,
+            135,
+            145,
+            150,
+            155,
+            160,
+            165,
+            175,
+            180,
+            200,
+            205,
+            210,
+            215,
+            225,
+            230
+          ],
+          "at100": 2,
+          "at230": 1,
+          "within10": 9
+        },
+        "D4": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 16,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            145,
+            160,
+            170,
+            175,
+            180,
+            185,
+            200,
+            205,
+            220,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 1,
+          "within10": 18
+        },
+        "D5": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 18,
+          "levels": [
+            100,
+            105,
+            115,
+            120,
+            125,
+            140,
+            150,
+            155,
+            160,
+            175,
+            180,
+            185,
+            190,
+            205,
+            210,
+            220,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 2,
+          "within10": 12
+        },
+        "D6": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 17,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            125,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            190,
+            195,
+            210,
+            215,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 1,
+          "within10": 11
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 25,
+          "median": 27.0,
+          "max": 28,
+          "all_pairs": [
+            27,
+            27,
+            27,
+            28,
+            27,
+            27,
+            27,
+            28,
+            27,
+            28,
+            27,
+            26,
+            27,
+            25,
+            27
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 8,
+          "median": 9.0,
+          "max": 9,
+          "all_pairs": [
+            9,
+            9,
+            8,
+            8,
+            9,
+            9,
+            8,
+            8,
+            9,
+            9,
+            8,
+            9,
+            9,
+            9,
+            9
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 28,
+        "min": 0.5044183480232308,
+        "q05": 0.5054418141149278,
+        "q25": 0.5145803138561404,
+        "median": 0.5730625628920496,
+        "q75": 0.6793662204867574,
+        "q95": 0.8060152793393066,
+        "max": 0.8338262841799537,
+        "mean": 0.6092482945344473
+      },
+      "clearance_nm": {
+        "n": 28,
+        "min": 60.0,
+        "q05": 63.375,
+        "q25": 71.25,
+        "median": 87.5,
+        "q75": 102.5,
+        "q95": 124.125,
+        "max": 150.0,
+        "mean": 90.53571428571429
+      },
+      "half_cell_margin_nm": {
+        "n": 28,
+        "min": 30.0,
+        "q05": 30.0,
+        "q25": 32.5,
+        "median": 32.5,
+        "q75": 35.0,
+        "q95": 51.625,
+        "max": 62.5,
+        "mean": 35.267857142857146
+      }
+    },
+    "V2_new_development128": {
+      "n": 128,
+      "boundary": {
+        "exact_any": 45,
+        "exact_fraction": 0.3515625,
+        "within10_any": 125,
+        "within10_fraction": 0.9765625,
+        "boundary_coordinate_count_hist": {
+          "0": 83,
+          "1": 28,
+          "2": 10,
+          "3": 7,
+          "4": 0,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          7,
+          6,
+          5,
+          7,
+          4,
+          5
+        ],
+        "at230": [
+          6,
+          5,
+          6,
+          5,
+          7,
+          6
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 26,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 7,
+          "at230": 6,
+          "within10": 62
+        },
+        "D2": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 27,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 6,
+          "at230": 5,
+          "within10": 58
+        },
+        "D3": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 27,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 5,
+          "at230": 6,
+          "within10": 42
+        },
+        "D4": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 27,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 7,
+          "at230": 5,
+          "within10": 46
+        },
+        "D5": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 22,
+          "levels": [
+            100,
+            105,
+            110,
+            120,
+            125,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            175,
+            180,
+            185,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 4,
+          "at230": 7,
+          "within10": 60
+        },
+        "D6": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 27,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 5,
+          "at230": 6,
+          "within10": 53
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 101,
+          "median": 106.0,
+          "max": 112,
+          "all_pairs": [
+            103,
+            112,
+            101,
+            106,
+            108,
+            109,
+            101,
+            101,
+            105,
+            108,
+            111,
+            110,
+            101,
+            107,
+            103
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 9,
+          "median": 9.0,
+          "max": 9,
+          "all_pairs": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 128,
+        "min": 0.05439282932204212,
+        "q05": 0.05439282932204212,
+        "q25": 0.491044051338604,
+        "median": 0.5102499677469846,
+        "q75": 0.5439282932204212,
+        "q95": 0.5857627769401547,
+        "max": 0.6319875663521147,
+        "mean": 0.47873202090642597
+      },
+      "clearance_nm": {
+        "n": 128,
+        "min": 60.0,
+        "q05": 63.375,
+        "q25": 70.0,
+        "median": 85.0,
+        "q75": 100.625,
+        "q95": 127.5,
+        "max": 157.5,
+        "mean": 88.0078125
+      },
+      "half_cell_margin_nm": {
+        "n": 128,
+        "min": 30.0,
+        "q05": 30.0,
+        "q25": 32.5,
+        "median": 32.5,
+        "q75": 35.0,
+        "q95": 55.0,
+        "max": 65.0,
+        "mean": 35.703125
+      }
+    },
+    "V2_new_confirmation32": {
+      "n": 32,
+      "boundary": {
+        "exact_any": 11,
+        "exact_fraction": 0.34375,
+        "within10_any": 30,
+        "within10_fraction": 0.9375,
+        "boundary_coordinate_count_hist": {
+          "0": 21,
+          "1": 8,
+          "2": 2,
+          "3": 1,
+          "4": 0,
+          "5": 0,
+          "6": 0
+        },
+        "at100": [
+          1,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "at230": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          1
+        ]
+      },
+      "coordinates": {
+        "D1": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 15,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            145,
+            160,
+            165,
+            175,
+            180,
+            195,
+            200,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 1,
+          "within10": 19
+        },
+        "D2": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 18,
+          "levels": [
+            100,
+            105,
+            110,
+            125,
+            140,
+            150,
+            160,
+            165,
+            170,
+            175,
+            185,
+            190,
+            200,
+            205,
+            215,
+            220,
+            225,
+            230
+          ],
+          "at100": 2,
+          "at230": 1,
+          "within10": 9
+        },
+        "D3": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 17,
+          "levels": [
+            100,
+            105,
+            110,
+            135,
+            145,
+            150,
+            155,
+            160,
+            165,
+            175,
+            180,
+            200,
+            205,
+            210,
+            215,
+            225,
+            230
+          ],
+          "at100": 2,
+          "at230": 1,
+          "within10": 9
+        },
+        "D4": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 17,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            145,
+            155,
+            160,
+            170,
+            175,
+            180,
+            185,
+            200,
+            205,
+            220,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 1,
+          "within10": 18
+        },
+        "D5": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 20,
+          "levels": [
+            100,
+            105,
+            115,
+            120,
+            125,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            175,
+            180,
+            185,
+            190,
+            205,
+            210,
+            220,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 2,
+          "within10": 12
+        },
+        "D6": {
+          "min": 100,
+          "max": 230,
+          "unique_levels": 18,
+          "levels": [
+            100,
+            105,
+            110,
+            115,
+            125,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            190,
+            195,
+            205,
+            210,
+            215,
+            225,
+            230
+          ],
+          "at100": 1,
+          "at230": 1,
+          "within10": 11
+        }
+      },
+      "ordered_2d": {
+        "unique_cells_out_of_729": {
+          "min": 28,
+          "median": 31.0,
+          "max": 32,
+          "all_pairs": [
+            31,
+            30,
+            29,
+            32,
+            31,
+            31,
+            31,
+            30,
+            31,
+            32,
+            31,
+            28,
+            31,
+            29,
+            31
+          ]
+        },
+        "occupied_3x3_bins_out_of_9": {
+          "min": 8,
+          "median": 9.0,
+          "max": 9,
+          "all_pairs": [
+            9,
+            9,
+            8,
+            8,
+            9,
+            9,
+            8,
+            8,
+            9,
+            9,
+            8,
+            9,
+            9,
+            9,
+            9
+          ]
+        }
+      },
+      "within_set_normalized_nn": {
+        "n": 32,
+        "min": 0.15384615384615385,
+        "q05": 0.15384615384615385,
+        "q25": 0.512770869606268,
+        "median": 0.529435109354532,
+        "q75": 0.676089500548158,
+        "q95": 0.7967589922269994,
+        "max": 0.8338262841799537,
+        "mean": 0.548603069686914
+      },
+      "clearance_nm": {
+        "n": 32,
+        "min": 60.0,
+        "q05": 63.875,
+        "q25": 71.875,
+        "median": 81.25,
+        "q75": 100.625,
+        "q95": 123.625,
+        "max": 150.0,
+        "mean": 88.59375
+      },
+      "half_cell_margin_nm": {
+        "n": 32,
+        "min": 30.0,
+        "q05": 30.0,
+        "q25": 32.5,
+        "median": 32.5,
+        "q75": 35.0,
+        "q95": 51.125,
+        "max": 62.5,
+        "mean": 35.234375
+      }
+    }
+  },
+  "uniform_expected_counts": {
+    "existing32": {
+      "exact_boundary": 11.834571939740645,
+      "within10": 24.915924815736837
+    },
+    "frozen_local12_axis": {
+      "exact_boundary": 4.437964477402742,
+      "within10": 9.343471805901313
+    },
+    "frozen_local4_combinations": {
+      "exact_boundary": 1.4793214924675806,
+      "within10": 3.1144906019671046
+    },
+    "V1_global_development116": {
+      "exact_boundary": 42.900323281559835,
+      "within10": 90.32022745704603
+    },
+    "V1_global_confirmation28": {
+      "exact_boundary": 10.355250447273065,
+      "within10": 21.80143421376973
+    },
+    "V2_global_development116": {
+      "exact_boundary": 42.900323281559835,
+      "within10": 90.32022745704603
+    },
+    "V2_global_confirmation28": {
+      "exact_boundary": 10.355250447273065,
+      "within10": 21.80143421376973
+    },
+    "V2_new_development128": {
+      "exact_boundary": 47.33828775896258,
+      "within10": 99.66369926294735
+    },
+    "V2_new_confirmation32": {
+      "exact_boundary": 11.834571939740645,
+      "within10": 24.915924815736837
+    }
+  },
+  "distance": {
+    "confirm_to_dev": {
+      "n": 28,
+      "min": 0.48038446141526137,
+      "q05": 0.4829926434812906,
+      "q25": 0.5080693856147573,
+      "median": 0.5224255860574227,
+      "q75": 0.5343194171312794,
+      "q95": 0.5648083615911426,
+      "max": 0.6069128399253654,
+      "mean": 0.5250971287000381
+    },
+    "new_confirm_to_new_dev": {
+      "n": 32,
+      "min": 0.08600261451922268,
+      "q05": 0.08600261451922268,
+      "q25": 0.4947936986061642,
+      "median": 0.5202961063362035,
+      "q75": 0.5318964552289113,
+      "q95": 0.5645463603751126,
+      "max": 0.6069128399253654,
+      "mean": 0.47021031442743616
+    },
+    "global_dev_to_old32": {
+      "n": 116,
+      "min": 0.4195658505629121,
+      "q05": 0.4876427236732892,
+      "q25": 0.5188745216627708,
+      "median": 0.5412018184411649,
+      "q75": 0.5724172188944576,
+      "q95": 0.6811530123682957,
+      "max": 0.8531181928007244,
+      "mean": 0.5555866877448825
+    },
+    "global_confirm_to_old32": {
+      "n": 28,
+      "min": 0.4849815466507112,
+      "q05": 0.4931400485301707,
+      "q25": 0.5185087676878113,
+      "median": 0.5446039689080342,
+      "q75": 0.5762551873940561,
+      "q95": 0.6153221080731207,
+      "max": 0.6308161333406432,
+      "mean": 0.5494538261670772
+    },
+    "global_dev_to_local16": {
+      "n": 116,
+      "min": 0.4970326147430802,
+      "q05": 0.5163705404360334,
+      "q25": 0.885033049860386,
+      "median": 1.0689950430830146,
+      "q75": 1.2518982389245978,
+      "q95": 1.4368812658745456,
+      "max": 1.5389422325955813,
+      "mean": 1.056391708149265
+    },
+    "global_confirm_to_local16": {
+      "n": 28,
+      "min": 0.5343247688249925,
+      "q05": 0.5710915238995512,
+      "q25": 0.843477540995113,
+      "median": 1.019695982317355,
+      "q75": 1.2349670574065565,
+      "q95": 1.4141785652248209,
+      "max": 1.437556276233135,
+      "mean": 1.0119604800001103
+    }
+  },
+  "coverage_probe": {
+    "seed": 20261008,
+    "n": 32768,
+    "old32": {
+      "seed": 20261008,
+      "n": 32768,
+      "nearest_distance": {
+        "n": 32768,
+        "min": 0.08600261451922268,
+        "q05": 0.34401045807689073,
+        "q25": 0.4772951402304176,
+        "median": 0.5586861171666904,
+        "q75": 0.6319875663521147,
+        "q95": 0.7277264587855576,
+        "max": 0.9955522388880603,
+        "mean": 0.5504734706616057
+      }
+    },
+    "old32_plus_new_development160": {
+      "seed": 20261008,
+      "n": 32768,
+      "nearest_distance": {
+        "n": 32768,
+        "min": 0.05439282932204212,
+        "q05": 0.24019223070763068,
+        "q25": 0.33085866411702414,
+        "median": 0.3884424976293107,
+        "q75": 0.4418894343490791,
+        "q95": 0.5131409255433206,
+        "max": 0.6837072628704299,
+        "mean": 0.3843292988043817
+      }
+    },
+    "old32_plus_all_new": {
+      "seed": 20261008,
+      "n": 32768,
+      "nearest_distance": {
+        "n": 32768,
+        "min": 0.05439282932204212,
+        "q05": 0.23076923076923078,
+        "q25": 0.31716197120135853,
+        "median": 0.3728984505704869,
+        "q75": 0.4248215775841254,
+        "q95": 0.4895354638983791,
+        "max": 0.6617173282340483,
+        "mean": 0.36889565336072183
+      }
+    }
+  },
+  "folds": {
+    "outer": {
+      "1": {
+        "geometry_groups": 32,
+        "local_axis": 3,
+        "global": 29
+      },
+      "2": {
+        "geometry_groups": 32,
+        "local_axis": 3,
+        "global": 29
+      },
+      "3": {
+        "geometry_groups": 32,
+        "local_axis": 3,
+        "global": 29
+      },
+      "4": {
+        "geometry_groups": 32,
+        "local_axis": 3,
+        "global": 29
+      }
+    },
+    "inner_and_curve": {
+      "1": {
+        "outer_validation": 32,
+        "outer_train": 128,
+        "inner_fold_sizes": [
+          43,
+          43,
+          42
+        ],
+        "curve_sizes": [
+          32,
+          64,
+          128
+        ],
+        "size64_additions": {
+          "local_axis": 3,
+          "global": 29
+        },
+        "size128_additions": {
+          "local_axis": 9,
+          "global": 87
+        }
+      },
+      "2": {
+        "outer_validation": 32,
+        "outer_train": 128,
+        "inner_fold_sizes": [
+          43,
+          43,
+          42
+        ],
+        "curve_sizes": [
+          32,
+          64,
+          128
+        ],
+        "size64_additions": {
+          "local_axis": 3,
+          "global": 29
+        },
+        "size128_additions": {
+          "local_axis": 9,
+          "global": 87
+        }
+      },
+      "3": {
+        "outer_validation": 32,
+        "outer_train": 128,
+        "inner_fold_sizes": [
+          43,
+          43,
+          42
+        ],
+        "curve_sizes": [
+          32,
+          64,
+          128
+        ],
+        "size64_additions": {
+          "local_axis": 3,
+          "global": 29
+        },
+        "size128_additions": {
+          "local_axis": 9,
+          "global": 87
+        }
+      },
+      "4": {
+        "outer_validation": 32,
+        "outer_train": 128,
+        "inner_fold_sizes": [
+          43,
+          43,
+          42
+        ],
+        "curve_sizes": [
+          32,
+          64,
+          128
+        ],
+        "size64_additions": {
+          "local_axis": 3,
+          "global": 29
+        },
+        "size128_additions": {
+          "local_axis": 9,
+          "global": 87
+        }
+      }
+    },
+    "inner_rows": 512,
+    "learning_curve_rows": 896,
+    "sizes": [
+      32,
+      64,
+      128
+    ]
+  },
+  "integrity": {
+    "new_points": 160,
+    "development": 128,
+    "confirmation": 32,
+    "duplicates": 0,
+    "overlap_with_old_local_reserve_protected_sourcepool_v1proposals": 0,
+    "min_periodic_clearance_nm": 60.0,
+    "min_lateral_margin_nm": 30.0,
+    "source_authority_enrolled": false,
+    "runner_approved": false,
+    "canonical_fsp_created": false
+  },
+  "response_blindness": {
+    "response_arrays_opened": false,
+    "only_case_ids_and_ordered_D_nm_read_from_32G": true,
+    "confirmation_response_access": false
+  },
+  "execution_counts": {
+    "solver_entries": 0,
+    "training_fits": 0,
+    "pscale_only_fits": 0,
+    "new_fsps": 0,
+    "runner_invocations": 0,
+    "reserve_launches": 0
+  }
+}
