@@ -1,0 +1,143 @@
+{
+  "schema": "APCD_GPU_RUNNER_QUEUE21_UNRECOVERABLE_EXCEPTION_DISPOSITION_V1",
+  "disposition_id": "QUEUE21_UNRECOVERABLE_LINEAGE_20261004_V1",
+  "status": "OWNER_DECISION_REQUIRED",
+  "classification": "C_EVIDENCE_INSUFFICIENT_LINEAGE_NOT_RECOVERABLE",
+  "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+  "attempt_id": "attempt_001",
+  "branch_id": "traditional",
+  "physical_solver_entry_count": "UNKNOWN",
+  "entry_event_ids": [
+    1499,
+    1506
+  ],
+  "events": {
+    "1499": {
+      "timestamp": "2026-09-23T00:39:11.269437+00:00",
+      "fencing_generation": 14,
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "metadata_json": {}
+    },
+    "1506": {
+      "timestamp": "2026-09-23T02:38:41.983302+00:00",
+      "fencing_generation": 14,
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "metadata_json": {}
+    }
+  },
+  "event_chain_observed": {
+    "lease_acquired_event_id": 1498,
+    "release_pending_event_id": 1507,
+    "lease_released_event_id": 1508,
+    "terminal_claim": "SCIENTIFIC_VALID",
+    "truth_path_or_hash_linked_to_terminal": false
+  },
+  "evidence_sources": {
+    "current_live_db_snapshot_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\queue21_unrecoverable_lineage_20261004T113204Z\\control.sqlite3",
+    "current_live_db_sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "current_db_size_bytes": 1478656,
+    "snapshot_manifest_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\queue21_unrecoverable_lineage_20261004T113204Z\\snapshot_manifest.json",
+    "snapshot_manifest_sha256": "0a923ee516295872ece928652ab7f42bb33e09f623526fac54a242495ca09b2d",
+    "previous_disposition_json_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\QUEUE21_LINEAGE_DISPOSITION_AND_HOLD_RECOVERY_V1\\QUEUE21_LINEAGE_DISPOSITION_V1.json",
+    "previous_disposition_json_sha256": "97527da4693056941cc1019a026ce4c1485400535227ff00b9c3e470f925fcef",
+    "previous_disposition_report_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\QUEUE21_LINEAGE_DISPOSITION_AND_HOLD_RECOVERY_V1\\FINAL_REPORT.md",
+    "previous_disposition_report_sha256": "339014a9572819b0b54588b75ac4a9b4e318087632c9b05e8bcde2edf71e52d4",
+    "older_control_db_sha256_reported_by_prior_forensic": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+    "older_control_db_binary_recovered": false,
+    "previous_forensic_report_sha256_recorded": "12cff822935ca852daeebb3b06073fbbeedb9a5fbc2d39ab67e04a617b2375eb"
+  },
+  "completed_searches": [
+    "Current production control DB read-only query for events 1498,1499,1506,1507,1508 and full available event columns.",
+    "Prior queue21 lineage disposition and read-only searches of Runner/Shared V3/Coupling reports and runtime paths for event-linked process, FSP/H5, truth and fresh-LOAD identity; no event-linked artifact path was recovered.",
+    "Current GPU Runner V1 registry and runtime marker check; queue21 is absent from V1 registry and has no run-specific V1 truth path."
+  ],
+  "missing_evidence": [
+    "Per-entry launcher/controller PID and process creation identity tied to event 1499 versus 1506.",
+    "Parent/child process lineage, command/executable hash, GPU engine entry and return evidence per event.",
+    "Queue21 source and staged FSP paths/hashes, physical contract hash, archived post-FSP/H5, truth path/hash, completion barrier and fresh-LOAD proof linked to each event.",
+    "Event-writer idempotency key or replay/controller restart evidence that would distinguish duplicate recording from distinct launch.",
+    "The binary for the older forensic DB snapshot; only its reported SHA is available in the earlier disposition."
+  ],
+  "unrecoverable_reason": "The two entry rows have the same lease-token hash and fencing generation and empty metadata; surviving records do not bind either event to a process or durable truth. No identified original source remains in the searched locations; a new solver run cannot establish the historical physical count.",
+  "impact_scope": "UNKNOWN; the physical launch count and provenance of any unattached truth remain unresolved.",
+  "quarantine": {
+    "status": "QUARANTINED",
+    "exclude_from_training": true,
+    "exclude_from_ranking": true,
+    "exclude_from_scientific_conclusions": true,
+    "exclude_from_formal_truth_handoff": true,
+    "historical_attempt_restart_allowed": false,
+    "replacement_attempt_allowed": false,
+    "raw_events_and_truth_preserved": true
+  },
+  "applicable_hold": {
+    "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+    "scope": "GLOBAL",
+    "status": "ACTIVE",
+    "generation": 26,
+    "reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+    "linked_incident_id": "queue21-lineage-not-recoverable",
+    "created_by": "Shared V3 production containment / call v3-containment-c1481e55-20260930",
+    "release_requirements": {
+      "dispatch_prohibited": true,
+      "historical_duplicate_metric_must_not_be_cleared_or_waived": true,
+      "no_solver_entry_during_failed_dispatch": true
+    }
+  },
+  "owner_decision": {
+    "status": "OWNER_DECISION_REQUIRED",
+    "owner_identity": null,
+    "authority_source": null,
+    "signature_sha256": null,
+    "release_authority": null,
+    "requested_decision": "ACCEPT_UNRECOVERABLE_LINEAGE_AND_QUARANTINE_WITH_PHYSICAL_ENTRY_COUNT_UNKNOWN",
+    "owner_permission_matrix_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\shared_infra\\APCD_GLOBAL_FDTD_PRODUCTION_PLATFORM_V1\\OWNER_PERMISSION_MATRIX.md",
+    "owner_permission_matrix_sha256": "ed5ebf416804eb1209a759ac18be4e7a06db22135d15378c3d461508c722b3da",
+    "note": "The authenticated global-hold owner is not named by the active hold row or inspected permission matrix. The remote OS account DESKTOP-NNE313K\\DELL is not evidence of hold-release authority."
+  },
+  "recovery": {
+    "state": "BLOCKED_PENDING_OWNER_DECISION",
+    "new_entry_authorized": false,
+    "official_api_path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\scripts\\shared_fdtd\\control_v3\\db.py",
+    "official_api_sha256": "372a33ee95337960a62ee9f81f4ad3eacf361ea5f4bbcb7bf159bc73b6f3bd2c",
+    "api_method": "ControlDB.release_hold(hold_id, released_by=..., release_authority_hash=..., evidence=...)",
+    "api_called": false,
+    "database_modified": false,
+    "noted_api_limit": "The checked API requires nonempty actor and authority hash but does not cryptographically authenticate the signer; a separately verified owner authority is mandatory.",
+    "next_control_generation_if_no_intervening_write": 27,
+    "next_generation_is_prediction_only": true
+  },
+  "prevention": {
+    "runner_version": "GPU Production Runner V1, serial filesystem lock, one slot; no legacy three-slot allocator restored.",
+    "queue21_case_quarantined_in_runner_v1": true,
+    "read_only_global_hold_guard_added_to_production_adapter": true,
+    "strict_manifest_rejects_legacy_lease_token_and_fencing_fields": true,
+    "production_root_requires_adapter_pre_entry_guard": true,
+    "duplicate_lock_postentry_replay_and_truth_release_barriers_retained": true,
+    "validation_report": "VALIDATION_RESULTS_V1.json",
+    "global_hold_check_semantics": "Read-only snapshot at the pre-entry boundary; this is not a distributed lease/fence. Owner must serialize hold lifecycle changes with dispatch; any changed state must cause a fresh check and block entry."
+  },
+  "diagnostic": {
+    "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+    "attempt_id": "attempt_001",
+    "authority_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\controlled_admission_authority_v1.json",
+    "authority_sha256": "d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56",
+    "solver_entry_authorized": false,
+    "max_solver_entries": 0,
+    "proposed_future_entries": 1,
+    "automatic_replay_allowed": false,
+    "training_dataset_eligible": false,
+    "current_state": "BLOCKED_BY_ACTIVE_HOLD_AND_MISSING_OWNER_APPROVAL"
+  },
+  "v2_boundary": {
+    "case_count": 160,
+    "solver_authorized_count": 0,
+    "setup_enrolled_count": 160,
+    "confirmation_responses_read": false
+  },
+  "execution_counts": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "post_entry_replay": 0
+  }
+}

@@ -1,0 +1,13 @@
+# Coupling handoff — queue21 quarantine and controlled recovery
+
+**Status:** Exception disposition is durable in the GPU Runner V1 repository, but owner approval and global hold release are pending. No solver entry occurred.
+
+- Read `D:\project\worktrees\blue_apcd_gpu_production_runner_v1\reports\apcd_gpu_production_runner_v1\UNRECOVERABLE_LINEAGE_DISPOSITION_AND_CONTROLLED_RECOVERY_V1\EXCEPTION_DISPOSITION_V1.json` and verify its SHA256 `5e2ba9d6de8c94e2f4fe0af89ba9fc7b5a523763d35b863e083888f3f06c5065`. Physical queue21 entry count remains `UNKNOWN`.
+- Read `D:\project\worktrees\blue_apcd_gpu_production_runner_v1\reports\apcd_gpu_production_runner_v1\UNRECOVERABLE_LINEAGE_DISPOSITION_AND_CONTROLLED_RECOVERY_V1\QUARANTINE_MANIFEST_V1.json` and verify its SHA256 `f5c058bea0a38c8e900d8019b6fb33e4a34d450411980765598007bc1b9d6cbf`. Do not train, rank, state scientific conclusions, or truth-handoff data linked to the queue21 identity or unresolved provenance.
+- The current search recovered no event-linked truth path, so no data file was moved or overwritten. Impact scope stays `UNKNOWN`.
+- Coupling's authoritative training/ranking/truth consumer registry was not edited in this task. Before any import, the Coupling data owner must ingest this exact identity exclusion into the authoritative consumer filters and verify that no possibly linked artifact is selected. Until that is recorded, treat every potentially linked queue21 output as blocked.
+- Preserve historical `K6V1_EXT02 / attempt_001` and its truth. The only diagnostic identity remains `K6V1_EXT02_TWO_AIR_PLANES_DIAG / attempt_001`; it is not authorized to enter the solver in this handoff (`solver_entry_authorized=false`, budget 0 in the pinned authority), and it is never training-eligible.
+- All 160 K6 V2 geometries remain setup-enrolled only and solver-authorized count 0. Confirmation responses remain unopened.
+- Current hold: `hold-4a6eab94af3b4a6d8510ba2fe32a5b66`, GLOBAL ACTIVE generation 26. Do not infer release from an idle GPU or the V1 registry. Wait for verified owner decision and official API release evidence. The V1 hold guard is read-only and is not a distributed lease; serialize hold changes with any future dispatch.
+
+Snapshot and validation: `D:\apcd_runtime\gpu_production_runner_v1\recovery\queue21_unrecoverable_lineage_20261004T113204Z\snapshot_manifest.json` (SHA256 `0a923ee516295872ece928652ab7f42bb33e09f623526fac54a242495ca09b2d`), `D:\project\worktrees\blue_apcd_gpu_production_runner_v1\reports\apcd_gpu_production_runner_v1\UNRECOVERABLE_LINEAGE_DISPOSITION_AND_CONTROLLED_RECOVERY_V1\VALIDATION_RESULTS_V1.json` (SHA256 `7a24656d90415c3d139af27137ac3668b68bf980f70c1d5e7a529e709939b1d7`).

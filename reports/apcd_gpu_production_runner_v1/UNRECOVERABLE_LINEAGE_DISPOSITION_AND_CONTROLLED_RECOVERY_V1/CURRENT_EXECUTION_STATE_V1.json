@@ -1,0 +1,92 @@
+{
+  "schema": "APCD_GPU_RUNNER_CURRENT_EXECUTION_STATE_V1",
+  "captured_utc": "2026-10-04T11:33:31.858440+00:00",
+  "snapshot_manifest_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\queue21_unrecoverable_lineage_20261004T113204Z\\snapshot_manifest.json",
+  "snapshot_manifest_sha256": "0a923ee516295872ece928652ab7f42bb33e09f623526fac54a242495ca09b2d",
+  "runner_v1": {
+    "runtime_root": "D:\\apcd_runtime\\gpu_production_runner_v1",
+    "registry_schema": "APCD_GPU_RUNNER_REGISTRY_V1",
+    "registry_count": 12,
+    "state_counts": {
+      "FAILED_POSTENTRY": 1,
+      "DONE": 11
+    },
+    "active_scientific_case_count": 0,
+    "active_registry_rows": [],
+    "active_run_marker_exists": false,
+    "root_lock_exists": false,
+    "queue21_registry_rows": [],
+    "v1_has_owner_lease_fence_fields": false,
+    "single_slot_policy": "SERIAL_EXCLUSIVE_ROOT_LOCK; GPU_SLOT_COUNT=1; MAX_CONCURRENT_GPU_JOBS=1"
+  },
+  "terminal_unfinished_record": {
+    "case_id": "K6V1_S35",
+    "attempt_id": "attempt_001",
+    "registry_state": "FAILED_POSTENTRY",
+    "active": false,
+    "recovery_status_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\K6V1_S35\\attempt_001\\S35-20261002T044427Z-e702b2ac\\recovery_003\\recovery_status.json",
+    "recovery_status_sha256": "73de0616fef16880c8c680441ec74c6f83aa4d3a9c193fc05dca339147f3ce0f",
+    "recovery_state": "LOAD_ONLY_POSTENTRY_TRUTH_RECOVERY",
+    "scientific_truth_status": "TRUTH_VALID",
+    "solver_invocations_before_and_after": 1,
+    "replay_count": 0,
+    "solver_run_called_during_recovery": false
+  },
+  "process_census": {
+    "fdtd_engine_process_count": 0,
+    "fdtd_solutions_api_server_count": 8,
+    "fluent_solver_process_count": 0,
+    "mpiexec_process_count": 0,
+    "ansysedt_interactive_process_count": 1,
+    "api_servers_owned_by": "DESKTOP-NNE313K\\DELL",
+    "api_servers_parent_contexts": "Python metadata/FSP inventory scripts or stdin contexts; 2-second CPU delta 0.031–0.062 s.",
+    "ansysedt_command": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe with N:\\ZBB\\ercixiaoyan\\culue10um\\dancengpingpu10um.aedt",
+    "unknown_processes_terminated": false
+  },
+  "gpu": [
+    {
+      "query": "--query-gpu=index,name,utilization.gpu,memory.used,memory.total",
+      "returncode": 0,
+      "stdout": "0, NVIDIA GeForce RTX 3080, 0 %, 2045 MiB, 10240 MiB",
+      "stderr": ""
+    },
+    {
+      "query": "--query-compute-apps=pid,process_name,used_memory",
+      "returncode": 0,
+      "stdout": "3624, C:\\Windows\\System32\\dwm.exe, [N/A]\n4236, D:\\software_install_location\\huorong\\Sysdiag\\bin\\HipsDaemon.exe, [N/A]\n14704, C:\\Windows\\System32\\ShellHost.exe, [N/A]\n18600, C:\\Program Files\\ToDesk\\ToDesk.exe, [N/A]\n14316, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe, [N/A]\n6252, C:\\Windows\\explorer.exe, [N/A]\n20992, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe, [N/A]\n21040, C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe, [N/A]\n23100, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]\n17004, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe, [N/A]\n12028, C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe, [N/A]\n25392, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]\n17404, C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe, [N/A]\n9308, C:\\Windows\\System32\\ApplicationFrameHost.exe, [N/A]\n37856, D:\\software_install_location\\xiangrikui\\AweSun\\flutter\\AweSun.exe, [N/A]\n7660, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]\n36664, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe, [N/A]\n42524, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.48\\msedgewebview2.exe, [N/A]\n37788, D:\\Program Files\\AutoCAD 2025\\acad.exe, [N/A]\n40916, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n40372, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n4708, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n40116, C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.26072.257.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe, [N/A]\n40864, C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe, [N/A]\n16532, C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe, [N/A]",
+      "stderr": ""
+    }
+  ],
+  "shared_v3_legacy_slots": [
+    {
+      "slot_id": "GLOBAL_SLOT_1",
+      "state": "FREE",
+      "owner": null
+    },
+    {
+      "slot_id": "GLOBAL_SLOT_2",
+      "state": "FREE",
+      "owner": null
+    },
+    {
+      "slot_id": "GLOBAL_SLOT_3",
+      "state": "FREE",
+      "owner": null
+    }
+  ],
+  "control_state": {
+    "new_entry_hold": 1,
+    "control_generation": 26,
+    "active_hold_ids": [
+      "hold-4a6eab94af3b4a6d8510ba2fe32a5b66"
+    ],
+    "db_sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "db_snapshot_copy_matches_source": true
+  },
+  "interpretation": "No active V1 scientific case or FDTD engine was found. Eight long-lived fdtd-solutions -server processes are idle API contexts, not current solver lineage; Ansys EDT and desktop applications remain present. GPU utilization alone is not used as proof of inactivity. The active global hold remains the controlling blocker.",
+  "execution_counts": {
+    "solver_entry_this_task": 0,
+    "fdtd_run_this_task": 0,
+    "post_entry_replay_this_task": 0
+  }
+}

@@ -8,6 +8,7 @@ GPU_SLOT_COUNT = 1
 MAX_CONCURRENT_GPU_JOBS = 1
 
 CONTRACT_SHA256 = "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
+QUARANTINED_HISTORICAL_CASE_IDS = {"K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1"}
 EXPANSION_SHA256 = "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f"
 MIN_GPU_FREE_MIB = 1369
 S35_RECOVERY_RUN_ID = "S35-20261002T044427Z-e702b2ac"
@@ -167,6 +168,8 @@ def require_s35_predecessor(root, rows=None):
 
 def validate_manifest(m, admitted_contract_sha256=None):
     if not isinstance(m,dict) or set(m)!=MANIFEST_KEYS: raise RunnerError("MANIFEST_KEYS_INVALID")
+    if m.get("case_id") in QUARANTINED_HISTORICAL_CASE_IDS:
+        raise RunnerError("HISTORICAL_EXCEPTION_QUARANTINED")
     for k in ("case_id","attempt_id","run_id"):
         if not isinstance(m[k],str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}",m[k]):
             raise RunnerError("INVALID_"+k.upper())
@@ -257,7 +260,10 @@ def _durable(path):
 def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_probe,setup_structural_validate=None,admitted_contract_sha256=None,pre_entry_guard=None):
     """Run one manifest with injected adapters; no V3 control-state imports."""
     validate_manifest(manifest, admitted_contract_sha256=admitted_contract_sha256)
-    root=Path(root).resolve(); root.mkdir(parents=True,exist_ok=True)
+    root=Path(root).resolve()
+    if root == PRODUCTION_RUNNER_ROOT.resolve() and pre_entry_guard is None:
+        raise RunnerError("PRODUCTION_PRE_ENTRY_GUARD_REQUIRED")
+    root.mkdir(parents=True,exist_ok=True)
     lock=root/".runner.lock"
     lock_record={"pid":os.getpid(),"run_id":manifest["run_id"],
                   "case_id":manifest["case_id"],"attempt_id":manifest["attempt_id"]}
@@ -373,6 +379,10 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
                 entry_fields={
                     "pre_entry_revalidation_sha256":sha256_file(run_dir/"pre_entry_revalidation.json"),
                     "pre_entry_control_generation_sha256":pre_entry_evidence.get("control_generation_sha256")}
+                global_entry_control=pre_entry_evidence.get("global_entry_control")
+                if isinstance(global_entry_control,dict):
+                    entry_fields["global_entry_control_generation"] = global_entry_control.get("control_generation")
+                    entry_fields["global_entry_control_sha256"] = pre_entry_evidence.get("global_entry_control_sha256")
                 status.update(entry_fields); atomic_json(run_dir/"status.json",status)
                 _verify_pre_entry_ownership(lock,active,manifest)
             status=_transition(run_dir,status,"SOLVER_ENTERED",solver_entered=True,

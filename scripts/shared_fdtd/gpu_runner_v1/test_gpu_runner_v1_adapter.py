@@ -480,11 +480,12 @@ class AdapterBarrierTests(unittest.TestCase):
             def runner_owner_probe(self, *_): return False
         callbacks = Callbacks()
         output = self.base / "ordered-preflight"
-        def before_run_one(*args):
+        def before_run_one(*args, **kwargs):
             record = output / "preflight" / manifest["case_id"] / manifest["attempt_id"] / manifest["run_id"] / "postprocess_dependency_preflight.json"
             self.assertTrue(record.is_file())
             self.assertEqual(json.loads(record.read_text())["result"],"PASS")
             self.assertTrue(callable(args[-1]))
+            self.assertTrue(callable(kwargs.get("pre_entry_guard")))
             events.append("runner-entry-boundary")
             return {"state":"NOT_ENTERED"}
         with unittest.mock.patch.object(adapter_module,"read_cli_manifest",return_value=(manifest,self.contract)):

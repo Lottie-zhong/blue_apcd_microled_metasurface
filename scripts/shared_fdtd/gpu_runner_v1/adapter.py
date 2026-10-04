@@ -11,6 +11,7 @@ import math
 import os
 import re
 import shutil
+import sqlite3
 import subprocess
 import sys
 import time
@@ -32,6 +33,8 @@ MDC_SOURCE_COMMIT = "46af82357f269aea0c77105a03e7ca9da645ca8f"
 MDC_MODULE_SHA256 = "12d2d95bd99fc6e18fec9ac17ab066a5a1fc4a3ddf1a6e5a8c0a625da959ff4b"
 STATE_MODULE_SHA256 = "31cb2b602b1fa74ff09404c8111239f9dcf4a8c4b5ac1944a9300b2c23efaafb"
 GPU_OBSERVABILITY_SHA256 = "e6b01c985e79fa2adcb280ab0d6cca4609dcbefc23e7d781e3fba147cbd89861"
+GLOBAL_ENTRY_CONTROL_DB_PATH = Path(r"D:\apcd_runtime\global_fdtd_control_v3\control.sqlite3")
+GLOBAL_ENTRY_CONTROL_SCHEMA = "APCD_GPU_RUNNER_GLOBAL_ENTRY_HOLD_SNAPSHOT_V1"
 LUMERICAL_API_DIR = Path("N:/Program Files/ANSYS Inc/v251/Lumerical/api/python")
 LUMERICAL_API_FILE = LUMERICAL_API_DIR / "lumapi.py"
 LUMERICAL_API_SHA256 = "feb0f99c7e79c053def676a2ee97e24cd0994dc56e5815f52300804915ae55c9"
@@ -65,6 +68,82 @@ def _sha256(path):
             h.update(block)
     return h.hexdigest()
 
+
+
+def read_global_entry_control(db_path=None):
+    """Read-only fail-closed snapshot of global hold state; never allocates a V3 slot."""
+    path = Path(GLOBAL_ENTRY_CONTROL_DB_PATH if db_path is None else db_path)
+    try:
+        path = path.resolve(strict=True)
+        if not path.is_file():
+            raise RunnerError("GLOBAL_ENTRY_CONTROL_DB_MISSING")
+        def file_state(candidate):
+            if not candidate.exists():
+                return None
+            stat = candidate.stat()
+            return {"size_bytes": stat.st_size, "mtime_ns": stat.st_mtime_ns,
+                    "sha256": _sha256(candidate)}
+        wal = Path(str(path) + "-wal")
+        before = {"db": file_state(path), "wal": file_state(wal)}
+        uri = "file:" + path.as_posix() + "?mode=ro"
+        connection = sqlite3.connect(uri, uri=True, timeout=5.0)
+        try:
+            connection.execute("BEGIN")
+            tables = {row[0] for row in connection.execute(
+                "SELECT name FROM sqlite_master WHERE type='table'")}
+            if not {"admission_control", "hold_lifecycle"}.issubset(tables):
+                raise RunnerError("GLOBAL_ENTRY_CONTROL_SCHEMA_MISSING")
+            admission_columns = {row[1] for row in connection.execute(
+                "PRAGMA table_info(admission_control)")}
+            hold_columns = {row[1] for row in connection.execute(
+                "PRAGMA table_info(hold_lifecycle)")}
+            if not {"control_id", "new_entry_hold", "control_generation", "health_status"}.issubset(admission_columns):
+                raise RunnerError("GLOBAL_ENTRY_CONTROL_SCHEMA_INVALID")
+            if not {"hold_id", "scope", "status"}.issubset(hold_columns):
+                raise RunnerError("GLOBAL_ENTRY_HOLD_SCHEMA_INVALID")
+            rows = connection.execute(
+                "SELECT new_entry_hold, control_generation, health_status FROM admission_control WHERE control_id=1"
+            ).fetchall()
+            if len(rows) != 1:
+                raise RunnerError("GLOBAL_ENTRY_CONTROL_ROW_INVALID")
+            hold_flag, generation, health_status = rows[0]
+            if not isinstance(health_status, str) or health_status != "PASS":
+                raise RunnerError("GLOBAL_ENTRY_CONTROL_HEALTH_BLOCKED")
+            if type(hold_flag) is not int or hold_flag not in (0, 1):
+                raise RunnerError("GLOBAL_ENTRY_HOLD_VALUE_INVALID")
+            if type(generation) is not int or generation < 0:
+                raise RunnerError("GLOBAL_ENTRY_CONTROL_GENERATION_INVALID")
+            active_holds = sorted(row[0] for row in connection.execute(
+                "SELECT hold_id FROM hold_lifecycle WHERE scope='GLOBAL' AND status='ACTIVE'"
+            ).fetchall())
+            connection.rollback()
+        finally:
+            connection.close()
+        after = {"db": file_state(path), "wal": file_state(wal)}
+        if before != after:
+            raise RunnerError("GLOBAL_ENTRY_CONTROL_CHANGED_DURING_READ")
+        if hold_flag == 1 or active_holds:
+            ids = ",".join(active_holds) if active_holds else "none"
+            raise RunnerError(
+                "GLOBAL_NEW_ENTRY_HOLD_ACTIVE:hold_ids=" + ids + ";generation=" + str(generation))
+        evidence = {
+            "schema": GLOBAL_ENTRY_CONTROL_SCHEMA,
+            "result": "PASS",
+            "control_db_path": str(path),
+            "control_db_sha256": after["db"]["sha256"],
+            "control_wal_sha256": after["wal"]["sha256"] if after["wal"] else None,
+            "control_generation": generation,
+            "health_status": health_status,
+            "new_entry_hold": 0,
+            "active_global_hold_ids": [],
+        }
+        evidence["snapshot_sha256"] = hashlib.sha256(
+            json.dumps(evidence, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+        return evidence
+    except RunnerError:
+        raise
+    except (OSError, sqlite3.Error, ValueError) as exc:
+        raise RunnerError("GLOBAL_ENTRY_CONTROL_UNREADABLE:" + type(exc).__name__) from exc
 
 
 def _controlled_start_generation_sha256(context, manifest):
@@ -1132,12 +1211,45 @@ def run_cli(manifest_path, adapter_factory=NativeAdapter, test_output_root=None)
         return setup_validator(core_manifest, source_fsp, staged_fsp, case_authority)
 
     run_kwargs = {}
+    entry_control_path = Path(GLOBAL_ENTRY_CONTROL_DB_PATH)
     if controlled_context is not None:
         run_kwargs["admitted_contract_sha256"] = controlled_context["physical_contract_sha256"]
-        def pre_entry_guard(core_manifest, run_dir, staged_fsp, setup_validation):
-            return adapter.controlled_pre_entry_revalidate(
+
+    def pre_entry_guard(core_manifest, run_dir, staged_fsp, setup_validation):
+        if controlled_context is not None:
+            evidence = adapter.controlled_pre_entry_revalidate(
                 core_manifest, run_dir, staged_fsp, setup_validation, controlled_context)
-        run_kwargs["pre_entry_guard"] = pre_entry_guard
+        else:
+            contract_file = Path(contract_path).resolve(strict=True)
+            source_fsp = Path(core_manifest["pre_fsp_path"]).resolve(strict=True)
+            staged_fsp = Path(staged_fsp).resolve(strict=True)
+            if _sha256(contract_file) != core_manifest["physical_contract_sha256"]:
+                raise RunnerError("PHYSICAL_CONTRACT_CHANGED_BEFORE_SOLVER_ENTRY")
+            if _sha256(source_fsp) != core_manifest["pre_fsp_sha256"]:
+                raise RunnerError("PRE_FSP_CHANGED_BEFORE_SOLVER_ENTRY")
+            if _sha256(staged_fsp) != core_manifest["pre_fsp_sha256"]:
+                raise RunnerError("STAGED_FSP_CHANGED_BEFORE_SOLVER_ENTRY")
+            evidence = {
+                "schema": "APCD_GPU_RUNNER_STATIC_PRE_ENTRY_REVALIDATION_V1",
+                "result": "PASS",
+                "case_id": core_manifest["case_id"],
+                "attempt_id": core_manifest["attempt_id"],
+                "run_id": core_manifest["run_id"],
+                "physical_contract_path": str(contract_file),
+                "physical_contract_sha256": _sha256(contract_file),
+                "source_fsp_path": str(source_fsp),
+                "source_fsp_sha256": _sha256(source_fsp),
+                "staged_fsp_path": str(staged_fsp),
+                "staged_fsp_sha256": _sha256(staged_fsp),
+                "setup_validation_sha256": _sha256(Path(run_dir) / "setup_validation.json")
+                    if (Path(run_dir) / "setup_validation.json").is_file() else None,
+            }
+        global_control = read_global_entry_control(entry_control_path)
+        evidence["global_entry_control"] = global_control
+        evidence["global_entry_control_sha256"] = global_control["snapshot_sha256"]
+        return evidence
+
+    run_kwargs["pre_entry_guard"] = pre_entry_guard
     return run_one(manifest, output_root, adapter.solver, adapter.fresh_load_validate,
                    adapter.gpu_snapshot, adapter.runner_owner_probe, validate_case_setup,
                    **run_kwargs)

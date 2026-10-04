@@ -1,0 +1,50 @@
+{
+  "schema": "APCD_GPU_RUNNER_UNRECOVERABLE_LINEAGE_VALIDATION_RESULTS_V1",
+  "runner_head_before_changes": "704cdfafd329e4dc53a8d4e1e6e84d0a56e720e8",
+  "tests": {
+    "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe -m pytest -q <six listed files>",
+    "files": [
+      "test_gpu_runner_v1.py",
+      "test_gpu_runner_v1_adapter.py",
+      "test_controlled_admission_v1.py",
+      "test_controlled_preentry_h5_v1.py",
+      "test_controlled_monitor_extraction_v1.py",
+      "test_queue21_exception_and_global_hold_v1.py"
+    ],
+    "result": "PASS",
+    "passed": 85,
+    "subtests_passed": 42,
+    "solver_entry": 0,
+    "fdtd_run": 0
+  },
+  "new_offline_coverage": [
+    "fixed queue21 case blocked for attempt_001 and attempt_002 before run directory creation",
+    "production root refuses run_one without pre-entry guard",
+    "legacy lease_token and fencing_generation fields rejected by strict manifest",
+    "read-only global boolean and lifecycle hold rejection",
+    "missing/wrong global control schema fail closed",
+    "legacy and controlled run_cli routes attach the same global hold guard",
+    "start-time contract/source/staged hashes revalidated",
+    "fixed exception disposition cannot change physical count from UNKNOWN or embed release authority",
+    "blocked control health status fails closed"
+  ],
+  "live_read_only_smoke": {
+    "result": "PASS_BLOCKED_AS_EXPECTED",
+    "observed_error": "GLOBAL_NEW_ENTRY_HOLD_ACTIVE:hold_ids=hold-4a6eab94af3b4a6d8510ba2fe32a5b66;generation=26",
+    "control_db_sha256_before": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "control_db_sha256_after": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "database_unchanged": true,
+    "runner_or_solver_called": false,
+    "control_health_status": "PASS"
+  },
+  "test_type_boundary": "All pytest cases use synthetic/temporary fixtures or injected callbacks. The live DB smoke is read-only control-state recognition only. No real FSP load, FDTD run, solver entry, or data extraction was performed.",
+  "execution_counts": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "post_entry_replay": 0
+  },
+  "limitations": [
+    "Global hold inspection is a read-only snapshot, not an atomic cross-process admission lease; an authorized owner must serialize hold lifecycle changes with dispatch.",
+    "No Coupling consumer registry was edited; Coupling exclusion enforcement remains a required handoff action."
+  ]
+}
