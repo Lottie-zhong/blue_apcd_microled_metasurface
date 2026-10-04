@@ -1,0 +1,422 @@
+{
+  "authority_sha256": {
+    "candidate_csv": "596bcc8fd7011cb5ec0c2fc93b9dfe26653ef74720d1bcd4872d3b22e18727c4",
+    "continuation": "8d5f507a29405f51926bec9a69532b34db43511fb05dfde51d250ec139ca421f",
+    "dataset_authority": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "gpu_runner_handoff": "150f142f0d553f5104693ac2f4fe3c9c2c928cf7356e140a15df06ba8c9f7d50",
+    "inner_folds": "ab8d7d1cf1dc1909b03d15cc43fda7d9a036c50fd66039eed66c6e1495936441",
+    "learning_curve_manifest": "2ad2282e6551520e32644e3335d167f2706dd6a3e250ac75d7358c47fb5706de",
+    "old32_npz": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "outer_folds": "309556978921717151716f20bbb80faf38e9d94bbbf52e27e6ff0a61d44a15ee",
+    "pipeline_report": "5274a510985cee9c30598e3b23f604390201ec3723040fe86b63c4b30bd825cb",
+    "v2_amendment_01": "124f6a0ddd65a65b0b4499a6dbfd98f2105d40ee273bfaeba04b28a6591f8f8a",
+    "v2_base": "4a041dfc9b9fd8bbc79edfd792d698d0240163de157144029ad51a41c104f44a"
+  },
+  "configs": {
+    "candidate_source_sha256": "596bcc8fd7011cb5ec0c2fc93b9dfe26653ef74720d1bcd4872d3b22e18727c4",
+    "checkpoint_test": "persist then SHA-validate/reload and compare predictions using rtol=1e-12, atol=1e-12",
+    "metric": "original H2 and original conjunctive H1 on the 8 diagnostic validation geometries; diagnostic only, never admission",
+    "models": [
+      {
+        "frozen_grid": {
+          "gamma": [
+            0.16666666666666666,
+            0.3333333333333333,
+            0.6666666666666666
+          ],
+          "ridge_alpha": [
+            0.0001,
+            0.01,
+            1.0
+          ]
+        },
+        "gamma": 0.3333333333333333,
+        "logical_fit_count": 1,
+        "model_kind": "RBF_KRR",
+        "ridge_alpha": 0.01
+      },
+      {
+        "architecture": "6->32 GELU->32 GELU; 588 Cartesian C_hat +21 log(P_scale)",
+        "frozen_grid": {
+          "seeds": [
+            0,
+            1,
+            2
+          ],
+          "weight_decay": [
+            1e-05,
+            0.0001,
+            0.001
+          ]
+        },
+        "logical_fit_count": 1,
+        "max_updates": 1000,
+        "model_kind": "CARTESIAN_MLP",
+        "optimizer": "AdamW lr=1e-3",
+        "seed": 0,
+        "selection": "frozen validation early stop; patience=50, min_delta=1e-05",
+        "weight_decay": 0.0001
+      }
+    ],
+    "prediction_order": "case ID join; wavelengths 440-460 nm ascending; m=-3..3; TE/TM",
+    "preprocessing": "fit GeometryStandardizer and V2TargetNormalizer on 24 training geometries only",
+    "schema": "COUPLING_ML_K6_REAL32_DIAGNOSTIC_CONFIG_V1",
+    "selection_rule": "choose middle numeric entry of each frozen candidate grid; MLP seed fixed to lowest frozen seed; no response-based choice or search",
+    "target": "packed 609 values: 588 Cartesian C_hat channels + 21 log(P_scale); strictly positive finite P_scale only; no epsilon/clipping"
+  },
+  "fit_budget": {
+    "CARTESIAN_MLP": 1,
+    "RBF_KRR": 1,
+    "confirmation_access": 0,
+    "real_logical_model_fits": 2,
+    "solver_entries": 0,
+    "standalone_P_scale_fits": 0
+  },
+  "old32_case_registry_ids": [
+    "K6V1_EXT01",
+    "K6V1_EXT02",
+    "K6V1_EXT03",
+    "K6V1_EXT04",
+    "K6V1_EXT05",
+    "K6V1_EXT06",
+    "K6V1_EXT07",
+    "K6V1_EXT08",
+    "K6V1_EXT09",
+    "K6V1_EXT10",
+    "K6V1_EXT11",
+    "K6V1_EXT12",
+    "K6V1_EXT13",
+    "K6V1_EXT14",
+    "K6V1_S02",
+    "K6V1_S03",
+    "K6V1_S04",
+    "K6V1_S05",
+    "K6V1_S15",
+    "K6V1_S16",
+    "K6V1_S21",
+    "K6V1_S31",
+    "K6V1_S32",
+    "K6V1_S33",
+    "K6V1_S35",
+    "K6V1_S36",
+    "K6V1_S37",
+    "K6V1_S39",
+    "K6V1_S42",
+    "K6V1_S45",
+    "K6V1_S47",
+    "K6V1_S48"
+  ],
+  "pre_response_metadata_only": true,
+  "schema": "COUPLING_ML_K6_REAL32_PREFIT_PROTOCOL_V1",
+  "scope": "24/8 engineering diagnostic from old32 only; not V2 formal folds or independent confirmation",
+  "split": {
+    "all_21_wavelengths_grouped_by_geometry": true,
+    "geometry_nm_by_case_id": {
+      "K6V1_EXT01": [
+        220,
+        210,
+        230,
+        225,
+        205,
+        105
+      ],
+      "K6V1_EXT02": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "K6V1_EXT03": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "K6V1_EXT04": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "K6V1_EXT05": [
+        210,
+        220,
+        100,
+        230,
+        195,
+        225
+      ],
+      "K6V1_EXT06": [
+        165,
+        110,
+        115,
+        230,
+        155,
+        115
+      ],
+      "K6V1_EXT07": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "K6V1_EXT08": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "K6V1_EXT09": [
+        110,
+        225,
+        125,
+        210,
+        200,
+        145
+      ],
+      "K6V1_EXT10": [
+        230,
+        225,
+        190,
+        225,
+        105,
+        135
+      ],
+      "K6V1_EXT11": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "K6V1_EXT12": [
+        100,
+        230,
+        230,
+        185,
+        225,
+        120
+      ],
+      "K6V1_EXT13": [
+        100,
+        110,
+        115,
+        120,
+        225,
+        100
+      ],
+      "K6V1_EXT14": [
+        110,
+        120,
+        100,
+        225,
+        105,
+        190
+      ],
+      "K6V1_S02": [
+        215,
+        105,
+        215,
+        230,
+        105,
+        130
+      ],
+      "K6V1_S03": [
+        230,
+        100,
+        130,
+        120,
+        230,
+        100
+      ],
+      "K6V1_S04": [
+        205,
+        215,
+        105,
+        225,
+        180,
+        100
+      ],
+      "K6V1_S05": [
+        215,
+        225,
+        100,
+        125,
+        110,
+        220
+      ],
+      "K6V1_S15": [
+        110,
+        135,
+        180,
+        230,
+        230,
+        100
+      ],
+      "K6V1_S16": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "K6V1_S21": [
+        120,
+        115,
+        230,
+        140,
+        110,
+        115
+      ],
+      "K6V1_S31": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "K6V1_S32": [
+        105,
+        190,
+        105,
+        115,
+        105,
+        225
+      ],
+      "K6V1_S33": [
+        170,
+        175,
+        155,
+        150,
+        190,
+        105
+      ],
+      "K6V1_S35": [
+        110,
+        145,
+        225,
+        105,
+        185,
+        215
+      ],
+      "K6V1_S36": [
+        115,
+        210,
+        220,
+        100,
+        150,
+        100
+      ],
+      "K6V1_S37": [
+        215,
+        170,
+        110,
+        180,
+        105,
+        130
+      ],
+      "K6V1_S39": [
+        175,
+        100,
+        125,
+        120,
+        100,
+        230
+      ],
+      "K6V1_S42": [
+        195,
+        210,
+        165,
+        130,
+        230,
+        230
+      ],
+      "K6V1_S45": [
+        195,
+        120,
+        105,
+        210,
+        220,
+        215
+      ],
+      "K6V1_S47": [
+        165,
+        160,
+        105,
+        100,
+        230,
+        170
+      ],
+      "K6V1_S48": [
+        110,
+        100,
+        225,
+        205,
+        195,
+        175
+      ]
+    },
+    "old32_dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "old32_dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "purpose": "engineering_diagnostic_only_not_formal_fold_or_confirmation",
+    "schema": "COUPLING_ML_K6_REAL32_DIAGNOSTIC_SPLIT_V1",
+    "seed": 3208,
+    "selection_independent_of_truth_values": true,
+    "split_algorithm": "sort old32 case IDs lexically; NumPy Generator(PCG64(seed=3208)).permutation; first 24 train, remaining 8 validation",
+    "training_case_ids": [
+      "K6V1_EXT01",
+      "K6V1_EXT02",
+      "K6V1_S02",
+      "K6V1_EXT04",
+      "K6V1_S37",
+      "K6V1_S31",
+      "K6V1_EXT13",
+      "K6V1_S33",
+      "K6V1_S39",
+      "K6V1_S47",
+      "K6V1_S32",
+      "K6V1_S21",
+      "K6V1_S04",
+      "K6V1_S15",
+      "K6V1_S48",
+      "K6V1_EXT12",
+      "K6V1_EXT08",
+      "K6V1_EXT03",
+      "K6V1_S35",
+      "K6V1_EXT10",
+      "K6V1_EXT06",
+      "K6V1_EXT14",
+      "K6V1_S36",
+      "K6V1_EXT09"
+    ],
+    "training_geometry_count": 24,
+    "v2_pointset_sha256": "596bcc8fd7011cb5ec0c2fc93b9dfe26653ef74720d1bcd4872d3b22e18727c4",
+    "validation_case_ids": [
+      "K6V1_S45",
+      "K6V1_S16",
+      "K6V1_S05",
+      "K6V1_EXT07",
+      "K6V1_EXT05",
+      "K6V1_EXT11",
+      "K6V1_S42",
+      "K6V1_S03"
+    ],
+    "validation_geometry_count": 8
+  },
+  "split_sha256": "9f2ed2aefcc9e49a3362356fd0aa5d336a9caaa6bbb315ffe334bb3d1397946e",
+  "status": "FROZEN_BEFORE_RESPONSE_LOAD_AND_FITS"
+}

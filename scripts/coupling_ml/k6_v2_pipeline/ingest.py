@@ -93,6 +93,27 @@ def _old32(root,registry):
         out.append(C.CaseTruth(cid,"attempt_001",C.ROLE_OLD32,D,c[i],ps[i],eta[i],ab[i],{"dataset_npz_sha256":OLD_NPZ_SHA,"dataset_authority_sha256":C.DATASET_AUTHORITY_SHA256,"state_sha256":q.get("state_sha256"),"state_metadata_sha256":q.get("state_metadata_sha256"),"cohort":q.get("cohort")}))
     return tuple(out)
 
+def load_old32_engineering_diagnostic(root=None, registry=None):
+    """Load only the hash-pinned legacy 32G bundle for the 24/8 integration audit."""
+    root = Path(root) if root else ROOT
+    registry = registry or load_frozen_case_registry(root)
+    cases = _old32(root, registry)
+    if any(case.role != C.ROLE_OLD32 for case in cases):
+        raise DataAccessError("engineering_diagnostic_old32_role_mismatch")
+    return C.CaseCollection(
+        purpose="old32_engineering_diagnostic",
+        cases=cases,
+        manifest_sha256=OLD_NPZ_SHA,
+        provenance={
+            "dataset_npz_sha256": OLD_NPZ_SHA,
+            "dataset_authority_sha256": C.DATASET_AUTHORITY_SHA256,
+            "physical_contract_sha256": C.PHYSICAL_CONTRACT_SHA256,
+            "response_role": C.ROLE_OLD32,
+            "confirmation_responses_opened": False,
+            "diagnostic_only": True,
+        },
+    )
+
 def _artifact(r,k):
     x=r.get(k); _need(isinstance(x,dict),"missing_artifact_descriptor:"+k)
     p=Path(x.get("path","")); h=x.get("sha256","")

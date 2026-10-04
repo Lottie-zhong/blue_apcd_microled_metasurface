@@ -70,6 +70,20 @@ EXPECTED_TOTAL_FITS = 281
 FIT_BUDGET_CEILING = 284
 SYNTHETIC_TEST_ONLY = "SYNTHETIC_TEST_ONLY"
 PRODUCTION = "PRODUCTION"
+ENGINEERING_DIAGNOSTIC = "ENGINEERING_DIAGNOSTIC"
+_ENGINEERING_DIAGNOSTIC_AUTHORITY = object()
+_REAL32_DIAGNOSTIC_TRAIN_IDS = (
+    "K6V1_EXT01", "K6V1_EXT02", "K6V1_S02", "K6V1_EXT04",
+    "K6V1_S37", "K6V1_S31", "K6V1_EXT13", "K6V1_S33",
+    "K6V1_S39", "K6V1_S47", "K6V1_S32", "K6V1_S21",
+    "K6V1_S04", "K6V1_S15", "K6V1_S48", "K6V1_EXT12",
+    "K6V1_EXT08", "K6V1_EXT03", "K6V1_S35", "K6V1_EXT10",
+    "K6V1_EXT06", "K6V1_EXT14", "K6V1_S36", "K6V1_EXT09",
+)
+_REAL32_DIAGNOSTIC_VALIDATION_IDS = (
+    "K6V1_S45", "K6V1_S16", "K6V1_S05", "K6V1_EXT07",
+    "K6V1_EXT05", "K6V1_EXT11", "K6V1_S42", "K6V1_S03",
+)
 
 
 @dataclass(frozen=True)
@@ -93,6 +107,31 @@ class FitTask:
     def fingerprint(self) -> str:
         payload = json.dumps(asdict(self), sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _validate_engineering_diagnostic_task(task: FitTask) -> None:
+    if (task.phase != "engineering_diagnostic" or task.outer_fold is not None
+            or task.inner_fold is not None or task.training_geometry_count != 24
+            or tuple(task.train_case_ids) != _REAL32_DIAGNOSTIC_TRAIN_IDS
+            or tuple(task.prediction_case_ids) != _REAL32_DIAGNOSTIC_VALIDATION_IDS
+            or set(task.train_case_ids) & set(task.prediction_case_ids)
+            or task.config_source != "DIAGNOSTIC_CONFIGS_V1.json"
+            or task.update_source != "frozen_24_8_median_grid_rule"):
+        raise ValueError("real32_engineering_diagnostic_task_identity_mismatch")
+    if task.model_kind == "RBF_KRR":
+        valid = (task.task_id == "real32_diag_krr_seed3208"
+                 and task.gamma == 1.0 / 3.0 and task.ridge_alpha == 1e-2
+                 and task.weight_decay is None and task.seed is None
+                 and task.fixed_updates is None)
+    elif task.model_kind == "CARTESIAN_MLP":
+        valid = (task.task_id == "real32_diag_mlp_s0_seed3208"
+                 and task.gamma is None and task.ridge_alpha is None
+                 and task.weight_decay == 1e-4 and task.seed == 0
+                 and task.fixed_updates is None)
+    else:
+        valid = False
+    if not valid:
+        raise ValueError("real32_engineering_diagnostic_config_mismatch")
 
 
 @dataclass(frozen=True)
@@ -752,13 +791,20 @@ def _fit_arrays_impl(
     checkpoint_path: Optional[Path] = None,
     after_optimizer_update: Optional[Callable[[int], None]] = None,
     _scheduled_authorized: bool = False,
+    _engineering_diagnostic_authority: Any = None,
 ) -> FitRun:
-    """Internal fit implementation; production calls require the scheduled data gate."""
+    """Internal fit implementation; production calls require scheduled authority."""
     if (run_purpose == PRODUCTION) != bool(_scheduled_authorized):
         raise ValueError("raw_array_production_fit_requires_scheduled_authority")
+    if run_purpose == ENGINEERING_DIAGNOSTIC:
+        if _engineering_diagnostic_authority is not _ENGINEERING_DIAGNOSTIC_AUTHORITY:
+            raise ValueError("engineering_diagnostic_requires_scoped_authority")
+        _validate_engineering_diagnostic_task(task)
+    elif _engineering_diagnostic_authority is not None:
+        raise ValueError("engineering_diagnostic_authority_used_for_wrong_purpose")
     if task.model_kind not in ("RBF_KRR", "CARTESIAN_MLP"):
         raise ValueError("fit_arrays_only_supports_frozen_global_models")
-    if run_purpose not in (PRODUCTION, SYNTHETIC_TEST_ONLY):
+    if run_purpose not in (PRODUCTION, SYNTHETIC_TEST_ONLY, ENGINEERING_DIAGNOSTIC):
         raise ValueError("unknown_fit_purpose")
     if after_optimizer_update is not None and (
             run_purpose != SYNTHETIC_TEST_ONLY
@@ -775,7 +821,7 @@ def _fit_arrays_impl(
         raise ValueError("fit_training_array_shape_mismatch")
     if not np.isfinite(xtr).all() or not np.isfinite(ytr).all():
         raise ValueError("fit_training_array_nonfinite")
-    if task.phase == "inner":
+    if task.phase in ("inner", "engineering_diagnostic"):
         if X_validation is None or Y_validation is None:
             raise ValueError("inner_fit_requires_grouped_validation")
     elif task.phase in ("learning_curve", "final"):
@@ -839,7 +885,7 @@ def _fit_arrays_impl(
         yt = torch.as_tensor(yn, dtype=torch.float32, device=device)
         xvt = None if xv is None else torch.as_tensor(xv, dtype=torch.float32, device=device)
         yvt = None if yv is None else torch.as_tensor(yv, dtype=torch.float32, device=device)
-        early = task.phase == "inner"
+        early = task.phase in ("inner", "engineering_diagnostic")
         max_updates = MLP_MAX_UPDATES if early else int(task.fixed_updates or 0)
         if max_updates < 1 or max_updates > MLP_MAX_UPDATES:
             raise ValueError("mlp_update_count_outside_frozen_budget")

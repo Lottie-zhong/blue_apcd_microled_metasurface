@@ -1,0 +1,204 @@
+{
+  "confirmation_responses_opened": 0,
+  "end_to_end_metric_summary": {
+    "CARTESIAN_MLP": {
+      "absolute_order": {
+        "max": 0.10762371295108919,
+        "mean": 0.07086764837209825,
+        "median": 0.07684651406682383,
+        "min": 0.0373267362179618,
+        "q95": 0.09979471834284365
+      },
+      "c_hat_norm_ratio": {
+        "max": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "min": 1.0,
+        "q95": 1.0
+      },
+      "gates": {
+        "absolute_order": false,
+        "routing": false,
+        "seed_stability": null,
+        "state": false,
+        "thresholded_absolute_order": false,
+        "total_power": false
+      },
+      "p_scale": {
+        "max": 0.6126928789277147,
+        "mean": 0.24979558853493983,
+        "median": 0.20829135310487512,
+        "min": 0.10675869590704132,
+        "q95": 0.5044661228931283
+      },
+      "p_scale_prediction_summary": {
+        "max": 0.8853408606763761,
+        "mean": 0.32419340224413823,
+        "median": 0.2813625019533379,
+        "min": 0.07795410038268613,
+        "q95": 0.6501167963438863
+      },
+      "routing": {
+        "max": 0.30259032341086367,
+        "mean": 0.19247416426586228,
+        "median": 0.1793613758660047,
+        "min": 0.11898704803205404,
+        "q95": 0.2864431261692166
+      },
+      "routing_pearson": 0.8342392471138488,
+      "seed_stability": "NOT_APPLICABLE_DETERMINISTIC_CANDIDATE",
+      "state": {
+        "max": 0.9196117752501218,
+        "mean": 0.7649857488737491,
+        "median": 0.7494568069962618,
+        "min": 0.5984670004584796,
+        "q95": 0.8869053582391676
+      },
+      "thresholded_relative": {
+        "max": 0.9500771453015128,
+        "mean": 0.8816733759079164,
+        "median": 0.8827896511176953,
+        "min": 0.8318495173789261,
+        "q95": 0.941217123545338
+      },
+      "total_power": {
+        "max": 0.6126928789277147,
+        "mean": 0.24979558853493983,
+        "median": 0.20829135310487512,
+        "min": 0.10675869590704132,
+        "q95": 0.5044661228931283
+      },
+      "total_power_pearson": 0.9174624080475149
+    },
+    "RBF_KRR": {
+      "absolute_order": {
+        "max": 0.07869635797831132,
+        "mean": 0.05058474303663604,
+        "median": 0.05100493167822735,
+        "min": 0.033973766449845406,
+        "q95": 0.07004487571172839
+      },
+      "c_hat_norm_ratio": {
+        "max": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "min": 1.0,
+        "q95": 1.0
+      },
+      "gates": {
+        "absolute_order": false,
+        "routing": false,
+        "seed_stability": null,
+        "state": false,
+        "thresholded_absolute_order": false,
+        "total_power": false
+      },
+      "p_scale": {
+        "max": 0.6953177094616134,
+        "mean": 0.4937124295872465,
+        "median": 0.4454697350997039,
+        "min": 0.3517249898285023,
+        "q95": 0.6586583932533617
+      },
+      "p_scale_prediction_summary": {
+        "max": 0.41910809348340533,
+        "mean": 0.26651262026036365,
+        "median": 0.25739744635785644,
+        "min": 0.14369993059664482,
+        "q95": 0.37885367195753106
+      },
+      "routing": {
+        "max": 0.2665122501334337,
+        "mean": 0.16689330605169303,
+        "median": 0.16500967810970318,
+        "min": 0.11271778636395788,
+        "q95": 0.23752526103893945
+      },
+      "routing_pearson": 0.8473823097409766,
+      "seed_stability": "NOT_APPLICABLE_DETERMINISTIC_CANDIDATE",
+      "state": {
+        "max": 1.0035786102803557,
+        "mean": 0.8146876539051826,
+        "median": 0.8104434441863506,
+        "min": 0.6273791055303586,
+        "q95": 0.9591500179885691
+      },
+      "thresholded_relative": {
+        "max": 0.9043628911920071,
+        "mean": 0.7895116556566466,
+        "median": 0.7828853124503644,
+        "min": 0.7143468215625753,
+        "q95": 0.8720980739005251
+      },
+      "total_power": {
+        "max": 0.6953177094616134,
+        "mean": 0.4937124295872465,
+        "median": 0.4454697350997039,
+        "min": 0.3517249898285023,
+        "q95": 0.6586583932533617
+      },
+      "total_power_pearson": 0.9077508779121034
+    }
+  },
+  "implementation_test_sha256": {
+    "tests/coupling_ml/k6_v2_pipeline/test_h1.py": "a42650066dbd1262dc632ce67c9edcc65468d03e61463848fc1b01e484515fe4",
+    "tests/coupling_ml/k6_v2_pipeline/test_models_training.py": "2d2b6a806f8ee1fde7b08f09393bfd9a047109d921100b1e75d407a2dd3e3a94"
+  },
+  "limitations": "Synthetic fixtures verify code behavior only. Eight validation geometries are reused old32 development cases, not independent confirmation.",
+  "real_model_fits": 2,
+  "resolved_pre_fit_issues": [
+    {
+      "issue": "The stdin-driven pytest invocation initially omitted the repo root from sys.path; collection stopped before tests.",
+      "resolution": "Added worktree root to sys.path for test invocation."
+    },
+    {
+      "issue": "The H1 aggregation diagnostic referenced an undefined rule constant.",
+      "resolution": "Used the frozen aggregation description literal; original aggregation and gates unchanged."
+    },
+    {
+      "issue": "Diagnostic config candidates are at top-level models, not configs.models.",
+      "resolution": "Corrected pre-fit config reader and amended source hash before fits."
+    },
+    {
+      "issue": "The old32 loader returned a bare CaseCollection name.",
+      "resolution": "Qualified C.CaseCollection. Failure was before any real fit; ledger records zero fit starts."
+    },
+    {
+      "issue": "Erratum guard expected a root-level no_scientific_config_change flag.",
+      "resolution": "Added metadata flag and verified base split/config/fit budget equality."
+    }
+  ],
+  "schema": "COUPLING_ML_K6_REAL32_TEST_RESULTS_V1",
+  "solver_entries": 0,
+  "status": "TARGETED_CHECKS_AND_REAL32_INTEGRATION_PASS",
+  "synthetic_test_only_fit_api_calls": {
+    "CARTESIAN_MLP": 10,
+    "RBF_KRR": 2
+  },
+  "synthetic_test_only_mlp_optimizer_updates": 20,
+  "test_runs": [
+    {
+      "command": "pytest tests/coupling_ml/k6_v2_pipeline/test_h1.py tests/coupling_ml/k6_v2_pipeline/test_models_training.py",
+      "elapsed_seconds": 10.72,
+      "result": "10 passed",
+      "scope": "H1 aggregation and model/training modules"
+    },
+    {
+      "command": "pytest tests/coupling_ml/k6_v2_pipeline/test_ingest.py tests/coupling_ml/k6_v2_pipeline/test_confirmation.py",
+      "elapsed_seconds": 2.22,
+      "result": "13 passed",
+      "scope": "ingestion and confirmation access/freeze guards"
+    },
+    {
+      "response_values_loaded_by_check": false,
+      "result": "PASS",
+      "scope": "Python compilation and amended pre-fit hash verification"
+    },
+    {
+      "KRR_fits": 1,
+      "MLP_fits": 1,
+      "result": "PASS",
+      "scope": "real32 diagnostic full integration"
+    }
+  ]
+}

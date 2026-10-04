@@ -1,0 +1,172 @@
+{
+  "completed_at_utc": "2026-10-04T10:01:18.663284+00:00",
+  "config_sha256": "6563a0f272f398fc84322889d2e3e10fd163711c7245313eb2776512f0ddd40d",
+  "confirmation_responses_opened": 0,
+  "dataset_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+  "fits": {
+    "CARTESIAN_MLP": {
+      "completed_at_utc": "2026-10-04T10:01:18.340297+00:00",
+      "fit_manifest_sha256": "cfb5161f4a5b94bf73e118e77b396f3a72876d6504f7eb0d909d1144458f3514",
+      "input_sha256": "1c588fab0ee4b8533e384876e13340f4f09904bc04bfc0bcd69de2842acac308",
+      "started_at_utc": "2026-10-04T10:01:09.114776+00:00",
+      "status": "COMPLETE",
+      "task": {
+        "config_source": "DIAGNOSTIC_CONFIGS_V1.json",
+        "fixed_updates": null,
+        "gamma": null,
+        "inner_fold": null,
+        "model_kind": "CARTESIAN_MLP",
+        "outer_fold": null,
+        "phase": "engineering_diagnostic",
+        "prediction_case_ids": [
+          "K6V1_S45",
+          "K6V1_S16",
+          "K6V1_S05",
+          "K6V1_EXT07",
+          "K6V1_EXT05",
+          "K6V1_EXT11",
+          "K6V1_S42",
+          "K6V1_S03"
+        ],
+        "ridge_alpha": null,
+        "seed": 0,
+        "task_id": "real32_diag_mlp_s0_seed3208",
+        "train_case_ids": [
+          "K6V1_EXT01",
+          "K6V1_EXT02",
+          "K6V1_S02",
+          "K6V1_EXT04",
+          "K6V1_S37",
+          "K6V1_S31",
+          "K6V1_EXT13",
+          "K6V1_S33",
+          "K6V1_S39",
+          "K6V1_S47",
+          "K6V1_S32",
+          "K6V1_S21",
+          "K6V1_S04",
+          "K6V1_S15",
+          "K6V1_S48",
+          "K6V1_EXT12",
+          "K6V1_EXT08",
+          "K6V1_EXT03",
+          "K6V1_S35",
+          "K6V1_EXT10",
+          "K6V1_EXT06",
+          "K6V1_EXT14",
+          "K6V1_S36",
+          "K6V1_EXT09"
+        ],
+        "training_geometry_count": 24,
+        "update_source": "frozen_24_8_median_grid_rule",
+        "weight_decay": 0.0001
+      },
+      "task_sha256": "877a4df005955ac09b574ae916dc2ffa909e3e24a79508d6a7d46a64051389f8"
+    },
+    "RBF_KRR": {
+      "completed_at_utc": "2026-10-04T10:01:08.811873+00:00",
+      "fit_manifest_sha256": "7c60554ea2fe296f6cb464b0c69a27e6a803e50710f552ca0ac9a171e3c31157",
+      "input_sha256": "170bb8a756dac0891859fc45b6302f318b9c634a832c144dfcbc2c862c145236",
+      "started_at_utc": "2026-10-04T10:01:08.501025+00:00",
+      "status": "COMPLETE",
+      "task": {
+        "config_source": "DIAGNOSTIC_CONFIGS_V1.json",
+        "fixed_updates": null,
+        "gamma": 0.3333333333333333,
+        "inner_fold": null,
+        "model_kind": "RBF_KRR",
+        "outer_fold": null,
+        "phase": "engineering_diagnostic",
+        "prediction_case_ids": [
+          "K6V1_S45",
+          "K6V1_S16",
+          "K6V1_S05",
+          "K6V1_EXT07",
+          "K6V1_EXT05",
+          "K6V1_EXT11",
+          "K6V1_S42",
+          "K6V1_S03"
+        ],
+        "ridge_alpha": 0.01,
+        "seed": null,
+        "task_id": "real32_diag_krr_seed3208",
+        "train_case_ids": [
+          "K6V1_EXT01",
+          "K6V1_EXT02",
+          "K6V1_S02",
+          "K6V1_EXT04",
+          "K6V1_S37",
+          "K6V1_S31",
+          "K6V1_EXT13",
+          "K6V1_S33",
+          "K6V1_S39",
+          "K6V1_S47",
+          "K6V1_S32",
+          "K6V1_S21",
+          "K6V1_S04",
+          "K6V1_S15",
+          "K6V1_S48",
+          "K6V1_EXT12",
+          "K6V1_EXT08",
+          "K6V1_EXT03",
+          "K6V1_S35",
+          "K6V1_EXT10",
+          "K6V1_EXT06",
+          "K6V1_EXT14",
+          "K6V1_S36",
+          "K6V1_EXT09"
+        ],
+        "training_geometry_count": 24,
+        "update_source": "frozen_24_8_median_grid_rule",
+        "weight_decay": null
+      },
+      "task_sha256": "a43e010fe78890fb897eeba769c73039fcab53b16463faed4e036707e267205e"
+    }
+  },
+  "implementation_sha256": {
+    "scripts/coupling_ml/k6_v2_pipeline/contracts.py": "c588efd0c4e641f30668b4ed618042ddb8ba31ab5ac98ed6ce3f374007298d9a",
+    "scripts/coupling_ml/k6_v2_pipeline/h1.py": "8a541f7d2357a4566e1a005a0c60451454ce2f7a97ae6d9d2987f0b250a4ffff",
+    "scripts/coupling_ml/k6_v2_pipeline/ingest.py": "d38df0240abbe885a0b78ba328319da07556af39e4ac120c6b09cd2711fe641f",
+    "scripts/coupling_ml/k6_v2_pipeline/models.py": "a49dc6e801530cd4b6a0b8c5e8aea8520dc948d4763a0bd4dd3f0a7d1a58c7d3",
+    "scripts/coupling_ml/k6_v2_pipeline/real32_diagnostic.py": "4fc24e1c90d995941e9ff16bee9a0051ccf1a34695a611cb5d86fdd52f337271",
+    "scripts/coupling_ml/k6_v2_pipeline/training.py": "04a9cba7ac86d26513667668c516a3fcc5654d08c46bfba7d66671667ee81bd4"
+  },
+  "pre_fit_failures": [
+    {
+      "dataset_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+      "error": "NameError: CaseCollection was unqualified in scoped loader return",
+      "fits_started": false,
+      "phase": "old32_truth_ingestion_return",
+      "real_fit_count_delta": 0,
+      "recorded_utc": "2026-10-04T09:58:20.162641+00:00",
+      "responses_loaded": true
+    },
+    {
+      "error": "The validation guard expected a root-level no_scientific_config_change flag; the nested erratum flag was present.",
+      "fits_started": false,
+      "phase": "prefit_amendment_guard",
+      "real_fit_count_delta": 0,
+      "recorded_utc": "2026-10-04T10:00:03.541839+00:00",
+      "responses_loaded_before_failure": true
+    }
+  ],
+  "protocol_amendments": [
+    {
+      "current_protocol_sha256": "10a06c73148278a716d17bc74d29746a9e4f4f31a1ce35c68965f34fc254db15",
+      "previous_protocol_sha256": "6155890124a9299b5c58b2a1be3f8a312be2e5aa966124032685905e1d0685ba",
+      "reason": "Pre-fit implementation erratum; frozen split and scientific configurations unchanged."
+    },
+    {
+      "current_protocol_sha256": "927aeeb35c8e204accead069b4f4f63058d52c55881aeccc2c4fd593e3681437",
+      "previous_protocol_sha256": "10a06c73148278a716d17bc74d29746a9e4f4f31a1ce35c68965f34fc254db15",
+      "reason": "Metadata-only pre-fit guard correction; split and configs unchanged."
+    }
+  ],
+  "protocol_sha256": "927aeeb35c8e204accead069b4f4f63058d52c55881aeccc2c4fd593e3681437",
+  "real_logical_model_fits": 2,
+  "schema": "COUPLING_ML_K6_REAL32_FIT_LEDGER_V1",
+  "solver_entries": 0,
+  "split_sha256": "9f2ed2aefcc9e49a3362356fd0aa5d336a9caaa6bbb315ffe334bb3d1397946e",
+  "standalone_p_scale_fits": 0,
+  "status": "COMPLETE"
+}

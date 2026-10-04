@@ -243,3 +243,26 @@ def test_seed_mean_uses_physical_pscale_arithmetic_mean():
     assert np.all(cmean == 2 + 3j)
     assert np.all(pmean == 5.0)
     assert not np.allclose(pmean, np.exp((np.log(p1) + np.log(p2)) / 2.0))
+
+
+def test_real32_diagnostic_fit_authority_is_scoped():
+    from dataclasses import replace
+    from scripts.coupling_ml.k6_v2_pipeline.real32_diagnostic import _task
+    from scripts.coupling_ml.k6_v2_pipeline.training import (
+        ENGINEERING_DIAGNOSTIC, _ENGINEERING_DIAGNOSTIC_AUTHORITY,
+        _fit_arrays_impl, _validate_engineering_diagnostic_task,
+    )
+    task = _task("RBF_KRR")
+    _validate_engineering_diagnostic_task(task)
+    X = np.zeros((24, 6), dtype=np.float64)
+    Y = np.zeros((24, 609), dtype=np.float64)
+    with pytest.raises(ValueError, match="public_array_fitting_is_synthetic_test_only"):
+        fit_arrays(task, X, Y, run_purpose=ENGINEERING_DIAGNOSTIC)
+    with pytest.raises(ValueError, match="scoped_authority"):
+        _fit_arrays_impl(task, X, Y, run_purpose=ENGINEERING_DIAGNOSTIC)
+    forged = replace(task, task_id="unapproved_real32_candidate")
+    with pytest.raises(ValueError, match="config_mismatch"):
+        _fit_arrays_impl(
+            forged, X, Y, run_purpose=ENGINEERING_DIAGNOSTIC,
+            _engineering_diagnostic_authority=_ENGINEERING_DIAGNOSTIC_AUTHORITY,
+        )

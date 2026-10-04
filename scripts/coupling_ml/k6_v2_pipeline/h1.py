@@ -65,6 +65,42 @@ def _metric_rows(model,ct,cp,pt,pp,et,at,decoder):
             "routing_pearson":_pear(et,h2["eta"]),
             "total_power_pearson":_pear(pt,h2["total_power"]),"per_geometry":rows}
 
+def _summary(values):
+    x = np.asarray(values, dtype=np.float64).reshape(-1)
+    return {"mean": float(np.mean(x)), "median": float(np.median(x)),
+            "q95": float(np.quantile(x, 0.95)), "min": float(np.min(x)),
+            "max": float(np.max(x))}
+
+
+def _aggregation_diagnostics(c_pred_by_seed, p_pred_by_seed):
+    """Report seed aggregation behavior without changing the frozen aggregate."""
+    cp = np.asarray(c_pred_by_seed, dtype=np.complex128)
+    pp = np.asarray(p_pred_by_seed, dtype=np.float64)
+    if cp.ndim != 5 or pp.ndim != 3 or cp.shape[:2] != pp.shape[:2]:
+        raise ValueError("aggregation_diagnostic_shape")
+    if not (np.isfinite(cp.real).all() and np.isfinite(cp.imag).all()
+            and np.isfinite(pp).all() and (pp > 0.0).all()):
+        raise ValueError("aggregation_diagnostic_values")
+    seed_geometry_norm = np.linalg.norm(cp.reshape(cp.shape[0], cp.shape[1], -1), axis=2)
+    mean_c = cp.mean(axis=0)
+    after_geometry_norm = np.linalg.norm(mean_c.reshape(mean_c.shape[0], -1), axis=1)
+    before_geometry_norm = seed_geometry_norm.mean(axis=0)
+    ratio = np.divide(after_geometry_norm, before_geometry_norm,
+                      out=np.zeros_like(after_geometry_norm),
+                      where=before_geometry_norm > 0.0)
+    mean_p = pp.mean(axis=0)
+    return {
+        "method": "C_hat complex arithmetic mean; P_scale physical arithmetic mean after per-seed inverse-log and exp",
+        "c_hat_norm_before_seed_mean_per_geometry": _summary(before_geometry_norm),
+        "c_hat_norm_after_complex_seed_mean_per_geometry": _summary(after_geometry_norm),
+        "c_hat_norm_after_over_before_per_geometry": _summary(ratio),
+        "p_scale_physical_arithmetic_mean": _summary(mean_p),
+        "p_scale_by_seed": [_summary(pp[i]) for i in range(len(pp))],
+        "seed_count": int(cp.shape[0]),
+        "geometry_count": int(cp.shape[1]),
+    }
+
+
 def evaluate_original_h1(c_true,c_pred_by_seed,p_true,p_pred_by_seed,eta_true,absolute_order_true,decoder=None):
     """C_hat is complex seed mean; P_scale is physical arithmetic mean across seeds."""
     model=_load(_root()/"scripts"/"coupling_ml"/"pw_k6_stage1_32g_frozen_model_v1.py",
@@ -105,6 +141,7 @@ def evaluate_original_h1(c_true,c_pred_by_seed,p_true,p_pred_by_seed,eta_true,ab
       "threshold_significance":threshold,"aggregation":{"c_hat":"complex arithmetic seed mean",
       "p_scale":"arithmetic mean in positive physical domain after inverse log normalization and exp"},
       "aggregate":mean,"per_seed":[x["metrics"] for x in seeds],"seed_state_medians":sm,
+      "aggregation_diagnostics":_aggregation_diagnostics(cp,pp),
       "seed_state_median_std":sstd,"gates":g,"all_applicable_numeric_gates_attained":bool(applicable) and all(applicable),
       "seed_stability_status":"NOT_APPLICABLE_DETERMINISTIC_CANDIDATE" if sstd is None else ("PASS" if g["seed_stability"] else "FAIL"),
       "production_admission":False}

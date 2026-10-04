@@ -1,0 +1,474 @@
+{
+  "authority_sha256": {
+    "candidate_csv": "596bcc8fd7011cb5ec0c2fc93b9dfe26653ef74720d1bcd4872d3b22e18727c4",
+    "continuation": "8d5f507a29405f51926bec9a69532b34db43511fb05dfde51d250ec139ca421f",
+    "dataset_authority": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "gpu_runner_handoff": "1b0545e69e5e4cc10cb887c1e0a5613c7ab892435f6ca9beb6ca39e4ab6608da",
+    "inner_folds": "ab8d7d1cf1dc1909b03d15cc43fda7d9a036c50fd66039eed66c6e1495936441",
+    "learning_curve_manifest": "2ad2282e6551520e32644e3335d167f2706dd6a3e250ac75d7358c47fb5706de",
+    "old32_npz": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "outer_folds": "309556978921717151716f20bbb80faf38e9d94bbbf52e27e6ff0a61d44a15ee",
+    "pipeline_report": "5274a510985cee9c30598e3b23f604390201ec3723040fe86b63c4b30bd825cb",
+    "v2_amendment_01": "124f6a0ddd65a65b0b4499a6dbfd98f2105d40ee273bfaeba04b28a6591f8f8a",
+    "v2_base": "4a041dfc9b9fd8bbc79edfd792d698d0240163de157144029ad51a41c104f44a"
+  },
+  "config_file_sha256": "6563a0f272f398fc84322889d2e3e10fd163711c7245313eb2776512f0ddd40d",
+  "configs": {
+    "candidate_source_sha256": "596bcc8fd7011cb5ec0c2fc93b9dfe26653ef74720d1bcd4872d3b22e18727c4",
+    "checkpoint_test": "persist then SHA-validate/reload and compare predictions using rtol=1e-12, atol=1e-12",
+    "metric": "original H2 and original conjunctive H1 on the 8 diagnostic validation geometries; diagnostic only, never admission",
+    "models": [
+      {
+        "frozen_grid": {
+          "gamma": [
+            0.16666666666666666,
+            0.3333333333333333,
+            0.6666666666666666
+          ],
+          "ridge_alpha": [
+            0.0001,
+            0.01,
+            1.0
+          ]
+        },
+        "gamma": 0.3333333333333333,
+        "logical_fit_count": 1,
+        "model_kind": "RBF_KRR",
+        "ridge_alpha": 0.01
+      },
+      {
+        "architecture": "6->32 GELU->32 GELU; 588 Cartesian C_hat +21 log(P_scale)",
+        "frozen_grid": {
+          "seeds": [
+            0,
+            1,
+            2
+          ],
+          "weight_decay": [
+            1e-05,
+            0.0001,
+            0.001
+          ]
+        },
+        "logical_fit_count": 1,
+        "max_updates": 1000,
+        "model_kind": "CARTESIAN_MLP",
+        "optimizer": "AdamW lr=1e-3",
+        "seed": 0,
+        "selection": "frozen validation early stop; patience=50, min_delta=1e-05",
+        "weight_decay": 0.0001
+      }
+    ],
+    "prediction_order": "case ID join; wavelengths 440-460 nm ascending; m=-3..3; TE/TM",
+    "preprocessing": "fit GeometryStandardizer and V2TargetNormalizer on 24 training geometries only",
+    "schema": "COUPLING_ML_K6_REAL32_DIAGNOSTIC_CONFIG_V1",
+    "selection_rule": "choose middle numeric entry of each frozen candidate grid; MLP seed fixed to lowest frozen seed; no response-based choice or search",
+    "target": "packed 609 values: 588 Cartesian C_hat channels + 21 log(P_scale); strictly positive finite P_scale only; no epsilon/clipping"
+  },
+  "fit_budget": {
+    "CARTESIAN_MLP": 1,
+    "RBF_KRR": 1,
+    "confirmation_access": 0,
+    "real_logical_model_fits": 2,
+    "solver_entries": 0,
+    "standalone_P_scale_fits": 0
+  },
+  "fit_runtime": {
+    "device": "cpu",
+    "mlp_seed": 0,
+    "mlp_threads": 1
+  },
+  "implementation_sha256": {
+    "scripts/coupling_ml/k6_v2_pipeline/contracts.py": "c588efd0c4e641f30668b4ed618042ddb8ba31ab5ac98ed6ce3f374007298d9a",
+    "scripts/coupling_ml/k6_v2_pipeline/h1.py": "8a541f7d2357a4566e1a005a0c60451454ce2f7a97ae6d9d2987f0b250a4ffff",
+    "scripts/coupling_ml/k6_v2_pipeline/ingest.py": "d38df0240abbe885a0b78ba328319da07556af39e4ac120c6b09cd2711fe641f",
+    "scripts/coupling_ml/k6_v2_pipeline/models.py": "a49dc6e801530cd4b6a0b8c5e8aea8520dc948d4763a0bd4dd3f0a7d1a58c7d3",
+    "scripts/coupling_ml/k6_v2_pipeline/real32_diagnostic.py": "4fc24e1c90d995941e9ff16bee9a0051ccf1a34695a611cb5d86fdd52f337271",
+    "scripts/coupling_ml/k6_v2_pipeline/training.py": "04a9cba7ac86d26513667668c516a3fcc5654d08c46bfba7d66671667ee81bd4"
+  },
+  "old32_case_registry_ids": [
+    "K6V1_EXT01",
+    "K6V1_EXT02",
+    "K6V1_EXT03",
+    "K6V1_EXT04",
+    "K6V1_EXT05",
+    "K6V1_EXT06",
+    "K6V1_EXT07",
+    "K6V1_EXT08",
+    "K6V1_EXT09",
+    "K6V1_EXT10",
+    "K6V1_EXT11",
+    "K6V1_EXT12",
+    "K6V1_EXT13",
+    "K6V1_EXT14",
+    "K6V1_S02",
+    "K6V1_S03",
+    "K6V1_S04",
+    "K6V1_S05",
+    "K6V1_S15",
+    "K6V1_S16",
+    "K6V1_S21",
+    "K6V1_S31",
+    "K6V1_S32",
+    "K6V1_S33",
+    "K6V1_S35",
+    "K6V1_S36",
+    "K6V1_S37",
+    "K6V1_S39",
+    "K6V1_S42",
+    "K6V1_S45",
+    "K6V1_S47",
+    "K6V1_S48"
+  ],
+  "pre_fit_response_load_failure": {
+    "confirmation_responses_opened": 0,
+    "error": "NameError in loader return type after hash-pinned old32 response array validation",
+    "real_model_fits_started": 0,
+    "solver_entries": 0
+  },
+  "pre_response_metadata_only": true,
+  "protocol_amendment": {
+    "base_protocol_sha256": "331970beb9e50bddd1f043c50312e8169df3d5978345f9ca7441d02eb2502566",
+    "change": "Add actual config and implementation/test hashes, explicit user-selected seed aggregation, and refresh the read-only current GPU Runner handoff fingerprint.",
+    "current_runner_handoff_sha256": "1b0545e69e5e4cc10cb887c1e0a5613c7ab892435f6ca9beb6ca39e4ab6608da",
+    "loader_type_reference_erratum": {
+      "fit_started": false,
+      "no_scientific_config_change": true,
+      "no_split_or_candidate_change": true,
+      "old32_response_values_loaded": true,
+      "reason": "Qualified CaseCollection through contracts module after old32 truth loader exposed an unresolved bare symbol."
+    },
+    "no_scientific_changes": true,
+    "prefit_schema_reader_fix": {
+      "current_code_sha256": "4f7eee5950fc17fd625f0da0977148a3ac1860841dfb86ecc37f52f1046d0c74",
+      "no_response_values_loaded": true,
+      "no_scientific_config_change": true,
+      "previous_code_sha256": "be2904a28e12700709cd64b7c691af4bcf2289c0770e0eddf40074602fd58169",
+      "reason": "The frozen config file stores candidate models at top-level models; corrected the pre-fit reader before truth values were loaded."
+    },
+    "previous_runner_handoff_sha256": "150f142f0d553f5104693ac2f4fe3c9c2c928cf7356e140a15df06ba8c9f7d50"
+  },
+  "response_values_loaded_before_fit": true,
+  "runner_handoff_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\docs\\APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF.md",
+  "runner_handoff_status_at_freeze": "Existing 12-case route ready; EXT02 setup-preflight ready; this old32 audit does not invoke Runner.",
+  "schema": "COUPLING_ML_K6_REAL32_PREFIT_PROTOCOL_V1",
+  "scope": "24/8 engineering diagnostic from old32 only; not V2 formal folds or independent confirmation",
+  "seed_aggregation_rule": {
+    "c_hat": "complex arithmetic mean across seed predictions",
+    "p_scale": "inverse-log-normalize and exp each seed to positive physical values, then arithmetic mean"
+  },
+  "split": {
+    "all_21_wavelengths_grouped_by_geometry": true,
+    "geometry_nm_by_case_id": {
+      "K6V1_EXT01": [
+        220,
+        210,
+        230,
+        225,
+        205,
+        105
+      ],
+      "K6V1_EXT02": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "K6V1_EXT03": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "K6V1_EXT04": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "K6V1_EXT05": [
+        210,
+        220,
+        100,
+        230,
+        195,
+        225
+      ],
+      "K6V1_EXT06": [
+        165,
+        110,
+        115,
+        230,
+        155,
+        115
+      ],
+      "K6V1_EXT07": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "K6V1_EXT08": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "K6V1_EXT09": [
+        110,
+        225,
+        125,
+        210,
+        200,
+        145
+      ],
+      "K6V1_EXT10": [
+        230,
+        225,
+        190,
+        225,
+        105,
+        135
+      ],
+      "K6V1_EXT11": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "K6V1_EXT12": [
+        100,
+        230,
+        230,
+        185,
+        225,
+        120
+      ],
+      "K6V1_EXT13": [
+        100,
+        110,
+        115,
+        120,
+        225,
+        100
+      ],
+      "K6V1_EXT14": [
+        110,
+        120,
+        100,
+        225,
+        105,
+        190
+      ],
+      "K6V1_S02": [
+        215,
+        105,
+        215,
+        230,
+        105,
+        130
+      ],
+      "K6V1_S03": [
+        230,
+        100,
+        130,
+        120,
+        230,
+        100
+      ],
+      "K6V1_S04": [
+        205,
+        215,
+        105,
+        225,
+        180,
+        100
+      ],
+      "K6V1_S05": [
+        215,
+        225,
+        100,
+        125,
+        110,
+        220
+      ],
+      "K6V1_S15": [
+        110,
+        135,
+        180,
+        230,
+        230,
+        100
+      ],
+      "K6V1_S16": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "K6V1_S21": [
+        120,
+        115,
+        230,
+        140,
+        110,
+        115
+      ],
+      "K6V1_S31": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "K6V1_S32": [
+        105,
+        190,
+        105,
+        115,
+        105,
+        225
+      ],
+      "K6V1_S33": [
+        170,
+        175,
+        155,
+        150,
+        190,
+        105
+      ],
+      "K6V1_S35": [
+        110,
+        145,
+        225,
+        105,
+        185,
+        215
+      ],
+      "K6V1_S36": [
+        115,
+        210,
+        220,
+        100,
+        150,
+        100
+      ],
+      "K6V1_S37": [
+        215,
+        170,
+        110,
+        180,
+        105,
+        130
+      ],
+      "K6V1_S39": [
+        175,
+        100,
+        125,
+        120,
+        100,
+        230
+      ],
+      "K6V1_S42": [
+        195,
+        210,
+        165,
+        130,
+        230,
+        230
+      ],
+      "K6V1_S45": [
+        195,
+        120,
+        105,
+        210,
+        220,
+        215
+      ],
+      "K6V1_S47": [
+        165,
+        160,
+        105,
+        100,
+        230,
+        170
+      ],
+      "K6V1_S48": [
+        110,
+        100,
+        225,
+        205,
+        195,
+        175
+      ]
+    },
+    "old32_dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "old32_dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "purpose": "engineering_diagnostic_only_not_formal_fold_or_confirmation",
+    "schema": "COUPLING_ML_K6_REAL32_DIAGNOSTIC_SPLIT_V1",
+    "seed": 3208,
+    "selection_independent_of_truth_values": true,
+    "split_algorithm": "sort old32 case IDs lexically; NumPy Generator(PCG64(seed=3208)).permutation; first 24 train, remaining 8 validation",
+    "training_case_ids": [
+      "K6V1_EXT01",
+      "K6V1_EXT02",
+      "K6V1_S02",
+      "K6V1_EXT04",
+      "K6V1_S37",
+      "K6V1_S31",
+      "K6V1_EXT13",
+      "K6V1_S33",
+      "K6V1_S39",
+      "K6V1_S47",
+      "K6V1_S32",
+      "K6V1_S21",
+      "K6V1_S04",
+      "K6V1_S15",
+      "K6V1_S48",
+      "K6V1_EXT12",
+      "K6V1_EXT08",
+      "K6V1_EXT03",
+      "K6V1_S35",
+      "K6V1_EXT10",
+      "K6V1_EXT06",
+      "K6V1_EXT14",
+      "K6V1_S36",
+      "K6V1_EXT09"
+    ],
+    "training_geometry_count": 24,
+    "v2_pointset_sha256": "596bcc8fd7011cb5ec0c2fc93b9dfe26653ef74720d1bcd4872d3b22e18727c4",
+    "validation_case_ids": [
+      "K6V1_S45",
+      "K6V1_S16",
+      "K6V1_S05",
+      "K6V1_EXT07",
+      "K6V1_EXT05",
+      "K6V1_EXT11",
+      "K6V1_S42",
+      "K6V1_S03"
+    ],
+    "validation_geometry_count": 8
+  },
+  "split_sha256": "9f2ed2aefcc9e49a3362356fd0aa5d336a9caaa6bbb315ffe334bb3d1397946e",
+  "status": "SCIENTIFIC_CONFIG_FROZEN_PRE_RESPONSE_IMPLEMENTATION_ERRATUM_PRE_FIT",
+  "verification_sha256": {
+    "tests/coupling_ml/k6_v2_pipeline/test_h1.py": "a42650066dbd1262dc632ce67c9edcc65468d03e61463848fc1b01e484515fe4",
+    "tests/coupling_ml/k6_v2_pipeline/test_models_training.py": "2d2b6a806f8ee1fde7b08f09393bfd9a047109d921100b1e75d407a2dd3e3a94"
+  }
+}

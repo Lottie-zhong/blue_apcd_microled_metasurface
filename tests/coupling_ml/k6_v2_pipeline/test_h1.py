@@ -19,3 +19,14 @@ def test_frozen_h2_h1_identity_and_physical_pscale_seed_mean():
     assert result["all_applicable_numeric_gates_attained"]
     assert result["seed_stability_status"] == "PASS"
     assert result["production_admission"] is False
+    diag = result["aggregation_diagnostics"]
+    assert diag["seed_count"] == 3 and diag["geometry_count"] == 4
+    assert np.isclose(
+        diag["p_scale_physical_arithmetic_mean"]["mean"], float(np.mean(p)),
+        rtol=0.0, atol=1e-15,
+    )
+    assert np.isclose(
+        diag["c_hat_norm_after_complex_seed_mean_per_geometry"]["mean"],
+        diag["c_hat_norm_before_seed_mean_per_geometry"]["mean"],
+        rtol=0.0, atol=1e-14,
+    )
