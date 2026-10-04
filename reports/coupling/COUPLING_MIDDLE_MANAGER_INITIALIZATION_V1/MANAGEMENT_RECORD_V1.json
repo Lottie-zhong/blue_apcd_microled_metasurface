@@ -446,7 +446,182 @@
         "coupling": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/reports/coupling/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1"
       },
       "dispatch_state": "Previously accepted and active in the two existing execution threads; not redispatched",
-      "status": "IN_PROGRESS_EVENT_DRIVEN"
+      "status": "PAUSED_FOR_UPPER_DECISION_SOURCE_FRACTION_NORMALIZATION",
+      "event_history": [
+        {
+          "event_id": "K6LDA1_DEV_D1_M05-attempt_001-source_fraction_normalization-conflict-v1",
+          "event_type": "SCIENTIFIC_PROTOCOL_CONFLICT_FIRST_CASE_LABEL_REJECTED",
+          "recorded_at_utc": "2026-10-04 19:10:30 UTC",
+          "source": "GPU-to-manager native event; manager independently verified source, importer equation, run hashes, order arrays, P_scale calculation, and case registry",
+          "case_id": "K6LDA1_DEV_D1_M05",
+          "attempt_id": "attempt_001",
+          "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+          "role": "DEVELOPMENT_LOCAL_AXIS",
+          "runner_state": "DONE",
+          "runner_acceptance": {
+            "fresh_load_verified": true,
+            "scientific_valid": true,
+            "truth_before_done": true,
+            "run_one_exit_code": 0,
+            "max_energy_closure": 1.1102230246251565e-16
+          },
+          "coupling_admission": "REJECTED_SOURCE_NORMALIZED_ORDER_POWER_MISMATCH",
+          "budget_snapshot": {
+            "development_cases": 128,
+            "development_entries": 1,
+            "development_not_entered": 127,
+            "confirmation_cases": 32,
+            "confirmation_entries": 0,
+            "real_training_fits": 0,
+            "post_entry_replays": 0
+          },
+          "frozen_importer": {
+            "path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py:201-208",
+            "p_scale_definition": "POSTNP trapezoidal E/H Poynting flux / unit-cell area / IN_REF incident power per area",
+            "invariant": "source_fraction == P_scale * eta",
+            "tolerance": {
+              "rtol": 0.001,
+              "atol": 1e-09
+            }
+          },
+          "runner_producer": {
+            "path": "scripts/shared_fdtd/tools/pw_scientific_launcher.py:437-457,502-514",
+            "summary": "grating() order fractions are multiplied by t_fdtd=ptrans/pin, where post_plus is derived from spatial-average Ex/Hy zero-order modal amplitudes; this is not monitor total transmission or the frozen P_scale."
+          },
+          "independent_recalculation": {
+            "wavelength_nm": [
+              440,
+              460
+            ],
+            "eta_sum_max_abs_error": 2.220446049250313e-16,
+            "p_scale_min": 0.06649115789585905,
+            "p_scale_max": 0.562036997745591,
+            "source_fraction_sum_at_440nm": 0.01587730660183445,
+            "p_scale_at_440nm": 0.07691785841363069,
+            "frozen_check_max_abs_error": 0.16949400057315808,
+            "frozen_check_max_relative_error": 0.9918490638166707,
+            "frozen_check_pass": false,
+            "worst_wavelength_nm": 449.0,
+            "worst_order_x": -1,
+            "worst_original_source_fraction": 0.014990019045333968,
+            "worst_expected_p_scale_times_eta": 0.18448401961849206
+          },
+          "artifact_paths": {
+            "runner_case": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6LDA1_DEV_D1_M05/attempt_001/K6V2_D1M05_20261004T175055Z_449c4f94",
+            "coupling_development_truth_root": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/outputs/coupling_ml/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1_TRUTH/development"
+          },
+          "artifact_sha256": {
+            "run_fsp": "f2258b74d62a1e9d7441cd8214dc371022a8a964df335c7faf6c45d8be4fb2b9",
+            "run_output_h5": "8aa4ca58d22d9fd6eea4f5e53b557a96e0ec9c273f594c22561788f5af298dcd",
+            "truth_h5": "a51d51793a17ea6028e8d2ced4e8ff9a7b5b85cf997ab8456256075e7db1da64",
+            "raw_complex_fields_npz": "987756dd1e8ac4ac68d3262778974e0ce6323b08ceb7ef62317ea28853d8caac",
+            "state_npz": "217a81859a0312d4070c00767e06b20a7eee05f14b79ee861b09e83099744d91",
+            "orders_json": "eee74666b409e9255783b6e4a30f6f708f1358de0261752ffbbc6da571bff158",
+            "raw_metadata_json": "245d37f2c07fe10eaad2701381dda3c3ab05b122d3582f35d6906cdafd624afa",
+            "runner_hashes_json": "b08b2938da79aaebfc6a26e8295f4431ba1884db3c9c9938f0c5833c1194af30"
+          },
+          "code_versions": {
+            "runner_branch": "codex/apcd-gpu-production-runner-v1",
+            "runner_head": "6afb002ac4df29dedaedc8f65d67a3ecabc9eedf",
+            "coupling_branch": "work/mdc-np-coupling-ml-v1",
+            "coupling_head": "1e663e66ac02be38d02631d832f032105f4022ee"
+          },
+          "hold": {
+            "remaining_development_entries_paused": true,
+            "raw_truth_mutated": false,
+            "label_reconciliation_written": false,
+            "new_entry_authorized": false
+          },
+          "upper_decision_required": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
+        }
+      ],
+      "latest_progress": {
+        "event_id": "K6LDA1_DEV_D1_M05-attempt_001-source_fraction_normalization-conflict-v1",
+        "event_type": "SCIENTIFIC_PROTOCOL_CONFLICT_FIRST_CASE_LABEL_REJECTED",
+        "recorded_at_utc": "2026-10-04 19:10:30 UTC",
+        "source": "GPU-to-manager native event; manager independently verified source, importer equation, run hashes, order arrays, P_scale calculation, and case registry",
+        "case_id": "K6LDA1_DEV_D1_M05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "runner_state": "DONE",
+        "runner_acceptance": {
+          "fresh_load_verified": true,
+          "scientific_valid": true,
+          "truth_before_done": true,
+          "run_one_exit_code": 0,
+          "max_energy_closure": 1.1102230246251565e-16
+        },
+        "coupling_admission": "REJECTED_SOURCE_NORMALIZED_ORDER_POWER_MISMATCH",
+        "budget_snapshot": {
+          "development_cases": 128,
+          "development_entries": 1,
+          "development_not_entered": 127,
+          "confirmation_cases": 32,
+          "confirmation_entries": 0,
+          "real_training_fits": 0,
+          "post_entry_replays": 0
+        },
+        "frozen_importer": {
+          "path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py:201-208",
+          "p_scale_definition": "POSTNP trapezoidal E/H Poynting flux / unit-cell area / IN_REF incident power per area",
+          "invariant": "source_fraction == P_scale * eta",
+          "tolerance": {
+            "rtol": 0.001,
+            "atol": 1e-09
+          }
+        },
+        "runner_producer": {
+          "path": "scripts/shared_fdtd/tools/pw_scientific_launcher.py:437-457,502-514",
+          "summary": "grating() order fractions are multiplied by t_fdtd=ptrans/pin, where post_plus is derived from spatial-average Ex/Hy zero-order modal amplitudes; this is not monitor total transmission or the frozen P_scale."
+        },
+        "independent_recalculation": {
+          "wavelength_nm": [
+            440,
+            460
+          ],
+          "eta_sum_max_abs_error": 2.220446049250313e-16,
+          "p_scale_min": 0.06649115789585905,
+          "p_scale_max": 0.562036997745591,
+          "source_fraction_sum_at_440nm": 0.01587730660183445,
+          "p_scale_at_440nm": 0.07691785841363069,
+          "frozen_check_max_abs_error": 0.16949400057315808,
+          "frozen_check_max_relative_error": 0.9918490638166707,
+          "frozen_check_pass": false,
+          "worst_wavelength_nm": 449.0,
+          "worst_order_x": -1,
+          "worst_original_source_fraction": 0.014990019045333968,
+          "worst_expected_p_scale_times_eta": 0.18448401961849206
+        },
+        "artifact_paths": {
+          "runner_case": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6LDA1_DEV_D1_M05/attempt_001/K6V2_D1M05_20261004T175055Z_449c4f94",
+          "coupling_development_truth_root": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/outputs/coupling_ml/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1_TRUTH/development"
+        },
+        "artifact_sha256": {
+          "run_fsp": "f2258b74d62a1e9d7441cd8214dc371022a8a964df335c7faf6c45d8be4fb2b9",
+          "run_output_h5": "8aa4ca58d22d9fd6eea4f5e53b557a96e0ec9c273f594c22561788f5af298dcd",
+          "truth_h5": "a51d51793a17ea6028e8d2ced4e8ff9a7b5b85cf997ab8456256075e7db1da64",
+          "raw_complex_fields_npz": "987756dd1e8ac4ac68d3262778974e0ce6323b08ceb7ef62317ea28853d8caac",
+          "state_npz": "217a81859a0312d4070c00767e06b20a7eee05f14b79ee861b09e83099744d91",
+          "orders_json": "eee74666b409e9255783b6e4a30f6f708f1358de0261752ffbbc6da571bff158",
+          "raw_metadata_json": "245d37f2c07fe10eaad2701381dda3c3ab05b122d3582f35d6906cdafd624afa",
+          "runner_hashes_json": "b08b2938da79aaebfc6a26e8295f4431ba1884db3c9c9938f0c5833c1194af30"
+        },
+        "code_versions": {
+          "runner_branch": "codex/apcd-gpu-production-runner-v1",
+          "runner_head": "6afb002ac4df29dedaedc8f65d67a3ecabc9eedf",
+          "coupling_branch": "work/mdc-np-coupling-ml-v1",
+          "coupling_head": "1e663e66ac02be38d02631d832f032105f4022ee"
+        },
+        "hold": {
+          "remaining_development_entries_paused": true,
+          "raw_truth_mutated": false,
+          "label_reconciliation_written": false,
+          "new_entry_authorized": false
+        },
+        "upper_decision_required": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
+      },
+      "decision_request": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
     }
   ],
   "management_rules": {
@@ -460,7 +635,7 @@
     "budget_rule": "dispatch creates no solver or training budget",
     "completion_flow": "On a defined event, receive the report, verify necessary artifacts and acceptance evidence, assign only contract-scoped engineering corrections, and escalate science/budget/confirmation decisions to the user.",
     "partial_rule": "do not redispatch same task because of PARTIAL",
-    "next_action": "Wait without polling for the next specified native event return.",
+    "next_action": "Wait for the user's decision on the versioned zero-solver reconciliation and contract-preserving producer correction; keep the remaining 127 entries paused.",
     "status_reporting": "Event-driven only; no periodic manager polling, heartbeat collection, or progress requests.",
     "routine_progress": "Execution agents maintain their own ledger and continuation; routine per-case updates do not go to the manager.",
     "direct_case_handoff": "GPU-to-ML formal truth handoffs continue directly; the manager does not forward each case.",
@@ -468,7 +643,8 @@
       "First-case durable truth passes Coupling ML ingestion; this is the gate for GPU to continue the remaining 127 cases",
       "128-case task completion with counts, artifact paths and hashes",
       "A blocker that cannot be resolved within the existing task contract",
-      "A scientific protocol conflict, budget issue or matter requiring an upper-level decision"
+      "A scientific protocol conflict, budget issue or matter requiring an upper-level decision",
+      "First-case source_fraction versus frozen P_scale*eta scientific protocol conflict requiring upper decision"
     ]
   },
   "event_driven_correction": {
