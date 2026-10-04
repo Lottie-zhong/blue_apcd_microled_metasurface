@@ -1,0 +1,338 @@
+{
+  "schema": "APCD_GPU_RUNNER_QUEUE21_LINEAGE_DISPOSITION_V1",
+  "generated_at_utc": "2026-10-04T06:54:12.898552+00:00",
+  "task": "APCD_GPU_RUNNER_QUEUE21_LINEAGE_DISPOSITION_AND_HOLD_RECOVERY_V1",
+  "status": "PARTIAL_HOLD_REMAINS_ACTIVE",
+  "classification": "C_EVIDENCE_INSUFFICIENT_LINEAGE_NOT_RECOVERABLE",
+  "case": {
+    "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+    "attempt_id": "attempt_001",
+    "branch_id": "traditional",
+    "queue_id": 21,
+    "origin_task_id": "K6_CYCLIC_REGISTRATION_CONTROLLED_EXPERIMENT_V1"
+  },
+  "physical_entry_assessment": {
+    "recorded_scientific_solver_entered_events": 2,
+    "event_ids": [
+      1499,
+      1506
+    ],
+    "physical_solver_launch_count": null,
+    "adjudication": "Cannot distinguish one physical launch with duplicate event recording from two physical launches; do not infer physical count from event count, same lease/fence, terminal state, current GPU state, or PID alone."
+  },
+  "production_db": {
+    "path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "size_bytes": 1478656,
+    "access": "read-only; no mutation"
+  },
+  "production_db_schema_tables": [
+    "admission_control",
+    "backend_capacity",
+    "branch_limits",
+    "branch_queue",
+    "exact_launch_permits",
+    "gpu_capacity_leases",
+    "health_metrics",
+    "hold_events",
+    "hold_lifecycle",
+    "lease_events",
+    "recovery_adoption_fences",
+    "resource_reservations",
+    "schema_meta",
+    "slots",
+    "sqlite_sequence"
+  ],
+  "queue_row": {
+    "queue_id": 21,
+    "branch_id": "traditional",
+    "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+    "attempt_id": "attempt_001",
+    "state": "RELEASED",
+    "payload_json": "{\"state\": \"SOLVER_RETURNED\", \"task_id\": \"K6_CYCLIC_REGISTRATION_CONTROLLED_EXPERIMENT_V1\"}",
+    "slot_id": "GLOBAL_SLOT_1",
+    "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+    "fencing_generation": 14,
+    "created_at": "2026-09-23T00:36:49.947816+00:00",
+    "updated_at": "2026-09-23T02:39:55.738973+00:00"
+  },
+  "case_event_chain": [
+    {
+      "event_id": 1498,
+      "timestamp": "2026-09-23T00:36:49.842184+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_ACQUIRED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": "{}"
+    },
+    {
+      "event_id": 1499,
+      "timestamp": "2026-09-23T00:39:11.269437+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": "{}"
+    },
+    {
+      "event_id": 1506,
+      "timestamp": "2026-09-23T02:38:41.983302+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": "{}"
+    },
+    {
+      "event_id": 1507,
+      "timestamp": "2026-09-23T02:39:55.566139+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "RELEASE_PENDING",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": "{\"reason\": \"FINISHER_TRUTH_BEFORE_RELEASE\"}"
+    },
+    {
+      "event_id": 1508,
+      "timestamp": "2026-09-23T02:39:55.629076+00:00",
+      "slot_id": "GLOBAL_SLOT_1",
+      "branch_id": "traditional",
+      "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_RELEASED",
+      "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+      "fencing_generation": 14,
+      "metadata_json": "{\"scientific_terminal\": \"SCIENTIFIC_VALID\"}"
+    }
+  ],
+  "neighboring_events_1500_1505": [
+    {
+      "event_id": 1500,
+      "timestamp": "2026-09-23T00:42:33.471111+00:00",
+      "slot_id": "GLOBAL_SLOT_2",
+      "branch_id": "coupling_ml",
+      "logical_case_id": "W2H_15294_MEDIUM_PW",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_ACQUIRED",
+      "lease_token_hash": "dfa1ef1cc18b4c328e05269bebfc97a95838a840d42159e9c56f1b907c4293ec",
+      "fencing_generation": 26
+    },
+    {
+      "event_id": 1501,
+      "timestamp": "2026-09-23T00:51:03.277103+00:00",
+      "slot_id": "GLOBAL_SLOT_2",
+      "branch_id": "coupling_ml",
+      "logical_case_id": "W2H_15294_MEDIUM_PW",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_RELEASED",
+      "lease_token_hash": "dfa1ef1cc18b4c328e05269bebfc97a95838a840d42159e9c56f1b907c4293ec",
+      "fencing_generation": 26
+    },
+    {
+      "event_id": 1502,
+      "timestamp": "2026-09-23T00:51:37.166600+00:00",
+      "slot_id": "GLOBAL_SLOT_2",
+      "branch_id": "coupling_ml",
+      "logical_case_id": "W2H_15294_MEDIUM_PW",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_ACQUIRED",
+      "lease_token_hash": "20cc4c5190cf9cf3de8374f4ae20c752fdd69ab6bcb1428919615065c1182713",
+      "fencing_generation": 27
+    },
+    {
+      "event_id": 1503,
+      "timestamp": "2026-09-23T00:57:33.118057+00:00",
+      "slot_id": "GLOBAL_SLOT_2",
+      "branch_id": "coupling_ml",
+      "logical_case_id": "W2H_15294_MEDIUM_PW",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_RELEASED",
+      "lease_token_hash": "20cc4c5190cf9cf3de8374f4ae20c752fdd69ab6bcb1428919615065c1182713",
+      "fencing_generation": 27
+    },
+    {
+      "event_id": 1504,
+      "timestamp": "2026-09-23T00:58:02.005720+00:00",
+      "slot_id": "GLOBAL_SLOT_2",
+      "branch_id": "coupling_ml",
+      "logical_case_id": "W2H_15294_MEDIUM_PW",
+      "attempt_id": "attempt_001",
+      "event_type": "LEASE_ACQUIRED",
+      "lease_token_hash": "40c555e8a70dc37f5edcb029c5777f887e3f9c9b729e64b8cef5a0f574a7e0f4",
+      "fencing_generation": 28
+    },
+    {
+      "event_id": 1505,
+      "timestamp": "2026-09-23T00:58:31.223134+00:00",
+      "slot_id": "GLOBAL_SLOT_2",
+      "branch_id": "coupling_ml",
+      "logical_case_id": "W2H_15294_MEDIUM_PW",
+      "attempt_id": "attempt_001",
+      "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+      "lease_token_hash": "40c555e8a70dc37f5edcb029c5777f887e3f9c9b729e64b8cef5a0f574a7e0f4",
+      "fencing_generation": 28
+    }
+  ],
+  "current_hold": {
+    "hold": {
+      "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+      "scope": "GLOBAL",
+      "status": "ACTIVE",
+      "reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+      "free_text_reason": "Containment after S35 attempt_001 dispatch was denied pre-entry by the global DUPLICATE_SCIENTIFIC_ENTRY_COUNT=1. The sole duplicate is the historically unresolved queue21 pair (events 1499, 1506); no new solver entry occurred. New entries remain held pending an explicitly authorized durable disposition/rebuild.",
+      "linked_incident_ids_json": "[\"queue21-lineage-not-recoverable\"]",
+      "linked_case_ids_json": "[\"K6V1_S35\", \"K6V1_S39\"]",
+      "release_requirements_json": "{\"dispatch_prohibited\": true, \"historical_duplicate_metric_must_not_be_cleared_or_waived\": true, \"no_solver_entry_during_failed_dispatch\": true}",
+      "created_at": "2026-09-30T14:40:13.441098+00:00",
+      "created_by": "Shared V3 production containment / call v3-containment-c1481e55-20260930",
+      "released_at": null,
+      "released_by": null,
+      "release_authority_hash": null,
+      "metadata_json": "{\"authority_json_sha256\": \"b511106445fbba220779824d8f19fa4472ce6f9ff43067916a11e8fc1c77d865\", \"call_id\": \"v3-containment-c1481e55-20260930\", \"dispatch_result\": \"EMPTY_PRE_ENTRY_ADMISSION_HEALTH_BLOCKED\", \"duplicate_metric_value\": 1, \"preentry_adjudication_sha256\": \"d8719755ed1f668919dda59daa3abcda7eb5cce4e4c3f075ec010f5f09d49c8f\"}"
+    },
+    "admission_control": {
+      "control_id": 1,
+      "new_entry_hold": 1,
+      "temporary_runtime_cap": null,
+      "health_status": "PASS",
+      "control_generation": 26,
+      "updated_at": "2026-09-30T14:40:13.441098+00:00"
+    },
+    "hold_event_history": [
+      {
+        "event_id": 1,
+        "hold_id": "hold-69885a7b296a49819362643724184a44",
+        "timestamp": "2026-09-30T14:07:43.633908+00:00",
+        "event_type": "HOLD_SET",
+        "actor": "Shared V3 Production Release Authority V3 / authority commit 785f2f747da802b67f0c022f54afff538d8f5ed5",
+        "metadata_json": "{\"generation\": 24, \"reason_code\": \"SHARED_V3_PRODUCTION_RELEASE_AUTHORITY_V3\", \"scope\": \"GLOBAL\"}"
+      },
+      {
+        "event_id": 2,
+        "hold_id": "hold-69885a7b296a49819362643724184a44",
+        "timestamp": "2026-09-30T14:26:22.489842+00:00",
+        "event_type": "HOLD_RELEASED",
+        "actor": "Shared V3 Production Release Authority V3 / committed authority b511106445fbba220779824d8f19fa4472ce6f9ff43067916a11e8fc1c77d865",
+        "metadata_json": "{\"authority_hash\": \"sha256:b511106445fbba220779824d8f19fa4472ce6f9ff43067916a11e8fc1c77d865\", \"evidence\": {\"authority_json\": {\"path\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_shared_v3_gpu_reliability_v1\\\\reports\\\\shared_v3\\\\SHARED_V3_PRODUCTION_RELEASE_AUTHORITY_V3.json\", \"sha256\": \"b511106445fbba220779824d8f19fa4472ce6f9ff43067916a11e8fc1c77d865\"}, \"call_id\": \"v3-release-c1481e55-4d15-40ba-9e8b-2f9bd269ef42\", \"dispatch_not_performed_by_release_api\": true, \"no_replay\": true, \"preentry_adjudication\": {\"path\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_shared_v3_gpu_reliability_v1\\\\reports\\\\shared_v3\\\\SHARED_V3_S35_S39_PREENTRY_FAILURE_ADJUDICATION_20260930.json\", \"sha256\": \"d8719755ed1f668919dda59daa3abcda7eb5cce4e4c3f075ec010f5f09d49c8f\"}, \"r7_final_report\": {\"path\": \"D:\\\\apcd_runtime\\\\shared_v3_v3qual_20260930\\\\official_release_r7_20260930_1405.json\", \"sha256\": \"6ddef4a7b5f723cabba92e81ee001e300a54f3c8c298fd19415f3bdc7eddeca4\"}, \"serial_scope\": [\"K6V1_S35 attempt_001\", \"K6V1_S39 attempt_001\"]}, \"generation\": 25}"
+      },
+      {
+        "event_id": 3,
+        "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+        "timestamp": "2026-09-30T14:40:13.441098+00:00",
+        "event_type": "HOLD_SET",
+        "actor": "Shared V3 production containment / call v3-containment-c1481e55-20260930",
+        "metadata_json": "{\"generation\": 26, \"reason_code\": \"SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT\", \"scope\": \"GLOBAL\"}"
+      }
+    ],
+    "release_decision": "NO RELEASE. Hold is ACTIVE, no released_by or release_authority_hash; current disposition does not satisfy or supersede its explicit requirements."
+  },
+  "prior_forensic_report": {
+    "path": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\SHARED_V3_QUEUE21_ENTRY_LINEAGE_FORENSIC_V1.json",
+    "sha256": "12cff822935ca852daeebb3b06073fbbeedb9a5fbc2d39ab67e04a617b2375eb",
+    "recorded_db_sha256": "48c227694c67da29185884808c7b405c16a7d04684c1ec27f4ce3a9a32c212a0",
+    "fresh_db_recheck": "Current DB SHA differs; fresh read-only query reconfirmed the same five case events, two entered records, empty entry metadata, and queue row."
+  },
+  "evidence_gaps": [
+    "No process identity, PID, process creation time, command line, parent process, engine/GPU lineage, or event idempotency key is present in the two entry events.",
+    "Current control database has no process lineage/process identity table.",
+    "No queue21-specific launcher/controller log, source/staged FSP, contract hash, archived FSP/H5, truth hash, fresh LOAD proof, or process-exit evidence was located in the inspected queue row/event metadata or tracked Traditional source.",
+    "Same lease token and fencing generation do not establish whether the event was duplicated or the solver was launched twice.",
+    "The final terminal record SCIENTIFIC_VALID and RELEASED has no linked durable truth paths or hashes in the queue payload."
+  ],
+  "formal_disposition": {
+    "type": "LINEAGE_NOT_RECOVERABLE",
+    "raw_events_preserved": true,
+    "db_entry_count_changed": false,
+    "truth_modified": false,
+    "attempt_reset": false,
+    "replay_performed": false,
+    "authority_owner": "Not identified in current hold lifecycle; creator is Shared V3 production containment service/call, not a release owner.",
+    "durability": "Versioned, hashable disposition artifact committed in Runner V1 report tree; not a mutation or adjudication of the Shared V3 database."
+  },
+  "current_runner_dependency": {
+    "runner_branch": "codex/apcd-gpu-production-runner-v1",
+    "runner_head": "cff6d8903e4a90e4629463caad32d46dbacdd5c4",
+    "runner_doc_sha256": "0264ccc768a21c4595f7f66d051bf4a480435cd305aa134a98ca02d76366f15d",
+    "runner_handoff_sha256": "b7884408f7273a161e39f082e5228cab41e91af68521b6ddbfa9fd56bed02761",
+    "runner_authority_sha256": "021951707cd94d62ca93076f5f2a6867b400df4c9921932286b32ffc1840972c",
+    "runner_handoff_json_sha256": "ca7e4a9fcc15ccb60f4921feb788bf3663e1b8fd3c56f64892894cc8299df599",
+    "adapter_sha256": "a9098bf77cc4ff4e62e3a87ef3029ec4bf4e16b4f94d64d008b062c2ac894e00",
+    "runner_core_sha256": "c97f459ffb3434d1a9419d8f203de2ca34630748c92626ff3d967edcfbd4f6aa",
+    "authority_migration_authority": null,
+    "authority_control_plane_migration": null,
+    "authority_control_database": null,
+    "authority_hold_policy": null,
+    "v1_runtime_root": "D:/apcd_runtime/gpu_production_runner_v1",
+    "v1_registry_sha256": "43784e6f5d97761daae6dfa088482c8f65f589aa29577e2ccd72dff10b62d36b",
+    "v1_registry_case_count": 12,
+    "v1_registry_state_counts": {
+      "FAILED_POSTENTRY": 1,
+      "DONE": 11
+    },
+    "queue21_in_v1_registry": false,
+    "active_run_marker_exists": false,
+    "runner_lock_exists": false,
+    "findings": "Runner V1 documentation and code use an exclusive filesystem root and registry; no direct Shared V3 control database/lease/queue dependency was found in the inspected entry path. The V1 authority contains null migration/hold fields, so no formal migration/release authority for retiring the old hold was found. Preserve the historical V3 hold without changing V1 behavior or claiming the old hold was formally released."
+  },
+  "current_resource_snapshot": {
+    "observed_at": "2026-10-04 task runtime; see remote audit transcript",
+    "fdtd_solutions_api_process_count": 8,
+    "fdtd_solutions_pids": [
+      31848,
+      33824,
+      17436,
+      29816,
+      26372,
+      32256,
+      31844,
+      17576
+    ],
+    "os_owner": "DESKTOP-NNE313K\\DELL for all eight",
+    "parent_processes": "one mdc_complex_prior_fsp_inventory.py; five mdc_complex_prior_fsp_result_meta.py; two Python stdin contexts",
+    "fdtd_engine_process_count": 0,
+    "nvidia_gpu": "RTX 3080; 0% utilization; 2047 MiB used; 8007 MiB free; no FDTD process in compute-app list",
+    "api_process_working_set_bytes_range": [
+      15671296,
+      17010688
+    ],
+    "action": "No process was terminated or adopted. This current snapshot does not establish the 2026-09-23 physical queue21 launch count."
+  },
+  "prevention_validation": {
+    "runner_v1_mechanisms": [
+      "root-wide exclusive .runner.lock and active_run.json marker",
+      "duplicate run_id/manifest conflict rejected",
+      "prior entered state rejected with POST_ENTRY_REPLAY_FORBIDDEN",
+      "durable entry guard requires matching run_id, solver_entered=true, invocation count exactly 1 before child launch",
+      "adapter checks solver process lineage after entry"
+    ],
+    "test_command": "N:\\anaconda_envs\\RCP_LCP\\python.exe -m pytest -q <RunnerV1 root>\\scripts\\shared_fdtd\\gpu_runner_v1\\test_gpu_runner_v1.py <RunnerV1 root>\\scripts\\shared_fdtd\\gpu_runner_v1\\test_gpu_runner_v1_adapter.py <RunnerV1 root>\\scripts\\shared_fdtd\\gpu_runner_v1\\test_controlled_admission_v1.py (cwd=<RunnerV1 root>; absolute paths supplied to pytest)",
+    "result": "59 passed, 38 subtests passed in 25.79s",
+    "scope": "Offline/synthetic V1 tests only; they do not adjudicate or repair the historical Shared V3 queue21 event path."
+  },
+  "execution_counts": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "replay": 0,
+    "production_db_mutations": 0,
+    "truth_mutations": 0
+  },
+  "next_minimum_recovery": [
+    "A release-authorized owner must first locate original queue21 launcher/controller or Windows process-start evidence for both timestamps and match PID plus creation time, parent, executable/command hash, and GPU engine evidence.",
+    "Locate and hash the actual queue21 source/staged FSP, physical contract, post-FSP/H5, truth and fresh-LOAD records; reconcile to each candidate process lineage.",
+    "If the original lineage cannot be recovered, preserve C as the durable historical disposition and keep the V3 containment hold; no replay or event deletion can repair this evidence gap.",
+    "Any V1/V3 migration disposition or hold release must be separately versioned and signed by the formally authorized owner; the current V1 authority has no such migration record."
+  ]
+}
