@@ -50,7 +50,7 @@
     "automatic_replay": false,
     "branch": "codex/apcd-gpu-production-runner-v1",
     "gpu_only": true,
-    "head": "783bd5741eb5e6853a3be5532624f4282f9488b7",
+    "head": "472bf2ae4c5bc8faaea04adec13d0a441777fc3f",
     "name": "APCD_GPU_PRODUCTION_RUNNER_V1",
     "previous_qualified_head": "578bdb714fe1455064a8b750968d3afac92b4a12",
     "revision": "Narrow manifest-driven pre-entry validator maintenance; remains V1.",
@@ -62,6 +62,26 @@
     "minimum_free_mib": 1369,
     "policy_changed_by_this_patch": false,
     "process_query_unavailable": "Record unavailable; do not block solely on process-query failure or nonzero contexts; never kill processes."
+  },
+  "latest_owner_approved_ext02_diagnostic": {
+    "attempt_id": "attempt_001",
+    "automatic_replays": 0,
+    "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+    "comparison_pending": true,
+    "execution_head": "472bf2ae4c5bc8faaea04adec13d0a441777fc3f",
+    "final_report_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\\FINAL_REPORT.md",
+    "fresh_load_verified": true,
+    "handoff_manifest_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\\EXT02_COUPLING_HANDOFF_V1.json",
+    "handoff_manifest_sha256": "2f41bfd493f4105b013ee4269033f789b0d86d007169a57557bee3262f325d75",
+    "k6_v2_solver_authorized_case_count": 0,
+    "k6_v2_solver_entries": 0,
+    "queue21_physical_solver_entry_count": "UNKNOWN",
+    "queue21_quarantined": true,
+    "run_id": "EXT02_DIAG_20261004T141216Z_1b4ce0df234b",
+    "scientific_valid": true,
+    "solver_entries": 1,
+    "state": "DONE",
+    "two_plane_fields_extracted": true
   },
   "manifest": {
     "cli_envelope_extra_keys": [
@@ -141,7 +161,7 @@
     "other_failed_postentry": "does not qualify"
   },
   "schema": "APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF_V1",
-  "scope_note": "APCD_GPU_PRODUCTION_RUNNER_V1_READY after a narrow manifest-driven validator maintenance revision. All 12 approved Stage-1 inputs passed zero-solver compatibility qualification; no new scientific case was run. S35 recovery and S39 GPU canary histories remain immutable.",
+  "scope_note": "Single-slot V1 remains qualified for the existing 12-case route. Queue21 remains UNKNOWN and quarantined. The owner-approved two-plane diagnostic had one entry and is DONE with durable truth and extracted E/H fields; Coupling comparison is pending. The 160 V2 cases remain solver-unauthorized.",
   "serial_batch_invocation": "Dispatch one case, wait for terminal DONE/TRUTH_VALID, verify artifacts, then dispatch the next manifest. Never parallelize GPU solves.",
   "stage1_zero_solver_qualification": {
     "cases": [

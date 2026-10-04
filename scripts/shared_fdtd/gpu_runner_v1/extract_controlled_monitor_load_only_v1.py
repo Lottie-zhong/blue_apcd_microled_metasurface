@@ -13,9 +13,10 @@ import numpy as np
 
 
 ROUTE_VERSION = "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1"
-CASE_ID = "K6V1_EXT02"
+CASE_ID = "K6V1_EXT02_TWO_AIR_PLANES_DIAG"
 ATTEMPT_ID = "attempt_001"
 MONITOR_NAME = "EXT02_POSTNP_DIAG_Z2000"
+EXISTING_MONITOR_NAME = "MON_POSTNP"
 REFERENCE_PLANE_NM = 1722.0
 CONFIGURED_MONITOR_Z_NM = 2000.0
 EXPECTED_WAVELENGTH_NM = np.arange(440.0, 461.0, 1.0)
@@ -43,6 +44,23 @@ def read_json(path: Path) -> dict:
     if not isinstance(value, dict):
         raise MonitorExtractionError("BUNDLE_JSON_SCHEMA_INVALID:" + str(path))
     return value
+
+
+def validate_bundle_identity(manifest: dict, status: dict, validation: dict,
+                             pre_entry: dict, process: dict) -> str:
+    if (manifest.get("case_id"), manifest.get("attempt_id")) != (CASE_ID, ATTEMPT_ID):
+        raise MonitorExtractionError("BUNDLE_CASE_ATTEMPT_MISMATCH")
+    run_id = manifest.get("run_id")
+    if not isinstance(run_id, str) or not run_id:
+        raise MonitorExtractionError("BUNDLE_RUN_ID_MISSING")
+    if any(record.get(key) != expected for record, key, expected in (
+        (status, "case_id", CASE_ID), (status, "attempt_id", ATTEMPT_ID),
+        (status, "run_id", run_id), (validation, "run_id", run_id),
+        (pre_entry, "run_id", run_id),
+        (process, "case_id", CASE_ID), (process, "attempt_id", ATTEMPT_ID),
+    )):
+        raise MonitorExtractionError("BUNDLE_PROVENANCE_IDENTITY_MISMATCH")
+    return run_id
 
 
 def _finite_numeric(value, label: str) -> np.ndarray:
@@ -195,18 +213,7 @@ def validate_completed_bundle(run_dir: Path) -> dict:
     setup = read_json(required["setup_validation"])
     pre_entry = read_json(required["pre_entry_revalidation"])
     process = read_json(required["process_exit_provenance"])
-    if (manifest.get("case_id"), manifest.get("attempt_id")) != (CASE_ID, ATTEMPT_ID):
-        raise MonitorExtractionError("BUNDLE_CASE_ATTEMPT_MISMATCH")
-    run_id = manifest.get("run_id")
-    if not isinstance(run_id, str) or not run_id:
-        raise MonitorExtractionError("BUNDLE_RUN_ID_MISSING")
-    if any(record.get(key) != expected for record, key, expected in (
-        (status, "case_id", CASE_ID), (status, "attempt_id", ATTEMPT_ID),
-        (status, "run_id", run_id), (validation, "run_id", run_id),
-        (pre_entry, "run_id", run_id),
-        (process, "case_id", CASE_ID), (process, "attempt_id", ATTEMPT_ID),
-    )):
-        raise MonitorExtractionError("BUNDLE_PROVENANCE_IDENTITY_MISMATCH")
+    run_id = validate_bundle_identity(manifest, status, validation, pre_entry, process)
     if (status.get("state") != "DONE" or status.get("solver_entered") is not True
             or status.get("solver_invocations") != 1):
         raise MonitorExtractionError("BUNDLE_NOT_ONE_COMPLETED_SOLVER_ENTRY")
@@ -283,8 +290,46 @@ def validate_completed_bundle(run_dir: Path) -> dict:
     }
 
 
-def extract_ext02_monitor(run_dir: Path) -> tuple[Path, Path, dict]:
+def monitor_setup_parameters(setup_validation: dict, monitor_name: str) -> dict:
+    if monitor_name == MONITOR_NAME:
+        readback = setup_validation.get("setup_readback", {}).get("added_monitor")
+    elif monitor_name == EXISTING_MONITOR_NAME:
+        readback = (setup_validation.get("setup_readback", {})
+                    .get("existing_monitor_readbacks", {})
+                    .get(EXISTING_MONITOR_NAME, {}).get("base"))
+    else:
+        raise MonitorExtractionError("MONITOR_NOT_AUTHORIZED:" + str(monitor_name))
+    if (not isinstance(readback, dict) or readback.get("name") != monitor_name
+            or readback.get("components") != list(COMPONENTS)
+            or readback.get("enabled") != 1.0
+            or readback.get("monitor_type") != "2D Z-normal"):
+        raise MonitorExtractionError("MONITOR_SETUP_READBACK_INVALID:" + monitor_name)
+    try:
+        configured_z_nm = float(readback["z_nm"])
+        reference_plane_nm = float(readback["reference_plane_nm"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise MonitorExtractionError("MONITOR_SETUP_COORDINATE_MISSING:" + monitor_name) from exc
+    return {"configured_z_nm": configured_z_nm, "reference_plane_nm": reference_plane_nm}
+
+
+def extraction_output_directory(run_dir: Path, output_subdir: str) -> Path:
+    run_root = Path(run_dir).resolve(strict=True)
+    relative = Path(output_subdir)
+    if relative.is_absolute() or ".." in relative.parts or not relative.parts:
+        raise MonitorExtractionError("EXTRACTION_OUTPUT_PATH_UNSAFE")
+    output_dir = (run_root / relative).resolve()
+    try:
+        output_dir.relative_to(run_root)
+    except ValueError as exc:
+        raise MonitorExtractionError("EXTRACTION_OUTPUT_PATH_UNSAFE") from exc
+    return output_dir
+
+
+def extract_ext02_monitor(run_dir: Path, monitor_name: str = MONITOR_NAME,
+                          output_subdir: str = "monitor_extraction") -> tuple[Path, Path, dict]:
     bundle = validate_completed_bundle(run_dir)
+    monitor_setup = monitor_setup_parameters(bundle["setup_validation"], monitor_name)
+    output_dir = extraction_output_directory(bundle["run_dir"], output_subdir)
     run_fsp = bundle["files"]["run_fsp"]
     h5_path = bundle["files"]["run_output_h5"]
     fsp_sha_before = sha256_file(run_fsp)
@@ -301,8 +346,8 @@ def extract_ext02_monitor(run_dir: Path) -> tuple[Path, Path, dict]:
     try:
         with lumapi.FDTD(hide=True) as fd:
             fd.load(str(run_fsp))
-            e_result = fd.getresult(MONITOR_NAME, "E")
-            h_result = fd.getresult(MONITOR_NAME, "H")
+            e_result = fd.getresult(monitor_name, "E")
+            h_result = fd.getresult(monitor_name, "H")
     except Exception as exc:
         raise MonitorExtractionError("NAMED_MONITOR_LOAD_OR_RESULT_MISSING") from exc
     normalized = validate_lumerical_results(e_result, h_result)
@@ -310,9 +355,8 @@ def extract_ext02_monitor(run_dir: Path) -> tuple[Path, Path, dict]:
     if sha256_file(run_fsp) != fsp_sha_before or sha256_file(h5_path) != h5_sha_before:
         raise MonitorExtractionError("BUNDLE_CHANGED_DURING_LOAD_ONLY_EXTRACTION")
 
-    output_dir = bundle["run_dir"] / "monitor_extraction"
-    npz_path = output_dir / (MONITOR_NAME + "_complex_fields_v1.npz")
-    metadata_path = output_dir / (MONITOR_NAME + "_complex_fields_v1.json")
+    npz_path = output_dir / (monitor_name + "_complex_fields_v1.npz")
+    metadata_path = output_dir / (monitor_name + "_complex_fields_v1.json")
     if npz_path.exists() or metadata_path.exists():
         raise MonitorExtractionError("EXTRACTION_OUTPUT_ALREADY_EXISTS")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -339,10 +383,11 @@ def extract_ext02_monitor(run_dir: Path) -> tuple[Path, Path, dict]:
             "attempt_id": ATTEMPT_ID,
             "run_id": bundle["run_id"],
             "route_version": ROUTE_VERSION,
-            "monitor_name": MONITOR_NAME,
-            "monitor_configured_z_nm": CONFIGURED_MONITOR_Z_NM,
+            "extractor_sha256": sha256_file(Path(__file__)),
+            "monitor_name": monitor_name,
+            "monitor_configured_z_nm": monitor_setup["configured_z_nm"],
             "monitor_actual_z_nm": (coords["z"] * 1e9).tolist(),
-            "reference_plane_nm": REFERENCE_PLANE_NM,
+            "reference_plane_nm": monitor_setup["reference_plane_nm"],
             "field_shape_xyzfc": normalized["field_shape"],
             "components": list(COMPONENTS),
             "wavelength_nm": (normalized["wavelength_m"] * 1e9).tolist(),
@@ -386,9 +431,14 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(
         description="Load-only extraction of the authorized EXT02 second E/H plane")
     parser.add_argument("--run-dir", required=True)
+    parser.add_argument("--monitor", choices=(EXISTING_MONITOR_NAME, MONITOR_NAME),
+                        default=MONITOR_NAME)
+    parser.add_argument("--output-subdir", default="monitor_extraction",
+                        help="relative output directory below the immutable run directory")
     args = parser.parse_args(argv)
     try:
-        npz_path, metadata_path, metadata = extract_ext02_monitor(Path(args.run_dir))
+        npz_path, metadata_path, metadata = extract_ext02_monitor(
+            Path(args.run_dir), monitor_name=args.monitor, output_subdir=args.output_subdir)
     except Exception as exc:
         print("MONITOR_EXTRACTION_FAIL:" + str(exc), file=sys.stderr)
         return 2
@@ -398,6 +448,8 @@ def main(argv=None) -> int:
         "attempt_id": metadata["attempt_id"],
         "run_id": metadata["run_id"],
         "monitor_name": metadata["monitor_name"],
+        "monitor_configured_z_nm": metadata["monitor_configured_z_nm"],
+        "reference_plane_nm": metadata["reference_plane_nm"],
         "monitor_actual_z_nm": metadata["monitor_actual_z_nm"],
         "h5_matched_monitor_group": metadata["h5_matched_monitor_group"],
         "npz_path": str(npz_path),

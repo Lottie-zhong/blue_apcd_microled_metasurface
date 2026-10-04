@@ -6,10 +6,17 @@ import h5py
 import numpy as np
 
 from extract_controlled_monitor_load_only_v1 import (
+    ATTEMPT_ID,
+    CASE_ID,
     COMPONENTS,
     EXPECTED_WAVELENGTH_NM,
     MonitorExtractionError,
+    EXISTING_MONITOR_NAME,
+    MONITOR_NAME,
+    extraction_output_directory,
     find_h5_monitor_group,
+    monitor_setup_parameters,
+    validate_bundle_identity,
     validate_lumerical_results,
 )
 
@@ -43,6 +50,50 @@ def _write_h5(path, e_result, omit=None, wrong_shape=False):
 
 
 class ControlledMonitorExtractionTests(unittest.TestCase):
+    def _identity_records(self, case_id=CASE_ID, attempt_id=ATTEMPT_ID):
+        run_id = "EXT02_DIAG_TEST"
+        manifest = {"case_id": case_id, "attempt_id": attempt_id, "run_id": run_id}
+        status = {"case_id": case_id, "attempt_id": attempt_id, "run_id": run_id}
+        validation = {"run_id": run_id}
+        pre_entry = {"run_id": run_id}
+        process = {"case_id": case_id, "attempt_id": attempt_id}
+        return manifest, status, validation, pre_entry, process
+
+    def test_bundle_identity_accepts_only_the_new_diagnostic_identity(self):
+        self.assertEqual(CASE_ID, "K6V1_EXT02_TWO_AIR_PLANES_DIAG")
+        self.assertEqual(validate_bundle_identity(*self._identity_records()), "EXT02_DIAG_TEST")
+        with self.assertRaisesRegex(MonitorExtractionError, "BUNDLE_CASE_ATTEMPT_MISMATCH"):
+            validate_bundle_identity(*self._identity_records(case_id="K6V1_EXT02"))
+        with self.assertRaisesRegex(MonitorExtractionError, "BUNDLE_CASE_ATTEMPT_MISMATCH"):
+            validate_bundle_identity(*self._identity_records(attempt_id="attempt_002"))
+
+    def test_extraction_output_path_is_confined_below_run_directory(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run_dir = Path(temp)
+            self.assertEqual(extraction_output_directory(run_dir, "monitor_extraction/v2"),
+                             run_dir.resolve() / "monitor_extraction" / "v2")
+            with self.assertRaisesRegex(MonitorExtractionError, "EXTRACTION_OUTPUT_PATH_UNSAFE"):
+                extraction_output_directory(run_dir, "../outside")
+            with self.assertRaisesRegex(MonitorExtractionError, "EXTRACTION_OUTPUT_PATH_UNSAFE"):
+                extraction_output_directory(run_dir, str(run_dir.parent / "outside"))
+
+    def test_authorized_monitor_setup_readbacks_are_case_bound(self):
+        setup = {"setup_readback": {
+            "added_monitor": {"name": MONITOR_NAME, "components": list(COMPONENTS),
+                              "enabled": 1.0, "monitor_type": "2D Z-normal",
+                              "z_nm": 2000.0, "reference_plane_nm": 1722.0},
+            "existing_monitor_readbacks": {
+                EXISTING_MONITOR_NAME: {"base": {
+                    "name": EXISTING_MONITOR_NAME, "components": list(COMPONENTS),
+                    "enabled": 1.0, "monitor_type": "2D Z-normal",
+                    "z_nm": 1800.0, "reference_plane_nm": 1722.0}}}}}
+        self.assertEqual(monitor_setup_parameters(setup, EXISTING_MONITOR_NAME),
+                         {"configured_z_nm": 1800.0, "reference_plane_nm": 1722.0})
+        self.assertEqual(monitor_setup_parameters(setup, MONITOR_NAME),
+                         {"configured_z_nm": 2000.0, "reference_plane_nm": 1722.0})
+        with self.assertRaisesRegex(MonitorExtractionError, "MONITOR_NOT_AUTHORIZED"):
+            monitor_setup_parameters(setup, "MON_PRENP")
+
     def test_six_complex_components_validate_and_keep_actual_coordinates(self):
         e, h = _results()
         normalized = validate_lumerical_results(e, h)

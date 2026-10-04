@@ -1,8 +1,8 @@
 # APCD GPU Production Runner V1 handoff
 
-**Status:** `APCD_GPU_PRODUCTION_RUNNER_V1_READY` for the existing 12-case route; EXT02 is setup-preflight ready only and has no solver truth.
+**Status:** APCD_GPU_PRODUCTION_RUNNER_V1_READY for the existing 12-case route; the independently authorized two-plane diagnostic has one completed entry, durable truth and extracted E/H fields; Coupling comparison is pending.
 
-**Frozen maintenance code HEAD:** `783bd5741eb5e6853a3be5532624f4282f9488b7`
+**Runner execution HEAD for the latest owner-approved diagnostic:** 472bf2ae4c5bc8faaea04adec13d0a441777fc3f
 **Previous qualified HEAD:** `578bdb714fe1455064a8b750968d3afac92b4a12`
 **Branch:** `codex/apcd-gpu-production-runner-v1`
 
@@ -139,3 +139,12 @@ Before the one future entry, recheck the exact EXT02 case/attempt authority, cur
 - Confirmation responses were not read; manufacturing authority unresolved. Queue21 hold remains active (`hold-4a6eab94af3b4a6d8510ba2fe32a5b66` ACTIVE, reason `SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT`, new_entry_hold=1, generation=26, control DB SHA256 `20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202`).
 - EXT02 history and truth are unchanged; diagnostic solver authorization remains false; prior setup proof is stale for the new authority digest and requires current-route preflight before future use.
 - Coupling status: `D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\reports\coupling\APCD_GPU_RUNNER_K6_V2_OWNER_ENROLLMENT_AND_SETUP_PREFLIGHT_V1`.
+
+
+## Project-owner recovery and one-entry EXT02 diagnostic (2026-10-04)
+
+This is the current status; it supersedes earlier setup-only EXT02 notes. Queue21 remains quarantined with physical entry count UNKNOWN. The owner-approved release event 4 released hold hold-4a6eab94af3b4a6d8510ba2fe32a5b66 at generation 27. Coupling registry SHA256 01d8073efb121c3fd667d7da72e33fdfd5f2b09964be4eacdbeabcd9b5582261; all 12 inventory items verify and the report records 32 focused tests passed. The registry's generation-26 hold is a creation-time snapshot.
+
+K6V1_EXT02_TWO_AIR_PLANES_DIAG / attempt_001 had exactly one run-one call and one solver entry, zero automatic replays. Execution HEAD 472bf2ae4c5bc8faaea04adec13d0a441777fc3f; state DONE; fresh LOAD and SCIENTIFIC_VALID PASS. FSP SHA256 68ae5cd34144bbe908fc57a5628ac041a4bef2be35058fc614133f58233b27df; H5 sidecar SHA256 3ae7828f30ec1edcd6e8493461064325163ecd3fa993bb7baefb7cf212551077; truth H5 SHA256 05495a2d202795fd215474ac63c461558269efed05581e528048ed383627eb25. MON_POSTNP and EXT02_POSTNP_DIAG_Z2000 were extracted from archived FSP in load-only mode and matched to H5 Monitor2 and Monitor4. Actual sample z values are 1801.9999999999932 nm and 2006.6041666666679 nm; both reference z=1722 nm.
+
+Coupling handoff manifest: D:\project\worktrees\blue_apcd_gpu_production_runner_v1\reports\apcd_gpu_production_runner_v1\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\EXT02_COUPLING_HANDOFF_V1.json (SHA256 2f41bfd493f4105b013ee4269033f789b0d86d007169a57557bee3262f325d75). Runner did not run the numerical comparison. Actual local mesh spacing at the two planes and PML inner face remain unknown. The diagnostic budget is consumed; no attempt_002 or V2 solver entry is authorized.
