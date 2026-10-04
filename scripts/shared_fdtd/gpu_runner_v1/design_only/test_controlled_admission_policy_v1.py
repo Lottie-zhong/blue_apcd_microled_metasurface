@@ -27,8 +27,11 @@ LEGACY_CASE_IDS = [
     "K6V1_S45", "K6V1_S32", "K6V1_S47", "K6V1_S33",
     "K6V1_S37", "K6V1_S48", "K6V1_S35", "K6V1_S39",
 ]
-PINNED_ADAPTER_SHA256 = "43fcc070e70510d45026f0dd7242ac38e65b7ea9967149649a4b1c09b848b3bb"
-PINNED_RUNNER_SHA256 = "c97f459ffb3434d1a9419d8f203de2ca34630748c92626ff3d967edcfbd4f6aa"
+PINNED_ADAPTER_SHA256 = "a9cfb11db584bf2ab96049b9066e198415bfba0863f29d0ed278230ffddc8579"
+PINNED_RUNNER_SHA256 = "2ac168beb55f1242b646365b5d4cd9b06926c7eb46d0d8df6cdbeb3b59a290fe"
+PINNED_CONTROLLED_POLICY_SHA256 = "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45"
+PINNED_CONTROLLED_AUTHORITY_SHA256 = "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35"
+PINNED_K6_V2_BUDGET_SHA256 = "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
 
 
 def dump_json(path: Path, value) -> None:
@@ -312,14 +315,21 @@ class ControlledAdmissionPolicyTests(unittest.TestCase):
             with self.assertRaisesRegex(AdmissionError, "SOURCE_MANIFEST_ARTIFACT_SET_INVALID"):
                 self.invoke(fixture, "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1")
 
-    def test_pinned_twelve_case_authority_and_production_files_remain_unchanged(self):
+    def test_pinned_twelve_case_authority_and_production_route_files_are_current(self):
         authority_path = REPO_ROOT / "APCD_GPU_PRODUCTION_RUNNER_V1_AUTHORITY.json"
         adapter_path = REPO_ROOT / "scripts/shared_fdtd/gpu_runner_v1/adapter.py"
         runner_path = REPO_ROOT / "scripts/shared_fdtd/gpu_runner_v1/runner.py"
+        controlled_dir = REPO_ROOT / "scripts/shared_fdtd/gpu_runner_v1"
+        policy_path = controlled_dir / "controlled_admission_policy_v1.json"
+        route_path = controlled_dir / "controlled_admission_authority_v1.json"
+        budget_path = controlled_dir / "k6_v2_development_solver_budget_v1.json"
         authority = json.loads(authority_path.read_text(encoding="utf-8"))
         self.assertEqual(authority["approved_stage1_case_ids"], LEGACY_CASE_IDS)
         self.assertEqual(file_sha256(adapter_path), PINNED_ADAPTER_SHA256)
         self.assertEqual(file_sha256(runner_path), PINNED_RUNNER_SHA256)
+        self.assertEqual(file_sha256(policy_path), PINNED_CONTROLLED_POLICY_SHA256)
+        self.assertEqual(file_sha256(route_path), PINNED_CONTROLLED_AUTHORITY_SHA256)
+        self.assertEqual(file_sha256(budget_path), PINNED_K6_V2_BUDGET_SHA256)
         adapter_text = adapter_path.read_text(encoding="utf-8")
         runner_text = runner_path.read_text(encoding="utf-8")
         # The adapter's new controlled route is opt-in. Legacy run manifests do

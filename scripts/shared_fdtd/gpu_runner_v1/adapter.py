@@ -17,7 +17,7 @@ import sys
 import time
 from pathlib import Path
 
-from runner import (CONTRACT_SHA256, EXPANSION_SHA256, MANIFEST_KEYS,
+from runner import (CONTRACT_SHA256, ENTRY_STATES, EXPANSION_SHA256, MANIFEST_KEYS,
                     MIN_GPU_FREE_MIB, PRODUCTION_RUNNER_ROOT, RunnerError,
                     atomic_json, read_json, run_one)
 
@@ -58,7 +58,7 @@ SETUP_LOAD_ONLY_SCHEMA = "PW_K6_5NM_FULL_PERIOD_MESH_LOAD_ONLY_VALIDATION_V1"
 CONTROLLED_POLICY_PATH = Path(__file__).resolve().parent / "controlled_admission_policy_v1.json"
 CONTROLLED_AUTHORITY_PATH = Path(__file__).resolve().parent / "controlled_admission_authority_v1.json"
 CONTROLLED_POLICY_SHA256 = "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45"
-CONTROLLED_AUTHORITY_SHA256 = "cc44603accaa173bf879ce7ae36f5400a4cea378c7aa07564def64336d26ac3f"
+CONTROLLED_AUTHORITY_SHA256 = "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35"
 
 
 def _sha256(path):
@@ -611,6 +611,39 @@ class NativeAdapter:
         if (_sha256(staged_fsp)!=manifest.get("pre_fsp_sha256")
                 or _sha256(staged_fsp)!=fresh.get("staged_fsp_sha256")):
             raise RunnerError("CONTROLLED_STAGED_FSP_CHANGED_BEFORE_ENTRY")
+        k6_budget_revalidation=None
+        if fresh.get("case_class")=="K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1":
+            grant=fresh.get("k6_v2_solver_entry_budget")
+            if not isinstance(grant,dict):
+                raise RunnerError("K6_V2_RUNTIME_BUDGET_GRANT_MISSING")
+            run_path=Path(run_dir).resolve(strict=True)
+            try:
+                runner_root=run_path.parents[3]
+            except IndexError as exc:
+                raise RunnerError("K6_V2_RUNNER_ROOT_UNRESOLVED") from exc
+            registry_path=runner_root/"registry.json"
+            if not registry_path.is_file():
+                raise RunnerError("K6_V2_RUNNER_REGISTRY_MISSING")
+            try:
+                registry_bytes=registry_path.read_bytes()
+                registry_sha=hashlib.sha256(registry_bytes).hexdigest()
+                registry=json.loads(registry_bytes.decode("utf-8"))
+            except (OSError,UnicodeError,ValueError) as exc:
+                raise RunnerError("K6_V2_RUNNER_REGISTRY_READ_FAILED") from exc
+            try:
+                counts=controlled.validate_k6_v2_registry_entry_budget(
+                    registry,grant=grant,case_id=manifest["case_id"],
+                    attempt_id=manifest["attempt_id"],entry_states=ENTRY_STATES)
+            except controlled.ControlledAdmissionError as exc:
+                raise RunnerError(str(exc)) from exc
+            k6_budget_revalidation={
+                "budget_id":grant["budget_id"],
+                "budget_sha256":grant["budget_sha256"],
+                "authorization_task_id":grant["authorization_task_id"],
+                "case_id":manifest["case_id"],"attempt_id":manifest["attempt_id"],
+                "role":grant["role"],"runner_registry_path":str(registry_path),
+                "runner_registry_sha256":registry_sha,**counts,
+            }
         gpu_snapshot=self.gpu_snapshot()
         try: free_mib=int(gpu_snapshot.get("free_mib",-1))
         except (AttributeError,TypeError,ValueError): free_mib=-1
@@ -643,6 +676,7 @@ class NativeAdapter:
             "gpu_quota_minimum_free_mib":MIN_GPU_FREE_MIB,"gpu_snapshot":gpu_snapshot,
             "gpu_snapshot_sha256":hashlib.sha256(json.dumps(gpu_snapshot,sort_keys=True,default=str).encode("utf-8")).hexdigest(),
             "authorized_extra_field_monitors":extra,"minimum_h5_monitor_groups":minimum_groups,
+            "k6_v2_solver_entry_budget_revalidation":k6_budget_revalidation,
             "owner_fence_checked_by_runner_core_before_and_after":True,
             "solver_run_called":False,"scientific_entry_performed":False,
         }

@@ -19,6 +19,11 @@ SETUP_SCHEMA = "APCD_GPU_RUNNER_RESOLVED_SETUP_CONTRACT_V1"
 PROOF_SCHEMA = "APCD_GPU_RUNNER_PREENTRY_SETUP_LOAD_PROOF_V1"
 GEOMETRY_SOURCE_SCHEMA = "APCD_GPU_RUNNER_K6_GEOMETRY_SOURCE_V1"
 DIAGNOSTIC_SOURCE_SCHEMA = "APCD_GPU_RUNNER_EXT02_DIAGNOSTIC_SOURCE_V1"
+K6_V2_SOLVER_BUDGET_SCHEMA = "APCD_GPU_RUNNER_K6_V2_DEVELOPMENT_SOLVER_BUDGET_V1"
+K6_V2_DEVELOPMENT_ROLES = {"DEVELOPMENT_LOCAL_AXIS", "DEVELOPMENT_GLOBAL"}
+K6_V2_SEALED_ROLES = {"SEALED_LOCAL_COMBINATION", "SEALED_CONFIRMATION_GLOBAL"}
+K6_V2_ENTRY_CASE_COUNT = 128
+K6_V2_SEALED_CASE_COUNT = 32
 PREFLIGHT_ENVELOPE_SCHEMA = "APCD_GPU_RUNNER_CONTROLLED_SETUP_PREFLIGHT_ENVELOPE_V1"
 LEGACY_CASE_IDS = (
     "K6V1_S21", "K6V1_S42", "K6V1_S36", "K6V1_S31",
@@ -221,6 +226,204 @@ def _trusted_ext02_source(provenance: dict, authority: dict, case_id: str,
         raise ControlledAdmissionError("EXT02_GEOMETRY_SOURCE_IDENTITY_MISMATCH")
 
 
+def _trusted_k6_v2_solver_entry_budget(authority: dict, route_rows: list[dict],
+                                           case_id: str, attempt_id: str,
+                                           geometry: list[int]) -> dict:
+    """Load the separately pinned one-entry budget; setup enrollment stays zero-entry."""
+    descriptor = _exact_keys(authority.get("k6_v2_development_solver_budget"),
+                             {"path", "sha256"}, "K6_SOLVER_ENTRY_NOT_AUTHORIZED")
+    raw_path = descriptor.get("path")
+    if not isinstance(raw_path, str) or not raw_path:
+        raise ControlledAdmissionError("K6_SOLVER_ENTRY_NOT_AUTHORIZED")
+    try:
+        budget_path = Path(raw_path)
+        cursor = budget_path
+        while cursor != cursor.parent:
+            if cursor.is_symlink():
+                raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_SYMLINK_FORBIDDEN")
+            cursor = cursor.parent
+        budget_path = budget_path.resolve(strict=True)
+    except ControlledAdmissionError:
+        raise
+    except OSError as exc:
+        raise ControlledAdmissionError("K6_SOLVER_ENTRY_NOT_AUTHORIZED") from exc
+    budget_sha = _sha(descriptor.get("sha256"), "K6_V2_SOLVER_BUDGET_HASH_INVALID")
+    if not budget_path.is_file() or file_sha256(budget_path) != budget_sha:
+        raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_HASH_MISMATCH")
+    budget = read_json(budget_path)
+    _exact_keys(budget, {
+        "schema", "budget_id", "route_version", "status", "authorization",
+        "frozen_inputs", "limits", "confirmation_controls",
+        "development_case_order_sha256", "development_cases",
+    }, "K6_V2_SOLVER_BUDGET_SCHEMA_INVALID")
+    if (budget.get("schema") != K6_V2_SOLVER_BUDGET_SCHEMA
+            or budget.get("route_version") != ROUTE_VERSION
+            or budget.get("status") != "OWNER_APPROVED_ACTIVE"):
+        raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_SCHEMA_INVALID")
+    authorization = _exact_keys(budget.get("authorization"), {
+        "task_id", "approval_kind", "approval_scope", "cryptographic_signature_claimed",
+    }, "K6_V2_SOLVER_BUDGET_AUTHORIZATION_INVALID")
+    if (authorization.get("task_id") != "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1"
+            or authorization.get("approval_kind") != "DIRECT_USER_INSTRUCTION"
+            or not isinstance(authorization.get("approval_scope"), str)
+            or authorization.get("cryptographic_signature_claimed") is not False):
+        raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_AUTHORIZATION_INVALID")
+    frozen = _exact_keys(budget.get("frozen_inputs"), {
+        "case_registration_package_sha256", "sha256_inventory_sha256",
+        "development_case_allowlist_sha256", "candidate_table_sha256",
+        "amendment_01_sha256", "base_contract_sha256",
+        "expansion_manifest_sha256", "coupling_source_head",
+    }, "K6_V2_FROZEN_INPUTS_INVALID")
+    for key in ("case_registration_package_sha256", "sha256_inventory_sha256",
+                "development_case_allowlist_sha256", "candidate_table_sha256",
+                "amendment_01_sha256", "base_contract_sha256",
+                "expansion_manifest_sha256"):
+        _sha(frozen.get(key), "K6_V2_FROZEN_INPUT_HASH_INVALID:" + key)
+    if (frozen["base_contract_sha256"] != authority.get("base_contract_sha256")
+            or frozen["expansion_manifest_sha256"] != authority.get("expansion_manifest_sha256")
+            or not isinstance(frozen.get("coupling_source_head"), str)
+            or not re.fullmatch(r"[0-9a-f]{40}", frozen["coupling_source_head"])):
+        raise ControlledAdmissionError("K6_V2_FROZEN_INPUT_AUTHORITY_MISMATCH")
+    limits = _exact_keys(budget.get("limits"), {
+        "max_total_entries", "max_entries_per_case", "post_entry_automatic_replays",
+    }, "K6_V2_SOLVER_ENTRY_LIMITS_INVALID")
+    if (type(limits.get("max_total_entries")) is not int
+            or limits["max_total_entries"] != K6_V2_ENTRY_CASE_COUNT
+            or type(limits.get("max_entries_per_case")) is not int
+            or limits["max_entries_per_case"] != 1
+            or type(limits.get("post_entry_automatic_replays")) is not int
+            or limits["post_entry_automatic_replays"] != 0):
+        raise ControlledAdmissionError("K6_V2_SOLVER_ENTRY_LIMITS_INVALID")
+
+    if not isinstance(route_rows, list):
+        raise ControlledAdmissionError("K6_GEOMETRY_AUTHORITY_INVALID")
+    route_by_identity = {}
+    development_route = []
+    sealed_route = []
+    for row in route_rows:
+        if not isinstance(row, dict):
+            raise ControlledAdmissionError("K6_GEOMETRY_AUTHORITY_INVALID")
+        role = row.get("role")
+        identity = (row.get("case_id"), row.get("attempt_id"))
+        if identity in route_by_identity:
+            raise ControlledAdmissionError("K6_GEOMETRY_AUTHORITY_DUPLICATE_IDENTITY")
+        route_by_identity[identity] = row
+        if role in K6_V2_DEVELOPMENT_ROLES:
+            development_route.append(row)
+        elif role in K6_V2_SEALED_ROLES:
+            sealed_route.append(row)
+        else:
+            raise ControlledAdmissionError("K6_V2_AUTHORITY_ROLE_NOT_CLASSIFIED")
+    if (len(route_rows) != K6_V2_ENTRY_CASE_COUNT + K6_V2_SEALED_CASE_COUNT
+            or len(development_route) != K6_V2_ENTRY_CASE_COUNT
+            or len(sealed_route) != K6_V2_SEALED_CASE_COUNT):
+        raise ControlledAdmissionError("K6_V2_AUTHORITY_SCOPE_COUNT_MISMATCH")
+    for row in development_route:
+        if (row.get("setup_admission_authorized") is not True
+                or row.get("solver_entry_authorized") is not False
+                or type(row.get("max_solver_entries")) is not int
+                or row.get("max_solver_entries") != 0
+                or row.get("training_authorized") is not False
+                or row.get("training_dataset_eligible") is not False):
+            raise ControlledAdmissionError("K6_V2_SETUP_AUTHORITY_MUST_REMAIN_ZERO_ENTRY")
+    for row in sealed_route:
+        if (row.get("solver_entry_authorized") is not False
+                or type(row.get("max_solver_entries")) is not int
+                or row.get("max_solver_entries") != 0
+                or row.get("training_authorized") is not False
+                or row.get("training_dataset_eligible") is not False):
+            raise ControlledAdmissionError("K6_V2_CONFIRMATION_SOLVER_AUTHORITY_INVALID")
+
+    controls = _exact_keys(budget.get("confirmation_controls"), {
+        "case_count", "case_ids", "solver_entry_authorized", "max_solver_entries",
+        "response_access_authorized", "training_fit_authorized",
+    }, "K6_V2_CONFIRMATION_CONTROLS_INVALID")
+    sealed_ids = [row["case_id"] for row in sealed_route]
+    controlled_ids = controls.get("case_ids")
+    if (type(controls.get("case_count")) is not int
+            or controls["case_count"] != K6_V2_SEALED_CASE_COUNT
+            or not isinstance(controlled_ids, list)
+            or len(controlled_ids) != K6_V2_SEALED_CASE_COUNT
+            or len(set(controlled_ids)) != K6_V2_SEALED_CASE_COUNT
+            or set(controlled_ids) != set(sealed_ids)
+            or controls.get("solver_entry_authorized") is not False
+            or type(controls.get("max_solver_entries")) is not int
+            or controls["max_solver_entries"] != 0
+            or controls.get("response_access_authorized") is not False
+            or controls.get("training_fit_authorized") is not False):
+        raise ControlledAdmissionError("K6_V2_CONFIRMATION_CONTROLS_INVALID")
+
+    cases = budget.get("development_cases")
+    if not isinstance(cases, list) or len(cases) != K6_V2_ENTRY_CASE_COUNT:
+        raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_CASE_COUNT_INVALID")
+    case_keys = {
+        "sequence_index", "case_id", "attempt_id", "role", "ordered_D_nm",
+        "geometry_hash_sha256", "geometry_authority_path", "geometry_authority_sha256",
+        "setup_admission_authorized", "solver_entry_authorized", "max_solver_entries",
+        "post_entry_automatic_replays", "training_dataset_eligible",
+    }
+    case_ids = []
+    for index, item in enumerate(cases, start=1):
+        item = _exact_keys(item, case_keys, "K6_V2_SOLVER_BUDGET_CASE_INVALID")
+        _identity(item.get("case_id"), item.get("attempt_id"))
+        if (type(item.get("sequence_index")) is not int or item["sequence_index"] != index
+                or item.get("attempt_id") != "attempt_001"
+                or item.get("role") not in K6_V2_DEVELOPMENT_ROLES
+                or item.get("setup_admission_authorized") is not True
+                or item.get("solver_entry_authorized") is not True
+                or type(item.get("max_solver_entries")) is not int
+                or item["max_solver_entries"] != 1
+                or type(item.get("post_entry_automatic_replays")) is not int
+                or item["post_entry_automatic_replays"] != 0
+                or item.get("training_dataset_eligible") is not False):
+            raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_CASE_INVALID")
+        item_geometry = validate_geometry(item.get("ordered_D_nm"))
+        _sha(item.get("geometry_hash_sha256"), "K6_V2_CASE_GEOMETRY_HASH_INVALID")
+        _sha(item.get("geometry_authority_sha256"), "K6_V2_CASE_AUTHORITY_HASH_INVALID")
+        matched = route_by_identity.get((item["case_id"], item["attempt_id"]))
+        if (matched is None or matched.get("role") != item["role"]
+                or matched.get("ordered_D_nm") != item_geometry
+                or matched.get("geometry_hash_sha256") != item["geometry_hash_sha256"]
+                or matched.get("sha256") != item["geometry_authority_sha256"]
+                or not isinstance(matched.get("path"), str)
+                or not _same_path(Path(matched["path"]), Path(item["geometry_authority_path"]))
+                or matched.get("setup_admission_authorized") is not True
+                or matched.get("solver_entry_authorized") is not False
+                or matched.get("max_solver_entries") != 0
+                or matched.get("training_dataset_eligible") is not False):
+            raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_CASE_AUTHORITY_MISMATCH")
+        case_ids.append(item["case_id"])
+    if len(set(case_ids)) != K6_V2_ENTRY_CASE_COUNT:
+        raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_DUPLICATE_CASE")
+    order_sha = hashlib.sha256("\n".join(case_ids).encode("ascii")).hexdigest()
+    if (budget.get("development_case_order_sha256") != order_sha
+            or case_ids[0] != "K6LDA1_DEV_D1_M05"
+            or set(case_ids) != {row["case_id"] for row in development_route}):
+        raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_CASE_ALLOWLIST_MISMATCH")
+    selected = [item for item in cases
+                if item.get("case_id") == case_id and item.get("attempt_id") == attempt_id]
+    if len(selected) != 1:
+        raise ControlledAdmissionError("K6_SOLVER_ENTRY_NOT_AUTHORIZED")
+    selected = selected[0]
+    if (selected.get("ordered_D_nm") != geometry
+            or route_by_identity.get((case_id, attempt_id)) is None):
+        raise ControlledAdmissionError("K6_V2_SOLVER_BUDGET_CASE_BINDING_MISMATCH")
+    return {
+        "schema": K6_V2_SOLVER_BUDGET_SCHEMA,
+        "budget_id": budget["budget_id"],
+        "budget_path": str(budget_path),
+        "budget_sha256": budget_sha,
+        "authorization_task_id": authorization["task_id"],
+        "case_id": case_id,
+        "attempt_id": attempt_id,
+        "role": selected["role"],
+        "max_entries_per_case": limits["max_entries_per_case"],
+        "max_total_entries": limits["max_total_entries"],
+        "post_entry_automatic_replays": limits["post_entry_automatic_replays"],
+        "authorized_case_ids": case_ids,
+    }
+
+
 def _trusted_k6_geometry(provenance: dict, authority: dict, case_id: str,
                          attempt_id: str, geometry: list[int], *,
                          preflight: bool = True) -> dict:
@@ -241,8 +444,12 @@ def _trusted_k6_geometry(provenance: dict, authority: dict, case_id: str,
     if (not isinstance(solver_authorized, bool) or type(max_entries) is not int
             or max_entries < 0):
         raise ControlledAdmissionError("K6_SOLVER_ENTRY_AUTHORITY_INVALID")
-    if not preflight and (solver_authorized is not True or max_entries < 1):
-        raise ControlledAdmissionError("K6_SOLVER_ENTRY_NOT_AUTHORIZED")
+    if solver_authorized is not False or max_entries != 0:
+        raise ControlledAdmissionError("K6_GEOMETRY_SOURCE_PERMISSION_MISMATCH")
+    budget_grant = None
+    if not preflight:
+        budget_grant = _trusted_k6_v2_solver_entry_budget(
+            authority, sources, case_id, attempt_id, geometry)
     source_path = Path(row["path"])
     source_sha = _sha(row.get("sha256"), "K6_GEOMETRY_AUTHORITY_HASH_INVALID")
     if (not source_path.is_file() or file_sha256(source_path) != source_sha
@@ -268,8 +475,66 @@ def _trusted_k6_geometry(provenance: dict, authority: dict, case_id: str,
     base_sha = _sha(source.get("base_setup_fsp_sha256"), "K6_BASE_SETUP_HASH_INVALID")
     if not base_path.is_file() or file_sha256(base_path) != base_sha:
         raise ControlledAdmissionError("K6_BASE_SETUP_SOURCE_CHANGED")
+    if budget_grant is not None:
+        source = dict(source)
+        source["_controlled_solver_entry_budget"] = budget_grant
     return source
 
+
+def validate_k6_v2_registry_entry_budget(registry: dict, *, grant: dict,
+                                         case_id: str, attempt_id: str,
+                                         entry_states: set[str]) -> dict:
+    """Count consumed entries from the locked Runner registry; fail closed on bad state."""
+    required = {
+        "schema", "budget_id", "budget_path", "budget_sha256", "authorization_task_id",
+        "case_id", "attempt_id", "role", "max_entries_per_case", "max_total_entries",
+        "post_entry_automatic_replays", "authorized_case_ids",
+    }
+    grant = _exact_keys(grant, required, "K6_V2_RUNTIME_BUDGET_GRANT_INVALID")
+    if (grant.get("schema") != K6_V2_SOLVER_BUDGET_SCHEMA
+            or grant.get("case_id") != case_id or grant.get("attempt_id") != attempt_id
+            or grant.get("role") not in K6_V2_DEVELOPMENT_ROLES
+            or grant.get("max_entries_per_case") != 1
+            or grant.get("max_total_entries") != K6_V2_ENTRY_CASE_COUNT
+            or grant.get("post_entry_automatic_replays") != 0
+            or not isinstance(entry_states, (set, frozenset))):
+        raise ControlledAdmissionError("K6_V2_RUNTIME_BUDGET_GRANT_INVALID")
+    authorized = grant.get("authorized_case_ids")
+    if (not isinstance(authorized, list) or len(authorized) != K6_V2_ENTRY_CASE_COUNT
+            or len(set(authorized)) != K6_V2_ENTRY_CASE_COUNT or case_id not in authorized):
+        raise ControlledAdmissionError("K6_V2_RUNTIME_BUDGET_ALLOWLIST_INVALID")
+    if (not isinstance(registry, dict)
+            or registry.get("schema") != "APCD_GPU_RUNNER_REGISTRY_V1"
+            or not isinstance(registry.get("runs"), list)):
+        raise ControlledAdmissionError("K6_V2_RUNNER_REGISTRY_INVALID")
+    entry_count = 0
+    case_entry_count = 0
+    known_nonentry = {"PENDING", "PRECHECK_PASS", "FAILED_PREENTRY"}
+    for row in registry["runs"]:
+        if not isinstance(row, dict):
+            raise ControlledAdmissionError("K6_V2_RUNNER_REGISTRY_INVALID")
+        if row.get("case_id") not in authorized:
+            continue
+        if row.get("attempt_id") != "attempt_001":
+            raise ControlledAdmissionError("K6_CASE_ENTRY_IDENTITY_CONFLICT")
+        state = row.get("state")
+        if state in entry_states:
+            entry_count += 1
+            if row.get("case_id") == case_id:
+                case_entry_count += 1
+        elif state not in known_nonentry:
+            raise ControlledAdmissionError("K6_V2_RUNNER_REGISTRY_STATE_INVALID")
+    if case_entry_count >= grant["max_entries_per_case"]:
+        raise ControlledAdmissionError("K6_CASE_ENTRY_BUDGET_EXHAUSTED")
+    if entry_count >= grant["max_total_entries"]:
+        raise ControlledAdmissionError("K6_TOTAL_ENTRY_BUDGET_EXHAUSTED")
+    return {
+        "total_entries_before": entry_count,
+        "total_entries_limit": grant["max_total_entries"],
+        "case_entries_before": case_entry_count,
+        "case_entries_limit": grant["max_entries_per_case"],
+        "remaining_total_entries_before": grant["max_total_entries"] - entry_count,
+    }
 
 def validate_ext02_entry_budget(entry: dict, *, preflight: bool) -> int:
     """Fail closed on EXT02's per-attempt entry cap and replay policy."""
@@ -528,6 +793,9 @@ def validate_case_pack(*, route_version: str, case_class: str, case_id: str,
         "base_setup_fsp_sha256": (authority.get("ext02", {}).get("base_setup_fsp_sha256")
                                    if case_class.startswith("EXT02_")
                                    else geometry_authority.get("base_setup_fsp_sha256")),
+        "k6_v2_solver_entry_budget": (geometry_authority.get("_controlled_solver_entry_budget")
+                                      if case_class == "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1"
+                                      and not preflight else None),
         "solver_entry_performed": False,
         "post_entry_truth_proved": False,
         "post_entry_truth_required_after_solver": True,
