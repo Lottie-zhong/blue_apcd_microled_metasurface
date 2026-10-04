@@ -1,0 +1,98 @@
+{
+  "task": "COUPLING_ML_K6_V2_TRAINING_AND_VALIDATION_PIPELINE_IMPLEMENTATION_V1",
+  "execution_scope": {
+    "solver_entries": 0,
+    "production_training_fits": 0,
+    "standalone_p_scale_fits": 0,
+    "confirmation_reveals": 0,
+    "confirmation_evaluations": 0,
+    "new_fsps": 0
+  },
+  "captured_runs": [
+    {
+      "suite": "ingestion + confirmation after final freeze gate",
+      "command_scope": [
+        "test_confirmation.py",
+        "test_ingest.py"
+      ],
+      "result": "PASS",
+      "tests": 13,
+      "elapsed_seconds": 2.54
+    },
+    {
+      "suite": "training-focused",
+      "command_scope": [
+        "test_models_training.py"
+      ],
+      "result": "PASS",
+      "tests": 8
+    },
+    {
+      "suite": "pipeline-folder before confirmation module addition",
+      "command_scope": [
+        "tests/coupling_ml/k6_v2_pipeline"
+      ],
+      "result": "PASS",
+      "tests": 32
+    },
+    {
+      "suite": "two-plane and local-affine focused",
+      "command_scope": [
+        "test_physics_evaluators.py"
+      ],
+      "result": "PASS",
+      "tests": 10
+    },
+    {
+      "suite": "module compilation",
+      "command_scope": [
+        "scripts/coupling_ml/k6_v2_pipeline/*.py"
+      ],
+      "result": "PASS"
+    },
+    {
+      "suite": "final explicit current six-module pipeline suite",
+      "command_scope": [
+        "test_ingest.py",
+        "test_confirmation.py",
+        "test_models_training.py",
+        "test_physics_evaluators.py",
+        "test_h1.py",
+        "test_validation.py"
+      ],
+      "result": "PASS",
+      "tests": 34,
+      "elapsed_seconds": 20.15,
+      "environment": "RCP_LCP; OMP/MKL/OpenBLAS threads pinned to 1"
+    },
+    {
+      "suite": "final explicit current six-module pipeline suite after whitespace cleanup",
+      "command_scope": [
+        "test_ingest.py",
+        "test_confirmation.py",
+        "test_models_training.py",
+        "test_physics_evaluators.py",
+        "test_h1.py",
+        "test_validation.py"
+      ],
+      "result": "PASS",
+      "tests": 34,
+      "elapsed_seconds": 19.54,
+      "environment": "RCP_LCP; OMP/MKL/OpenBLAS threads pinned to 1"
+    }
+  ],
+  "synthetic_test_only_work": {
+    "completed_training_suite_invocations": 4,
+    "krr_fits": 4,
+    "mlp_fits": 8,
+    "mlp_optimizer_updates": 40,
+    "local_affine_ols_fits": 52,
+    "note": "Captured runs only: four completed training-suite invocations (1 KRR + 2 MLP each; 10 MLP optimizer updates each) and four physics/local-affine suite invocations (13 OLS fits each). An earlier package-wide attempt produced no captured output and was stopped; any partial synthetic side effects from that attempt are unobservable and are not counted. No production fits occurred."
+  },
+  "pending_rerun": {
+    "result": "STOPPED_AFTER_NO_OUTPUT",
+    "observed_runtime_minutes": 15,
+    "note": "A task-owned remote pytest subprocess was stopped after remaining active without returning buffered output. A fresh explicit six-module suite then passed 34/34. This abandoned attempt is not counted as a passing test."
+  },
+  "confirmation_data_access": "No real confirmation response values read; fixture-only arrays used in unit tests."
+}
