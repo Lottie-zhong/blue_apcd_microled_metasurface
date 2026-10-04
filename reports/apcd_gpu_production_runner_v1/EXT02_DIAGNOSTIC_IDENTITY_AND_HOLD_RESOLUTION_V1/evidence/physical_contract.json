@@ -1,0 +1,135 @@
+{
+  "materials": {
+    "mdc_sio2": "APCD_SIO2_NATIVE_M1",
+    "mdc_tio2": "APCD_TIO2_NATIVE_M1",
+    "substrate": "APCD_GAN_NATIVE_M1",
+    "superstrate": "Air"
+  },
+  "monitors": {
+    "diagnostic": {
+      "components": [
+        "Ex",
+        "Ey",
+        "Ez",
+        "Hx",
+        "Hy",
+        "Hz"
+      ],
+      "monitor_type": "2D Z-normal",
+      "name": "EXT02_POSTNP_DIAG_Z2000",
+      "nominal_sample_z_nm": 2000.0,
+      "reference_plane_nm": 1722.0,
+      "sampling": {
+        "down_sample": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "output_power": true,
+        "override_global_monitor_settings": true,
+        "spatial_interpolation": "nearest mesh cell",
+        "use_source_limits": true,
+        "use_wavelength_spacing": true,
+        "wavelength_center_nm": 450.0,
+        "wavelength_span_nm": 20.0
+      },
+      "span_nm": {
+        "x": 1740.0,
+        "y": 290.0
+      },
+      "type": "DFTMonitor",
+      "wavelengths_nm": {
+        "points": 21,
+        "start": 440,
+        "step": 1,
+        "stop": 460
+      }
+    },
+    "input": "MON_IN",
+    "output": "MON_POSTNP",
+    "pre": "MON_PRENP"
+  },
+  "references_nm": {
+    "MON_IN": -50.0,
+    "MON_POSTNP": 1722.0,
+    "MON_PRENP": 1202.0
+  },
+  "samples_nm": {
+    "MON_IN": -100.0,
+    "MON_POSTNP": 1800.0,
+    "MON_PRENP": 1150.0
+  },
+  "stack_layers": [
+    [
+      "APCD_TIO2_NATIVE_M1",
+      44.0
+    ],
+    [
+      "APCD_SIO2_NATIVE_M1",
+      79.0
+    ],
+    [
+      "APCD_TIO2_NATIVE_M1",
+      44.0
+    ],
+    [
+      "APCD_SIO2_NATIVE_M1",
+      79.0
+    ],
+    [
+      "APCD_TIO2_NATIVE_M1",
+      44.0
+    ],
+    [
+      "APCD_SIO2_NATIVE_M1",
+      316.0
+    ],
+    [
+      "APCD_TIO2_NATIVE_M1",
+      44.0
+    ],
+    [
+      "APCD_SIO2_NATIVE_M1",
+      79.0
+    ],
+    [
+      "APCD_TIO2_NATIVE_M1",
+      44.0
+    ],
+    [
+      "APCD_SIO2_NATIVE_M1",
+      79.0
+    ],
+    [
+      "APCD_TIO2_NATIVE_M1",
+      44.0
+    ],
+    [
+      "APCD_SIO2_NATIVE_M1",
+      79.0
+    ]
+  ],
+  "wavelengths_nm": [
+    440,
+    441,
+    442,
+    443,
+    444,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455,
+    456,
+    457,
+    458,
+    459,
+    460
+  ]
+}

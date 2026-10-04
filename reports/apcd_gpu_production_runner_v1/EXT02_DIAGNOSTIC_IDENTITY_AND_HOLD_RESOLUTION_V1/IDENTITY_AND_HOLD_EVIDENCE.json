@@ -1,0 +1,231 @@
+{
+  "captured_at_utc": "2026-10-04T06:10:26.749958+00:00",
+  "execution_counts": {
+    "fdtd_runs_by_this_task": 0,
+    "replays_by_this_task": 0,
+    "solver_entries_by_this_task": 0
+  },
+  "historical_production_identity": {
+    "attempt_id": "attempt_001",
+    "case_id": "K6V1_EXT02",
+    "entry_count": 1,
+    "entry_event_id": 1680,
+    "entry_slot_id": "GLOBAL_SLOT_3",
+    "entry_timestamp_utc": "2026-09-25T07:08:37.882954+00:00",
+    "fencing_generation": 7,
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "pre_fsp_sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143",
+    "production_truth_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_EXT02\\attempt_001\\terminal.json",
+    "queue_id": 52,
+    "queue_state": "RELEASED",
+    "truth_sha256": "a75a081c75d1fa3ed5e483fe8dccfd5906fb1e7b2e065fc6810aea1580a87ded"
+  },
+  "live_global_hold": {
+    "active_hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+    "admission_control": {
+      "control_generation": 26,
+      "control_id": 1,
+      "health_status": "PASS",
+      "new_entry_hold": 1,
+      "temporary_runtime_cap": null,
+      "updated_at": "2026-09-30T14:40:13.441098+00:00"
+    },
+    "created_at": "2026-09-30T14:40:13.441098+00:00",
+    "created_by": "Shared V3 production containment / call v3-containment-c1481e55-20260930",
+    "database_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "database_sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "free_text_reason": "Containment after S35 attempt_001 dispatch was denied pre-entry by the global DUPLICATE_SCIENTIFIC_ENTRY_COUNT=1. The sole duplicate is the historically unresolved queue21 pair (events 1499, 1506); no new solver entry occurred. New entries remain held pending an explicitly authorized durable disposition/rebuild.",
+    "hold_release_or_database_write_performed": false,
+    "linked_incident_ids": [
+      "queue21-lineage-not-recoverable"
+    ],
+    "metadata": {
+      "authority_json_sha256": "b511106445fbba220779824d8f19fa4472ce6f9ff43067916a11e8fc1c77d865",
+      "call_id": "v3-containment-c1481e55-20260930",
+      "dispatch_result": "EMPTY_PRE_ENTRY_ADMISSION_HEALTH_BLOCKED",
+      "duplicate_metric_value": 1,
+      "preentry_adjudication_sha256": "d8719755ed1f668919dda59daa3abcda7eb5cce4e4c3f075ec010f5f09d49c8f"
+    },
+    "prior_hold_release_is_current": false,
+    "reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+    "release_authority_hash": null,
+    "release_requirements": {
+      "dispatch_prohibited": true,
+      "historical_duplicate_metric_must_not_be_cleared_or_waived": true,
+      "no_solver_entry_during_failed_dispatch": true
+    },
+    "released_at": null,
+    "released_by": null,
+    "scope": "GLOBAL",
+    "status": "ACTIVE"
+  },
+  "new_diagnostic_identity": {
+    "attempt_id": "attempt_001",
+    "branch_queue_rows": 0,
+    "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+    "current_max_solver_entries_after_handoff": 0,
+    "identity_enrollment_status": "APPROVED_FOR_SETUP_PREFLIGHT_ONLY",
+    "identity_link_manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\identity_link_manifest.json",
+    "lease_events": 0,
+    "linked_historical_case_id": "K6V1_EXT02",
+    "old_overlay_future_start_authorization": "REVOKED_BY_SUCCESSOR_AUTHORITY",
+    "post_entry_automatic_replays": 0,
+    "proposed_future_solver_entries": 1,
+    "setup_delta": "append only EXT02_POSTNP_DIAG_Z2000; preserve MON_POSTNP",
+    "solver_entry_authorized": false,
+    "training_dataset_eligible": false
+  },
+  "remote": {
+    "hostname": "DESKTOP-NNE313K",
+    "user": "desktop-nne313k\\dell"
+  },
+  "runner": {
+    "authority_version": "APCD_GPU_RUNNER_CONTROLLED_ADMISSION_AUTHORITY_V1",
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "code_hashes": {
+      "adapter.py": "a9098bf77cc4ff4e62e3a87ef3029ec4bf4e16b4f94d64d008b062c2ac894e00",
+      "controlled_admission_authority_v1.json": "15377a9fb5957c211026fadfcab833213bab99dc20129e8d17efd790af88b02e",
+      "controlled_admission_policy_v1.json": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
+      "controlled_admission_v1.py": "f23de4a1ab5ac204980e7c4c21febdd7127e5e06ed1d2a3d7c07c85ff38c5ac6",
+      "test_controlled_admission_v1.py": "201597f778679343e56c3306822ea089b36543cacac8d5598b748b12645a227b"
+    },
+    "head_before_task_commit": "6d472a967815915f8e2a37b275af054b20f1354c",
+    "identity_enrollment": {
+      "approval_basis": "explicit current task approval for the independent diagnostic identity; solver entry remains unauthorized",
+      "attempt_id": "attempt_001",
+      "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+      "historical_source_attempt_id": "attempt_001",
+      "historical_source_case_id": "K6V1_EXT02",
+      "old_overlay_identity": {
+        "attempt_id": "attempt_001",
+        "case_id": "K6V1_EXT02",
+        "future_start_authorization": "REVOKED_BY_SUCCESSOR_AUTHORITY",
+        "historical_entry_and_truth": "PRESERVED_UNCHANGED"
+      },
+      "post_entry_automatic_replays": 0,
+      "proposed_future_solver_entries": 1,
+      "purpose": "cross-height E/H label extraction consistency only",
+      "schema": "APCD_GPU_RUNNER_EXT02_DIAGNOSTIC_IDENTITY_ENROLLMENT_V1",
+      "solver_entry_authorized": false,
+      "status": "APPROVED_FOR_SETUP_PREFLIGHT_ONLY",
+      "training_dataset_eligible": false
+    },
+    "route_version": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1",
+    "upstream_ahead_behind_before_task_commit": "0\t0"
+  },
+  "schema": "APCD_GPU_EXT02_DIAGNOSTIC_IDENTITY_AND_HOLD_EVIDENCE_V1",
+  "setup_and_preflight": {
+    "artifact_hashes": {
+      "control_database_bytes": 1478656,
+      "control_database_sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+      "diagnostic_contract_sha256": "58ac1ac81fc4a0da61784d62bf80c48fc21d6e119ee96e5941fc1139b5954e68",
+      "diagnostic_formal_preflight_envelope_sha256": "c9328dbe66e7816ebdeec6086046636d7f8b204f52558d73819d4ad1d4e5e7cf",
+      "diagnostic_formal_preflight_result_sha256": "697ceebdeb82ebdddfe026f72e7f558ad7f28c7ed3185222240b2f208727530f",
+      "diagnostic_identity_link_manifest_sha256": "de864bc6e85a8bb455766a5aaa06a4212370f87fe93f525a3aebd1e1a51a5d65",
+      "diagnostic_setup_fingerprint": null,
+      "diagnostic_setup_load_proof_sha256": "245d4cfc34ad7c0069c7b831d3fc4df862694d4fee4687268ea6310b522aee37",
+      "diagnostic_sha256_inventory_sha256": "23390e9f5daef55208edd2c49d098324d36cd9e1377fd23b1f525435be7cb731",
+      "diagnostic_source_fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30",
+      "diagnostic_source_manifest_sha256": "5aa33b546145ee92dc24d39bf47030661f03afb8b5da7817850c32f97e4fb9aa",
+      "diagnostic_staged_fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30",
+      "historical_entry_event_id": 1680,
+      "historical_entry_fencing_generation": 7,
+      "historical_entry_slot_id": "GLOBAL_SLOT_3",
+      "historical_entry_timestamp_utc": "2026-09-25T07:08:37.882954+00:00",
+      "historical_production_physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "historical_production_pre_fsp_sha256": "99248d02495d8a3124f712bdaf2291c5a058cfd4a6a85ace129b096381b98143",
+      "historical_production_terminal_sha256": "a75a081c75d1fa3ed5e483fe8dccfd5906fb1e7b2e065fc6810aea1580a87ded",
+      "runner_adapter_sha256": "a9098bf77cc4ff4e62e3a87ef3029ec4bf4e16b4f94d64d008b062c2ac894e00",
+      "runner_authority_sha256": "15377a9fb5957c211026fadfcab833213bab99dc20129e8d17efd790af88b02e",
+      "runner_policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
+      "runner_test_sha256": "201597f778679343e56c3306822ea089b36543cacac8d5598b748b12645a227b",
+      "runner_validator_sha256": "f23de4a1ab5ac204980e7c4c21febdd7127e5e06ed1d2a3d7c07c85ff38c5ac6"
+    },
+    "artifact_paths": {
+      "SHA256_INVENTORY.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\SHA256_INVENTORY.json",
+      "authorization_status.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\authorization_status.json",
+      "case_provenance_source.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\case_provenance_source.json",
+      "five_nm_case_spec.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\five_nm_case_spec.json",
+      "formal_preflight_envelope.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\formal_preflight_envelope.json",
+      "formal_preflight_result.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\formal_preflight_result.json",
+      "identity_link_manifest.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\identity_link_manifest.json",
+      "physical_contract.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\physical_contract.json",
+      "pre_entry_setup_load_proof.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\pre_entry_setup_load_proof.json",
+      "resolved_setup.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\resolved_setup.json",
+      "source_manifest.json": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\source_manifest.json"
+    },
+    "attempt_id": "attempt_001",
+    "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+    "inventory_mismatches": [],
+    "inventory_rows_verified": 13,
+    "post_entry_truth_proved": false,
+    "preflight_result": "PASS",
+    "review_copy_hashes": {
+      "SHA256_INVENTORY.json": {
+        "sha256": "23390e9f5daef55208edd2c49d098324d36cd9e1377fd23b1f525435be7cb731",
+        "size_bytes": 4550,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\SHA256_INVENTORY.json"
+      },
+      "authorization_status.json": {
+        "sha256": "baeb43cd658424c935d514ac530602610397696a4fd69ef3b23831d14388676c",
+        "size_bytes": 747,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\authorization_status.json"
+      },
+      "case_provenance_source.json": {
+        "sha256": "a0e101e3dcc1dcc58fca409d08343881f57f298b646000bc44a32006b666cfe7",
+        "size_bytes": 1573,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\case_provenance_source.json"
+      },
+      "five_nm_case_spec.json": {
+        "sha256": "5459a4bb1407e4e115a3be5149881968df772f7cc26fbd234ba066595435a068",
+        "size_bytes": 5146,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\five_nm_case_spec.json"
+      },
+      "formal_preflight_envelope.json": {
+        "sha256": "c9328dbe66e7816ebdeec6086046636d7f8b204f52558d73819d4ad1d4e5e7cf",
+        "size_bytes": 1828,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\formal_preflight_envelope.json"
+      },
+      "formal_preflight_result.json": {
+        "sha256": "697ceebdeb82ebdddfe026f72e7f558ad7f28c7ed3185222240b2f208727530f",
+        "size_bytes": 32409,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\formal_preflight_result.json"
+      },
+      "identity_link_manifest.json": {
+        "sha256": "de864bc6e85a8bb455766a5aaa06a4212370f87fe93f525a3aebd1e1a51a5d65",
+        "size_bytes": 1526,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\identity_link_manifest.json"
+      },
+      "physical_contract.json": {
+        "sha256": "58ac1ac81fc4a0da61784d62bf80c48fc21d6e119ee96e5941fc1139b5954e68",
+        "size_bytes": 2236,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\physical_contract.json"
+      },
+      "pre_entry_setup_load_proof.json": {
+        "sha256": "245d4cfc34ad7c0069c7b831d3fc4df862694d4fee4687268ea6310b522aee37",
+        "size_bytes": 67751,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\pre_entry_setup_load_proof.json"
+      },
+      "resolved_setup.json": {
+        "sha256": "6c27132d3a9e247073654073b1357d53d0d30191d31a9011a2c8b04813cf78c1",
+        "size_bytes": 968,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\resolved_setup.json"
+      },
+      "source_manifest.json": {
+        "sha256": "5aa33b546145ee92dc24d39bf47030661f03afb8b5da7817850c32f97e4fb9aa",
+        "size_bytes": 1938,
+        "source_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\source_manifest.json"
+      }
+    },
+    "route_version": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1",
+    "scientific_entry_count": 0,
+    "setup_load_only_pass": true,
+    "setup_load_only_proof_result": "PASS",
+    "solver_invocations": 0,
+    "solver_run_called": false,
+    "source_manifest_identity": [
+      "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+      "attempt_001"
+    ]
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "attempt_id": "attempt_001",
+  "backend_type": "GPU",
+  "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+  "estimated_commit_bytes": 12000000000,
+  "estimated_peak_ram_bytes": 8000000000,
+  "extension_manifest": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_FIXED_MDC_UNBIASED_EXPANSION_MANIFEST_V1.json",
+  "extension_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+  "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+  "gpu_resource_name": "GPU license audit",
+  "integrated_pw": true,
+  "manufacturability_authority": "UNRESOLVED",
+  "mesh_contract_sha256": "3e8a6eafe2cbb5c8591af381b1f416de35560dc3018ac8ad2cf284528fe16213",
+  "monitor_contract_sha256": "a84d8526889084f2b3b09022402ca93b2947939cb744f071a4b19bc6eb09172f",
+  "mpi_ranks": 1,
+  "ordered_D_nm": [
+    220,
+    120,
+    155,
+    100,
+    105,
+    110
+  ],
+  "physical_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "pre_fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\setup\\runtime.fsp",
+  "pre_fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30",
+  "production_science": true,
+  "pw_contract": {
+    "H_nm": 500,
+    "K": 6,
+    "Lambda_x_nm": 1740,
+    "Lambda_y_nm": 290,
+    "boundary_contract": {
+      "x": "Periodic",
+      "y": "Periodic",
+      "z_max": "PML",
+      "z_min": "PML"
+    },
+    "contract": {
+      "materials": {
+        "mdc_sio2": "APCD_SIO2_NATIVE_M1",
+        "mdc_tio2": "APCD_TIO2_NATIVE_M1",
+        "substrate": "APCD_GAN_NATIVE_M1",
+        "superstrate": "Air"
+      },
+      "monitors": {
+        "input": "MON_IN",
+        "output": "MON_POSTNP",
+        "pre": "MON_PRENP"
+      },
+      "references_nm": {
+        "MON_IN": -50.0,
+        "MON_POSTNP": 1722.0,
+        "MON_PRENP": 1202.0
+      },
+      "samples_nm": {
+        "MON_IN": -100.0,
+        "MON_POSTNP": 1800.0,
+        "MON_PRENP": 1150.0
+      },
+      "stack_layers": [
+        [
+          "APCD_TIO2_NATIVE_M1",
+          44.0
+        ],
+        [
+          "APCD_SIO2_NATIVE_M1",
+          79.0
+        ],
+        [
+          "APCD_TIO2_NATIVE_M1",
+          44.0
+        ],
+        [
+          "APCD_SIO2_NATIVE_M1",
+          79.0
+        ],
+        [
+          "APCD_TIO2_NATIVE_M1",
+          44.0
+        ],
+        [
+          "APCD_SIO2_NATIVE_M1",
+          316.0
+        ],
+        [
+          "APCD_TIO2_NATIVE_M1",
+          44.0
+        ],
+        [
+          "APCD_SIO2_NATIVE_M1",
+          79.0
+        ],
+        [
+          "APCD_TIO2_NATIVE_M1",
+          44.0
+        ],
+        [
+          "APCD_SIO2_NATIVE_M1",
+          79.0
+        ],
+        [
+          "APCD_TIO2_NATIVE_M1",
+          44.0
+        ],
+        [
+          "APCD_SIO2_NATIVE_M1",
+          79.0
+        ]
+      ],
+      "wavelengths_nm": [
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460
+      ]
+    },
+    "contract_id": "APCD_PW_PERIODIC_PLANAR_5NM_GPU_PRODUCTION_V3",
+    "contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "energy_accounting": "R/T/A with complex incident-power proxy and existing admitted 5nm production TMM stack",
+    "mesh_convergence": "5NM_GPU_PRODUCTION_SCHEMA_V3 admitted seed contract; no contract changes",
+    "modal_normalization": "PW_COMPLEX_FLOQUET_STATE_V1 complex lossy local-medium forward/backward amplitudes",
+    "p_nm": 290,
+    "source": "GaN to air +z normal-incidence X-pol",
+    "spacer_nm": 237,
+    "wavelengths_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ]
+  },
+  "resource_class": "HEAVY",
+  "resource_policy": {
+    "gpu_physical_concurrency_cap": 3,
+    "pw_integrated_max_concurrent": 2
+  },
+  "resource_request": {
+    "estimated_commit_bytes": 12000000000,
+    "estimated_peak_ram_bytes": 8000000000,
+    "integrated_pw": true,
+    "mpi_ranks": 1,
+    "resource_class": "HEAVY",
+    "safety_margin_ratio": 0.25,
+    "threads": 1
+  },
+  "schema": "PW_K6_STAGE1_CASE_V1",
+  "scientific_entry_allowed": false,
+  "source_candidate_id": "K6V1_EXT02",
+  "task": "PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1",
+  "temporal_contract_sha256": "f1abd94a21e12207fc48c6b66660526841b999e8b8497d98994cdff9837683fd",
+  "threads": 1,
+  "diagnostic_identity_source_case_id": "K6V1_EXT02",
+  "diagnostic_identity_source_attempt_id": "attempt_001",
+  "training_dataset_eligible": false
+}

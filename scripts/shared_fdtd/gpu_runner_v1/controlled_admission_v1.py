@@ -264,7 +264,8 @@ def validate_case_pack(*, route_version: str, case_class: str, case_id: str,
                        source_manifest_path: str, source_manifest_sha256: str,
                        policy: dict, authority: dict, policy_sha256: str,
                        authority_sha256: str, case_root: Path,
-                       base_contract: dict, base_contract_sha256: str) -> dict:
+                       base_contract: dict, base_contract_sha256: str,
+                        preflight: bool = True) -> dict:
     """Validate all immutable files and route authorization; does not open or run FDTD."""
     if route_version != ROUTE_VERSION:
         raise ControlledAdmissionError("CONTROLLED_ROUTE_VERSION_UNSUPPORTED")
@@ -349,6 +350,8 @@ def validate_case_pack(*, route_version: str, case_class: str, case_id: str,
                 or geometry != ext.get("ordered_D_nm")
                 or authority.get("ext02", {}).get("protocol_sha256") != _expected_monitor(policy)["protocol_sha256"]):
             raise ControlledAdmissionError("EXT02_CASE_NOT_AUTHORIZED")
+        if not preflight and ext.get("solver_entry_authorized") is not True:
+            raise ControlledAdmissionError("EXT02_SOLVER_ENTRY_NOT_AUTHORIZED")
         if contract_sha == base_contract_sha256:
             raise ControlledAdmissionError("EXT02_CONTRACT_HASH_REUSED_OR_UNCHANGED")
         _compare_ext02_contract(base_contract, contract, policy)
@@ -579,7 +582,7 @@ def validate_controlled_envelope(envelope: dict, *, manifest_keys: set[str],
         policy_sha256=expected_policy_sha256,
         authority_sha256=expected_authority_sha256,
         case_root=case_root, base_contract=read_json(base_contract_path),
-        base_contract_sha256=base_contract_sha)
+        base_contract_sha256=base_contract_sha, preflight=preflight)
     context["policy"] = policy
     context["authority"] = authority
     context["policy_path"] = str(Path(policy_path).resolve())

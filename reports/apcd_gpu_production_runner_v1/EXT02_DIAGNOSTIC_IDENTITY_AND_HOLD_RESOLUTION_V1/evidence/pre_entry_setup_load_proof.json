@@ -1,0 +1,2330 @@
+{
+  "attempt_id": "attempt_001",
+  "bootstrap_note": "temporary identity rebind of byte-identical setup proof; this bootstrap proof must be superseded by a fresh formal preflight before final inventory",
+  "bootstrap_source_proof_case_id": "K6V1_EXT02",
+  "bootstrap_source_proof_sha256": "2e97596b983df1b11d3d0a06309df41cabff6c7076917a30ebf446459f3ce386",
+  "bootstrap_source_proof_superseded": true,
+  "case_class": "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1",
+  "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+  "created_at_utc": "2026-10-04T05:57:21.143858+00:00",
+  "fresh_formal_load_preflight_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02_TWO_AIR_PLANES_DIAG\\attempt_001\\preflight_attempts\\bootstrap_preflight_01.json",
+  "fresh_formal_load_preflight_sha256": "6af442ad369e35aafb1e850142399297b4c71c6502ac468c6d5c07d9c38f3c85",
+  "load_only_pass": true,
+  "physical_contract_semantic_sha256": "b049c2d7f5f4418abd526599157d5973a942a22f080a7a77a974403a03b320e6",
+  "physical_contract_sha256": "58ac1ac81fc4a0da61784d62bf80c48fc21d6e119ee96e5941fc1139b5954e68",
+  "post_entry_truth_proved": false,
+  "post_entry_truth_required_after_solver": true,
+  "result": "PASS",
+  "route_authority_sha256": "15377a9fb5957c211026fadfcab833213bab99dc20129e8d17efd790af88b02e",
+  "route_policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
+  "route_version": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1",
+  "schema": "APCD_GPU_RUNNER_PREENTRY_SETUP_LOAD_PROOF_V1",
+  "scientific_entry_count": 0,
+  "setup_contract_fingerprint_sha256": "441020e420c609dffb6ffa28fbe8df6648385bdee9ca2373550252d7ce170262",
+  "setup_readback": {
+    "actual_local_mesh_spacing_at_z2000_nm": null,
+    "actual_local_mesh_spacing_status": "UNAVAILABLE_BEFORE_SOLVER",
+    "actual_sampled_z_nm": null,
+    "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+    "added_monitor": {
+      "actual_sampled_z_nm": null,
+      "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+      "components": [
+        "Ex",
+        "Ey",
+        "Ez",
+        "Hx",
+        "Hy",
+        "Hz"
+      ],
+      "down_sample": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "enabled": 1.0,
+      "frequency_points": 21,
+      "monitor_type": "2D Z-normal",
+      "name": "EXT02_POSTNP_DIAG_Z2000",
+      "output_power": 1.0,
+      "override_global_monitor_settings": 1.0,
+      "reference_plane_nm": 1722.0,
+      "spatial_interpolation": "nearest mesh cell",
+      "type": "DFTMonitor",
+      "use_source_limits": 1.0,
+      "use_wavelength_spacing": 1.0,
+      "wavelength_center_nm": 450.0,
+      "wavelength_span_nm": 20.0,
+      "x_nm": 0.0,
+      "x_span_nm": 1740.0,
+      "y_nm": 0.0,
+      "y_span_nm": 290.0,
+      "z_nm": 2000.0
+    },
+    "attempt_id": "attempt_001",
+    "base_fsp_readback": {
+      "attempt_id": "attempt_001",
+      "case_id": "K6V1_EXT02",
+      "fdtd": {
+        "auto_shutoff_min": 1e-06,
+        "boundaries": {
+          "x max bc": "Periodic",
+          "x min bc": "Periodic",
+          "y max bc": "Periodic",
+          "y min bc": "Periodic",
+          "z max bc": "PML",
+          "z min bc": "PML"
+        },
+        "dimension": "3D",
+        "dt_stability_factor": 0.99,
+        "mesh_accuracy": 4.0,
+        "mesh_refinement": "conformal variant 0",
+        "pml_layers": 8.0,
+        "simulation_time_s": 3e-12,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 3000.0,
+        "z_min_nm": -600.0
+      },
+      "fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1\\_PARITY_20G\\K6V1_EXT02\\attempt_001\\setup\\runtime.fsp",
+      "fsp_sha256": "187d12bac4a44b8c74f3844e5cfa720818036723fd5896c24ff73fbe51a8e4d5",
+      "geometry": {
+        "NP_D1": {
+          "diameter_nm": 220.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": -725.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D2": {
+          "diameter_nm": 120.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": -435.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D3": {
+          "diameter_nm": 155.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": -145.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D4": {
+          "diameter_nm": 100.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": 145.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D5": {
+          "diameter_nm": 105.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": 435.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D6": {
+          "diameter_nm": 110.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": 725.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        }
+      },
+      "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+      "materials": {
+        "APCD_GAN_NATIVE_M1": {
+          "dtype": "complex128",
+          "sampled_data_sha256": "d7441c8d6a6a798316022db3d00b52b557570d1fc21e3208224cc50b88644ede",
+          "shape": [
+            500,
+            2
+          ]
+        },
+        "APCD_SIO2_NATIVE_M1": {
+          "dtype": "complex128",
+          "sampled_data_sha256": "c3976c2be1aaa32d2df160e86781aff978092ff0f61aede1331dd742fded49cf",
+          "shape": [
+            101,
+            2
+          ]
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "dtype": "complex128",
+          "sampled_data_sha256": "be07202748e8e32365e2e017ef4910af24be2a738efedbd88ffb7c60b260f953",
+          "shape": [
+            101,
+            2
+          ]
+        }
+      },
+      "mesh_coverage": {
+        "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+        "minimum_lateral_margin_nm": 35.0,
+        "minimum_vertical_margin_nm": 100.0,
+        "ordered_D_nm": [
+          220,
+          120,
+          155,
+          100,
+          105,
+          110
+        ],
+        "pillar_coverage": [
+          {
+            "center_x_nm": -725.0,
+            "diameter_nm": 220,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 35.0,
+              "x_plus_nm": 1485.0,
+              "y_minus_nm": 35.0,
+              "y_plus_nm": 35.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 35.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 1
+          },
+          {
+            "center_x_nm": -435.0,
+            "diameter_nm": 120,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 375.0,
+              "x_plus_nm": 1245.0,
+              "y_minus_nm": 85.0,
+              "y_plus_nm": 85.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 85.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 2
+          },
+          {
+            "center_x_nm": -145.0,
+            "diameter_nm": 155,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 647.5,
+              "x_plus_nm": 937.5,
+              "y_minus_nm": 67.5,
+              "y_plus_nm": 67.5,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 67.5,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 3
+          },
+          {
+            "center_x_nm": 145.0,
+            "diameter_nm": 100,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 965.0,
+              "x_plus_nm": 675.0,
+              "y_minus_nm": 95.0,
+              "y_plus_nm": 95.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 95.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 4
+          },
+          {
+            "center_x_nm": 435.0,
+            "diameter_nm": 105,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 1252.5,
+              "x_plus_nm": 382.5,
+              "y_minus_nm": 92.5,
+              "y_plus_nm": 92.5,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 92.5,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 5
+          },
+          {
+            "center_x_nm": 725.0,
+            "diameter_nm": 110,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 1540.0,
+              "x_plus_nm": 90.0,
+              "y_minus_nm": 90.0,
+              "y_plus_nm": 90.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 90.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 6
+          }
+        ]
+      },
+      "mesh_names": [
+        "MESH_NP_MDC_SPACER_BASELINE",
+        "NP_DERIVED_BASELINE_N2"
+      ],
+      "meshes": {
+        "MESH_NP_MDC_SPACER_BASELINE": {
+          "center_nm": [
+            0.0,
+            0.0,
+            1462.0
+          ],
+          "override": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "set_maximum_mesh_step": 1.0,
+          "span_nm": [
+            1740.0,
+            290.0,
+            750.0
+          ],
+          "step_nm": [
+            10.0,
+            10.0,
+            10.0
+          ],
+          "type": "Mesh"
+        },
+        "NP_DERIVED_BASELINE_N2": {
+          "center_nm": [
+            0.0,
+            0.0,
+            1462.0
+          ],
+          "override": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "set_maximum_mesh_step": 1.0,
+          "span_nm": [
+            1740.0,
+            290.0,
+            700.0
+          ],
+          "step_nm": [
+            5.0,
+            5.0,
+            5.0
+          ],
+          "type": "Mesh"
+        }
+      },
+      "monitor_names": [
+        "MON_IN",
+        "MON_PRENP",
+        "MON_POSTNP",
+        "MON_REFLECTION"
+      ],
+      "monitors": {
+        "MON_IN": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -100.0
+        },
+        "MON_POSTNP": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1800.0
+        },
+        "MON_PRENP": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1150.0
+        },
+        "MON_REFLECTION": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -400.0
+        }
+      },
+      "object_names": [
+        "FDTD",
+        "GaN_substrate",
+        "MDC_LAYER_01",
+        "MDC_LAYER_02",
+        "MDC_LAYER_03",
+        "MDC_LAYER_04",
+        "MDC_LAYER_05",
+        "MDC_LAYER_06",
+        "MDC_LAYER_07",
+        "MDC_LAYER_08",
+        "MDC_LAYER_09",
+        "MDC_LAYER_10",
+        "MDC_LAYER_11",
+        "MDC_LAYER_12",
+        "SPACER_LAYER",
+        "NP_D1",
+        "NP_D2",
+        "NP_D3",
+        "NP_D4",
+        "NP_D5",
+        "NP_D6",
+        "PW_SOURCE_X_FORWARD",
+        "PW_SRC_X_FORWARD",
+        "MON_IN",
+        "MON_PRENP",
+        "MON_POSTNP",
+        "MON_REFLECTION",
+        "MESH_NP_MDC_SPACER_BASELINE",
+        "NP_DERIVED_BASELINE_N2"
+      ],
+      "object_types": {
+        "FDTD": "FDTD",
+        "GaN_substrate": "Rectangle",
+        "MDC_LAYER_01": "Rectangle",
+        "MDC_LAYER_02": "Rectangle",
+        "MDC_LAYER_03": "Rectangle",
+        "MDC_LAYER_04": "Rectangle",
+        "MDC_LAYER_05": "Rectangle",
+        "MDC_LAYER_06": "Rectangle",
+        "MDC_LAYER_07": "Rectangle",
+        "MDC_LAYER_08": "Rectangle",
+        "MDC_LAYER_09": "Rectangle",
+        "MDC_LAYER_10": "Rectangle",
+        "MDC_LAYER_11": "Rectangle",
+        "MDC_LAYER_12": "Rectangle",
+        "MESH_NP_MDC_SPACER_BASELINE": "Mesh",
+        "MON_IN": "DFTMonitor",
+        "MON_POSTNP": "DFTMonitor",
+        "MON_PRENP": "DFTMonitor",
+        "MON_REFLECTION": "DFTMonitor",
+        "NP_D1": "Circle",
+        "NP_D2": "Circle",
+        "NP_D3": "Circle",
+        "NP_D4": "Circle",
+        "NP_D5": "Circle",
+        "NP_D6": "Circle",
+        "NP_DERIVED_BASELINE_N2": "Mesh",
+        "PW_SOURCE_X_FORWARD": "PlaneSource",
+        "PW_SRC_X_FORWARD": "PlaneSource",
+        "SPACER_LAYER": "Rectangle"
+      },
+      "ordered_D_nm": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "run_called": false,
+      "sample_reference_planes": {
+        "reference_planes_nm": {
+          "IN": -50.0,
+          "POSTNP": 1722.0,
+          "PRENP": 1202.0
+        },
+        "sample_planes_nm": {
+          "MON_IN": -100.0,
+          "MON_POSTNP": 1800.0,
+          "MON_PRENP": 1150.0,
+          "MON_REFLECTION": -400.0
+        }
+      },
+      "save_called_by_validator": false,
+      "source_names": [
+        "PW_SOURCE_X_FORWARD",
+        "PW_SRC_X_FORWARD"
+      ],
+      "sources": {
+        "PW_SOURCE_X_FORWARD": {
+          "amplitude": 1.0,
+          "direction": "Forward",
+          "enabled": 1.0,
+          "frequency_dependent_profile": 0.0,
+          "injection_axis": "z-axis",
+          "override_global_source_settings": 1.0,
+          "phase_deg": 0.0,
+          "phi_deg": 0.0,
+          "plane_wave_type": "Bloch/periodic",
+          "polarization_angle_deg": 0.0,
+          "pulse_type": "standard",
+          "theta_deg": 0.0,
+          "type": "PlaneSource",
+          "use_global_source_settings": 0.0,
+          "wavelength_start_nm": 440.0,
+          "wavelength_stop_nm": 460.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -250.0
+        },
+        "PW_SRC_X_FORWARD": {
+          "amplitude": 1.0,
+          "direction": "Forward",
+          "enabled": 1.0,
+          "frequency_dependent_profile": 0.0,
+          "injection_axis": "z-axis",
+          "override_global_source_settings": 1.0,
+          "phase_deg": 0.0,
+          "phi_deg": 0.0,
+          "plane_wave_type": "Bloch/periodic",
+          "polarization_angle_deg": 0.0,
+          "pulse_type": "standard",
+          "theta_deg": 0.0,
+          "type": "PlaneSource",
+          "use_global_source_settings": 0.0,
+          "wavelength_start_nm": 440.0,
+          "wavelength_stop_nm": 460.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -250.0
+        }
+      },
+      "stack": {
+        "GaN_substrate": {
+          "material": "APCD_GAN_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 0.0,
+          "z_min_nm": -600.0
+        },
+        "MDC_LAYER_01": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 44.0,
+          "z_min_nm": 0.0
+        },
+        "MDC_LAYER_02": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 123.0,
+          "z_min_nm": 44.0
+        },
+        "MDC_LAYER_03": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 167.0,
+          "z_min_nm": 123.0
+        },
+        "MDC_LAYER_04": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 246.0,
+          "z_min_nm": 167.0
+        },
+        "MDC_LAYER_05": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 290.0,
+          "z_min_nm": 246.0
+        },
+        "MDC_LAYER_06": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 606.0,
+          "z_min_nm": 290.0
+        },
+        "MDC_LAYER_07": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 650.0,
+          "z_min_nm": 606.0
+        },
+        "MDC_LAYER_08": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 729.0,
+          "z_min_nm": 650.0
+        },
+        "MDC_LAYER_09": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 773.0,
+          "z_min_nm": 729.0
+        },
+        "MDC_LAYER_10": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 852.0,
+          "z_min_nm": 773.0
+        },
+        "MDC_LAYER_11": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 896.0,
+          "z_min_nm": 852.0
+        },
+        "MDC_LAYER_12": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 975.0,
+          "z_min_nm": 896.0
+        },
+        "SPACER_LAYER": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 1212.0,
+          "z_min_nm": 975.0
+        }
+      },
+      "wavelengths_nm": [
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460
+      ]
+    },
+    "base_object_delta": {
+      "added": [
+        "EXT02_POSTNP_DIAG_Z2000"
+      ],
+      "removed": []
+    },
+    "base_to_overlay_semantic_parity": {
+      "mismatch_count": 0,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+    "existing_monitor_readbacks": {
+      "MON_IN": {
+        "base": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_IN",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": -50.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -100.0
+        },
+        "source": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_IN",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": -50.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -100.0
+        },
+        "staged": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_IN",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": -50.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -100.0
+        }
+      },
+      "MON_POSTNP": {
+        "base": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_POSTNP",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": 1722.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1800.0
+        },
+        "source": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_POSTNP",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": 1722.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1800.0
+        },
+        "staged": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_POSTNP",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": 1722.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1800.0
+        }
+      },
+      "MON_PRENP": {
+        "base": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_PRENP",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": 1202.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1150.0
+        },
+        "source": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_PRENP",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": 1202.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1150.0
+        },
+        "staged": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_PRENP",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": 1202.0,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1150.0
+        }
+      },
+      "MON_REFLECTION": {
+        "base": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_REFLECTION",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": null,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -400.0
+        },
+        "source": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_REFLECTION",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": null,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -400.0
+        },
+        "staged": {
+          "actual_sampled_z_nm": null,
+          "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+          "components": [
+            "Ex",
+            "Ey",
+            "Ez",
+            "Hx",
+            "Hy",
+            "Hz"
+          ],
+          "down_sample": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "enabled": 1.0,
+          "frequency_points": 21,
+          "monitor_type": "2D Z-normal",
+          "name": "MON_REFLECTION",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "reference_plane_nm": null,
+          "spatial_interpolation": "nearest mesh cell",
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "wavelength_center_nm": 450.0,
+          "wavelength_span_nm": 20.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -400.0
+        }
+      }
+    },
+    "fdtd": {
+      "auto_shutoff_min": 1e-06,
+      "boundaries": {
+        "x max bc": "Periodic",
+        "x min bc": "Periodic",
+        "y max bc": "Periodic",
+        "y min bc": "Periodic",
+        "z max bc": "PML",
+        "z min bc": "PML"
+      },
+      "dimension": "3D",
+      "dt_stability_factor": 0.99,
+      "mesh_accuracy": 4.0,
+      "mesh_refinement": "conformal variant 0",
+      "pml_layers": 8.0,
+      "simulation_time_s": 3e-12,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "z_max_nm": 3000.0,
+      "z_min_nm": -600.0
+    },
+    "fdtd_readback": {
+      "auto_shutoff_min": 1e-06,
+      "boundaries": {
+        "x max bc": "Periodic",
+        "x min bc": "Periodic",
+        "y max bc": "Periodic",
+        "y min bc": "Periodic",
+        "z max bc": "PML",
+        "z min bc": "PML"
+      },
+      "dimension": "3D",
+      "dt_stability_factor": 0.99,
+      "mesh_accuracy": 4.0,
+      "mesh_refinement": "conformal variant 0",
+      "pml_layers": 8.0,
+      "simulation_time_s": 3e-12,
+      "x_span_nm": 1740.0,
+      "y_span_nm": 290.0,
+      "z_max_nm": 3000.0,
+      "z_min_nm": -600.0
+    },
+    "fdtd_z_max_nm": 3000.0,
+    "five_nm_validator_status": "PASS",
+    "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+    "material_sample_hashes": {
+      "APCD_GAN_NATIVE_M1": "d7441c8d6a6a798316022db3d00b52b557570d1fc21e3208224cc50b88644ede",
+      "APCD_SIO2_NATIVE_M1": "c3976c2be1aaa32d2df160e86781aff978092ff0f61aede1331dd742fded49cf",
+      "APCD_TIO2_NATIVE_M1": "be07202748e8e32365e2e017ef4910af24be2a738efedbd88ffb7c60b260f953"
+    },
+    "materials": {
+      "APCD_GAN_NATIVE_M1": {
+        "dtype": "complex128",
+        "sampled_data_sha256": "d7441c8d6a6a798316022db3d00b52b557570d1fc21e3208224cc50b88644ede",
+        "shape": [
+          500,
+          2
+        ]
+      },
+      "APCD_SIO2_NATIVE_M1": {
+        "dtype": "complex128",
+        "sampled_data_sha256": "c3976c2be1aaa32d2df160e86781aff978092ff0f61aede1331dd742fded49cf",
+        "shape": [
+          101,
+          2
+        ]
+      },
+      "APCD_TIO2_NATIVE_M1": {
+        "dtype": "complex128",
+        "sampled_data_sha256": "be07202748e8e32365e2e017ef4910af24be2a738efedbd88ffb7c60b260f953",
+        "shape": [
+          101,
+          2
+        ]
+      }
+    },
+    "mesh_readback": {
+      "MESH_NP_MDC_SPACER_BASELINE": {
+        "center_nm": [
+          0.0,
+          0.0,
+          1462.0
+        ],
+        "override": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "set_maximum_mesh_step": 1.0,
+        "span_nm": [
+          1740.0,
+          290.0,
+          750.0
+        ],
+        "step_nm": [
+          10.0,
+          10.0,
+          10.0
+        ],
+        "type": "Mesh"
+      },
+      "NP_DERIVED_BASELINE_N2": {
+        "center_nm": [
+          0.0,
+          0.0,
+          1462.0
+        ],
+        "override": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "set_maximum_mesh_step": 1.0,
+        "span_nm": [
+          1740.0,
+          290.0,
+          700.0
+        ],
+        "step_nm": [
+          5.0,
+          5.0,
+          5.0
+        ],
+        "type": "Mesh"
+      }
+    },
+    "meshes": {
+      "MESH_NP_MDC_SPACER_BASELINE": {
+        "center_nm": [
+          0.0,
+          0.0,
+          1462.0
+        ],
+        "override": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "set_maximum_mesh_step": 1.0,
+        "span_nm": [
+          1740.0,
+          290.0,
+          750.0
+        ],
+        "step_nm": [
+          10.0,
+          10.0,
+          10.0
+        ],
+        "type": "Mesh"
+      },
+      "NP_DERIVED_BASELINE_N2": {
+        "center_nm": [
+          0.0,
+          0.0,
+          1462.0
+        ],
+        "override": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "set_maximum_mesh_step": 1.0,
+        "span_nm": [
+          1740.0,
+          290.0,
+          700.0
+        ],
+        "step_nm": [
+          5.0,
+          5.0,
+          5.0
+        ],
+        "type": "Mesh"
+      }
+    },
+    "monitors": {
+      "MON_IN": {
+        "enabled": 1.0,
+        "frequency_points": 21.0,
+        "monitor_type": "2D Z-normal",
+        "output_power": 1.0,
+        "override_global_monitor_settings": 1.0,
+        "type": "DFTMonitor",
+        "use_source_limits": 1.0,
+        "use_wavelength_spacing": 1.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": -100.0
+      },
+      "MON_POSTNP": {
+        "enabled": 1.0,
+        "frequency_points": 21.0,
+        "monitor_type": "2D Z-normal",
+        "output_power": 1.0,
+        "override_global_monitor_settings": 1.0,
+        "type": "DFTMonitor",
+        "use_source_limits": 1.0,
+        "use_wavelength_spacing": 1.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": 1800.0
+      },
+      "MON_PRENP": {
+        "enabled": 1.0,
+        "frequency_points": 21.0,
+        "monitor_type": "2D Z-normal",
+        "output_power": 1.0,
+        "override_global_monitor_settings": 1.0,
+        "type": "DFTMonitor",
+        "use_source_limits": 1.0,
+        "use_wavelength_spacing": 1.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": 1150.0
+      },
+      "MON_REFLECTION": {
+        "enabled": 1.0,
+        "frequency_points": 21.0,
+        "monitor_type": "2D Z-normal",
+        "output_power": 1.0,
+        "override_global_monitor_settings": 1.0,
+        "type": "DFTMonitor",
+        "use_source_limits": 1.0,
+        "use_wavelength_spacing": 1.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": -400.0
+      }
+    },
+    "nominal_plane_clearance_above_np_top_nm": 288.0,
+    "np_top_nm": 1712.0,
+    "object_delta": {
+      "added": [
+        "EXT02_POSTNP_DIAG_Z2000"
+      ],
+      "removed": []
+    },
+    "ordered_D_nm": [
+      220,
+      120,
+      155,
+      100,
+      105,
+      110
+    ],
+    "pml_clearance_status": "UNAVAILABLE_FROM_SETUP_READBACK",
+    "pml_inner_edge_nm": null,
+    "reference_plane_nm": 1722.0,
+    "source_readback": {
+      "PW_SOURCE_X_FORWARD": {
+        "amplitude": 1.0,
+        "direction": "Forward",
+        "enabled": 1.0,
+        "frequency_dependent_profile": 0.0,
+        "injection_axis": "z-axis",
+        "override_global_source_settings": 1.0,
+        "phase_deg": 0.0,
+        "phi_deg": 0.0,
+        "plane_wave_type": "Bloch/periodic",
+        "polarization_angle_deg": 0.0,
+        "pulse_type": "standard",
+        "theta_deg": 0.0,
+        "type": "PlaneSource",
+        "use_global_source_settings": 0.0,
+        "wavelength_start_nm": 440.0,
+        "wavelength_stop_nm": 460.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": -250.0
+      },
+      "PW_SRC_X_FORWARD": {
+        "amplitude": 1.0,
+        "direction": "Forward",
+        "enabled": 1.0,
+        "frequency_dependent_profile": 0.0,
+        "injection_axis": "z-axis",
+        "override_global_source_settings": 1.0,
+        "phase_deg": 0.0,
+        "phi_deg": 0.0,
+        "plane_wave_type": "Bloch/periodic",
+        "polarization_angle_deg": 0.0,
+        "pulse_type": "standard",
+        "theta_deg": 0.0,
+        "type": "PlaneSource",
+        "use_global_source_settings": 0.0,
+        "wavelength_start_nm": 440.0,
+        "wavelength_stop_nm": 460.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": -250.0
+      }
+    },
+    "source_staged_semantic_parity": "PASS",
+    "sources": {
+      "PW_SOURCE_X_FORWARD": {
+        "amplitude": 1.0,
+        "direction": "Forward",
+        "enabled": 1.0,
+        "frequency_dependent_profile": 0.0,
+        "injection_axis": "z-axis",
+        "override_global_source_settings": 1.0,
+        "phase_deg": 0.0,
+        "phi_deg": 0.0,
+        "plane_wave_type": "Bloch/periodic",
+        "polarization_angle_deg": 0.0,
+        "pulse_type": "standard",
+        "theta_deg": 0.0,
+        "type": "PlaneSource",
+        "use_global_source_settings": 0.0,
+        "wavelength_start_nm": 440.0,
+        "wavelength_stop_nm": 460.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": -250.0
+      },
+      "PW_SRC_X_FORWARD": {
+        "amplitude": 1.0,
+        "direction": "Forward",
+        "enabled": 1.0,
+        "frequency_dependent_profile": 0.0,
+        "injection_axis": "z-axis",
+        "override_global_source_settings": 1.0,
+        "phase_deg": 0.0,
+        "phi_deg": 0.0,
+        "plane_wave_type": "Bloch/periodic",
+        "polarization_angle_deg": 0.0,
+        "pulse_type": "standard",
+        "theta_deg": 0.0,
+        "type": "PlaneSource",
+        "use_global_source_settings": 0.0,
+        "wavelength_start_nm": 440.0,
+        "wavelength_stop_nm": 460.0,
+        "x_nm": 0.0,
+        "x_span_nm": 1740.0,
+        "y_nm": 0.0,
+        "y_span_nm": 290.0,
+        "z_nm": -250.0
+      }
+    },
+    "stack": {
+      "GaN_substrate": {
+        "material": "APCD_GAN_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 0.0,
+        "z_min_nm": -600.0
+      },
+      "MDC_LAYER_01": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 44.0,
+        "z_min_nm": 0.0
+      },
+      "MDC_LAYER_02": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 123.0,
+        "z_min_nm": 44.0
+      },
+      "MDC_LAYER_03": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 167.0,
+        "z_min_nm": 123.0
+      },
+      "MDC_LAYER_04": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 246.0,
+        "z_min_nm": 167.0
+      },
+      "MDC_LAYER_05": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 290.0,
+        "z_min_nm": 246.0
+      },
+      "MDC_LAYER_06": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 606.0,
+        "z_min_nm": 290.0
+      },
+      "MDC_LAYER_07": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 650.0,
+        "z_min_nm": 606.0
+      },
+      "MDC_LAYER_08": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 729.0,
+        "z_min_nm": 650.0
+      },
+      "MDC_LAYER_09": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 773.0,
+        "z_min_nm": 729.0
+      },
+      "MDC_LAYER_10": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 852.0,
+        "z_min_nm": 773.0
+      },
+      "MDC_LAYER_11": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 896.0,
+        "z_min_nm": 852.0
+      },
+      "MDC_LAYER_12": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 975.0,
+        "z_min_nm": 896.0
+      },
+      "SPACER_LAYER": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 1212.0,
+        "z_min_nm": 975.0
+      }
+    },
+    "stack_readback": {
+      "GaN_substrate": {
+        "material": "APCD_GAN_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 0.0,
+        "z_min_nm": -600.0
+      },
+      "MDC_LAYER_01": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 44.0,
+        "z_min_nm": 0.0
+      },
+      "MDC_LAYER_02": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 123.0,
+        "z_min_nm": 44.0
+      },
+      "MDC_LAYER_03": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 167.0,
+        "z_min_nm": 123.0
+      },
+      "MDC_LAYER_04": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 246.0,
+        "z_min_nm": 167.0
+      },
+      "MDC_LAYER_05": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 290.0,
+        "z_min_nm": 246.0
+      },
+      "MDC_LAYER_06": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 606.0,
+        "z_min_nm": 290.0
+      },
+      "MDC_LAYER_07": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 650.0,
+        "z_min_nm": 606.0
+      },
+      "MDC_LAYER_08": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 729.0,
+        "z_min_nm": 650.0
+      },
+      "MDC_LAYER_09": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 773.0,
+        "z_min_nm": 729.0
+      },
+      "MDC_LAYER_10": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 852.0,
+        "z_min_nm": 773.0
+      },
+      "MDC_LAYER_11": {
+        "material": "APCD_TIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 896.0,
+        "z_min_nm": 852.0
+      },
+      "MDC_LAYER_12": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 975.0,
+        "z_min_nm": 896.0
+      },
+      "SPACER_LAYER": {
+        "material": "APCD_SIO2_NATIVE_M1",
+        "type": "Rectangle",
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 1212.0,
+        "z_min_nm": 975.0
+      }
+    },
+    "staged_fsp_readback": {
+      "attempt_id": "attempt_001",
+      "case_id": "K6V1_EXT02",
+      "fdtd": {
+        "auto_shutoff_min": 1e-06,
+        "boundaries": {
+          "x max bc": "Periodic",
+          "x min bc": "Periodic",
+          "y max bc": "Periodic",
+          "y min bc": "Periodic",
+          "z max bc": "PML",
+          "z min bc": "PML"
+        },
+        "dimension": "3D",
+        "dt_stability_factor": 0.99,
+        "mesh_accuracy": 4.0,
+        "mesh_refinement": "conformal variant 0",
+        "pml_layers": 8.0,
+        "simulation_time_s": 3e-12,
+        "x_span_nm": 1740.0,
+        "y_span_nm": 290.0,
+        "z_max_nm": 3000.0,
+        "z_min_nm": -600.0
+      },
+      "fsp": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6V1_EXT02\\attempt_001\\setup\\runtime.fsp",
+      "fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30",
+      "geometry": {
+        "NP_D1": {
+          "diameter_nm": 220.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": -725.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D2": {
+          "diameter_nm": 120.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": -435.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D3": {
+          "diameter_nm": 155.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": -145.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D4": {
+          "diameter_nm": 100.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": 145.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D5": {
+          "diameter_nm": 105.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": 435.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        },
+        "NP_D6": {
+          "diameter_nm": 110.0,
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Circle",
+          "x_nm": 725.0,
+          "y_nm": 0.0,
+          "z_max_nm": 1712.0,
+          "z_min_nm": 1212.0
+        }
+      },
+      "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+      "materials": {
+        "APCD_GAN_NATIVE_M1": {
+          "dtype": "complex128",
+          "sampled_data_sha256": "d7441c8d6a6a798316022db3d00b52b557570d1fc21e3208224cc50b88644ede",
+          "shape": [
+            500,
+            2
+          ]
+        },
+        "APCD_SIO2_NATIVE_M1": {
+          "dtype": "complex128",
+          "sampled_data_sha256": "c3976c2be1aaa32d2df160e86781aff978092ff0f61aede1331dd742fded49cf",
+          "shape": [
+            101,
+            2
+          ]
+        },
+        "APCD_TIO2_NATIVE_M1": {
+          "dtype": "complex128",
+          "sampled_data_sha256": "be07202748e8e32365e2e017ef4910af24be2a738efedbd88ffb7c60b260f953",
+          "shape": [
+            101,
+            2
+          ]
+        }
+      },
+      "mesh_coverage": {
+        "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+        "minimum_lateral_margin_nm": 35.0,
+        "minimum_vertical_margin_nm": 100.0,
+        "ordered_D_nm": [
+          220,
+          120,
+          155,
+          100,
+          105,
+          110
+        ],
+        "pillar_coverage": [
+          {
+            "center_x_nm": -725.0,
+            "diameter_nm": 220,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 35.0,
+              "x_plus_nm": 1485.0,
+              "y_minus_nm": 35.0,
+              "y_plus_nm": 35.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 35.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 1
+          },
+          {
+            "center_x_nm": -435.0,
+            "diameter_nm": 120,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 375.0,
+              "x_plus_nm": 1245.0,
+              "y_minus_nm": 85.0,
+              "y_plus_nm": 85.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 85.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 2
+          },
+          {
+            "center_x_nm": -145.0,
+            "diameter_nm": 155,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 647.5,
+              "x_plus_nm": 937.5,
+              "y_minus_nm": 67.5,
+              "y_plus_nm": 67.5,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 67.5,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 3
+          },
+          {
+            "center_x_nm": 145.0,
+            "diameter_nm": 100,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 965.0,
+              "x_plus_nm": 675.0,
+              "y_minus_nm": 95.0,
+              "y_plus_nm": 95.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 95.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 4
+          },
+          {
+            "center_x_nm": 435.0,
+            "diameter_nm": 105,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 1252.5,
+              "x_plus_nm": 382.5,
+              "y_minus_nm": 92.5,
+              "y_plus_nm": 92.5,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 92.5,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 5
+          },
+          {
+            "center_x_nm": 725.0,
+            "diameter_nm": 110,
+            "inside_mesh": true,
+            "margins_nm": {
+              "x_minus_nm": 1540.0,
+              "x_plus_nm": 90.0,
+              "y_minus_nm": 90.0,
+              "y_plus_nm": 90.0,
+              "z_minus_nm": 100.0,
+              "z_plus_nm": 100.0
+            },
+            "minimum_lateral_margin_nm": 90.0,
+            "minimum_vertical_margin_nm": 100.0,
+            "pillar": 6
+          }
+        ]
+      },
+      "mesh_names": [
+        "MESH_NP_MDC_SPACER_BASELINE",
+        "NP_DERIVED_BASELINE_N2"
+      ],
+      "meshes": {
+        "MESH_NP_MDC_SPACER_BASELINE": {
+          "center_nm": [
+            0.0,
+            0.0,
+            1462.0
+          ],
+          "override": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "set_maximum_mesh_step": 1.0,
+          "span_nm": [
+            1740.0,
+            290.0,
+            750.0
+          ],
+          "step_nm": [
+            10.0,
+            10.0,
+            10.0
+          ],
+          "type": "Mesh"
+        },
+        "NP_DERIVED_BASELINE_N2": {
+          "center_nm": [
+            0.0,
+            0.0,
+            1462.0
+          ],
+          "override": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "set_maximum_mesh_step": 1.0,
+          "span_nm": [
+            1740.0,
+            290.0,
+            700.0
+          ],
+          "step_nm": [
+            5.0,
+            5.0,
+            5.0
+          ],
+          "type": "Mesh"
+        }
+      },
+      "monitor_names": [
+        "MON_IN",
+        "MON_PRENP",
+        "MON_POSTNP",
+        "MON_REFLECTION"
+      ],
+      "monitors": {
+        "MON_IN": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -100.0
+        },
+        "MON_POSTNP": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1800.0
+        },
+        "MON_PRENP": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": 1150.0
+        },
+        "MON_REFLECTION": {
+          "enabled": 1.0,
+          "frequency_points": 21.0,
+          "monitor_type": "2D Z-normal",
+          "output_power": 1.0,
+          "override_global_monitor_settings": 1.0,
+          "type": "DFTMonitor",
+          "use_source_limits": 1.0,
+          "use_wavelength_spacing": 1.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -400.0
+        }
+      },
+      "object_names": [
+        "FDTD",
+        "GaN_substrate",
+        "MDC_LAYER_01",
+        "MDC_LAYER_02",
+        "MDC_LAYER_03",
+        "MDC_LAYER_04",
+        "MDC_LAYER_05",
+        "MDC_LAYER_06",
+        "MDC_LAYER_07",
+        "MDC_LAYER_08",
+        "MDC_LAYER_09",
+        "MDC_LAYER_10",
+        "MDC_LAYER_11",
+        "MDC_LAYER_12",
+        "SPACER_LAYER",
+        "NP_D1",
+        "NP_D2",
+        "NP_D3",
+        "NP_D4",
+        "NP_D5",
+        "NP_D6",
+        "PW_SOURCE_X_FORWARD",
+        "PW_SRC_X_FORWARD",
+        "MON_IN",
+        "MON_PRENP",
+        "MON_POSTNP",
+        "MON_REFLECTION",
+        "MESH_NP_MDC_SPACER_BASELINE",
+        "NP_DERIVED_BASELINE_N2",
+        "EXT02_POSTNP_DIAG_Z2000"
+      ],
+      "object_types": {
+        "EXT02_POSTNP_DIAG_Z2000": "DFTMonitor",
+        "FDTD": "FDTD",
+        "GaN_substrate": "Rectangle",
+        "MDC_LAYER_01": "Rectangle",
+        "MDC_LAYER_02": "Rectangle",
+        "MDC_LAYER_03": "Rectangle",
+        "MDC_LAYER_04": "Rectangle",
+        "MDC_LAYER_05": "Rectangle",
+        "MDC_LAYER_06": "Rectangle",
+        "MDC_LAYER_07": "Rectangle",
+        "MDC_LAYER_08": "Rectangle",
+        "MDC_LAYER_09": "Rectangle",
+        "MDC_LAYER_10": "Rectangle",
+        "MDC_LAYER_11": "Rectangle",
+        "MDC_LAYER_12": "Rectangle",
+        "MESH_NP_MDC_SPACER_BASELINE": "Mesh",
+        "MON_IN": "DFTMonitor",
+        "MON_POSTNP": "DFTMonitor",
+        "MON_PRENP": "DFTMonitor",
+        "MON_REFLECTION": "DFTMonitor",
+        "NP_D1": "Circle",
+        "NP_D2": "Circle",
+        "NP_D3": "Circle",
+        "NP_D4": "Circle",
+        "NP_D5": "Circle",
+        "NP_D6": "Circle",
+        "NP_DERIVED_BASELINE_N2": "Mesh",
+        "PW_SOURCE_X_FORWARD": "PlaneSource",
+        "PW_SRC_X_FORWARD": "PlaneSource",
+        "SPACER_LAYER": "Rectangle"
+      },
+      "ordered_D_nm": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "run_called": false,
+      "sample_reference_planes": {
+        "reference_planes_nm": {
+          "IN": -50.0,
+          "POSTNP": 1722.0,
+          "PRENP": 1202.0
+        },
+        "sample_planes_nm": {
+          "MON_IN": -100.0,
+          "MON_POSTNP": 1800.0,
+          "MON_PRENP": 1150.0,
+          "MON_REFLECTION": -400.0
+        }
+      },
+      "save_called_by_validator": false,
+      "source_names": [
+        "PW_SOURCE_X_FORWARD",
+        "PW_SRC_X_FORWARD"
+      ],
+      "sources": {
+        "PW_SOURCE_X_FORWARD": {
+          "amplitude": 1.0,
+          "direction": "Forward",
+          "enabled": 1.0,
+          "frequency_dependent_profile": 0.0,
+          "injection_axis": "z-axis",
+          "override_global_source_settings": 1.0,
+          "phase_deg": 0.0,
+          "phi_deg": 0.0,
+          "plane_wave_type": "Bloch/periodic",
+          "polarization_angle_deg": 0.0,
+          "pulse_type": "standard",
+          "theta_deg": 0.0,
+          "type": "PlaneSource",
+          "use_global_source_settings": 0.0,
+          "wavelength_start_nm": 440.0,
+          "wavelength_stop_nm": 460.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -250.0
+        },
+        "PW_SRC_X_FORWARD": {
+          "amplitude": 1.0,
+          "direction": "Forward",
+          "enabled": 1.0,
+          "frequency_dependent_profile": 0.0,
+          "injection_axis": "z-axis",
+          "override_global_source_settings": 1.0,
+          "phase_deg": 0.0,
+          "phi_deg": 0.0,
+          "plane_wave_type": "Bloch/periodic",
+          "polarization_angle_deg": 0.0,
+          "pulse_type": "standard",
+          "theta_deg": 0.0,
+          "type": "PlaneSource",
+          "use_global_source_settings": 0.0,
+          "wavelength_start_nm": 440.0,
+          "wavelength_stop_nm": 460.0,
+          "x_nm": 0.0,
+          "x_span_nm": 1740.0,
+          "y_nm": 0.0,
+          "y_span_nm": 290.0,
+          "z_nm": -250.0
+        }
+      },
+      "stack": {
+        "GaN_substrate": {
+          "material": "APCD_GAN_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 0.0,
+          "z_min_nm": -600.0
+        },
+        "MDC_LAYER_01": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 44.0,
+          "z_min_nm": 0.0
+        },
+        "MDC_LAYER_02": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 123.0,
+          "z_min_nm": 44.0
+        },
+        "MDC_LAYER_03": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 167.0,
+          "z_min_nm": 123.0
+        },
+        "MDC_LAYER_04": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 246.0,
+          "z_min_nm": 167.0
+        },
+        "MDC_LAYER_05": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 290.0,
+          "z_min_nm": 246.0
+        },
+        "MDC_LAYER_06": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 606.0,
+          "z_min_nm": 290.0
+        },
+        "MDC_LAYER_07": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 650.0,
+          "z_min_nm": 606.0
+        },
+        "MDC_LAYER_08": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 729.0,
+          "z_min_nm": 650.0
+        },
+        "MDC_LAYER_09": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 773.0,
+          "z_min_nm": 729.0
+        },
+        "MDC_LAYER_10": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 852.0,
+          "z_min_nm": 773.0
+        },
+        "MDC_LAYER_11": {
+          "material": "APCD_TIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 896.0,
+          "z_min_nm": 852.0
+        },
+        "MDC_LAYER_12": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 975.0,
+          "z_min_nm": 896.0
+        },
+        "SPACER_LAYER": {
+          "material": "APCD_SIO2_NATIVE_M1",
+          "type": "Rectangle",
+          "x_span_nm": 1740.0,
+          "y_span_nm": 290.0,
+          "z_max_nm": 1212.0,
+          "z_min_nm": 975.0
+        }
+      },
+      "wavelengths_nm": [
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460
+      ]
+    }
+  },
+  "solver_invocations": 0,
+  "solver_run_called": false,
+  "source_fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30",
+  "staged_fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30"
+}

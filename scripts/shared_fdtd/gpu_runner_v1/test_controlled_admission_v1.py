@@ -263,6 +263,19 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
         self.assertFalse(result["post_entry_truth_proved"])
         self.assertTrue(result["post_entry_truth_required_after_solver"])
 
+    def test_ext02_setup_only_authority_blocks_solver_entry(self):
+        self.authority["ext02"]["solver_entry_authorized"] = False
+        self.assertTrue(self.call_pack()["accepted"])
+        with self.assertRaisesRegex(controlled.ControlledAdmissionError,
+                                    "EXT02_SOLVER_ENTRY_NOT_AUTHORIZED"):
+            self.call_pack(preflight=False)
+
+    def test_retired_historical_ext02_identity_rejected_by_successor_authority(self):
+        self.authority["ext02"]["case_id"] = "K6V1_EXT02_TWO_AIR_PLANES_DIAG"
+        with self.assertRaisesRegex(controlled.ControlledAdmissionError,
+                                    "EXT02_CASE_NOT_AUTHORIZED"):
+            self.call_pack(case_id="K6V1_EXT02")
+
     def test_legacy_twelve_must_use_unchanged_route(self):
         for case_id in controlled.LEGACY_CASE_IDS:
             with self.subTest(case_id=case_id), self.assertRaisesRegex(
