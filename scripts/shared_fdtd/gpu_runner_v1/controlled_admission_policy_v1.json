@@ -1,0 +1,68 @@
+{
+  "schema": "APCD_GPU_RUNNER_CONTROLLED_ADMISSION_POLICY_V1",
+  "status": "PRODUCTION_VERSIONED_ROUTE",
+  "route_version": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1",
+  "legacy_case_ids": [
+    "K6V1_S21", "K6V1_S42", "K6V1_S36", "K6V1_S31",
+    "K6V1_S45", "K6V1_S32", "K6V1_S47", "K6V1_S33",
+    "K6V1_S37", "K6V1_S48", "K6V1_S35", "K6V1_S39"
+  ],
+  "base_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "expansion_manifest_sha256": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+  "case_classes": {
+    "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1": {
+      "allowed_scientific_delta": ["ordered_D_nm"],
+      "geometry_rule": "six ordered integer D1-D6 values on the 5 nm grid in [100,230] nm; exact case/vector enrollment is required in owner-controlled authority",
+      "required_contract_byte_and_semantic_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "current_authorized_geometry_sources": [],
+      "forbidden": ["materials", "source", "polarization", "wavelengths", "boundaries", "stack_layers", "monitors", "references", "mesh", "stopping_rule", "launcher", "GPU", "persistence", "postprocessing", "truth_validation"]
+    },
+    "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1": {
+      "case_id": "K6V1_EXT02",
+      "attempt_id": "attempt_001",
+      "allowed_scientific_delta": ["physical_contract.monitors: append exactly one declared E/H monitor"],
+      "base_setup_invariants": ["ordered D1-D6 geometry", "Native-M1 materials", "plane-wave source and polarization", "440-460 nm wavelength grid", "periodic x/y and PML z boundaries", "stack layers", "existing POSTNP monitor and all other existing monitors", "5 nm mesh authority and stopping rule", "launcher, GPU, persistence, postprocessing and truth validation"],
+      "proposal_protocol_sha256": "fa2839ac5613df63d54508d79df9da98d5bc0243876ab9c1a5538ae75b9f92b8",
+      "monitor_contract_key": "diagnostic",
+      "monitor_name": "EXT02_POSTNP_DIAG_Z2000",
+      "nominal_sample_z_nm": 2000.0,
+      "reference_plane_nm": 1722.0,
+      "span_nm": {"x": 1740.0, "y": 290.0},
+      "monitor_type": "2D Z-normal",
+      "components": ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"],
+      "wavelengths_nm": {"start": 440, "stop": 460, "step": 1, "points": 21},
+      "sampling": {
+        "spatial_interpolation": "nearest mesh cell",
+        "down_sample": {"x": 1, "y": 1, "z": 1},
+        "use_source_limits": true,
+        "override_global_monitor_settings": true,
+        "use_wavelength_spacing": true,
+        "wavelength_center_nm": 450.0,
+        "wavelength_span_nm": 20.0,
+        "output_power": true
+      },
+      "actual_sampled_z_nm": null,
+      "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER; read actual field-grid coordinate after the one authorized run",
+      "deembedding": {
+        "reference_plane_nm": 1722.0,
+        "actual_sample_z_required": true,
+        "phase_oracle_alignment": "PROHIBITED",
+        "signs": {"+z": "c_ref=c_sample*exp(+1j*kz*delta_z)", "-z": "c_ref=c_sample*exp(-1j*kz*delta_z)"}
+      },
+      "forbidden": ["monitor replacement, move, deletion or other addition", "geometry, source, material, mesh, PML or other science-setting changes", "nominal z substituted for actual sampled z", "global-phase oracle alignment", "historical 2 nm seed FSP as 5 nm source"]
+    }
+  },
+  "proof_semantics": {
+    "pre_entry_setup_load": "The exact staged setup loads and reads back the declared setup with zero solver calls and zero scientific entries.",
+    "post_entry_truth": "Separate proof required after the one solver entry: GPU lineage, durable FSP/H5, fresh LOAD truth validation, SCIENTIFIC_VALID, hard completion barrier, truth-before-DONE, then RELEASED.",
+    "first_run_does_not_require_historical_truth": true
+  },
+  "preserved_execution": {
+    "dispatch": "versioned dispatch_once through the existing V1 runner core",
+    "gpu_slots": 1,
+    "serial_only": true,
+    "post_entry_automatic_replays": 0,
+    "truth_before_done": true,
+    "release_before_truth": false
+  }
+}

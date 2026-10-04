@@ -1,6 +1,6 @@
 # APCD GPU Production Runner V1 handoff
 
-**Status:** `APCD_GPU_PRODUCTION_RUNNER_V1_READY`
+**Status:** `APCD_GPU_PRODUCTION_RUNNER_V1_READY` for the existing 12-case route; EXT02 is setup-preflight ready only and has no solver truth.
 
 **Frozen maintenance code HEAD:** `783bd5741eb5e6853a3be5532624f4282f9488b7`
 **Previous qualified HEAD:** `578bdb714fe1455064a8b750968d3afac92b4a12`
@@ -83,3 +83,48 @@ The ten additional inputs were: `K6V1_S21`, `K6V1_S42`, `K6V1_S36`, `K6V1_S31`, 
 ## Freeze and handoff
 
 This is a narrow V1 maintenance revision. Runner development is frozen again. Resume Coupling-ML work through this V1 Runner using the approved per-case authority manifest; do not change the scientific contract or replay any entered attempt.
+
+## Controlled-admission recovery closeout (2026-10-04)
+
+**Closeout status:** `READY_FOR_ONE_AUTHORIZED_EXT02_ENTRY` applies only to `K6V1_EXT02 / attempt_001` with the declared monitor overlay. It does not authorize a K6 geometry sweep, additional attempts, or any other new case. The existing 12-case route and its real Stage-1 setup evidence remain unchanged.
+
+The final production adapter and Runner core used for the checks below have SHA256 `b7a1d074b3ab776cb1d192868192ad3a300a5192af3c439b35bfa6f0dea6d106` and `c97f459ffb3434d1a9419d8f203de2ca34630748c92626ff3d967edcfbd4f6aa`. Controlled route: `APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1`; policy SHA256 `e26c2f1e5b13743da455277f4562ccf2a6262567e4dabf1a2fae06735d624f5f`; authority SHA256 `e6043ff7bec4711d16d326ca3d8305b9693647250349dea11b59b57e0cd2d1ec`.
+
+The Runner invokes a controlled pre-entry callback after setup LOAD and before writing `SOLVER_ENTERED`. That callback rereads the route envelope, per-case authority, contract, source manifest, staged FSP and LOAD proof; rechecks the content fingerprint and current GPU quota; then the Runner checks owner/fencing again before entry. A changed file or authority fails pre-entry. The recorded `control_generation_sha256` is a content-addressed Runner fingerprint, not an externally managed monotonic controller generation. The setup-only preflight reports no GPU snapshot or quota reservation; the one-run start callback must check the live 1369 MiB threshold.
+
+### Final EXT02 setup preflight
+
+The final `preflight-setup` used adapter SHA above and the real Lumerical 2025 R1 API. Result: **PASS**, `solver_invocations=0`, `scientific_entry_count=0`; source/staged semantic mismatches: 0; setup LOAD proof parity mismatches: 0. The fresh structural readback preserved all four existing monitors and added only `EXT02_POSTNP_DIAG_Z2000`.
+
+| Artifact | SHA256 |
+|---|---|
+| Physical contract | `58ac1ac81fc4a0da61784d62bf80c48fc21d6e119ee96e5941fc1139b5954e68` |
+| Source and staged FSP (identical bytes) | `5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30` |
+| Source manifest | `77107310820f44f19aff32baa8bc2db5170775187025fa95cee76ef2ba6d7ffb` |
+| Setup LOAD-only proof | `2e97596b983df1b11d3d0a06309df41cabff6c7076917a30ebf446459f3ce386` |
+| Setup contract fingerprint | `95c40a99da6ca199e297496a638f051a4f1d1547c2d25b86455a2c4bf3afbea2` |
+| Final preflight report V2 | `916b6e46c26e26346043bad43efc70413c07a7917dd4c3535654f143405f3a7e` |
+
+The diagnostic plane is configured at z=2000 nm, with full 1740×290 nm period coverage, E/H components `Ex,Ey,Ez,Hx,Hy,Hz`, 21 samples from 440–460 nm, nearest-mesh-cell interpolation and unit downsampling. Its frozen common reference plane is z=1722 nm. Lumerical setup LOAD readback of `NP_D1…NP_D6` gives z-min 1212 nm and z-max 1712 nm (500 nm height); the configured diagnostic plane is 288 nm above the NP top and the reference plane is 10 nm above it. These are setup coordinates, not solved field-grid coordinates.
+
+The NP-derived 5 nm mesh region reads back as z=1112…1812 nm (center 1462 nm, span 700 nm); the diagnostic plane lies outside that local region. The other configured mesh region is 10 nm steps over z=1087…1837 nm. FDTD z boundaries read back as −600 and 3000 nm with eight PML layers; the configured plane is 1000 nm below the +z outer boundary. The actual sampled monitor z, generated local mesh coordinates/spacing at z=2000 nm, and PML inner mesh face are unavailable before solving and remain post-run checks. Periodic x/y boundaries and 1740×290 nm spans read back unchanged.
+
+The setup LOAD-only proof means only that this unsolved setup can be loaded and its declared structure read back. It is not a solver-result or durable-truth proof. There is no EXT02 post-entry truth yet.
+
+### Second-plane persistence and extraction
+
+The pinned GPU launcher is unchanged at SHA256 `e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908`. For this exact authorized overlay, the adapter temporarily extends the pinned launcher's field-monitor list with `EXT02_POSTNP_DIAG_Z2000`; it does not create another launcher or change the standard raw export. After solver return, the adapter waits for a stable H5 sidecar with at least five monitor groups and all six numeric E/H component datasets in every group, fsyncs it, and records its SHA256. The Runner also inventories the sidecar hash before truth completion.
+
+The new extraction CLI is `scripts/shared_fdtd/gpu_runner_v1/extract_controlled_monitor_load_only_v1.py` and accepts `--run-dir <immutable-completed-run-directory>`. It requires the archived `run.fsp`, `run/run_output.h5`, `truth.h5`, manifest, status, validation, hashes, setup validation, pre-entry revalidation, solver log/stdout, process-exit provenance and runtime timeline. It requires exactly one entered solver, `DONE`, fresh LOAD and `SCIENTIFIC_VALID`, hashes consistent with the inventory, and GPU engine lineage. It then LOADs the archived FSP and reads E/H by the exact new monitor name, checks finite six-component data, coordinate agreement, wavelength grid and H5 group/coordinate mapping, and writes a separate NPZ plus JSON metadata under `monitor_extraction/`. Missing/corrupt/schema-mismatched data is an extraction failure; it never starts or replays the solver.
+
+The generic LOAD/H5 mapping was exercised against an existing S39 archive: `MON_POSTNP` matched H5 `Monitor2`, actual z=1802 nm, 21 wavelengths 440–460 nm, shape `(349,59,1,21,3)`, all six finite E/H components. Probe report SHA256 `3a8ea1742de06b0d100f508bd40cb9084f45a7fe8cc004bc095f3987ca5af92b`. This validates the generic existing-monitor reader only. There is no real EXT02 second-plane result yet; the new monitor persistence path and extraction against that monitor remain pending its single authorized entry.
+
+### Regression and execution boundary
+
+Final remote suite: **68 passed, 38 subtests passed** across the controlled admission, second-monitor extraction, pre-entry/H5, core Runner and adapter test modules. These are offline/synthetic tests. The prior real Stage-1 setup LOAD evidence remains 12/12 as documented above; those FSPs were not reloaded in this closeout. Tests verify the legacy IDs stay on their existing route and the controlled route rejects them, along with unapproved geometry/monitor changes and changed envelope, contract, file hashes or proof.
+
+This closeout performed setup LOADs and read-only extraction of an existing S39 archive only. EXT02 solver entries: **0**; FDTD runs: **0**; post-entry replays: **0**. No K6 new-geometry authority was added. The dual-plane scientific comparison, including actual sampled z/local mesh/PML readback and frozen same-reference-plane de-embedding, has not been performed.
+
+### Next action — do not execute from this handoff alone
+
+Before the one future entry, recheck the exact EXT02 case/attempt authority, current route/policy/contract/setup/proof hashes, zero prior EXT02 solver entry, owner/fencing, current resource threshold and immutable staged setup. Build a new immutable controlled run envelope with a unique run ID; do not pass the setup-only `formal_preflight_envelope.json` to `run-one`. Invoke the existing adapter/backend once for `K6V1_EXT02 / attempt_001`, with no automatic replay. Require GPU process lineage, durable FSP and sibling H5, fresh LOAD, `SCIENTIFIC_VALID`, and `RELEASED` before running the extraction CLI on that completed run directory. Then compare `MON_POSTNP` and `EXT02_POSTNP_DIAG_Z2000` using the frozen reference plane and no global-phase oracle alignment. Stop on any post-entry ambiguity or missing truth; do not replay.

@@ -165,7 +165,7 @@ def require_s35_predecessor(root, rows=None):
     if evidence is None: raise RunnerError("S39_REQUIRES_S35_DONE")
     return evidence
 
-def validate_manifest(m):
+def validate_manifest(m, admitted_contract_sha256=None):
     if not isinstance(m,dict) or set(m)!=MANIFEST_KEYS: raise RunnerError("MANIFEST_KEYS_INVALID")
     for k in ("case_id","attempt_id","run_id"):
         if not isinstance(m[k],str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}",m[k]):
@@ -174,7 +174,10 @@ def validate_manifest(m):
     if (not isinstance(geometry, list) or len(geometry) != 6
             or any(type(value) is not int or value <= 0 for value in geometry)):
         raise RunnerError("GEOMETRY_MISMATCH")
-    if m["physical_contract_sha256"]!=CONTRACT_SHA256: raise RunnerError("PHYSICAL_CONTRACT_HASH_MISMATCH")
+    expected_contract = CONTRACT_SHA256 if admitted_contract_sha256 is None else admitted_contract_sha256
+    if not re.fullmatch(r"[0-9a-f]{64}",str(expected_contract)):
+        raise RunnerError("ADMITTED_PHYSICAL_CONTRACT_HASH_INVALID")
+    if m["physical_contract_sha256"]!=expected_contract: raise RunnerError("PHYSICAL_CONTRACT_HASH_MISMATCH")
     if m["expansion_manifest_sha256"]!=EXPANSION_SHA256: raise RunnerError("EXPANSION_MANIFEST_HASH_MISMATCH")
     if not isinstance(m["pre_fsp_path"],str) or not m["pre_fsp_path"]: raise RunnerError("PRE_FSP_PATH_MISSING")
     if not re.fullmatch(r"[0-9a-f]{64}",str(m["pre_fsp_sha256"])): raise RunnerError("PRE_FSP_HASH_INVALID")
@@ -251,9 +254,9 @@ def _durable(path):
     with p.open("r+b") as f: os.fsync(f.fileno())
     return True
 
-def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_probe,setup_structural_validate=None):
+def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_probe,setup_structural_validate=None,admitted_contract_sha256=None,pre_entry_guard=None):
     """Run one manifest with injected adapters; no V3 control-state imports."""
-    validate_manifest(manifest)
+    validate_manifest(manifest, admitted_contract_sha256=admitted_contract_sha256)
     root=Path(root).resolve(); root.mkdir(parents=True,exist_ok=True)
     lock=root/".runner.lock"
     lock_record={"pid":os.getpid(),"run_id":manifest["run_id"],
@@ -263,6 +266,7 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
     active=root/"active_run.json"
     run_dir=root/"runs"/manifest["case_id"]/manifest["attempt_id"]/manifest["run_id"]
     status=registry=row=None; entered=False; active_created=False; predecessor=None
+    pre_entry_evidence=None; run_output_h5_sha256=None
     try:
         if active.exists(): raise RunnerError("ACTIVE_RUN_PRESENT")
         registry=_registry(root); rows=registry["runs"]
@@ -358,13 +362,30 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
                 "attempt_id":manifest["attempt_id"],"pid":os.getpid(),"state":"PRECHECK_PASS"})
             active_created=True
             _verify_pre_entry_ownership(lock,active,manifest)
+            entry_fields={}
+            if pre_entry_guard is not None:
+                pre_entry_evidence=pre_entry_guard(manifest,run_dir,staged_fsp,setup_validation)
+                if not isinstance(pre_entry_evidence,dict) or pre_entry_evidence.get("result")!="PASS":
+                    raise RunnerError("PRE_ENTRY_REVALIDATION_FAILED")
+                atomic_json(run_dir/"pre_entry_revalidation.json",pre_entry_evidence)
+                if not _durable(run_dir/"pre_entry_revalidation.json"):
+                    raise RunnerError("PRE_ENTRY_REVALIDATION_NOT_DURABLE")
+                entry_fields={
+                    "pre_entry_revalidation_sha256":sha256_file(run_dir/"pre_entry_revalidation.json"),
+                    "pre_entry_control_generation_sha256":pre_entry_evidence.get("control_generation_sha256")}
+                status.update(entry_fields); atomic_json(run_dir/"status.json",status)
+                _verify_pre_entry_ownership(lock,active,manifest)
             status=_transition(run_dir,status,"SOLVER_ENTERED",solver_entered=True,
-                solver_invocations=1,solver_entered_unix=time.time())
+                solver_invocations=1,solver_entered_unix=time.time(),**entry_fields)
             entered=True
             atomic_json(active,{"run_id":manifest["run_id"],"case_id":manifest["case_id"],
                 "attempt_id":manifest["attempt_id"],"pid":os.getpid(),"state":"SOLVER_ENTERED"})
             row["state"]="SOLVER_ENTERED"; atomic_json(root/"registry.json",registry)
             result=solver(manifest,run_dir)
+            if pre_entry_guard is not None:
+                h5_bundle=run_dir/"run"/"run_output.h5"
+                if not _durable(h5_bundle): raise RunnerError("RUN_OUTPUT_H5_NOT_DURABLE")
+                run_output_h5_sha256=sha256_file(h5_bundle)
             status=_transition(run_dir,status,"SOLVER_RETURNED",solver_returned_unix=time.time(),
                                solver_result=str(result)[:400])
             row["state"]="SOLVER_RETURNED"; atomic_json(root/"registry.json",registry)
@@ -380,10 +401,14 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
             validation=dict(validation,run_id=manifest["run_id"],run_fsp_sha256=fsp_hash,
                             truth_h5_sha256=truth_hash,validated_unix=time.time())
             atomic_json(run_dir/"validation.json",validation)
-            atomic_json(run_dir/"hashes.json",{"manifest_sha256":sha256_file(run_dir/"manifest.json"),
+            hash_record={"manifest_sha256":sha256_file(run_dir/"manifest.json"),
              "pre_fsp_sha256":manifest["pre_fsp_sha256"],"run_fsp_sha256":fsp_hash,
              "setup_validation_sha256":sha256_file(run_dir/"setup_validation.json") if (run_dir/"setup_validation.json").is_file() else None,
-             "truth_h5_sha256":truth_hash,"validation_sha256":sha256_file(run_dir/"validation.json")})
+             "truth_h5_sha256":truth_hash,"validation_sha256":sha256_file(run_dir/"validation.json")}
+            if pre_entry_evidence is not None:
+                hash_record["pre_entry_revalidation_sha256"]=sha256_file(run_dir/"pre_entry_revalidation.json")
+                hash_record["run_output_h5_sha256"]=run_output_h5_sha256
+            atomic_json(run_dir/"hashes.json",hash_record)
             status=_transition(run_dir,status,"TRUTH_VALID",run_fsp_sha256=fsp_hash,
                                truth_h5_sha256=truth_hash)
             row["state"]="TRUTH_VALID"; atomic_json(root/"registry.json",registry)

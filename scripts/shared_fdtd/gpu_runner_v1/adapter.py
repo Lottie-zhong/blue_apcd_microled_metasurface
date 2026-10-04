@@ -52,6 +52,10 @@ SETUP_MONITOR_CONTRACT_PATH = COUPLING_AUTHORITY_ROOT / "contracts/coupling/medi
 SETUP_MONITOR_CONTRACT_SHA256 = "a84d8526889084f2b3b09022402ca93b2947939cb744f071a4b19bc6eb09172f"
 SETUP_AUTHORITY_MANIFEST_SCHEMA = "PW_K6_5NM_FULL_PERIOD_MESH_AUTHORITY_V1_INPUT_V1"
 SETUP_LOAD_ONLY_SCHEMA = "PW_K6_5NM_FULL_PERIOD_MESH_LOAD_ONLY_VALIDATION_V1"
+CONTROLLED_POLICY_PATH = Path(__file__).resolve().parent / "controlled_admission_policy_v1.json"
+CONTROLLED_AUTHORITY_PATH = Path(__file__).resolve().parent / "controlled_admission_authority_v1.json"
+CONTROLLED_POLICY_SHA256 = "e26c2f1e5b13743da455277f4562ccf2a6262567e4dabf1a2fae06735d624f5f"
+CONTROLLED_AUTHORITY_SHA256 = "e6043ff7bec4711d16d326ca3d8305b9693647250349dea11b59b57e0cd2d1ec"
 
 
 def _sha256(path):
@@ -62,12 +66,96 @@ def _sha256(path):
     return h.hexdigest()
 
 
+
+def _controlled_start_generation_sha256(context, manifest):
+    import controlled_admission_v1 as controlled
+    fields = {
+        "schema": "APCD_GPU_RUNNER_CONTROLLED_START_GENERATION_V1",
+        "route_version": context["route_version"], "case_class": context["case_class"],
+        "case_id": manifest["case_id"], "attempt_id": manifest["attempt_id"],
+        "run_id": manifest.get("run_id"),
+        "route_policy_sha256": context["route_policy_sha256"],
+        "route_authority_sha256": context["route_authority_sha256"],
+        "source_manifest_path": context["source_manifest_path"],
+        "source_manifest_sha256": context["source_manifest_sha256"],
+        "physical_contract_path": context["physical_contract_path"],
+        "physical_contract_sha256": context["physical_contract_sha256"],
+        "physical_contract_semantic_sha256": context["physical_contract_semantic_sha256"],
+        "setup_contract_fingerprint_sha256": context["setup_contract_fingerprint_sha256"],
+        "source_fsp_path": context["source_fsp_path"],
+        "staged_fsp_path": context["staged_fsp_path"],
+        "staged_fsp_sha256": context["staged_fsp_sha256"],
+        "pre_entry_setup_load_proof_path": context["pre_entry_setup_load_proof_path"],
+        "pre_entry_setup_load_proof_sha256": context["pre_entry_setup_load_proof_sha256"],
+    }
+    return controlled.canonical_sha256(fields)
+
+
+def _wait_for_durable_gpu_h5_sidecar(path, minimum_monitor_groups, timeout_seconds=45.0):
+    import h5py
+    path=Path(path); deadline=time.monotonic()+float(timeout_seconds)
+    previous=None; stable=0; problem="SIDECAR_NOT_PRESENT"
+    while time.monotonic()<deadline:
+        try:
+            stat=path.stat()
+            if not path.is_file() or stat.st_size<=0:
+                problem="SIDECAR_EMPTY"; time.sleep(0.25); continue
+            signature=(stat.st_size,stat.st_mtime_ns)
+            stable=stable+1 if signature==previous else 0
+            previous=signature
+            if stable>=2:
+                with h5py.File(path,"r") as h5:
+                    groups=sorted(n for n in h5.keys()
+                        if re.fullmatch(r"Monitor\d+",str(n)) and isinstance(h5[n],h5py.Group))
+                    if len(groups)<int(minimum_monitor_groups):
+                        problem="MONITOR_GROUP_COUNT:"+str(len(groups))
+                    else:
+                        valid=True
+                        for name in groups:
+                            group=h5[name]
+                            for component in ("Ex","Ey","Ez","Hx","Hy","Hz"):
+                                ds=group.get(component)
+                                if (not isinstance(ds,h5py.Dataset) or ds.ndim!=4
+                                        or any(size<=0 for size in ds.shape) or ds.dtype.kind not in "uifc"):
+                                    valid=False; problem="MONITOR_FIELD_SCHEMA:"+name+":"+component; break
+                            if not valid: break
+                        if valid:
+                            with path.open("r+b") as stream:
+                                stream.flush(); os.fsync(stream.fileno())
+                            after=path.stat()
+                            if (after.st_size,after.st_mtime_ns)==signature:
+                                return {"result":"PASS","path":str(path.resolve()),
+                                    "size_bytes":after.st_size,"sha256":_sha256(path),
+                                    "monitor_groups":groups,
+                                    "minimum_monitor_groups":int(minimum_monitor_groups),
+                                    "stable_observations":stable}
+                            previous=None; stable=0
+            time.sleep(0.25)
+        except Exception as exc:
+            problem=type(exc).__name__+":"+str(exc); time.sleep(0.25)
+    raise RunnerError("GPU_H5_SIDECAR_NOT_DURABLE:"+problem)
+
+
+
 def read_cli_manifest(path):
     """Read the core run manifest plus the approved per-case setup authority."""
     with open(path, "r", encoding="utf-8") as stream:
         envelope = json.load(stream)
     if not isinstance(envelope, dict):
         raise RunnerError("MANIFEST_INVALID")
+    if "controlled_admission" in envelope:
+        from controlled_admission_v1 import validate_controlled_envelope
+        envelope = __import__("controlled_admission_v1").read_json(Path(path))
+        manifest, contract_file, controlled_context = validate_controlled_envelope(
+            envelope, manifest_keys=MANIFEST_KEYS, preflight=False,
+            policy_path=CONTROLLED_POLICY_PATH, authority_path=CONTROLLED_AUTHORITY_PATH,
+            expected_policy_sha256=CONTROLLED_POLICY_SHA256,
+            expected_authority_sha256=CONTROLLED_AUTHORITY_SHA256)
+        from runner import validate_manifest
+        validate_manifest(manifest, admitted_contract_sha256=controlled_context["physical_contract_sha256"])
+        controlled_context["envelope_path"] = str(Path(path).resolve())
+        manifest["_controlled_admission"] = controlled_context
+        return manifest, contract_file
     contract_path = envelope.get("physical_contract_path")
     if not isinstance(contract_path, str) or not contract_path:
         raise RunnerError("PHYSICAL_CONTRACT_PATH_MISSING")
@@ -274,6 +362,10 @@ class NativeAdapter:
         self.postprocess_dependency_preflight = postprocess_dependency_preflight(pinned_launcher)
         self.launcher = launcher or pinned_launcher
         self.contract_path = Path(contract_path)
+        self._controlled_monitor_sessions = {}
+        self._controlled_monitor_cache = {}
+        self._controlled_persist_monitor_names = ()
+        self._controlled_expected_h5_monitor_count = 0
         with self.contract_path.open("r", encoding="utf-8") as stream:
             self.contract = json.load(stream)
         resolver = getattr(self.launcher, "_resolve_contract", None)
@@ -291,6 +383,29 @@ class NativeAdapter:
         if self.fdtd_exe:
             cfg["fdtd_solutions_exe"] = self.fdtd_exe
         return cfg
+
+
+    def _run_standalone_gpu_with_extra_field_monitors(self,cfg,extra_monitor_names,on_confirmed,launch_guard):
+        extra=tuple(dict.fromkeys(extra_monitor_names))
+        if not extra:
+            return self.launcher.run_standalone_gpu_and_confirm_completion(
+                cfg,on_confirmed=on_confirmed,launch_guard=launch_guard)
+        if any(not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}",name) for name in extra):
+            raise RunnerError("CONTROLLED_EXTRA_MONITOR_NAME_INVALID")
+        builder=getattr(self.launcher,"_standalone_gpu_script",None)
+        if not callable(builder):
+            raise RunnerError("PINNED_LAUNCHER_GPU_SCRIPT_BUILDER_MISSING")
+        def extended_builder(resource_name,monitor_names):
+            combined=list(monitor_names)
+            for name in extra:
+                if name not in combined: combined.append(name)
+            return builder(resource_name,combined)
+        self.launcher._standalone_gpu_script=extended_builder
+        try:
+            return self.launcher.run_standalone_gpu_and_confirm_completion(
+                cfg,on_confirmed=on_confirmed,launch_guard=launch_guard)
+        finally:
+            self.launcher._standalone_gpu_script=builder
 
     def solver(self, manifest, run_dir):
         status_path = Path(run_dir) / "status.json"
@@ -348,8 +463,22 @@ class NativeAdapter:
             atomic_json(status_path, current)
             observed.append(current["solver_process_lineage"])
 
-        result = self.launcher.run_standalone_gpu_and_confirm_completion(
-            cfg, on_confirmed=on_confirmed, launch_guard=launch_guard)
+        extra_monitors=tuple(getattr(self,"_controlled_persist_monitor_names",()))
+        if extra_monitors:
+            result=self._run_standalone_gpu_with_extra_field_monitors(
+                cfg,extra_monitors,on_confirmed,launch_guard)
+            minimum_groups=int(getattr(self,"_controlled_expected_h5_monitor_count",0))
+            h5_ready=_wait_for_durable_gpu_h5_sidecar(
+                Path(run_dir)/"run"/"run_output.h5",minimum_groups)
+            with log_path.open("a",encoding="utf-8") as stream:
+                stream.write(json.dumps({"run_id":manifest["run_id"],
+                    "event":"GPU_H5_SIDECAR_READY","h5_bundle":h5_ready},
+                    sort_keys=True,default=str)+"\n")
+            result=dict(result,h5_sidecar_ready=h5_ready,
+                        persisted_extra_field_monitors=list(extra_monitors))
+        else:
+            result=self.launcher.run_standalone_gpu_and_confirm_completion(
+                cfg,on_confirmed=on_confirmed,launch_guard=launch_guard)
         if not observed:
             raise RunnerError("SOLVER_PROCESS_LINEAGE_UNCONFIRMED")
         child_log = result.get("child_log")
@@ -360,9 +489,212 @@ class NativeAdapter:
                 stream.write(Path(child_log).read_text(encoding="utf-8", errors="replace"))
         return result
 
+    def _revalidate_controlled_setup_context(self, manifest, context):
+        """Re-read every controlled authority and content hash immediately before entry."""
+        import controlled_admission_v1 as controlled
+        envelope_path = Path(context.get("envelope_path", "")).resolve(strict=True)
+        envelope = controlled.read_json(envelope_path)
+        preflight_only = context.get("preflight_only") is True
+        core, contract_path, fresh_context = controlled.validate_controlled_envelope(
+            envelope, manifest_keys=MANIFEST_KEYS, preflight=preflight_only,
+            policy_path=CONTROLLED_POLICY_PATH, authority_path=CONTROLLED_AUTHORITY_PATH,
+            expected_policy_sha256=CONTROLLED_POLICY_SHA256,
+            expected_authority_sha256=CONTROLLED_AUTHORITY_SHA256)
+        if core != manifest:
+            raise RunnerError("CONTROLLED_MANIFEST_CHANGED_BEFORE_SETUP_LOAD")
+        if (os.path.normcase(str(contract_path.resolve()))
+                != os.path.normcase(str(self.contract_path.resolve()))
+                or _sha256(self.contract_path) != fresh_context["physical_contract_sha256"]
+                or self.contract != controlled.read_json(contract_path)):
+            raise RunnerError("CONTROLLED_CONTRACT_CHANGED_AFTER_ADAPTER_INIT")
+        fresh_context["envelope_path"] = str(envelope_path)
+        fresh_context["preflight_only"] = preflight_only
+        return fresh_context
+
+
+    def controlled_pre_entry_revalidate(self, manifest, run_dir, staged_fsp,
+                                        setup_validation, case_authority):
+        """Re-read the controlled envelope and quota after LOAD, immediately before entry."""
+        import controlled_admission_v1 as controlled
+        initial=setup_validation.get("start_time_revalidation") if isinstance(setup_validation,dict) else None
+        if (not isinstance(initial,dict) or initial.get("result")!="PASS"
+                or initial.get("preflight_only") is not False or setup_validation.get("result")!="PASS"):
+            raise RunnerError("CONTROLLED_PRE_ENTRY_SETUP_PROOF_MISSING")
+        status=read_json(Path(run_dir)/"status.json")
+        if (status.get("run_id")!=manifest.get("run_id") or status.get("state")!="PRECHECK_PASS"
+                or status.get("solver_entered") is not False or status.get("solver_invocations")!=0):
+            raise RunnerError("CONTROLLED_PRE_ENTRY_RUN_STATE_CHANGED")
+        fresh=self._revalidate_controlled_setup_context(manifest,case_authority)
+        generation=_controlled_start_generation_sha256(fresh,manifest)
+        if generation!=initial.get("control_generation_sha256"):
+            raise RunnerError("CONTROL_GENERATION_CHANGED_BEFORE_SOLVER_ENTRY")
+        staged_fsp=Path(staged_fsp).resolve(strict=True)
+        if (_sha256(staged_fsp)!=manifest.get("pre_fsp_sha256")
+                or _sha256(staged_fsp)!=fresh.get("staged_fsp_sha256")):
+            raise RunnerError("CONTROLLED_STAGED_FSP_CHANGED_BEFORE_ENTRY")
+        gpu_snapshot=self.gpu_snapshot()
+        try: free_mib=int(gpu_snapshot.get("free_mib",-1))
+        except (AttributeError,TypeError,ValueError): free_mib=-1
+        if free_mib<MIN_GPU_FREE_MIB:
+            raise RunnerError("CONTROLLED_START_GPU_QUOTA_UNAVAILABLE")
+        extra=[]; minimum_groups=0
+        readback=setup_validation.get("setup_readback",{})
+        if fresh.get("case_class","").startswith("EXT02_"):
+            expected=controlled._expected_monitor(fresh["policy"])
+            added=readback.get("added_monitor"); existing=readback.get("existing_monitor_readbacks")
+            if (not isinstance(added,dict) or added.get("name")!=expected["name"]
+                    or added.get("components")!=["Ex","Ey","Ez","Hx","Hy","Hz"]
+                    or not isinstance(existing,dict) or len(existing)!=4):
+                raise RunnerError("CONTROLLED_GPU_H5_MONITOR_AUTHORITY_MISMATCH")
+            extra=[expected["name"]]; minimum_groups=len(existing)+1
+        self._controlled_persist_monitor_names=tuple(extra)
+        self._controlled_expected_h5_monitor_count=minimum_groups
+        return {
+            "schema":"APCD_GPU_RUNNER_CONTROLLED_PRE_ENTRY_REVALIDATION_V1","result":"PASS",
+            "case_id":manifest["case_id"],"attempt_id":manifest["attempt_id"],"run_id":manifest["run_id"],
+            "route_version":fresh["route_version"],"route_policy_sha256":fresh["route_policy_sha256"],
+            "route_authority_sha256":fresh["route_authority_sha256"],
+            "source_manifest_sha256":fresh["source_manifest_sha256"],
+            "physical_contract_sha256":fresh["physical_contract_sha256"],
+            "setup_contract_fingerprint_sha256":fresh["setup_contract_fingerprint_sha256"],
+            "source_fsp_sha256":fresh["staged_fsp_sha256"],"staged_fsp_sha256":_sha256(staged_fsp),
+            "pre_entry_setup_load_proof_sha256":fresh["pre_entry_setup_load_proof_sha256"],
+            "control_generation_sha256":generation,
+            "initial_setup_load_generation_sha256":initial["control_generation_sha256"],
+            "gpu_quota_minimum_free_mib":MIN_GPU_FREE_MIB,"gpu_snapshot":gpu_snapshot,
+            "gpu_snapshot_sha256":hashlib.sha256(json.dumps(gpu_snapshot,sort_keys=True,default=str).encode("utf-8")).hexdigest(),
+            "authorized_extra_field_monitors":extra,"minimum_h5_monitor_groups":minimum_groups,
+            "owner_fence_checked_by_runner_core_before_and_after":True,
+            "solver_run_called":False,"scientific_entry_performed":False,
+        }
+
+    def _controlled_monitor_readback(self, fsp_path, expected):
+        """Return monitor properties from a fresh API LOAD; this function never runs FDTD."""
+        _prepare_postprocess_import_paths()
+        lumapi = importlib.import_module("lumapi")
+        resolved = str(Path(fsp_path).resolve())
+        name = expected["name"]
+        cache_key = (resolved, name)
+        if cache_key in self._controlled_monitor_cache:
+            return dict(self._controlled_monitor_cache[cache_key])
+        fd = self._controlled_monitor_sessions.get(resolved)
+        if fd is None:
+            fd = lumapi.FDTD(resolved, hide=True)
+            self._controlled_monitor_sessions[resolved] = fd
+        try:
+            def get(prop):
+                try:
+                    value = fd.getnamed(name, prop)
+                    if hasattr(value, "tolist"):
+                        value = value.tolist()
+                    if isinstance(value, (str, int, float, bool)) or value is None:
+                        return value
+                    return str(value)
+                except Exception as exc:
+                    raise RunnerError("CONTROLLED_MONITOR_READBACK_FAILED:" + name + ":" + prop) from exc
+            nm = lambda prop: round(float(get(prop)) * 1e9, 9)
+            component_props = ("Ex", "Ey", "Ez", "Hx", "Hy", "Hz")
+            components = [key for key in component_props
+                          if get("output " + key) in (True, 1, 1.0, "1")]
+            result = {
+                "name": name, "type": get("type"), "enabled": get("enabled"),
+                "monitor_type": get("monitor type"),
+                "x_nm": nm("x"), "y_nm": nm("y"), "z_nm": nm("z"),
+                "x_span_nm": nm("x span"), "y_span_nm": nm("y span"),
+                "frequency_points": int(get("frequency points")),
+                "wavelength_center_nm": nm("wavelength center"),
+                "wavelength_span_nm": nm("wavelength span"),
+                "components": components,
+                "spatial_interpolation": get("spatial interpolation"),
+                "down_sample": {axis: int(get("down sample " + axis)) for axis in ("x", "y", "z")},
+                "use_source_limits": get("use source limits"),
+                "override_global_monitor_settings": get("override global monitor settings"),
+                "use_wavelength_spacing": get("use wavelength spacing"),
+                "output_power": get("output power"),
+                "reference_plane_nm": expected.get("reference_plane_nm", {
+                    "MON_IN": -50.0, "MON_PRENP": 1202.0,
+                    "MON_POSTNP": 1722.0, "MON_REFLECTION": None,
+                }.get(name)),
+                "actual_sampled_z_nm": None,
+                "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+            }
+            self._controlled_monitor_cache[cache_key] = result
+            return dict(result)
+        except Exception:
+            if self._controlled_monitor_sessions.pop(resolved, None) is not None:
+                try:
+                    fd.close()
+                except Exception:
+                    pass
+            raise
+
+    def _close_controlled_monitor_sessions(self):
+        sessions = list(self._controlled_monitor_sessions.values())
+        self._controlled_monitor_sessions.clear()
+        self._controlled_monitor_cache.clear()
+        for fd in sessions:
+            try:
+                fd.close()
+            except Exception:
+                pass
+
     def setup_structural_validate(self, manifest, source_fsp=None, staged_fsp=None,
                                   case_authority=None):
-        """LOAD and compare one case against its linked Coupling authority artifacts."""
+        """LOAD and compare one legacy or explicitly versioned controlled setup."""
+        if (isinstance(case_authority, dict)
+                and case_authority.get("route_version") == "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1"):
+            import controlled_admission_v1 as controlled
+            try:
+                fresh_context = self._revalidate_controlled_setup_context(manifest, case_authority)
+                structural = controlled.validate_real_readback(
+                    fresh_context, case_authority=fresh_context,
+                    source_fsp=source_fsp or fresh_context["source_fsp_path"],
+                    staged_fsp=staged_fsp or fresh_context["staged_fsp_path"],
+                    manifest=manifest, setup_validator=load_pinned_setup_validator(),
+                    monitor_readback=self._controlled_monitor_readback)
+                # Re-read all pinned controls and artifact hashes after LOAD validation.
+                # This rejects a changed route, manifest, contract, proof, or FSP during the check.
+                final_context = self._revalidate_controlled_setup_context(manifest, case_authority)
+                start_generation_sha256 = _controlled_start_generation_sha256(fresh_context, manifest)
+                if start_generation_sha256 != _controlled_start_generation_sha256(final_context, manifest):
+                    raise RunnerError("CONTROL_GENERATION_CHANGED_DURING_SETUP_LOAD")
+                preflight_only = final_context.get("preflight_only") is True
+                gpu_snapshot = None
+                if not preflight_only:
+                    gpu_snapshot = self.gpu_snapshot()
+                    try:
+                        free_mib = int(gpu_snapshot.get("free_mib", -1))
+                    except (AttributeError, TypeError, ValueError):
+                        free_mib = -1
+                    if free_mib < MIN_GPU_FREE_MIB:
+                        raise RunnerError("CONTROLLED_START_GPU_QUOTA_UNAVAILABLE")
+                structural["start_time_revalidation"] = {
+                    "schema": "APCD_GPU_RUNNER_CONTROLLED_START_REVALIDATION_V1",
+                    "result": "PASS",
+                    "checked_after_setup_load": True,
+                    "preflight_only": preflight_only,
+                    "case_id": manifest["case_id"],
+                    "attempt_id": manifest["attempt_id"],
+                    "run_id": manifest.get("run_id"),
+                    "control_generation_sha256": start_generation_sha256,
+                    "route_version": final_context["route_version"],
+                    "route_policy_sha256": final_context["route_policy_sha256"],
+                    "route_authority_sha256": final_context["route_authority_sha256"],
+                    "source_manifest_sha256": final_context["source_manifest_sha256"],
+                    "physical_contract_sha256": final_context["physical_contract_sha256"],
+                    "setup_contract_fingerprint_sha256": final_context["setup_contract_fingerprint_sha256"],
+                    "source_fsp_sha256": final_context["staged_fsp_sha256"],
+                    "staged_fsp_sha256": final_context["staged_fsp_sha256"],
+                    "pre_entry_setup_load_proof_sha256": final_context["pre_entry_setup_load_proof_sha256"],
+                    "gpu_quota_minimum_free_mib": MIN_GPU_FREE_MIB if not preflight_only else None,
+                    "gpu_snapshot_sha256": (hashlib.sha256(json.dumps(
+                        gpu_snapshot, sort_keys=True, default=str).encode("utf-8")).hexdigest()
+                        if gpu_snapshot is not None else None),
+                }
+                structural["start_time_gpu_snapshot"] = gpu_snapshot
+                return structural
+            finally:
+                self._close_controlled_monitor_sessions()
         token_pattern = r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}"
         case_id = manifest.get("case_id")
         attempt_id = manifest.get("attempt_id")
@@ -767,7 +1099,8 @@ class NativeAdapter:
 
 def run_cli(manifest_path, adapter_factory=NativeAdapter, test_output_root=None):
     manifest, contract_path = read_cli_manifest(manifest_path)
-    case_authority = manifest.pop("_setup_authority", None)
+    controlled_context = manifest.pop("_controlled_admission", None)
+    case_authority = controlled_context or manifest.pop("_setup_authority", None)
     adapter = adapter_factory(contract_path)
     preflight = getattr(adapter, "postprocess_dependency_preflight", None)
     if not isinstance(preflight, dict) or preflight.get("result") != "PASS":
@@ -798,8 +1131,55 @@ def run_cli(manifest_path, adapter_factory=NativeAdapter, test_output_root=None)
     def validate_case_setup(core_manifest, source_fsp=None, staged_fsp=None):
         return setup_validator(core_manifest, source_fsp, staged_fsp, case_authority)
 
+    run_kwargs = {}
+    if controlled_context is not None:
+        run_kwargs["admitted_contract_sha256"] = controlled_context["physical_contract_sha256"]
+        def pre_entry_guard(core_manifest, run_dir, staged_fsp, setup_validation):
+            return adapter.controlled_pre_entry_revalidate(
+                core_manifest, run_dir, staged_fsp, setup_validation, controlled_context)
+        run_kwargs["pre_entry_guard"] = pre_entry_guard
     return run_one(manifest, output_root, adapter.solver, adapter.fresh_load_validate,
-                   adapter.gpu_snapshot, adapter.runner_owner_probe, validate_case_setup)
+                   adapter.gpu_snapshot, adapter.runner_owner_probe, validate_case_setup,
+                   **run_kwargs)
+
+
+def preflight_setup_cli(envelope_path, adapter_factory=NativeAdapter):
+    """Production adapter preflight: immutable validation and LOAD only; no run_one."""
+    import controlled_admission_v1 as controlled
+    envelope = controlled.read_json(Path(envelope_path))
+    core, contract_path, context = controlled.validate_controlled_envelope(
+        envelope, manifest_keys=MANIFEST_KEYS, preflight=True,
+        policy_path=CONTROLLED_POLICY_PATH, authority_path=CONTROLLED_AUTHORITY_PATH,
+        expected_policy_sha256=CONTROLLED_POLICY_SHA256,
+        expected_authority_sha256=CONTROLLED_AUTHORITY_SHA256)
+    context["envelope_path"] = str(Path(envelope_path).resolve())
+    context["preflight_only"] = True
+    adapter = adapter_factory(contract_path, gpu_resource_name="SETUP_PREFLIGHT_ONLY_NO_SLOT")
+    dependency = getattr(adapter, "postprocess_dependency_preflight", None)
+    if not isinstance(dependency, dict) or dependency.get("result") != "PASS":
+        raise RunnerError("POSTPROCESS_DEPENDENCY_PREFLIGHT_FAILED")
+    validate_setup = getattr(adapter, "setup_structural_validate", None)
+    if not callable(validate_setup):
+        raise RunnerError("SETUP_STRUCTURAL_VALIDATOR_MISSING")
+    structural = validate_setup(core, context["source_fsp_path"],
+                                context["staged_fsp_path"], context)
+    return {
+        "schema": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_SETUP_PREFLIGHT_RESULT_V1",
+        "result": "PASS", "route_version": context["route_version"],
+        "case_class": context["case_class"], "case_id": context["case_id"],
+        "attempt_id": context["attempt_id"],
+        "source_manifest_path": context["source_manifest_path"],
+        "source_manifest_sha256": context["source_manifest_sha256"],
+        "physical_contract_path": str(contract_path),
+        "physical_contract_sha256": context["physical_contract_sha256"],
+        "setup_contract_fingerprint_sha256": context["setup_contract_fingerprint_sha256"],
+        "pre_entry_setup_load_proof_path": context["pre_entry_setup_load_proof_path"],
+        "pre_entry_setup_load_proof_sha256": context["pre_entry_setup_load_proof_sha256"],
+        "dependency_preflight": dependency, "structural_setup_validation": structural,
+        "solver_run_called": False, "solver_invocations": 0,
+        "scientific_entry_count": 0, "post_entry_truth_proved": False,
+        "post_entry_truth_required_after_solver": True,
+    }
 
 
 def main(argv=None):
@@ -807,9 +1187,12 @@ def main(argv=None):
     sub = parser.add_subparsers(dest="command", required=True)
     one = sub.add_parser("run-one")
     one.add_argument("case_manifest")
+    preflight_setup = sub.add_parser("preflight-setup")
+    preflight_setup.add_argument("case_manifest")
     args = parser.parse_args(argv)
     try:
-        result = run_cli(args.case_manifest)
+        result = (preflight_setup_cli(args.case_manifest)
+                  if args.command == "preflight-setup" else run_cli(args.case_manifest))
     except Exception as exc:
         print("RUNNER_ERROR:" + str(exc), file=sys.stderr)
         return 2
