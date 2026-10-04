@@ -48,3 +48,18 @@ See `scripts/coupling_ml/k6_v2_pipeline/README.md`. Data role registry/ingestion
 5. Do not call training scheduler until the user separately authorizes scientific training.
 6. Confirmation remains sealed until both candidate prediction bundles, model/preprocess/evaluator hashes, and artifact byte hashes are frozen and user-authorized reveal is formally recorded.
 7. Do not run solver or Runner under this implementation task.
+
+
+## Event-driven data-ingestion continuation update (2026-10-05, Asia/Shanghai)
+
+This update records the management rule for the authorized `COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1 / ML_INGESTION` subtask. It supplements this code-preparation snapshot; it does not change frozen science, models, folds, truth, or H1/H2.
+
+- Wait for the GPU agent's direct, formal durable-truth handoff for each completed development case. A handoff must include the immutable case/attempt identity, provenance and hashes, durable FSP/H5 truth, fresh LOAD evidence, and truth-before-DONE status. Do not ingest from an unverified runtime path or infer completion from setup/preflight alone.
+- The first case is the sole continuation gate for the remaining 127 authorized development cases. Validate it against the frozen registry and complete V2 label schema. Report first-case acceptance or quarantine to the project manager; GPU may continue only after the first case passes.
+- After first-case PASS, incrementally validate and ingest every subsequently handed-off development case without waiting for per-case manager approval. Keep an auditable per-case ledger, accepted/quarantined state, development manifest, and SHA inventory. Report to the manager only at the first-case gate, task completion, an unresolved anomaly/blocker, or a decision boundary; do not send periodic ten-minute heartbeat or polling updates. GPU-to-ML handoff may arrive directly and does not require manager forwarding.
+- Keep confirmation and diagnostic roles excluded from training. Do not read sealed confirmation responses, queue21-linked truth, or EXT02 diagnostic truth into the development set. Queue21 consumer exclusion remains active. No training fits or standalone P_scale fits are authorized here.
+- As of this update, no new V2 development truth has been formally handed off to ML; this task remains ready to resume on the first handoff.
+
+## Resume event
+
+On receipt of a formal development handoff, validate one case at a time against the frozen 128-ID order and schema, persist its result and hashes, and notify the manager only when one of the reporting conditions above is met. Preserve all unrelated worktree state.
