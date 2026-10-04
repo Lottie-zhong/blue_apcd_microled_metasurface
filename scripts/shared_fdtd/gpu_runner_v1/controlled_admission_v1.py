@@ -222,7 +222,8 @@ def _trusted_ext02_source(provenance: dict, authority: dict, case_id: str,
 
 
 def _trusted_k6_geometry(provenance: dict, authority: dict, case_id: str,
-                         attempt_id: str, geometry: list[int]) -> None:
+                         attempt_id: str, geometry: list[int], *,
+                         preflight: bool = True) -> dict:
     if provenance.get("schema") != GEOMETRY_SOURCE_SCHEMA:
         raise ControlledAdmissionError("K6_GEOMETRY_SOURCE_SCHEMA_INVALID")
     sources = authority.get("k6_geometry_authorities")
@@ -233,6 +234,15 @@ def _trusted_k6_geometry(provenance: dict, authority: dict, case_id: str,
     if len(match) != 1:
         raise ControlledAdmissionError("K6_GEOMETRY_NOT_ENROLLED")
     row = match[0]
+    if row.get("setup_admission_authorized") is not True:
+        raise ControlledAdmissionError("K6_SETUP_ADMISSION_NOT_AUTHORIZED")
+    solver_authorized = row.get("solver_entry_authorized")
+    max_entries = row.get("max_solver_entries")
+    if (not isinstance(solver_authorized, bool) or type(max_entries) is not int
+            or max_entries < 0):
+        raise ControlledAdmissionError("K6_SOLVER_ENTRY_AUTHORITY_INVALID")
+    if not preflight and (solver_authorized is not True or max_entries < 1):
+        raise ControlledAdmissionError("K6_SOLVER_ENTRY_NOT_AUTHORIZED")
     source_path = Path(row["path"])
     source_sha = _sha(row.get("sha256"), "K6_GEOMETRY_AUTHORITY_HASH_INVALID")
     if (not source_path.is_file() or file_sha256(source_path) != source_sha
@@ -240,6 +250,10 @@ def _trusted_k6_geometry(provenance: dict, authority: dict, case_id: str,
             or provenance.get("authority_sha256") != source_sha):
         raise ControlledAdmissionError("K6_GEOMETRY_AUTHORITY_HASH_MISMATCH")
     source = read_json(source_path)
+    if (source.get("setup_admission_authorized") != row.get("setup_admission_authorized")
+            or source.get("solver_entry_authorized") != row.get("solver_entry_authorized")
+            or source.get("max_solver_entries") != row.get("max_solver_entries")):
+        raise ControlledAdmissionError("K6_GEOMETRY_SOURCE_PERMISSION_MISMATCH")
     if (source.get("schema") != GEOMETRY_SOURCE_SCHEMA
             or source.get("eligible") is not True
             or source.get("case_id") != case_id
@@ -360,7 +374,8 @@ def validate_case_pack(*, route_version: str, case_class: str, case_id: str,
     elif case_class == "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1":
         if contract != base_contract or contract_sha != base_contract_sha256:
             raise ControlledAdmissionError("K6_PHYSICAL_CONTRACT_CHANGED")
-        geometry_authority = _trusted_k6_geometry(provenance, authority, case_id, attempt_id, geometry)
+        geometry_authority = _trusted_k6_geometry(
+            provenance, authority, case_id, attempt_id, geometry, preflight=preflight)
         expected_provenance_schema = GEOMETRY_SOURCE_SCHEMA
     else:
         raise ControlledAdmissionError("CASE_CLASS_NOT_AUTHORIZED")
@@ -592,6 +607,20 @@ def validate_controlled_envelope(envelope: dict, *, manifest_keys: set[str],
     return core, Path(physical_contract_path).resolve(strict=True), context
 
 
+def _without_declared_k6_geometry_delta(row: dict) -> dict:
+    """Keep validator-required identity keys while masking only enrolled D1-D6."""
+    value = copy.deepcopy(row)
+    for name in ("NP_D{}".format(i) for i in range(1, 7)):
+        if name in value.get("geometry", {}):
+            value["geometry"][name].pop("diameter_nm", None)
+    # The official semantic projection indexes these fields directly. Identical
+    # sentinels neutralize only their declared variation without dropping schema.
+    value["ordered_D_nm"] = ["DECLARED_D1_D6_VARIANT"] * 6
+    value["geometry_hash_sha256"] = "DECLARED_D1_D6_VARIANT"
+    value.pop("mesh_coverage", None)
+    return value
+
+
 def validate_real_readback(context: dict, *, case_authority: dict,
                            source_fsp: Path, staged_fsp: Path,
                            manifest: dict, setup_validator,
@@ -624,20 +653,10 @@ def validate_real_readback(context: dict, *, case_authority: dict,
             raise ControlledAdmissionError("FIVE_NM_BASE_VALIDATOR_" + name + "_FAILED")
 
     if case_class == "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1":
-        def without_geometry_delta(row):
-            value = copy.deepcopy(row)
-            for name in ["NP_D{}".format(i) for i in range(1, 7)]:
-                if name in value.get("geometry", {}):
-                    value["geometry"][name].pop("diameter_nm", None)
-            value.pop("ordered_D_nm", None)
-            value.pop("geometry_hash_sha256", None)
-            value.pop("mesh_coverage", None)
-            return value
-
         base_to_source = setup_validator.compare_semantics(
-            without_geometry_delta(baseline), without_geometry_delta(source_row))
+            _without_declared_k6_geometry_delta(baseline), _without_declared_k6_geometry_delta(source_row))
         source_to_staged = setup_validator.compare_semantics(
-            without_geometry_delta(source_row), without_geometry_delta(staged_row))
+            _without_declared_k6_geometry_delta(source_row), _without_declared_k6_geometry_delta(staged_row))
         if (not isinstance(base_to_source, dict) or base_to_source.get("status") != "PASS"
                 or not isinstance(source_to_staged, dict) or source_to_staged.get("status") != "PASS"):
             raise ControlledAdmissionError("K6_UNDECLARED_NON_GEOMETRY_SETUP_DELTA")
@@ -648,7 +667,7 @@ def validate_real_readback(context: dict, *, case_authority: dict,
         if not isinstance(proof_row, dict):
             raise ControlledAdmissionError("FRESH_LOAD_PROOF_READBACK_MISSING")
         proof_parity = setup_validator.compare_semantics(
-            without_geometry_delta(proof_row), without_geometry_delta(staged_row))
+            _without_declared_k6_geometry_delta(proof_row), _without_declared_k6_geometry_delta(staged_row))
         if not isinstance(proof_parity, dict) or proof_parity.get("status") != "PASS":
             raise ControlledAdmissionError("FRESH_LOAD_PROOF_SEMANTIC_PARITY_FAILED")
         return {

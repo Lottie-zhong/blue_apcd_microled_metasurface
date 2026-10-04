@@ -304,6 +304,8 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
             "ordered_D_nm": g, "geometry_hash_sha256": "1" * 64,
             "expansion_manifest_sha256": self.expansion_sha,
             "base_setup_fsp_path": str(base), "base_setup_fsp_sha256": _sha(base),
+            "setup_admission_authorized": True, "solver_entry_authorized": False,
+            "max_solver_entries": 0,
         }
         _write_json(source_path, source)
         source_sha = _sha(source_path)
@@ -312,6 +314,8 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
             "k6_geometry_authorities": [{
                 "case_id": "K6V1_NEW001", "attempt_id": "attempt_001",
                 "path": str(source_path), "sha256": source_sha,
+                "setup_admission_authorized": True, "solver_entry_authorized": False,
+                "max_solver_entries": 0,
             }],
         }
         provenance = {
@@ -323,6 +327,35 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
         selected = controlled._trusted_k6_geometry(
             provenance, authority, "K6V1_NEW001", "attempt_001", g)
         self.assertEqual(selected["ordered_D_nm"], g)
+        with self.assertRaisesRegex(controlled.ControlledAdmissionError,
+                                    "K6_SOLVER_ENTRY_NOT_AUTHORIZED"):
+            controlled._trusted_k6_geometry(
+                provenance, authority, "K6V1_NEW001", "attempt_001", g, preflight=False)
+        denied_setup = copy.deepcopy(authority)
+        denied_setup["k6_geometry_authorities"][0]["setup_admission_authorized"] = False
+        with self.assertRaisesRegex(controlled.ControlledAdmissionError,
+                                    "K6_SETUP_ADMISSION_NOT_AUTHORIZED"):
+            controlled._trusted_k6_geometry(
+                provenance, denied_setup, "K6V1_NEW001", "attempt_001", g)
+        invalid_budget = copy.deepcopy(authority)
+        invalid_budget["k6_geometry_authorities"][0]["max_solver_entries"] = "0"
+        with self.assertRaisesRegex(controlled.ControlledAdmissionError,
+                                    "K6_SOLVER_ENTRY_AUTHORITY_INVALID"):
+            controlled._trusted_k6_geometry(
+                provenance, invalid_budget, "K6V1_NEW001", "attempt_001", g)
+        changed_source = copy.deepcopy(source)
+        changed_source["solver_entry_authorized"] = True
+        _write_json(source_path, changed_source)
+        changed_source_sha = _sha(source_path)
+        changed_authority = copy.deepcopy(authority)
+        changed_authority["k6_geometry_authorities"][0]["sha256"] = changed_source_sha
+        changed_provenance = copy.deepcopy(provenance)
+        changed_provenance["authority_sha256"] = changed_source_sha
+        with self.assertRaisesRegex(controlled.ControlledAdmissionError,
+                                    "K6_GEOMETRY_SOURCE_PERMISSION_MISMATCH"):
+            controlled._trusted_k6_geometry(
+                changed_provenance, changed_authority, "K6V1_NEW001", "attempt_001", g)
+        _write_json(source_path, source)
         with self.assertRaisesRegex(controlled.ControlledAdmissionError,
                                     "K6_GEOMETRY_NOT_AUTHORIZED_BY_SOURCE"):
             controlled._trusted_k6_geometry(
@@ -503,6 +536,27 @@ class ControlledAdmissionSyntheticTests(unittest.TestCase):
         with self.assertRaisesRegex(controlled.ControlledAdmissionError,
                                     "EXISTING_MONITOR_CHANGED:MON_POSTNP"):
             self._real_readback_fixture(alter_existing=True)
+
+    def test_k6_geometry_delta_projection_retains_official_semantic_schema(self):
+        base = {
+            "ordered_D_nm": [200, 205, 210, 215, 220, 225],
+            "geometry_hash_sha256": "a" * 64,
+            "geometry": {"NP_D1": {"diameter_nm": 200, "x_nm": 0.0, "material": "Native-M1"}},
+            "mesh_coverage": {"geometry_specific": True},
+        }
+        changed = copy.deepcopy(base)
+        changed["ordered_D_nm"] = [205, 205, 210, 215, 220, 225]
+        changed["geometry_hash_sha256"] = "b" * 64
+        changed["geometry"]["NP_D1"]["diameter_nm"] = 205
+        left = controlled._without_declared_k6_geometry_delta(base)
+        right = controlled._without_declared_k6_geometry_delta(changed)
+        self.assertIn("ordered_D_nm", left)
+        self.assertIn("geometry_hash_sha256", left)
+        self.assertEqual(left["ordered_D_nm"], right["ordered_D_nm"])
+        self.assertEqual(left["geometry_hash_sha256"], right["geometry_hash_sha256"])
+        self.assertNotIn("diameter_nm", left["geometry"]["NP_D1"])
+        self.assertEqual(left["geometry"]["NP_D1"]["material"], "Native-M1")
+        self.assertNotIn("mesh_coverage", left)
 
     def test_route_contract_path_and_hash_mismatches_fail_closed(self):
         with self.assertRaisesRegex(controlled.ControlledAdmissionError,

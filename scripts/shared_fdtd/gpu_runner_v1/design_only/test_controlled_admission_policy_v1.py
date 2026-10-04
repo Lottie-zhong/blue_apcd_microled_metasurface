@@ -27,8 +27,8 @@ LEGACY_CASE_IDS = [
     "K6V1_S45", "K6V1_S32", "K6V1_S47", "K6V1_S33",
     "K6V1_S37", "K6V1_S48", "K6V1_S35", "K6V1_S39",
 ]
-PINNED_ADAPTER_SHA256 = "e9b105c7ab71274c619d8c9f0aa27ef4a204cc8a8466f0ab4a354e3bcc97cfcf"
-PINNED_RUNNER_SHA256 = "82932d356b71b4d26d022d457e9d06bf082a54cd77a1ea7e481becb7b5a276bf"
+PINNED_ADAPTER_SHA256 = "43fcc070e70510d45026f0dd7242ac38e65b7ea9967149649a4b1c09b848b3bb"
+PINNED_RUNNER_SHA256 = "c97f459ffb3434d1a9419d8f203de2ca34630748c92626ff3d967edcfbd4f6aa"
 
 
 def dump_json(path: Path, value) -> None:
@@ -320,8 +320,13 @@ class ControlledAdmissionPolicyTests(unittest.TestCase):
         self.assertEqual(authority["approved_stage1_case_ids"], LEGACY_CASE_IDS)
         self.assertEqual(file_sha256(adapter_path), PINNED_ADAPTER_SHA256)
         self.assertEqual(file_sha256(runner_path), PINNED_RUNNER_SHA256)
-        self.assertNotIn("controlled_admission_policy_v1", adapter_path.read_text(encoding="utf-8"))
-        self.assertNotIn("controlled_admission_policy_v1", runner_path.read_text(encoding="utf-8"))
+        adapter_text = adapter_path.read_text(encoding="utf-8")
+        runner_text = runner_path.read_text(encoding="utf-8")
+        # The adapter's new controlled route is opt-in. Legacy run manifests do
+        # not carry this context; the V1 execution core remains route-agnostic.
+        self.assertIn('controlled_context = manifest.pop("_controlled_admission", None)', adapter_text)
+        self.assertIn("if controlled_context is not None:", adapter_text)
+        self.assertNotIn("controlled_admission_policy_v1", runner_text)
 
 
 if __name__ == "__main__":

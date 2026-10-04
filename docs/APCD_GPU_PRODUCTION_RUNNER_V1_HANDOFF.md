@@ -128,3 +128,14 @@ This closeout performed setup LOADs and read-only extraction of an existing S39 
 ### Next action — do not execute from this handoff alone
 
 Before the one future entry, recheck the exact EXT02 case/attempt authority, current route/policy/contract/setup/proof hashes, zero prior EXT02 solver entry, owner/fencing, current resource threshold and immutable staged setup. Build a new immutable controlled run envelope with a unique run ID; do not pass the setup-only `formal_preflight_envelope.json` to `run-one`. Invoke the existing adapter/backend once for `K6V1_EXT02 / attempt_001`, with no automatic replay. Require GPU process lineage, durable FSP and sibling H5, fresh LOAD, `SCIENTIFIC_VALID`, and `RELEASED` before running the extraction CLI on that completed run directory. Then compare `MON_POSTNP` and `EXT02_POSTNP_DIAG_Z2000` using the frozen reference plane and no global-phase oracle alignment. Stop on any post-entry ambiguity or missing truth; do not replay.
+
+
+## K6 V2 owner enrollment — setup only (2026-10-04)
+
+- Versioned authority: `APCD_GPU_RUNNER_K6_V2_OWNER_ENROLLMENT_20261004_V1`; SHA256 `d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56`.
+- Frozen package/inventory SHAs: `22560277c3cd7032e48de6ef5b0023986eefe5aba3c3de07b6eff2bf51dc33f9` / `f4497dc646588bf4b83dce5e022d5aa9f2bf48646a298fa78b9fe7adc70bab08`.
+- 160 geometries enrolled for setup only; 128 development and 32 confirmation. Every solver-entry flag is false and budget is zero.
+- Setup LOAD/PREFLIGHT counts: {'SETUP_LOAD_PASS': 160, 'SETUP_FAILED': 0, 'PENDING': 0} / {'FORMAL_PREFLIGHT_PASS': 160, 'FORMAL_PREFLIGHT_FAILED': 0, 'BLOCKED_SETUP_NOT_READY': 0, 'PENDING_SETUP_PREFLIGHT': 0, 'PENDING_SYSTEMIC_FAILURE': 0}. Solver, FDTD, replay and training counts are zero.
+- Confirmation responses were not read; manufacturing authority unresolved. Queue21 hold remains active (`hold-4a6eab94af3b4a6d8510ba2fe32a5b66` ACTIVE, reason `SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT`, new_entry_hold=1, generation=26, control DB SHA256 `20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202`).
+- EXT02 history and truth are unchanged; diagnostic solver authorization remains false; prior setup proof is stale for the new authority digest and requires current-route preflight before future use.
+- Coupling status: `D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\reports\coupling\APCD_GPU_RUNNER_K6_V2_OWNER_ENROLLMENT_AND_SETUP_PREFLIGHT_V1`.
