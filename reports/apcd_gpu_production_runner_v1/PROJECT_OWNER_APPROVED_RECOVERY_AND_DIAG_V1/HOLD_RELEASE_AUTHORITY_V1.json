@@ -1,0 +1,74 @@
+{
+  "schema": "APCD_GPU_RUNNER_PROJECT_OWNER_SCOPED_HOLD_RELEASE_AUTHORITY_V1",
+  "authority_id": "QUEUE21_HOLD_RELEASE_AUTHORITY_20261004_V1",
+  "status": "COMMITTED_RELEASE_CALL_PENDING",
+  "approval_source": {
+    "type": "direct_user_instruction",
+    "task_id": "APCD_GPU_RUNNER_PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1",
+    "owner_claim": "User self-identifies as project owner and directly approves this scope.",
+    "personal_name": "NOT_PROVIDED",
+    "digital_signature": false,
+    "signature_verification": "NOT_PERFORMED",
+    "independent_approver": "NONE; do not identify Chat/DELL/GPU Codex as independent approver"
+  },
+  "execution_delegate": {
+    "actor_string": "Project-owner-authorized execution delegate: GPU Production Runner V1 Codex",
+    "scope": "Call the official release API for the one exact queue21 hold after final revalidation; do not act as approver."
+  },
+  "bound_disposition": {
+    "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\\EXCEPTION_DISPOSITION_V3.json",
+    "sha256": "0f0ba84d472a179dc67b7ed62f382d3ee78ad0673098f3bc9ca29d6877d5280b",
+    "schema": "APCD_GPU_RUNNER_QUEUE21_EXCEPTION_DISPOSITION_V3",
+    "physical_solver_entry_count": "UNKNOWN",
+    "consumer_quarantine": "ENFORCED_FAIL_CLOSED_BY_COUPLING_CONSUMERS"
+  },
+  "hold": {
+    "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+    "scope": "GLOBAL",
+    "reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+    "expected_generation": 26,
+    "expected_status": "ACTIVE",
+    "only_this_hold_may_be_released": true,
+    "must_abort_if_hold_id_reason_generation_or_other_active_hold_set_changes": true,
+    "duplicate_metric_value_preserve": 1,
+    "duplicate_metric_clear_or_waive": false
+  },
+  "release_conditions_evidence": {
+    "decision_record_sha256": "da6176fe98a1e7f38e149db417e419455720922527d6d9699772456f308a752a",
+    "delegation_sha256": "14ee2b2e84fb291775b9e2c4dbfb501b253c3d10b5ab88ecda9abea2575d55f1",
+    "owner_v2_disposition_sha256": "468331313528c2a1d68e079617d84c8cac7baceff329e1384a65a38d1ec7de97",
+    "coupling_exclusion_commit": "8019c12c9627dad414bbbfff3579a0bffcda6aa4",
+    "coupling_registry_sha256": "01d8073efb121c3fd667d7da72e33fdfd5f2b09964be4eacdbeabcd9b5582261",
+    "coupling_final_report_sha256": "005396307d337e4499f82b8a4a53d9415c4ffbc2b3f5c8308f5da97b7d40b802",
+    "coupling_focused_tests": "32 passed",
+    "pre_release_audit_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\owner_recovery\\queue21_owner_release_20261004T125006.229320Z\\PRE_RELEASE_LIVE_AUDIT_V1.json",
+    "pre_release_audit_sha256": "d71e1deec57336ff512d162b0f33bd4d96da90ce68a91fc94506451f7947fc6c",
+    "production_db_snapshot_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\owner_recovery\\queue21_owner_release_20261004T125006.229320Z\\control_pre_release.sqlite3",
+    "production_db_snapshot_sha256": "76e849cff3f938bd972a17dc112b089a2420497e766c8a129b797081de1022ad",
+    "scheduler_window_audit_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\owner_recovery\\queue21_owner_release_20261004T125006.229320Z\\SCHEDULER_WINDOW_AUDIT_V1.json",
+    "scheduler_window_audit_sha256": "c2643d6e22a622c0647a32a0ef279e55a936b07b99aa6f095db9e0d827448da3",
+    "current_state_report_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\\CURRENT_STATE_PRE_RELEASE_V2.json",
+    "current_state_report_sha256": "38df6c932bf61c5b93401456a8f10f13bb44a78c748d4019524998db52a6491b"
+  },
+  "api": {
+    "source_path": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\control_v3\\db.py",
+    "source_sha256": "265cef637105fc45c9fd9645fc6672a5f640c744ba3da9e85e791cf4ef0618b0",
+    "operation": "ControlDB.release_hold(hold_id, released_by, release_authority_hash, evidence)",
+    "expected_side_effects": "Release only this active lifecycle row, append official hold event, increment actual DB generation; leave duplicate metric and all lease/queue history untouched. No dispatch is performed by API."
+  },
+  "post_release_scope": {
+    "single_slot_runner_only": true,
+    "old_three_slot_scheduler_restore": false,
+    "diag_identity": "K6V1_EXT02_TWO_AIR_PLANES_DIAG / attempt_001",
+    "maximum_solver_entries": 1,
+    "automatic_post_entry_replay": 0,
+    "diag_entry_requires_separate_pushed_route_authority_and_fresh_FINAL_LAUNCH_REVALIDATION": true,
+    "k6_v2_160_case_solver_authorized_count": 0,
+    "training_or_confirmation_access_authorized": false
+  },
+  "execution_counts_at_signing": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "post_entry_replay": 0
+  }
+}

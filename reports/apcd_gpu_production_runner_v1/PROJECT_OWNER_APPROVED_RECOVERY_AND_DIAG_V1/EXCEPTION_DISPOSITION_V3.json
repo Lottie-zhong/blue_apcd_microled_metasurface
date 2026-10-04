@@ -1,0 +1,80 @@
+{
+  "schema": "APCD_GPU_RUNNER_QUEUE21_EXCEPTION_DISPOSITION_V3",
+  "disposition_id": "QUEUE21_OWNER_ACCEPTED_QUARANTINED_20261004_V3",
+  "status": "OWNER_ACCEPTED_UNKNOWN_AND_CONSUMER_QUARANTINE_ENFORCED",
+  "classification": "C_EVIDENCE_INSUFFICIENT_LINEAGE_NOT_RECOVERABLE",
+  "identity": {
+    "branch_id": "traditional",
+    "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+    "attempt_id": "attempt_001",
+    "entry_event_ids": [
+      1499,
+      1506
+    ],
+    "physical_solver_entry_count": "UNKNOWN",
+    "same_lease_token_hash_and_fence": true
+  },
+  "preservation": {
+    "raw_events_preserved": true,
+    "historical_truth_overwritten": false,
+    "event_rows_deleted": false,
+    "entry_count_rewritten": false,
+    "replacement_attempt_created": false,
+    "history_replayed": false
+  },
+  "known_missing_lineage": [
+    "per-event launcher/controller process creation identity",
+    "per-event GPU engine entry/return linkage",
+    "source/staged FSP and contract hashes linked to each event",
+    "FSP/H5 durable truth, completion barrier and fresh LOAD proof per entry",
+    "event-writer idempotency/restart evidence to distinguish duplicate record from two launches"
+  ],
+  "impact_scope": "UNKNOWN; no attribution of any unlinked truth is inferred.",
+  "quarantine": {
+    "status": "ENFORCED_FAIL_CLOSED_BY_COUPLING_CONSUMERS",
+    "exclude_from": [
+      "training",
+      "candidate_ranking",
+      "candidate_evaluation",
+      "scientific_conclusions",
+      "formal_truth_handoff"
+    ],
+    "all_attempts_of_case_rejected": true,
+    "linked_or_unresolved_provenance_rejected": true,
+    "independent_valid_provenance_positive_control_accepted": true,
+    "historical_attempt_restart_allowed": false,
+    "replacement_attempt_allowed": false
+  },
+  "owner_authorization": {
+    "source": "Direct user instruction in task APCD_GPU_RUNNER_PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1; user self-identifies as project owner and expressly accepts UNKNOWN, quarantine, exact-hold release and scoped diagnostic delegation.",
+    "owner_identity": "Self-identified project owner; personal name not supplied.",
+    "independent_approver": "NONE RECORDED",
+    "digital_signature_present": false,
+    "cryptographic_signature_verification_performed": false,
+    "historical_approval_backfilled": false,
+    "decision_record_sha256": "da6176fe98a1e7f38e149db417e419455720922527d6d9699772456f308a752a",
+    "execution_delegation_sha256": "14ee2b2e84fb291775b9e2c4dbfb501b253c3d10b5ab88ecda9abea2575d55f1"
+  },
+  "source_dispositions": {
+    "original_v1_sha256": "5e2ba9d6de8c94e2f4fe0af89ba9fc7b5a523763d35b863e083888f3f06c5065",
+    "owner_v2_sha256": "468331313528c2a1d68e079617d84c8cac7baceff329e1384a65a38d1ec7de97",
+    "coupling_exclusion_commit": "8019c12c9627dad414bbbfff3579a0bffcda6aa4",
+    "coupling_registry_sha256": "01d8073efb121c3fd667d7da72e33fdfd5f2b09964be4eacdbeabcd9b5582261",
+    "coupling_test_report_sha256": "005396307d337e4499f82b8a4a53d9415c4ffbc2b3f5c8308f5da97b7d40b802",
+    "focused_tests": "32 passed"
+  },
+  "applicable_hold": {
+    "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+    "reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+    "approved_generation": 26,
+    "release_scope": "This exact hold only. Do not clear/waive DUPLICATE_SCIENTIFIC_ENTRY_COUNT=1 or change queue21 events.",
+    "official_release_api": "ControlDB.release_hold",
+    "release_api_sha256": "265cef637105fc45c9fd9645fc6672a5f640c744ba3da9e85e791cf4ef0618b0",
+    "release_execution_status": "AUTHORIZED_PENDING_FINAL_LIVE_RECHECK_AND_OFFICIAL_API"
+  },
+  "execution_counts": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "post_entry_replay": 0
+  }
+}

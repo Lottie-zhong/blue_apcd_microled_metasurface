@@ -1,0 +1,120 @@
+{
+  "schema": "APCD_GPU_RUNNER_OWNER_APPROVED_CURRENT_STATE_PRE_RELEASE_V2",
+  "captured_basis": {
+    "runtime_audit_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\owner_recovery\\queue21_owner_release_20261004T125006.229320Z\\PRE_RELEASE_LIVE_AUDIT_V1.json",
+    "runtime_audit_sha256": "d71e1deec57336ff512d162b0f33bd4d96da90ce68a91fc94506451f7947fc6c",
+    "snapshot_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\owner_recovery\\queue21_owner_release_20261004T125006.229320Z\\control_pre_release.sqlite3",
+    "snapshot_sha256": "76e849cff3f938bd972a17dc112b089a2420497e766c8a129b797081de1022ad",
+    "snapshot_size_bytes": 1478656,
+    "snapshot_live_relevant_state_equal": true,
+    "scheduler_window_audit_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\owner_recovery\\queue21_owner_release_20261004T125006.229320Z\\SCHEDULER_WINDOW_AUDIT_V1.json",
+    "scheduler_window_audit_sha256": "c2643d6e22a622c0647a32a0ef279e55a936b07b99aa6f095db9e0d827448da3"
+  },
+  "runner": {
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "head": "88c8ba7afe99ab8e58a4f41f0698b56f65bc0b35",
+    "upstream_ahead_behind": "0/0",
+    "tracked_worktree": "clean",
+    "single_slot": true,
+    "runner_lock_present": false,
+    "active_run_marker_present": false,
+    "pinned_route_version": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1",
+    "policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
+    "controlled_authority_sha256": "d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56",
+    "control_db_dependency": "read-only FINAL_LAUNCH_REVALIDATION gate in scripts/shared_fdtd/gpu_runner_v1/adapter.py"
+  },
+  "control": {
+    "db_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+    "db_sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "new_entry_hold": 1,
+    "generation": 26,
+    "health_status": "PASS",
+    "active_global_holds": [
+      {
+        "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+        "reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+        "incident": "queue21-lineage-not-recoverable"
+      }
+    ],
+    "other_active_global_holds": 0,
+    "duplicate_scientific_entry_count": 1,
+    "duplicate_metric_cleared_or_waived": false,
+    "queue21_events": [
+      1499,
+      1506
+    ],
+    "queue21_physical_solver_entry_count": "UNKNOWN",
+    "historical_events_or_truth_modified": false
+  },
+  "resources": {
+    "legacy_shared_v3_slots": [
+      {
+        "slot": "GLOBAL_SLOT_1",
+        "state": "FREE"
+      },
+      {
+        "slot": "GLOBAL_SLOT_2",
+        "state": "FREE"
+      },
+      {
+        "slot": "GLOBAL_SLOT_3",
+        "state": "FREE"
+      }
+    ],
+    "active_gpu_capacity_leases": 0,
+    "active_resource_reservations": 0,
+    "active_current_runner_scientific_cases": 0,
+    "fdtd_engine_mpiexec_fluent_processes": 0,
+    "fdtd_solutions_api_contexts": 8,
+    "api_contexts_terminated": false,
+    "gpu_snapshot": "NVIDIA GeForce RTX 3080, 0%, 2049 MiB / 10240 MiB; not used alone as idleness proof",
+    "runner_v1_lock_and_active_marker_absent": true
+  },
+  "background_tasks": {
+    "seed_controller": "DISABLED",
+    "only_running_or_upcoming_matching_task_in_four_hour_window": "APCD_V3_COUPLING_RECONCILER",
+    "reconciler_task_state_at_latest_query": "RUNNING",
+    "reconciler_source_sha256": "2a023e7d36ffcfc2a554f1091c32c869b48f5be6f948de6e2d4619bb2b7e1549",
+    "reconciler_behavior": "only closeout_owned_postentry_no_truth/reconcile_owned; source scan has zero dispatch, run_one, release_hold, set_hold, new_entry_hold, control_generation, or admission_control occurrences",
+    "old_three_slot_dispatch_restored": false
+  },
+  "coupling_quarantine": {
+    "branch": "work/mdc-np-coupling-ml-v1",
+    "head": "8019c12c9627dad414bbbfff3579a0bffcda6aa4",
+    "upstream_ahead_behind": "0/0",
+    "tracked_worktree": "clean",
+    "registry_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_ML_QUEUE21_CONSUMER_EXCLUSION_V1\\CONSUMER_EXCLUSION_REGISTRY_V1.json",
+    "registry_sha256": "01d8073efb121c3fd667d7da72e33fdfd5f2b09964be4eacdbeabcd9b5582261",
+    "final_report_sha256": "005396307d337e4499f82b8a4a53d9415c4ffbc2b3f5c8308f5da97b7d40b802",
+    "inventory_sha256": "fde78be0e927ba084301cfcbf8b8500206eaea1dc7fdfb4715eb88517231c48b",
+    "focused_tests": "32 passed; includes queue21/linked provenance rejection at import, training, ranking, evaluation, confirmation, diagnostic, local-affine; independent old32 positive provenance accepted",
+    "consumer_effective_state": "ENFORCED_FAIL_CLOSED",
+    "consumer_scope": [
+      "training",
+      "candidate_ranking",
+      "candidate_evaluation",
+      "scientific_conclusions",
+      "formal_truth_handoff"
+    ],
+    "solver_entry_or_truth_mutation_by_coupling_task": false
+  },
+  "diagnostic": {
+    "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+    "attempt_id": "attempt_001",
+    "historical_entry_count": 0,
+    "current_solver_entry_authorized": false,
+    "current_max_solver_entries": 0,
+    "post_entry_automatic_replays": 0,
+    "training_eligible": false,
+    "future_single_entry_requires_separate_versioned_runner_authority_and_fresh_formal_preflight": true
+  },
+  "v2_dataset": {
+    "case_count": 160,
+    "solver_authorized_count": 0
+  },
+  "execution_counts": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "post_entry_replay": 0
+  }
+}
