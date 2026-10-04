@@ -431,6 +431,22 @@
       "status": "PASS_SINGLE_CASE_CONSISTENCY_COMPLETED",
       "artifact_entry": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_V1",
       "dispatch_state": "historical/already authorized; not dispatched again by initialization"
+    },
+    {
+      "task_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
+      "goal": "Generate durable truth and validated development labels for the frozen V2 development cases",
+      "scope": "Exactly 128 frozen development cases: 12 DEVELOPMENT_LOCAL_AXIS plus 116 DEVELOPMENT_GLOBAL; no point, monitor, H1/H2, material, wavelength, or model changes",
+      "input_authority": "Direct user authorization; frozen V2 amendment, case-registration package, ordered allowlist, current GPU Runner V1 task-specific budget and Coupling data-ingestion authority",
+      "budget": "At most 128 new solver entries total; attempt_001 only and at most one per case; post-entry replay 0; 32 confirmation solver entries 0; real training fits 0",
+      "execution_agent": "GPU Production Runner V1 for serial single-slot solving and durable truth; Coupling ML4 for truth provenance and label/data ingestion",
+      "acceptance": "All 128 cases have valid durable truth and validated ingestible labels, or report exact valid/failed/not-entered counts, quarantine, hashes, and remaining blockers; first case must pass ML ingestion before GPU continues remaining 127",
+      "return_target": "Manager thread 01a10791-e5f1-7150-ae43-700a1bb48305; GPU-to-ML truth handoff remains direct",
+      "artifact_entry": {
+        "gpu": "D:/project/worktrees/blue_apcd_gpu_production_runner_v1/reports/apcd_gpu_production_runner_v1/COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
+        "coupling": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/reports/coupling/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1"
+      },
+      "dispatch_state": "Previously accepted and active in the two existing execution threads; not redispatched",
+      "status": "IN_PROGRESS_EVENT_DRIVEN"
     }
   ],
   "management_rules": {
@@ -442,8 +458,66 @@
       "idle target or safe non-interrupting handoff"
     ],
     "budget_rule": "dispatch creates no solver or training budget",
-    "completion_flow": "receive report -> artifact and gate audit -> routine repair within budget if needed -> one upper summary",
+    "completion_flow": "On a defined event, receive the report, verify necessary artifacts and acceptance evidence, assign only contract-scoped engineering corrections, and escalate science/budget/confirmation decisions to the user.",
     "partial_rule": "do not redispatch same task because of PARTIAL",
-    "next_action": "submit existing single-case result to upper decision boundary; wait for data-generation decision"
+    "next_action": "Wait without polling for the next specified native event return.",
+    "status_reporting": "Event-driven only; no periodic manager polling, heartbeat collection, or progress requests.",
+    "routine_progress": "Execution agents maintain their own ledger and continuation; routine per-case updates do not go to the manager.",
+    "direct_case_handoff": "GPU-to-ML formal truth handoffs continue directly; the manager does not forward each case.",
+    "return_events": [
+      "First-case durable truth passes Coupling ML ingestion; this is the gate for GPU to continue the remaining 127 cases",
+      "128-case task completion with counts, artifact paths and hashes",
+      "A blocker that cannot be resolved within the existing task contract",
+      "A scientific protocol conflict, budget issue or matter requiring an upper-level decision"
+    ]
+  },
+  "event_driven_correction": {
+    "task_id": "COUPLING_MIDDLE_MANAGER_EVENT_DRIVEN_CORRECTION_V1",
+    "recorded_at_utc": "2026-10-04 17:47:17 UTC",
+    "decision_source": "Direct user instruction in manager conversation",
+    "applies_to": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
+    "supersedes": "Prior manager requirements for ten-minute polling or heartbeat collection",
+    "manager_mode": "event-driven",
+    "manager_polling": false,
+    "heartbeat_collection": false,
+    "progress_requests_without_actionable_event": false,
+    "new_timers_or_monitors": false,
+    "execution_agents_own_routine_progress": true,
+    "gpu_to_ml_case_handoffs_direct": true,
+    "return_events": [
+      "First-case durable truth passes Coupling ML ingestion; this is the gate for GPU to continue the remaining 127 cases",
+      "128-case task completion with counts, artifact paths and hashes",
+      "A blocker that cannot be resolved within the existing task contract",
+      "A scientific protocol conflict, budget issue or matter requiring an upper-level decision"
+    ],
+    "executor_acceptance_snapshot": {
+      "gpu": {
+        "thread_id": "01a0ed0c-691b-7043-9c32-0454eef069e1",
+        "existing_task": "accepted and active",
+        "correction": "sent once through mcp__codex_app__send_message_to_thread; does not restart or interrupt the existing task",
+        "last_returned_state": "Current-route official preflight PASS, zero solver entry at last returned check; final launch revalidation was next"
+      },
+      "coupling_ml": {
+        "thread_id": "01a10024-ea88-7561-bde3-852a10a08966",
+        "existing_task": "accepted; waiting for formal first-truth handoff",
+        "correction": "sent once through mcp__codex_app__send_message_to_thread and acknowledged",
+        "continuation_commit": "76173f07ff322bd14739bffe07bf18845409da33",
+        "continuation_sha256_reported": "caef2c3e4e5c625f74c33fe50aa4769ad50c3069cb2e5eeca98aac4cfa6b64ba",
+        "inventory_sha256_reported": "906c21bf8fa2cf9be4e5797ffec7ef748aa59cb083bace253b3bf452b170c0f0"
+      }
+    },
+    "budget_authority_snapshot": {
+      "runner_commit": "2b6c4d7c06c10caf3337909ea908e55b8b1965c8",
+      "budget_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+      "authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+      "confirmation_cases_max_entries": 0,
+      "real_training_fits": 0
+    },
+    "prior_automation": {
+      "id": "v2-128-truth",
+      "prior_status": "ACTIVE",
+      "current_status": "PAUSED",
+      "reason": "Scheduled manager polling has been replaced by event-driven returns."
+    }
   }
 }
