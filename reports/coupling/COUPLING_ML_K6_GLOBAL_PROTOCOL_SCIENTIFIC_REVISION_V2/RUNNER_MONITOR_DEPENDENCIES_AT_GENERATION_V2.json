@@ -1,0 +1,64 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2_RUNNER_MONITOR_DEPENDENCIES",
+  "task_counts": {
+    "solver_entries": 0,
+    "training_fits": 0,
+    "pscale_only_fits": 0,
+    "new_fsps": 0,
+    "runner_invocations": 0
+  },
+  "geometry_authority": {
+    "sha256": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+    "status": "PASS_RECOVERED_CLOSED_CANDIDATE_DOMAIN",
+    "source_pool48": true,
+    "eligible_source_count": 32,
+    "new_ids_enrolled": false,
+    "manufacturing_authority": "UNRESOLVED"
+  },
+  "committed_runner": {
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "head": "2a6f515a1d28002bca3c4e30094dbf66e463fb17",
+    "status": "READY",
+    "slots": 1,
+    "serial_only": true,
+    "no_replay": true,
+    "approved_stage1_ids": 12,
+    "v2_approved": 0,
+    "canonical_fsp_count": 0,
+    "case_manifest_count": 0,
+    "load_only_proofs": 0,
+    "handoff_sha256": "397e41476938392d43e7eaf6c5252425991a8bfa62b7fb88442bf5da4fe0feb7",
+    "authority_sha256": "021951707cd94d62ca93076f5f2a6867b400df4c9921932286b32ffc1840972c"
+  },
+  "runner_draft": {
+    "dirty_tracked": [
+      "scripts/shared_fdtd/gpu_runner_v1/adapter.py",
+      "scripts/shared_fdtd/gpu_runner_v1/runner.py"
+    ],
+    "untracked": [
+      "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_authority_v1.json",
+      "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_policy_v1.json",
+      "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_v1.py",
+      "scripts/shared_fdtd/gpu_runner_v1/test_controlled_admission_v1.py"
+    ],
+    "formal_authority": false,
+    "touched": false
+  },
+  "monitor": {
+    "current_postnp_retained": true,
+    "audit_sha256": "7069c764e780f8e5a98f980a026e0cd497268705a211da596bab38c8bb05e71f",
+    "EXT02": "BLOCKED_PREENTRY; not numerical validation failure",
+    "second_independent_postnp_plane": false,
+    "production_monitor_changed": false
+  },
+  "future_requirements": [
+    "owner-approved geometry/case IDs",
+    "case-specific source manifest",
+    "canonical FSP path/hash",
+    "fresh LOAD-only and source/staged parity",
+    "immutable Runner envelope",
+    "separate HF authorization"
+  ],
+  "load_only_is_runner_admission": false,
+  "load_only_is_postentry_truth_recovery": false
+}

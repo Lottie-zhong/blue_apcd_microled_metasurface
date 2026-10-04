@@ -90,9 +90,44 @@ for f in range(1,5):
  cnt={k:sum(r['global_stratum']==k for r in added) for k in ('LOCAL_AXIS','DEEP_INTERIOR','NEAR_BOUNDARY_NONEXACT')}
  assert cnt=={'LOCAL_AXIS':3,'DEEP_INTERIOR':7,'NEAR_BOUNDARY_NONEXACT':11},cnt
  assert sum(r['global_stratum'] not in ('LOCAL_AXIS','DEEP_INTERIOR','NEAR_BOUNDARY_NONEXACT') for r in added)==11
-# Official Runner remains untouched and this design carries no execution authorization.
+# Read-only Runner reconciliation: preserve the sampler-time record and validate the current formal state.
 dep=loadj(OUT/'RUNNER_MONITOR_DEPENDENCIES_V2.json')
-assert dep['task_counts']=={'solver_entries':0,'training_fits':0,'pscale_only_fits':0,'new_fsps':0,'runner_invocations':0}
-assert dep['committed_runner']['status']=='READY' and dep['committed_runner']['v2_approved']==0
-assert dep['monitor']['EXT02'].startswith('BLOCKED_PREENTRY') and dep['monitor']['production_monitor_changed'] is False
+expected_counts={'solver_entries':0,'training_fits':0,'pscale_only_fits':0,'new_fsps':0,'runner_invocations':0,'reserve_launches':0}
+assert dep['task_counts']==expected_counts,dep['task_counts']
+runner=dep['current_runner']
+assert runner['head']=='dc71f90d5836b6fab608ee322ff4889ea064b646'
+assert runner['status']=='READY_FOR_EXISTING_12_CASE_ROUTE_AND_ONE_EXT02_SETUP_PREFLIGHT'
+assert runner['v2_approved']==0 and runner['v2_canonical_fsp_count']==0 and runner['v2_case_manifest_count']==0
+assert runner['current_authorized_geometry_sources']==[] and runner['worktree_clean'] is True
+assert runner['slots']==1 and runner['serial_only'] is True and runner['no_replay'] is True
+assert dep['geometry_authority']['new_ids_enrolled'] is False and dep['geometry_authority']['v2_geometry_authorities']==0
+ext=dep['ext02']
+assert ext['setup_preflight']=='PASS' and ext['scientific_entry_count']==0 and ext['solver_invocations']==0
+assert ext['post_entry_truth_proved'] is False and ext['cross_height_complex_validation_complete'] is False
+assert ext['actual_sampled_z_nm'] is None and ext['production_monitor_changed'] is False
+assert ext['separate_explicit_solver_authorization_required'] is True
+assert dep['load_only_is_runner_admission'] is False and dep['load_only_is_postentry_truth_recovery'] is False
+# The earlier state is retained as historical generation-time evidence, not overwritten.
+gen=loadj(OUT/'RUNNER_MONITOR_DEPENDENCIES_AT_GENERATION_V2.json')
+assert gen['committed_runner']['head']=='2a6f515a1d28002bca3c4e30094dbf66e463fb17'
+assert gen['runner_draft']['formal_authority'] is False
+refresh=loadj(OUT/'RUNNER_AUTHORITY_REFRESH_POSTGENERATION_V1.json')
+assert refresh['current_runner']['head']==runner['head']
+assert refresh['current_runner']['working_tree_clean'] is True and refresh['current_runner']['upstream_ahead_behind']=='0/0'
+assert refresh['current_runner']['official_handoff_markdown']['sha256']==runner['handoff_markdown_sha256']
+assert refresh['ext02']['preflight']['preflight_v1']['result']=='PASS'
+assert refresh['ext02']['preflight']['preflight_v2']['result']=='PASS'
+assert refresh['ext02']['authorization_boundary']['this_revision_task_entries']==0
+assert refresh['ext02']['production_monitor_changed'] is False
+assert refresh['decision'].find('does not enroll')>=0
+# Verify every non-self artifact against the current task SHA inventory.
+import hashlib
+inventory=loadj(OUT/'SHA256_INVENTORY_V2.json')
+assert 'RUNNER_MONITOR_DEPENDENCIES_AT_GENERATION_V2.json' in inventory['files']
+assert 'RUNNER_AUTHORITY_REFRESH_POSTGENERATION_V1.json' in inventory['files']
+for rel,record in inventory['files'].items():
+    raw=(OUT/rel).read_bytes()
+    canonical=raw.replace(b'\r\n',b'\n')
+    assert hashlib.sha256(canonical).hexdigest()==record['sha256'],rel
+    assert len(canonical)==record['bytes'],rel
 print(json.dumps({'status':'PASS','candidate_counts':role_counts,'global_strata':{'deep32':32,'near56':56,'exact56':56},'boundary':{'dev116':bc(dev),'confirm_core27':bc(core),'stress1':bc(stress),'confirm28':bc(conf)},'outer_folds':4,'inner_rows':len(inner),'learning_curve_rows':len(curve),'reference_overlap':0,'execution_counts':dep['task_counts']},ensure_ascii=False))

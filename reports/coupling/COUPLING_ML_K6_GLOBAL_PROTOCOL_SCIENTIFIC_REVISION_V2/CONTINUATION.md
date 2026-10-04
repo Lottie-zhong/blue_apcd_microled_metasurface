@@ -51,3 +51,17 @@ Read, in order:
 6. SHA256_INVENTORY_V2.json
 
 本任务产物供 Chat 科学评审。不得自动开始 HF、训练、P_scale 拟合、Runner admission 或 monitor 修改；任何求解仍需独立的新授权并先解决 owner enrollment 和 EXT02 monitor dependency。
+
+## 后生成 Runner authority 刷新（优先于上面的生成时快照）
+
+在 V2 点集和首次提交后，发现 GPU Runner 分支已正式提交 dc71f90d5836b6fab608ee322ff4889ea064b646。当前正式 handoff Markdown SHA-256 为 b7884408f7273a161e39f082e5228cab41e91af68521b6ddbfa9fd56bed02761；controlled admission authority/policy 的 SHA-256 分别为 e6043ff7bec4711d16d326ca3d8305b9693647250349dea11b59b57e0cd2d1ec 与 e26c2f1e5b13743da455277f4562ccf2a6262567e4dabf1a2fae06735d624f5f。
+
+该 route 已正式提交，但 K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1 的 current_authorized_geometry_sources 仍为空；V2 几何没有 owner-authority enrollment。EXT02 K6V1_EXT02/attempt_001 的诊断 overlay setup preflight PASS，状态 READY_FOR_ONE_AUTHORIZED_EXT02_ENTRY，scientific entry 和 solver invocation 均为0，post-entry truth 未证明，actual sampled z 仍须 solver 后读取。此 ready 状态不是当前任务的 solver 授权。
+
+S39 archive probe 实际读取的是 MON_POSTNP/Monitor2、z≈1802 nm，范围仅为通用 monitor extraction；它没有验证 EXT02 两面跨高度一致性。本任务仍零 solver、零 training、生产 POSTNP 未改变。新的权威快照在 RUNNER_AUTHORITY_REFRESH_POSTGENERATION_V1.json；RUNNER_MONITOR_DEPENDENCIES_AT_GENERATION_V2.json 保留生成点集时的旧快照。恢复时先读本 continuation 和最新 dependency refresh，再决定是否需要新的正式 authority review。
+
+## Current Runner status supersedes the generation snapshot
+
+The Runner state described earlier at sampler generation is historical. This read-only refresh supersedes it for current status; the original snapshot remains preserved in RUNNER_MONITOR_DEPENDENCIES_AT_GENERATION_V2.json. The formal Runner head is dc71f90d5836b6fab608ee322ff4889ea064b646 on a clean, synchronized worktree. The controlled-admission route is committed, but no V2 geometry is owner-enrolled: approved IDs, canonical FSPs, and case manifests remain zero.
+
+EXT02 setup preflight V1/V2 passed with zero solver entry. The added plane's actual sampled z is unavailable until an authorized solver entry, and post-entry truth plus numerical cross-height comparison remain absent. READY_FOR_ONE_AUTHORIZED_EXT02_ENTRY is a case readiness state, not authorization for this zero-solver task. The production POSTNP monitor is unchanged.

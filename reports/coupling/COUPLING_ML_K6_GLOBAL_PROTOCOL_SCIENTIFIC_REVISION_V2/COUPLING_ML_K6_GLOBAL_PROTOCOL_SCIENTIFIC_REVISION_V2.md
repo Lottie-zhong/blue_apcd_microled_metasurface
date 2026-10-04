@@ -94,3 +94,20 @@ V1 既有估算基于 11 个已完成 case tree：中位 668.129 s/case，160 ca
 - 首轮 V2 pre-amendment archive inventory：a8f0fcb2246ca8c40c26206e3f12ecab55eeb5465bc6cf2cdbb59f552ae00db4
 
 完整任务目录文件 SHA-256 见 SHA256_INVENTORY_V2.json。恢复入口为本目录 CONTINUATION.md。
+
+
+## 后生成阶段的 Runner authority 刷新
+
+本报告的点集生成输入快照对应 Runner HEAD 2a6f515a，生成后并发出现并正式提交了 dc71f90d（Add controlled EXT02 admission recovery）。此更新只改变运行依赖状态，不改变本任务已冻结点集、分层配额、folds、模型或 fit 预算。原生成时的依赖记录保存在 RUNNER_MONITOR_DEPENDENCIES_AT_GENERATION_V2.json；当前状态见 RUNNER_MONITOR_DEPENDENCIES_V2.json 和 RUNNER_AUTHORITY_REFRESH_POSTGENERATION_V1.json。
+
+新提交把 versioned controlled-admission route 纳入正式 authority。K6 fixed-contract geometry variant 现在有正式 case class，但 exact owner enrollment 是必需条件，当前 authorized geometry sources 与 K6 geometry authorities 均为空；V2 新几何仍为 approved=0、canonical FSP=0。Runner 保持单槽串行和 post-entry replay=0。
+
+EXT02 的诊断 setup 现在有正式 declared-monitor overlay 路线。K6V1_EXT02/attempt_001 的 preflight V1/V2 均 PASS、solver invocations=0、scientific entry=0；它只表示 LOAD-only/setup 检查完成。新监视器 EXT02_POSTNP_DIAG_Z2000 的名义 z=2000 nm、reference=1722 nm，actual sampled z 在 solver 后才可读取，post-entry truth 尚无。handoff 的 READY_FOR_ONE_AUTHORIZED_EXT02_ENTRY 仅是限定 case 的就绪状态，不是本任务授权。本任务仍维持 zero-solver；数值跨高度 state/power 比较没有完成，生产 POSTNP monitor 未改。
+
+现有归档探针仅从 K6V1_S39 的 MON_POSTNP/Monitor2 读取到 z≈1802 nm，scope 明确是通用 monitor extraction，不是 EXT02 的第二面或跨高度验证。
+
+## Current Runner status supersedes the generation snapshot
+
+The Runner state described earlier at sampler generation is historical. This read-only refresh supersedes it for current status; the original snapshot remains preserved in RUNNER_MONITOR_DEPENDENCIES_AT_GENERATION_V2.json. The formal Runner head is dc71f90d5836b6fab608ee322ff4889ea064b646 on a clean, synchronized worktree. The controlled-admission route is committed, but no V2 geometry is owner-enrolled: approved IDs, canonical FSPs, and case manifests remain zero.
+
+EXT02 setup preflight V1/V2 passed with zero solver entry. The added plane's actual sampled z is unavailable until an authorized solver entry, and post-entry truth plus numerical cross-height comparison remain absent. READY_FOR_ONE_AUTHORIZED_EXT02_ENTRY is a case readiness state, not authorization for this zero-solver task. The production POSTNP monitor is unchanged.

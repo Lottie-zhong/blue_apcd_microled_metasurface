@@ -1,0 +1,103 @@
+{
+  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2_POSTGENERATION_RUNNER_AUTHORITY_REFRESH",
+  "refresh_type": "READ_ONLY_CONCURRENT_COMMIT_RECONCILIATION",
+  "task_geometry_generation_snapshot": {
+    "runner_head": "2a6f515a1d28002bca3c4e30094dbf66e463fb17",
+    "runner_handoff_markdown_sha256": "397e41476938392d43e7eaf6c5252425991a8bfa62b7fb88442bf5da4fe0feb7",
+    "status_at_generation": "committed READY existing 12-case route; controlled admission files were then uncommitted and non-authoritative"
+  },
+  "current_runner": {
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "head": "dc71f90d5836b6fab608ee322ff4889ea064b646",
+    "upstream_ahead_behind": "0/0",
+    "working_tree_clean": true,
+    "commit_subject": "Add controlled EXT02 admission recovery",
+    "official_handoff_markdown": {
+      "path": "docs/APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF.md",
+      "sha256": "b7884408f7273a161e39f082e5228cab41e91af68521b6ddbfa9fd56bed02761"
+    },
+    "legacy_machine_handoff_json": {
+      "path": "APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF.json",
+      "sha256": "ca7e4a9fcc15ccb60f4921feb788bf3663e1b8fd3c56f64892894cc8299df599",
+      "note": "unchanged base handoff snapshot; committed markdown plus the versioned controlled-admission authority/policy describe the post-commit extension"
+    },
+    "committed_controlled_admission_authority": {
+      "path": "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_authority_v1.json",
+      "sha256": "e6043ff7bec4711d16d326ca3d8305b9693647250349dea11b59b57e0cd2d1ec"
+    },
+    "committed_controlled_admission_policy": {
+      "path": "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_policy_v1.json",
+      "sha256": "e26c2f1e5b13743da455277f4562ccf2a6262567e4dabf1a2fae06735d624f5f",
+      "status": "PRODUCTION_VERSIONED_ROUTE"
+    },
+    "preserved_runner_limits": {
+      "approved_stage1_ids": 12,
+      "gpu_slots": 1,
+      "serial_only": true,
+      "post_entry_automatic_replays": 0
+    },
+    "fixed_contract_geometry_variant": {
+      "case_class": "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1",
+      "exact_owner_authority_enrollment_required": true,
+      "current_authorized_geometry_sources": [],
+      "k6_geometry_authorities": [],
+      "v2_new_points_enrolled": 0,
+      "v2_case_ids_approved": 0,
+      "v2_canonical_fsps": 0
+    }
+  },
+  "ext02": {
+    "case_id": "K6V1_EXT02",
+    "attempt_id": "attempt_001",
+    "case_class": "EXT02_DECLARED_EH_MONITOR_DIAGNOSTIC_V1",
+    "ordered_D_nm": [
+      220,
+      120,
+      155,
+      100,
+      105,
+      110
+    ],
+    "declared_added_monitor": {
+      "name": "EXT02_POSTNP_DIAG_Z2000",
+      "nominal_sample_z_nm": 2000,
+      "reference_plane_nm": 1722,
+      "actual_sampled_z_nm": null,
+      "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER"
+    },
+    "preflight": {
+      "preflight_v1": {
+        "sha256": "1e275618183d980558b512fe14fd771874931a63bd29be1b5fe26efd8cb04f05",
+        "result": "PASS",
+        "solver_invocations": 0,
+        "scientific_entry_count": 0
+      },
+      "preflight_v2": {
+        "sha256": "916b6e46c26e26346043bad43efc70413c07a7917dd4c3535654f143405f3a7e",
+        "result": "PASS",
+        "solver_invocations": 0,
+        "scientific_entry_count": 0
+      },
+      "post_entry_truth_proved": false,
+      "status": "READY_FOR_ONE_AUTHORIZED_EXT02_ENTRY"
+    },
+    "authorization_boundary": {
+      "runner_authority_max_solver_entries": 1,
+      "post_entry_automatic_replays": 0,
+      "this_revision_task_entry_authorized": false,
+      "this_revision_task_entries": 0,
+      "actual_field_z_and_two_plane_complex_comparison_complete": false
+    },
+    "production_monitor_changed": false
+  },
+  "archive_probe": {
+    "path": "reports/apcd_gpu_production_runner_v1/CONTROLLED_ADMISSION_RECOVERY_AND_CLOSEOUT_V1/SECOND_PLANE_EXTRACTION_EXISTING_ARCHIVE_PROBE_V1.json",
+    "sha256": "3a8ea1742de06b0d100f508bd40cb9084f45a7fe8cc004bc095f3987ca5af92b",
+    "case_id": "K6V1_S39",
+    "monitor": "MON_POSTNP",
+    "h5_monitor_group": "Monitor2",
+    "actual_z_nm": 1801.9999999999932,
+    "scope": "generic existing-monitor extraction only; not EXT02 second-plane or cross-height validation"
+  },
+  "decision": "The controlled route is now formal because it is committed. It does not enroll any of the 144 global V2 geometries. EXT02 setup LOAD preflight is ready, but the one solver entry and post-entry truth remain pending separate authorization; no numerical cross-height validation is claimed. The sampler, point vectors, folds, models, and fit budget are unchanged."
+}

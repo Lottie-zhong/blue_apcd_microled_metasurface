@@ -1,11 +1,13 @@
 {
-  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2_RUNNER_MONITOR_DEPENDENCIES",
+  "schema": "COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2_RUNNER_MONITOR_DEPENDENCIES_CURRENT_POSTGENERATION",
+  "snapshot_basis": "Read-only refresh after the V2 geometry set was generated; see RUNNER_AUTHORITY_REFRESH_POSTGENERATION_V1.json. Original generation-time record is preserved as RUNNER_MONITOR_DEPENDENCIES_AT_GENERATION_V2.json.",
   "task_counts": {
     "solver_entries": 0,
     "training_fits": 0,
     "pscale_only_fits": 0,
     "new_fsps": 0,
-    "runner_invocations": 0
+    "runner_invocations": 0,
+    "reserve_launches": 0
   },
   "geometry_authority": {
     "sha256": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
@@ -13,52 +15,63 @@
     "source_pool48": true,
     "eligible_source_count": 32,
     "new_ids_enrolled": false,
+    "v2_geometry_authorities": 0,
     "manufacturing_authority": "UNRESOLVED"
   },
-  "committed_runner": {
+  "current_runner": {
     "branch": "codex/apcd-gpu-production-runner-v1",
-    "head": "2a6f515a1d28002bca3c4e30094dbf66e463fb17",
-    "status": "READY",
+    "head": "dc71f90d5836b6fab608ee322ff4889ea064b646",
+    "status": "READY_FOR_EXISTING_12_CASE_ROUTE_AND_ONE_EXT02_SETUP_PREFLIGHT",
     "slots": 1,
     "serial_only": true,
     "no_replay": true,
     "approved_stage1_ids": 12,
+    "fixed_contract_geometry_variant": "K6_FIXED_CONTRACT_GEOMETRY_VARIANT_V1",
+    "exact_owner_enrollment_required": true,
+    "current_authorized_geometry_sources": [],
     "v2_approved": 0,
-    "canonical_fsp_count": 0,
-    "case_manifest_count": 0,
-    "load_only_proofs": 0,
-    "handoff_sha256": "397e41476938392d43e7eaf6c5252425991a8bfa62b7fb88442bf5da4fe0feb7",
-    "authority_sha256": "021951707cd94d62ca93076f5f2a6867b400df4c9921932286b32ffc1840972c"
+    "v2_canonical_fsp_count": 0,
+    "v2_case_manifest_count": 0,
+    "handoff_markdown_sha256": "b7884408f7273a161e39f082e5228cab41e91af68521b6ddbfa9fd56bed02761",
+    "legacy_handoff_json_sha256": "ca7e4a9fcc15ccb60f4921feb788bf3663e1b8fd3c56f64892894cc8299df599",
+    "controlled_admission_authority_sha256": "e6043ff7bec4711d16d326ca3d8305b9693647250349dea11b59b57e0cd2d1ec",
+    "controlled_admission_policy_sha256": "e26c2f1e5b13743da455277f4562ccf2a6262567e4dabf1a2fae06735d624f5f",
+    "worktree_clean": true,
+    "upstream_ahead_behind": "0/0"
   },
-  "runner_draft": {
-    "dirty_tracked": [
-      "scripts/shared_fdtd/gpu_runner_v1/adapter.py",
-      "scripts/shared_fdtd/gpu_runner_v1/runner.py"
-    ],
-    "untracked": [
-      "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_authority_v1.json",
-      "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_policy_v1.json",
-      "scripts/shared_fdtd/gpu_runner_v1/controlled_admission_v1.py",
-      "scripts/shared_fdtd/gpu_runner_v1/test_controlled_admission_v1.py"
-    ],
-    "formal_authority": false,
-    "touched": false
+  "ext02": {
+    "case_id": "K6V1_EXT02",
+    "attempt_id": "attempt_001",
+    "status": "READY_FOR_ONE_AUTHORIZED_EXT02_ENTRY",
+    "setup_preflight": "PASS",
+    "scientific_entry_count": 0,
+    "solver_invocations": 0,
+    "post_entry_truth_proved": false,
+    "post_entry_truth_required_after_solver": true,
+    "declared_monitor_name": "EXT02_POSTNP_DIAG_Z2000",
+    "nominal_sample_z_nm": 2000,
+    "reference_plane_nm": 1722,
+    "actual_sampled_z_nm": null,
+    "actual_sampled_z_status": "UNAVAILABLE_BEFORE_SOLVER",
+    "cross_height_complex_validation_complete": false,
+    "production_monitor_changed": false,
+    "separate_explicit_solver_authorization_required": true
   },
-  "monitor": {
-    "current_postnp_retained": true,
-    "audit_sha256": "7069c764e780f8e5a98f980a026e0cd497268705a211da596bab38c8bb05e71f",
-    "EXT02": "BLOCKED_PREENTRY; not numerical validation failure",
-    "second_independent_postnp_plane": false,
-    "production_monitor_changed": false
+  "existing_archive_probe": {
+    "case_id": "K6V1_S39",
+    "actual_z_nm": 1801.9999999999932,
+    "monitor": "MON_POSTNP",
+    "h5_monitor_group": "Monitor2",
+    "scope": "generic extraction probe only; not an EXT02 second plane or cross-height validation"
   },
-  "future_requirements": [
-    "owner-approved geometry/case IDs",
-    "case-specific source manifest",
-    "canonical FSP path/hash",
-    "fresh LOAD-only and source/staged parity",
-    "immutable Runner envelope",
-    "separate HF authorization"
-  ],
   "load_only_is_runner_admission": false,
-  "load_only_is_postentry_truth_recovery": false
+  "load_only_is_postentry_truth_recovery": false,
+  "future_requirements": [
+    "owner-approved exact geometry/case IDs; V2 source list is currently empty",
+    "case-specific source manifest and canonical FSP path/hash",
+    "fresh LOAD-only proof and source/staged parity",
+    "immutable Runner envelope",
+    "separate explicit HF authorization",
+    "one authorized EXT02 entry and post-entry truth before numerical two-plane validation can be evaluated"
+  ]
 }
