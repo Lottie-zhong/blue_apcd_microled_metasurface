@@ -1,0 +1,88 @@
+{
+  "diagnostic": {
+    "actual_sampled_z_local_mesh_pml": "pending_after_authorized_run",
+    "attempt_id": "attempt_001",
+    "automatic_replay_budget": 0,
+    "case_id": "K6V1_EXT02_TWO_AIR_PLANES_DIAG",
+    "contract_semantic_sha256": "b049c2d7f5f4418abd526599157d5973a942a22f080a7a77a974403a03b320e6",
+    "contract_sha256": "58ac1ac81fc4a0da61784d62bf80c48fc21d6e119ee96e5941fc1139b5954e68",
+    "current_solver_entry_budget": 0,
+    "formal_preflight_envelope_sha256": "b352899bc0f343d77feecd4db2d550c2851a523eee4a4146c6c544a18d878a73",
+    "formal_preflight_result_sha256": "ed30226995b96f83b80f3f72fbcc36e49f092652698a05d4c7fe6a8c6d16a500",
+    "historical_attempt_id": "attempt_001",
+    "historical_case_id": "K6V1_EXT02",
+    "identity_link_manifest_sha256": "de864bc6e85a8bb455766a5aaa06a4212370f87fe93f525a3aebd1e1a51a5d65",
+    "preflight": "PASS",
+    "proposed_future_budget": 1,
+    "setup_fingerprint_sha256": "441020e420c609dffb6ffa28fbe8df6648385bdee9ca2373550252d7ce170262",
+    "setup_load_proof_sha256": "0567ed5c0fb298817e4c4d166b5000e63eedb57301f8449352babee70eb5c8b1",
+    "solver_entry_authorized": false,
+    "source_fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30",
+    "source_manifest_sha256": "471b34053c2048174d9bbd8cffe5b210684c822924e4446aa9a46e384c52d7eb",
+    "staged_fsp_sha256": "5d76cb420cea8bd17ada3aac262886beccc9bd0e177d72aa8d70d8e10df1ae30"
+  },
+  "execution_counts": {
+    "fdtd_run": 0,
+    "post_entry_replay": 0,
+    "setup_load_only": "performed; included in current proof/preflight artifacts; distinct from solver run",
+    "solver_entry": 0
+  },
+  "k6_v2": {
+    "case_count": 160,
+    "formal_preflight_pass": 160,
+    "full_artifact_rehash_checked": 160,
+    "mismatches": 0,
+    "package_sha256": "22560277c3cd7032e48de6ef5b0023986eefe5aba3c3de07b6eff2bf51dc33f9",
+    "progress_sha256": "8d8a0acf5ba08a6b2e15574c181342a390acc3f4f867748e440daa1bbd347664",
+    "repeat_load_performed": false,
+    "route_authority_sha256": "d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56",
+    "setup_load_pass": 160,
+    "solver_authorized": 0,
+    "solver_budget_each": 0
+  },
+  "no_mutations": [
+    "production control DB",
+    "queue21 raw events",
+    "history truth",
+    "attempt counter",
+    "owner/fence",
+    "generation",
+    "scientific setup"
+  ],
+  "observed_utc": "2026-10-04",
+  "queue21": {
+    "attempt_id": "attempt_001",
+    "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+    "control_db_sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+    "durable_disposition": "C_EVIDENCE_INSUFFICIENT_LINEAGE_NOT_RECOVERABLE",
+    "event_ids": [
+      1499,
+      1506
+    ],
+    "fencing_generation": 14,
+    "hold_generation": 26,
+    "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+    "hold_status": "ACTIVE",
+    "lease_token_same": true,
+    "missing": [
+      "event-linked launcher/controller identity",
+      "process creation time and parent/command line",
+      "engine and GPU lineage",
+      "source/staged FSP and physical contract hashes",
+      "archived FSP/H5 truth and fresh LOAD evidence"
+    ],
+    "physical_solver_launch_count": "UNKNOWN",
+    "process_metadata_present": false,
+    "release_authority": null
+  },
+  "runner": {
+    "adapter_sha256": "43fcc070e70510d45026f0dd7242ac38e65b7ea9967149649a4b1c09b848b3bb",
+    "authority_sha256": "d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56",
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "head": "db4d9be7a3d23c3655f9f688fa47706f90769fc0",
+    "policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
+    "route_version": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1"
+  },
+  "schema": "APCD_GPU_RUNNER_HOLD_CLOSEOUT_AND_DIAG_PREFLIGHT_REFRESH_V1",
+  "status": "PARTIAL"
+}
