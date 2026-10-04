@@ -7,6 +7,7 @@ from typing import Mapping, Sequence
 import numpy as np
 from . import contracts as C
 from .ingest import ConfirmationCaseTruth, RevealAuthorization, load_frozen_case_registry
+from .consumer_exclusions import assert_no_quarantine_linkage
 
 @dataclass(frozen=True)
 class PredictionBundle:
@@ -147,6 +148,7 @@ def evaluate_confirmation_once(cases:Sequence[ConfirmationCaseTruth],frozen:Froz
     """Run one report after all 32 confirmation IDs were consumed by the reveal gate."""
     root=Path(repository_root) if repository_root else Path(__file__).resolve().parents[3]
     reg=load_frozen_case_registry(root)
+    assert_no_quarantine_linkage(cases,consumer="candidate_evaluation",root=root)
     if not isinstance(reveal_authorization,RevealAuthorization):raise ValueError("reveal_token_invalid")
     if reveal_authorization.freeze_sha!=frozen.sha256 or Path(reveal_authorization.freeze_path).resolve()!=frozen.path.resolve():
         raise ValueError("reveal_token_freeze_mismatch")

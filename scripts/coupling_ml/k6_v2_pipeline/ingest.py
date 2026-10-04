@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Mapping,Any
 import numpy as np
 from . import contracts as C
+from .consumer_exclusions import assert_no_quarantine_linkage, load_consumer_exclusion_registry
 ROOT=Path(__file__).resolve().parents[3]
 ADMIT=Path("reports/coupling/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1")
 REV=Path("reports/coupling/COUPLING_ML_K6_GLOBAL_PROTOCOL_SCIENTIFIC_REVISION_V2")
@@ -35,7 +36,9 @@ class FrozenRegistry:
     pointset_sha256: str
     registration_sha256: str
 def load_frozen_case_registry(root=None):
-    root=Path(root) if root else ROOT; ap=root/ADMIT; rp=root/REV
+    root=Path(root) if root else ROOT
+    load_consumer_exclusion_registry(root)
+    ap=root/ADMIT; rp=root/REV
     pkgp=ap/"CASE_REGISTRATION_PACKAGE_V1.json"; allp=ap/"DEVELOPMENT_CASE_ALLOWLIST_V1.json"; candp=rp/"GLOBAL_DATASET_CANDIDATES_V2.csv"
     _need(sha256_file(pkgp)==REG_SHA,"registration_package_sha_mismatch")
     _need(sha256_file(allp)==ALLOW_SHA,"development_allowlist_sha_mismatch")
@@ -120,7 +123,8 @@ def _artifact(r,k):
     _need(p.is_file() and len(h)==64 and sha256_file(p)==h,"artifact_missing_or_sha_mismatch:"+k)
     return p,h
 
-def _load_runner_truth(record,role_map,expected_roles):
+def _load_runner_truth(record,role_map,expected_roles,*,root=None):
+    assert_no_quarantine_linkage(record,consumer="truth_import",root=root)
     cid=str(record.get("case_id","")); _need(cid in role_map,"case_id_not_in_role_allowlist:"+cid); reg=role_map[cid]
     role=record.get("role"); _need(role in expected_roles and role in (reg["role"],reg.get("effective_role")),"role_not_allowed:"+str(role))
     D=tuple(map(int,record.get("ordered_D_nm",())))
@@ -128,10 +132,13 @@ def _load_runner_truth(record,role_map,expected_roles):
     _need(record.get("physical_contract_sha256")==C.PHYSICAL_CONTRACT_SHA256,"physical_contract_mismatch:"+cid)
     _need(record.get("status") in ("DONE","RECOVERED_TRUTH_VALID") and record.get("solver_invocations")==1 and record.get("replay_count",0)==0,"truth_not_single_entry_valid:"+cid)
     mp,mh=_artifact(record,"source_manifest"); man=_json(mp)
+    assert_no_quarantine_linkage(man,consumer="truth_import",root=root)
     _need(man.get("case_id")==cid and man.get("attempt_id")==record["attempt_id"] and man.get("geometry")==list(D) and man.get("physical_contract_sha256")==C.PHYSICAL_CONTRACT_SHA256,"source_manifest_identity_mismatch:"+cid)
     pf=man.get("pre_fsp_sha256",""); _need(isinstance(pf,str) and len(pf)==64,"source_manifest_pre_fsp_hash_missing:"+cid)
-    sp,sh=_artifact(record,"state_npz"); smp,smh=_artifact(record,"state_metadata"); rnp,rnh=_artifact(record,"raw_npz"); rmp,rmh=_artifact(record,"raw_metadata"); op,oh=_artifact(record,"orders_json")
+    smp,smh=_artifact(record,"state_metadata"); rmp,rmh=_artifact(record,"raw_metadata"); op,oh=_artifact(record,"orders_json")
     sm,rm,od=_json(smp),_json(rmp),_json(op)
+    for metadata in (sm,rm,od): assert_no_quarantine_linkage(metadata,consumer="truth_import",root=root)
+    sp,sh=_artifact(record,"state_npz"); rnp,rnh=_artifact(record,"raw_npz")
     _need(sm.get("sha256")==sh and sm.get("schema_version")=="PW_COMPLEX_FLOQUET_STATE_V1" and sm.get("planes")==["IN","PRENP","POSTNP"] and sm.get("directions")==["+z","-z"] and sm.get("polarizations")==["TE","TM"],"state_metadata_invalid:"+cid)
     rawdesc=rm.get("raw_complex_fields",{})
     _need(rawdesc.get("sha256")==rnh and rawdesc.get("schema")=="APCD_PW_RAW_COMPLEX_FIELDS_V1","raw_metadata_npz_binding_mismatch:"+cid)
@@ -204,18 +211,19 @@ def _load_runner_truth(record,role_map,expected_roles):
 def load_verified_runner_case(record,*,expected_role,root=None,registry=None):
     _need(expected_role in _DEV,"runner_entry_only_accepts_development_roles")
     reg=registry or load_frozen_case_registry(root)
-    return _load_runner_truth(record,reg.development,{expected_role})
+    return _load_runner_truth(record,reg.development,{expected_role},root=root)
 
 def load_development_collection(aggregate_npz_path=None,new_case_records=(),*,allowlist_path=None,expected_case_ids=None,root=None,registry=None):
     root=Path(root) if root else ROOT; reg=registry or load_frozen_case_registry(root); recs=list(new_case_records)
     if aggregate_npz_path is not None:
         _need(Path(aggregate_npz_path).resolve()==(root/OLD/"dataset_truth_32g.npz").resolve(),"aggregate_npz_override_forbidden")
+    for record in recs: assert_no_quarantine_linkage(record,consumer="training",root=root)
     ids=[str(x.get("case_id","")) for x in recs]
     _need(all(x.get("role") in _DEV and x.get("case_id") in reg.development for x in recs),"confirmation_diagnostic_or_unknown_case_rejected_before_response_access")
     _need(len(recs)==128 and len(ids)==128 and len(set(ids))==128 and set(ids)==set(reg.development),"development_allowlist_incomplete_or_duplicate")
     if expected_case_ids is not None: _need(set(expected_case_ids)==set(reg.development),"expected_ids_mismatch")
     if allowlist_path: _need(sha256_file(allowlist_path)==ALLOW_SHA,"development_allowlist_sha_mismatch")
-    old=_old32(root,reg); new=tuple(_load_runner_truth(x,reg.development,{x["role"]}) for x in recs); cases=old+new
+    old=_old32(root,reg); new=tuple(_load_runner_truth(x,reg.development,{x["role"]},root=root) for x in recs); cases=old+new
     _need(len(cases)==160 and len({x.case_id for x in cases})==160 and all(x.role in C.DEVELOPMENT_ROLES for x in cases),"development_collection_integrity_failure")
     return C.CaseCollection("development",cases,REG_SHA,{"old32_sha256":OLD_NPZ_SHA,"registration_sha256":REG_SHA,"pointset_sha256":C.V2_CANDIDATE_CSV_SHA256,"all_wavelengths_grouped":True})
 
@@ -293,14 +301,17 @@ def issue_reveal_authorization(*,freeze_manifest_path,freeze_manifest_sha256,poi
       "pointset_path":str((root/REV/"GLOBAL_DATASET_CANDIDATES_V2.csv").resolve()),"pointset_sha256":C.V2_CANDIDATE_CSV_SHA256}
     return RevealAuthorization(freeze_manifest_sha256,str(fm.resolve()),pointset_sha256,role_allowlist_sha256,reg.confirmation.keys(),ledger,paths,_issuer=_REVEAL_SENTINEL)
 def load_confirmation_case(record,*,reveal_authorization,root=None,registry=None):
+    root=Path(root) if root else ROOT
+    assert_no_quarantine_linkage(record,consumer="truth_handoff",root=root)
     reg=registry or load_frozen_case_registry(root); cid=str(record.get("case_id","")); item=reg.confirmation.get(cid)
     _need(item is not None,"confirmation_id_not_allowlisted"); role=record.get("role")
     _need(role in C.CONFIRMATION_ROLES and role in (item["role"],item.get("effective_role")),"confirmation_role_mismatch")
     _need(isinstance(reveal_authorization,RevealAuthorization) and reveal_authorization.point_sha==reg.pointset_sha256 and reveal_authorization.role_sha==reg.confirmation_role_sha256,"confirmation_reveal_token_invalid")
     reveal_authorization.consume(cid)
-    truth=_load_runner_truth(record,reg.confirmation,{role})
+    truth=_load_runner_truth(record,reg.confirmation,{role},root=root)
     return ConfirmationCaseTruth(truth,item["role"],"LOCAL_COMBINATION" if item["role"]==C.ROLE_LOCAL_CONFIRM else ("STRESS" if item.get("boundary_stress") else "CORE"))
 def load_diagnostic_case(record):
+    assert_no_quarantine_linkage(record,consumer="diagnostic_import")
     _need(record.get("case_id")==C.TWO_PLANE_CASE_ID and record.get("attempt_id")==C.TWO_PLANE_ATTEMPT_ID and record.get("role")==C.ROLE_DIAGNOSTIC and record.get("protocol_sha256")==C.TWO_PLANE_PROTOCOL_SHA256,"diagnostic_identity_or_contract_mismatch")
     D=tuple(map(int,record.get("ordered_D_nm",())))
     _need(D==(220,120,155,100,105,110),"diagnostic_geometry_mismatch")

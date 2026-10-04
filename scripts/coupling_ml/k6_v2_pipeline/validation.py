@@ -12,6 +12,7 @@ import numpy as np
 
 from .contracts import CaseCollection
 from .training import FitPlan, FitRun
+from .consumer_exclusions import assert_no_quarantine_linkage, validate_independent_truth_provenance
 
 
 def evaluate_learning_curve_oof(
@@ -29,7 +30,9 @@ def evaluate_learning_curve_oof(
     """
     if collection.purpose != "development":
         raise ValueError("learning_curve_evaluation_requires_development_collection")
+    assert_no_quarantine_linkage(collection.cases, consumer="candidate_ranking")
     truth_by_id = {case.case_id: case for case in collection.training_cases()}
+    validate_independent_truth_provenance(truth_by_id.values(), consumer="candidate_evaluation")
     if set(truth_by_id) != set(plan.development_case_ids):
         raise ValueError("development_collection_plan_case_id_mismatch")
     expected_outer_ids = set().union(*(set(v) for v in plan.outer_validation_ids.values()))

@@ -67,6 +67,8 @@ class CaseCollection:
     def training_cases(self) -> Tuple[CaseTruth, ...]:
         if self.purpose != "development":
             raise ValueError("training_entry_requires_development_collection")
+        from .consumer_exclusions import assert_no_quarantine_linkage
+        assert_no_quarantine_linkage(self.cases, consumer="training")
         bad = [c.case_id for c in self.cases if c.role not in DEVELOPMENT_ROLES]
         if bad:
             raise ValueError("non_development_role_in_training_collection:" + ",".join(bad))

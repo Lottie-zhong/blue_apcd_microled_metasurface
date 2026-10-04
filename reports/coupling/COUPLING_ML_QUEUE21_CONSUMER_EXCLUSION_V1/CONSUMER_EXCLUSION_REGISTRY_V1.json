@@ -1,0 +1,77 @@
+{
+  "case_identity": {
+    "attempt_id": "attempt_001",
+    "branch_id": "traditional",
+    "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+    "event_ids": [
+      1499,
+      1506
+    ],
+    "physical_solver_entry_count": "UNKNOWN"
+  },
+  "confirmation_responses_opened": false,
+  "consumer_approval_basis": {
+    "does_not_release_gpu_hold": true,
+    "scope": "Consumer exclusion and preservation of UNKNOWN physical-entry count only.",
+    "signature_or_separate_owner_artifact_sha256": null,
+    "source": "Task-specific instruction from the Coupling project lead in this thread."
+  },
+  "decision": {
+    "action": "EXCLUDE",
+    "all_attempts_for_case_id": true,
+    "associated_artifacts": "Reject artifacts whose provenance, identity, event metadata, or path links to this case/disposition when independent source identity is not established; reject any queue21-linked artifact from all Coupling consumers.",
+    "delete_or_replay": false,
+    "exclude_from": [
+      "training",
+      "candidate_ranking",
+      "candidate_evaluation",
+      "scientific_conclusions",
+      "formal_truth_handoff"
+    ],
+    "preserve_historical_rows_and_artifacts": true,
+    "unknown_or_incomplete_provenance": "Reject any truth outside a frozen role/case allowlist or without the complete consumer-specific independently verifiable provenance required by the existing import contract.",
+    "owner_v2_status": "OWNER_ACCEPTED_UNRECOVERABLE_LINEAGE_QUARANTINE_PENDING_COUPLING_CONSUMER_ENFORCEMENT",
+    "conditional_hold_release_performed": false,
+    "owner_v2_quarantine_status": "QUARANTINED_PENDING_COUPLING_CONSUMER_ENFORCEMENT"
+  },
+  "linkage_markers": {
+    "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+    "disposition_sha256": "5e2ba9d6de8c94e2f4fe0af89ba9fc7b5a523763d35b863e083888f3f06c5065",
+    "event_ids": [
+      1499,
+      1506
+    ],
+    "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+    "incident_id": "queue21-lineage-not-recoverable",
+    "quarantine_manifest_sha256": "f5c058bea0a38c8e900d8019b6fb33e4a34d450411980765598007bc1b9d6cbf"
+  },
+  "schema": "COUPLING_ML_TRUTH_CONSUMER_EXCLUSION_REGISTRY_V1",
+  "scope": "Coupling data consumers only; this registry is not Runner release or solver-entry authority.",
+  "solver_entries_by_this_coupling_task": 0,
+  "source_authorities": {
+    "coupling_handoff_path": "reports/coupling/APCD_GPU_RUNNER_HOLD_CLOSEOUT_AND_DIAG_PREFLIGHT_REFRESH_V1/HANDOFF_TO_COUPLING.md",
+    "coupling_handoff_sha256": "aa9c55f2bec48694bd99806d50878a09c5d3b0345c03ad77e6b95d83051cb2a9",
+    "exception_disposition_path": "reports/apcd_gpu_production_runner_v1/UNRECOVERABLE_LINEAGE_DISPOSITION_AND_CONTROLLED_RECOVERY_V1/EXCEPTION_DISPOSITION_V1.json",
+    "exception_disposition_sha256": "5e2ba9d6de8c94e2f4fe0af89ba9fc7b5a523763d35b863e083888f3f06c5065",
+    "gpu_runner_handoff_path": "reports/apcd_gpu_production_runner_v1/UNRECOVERABLE_LINEAGE_DISPOSITION_AND_CONTROLLED_RECOVERY_V1/HANDOFF_TO_COUPLING.md",
+    "gpu_runner_handoff_sha256": "8b5760d81adb3830d84d0277e8c8d203ead0545cc27a6b8a8bbff106601191b1",
+    "gpu_runner_worktree_head": "88c8ba7afe99ab8e58a4f41f0698b56f65bc0b35",
+    "hold": {
+      "generation": 26,
+      "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+      "released": false,
+      "status": "ACTIVE"
+    },
+    "quarantine_manifest_path": "reports/apcd_gpu_production_runner_v1/UNRECOVERABLE_LINEAGE_DISPOSITION_AND_CONTROLLED_RECOVERY_V1/QUARANTINE_MANIFEST_V1.json",
+    "quarantine_manifest_sha256": "f5c058bea0a38c8e900d8019b6fb33e4a34d450411980765598007bc1b9d6cbf",
+    "exception_disposition_v2_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\\EXCEPTION_DISPOSITION_V2.json",
+    "exception_disposition_v2_sha256": "468331313528c2a1d68e079617d84c8cac7baceff329e1384a65a38d1ec7de97",
+    "owner_decision_record_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\\PROJECT_OWNER_DECISION_RECORD_V1.json",
+    "owner_decision_record_sha256": "da6176fe98a1e7f38e149db417e419455720922527d6d9699772456f308a752a",
+    "owner_execution_delegation_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\apcd_gpu_production_runner_v1\\PROJECT_OWNER_APPROVED_RECOVERY_AND_DIAG_V1\\PROJECT_OWNER_EXECUTION_DELEGATION_V1.json",
+    "owner_execution_delegation_sha256": "14ee2b2e84fb291775b9e2c4dbfb501b253c3d10b5ab88ecda9abea2575d55f1"
+  },
+  "status": "ACTIVE",
+  "unknown_truth_paths_recovered": false,
+  "version": 1
+}

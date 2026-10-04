@@ -39,6 +39,7 @@ from .contracts import (
     V2_LEARNING_CURVE_MANIFEST_SHA256,
     pack_model_target,
 )
+from .consumer_exclusions import assert_no_quarantine_linkage, validate_independent_truth_provenance
 from .models import (
     EXPECTED_MLP_PARAMETERS,
     KRR_GAMMAS,
@@ -1056,7 +1057,8 @@ def _matrix6(X):
 
 
 def _validate_development_case_map(case_map: Mapping[str, CaseTruth], plan: FitPlan):
-    """Validate only IDs, roles and ordered geometry before any response is read."""
+    """Validate IDs, provenance, roles, and ordered geometry before fitting."""
+    assert_no_quarantine_linkage(case_map, consumer="training")
     expected = set(plan.development_case_ids)
     actual = set(case_map)
     if actual != expected:
@@ -1077,6 +1079,7 @@ def _validate_development_case_map(case_map: Mapping[str, CaseTruth], plan: FitP
         if (geometry.shape != (6,) or not np.isfinite(geometry).all()
                 or not np.array_equal(geometry, expected_geometry)):
             raise ValueError(f"development_ordered_geometry_mismatch:{case_id}")
+    validate_independent_truth_provenance(case_map.values(), consumer="training")
     return case_map
 
 

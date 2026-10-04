@@ -5,6 +5,7 @@ This package implements the frozen V2 data, training, validation, local-affine, 
 ## Frozen interfaces
 
 - `contracts.py`: wavelength/order/polarization axes, state shapes, roles, and truth containers.
+- `consumer_exclusions.py`: versioned fail-closed truth provenance and quarantine checks shared by import, training, ranking, confirmation, diagnostics, and local-affine entry points.
 - `ingest.py`: registry and role allowlists; verified Runner-truth ingestion; development, confirmation, and diagnostic isolation; one-shot reveal authorization.
 - `splits.py`: geometry-grouped folds and train-only geometry scaling.
 - `models.py`, `training.py`: RBF KRR and the 6→32→32 Cartesian MLP, log-positive P_scale head, nested learning-curve plan, resumable fits, and dry-run task plan.

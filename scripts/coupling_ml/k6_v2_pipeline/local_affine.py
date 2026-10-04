@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Sequence, Tuple
 import numpy as np
 from .contracts import CaseTruth, DEVELOPMENT_ROLES, ROLE_LOCAL_AXIS, pack_model_target, unpack_model_target
+from .consumer_exclusions import assert_no_quarantine_linkage, validate_independent_truth_provenance
 S31_ANCHOR_NM=(220,195,210,150,140,210)
 AXIS_STEP_NM=5.0
 AXIAL_CASE_COUNT=12
@@ -49,6 +50,8 @@ class LocalAffineLOOReport:
     final_fit: LocalAffineFit
 
 def _validate_anchor(anchor:CaseTruth)->None:
+    assert_no_quarantine_linkage(anchor,consumer="training")
+    validate_independent_truth_provenance((anchor,),consumer="training")
     if anchor.role not in DEVELOPMENT_ROLES: raise ValueError("local_affine_anchor_must_be_development_case")
     if tuple(int(x) for x in anchor.ordered_D_nm)!=S31_ANCHOR_NM: raise ValueError("local_affine_anchor_must_be_frozen_S31_geometry")
     if not anchor.case_id: raise ValueError("local_affine_anchor_case_id_missing")
@@ -56,6 +59,8 @@ def _validate_anchor(anchor:CaseTruth)->None:
 def _validate_axial_cases(anchor:CaseTruth,axial_cases:Sequence[CaseTruth])->Tuple[CaseTruth,...]:
     _validate_anchor(anchor)
     cases=tuple(axial_cases)
+    assert_no_quarantine_linkage(cases,consumer="training")
+    validate_independent_truth_provenance(cases,consumer="training")
     if len(cases)!=AXIAL_CASE_COUNT: raise ValueError("local_affine_requires_exactly_12_axial_cases")
     ids=[anchor.case_id,*(c.case_id for c in cases)]
     geoms=[S31_ANCHOR_NM,*(tuple(c.ordered_D_nm) for c in cases)]
@@ -80,6 +85,8 @@ def _validate_axial_cases(anchor:CaseTruth,axial_cases:Sequence[CaseTruth])->Tup
 
 def _fit_train_cases(train_cases:Sequence[CaseTruth])->LocalAffineFit:
     cases=tuple(train_cases)
+    assert_no_quarantine_linkage(cases,consumer="training")
+    validate_independent_truth_provenance(cases,consumer="training")
     if len(cases)<8: raise ValueError("local_affine_requires_anchor_and_at_least_7_axis_cases")
     ids=tuple(c.case_id for c in cases)
     if len(set(ids))!=len(ids): raise ValueError("local_affine_train_case_ids_must_be_unique")
