@@ -1,0 +1,37 @@
+{
+  "capture_utc": "2026-10-04T17:52:46.732900Z",
+  "fdtd_launcher_child": {
+    "created_utc": "2026-10-04T17:52:39.168986Z",
+    "image": "fdtd-solutions.exe",
+    "parent_pid": 40640,
+    "pid": 15596,
+    "return_code": 0,
+    "returned_utc": "2026-10-04T18:02:04.988227Z"
+  },
+  "gpu": {
+    "device": "NVIDIA GeForce RTX 3080",
+    "engine_gpu_flag_observed": true,
+    "runner_lsf_gpu_resource": "GPU license audit",
+    "uuid": "GPU-15ded1d4-3837-27b9-d22a-fa67c55420f4"
+  },
+  "gpu_engine": {
+    "created_utc": "2026-10-04T17:52:44.668041Z",
+    "engine_exit_code": "UNKNOWN_IN_CAPTURE",
+    "image": "fdtd-engine-msmpi.exe",
+    "observed_in_same_active_runner_poll": true,
+    "parent_pid": 43384,
+    "pid": 27856
+  },
+  "interpretation": "The Runner-owned launcher child, mpiexec and GPU engine were observed during the same active run; engine exit code was not separately captured. Runner child returned zero and official completion validation passed.",
+  "mpiexec": {
+    "created_utc": "2026-10-04T17:52:44.482386Z",
+    "image": "mpiexec.exe",
+    "parent_pid": 15596,
+    "pid": 41380
+  },
+  "runner_child": {
+    "pid": 40640,
+    "role": "runner launcher parent observed in process snapshot"
+  },
+  "schema": "APCD_GPU_RUNNER_LIVE_PROCESS_OBSERVATION_V1"
+}

@@ -21,3 +21,10 @@ Read this file and `FINAL_REPORT.md` first. Then check current remote Git and li
 ## Hard boundaries
 
 No confirmation identity, response reads, model fitting, geometry substitution, physical contract changes, extra attempts, automatic replay, parallel slot, or alternate launcher. `attempt_002` for any budgeted case is rejected. EXT02 diagnostic remains a separate completed identity and is not a training label.
+
+
+## First-case execution and Coupling gate (2026-10-05)
+
+The first authorized development case K6LDA1_DEV_D1_M05 / attempt_001 has consumed exactly one entry and reached Runner DONE with fresh LOAD and SCIENTIFIC_VALID. See FIRST_CASE_HANDOFF_V1.md, FIRST_CASE_TRUTH_RECORD_V1.json, FIRST_CASE_GPU_LINEAGE_OBSERVATION_V1.json, and FIRST_CASE_SHA256_INVENTORY_V1.json.
+
+Do not launch another case until Coupling ML returns an explicit PASS for this record through the frozen V2 verified-ingestion path. This gate is limited to verifying label intake; it authorizes no training, P_scale-only fit, confirmation response access, or change to the 128 development budget. On PASS, continue in frozen allowlist order with one serial adapter.py run-one per exact attempt_001, re-run full FINAL_LAUNCH_REVALIDATION for each case, and hand off each completed truth incrementally. Any post-entry failure is zero-replay: quarantine/preserve artifacts and recover without another entry. Stop at the first unresolved anomaly.
