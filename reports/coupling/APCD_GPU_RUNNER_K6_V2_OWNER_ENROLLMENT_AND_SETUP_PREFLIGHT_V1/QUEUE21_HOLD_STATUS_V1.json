@@ -1,0 +1,40 @@
+{
+  "active_global_holds": [
+    {
+      "created_at": "2026-09-30T14:40:13.441098+00:00",
+      "created_by": "Shared V3 production containment / call v3-containment-c1481e55-20260930",
+      "free_text_reason": "Containment after S35 attempt_001 dispatch was denied pre-entry by the global DUPLICATE_SCIENTIFIC_ENTRY_COUNT=1. The sole duplicate is the historically unresolved queue21 pair (events 1499, 1506); no new solver entry occurred. New entries remain held pending an explicitly authorized durable disposition/rebuild.",
+      "hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+      "linked_case_ids_json": "[\"K6V1_S35\", \"K6V1_S39\"]",
+      "linked_incident_ids_json": "[\"queue21-lineage-not-recoverable\"]",
+      "metadata_json": "{\"authority_json_sha256\": \"b511106445fbba220779824d8f19fa4472ce6f9ff43067916a11e8fc1c77d865\", \"call_id\": \"v3-containment-c1481e55-20260930\", \"dispatch_result\": \"EMPTY_PRE_ENTRY_ADMISSION_HEALTH_BLOCKED\", \"duplicate_metric_value\": 1, \"preentry_adjudication_sha256\": \"d8719755ed1f668919dda59daa3abcda7eb5cce4e4c3f075ec010f5f09d49c8f\"}",
+      "reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+      "release_authority_hash": null,
+      "release_requirements_json": "{\"dispatch_prohibited\": true, \"historical_duplicate_metric_must_not_be_cleared_or_waived\": true, \"no_solver_entry_during_failed_dispatch\": true}",
+      "released_at": null,
+      "released_by": null,
+      "scope": "GLOBAL",
+      "status": "ACTIVE"
+    }
+  ],
+  "admission_control": {
+    "control_generation": 26,
+    "control_id": 1,
+    "health_status": "PASS",
+    "new_entry_hold": 1,
+    "temporary_runtime_cap": null,
+    "updated_at": "2026-09-30T14:40:13.441098+00:00"
+  },
+  "control_db_bytes": 1478656,
+  "control_db_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\control.sqlite3",
+  "control_db_sha256": "20c17bf1dd058db9117932465d7fa5bba8f888fd1c3453fa3fe70ccc9ee1c202",
+  "current_task_called_run_one": false,
+  "current_task_released_or_mutated_hold": false,
+  "current_task_solver_entry_count": 0,
+  "observed_utc": "2026-10-04T09:31:03+00:00",
+  "queue21_hold_id": "hold-4a6eab94af3b4a6d8510ba2fe32a5b66",
+  "queue21_lineage_incident": "queue21-lineage-not-recoverable",
+  "queue21_reason_code": "SHARED_V3_DUPLICATE_ENTRY_METRIC_CONTAINMENT",
+  "release_authority_present": false,
+  "schema": "APCD_GPU_RUNNER_K6_V2_QUEUE21_HOLD_STATUS_V1"
+}
