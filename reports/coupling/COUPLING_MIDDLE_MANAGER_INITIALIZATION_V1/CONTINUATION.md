@@ -99,3 +99,14 @@ Version manifest: `reports/coupling/COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZ
 
 
 已向现有Coupling ML会话 `01a10024-ea88-7561-bde3-852a10a08966`（host `local`）通过原生 `send_message_to_thread` 发送同一任务ID的恢复续接，要求其独立进行新鲜route/overlay、owner/fence、control/hold、ledger及下一案正式launch revalidation；全部通过后直接单槽串行恢复127案。此消息没有启动solver。下一次主控回传只期待实时启动核验通过且生产恢复、具体阻塞，或阶段完成；不收集普通进度。
+
+
+## 2026-10-05 — next-case route-bound proof revalidation
+
+The upper decision has accepted the first-case archived E/H power-mapping verification, the versioned Coupling label intake and the Runner/Coupling regressions. The modal-total maximum relative residual `2.8956697877272297e-4` and per-order maximum relative residual `1.499059534294761e-3` remain measured diagnostics without a preregistered criterion; they are not physical-closure PASS, do not borrow H1, and do not block generation. Adopted versions and the route-bound formal budget overlay remain as recorded in the stage version manifest.
+
+The next frozen case is `K6LDA1_DEV_D1_P05 / attempt_001`. Its existing `source_manifest.json`, `pre_entry_setup_load_proof.json`, `formal_preflight_envelope.json`, and `formal_preflight_result.json` are bound to old route SHA `d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56`, while the adopted current route SHA is `a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35`. The formal budget overlay remains SHA `e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c` and is route-bound. Existing proof artifact SHA256 values are recorded in `MANAGEMENT_RECORD_V1.json`.
+
+Coupling ML reported this stale route binding and acknowledged the supported official LOAD-only regeneration path; at the latest return it was checking the official atomic/versioned entry before regenerating. No next-case solver entry has been triggered. Preserve the old proof files and hashes. Do not hand-edit hash fields or change setup-only geometry authority, budget overlay, contracts, or geometry. Keep the next entry paused until current-route LOAD-only proof regeneration and formal launch revalidation pass; then resume the already authorized remaining 127 cases. Confirmation32 entries, real training fits and post-entry replay remain zero.
+
+Manager handling remains event-driven. The next report is current-route formal preflight PASS with production restored, a concrete blocker, or full stage completion.

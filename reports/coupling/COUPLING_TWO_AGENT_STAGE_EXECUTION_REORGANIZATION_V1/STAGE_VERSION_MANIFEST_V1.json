@@ -3,7 +3,7 @@
   "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
   "active_stage_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
   "prerequisite_task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
-  "recorded_at_utc": "2026-10-05T13:04:18Z",
+  "recorded_at_utc": "2026-10-05T13:26:48Z",
   "status": "RESUME_AUTHORIZED_AWAITING_COUPLING_FRESH_STARTUP",
   "stage_contract": {
     "scope": "Frozen V2 development set only: 12 local-axis plus 116 global cases.",
@@ -134,8 +134,27 @@
     "confirmation_entries": 0,
     "real_training_fits": 0,
     "post_entry_automatic_replays": 0,
-    "startup_revalidation": "PENDING_COUPLING_ML_FRESH_CHECK; this manager snapshot is not launch authorization evidence",
-    "registry_snapshot_time_utc": "2026-10-05T13:02:21Z"
+    "startup_revalidation": "IN_PROGRESS_OFFICIAL_LOAD_ONLY_CURRENT_ROUTE_REBIND; no current-route formal launch PASS yet; this manager snapshot is not launch authorization evidence",
+    "registry_snapshot_time_utc": "2026-10-05T13:02:21Z",
+    "startup_revalidation_snapshot_time_utc": "2026-10-05T13:26:48Z",
+    "startup_revalidation_detail": {
+      "event_id": "20261005-next-case-route-bound-proof-revalidation-v1",
+      "event_type": "FRESH_STARTUP_PRE_ENTRY_PROOF_ROUTE_REBIND_REQUIRED",
+      "recorded_at_utc": "2026-10-05T13:26:48Z",
+      "case_id": "K6LDA1_DEV_D1_P05",
+      "attempt_id": "attempt_001",
+      "old_route_authority_sha256": "d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56",
+      "current_route_authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+      "formal_budget_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+      "source_manifest_sha256": "6c1392f46ba0b46caa8f30341ead92719ba4067a8a78808f1dbd1c7c06a9393d",
+      "pre_entry_setup_load_proof_sha256": "d180b338c61833d24649812f522efb87df6a81a26d55084abe8fbb1c61844ed7",
+      "formal_preflight_envelope_sha256": "4445eb46a90ed785e8be9975b85de895625fdb02578f8b1b58835c9cb610d071",
+      "formal_preflight_result_sha256": "9260b8a582d1a9f70f6834406b209407ebcef95107519effe6e9f995ecd67474",
+      "evidence": "The next case's existing source manifest, setup LOAD proof, preflight envelope and result are bound to the prior route SHA; they do not satisfy current-route fresh launch revalidation. The current route remains bound to the already validated formal budget overlay. Coupling ML reported the old proof binding and acknowledged the supported official LOAD-only regeneration path; it was checking the official atomic/versioned entry before regenerating.",
+      "solver_entry_triggered": false,
+      "current_action": "Keep the next entry paused until official current-route LOAD-only proof regeneration and formal fresh preflight pass. Preserve prior files and hashes; do not hand-edit hashes, setup-only geometry authority, budget overlay, or frozen contracts.",
+      "decision_required": false
+    }
   },
   "write_owners": {
     "manager": "Scientific decisions/contract integration and manager records in isolated manager worktree.",
