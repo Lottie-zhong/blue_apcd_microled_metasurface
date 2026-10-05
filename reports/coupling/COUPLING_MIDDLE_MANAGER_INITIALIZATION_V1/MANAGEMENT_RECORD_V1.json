@@ -61,8 +61,10 @@
       "native_mechanism": "mcp__codex_app__send_message_to_thread",
       "delivery": "accepted, queued at safe boundaries during active comparison",
       "reply_to_manager": "pending at record preparation",
-      "current_task": "COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_V1",
-      "verification_delivery_status": "original comparison turn completed; final received via wait_threads; separate native reply test pending, no second verification sent"
+      "current_task": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
+      "verification_delivery_status": "original comparison turn completed; final received via wait_threads; separate native reply test pending, no second verification sent",
+      "previous_task": "COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_V1",
+      "last_dispatch_state": "accepted_active; waiting for completion or blocker"
     },
     {
       "role": "GPU",
@@ -75,7 +77,10 @@
       "send_count": 1,
       "delivery": "accepted while idle; automatically started reply turn",
       "reply_to_manager": "PASS: native reply received from source thread",
-      "reply_turn_id": "01a10795-0e25-7a20-8a3f-48d09875b7ce"
+      "reply_turn_id": "01a10795-0e25-7a20-8a3f-48d09875b7ce",
+      "previous_task": null,
+      "current_task": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
+      "last_dispatch_state": "accepted_active; waiting for completion, blocker, or first-case gate event"
     }
   ],
   "upper_return": {
@@ -622,6 +627,31 @@
         "upper_decision_required": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
       },
       "decision_request": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
+    },
+    {
+      "task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
+      "goal": "零solver独立核验首案功率归一化，修复生产映射并通过版本化标签恢复冻结V2余下127个开发case。",
+      "scope": "只核验K6LDA1_DEV_D1_M05/attempt_001归档truth与代码；保护原始FSP/H5/raw、Runner账本/哈希和Coupling拒绝记录；GPU LOAD-only与Runner映射/回归；Coupling独立场功率/模态/IN_REF比较、opt-in补充标签及32G/EXT02受影响派生字段审计；通过完整门槛后恢复剩余127案串行生成。",
+      "input_authority": "用户2026-10-05直接上层裁定；冻结V2合同、首案原始归档和既有拒绝记录、Runner/Coupling当前代码及历史32G/EXT02正式产物。",
+      "budget": "本修复阶段新增solver=0；首案累计entry=1且不得重跑；冻结总上限128开发case各最多1次entry，剩余最多127；post-entry replay=0；确认32=0；真实training fits=0；额外诊断solver=0。",
+      "execution_agent": "GPU Codex负责归档FSP LOAD-only读取、生产映射修复和回归；Coupling ML Codex负责冻结定义、独立物理核验、补充标签和历史受影响字段审计；主控负责收件和验收。",
+      "acceptance": [
+        "逐项定义eta分子/分母/阶次/方向、P_scale、IN_REF入射功率、Runner source_fraction分母，并区分sourcepower、POSTNP总通量、零阶模态功率和净/正向功率。",
+        "首案E/H面积通量、Ansys transmission×sourcepower、独立逐阶模态功率、按证据逐波长换算到IN_REF后的模态功率及冻结eta/P_scale全部按冻结适用阈值通过；P_scale×eta仅作代数一致性检查。",
+        "原始truth和拒绝记录不变；新增版本化补充明确opt-in，绑定原始SHA、代码版本、公式/分母、独立核验结果及被替代字段。",
+        "生产映射修复和含非零高阶、sourcepower/IN_REF分母差异及真实首案fixture的回归通过；仅审计并修复实际受影响的32G/EXT02派生字段。",
+        "当前authority、预算、owner/fence及fresh startup核验通过后GPU以Runner V1单槽串行执行余下127案，不重放。"
+      ],
+      "blockers": [
+        "独立核验失败或缺关键物理量/适用冻结阈值",
+        "冻结定义或分母转换存在实质冲突",
+        "当前authority、预算、owner/fence或启动前核验无效",
+        "系统性标签异常、需额外solver/训练预算"
+      ],
+      "return_target": "主控会话01a10791-e5f1-7150-ae43-700a1bb48305；完成、合同内无法解决的阻塞或需上层决策时回传，主控统一汇总用户。",
+      "status": "DISPATCHED_ACCEPTED_ACTIVE",
+      "artifact_entry": "待执行方写入现有Coupling/Runner reports目录并回传确切路径与SHA。",
+      "dispatch_state": "2026-10-05通过mcp__codex_app__send_message_to_thread各发送一次。wait_threads确认两个线程均active并给出本任务首条进展确认；GPU称未启动FDTD、未触碰控制库或归档，Coupling称执行独立核验且不启动solver/训练。"
     }
   ],
   "management_rules": {
