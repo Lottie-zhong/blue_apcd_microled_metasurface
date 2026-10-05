@@ -458,8 +458,8 @@
         "gpu": "D:/project/worktrees/blue_apcd_gpu_production_runner_v1/reports/apcd_gpu_production_runner_v1/COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
         "coupling": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/reports/coupling/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1"
       },
-      "dispatch_state": "Existing accepted task continues; one native follow-up clarified route-bound proof regeneration; no duplicate task dispatch. No solver entry has been triggered for the next case.",
-      "status": "RESUME_AUTHORIZED_AWAITING_COUPLING_FRESH_STARTUP",
+      "dispatch_state": "Existing task continued by native message with serial-batch supplement; Coupling ML is preparing current-route proofs and has not yet confirmed automatic queue start. No duplicate stage dispatch.",
+      "status": "AUTHORIZED_BATCH_PREPARATION_IN_PROGRESS_AUTO_QUEUE_NOT_STARTED_AT_LAST_AUDIT",
       "event_history": [
         {
           "event_id": "K6LDA1_DEV_D1_M05-attempt_001-source_fraction_normalization-conflict-v1",
@@ -606,44 +606,146 @@
           "solver_entry_triggered": false,
           "current_action": "Keep the next entry paused until official current-route LOAD-only proof regeneration and formal fresh preflight pass. Preserve prior files and hashes; do not hand-edit hashes, setup-only geometry authority, budget overlay, or frozen contracts.",
           "decision_required": false
+        },
+        {
+          "event_id": "20261005-serial-batch-continuation-status-v1",
+          "subtask_id": "COUPLING_K6_V2_SERIAL_BATCH_CONTINUATION_V1",
+          "event_type": "SERIAL_BATCH_CONTINUATION_ACCEPTED_PREPARATION_IN_PROGRESS",
+          "recorded_at_utc": "2026-10-05T15:25:57Z",
+          "source": "Coupling ML native-thread progress plus read-only Runner registry, global control, Coupling worktree and batch-status audit.",
+          "owner": "Coupling ML",
+          "runner_platform_owner": "GPU Codex on demand only",
+          "adopted_versions": {
+            "coupling": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
+            "runner": "02ad6b4b5f47b247f384fc132af329cc05612327",
+            "budget_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+            "route_authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+            "policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45"
+          },
+          "budget_and_live_counts": {
+            "total_development_cases": 128,
+            "runner_registry_k6_rows": 3,
+            "coupling_report_solver_entered_cases": 3,
+            "runner_done_cases": 3,
+            "valid_durable_truth_cases": 3,
+            "coupling_label_pass_cases": 3,
+            "remaining_not_entered": 125,
+            "postentry_failed_or_quarantined": 0,
+            "preentry_cli_failure_count": 1,
+            "preentry_cli_failure": "K6LDA1_DEV_D1_P05 / GPU_RESOURCE_NAME_REQUIRED; no run directory and no entry consumed",
+            "entries_added_during_batch_preparation": 0,
+            "confirmation32_entries": 0,
+            "real_training_fits": 0,
+            "p_scale_fits": 0,
+            "postentry_automatic_replays": 0
+          },
+          "runtime_audit": {
+            "runner_registry_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\registry.json",
+            "runner_registry_sha256": "333ad31145a761febdbf2d12779c1c36c12a1b19bf75caf563ac37c1c084e588",
+            "registry_rows": {
+              "K6LDA1_DEV_D1_M05": "DONE",
+              "K6LDA1_DEV_D1_P05": "DONE",
+              "K6LDA1_DEV_D2_M05": "DONE"
+            },
+            "global_control": {
+              "generation": 27,
+              "health": "PASS",
+              "new_entry_hold": 0,
+              "slots": "all FREE"
+            },
+            "k6_case_currently_running": false
+          },
+          "batch_preparation": {
+            "artifact_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\BATCH_PREPARATION_STATUS_V1.json",
+            "artifact_sha256": "551c5ff6fca09d972fada009d4f02e91502a46ec9e9c6869cd4fe6ed3d58856a",
+            "budget_case_ids": 125,
+            "last_completed_global_sequence_index": 19,
+            "current_route_preflight_pass_cases": 16,
+            "prepared_sequence_indices": "4 through 19",
+            "solver_invocations_during_preparation": 0,
+            "current_case_field": "Absent from status JSON. Coupling chat said sequence 10 / D6_P05, which conflicts with frozen sequence and the newer status artifact; manager does not treat that as verified current case.",
+            "first_unentered_case": {
+              "sequence_index": 4,
+              "case_id": "K6LDA1_DEV_D2_P05",
+              "status": "PASS",
+              "source_manifest_sha256": "b918822b9a800983432df04cf9922c15678134f60792624dc8ea004b63748a49",
+              "fresh_load_proof_sha256": "5d5f9a1b9359587ed679a8a0fd67cabe5977f9665263675c0facacc2a9fc5d04",
+              "preflight_result_sha256": "3a8b5049c98537d94bae84033fb61ace46da75265a58129770a5d98a3f39b98d",
+              "solver_invocations": 0
+            }
+          },
+          "reused_work_and_files": "Coupling reported reuse of pinned overlay/route/policy, existing setup FSPs, frozen importer and accepted first-case power mapping/label. Current uncommitted work is concentrated in COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1 reports and per-case current-route source manifests, LOAD proofs, readbacks and formal preflights; no Coupling business-code/controller diff was present in tracked git diff at the manager audit.",
+          "batch_entry": "Coupling reports the only formal Runner entry is official adapter.py run-one; no native multi-case command. A thin Coupling-owned serial controller is pending; automatic queue execution had not started at the recorded batch-status snapshot.",
+          "manager_instruction": "The queue owner was told to preserve current LOAD-only work, avoid a 125-case preflight barrier, perform live final checks for sequence 4, start the authorized serial queue at D2_P05, and refresh later proofs just-in-time. No further upper decision or budget is needed.",
+          "next_return": "Actual auto-queue started with live counters/current case, a concrete blocker, or full stage completion; no routine polling."
         }
       ],
       "latest_progress": {
-        "event_id": "20261005-next-case-route-bound-proof-revalidation-v1",
-        "event_type": "FRESH_STARTUP_PRE_ENTRY_PROOF_ROUTE_REBIND_REQUIRED",
-        "recorded_at_utc": "2026-10-05T13:26:48Z",
-        "source": "Coupling ML native reply plus previously verified read-only current-route/preflight evidence.",
-        "current_gate": "Official current-route LOAD-only setup proof regeneration and formal fresh launch revalidation for K6LDA1_DEV_D1_P05 / attempt_001; after PASS, resume the remaining 127 cases under existing authorization.",
+        "event_id": "20261005-serial-batch-continuation-status-v1",
+        "event_type": "SERIAL_BATCH_CONTINUATION_ACCEPTED_PREPARATION_IN_PROGRESS",
+        "recorded_at_utc": "2026-10-05T15:25:57Z",
+        "source": "Coupling ML native-thread progress plus read-only Runner registry, global control, Coupling worktree and batch-status audit.",
         "queue_owner": "Coupling ML",
-        "remaining_entries_paused": true,
-        "remaining_development_entries_max": 127,
-        "first_case_entries_used": 1,
-        "post_entry_automatic_replays": 0,
-        "confirmation32_entries": 0,
-        "real_training_fits": 0,
-        "modal_residuals": "Measured diagnostics without preregistered criterion; not physical-closure PASS, not an H1 gate, and not a generation blocker.",
-        "route_proof_revalidation": {
-          "event_id": "20261005-next-case-route-bound-proof-revalidation-v1",
-          "event_type": "FRESH_STARTUP_PRE_ENTRY_PROOF_ROUTE_REBIND_REQUIRED",
-          "recorded_at_utc": "2026-10-05T13:26:48Z",
-          "case_id": "K6LDA1_DEV_D1_P05",
-          "attempt_id": "attempt_001",
-          "old_route_authority_sha256": "d2b35c1b376e3ca5e1c7b38650861be2fb33ebc713e86772f8d82a9ebb634f56",
-          "current_route_authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
-          "formal_budget_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
-          "source_manifest_sha256": "6c1392f46ba0b46caa8f30341ead92719ba4067a8a78808f1dbd1c7c06a9393d",
-          "pre_entry_setup_load_proof_sha256": "d180b338c61833d24649812f522efb87df6a81a26d55084abe8fbb1c61844ed7",
-          "formal_preflight_envelope_sha256": "4445eb46a90ed785e8be9975b85de895625fdb02578f8b1b58835c9cb610d071",
-          "formal_preflight_result_sha256": "9260b8a582d1a9f70f6834406b209407ebcef95107519effe6e9f995ecd67474",
-          "evidence": "The next case's existing source manifest, setup LOAD proof, preflight envelope and result are bound to the prior route SHA; they do not satisfy current-route fresh launch revalidation. The current route remains bound to the already validated formal budget overlay. Coupling ML reported the old proof binding and acknowledged the supported official LOAD-only regeneration path; it was checking the official atomic/versioned entry before regenerating.",
-          "solver_entry_triggered": false,
-          "current_action": "Keep the next entry paused until official current-route LOAD-only proof regeneration and formal fresh preflight pass. Preserve prior files and hashes; do not hand-edit hashes, setup-only geometry authority, budget overlay, or frozen contracts.",
-          "decision_required": false
+        "platform_owner": "GPU Codex on demand",
+        "budget_and_live_counts": {
+          "total_development_cases": 128,
+          "runner_registry_k6_rows": 3,
+          "coupling_report_solver_entered_cases": 3,
+          "runner_done_cases": 3,
+          "valid_durable_truth_cases": 3,
+          "coupling_label_pass_cases": 3,
+          "remaining_not_entered": 125,
+          "postentry_failed_or_quarantined": 0,
+          "preentry_cli_failure_count": 1,
+          "preentry_cli_failure": "K6LDA1_DEV_D1_P05 / GPU_RESOURCE_NAME_REQUIRED; no run directory and no entry consumed",
+          "entries_added_during_batch_preparation": 0,
+          "confirmation32_entries": 0,
+          "real_training_fits": 0,
+          "p_scale_fits": 0,
+          "postentry_automatic_replays": 0
         },
-        "solver_entry_triggered": false
+        "runtime_audit": {
+          "runner_registry_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\registry.json",
+          "runner_registry_sha256": "333ad31145a761febdbf2d12779c1c36c12a1b19bf75caf563ac37c1c084e588",
+          "registry_rows": {
+            "K6LDA1_DEV_D1_M05": "DONE",
+            "K6LDA1_DEV_D1_P05": "DONE",
+            "K6LDA1_DEV_D2_M05": "DONE"
+          },
+          "global_control": {
+            "generation": 27,
+            "health": "PASS",
+            "new_entry_hold": 0,
+            "slots": "all FREE"
+          },
+          "k6_case_currently_running": false
+        },
+        "batch_preparation": {
+          "artifact_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\BATCH_PREPARATION_STATUS_V1.json",
+          "artifact_sha256": "551c5ff6fca09d972fada009d4f02e91502a46ec9e9c6869cd4fe6ed3d58856a",
+          "budget_case_ids": 125,
+          "last_completed_global_sequence_index": 19,
+          "current_route_preflight_pass_cases": 16,
+          "prepared_sequence_indices": "4 through 19",
+          "solver_invocations_during_preparation": 0,
+          "current_case_field": "Absent from status JSON. Coupling chat said sequence 10 / D6_P05, which conflicts with frozen sequence and the newer status artifact; manager does not treat that as verified current case.",
+          "first_unentered_case": {
+            "sequence_index": 4,
+            "case_id": "K6LDA1_DEV_D2_P05",
+            "status": "PASS",
+            "source_manifest_sha256": "b918822b9a800983432df04cf9922c15678134f60792624dc8ea004b63748a49",
+            "fresh_load_proof_sha256": "5d5f9a1b9359587ed679a8a0fd67cabe5977f9665263675c0facacc2a9fc5d04",
+            "preflight_result_sha256": "3a8b5049c98537d94bae84033fb61ace46da75265a58129770a5d98a3f39b98d",
+            "solver_invocations": 0
+          }
+        },
+        "batch_entry": "Coupling reports the only formal Runner entry is official adapter.py run-one; no native multi-case command. A thin Coupling-owned serial controller is pending; automatic queue execution had not started at the recorded batch-status snapshot.",
+        "automation_state": "NOT_STARTED_AT_LAST_AUDIT",
+        "manager_instruction": "Preserve current prep, start serial execution at the first frozen unentered case after its final live checks; remaining case proofs are just-in-time.",
+        "solver_entry_triggered_by_manager": false
       },
       "decision_request": "No additional scientific decision is pending. The three repair gates are accepted. Coupling ML must complete the fresh formal startup check; if it passes, resume the remaining 127 cases. Report only production restoration, a concrete blocker, or stage completion.",
-      "next_return_event": "Coupling ML reports current-route formal fresh preflight PASS and production restored, a concrete blocker, or full 128-case stage completion. No routine progress polling."
+      "next_return_event": "Actual auto-queue started with live counters/current case, a concrete blocker, or full stage completion; no routine polling."
     },
     {
       "task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
@@ -798,7 +900,7 @@
       "reason": "Scheduled manager polling has been replaced by event-driven returns."
     }
   },
-  "updated_at_utc": "2026-10-05T13:26:48Z",
+  "updated_at_utc": "2026-10-05T15:25:57Z",
   "manager_record_worktree": {
     "path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1",
     "branch": "codex/coupling-manager-v1",

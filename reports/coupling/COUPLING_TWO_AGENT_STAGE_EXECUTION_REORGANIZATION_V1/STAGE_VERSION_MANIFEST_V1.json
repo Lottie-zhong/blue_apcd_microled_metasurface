@@ -3,8 +3,8 @@
   "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
   "active_stage_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
   "prerequisite_task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
-  "recorded_at_utc": "2026-10-05T13:26:48Z",
-  "status": "RESUME_AUTHORIZED_AWAITING_COUPLING_FRESH_STARTUP",
+  "recorded_at_utc": "2026-10-05T15:25:57Z",
+  "status": "AUTHORIZED_BATCH_PREPARATION_IN_PROGRESS_AUTO_QUEUE_NOT_STARTED_AT_LAST_AUDIT",
   "stage_contract": {
     "scope": "Frozen V2 development set only: 12 local-axis plus 116 global cases.",
     "runner": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1; single-slot serial; select an explicit validated commit for each new run.",
@@ -99,7 +99,7 @@
   "execution_ledger": {
     "snapshot_time_utc": "Mixed read-only snapshot: Runner registry re-read 2026-10-05T13:02:21Z; global-control fields below remain the prior 2026-10-05T06:20Z snapshot. Neither is a substitute for Coupling's fresh startup check.",
     "runner_registry_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\registry.json",
-    "runner_registry_sha256": "23ed5548ef96aef3f375905f861ded2adbf6f54d27f24d11d1a905ccbea07f31",
+    "runner_registry_sha256": "333ad31145a761febdbf2d12779c1c36c12a1b19bf75caf563ac37c1c084e588",
     "row_count": 14,
     "row_states": {
       "DONE": 13,
@@ -130,11 +130,11 @@
     },
     "queue21_physical_entry_count": "UNKNOWN; retain isolation",
     "coupling_queue_ledger": "ML-maintained; exact path not returned yet. Runner registry is canonical solver-entry record.",
-    "remaining_development_entries_max": 127,
+    "remaining_development_entries_max": 125,
     "confirmation_entries": 0,
     "real_training_fits": 0,
     "post_entry_automatic_replays": 0,
-    "startup_revalidation": "IN_PROGRESS_OFFICIAL_LOAD_ONLY_CURRENT_ROUTE_REBIND; no current-route formal launch PASS yet; this manager snapshot is not launch authorization evidence",
+    "startup_revalidation": "CURRENT_ROUTE_PREFLIGHT_PASS_FOR_FIRST_UNENTERED_D2_P05; final live run-one check required; Coupling serial queue not yet started at last audit",
     "registry_snapshot_time_utc": "2026-10-05T13:02:21Z",
     "startup_revalidation_snapshot_time_utc": "2026-10-05T13:26:48Z",
     "startup_revalidation_detail": {
@@ -154,7 +154,36 @@
       "solver_entry_triggered": false,
       "current_action": "Keep the next entry paused until official current-route LOAD-only proof regeneration and formal fresh preflight pass. Preserve prior files and hashes; do not hand-edit hashes, setup-only geometry authority, budget overlay, or frozen contracts.",
       "decision_required": false
-    }
+    },
+    "k6_v2_rows": {
+      "count": 3,
+      "state": "all DONE",
+      "case_ids": [
+        "K6LDA1_DEV_D1_M05",
+        "K6LDA1_DEV_D1_P05",
+        "K6LDA1_DEV_D2_M05"
+      ]
+    },
+    "batch_preparation": {
+      "artifact_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\BATCH_PREPARATION_STATUS_V1.json",
+      "artifact_sha256": "551c5ff6fca09d972fada009d4f02e91502a46ec9e9c6869cd4fe6ed3d58856a",
+      "budget_case_ids": 125,
+      "last_completed_global_sequence_index": 19,
+      "current_route_preflight_pass_cases": 16,
+      "prepared_sequence_indices": "4 through 19",
+      "solver_invocations_during_preparation": 0,
+      "first_unentered_case": {
+        "sequence_index": 4,
+        "case_id": "K6LDA1_DEV_D2_P05",
+        "status": "PASS",
+        "source_manifest_sha256": "b918822b9a800983432df04cf9922c15678134f60792624dc8ea004b63748a49",
+        "fresh_load_proof_sha256": "5d5f9a1b9359587ed679a8a0fd67cabe5977f9665263675c0facacc2a9fc5d04",
+        "preflight_result_sha256": "3a8b5049c98537d94bae84033fb61ace46da75265a58129770a5d98a3f39b98d",
+        "solver_invocations": 0
+      },
+      "reported_current_case_conflict": "Absent from status JSON. Coupling chat said sequence 10 / D6_P05, which conflicts with frozen sequence and the newer status artifact; manager does not treat that as verified current case."
+    },
+    "serial_batch_event_id": "20261005-serial-batch-continuation-status-v1"
   },
   "write_owners": {
     "manager": "Scientific decisions/contract integration and manager records in isolated manager worktree.",

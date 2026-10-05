@@ -110,3 +110,16 @@ The next frozen case is `K6LDA1_DEV_D1_P05 / attempt_001`. Its existing `source_
 Coupling ML reported this stale route binding and acknowledged the supported official LOAD-only regeneration path; at the latest return it was checking the official atomic/versioned entry before regenerating. No next-case solver entry has been triggered. Preserve the old proof files and hashes. Do not hand-edit hash fields or change setup-only geometry authority, budget overlay, contracts, or geometry. Keep the next entry paused until current-route LOAD-only proof regeneration and formal launch revalidation pass; then resume the already authorized remaining 127 cases. Confirmation32 entries, real training fits and post-entry replay remain zero.
 
 Manager handling remains event-driven. The next report is current-route formal preflight PASS with production restored, a concrete blocker, or full stage completion.
+
+
+## 2026-10-05 — serial batch continuation
+
+The existing Coupling ML task accepted the serial-batch supplement on its current thread; no second phase was dispatched. It reused the adopted Runner/Coupling versions, route-bound budget overlay, setup FSPs, accepted mapping repair, and frozen importer.
+
+The latest read-only K6 Runner registry contains exactly three K6 rows, all `DONE`: `K6LDA1_DEV_D1_M05`, `K6LDA1_DEV_D1_P05`, and `K6LDA1_DEV_D2_M05`. Coupling reported all three as one-entry cases with valid durable truth and labels PASS. At the recorded snapshot, 125 of the frozen 128 remain unentered; confirmation32, training, P_scale fits, and post-entry replay remain zero. One `GPU_RESOURCE_NAME_REQUIRED` pre-entry CLI failure for D1_P05 created no run directory and consumed no entry.
+
+Batch artifact `BATCH_PREPARATION_STATUS_V1.json` (SHA256 `551c5ff6fca09d972fada009d4f02e91502a46ec9e9c6869cd4fe6ed3d58856a`) lists the 125 frozen unentered IDs and reports current-route LOAD/preflight PASS for global sequence indices 4–19 (16 cases), with zero solver invocations during preparation. The first unentered case `K6LDA1_DEV_D2_P05` at sequence 4 is PASS, with its current-route proof and official preflight hashes in the artifact. Its final launch-time lock/hold/GPU check must still be refreshed before run-one. The status JSON lacks an explicit `current_case`; an earlier Coupling chat status named sequence 10 / D6_P05, inconsistent with the later status file. Do not record an inferred current case as fact.
+
+Coupling reports the formal runner exposes only the official single-case `adapter.py run-one`, not a native multi-case command; it planned a thin Coupling-owned serial controller. The manager instructed it to preserve the in-progress LOAD-only preparation, then start the authorized queue at the first frozen unentered case after its final live checks, rather than require all 125 case proofs before the first entry. Reuse passed proofs and refresh later cases just-in-time. Automatic queue execution had not started at the last verified snapshot.
+
+Next manager return: actual automatic queue start with verified counts/current case, a concrete blocker, or stage completion. No periodic polling.
