@@ -651,7 +651,19 @@
       "return_target": "主控会话01a10791-e5f1-7150-ae43-700a1bb48305；完成、合同内无法解决的阻塞或需上层决策时回传，主控统一汇总用户。",
       "status": "DISPATCHED_ACCEPTED_ACTIVE",
       "artifact_entry": "待执行方写入现有Coupling/Runner reports目录并回传确切路径与SHA。",
-      "dispatch_state": "2026-10-05通过mcp__codex_app__send_message_to_thread各发送一次。wait_threads确认两个线程均active并给出本任务首条进展确认；GPU称未启动FDTD、未触碰控制库或归档，Coupling称执行独立核验且不启动solver/训练。"
+      "dispatch_state": "same task resumed after terminal turns returned unrelated historical reports; latest upper monitor ruling forwarded once to GPU and Coupling ML; waiting for task-specific acceptance/completion/blocker",
+      "upper_decisions": [
+        {
+          "date": "2026-10-05",
+          "source": "direct upper-level user decision in manager conversation",
+          "ext02_acceptance": "accept single-case cross-height consistency result only; no general monitor-distance or geometry guarantee",
+          "monitor_configuration": "retain the existing production near plane at actual z approximately 1802 nm, approximately 90 nm above the NP top; do not move it; do not add per-case second plane or run additional diagnostics",
+          "training_isolation": "EXT02 diagnostic remains excluded from training",
+          "recovery_gate": "this decision does not waive independent first-case power verification, versioned label acceptance, Runner production mapping repair/regression, or live authority/budget/owner/fence/startup checks",
+          "continuation": "after all gates pass, resume remaining 127 frozen development cases in GPU Runner V1 single-slot serial mode without another upper approval; 128 total max, one entry per case, zero replay; confirmation32=0 and true training fits=0",
+          "retained_gaps": "endpoint closure is diagnostic only; actual mesh spacing/transition and PML inner-face readbacks remain unknown; no monitor optimization/convergence study added"
+        }
+      ]
     }
   ],
   "management_rules": {
