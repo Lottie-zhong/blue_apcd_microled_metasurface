@@ -3,8 +3,8 @@
   "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
   "active_stage_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
   "prerequisite_task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
-  "recorded_at_utc": "2026-10-05T08:27:14Z",
-  "status": "ML_AND_GPU_ROLE_HANDOFF_CONFIRMED_POWER_REPAIR_IN_PROGRESS",
+  "recorded_at_utc": "2026-10-05T13:04:18Z",
+  "status": "RESUME_AUTHORIZED_AWAITING_COUPLING_FRESH_STARTUP",
   "stage_contract": {
     "scope": "Frozen V2 development set only: 12 local-axis plus 116 global cases.",
     "runner": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1; single-slot serial; select an explicit validated commit for each new run.",
@@ -19,38 +19,48 @@
       "extra_diagnostic_entries": 0
     },
     "restart_gates": [
-      "Direct archived-FSP LOAD-only sourcepower and independent denominator checks meet frozen criteria.",
-      "Versioned opt-in first-case label passes Coupling; original truth and rejection stay unchanged.",
-      "Runner production map fix plus nonzero-order, denominator-difference and first-case regressions pass.",
-      "Fresh authority, budget, owner/fence and startup checks pass; then ML directly resumes remaining 127."
+      "Upper decision accepts the archived direct E/H power mapping verification; preserve the frozen denominator and conversion relationship.",
+      "Upper decision accepts the first-case versioned Coupling label intake; original truth and rejection record remain unchanged.",
+      "Upper decision accepts the minimal Runner production mapping repair and Coupling/Runner regressions.",
+      "Coupling ML must perform fresh route/overlay, owner/fence, current hold/control, ledger, and formal launch revalidation before the next new entry; if they pass, it directly resumes the remaining 127 cases."
     ],
     "monitor": "Keep near plane z≈1802 nm, approximately 90 nm above NP top. No movement, per-case second plane or extra diagnostic. EXT02 excluded from training.",
     "limits": [
       "EXT02 supports single-case cross-height consistency only.",
       "Endpoint closure threshold is undefined; actual mesh and PML inner-boundary readbacks remain missing."
-    ]
+    ],
+    "diagnostic_limits": [
+      "Surface flux versus frozen 9x9 H2 modal-sum maximum relative residual 2.8956697877272297e-4; measured diagnostic with no preregistered criterion.",
+      "Per-order source-fraction versus independent modal-source-fraction maximum relative residual 1.499059534294761e-3 (maximum absolute residual 8.22043613859097e-5); measured diagnostic with no preregistered criterion.",
+      "These residuals are not a physical-closure PASS, are not compared with H1, do not get a retroactive threshold, and do not block the authorized database generation."
+    ],
+    "per_case_power_diagnostics": "Persist direct E/H power, sourcepower and IN_REF denominators, total and per-order modal power, residual definition/value; unthresholded modal residuals are diagnostic only and cannot alone quarantine or trigger replay."
   },
   "versions": {
     "manager": {
       "worktree": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1",
       "branch": "codex/coupling-manager-v1",
       "base_commit": "a50854f8425718d5d109b341a12b75dcbc328b43",
-      "owner": "manager records only"
+      "owner": "Manager records only; Coupling and Runner worktrees remain separately owned.",
+      "observed_commit": "b69cfbc0b40483af42eb46fc6e561e91667c694a"
     },
     "coupling": {
       "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
       "branch": "work/mdc-np-coupling-ml-v1",
-      "observed_commit": "a50854f8425718d5d109b341a12b75dcbc328b43",
+      "observed_commit": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
       "budget_source_head": "500b8179567aefa275fc4ceb427d5db0217b418e",
-      "owner": "Coupling ML business code, queue ledger, truth intake and labels"
+      "owner": "Sole K6 V2 stage executor; queue ledger, truth intake, labels and authorized post-processing.",
+      "power_repair_commit": "fb773a3f91845ea227d47f05afc38f2b522a7782",
+      "observed_commit_subject": "docs(coupling): correct K6 follow-on gate status"
     },
     "runner": {
       "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1",
       "branch": "codex/apcd-gpu-production-runner-v1",
-      "observed_commit": "ad719f294bd6711d2b19b083095b1c33ae728af9",
-      "next_case_commit": "NONE_SELECTED_PENDING_REPAIR_ACCEPTANCE",
+      "observed_commit": "02ad6b4b5f47b247f384fc132af329cc05612327",
+      "next_case_commit": "02ad6b4b5f47b247f384fc132af329cc05612327",
       "owner": "GPU platform code; official Runner registry, locks and durable truth",
-      "observed_commit_subject": "docs(gpu-runner): record owner recovery revalidation"
+      "observed_commit_subject": "Fix Runner V1 source power fraction normalization",
+      "next_case_selection_basis": "Explicitly adopted by current upper decision; production mapping fix/regression accepted; fresh startup check remains required. No automatic follow-HEAD switching."
     },
     "first_case": {
       "case_id": "K6LDA1_DEV_D1_M05",
@@ -61,7 +71,10 @@
       "adapter_sha256": "a9cfb11db584bf2ab96049b9066e198415bfba0863f29d0ed278230ffddc8579",
       "authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
       "policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
-      "budget_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
+      "budget_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+      "label_supplement_sha256": "e8ba44600b25ed64c7450bc1a07b46e5b0ffaa8550225137d985a75908c9f25d",
+      "coupling_ingest_result_sha256": "854323ba73823932abdb0e5f10322ba75a85bc4d88e4544a3579acf2e02bca87",
+      "ingested_truth_npz_sha256": "69f8f5e7d852863f73d9c3de60799e1eaed5ca350dcc525be6d4039690eb113d"
     }
   },
   "frozen_input_hashes": {
@@ -78,10 +91,13 @@
     "runner_policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
     "runner_budget_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
     "runner_budget_id": "APCD_GPU_RUNNER_K6_V2_128_DEVELOPMENT_CASES_MAX1_20261005_V1",
-    "setup_status_sha256": "5f8552a41bc3d3902676c621147fc03fe1fe7cda7ff2392a1ef22b00ca242b8b"
+    "setup_status_sha256": "5f8552a41bc3d3902676c621147fc03fe1fe7cda7ff2392a1ef22b00ca242b8b",
+    "runner_mesh_contract_sha256": "3e8a6eafe2cbb5c8591af381b1f416de35560dc3018ac8ad2cf284528fe16213",
+    "runner_monitor_contract_sha256": "a84d8526889084f2b3b09022402ca93b2947939cb744f071a4b19bc6eb09172f",
+    "runner_route_bound_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
   },
   "execution_ledger": {
-    "snapshot_time_utc": "2026-10-05T06:20:00Z (Coupling ML approximate one-time audit)",
+    "snapshot_time_utc": "Mixed read-only snapshot: Runner registry re-read 2026-10-05T13:02:21Z; global-control fields below remain the prior 2026-10-05T06:20Z snapshot. Neither is a substitute for Coupling's fresh startup check.",
     "runner_registry_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\registry.json",
     "runner_registry_sha256": "23ed5548ef96aef3f375905f861ded2adbf6f54d27f24d11d1a905ccbea07f31",
     "row_count": 14,
@@ -113,23 +129,32 @@
       "active_global_holds": 0
     },
     "queue21_physical_entry_count": "UNKNOWN; retain isolation",
-    "coupling_queue_ledger": "ML-maintained; exact path not returned yet. Runner registry is canonical solver-entry record."
+    "coupling_queue_ledger": "ML-maintained; exact path not returned yet. Runner registry is canonical solver-entry record.",
+    "remaining_development_entries_max": 127,
+    "confirmation_entries": 0,
+    "real_training_fits": 0,
+    "post_entry_automatic_replays": 0,
+    "startup_revalidation": "PENDING_COUPLING_ML_FRESH_CHECK; this manager snapshot is not launch authorization evidence",
+    "registry_snapshot_time_utc": "2026-10-05T13:02:21Z"
   },
   "write_owners": {
     "manager": "Scientific decisions/contract integration and manager records in isolated manager worktree.",
-    "coupling_ml": "Sole K6 V2 queue scheduler; Coupling case ledger, truth intake, labels and Coupling business artifacts.",
-    "gpu_codex": "On-demand platform maintainer; existing zero-solver power-map repair. Sole code owner for Runner/platform implementation and official static Runner policy/authority artifacts.",
+    "coupling_ml": "Sole K6 V2 queue executor; Coupling ledger, data intake, labels and business artifacts.",
+    "gpu_codex": "On-demand Runner/platform maintainer; no long-stage queue management.",
     "runner_runtime": "Sole writer of official registry, per-run lock/attempt state and durable truth; ML reads these. No active lock existed at audit snapshot.",
     "launch_permission": "User granted 128-case task authority; ML is the sole initiator after gates. Runner budget/admission and its one-slot lock enforce entry exclusivity."
   },
   "power_repair": {
-    "status": "IN_PROGRESS_NOT_ACCEPTED",
-    "first_case_label": "quarantined; preserve original truth and rejection",
-    "coupling_interim": "P_scale vs independent H2 modal total max relative delta 2.5923e-4 (q95 2.1637e-4); eta max abs delta 1.48056e-4. Previous 0.79009–0.80539 sourcepower ratio (median 0.80131) was inferred, not directly measured; converted-order max relative residual 1.5025e-3; applicable threshold not identified.",
-    "gpu_latest": "GPU reports archive LOAD-only sourcepower(f), transmission(POSTNP), seven x-orders read successfully, source hashes unchanged; final physical reconciliation and mapping regression pending.",
+    "status": "THREE_REPAIR_GATES_ACCEPTED_BY_UPPER_DECISION; FRESH_STARTUP_PENDING",
+    "first_case_label": "versioned supplement accepted by Coupling and upper decision; original truth/rejection unchanged",
+    "coupling_interim": "Direct E/H physical verification and first-case versioned label intake were accepted by the upper decision; modal residuals remain diagnostic-only without a preregistered criterion.",
+    "gpu_latest": "Upper decision accepts the minimal Runner production mapping repair and relevant regression at adopted Runner commit 02ad6b4b5f47b247f384fc132af329cc05612327; no new GPU platform task is pending.",
     "entries_added_during_repair": 0,
     "remaining_entries_paused": 127,
-    "scope_status": "THREE_PRODUCTION_BLOCKERS_ONLY; HISTORICAL_32G_AUDIT_AND_NONBLOCKING_WORK_DEFERRED"
+    "scope_status": "THREE_PRODUCTION_BLOCKERS_ONLY; HISTORICAL_32G_AUDIT_AND_NONBLOCKING_WORK_DEFERRED",
+    "recovery": "Resume is explicitly authorized; Coupling ML starts only after its fresh formal startup check passes.",
+    "modal_residual_disposition": "Diagnostic only; no preregistered threshold; not a physical-closure PASS and not a database-generation gate.",
+    "fresh_startup_owner": "Coupling ML Codex"
   },
   "executor_acceptance": {
     "coupling_ml": "ACCEPTED: sole queue ownership plus one-time audit returned",
@@ -171,8 +196,8 @@
   ],
   "version_switch_policy": "Keep each case's entered Runner provenance. Never auto-follow HEAD. After repair, GPU returns exact tested commit; Coupling explicitly adopts it after compatibility acceptance.",
   "next_return_event": [
-    "Return only the completed subset of the three blockers and the single/minimal remaining blocker with measured values and missing evidence, or report all three gates passing.",
-    "If all three gates plus fresh startup checks pass, Coupling ML proceeds with the remaining 127 cases and returns at the first-case recovery gate, stage completion, or a true blocker."
+    "Coupling ML reports fresh startup gate passed and production resumed, or reports the measured blocker and minimum required action.",
+    "After resumption, return only stage completion or a contract/decision blocker; no routine progress polling."
   ],
   "execution_sessions": {
     "Coupling ML": {
@@ -204,5 +229,48 @@
     ],
     "threshold_rule": "Do not relax frozen thresholds. The constructed P_scale*eta relation is only an algebraic consistency check and cannot replace independent physical validation.",
     "resume_condition": "All three blockers and fresh formal startup checks pass; Coupling ML directly resumes the remaining 127 serial cases under the existing budget."
+  },
+  "version_compatibility_evidence": {
+    "runner_code_commit": "02ad6b4b5f47b247f384fc132af329cc05612327",
+    "coupling_code_commit": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
+    "runner_physical_audit_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\gpu_runner_v1_power_fraction_normalization_v1\\INDEPENDENT_PHYSICAL_POWER_AUDIT.json",
+    "runner_physical_audit_sha256": "8302638ec31cf34f5fce370d5d6d3da47a681092c1e5303c5e5079ce21b19a11",
+    "coupling_repair_report_sha256": "4b7615d5c444c6ad95a2fc39ff4548cfbe90cbe71a9429fcf321f55f853c0d00",
+    "coupling_repair_report_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\REPORT_V1.md",
+    "coupling_repair_inventory_sha256": "002b6bf5f03e3a76d2637466de2c32931644c955e29c67c75ee6e66e9dad4498",
+    "first_case_supplement_sha256": "e8ba44600b25ed64c7450bc1a07b46e5b0ffaa8550225137d985a75908c9f25d",
+    "first_case_label_ingestion_accepted_by_upper_decision": true,
+    "runner_mapping_regression_accepted_by_upper_decision": true,
+    "coupling_regression_accepted_by_upper_decision": true,
+    "tracked_worktrees_clean_at_version_audit": true
+  },
+  "route_budget_binding": {
+    "route_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\controlled_admission_authority_v1.json",
+    "route_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+    "binding_field": "k6_v2_development_solver_budget",
+    "bound_overlay_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\k6_v2_development_solver_budget_v1.json",
+    "bound_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+    "policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
+    "binding_verified": true
+  },
+  "current_upper_decision": {
+    "recorded_at_utc": "2026-10-05T12:59:16Z",
+    "source": "Direct user instruction in the current Coupling manager task.",
+    "accepted_repair_gates": [
+      "independent direct E/H denominator and total-power mapping verification",
+      "versioned first-case Coupling label intake",
+      "Runner/Coupling mapping repair and relevant regressions"
+    ],
+    "resume_authorized": true,
+    "next_action_owner": "Coupling ML Codex",
+    "fresh_startup_required_before_next_entry": true,
+    "modal_residual_interpretation": "MEASURED_DIAGNOSTIC_WITHOUT_PREREGISTERED_CRITERION; not a physical-closure PASS and not a gate",
+    "remaining_max_entries": 127,
+    "confirmation_entries": 0,
+    "real_training_fits": 0,
+    "post_entry_automatic_replays": 0,
+    "native_followup_sent_at_utc": "2026-10-05T13:02:21Z",
+    "native_followup_target": "01a10024-ea88-7561-bde3-852a10a08966@local",
+    "native_followup_task_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1"
   }
 }

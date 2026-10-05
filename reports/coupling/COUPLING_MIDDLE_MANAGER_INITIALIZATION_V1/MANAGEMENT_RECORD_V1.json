@@ -458,8 +458,8 @@
         "gpu": "D:/project/worktrees/blue_apcd_gpu_production_runner_v1/reports/apcd_gpu_production_runner_v1/COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
         "coupling": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/reports/coupling/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1"
       },
-      "dispatch_state": "Accepted by Coupling ML as sole queue owner; GPU acknowledged on-demand platform role; existing power repair continues. No duplicate stage dispatch.",
-      "status": "ACTIVE_GATED_THREE_PRODUCTION_BLOCKERS",
+      "dispatch_state": "Existing accepted task continued by one native follow-up to Coupling ML; no duplicate task dispatch. Fresh check pending.",
+      "status": "RESUME_AUTHORIZED_AWAITING_COUPLING_FRESH_STARTUP",
       "event_history": [
         {
           "event_id": "K6LDA1_DEV_D1_M05-attempt_001-source_fraction_normalization-conflict-v1",
@@ -563,6 +563,31 @@
             "automatic_replays": 0
           },
           "solver_entry_added": 0
+        },
+        {
+          "event_id": "K6V2_POWER_GATE_ACCEPTED_RESUME_AUTHORIZED_20261005_V1",
+          "event_type": "UPPER_ACCEPTED_POWER_MAPPING_REPAIR_AND_AUTHORIZED_DATABASE_RESUME",
+          "recorded_at_utc": "2026-10-05T12:59:16Z",
+          "source": "Direct user decision in the manager task.",
+          "scope": "Resume the remaining 127 frozen V2 development cases after Coupling ML fresh startup checks.",
+          "modal_residual_status": "MEASURED_DIAGNOSTIC_NO_PREREGISTERED_CRITERION_NOT_PHYSICAL_CLOSURE_PASS_NOT_A_GATE",
+          "budget": {
+            "total_development_cases": 128,
+            "first_case_entries_used": 1,
+            "remaining_max_entries": 127,
+            "attempt_id": "attempt_001",
+            "max_entries_per_case": 1,
+            "automatic_replay": 0,
+            "confirmation32_entries": 0,
+            "real_training_fits": 0
+          },
+          "adopted_commits": {
+            "coupling": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
+            "runner": "02ad6b4b5f47b247f384fc132af329cc05612327"
+          },
+          "budget_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+          "route_authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+          "production_policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45"
         }
       ],
       "latest_progress": {
@@ -585,9 +610,12 @@
         "queue_owner": "Coupling ML",
         "platform_maintainer": "GPU Codex on demand",
         "remaining_entries_paused": true,
-        "raw_truth_or_rejection_mutated": false
+        "raw_truth_or_rejection_mutated": false,
+        "first_case_label": "PASS; upper decision accepted the versioned supplement; original truth and rejection remain unchanged.",
+        "fresh_startup": "PENDING_COUPLING_ML_REALTIME_CHECK"
       },
-      "decision_request": "None while the already-authorized power repair proceeds. Keep remaining 127 entries paused until the independent first-case validation, versioned label, production mapping regression and fresh startup gates all pass; return any scientific conflict, missing threshold, budget issue or blocker to the upper decision thread."
+      "decision_request": "No additional scientific decision is pending. The three repair gates are accepted. Coupling ML must complete the fresh formal startup check; if it passes, resume the remaining 127 cases. Report only production restoration, a concrete blocker, or stage completion.",
+      "next_return_event": "Coupling fresh startup pass and production restored, a concrete blocker, or full 128-case stage completion."
     },
     {
       "task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
@@ -597,21 +625,20 @@
       "budget": "本修复阶段新增solver=0；首案累计entry=1且不得重跑；冻结总上限128开发case各最多1次entry，剩余最多127；post-entry replay=0；确认32=0；真实training fits=0；额外诊断solver=0。",
       "execution_agent": "GPU Codex负责归档FSP LOAD-only读取、生产映射修复和回归；Coupling ML Codex负责冻结定义、独立物理核验、补充标签和历史受影响字段审计；主控负责收件和验收。",
       "acceptance": [
-        "Independent physical comparison uses archived LOAD-only fields, frozen definitions and applicable unchanged thresholds; report missing evidence or missing applicable threshold explicitly.",
+        "Independent archived LOAD-only physical verification uses frozen definitions and any applicable unchanged thresholds. The upper decision accepts the measured modal residuals as diagnostic-only where no preregistered criterion exists; no retroactive threshold is added.",
         "Minimal production mapping repair passes necessary regression for nonzero orders, sourcepower versus IN_REF denominator difference, and the real first-case fixture; no changes to C_hat, P_scale or phase convention.",
         "Versioned first-case repair label is accepted by Coupling while original truth and rejection remain unchanged.",
         "Fresh authority/budget/owner/fence/startup checks pass before the remaining 127 entries resume."
       ],
       "blockers": [
-        "独立核验失败或缺关键物理量/适用冻结阈值",
         "冻结定义或分母转换存在实质冲突",
         "当前authority、预算、owner/fence或启动前核验无效",
         "系统性标签异常、需额外solver/训练预算"
       ],
       "return_target": "主控会话01a10791-e5f1-7150-ae43-700a1bb48305；完成、合同内无法解决的阻塞或需上层决策时回传，主控统一汇总用户。",
-      "status": "DISPATCHED_ACCEPTED_ACTIVE",
-      "artifact_entry": "待执行方写入现有Coupling/Runner reports目录并回传确切路径与SHA。",
-      "dispatch_state": "same task resumed after terminal turns returned unrelated historical reports; latest upper monitor ruling forwarded once to GPU and Coupling ML; waiting for task-specific acceptance/completion/blocker",
+      "status": "THREE_REPAIR_GATES_ACCEPTED_AWAITING_FRESH_STARTUP",
+      "artifact_entry": "Runner physical audit and mapping regression under reports/gpu_runner_v1_power_fraction_normalization_v1/; Coupling repair report, supplement, ingestion and inventory under reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/. Exact hashes are in the stage version manifest.",
+      "dispatch_state": "Three repair gates accepted by upper decision; resume instruction sent once to the accepted Coupling ML executor. GPU is on-demand platform support only.",
       "upper_decisions": [
         {
           "date": "2026-10-05",
@@ -630,9 +657,42 @@
         "Platform refactor, broad dirty-file cleanup, new monitoring, new diagnostics, and duplicate document cleanup."
       ],
       "next_return_event": [
-        "Return only the completed subset of the three blockers and the single/minimal remaining blocker with measured values and missing evidence, or report all three gates passing.",
-        "If all three gates plus fresh startup checks pass, Coupling ML proceeds with the remaining 127 cases and returns at the first-case recovery gate, stage completion, or a true blocker."
-      ]
+        "Coupling ML fresh startup passed and remaining 127 production resumed, or a concrete live startup blocker requiring action."
+      ],
+      "event_history": [
+        {
+          "event_id": "K6V2_POWER_GATE_ACCEPTED_RESUME_AUTHORIZED_20261005_V1",
+          "event_type": "UPPER_ACCEPTED_POWER_MAPPING_REPAIR_AND_AUTHORIZED_DATABASE_RESUME",
+          "recorded_at_utc": "2026-10-05T12:59:16Z",
+          "source": "Direct user decision in the manager task.",
+          "scope": "Resume the remaining 127 frozen V2 development cases after Coupling ML fresh startup checks.",
+          "modal_residual_status": "MEASURED_DIAGNOSTIC_NO_PREREGISTERED_CRITERION_NOT_PHYSICAL_CLOSURE_PASS_NOT_A_GATE",
+          "budget": {
+            "total_development_cases": 128,
+            "first_case_entries_used": 1,
+            "remaining_max_entries": 127,
+            "attempt_id": "attempt_001",
+            "max_entries_per_case": 1,
+            "automatic_replay": 0,
+            "confirmation32_entries": 0,
+            "real_training_fits": 0
+          },
+          "adopted_commits": {
+            "coupling": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
+            "runner": "02ad6b4b5f47b247f384fc132af329cc05612327"
+          },
+          "budget_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+          "route_authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+          "production_policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45"
+        }
+      ],
+      "decision_request": "No further scientific decision is pending. After the fresh startup check passes, Coupling ML resumes the remaining 127 under the existing authorization.",
+      "latest_upper_acceptance": {
+        "recorded_at_utc": "2026-10-05T13:02:21Z",
+        "residuals": "Measured diagnostic limits with no preregistered criterion; not PASS and not a gate.",
+        "fresh_startup_owner": "Coupling ML Codex",
+        "status": "ACCEPTED_AWAITING_FRESH_STARTUP"
+      }
     }
   ],
   "management_rules": {
@@ -710,7 +770,7 @@
       "reason": "Scheduled manager polling has been replaced by event-driven returns."
     }
   },
-  "updated_at_utc": "2026-10-05T08:27:14Z",
+  "updated_at_utc": "2026-10-05T13:04:18Z",
   "manager_record_worktree": {
     "path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1",
     "branch": "codex/coupling-manager-v1",
@@ -720,16 +780,15 @@
     "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
     "manifest_path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1\\reports\\coupling\\COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1\\STAGE_VERSION_MANIFEST_V1.json",
     "continuation_path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1\\reports\\coupling\\COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1\\CONTINUATION.md",
-    "status": "ML_AND_GPU_ROLE_HANDOFF_CONFIRMED_POWER_REPAIR_IN_PROGRESS",
-    "queue_owner": "Coupling ML",
-    "platform_owner": "GPU Codex on demand",
+    "status": "RESUME_AUTHORIZED_AWAITING_COUPLING_FRESH_STARTUP",
+    "queue_owner": "Coupling ML Codex",
+    "platform_owner": "GPU Codex on-demand platform maintainer",
     "executor_acceptance": {
       "coupling_ml": "Accepted sole ownership of the V2 stage queue, Runner initiation after gates, ledger, truth intake and labels; returned the one-time audit.",
       "gpu_codex": "Acknowledged the on-demand Runner/platform role; not the long-stage database queue owner; continues the same zero-solver power repair."
     },
     "next_return_event": [
-      "Return only the completed subset of the three blockers and the single/minimal remaining blocker with measured values and missing evidence, or report all three gates passing.",
-      "If all three gates plus fresh startup checks pass, Coupling ML proceeds with the remaining 127 cases and returns at the first-case recovery gate, stage completion, or a true blocker."
+      "Coupling ML fresh startup gate pass and production resumed, a concrete blocker, or stage completion."
     ],
     "execution_sessions": {
       "Coupling ML": {
@@ -759,8 +818,35 @@
         "Historical label compatibility until before formal training, unless evidence shows a direct effect on the current production mapping.",
         "Platform refactor, broad dirty-file cleanup, new monitoring, new diagnostics, and duplicate document cleanup."
       ],
-      "threshold_rule": "Do not relax frozen thresholds. The constructed P_scale*eta relation is only an algebraic consistency check and cannot replace independent physical validation.",
-      "resume_condition": "All three blockers and fresh formal startup checks pass; Coupling ML directly resumes the remaining 127 serial cases under the existing budget."
+      "threshold_rule": "The upper decision classifies measured modal residuals without a preregistered criterion as diagnostic-only; do not call physical closure PASS, borrow H1, or add a retroactive threshold. This limitation does not block the current generation.",
+      "resume_condition": "The three repair gates are accepted by the upper decision. Coupling ML performs fresh authority/budget/owner/fence/control and formal launch checks; if they pass, it directly resumes the remaining 127 serial cases."
+    },
+    "latest_resume_decision": {
+      "event_id": "K6V2_POWER_GATE_ACCEPTED_RESUME_AUTHORIZED_20261005_V1",
+      "event_type": "UPPER_ACCEPTED_POWER_MAPPING_REPAIR_AND_AUTHORIZED_DATABASE_RESUME",
+      "recorded_at_utc": "2026-10-05T12:59:16Z",
+      "source": "Direct user decision in the manager task.",
+      "scope": "Resume the remaining 127 frozen V2 development cases after Coupling ML fresh startup checks.",
+      "modal_residual_status": "MEASURED_DIAGNOSTIC_NO_PREREGISTERED_CRITERION_NOT_PHYSICAL_CLOSURE_PASS_NOT_A_GATE",
+      "budget": {
+        "total_development_cases": 128,
+        "first_case_entries_used": 1,
+        "remaining_max_entries": 127,
+        "attempt_id": "attempt_001",
+        "max_entries_per_case": 1,
+        "automatic_replay": 0,
+        "confirmation32_entries": 0,
+        "real_training_fits": 0
+      },
+      "adopted_commits": {
+        "coupling": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
+        "runner": "02ad6b4b5f47b247f384fc132af329cc05612327"
+      },
+      "budget_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+      "route_authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+      "production_policy_sha256": "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45",
+      "native_followup_sent_at_utc": "2026-10-05T13:02:21Z",
+      "native_followup_target": "01a10024-ea88-7561-bde3-852a10a08966@local"
     }
   }
 }

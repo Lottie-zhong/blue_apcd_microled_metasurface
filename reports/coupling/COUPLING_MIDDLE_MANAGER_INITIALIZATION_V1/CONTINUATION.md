@@ -80,3 +80,22 @@ Task `COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1` supersedes earlier c
 - Next return to the manager is GPU role acknowledgment, repair completion, or concrete blocker; after recovery, report at the explicit first-case gate, full-stage completion, or a blocker requiring action. No periodic status requests.
 
 Version manifest: `reports/coupling/COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1/STAGE_VERSION_MANIFEST_V1.json`.
+
+
+## 2026-10-05 — 上层接受功率映射证据并授权恢复
+
+
+
+上层已接受首案归档E/H独立功率映射核验、Coupling版本化补充标签接入以及Runner/Coupling相关回归。模态总和最大相对残差 2.8956697877272297e-4、逐阶最大相对残差 1.499059534294761e-3 仅作为已测量但无预注册判据的诊断限制；不标记物理闭合PASS、不套H1、不追认阈值，且不阻塞本轮数据生成。
+
+
+
+采用Coupling HEAD `3c9c3b540c6b88d5c964245f37b5017397e68bea` 和Runner HEAD `02ad6b4b5f47b247f384fc132af329cc05612327`。正式预算overlay SHA `e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c`；route authority SHA `a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35`，其 `k6_v2_development_solver_budget.path/sha256` 已现场核对指向并匹配该overlay；production policy SHA `b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45`。当前采用版本、冻结点集/合同/monitor/mesh哈希、首案与runtime ledger快照、执行owner和预算均记录于 `../COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1/STAGE_VERSION_MANIFEST_V1.json`（SHA256 `95d498f175253e22fdfd87c5c704d64cd81ee4eaecdb65b8a8e42be5e8851779`）。此版本记录不代替Coupling ML的实时启动前核验。
+
+
+
+权限保持128个冻结开发case总上限，首案既有entry=1，剩余最多127；attempt_001每案最多一次、post-entry自动重放=0、确认32案entry=0、真实training fits=0。第一案不重跑；monitor保持实际z约1802 nm；EXT02不进训练；queue21消费者继续隔离。每案保留直接E/H功率、sourcepower与IN_REF分母、总量和逐阶模态功率及残差定义/数值；无预注册门槛的模态残差不单独触发隔离或重跑。
+
+
+
+已向现有Coupling ML会话 `01a10024-ea88-7561-bde3-852a10a08966`（host `local`）通过原生 `send_message_to_thread` 发送同一任务ID的恢复续接，要求其独立进行新鲜route/overlay、owner/fence、control/hold、ledger及下一案正式launch revalidation；全部通过后直接单槽串行恢复127案。此消息没有启动solver。下一次主控回传只期待实时启动核验通过且生产恢复、具体阻塞，或阶段完成；不收集普通进度。
