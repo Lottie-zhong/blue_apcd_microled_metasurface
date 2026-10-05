@@ -3,7 +3,7 @@
   "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
   "active_stage_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
   "prerequisite_task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
-  "recorded_at_utc": "2026-10-05T07:07:18Z",
+  "recorded_at_utc": "2026-10-05T07:13:54Z",
   "status": "ML_AND_GPU_ROLE_HANDOFF_CONFIRMED_POWER_REPAIR_IN_PROGRESS",
   "stage_contract": {
     "scope": "Frozen V2 development set only: 12 local-axis plus 116 global cases.",
@@ -172,5 +172,17 @@
   "next_return_event": [
     "Power-normalization repair completion with physical reconciliation, tested mapping commit and artifacts, or a concrete blocker.",
     "After all recovery gates pass, Coupling ML directly resumes the remaining 127 cases; return at the explicit first-case gate, full completion, or a blocker requiring action."
-  ]
+  ],
+  "execution_sessions": {
+    "Coupling ML": {
+      "thread_id": "01a10024-ea88-7561-bde3-852a10a08966",
+      "host_id": "local",
+      "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1"
+    },
+    "GPU": {
+      "thread_id": "01a0ed0c-691b-7043-9c32-0454eef069e1",
+      "host_id": "local",
+      "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1"
+    }
+  }
 }

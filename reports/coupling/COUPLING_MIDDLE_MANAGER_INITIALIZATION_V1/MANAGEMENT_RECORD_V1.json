@@ -17,11 +17,19 @@
     "execution_mechanism": "existing local Python subprocess argument array -> ssh stdin -> remote Python; shell=False"
   },
   "current_authorization": {
-    "solver_entries": 0,
+    "solver_entries": 128,
     "real_training_fits": 0,
     "confirmation_response_reads": 0,
     "allowed": "initialize records, inspect artifacts, one read-only verification message per execution chat, receive existing comparison, exact allowlist commit",
-    "data160_solver_budget": 0
+    "data160_solver_budget": 0,
+    "solver_entries_used": 1,
+    "solver_entries_remaining_max": 127,
+    "max_entries_per_case": 1,
+    "post_entry_automatic_replay": 0,
+    "confirmation32_entries": 0,
+    "extra_diagnostic_entries": 0,
+    "v2_development_stage": "Frozen 128 only; remaining 127 gated by power-repair acceptance and live startup checks.",
+    "authorized_executor": "Coupling ML invokes the sole official Runner V1 only after all recovery gates pass."
   },
   "runner_rule": {
     "authority": "APCD_GPU_PRODUCTION_RUNNER_V1",
@@ -55,16 +63,16 @@
       "thread_id": "01a10024-ea88-7561-bde3-852a10a08966",
       "host_id": "local",
       "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
-      "scope": "labels, scientific evaluation, authorized training/data ingestion",
+      "scope": "Sole K6 V2 stage executor: frozen development queue, case ledger, Runner V1 initiation after gates, truth intake, label validation and authorized post-processing. No training is authorized in the current stage.",
       "verification_id": "MM_INIT_20261004_IDENTITY_V1",
       "send_count": 1,
       "native_mechanism": "mcp__codex_app__send_message_to_thread",
       "delivery": "accepted, queued at safe boundaries during active comparison",
-      "reply_to_manager": "pending at record preparation",
-      "current_task": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
+      "reply_to_manager": "ACCEPTED: queue, Runner invocation after gates, ledger, truth intake and labels; one-time audit returned.",
+      "current_task": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1; first-case power verification and label/mapping gate is active.",
       "verification_delivery_status": "original comparison turn completed; final received via wait_threads; separate native reply test pending, no second verification sent",
       "previous_task": "COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_V1",
-      "last_dispatch_state": "accepted_active; waiting for completion or blocker"
+      "last_dispatch_state": "Accepted sole queue ownership; one-time live entry/lock audit returned; no case entry may start before all repair gates pass."
     },
     {
       "role": "GPU",
@@ -72,15 +80,15 @@
       "thread_id": "01a0ed0c-691b-7043-9c32-0454eef069e1",
       "host_id": "local",
       "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1",
-      "scope": "production Runner, setup admission, authorized single-slot solving, durable truth",
+      "scope": "On-demand production Runner/platform maintainer and owner of Runner/platform implementation. Not the long-stage Coupling database queue manager. Existing power-normalization repair remains assigned.",
       "verification_id": "MM_INIT_20261004_IDENTITY_V1",
       "send_count": 1,
       "delivery": "accepted while idle; automatically started reply turn",
-      "reply_to_manager": "PASS: native reply received from source thread",
+      "reply_to_manager": "ACKNOWLEDGED: GPU handles Runner/platform and authorized repair on demand; Coupling ML owns the V2 queue.",
       "reply_turn_id": "01a10795-0e25-7a20-8a3f-48d09875b7ce",
       "previous_task": null,
-      "current_task": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
-      "last_dispatch_state": "accepted_active; waiting for completion, blocker, or first-case gate event"
+      "current_task": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1 only; no remaining-case queue ownership.",
+      "last_dispatch_state": "ACKNOWLEDGED the role change on the existing thread; continues the same zero-solver power repair. No new entry, replay or training."
     }
   ],
   "upper_return": {
@@ -443,15 +451,15 @@
       "scope": "Exactly 128 frozen development cases: 12 DEVELOPMENT_LOCAL_AXIS plus 116 DEVELOPMENT_GLOBAL; no point, monitor, H1/H2, material, wavelength, or model changes",
       "input_authority": "Direct user authorization; frozen V2 amendment, case-registration package, ordered allowlist, current GPU Runner V1 task-specific budget and Coupling data-ingestion authority",
       "budget": "At most 128 new solver entries total; attempt_001 only and at most one per case; post-entry replay 0; 32 confirmation solver entries 0; real training fits 0",
-      "execution_agent": "GPU Production Runner V1 for serial single-slot solving and durable truth; Coupling ML4 for truth provenance and label/data ingestion",
-      "acceptance": "All 128 cases have valid durable truth and validated ingestible labels, or report exact valid/failed/not-entered counts, quarantine, hashes, and remaining blockers; first case must pass ML ingestion before GPU continues remaining 127",
+      "execution_agent": "Coupling ML Codex is the sole long-stage executor and directly invokes the unique official GPU Production Runner V1 after recovery gates; GPU Codex is on-demand platform maintainer only.",
+      "acceptance": "All 128 frozen cases have valid durable truth and validated labels, or exact counts/quarantine/hashes/blockers are reported; first case must pass Coupling ingestion before the remaining 127 start; one-slot serial, one entry maximum per case, replay0, confirmation32=0, training0.",
       "return_target": "Manager thread 01a10791-e5f1-7150-ae43-700a1bb48305; GPU-to-ML truth handoff remains direct",
       "artifact_entry": {
         "gpu": "D:/project/worktrees/blue_apcd_gpu_production_runner_v1/reports/apcd_gpu_production_runner_v1/COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
         "coupling": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/reports/coupling/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1"
       },
-      "dispatch_state": "Previously accepted and active in the two existing execution threads; not redispatched",
-      "status": "PAUSED_FOR_UPPER_DECISION_SOURCE_FRACTION_NORMALIZATION",
+      "dispatch_state": "Accepted by Coupling ML as sole queue owner; GPU acknowledged on-demand platform role; existing power repair continues. No duplicate stage dispatch.",
+      "status": "ACTIVE_GATED_POWER_NORMALIZATION_REPAIR",
       "event_history": [
         {
           "event_id": "K6LDA1_DEV_D1_M05-attempt_001-source_fraction_normalization-conflict-v1",
@@ -538,95 +546,48 @@
             "new_entry_authorized": false
           },
           "upper_decision_required": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
+        },
+        {
+          "event_id": "20261005-two-agent-stage-ownership-reorganization-v1",
+          "event_type": "STAGE_OWNERSHIP_CONFIRMED",
+          "recorded_at_utc": "2026-10-05T07:13:54Z",
+          "source": "Direct user instruction plus native acceptance on existing Coupling ML and GPU threads.",
+          "coupling_ml_thread": "01a10024-ea88-7561-bde3-852a10a08966",
+          "gpu_thread": "01a0ed0c-691b-7043-9c32-0454eef069e1",
+          "queue_owner": "Coupling ML",
+          "platform_maintainer": "GPU Codex on demand",
+          "budget": {
+            "remaining_development_entries": 127,
+            "confirmation32_entries": 0,
+            "real_training_fits": 0,
+            "automatic_replays": 0
+          },
+          "solver_entry_added": 0
         }
       ],
       "latest_progress": {
-        "event_id": "K6LDA1_DEV_D1_M05-attempt_001-source_fraction_normalization-conflict-v1",
-        "event_type": "SCIENTIFIC_PROTOCOL_CONFLICT_FIRST_CASE_LABEL_REJECTED",
-        "recorded_at_utc": "2026-10-04 19:10:30 UTC",
-        "source": "GPU-to-manager native event; manager independently verified source, importer equation, run hashes, order arrays, P_scale calculation, and case registry",
+        "event_id": "20261005-power-normalization-repair-role-handoff-v1",
+        "event_type": "RECOVERY_GATES_PENDING_ROLE_HANDOFF_CONFIRMED",
+        "recorded_at_utc": "2026-10-05T07:13:54Z",
+        "source": "Coupling ML one-time runtime audit and acceptance; GPU native role acknowledgment; archived-FSP LOAD-only status previously returned by GPU.",
         "case_id": "K6LDA1_DEV_D1_M05",
         "attempt_id": "attempt_001",
-        "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
-        "role": "DEVELOPMENT_LOCAL_AXIS",
-        "runner_state": "DONE",
-        "runner_acceptance": {
-          "fresh_load_verified": true,
-          "scientific_valid": true,
-          "truth_before_done": true,
-          "run_one_exit_code": 0,
-          "max_energy_closure": 1.1102230246251565e-16
-        },
-        "coupling_admission": "REJECTED_SOURCE_NORMALIZED_ORDER_POWER_MISMATCH",
         "budget_snapshot": {
-          "development_cases": 128,
-          "development_entries": 1,
-          "development_not_entered": 127,
-          "confirmation_cases": 32,
-          "confirmation_entries": 0,
-          "real_training_fits": 0,
-          "post_entry_replays": 0
+          "development_total": 128,
+          "entries_used": 1,
+          "remaining_max_entries": 127,
+          "post_entry_replays": 0,
+          "confirmation32_entries": 0,
+          "real_training_fits": 0
         },
-        "frozen_importer": {
-          "path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py:201-208",
-          "p_scale_definition": "POSTNP trapezoidal E/H Poynting flux / unit-cell area / IN_REF incident power per area",
-          "invariant": "source_fraction == P_scale * eta",
-          "tolerance": {
-            "rtol": 0.001,
-            "atol": 1e-09
-          }
-        },
-        "runner_producer": {
-          "path": "scripts/shared_fdtd/tools/pw_scientific_launcher.py:437-457,502-514",
-          "summary": "grating() order fractions are multiplied by t_fdtd=ptrans/pin, where post_plus is derived from spatial-average Ex/Hy zero-order modal amplitudes; this is not monitor total transmission or the frozen P_scale."
-        },
-        "independent_recalculation": {
-          "wavelength_nm": [
-            440,
-            460
-          ],
-          "eta_sum_max_abs_error": 2.220446049250313e-16,
-          "p_scale_min": 0.06649115789585905,
-          "p_scale_max": 0.562036997745591,
-          "source_fraction_sum_at_440nm": 0.01587730660183445,
-          "p_scale_at_440nm": 0.07691785841363069,
-          "frozen_check_max_abs_error": 0.16949400057315808,
-          "frozen_check_max_relative_error": 0.9918490638166707,
-          "frozen_check_pass": false,
-          "worst_wavelength_nm": 449.0,
-          "worst_order_x": -1,
-          "worst_original_source_fraction": 0.014990019045333968,
-          "worst_expected_p_scale_times_eta": 0.18448401961849206
-        },
-        "artifact_paths": {
-          "runner_case": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6LDA1_DEV_D1_M05/attempt_001/K6V2_D1M05_20261004T175055Z_449c4f94",
-          "coupling_development_truth_root": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/outputs/coupling_ml/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1_TRUTH/development"
-        },
-        "artifact_sha256": {
-          "run_fsp": "f2258b74d62a1e9d7441cd8214dc371022a8a964df335c7faf6c45d8be4fb2b9",
-          "run_output_h5": "8aa4ca58d22d9fd6eea4f5e53b557a96e0ec9c273f594c22561788f5af298dcd",
-          "truth_h5": "a51d51793a17ea6028e8d2ced4e8ff9a7b5b85cf997ab8456256075e7db1da64",
-          "raw_complex_fields_npz": "987756dd1e8ac4ac68d3262778974e0ce6323b08ceb7ef62317ea28853d8caac",
-          "state_npz": "217a81859a0312d4070c00767e06b20a7eee05f14b79ee861b09e83099744d91",
-          "orders_json": "eee74666b409e9255783b6e4a30f6f708f1358de0261752ffbbc6da571bff158",
-          "raw_metadata_json": "245d37f2c07fe10eaad2701381dda3c3ab05b122d3582f35d6906cdafd624afa",
-          "runner_hashes_json": "b08b2938da79aaebfc6a26e8295f4431ba1884db3c9c9938f0c5833c1194af30"
-        },
-        "code_versions": {
-          "runner_branch": "codex/apcd-gpu-production-runner-v1",
-          "runner_head": "6afb002ac4df29dedaedc8f65d67a3ecabc9eedf",
-          "coupling_branch": "work/mdc-np-coupling-ml-v1",
-          "coupling_head": "1e663e66ac02be38d02631d832f032105f4022ee"
-        },
-        "hold": {
-          "remaining_development_entries_paused": true,
-          "raw_truth_mutated": false,
-          "label_reconciliation_written": false,
-          "new_entry_authorized": false
-        },
-        "upper_decision_required": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
+        "current_gate": "First-case independent physical power comparison, opt-in versioned label acceptance, Runner production mapping fix/regressions, and fresh authority/budget/owner/fence/startup check.",
+        "gpu_load_only_return": "sourcepower(f), transmission(POSTNP), and seven x-orders loaded from archived FSP; physical reconciliation and mapping regression remain pending; no solver entry added.",
+        "queue_owner": "Coupling ML",
+        "platform_maintainer": "GPU Codex on demand",
+        "remaining_entries_paused": true,
+        "raw_truth_or_rejection_mutated": false
       },
-      "decision_request": "Authorize or reject a versioned zero-solver supplemental reconciliation using the already frozen source_fraction=P_scale*eta relation, preserving original truth and rejection; and authorize or reject a producer correction before resuming the remaining 127 cases. No tolerance, label definition, geometry, or budget change is proposed."
+      "decision_request": "None while the already-authorized power repair proceeds. Keep remaining 127 entries paused until the independent first-case validation, versioned label, production mapping regression and fresh startup gates all pass; return any scientific conflict, missing threshold, budget issue or blocker to the upper decision thread."
     },
     {
       "task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
@@ -741,7 +702,7 @@
       "reason": "Scheduled manager polling has been replaced by event-driven returns."
     }
   },
-  "updated_at_utc": "2026-10-05T07:07:18Z",
+  "updated_at_utc": "2026-10-05T07:13:54Z",
   "manager_record_worktree": {
     "path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1",
     "branch": "codex/coupling-manager-v1",
@@ -755,12 +716,24 @@
     "queue_owner": "Coupling ML",
     "platform_owner": "GPU Codex on demand",
     "executor_acceptance": {
-      "coupling_ml": "Accepted queue, Runner initiation after gates, case ledger, truth intake and labels; one-time entry/lock audit returned.",
-      "gpu_codex": "Acknowledged on the existing GPU thread: platform/Runner maintainer on demand; no long-stage database queue ownership; existing power repair continues."
+      "coupling_ml": "Accepted sole ownership of the V2 stage queue, Runner initiation after gates, ledger, truth intake and labels; returned the one-time audit.",
+      "gpu_codex": "Acknowledged the on-demand Runner/platform role; not the long-stage database queue owner; continues the same zero-solver power repair."
     },
     "next_return_event": [
       "Power-normalization repair completion with physical reconciliation, tested mapping commit and artifacts, or a concrete blocker.",
       "After all recovery gates pass, Coupling ML directly resumes the remaining 127 cases; return at the explicit first-case gate, full completion, or a blocker requiring action."
-    ]
+    ],
+    "execution_sessions": {
+      "Coupling ML": {
+        "thread_id": "01a10024-ea88-7561-bde3-852a10a08966",
+        "host_id": "local",
+        "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1"
+      },
+      "GPU": {
+        "thread_id": "01a0ed0c-691b-7043-9c32-0454eef069e1",
+        "host_id": "local",
+        "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1"
+      }
+    }
   }
 }
