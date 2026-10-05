@@ -65,3 +65,18 @@ GPU正在核实生产route实际backend映射及归档monitor LOAD-only提取器
 所有门槛通过后，按既有128案授权单槽串行续跑剩余127案，无需再次请示；每案最多一次entry、自动重放为0，确认32案和真实训练预算均为0。后续逐案保持原标签与物理验收；系统性异常时暂停受影响的新entry并回传证据。端点闭合、实际mesh及PML内边界读数缺失仍作为诊断限制，不扩展成monitor优化或收敛研究。
 
 本裁定已通过原生跨任务消息各通知GPU与Coupling ML，任务ID保持 COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1；不触发solver或重做EXT02。
+
+## 2026-10-05 — Stage execution ownership reorganization
+
+Task `COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1` supersedes earlier continuation wording that assigned long-stage K6 database queue ownership to GPU.
+
+- Coupling ML is the sole K6 V2 stage executor and owns the development queue, case ledger, truth intake, label checks and authorized post-processing. It directly invokes the existing single official GPU Production Runner V1 after the repair and startup gates pass.
+- GPU Codex is an on-demand Runner/platform maintainer. It owns Runner/platform implementation and its official code changes, but does not manage the Coupling case queue. The already-assigned zero-solver power-normalization repair remains with GPU until it returns completion or a concrete blocker.
+- The manager owns stage contracts, the separate manager worktree records, version selection evidence and stage-level acceptance. It does not poll routine progress or forward each case.
+- Coupling ML accepted queue ownership and returned a one-time live ledger/lock audit. GPU acknowledged the on-demand platform-maintainer role on its existing thread and confirmed that the same zero-solver repair continues. This record adds no execution authority.
+- The frozen case set remains 128 (12 local-axis plus 116 global), with one maximum entry per case and zero replay. One entry is already consumed by `K6LDA1_DEV_D1_M05 / attempt_001`; at most 127 remain. Confirmation32, real training fits and extra diagnostic solver entries remain zero.
+- Keep the accepted near monitor at actual z approximately 1802 nm, about 90 nm above the NP top; do not move it, add per-case second planes, or run another diagnostic. EXT02 stays out of training. Endpoint closure, actual mesh and PML-inner-boundary gaps remain recorded limitations.
+- Current blocker/gate: first-case independent power verification, versioned label acceptance, tested production mapping repair and live authority/budget/owner/fence/startup checks. Until all pass, the 127 later entries remain paused. After they pass, Coupling ML continues under the existing authorization without another per-case approval.
+- Next return to the manager is GPU role acknowledgment, repair completion, or concrete blocker; after recovery, report at the explicit first-case gate, full-stage completion, or a blocker requiring action. No periodic status requests.
+
+Version manifest: `reports/coupling/COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1/STAGE_VERSION_MANIFEST_V1.json`.

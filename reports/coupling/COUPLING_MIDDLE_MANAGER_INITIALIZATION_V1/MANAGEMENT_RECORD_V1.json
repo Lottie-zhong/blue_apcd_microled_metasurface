@@ -677,7 +677,7 @@
     "budget_rule": "dispatch creates no solver or training budget",
     "completion_flow": "On a defined event, receive the report, verify necessary artifacts and acceptance evidence, assign only contract-scoped engineering corrections, and escalate science/budget/confirmation decisions to the user.",
     "partial_rule": "do not redispatch same task because of PARTIAL",
-    "next_action": "Wait for the user's decision on the versioned zero-solver reconciliation and contract-preserving producer correction; keep the remaining 127 entries paused.",
+    "next_action": "Await the existing power-normalization repair completion or concrete blocker; no routine polling.",
     "status_reporting": "Event-driven only; no periodic manager polling, heartbeat collection, or progress requests.",
     "routine_progress": "Execution agents maintain their own ledger and continuation; routine per-case updates do not go to the manager.",
     "direct_case_handoff": "GPU-to-ML formal truth handoffs continue directly; the manager does not forward each case.",
@@ -687,7 +687,10 @@
       "A blocker that cannot be resolved within the existing task contract",
       "A scientific protocol conflict, budget issue or matter requiring an upper-level decision",
       "First-case source_fraction versus frozen P_scale*eta scientific protocol conflict requiring upper decision"
-    ]
+    ],
+    "database_queue_owner": "Coupling ML owns the K6 V2 queue, Coupling case-status ledger, truth intake and labels.",
+    "platform_maintainer": "GPU Codex is an on-demand Runner/platform maintainer, not the long-stage queue owner.",
+    "direct_case_execution": "Coupling ML invokes the sole official Runner V1 after recovery gates pass."
   },
   "event_driven_correction": {
     "task_id": "COUPLING_MIDDLE_MANAGER_EVENT_DRIVEN_CORRECTION_V1",
@@ -737,5 +740,27 @@
       "current_status": "PAUSED",
       "reason": "Scheduled manager polling has been replaced by event-driven returns."
     }
+  },
+  "updated_at_utc": "2026-10-05T07:07:18Z",
+  "manager_record_worktree": {
+    "path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1",
+    "branch": "codex/coupling-manager-v1",
+    "base_commit": "a50854f8425718d5d109b341a12b75dcbc328b43"
+  },
+  "stage_execution_reorganization": {
+    "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
+    "manifest_path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1\\reports\\coupling\\COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1\\STAGE_VERSION_MANIFEST_V1.json",
+    "continuation_path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1\\reports\\coupling\\COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1\\CONTINUATION.md",
+    "status": "ML_AND_GPU_ROLE_HANDOFF_CONFIRMED_POWER_REPAIR_IN_PROGRESS",
+    "queue_owner": "Coupling ML",
+    "platform_owner": "GPU Codex on demand",
+    "executor_acceptance": {
+      "coupling_ml": "Accepted queue, Runner initiation after gates, case ledger, truth intake and labels; one-time entry/lock audit returned.",
+      "gpu_codex": "Acknowledged on the existing GPU thread: platform/Runner maintainer on demand; no long-stage database queue ownership; existing power repair continues."
+    },
+    "next_return_event": [
+      "Power-normalization repair completion with physical reconciliation, tested mapping commit and artifacts, or a concrete blocker.",
+      "After all recovery gates pass, Coupling ML directly resumes the remaining 127 cases; return at the explicit first-case gate, full completion, or a blocker requiring action."
+    ]
   }
 }
