@@ -91,42 +91,53 @@
   "role": "DEVELOPMENT_LOCAL_AXIS",
   "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
   "runner_follow_on_gate": {
-    "conflict": "CONTROLLED_ADMISSION_AUTHORITY denies solver entry for all 160 K6 geometry entries (max 0), while the separate 128-case development budget authorizes one entry per development case. The runner handoff and owner/fence/startup checks require reconciliation by the GPU authority owner.",
-    "controlled_admission_authority": {
-      "authority_version": "APCD_GPU_RUNNER_EXT02_AND_K6_V2_DEV_BUDGET_20261005_V1",
-      "case_count": 160,
-      "geometry_authority_entries": 160,
-      "geometry_entries_max_solver_entries": [
-        0
-      ],
-      "geometry_entries_solver_authorized": 0,
-      "k6_v2_enrollment_status": "OWNER_ENROLLED_SETUP_ONLY_SOLVER_DENIED",
-      "max_solver_entries_per_case": 0,
+    "admission_overlay": {
+      "attempt_id": "attempt_001",
+      "budget_id": "APCD_GPU_RUNNER_K6_V2_128_DEVELOPMENT_CASES_MAX1_20261005_V1",
+      "confirmation_count": 32,
+      "confirmation_entries": 0,
+      "confirmation_response_access": false,
+      "first_case_consumed_entries": 1,
+      "interpretation": "GPU owner and main controller confirm that the Runner admission overlay, SHA-pinned by the formal handoff, governs solver eligibility; zero-entry per-case setup authorities preserve setup identity and are not a conflicting production budget.",
+      "max_entries_per_case": 1,
+      "nominal_remaining_entries": 127,
+      "p_scale_fit_authorized": false,
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\k6_v2_development_solver_budget_v1.json",
+      "post_entry_replay": 0,
+      "serial_only": true,
+      "sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+      "single_gpu_slot": true,
+      "total_entries": 128,
+      "training_authorized": false,
+      "unique_frozen_development_identities": 128
+    },
+    "fresh_live_owner_fence_budget_startup_check": "DEFERRED until the main controller gives an explicit scientific gate conclusion",
+    "launch_decision": "NO_NEW_CASES_PENDING_SCIENTIFIC_REVIEW",
+    "resume_condition": "After explicit scientific gate conclusion, perform fresh owner/fence/budget/startup and formal Runner preflight; if all pass, serially run remaining 127 using Runner V1, one slot, one entry per case, replay=0. Do not rerun the pilot.",
+    "scientific_gate": {
+      "decision": "BLOCKED_PENDING_EXPLICIT_SCIENTIFIC_GATE_CONCLUSION",
+      "direct_postnp_surface_flux_vs_transmission_sourcepower": "PASS",
+      "frozen_direct_modal_closure_threshold": "NOT_FOUND",
+      "main_controller_scientific_status": "NOT_YET_DECLARED_PHYSICAL_PASS",
+      "max_relative_difference": 1.2892487612961532e-14,
+      "runner_order_fraction_vs_independent_modal_source_fraction_max_absolute": 8.22043613859097e-05,
+      "runner_order_fraction_vs_independent_modal_source_fraction_max_relative": 0.001499059534294761,
+      "surface_flux_vs_frozen_h2_all_modal_sum_max_relative": 0.00028956697877272297
+    },
+    "setup_authority": {
+      "k6_geometry_authority_count": 160,
       "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\controlled_admission_authority_v1.json",
       "sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
-      "solver_entry_authorized": false
-    },
-    "development_budget": {
-      "approval_scope": "128 frozen development case identities only; attempt_001; at most one scientific entry per case and 128 total; first case is run as the pilot and remaining entries wait for Coupling ingestion PASS; sealed confirmations, response access, training fits and automatic replay remain unauthorized.",
-      "budget_id": "APCD_GPU_RUNNER_K6_V2_128_DEVELOPMENT_CASES_MAX1_20261005_V1",
-      "development_case_count": 128,
-      "development_entries_authorized": 128,
-      "max_entries_by_case": [
-        1
-      ],
-      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\k6_v2_development_solver_budget_v1.json",
-      "remaining_after_first_case": 127,
-      "sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
-    },
-    "fresh_live_owner_fence_budget_startup_check": "NOT_PERFORMED; blocked pending authority reconciliation",
-    "launch_decision": "BLOCKED_NO_NEW_ENTRY"
+      "version": "APCD_GPU_RUNNER_EXT02_AND_K6_V2_DEV_BUDGET_20261005_V1",
+      "zero_entry_per_case_is_setup_identity_design": true
+    }
   },
   "schema": "COUPLING_K6_V2_FIRST_CASE_INGEST_RESULT_V1",
   "source_fraction_sum_vs_p_scale_max_abs": 1.1102230246251565e-16,
   "source_power_mapping": "case_scoped_audited_p_scale_times_eta",
   "status": "PASS",
   "supplement_sha256": "e8ba44600b25ed64c7450bc1a07b46e5b0ffaa8550225137d985a75908c9f25d",
-  "task_status": "FIRST_CASE_REPAIR_AND_INGEST_PASS; FOLLOW_ON_127_BLOCKED_BY_RUNNER_AUTHORITY_CONFLICT",
+  "task_status": "FIRST_CASE_REPAIR_AND_INGEST_PASS; FOLLOW_ON_127_HELD_PENDING_EXPLICIT_SCIENTIFIC_GATE_CONCLUSION",
   "truth_artifact": {
     "absolute_order_shape": [
       21,

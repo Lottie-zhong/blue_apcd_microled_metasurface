@@ -33,13 +33,17 @@
       "sha256": "602a0741d76f26233c7c311e11084c41974932281f3de16a441ca77cc2c33c63"
     }
   },
-  "generated_utc": "2026-10-05T10:01:58.639981+00:00",
+  "generated_utc": "2026-10-05T12:45:27.958833+00:00",
   "git_snapshot": {
     "branch": "work/mdc-np-coupling-ml-v1",
-    "head": "a50854f8425718d5d109b341a12b75dcbc328b43",
-    "task_dir_status": "?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/CONTINUATION.md\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/FIRST_CASE_INGEST_RESULT_V1.json\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/FIRST_CASE_INGEST_TRUTH_V1.npz\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/FIRST_CASE_RECORD_V1.json\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/POWER_MAPPING_AUDIT_V1.json\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/POWER_MAPPING_SUPPLEMENT_V1.json\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/PROTOCOL_V1.md\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/REPORT_V1.md\n?? reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/TEST_RESULTS_V1.json",
-    "tracked_dirty": "M scripts/coupling_ml/k6_v2_pipeline/ingest.py\n M tests/coupling_ml/k6_v2_pipeline/test_ingest.py\n M tests/coupling_ml/k6_v2_pipeline/test_physics_evaluators.py\n M tests/coupling_ml/k6_v2_pipeline/test_validation.py",
+    "head": "fb773a3f91845ea227d47f05afc38f2b522a7782",
+    "task_dir_status": "M reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/CONTINUATION.md\n M reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/FIRST_CASE_INGEST_RESULT_V1.json\n M reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/REPORT_V1.md",
+    "tracked_dirty": "M reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/CONTINUATION.md\n M reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/FIRST_CASE_INGEST_RESULT_V1.json\n M reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/REPORT_V1.md",
     "upstream_ahead_behind": "0\t0"
+  },
+  "governance_correction": {
+    "source_thread_id": "01a10791-e5f1-7150-ae43-700a1bb48305",
+    "summary": "GPU owner and main controller confirm SHA-pinned independent budget overlay governs entry authorization; 160 zero-entry authorities are setup identity controls, not a solver budget conflict. Remaining cases await explicit scientific gate conclusion because modal closure residuals lack frozen acceptance threshold."
   },
   "immutable_first_case_archived_artifacts": {
     "manifest.json": {
@@ -110,48 +114,59 @@
     "tests/coupling_ml/k6_v2_pipeline/test_validation.py": "1b5c7abf912062a5ff6377d9f77b1682557055d2e35a71d80a069b6a591a49d1"
   },
   "runner_follow_on_gate": {
-    "conflict": "CONTROLLED_ADMISSION_AUTHORITY denies solver entry for all 160 K6 geometry entries (max 0), while the separate 128-case development budget authorizes one entry per development case. The runner handoff and owner/fence/startup checks require reconciliation by the GPU authority owner.",
-    "controlled_admission_authority": {
-      "authority_version": "APCD_GPU_RUNNER_EXT02_AND_K6_V2_DEV_BUDGET_20261005_V1",
-      "case_count": 160,
-      "geometry_authority_entries": 160,
-      "geometry_entries_max_solver_entries": [
-        0
-      ],
-      "geometry_entries_solver_authorized": 0,
-      "k6_v2_enrollment_status": "OWNER_ENROLLED_SETUP_ONLY_SOLVER_DENIED",
-      "max_solver_entries_per_case": 0,
+    "admission_overlay": {
+      "attempt_id": "attempt_001",
+      "budget_id": "APCD_GPU_RUNNER_K6_V2_128_DEVELOPMENT_CASES_MAX1_20261005_V1",
+      "confirmation_count": 32,
+      "confirmation_entries": 0,
+      "confirmation_response_access": false,
+      "first_case_consumed_entries": 1,
+      "interpretation": "GPU owner and main controller confirm that the Runner admission overlay, SHA-pinned by the formal handoff, governs solver eligibility; zero-entry per-case setup authorities preserve setup identity and are not a conflicting production budget.",
+      "max_entries_per_case": 1,
+      "nominal_remaining_entries": 127,
+      "p_scale_fit_authorized": false,
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\k6_v2_development_solver_budget_v1.json",
+      "post_entry_replay": 0,
+      "serial_only": true,
+      "sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+      "single_gpu_slot": true,
+      "total_entries": 128,
+      "training_authorized": false,
+      "unique_frozen_development_identities": 128
+    },
+    "fresh_live_owner_fence_budget_startup_check": "DEFERRED until the main controller gives an explicit scientific gate conclusion",
+    "launch_decision": "NO_NEW_CASES_PENDING_SCIENTIFIC_REVIEW",
+    "resume_condition": "After explicit scientific gate conclusion, perform fresh owner/fence/budget/startup and formal Runner preflight; if all pass, serially run remaining 127 using Runner V1, one slot, one entry per case, replay=0. Do not rerun the pilot.",
+    "scientific_gate": {
+      "decision": "BLOCKED_PENDING_EXPLICIT_SCIENTIFIC_GATE_CONCLUSION",
+      "direct_postnp_surface_flux_vs_transmission_sourcepower": "PASS",
+      "frozen_direct_modal_closure_threshold": "NOT_FOUND",
+      "main_controller_scientific_status": "NOT_YET_DECLARED_PHYSICAL_PASS",
+      "max_relative_difference": 1.2892487612961532e-14,
+      "runner_order_fraction_vs_independent_modal_source_fraction_max_absolute": 8.22043613859097e-05,
+      "runner_order_fraction_vs_independent_modal_source_fraction_max_relative": 0.001499059534294761,
+      "surface_flux_vs_frozen_h2_all_modal_sum_max_relative": 0.00028956697877272297
+    },
+    "setup_authority": {
+      "k6_geometry_authority_count": 160,
       "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\controlled_admission_authority_v1.json",
       "sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
-      "solver_entry_authorized": false
-    },
-    "development_budget": {
-      "approval_scope": "128 frozen development case identities only; attempt_001; at most one scientific entry per case and 128 total; first case is run as the pilot and remaining entries wait for Coupling ingestion PASS; sealed confirmations, response access, training fits and automatic replay remain unauthorized.",
-      "budget_id": "APCD_GPU_RUNNER_K6_V2_128_DEVELOPMENT_CASES_MAX1_20261005_V1",
-      "development_case_count": 128,
-      "development_entries_authorized": 128,
-      "max_entries_by_case": [
-        1
-      ],
-      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\k6_v2_development_solver_budget_v1.json",
-      "remaining_after_first_case": 127,
-      "sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
-    },
-    "fresh_live_owner_fence_budget_startup_check": "NOT_PERFORMED; blocked pending authority reconciliation",
-    "launch_decision": "BLOCKED_NO_NEW_ENTRY"
+      "version": "APCD_GPU_RUNNER_EXT02_AND_K6_V2_DEV_BUDGET_20261005_V1",
+      "zero_entry_per_case_is_setup_identity_design": true
+    }
   },
   "schema": "COUPLING_K6_V2_POWER_NORMALIZATION_SHA256_INVENTORY_V1",
   "self_sha256_excluded": true,
   "task_artifacts": {
     "CONTINUATION.md": {
-      "bytes": 4603,
+      "bytes": 4730,
       "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\CONTINUATION.md",
-      "sha256": "52fa8534f9476bcf614e0b67f17c8af5ca56f0c98b4e01d70bbb337de59793b5"
+      "sha256": "0d0de5c8e3a93dcad708eaab89a53ed1b6ec3c8ae27578196659c018f27ab5d8"
     },
     "FIRST_CASE_INGEST_RESULT_V1.json": {
-      "bytes": 7778,
+      "bytes": 8481,
       "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\FIRST_CASE_INGEST_RESULT_V1.json",
-      "sha256": "a32d0f6427edd51999933d0116885d194516b97151bd1f79d0a91b3116c23084"
+      "sha256": "854323ba73823932abdb0e5f10322ba75a85bc4d88e4544a3579acf2e02bca87"
     },
     "FIRST_CASE_INGEST_TRUTH_V1.npz": {
       "bytes": 8994,
@@ -179,9 +194,9 @@
       "sha256": "4678b55d3778b2cdbaa6201020c33a667ac2080261c8d2f96a5f2c4d74a9b234"
     },
     "REPORT_V1.md": {
-      "bytes": 4063,
+      "bytes": 4121,
       "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\REPORT_V1.md",
-      "sha256": "ff541570c403dba0b521b6885ea0e13b3c8200ef21f6a1f2864ba5b2ed74e324"
+      "sha256": "4b7615d5c444c6ad95a2fc39ff4548cfbe90cbe71a9429fcf321f55f853c0d00"
     },
     "TEST_RESULTS_V1.json": {
       "bytes": 1162,
@@ -189,5 +204,5 @@
       "sha256": "db9ba2fc80efd6b5be9a63296be346d94c5e83039ffce921ec184f7526f0f996"
     }
   },
-  "task_status": "FIRST_CASE_PASS_FOLLOW_ON_BLOCKED_BY_AUTHORITY_CONFLICT"
+  "task_status": "FIRST_CASE_PASS; FOLLOW_ON_127_BLOCKED_PENDING_SCIENTIFIC_GATE"
 }
