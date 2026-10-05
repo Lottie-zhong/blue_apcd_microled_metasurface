@@ -4,11 +4,27 @@ import numpy as np
 import pytest
 
 from scripts.coupling_ml.k6_v2_pipeline import h1 as h1_module
+from scripts.coupling_ml.k6_v2_pipeline import contracts as C
 from scripts.coupling_ml.k6_v2_pipeline.contracts import (
     CaseCollection, CaseTruth, ROLE_GLOBAL_DEV, ROLE_OLD32,
 )
 from scripts.coupling_ml.k6_v2_pipeline.training import FitCounts, FitPlan, FitRun, FitTask
 from scripts.coupling_ml.k6_v2_pipeline.validation import evaluate_learning_curve_oof
+
+
+def _synthetic_truth_provenance(role):
+    if role == ROLE_OLD32:
+        return {"dataset_npz_sha256":"fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+                "dataset_authority_sha256":C.DATASET_AUTHORITY_SHA256,
+                "state_sha256":"a"*64,"synthetic_test_only":True}
+    return {"source_manifest_sha256":"a"*64,"state_npz_sha256":"b"*64,
+            "state_metadata_sha256":"c"*64,"raw_npz_sha256":"d"*64,
+            "raw_metadata_sha256":"e"*64,"orders_sha256":"f"*64,
+            "physical_contract_sha256":C.PHYSICAL_CONTRACT_SHA256,
+            "truth_extractor_sha256":C.H1_EVALUATOR_SOURCE_SHA256,
+            "reference_plane_nm":C.REFERENCE_PLANE_NM,
+            "normalization":C.PSCALE_DEFINITION,"truth_schema":C.STATE_SCHEMA,
+            "synthetic_test_only":True}
 
 
 def _fixture():
@@ -23,7 +39,7 @@ def _fixture():
         p = np.ones(21)
         cases.append(CaseTruth(cid, "attempt_001", roles[cid], geometry[cid],
                                np.full((21, 7, 2), 1e-3 + 0j), p, eta,
-                               eta.copy(), {"synthetic_test_only": True}))
+                               eta.copy(), _synthetic_truth_provenance(roles[cid])))
     collection = CaseCollection("development", tuple(cases), "fixture", {"synthetic_test_only": True})
 
     outer = {f: tuple(f"NEW{i:03d}" for i in range((f - 1) * 32, f * 32))

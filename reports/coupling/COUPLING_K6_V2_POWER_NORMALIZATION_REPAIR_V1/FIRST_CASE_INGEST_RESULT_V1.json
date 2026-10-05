@@ -1,0 +1,176 @@
+{
+  "access": {
+    "confirmation_response_opened": false,
+    "diagnostic_data_accessed": false,
+    "first_case_historical_solver_entries": 1,
+    "new_solver_entries": 0,
+    "p_scale_fit_count": 0,
+    "post_entry_replay": 0,
+    "training_fit_count": 0
+  },
+  "attempt_id": "attempt_001",
+  "audit_sha256": "a4fffe81b0ad1cde8b59ab59c56ce5d8cb9307a61a75fc35140ae0b152e5da49",
+  "case_id": "K6LDA1_DEV_D1_M05",
+  "decision": "INGESTED_FOR_DEVELOPMENT_ONLY; NOT_MODEL_ADMISSION",
+  "h1_h2_consistency_diagnostic": {
+    "absolute_order": {
+      "max": 1.983095537459566e-05,
+      "mean": 1.983095537459566e-05,
+      "median": 1.983095537459566e-05,
+      "min": 1.983095537459566e-05,
+      "q95": 1.983095537459566e-05
+    },
+    "all_applicable_numeric_gates_attained": true,
+    "classification": "ONE_CASE_LABEL_AND_DECODER_CONSISTENCY_ONLY_NOT_MODEL_PERFORMANCE_OR_PRODUCTION_H1",
+    "gates": {
+      "absolute_order": true,
+      "routing": true,
+      "seed_stability": null,
+      "state": true,
+      "thresholded_absolute_order": true,
+      "total_power": true
+    },
+    "h1_authority_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "h2_decoder_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "routing": {
+      "max": 7.109266977648645e-05,
+      "mean": 7.109266977648645e-05,
+      "median": 7.109266977648645e-05,
+      "min": 7.109266977648645e-05,
+      "q95": 7.109266977648645e-05
+    },
+    "routing_pearson": 0.9999998350848956,
+    "state": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "q95": 0.0
+    },
+    "thresholded_absolute_order": {
+      "max": 0.00040858194222927164,
+      "mean": 0.00040858194222927164,
+      "median": 0.00040858194222927164,
+      "min": 0.00040858194222927164,
+      "q95": 0.00040858194222927164
+    },
+    "total_power": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "q95": 0.0
+    },
+    "total_power_pearson": 1.0
+  },
+  "input_artifact_sha256": {
+    "orders_json": "eee74666b409e9255783b6e4a30f6f708f1358de0261752ffbbc6da571bff158",
+    "raw_metadata": "245d37f2c07fe10eaad2701381dda3c3ab05b122d3582f35d6906cdafd624afa",
+    "raw_npz": "987756dd1e8ac4ac68d3262778974e0ce6323b08ceb7ef62317ea28853d8caac",
+    "source_manifest": "b80a2cee0e546826ad8271c1be5287274c52d457ce65ccff6ed817dd6e7ae047",
+    "state_metadata": "39a2b1fdc18d2c99e929d9bfdc810166b8665b644c166e4dbdbe1dfdc9a79c60",
+    "state_npz": "217a81859a0312d4070c00767e06b20a7eee05f14b79ee861b09e83099744d91"
+  },
+  "integration_test_result": {
+    "exit_code": 0,
+    "git_diff_check_exit_code": 0,
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\TEST_RESULTS_V1.json",
+    "pytest_summary": "47 passed",
+    "sha256": "db9ba2fc80efd6b5be9a63296be346d94c5e83039ffce921ec184f7526f0f996"
+  },
+  "ordered_D_nm": [
+    215,
+    195,
+    210,
+    150,
+    140,
+    210
+  ],
+  "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "purpose": "development_data_ingest_only",
+  "role": "DEVELOPMENT_LOCAL_AXIS",
+  "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+  "runner_follow_on_gate": {
+    "conflict": "CONTROLLED_ADMISSION_AUTHORITY denies solver entry for all 160 K6 geometry entries (max 0), while the separate 128-case development budget authorizes one entry per development case. The runner handoff and owner/fence/startup checks require reconciliation by the GPU authority owner.",
+    "controlled_admission_authority": {
+      "authority_version": "APCD_GPU_RUNNER_EXT02_AND_K6_V2_DEV_BUDGET_20261005_V1",
+      "case_count": 160,
+      "geometry_authority_entries": 160,
+      "geometry_entries_max_solver_entries": [
+        0
+      ],
+      "geometry_entries_solver_authorized": 0,
+      "k6_v2_enrollment_status": "OWNER_ENROLLED_SETUP_ONLY_SOLVER_DENIED",
+      "max_solver_entries_per_case": 0,
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\controlled_admission_authority_v1.json",
+      "sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+      "solver_entry_authorized": false
+    },
+    "development_budget": {
+      "approval_scope": "128 frozen development case identities only; attempt_001; at most one scientific entry per case and 128 total; first case is run as the pilot and remaining entries wait for Coupling ingestion PASS; sealed confirmations, response access, training fits and automatic replay remain unauthorized.",
+      "budget_id": "APCD_GPU_RUNNER_K6_V2_128_DEVELOPMENT_CASES_MAX1_20261005_V1",
+      "development_case_count": 128,
+      "development_entries_authorized": 128,
+      "max_entries_by_case": [
+        1
+      ],
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\k6_v2_development_solver_budget_v1.json",
+      "remaining_after_first_case": 127,
+      "sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
+    },
+    "fresh_live_owner_fence_budget_startup_check": "NOT_PERFORMED; blocked pending authority reconciliation",
+    "launch_decision": "BLOCKED_NO_NEW_ENTRY"
+  },
+  "schema": "COUPLING_K6_V2_FIRST_CASE_INGEST_RESULT_V1",
+  "source_fraction_sum_vs_p_scale_max_abs": 1.1102230246251565e-16,
+  "source_power_mapping": "case_scoped_audited_p_scale_times_eta",
+  "status": "PASS",
+  "supplement_sha256": "e8ba44600b25ed64c7450bc1a07b46e5b0ffaa8550225137d985a75908c9f25d",
+  "task_status": "FIRST_CASE_REPAIR_AND_INGEST_PASS; FOLLOW_ON_127_BLOCKED_BY_RUNNER_AUTHORITY_CONFLICT",
+  "truth_artifact": {
+    "absolute_order_shape": [
+      21,
+      7
+    ],
+    "c_hat_shape": [
+      21,
+      7,
+      2
+    ],
+    "eta_shape": [
+      21,
+      7
+    ],
+    "keys": [
+      "case_id",
+      "attempt_id",
+      "wavelengths_nm",
+      "order_m",
+      "polarization",
+      "c_hat",
+      "p_scale",
+      "eta",
+      "absolute_order"
+    ],
+    "p_scale_shape": [
+      21
+    ],
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\FIRST_CASE_INGEST_TRUTH_V1.npz",
+    "sha256": "69f8f5e7d852863f73d9c3de60799e1eaed5ca350dcc525be6d4039690eb113d"
+  },
+  "truth_provenance": {
+    "normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+    "orders_sha256": "eee74666b409e9255783b6e4a30f6f708f1358de0261752ffbbc6da571bff158",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "power_mapping_source": "case_scoped_audited_p_scale_times_eta",
+    "power_mapping_supplement_sha256": "e8ba44600b25ed64c7450bc1a07b46e5b0ffaa8550225137d985a75908c9f25d",
+    "raw_metadata_sha256": "245d37f2c07fe10eaad2701381dda3c3ab05b122d3582f35d6906cdafd624afa",
+    "raw_npz_sha256": "987756dd1e8ac4ac68d3262778974e0ce6323b08ceb7ef62317ea28853d8caac",
+    "reference_plane_nm": 1722.0,
+    "source_manifest_sha256": "b80a2cee0e546826ad8271c1be5287274c52d457ce65ccff6ed817dd6e7ae047",
+    "state_metadata_sha256": "39a2b1fdc18d2c99e929d9bfdc810166b8665b644c166e4dbdbe1dfdc9a79c60",
+    "state_npz_sha256": "217a81859a0312d4070c00767e06b20a7eee05f14b79ee861b09e83099744d91",
+    "truth_extractor_sha256": "2bb4988e2324f09e4ee6710a0eb60fb38ac6e7e628c6c90a23d9a62766297416",
+    "truth_schema": "PW_COMPLEX_FLOQUET_STATE_V1 POSTNP +z, seven y=0 orders, TE/TM"
+  }
+}

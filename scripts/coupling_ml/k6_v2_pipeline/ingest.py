@@ -27,6 +27,66 @@ def sha256_file(p):
 def _json(p): return json.loads(Path(p).read_text(encoding="utf-8-sig"))
 def _canon(v): return hashlib.sha256(json.dumps(v,sort_keys=True,separators=(",",":"),ensure_ascii=True).encode()).hexdigest()
 def geometry_sha(D): return hashlib.sha256(",".join(str(int(v)) for v in D).encode("ascii")).hexdigest()
+def _float_array_sha256(value):
+    """Hash finite float arrays using stable 15-significant-digit decimal values."""
+    a=np.asarray(value,dtype=float)
+    body={"shape":list(a.shape),"values":[format(float(x),".15g") for x in a.ravel(order="C")]}
+    return hashlib.sha256(json.dumps(body,sort_keys=True,separators=(",",":")).encode("ascii")).hexdigest()
+
+_POWER_SUPPLEMENT_SCHEMA="COUPLING_K6_V2_POWER_MAPPING_SUPPLEMENT_V1"
+_POWER_AUDIT_SCHEMA="COUPLING_K6_V2_POWER_MAPPING_AUDIT_V1"
+_POWER_SUPPLEMENT_CASE="K6LDA1_DEV_D1_M05"
+_POWER_MAPPING={
+    "eta_source":"power_fraction_of_monitor_total",
+    "p_scale_source":"POSTNP_periodic_EH_Poynting_over_cell_area_times_IN_REF_incident_power_per_area",
+    "source_fraction":"P_scale*eta",
+}
+def _validate_power_mapping_supplement(descriptor,record,artifact_hashes,p_scale,eta):
+    """Validate the sole case-scoped, opt-in correction; default ingestion stays strict."""
+    _need(isinstance(descriptor,Mapping),"power_mapping_supplement_descriptor_invalid")
+    path=Path(str(descriptor.get("path","")))
+    digest=descriptor.get("sha256")
+    _need(path.is_file() and isinstance(digest,str) and sha256_file(path)==digest,
+          "power_mapping_supplement_missing_or_sha_mismatch")
+    doc=_json(path)
+    _need(isinstance(doc,Mapping),"power_mapping_supplement_schema_invalid")
+    cid=str(record.get("case_id","")); D=tuple(map(int,record.get("ordered_D_nm",())))
+    _need(doc.get("schema")==_POWER_SUPPLEMENT_SCHEMA and doc.get("status")=="PASS"
+          and doc.get("training_label_eligible") is True,
+          "power_mapping_supplement_not_pass_or_training_eligible")
+    _need(cid==_POWER_SUPPLEMENT_CASE and record.get("role")==C.ROLE_LOCAL_AXIS,
+          "power_mapping_supplement_scope_forbidden")
+    _need(doc.get("case_id")==cid and doc.get("attempt_id")==record.get("attempt_id")=="attempt_001"
+          and doc.get("role")==record.get("role") and doc.get("ordered_D_nm")==list(D)
+          and doc.get("ordered_geometry_sha256")==geometry_sha(D)
+          and doc.get("physical_contract_sha256")==C.PHYSICAL_CONTRACT_SHA256,
+          "power_mapping_supplement_case_binding_mismatch")
+    _need(doc.get("artifact_sha256")==artifact_hashes,
+          "power_mapping_supplement_artifact_binding_mismatch")
+    numeric_hashes={"p_scale":_float_array_sha256(p_scale),"eta":_float_array_sha256(eta),
+        "source_fraction":_float_array_sha256(np.asarray(p_scale)[:,None]*np.asarray(eta))}
+    _need(doc.get("numeric_sha256")==numeric_hashes,
+          "power_mapping_supplement_numeric_binding_mismatch")
+    _need(doc.get("mapping")==_POWER_MAPPING,"power_mapping_supplement_mapping_mismatch")
+    audit_desc=doc.get("independent_audit",{})
+    _need(isinstance(audit_desc,Mapping),"power_mapping_audit_descriptor_invalid")
+    ap=Path(str(audit_desc.get("path","")))
+    _need(ap.is_file() and isinstance(audit_desc.get("sha256"),str)
+          and sha256_file(ap)==audit_desc.get("sha256"),
+          "power_mapping_audit_missing_or_sha_mismatch")
+    audit=_json(ap)
+    _need(isinstance(audit,Mapping),"power_mapping_audit_schema_invalid")
+    _need(audit.get("schema")==_POWER_AUDIT_SCHEMA and audit.get("status")=="PASS"
+          and audit.get("case_id")==cid and audit.get("attempt_id")==record.get("attempt_id")
+          and audit.get("physical_contract_sha256")==C.PHYSICAL_CONTRACT_SHA256
+          and audit.get("ordered_geometry_sha256")==geometry_sha(D)
+          and audit.get("artifact_sha256")==artifact_hashes
+          and audit.get("numeric_sha256")==numeric_hashes
+          and audit.get("training_label_eligible") is True
+          and audit.get("mapping")==_POWER_MAPPING,
+          "power_mapping_audit_binding_or_status_invalid")
+    return digest
+
 @dataclass(frozen=True)
 class FrozenRegistry:
     old32: Mapping[str,Mapping[str,Any]]
@@ -123,7 +183,7 @@ def _artifact(r,k):
     _need(p.is_file() and len(h)==64 and sha256_file(p)==h,"artifact_missing_or_sha_mismatch:"+k)
     return p,h
 
-def _load_runner_truth(record,role_map,expected_roles,*,root=None):
+def _load_runner_truth(record,role_map,expected_roles,*,root=None,power_supplement=None):
     assert_no_quarantine_linkage(record,consumer="truth_import",root=root)
     cid=str(record.get("case_id","")); _need(cid in role_map,"case_id_not_in_role_allowlist:"+cid); reg=role_map[cid]
     role=record.get("role"); _need(role in expected_roles and role in (reg["role"],reg.get("effective_role")),"role_not_allowed:"+str(role))
@@ -205,15 +265,32 @@ def _load_runner_truth(record,role_map,expected_roles,*,root=None):
     _need("single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM" in norm.get("gauge",""),"source_gauge_mismatch:"+cid)
     ps=flux/(1740e-9*290e-9*pin)
     _need(ps.shape==(21,) and np.isfinite(ps).all() and (ps>0).all(),"pscale_invalid:"+cid)
-    _need(np.allclose(source_fraction,ps[:,None]*eta,rtol=1e-3,atol=1e-9),"source_normalized_order_power_mismatch:"+cid)
-    return C.CaseTruth(cid,record["attempt_id"],role,D,chat,ps,eta,ps[:,None]*eta,{"source_manifest_sha256":mh,"state_npz_sha256":sh,"state_metadata_sha256":smh,"raw_npz_sha256":rnh,"raw_metadata_sha256":rmh,"orders_sha256":oh,"physical_contract_sha256":C.PHYSICAL_CONTRACT_SHA256,"reference_plane_nm":C.REFERENCE_PLANE_NM,"normalization":C.PSCALE_DEFINITION,"truth_extractor_sha256":extractor_sha,"truth_schema":C.STATE_SCHEMA})
+    artifact_hashes={"source_manifest":mh,"state_npz":sh,"state_metadata":smh,
+        "raw_npz":rnh,"raw_metadata":rmh,"orders_json":oh}
+    supplement_sha=None
+    if power_supplement is None:
+        _need(np.allclose(source_fraction,ps[:,None]*eta,rtol=1e-3,atol=1e-9),
+              "source_normalized_order_power_mismatch:"+cid)
+        mapping_source="runner_orders_json"
+    else:
+        supplement_sha=_validate_power_mapping_supplement(
+            power_supplement,record,artifact_hashes,ps,eta)
+        mapping_source="case_scoped_audited_p_scale_times_eta"
+    return C.CaseTruth(cid,record["attempt_id"],role,D,chat,ps,eta,ps[:,None]*eta,
+        {"source_manifest_sha256":mh,"state_npz_sha256":sh,"state_metadata_sha256":smh,
+         "raw_npz_sha256":rnh,"raw_metadata_sha256":rmh,"orders_sha256":oh,
+         "physical_contract_sha256":C.PHYSICAL_CONTRACT_SHA256,"reference_plane_nm":C.REFERENCE_PLANE_NM,
+         "normalization":C.PSCALE_DEFINITION,"truth_extractor_sha256":extractor_sha,
+         "truth_schema":C.STATE_SCHEMA,"power_mapping_source":mapping_source,
+         "power_mapping_supplement_sha256":supplement_sha})
 
-def load_verified_runner_case(record,*,expected_role,root=None,registry=None):
+def load_verified_runner_case(record,*,expected_role,root=None,registry=None,power_supplement=None):
     _need(expected_role in _DEV,"runner_entry_only_accepts_development_roles")
     reg=registry or load_frozen_case_registry(root)
-    return _load_runner_truth(record,reg.development,{expected_role},root=root)
+    return _load_runner_truth(record,reg.development,{expected_role},root=root,
+                              power_supplement=power_supplement)
 
-def load_development_collection(aggregate_npz_path=None,new_case_records=(),*,allowlist_path=None,expected_case_ids=None,root=None,registry=None):
+def load_development_collection(aggregate_npz_path=None,new_case_records=(),*,allowlist_path=None,expected_case_ids=None,root=None,registry=None,power_supplements=None):
     root=Path(root) if root else ROOT; reg=registry or load_frozen_case_registry(root); recs=list(new_case_records)
     if aggregate_npz_path is not None:
         _need(Path(aggregate_npz_path).resolve()==(root/OLD/"dataset_truth_32g.npz").resolve(),"aggregate_npz_override_forbidden")
@@ -223,7 +300,14 @@ def load_development_collection(aggregate_npz_path=None,new_case_records=(),*,al
     _need(len(recs)==128 and len(ids)==128 and len(set(ids))==128 and set(ids)==set(reg.development),"development_allowlist_incomplete_or_duplicate")
     if expected_case_ids is not None: _need(set(expected_case_ids)==set(reg.development),"expected_ids_mismatch")
     if allowlist_path: _need(sha256_file(allowlist_path)==ALLOW_SHA,"development_allowlist_sha_mismatch")
-    old=_old32(root,reg); new=tuple(_load_runner_truth(x,reg.development,{x["role"]},root=root) for x in recs); cases=old+new
+    _need(power_supplements is None or isinstance(power_supplements,Mapping),
+          "power_mapping_supplements_must_be_case_mapping")
+    supplements=dict(power_supplements or {})
+    _need(set(supplements).issubset(set(reg.development)) and set(supplements).issubset({_POWER_SUPPLEMENT_CASE}),
+          "power_mapping_supplement_case_not_allowlisted")
+    old=_old32(root,reg)
+    new=tuple(_load_runner_truth(x,reg.development,{x["role"]},root=root,
+        power_supplement=supplements.get(x["case_id"])) for x in recs); cases=old+new
     _need(len(cases)==160 and len({x.case_id for x in cases})==160 and all(x.role in C.DEVELOPMENT_ROLES for x in cases),"development_collection_integrity_failure")
     return C.CaseCollection("development",cases,REG_SHA,{"old32_sha256":OLD_NPZ_SHA,"registration_sha256":REG_SHA,"pointset_sha256":C.V2_CANDIDATE_CSV_SHA256,"all_wavelengths_grouped":True})
 

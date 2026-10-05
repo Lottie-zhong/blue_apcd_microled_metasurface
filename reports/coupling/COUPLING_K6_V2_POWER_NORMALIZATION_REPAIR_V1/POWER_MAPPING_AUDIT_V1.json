@@ -1,0 +1,148 @@
+{
+  "artifact_sha256": {
+    "orders_json": "eee74666b409e9255783b6e4a30f6f708f1358de0261752ffbbc6da571bff158",
+    "raw_metadata": "245d37f2c07fe10eaad2701381dda3c3ab05b122d3582f35d6906cdafd624afa",
+    "raw_npz": "987756dd1e8ac4ac68d3262778974e0ce6323b08ceb7ef62317ea28853d8caac",
+    "source_manifest": "b80a2cee0e546826ad8271c1be5287274c52d457ce65ccff6ed817dd6e7ae047",
+    "state_metadata": "39a2b1fdc18d2c99e929d9bfdc810166b8665b644c166e4dbdbe1dfdc9a79c60",
+    "state_npz": "217a81859a0312d4070c00767e06b20a7eee05f14b79ee861b09e83099744d91"
+  },
+  "attempt_id": "attempt_001",
+  "case_id": "K6LDA1_DEV_D1_M05",
+  "h1_h2_truth_as_prediction_diagnostic": {
+    "absolute_order": {
+      "max": 1.983095537459566e-05,
+      "mean": 1.983095537459566e-05,
+      "median": 1.983095537459566e-05,
+      "min": 1.983095537459566e-05,
+      "q95": 1.983095537459566e-05
+    },
+    "all_applicable_numeric_gates_attained": true,
+    "classification": "ONE_CASE_LABEL_AND_DECODER_CONSISTENCY_ONLY_NOT_MODEL_PERFORMANCE_OR_PRODUCTION_H1",
+    "gates": {
+      "absolute_order": true,
+      "routing": true,
+      "seed_stability": null,
+      "state": true,
+      "thresholded_absolute_order": true,
+      "total_power": true
+    },
+    "h1_authority_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "h2_decoder_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "routing": {
+      "max": 7.109266977648645e-05,
+      "mean": 7.109266977648645e-05,
+      "median": 7.109266977648645e-05,
+      "min": 7.109266977648645e-05,
+      "q95": 7.109266977648645e-05
+    },
+    "routing_pearson": 0.9999998350848956,
+    "state": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "q95": 0.0
+    },
+    "thresholded_absolute_order": {
+      "max": 0.00040858194222927164,
+      "mean": 0.00040858194222927164,
+      "median": 0.00040858194222927164,
+      "min": 0.00040858194222927164,
+      "q95": 0.00040858194222927164
+    },
+    "total_power": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "q95": 0.0
+    },
+    "total_power_pearson": 1.0
+  },
+  "historical_entry": {
+    "entry_added_by_this_task": 0,
+    "post_entry_replay": 0,
+    "solver_entered": true,
+    "solver_invocations": 1,
+    "state": "DONE"
+  },
+  "independent_physical_audit": {
+    "direct_modal_closure_threshold": "UNSPECIFIED_BY_FROZEN_AUTHORITY",
+    "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\gpu_runner_v1_power_fraction_normalization_v1\\INDEPENDENT_PHYSICAL_POWER_AUDIT.json",
+    "runner_vs_modal_source_fraction_max_abs": 8.22043613859097e-05,
+    "runner_vs_modal_source_fraction_max_relative": 0.001499059534294761,
+    "schema": "APCD_GPU_RUNNER_V1_INDEPENDENT_PHYSICAL_POWER_AUDIT_V1",
+    "sha256": "8302638ec31cf34f5fce370d5d6d3da47a681092c1e5303c5e5079ce21b19a11",
+    "status": "MEASURED",
+    "surface_vs_9x9_modal_max_relative": 0.00028956697877272297
+  },
+  "legacy_source_fraction_discrepancy": {
+    "max_abs": 0.16949400057315808,
+    "max_rel": 0.9918490638166707,
+    "original_orders_json_modified": false
+  },
+  "limitations": [
+    "One archived development case only.",
+    "Independent physical report is MEASURED; direct surface-vs-modal closure has no frozen threshold.",
+    "Truth-as-prediction H1 diagnostic is not model performance or production admission.",
+    "Other 127 cases require fresh live Runner owner/fence/budget/startup gates."
+  ],
+  "mapping": {
+    "eta_source": "power_fraction_of_monitor_total",
+    "p_scale_source": "POSTNP_periodic_EH_Poynting_over_cell_area_times_IN_REF_incident_power_per_area",
+    "source_fraction": "P_scale*eta"
+  },
+  "numeric_sha256": {
+    "eta": "fdbf2b9082c4ed9eace78c635e2fa1ae43478eaff146815161656bafeda3d2f8",
+    "p_scale": "912b58a562c586a776e76eeb44da5ee2f55c002b646641b13485c0f7c90ee089",
+    "source_fraction": "eae0d3efda6c1269cc322251709eeec57dbacb69ee79127daf7206967b703792"
+  },
+  "ordered_D_nm": [
+    215,
+    195,
+    210,
+    150,
+    140,
+    210
+  ],
+  "ordered_geometry_sha256": "260821eaa933c1b36e67132656e633bde30f2f4cbf994b0b774eed04cca1b6e5",
+  "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "recomputed": {
+    "c_hat_shape": [
+      21,
+      7,
+      2
+    ],
+    "eta_shape": [
+      21,
+      7
+    ],
+    "eta_sum_max_abs_error": 2.220446049250313e-16,
+    "monitor_transmission_sourcepower_vs_EH_flux_max_relative": 1.2892487612961532e-14,
+    "p_scale_range": [
+      0.06649115789585905,
+      0.562036997745591
+    ],
+    "p_scale_shape": [
+      21
+    ],
+    "raw_grid_samples": [
+      349,
+      59
+    ],
+    "raw_grid_span_nm": [
+      1740.0,
+      290.0
+    ],
+    "raw_p_scale_vs_independent_runner_max_abs": 1.3322676295501878e-15,
+    "raw_surface_flux": "0.5 Re(Ex conj(Hy)-Ey conj(Hx)); actual x/y trapezoids and endpoint half weights",
+    "source_fraction_sum_vs_p_scale_max_abs": 1.1102230246251565e-16,
+    "wavelength_count": 21
+  },
+  "role": "DEVELOPMENT_LOCAL_AXIS",
+  "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+  "schema": "COUPLING_K6_V2_POWER_MAPPING_AUDIT_V1",
+  "status": "PASS",
+  "training_label_eligible": true
+}

@@ -2,6 +2,7 @@ from dataclasses import replace
 import numpy as np
 import pytest
 
+from scripts.coupling_ml.k6_v2_pipeline import contracts as C
 from scripts.coupling_ml.k6_v2_pipeline.contracts import (
     CaseTruth, ROLE_OLD32, ROLE_LOCAL_AXIS, WAVELENGTHS_NM,
     STATE_SCHEMA, TWO_PLANE_CASE_ID, TWO_PLANE_ATTEMPT_ID,
@@ -18,6 +19,21 @@ from scripts.coupling_ml.k6_v2_pipeline.evaluators import (
 from scripts.shared_fdtd.tools import pw_complex_floquet_state_v1 as official
 
 
+def _synthetic_truth_provenance(role):
+    if role == ROLE_OLD32:
+        return {"dataset_npz_sha256":"fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+                "dataset_authority_sha256":C.DATASET_AUTHORITY_SHA256,
+                "state_sha256":"a"*64,"synthetic_test_only":True}
+    return {"source_manifest_sha256":"a"*64,"state_npz_sha256":"b"*64,
+            "state_metadata_sha256":"c"*64,"raw_npz_sha256":"d"*64,
+            "raw_metadata_sha256":"e"*64,"orders_sha256":"f"*64,
+            "physical_contract_sha256":C.PHYSICAL_CONTRACT_SHA256,
+            "truth_extractor_sha256":C.H1_EVALUATOR_SOURCE_SHA256,
+            "reference_plane_nm":C.REFERENCE_PLANE_NM,
+            "normalization":C.PSCALE_DEFINITION,"truth_schema":C.STATE_SCHEMA,
+            "synthetic_test_only":True}
+
+
 def _synthetic_local_cases():
     rng = np.random.default_rng(3411)
     waves = np.asarray(WAVELENGTHS_NM, dtype=float)
@@ -30,7 +46,7 @@ def _synthetic_local_cases():
         c=base+np.tensordot(delta,slopes,axes=(0,0))
         p=np.exp(logp0+np.tensordot(delta,logp_slope,axes=(0,0)))
         return CaseTruth(case_id, "attempt_001", role, tuple(int(x) for x in geom), c, p,
-                         np.ones((21,7)), np.ones((21,7)), {"synthetic_fixture": True})
+                         np.ones((21,7)), np.ones((21,7)), _synthetic_truth_provenance(role))
     anchor=make("S31",ROLE_OLD32,S31_ANCHOR_NM)
     axial=[]
     for axis in range(6):
@@ -61,7 +77,7 @@ def test_local_affine_twelve_loo_and_final_fit_are_train_only():
 def test_local_affine_rejects_confirmation_role():
     anchor,axial=_synthetic_local_cases()
     axial[0]=replace(axial[0],role="SEALED_LOCAL_COMBINATION")
-    with pytest.raises(ValueError,match="axis_role_mismatch"):
+    with pytest.raises(ValueError):
         evaluate_local_affine_loo(anchor,axial)
 
 

@@ -103,10 +103,11 @@ def test_geometry_scaler_fits_only_supplied_train_indices():
  assert fit_geometry_scaler(x,[0,1,2]).scale[0] > s.scale[0]
 
 
-def _synthetic_runner_record(tmp_path,registry,*,bad_wavelength=False):
+def _synthetic_runner_record(tmp_path,registry,*,bad_wavelength=False,bad_source_fraction=False,case_id="K6LDA1_DEV_D1_M05"):
  from k6_v2_pipeline.ingest import sha256_file
  import importlib.util
- cid,reg=next(iter(registry.development.items())); D=reg["ordered_D_nm"]
+ tmp_path.mkdir(parents=True,exist_ok=True)
+ cid=case_id; reg=registry.development[cid]; D=reg["ordered_D_nm"]
  source=ROOT/"scripts/shared_fdtd/tools/pw_complex_floquet_state_v1.py"
  spec=importlib.util.spec_from_file_location("synthetic_truth_source",source)
  mod=importlib.util.module_from_spec(spec);sys.modules[spec.name]=mod;spec.loader.exec_module(mod);dec=mod
@@ -143,7 +144,7 @@ def _synthetic_runner_record(tmp_path,registry,*,bad_wavelength=False):
  order_rows=[]
  for wl in C.WAVELENGTHS_NM:
   order_rows.append([{"order_x":m,"order_y":0,"power_fraction_of_monitor_total":1/7,
-   "power_fraction_of_source":1/7} for m in range(-3,4)])
+   "power_fraction_of_source":(0.05 if bad_source_fraction else 1/7)} for m in range(-3,4)])
  op=tmp_path/"orders.json";op.write_text(json.dumps({"schema":"APCD_PW_PERIODIC_DIFFRACTION_ORDERS_V1",
   "wavelengths_nm":list(C.WAVELENGTHS_NM),"post":order_rows}))
  manifest=tmp_path/"manifest.json";manifest.write_text(json.dumps({"case_id":cid,"attempt_id":"attempt_001",
@@ -167,6 +168,77 @@ def test_verified_runner_ingest_rejects_wavelength_schema_error(tmp_path):
  r=load_frozen_case_registry(ROOT); rec=_synthetic_runner_record(tmp_path,r,bad_wavelength=True)
  with pytest.raises(Exception,match="state_shape_or_wavelength_mismatch"):
   load_verified_runner_case(rec,expected_role=rec["role"],root=ROOT,registry=r)
+
+def _synthetic_power_mapping_supplement(tmp_path,record):
+ from k6_v2_pipeline import ingest
+ tmp_path.mkdir(parents=True,exist_ok=True)
+ from k6_v2_pipeline.ingest import sha256_file,geometry_sha
+ import json
+ artifacts={k:record[k]["sha256"] for k in
+  ("source_manifest","state_npz","state_metadata","raw_npz","raw_metadata","orders_json")}
+ mapping=dict(ingest._POWER_MAPPING)
+ p_scale=np.ones(21); eta=np.ones((21,7))/7
+ numeric={"p_scale":ingest._float_array_sha256(p_scale),
+  "eta":ingest._float_array_sha256(eta),
+  "source_fraction":ingest._float_array_sha256(p_scale[:,None]*eta)}
+ audit={"schema":ingest._POWER_AUDIT_SCHEMA,"status":"PASS",
+  "training_label_eligible":True,
+  "case_id":record["case_id"],"attempt_id":record["attempt_id"],
+  "ordered_geometry_sha256":geometry_sha(record["ordered_D_nm"]),
+  "physical_contract_sha256":C.PHYSICAL_CONTRACT_SHA256,
+  "artifact_sha256":artifacts,"numeric_sha256":numeric,"mapping":mapping,
+  "audit_kind":"synthetic_fixture_only"}
+ audit_path=tmp_path/"power_audit.json"
+ audit_path.write_text(json.dumps(audit,sort_keys=True),encoding="utf-8")
+ supplement={"schema":ingest._POWER_SUPPLEMENT_SCHEMA,"status":"PASS",
+  "training_label_eligible":True,
+  "case_id":record["case_id"],"attempt_id":record["attempt_id"],"role":record["role"],
+  "ordered_D_nm":record["ordered_D_nm"],
+  "ordered_geometry_sha256":geometry_sha(record["ordered_D_nm"]),
+  "physical_contract_sha256":C.PHYSICAL_CONTRACT_SHA256,
+  "artifact_sha256":artifacts,"numeric_sha256":numeric,"mapping":mapping,
+  "independent_audit":{"path":str(audit_path),"sha256":sha256_file(audit_path)}}
+ path=tmp_path/"power_mapping_supplement.json"
+ path.write_text(json.dumps(supplement,sort_keys=True),encoding="utf-8")
+ return {"path":str(path),"sha256":sha256_file(path)}
+
+def test_bad_runner_source_power_mapping_remains_fail_closed_by_default(tmp_path):
+ from k6_v2_pipeline.ingest import load_verified_runner_case
+ r=load_frozen_case_registry(ROOT)
+ rec=_synthetic_runner_record(tmp_path,r,bad_source_fraction=True)
+ with pytest.raises(DataAccessError,match="source_normalized_order_power_mismatch"):
+  load_verified_runner_case(rec,expected_role=rec["role"],root=ROOT,registry=r)
+
+def test_case_scoped_power_mapping_supplement_is_explicit_and_artifact_bound(tmp_path):
+ from k6_v2_pipeline.ingest import load_verified_runner_case
+ r=load_frozen_case_registry(ROOT)
+ rec=_synthetic_runner_record(tmp_path,r,bad_source_fraction=True)
+ supplement=_synthetic_power_mapping_supplement(tmp_path,rec)
+ truth=load_verified_runner_case(rec,expected_role=rec["role"],root=ROOT,
+  registry=r,power_supplement=supplement)
+ assert truth.case_id=="K6LDA1_DEV_D1_M05"
+ assert truth.provenance["power_mapping_source"]=="case_scoped_audited_p_scale_times_eta"
+ assert truth.provenance["power_mapping_supplement_sha256"]==supplement["sha256"]
+ assert np.allclose(truth.absolute_order,truth.p_scale[:,None]*truth.eta)
+
+ import json
+ from k6_v2_pipeline.ingest import sha256_file
+ sp=Path(supplement["path"])
+ altered=json.loads(sp.read_text(encoding="utf-8"))
+ altered["artifact_sha256"]["raw_npz"]="0"*64
+ sp.write_text(json.dumps(altered,sort_keys=True),encoding="utf-8")
+ bad_supplement={"path":str(sp),"sha256":sha256_file(sp)}
+ with pytest.raises(DataAccessError,match="power_mapping_supplement_artifact_binding_mismatch"):
+  load_verified_runner_case(rec,expected_role=rec["role"],root=ROOT,registry=r,
+   power_supplement=bad_supplement)
+
+ other_case=next(cid for cid in r.development if cid!=rec["case_id"])
+ rec2=_synthetic_runner_record(tmp_path/"other",r,bad_source_fraction=True,
+  case_id=other_case)
+ supplement2=_synthetic_power_mapping_supplement(tmp_path/"other_supplement",rec2)
+ with pytest.raises(DataAccessError,match="power_mapping_supplement_scope_forbidden"):
+  load_verified_runner_case(rec2,expected_role=rec2["role"],root=ROOT,registry=r,
+   power_supplement=supplement2)
 
 def test_confirmation_loader_requires_freeze_authorization_before_artifacts(tmp_path):
  from k6_v2_pipeline.ingest import load_confirmation_case
