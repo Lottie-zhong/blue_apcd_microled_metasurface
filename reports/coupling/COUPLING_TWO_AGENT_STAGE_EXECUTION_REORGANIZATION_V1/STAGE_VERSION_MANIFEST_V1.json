@@ -3,15 +3,15 @@
   "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
   "active_stage_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
   "prerequisite_task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
-  "recorded_at_utc": "2026-10-05T15:25:57Z",
-  "status": "AUTHORIZED_BATCH_PREPARATION_IN_PROGRESS_AUTO_QUEUE_NOT_STARTED_AT_LAST_AUDIT",
+  "recorded_at_utc": "2026-10-05T17:52:49.996546+00:00",
+  "status": "SERIAL_QUEUE_RUNNING_K6LDA1_DEV_D4_P05_ENTRY_8",
   "stage_contract": {
     "scope": "Frozen V2 development set only: 12 local-axis plus 116 global cases.",
     "runner": "APCD_GPU_RUNNER_VERSIONED_CONTROLLED_ADMISSION_V1; single-slot serial; select an explicit validated commit for each new run.",
     "budget": {
       "total_cases": 128,
-      "used_entries": 1,
-      "remaining_max_entries": 127,
+      "used_entries": 8,
+      "remaining_max_entries": 120,
       "max_entries_per_case": 1,
       "post_entry_replay": 0,
       "confirmation32_entries": 0,
@@ -42,16 +42,20 @@
       "branch": "codex/coupling-manager-v1",
       "base_commit": "a50854f8425718d5d109b341a12b75dcbc328b43",
       "owner": "Manager records only; Coupling and Runner worktrees remain separately owned.",
-      "observed_commit": "b69cfbc0b40483af42eb46fc6e561e91667c694a"
+      "observed_commit": "7e3f2aaec7345bfb957242b07c107881c9b593cb"
     },
     "coupling": {
       "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
       "branch": "work/mdc-np-coupling-ml-v1",
-      "observed_commit": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
+      "observed_commit": "7f22ac399d69099043eb03521e05662440748e90",
       "budget_source_head": "500b8179567aefa275fc4ceb427d5db0217b418e",
       "owner": "Sole K6 V2 stage executor; queue ledger, truth intake, labels and authorized post-processing.",
       "power_repair_commit": "fb773a3f91845ea227d47f05afc38f2b522a7782",
-      "observed_commit_subject": "docs(coupling): correct K6 follow-on gate status"
+      "observed_commit_subject": "docs(coupling): correct K6 follow-on gate status",
+      "queue_controller_commit": "9b83cf0dd95583d71a9442dd6b0e7290cb6b6609",
+      "queue_controller_sha256": "65e85ff5a1bba8f9ff54bec2e28196aea1dfc38a9c336f9e81ce28e7aaa4c906",
+      "queue_checkpoint_commit": "6917a1b96f25e978235401caad5687ec5e18d088",
+      "queue_recovery_note_commit": "7f22ac399d69099043eb03521e05662440748e90"
     },
     "runner": {
       "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1",
@@ -97,13 +101,14 @@
     "runner_route_bound_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
   },
   "execution_ledger": {
-    "snapshot_time_utc": "Mixed read-only snapshot: Runner registry re-read 2026-10-05T13:02:21Z; global-control fields below remain the prior 2026-10-05T06:20Z snapshot. Neither is a substitute for Coupling's fresh startup check.",
+    "snapshot_time_utc": "Coupling ledger 2026-10-05T17:52:29.639512+00:00; live checkpoint 2026-10-05T17:29:18.381254+00:00; manager reread at 2026-10-05T17:52:49.996546+00:00",
     "runner_registry_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\registry.json",
-    "runner_registry_sha256": "333ad31145a761febdbf2d12779c1c36c12a1b19bf75caf563ac37c1c084e588",
-    "row_count": 14,
+    "runner_registry_sha256": "bc3d3386992d7c3d0a14734229acd47b559aecfaa73875c955a41d35a08c265b",
+    "row_count": 21,
     "row_states": {
-      "DONE": 13,
-      "FAILED_POSTENTRY": 1
+      "FAILED_POSTENTRY": 1,
+      "DONE": 19,
+      "SOLVER_ENTERED": 1
     },
     "k6_v2_row": {
       "case_id": "K6LDA1_DEV_D1_M05",
@@ -116,8 +121,8 @@
     "first_case_status_sha256": "74df479b3c965919048349f23074c2681059f5b439bd8b07ae84f0b12a84fa92",
     "first_case_truth_record_sha256": "db7b56ebcedcee2f2244c72fb06400244b57942c8e29f01e69ac0f86a50b91fc",
     "durable_truth_h5_sha256": "a51d51793a17ea6028e8d2ced4e8ff9a7b5b85cf997ab8456256075e7db1da64",
-    "active_runner_lock": false,
-    "active_json": false,
+    "active_runner_lock": true,
+    "active_json": true,
     "fdtd_engine_processes": 0,
     "mpiexec_processes": 0,
     "global_control": {
@@ -130,12 +135,12 @@
     },
     "queue21_physical_entry_count": "UNKNOWN; retain isolation",
     "coupling_queue_ledger": "ML-maintained; exact path not returned yet. Runner registry is canonical solver-entry record.",
-    "remaining_development_entries_max": 125,
+    "remaining_development_entries_max": 120,
     "confirmation_entries": 0,
     "real_training_fits": 0,
     "post_entry_automatic_replays": 0,
-    "startup_revalidation": "CURRENT_ROUTE_PREFLIGHT_PASS_FOR_FIRST_UNENTERED_D2_P05; final live run-one check required; Coupling serial queue not yet started at last audit",
-    "registry_snapshot_time_utc": "2026-10-05T13:02:21Z",
+    "startup_revalidation": "Current route/overlay and live gate passed per case; K6LDA1_DEV_D4_P05 official run-one is active under the single-slot lock.",
+    "registry_snapshot_time_utc": "2026-10-05T17:52:49.996546+00:00",
     "startup_revalidation_snapshot_time_utc": "2026-10-05T13:26:48Z",
     "startup_revalidation_detail": {
       "event_id": "20261005-next-case-route-bound-proof-revalidation-v1",
@@ -155,15 +160,56 @@
       "current_action": "Keep the next entry paused until official current-route LOAD-only proof regeneration and formal fresh preflight pass. Preserve prior files and hashes; do not hand-edit hashes, setup-only geometry authority, budget overlay, or frozen contracts.",
       "decision_required": false
     },
-    "k6_v2_rows": {
-      "count": 3,
-      "state": "all DONE",
-      "case_ids": [
-        "K6LDA1_DEV_D1_M05",
-        "K6LDA1_DEV_D1_P05",
-        "K6LDA1_DEV_D2_M05"
-      ]
-    },
+    "k6_v2_rows": [
+      {
+        "case_id": "K6LDA1_DEV_D1_M05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+        "state": "DONE"
+      },
+      {
+        "case_id": "K6LDA1_DEV_D1_P05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D1P05_20261005T134615Z_ba6b6c46",
+        "state": "DONE"
+      },
+      {
+        "case_id": "K6LDA1_DEV_D2_M05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D2M05_20261005T143145Z_68c91452",
+        "state": "DONE"
+      },
+      {
+        "case_id": "K6LDA1_DEV_D2_P05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D2P05_20261005T170314Z_d24728f8",
+        "state": "DONE"
+      },
+      {
+        "case_id": "K6LDA1_DEV_D3_M05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D3M05_20261005T171524Z_76271eae",
+        "state": "DONE"
+      },
+      {
+        "case_id": "K6LDA1_DEV_D3_P05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D3P05_20261005T172725Z_0b8a594f",
+        "state": "DONE"
+      },
+      {
+        "case_id": "K6LDA1_DEV_D4_M05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D4M05_20261005T173925Z_abe99c6d",
+        "state": "DONE"
+      },
+      {
+        "case_id": "K6LDA1_DEV_D4_P05",
+        "attempt_id": "attempt_001",
+        "run_id": "K6V2_D4P05_20261005T175129Z_34db2f1a",
+        "state": "SOLVER_ENTERED"
+      }
+    ],
     "batch_preparation": {
       "artifact_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\BATCH_PREPARATION_STATUS_V1.json",
       "artifact_sha256": "551c5ff6fca09d972fada009d4f02e91502a46ec9e9c6869cd4fe6ed3d58856a",
@@ -183,7 +229,36 @@
       },
       "reported_current_case_conflict": "Absent from status JSON. Coupling chat said sequence 10 / D6_P05, which conflicts with frozen sequence and the newer status artifact; manager does not treat that as verified current case."
     },
-    "serial_batch_event_id": "20261005-serial-batch-continuation-status-v1"
+    "serial_batch_event_id": "20261005-serial-batch-continuation-status-v1",
+    "coupling_queue_ledger_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_EXECUTION_LEDGER_V1.json",
+    "coupling_queue_ledger_sha256": "88ec1d5bff353dfbd079bfdc8c7eb750c606fcb0bbc9508175c72dbc26721eb0",
+    "queue_live_checkpoint_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_LIVE_CHECKPOINT_V2.json",
+    "queue_live_checkpoint_sha256": "1e06695b6dd9e598dff96e818e2b935a96a47707d555d81b9a33e144a67c96ac",
+    "queue_manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\BATCH_QUEUE_MANIFEST_V1.json",
+    "queue_manifest_file_sha256": "fbcac249c59e3f242e48dfa16a8e92298c98bab48f5fe7256900b8feed10bca7",
+    "queue_manifest_canonical_sha256": "ecbb9b32105f5a26adf051d614bef68fcf793e0f089eae391510e6b86a138e32",
+    "queue_controller_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py",
+    "queue_controller_sha256": "65e85ff5a1bba8f9ff54bec2e28196aea1dfc38a9c336f9e81ce28e7aaa4c906",
+    "queue_controller_commit": "9b83cf0dd95583d71a9442dd6b0e7290cb6b6609",
+    "queue_checkpoint_commit": "6917a1b96f25e978235401caad5687ec5e18d088",
+    "queue_recovery_note_commit": "7f22ac399d69099043eb03521e05662440748e90",
+    "queue_status": "RUNNING",
+    "authorized_development_case_count": 128,
+    "entered_count": 8,
+    "truth_valid_count": 7,
+    "labels_valid_count": 7,
+    "failed_or_isolated_count": 0,
+    "p_scale_fits": 0,
+    "current_case": {
+      "case_id": "K6LDA1_DEV_D4_P05",
+      "elapsed_seconds": 60.42200000002049,
+      "heartbeat_at_utc": "2026-10-05T17:52:29.639512+00:00",
+      "phase": "RUN_ONE_IN_PROGRESS",
+      "run_envelope_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ENVELOPE_K6V2_D4P05_20261005T175129Z_34db2f1a.json",
+      "run_envelope_sha256": "fffddc967d05be06ae42a176a0f04c3362def332cd32c5c78f8b53952110d5b7",
+      "run_id": "K6V2_D4P05_20261005T175129Z_34db2f1a",
+      "sequence_index": 8
+    }
   },
   "write_owners": {
     "manager": "Scientific decisions/contract integration and manager records in isolated manager worktree.",
@@ -280,7 +355,7 @@
   },
   "version_compatibility_evidence": {
     "runner_code_commit": "02ad6b4b5f47b247f384fc132af329cc05612327",
-    "coupling_code_commit": "3c9c3b540c6b88d5c964245f37b5017397e68bea",
+    "coupling_code_commit": "7f22ac399d69099043eb03521e05662440748e90",
     "runner_physical_audit_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\gpu_runner_v1_power_fraction_normalization_v1\\INDEPENDENT_PHYSICAL_POWER_AUDIT.json",
     "runner_physical_audit_sha256": "8302638ec31cf34f5fce370d5d6d3da47a681092c1e5303c5e5079ce21b19a11",
     "coupling_repair_report_sha256": "4b7615d5c444c6ad95a2fc39ff4548cfbe90cbe71a9429fcf321f55f853c0d00",
@@ -290,7 +365,14 @@
     "first_case_label_ingestion_accepted_by_upper_decision": true,
     "runner_mapping_regression_accepted_by_upper_decision": true,
     "coupling_regression_accepted_by_upper_decision": true,
-    "tracked_worktrees_clean_at_version_audit": true
+    "tracked_worktrees_clean_at_version_audit": true,
+    "coupling_queue_controller_commit": "9b83cf0dd95583d71a9442dd6b0e7290cb6b6609",
+    "coupling_queue_recovery_note_commit": "7f22ac399d69099043eb03521e05662440748e90",
+    "coupling_queue_controller_sha256": "65e85ff5a1bba8f9ff54bec2e28196aea1dfc38a9c336f9e81ce28e7aaa4c906",
+    "frozen_queue_manifest_canonical_sha256": "ecbb9b32105f5a26adf051d614bef68fcf793e0f089eae391510e6b86a138e32",
+    "queue_execution_ledger_sha256": "88ec1d5bff353dfbd079bfdc8c7eb750c606fcb0bbc9508175c72dbc26721eb0",
+    "queue_live_checkpoint_v2_sha256": "1e06695b6dd9e598dff96e818e2b935a96a47707d555d81b9a33e144a67c96ac",
+    "runner_registry_sha256_at_manager_audit": "bc3d3386992d7c3d0a14734229acd47b559aecfaa73875c955a41d35a08c265b"
   },
   "route_budget_binding": {
     "route_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\controlled_admission_authority_v1.json",
@@ -313,12 +395,89 @@
     "next_action_owner": "Coupling ML Codex",
     "fresh_startup_required_before_next_entry": true,
     "modal_residual_interpretation": "MEASURED_DIAGNOSTIC_WITHOUT_PREREGISTERED_CRITERION; not a physical-closure PASS and not a gate",
-    "remaining_max_entries": 127,
+    "remaining_max_entries": 120,
     "confirmation_entries": 0,
     "real_training_fits": 0,
     "post_entry_automatic_replays": 0,
     "native_followup_sent_at_utc": "2026-10-05T13:02:21Z",
     "native_followup_target": "01a10024-ea88-7561-bde3-852a10a08966@local",
     "native_followup_task_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1"
+  },
+  "serial_batch_progress": {
+    "manager_recorded_at_utc": "2026-10-05T17:52:49.996546+00:00",
+    "executor_snapshot_time_utc": "2026-10-05T17:52:29.639512+00:00",
+    "checkpoint_snapshot_time_utc": "2026-10-05T17:29:18.381254+00:00",
+    "task_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
+    "queue_status": "RUNNING",
+    "authorized_cases": 128,
+    "entered_count": 8,
+    "truth_valid_count": 7,
+    "labels_valid_count": 7,
+    "failed_or_isolated_count": 0,
+    "current_case": {
+      "case_id": "K6LDA1_DEV_D4_P05",
+      "elapsed_seconds": 60.42200000002049,
+      "heartbeat_at_utc": "2026-10-05T17:52:29.639512+00:00",
+      "phase": "RUN_ONE_IN_PROGRESS",
+      "run_envelope_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ENVELOPE_K6V2_D4P05_20261005T175129Z_34db2f1a.json",
+      "run_envelope_sha256": "fffddc967d05be06ae42a176a0f04c3362def332cd32c5c78f8b53952110d5b7",
+      "run_id": "K6V2_D4P05_20261005T175129Z_34db2f1a",
+      "sequence_index": 8
+    },
+    "remaining_unentered_count": 120,
+    "automatic_replay_count": 0,
+    "confirmation_response_access_count": 0,
+    "training_fits": 0,
+    "p_scale_fits": 0,
+    "route_authority_sha256": "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35",
+    "budget_overlay_sha256": "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "queue_manifest_canonical_sha256": "ecbb9b32105f5a26adf051d614bef68fcf793e0f089eae391510e6b86a138e32",
+    "queue_manifest_file_sha256": "fbcac249c59e3f242e48dfa16a8e92298c98bab48f5fe7256900b8feed10bca7",
+    "queue_controller_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py",
+    "queue_controller_sha256": "65e85ff5a1bba8f9ff54bec2e28196aea1dfc38a9c336f9e81ce28e7aaa4c906",
+    "queue_controller_commit": "9b83cf0dd95583d71a9442dd6b0e7290cb6b6609",
+    "coupling_latest_commit": "7f22ac399d69099043eb03521e05662440748e90",
+    "runner_commit": "02ad6b4b5f47b247f384fc132af329cc05612327",
+    "runner_registry_sha256": "bc3d3386992d7c3d0a14734229acd47b559aecfaa73875c955a41d35a08c265b",
+    "queue_execution_ledger_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_EXECUTION_LEDGER_V1.json",
+    "queue_execution_ledger_sha256": "88ec1d5bff353dfbd079bfdc8c7eb750c606fcb0bbc9508175c72dbc26721eb0",
+    "live_checkpoint_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_LIVE_CHECKPOINT_V2.json",
+    "live_checkpoint_sha256": "1e06695b6dd9e598dff96e818e2b935a96a47707d555d81b9a33e144a67c96ac",
+    "d2_p05": {
+      "run_id": "K6V2_D2P05_20261005T170314Z_d24728f8",
+      "state": "DONE",
+      "ingest_status": "PASS",
+      "truth_h5_sha256": "b4146dcf44e3d110630fed2b86c1a8c41fb28b43f6283e000388cfdfba864683",
+      "ingested_truth_sha256": "f7f475d3054892e0ef0510af643e7efc47bdbd7b6f3ba373c541be363d716f2e"
+    },
+    "d3_m05": {
+      "run_id": "K6V2_D3M05_20261005T171524Z_76271eae",
+      "state": "DONE",
+      "ingest_status": "PASS",
+      "truth_h5_sha256": "5aea99f5e9f5debc0a38dbd660cf908f04f13e74a4467632117415c8ca157726",
+      "ingested_truth_sha256": "214bdd5ab7d0e3072589edb0ec3c56c45a3db53432a9d985058e2a84189d5f7f"
+    },
+    "d3_p05": {
+      "run_id": "K6V2_D3P05_20261005T172725Z_0b8a594f",
+      "state": "DONE",
+      "ingest_status": "PASS",
+      "truth_h5_sha256": "ee2eadf76dac4225205ea8b2ce08149258a3c4c0e54b35f06876f105518a776d",
+      "ingested_truth_sha256": "4199d2d9b1b8a8636c4f64eae60078b93d612c6e3178f1839f0511f0c8dfb40e"
+    },
+    "current_run_id": "K6V2_D4P05_20261005T175129Z_34db2f1a",
+    "current_run_envelope_sha256": "fffddc967d05be06ae42a176a0f04c3362def332cd32c5c78f8b53952110d5b7",
+    "checkpoint_is_older_snapshot": true,
+    "coupling_push": {
+      "branch": "work/mdc-np-coupling-ml-v1",
+      "ahead_behind": "0\t0"
+    },
+    "prior_coupling_staged_files_preserved": [
+      "reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/CONTINUATION.md",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/SHA256_INVENTORY_V1.json",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/STARTUP_AUDIT_V1.json",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/STARTUP_BLOCKER_20261005.md"
+    ],
+    "next_manager_return": "Case completion, contract blocker, or stage completion; no routine progress polling."
   }
 }
