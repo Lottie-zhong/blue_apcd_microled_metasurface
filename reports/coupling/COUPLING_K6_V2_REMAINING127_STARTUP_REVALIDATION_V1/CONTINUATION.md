@@ -52,3 +52,9 @@ After batch preparation passes, perform only the per-case live final revalidatio
 - Second queued case `K6LDA1_DEV_D3_M05` completed through official Runner V1 as `K6V2_D3M05_20261005T171524Z_76271eae`: solver_invocations=1, replay_count=0, DONE, validation PASS, durable truth and development ingest PASS. Total owner-budget rows now entered/truth-valid/labeled = 6/5/5; remaining unentered=122.
 - Only after D3_M05 truth was ingested and the slot released did the queue begin `K6LDA1_DEV_D3_P05`. At this checkpoint its controller phase is `RUN_ONE_IN_PROGRESS`; current-run status is in `QUEUE_LIVE_CHECKPOINT_V2.json`.
 - The controller persists the per-case ledger and never automatically replays a case after solver entry. If interrupted, reconcile Runner registry/status/truth/validation and queue ledger before continuing.
+
+## Queue checkpoint V2 is historical; live recovery authority
+
+- `QUEUE_LIVE_CHECKPOINT_V2.json` is an immutable historical snapshot from `2026-10-05T17:29:18.381254+00:00` (6 entered / 5 truth-valid / 5 labels-valid; D3_P05 in progress). It is not the restart cursor.
+- Recovery must reconcile `QUEUE_EXECUTION_LEDGER_V1.json` with Runner `registry.json`, matching run `status.json`, and durable truth/validation/hash artifacts. Do not replay any entered case.
+- Read-only reconciliation at `2026-10-05T17:44:13.495624+00:00` found ledger time `2026-10-05T17:43:57.355977+00:00`, counts 7/6/6, remaining 121, failures/isolations 0; current `K6LDA1_DEV_D4_M05` / `attempt_001` / `K6V2_D4M05_20261005T173925Z_abe99c6d` was `RUN_ONE_IN_PROGRESS`, Runner state `SOLVER_ENTERED`, one entry, zero replay. The solver and slot were not touched. Details: `QUEUE_RECOVERY_AUTHORITY_NOTE_V1.md`.
