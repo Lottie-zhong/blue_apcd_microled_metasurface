@@ -1,0 +1,206 @@
+{
+  "schema": "APCD_GPU_RUNNER_V1_POWER_FRACTION_NORMALIZATION_LOAD_ONLY_AUDIT_V1",
+  "result": "PASS",
+  "scientific_entry_performed": false,
+  "solver_run_called": false,
+  "fsp_save_called": false,
+  "analysis_calls": [
+    "fd.load",
+    "canonical_state_from_fdtd",
+    "launcher.analyze"
+  ],
+  "case_id": "K6LDA1_DEV_D1_M05",
+  "attempt_id": "attempt_001",
+  "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+  "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "archived_artifacts": {
+    "run_fsp": {
+      "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6LDA1_DEV_D1_M05\\attempt_001\\K6V2_D1M05_20261004T175055Z_449c4f94\\run.fsp",
+      "sha256_before": "f2258b74d62a1e9d7441cd8214dc371022a8a964df335c7faf6c45d8be4fb2b9",
+      "sha256_after": "f2258b74d62a1e9d7441cd8214dc371022a8a964df335c7faf6c45d8be4fb2b9"
+    },
+    "run_output_h5": {
+      "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6LDA1_DEV_D1_M05\\attempt_001\\K6V2_D1M05_20261004T175055Z_449c4f94\\run\\run_output.h5",
+      "sha256_before": "8aa4ca58d22d9fd6eea4f5e53b557a96e0ec9c273f594c22561788f5af298dcd",
+      "sha256_after": "8aa4ca58d22d9fd6eea4f5e53b557a96e0ec9c273f594c22561788f5af298dcd"
+    }
+  },
+  "backend": {
+    "backend_id": "pw_powernorm_v1_aaaa25b53a9a3322",
+    "launcher_path": "D:\\apcd_runtime\\shared_v3_backend\\pw_powernorm_v1_aaaa25b53a9a3322\\scripts\\shared_fdtd\\tools\\pw_scientific_launcher.py",
+    "launcher_sha256": "7639b9d07f041d5f8af3121286f6ce5aae4d8b18b66f5368052c627da219307f",
+    "manifest_sha256": "ae896c96054699df3f6390ec623dc2c62af6cb6832616b357653cff10f8a40c2",
+    "inventory_sha256": "aaaa25b53a9a33227e7398dc2d10d3fb5c02e6bfb9f3e1116e13ec306011d585"
+  },
+  "wavelength_count": 21,
+  "transmission_api_parity": "PASS",
+  "legacy_R_T_A_closure_max_abs_diff": {
+    "R_FDTD": {
+      "max_abs": 2.220446049250313e-16,
+      "wavelength_nm": 443.00000000000006
+    },
+    "T_FDTD": {
+      "max_abs": 2.0816681711721685e-17,
+      "wavelength_nm": 450.0000000000001
+    },
+    "A_FDTD": {
+      "max_abs": 2.220446049250313e-16,
+      "wavelength_nm": 443.00000000000006
+    },
+    "closure": {
+      "max_abs": 1.1102230246251565e-16,
+      "wavelength_nm": 456.00000000000006
+    }
+  },
+  "output_order_conservation_checks": [
+    {
+      "wavelength_nm": 440.00000000000006,
+      "monitor_eta_sum": 0.9999999999999999,
+      "source_fraction_sum": 0.07691785841363061,
+      "P_scale_IN_REF": 0.07691785841363062,
+      "old_source_fraction_sum": 0.01587730660183445
+    },
+    {
+      "wavelength_nm": 441.0000000000001,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.06649115789585895,
+      "P_scale_IN_REF": 0.06649115789585895,
+      "old_source_fraction_sum": 0.01505893139949684
+    },
+    {
+      "wavelength_nm": 442.0000000000001,
+      "monitor_eta_sum": 0.9999999999999998,
+      "source_fraction_sum": 0.09140923395518681,
+      "P_scale_IN_REF": 0.09140923395518682,
+      "old_source_fraction_sum": 0.019134727821005636
+    },
+    {
+      "wavelength_nm": 443.00000000000006,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.11625368187274263,
+      "P_scale_IN_REF": 0.1162536818727426,
+      "old_source_fraction_sum": 0.01328004616568064
+    },
+    {
+      "wavelength_nm": 444.00000000000006,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.1323404243928294,
+      "P_scale_IN_REF": 0.1323404243928294,
+      "old_source_fraction_sum": 0.0063367444403970696
+    },
+    {
+      "wavelength_nm": 445.00000000000006,
+      "monitor_eta_sum": 1.0000000000000002,
+      "source_fraction_sum": 0.17194179226381848,
+      "P_scale_IN_REF": 0.17194179226381845,
+      "old_source_fraction_sum": 0.005448061305074613
+    },
+    {
+      "wavelength_nm": 446.0000000000001,
+      "monitor_eta_sum": 0.9999999999999998,
+      "source_fraction_sum": 0.2394824418691735,
+      "P_scale_IN_REF": 0.23948244186917347,
+      "old_source_fraction_sum": 0.011855359960246906
+    },
+    {
+      "wavelength_nm": 447.00000000000006,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.3310442549818477,
+      "P_scale_IN_REF": 0.33104425498184775,
+      "old_source_fraction_sum": 0.01317446158656603
+    },
+    {
+      "wavelength_nm": 448.0000000000001,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.42175431614569103,
+      "P_scale_IN_REF": 0.42175431614569103,
+      "old_source_fraction_sum": 0.04495188703075798
+    },
+    {
+      "wavelength_nm": 449.00000000000006,
+      "monitor_eta_sum": 1.0000000000000002,
+      "source_fraction_sum": 0.5513017432328797,
+      "P_scale_IN_REF": 0.5513017432328796,
+      "old_source_fraction_sum": 0.04479533592056626
+    },
+    {
+      "wavelength_nm": 450.0000000000001,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.5620369977455896,
+      "P_scale_IN_REF": 0.5620369977455897,
+      "old_source_fraction_sum": 0.051446888320755585
+    },
+    {
+      "wavelength_nm": 451.0,
+      "monitor_eta_sum": 1.0000000000000002,
+      "source_fraction_sum": 0.4249012889543225,
+      "P_scale_IN_REF": 0.4249012889543225,
+      "old_source_fraction_sum": 0.042231564230693505
+    },
+    {
+      "wavelength_nm": 452.00000000000006,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.4459356910373331,
+      "P_scale_IN_REF": 0.44593569103733305,
+      "old_source_fraction_sum": 0.036056811067055695
+    },
+    {
+      "wavelength_nm": 453.00000000000006,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.3529543109163847,
+      "P_scale_IN_REF": 0.35295431091638463,
+      "old_source_fraction_sum": 0.03394959565080416
+    },
+    {
+      "wavelength_nm": 454.00000000000006,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.14861059442307611,
+      "P_scale_IN_REF": 0.1486105944230761,
+      "old_source_fraction_sum": 0.020762972156568717
+    },
+    {
+      "wavelength_nm": 455.00000000000006,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.11051774221704039,
+      "P_scale_IN_REF": 0.1105177422170404,
+      "old_source_fraction_sum": 0.010816438331332725
+    },
+    {
+      "wavelength_nm": 456.00000000000006,
+      "monitor_eta_sum": 1.0000000000000002,
+      "source_fraction_sum": 0.10016795567346098,
+      "P_scale_IN_REF": 0.10016795567346097,
+      "old_source_fraction_sum": 0.007052281278893204
+    },
+    {
+      "wavelength_nm": 457.0,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.09482138503768295,
+      "P_scale_IN_REF": 0.09482138503768293,
+      "old_source_fraction_sum": 0.005639366499555124
+    },
+    {
+      "wavelength_nm": 458.0,
+      "monitor_eta_sum": 1.0000000000000002,
+      "source_fraction_sum": 0.08884922924969174,
+      "P_scale_IN_REF": 0.08884922924969173,
+      "old_source_fraction_sum": 0.004900180265124218
+    },
+    {
+      "wavelength_nm": 459.0,
+      "monitor_eta_sum": 1.0,
+      "source_fraction_sum": 0.08272434342171736,
+      "P_scale_IN_REF": 0.08272434342171736,
+      "old_source_fraction_sum": 0.004283270297106557
+    },
+    {
+      "wavelength_nm": 460.00000000000006,
+      "monitor_eta_sum": 0.9999999999999998,
+      "source_fraction_sum": 0.07218564657223168,
+      "P_scale_IN_REF": 0.07218564657223168,
+      "old_source_fraction_sum": 0.0005883805985626243
+    }
+  ],
+  "scope_note": "Power-fraction normalization implementation/load-only audit only; no Coupling scientific acceptance, HF label acceptance, or ML readiness is implied.",
+  "active_fdtd_engine_processes_before_load": []
+}

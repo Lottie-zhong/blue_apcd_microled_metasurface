@@ -434,6 +434,134 @@ def _mode_amplitudes(fd, monitor, n, count):
     return 0.5 * (e + Z0 * h / n), 0.5 * (e - Z0 * h / n)
 
 
+def _surface_poynting_flux(fd, monitor, native_frequencies):
+    try:
+        from shared_fdtd.tools.pw_complex_floquet_state_v1 import PERIOD_X_M, PERIOD_Y_M
+    except ImportError:
+        from pw_complex_floquet_state_v1 import PERIOD_X_M, PERIOD_Y_M
+    x = np.asarray(fd.getdata(monitor, "x"), dtype=float).reshape(-1)
+    y = np.asarray(fd.getdata(monitor, "y"), dtype=float).reshape(-1)
+    z = np.asarray(fd.getdata(monitor, "z"), dtype=float).reshape(-1)
+    frequencies = np.asarray(fd.getdata(monitor, "f"), dtype=float).reshape(-1)
+    native_frequencies = np.asarray(native_frequencies, dtype=float).reshape(-1)
+    if x.size < 2 or y.size < 2 or z.size != 1:
+        raise RuntimeError("OUTPUT_EH_MONITOR_GRID_INVALID")
+    if frequencies.size != native_frequencies.size or not np.allclose(
+            frequencies, native_frequencies, rtol=0.0, atol=1e-3):
+        raise RuntimeError("OUTPUT_EH_FREQUENCY_GRID_MISMATCH")
+    if not np.all(np.isfinite(x)) or not np.all(np.isfinite(y)):
+        raise RuntimeError("OUTPUT_EH_COORDINATE_NONFINITE")
+    dx, dy = np.diff(x), np.diff(y)
+    if np.any(dx <= 0.0) or np.any(dy <= 0.0):
+        raise RuntimeError("OUTPUT_EH_COORDINATES_NOT_STRICTLY_INCREASING")
+    if not np.isclose(x[-1] - x[0], PERIOD_X_M, rtol=0.0, atol=1e-12):
+        raise RuntimeError("OUTPUT_EH_X_SPAN_NOT_ONE_PERIOD")
+    if not np.isclose(y[-1] - y[0], PERIOD_Y_M, rtol=0.0, atol=1e-12):
+        raise RuntimeError("OUTPUT_EH_Y_SPAN_NOT_ONE_PERIOD")
+
+    def field(component):
+        value = np.asarray(_field(fd, monitor, component), dtype=complex)
+        expected = (x.size, y.size, frequencies.size)
+        if value.shape == (x.size, y.size, 1, frequencies.size):
+            value = value[:, :, 0, :]
+        elif value.shape != expected:
+            raise RuntimeError(
+                f"OUTPUT_EH_FIELD_SHAPE_MISMATCH:{component}:{value.shape}:expected={expected}")
+        if not np.all(np.isfinite(value.real)) or not np.all(np.isfinite(value.imag)):
+            raise RuntimeError("OUTPUT_EH_FIELD_NONFINITE:" + component)
+        return value
+
+    ex, ey = field("Ex"), field("Ey")
+    hx, hy = field("Hx"), field("Hy")
+    wx, wy = np.empty_like(x), np.empty_like(y)
+    wx[0], wx[-1] = dx[0] / 2.0, dx[-1] / 2.0
+    wy[0], wy[-1] = dy[0] / 2.0, dy[-1] / 2.0
+    if x.size > 2:
+        wx[1:-1] = (dx[:-1] + dx[1:]) / 2.0
+    if y.size > 2:
+        wy[1:-1] = (dy[:-1] + dy[1:]) / 2.0
+    sz = 0.5 * np.real(ex * np.conj(hy) - ey * np.conj(hx))
+    flux_w = np.einsum("i,j,ijf->f", wx, wy, sz)
+    if not np.all(np.isfinite(flux_w)) or np.any(flux_w <= 0.0):
+        raise RuntimeError("OUTPUT_EH_FLUX_NONPOSITIVE_OR_NONFINITE")
+    return {
+        "flux_W": flux_w,
+        "surface_area_m2": float((x[-1] - x[0]) * (y[-1] - y[0])),
+        "z_m": float(z[0]),
+        "x_span_m": float(x[-1] - x[0]),
+        "y_span_m": float(y[-1] - y[0]),
+    }
+
+
+def _output_source_power_normalization(fd, monitor, native_frequencies, wavelength_order, wavelengths_nm, canonical_state):
+    try:
+        from shared_fdtd.tools.pw_complex_floquet_state_v1 import PERIOD_X_M, PERIOD_Y_M
+    except ImportError:
+        from pw_complex_floquet_state_v1 import PERIOD_X_M, PERIOD_Y_M
+    native_frequencies = np.asarray(native_frequencies, dtype=float).reshape(-1)
+    wavelength_order = np.asarray(wavelength_order, dtype=int).reshape(-1)
+    wavelengths_nm = np.asarray(wavelengths_nm, dtype=float).reshape(-1)
+    if native_frequencies.size != wavelength_order.size or wavelengths_nm.size != wavelength_order.size:
+        raise RuntimeError("OUTPUT_POWER_FREQUENCY_SHAPE_MISMATCH")
+    if sorted(wavelength_order.tolist()) != list(range(wavelength_order.size)):
+        raise RuntimeError("OUTPUT_POWER_WAVELENGTH_ORDER_INVALID")
+    expected_wavelengths = 299792458.0 / native_frequencies[wavelength_order] * 1e9
+    if not np.allclose(expected_wavelengths, wavelengths_nm, rtol=0.0, atol=1e-7):
+        raise RuntimeError("OUTPUT_POWER_WAVELENGTH_ORDER_MISMATCH")
+    transmission_native = np.real(np.asarray(fd.transmission(monitor))).reshape(-1)
+    result = fd.getresult(monitor, "T")
+    result_native = np.real(np.asarray(result["T"])).reshape(-1)
+    sourcepower_native = np.real(np.asarray(fd.sourcepower(native_frequencies))).reshape(-1)
+    if any(value.size != wavelength_order.size for value in (transmission_native, result_native, sourcepower_native)):
+        raise RuntimeError("OUTPUT_POWER_DATA_SHAPE_MISMATCH")
+    transmission = transmission_native[wavelength_order]
+    result_transmission = result_native[wavelength_order]
+    sourcepower = sourcepower_native[wavelength_order]
+    if not np.all(np.isfinite(transmission)) or not np.all(np.isfinite(result_transmission)):
+        raise RuntimeError("OUTPUT_TRANSMISSION_NONFINITE")
+    if not np.allclose(transmission, result_transmission, rtol=1e-10, atol=1e-12):
+        raise RuntimeError("OUTPUT_TRANSMISSION_API_PARITY_FAILED")
+    state_wavelengths = np.asarray(canonical_state.get("wavelengths_nm", []), dtype=float).reshape(-1)
+    normalization = canonical_state.get("normalization", {})
+    incident_power_per_area = np.asarray(normalization.get("incident_power_per_area", []), dtype=float).reshape(-1)
+    if state_wavelengths.size != wavelength_order.size or incident_power_per_area.size != wavelength_order.size:
+        raise RuntimeError("IN_REF_POWER_SHAPE_MISMATCH")
+    if not np.allclose(state_wavelengths, wavelengths_nm, rtol=0.0, atol=1e-7):
+        raise RuntimeError("IN_REF_POWER_WAVELENGTH_MISMATCH")
+    if not np.all(np.isfinite(sourcepower)) or np.any(sourcepower <= 0.0):
+        raise RuntimeError("OUTPUT_SOURCEPOWER_NONPOSITIVE_OR_NONFINITE")
+    if not np.all(np.isfinite(incident_power_per_area)) or np.any(incident_power_per_area <= 0.0):
+        raise RuntimeError("IN_REF_POWER_NONPOSITIVE_OR_NONFINITE")
+    if np.any(transmission < 0.0):
+        raise RuntimeError("OUTPUT_TRANSMISSION_NEGATIVE")
+    surface = _surface_poynting_flux(fd, monitor, native_frequencies)
+    surface_flux = np.asarray(surface["flux_W"], dtype=float)[wavelength_order]
+    incident_cell_power = PERIOD_X_M * PERIOD_Y_M * incident_power_per_area
+    if not np.all(np.isfinite(incident_cell_power)) or np.any(incident_cell_power <= 0.0):
+        raise RuntimeError("IN_REF_CELL_POWER_NONPOSITIVE_OR_NONFINITE")
+    if not np.allclose(incident_cell_power, surface["surface_area_m2"] * incident_power_per_area,
+                       rtol=0.0, atol=1e-24):
+        raise RuntimeError("OUTPUT_EH_AREA_DISAGREES_WITH_IN_REF_CELL_AREA")
+    monitor_transmitted_power = transmission * sourcepower
+    p_scale = surface_flux / incident_cell_power
+    if not np.all(np.isfinite(p_scale)) or np.any(p_scale < 0.0):
+        raise RuntimeError("OUTPUT_P_SCALE_INVALID")
+    monitor_flux_relative_difference = np.abs(monitor_transmitted_power - surface_flux) / np.maximum(
+        np.maximum(np.abs(monitor_transmitted_power), np.abs(surface_flux)), 1e-300)
+    return {
+        "transmission": transmission,
+        "sourcepower_W": sourcepower,
+        "transmitted_power_W": surface_flux,
+        "monitor_transmitted_power_W": monitor_transmitted_power,
+        "monitor_flux_relative_difference": monitor_flux_relative_difference,
+        "incident_power_per_area_W_m2": incident_power_per_area,
+        "incident_cell_power_W": incident_cell_power,
+        "surface_area_m2": surface["surface_area_m2"],
+        "surface_z_m": surface["z_m"],
+        "P_scale": p_scale,
+    }
+
+
 def _orders(fd, monitor, index, total_power):
     fraction = np.real(np.asarray(fd.grating(monitor, index))).reshape(-1)
     nx = np.rint(np.real(np.asarray(fd.gratingn(monitor, index))).reshape(-1)).astype(int)
@@ -479,7 +607,7 @@ def _safe_status(fd):
     return {"status": "UNAVAILABLE", "error": last}
 
 
-def analyze(fd, cfg):
+def analyze(fd, cfg, canonical_state=None):
     contract = _contract(cfg)
     monitors = contract["monitors"]
     samples = {str(k): float(v) for k, v in contract["samples_nm"].items()}
@@ -487,10 +615,10 @@ def analyze(fd, cfg):
     materials = contract["materials"]
     from mdc_tmm_complex_incident_power_v1 import normal_stack_power
 
-    frequencies = _freq(fd, monitors["output"])
-    wavelengths = 299792458.0 / frequencies * 1e9
-    order = np.argsort(wavelengths)
-    frequencies, wavelengths = frequencies[order], wavelengths[order]
+    native_frequencies = _freq(fd, monitors["output"])
+    native_wavelengths = 299792458.0 / native_frequencies * 1e9
+    order = np.argsort(native_wavelengths)
+    frequencies, wavelengths = native_frequencies[order], native_wavelengths[order]
     count = len(wavelengths)
     n_gan = _read_index(fd, materials["substrate"], frequencies)
     n_tio2 = _read_index(fd, materials["mdc_tio2"], frequencies)
@@ -501,6 +629,14 @@ def analyze(fd, cfg):
     post_plus, post_minus = _mode_amplitudes(fd, monitors["output"], n_air, count)
     pin, pref, ptrans = np.real(n_gan) * np.abs(in_plus) ** 2, np.real(n_gan) * np.abs(in_minus) ** 2, np.abs(post_plus) ** 2
     r_fdtd, t_fdtd = pref / pin, ptrans / pin
+    if canonical_state is None:
+        try:
+            from shared_fdtd.tools.pw_complex_floquet_state_v1 import canonical_state_from_fdtd
+        except ImportError:
+            from pw_complex_floquet_state_v1 import canonical_state_from_fdtd
+        canonical_state = canonical_state_from_fdtd(fd, contract)
+    output_normalization = _output_source_power_normalization(
+        fd, monitors["output"], native_frequencies, order, wavelengths, canonical_state)
     a_fdtd, closures = 1.0 - r_fdtd - t_fdtd, np.abs(1.0 - (r_fdtd + t_fdtd + (1.0 - r_fdtd - t_fdtd)))
     tmm_rows = []
     for i, wl in enumerate(wavelengths):
@@ -510,7 +646,7 @@ def analyze(fd, cfg):
     r_tmm = np.array([row["R"] for row in tmm_rows])
     t_tmm = np.array([row["T"] for row in tmm_rows])
     a_tmm = np.array([row["A"] for row in tmm_rows])
-    orders_post = [_orders(fd, monitors["output"], int(original_index) + 1, float(t_fdtd[i])) for i, original_index in enumerate(order)]
+    orders_post = [_orders(fd, monitors["output"], int(original_index) + 1, float(output_normalization["P_scale"][i])) for i, original_index in enumerate(order)]
     orders_in = [_orders(fd, monitors["input"], int(original_index) + 1, float(r_fdtd[i])) for i, original_index in enumerate(order)]
     nonzero = [abs(row["power_fraction_of_source"]) for rows in orders_post + orders_in for row in rows if (row["order_x"], row["order_y"]) != (0, 0)]
     sign_rows = [row for rows in orders_post + orders_in for row in rows if row["order_y"] == 0 and abs(row["order_x"]) == 1]
@@ -529,6 +665,18 @@ def analyze(fd, cfg):
     rows = []
     for i, wl in enumerate(wavelengths):
         rows.append({"wavelength_nm": float(wl), "R_FDTD": float(r_fdtd[i]), "T_FDTD": float(t_fdtd[i]), "A_FDTD": float(a_fdtd[i]), "closure": float(closures[i]), "R_TMM": float(r_tmm[i]), "T_TMM": float(t_tmm[i]), "A_TMM": float(a_tmm[i]), "delta_R": float(r_fdtd[i] - r_tmm[i]), "delta_T": float(t_fdtd[i] - t_tmm[i]), "delta_A": float(a_fdtd[i] - a_tmm[i]), "input_incident_power_proxy": float(pin[i]), "input_reflected_power_proxy": float(pref[i]), "output_transmitted_power_proxy": float(ptrans[i]), "input_T_monitor": float(np.real(np.asarray(fd.getresult(monitors["input"], "T")["T"]).reshape(-1)[order[i]])), "output_T_monitor": float(np.real(np.asarray(fd.getresult(monitors["output"], "T")["T"]).reshape(-1)[order[i]])), "tmm": tmm_rows[i]})
+
+    for i, row in enumerate(rows):
+        row.update({
+            "output_sourcepower_W": float(output_normalization["sourcepower_W"][i]),
+            "output_transmitted_power_W": float(output_normalization["transmitted_power_W"][i]),
+            "output_monitor_transmitted_power_W": float(output_normalization["monitor_transmitted_power_W"][i]),
+            "output_monitor_vs_EH_flux_relative_difference": float(output_normalization["monitor_flux_relative_difference"][i]),
+            "output_incident_power_per_area_W_m2": float(output_normalization["incident_power_per_area_W_m2"][i]),
+            "output_incident_cell_power_W": float(output_normalization["incident_cell_power_W"][i]),
+            "output_P_scale_IN_REF": float(output_normalization["P_scale"][i]),
+            "output_power_fraction_basis": "POSTNP_EH_surface_flux_over_IN_REF_incident_cell_power",
+        })
 
     def maxdiff(key):
         values = np.abs(np.array([row[key] for row in rows]))
@@ -574,19 +722,19 @@ def _save_raw_complex_fields(fd, cfg, case_root, prefix):
 
 
 def postprocess(fd, cfg, case_root):
-    metrics = analyze(fd, cfg)
+    try:
+        from shared_fdtd.tools.pw_complex_floquet_state_v1 import canonical_state_from_fdtd, save_state_npz, state_metadata
+    except ImportError:
+        from pw_complex_floquet_state_v1 import canonical_state_from_fdtd, save_state_npz, state_metadata
+    state = canonical_state_from_fdtd(fd, _contract(cfg))
+    metrics = analyze(fd, cfg, state)
     prefix = f"{cfg['case']}__{cfg['attempt']}"
     raw_fields = _save_raw_complex_fields(fd, cfg, case_root, prefix)
     raw_path = Path(case_root) / "raw" / f"{prefix}_raw.json"
     projection_path = Path(case_root) / "projection" / f"{prefix}_projection.json"
     angular_path = Path(case_root) / "orders" / f"{prefix}_orders.json"
-    try:
-        from shared_fdtd.tools.pw_complex_floquet_state_v1 import canonical_state_from_fdtd, save_state_npz, state_metadata
-    except ImportError:
-        from pw_complex_floquet_state_v1 import canonical_state_from_fdtd, save_state_npz, state_metadata
     state_path = Path(case_root) / "state" / f"{prefix}_pw_complex_floquet_state.npz"
     state_metadata_path = Path(case_root) / "state" / f"{prefix}_pw_complex_floquet_state.json"
-    state = canonical_state_from_fdtd(fd, _contract(cfg))
     save_state_npz(state_path, state)
     state_meta = state_metadata(state, str(state_path))
     state_meta["sha256"] = hashlib.sha256(state_path.read_bytes()).hexdigest()

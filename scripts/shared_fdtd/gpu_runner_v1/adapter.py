@@ -21,9 +21,9 @@ from runner import (CONTRACT_SHA256, ENTRY_STATES, EXPANSION_SHA256, MANIFEST_KE
                     MIN_GPU_FREE_MIB, PRODUCTION_RUNNER_ROOT, RunnerError,
                     atomic_json, read_json, run_one)
 
-LAUNCHER_PATH = Path(r"D:\apcd_runtime\shared_v3_backend\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\scripts\shared_fdtd\tools\pw_scientific_launcher.py")
-LAUNCHER_SHA256 = "e4de8da6a824c02b3d0425c3e3c76f45111e369ad6a20237e464b0e6f7dce908"
-PINNED_BACKEND_ID = "01e2320ebf237bdbcd52573665520d57705d2800"
+LAUNCHER_PATH = Path(r"D:\apcd_runtime\shared_v3_backend\pw_powernorm_v1_aaaa25b53a9a3322\scripts\shared_fdtd\tools\pw_scientific_launcher.py")
+LAUNCHER_SHA256 = "7639b9d07f041d5f8af3121286f6ce5aae4d8b18b66f5368052c627da219307f"
+PINNED_BACKEND_ID = "pw_powernorm_v1_aaaa25b53a9a3322"
 PINNED_SCRIPTS_ROOT = LAUNCHER_PATH.parents[2]
 PINNED_TOOLS_DIR = LAUNCHER_PATH.parent
 VENDOR_DIR = Path(__file__).resolve().parent / "vendor"

@@ -120,15 +120,19 @@
       "generic per-case setup authority consumption",
       "removal of S39-specific pre-entry case/FSP assumptions",
       "generic positive six-integer geometry shape validation before authority binding",
-      "focused zero-solver regression tests and handoff/authority evidence"
+      "focused zero-solver regression tests and handoff/authority evidence",
+      "postprocess output-order source-power fraction now uses measured POSTNP E/H flux over frozen IN_REF incident-cell power; no solver or truth rewrite was performed"
     ],
     "unchanged_assertions": {
       "FSP_H5_persistence_and_truth_postprocessor": true,
-      "GPU_launch_implementation_and_pinned_launcher": true,
       "NativeAdapter.fresh_load_validate": true,
       "NativeAdapter.solver": true,
       "runner.run_one_body": true,
-      "single_slot_and_no_replay": true
+      "single_slot_and_no_replay": true,
+      "GPU_launch_implementation": true,
+      "gpu_observability_dependency_hashes": true,
+      "pinned_launcher_unchanged": false,
+      "postprocess_power_fraction_mapping_unchanged": false
     }
   },
   "qualification_evidence": {
@@ -161,7 +165,7 @@
     "other_failed_postentry": "does not qualify"
   },
   "schema": "APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF_V1",
-  "scope_note": "Single-slot V1 remains qualified for the existing 12-case route. Queue21 remains UNKNOWN and quarantined. The owner-approved two-plane diagnostic had one entry and is DONE with durable truth and extracted E/H fields; Coupling comparison is pending. The 160 V2 cases remain solver-unauthorized.",
+  "scope_note": "Single-slot V1 remains qualified for the existing 12-case route. Queue21 remains UNKNOWN and quarantined. The owner-approved two-plane diagnostic had one entry and is DONE with durable truth and extracted E/H fields; Coupling comparison is pending. The 160 V2 cases remain solver-unauthorized. Power-fraction mapping was subsequently audited LOAD-only for the first archived V2 development case; no Coupling import supplement was enabled, physical modal thresholds remain unspecified, and this did not authorize dataset solver entries. The first archived V2 development case already has one separately recorded DONE invocation; this later normalization audit added zero entries and authorized no remaining cases.",
   "serial_batch_invocation": "Dispatch one case, wait for terminal DONE/TRUTH_VALID, verify artifacts, then dispatch the next manifest. Never parallelize GPU solves.",
   "stage1_zero_solver_qualification": {
     "cases": [
@@ -464,5 +468,26 @@
       "semantics": "Manifest-driven LOAD of the case's unsolved FSP; compare exact geometry, contract, materials, source, polarization, wavelength grid, boundaries, monitor definitions/sample planes, and mesh against its approved Coupling authority and Stage-1 LOAD-only proof. No solver call or result d-card requirement.",
       "validator_sha256": "b694ecf692376a33673b785774a8ea734c452f11009aad1cfe553f444817e2a8"
     }
+  },
+  "power_fraction_normalization_audit": {
+    "case_id": "K6LDA1_DEV_D1_M05",
+    "attempt_id": "attempt_001",
+    "backend_id": "pw_powernorm_v1_aaaa25b53a9a3322",
+    "launcher_sha256": "7639b9d07f041d5f8af3121286f6ce5aae4d8b18b66f5368052c627da219307f",
+    "independent_report_path": "reports/gpu_runner_v1_power_fraction_normalization_v1/INDEPENDENT_PHYSICAL_POWER_AUDIT.json",
+    "independent_report_sha256": "8302638ec31cf34f5fce370d5d6d3da47a681092c1e5303c5e5079ce21b19a11",
+    "independent_report_schema": "APCD_GPU_RUNNER_V1_INDEPENDENT_PHYSICAL_POWER_AUDIT_V1",
+    "independent_report_status": "MEASURED",
+    "load_only_report_path": "reports/gpu_runner_v1_power_fraction_normalization_v1/LOAD_ONLY_AUDIT.json",
+    "load_only_report_status": "PASS",
+    "coupling_ingest_representation_check": "147/147; rtol=1e-3, atol=1e-9; downstream representation consistency only",
+    "physical_modal_threshold": "not located; modal residuals reported without pass/fail",
+    "solver_entries_this_audit": 0,
+    "solver_runs_this_audit": 0,
+    "coupling_supplement_enabled": false,
+    "dataset_solver_authorization_changed": false,
+    "archived_run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+    "archived_case_status": "DONE",
+    "archived_case_solver_invocations_before_audit": 1
   }
 }

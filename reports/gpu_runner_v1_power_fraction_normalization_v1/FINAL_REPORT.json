@@ -1,0 +1,118 @@
+{
+  "status": "RUNNER_POWER_MAPPING_REPAIRED_LOAD_AUDITED; PHYSICAL_MODAL_THRESHOLD_REMAINS_UNSPECIFIED",
+  "scope": "One archived K6 V2 development case; no solver entry, run, replay, truth rewrite, or Coupling import enablement.",
+  "case": {
+    "case_id": "K6LDA1_DEV_D1_M05",
+    "attempt_id": "attempt_001",
+    "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
+  },
+  "mapping": "source_fraction(order,wavelength) = (measured POSTNP full-period E/H Poynting flux / IN_REF incident unit-cell power) * the same Lumerical grating monitor eta for that order. P_scale and phase definition stay frozen; the legacy T_FDTD zero-order proxy is no longer used to scale the full multi-order source fractions.",
+  "physical_audit": {
+    "report_path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\gpu_runner_v1_power_fraction_normalization_v1\\INDEPENDENT_PHYSICAL_POWER_AUDIT.json",
+    "report_sha256": "8302638ec31cf34f5fce370d5d6d3da47a681092c1e5303c5e5079ce21b19a11",
+    "schema": "APCD_GPU_RUNNER_V1_INDEPENDENT_PHYSICAL_POWER_AUDIT_V1",
+    "status": "MEASURED",
+    "wavelengths": 21,
+    "monitor_grid": {
+      "x_samples": 349,
+      "y_samples": 59,
+      "actual_z_nm": 1801.9999999999932,
+      "period_spans_m": [
+        1.74e-06,
+        2.9e-07
+      ]
+    },
+    "surface_flux_equation": "0.5*Re(Ex*conj(Hy)-Ey*conj(Hx)), integrated over the actual inclusive POSTNP x/y coordinates with trapezoidal weights.",
+    "max_relative_transmission_times_sourcepower_vs_integrated_EH_flux": 1.2892487612961532e-14,
+    "max_abs_runner_P_scale_vs_independent_raw_EH_P_scale": 0.0,
+    "max_relative_runner_P_scale_vs_independent_raw_EH_P_scale": 0.0,
+    "frozen_loader_check": {
+      "tolerance": "numpy.isclose(runner_source_fraction, raw_EH_P_scale*same_grating_eta, rtol=1e-3, atol=1e-9)",
+      "matched_orders": 147,
+      "total_order_rows": 147,
+      "eta_sum_max_abs_deviation": 2.220446049250313e-16
+    },
+    "physical_crosschecks_without_frozen_threshold": {
+      "POSTNP_surface_flux_vs_9x9_H2_all_modal_sum_max_relative_difference": 0.00028956697877272297,
+      "runner_per_order_source_fraction_vs_H2_modal_flux_max_relative_difference": 0.001499059534294761,
+      "threshold_status": "No frozen direct-closure threshold was located; these measured residuals are reported without pass/fail classification."
+    },
+    "monitor_api_parity_max_abs": 0.0,
+    "grating_eta_sum": "21/21 pass at frozen atol 1e-6"
+  },
+  "current_pinned_backend": {
+    "backend_id": "pw_powernorm_v1_aaaa25b53a9a3322",
+    "launcher_sha256": "7639b9d07f041d5f8af3121286f6ce5aae4d8b18b66f5368052c627da219307f",
+    "backend_manifest_sha256": "ae896c96054699df3f6390ec623dc2c62af6cb6832616b357653cff10f8a40c2",
+    "inventory_sha256": "aaaa25b53a9a33227e7398dc2d10d3fb5c02e6bfb9f3e1116e13ec306011d585"
+  },
+  "load_only_validation": {
+    "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\gpu_runner_v1_power_fraction_normalization_v1\\LOAD_ONLY_AUDIT.json",
+    "sha256": "c17655db5f1fb7af8bb2bf6f9ada0660a7298f99ac38fe1068d22e82ba702248",
+    "schema": "APCD_GPU_RUNNER_V1_POWER_FRACTION_NORMALIZATION_LOAD_ONLY_AUDIT_V1",
+    "status": "PASS",
+    "solver_entry": false,
+    "solver_run": false,
+    "fsp_save": false,
+    "legacy_R_T_A_closure_max_abs": {
+      "R_FDTD": {
+        "max_abs": 2.220446049250313e-16,
+        "wavelength_nm": 443.00000000000006
+      },
+      "T_FDTD": {
+        "max_abs": 2.0816681711721685e-17,
+        "wavelength_nm": 450.0000000000001
+      },
+      "A_FDTD": {
+        "max_abs": 2.220446049250313e-16,
+        "wavelength_nm": 443.00000000000006
+      },
+      "closure": {
+        "max_abs": 1.1102230246251565e-16,
+        "wavelength_nm": 456.00000000000006
+      }
+    },
+    "first_wavelength_order_sum_example": {
+      "wavelength_nm": 440.00000000000006,
+      "monitor_eta_sum": 0.9999999999999999,
+      "source_fraction_sum": 0.07691785841363061,
+      "P_scale_IN_REF": 0.07691785841363062,
+      "old_source_fraction_sum": 0.01587730660183445
+    }
+  },
+  "tests_and_preflight": {
+    "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\reports\\gpu_runner_v1_power_fraction_normalization_v1\\TEST_AND_PREFLIGHT.json",
+    "sha256": "602a0741d76f26233c7c311e11084c41974932281f3de16a441ca77cc2c33c63",
+    "pytest": "30 passed using N:\\anaconda_envs\\RCP_LCP\\python.exe (Python 3.10.20)",
+    "postprocess_preflight": "PASS",
+    "wrong_interpreter_note": "An initial pytest attempt used C:\\Users\\DELL\\anaconda3\\python.exe (Python 3.9.7) and correctly failed the adapter's pinned Python 3.10.20 check; the canonical 3.10.20 run passed all 30 tests."
+  },
+  "preservation": {
+    "fsp_sha256": "f2258b74d62a1e9d7441cd8214dc371022a8a964df335c7faf6c45d8be4fb2b9",
+    "h5_sha256": "8aa4ca58d22d9fd6eea4f5e53b557a96e0ec9c273f594c22561788f5af298dcd",
+    "original_orders_json_sha256": "eee74666b409e9255783b6e4a30f6f708f1358de0261752ffbbc6da571bff158",
+    "original_orders_json_access": "Read-only; its stored source fractions were not regenerated or overwritten.",
+    "truth_and_coupling_import": "No truth file or Coupling consumer/importer was written or enabled."
+  },
+  "execution_counts": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "post_entry_replay": 0,
+    "archived_fsp_load_only": 2
+  },
+  "limitations": [
+    "Audit covers only the first archived development case K6LDA1_DEV_D1_M05/attempt_001; it does not qualify the 160-case dataset or trainability.",
+    "Coupling's 1e-3/1e-9 check is downstream representation consistency, not a physical closure tolerance.",
+    "H2 modal cross-check residuals have no located frozen acceptance limit; independent Coupling scientific review remains required before any explicit supplement intake.",
+    "The audited case already had one recorded solver invocation before this audit; this work grants no further entry and does not authorize the other V2 cases.",
+    "The audited case already had one recorded solver invocation before this audit; this work grants no further entry and does not authorize other V2 cases."
+  ],
+  "archived_case_existing_run": {
+    "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+    "state": "DONE",
+    "solver_entered": true,
+    "solver_invocations": 1,
+    "relationship_to_audit": "pre-existing archived run; this audit performed LOAD-only reads and added no entry"
+  }
+}
