@@ -3,7 +3,7 @@
   "task_id": "COUPLING_TWO_AGENT_STAGE_EXECUTION_REORGANIZATION_V1",
   "active_stage_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
   "prerequisite_task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
-  "recorded_at_utc": "2026-10-05T07:13:54Z",
+  "recorded_at_utc": "2026-10-05T08:27:14Z",
   "status": "ML_AND_GPU_ROLE_HANDOFF_CONFIRMED_POWER_REPAIR_IN_PROGRESS",
   "stage_contract": {
     "scope": "Frozen V2 development set only: 12 local-axis plus 116 global cases.",
@@ -128,7 +128,8 @@
     "coupling_interim": "P_scale vs independent H2 modal total max relative delta 2.5923e-4 (q95 2.1637e-4); eta max abs delta 1.48056e-4. Previous 0.79009–0.80539 sourcepower ratio (median 0.80131) was inferred, not directly measured; converted-order max relative residual 1.5025e-3; applicable threshold not identified.",
     "gpu_latest": "GPU reports archive LOAD-only sourcepower(f), transmission(POSTNP), seven x-orders read successfully, source hashes unchanged; final physical reconciliation and mapping regression pending.",
     "entries_added_during_repair": 0,
-    "remaining_entries_paused": 127
+    "remaining_entries_paused": 127,
+    "scope_status": "THREE_PRODUCTION_BLOCKERS_ONLY; HISTORICAL_32G_AUDIT_AND_NONBLOCKING_WORK_DEFERRED"
   },
   "executor_acceptance": {
     "coupling_ml": "ACCEPTED: sole queue ownership plus one-time audit returned",
@@ -170,8 +171,8 @@
   ],
   "version_switch_policy": "Keep each case's entered Runner provenance. Never auto-follow HEAD. After repair, GPU returns exact tested commit; Coupling explicitly adopts it after compatibility acceptance.",
   "next_return_event": [
-    "Power-normalization repair completion with physical reconciliation, tested mapping commit and artifacts, or a concrete blocker.",
-    "After all recovery gates pass, Coupling ML directly resumes the remaining 127 cases; return at the explicit first-case gate, full completion, or a blocker requiring action."
+    "Return only the completed subset of the three blockers and the single/minimal remaining blocker with measured values and missing evidence, or report all three gates passing.",
+    "If all three gates plus fresh startup checks pass, Coupling ML proceeds with the remaining 127 cases and returns at the first-case recovery gate, stage completion, or a true blocker."
   ],
   "execution_sessions": {
     "Coupling ML": {
@@ -184,5 +185,24 @@
       "host_id": "local",
       "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1"
     }
+  },
+  "scope_reduction": {
+    "authority": "Direct user instruction received 2026-10-05",
+    "applies_to": [
+      "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
+      "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1"
+    ],
+    "only_required_blockers": [
+      "Independent physical verification of the first-case power denominator and total/order-power mapping using LOAD-only archived evidence.",
+      "Minimal production mapping repair and necessary regression.",
+      "Versioned first-case repair label passes Coupling ingestion."
+    ],
+    "deferred": [
+      "Comprehensive historical 32G audit.",
+      "Historical label compatibility until before formal training, unless evidence shows a direct effect on the current production mapping.",
+      "Platform refactor, broad dirty-file cleanup, new monitoring, new diagnostics, and duplicate document cleanup."
+    ],
+    "threshold_rule": "Do not relax frozen thresholds. The constructed P_scale*eta relation is only an algebraic consistency check and cannot replace independent physical validation.",
+    "resume_condition": "All three blockers and fresh formal startup checks pass; Coupling ML directly resumes the remaining 127 serial cases under the existing budget."
   }
 }

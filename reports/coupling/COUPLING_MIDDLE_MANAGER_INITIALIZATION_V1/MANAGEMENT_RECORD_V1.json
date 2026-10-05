@@ -448,7 +448,7 @@
     {
       "task_id": "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1",
       "goal": "Generate durable truth and validated development labels for the frozen V2 development cases",
-      "scope": "Exactly 128 frozen development cases: 12 DEVELOPMENT_LOCAL_AXIS plus 116 DEVELOPMENT_GLOBAL; no point, monitor, H1/H2, material, wavelength, or model changes",
+      "scope": "Exactly 128 frozen development cases: 12 DEVELOPMENT_LOCAL_AXIS plus 116 DEVELOPMENT_GLOBAL; no point, monitor, H1/H2, material, wavelength, or model changes; historical 32G audit, historical compatibility before training (unless direct current-mapping impact), platform refactor, broad cleanup, new monitoring/diagnostics and duplicate documentation are deferred.",
       "input_authority": "Direct user authorization; frozen V2 amendment, case-registration package, ordered allowlist, current GPU Runner V1 task-specific budget and Coupling data-ingestion authority",
       "budget": "At most 128 new solver entries total; attempt_001 only and at most one per case; post-entry replay 0; 32 confirmation solver entries 0; real training fits 0",
       "execution_agent": "Coupling ML Codex is the sole long-stage executor and directly invokes the unique official GPU Production Runner V1 after recovery gates; GPU Codex is on-demand platform maintainer only.",
@@ -459,7 +459,7 @@
         "coupling": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/reports/coupling/COUPLING_ML_K6_V2_DATASET_ADMISSION_PREPARATION_V1"
       },
       "dispatch_state": "Accepted by Coupling ML as sole queue owner; GPU acknowledged on-demand platform role; existing power repair continues. No duplicate stage dispatch.",
-      "status": "ACTIVE_GATED_POWER_NORMALIZATION_REPAIR",
+      "status": "ACTIVE_GATED_THREE_PRODUCTION_BLOCKERS",
       "event_history": [
         {
           "event_id": "K6LDA1_DEV_D1_M05-attempt_001-source_fraction_normalization-conflict-v1",
@@ -592,16 +592,15 @@
     {
       "task_id": "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
       "goal": "零solver独立核验首案功率归一化，修复生产映射并通过版本化标签恢复冻结V2余下127个开发case。",
-      "scope": "只核验K6LDA1_DEV_D1_M05/attempt_001归档truth与代码；保护原始FSP/H5/raw、Runner账本/哈希和Coupling拒绝记录；GPU LOAD-only与Runner映射/回归；Coupling独立场功率/模态/IN_REF比较、opt-in补充标签及32G/EXT02受影响派生字段审计；通过完整门槛后恢复剩余127案串行生成。",
+      "scope": "Only the three production blockers: independent LOAD-only first-case physical denominator and total/order-power verification; minimum Runner production mapping repair and necessary regression; Coupling acceptance of a versioned opt-in first-case label. No solver or archive mutation.",
       "input_authority": "用户2026-10-05直接上层裁定；冻结V2合同、首案原始归档和既有拒绝记录、Runner/Coupling当前代码及历史32G/EXT02正式产物。",
       "budget": "本修复阶段新增solver=0；首案累计entry=1且不得重跑；冻结总上限128开发case各最多1次entry，剩余最多127；post-entry replay=0；确认32=0；真实training fits=0；额外诊断solver=0。",
       "execution_agent": "GPU Codex负责归档FSP LOAD-only读取、生产映射修复和回归；Coupling ML Codex负责冻结定义、独立物理核验、补充标签和历史受影响字段审计；主控负责收件和验收。",
       "acceptance": [
-        "逐项定义eta分子/分母/阶次/方向、P_scale、IN_REF入射功率、Runner source_fraction分母，并区分sourcepower、POSTNP总通量、零阶模态功率和净/正向功率。",
-        "首案E/H面积通量、Ansys transmission×sourcepower、独立逐阶模态功率、按证据逐波长换算到IN_REF后的模态功率及冻结eta/P_scale全部按冻结适用阈值通过；P_scale×eta仅作代数一致性检查。",
-        "原始truth和拒绝记录不变；新增版本化补充明确opt-in，绑定原始SHA、代码版本、公式/分母、独立核验结果及被替代字段。",
-        "生产映射修复和含非零高阶、sourcepower/IN_REF分母差异及真实首案fixture的回归通过；仅审计并修复实际受影响的32G/EXT02派生字段。",
-        "当前authority、预算、owner/fence及fresh startup核验通过后GPU以Runner V1单槽串行执行余下127案，不重放。"
+        "Independent physical comparison uses archived LOAD-only fields, frozen definitions and applicable unchanged thresholds; report missing evidence or missing applicable threshold explicitly.",
+        "Minimal production mapping repair passes necessary regression for nonzero orders, sourcepower versus IN_REF denominator difference, and the real first-case fixture; no changes to C_hat, P_scale or phase convention.",
+        "Versioned first-case repair label is accepted by Coupling while original truth and rejection remain unchanged.",
+        "Fresh authority/budget/owner/fence/startup checks pass before the remaining 127 entries resume."
       ],
       "blockers": [
         "独立核验失败或缺关键物理量/适用冻结阈值",
@@ -624,6 +623,15 @@
           "continuation": "after all gates pass, resume remaining 127 frozen development cases in GPU Runner V1 single-slot serial mode without another upper approval; 128 total max, one entry per case, zero replay; confirmation32=0 and true training fits=0",
           "retained_gaps": "endpoint closure is diagnostic only; actual mesh spacing/transition and PML inner-face readbacks remain unknown; no monitor optimization/convergence study added"
         }
+      ],
+      "deferred_work": [
+        "Comprehensive historical 32G audit.",
+        "Historical label compatibility until before formal training, unless evidence shows a direct effect on the current production mapping.",
+        "Platform refactor, broad dirty-file cleanup, new monitoring, new diagnostics, and duplicate document cleanup."
+      ],
+      "next_return_event": [
+        "Return only the completed subset of the three blockers and the single/minimal remaining blocker with measured values and missing evidence, or report all three gates passing.",
+        "If all three gates plus fresh startup checks pass, Coupling ML proceeds with the remaining 127 cases and returns at the first-case recovery gate, stage completion, or a true blocker."
       ]
     }
   ],
@@ -702,7 +710,7 @@
       "reason": "Scheduled manager polling has been replaced by event-driven returns."
     }
   },
-  "updated_at_utc": "2026-10-05T07:13:54Z",
+  "updated_at_utc": "2026-10-05T08:27:14Z",
   "manager_record_worktree": {
     "path": "D:\\project\\worktrees\\blue_apcd_coupling_manager_v1",
     "branch": "codex/coupling-manager-v1",
@@ -720,8 +728,8 @@
       "gpu_codex": "Acknowledged the on-demand Runner/platform role; not the long-stage database queue owner; continues the same zero-solver power repair."
     },
     "next_return_event": [
-      "Power-normalization repair completion with physical reconciliation, tested mapping commit and artifacts, or a concrete blocker.",
-      "After all recovery gates pass, Coupling ML directly resumes the remaining 127 cases; return at the explicit first-case gate, full completion, or a blocker requiring action."
+      "Return only the completed subset of the three blockers and the single/minimal remaining blocker with measured values and missing evidence, or report all three gates passing.",
+      "If all three gates plus fresh startup checks pass, Coupling ML proceeds with the remaining 127 cases and returns at the first-case recovery gate, stage completion, or a true blocker."
     ],
     "execution_sessions": {
       "Coupling ML": {
@@ -734,6 +742,25 @@
         "host_id": "local",
         "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1"
       }
+    },
+    "scope_update": {
+      "authority": "Direct user instruction received 2026-10-05",
+      "applies_to": [
+        "COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1",
+        "COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1"
+      ],
+      "only_required_blockers": [
+        "Independent physical verification of the first-case power denominator and total/order-power mapping using LOAD-only archived evidence.",
+        "Minimal production mapping repair and necessary regression.",
+        "Versioned first-case repair label passes Coupling ingestion."
+      ],
+      "deferred": [
+        "Comprehensive historical 32G audit.",
+        "Historical label compatibility until before formal training, unless evidence shows a direct effect on the current production mapping.",
+        "Platform refactor, broad dirty-file cleanup, new monitoring, new diagnostics, and duplicate document cleanup."
+      ],
+      "threshold_rule": "Do not relax frozen thresholds. The constructed P_scale*eta relation is only an algebraic consistency check and cannot replace independent physical validation.",
+      "resume_condition": "All three blockers and fresh formal startup checks pass; Coupling ML directly resumes the remaining 127 serial cases under the existing budget."
     }
   }
 }

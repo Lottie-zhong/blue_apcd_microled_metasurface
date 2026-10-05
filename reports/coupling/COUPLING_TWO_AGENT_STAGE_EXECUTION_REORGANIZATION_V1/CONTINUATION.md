@@ -19,3 +19,16 @@ The observed Runner HEAD is recorded in the manifest but is not selected for lat
 ## Dirty files
 
 See `dirty_triage` in `STAGE_VERSION_MANIFEST_V1.json`. Unknown untracked files remain untouched; no broad cleanup or staging was used.
+
+
+## 2026-10-05 — Scope narrowed to three production blockers
+
+This is a scope correction to the existing authorization, not a new task. Only these gates block database generation:
+
+1. Independently verify the first case's power denominator and total/order-power mapping from archived LOAD-only evidence. Do not use `P_scale * eta` as a substitute for independent physical checks; do not add solver entries or alter frozen thresholds.
+2. Make the minimum production mapping repair and necessary regression, including the archived first-case fixture, nonzero diffraction orders, and the sourcepower versus IN_REF denominator difference.
+3. Produce the versioned opt-in first-case label and pass Coupling ingestion without modifying original truth or the rejection record.
+
+Defer comprehensive historical 32G audit, historical-label compatibility until before formal training unless it directly affects this production mapping, platform refactor, broad dirty cleanup, new monitoring, new diagnostics, and duplicate document cleanup. The current 127 entries remain paused until these three blockers and fresh startup checks pass. Then Coupling ML directly resumes under the existing single-slot, one-entry-per-case, zero-replay budget. Confirmation32 and real training remain zero.
+
+The next manager return is limited to completed blockers, the single/minimal remaining blocker, measured numbers, missing evidence, and any concrete decision needed. Ordinary progress stays with the execution owners.
