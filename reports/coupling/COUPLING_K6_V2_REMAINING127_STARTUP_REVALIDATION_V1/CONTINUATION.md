@@ -46,3 +46,9 @@ After batch preparation passes, perform only the per-case live final revalidatio
 - First queued case `K6LDA1_DEV_D2_P05` completed through official Runner V1 as `K6V2_D2P05_20261005T170314Z_d24728f8`: solver_invocations=1, replay_count=0, DONE, validation PASS, durable truth and development ingest PASS. Total owner-budget rows now entered/truth-valid/labeled = 5/4/4; remaining unentered=123.
 - Only after D2_P05 truth was ingested and the slot released did the queue begin `K6LDA1_DEV_D3_M05`. At this checkpoint its controller phase is `RUN_ONE_IN_PROGRESS`; current-run status is in `QUEUE_LIVE_CHECKPOINT_V1.json`.
 - The controller persists the per-case ledger and never automatically replays a case after solver entry. If interrupted, reconcile Runner registry/status/truth/validation and queue ledger before continuing.
+
+## 2026-10-06 second live queue cycle
+
+- Second queued case `K6LDA1_DEV_D3_M05` completed through official Runner V1 as `K6V2_D3M05_20261005T171524Z_76271eae`: solver_invocations=1, replay_count=0, DONE, validation PASS, durable truth and development ingest PASS. Total owner-budget rows now entered/truth-valid/labeled = 6/5/5; remaining unentered=122.
+- Only after D3_M05 truth was ingested and the slot released did the queue begin `K6LDA1_DEV_D3_P05`. At this checkpoint its controller phase is `RUN_ONE_IN_PROGRESS`; current-run status is in `QUEUE_LIVE_CHECKPOINT_V2.json`.
+- The controller persists the per-case ledger and never automatically replays a case after solver entry. If interrupted, reconcile Runner registry/status/truth/validation and queue ledger before continuing.
