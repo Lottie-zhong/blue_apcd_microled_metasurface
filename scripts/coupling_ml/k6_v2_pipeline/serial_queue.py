@@ -49,6 +49,21 @@ INITIAL_LABELS = {
 }
 RESOURCE = "GPU license audit"
 
+FAILED_POSTENTRY_AUTHORITY = {
+    "case_id": "K6LDA1_DEV_D6_M05",
+    "attempt_id": "attempt_001",
+    "run_id": "K6V2_D6M05_20261005T182728Z_92041df6",
+    "disposition_sha256": "c0dccb19b41b92e0ab2da46c3ab83bdc47fb61c6090e21a7b84cec2d1f0c84d0",
+    "journal_sha256": "4935aa39829286d136172233ea6148e7c1982b9d4b6a07f234680237a1484365",
+    "claim_sha256": "bcc2b973909925ccee9a61c7fed371826e6c8f9222d72c0d99f7ec9e4261de2b",
+    "recovery_fence_id": "b9fef760fff54cb59faceeba428c056e",
+}
+FAILED_POSTENTRY_EVENT_ORDER = (
+    "PREPARED", "DISPOSITION_WRITTEN", "STATUS_TERMINALIZATION_INTENT",
+    "STATUS_TERMINALIZED", "REGISTRY_TERMINALIZATION_INTENT", "REGISTRY_TERMINALIZED",
+    "RELEASE_READY", "ACTIVE_MARKER_RELEASED", "LOCK_RELEASE_INTENT", "LOCK_RELEASED",
+)
+
 
 class StopQueue(RuntimeError):
     pass
@@ -197,13 +212,215 @@ def initial_labels():
     return result
 
 
+def runner_canonical_sha(value):
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def verify_failed_postentry_closeout(row, cid):
+    """Allow only the single immutable Runner-owner-closed D6_M05 run."""
+    expected = FAILED_POSTENTRY_AUTHORITY
+    need(cid == expected["case_id"], "UNAUTHORIZED_FAILED_POSTENTRY_CASE:" + str(cid))
+    need(isinstance(row, dict) and row.get("case_id") == cid
+         and row.get("attempt_id") == expected["attempt_id"]
+         and row.get("run_id") == expected["run_id"], "FAILED_POSTENTRY_IDENTITY_MISMATCH:" + cid)
+    reported_run_dir = Path(row.get("run_dir", ""))
+    run_dir = reported_run_dir.resolve()
+    expected_dir = (RUN_ROOT / "runs" / cid / expected["attempt_id"] / expected["run_id"]).resolve()
+    need(not reported_run_dir.is_symlink() and run_dir == expected_dir and run_dir.is_dir(),
+         "FAILED_POSTENTRY_RUN_DIRECTORY_MISMATCH:" + cid)
+    need(row.get("state") == "FAILED_POSTENTRY" and row.get("solver_invocations") == 1
+         and row.get("automatic_replay_count") == 0, "FAILED_POSTENTRY_REGISTRY_STATE_INVALID:" + cid)
+    status_path = run_dir / "status.json"
+    status = runner_status(row, cid)
+    need(status.get("state") == "FAILED_POSTENTRY" and status.get("solver_entered") is True
+         and status.get("solver_invocations") == 1
+         and status.get("failure") == "ORPHAN_POSTENTRY_NO_TRUTH_EXIT_REASON_UNKNOWN",
+         "FAILED_POSTENTRY_STATUS_INVALID:" + cid)
+    fence = expected["recovery_fence_id"]
+    summary = status.get("postentry_closeout_v1", {})
+    need(summary.get("schema") == "APCD_GPU_RUNNER_D6_M05_ORPHAN_CLOSEOUT_V1"
+         and summary.get("disposition_sha256") == expected["disposition_sha256"]
+         and summary.get("recovery_fence_id") == fence and summary.get("entry_consumed") is True
+         and summary.get("truth_available") is False and summary.get("automatic_replay_count") == 0
+         and row.get("postentry_disposition_sha256") == expected["disposition_sha256"]
+         and row.get("postentry_closeout_fence_id") == fence,
+         "FAILED_POSTENTRY_STATUS_REGISTRY_CLOSEOUT_MISMATCH:" + cid)
+    current_markers = []
+    for marker_path in (RUN_ROOT / "active_run.json", RUN_ROOT / ".runner.lock"):
+        if marker_path.exists():
+            marker = read(marker_path)
+            need(isinstance(marker, dict) and all(isinstance(marker.get(k), str) and marker.get(k)
+                 for k in ("case_id", "attempt_id", "run_id")),
+                 "FAILED_POSTENTRY_CURRENT_SLOT_IDENTITY_INVALID:" + cid)
+            need(marker.get("case_id") != cid and marker.get("run_id") != expected["run_id"],
+                 "FAILED_POSTENTRY_CURRENT_SLOT_STILL_POINTS_TO_FAILED_RUN:" + cid)
+            current_markers.append(tuple(marker[k] for k in ("case_id", "attempt_id", "run_id")))
+    need(len(set(current_markers)) <= 1, "FAILED_POSTENTRY_CURRENT_SLOT_MARKERS_DISAGREE:" + cid)
+    closeout_dir = run_dir / "postentry_closeout_v1"
+    claim_path, disposition_path, journal_path = (closeout_dir / n for n in ("claim.json", "disposition.json", "journal.json"))
+    need(all(p.is_file() and not p.is_symlink() for p in (claim_path, disposition_path, journal_path)),
+         "FAILED_POSTENTRY_CLOSEOUT_ARTIFACT_MISSING:" + cid)
+    need(sha(disposition_path) == expected["disposition_sha256"]
+         and sha(journal_path) == expected["journal_sha256"], "FAILED_POSTENTRY_CLOSEOUT_FILE_SHA_MISMATCH:" + cid)
+    target = {"case_id": cid, "attempt_id": expected["attempt_id"], "run_id": expected["run_id"]}
+    claim = read(claim_path); claim_body = dict(claim); claim_sha = claim_body.pop("claim_sha256", None)
+    need(claim.get("schema") == "APCD_GPU_RUNNER_D6_M05_ORPHAN_CLOSEOUT_V1_RECOVERY_FENCE"
+         and claim.get("target") == target and claim.get("recovery_fence_id") == fence
+         and claim_sha == expected["claim_sha256"] == runner_canonical_sha(claim_body),
+         "FAILED_POSTENTRY_CLAIM_HASH_OR_IDENTITY_INVALID:" + cid)
+    disposition = read(disposition_path); truth = disposition.get("truth_evidence", {})
+    need(disposition.get("schema") == "APCD_GPU_RUNNER_D6_M05_ORPHAN_CLOSEOUT_V1_DISPOSITION"
+         and {k: disposition.get(k) for k in ("case_id", "attempt_id", "run_id")} == target
+         and disposition.get("disposition") == "FAILED_POSTENTRY_NO_TRUTH"
+         and disposition.get("claim_sha256") == claim_sha and disposition.get("recovery_fence_id") == fence
+         and disposition.get("entry_consumed") is True and disposition.get("solver_invocations") == 1
+         and disposition.get("automatic_replay_count") == 0 and disposition.get("truth_available") is False
+         and disposition.get("training_admitted") is False and disposition.get("scientific_valid") is False
+         and truth.get("truth_available") is False and truth.get("truth_valid_case") is False
+         and truth.get("labels_valid_case") is False and truth.get("validation_state") == "PENDING"
+         and truth.get("hashes_state") == "PENDING" and truth.get("candidate_truth_artifacts") == []
+         and truth.get("non_coordinate_dataset_paths") == []
+         and claim.get("input_hashes") == disposition.get("input_hashes"),
+         "FAILED_POSTENTRY_DISPOSITION_CONTENT_INVALID:" + cid)
+    h5_path = run_dir / "run" / "run_output.h5"
+    need(h5_path.is_file() and Path(truth.get("h5_path", "")).resolve() == h5_path.resolve()
+         and sha(h5_path) == truth.get("h5_sha256"), "FAILED_POSTENTRY_TRUTH_PROBE_HASH_MISMATCH:" + cid)
+    need(not (run_dir / "truth.h5").exists()
+         and read(run_dir / "validation.json") == {"state": "PENDING"}
+         and read(run_dir / "hashes.json") == {"state": "PENDING"}, "FAILED_POSTENTRY_TRUTH_NOT_ISOLATED:" + cid)
+    for name in ("INGEST_RESULT_" + cid + "_V1.json", "INGESTED_TRUTH_" + cid + "_V1.npz"):
+        need(not (REPORT / name).exists(), "FAILED_POSTENTRY_LABEL_ARTIFACT_PRESENT:" + cid)
+    journal = read(journal_path)
+    need(journal.get("schema") == "APCD_GPU_RUNNER_D6_M05_ORPHAN_CLOSEOUT_V1_HASH_CHAIN"
+         and journal.get("claim_sha256") == claim_sha, "FAILED_POSTENTRY_JOURNAL_IDENTITY_INVALID:" + cid)
+    records = journal.get("records")
+    need(isinstance(records, list) and tuple(x.get("event") for x in records) == FAILED_POSTENTRY_EVENT_ORDER,
+         "FAILED_POSTENTRY_JOURNAL_EVENT_ORDER_INVALID:" + cid)
+    previous = None
+    for seq, record in enumerate(records, 1):
+        body = dict(record); saved = body.pop("record_sha256", None)
+        need(record.get("sequence") == seq and record.get("previous_record_sha256") == previous
+             and saved == runner_canonical_sha(body), "FAILED_POSTENTRY_JOURNAL_CHAIN_INVALID:" + cid)
+        previous = saved
+    need(journal.get("chain_head_sha256") == previous, "FAILED_POSTENTRY_JOURNAL_HEAD_INVALID:" + cid)
+    events = {x["event"]: x.get("payload", {}) for x in records}
+    status_sha = sha(status_path); release = events["RELEASE_READY"]
+    need(events["DISPOSITION_WRITTEN"].get("disposition_sha256") == expected["disposition_sha256"]
+         and events["DISPOSITION_WRITTEN"].get("recovery_fence_id") == fence
+         and events["STATUS_TERMINALIZED"].get("status_sha256") == status_sha
+         and events["STATUS_TERMINALIZED"].get("disposition_sha256") == expected["disposition_sha256"]
+         and events["STATUS_TERMINALIZED"].get("solver_invocations") == 1
+         and events["STATUS_TERMINALIZED"].get("automatic_replay_count") == 0,
+         "FAILED_POSTENTRY_JOURNAL_STATUS_LINK_INVALID:" + cid)
+    registry_terminal = events["REGISTRY_TERMINALIZED"]
+    need(registry_terminal.get("disposition_sha256") == expected["disposition_sha256"]
+         and registry_terminal.get("solver_invocations") == 1
+         and registry_terminal.get("automatic_replay_count") == 0
+         and release.get("identity") == target
+         and release.get("control_snapshot", {}).get("health_status") == "PASS"
+         and release.get("control_snapshot", {}).get("new_entry_hold") == 0
+         and release.get("control_snapshot", {}).get("active_hold_count") == 0
+         and release.get("process_snapshot", {}).get("available") is True
+         and release.get("process_snapshot", {}).get("live_related") == []
+         and release.get("truth_snapshot", {}).get("truth_available") is False,
+         "FAILED_POSTENTRY_RELEASE_EVIDENCE_INVALID:" + cid)
+    need(events["ACTIVE_MARKER_RELEASED"].get("marker") == "active_run.json"
+         and events["ACTIVE_MARKER_RELEASED"].get("result") == "ARCHIVED"
+         and events["LOCK_RELEASED"].get("marker") == ".runner.lock"
+         and events["LOCK_RELEASED"].get("result") == "ARCHIVED"
+         and events["LOCK_RELEASED"].get("registry_target_state") == "FAILED_POSTENTRY"
+         and events["LOCK_RELEASED"].get("solver_entry_count") == 1
+         and events["LOCK_RELEASED"].get("automatic_replay_count") == 0
+         and events["LOCK_RELEASED"].get("status_sha256") == status_sha,
+         "FAILED_POSTENTRY_SLOT_RELEASE_JOURNAL_INVALID:" + cid)
+    return {
+        "case_id": cid, "attempt_id": expected["attempt_id"], "run_id": expected["run_id"],
+        "phase": "FAILED_POSTENTRY_NO_TRUTH", "entry_consumed": True, "solver_invocations": 1,
+        "automatic_replay_count": 0, "truth_available": False,
+        "postentry_disposition_path": str(disposition_path),
+        "postentry_disposition_sha256": expected["disposition_sha256"],
+        "postentry_journal_path": str(journal_path), "postentry_journal_sha256": expected["journal_sha256"],
+        "postentry_claim_sha256": claim_sha, "recovery_fence_id": fence,
+        "runner_status_sha256": status_sha, "runner_slot_released": True,
+    }
+
+
+def _assert_failed_postentry_recorded(ledger, evidence):
+    cid = evidence["case_id"]; record = ledger.get("case_records", {}).get(cid)
+    need(isinstance(record, dict) and record.get("phase") == "FAILED_POSTENTRY_NO_TRUTH"
+         and record.get("run_id") == evidence["run_id"] and record.get("entry_consumed") is True
+         and record.get("postentry_closeout_evidence") == evidence,
+         "FAILED_POSTENTRY_LEDGER_RECORD_MISSING_OR_MISMATCH:" + cid)
+    need(cid in ledger.get("entered_case_ids", []) and cid not in ledger.get("truth_valid_case_ids", [])
+         and cid not in ledger.get("labels_valid_case_ids", []), "FAILED_POSTENTRY_LEDGER_MEMBERSHIP_INVALID:" + cid)
+    matches = [x for x in ledger.get("failed_or_isolated_cases", [])
+               if isinstance(x, dict) and x.get("case_id") == cid]
+    need(len(matches) == 1 and matches[0].get("run_id") == evidence["run_id"]
+         and matches[0].get("phase") == evidence["phase"]
+         and matches[0].get("entry_consumed") is True
+         and matches[0].get("solver_invocations") == 1
+         and matches[0].get("automatic_replay_count") == 0
+         and matches[0].get("truth_available") is False
+         and matches[0].get("postentry_disposition_sha256") == evidence["postentry_disposition_sha256"]
+         and matches[0].get("postentry_journal_sha256") == evidence["postentry_journal_sha256"]
+         and matches[0].get("recovery_fence_id") == evidence["recovery_fence_id"],
+         "FAILED_POSTENTRY_ISOLATION_RECORD_MISSING_OR_MISMATCH:" + cid)
+
+
+def record_failed_postentry_recovery(ledger, current, evidence):
+    cid = evidence["case_id"]; expected = FAILED_POSTENTRY_AUTHORITY
+    need(cid == expected["case_id"] and current.get("case_id") == cid
+         and current.get("run_id") == evidence["run_id"] == expected["run_id"]
+         and current.get("sequence_index") == 11 and current.get("phase") == "RUN_ONE_IN_PROGRESS",
+         "FAILED_POSTENTRY_CURRENT_CASE_IDENTITY_MISMATCH:" + cid)
+    records = ledger.get("case_records")
+    need(isinstance(records, dict) and isinstance(records.get(cid), dict), "FAILED_POSTENTRY_CASE_RECORD_MISSING:" + cid)
+    record = records[cid]
+    need(record.get("run_id") == evidence["run_id"]
+         and record.get("sequence_index") == current.get("sequence_index")
+         and record.get("phase") == "RUN_ONE_IN_PROGRESS", "FAILED_POSTENTRY_CASE_RECORD_IDENTITY_MISMATCH:" + cid)
+    need(ledger.get("entered_count") == 11 and ledger.get("truth_valid_count") == 10
+         and ledger.get("labels_valid_count") == 10 and ledger.get("automatic_replay_count") == 0
+         and ledger.get("training_fits") == 0 and ledger.get("p_scale_fits") == 0
+         and ledger.get("confirmation_response_access_count") == 0,
+         "FAILED_POSTENTRY_LEDGER_COUNTERS_MISMATCH:" + cid)
+    need(cid not in ledger.get("truth_valid_case_ids", []) and cid not in ledger.get("labels_valid_case_ids", []),
+         "FAILED_POSTENTRY_ALREADY_HAS_TRUTH_OR_LABELS:" + cid)
+    existing = [x for x in ledger.get("failed_or_isolated_cases", [])
+                if isinstance(x, dict) and x.get("case_id") == cid]
+    need(len(existing) <= 1, "FAILED_POSTENTRY_DUPLICATE_ISOLATION_RECORD:" + cid)
+    if existing:
+        need(existing[0].get("run_id") == evidence["run_id"]
+             and existing[0].get("postentry_disposition_sha256") == evidence["postentry_disposition_sha256"]
+             and existing[0].get("postentry_journal_sha256") == evidence["postentry_journal_sha256"]
+             and existing[0].get("recovery_fence_id") == evidence["recovery_fence_id"],
+             "FAILED_POSTENTRY_EXISTING_ISOLATION_MISMATCH:" + cid)
+    else:
+        ledger.setdefault("failed_or_isolated_cases", []).append({
+            "case_id": cid, "attempt_id": evidence["attempt_id"], "run_id": evidence["run_id"],
+            "sequence_index": current["sequence_index"], "phase": evidence["phase"],
+            "entry_consumed": True, "solver_invocations": 1, "automatic_replay_count": 0,
+            "truth_available": False, "postentry_disposition_sha256": evidence["postentry_disposition_sha256"],
+            "postentry_journal_sha256": evidence["postentry_journal_sha256"],
+            "recovery_fence_id": evidence["recovery_fence_id"], "recorded_at_utc": now(),
+        })
+    record.update({"phase": evidence["phase"], "entry_consumed": True,
+                   "postentry_closeout_evidence": evidence, "runner_status_sha256": evidence["runner_status_sha256"],
+                   "postentry_disposition_sha256": evidence["postentry_disposition_sha256"],
+                   "postentry_journal_sha256": evidence["postentry_journal_sha256"],
+                   "recovery_fence_id": evidence["recovery_fence_id"], "truth_available": False,
+                   "automatic_replay_count": 0, "terminalized_at_utc": now()})
+    ledger["current_case"] = None
+
+
 def reconcile(ids, labels):
     path, rr = runner_registry()
     allowed = set(ids)
     foreign = [r for r in rr["runs"] if str(r.get("case_id", "")).startswith(
         ("K6LDA1_DEV_", "K6GDP2_DEV_")) and r.get("case_id") not in allowed]
     need(not foreign, "UNEXPECTED_K6_RUNNER_REGISTRY_ROWS")
-    done, entered = {}, []
+    done, entered, failed = {}, [], {}
     for cid in ids:
         rows = rows_for(rr, cid)
         need(len(rows) <= 1, "DUPLICATE_RUNNER_ENTRY:" + cid)
@@ -214,6 +431,9 @@ def reconcile(ids, labels):
         row, state = rows[0], runner_status(rows[0], cid)
         if state.get("solver_entered") is True:
             entered.append(cid)
+        if state.get("state") == "FAILED_POSTENTRY":
+            failed[cid] = verify_failed_postentry_closeout(row, cid)
+            continue
         need(state.get("state") == "DONE" and state.get("solver_invocations") == 1
              and state.get("replay_count", 0) == 0, "ENTERED_CASE_NEEDS_AUDIT:" + cid)
         run = Path(row["run_dir"])
@@ -225,7 +445,7 @@ def reconcile(ids, labels):
              "RUNNER_VALIDATION_NOT_PASS:" + cid)
         done[cid] = row
     need(set(INITIAL).issubset(done) and set(INITIAL).issubset(labels), "INITIAL_CASES_NOT_RECONCILED")
-    return path, rr, done, entered
+    return path, rr, done, entered, failed
 
 
 def record_ingest(cid, case, row, ingest):
@@ -683,17 +903,18 @@ def main():
     inputs = load_inputs()
     status, budget, registry, ids, manifest, qsha, ingest, ctrl, adapter = inputs
     labels = initial_labels()
-    _, rr, done, entered = reconcile(ids, labels)
+    _, rr, done, entered, failed = reconcile(ids, labels)
     queue_ids = [cid for cid in ids if cid not in INITIAL]
     if not args.execute:
         existing_ledger = read(LEDGER) if LEDGER.exists() else {}
         labeled = set(labels) | set(existing_ledger.get("labels_valid_case_ids", []))
-        first = next((cid for cid in queue_ids if cid not in done or cid not in labeled), None)
+        first = next((cid for cid in queue_ids
+                      if cid not in entered or (cid in done and cid not in labeled)), None)
         case_status = status.get("cases", {}).get(first, {})
         print(json.dumps({"mode": "DRY_RUN_NO_SOLVER", "queue_manifest_sha256": qsha,
             "frozen_total": 128, "actual_runner_entries": len(entered),
             "actual_done_truth": len(done), "initial_labels": len(labels),
-            "queue_cases_remaining": sum(1 for cid in queue_ids if cid not in done),
+            "queue_cases_remaining": sum(1 for cid in queue_ids if cid not in entered),
             "next_case": first, "next_preflight_status": case_status.get("status"),
             "preflight_result_sha256": case_status.get("preflight_result_sha256"),
             "training_fits": 0, "p_scale_fits": 0, "confirmation_access": 0,
@@ -711,6 +932,19 @@ def main():
     ledger["authorized_development_case_count"] = 128
     ledger["initial_label_evidence"] = labels
     update_counts(ledger, ids, runner_registry()[1])
+    recovered_failed_current = False
+    for failed_cid, evidence in failed.items():
+        current_for_failure = ledger.get("current_case")
+        if isinstance(current_for_failure, dict) and current_for_failure.get("case_id") == failed_cid:
+            record_failed_postentry_recovery(ledger, current_for_failure, evidence)
+            recovered_failed_current = True
+        else:
+            _assert_failed_postentry_recorded(ledger, evidence)
+    if recovered_failed_current:
+        status["current_case"] = None
+        status["queue_phase"] = "QUEUE_ACTIVE"
+        status["last_updated_utc"] = now()
+        write(BATCH, status)
     current = ledger.get("current_case")
     if isinstance(current, dict) and current.get("case_id"):
         cid = current["case_id"]
@@ -744,6 +978,8 @@ def main():
           " done_truth=" + str(len(done)) + " initial_labels=3 remaining=" +
           str(128 - len(entered)) + " queue_sha256=" + qsha, flush=True)
     for i, cid in enumerate(queue_ids, start=1):
+        if cid in failed:
+            continue
         current_rr = runner_registry()[1]
         rows = rows_for(current_rr, cid)
         if rows:
