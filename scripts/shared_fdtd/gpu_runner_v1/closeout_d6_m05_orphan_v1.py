@@ -336,7 +336,9 @@ def _validate_identity(root):
         raise CloseoutBlocked("PRE_ENTRY_PROOF_HASH_MISMATCH")
     if proof.get("run_id") != RUN_ID or proof.get("result") != "PASS":
         raise CloseoutBlocked("PRE_ENTRY_PROOF_IDENTITY_OR_RESULT_MISMATCH")
-    if proof.get("global_entry_control", {}).get("generation") != 27 or status.get("global_entry_control_generation") != 27:
+    proof_generation = proof.get("global_entry_control", {}).get("control_generation")
+    status_generation = status.get("global_entry_control_generation", proof_generation)
+    if proof_generation != 27 or status_generation != proof_generation:
         raise CloseoutBlocked("ENTRY_CONTROL_GENERATION_MISMATCH")
     expected_fsp_sha = manifest.get("pre_fsp_sha256")
     if not expected_fsp_sha or _sha(_run_dir(root) / "run.fsp") != expected_fsp_sha:

@@ -44,7 +44,6 @@ class D6M05OrphanCloseoutTests(unittest.TestCase):
                 "processes": [{"pid": 202}],
             },
             "pre_entry_revalidation_sha256": None,
-            "global_entry_control_generation": 27,
             "pre_fsp_sha256": fsp_sha,
             "source_pre_fsp_sha256": fsp_sha,
             "staged_pre_fsp_sha256": fsp_sha,
@@ -58,7 +57,7 @@ class D6M05OrphanCloseoutTests(unittest.TestCase):
             "physical_contract_sha256": "c" * 64,
         }
         self._write_json(self.run_dir / "pre_entry_revalidation.json", {
-            "run_id": closeout.RUN_ID, "result": "PASS", "global_entry_control": {"generation": 27},
+            "run_id": closeout.RUN_ID, "result": "PASS", "global_entry_control": {"control_generation": 27},
             "source_fsp_sha256": fsp_sha, "staged_fsp_sha256": fsp_sha,
             "physical_contract_sha256": "c" * 64,
         })
@@ -160,6 +159,18 @@ class D6M05OrphanCloseoutTests(unittest.TestCase):
             self._run()
         self.assertTrue((self.root / ".runner.lock").exists())
         self.assertFalse(closeout._closeout_dir(self.root).exists())
+
+    def test_actual_control_generation_field_is_enforced(self):
+        proof_path = self.run_dir / "pre_entry_revalidation.json"
+        proof = closeout._read_json(proof_path)
+        proof["global_entry_control"]["control_generation"] = 26
+        self._write_json(proof_path, proof)
+        status_path = self.run_dir / "status.json"
+        status = closeout._read_json(status_path)
+        status["pre_entry_revalidation_sha256"] = closeout._sha(proof_path)
+        self._write_json(status_path, status)
+        with self.assertRaisesRegex(closeout.CloseoutBlocked, "ENTRY_CONTROL_GENERATION_MISMATCH"):
+            closeout._validate_identity(self.root)
 
     def test_active_hold_blocks_before_claim(self):
         with self.assertRaisesRegex(closeout.CloseoutBlocked, "ACTIVE_OR_UNHEALTHY_GLOBAL_HOLD"):
