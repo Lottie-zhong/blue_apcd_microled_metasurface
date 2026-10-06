@@ -341,9 +341,14 @@ def _validate_identity(root):
     if proof_generation != 27 or status_generation != proof_generation:
         raise CloseoutBlocked("ENTRY_CONTROL_GENERATION_MISMATCH")
     expected_fsp_sha = manifest.get("pre_fsp_sha256")
-    if not expected_fsp_sha or _sha(_run_dir(root) / "run.fsp") != expected_fsp_sha:
-        raise CloseoutBlocked("RUN_FSP_HASH_MISMATCH")
-    if any(status.get(k) != expected_fsp_sha for k in ("pre_fsp_sha256", "source_pre_fsp_sha256", "staged_pre_fsp_sha256")):
+    source_fsp_path = manifest.get("pre_fsp_path")
+    if not expected_fsp_sha or not source_fsp_path:
+        raise CloseoutBlocked("MANIFEST_PRE_FSP_IDENTITY_MISSING")
+    if not pathlib.Path(source_fsp_path).is_file() or _sha(source_fsp_path) != expected_fsp_sha:
+        raise CloseoutBlocked("SOURCE_PRE_FSP_HASH_MISMATCH")
+    if not (_run_dir(root) / "run.fsp").is_file():
+        raise CloseoutBlocked("POST_RUN_FSP_MISSING")
+    if any(k in status and status.get(k) != expected_fsp_sha for k in ("pre_fsp_sha256", "source_pre_fsp_sha256", "staged_pre_fsp_sha256")):
         raise CloseoutBlocked("STATUS_FSP_HASH_MISMATCH")
     if proof.get("physical_contract_sha256") != manifest.get("physical_contract_sha256"):
         raise CloseoutBlocked("MANIFEST_CONTRACT_HASH_MISMATCH")

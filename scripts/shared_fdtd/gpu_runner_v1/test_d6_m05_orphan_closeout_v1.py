@@ -20,7 +20,9 @@ class D6M05OrphanCloseoutTests(unittest.TestCase):
         self.ledger = self.root / "ledger.json"
         self._write_ledger(as_list=False)
         (self.run_dir / "run.fsp").write_bytes(b"setup")
-        fsp_sha = closeout._sha(self.run_dir / "run.fsp")
+        self.source_fsp = self.run_dir / "source_runtime.fsp"
+        self.source_fsp.write_bytes(b"setup")
+        fsp_sha = closeout._sha(self.source_fsp)
         self._write_json(self.run_dir / "setup_validation.json", {"result": "PASS"})
         setup_sha = closeout._sha(self.run_dir / "setup_validation.json")
         self.lock = {
@@ -53,6 +55,7 @@ class D6M05OrphanCloseoutTests(unittest.TestCase):
             "case_id": closeout.CASE_ID,
             "attempt_id": closeout.ATTEMPT_ID,
             "run_id": closeout.RUN_ID,
+            "pre_fsp_path": str(self.source_fsp),
             "pre_fsp_sha256": fsp_sha,
             "physical_contract_sha256": "c" * 64,
         }
@@ -171,6 +174,22 @@ class D6M05OrphanCloseoutTests(unittest.TestCase):
         self._write_json(status_path, status)
         with self.assertRaisesRegex(closeout.CloseoutBlocked, "ENTRY_CONTROL_GENERATION_MISMATCH"):
             closeout._validate_identity(self.root)
+
+    def test_post_solver_fsp_may_differ_from_pre_entry_source_fsp(self):
+        post_fsp = b"solver-updated-post-fsp"
+        (self.run_dir / "run.fsp").write_bytes(post_fsp)
+        result = self._run()
+        self.assertEqual(result["result"], "CLOSED")
+        self.assertEqual(closeout._sha(self.run_dir / "run.fsp"), closeout._sha_bytes(post_fsp))
+
+    def test_run_inventory_change_after_claim_blocks_release(self):
+        with self.assertRaises(closeout.InjectedCloseoutCrash):
+            self._run(fault_after="after_disposition_write")
+        (self.run_dir / "run.fsp").write_bytes(b"changed-after-claim")
+        with self.assertRaisesRegex(closeout.CloseoutBlocked, "RUN_INVENTORY_CHANGED_FROM_FRESH_CLAIM"):
+            self._run()
+        self.assertTrue((self.root / ".runner.lock").exists())
+        self.assertTrue((self.root / "active_run.json").exists())
 
     def test_active_hold_blocks_before_claim(self):
         with self.assertRaisesRegex(closeout.CloseoutBlocked, "ACTIVE_OR_UNHEALTHY_GLOBAL_HOLD"):
