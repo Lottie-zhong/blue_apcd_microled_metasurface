@@ -344,8 +344,8 @@ def _preentry_fixture(tmp_path, monkeypatch):
         ("STATUS_TERMINALIZED", dict(zero, disposition_sha256=disposition_sha, fence_sha256=fence_sha, status_sha256=status_sha)),
         ("REGISTRY_TERMINALIZATION_INTENT", dict(zero, disposition_sha256=disposition_sha, fence_sha256=fence_sha)),
         ("REGISTRY_TERMINALIZED", dict(zero, disposition_sha256=disposition_sha, fence_sha256=fence_sha, registry_sha256=registry_sha)),
-        ("RELEASE_READY", dict(zero, status_sha256=status_sha, registry_sha256=registry_sha, lock_archive_path=str(archive_path))),
-        ("LOCK_RELEASE_INTENT", dict(zero, archive_path=str(archive_path), original_lock_sha256=lock_sha)),
+        ("RELEASE_READY", dict(zero, status_sha256=status_sha, registry_sha256=registry_sha, lock_archive_path=str(archive_path.resolve()))),
+        ("LOCK_RELEASE_INTENT", dict(zero, archive_path=str(archive_path.resolve()), original_lock_sha256=lock_sha)),
     ]
     for sequence, (event_type, details) in enumerate(entries, 1):
         event = {"sequence": sequence, "event_type": event_type, "timestamp_unix": 123.0,
@@ -474,6 +474,58 @@ def _write_done_case(root, cid):
     return row
 
 
+def _write_bound_ingest_artifacts(report, row):
+    run = Path(row["run_dir"])
+    cid, attempt_id, run_id = row["case_id"], row["attempt_id"], row["run_id"]
+    contract_sha = "a" * 64
+    geometry = [220, 195, 210, 150, 140, 215]
+    manifest_path = _json(run / "manifest.json", {"case_id": cid, "attempt_id": attempt_id,
+        "run_id": run_id, "geometry": geometry, "physical_contract_sha256": contract_sha})
+    truth_path, fsp_path = run / "truth.h5", run / "run.fsp"
+    truth_sha, fsp_sha = sq.sha(truth_path), sq.sha(fsp_path)
+    validation_path = _json(run / "validation.json", {"fresh_load_verified": True,
+        "monitors_valid": True, "state_valid": True, "scientific_valid": True,
+        "run_id": run_id, "truth_h5": str(truth_path), "truth_h5_sha256": truth_sha,
+        "run_fsp_sha256": fsp_sha})
+    _json(run / "status.json", {"case_id": cid, "attempt_id": attempt_id, "run_id": run_id,
+        "state": "DONE", "solver_entered": True, "solver_invocations": 1, "replay_count": 0})
+    _json(run / "hashes.json", {"manifest_sha256": sq.sha(manifest_path),
+        "truth_h5_sha256": truth_sha, "run_fsp_sha256": fsp_sha,
+        "validation_sha256": sq.sha(validation_path)})
+    descriptors = {}
+    for key, rel in (("orders_json", "orders/orders.json"), ("raw_metadata", "raw/raw.json"),
+                     ("raw_npz", "raw/raw.npz"), ("state_metadata", "state/state.json"),
+                     ("state_npz", "state/state.npz")):
+        p = run / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes((key + " fixture").encode())
+        descriptors[key] = {"path": str(p), "sha256": sq.sha(p)}
+    label_path = report / ("INGESTED_TRUTH_" + cid + "_V1.npz")
+    label_path.parent.mkdir(parents=True, exist_ok=True)
+    label_path.write_bytes(b"synthetic label fixture")
+    result_path = report / ("INGEST_RESULT_" + cid + "_V1.json")
+    result = {"schema": "COUPLING_K6_V2_DEVELOPMENT_CASE_INGEST_RESULT_V1",
+        "case_id": cid, "attempt_id": attempt_id, "run_id": run_id,
+        "status": "PASS", "role": "DEVELOPMENT_LOCAL_AXIS", "ordered_D_nm": geometry,
+        "solver_entered": True, "solver_invocations": 1, "replay_count": 0,
+        "input_artifacts": {"case_id": cid, "attempt_id": attempt_id, "role": "DEVELOPMENT_LOCAL_AXIS",
+            "ordered_D_nm": geometry, "status": "DONE", "solver_invocations": 1, "replay_count": 0,
+            "physical_contract_sha256": contract_sha,
+            "source_manifest": {"path": str(manifest_path), "sha256": sq.sha(manifest_path)},
+            "truth_h5": {"path": str(truth_path), "sha256": truth_sha}, **descriptors},
+        "truth_provenance": {"source_manifest_sha256": sq.sha(manifest_path),
+            "physical_contract_sha256": contract_sha,
+            "orders_sha256": descriptors["orders_json"]["sha256"],
+            "raw_metadata_sha256": descriptors["raw_metadata"]["sha256"],
+            "raw_npz_sha256": descriptors["raw_npz"]["sha256"],
+            "state_metadata_sha256": descriptors["state_metadata"]["sha256"],
+            "state_npz_sha256": descriptors["state_npz"]["sha256"]},
+        "truth_artifact": {"path": str(label_path), "sha256": sq.sha(label_path)}}
+    _json(result_path, result)
+    row["state"] = "DONE"
+    return result_path, label_path
+
+
 def test_reconcile_accepts_only_one_fresh_same_attempt_run_after_preentry(tmp_path, monkeypatch):
     cid = "K6LDA1_DEV_D6_P05"
     old_run_id = "K6V2_D6P05_20261006T063951Z_c6f073e5"
@@ -487,7 +539,7 @@ def test_reconcile_accepts_only_one_fresh_same_attempt_run_after_preentry(tmp_pa
     evidence = {"case_id": cid, "attempt_id": "attempt_001", "run_id": old_run_id,
         "phase": "FAILED_PREENTRY_NO_ENTRY", "entry_consumed": False,
         "solver_invocations": 0, "automatic_replay_count": 0, "truth_available": False}
-    monkeypatch.setattr(sq, "verify_failed_preentry_recovery", lambda row, case: evidence)
+    monkeypatch.setattr(sq, "verify_failed_preentry_recovery", lambda row, case, require_slot_free=False, fresh_success_row=None: evidence)
     rows, states = [], {}
     for name in initial:
         row = _write_done_case(root, name)
@@ -509,6 +561,47 @@ def test_reconcile_accepts_only_one_fresh_same_attempt_run_after_preentry(tmp_pa
     rr["runs"].append({"case_id": cid, "attempt_id": "attempt_002", "run_id": "unauthorized"})
     with pytest.raises(sq.StopQueue, match="FAILED_PREENTRY_UNAUTHORIZED_ATTEMPT"):
         sq.reconcile(ids, set(initial))
+
+
+def test_reconcile_accepts_success_labels_only_when_bound_to_fresh_run(tmp_path, monkeypatch):
+    old_row, cid, _, _, _ = _preentry_fixture(tmp_path, monkeypatch)
+    initial = ("INIT_A", "INIT_B", "INIT_C")
+    monkeypatch.setattr(sq, "INITIAL", initial)
+    root = Path(sq.RUN_ROOT)
+    rows = []
+    for name in initial:
+        row = _write_done_case(root, name)
+        row["state"] = "DONE"
+        rows.append(row)
+    fresh = _write_done_case(root, cid)
+    _, label_path = _write_bound_ingest_artifacts(Path(sq.REPORT), fresh)
+    rows.extend((old_row, fresh))
+    registry = {"runs": rows}
+    monkeypatch.setattr(sq, "runner_registry", lambda: (tmp_path / "registry.json", registry))
+    labels = set(initial) | {cid}
+    _, _, done, entered, failures = sq.reconcile(list(initial) + [cid], labels)
+    assert set(done) == set(initial) | {cid}
+    assert cid in entered
+    assert failures[cid]["run_id"] == sq.FAILED_PREENTRY_AUTHORITY["run_id"]
+    result_path = Path(sq.REPORT) / ("INGEST_RESULT_" + cid + "_V1.json")
+    valid = json.loads(result_path.read_text(encoding="utf-8"))
+    assert sq.verify_preentry_case_label_binding(cid, "attempt_001",
+        sq.FAILED_PREENTRY_AUTHORITY["run_id"], fresh)["label_sha256"] == sq.sha(label_path)
+    bad = copy.deepcopy(valid); bad["run_id"] = sq.FAILED_PREENTRY_AUTHORITY["run_id"]
+    _json(result_path, bad)
+    with pytest.raises(sq.StopQueue, match="FAILED_PREENTRY_LABEL_RESULT_IDENTITY_MISMATCH"):
+        sq.verify_preentry_case_label_binding(cid, "attempt_001", sq.FAILED_PREENTRY_AUTHORITY["run_id"], fresh)
+    bad = copy.deepcopy(valid); bad["input_artifacts"]["truth_h5"]["sha256"] = "0" * 64
+    _json(result_path, bad)
+    with pytest.raises(sq.StopQueue, match="FAILED_PREENTRY_LABEL_TRUTH_SOURCE_MISMATCH"):
+        sq.verify_preentry_case_label_binding(cid, "attempt_001", sq.FAILED_PREENTRY_AUTHORITY["run_id"], fresh)
+    bad = copy.deepcopy(valid); bad["truth_provenance"]["source_manifest_sha256"] = "0" * 64
+    _json(result_path, bad)
+    with pytest.raises(sq.StopQueue, match="FAILED_PREENTRY_LABEL_SOURCE_MANIFEST_MISMATCH"):
+        sq.verify_preentry_case_label_binding(cid, "attempt_001", sq.FAILED_PREENTRY_AUTHORITY["run_id"], fresh)
+    old_as_success = dict(old_row, state="DONE")
+    with pytest.raises(sq.StopQueue, match="FAILED_PREENTRY_LABEL_RUN_ID_MISMATCH"):
+        sq.verify_preentry_case_label_binding(cid, "attempt_001", sq.FAILED_PREENTRY_AUTHORITY["run_id"], old_as_success)
 
 
 def test_fresh_run_id_is_distinct_from_recovered_run_and_uses_same_case(tmp_path, monkeypatch):

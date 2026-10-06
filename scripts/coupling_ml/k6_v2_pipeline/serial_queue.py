@@ -470,7 +470,110 @@ def record_failed_postentry_recovery(ledger, current, evidence):
 
 
 
-def verify_failed_preentry_recovery(row, cid, require_slot_free=False):
+def verify_preentry_case_label_binding(cid, attempt_id, failed_run_id, fresh_success_row=None):
+    result_path = REPORT / ("INGEST_RESULT_" + cid + "_V1.json")
+    label_path = REPORT / ("INGESTED_TRUTH_" + cid + "_V1.npz")
+    result_exists, label_exists = result_path.exists(), label_path.exists()
+    if not result_exists and not label_exists:
+        return None
+    need(result_exists and label_exists, "FAILED_PREENTRY_LABEL_PAIR_INCOMPLETE:" + cid)
+    need(not result_path.is_symlink() and not label_path.is_symlink(),
+         "FAILED_PREENTRY_LABEL_SYMLINK:" + cid)
+    need(isinstance(fresh_success_row, dict), "FAILED_PREENTRY_LABEL_WITHOUT_FRESH_RUN:" + cid)
+    run_id = fresh_success_row.get("run_id")
+    need(fresh_success_row.get("case_id") == cid
+         and fresh_success_row.get("attempt_id") == attempt_id
+         and isinstance(run_id, str) and run_id and run_id != failed_run_id
+         and fresh_success_row.get("state") in (None, "DONE"),
+         "FAILED_PREENTRY_LABEL_RUN_ID_MISMATCH:" + cid)
+    run_dir = Path(fresh_success_row.get("run_dir", ""))
+    expected_dir = RUN_ROOT / "runs" / cid / attempt_id / run_id
+    need(not run_dir.is_symlink() and run_dir.resolve() == expected_dir.resolve() and run_dir.is_dir(),
+         "FAILED_PREENTRY_LABEL_RUN_DIRECTORY_MISMATCH:" + cid)
+    manifest_path, status_path = run_dir / "manifest.json", run_dir / "status.json"
+    validation_path, hashes_path = run_dir / "validation.json", run_dir / "hashes.json"
+    truth_path, fsp_path = run_dir / "truth.h5", run_dir / "run.fsp"
+    needed = (manifest_path, status_path, validation_path, hashes_path, truth_path, fsp_path)
+    need(all(p.is_file() and not p.is_symlink() for p in needed),
+         "FAILED_PREENTRY_LABEL_RUN_ARTIFACT_MISSING:" + cid)
+    manifest, status = read(manifest_path), runner_status(fresh_success_row, cid)
+    validation, hashes = read(validation_path), read(hashes_path)
+    identity = {"case_id": cid, "attempt_id": attempt_id, "run_id": run_id}
+    need({k: manifest.get(k) for k in identity} == identity
+         and {k: status.get(k) for k in identity} == identity
+         and status.get("state") == "DONE" and status.get("solver_entered") is True
+         and status.get("solver_invocations") == 1 and status.get("replay_count", 0) == 0,
+         "FAILED_PREENTRY_LABEL_RUN_STATUS_MISMATCH:" + cid)
+    need(all(validation.get(k) is True for k in
+             ("fresh_load_verified", "monitors_valid", "state_valid", "scientific_valid"))
+         and validation.get("run_id") == run_id
+         and Path(validation.get("truth_h5", "")).resolve() == truth_path.resolve(),
+         "FAILED_PREENTRY_LABEL_RUN_VALIDATION_MISMATCH:" + cid)
+    truth_sha, manifest_sha = sha(truth_path), sha(manifest_path)
+    need(validation.get("truth_h5_sha256") == truth_sha
+         and validation.get("run_fsp_sha256") == sha(fsp_path)
+         and hashes.get("truth_h5_sha256") == truth_sha
+         and hashes.get("manifest_sha256") == manifest_sha
+         and hashes.get("validation_sha256") == sha(validation_path)
+         and hashes.get("run_fsp_sha256") == sha(fsp_path),
+         "FAILED_PREENTRY_LABEL_RUN_HASH_MISMATCH:" + cid)
+    result = read(result_path)
+    label_sha = sha(label_path)
+    need(result.get("schema") == "COUPLING_K6_V2_DEVELOPMENT_CASE_INGEST_RESULT_V1"
+         and {k: result.get(k) for k in identity} == identity
+         and result.get("status") == "PASS" and result.get("solver_entered") is True
+         and result.get("solver_invocations") == 1 and result.get("replay_count") == 0,
+         "FAILED_PREENTRY_LABEL_RESULT_IDENTITY_MISMATCH:" + cid)
+    inputs = result.get("input_artifacts", {})
+    provenance = result.get("truth_provenance", {})
+    need({k: inputs.get(k) for k in ("case_id", "attempt_id")} ==
+         {"case_id": cid, "attempt_id": attempt_id}
+         and inputs.get("status") == "DONE" and inputs.get("solver_invocations") == 1
+         and inputs.get("replay_count") == 0,
+         "FAILED_PREENTRY_LABEL_INPUT_IDENTITY_MISMATCH:" + cid)
+    source = inputs.get("source_manifest", {})
+    need(Path(source.get("path", "")).resolve() == manifest_path.resolve()
+         and source.get("sha256") == manifest_sha
+         and provenance.get("source_manifest_sha256") == manifest_sha,
+         "FAILED_PREENTRY_LABEL_SOURCE_MANIFEST_MISMATCH:" + cid)
+    contract_sha = manifest.get("physical_contract_sha256")
+    need(isinstance(contract_sha, str) and inputs.get("physical_contract_sha256") == contract_sha
+         and provenance.get("physical_contract_sha256") == contract_sha,
+         "FAILED_PREENTRY_LABEL_CONTRACT_PROVENANCE_MISMATCH:" + cid)
+    truth_input = inputs.get("truth_h5", {})
+    need(Path(truth_input.get("path", "")).resolve() == truth_path.resolve()
+         and truth_input.get("sha256") == truth_sha,
+         "FAILED_PREENTRY_LABEL_TRUTH_SOURCE_MISMATCH:" + cid)
+    truth_artifact = result.get("truth_artifact", {})
+    need(Path(truth_artifact.get("path", "")).resolve() == label_path.resolve()
+         and truth_artifact.get("sha256") == label_sha,
+         "FAILED_PREENTRY_LABEL_TRUTH_SHA_MISMATCH:" + cid)
+    expected_provenance = {
+        "orders_sha256": "orders_json", "raw_metadata_sha256": "raw_metadata",
+        "raw_npz_sha256": "raw_npz", "state_metadata_sha256": "state_metadata",
+        "state_npz_sha256": "state_npz",
+    }
+    for provenance_key, input_key in expected_provenance.items():
+        descriptor = inputs.get(input_key)
+        recorded = provenance.get(provenance_key)
+        if recorded is None and descriptor is None:
+            continue
+        need(isinstance(descriptor, dict) and descriptor.get("sha256") == recorded,
+             "FAILED_PREENTRY_LABEL_PROVENANCE_MISMATCH:" + cid + ":" + provenance_key)
+        artifact_path = Path(descriptor.get("path", ""))
+        try:
+            artifact_path.resolve().relative_to(run_dir.resolve())
+        except ValueError:
+            need(False, "FAILED_PREENTRY_LABEL_PROVENANCE_PATH_MISMATCH:" + cid + ":" + input_key)
+        need(artifact_path.is_file() and not artifact_path.is_symlink()
+             and sha(artifact_path) == recorded,
+             "FAILED_PREENTRY_LABEL_PROVENANCE_HASH_MISMATCH:" + cid + ":" + input_key)
+    return {"case_id": cid, "attempt_id": attempt_id, "run_id": run_id,
+        "truth_h5_sha256": truth_sha, "source_manifest_sha256": manifest_sha,
+        "label_sha256": label_sha}
+
+
+def verify_failed_preentry_recovery(row, cid, require_slot_free=False, fresh_success_row=None):
     expected = FAILED_PREENTRY_AUTHORITY
     need(cid == expected["case_id"], "UNAUTHORIZED_FAILED_PREENTRY_CASE:" + str(cid))
     need(isinstance(row, dict) and row.get("case_id") == cid
@@ -621,8 +724,7 @@ def verify_failed_preentry_recovery(row, cid, require_slot_free=False):
          and read(run_dir / "validation.json") == {"state": "PENDING"}
          and read(run_dir / "hashes.json") == {"state": "PENDING"},
          "FAILED_PREENTRY_SOLVER_OR_TRUTH_OUTPUT_PRESENT:" + cid)
-    for name in ("INGEST_RESULT_" + cid + "_V1.json", "INGESTED_TRUTH_" + cid + "_V1.npz"):
-        need(not (REPORT / name).exists(), "FAILED_PREENTRY_LABEL_ARTIFACT_PRESENT:" + cid)
+    verify_preentry_case_label_binding(cid, expected["attempt_id"], expected["run_id"], fresh_success_row)
     journal = read(journal_path)
     need(journal.get("schema") == "APCD_GPU_RUNNER_V1_P05_ORPHAN_RECOVERY_JOURNAL_V1"
          and {k: journal.get(k) for k in ("case_id", "attempt_id", "run_id")} ==
@@ -825,9 +927,10 @@ def reconcile(ids, labels):
                          "FAILED_PREENTRY_FIXED_RUN_MISSING_BUT_LEDGER_POINTS_TO_OLD_RUN:" + cid)
                 continue
             need(len(old_rows) == 1, "FAILED_PREENTRY_FIXED_RUN_MISSING_OR_DUPLICATE:" + cid)
-            failed[cid] = verify_failed_preentry_recovery(old_rows[0], cid)
             rows = [r for r in all_rows if r.get("run_id") != FAILED_PREENTRY_AUTHORITY["run_id"]]
             need(len(rows) <= 1, "FAILED_PREENTRY_MULTIPLE_FRESH_RUNS:" + cid)
+            failed[cid] = verify_failed_preentry_recovery(
+                old_rows[0], cid, fresh_success_row=rows[0] if rows else None)
             if not rows:
                 continue
         else:
