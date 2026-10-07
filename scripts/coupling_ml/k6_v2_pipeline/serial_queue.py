@@ -81,6 +81,30 @@ G023_POSTENTRY_AUTHORITY = {
     "runner_lock_archive_sha256": "c10e17415ad3178c9b7e3d6a4fe4dae300ee134f33c5ad2da79a5840705232bc",
     "coupling_ledger_path_sha256": "79da35c8c1fa129527c0828b954dfbcb1b9541e2fc236223c02bd47266bf05f9",
 }
+G024_POSTENTRY_AUTHORITY = {
+    "case_id": "K6GDP2_DEV_G024", "attempt_id": "attempt_001",
+    "run_id": "K6V2_G024_20261007T123943Z_713590ad",
+    "request_id": "cd1c1a59118d2b78510df82906e75d77", "sequence_index": 36,
+    "run_envelope_sha256": "f35ef183a85a525d7155691d18d06e6333e57d9cdde2bd62b2e9a2d8a76503eb",
+    "queue_manifest_file_sha256": "fbcac249c59e3f242e48dfa16a8e92298c98bab48f5fe7256900b8feed10bca7",
+    "queue_manifest_sha256": "ecbb9b32105f5a26adf051d614bef68fcf793e0f089eae391510e6b86a138e32",
+    "input_ledger_sha256": "dbb9883e32b533330c90b3d4eff08b0988468eaf50f49081753e95e92de0d54b",
+    "input_batch_status_sha256": "f93c505e24d9fc299bd3bec54808ede08d83a05104ddbea62864d02b3536e851",
+    "input_controller_status_sha256": "0090880a1f0d5f6a34fbf1a557c0093e506276159c59c9b16c2fd89726eee400",
+    "manifest_sha256": "5fa2b33fb08e34f9d0d5e109bc6cd6f9088247c51e1f363172824e1cce0856fd",
+    "status_sha256": "18e3bd3c1a40b4d839d6711802b425be25586881813895bc212ad2a20254bb02",
+    "claim_file_sha256": "ebcfa076414415fc0b55472fc0847380a65b0c6334a5096ee0f9d0272efcde89",
+    "claim_sha256": "512f67099dcb09e088642b0b4430c6b286367215cde29ddda03c328cf969d649",
+    "disposition_sha256": "82d0b5a3fef0c9a073ad5abfa5acc513cf7c7561eda2049eaef822495ada5a62",
+    "disposition_body_sha256": "16ec21c857b9c2a67191fdb5fe79513fe01fc3ee135d359c44e7bd8dea42bbf3",
+    "journal_file_sha256": "c1567fc88741dc3349a3198d2f12e47d8b9998ff9ab0f33c4baf618e28a55ca9",
+    "journal_sha256": "2a57fb3f06cd3c17ee0362d1115499d76a4a526db424a3fa35599ee497c4954c",
+    "receipt_file_sha256": "4e692dc1130dc70aa87f4fa0d9b8926a28ca3b06f9da86fbf1dbd2e034478b61",
+    "receipt_sha256": "7a1659af4ac1507759c61997a9491b255c4b1a0b3766a421cfc2ae656a0dcf0e",
+    "registry_snapshot_sha256": "2ba5b25d6961a57296d91fc774f6d16e98ac9f270c2815cf42a9ba91306303d9",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "live_boundary_sha256": "67a10d009c898ed9c484566fb36f749929dd614844272647a91095ccdfcb0fa0",
+}
 CONTROLLER_PROTOCOL = "APCD_GPU_RUNNER_V1_QUEUE_CONTROLLER_CLI_V1"
 SCHEMA_CONTROLLER_MANIFEST = "APCD_GPU_RUNNER_V1_COUPLING_QUEUE_CONTROLLER_MANIFEST_V1"
 SCHEMA_CONTROLLER_STATUS = "APCD_GPU_RUNNER_V1_QUEUE_CONTROLLER_STATUS_V1"
@@ -471,6 +495,33 @@ def reconcile_controller_stopped_boundary(controller):
         "state": "STOPPED_RECONCILED", "idempotent": False}
 
 
+def verify_case_scoped_postentry_registry_row(registry, expected, error_prefix):
+    """Verify one immutable failed-run row without pinning the mutable global registry."""
+    need(isinstance(registry, dict) and isinstance(registry.get("runs"), list),
+         error_prefix + "_REGISTRY_SCHEMA_INVALID")
+    identity = (expected["case_id"], expected["attempt_id"], expected["run_id"])
+    rows = [item for item in registry["runs"]
+            if (item.get("case_id"), item.get("attempt_id"), item.get("run_id")) == identity]
+    need(len(rows) == 1, error_prefix + "_REGISTRY_ROW_MISSING_OR_DUPLICATE")
+    row = rows[0]
+    expected_dir = (RUN_ROOT / "runs" / identity[0] / identity[1] / identity[2]).resolve()
+    reported_dir = Path(row.get("run_dir", ""))
+    need(row.get("state") == "FAILED_POSTENTRY" and not reported_dir.is_symlink()
+         and reported_dir.resolve() == expected_dir,
+         error_prefix + "_REGISTRY_ROW_IDENTITY_INVALID")
+    if row.get("solver_invocations") is not None:
+        need(row.get("solver_invocations") == 1, error_prefix + "_REGISTRY_ENTRY_COUNT_INVALID")
+    if row.get("automatic_replay_count") is not None:
+        need(row.get("automatic_replay_count") == 0, error_prefix + "_REGISTRY_REPLAY_COUNT_INVALID")
+    if row.get("postentry_disposition_sha256") is not None:
+        need(row.get("postentry_disposition_sha256") == expected.get("disposition_sha256"),
+             error_prefix + "_REGISTRY_DISPOSITION_MISMATCH")
+    if expected.get("recovery_fence_id") is not None and row.get("postentry_closeout_fence_id") is not None:
+        need(row.get("postentry_closeout_fence_id") == expected["recovery_fence_id"],
+             error_prefix + "_REGISTRY_FENCE_MISMATCH")
+    return row
+
+
 def verify_g023_failed_postentry_closeout(row, cid):
     """Verify the single immutable G023 post-entry closeout receipt."""
     expected = G023_POSTENTRY_AUTHORITY
@@ -626,7 +677,14 @@ def verify_g023_failed_postentry_closeout(row, cid):
          and receipt.get("training_admitted") is False and receipt.get("scientific_valid") is False,
          "G023_POSTENTRY_RECEIPT_CONTENT_INVALID")
     registry_path = RUN_ROOT / "registry.json"
-    need(sha(registry_path) == expected["registry_sha256"], "G023_POSTENTRY_REGISTRY_SHA_MISMATCH")
+    current_registry = read(registry_path)
+    current_row = verify_case_scoped_postentry_registry_row(current_registry, {
+        "case_id": cid, "attempt_id": expected["attempt_id"], "run_id": expected["run_id"],
+        "disposition_sha256": expected["disposition_sha256"],
+        "recovery_fence_id": expected["recovery_fence_id"]}, "G023_POSTENTRY")
+    need(current_row == row, "G023_POSTENTRY_REGISTRY_ROW_CHANGED")
+    # The historical whole-registry digest remains bound by the immutable journal and receipt above;
+    # later case rows may legitimately change the mutable global registry.json digest.
     need(read(QMAN).get("queue_manifest_sha256") == expected["queue_manifest_sha256"]
          and sha(QMAN) == expected["queue_manifest_file_sha256"], "G023_QUEUE_MANIFEST_AUTHORITY_MISMATCH")
     return {
@@ -641,8 +699,136 @@ def verify_g023_failed_postentry_closeout(row, cid):
         "postentry_journal_path": str(journal_path), "postentry_journal_sha256": expected["journal_sha256"],
         "postentry_claim_sha256": expected["claim_sha256"],
         "runner_registry_sha256": expected["registry_sha256"],
+        "runner_registry_current_sha256": sha(registry_path),
         "recovery_fence_id": expected["recovery_fence_id"],
         "runner_status_sha256": expected["status_sha256"], "runner_slot_released": True,
+    }
+
+
+def verify_g024_failed_postentry_closeout(row, cid):
+    """Verify the fixed G024 post-entry closeout receipt without reopening its attempt."""
+    expected = G024_POSTENTRY_AUTHORITY
+    need(cid == expected["case_id"], "UNAUTHORIZED_G024_POSTENTRY_CASE:" + str(cid))
+    target = {"case_id": cid, "attempt_id": expected["attempt_id"], "run_id": expected["run_id"]}
+    need(isinstance(row, dict) and {key: row.get(key) for key in target} == target,
+         "G024_POSTENTRY_IDENTITY_MISMATCH")
+    run_dir = (RUN_ROOT / "runs" / cid / expected["attempt_id"] / expected["run_id"]).resolve()
+    reported = Path(row.get("run_dir", ""))
+    need(not reported.is_symlink() and reported.resolve() == run_dir and run_dir.is_dir(),
+         "G024_POSTENTRY_RUN_DIRECTORY_MISMATCH")
+    manifest_path, status_path = run_dir / "manifest.json", run_dir / "status.json"
+    need(sha(manifest_path) == expected["manifest_sha256"]
+         and sha(status_path) == expected["status_sha256"], "G024_POSTENTRY_RUN_HASH_MISMATCH")
+    manifest, status = read(manifest_path), read(status_path)
+    need({key: manifest.get(key) for key in target} == target
+         and manifest.get("physical_contract_sha256") == expected["physical_contract_sha256"],
+         "G024_POSTENTRY_MANIFEST_INVALID")
+    need({key: status.get(key) for key in target} == target
+         and status.get("state") == "FAILED_POSTENTRY"
+         and status.get("solver_entered") is True and status.get("solver_invocations") == 1
+         and status.get("replay_count", 0) == 0
+         and status.get("failure") == "RunnerError:SOLVER_PROCESS_OBSERVATION_INVALID",
+         "G024_POSTENTRY_STATUS_INVALID")
+    need(row.get("state") == "FAILED_POSTENTRY", "G024_POSTENTRY_REGISTRY_STATE_INVALID")
+
+    closeout = run_dir / "postentry_closeout_v1"
+    claim_path, disposition_path = closeout / "claim.json", closeout / "disposition.json"
+    journal_path, receipt_path = closeout / "journal.json", closeout / "receipt.json"
+    files = (claim_path, disposition_path, journal_path, receipt_path)
+    need(all(path.is_file() and not path.is_symlink() for path in files),
+         "G024_POSTENTRY_RECEIPT_ARTIFACT_MISSING")
+    actual_hashes = {"claim_file_sha256": sha(claim_path), "disposition_sha256": sha(disposition_path),
+        "journal_file_sha256": sha(journal_path), "receipt_file_sha256": sha(receipt_path)}
+    need(all(actual_hashes[key] == expected[key] for key in actual_hashes),
+         "G024_POSTENTRY_RECEIPT_FILE_SHA_MISMATCH")
+    claim, disposition = read(claim_path), read(disposition_path)
+    journal, receipt = read(journal_path), read(receipt_path)
+    claim_body = dict(claim); claim_saved = claim_body.pop("claim_sha256", None)
+    disposition_body = dict(disposition); disposition_saved = disposition_body.pop("disposition_sha256", None)
+    journal_body = dict(journal); journal_saved = journal_body.pop("journal_sha256", None)
+    receipt_body = dict(receipt); receipt_saved = receipt_body.pop("receipt_sha256", None)
+    need(claim_saved == expected["claim_sha256"] == runner_canonical_sha(claim_body)
+         and claim.get("schema") == "APCD_GPU_RUNNER_V1_G024_POSTENTRY_CLOSEOUT_CLAIM_V1"
+         and claim.get("target") == {**target, "request_id": expected["request_id"]},
+         "G024_POSTENTRY_CLAIM_INVALID")
+    need(disposition_saved == expected["disposition_body_sha256"] == runner_canonical_sha(disposition_body)
+         and disposition.get("schema") == "APCD_GPU_RUNNER_V1_G024_POSTENTRY_DISPOSITION_V1"
+         and {key: disposition.get(key) for key in target} == target
+         and disposition.get("request_id") == expected["request_id"]
+         and disposition.get("result") == "FAILED_POSTENTRY_NO_TRUTH"
+         and disposition.get("solver_entry_consumed") is True
+         and disposition.get("solver_invocations") == 1
+         and disposition.get("automatic_replay_count") == 0
+         and disposition.get("truth_available") is False
+         and disposition.get("scientific_valid") is False
+         and disposition.get("training_admitted") is False
+         and disposition.get("controller_queue_resumable") is False
+         and disposition.get("controller_status_sha256") == expected["input_controller_status_sha256"]
+         and disposition.get("coupling_ledger_sha256") == expected["input_ledger_sha256"]
+         and disposition.get("input_hashes", {}).get("registry") == expected["registry_snapshot_sha256"],
+         "G024_POSTENTRY_DISPOSITION_INVALID")
+    need(journal_saved == expected["journal_sha256"] == runner_canonical_sha(journal_body)
+         and journal.get("schema") == "APCD_GPU_RUNNER_V1_G024_POSTENTRY_CLOSEOUT_HASH_CHAIN_V1"
+         and journal.get("claim_sha256") == expected["claim_file_sha256"],
+         "G024_POSTENTRY_JOURNAL_INVALID")
+    records = journal.get("records")
+    event_order = ("LOAD_ONLY_RECOVERABILITY_CHECKED", "FAILED_POSTENTRY_NO_TRUTH_CONFIRMED",
+                   "RUNNER_SLOT_CLOSED_AND_QUEUE_HELD", "COUPLING_LEDGER_LEFT_UNCHANGED")
+    need(isinstance(records, list) and tuple(item.get("event") for item in records) == event_order,
+         "G024_POSTENTRY_JOURNAL_EVENT_ORDER_INVALID")
+    previous = None
+    for sequence, item in enumerate(records, 1):
+        body = dict(item); saved = body.pop("record_sha256", None)
+        need(item.get("sequence") == sequence and item.get("previous_record_sha256") == previous
+             and saved == runner_canonical_sha(body), "G024_POSTENTRY_JOURNAL_CHAIN_INVALID")
+        previous = saved
+    need(journal.get("chain_head_sha256") == previous
+         and records[1].get("payload", {}).get("disposition_sha256") == expected["disposition_sha256"]
+         and records[2].get("payload", {}).get("registry_sha256") == expected["registry_snapshot_sha256"]
+         and records[2].get("payload", {}).get("runner_status_sha256") == expected["status_sha256"]
+         and records[3].get("payload", {}).get("coupling_ledger_sha256") == expected["input_ledger_sha256"],
+         "G024_POSTENTRY_JOURNAL_EVIDENCE_MISMATCH")
+    need(receipt_saved == expected["receipt_sha256"] == runner_canonical_sha(receipt_body)
+         and receipt.get("schema") == "APCD_GPU_RUNNER_V1_G024_POSTENTRY_CLOSEOUT_RECEIPT_V1"
+         and receipt.get("result") == "CLOSED" and receipt.get("disposition") == "FAILED_POSTENTRY_NO_TRUTH"
+         and {key: receipt.get(key) for key in target} == target
+         and receipt.get("request_id") == expected["request_id"]
+         and receipt.get("disposition_sha256") == expected["disposition_sha256"]
+         and receipt.get("journal_sha256") == expected["journal_file_sha256"]
+         and receipt.get("status_sha256") == expected["status_sha256"]
+         and receipt.get("registry_sha256") == expected["registry_snapshot_sha256"]
+         and receipt.get("solver_entry_count") == 1 and receipt.get("solver_invocations") == 1
+         and receipt.get("automatic_replay_count") == 0 and receipt.get("truth_available") is False
+         and receipt.get("training_admitted") is False and receipt.get("scientific_valid") is False,
+         "G024_POSTENTRY_RUNNER_RECEIPT_INVALID")
+    need(not (run_dir / "truth.h5").exists()
+         and read(run_dir / "validation.json") == {"state": "PENDING"}
+         and read(run_dir / "hashes.json") == {"state": "PENDING"},
+         "G024_POSTENTRY_TRUTH_NOT_QUARANTINED")
+    for name in ("INGEST_RESULT_" + cid + "_V1.json", "INGESTED_TRUTH_" + cid + "_V1.npz"):
+        need(not (REPORT / name).exists(), "G024_POSTENTRY_LABEL_ARTIFACT_PRESENT")
+    registry_path, registry = runner_registry()
+    current_row = verify_case_scoped_postentry_registry_row(registry, {
+        "case_id": cid, "attempt_id": expected["attempt_id"], "run_id": expected["run_id"],
+        "disposition_sha256": expected["disposition_sha256"]}, "G024_POSTENTRY")
+    need(current_row == row, "G024_POSTENTRY_REGISTRY_ROW_CHANGED")
+    return {
+        "case_id": cid, "attempt_id": expected["attempt_id"], "run_id": expected["run_id"],
+        "request_id": expected["request_id"], "sequence_index": expected["sequence_index"],
+        "phase": "FAILED_POSTENTRY_NO_TRUTH", "entry_consumed": True,
+        "solver_invocations": 1, "automatic_replay_count": 0, "truth_available": False,
+        "quarantine": True, "postentry_claim_sha256": expected["claim_sha256"],
+        "postentry_disposition_path": str(disposition_path),
+        "postentry_disposition_sha256": expected["disposition_sha256"],
+        "postentry_journal_path": str(journal_path),
+        "postentry_journal_sha256": expected["journal_file_sha256"],
+        "postentry_receipt_path": str(receipt_path),
+        "postentry_receipt_file_sha256": expected["receipt_file_sha256"],
+        "postentry_receipt_sha256": expected["receipt_sha256"],
+        "runner_status_sha256": expected["status_sha256"],
+        "runner_registry_sha256": expected["registry_snapshot_sha256"],
+        "runner_registry_current_sha256": sha(registry_path),
+        "physical_contract_sha256": expected["physical_contract_sha256"],
     }
 
 
@@ -650,6 +836,8 @@ def verify_failed_postentry_closeout(row, cid):
     """Allow only the fixed, separately-authorized Runner post-entry closeouts."""
     if cid == G023_POSTENTRY_AUTHORITY["case_id"]:
         return verify_g023_failed_postentry_closeout(row, cid)
+    if cid == G024_POSTENTRY_AUTHORITY["case_id"]:
+        return verify_g024_failed_postentry_closeout(row, cid)
     expected = FAILED_POSTENTRY_AUTHORITY
     need(cid == expected["case_id"], "UNAUTHORIZED_FAILED_POSTENTRY_CASE:" + str(cid))
     need(isinstance(row, dict) and row.get("case_id") == cid
@@ -908,6 +1096,72 @@ def record_g023_failed_postentry_recovery(ledger, current, evidence):
         "automatic_replay_count": 0, "terminalized_at_utc": now()})
     ledger["current_case"] = None
 
+
+
+def record_g024_failed_postentry_recovery(ledger, current, evidence):
+    """Terminalize the one consumed G024 entry while preserving its earlier pre-entry history."""
+    expected = G024_POSTENTRY_AUTHORITY
+    cid = expected["case_id"]
+    need(evidence.get("case_id") == cid and evidence.get("run_id") == expected["run_id"]
+         and evidence.get("entry_consumed") is True and evidence.get("solver_invocations") == 1
+         and evidence.get("automatic_replay_count") == 0 and evidence.get("truth_available") is False
+         and evidence.get("quarantine") is True,
+         "G024_POSTENTRY_EVIDENCE_IDENTITY_INVALID")
+    need(isinstance(current, dict) and current.get("case_id") == cid
+         and current.get("run_id") == expected["run_id"]
+         and current.get("sequence_index") == expected["sequence_index"]
+         and current.get("phase") in {"FAILED_OR_ISOLATED", "RUN_ONE_IN_PROGRESS"},
+         "G024_POSTENTRY_CURRENT_CASE_IDENTITY_MISMATCH")
+    need(ledger.get("entered_count") == 35 and ledger.get("truth_valid_count") == 33
+         and ledger.get("labels_valid_count") == 33 and ledger.get("remaining_unentered_count") == 93
+         and ledger.get("automatic_replay_count") == 0 and ledger.get("training_fits") == 0
+         and ledger.get("p_scale_fits") == 0
+         and ledger.get("confirmation_response_access_count") == 0,
+         "G024_POSTENTRY_LEDGER_COUNTERS_MISMATCH")
+    need(cid not in ledger.get("entered_case_ids", [])
+         and cid not in ledger.get("truth_valid_case_ids", [])
+         and cid not in ledger.get("labels_valid_case_ids", [])
+         and cid in ledger.get("remaining_unentered_case_ids", []),
+         "G024_POSTENTRY_LEDGER_MEMBERSHIP_INVALID")
+    records = ledger.get("case_records")
+    need(isinstance(records, dict) and isinstance(records.get(cid), dict),
+         "G024_POSTENTRY_CASE_RECORD_MISSING")
+    record = records[cid]
+    need(record.get("run_id") == expected["run_id"]
+         and record.get("sequence_index") == expected["sequence_index"]
+         and record.get("run_envelope_sha256") == expected["run_envelope_sha256"]
+         and record.get("phase") == "RUN_ONE_IN_PROGRESS",
+         "G024_POSTENTRY_CASE_RECORD_IDENTITY_MISMATCH")
+    isolated = ledger.setdefault("failed_or_isolated_cases", [])
+    matches = [item for item in isolated if isinstance(item, dict)
+               and item.get("case_id") == cid and item.get("run_id") == expected["run_id"]]
+    need(len(matches) <= 1, "G024_POSTENTRY_DUPLICATE_ISOLATION_RECORD")
+    terminal = {"case_id": cid, "attempt_id": expected["attempt_id"], "run_id": expected["run_id"],
+        "sequence_index": expected["sequence_index"], "phase": evidence["phase"],
+        "entry_consumed": True, "solver_invocations": 1, "automatic_replay_count": 0,
+        "truth_available": False, "quarantine": True,
+        "postentry_disposition_sha256": evidence["postentry_disposition_sha256"],
+        "postentry_journal_sha256": evidence["postentry_journal_sha256"],
+        "postentry_receipt_file_sha256": evidence["postentry_receipt_file_sha256"],
+        "postentry_closeout_evidence": evidence, "recorded_at_utc": now()}
+    if matches:
+        existing = matches[0]
+        if existing.get("phase") == "FAILED_POSTENTRY_NO_TRUTH":
+            need(existing.get("postentry_disposition_sha256") == evidence["postentry_disposition_sha256"]
+                 and existing.get("postentry_journal_sha256") == evidence["postentry_journal_sha256"],
+                 "G024_POSTENTRY_EXISTING_ISOLATION_MISMATCH")
+        else:
+            terminal["prior_controller_observation"] = dict(existing)
+            existing.clear(); existing.update(terminal)
+    else:
+        isolated.append(terminal)
+    record.update({"phase": evidence["phase"], "entry_consumed": True,
+        "solver_invocations": 1, "postentry_closeout_evidence": evidence,
+        "runner_status_sha256": evidence["runner_status_sha256"],
+        "postentry_disposition_sha256": evidence["postentry_disposition_sha256"],
+        "postentry_journal_sha256": evidence["postentry_journal_sha256"],
+        "truth_available": False, "automatic_replay_count": 0, "terminalized_at_utc": now()})
+    ledger["current_case"] = None
 
 
 def verify_preentry_case_label_binding(cid, attempt_id, failed_run_id, fresh_success_row=None):
@@ -1516,6 +1770,178 @@ def reconcile_g023_postentry_only():
     return 0
 
 
+def reconcile_g024_postentry_only():
+    """Close the single G024 post-entry receipt and retire the stale pointer; never dispatch."""
+    expected = G024_POSTENTRY_AUTHORITY
+    report_dir = ROOT / "reports/coupling/COUPLING_K6_V2_G024_POSTENTRY_RETIRE_REBIND_V1"
+    need(report_dir.is_dir(), "G024_RETIREMENT_EVIDENCE_DIRECTORY_MISSING")
+    live_path = report_dir / "LIVE_CONTROLLER_BOUNDARY_V3.json"
+    need(live_path.is_file() and not live_path.is_symlink(), "G024_CONTROLLER_LIVE_BOUNDARY_EVIDENCE_MISSING")
+    live = read(live_path)
+    need(live.get("schema") == "COUPLING_K6_V2_G024_CONTROLLER_BOUNDARY_LIVE_CHECK_V3"
+         and sha(live_path) == expected["live_boundary_sha256"]
+         and live.get("controller_task_state") == "Ready"
+         and live.get("controller_runtime_state") == "EXITED_NEEDS_RECONCILIATION"
+         and live.get("matching_python_processes") == [] and live.get("solver_engine_processes") == []
+         and live.get("active_run_exists") is False and live.get("runner_lock_exists") is False,
+         "G024_CONTROLLER_NOT_AT_RETIREMENT_BOUNDARY")
+    need(QMAN.is_file() and sha(QMAN) == expected["queue_manifest_file_sha256"],
+         "G024_QUEUE_MANIFEST_FILE_SHA_MISMATCH")
+    queue = read(QMAN); queue_body = dict(queue); canonical = queue_body.pop("queue_manifest_sha256", None)
+    ids = queue.get("ordered_case_ids")
+    need(canonical == expected["queue_manifest_sha256"] == runner_canonical_sha(queue_body)
+         and isinstance(ids, list) and len(ids) == 128 and expected["case_id"] in ids,
+         "G024_QUEUE_MANIFEST_AUTHORITY_INVALID")
+    controller_path = REPORT / "CONTROLLER_STATUS_K6V2SERIAL20261007T105811Z_ce8009d2.json"
+    receipt_path = report_dir / "G024_POSTENTRY_LEDGER_RECONCILIATION_V1.json"
+    registry_path, registry = runner_registry()
+    g023_rows = [item for item in registry["runs"]
+        if item.get("case_id") == G023_POSTENTRY_AUTHORITY["case_id"]
+        and item.get("attempt_id") == G023_POSTENTRY_AUTHORITY["attempt_id"]
+        and item.get("run_id") == G023_POSTENTRY_AUTHORITY["run_id"]]
+    need(len(g023_rows) == 1, "G024_RECONCILIATION_G023_ROW_MISSING")
+    g023_evidence = verify_g023_failed_postentry_closeout(g023_rows[0], G023_POSTENTRY_AUTHORITY["case_id"])
+    g024_rows = rows_for(registry, expected["case_id"])
+    need(len(g024_rows) == 1 and g024_rows[0].get("run_id") == expected["run_id"],
+         "G024_RECONCILIATION_RUNNER_ROW_AMBIGUOUS")
+    g024_evidence = verify_g024_failed_postentry_closeout(g024_rows[0], expected["case_id"])
+    if receipt_path.is_file():
+        old_receipt = read(receipt_path)
+        final_ledger, final_batch, final_controller = read(LEDGER), read(BATCH), read(controller_path)
+        need(old_receipt.get("schema") == "COUPLING_K6_V2_G024_POSTENTRY_LEDGER_RECONCILIATION_V1"
+             and old_receipt.get("output_ledger_sha256") == sha(LEDGER)
+             and old_receipt.get("output_batch_status_sha256") == sha(BATCH)
+             and old_receipt.get("output_controller_status_sha256") == sha(controller_path)
+             and old_receipt.get("g024_postentry_evidence", {}).get("postentry_receipt_sha256")
+                 == g024_evidence.get("postentry_receipt_sha256")
+             and old_receipt.get("g023_historical_evidence", {}).get("postentry_receipt_sha256")
+                 == g023_evidence.get("postentry_receipt_sha256"),
+             "G024_RECONCILIATION_EXISTING_RECEIPT_CONFLICT")
+        need(final_ledger.get("current_case") is None and final_batch.get("current_case") is None
+             and final_ledger.get("entered_count") == 36 and final_ledger.get("truth_valid_count") == 33
+             and final_ledger.get("labels_valid_count") == 33
+             and final_ledger.get("remaining_unentered_count") == 92
+             and final_controller.get("state") == "STOPPED_RECONCILED"
+             and final_controller.get("current_case_id") is None
+             and final_controller.get("runner_request_ids") == [expected["request_id"]],
+             "G024_RECONCILIATION_EXISTING_OUTPUT_STATE_INVALID")
+        print(json.dumps(dict(old_receipt, receipt_path=str(receipt_path),
+            receipt_sha256=sha(receipt_path), solver_entries_this_call=0,
+            training_fits_this_call=0, p_scale_fits_this_call=0,
+            automatic_replays_this_call=0, idempotent=True), indent=2), flush=True)
+        return 0
+    need(sha(LEDGER) == expected["input_ledger_sha256"]
+         and sha(BATCH) == expected["input_batch_status_sha256"],
+         "G024_RECONCILIATION_INPUT_SNAPSHOT_MISMATCH")
+    need(controller_path.is_file() and sha(controller_path) == expected["input_controller_status_sha256"],
+         "G024_CONTROLLER_STATUS_INPUT_SNAPSHOT_MISMATCH")
+    ledger_before, batch_before, controller_before = read(LEDGER), read(BATCH), read(controller_path)
+    current = ledger_before.get("current_case"); batch_current = batch_before.get("current_case")
+    need(isinstance(current, dict) and current.get("case_id") == expected["case_id"]
+         and current.get("run_id") == expected["run_id"]
+         and current.get("sequence_index") == expected["sequence_index"]
+         and isinstance(batch_current, dict) and batch_current.get("case_id") == expected["case_id"]
+         and batch_current.get("run_id") == expected["run_id"]
+         and batch_current.get("sequence_index") == expected["sequence_index"]
+         and batch_current.get("phase") == "RUN_ONE_IN_PROGRESS",
+         "G024_RECONCILIATION_QUEUE_POINTER_MISMATCH")
+    need(controller_before.get("schema") == SCHEMA_CONTROLLER_STATUS
+         and controller_before.get("request_id") == "f0aeb35290a77db5c05c0346f1a40f81"
+         and controller_before.get("state") == "RUNNING"
+         and controller_before.get("current_case_id") == expected["case_id"]
+         and controller_before.get("runner_request_ids") == [],
+         "G024_RECONCILIATION_CONTROLLER_POINTER_MISMATCH")
+    intent_path = report_dir / "G024_POSTENTRY_LEDGER_RECONCILIATION_INTENT_V1.json"
+    if receipt_path.exists():
+        old_receipt = read(receipt_path)
+        need(old_receipt.get("schema") == "COUPLING_K6_V2_G024_POSTENTRY_LEDGER_RECONCILIATION_V1"
+             and old_receipt.get("output_ledger_sha256") == sha(LEDGER)
+             and old_receipt.get("output_batch_status_sha256") == sha(BATCH)
+             and old_receipt.get("output_controller_status_sha256") == sha(controller_path),
+             "G024_RECONCILIATION_EXISTING_RECEIPT_CONFLICT")
+        print(json.dumps(dict(old_receipt, receipt_path=str(receipt_path),
+            receipt_sha256=sha(receipt_path), solver_entries_this_call=0,
+            training_fits_this_call=0, p_scale_fits_this_call=0,
+            automatic_replays_this_call=0), indent=2), flush=True)
+        return 0
+    snapshots = (("PRE_RECONCILIATION_LEDGER_V1.json", LEDGER),
+        ("PRE_RECONCILIATION_BATCH_STATUS_V1.json", BATCH),
+        ("PRE_RECONCILIATION_CONTROLLER_STATUS_V1.json", controller_path))
+    for filename, source in snapshots:
+        target = report_dir / filename; raw = source.read_bytes()
+        if target.exists():
+            need(target.read_bytes() == raw, "G024_PRE_RECONCILIATION_SNAPSHOT_CONFLICT:" + filename)
+        else:
+            target.write_bytes(raw)
+    intent = {"schema": "COUPLING_K6_V2_G024_POSTENTRY_LEDGER_RECONCILIATION_INTENT_V1",
+        "input_ledger_sha256": sha(LEDGER), "input_batch_status_sha256": sha(BATCH),
+        "input_controller_status_sha256": sha(controller_path),
+        "queue_manifest_file_sha256": sha(QMAN), "queue_manifest_sha256": canonical,
+        "runner_registry_current_sha256": sha(registry_path), "g023_historical_closeout_verified": g023_evidence,
+        "g024_closeout_verified": g024_evidence, "live_controller_boundary_path": str(live_path),
+        "live_controller_boundary_sha256": sha(live_path), "solver_entries_this_call": 0,
+        "training_fits_this_call": 0, "p_scale_fits_this_call": 0,
+        "confirmation_response_access_this_call": 0, "automatic_replays_this_call": 0,
+        "created_at_utc": now()}
+    if intent_path.exists():
+        prior_intent = read(intent_path)
+        need(prior_intent.get("input_ledger_sha256") == intent["input_ledger_sha256"]
+             and prior_intent.get("g024_closeout_verified") == g024_evidence,
+             "G024_RECONCILIATION_INTENT_CONFLICT")
+    else:
+        write(intent_path, intent)
+    record_g024_failed_postentry_recovery(ledger_before, current, g024_evidence)
+    update_counts(ledger_before, ids, registry)
+    need(ledger_before.get("entered_count") == 36 and ledger_before.get("truth_valid_count") == 33
+         and ledger_before.get("labels_valid_count") == 33
+         and ledger_before.get("remaining_unentered_count") == 92
+         and ledger_before.get("automatic_replay_count") == 0
+         and ledger_before.get("training_fits") == 0 and ledger_before.get("p_scale_fits") == 0
+         and ledger_before.get("confirmation_response_access_count") == 0
+         and expected["case_id"] in ledger_before.get("entered_case_ids", [])
+         and expected["case_id"] not in ledger_before.get("remaining_unentered_case_ids", []),
+         "G024_RECONCILIATION_COUNT_POSTCONDITION_FAILED")
+    batch_before["current_case"] = None
+    batch_before["queue_phase"] = "QUEUE_RECOVERY_RECONCILED_STOPPED"
+    batch_before["last_reconciled_sequence_index"] = expected["sequence_index"]
+    batch_before["last_reconciled_case_id"] = expected["case_id"]
+    batch_before["last_updated_utc"] = now()
+    controller_before.update({"state": "STOPPED_RECONCILED", "startup_reconciled": True,
+        "current_case_id": None, "unresolved_runner_request_ids": [],
+        "runner_request_ids": [expected["request_id"]], "post_entry_automatic_replays": 0,
+        "stopped_at_utc": now(), "updated_at_utc": now(),
+        "retirement_case_id": expected["case_id"], "retirement_disposition": "FAILED_POSTENTRY_NO_TRUTH"})
+    write(LEDGER, ledger_before); write(BATCH, batch_before); write(controller_path, controller_before)
+    final_ledger, final_batch, final_controller = read(LEDGER), read(BATCH), read(controller_path)
+    need(final_ledger.get("current_case") is None and final_batch.get("current_case") is None
+         and final_controller.get("state") == "STOPPED_RECONCILED"
+         and final_controller.get("current_case_id") is None
+         and final_controller.get("runner_request_ids") == [expected["request_id"]]
+         and final_ledger.get("entered_count") == 36 and final_ledger.get("truth_valid_count") == 33
+         and final_ledger.get("labels_valid_count") == 33 and final_ledger.get("remaining_unentered_count") == 92,
+         "G024_RECONCILIATION_FINAL_STATE_INVALID")
+    receipt = {"schema": "COUPLING_K6_V2_G024_POSTENTRY_LEDGER_RECONCILIATION_V1",
+        "mode": "FORMAL_RUNNER_RECEIPT_VERIFICATION_PLUS_QUEUE_RECONCILIATION_NO_DISPATCH",
+        "input_ledger_sha256": intent["input_ledger_sha256"], "output_ledger_sha256": sha(LEDGER),
+        "input_batch_status_sha256": intent["input_batch_status_sha256"], "output_batch_status_sha256": sha(BATCH),
+        "input_controller_status_sha256": intent["input_controller_status_sha256"],
+        "output_controller_status_sha256": sha(controller_path),
+        "queue_manifest_file_sha256": sha(QMAN), "queue_manifest_sha256": canonical,
+        "g023_historical_evidence": g023_evidence, "g024_postentry_evidence": g024_evidence,
+        "live_controller_boundary_path": str(live_path), "live_controller_boundary_sha256": sha(live_path),
+        "counts": {key: final_ledger.get(key) for key in (
+            "entered_count", "truth_valid_count", "labels_valid_count", "remaining_unentered_count",
+            "automatic_replay_count", "training_fits", "p_scale_fits", "confirmation_response_access_count")},
+        "current_case": None, "controller_state": final_controller.get("state"),
+        "solver_entries_this_call": 0, "training_fits_this_call": 0,
+        "p_scale_fits_this_call": 0, "confirmation_response_access_this_call": 0,
+        "automatic_replays_this_call": 0, "completed_at_utc": now()}
+    write(receipt_path, receipt)
+    print(json.dumps(dict(receipt, receipt_path=str(receipt_path), receipt_sha256=sha(receipt_path)),
+        indent=2), flush=True)
+    return 0
+
+
 def reconcile(ids, labels):
     path, rr = runner_registry()
     allowed = set(ids)
@@ -2063,6 +2489,7 @@ def main():
     group.add_argument("--dry-run", action="store_true")
     group.add_argument("--reconcile-preentry-only", action="store_true")
     group.add_argument("--reconcile-g023-postentry-only", action="store_true")
+    group.add_argument("--reconcile-g024-postentry-only", action="store_true")
     group.add_argument("--reconcile-controller-stop-only", action="store_true")
     group.add_argument("--execute", action="store_true")
     parser.add_argument("--runner-controller-manifest")
@@ -2073,6 +2500,8 @@ def main():
     args = parser.parse_args()
     if args.reconcile_g023_postentry_only:
         return reconcile_g023_postentry_only()
+    if args.reconcile_g024_postentry_only:
+        return reconcile_g024_postentry_only()
     controller_fields = (args.runner_controller_manifest, args.runner_controller_manifest_sha256,
                          args.runner_controller_request_id)
     controller_requested = any(value is not None for value in controller_fields)

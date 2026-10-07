@@ -1,0 +1,63 @@
+{
+  "active_run_exists": false,
+  "captured_at_utc": "2026-10-07T18:10:51.018161+00:00",
+  "controller_last_task_result": 2,
+  "controller_runtime_state": "EXITED_NEEDS_RECONCILIATION",
+  "controller_runtime_state_basis": [
+    "Task Scheduler is Ready",
+    "no matching Python controller/Runner process",
+    "no FDTD engine process",
+    "active_run.json absent",
+    "runner lock absent"
+  ],
+  "controller_status_before_sha256": "0090880a1f0d5f6a34fbf1a557c0093e506276159c59c9b16c2fd89726eee400",
+  "controller_task_enabled": true,
+  "controller_task_state": "Ready",
+  "matching_python_processes": [],
+  "old_controller_request_id": "f0aeb35290a77db5c05c0346f1a40f81",
+  "python_process_query": {
+    "argv": [
+      "powershell.exe",
+      "-NoProfile",
+      "-Command",
+      "Get-CimInstance Win32_Process | Where-Object { ($_.Name -in @('python.exe','pythonw.exe')) -and ($_.CommandLine -match 'serial_queue\\.py|task_scheduler_v1\\.py|K6V2_G024_20261007T123943Z_713590ad|cd1c1a59118d2b78510df82906e75d77|f0aeb35290a77db5c05c0346f1a40f81') } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | ConvertTo-Json -Compress"
+    ],
+    "exit_code": 0,
+    "result": [],
+    "stdout": ""
+  },
+  "runner_lock_exists": false,
+  "runner_query_api_note": "The historical task is checked with direct Task Scheduler and process evidence; its old manifest pins the predecessor script hash.",
+  "schema": "COUPLING_K6_V2_G024_CONTROLLER_BOUNDARY_LIVE_CHECK_V3",
+  "solver_engine_processes": [],
+  "solver_engine_query": {
+    "argv": [
+      "powershell.exe",
+      "-NoProfile",
+      "-Command",
+      "Get-CimInstance Win32_Process | Where-Object { $_.Name -match '^fdtd-engine.*\\.exe$' } | Select-Object ProcessId,Name,CommandLine | ConvertTo-Json -Compress"
+    ],
+    "exit_code": 0,
+    "result": [],
+    "stdout": ""
+  },
+  "task_scheduler_query": {
+    "argv": [
+      "powershell.exe",
+      "-NoProfile",
+      "-Command",
+      "$t=Get-ScheduledTask -TaskPath '\\' -TaskName 'APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER'; $i=Get-ScheduledTaskInfo -TaskPath '\\' -TaskName 'APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER'; [pscustomobject]@{TaskName=$t.TaskName;TaskPath=$t.TaskPath;State=[string]$t.State;Enabled=[bool]$t.Settings.Enabled;LastTaskResult=$i.LastTaskResult;LastRunTime=$i.LastRunTime;UserId=$t.Principal.UserId} | ConvertTo-Json -Compress"
+    ],
+    "exit_code": 0,
+    "result": {
+      "Enabled": true,
+      "LastRunTime": "/Date(1791376778000)/",
+      "LastTaskResult": 2,
+      "State": "Ready",
+      "TaskName": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+      "TaskPath": "\\",
+      "UserId": "DELL"
+    },
+    "stdout": "{\"TaskName\":\"APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER\",\"TaskPath\":\"\\\\\",\"State\":\"Ready\",\"Enabled\":true,\"LastTaskResult\":2,\"LastRunTime\":\"\\/Date(1791376778000)\\/\",\"UserId\":\"DELL\"}"
+  }
+}
