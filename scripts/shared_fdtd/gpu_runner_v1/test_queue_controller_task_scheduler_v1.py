@@ -310,6 +310,51 @@ def _valid_synthetic_truth(root, request_id="c" * 32):
     return request_id, request, run_dir
 
 
+def test_query_controller_treats_windows_uppercase_state_as_running(tmp_path):
+    bundle = _bundle(tmp_path)
+    root = tmp_path / "runner"
+    prepared, _state, xml_query, _create_task, _task_info, start = _prepare_and_install(bundle, root)
+    scheduler.start_controller_task(prepared["request_id"], root=root,
+        coupling_root=bundle["coupling"], xml_query_fn=xml_query,
+        task_info_fn=lambda _name: {"state": "Ready"}, start_fn=start,
+        expected_principal="dell")
+    manifest = json.loads(Path(prepared["request_manifest_path"]).read_text(encoding="utf-8"))
+    status_path = Path(manifest["status_path"])
+    status_path.parent.mkdir(parents=True, exist_ok=True)
+    status_path.write_text(json.dumps({
+        "schema": scheduler.SCHEMA_CONTROLLER_STATUS,
+        "request_id": prepared["request_id"],
+        "controller_manifest_sha256": prepared["request_manifest_sha256"],
+        "queue_id": manifest["queue_id"],
+        "state": "RUNNING",
+        "current_case_id": "CASE_A",
+        "runner_request_ids": [],
+        "unresolved_runner_request_ids": [],
+        "post_entry_automatic_replays": 0,
+    }), encoding="utf-8")
+    result = scheduler.query_controller_task(prepared["request_id"], root=root,
+        coupling_root=bundle["coupling"], xml_query_fn=xml_query,
+        task_info_fn=lambda _name: {"State": "Running", "LastTaskResult": 267009},
+        expected_principal="dell")
+    assert result["state"] == "RUNNING"
+    assert result["task"]["State"] == "Running"
+
+
+def test_resume_refuses_windows_uppercase_running_task_state(tmp_path):
+    bundle = _bundle(tmp_path)
+    root = tmp_path / "runner"
+    prepared, _state, xml_query, _create_task, _task_info, start = _prepare_and_install(bundle, root)
+    scheduler.start_controller_task(prepared["request_id"], root=root,
+        coupling_root=bundle["coupling"], xml_query_fn=xml_query,
+        task_info_fn=lambda _name: {"state": "Ready"}, start_fn=start,
+        expected_principal="dell")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="CONTROLLER_RESUME_TASK_STILL_ACTIVE"):
+        scheduler.resume_controller_task(prepared["request_id"], tmp_path / "not-read.json",
+            root=root, coupling_root=bundle["coupling"], xml_query_fn=xml_query,
+            task_info_fn=lambda _name: {"State": "Running", "LastTaskResult": 267009},
+            create_task_fn=_create_task, start_fn=start, expected_principal="dell")
+
+
 def test_resume_requires_reconciliation_and_proves_durable_truth_handoff(tmp_path):
     bundle = _bundle(tmp_path)
     root = tmp_path / "runner"

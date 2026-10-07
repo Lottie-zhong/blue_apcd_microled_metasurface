@@ -20,7 +20,18 @@ def _fake_adapter(tmp_path):
     def read_manifest(path):
         return json.loads(Path(path).read_text(encoding="utf-8")), None
 
-    return SimpleNamespace(__file__=str(adapter_path), read_cli_manifest=read_manifest, run_cli=Mock())
+    class FakeNativeAdapter:
+        def __init__(self, contract_path, *, gpu_resource_name):
+            self.contract_path = contract_path
+            self.gpu_resource_name = gpu_resource_name
+
+    return SimpleNamespace(__file__=str(adapter_path), read_cli_manifest=read_manifest,
+                           NativeAdapter=FakeNativeAdapter, run_cli=Mock())
+
+
+@pytest.fixture(autouse=True)
+def _set_gpu_resource_name(monkeypatch):
+    monkeypatch.setenv("APCD_GPU_RESOURCE_NAME", "GPU license audit")
 
 
 def _manifest(tmp_path):
@@ -40,6 +51,34 @@ def test_request_identity_is_idempotent_and_manifest_hash_bound(tmp_path):
     assert len(list((tmp_path / "runner" / "requests" / "scheduled_run_one_v1").iterdir())) == 1
     request = scheduler._read_and_verify_request(Path(first["request_path"]))
     assert request["identity"] == {"case_id": "TEST_CASE", "attempt_id": "attempt_001", "run_id": "RUN_TEST_001"}
+    assert request["gpu_resource_name"] == "GPU license audit"
+
+
+
+def test_gpu_resource_name_is_required_and_validated_before_request_creation(tmp_path, monkeypatch):
+    adapter = _fake_adapter(tmp_path)
+    manifest = _manifest(tmp_path)
+    root = tmp_path / "runner"
+    monkeypatch.delenv("APCD_GPU_RESOURCE_NAME")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="GPU_RESOURCE_NAME_REQUIRED"):
+        scheduler.submit_one(manifest, root=root, adapter_module=adapter, start_task=False)
+    monkeypatch.setenv("APCD_GPU_RESOURCE_NAME", "GPU" + chr(10) + "license")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="GPU_RESOURCE_NAME_INVALID"):
+        scheduler.submit_one(manifest, root=root, adapter_module=adapter, start_task=False)
+    assert not root.exists()
+
+
+def test_resource_name_change_cannot_create_a_second_request_for_same_run(tmp_path, monkeypatch):
+    adapter = _fake_adapter(tmp_path)
+    manifest = _manifest(tmp_path)
+    root = tmp_path / "runner"
+    first = scheduler.submit_one(manifest, root=root, adapter_module=adapter, start_task=False)
+    monkeypatch.setenv("APCD_GPU_RESOURCE_NAME", "another-gpu")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="SCHEDULED_REQUEST_ID_COLLISION"):
+        scheduler.submit_one(manifest, root=root, adapter_module=adapter, start_task=False)
+    dirs = list((root / "requests" / "scheduled_run_one_v1").iterdir())
+    assert len(dirs) == 1
+    assert scheduler._read_and_verify_request(Path(first["request_path"]))["gpu_resource_name"] == "GPU license audit"
 
 
 def test_worker_persists_result_without_submitter_and_is_single_consumption(tmp_path):
@@ -47,10 +86,17 @@ def test_worker_persists_result_without_submitter_and_is_single_consumption(tmp_
     manifest = _manifest(tmp_path)
     root = tmp_path / "runner"
     request = scheduler.submit_one(manifest, root=root, adapter_module=adapter, start_task=False)
-    adapter.run_cli.return_value = {"status": {"state": "DONE", "solver_entered": True, "solver_invocations": 1}}
+    bound_adapters = []
+    adapter.run_cli.side_effect = lambda path, *, adapter_factory: (
+        bound_adapters.append(adapter_factory("contract.json")) or
+        {"status": {"state": "DONE", "solver_entered": True, "solver_invocations": 1}})
     result = scheduler.task_worker_once(root=root, adapter_module=adapter)
     assert result["result"] == "RECORDED"
-    adapter.run_cli.assert_called_once_with(str(manifest.resolve()))
+    adapter.run_cli.assert_called_once()
+    assert adapter.run_cli.call_args.args == (str(manifest.resolve()),)
+    assert adapter.run_cli.call_args.kwargs.keys() == {"adapter_factory"}
+    assert bound_adapters[0].contract_path == "contract.json"
+    assert bound_adapters[0].gpu_resource_name == "GPU license audit"
     state = scheduler.query_one(request["request_id"], root=root, task_info_fn=lambda: {"state": "Ready"})
     assert state["state"] == "TERMINAL"
     assert state["result"]["exit_code"] == 0

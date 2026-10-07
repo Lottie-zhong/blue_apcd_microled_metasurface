@@ -42,3 +42,25 @@ Run from D:\project\worktrees\blue_apcd_gpu_production_runner_v1:
 Final result: 174 passed, 50 subtests passed. Focused Scheduler result: 35 passed. Specific duplicate-owner, process-loss/reconcile, one-slot/zero-replay and truth-before-next coverage is listed in FINAL_REPORT.md.
 
 Pre-commit snapshot: branch codex/apcd-gpu-production-runner-v1; base HEAD a97245c4f64d737cb9e26763ceabc82b1cb82658; upstream divergence 0/0; exact Runner allowlist only. The final Git commit and push result are in the completion response.
+
+
+## Query status key fix
+
+A delegated live snapshot reported Task Scheduler State=Running (LastTaskResult 267009 / 0x41301) and controller status RUNNING for K6GDP2_DEV_G024, but Runner query mislabeled it as exited. Windows returns State with uppercase S. Runner now normalizes state keys case-insensitively across worker/controller task consumers and fails closed on conflicting duplicates.
+
+Exact targeted command, from the Runner worktree:
+
+    N:\anaconda_envs\RCP_LCP\python.exe -m pytest -q scripts/shared_fdtd/gpu_runner_v1/test_task_scheduler_v1.py scripts/shared_fdtd/gpu_runner_v1/test_queue_controller_lifecycle_v1.py scripts/shared_fdtd/gpu_runner_v1/test_queue_controller_task_scheduler_v1.py scripts/shared_fdtd/gpu_runner_v1/test_gpu_runner_v1_adapter.py
+
+Result: 61 passed in 26.39s. Regression tests supply Task Scheduler-shaped State=Running and LastTaskResult=267009: query returns RUNNING and resume refuses an active task. This fix was tested offline only; the running production task was not queried or touched. Solver, FDTD and replay counts for this fix are zero.
+
+
+## Task Scheduler request resource binding and Windows State normalization (2026-10-07)
+
+Runner V1 now reads the Task Scheduler State property case-insensitively. Windows-shaped records such as {"State":"Running","LastTaskResult":267009} remain RUNNING; conflicting case-variant state keys fail closed. The same helper is used by request query, controller query/start/resume, and worker wait logic.
+
+The scheduled run-one request now snapshots validated APCD_GPU_RESOURCE_NAME into its durable request body. The request SHA covers this field, and a second submission for the same pinned request with a different resource name is rejected as SCHEDULED_REQUEST_ID_COLLISION. The Task Scheduler worker passes the request-bound value explicitly to NativeAdapter; worker correctness no longer depends on inheriting the submitter's process environment.
+
+This fixes the reported G024 failure path: RUNNER_ERROR:SCHEDULED_WORKER_FAILED:GPU_RESOURCE_NAME_REQUIRED (runner log SHA256 4fb05209de2e51d3e2846f308bb8297b3450dd4eedde1baa343cea9dc0668d1a). Supplied runtime evidence classifies it as pre-entry: no Runner registry row or attempt directory was created and entered_count remains 35. Coupling must reconcile that case as zero-entry/pre-entry before any later queue call. This Runner change did not query or modify the production Task Scheduler task and did not resubmit G024.
+
+Validation: targeted Task Scheduler, controller lifecycle, controller Task Scheduler, and adapter tests: 63 passed. No production case, FDTD run, solver entry, replay, or training was started.

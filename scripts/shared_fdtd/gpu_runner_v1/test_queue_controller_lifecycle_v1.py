@@ -14,6 +14,11 @@ sys.path.insert(0, str(HERE))
 import task_scheduler_v1 as scheduler
 
 
+@pytest.fixture(autouse=True)
+def _set_gpu_resource_name(monkeypatch):
+    monkeypatch.setenv("APCD_GPU_RESOURCE_NAME", "GPU license audit")
+
+
 def fake_adapter(tmp_path):
     adapter_path = tmp_path / "adapter.py"
     adapter_path.write_text("# fake no-solver adapter\n", encoding="utf-8")

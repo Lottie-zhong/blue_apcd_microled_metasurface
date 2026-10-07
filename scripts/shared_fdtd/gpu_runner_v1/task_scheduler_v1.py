@@ -286,6 +286,16 @@ def _task_info(task_name=TASK_NAME):
     return raw
 
 
+def _task_state_value(task):
+    if not isinstance(task, dict):
+        return ""
+    states = {str(value or "").strip().lower()
+              for key, value in task.items() if str(key).casefold() == "state"}
+    if len(states) > 1:
+        raise SchedulerRunnerError("SCHEDULER_TASK_STATE_AMBIGUOUS")
+    return next(iter(states), "")
+
+
 def _start_task(task_name):
     _validate_scheduler_task_name(task_name)
     proc = subprocess.run(
@@ -313,6 +323,15 @@ def _manifest_identity(manifest_path, adapter_module=None):
     return manifest_path, manifest, identity
 
 
+def _validate_gpu_resource_name(value):
+    if value is None or value == "":
+        raise SchedulerRunnerError("GPU_RESOURCE_NAME_REQUIRED")
+    if (not isinstance(value, str) or len(value) > 128 or value != value.strip()
+            or any(ord(char) < 32 or ord(char) == 127 for char in value)):
+        raise SchedulerRunnerError("GPU_RESOURCE_NAME_INVALID")
+    return value
+
+
 def _request_paths(root, request_id):
     return Path(root) / "requests" / "scheduled_run_one_v1" / request_id
 
@@ -325,6 +344,7 @@ def _read_and_verify_request(path):
     saved = body.pop("request_sha256", None)
     if saved != _sha_bytes(_canonical(body)):
         raise SchedulerRunnerError("SCHEDULED_REQUEST_HASH_INVALID")
+    _validate_gpu_resource_name(request.get("gpu_resource_name"))
     manifest_path = Path(request["manifest_path"]).resolve(strict=True)
     if _sha(manifest_path) != request.get("manifest_sha256"):
         raise SchedulerRunnerError("SCHEDULED_REQUEST_MANIFEST_HASH_CHANGED")
@@ -336,8 +356,12 @@ def _read_and_verify_request(path):
     return request
 
 
-def submit_one(manifest_path, *, root=PRODUCTION_ROOT, adapter_module=None, start_task=True):
+def submit_one(manifest_path, *, root=PRODUCTION_ROOT, adapter_module=None, start_task=True,
+               gpu_resource_name=None):
     adapter_module = adapter_module or _adapter_module()
+    if gpu_resource_name is None:
+        gpu_resource_name = os.environ.get("APCD_GPU_RESOURCE_NAME")
+    gpu_resource_name = _validate_gpu_resource_name(gpu_resource_name)
     manifest_path, _manifest, identity = _manifest_identity(manifest_path, adapter_module)
     manifest_sha = _sha(manifest_path)
     adapter_path = Path(adapter_module.__file__).resolve()
@@ -352,7 +376,8 @@ def submit_one(manifest_path, *, root=PRODUCTION_ROOT, adapter_module=None, star
         "worker_module_sha256": _sha(Path(__file__).resolve()),
     }
     request_id = _sha_bytes(_canonical(stable))[:32]
-    body = dict(stable, request_id=request_id, created_utc=_now())
+    body = dict(stable, request_id=request_id, created_utc=_now(),
+                gpu_resource_name=gpu_resource_name)
     request = dict(body, request_sha256=_sha_bytes(_canonical(body)))
     request_dir = _request_paths(root, request_id)
     request_dir.mkdir(parents=True, exist_ok=True)
@@ -362,12 +387,16 @@ def submit_one(manifest_path, *, root=PRODUCTION_ROOT, adapter_module=None, star
         for key, value in stable.items():
             if existing.get(key) != value:
                 raise SchedulerRunnerError("SCHEDULED_REQUEST_ID_COLLISION")
+        if existing.get("gpu_resource_name") != gpu_resource_name:
+            raise SchedulerRunnerError("SCHEDULED_REQUEST_ID_COLLISION")
     else:
         if not _create_exclusive_json(request_path, request):
             existing = _read_and_verify_request(request_path)
             for key, value in stable.items():
                 if existing.get(key) != value:
                     raise SchedulerRunnerError("SCHEDULED_REQUEST_ID_COLLISION")
+            if existing.get("gpu_resource_name") != gpu_resource_name:
+                raise SchedulerRunnerError("SCHEDULED_REQUEST_ID_COLLISION")
     if start_task and not (request_dir / "result.json").exists():
         _start_worker_task()
     return {
@@ -418,7 +447,7 @@ def query_one(request_id, *, root=PRODUCTION_ROOT, task_info_fn=None):
         claim = _read_json(claim_path)
         status = _run_status_for(request, root)
         task = (task_info_fn or _task_info)() if task_info_fn else None
-        if task and str(task.get("state", "")).lower() in ("running", "queued"):
+        if task and _task_state_value(task) in ("running", "queued"):
             state = "RUNNING"
         else:
             state = "NEEDS_RECONCILIATION"
@@ -430,7 +459,7 @@ def query_one(request_id, *, root=PRODUCTION_ROOT, task_info_fn=None):
     task_lock = Path(root) / TASK_LOCK.name
     if task_lock.is_file():
         lock = _read_json(task_lock)
-        state = "RUNNING" if task and str(task.get("state", "")).lower() in ("running", "queued") else "NEEDS_RECONCILIATION"
+        state = "RUNNING" if task and _task_state_value(task) in ("running", "queued") else "NEEDS_RECONCILIATION"
         return {"state": state, "request_id": request_id, "request": request,
                 "worker_lock": lock, "task": task}
     return {"state": "PENDING", "request_id": request_id, "request": request, "task": task}
@@ -454,7 +483,8 @@ def _pending_request_dirs(root):
 
 def task_worker_once(*, root=PRODUCTION_ROOT, run_cli=None, adapter_module=None):
     adapter_module = adapter_module or _adapter_module()
-    run_cli = run_cli or adapter_module.run_cli
+    production_run_cli = run_cli is None
+    run_cli = adapter_module.run_cli if production_run_cli else run_cli
     pending = _pending_request_dirs(root)
     if not pending:
         return {"result": "NO_PENDING_REQUEST", "solver_invocations": 0}
@@ -487,7 +517,18 @@ def task_worker_once(*, root=PRODUCTION_ROOT, run_cli=None, adapter_module=None)
         _read_and_verify_request(request_path)
         if _sha(Path(adapter_module.__file__).resolve()) != request["adapter_sha256"]:
             raise SchedulerRunnerError("SCHEDULED_REQUEST_ADAPTER_CHANGED")
-        result = run_cli(request["manifest_path"])
+        if production_run_cli:
+            native_adapter = getattr(adapter_module, "NativeAdapter", None)
+            if not callable(native_adapter):
+                raise SchedulerRunnerError("SCHEDULED_WORKER_NATIVE_ADAPTER_MISSING")
+
+            def request_bound_adapter(contract_path):
+                return native_adapter(
+                    contract_path, gpu_resource_name=request["gpu_resource_name"])
+
+            result = run_cli(request["manifest_path"], adapter_factory=request_bound_adapter)
+        else:
+            result = run_cli(request["manifest_path"])
         result_body.update(exit_code=0, result=result, completed_utc=_now())
     except BaseException as exc:
         status = _run_status_for(request, root)
@@ -529,7 +570,7 @@ def run_one_via_task_scheduler(manifest_path, *, run_cli=None, root=PRODUCTION_R
             return result["result"]
         if state["state"] in ("NEEDS_RECONCILIATION", "NEEDS_POSTENTRY_RECOVERY"):
             raise SchedulerRunnerError("SCHEDULED_WORKER_REQUIRES_RECONCILIATION:" + state["state"])
-        task_state = str((state.get("task") or {}).get("state", "")).lower()
+        task_state = _task_state_value(state.get("task"))
         if task_state in ("running", "queued"):
             saw_running = True
         elif state["state"] == "PENDING" and task_state in ("ready", ""):
@@ -894,7 +935,7 @@ def install_controller_task(request_id, *, root=PRODUCTION_ROOT, coupling_root=C
         _validate_controller_task_xml(existing_xml, info, request_id, request_path,
                                        expected_principal, resume_path, resume_sha)
         task = (task_info_fn or _task_info)(CONTROLLER_TASK_NAME)
-        state = str(task.get("state", "")).lower()
+        state = _task_state_value(task)
         return {"result": "ALREADY_RUNNING" if state in ("running", "queued") else "ALREADY_INSTALLED",
                 "task_name": CONTROLLER_TASK_NAME, "request_id": request_id}
     xml_text = controller_task_xml(script_path=info["controller_script_path"], manifest_path=request_path,
@@ -952,7 +993,7 @@ def start_controller_task(request_id, *, root=PRODUCTION_ROOT, coupling_root=COU
         _expected_principal() if expected_principal is None else expected_principal,
         current.get("resume_receipt_path"), current.get("resume_receipt_sha256"))
     task = (task_info_fn or _task_info)(CONTROLLER_TASK_NAME)
-    if str(task.get("state", "")).lower() in ("running", "queued"):
+    if _task_state_value(task) in ("running", "queued"):
         return {"result": "ALREADY_RUNNING", "request_id": request_id, "task": task}
     if claim_path.exists():
         return {"result": "START_ALREADY_REQUESTED_RECONCILE_BEFORE_RESUME",
@@ -1010,7 +1051,7 @@ def resume_controller_task(request_id, receipt_path, *, root=PRODUCTION_ROOT,
     if current is None or current.get("request_id") != request_id or not start_claim.is_file():
         raise SchedulerRunnerError("CONTROLLER_RESUME_REQUEST_NOT_STARTED")
     task = (task_info_fn or _task_info)(CONTROLLER_TASK_NAME)
-    if str(task.get("state", "")).lower() in ("running", "queued"):
+    if _task_state_value(task) in ("running", "queued"):
         raise SchedulerRunnerError("CONTROLLER_RESUME_TASK_STILL_ACTIVE")
     receipt_path = _path_within(receipt_path, coupling_root)
     receipt_raw = receipt_path.read_bytes()
@@ -1116,7 +1157,7 @@ def query_controller_task(request_id, *, root=PRODUCTION_ROOT, coupling_root=COU
                 or status.get("controller_manifest_sha256") != info["manifest_sha256"]
                 or status.get("queue_id") != info["manifest"]["queue_id"]):
             raise SchedulerRunnerError("CONTROLLER_STATUS_IDENTITY_MISMATCH")
-    if str(task.get("state", "")).lower() in ("running", "queued"):
+    if _task_state_value(task) in ("running", "queued"):
         state = "RUNNING"
     elif not claim_path.is_file():
         state = "PREPARED"

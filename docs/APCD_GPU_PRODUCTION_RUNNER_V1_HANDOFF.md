@@ -192,3 +192,19 @@ The Runner Scheduler contract now has both offline regression evidence and an ac
 The current Coupling working-tree candidate serial_queue.py SHA256 5ede3c2b2d85c225f73041a5d9332397bfa6fa03d91c39c8bba40089131d5ae5 passes both the Runner controller-manifest validator and Coupling verify_controller_manifest against its current queue manifest. The supplied official SHA256 3499b93302857cf3e93cdf4b3832e042e0680574a2e2692ffc739eb40947ce05 does not match the file and is rejected; the current Coupling file is dirty and its committed copy has SHA256 8865671d21047a1e0f65d35946de54829539638e756eb25210d3286652e61e2e. Resolve the approved source pin before production installation. Current source includes a targeted P05 FAILED_PREENTRY route, but no Coupling reconciliation was executed here.
 
 The production controller task remains absent. Eight existing fdtd-solutions API-server processes were left untouched; no fdtd-engine was found. Task logon uses DELL InteractiveToken; SSH-disconnect behavior passed, logoff behavior remains untested. Full report, synthetic evidence, live validator result, hashes and continuation are in reports/apcd_gpu_production_runner_v1/PLATFORM_RECOVERY_SERIAL_CONTROLLER_INTERFACE_V1/.
+
+
+## Task Scheduler State-key normalization fix (2026-10-07)
+
+Runner task-state normalization now accepts the actual Windows PowerShell JSON key State as well as lowercase state. The live G024 snapshot relayed with this fix was Running / LastTaskResult 267009 / 0x41301; Runner had misclassified it due to the key case. Offline regression confirms query=RUNNING and prevents resume while the task is active. The active production task was not queried or changed. Targeted suite: 61 passed. Details and command are in reports/apcd_gpu_production_runner_v1/PLATFORM_RECOVERY_SERIAL_CONTROLLER_INTERFACE_V1/FINAL_REPORT.md.
+
+
+## Task Scheduler request resource binding and Windows State normalization (2026-10-07)
+
+Runner V1 now reads the Task Scheduler State property case-insensitively. Windows-shaped records such as {"State":"Running","LastTaskResult":267009} remain RUNNING; conflicting case-variant state keys fail closed. The same helper is used by request query, controller query/start/resume, and worker wait logic.
+
+The scheduled run-one request now snapshots validated APCD_GPU_RESOURCE_NAME into its durable request body. The request SHA covers this field, and a second submission for the same pinned request with a different resource name is rejected as SCHEDULED_REQUEST_ID_COLLISION. The Task Scheduler worker passes the request-bound value explicitly to NativeAdapter; worker correctness no longer depends on inheriting the submitter's process environment.
+
+This fixes the reported G024 failure path: RUNNER_ERROR:SCHEDULED_WORKER_FAILED:GPU_RESOURCE_NAME_REQUIRED (runner log SHA256 4fb05209de2e51d3e2846f308bb8297b3450dd4eedde1baa343cea9dc0668d1a). Supplied runtime evidence classifies it as pre-entry: no Runner registry row or attempt directory was created and entered_count remains 35. Coupling must reconcile that case as zero-entry/pre-entry before any later queue call. This Runner change did not query or modify the production Task Scheduler task and did not resubmit G024.
+
+Validation: targeted Task Scheduler, controller lifecycle, controller Task Scheduler, and adapter tests: 63 passed. No production case, FDTD run, solver entry, replay, or training was started.

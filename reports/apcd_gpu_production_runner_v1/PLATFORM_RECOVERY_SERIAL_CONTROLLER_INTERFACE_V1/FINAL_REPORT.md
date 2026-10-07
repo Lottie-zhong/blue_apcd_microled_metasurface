@@ -74,3 +74,29 @@ Result: 35 passed in 3.66 seconds.
 Coverage includes duplicate submission/start exclusion in test_install_and_start_are_singleton_and_duplicate_start_is_idempotent, test_concurrent_controller_starts_create_one_owner_and_one_task_run, and test_duplicate_submission_maps_to_one_request_and_one_worker_claim; controller loss and explicit reconciliation in test_controller_process_loss_is_reported_and_never_auto_restarted, test_resume_requires_reconciliation_and_proves_durable_truth_handoff, and test_resume_refuses_unresolved_or_nonterminal_runner_request; one-slot and zero-replay manifest bounds in test_controller_manifest_rejects_unbounded_or_unauthorized_requests; and durable truth-before-next in both the receipt handoff test and actual synthetic Task Scheduler event sequence.
 
 At the start of this report update the Runner branch was codex/apcd-gpu-production-runner-v1, HEAD a97245c4f64d737cb9e26763ceabc82b1cb82658, upstream divergence 0/0, and only the three intended Runner source/test files plus this report directory and Runner handoff were dirty. Exact commit and push state are reported in the task completion response; no Coupling path is included in the Runner allowlist.
+
+
+## Task Scheduler State-key normalization fix (2026-10-07)
+
+The delegated live production snapshot reported the controller Task Scheduler task as Running with LastTaskResult 267009 (0x41301), controller status RUNNING and current case K6GDP2_DEV_G024, while Runner query returned CONTROLLER_EXITED_NEEDS_RECONCILIATION. The cause was a casing mismatch: Windows PowerShell JSON exposes the field as State, while Runner looked only for state.
+
+Runner now reads the Scheduler state key case-insensitively and fails closed if conflicting state keys are present. The normalization is used by controller query/install/start/resume and the existing single-case worker query/wait path. Two regressions use the actual Windows key shape: query reports RUNNING; resume rejects the still-active task. This patch did not query, update, stop, restart or otherwise interact with the live production task.
+
+Targeted command, run from the Runner worktree:
+
+    N:\anaconda_envs\RCP_LCP\python.exe -m pytest -q scripts/shared_fdtd/gpu_runner_v1/test_task_scheduler_v1.py scripts/shared_fdtd/gpu_runner_v1/test_queue_controller_lifecycle_v1.py scripts/shared_fdtd/gpu_runner_v1/test_queue_controller_task_scheduler_v1.py scripts/shared_fdtd/gpu_runner_v1/test_gpu_runner_v1_adapter.py
+
+Result: 61 passed in 26.39 seconds. py_compile and git diff --check passed. No production task, case request, solver entry, FDTD run or replay was issued.
+
+Pre-fix snapshot: HEAD 0e5442cba1fb35fc4ad906192b43bf2022e3790e, branch codex/apcd-gpu-production-runner-v1, upstream divergence 0/0, worktree clean. The follow-up commit and final worktree state are reported in the task completion response.
+
+
+## Task Scheduler request resource binding and Windows State normalization (2026-10-07)
+
+Runner V1 now reads the Task Scheduler State property case-insensitively. Windows-shaped records such as {"State":"Running","LastTaskResult":267009} remain RUNNING; conflicting case-variant state keys fail closed. The same helper is used by request query, controller query/start/resume, and worker wait logic.
+
+The scheduled run-one request now snapshots validated APCD_GPU_RESOURCE_NAME into its durable request body. The request SHA covers this field, and a second submission for the same pinned request with a different resource name is rejected as SCHEDULED_REQUEST_ID_COLLISION. The Task Scheduler worker passes the request-bound value explicitly to NativeAdapter; worker correctness no longer depends on inheriting the submitter's process environment.
+
+This fixes the reported G024 failure path: RUNNER_ERROR:SCHEDULED_WORKER_FAILED:GPU_RESOURCE_NAME_REQUIRED (runner log SHA256 4fb05209de2e51d3e2846f308bb8297b3450dd4eedde1baa343cea9dc0668d1a). Supplied runtime evidence classifies it as pre-entry: no Runner registry row or attempt directory was created and entered_count remains 35. Coupling must reconcile that case as zero-entry/pre-entry before any later queue call. This Runner change did not query or modify the production Task Scheduler task and did not resubmit G024.
+
+Validation: targeted Task Scheduler, controller lifecycle, controller Task Scheduler, and adapter tests: 63 passed. No production case, FDTD run, solver entry, replay, or training was started.
