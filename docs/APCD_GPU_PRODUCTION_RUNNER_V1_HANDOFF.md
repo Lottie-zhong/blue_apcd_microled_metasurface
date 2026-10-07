@@ -1,5 +1,14 @@
 # APCD GPU Production Runner V1 handoff
 
+## Current maintenance checkpoint — 2026-10-08
+
+The versioned, journaled controller retirement/rebind API is implemented in the Runner worktree and passes offline validation (204 tests, 50 subtests; Ruff clean). Its production operation has not been called. Coupling status still says RUNNING for K6GDP2_DEV_G024 while Runner records that attempt as terminal FAILED_POSTENTRY_NO_TRUTH. The old controller binding remains unchanged, and no successor manifest or owner retirement receipt is present. Coupling must reconcile this mismatch before Runner can use the API.
+
+Latest Runner case evidence: K6V2_G024_20261007T123943Z_713590ad consumed one entry, produced no truth, and has zero automatic replays. The closeout found no physical GPU engine observation. This maintenance made no solver entry, FDTD run, or case launch.
+
+At the live process check, Runner task/slot markers were absent and no fdtd-engine-msmpi.exe was present. Eight fdtd-solutions.exe API processes and one python.exe - process (PID 18936, purpose not identified from its command line) remained; none were terminated. Sections below are dated historical snapshots, not current authorization.
+
+
 **Status:** Existing approved-case Runner route remains available. Full Task Scheduler ownership of the Coupling serial queue is not qualified; the Scheduler currently owns only a single-case worker. Coupling reconciliation/controller integration is pending.
 
 **Runner execution HEAD for the latest owner-approved diagnostic:** 472bf2ae4c5bc8faaea04adec13d0a441777fc3f

@@ -8,7 +8,7 @@ import pytest
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-import task_scheduler_v1 as scheduler
+import task_scheduler_v1 as scheduler  # noqa: E402
 
 
 def _sha(path):
@@ -441,3 +441,231 @@ def test_resume_refuses_unresolved_or_nonterminal_runner_request(tmp_path):
             query_one_fn=lambda *_a, **_k: {"state": "RUNNING"},
             expected_principal="dell")
     assert len(state["start_calls"]) == 1
+
+
+def _rebind_fixture(tmp_path, *, postentry_failure=False, quarantined=True):
+    bundle = _bundle(tmp_path)
+    root = tmp_path / "runner"
+    prepared, state, xml_query, create_task, task_info, start = _prepare_and_install(bundle, root)
+    scheduler.start_controller_task(
+        prepared["request_id"], root=root, coupling_root=bundle["coupling"],
+        xml_query_fn=xml_query, task_info_fn=task_info, start_fn=start,
+        expected_principal="dell")
+    state["task_state"] = "Ready"
+    old_request_id = prepared["request_id"]
+    old_task_sha = _sha(scheduler._task_controller_binding_path(root))
+    old_request_binding_sha = _sha(scheduler._controller_request_files(root, old_request_id)[2])
+    runner_id = "c" * 32
+    identity = {"case_id": "CASE_A", "attempt_id": "attempt_001", "run_id": "RUN_CASE_A"}
+    runner_ids = [runner_id] if postentry_failure else []
+    if postentry_failure:
+        run_dir = root / "runs" / "CASE_A" / "attempt_001" / "RUN_CASE_A"
+        run_dir.mkdir(parents=True)
+        (run_dir / "status.json").write_text(json.dumps({
+            **identity, "state": "FAILED_POSTENTRY_NO_TRUTH", "solver_entered": True,
+            "solver_invocations": 1, "replay_count": 0, "failure": "POSTENTRY_NO_TRUTH",
+        }), encoding="utf-8")
+    status = {
+        "schema": scheduler.SCHEMA_CONTROLLER_STATUS, "state": "STOPPED_RECONCILED",
+        "request_id": old_request_id, "controller_manifest_sha256": prepared["request_manifest_sha256"],
+        "queue_id": bundle["manifest"]["queue_id"], "current_case_id": None,
+        "runner_request_ids": runner_ids, "unresolved_runner_request_ids": [],
+        "post_entry_automatic_replays": 0,
+    }
+    bundle["status_path"].write_text(json.dumps(status, sort_keys=True), encoding="utf-8")
+    bundle["script"].write_text(bundle["script"].read_text(encoding="utf-8") + "# source revision\n",
+                                encoding="utf-8")
+    new_cases = ["CASE_B"] if postentry_failure else list(bundle["manifest"]["case_ids"])
+    manifest = dict(bundle["manifest"])
+    manifest.update({
+        "controller_run_id": "controller-run-002",
+        "controller_script_sha256": _sha(bundle["script"]),
+        "status_path": str(bundle["coupling"] / "reports" / "queue" / "controller_status_v2.json"),
+        "case_ids": new_cases, "max_cases": len(new_cases),
+    })
+    new_manifest_path = bundle["coupling"] / "reports" / "queue" / "controller_manifest_v2.json"
+    new_manifest_path.write_text(json.dumps(manifest, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+    queue_state = {
+        "schema": scheduler.SCHEMA_CONTROLLER_QUEUE_SNAPSHOT,
+        "queue_id": bundle["manifest"]["queue_id"],
+        "queue_manifest_sha256": bundle["manifest"]["queue_manifest_sha256"],
+        "authorized_case_ids": list(bundle["manifest"]["case_ids"]),
+        "remaining_case_ids": new_cases, "completed_case_ids": [],
+        "solver_entered_case_ids": ["CASE_A"] if postentry_failure else [],
+        "quarantined_case_ids": ["CASE_A"] if postentry_failure and quarantined else [],
+        "active_case_count": 0, "active_case_id": None,
+        "unresolved_runner_request_ids": [], "pending_replay_count": 0,
+        "max_concurrent_cases": 1, "per_case_max_solver_entries": 1,
+        "post_entry_automatic_replays": 0,
+    }
+    queue_path = bundle["coupling"] / "reports" / "queue" / "queue_state_snapshot.json"
+    queue_path.write_text(json.dumps(queue_state, sort_keys=True, indent=2), encoding="utf-8")
+    owner_path = bundle["coupling"] / "reports" / "queue" / "OWNER_REBIND_DECISION.md"
+    owner_path.write_text("Synthetic owner decision for offline API validation.\n", encoding="utf-8")
+    receipt = {
+        "schema": scheduler.SCHEMA_CONTROLLER_RETIREMENT,
+        "old_request_id": old_request_id,
+        "old_manifest_sha256": prepared["request_manifest_sha256"],
+        "old_request_binding_sha256": old_request_binding_sha,
+        "old_task_binding_sha256": old_task_sha,
+        "old_status_sha256": _sha(bundle["status_path"]),
+        "new_manifest_sha256": _sha(new_manifest_path),
+        "queue_id": bundle["manifest"]["queue_id"],
+        "queue_manifest_sha256": bundle["manifest"]["queue_manifest_sha256"],
+        "safe_to_retire": True, "startup_reconciled": True,
+        "approved_by": "synthetic-owner",
+        "owner_decision_path": str(owner_path), "owner_decision_sha256": _sha(owner_path),
+        "queue_state_path": str(queue_path), "queue_state_sha256": _sha(queue_path),
+        "runner_request_ids": runner_ids,
+    }
+    receipt_path = bundle["coupling"] / "reports" / "queue" / "retirement_receipt.json"
+    receipt_path.write_text(json.dumps(receipt, sort_keys=True, indent=2), encoding="utf-8")
+    def all_task_info(name):
+        if name == scheduler.TASK_NAME:
+            return {"state": "Ready"}
+        return task_info(name)
+    def set_enabled(enabled):
+        before = "<Enabled>false</Enabled>" if enabled else "<Enabled>true</Enabled>"
+        after = "<Enabled>true</Enabled>" if enabled else "<Enabled>false</Enabled>"
+        assert state["xml"] and before in state["xml"]
+        state["xml"] = state["xml"].replace(before, after, 1)
+    query_one_fn = None
+    if postentry_failure:
+        def query_one_fn(request_id, *, root, task_info_fn):
+            assert request_id == runner_id
+            return {"state": "TERMINAL", "request": {"identity": identity},
+                    "result": {"exit_code": 2, "solver_entered": True}}
+    return {
+        "old_request_id": old_request_id, "new_manifest_path": new_manifest_path,
+        "receipt_path": receipt_path, "root": root, "bundle": bundle,
+        "state": state, "xml_query": xml_query, "create_task": create_task,
+        "task_info": all_task_info, "start": start, "set_enabled": set_enabled,
+        "query_one": query_one_fn, "old_task_sha": old_task_sha,
+    }
+
+
+def _run_rebind(args, **overrides):
+    bundle = args["bundle"]
+    kwargs = {
+        "expected_old_task_binding_sha256": args["old_task_sha"],
+        "expected_new_manifest_sha256": _sha(args["new_manifest_path"]),
+        "expected_retirement_receipt_sha256": _sha(args["receipt_path"]),
+        "root": args["root"], "coupling_root": bundle["coupling"],
+        "xml_query_fn": args["xml_query"], "task_info_fn": args["task_info"],
+        "create_task_fn": args["create_task"], "set_enabled_fn": args["set_enabled"],
+        "process_inventory_fn": lambda: [], "query_one_fn": args["query_one"],
+        "expected_principal": "dell",
+    }
+    kwargs.update(overrides)
+    return scheduler.retire_rebind_controller_task(
+        args["old_request_id"], args["new_manifest_path"], args["receipt_path"], **kwargs)
+
+
+def test_retire_rebind_preserves_history_is_single_owner_and_idempotent(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    start_count = len(args["state"]["start_calls"])
+    result = _run_rebind(args)
+    assert result["result"] == "REBOUND" and result["started"] is False
+    assert result["solver_entries"] == result["automatic_replays"] == 0
+    assert len(args["state"]["start_calls"]) == start_count
+    assert scheduler._read_controller_task_binding(args["root"])["request_id"] == result["request_id"]
+    audit = args["root"] / scheduler.CONTROLLER_TASK_DIR.name / "rebind_transactions" / result["transaction_id"] / "audit"
+    assert _sha(audit / "old_task_binding.json") == args["old_task_sha"]
+    assert (audit / "old_task.xml").is_file()
+    repeated = _run_rebind(args)
+    assert repeated["result"] == "ALREADY_REBOUND"
+    assert repeated["transaction_id"] == result["transaction_id"]
+    assert len(args["state"]["start_calls"]) == start_count
+
+
+def test_retire_rebind_resumes_interrupted_transaction_without_start(tmp_path, monkeypatch):
+    args = _rebind_fixture(tmp_path)
+    original = scheduler._write_controller_task_binding
+    failed = {"once": False}
+    def write_then_fail(root, body):
+        result = original(root, body)
+        if body.get("request_id") != args["old_request_id"] and not failed["once"]:
+            failed["once"] = True
+            raise OSError("synthetic crash after binding replace")
+        return result
+    monkeypatch.setattr(scheduler, "_write_controller_task_binding", write_then_fail)
+    with pytest.raises(OSError, match="synthetic crash"):
+        _run_rebind(args)
+    monkeypatch.setattr(scheduler, "_write_controller_task_binding", original)
+    recovered = _run_rebind(args)
+    assert recovered["request_id"] == scheduler._read_controller_task_binding(args["root"])["request_id"]
+    assert args["state"]["xml"].count("<Enabled>true</Enabled>") == 1
+    assert len(args["state"]["start_calls"]) == 1
+
+
+def test_retire_rebind_recovers_after_successor_task_install_before_journal(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    original = args["create_task"]
+    failed = {"once": False}
+    def install_then_fail(xml, force=False):
+        result = original(xml, force=force)
+        if "<Enabled>false</Enabled>" in xml and not failed["once"]:
+            failed["once"] = True
+            raise OSError("synthetic crash after successor task install")
+        return result
+    args["create_task"] = install_then_fail
+    with pytest.raises(OSError, match="synthetic crash after successor task install"):
+        _run_rebind(args)
+    args["create_task"] = original
+    recovered = _run_rebind(args)
+    assert recovered["result"] == "REBOUND"
+    assert recovered["started"] is False and recovered["solver_entries"] == 0
+    assert len(args["state"]["start_calls"]) == 1
+
+
+def test_retire_rebind_rejects_active_owner_lock_and_solver_process(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    args["state"]["task_state"] = "Running"
+    with pytest.raises(scheduler.SchedulerRunnerError, match="OLD_TASK_STILL_ACTIVE"):
+        _run_rebind(args)
+    args = _rebind_fixture(tmp_path / "slot")
+    (args["root"] / ".runner.lock").write_text("active", encoding="utf-8")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="SLOT_OR_LOCK"):
+        _run_rebind(args)
+    args = _rebind_fixture(tmp_path / "process")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="PROCESS_STILL_ACTIVE"):
+        _run_rebind(args, process_inventory_fn=lambda: [{"Name": "fdtd-engine-msmpi.exe"}])
+
+
+def test_retire_rebind_rejects_status_drift_after_stop_receipt(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    old_xml = args["state"]["xml"]
+    status_path = args["bundle"]["status_path"]
+    status = json.loads(status_path.read_text(encoding="utf-8"))
+    status["state"] = "RUNNING"
+    status["current_case_id"] = "CASE_A"
+    status_path.write_text(json.dumps(status, sort_keys=True), encoding="utf-8")
+    with pytest.raises(scheduler.SchedulerRunnerError,
+                       match="CONTROLLER_RETIREMENT_RECEIPT_NOT_SAFE"):
+        _run_rebind(args)
+    assert scheduler._read_controller_task_binding(args["root"])["request_id"] == args["old_request_id"]
+    assert args["state"]["xml"] == old_xml
+
+
+def test_retire_rebind_requires_postentry_failure_quarantine(tmp_path):
+    args = _rebind_fixture(tmp_path, postentry_failure=True, quarantined=True)
+    result = _run_rebind(args)
+    assert result["result"] == "REBOUND" and result["solver_entries"] == 0
+    args = _rebind_fixture(tmp_path / "unquarantined", postentry_failure=True, quarantined=False)
+    with pytest.raises(scheduler.SchedulerRunnerError, match="POSTENTRY_FAILURE_NOT_QUARANTINED"):
+        _run_rebind(args)
+
+
+def test_retire_rebind_rejects_expanded_queue_or_changed_policy(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    manifest = json.loads(args["new_manifest_path"].read_text(encoding="utf-8"))
+    manifest["case_ids"], manifest["max_cases"] = ["CASE_A", "CASE_C"], 2
+    args["new_manifest_path"].write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="CASE_BUDGET_EXPANSION"):
+        _run_rebind(args)
+    args = _rebind_fixture(tmp_path / "policy")
+    manifest = json.loads(args["new_manifest_path"].read_text(encoding="utf-8"))
+    manifest["max_concurrent_cases"] = 2
+    args["new_manifest_path"].write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+    with pytest.raises(scheduler.SchedulerRunnerError, match="CONCURRENCY_MUST_BE_ONE"):
+        _run_rebind(args)

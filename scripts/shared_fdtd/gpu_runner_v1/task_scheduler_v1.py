@@ -10,12 +10,14 @@ from __future__ import annotations
 
 import datetime as _dt
 import csv
+from contextlib import contextmanager
+from functools import wraps
 import hashlib
 import json
 import os
 import re
 import subprocess
-import sys
+import threading
 import time
 import uuid
 import xml.etree.ElementTree as ET
@@ -43,6 +45,8 @@ SCHEMA_CONTROLLER_MANIFEST = "APCD_GPU_RUNNER_V1_COUPLING_QUEUE_CONTROLLER_MANIF
 SCHEMA_CONTROLLER_BINDING = "APCD_GPU_RUNNER_V1_QUEUE_CONTROLLER_BINDING_V1"
 SCHEMA_CONTROLLER_STATUS = "APCD_GPU_RUNNER_V1_QUEUE_CONTROLLER_STATUS_V1"
 SCHEMA_CONTROLLER_RESUME = "APCD_GPU_RUNNER_V1_QUEUE_CONTROLLER_RESUME_RECEIPT_V1"
+SCHEMA_CONTROLLER_RETIREMENT = "APCD_GPU_RUNNER_V1_CONTROLLER_RETIREMENT_RECEIPT_V1"
+SCHEMA_CONTROLLER_QUEUE_SNAPSHOT = "APCD_COUPLING_SERIAL_QUEUE_STATE_SNAPSHOT_V1"
 CONTROLLER_PROTOCOL = "APCD_GPU_RUNNER_V1_QUEUE_CONTROLLER_CLI_V1"
 
 
@@ -364,6 +368,14 @@ def _read_and_verify_request(path):
     return request
 
 
+def _serialize_controller_lifecycle(function):
+    @wraps(function)
+    def wrapped(*args, **kwargs):
+        root = kwargs.get("root", PRODUCTION_ROOT)
+        with _controller_lifecycle_lock(root):
+            return function(*args, **kwargs)
+    return wrapped
+
 def submit_one(manifest_path, *, root=PRODUCTION_ROOT, adapter_module=None, start_task=True,
                gpu_resource_name=None):
     adapter_module = adapter_module or _adapter_module()
@@ -583,7 +595,8 @@ def run_one_via_task_scheduler(manifest_path, *, run_cli=None, root=PRODUCTION_R
             saw_running = True
         elif state["state"] == "PENDING" and task_state in ("ready", ""):
             if not started_once or saw_running:
-                start_fn()
+                with _controller_lifecycle_lock(root):
+                    start_fn()
                 started_once = True
                 saw_running = False
         if time.monotonic() >= deadline:
@@ -594,7 +607,8 @@ def run_one_via_task_scheduler(manifest_path, *, run_cli=None, root=PRODUCTION_R
 def worker_task_xml(*, principal=None, script_path=None, python_path=TASK_PYTHON):
     principal = principal or OWNER_ACCOUNT
     script_path = str(script_path or _task_script_path())
-    esc = lambda value: (str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+    def esc(value):
+        return str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     return (
         '<?xml version="1.0" encoding="UTF-16"?>'
         '<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">'
@@ -781,7 +795,8 @@ def controller_task_xml(*, script_path, manifest_path, manifest_sha256, request_
     principal = principal or OWNER_ACCOUNT
     script_path = str(Path(script_path).resolve(strict=True))
     manifest_path = str(Path(manifest_path).resolve(strict=True))
-    esc = lambda value: (str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+    def esc(value):
+        return str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     args = ('"' + esc(script_path) + '" --runner-controller-manifest "' + esc(manifest_path)
             + '" --runner-controller-manifest-sha256 ' + str(manifest_sha256)
             + ' --runner-controller-request-id ' + str(request_id))
@@ -821,6 +836,113 @@ def _write_controller_task_binding(root, body):
     value["binding_sha256"] = _sha_bytes(_canonical(value))
     _atomic_json(_task_controller_binding_path(root), value)
     return value
+
+
+
+_CONTROLLER_LIFECYCLE_THREAD_GUARD = threading.Lock()
+_CONTROLLER_LIFECYCLE_THREAD_LOCKS = {}
+
+@contextmanager
+def _controller_lifecycle_lock(root):
+    path = Path(root) / CONTROLLER_TASK_DIR.name / "lifecycle.lock"
+    key = os.path.normcase(os.path.abspath(str(path)))
+    with _CONTROLLER_LIFECYCLE_THREAD_GUARD:
+        thread_lock = _CONTROLLER_LIFECYCLE_THREAD_LOCKS.setdefault(key, threading.RLock())
+    with thread_lock:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        token = json.dumps({"pid": os.getpid(), "token": uuid.uuid4().hex},
+                           sort_keys=True, separators=(",", ":")).encode("utf-8")
+        try:
+            fd = os.open(str(path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError as exc:
+            raise SchedulerRunnerError("CONTROLLER_LIFECYCLE_LOCKED") from exc
+        try:
+            with os.fdopen(fd, "wb") as stream:
+                stream.write(token)
+                stream.flush()
+                os.fsync(stream.fileno())
+            yield
+        finally:
+            try:
+                if path.read_bytes() == token:
+                    path.unlink()
+            except OSError:
+                pass
+
+
+def _set_controller_task_enabled(enabled):
+    if os.name != "nt":
+        raise SchedulerRunnerError("SCHEDULER_TASK_REBIND_REQUIRES_WINDOWS")
+    proc = subprocess.run(
+        ["schtasks.exe", "/Change", "/TN", CONTROLLER_TASK_NAME,
+         "/Enable" if enabled else "/Disable"],
+        text=True, capture_output=True, encoding="utf-8", errors="replace",
+        timeout=30, check=False)
+    if proc.returncode != 0:
+        raise SchedulerRunnerError("SCHEDULER_CONTROLLER_TASK_ENABLE_CHANGE_FAILED:"
+                                   + proc.stderr.strip()[:400])
+
+
+def _controller_task_is_enabled(xml_text):
+    try:
+        root = ET.fromstring(xml_text.lstrip("\ufeff"))
+    except ET.ParseError as exc:
+        raise SchedulerRunnerError("SCHEDULER_TASK_XML_INVALID") from exc
+    settings = _xml_children(root, "Settings")
+    enabled = _xml_children(settings[0], "Enabled") if len(settings) == 1 else []
+    if len(enabled) != 1 or (enabled[0].text or "").strip().lower() not in ("true", "false"):
+        raise SchedulerRunnerError("SCHEDULER_TASK_ENABLED_STATE_INVALID")
+    return (enabled[0].text or "").strip().lower() == "true"
+
+
+def _controller_process_inventory():
+    if os.name != "nt":
+        raise SchedulerRunnerError("CONTROLLER_PROCESS_CENSUS_REQUIRES_WINDOWS")
+    command = ("$ErrorActionPreference='Stop'; "
+               "@(Get-CimInstance Win32_Process | "
+               "Select-Object ProcessId,ParentProcessId,Name,CommandLine | "
+               "ConvertTo-Json -Compress)")
+    proc = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive",
+                           "-Command", command],
+                          text=True, capture_output=True, encoding="utf-8",
+                          errors="replace", timeout=30, check=False)
+    if proc.returncode != 0:
+        raise SchedulerRunnerError("CONTROLLER_PROCESS_CENSUS_FAILED:"
+                                   + proc.stderr.strip()[:400])
+    try:
+        value = json.loads(proc.stdout or "[]")
+    except json.JSONDecodeError as exc:
+        raise SchedulerRunnerError("CONTROLLER_PROCESS_CENSUS_INVALID") from exc
+    if isinstance(value, dict):
+        value = [value]
+    if not isinstance(value, list) or any(not isinstance(item, dict) for item in value):
+        raise SchedulerRunnerError("CONTROLLER_PROCESS_CENSUS_INVALID")
+    return value
+
+
+def _assert_no_controller_or_solver_processes(processes, old_request_id):
+    if not isinstance(processes, list) or any(not isinstance(item, dict) for item in processes):
+        raise SchedulerRunnerError("CONTROLLER_PROCESS_CENSUS_INVALID")
+    for process in processes:
+        name = str(process.get("Name", process.get("name", ""))).lower()
+        command = str(process.get("CommandLine", process.get("command_line", ""))).lower()
+        if (old_request_id.lower() in command
+                or "serial_queue.py" in command
+                or ("task_scheduler_v1.py" in command and
+                    ("worker-once" in command or old_request_id.lower() in command))
+                or "fdtd-engine" in name or "fdtd-engine" in command):
+            raise SchedulerRunnerError("CONTROLLER_OR_SOLVER_PROCESS_STILL_ACTIVE")
+
+
+def _assert_runner_slot_free(root, task_info_fn):
+    root = Path(root)
+    for path in (root / "active_run.json", root / ".runner.lock",
+                 root / TASK_LOCK.name):
+        if path.exists():
+            raise SchedulerRunnerError("RUNNER_SLOT_OR_LOCK_STILL_ACTIVE:" + path.name)
+    worker = task_info_fn(TASK_NAME)
+    if _task_state_value(worker) in ("running", "queued"):
+        raise SchedulerRunnerError("RUNNER_WORKER_TASK_STILL_ACTIVE")
 
 
 def _validate_controller_task_xml(xml_text, info, request_id, request_path,
@@ -918,6 +1040,7 @@ def prepare_controller_task(manifest_path, *, root=PRODUCTION_ROOT, coupling_roo
             "automatic_replays": 0, "task": task_result}
 
 
+@_serialize_controller_lifecycle
 def install_controller_task(request_id, *, root=PRODUCTION_ROOT, coupling_root=COUPLING_WORKTREE,
                             xml_query_fn=None, task_info_fn=None, create_task_fn=None,
                             expected_principal=None):
@@ -988,6 +1111,7 @@ def _start_worker_task():
     _start_task(TASK_NAME)
 
 
+@_serialize_controller_lifecycle
 def start_controller_task(request_id, *, root=PRODUCTION_ROOT, coupling_root=COUPLING_WORKTREE,
                           xml_query_fn=None, task_info_fn=None, start_fn=None,
                           expected_principal=None):
@@ -1049,6 +1173,7 @@ def _verify_resume_request_ids(receipt, *, root, query_one_fn, allowed_case_ids)
     return request_ids
 
 
+@_serialize_controller_lifecycle
 def resume_controller_task(request_id, receipt_path, *, root=PRODUCTION_ROOT,
                            coupling_root=COUPLING_WORKTREE, xml_query_fn=None,
                            task_info_fn=None, create_task_fn=None, start_fn=None,
@@ -1179,6 +1304,505 @@ def query_controller_task(request_id, *, root=PRODUCTION_ROOT, coupling_root=COU
             "controller_manifest_sha256": info["manifest_sha256"], "queue_id": info["manifest"]["queue_id"]}
 
 
+
+
+def _read_retirement_controller_request(request_id, *, root, coupling_root):
+    directory, manifest_path, binding_path, start_claim = _controller_request_files(root, request_id)
+    if not manifest_path.is_file() or not binding_path.is_file():
+        raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_NOT_FOUND")
+    raw = manifest_path.read_bytes()
+    manifest_sha = _sha_bytes(raw)
+    binding = _controller_body_with_verified_hash(
+        _read_json(binding_path), SCHEMA_CONTROLLER_BINDING,
+        "SCHEDULED_CONTROLLER_REQUEST_BINDING_INVALID")
+    if manifest_sha[:32] != request_id or binding.get("request_id") != request_id:
+        raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_HASH_INVALID")
+    if binding.get("controller_manifest_sha256") != manifest_sha:
+        raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_HASH_INVALID")
+    try:
+        manifest = json.loads(raw.decode("utf-8-sig"))
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_OLD_MANIFEST_INVALID") from exc
+    if not isinstance(manifest, dict) or manifest.get("schema") != SCHEMA_CONTROLLER_MANIFEST:
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_OLD_MANIFEST_INVALID")
+    expected_script = (Path(coupling_root) / "scripts" / "coupling_ml" /
+                       "k6_v2_pipeline" / "serial_queue.py").resolve(strict=True)
+    script_path = _path_within(manifest.get("controller_script_path"), coupling_root)
+    queue_path = _path_within(manifest.get("queue_manifest_path"), coupling_root)
+    status_path = _path_within(manifest.get("status_path"), coupling_root, strict=False)
+    if script_path != expected_script:
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_OLD_ENTRYPOINT_UNAPPROVED")
+    if (not _is_sha256(manifest.get("controller_script_sha256"))
+            or binding.get("controller_script_sha256") != manifest["controller_script_sha256"].lower()):
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_OLD_SCRIPT_PIN_INVALID")
+    if (not _is_sha256(manifest.get("queue_manifest_sha256"))
+            or _sha(queue_path) != manifest["queue_manifest_sha256"].lower()
+            or binding.get("queue_manifest_sha256") != manifest["queue_manifest_sha256"].lower()):
+        raise SchedulerRunnerError("CONTROLLER_QUEUE_MANIFEST_HASH_MISMATCH")
+    if (manifest.get("max_concurrent_cases") != 1
+            or manifest.get("per_case_max_solver_entries") != 1
+            or manifest.get("post_entry_automatic_replays") != 0
+            or manifest.get("startup_reconcile_before_dispatch") is not True
+            or manifest.get("truth_before_next_case") is not True):
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_OLD_BUDGET_INVALID")
+    if (binding.get("controller_run_id") != manifest.get("controller_run_id")
+            or binding.get("queue_id") != manifest.get("queue_id")
+            or binding.get("status_path") != str(status_path)):
+        raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_BINDING_CONFLICT")
+    info = {"manifest": manifest, "manifest_path": manifest_path, "raw": raw,
+            "manifest_sha256": manifest_sha, "controller_script_path": script_path,
+            "queue_manifest_path": queue_path, "status_path": status_path}
+    return info, binding, _sha_bytes(binding_path.read_bytes()), start_claim
+
+
+def _verify_controller_retirement_evidence(receipt_path, receipt_sha256, *,
+                                           old_request_id, old_info, old_request_binding_sha256,
+                                           old_task_binding_sha256, new_info, coupling_root):
+    receipt_path = _path_within(receipt_path, coupling_root)
+    receipt_raw = receipt_path.read_bytes()
+    if _sha_bytes(receipt_raw) != receipt_sha256:
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RECEIPT_HASH_MISMATCH")
+    try:
+        receipt = json.loads(receipt_raw.decode("utf-8-sig"))
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RECEIPT_INVALID") from exc
+    old_manifest = old_info["manifest"]
+    status_path = old_info["status_path"]
+    if not status_path.is_file():
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_STATUS_MISSING")
+    status_raw = status_path.read_bytes()
+    status = json.loads(status_raw.decode("utf-8-sig"))
+    expected = {
+        "schema": SCHEMA_CONTROLLER_RETIREMENT,
+        "old_request_id": old_request_id,
+        "old_manifest_sha256": old_info["manifest_sha256"],
+        "old_request_binding_sha256": old_request_binding_sha256,
+        "old_task_binding_sha256": old_task_binding_sha256,
+        "old_status_sha256": _sha_bytes(status_raw),
+        "new_manifest_sha256": new_info["manifest_sha256"],
+        "queue_id": old_manifest["queue_id"],
+        "queue_manifest_sha256": old_manifest["queue_manifest_sha256"],
+        "safe_to_retire": True,
+        "startup_reconciled": True,
+    }
+    if any(receipt.get(key) != value for key, value in expected.items()):
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RECEIPT_NOT_SAFE")
+    if not isinstance(receipt.get("approved_by"), str) or not receipt["approved_by"].strip():
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_OWNER_APPROVAL_MISSING")
+    for path_key, sha_key in (("owner_decision_path", "owner_decision_sha256"),
+                              ("queue_state_path", "queue_state_sha256")):
+        raw_path = receipt.get(path_key)
+        if not isinstance(raw_path, str) or not raw_path or not _is_sha256(receipt.get(sha_key)):
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_EVIDENCE_PATH_INVALID")
+        evidence_path = _path_within(raw_path, coupling_root)
+        if not evidence_path.is_file() or _sha(evidence_path) != receipt[sha_key].lower():
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_EVIDENCE_HASH_MISMATCH")
+    queue_state_path = _path_within(receipt["queue_state_path"], coupling_root)
+    try:
+        queue_state = json.loads(queue_state_path.read_text(encoding="utf-8-sig"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_QUEUE_STATE_INVALID") from exc
+    runner_ids = receipt.get("runner_request_ids")
+    if not isinstance(runner_ids, list) or len(set(runner_ids)) != len(runner_ids):
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RUNNER_INVENTORY_INVALID")
+    if (status.get("schema") != SCHEMA_CONTROLLER_STATUS
+            or status.get("state") != "STOPPED_RECONCILED"
+            or status.get("request_id") != old_request_id
+            or status.get("controller_manifest_sha256") != old_info["manifest_sha256"]
+            or status.get("queue_id") != old_manifest["queue_id"]
+            or status.get("current_case_id") is not None
+            or status.get("unresolved_runner_request_ids") != []
+            or status.get("post_entry_automatic_replays") != 0
+            or status.get("runner_request_ids") != runner_ids):
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_STATUS_NOT_RECONCILED")
+    completed = queue_state.get("completed_case_ids")
+    entered = queue_state.get("solver_entered_case_ids")
+    quarantined = queue_state.get("quarantined_case_ids")
+    remaining = new_info["manifest"]["case_ids"]
+    old_cases = old_manifest["case_ids"]
+    arrays = (completed, entered, quarantined, queue_state.get("authorized_case_ids"),
+              queue_state.get("remaining_case_ids"), queue_state.get("unresolved_runner_request_ids"))
+    if any(not isinstance(items, list) or any(not isinstance(x, str) for x in items)
+           for items in arrays):
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_QUEUE_STATE_INVALID")
+    if (queue_state.get("schema") != SCHEMA_CONTROLLER_QUEUE_SNAPSHOT
+            or queue_state.get("queue_id") != old_manifest["queue_id"]
+            or queue_state.get("queue_manifest_sha256") != old_manifest["queue_manifest_sha256"]
+            or queue_state.get("authorized_case_ids") != old_cases
+            or queue_state.get("remaining_case_ids") != remaining
+            or queue_state.get("active_case_count") != 0
+            or queue_state.get("active_case_id") is not None
+            or queue_state.get("unresolved_runner_request_ids") != []
+            or queue_state.get("pending_replay_count") != 0
+            or queue_state.get("max_concurrent_cases") != 1
+            or queue_state.get("per_case_max_solver_entries") != 1
+            or queue_state.get("post_entry_automatic_replays") != 0
+            or not set(completed).issubset(old_cases)
+            or not set(entered).issubset(old_cases)
+            or not set(quarantined).issubset(old_cases)
+            or set(remaining) & (set(completed) | set(entered) | set(quarantined))):
+        raise SchedulerRunnerError("CONTROLLER_RETIREMENT_QUEUE_STATE_NOT_SAFE")
+    return receipt, receipt_raw, status_raw, queue_state_path.read_bytes(), queue_state
+
+
+
+def _verify_retired_request_ids(receipt, *, root, query_one_fn, allowed_case_ids, queue_state):
+    quarantined = set(queue_state["quarantined_case_ids"])
+    for request_id in receipt["runner_request_ids"]:
+        if not REQUEST_ID_RE.fullmatch(str(request_id)):
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RUNNER_REQUEST_ID_INVALID")
+        state = query_one_fn(request_id, root=root, task_info_fn=lambda: {"state": "Ready"})
+        if state.get("state") != "TERMINAL":
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RUNNER_REQUEST_UNRESOLVED:" + request_id)
+        request = state.get("request", {})
+        identity = request.get("identity", {})
+        case_id = identity.get("case_id")
+        if case_id not in allowed_case_ids:
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RUNNER_CASE_OUTSIDE_BOUND:" + request_id)
+        run_dir = Path(root) / "runs" / case_id / identity.get("attempt_id", "") / identity.get("run_id", "")
+        status_path = run_dir / "status.json"
+        if not status_path.is_file():
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RUN_STATUS_MISSING:" + request_id)
+        status = _read_json(status_path)
+        if any(status.get(key) != identity.get(key) for key in ("case_id", "attempt_id", "run_id")):
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_RUN_STATUS_IDENTITY_MISMATCH:" + request_id)
+        entered = status.get("solver_entered") is True
+        invocations = status.get("solver_invocations")
+        if (status.get("replay_count", 0) != 0
+                or (entered and invocations != 1)
+                or (not entered and invocations != 0)):
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_ENTRY_COUNT_INVALID:" + request_id)
+        if status.get("state") == "DONE":
+            _verify_resume_request_ids(
+                {"runner_request_ids": [request_id]}, root=root, query_one_fn=query_one_fn,
+                allowed_case_ids=allowed_case_ids)
+            continue
+        if entered:
+            if (case_id not in quarantined
+                    or state.get("result", {}).get("solver_entered") is not True
+                    or not status.get("failure")):
+                raise SchedulerRunnerError("CONTROLLER_RETIREMENT_POSTENTRY_FAILURE_NOT_QUARANTINED:" + request_id)
+        elif state.get("result", {}).get("solver_entered") is True:
+            raise SchedulerRunnerError("CONTROLLER_RETIREMENT_ENTRY_EVIDENCE_MISMATCH:" + request_id)
+
+
+
+def _validate_rebind_manifest_delta(old_manifest, new_manifest):
+    allowed = {"controller_run_id", "controller_script_sha256", "status_path",
+               "case_ids", "max_cases"}
+    if set(old_manifest) != set(new_manifest):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_MANIFEST_SCHEMA_DRIFT")
+    if any(old_manifest[key] != new_manifest[key] for key in old_manifest if key not in allowed):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_MANIFEST_UNAPPROVED_CHANGE")
+    old_cases, new_cases = old_manifest["case_ids"], new_manifest["case_ids"]
+    cursor = 0
+    for case_id in new_cases:
+        try:
+            cursor = old_cases.index(case_id, cursor) + 1
+        except ValueError as exc:
+            raise SchedulerRunnerError("CONTROLLER_REBIND_CASE_BUDGET_EXPANSION") from exc
+    if (not new_cases or len(new_cases) > len(old_cases)
+            or new_manifest["max_cases"] != len(new_cases)
+            or new_manifest["controller_run_id"] == old_manifest["controller_run_id"]
+            or new_manifest["controller_script_sha256"] == old_manifest["controller_script_sha256"]
+            or new_manifest["status_path"] == old_manifest["status_path"]):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_MANIFEST_CHANGE_INVALID")
+
+
+def _ensure_rebind_request_files(root, info, request_id):
+    directory, request_path, binding_path, claim_path = _controller_request_files(root, request_id)
+    directory.mkdir(parents=True, exist_ok=True)
+    if request_path.exists():
+        if _sha(request_path) != info["manifest_sha256"]:
+            raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_ID_COLLISION")
+    elif not _write_exclusive_bytes(request_path, info["raw"]):
+        if _sha(request_path) != info["manifest_sha256"]:
+            raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_ID_COLLISION")
+    value = {
+        "schema": SCHEMA_CONTROLLER_BINDING, "request_id": request_id,
+        "controller_manifest_sha256": info["manifest_sha256"],
+        "source_manifest_path": str(info["manifest_path"]),
+        "controller_script_path": str(info["controller_script_path"]),
+        "controller_script_sha256": _sha(info["controller_script_path"]),
+        "queue_manifest_path": str(info["queue_manifest_path"]),
+        "queue_manifest_sha256": _sha(info["queue_manifest_path"]),
+        "queue_id": info["manifest"]["queue_id"],
+        "controller_run_id": info["manifest"]["controller_run_id"],
+        "status_path": str(info["status_path"]), "created_utc": _now(),
+    }
+    value["binding_sha256"] = _sha_bytes(_canonical(value))
+    if binding_path.exists():
+        old = _controller_body_with_verified_hash(
+            _read_json(binding_path), SCHEMA_CONTROLLER_BINDING,
+            "SCHEDULED_CONTROLLER_REQUEST_BINDING_INVALID")
+        if any(old.get(key) != val for key, val in value.items()
+               if key not in ("created_utc", "binding_sha256")):
+            raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_BINDING_CONFLICT")
+    elif not _create_exclusive_json(binding_path, value):
+        raise SchedulerRunnerError("SCHEDULED_CONTROLLER_REQUEST_BINDING_CONFLICT")
+    if claim_path.exists() or info["status_path"].exists():
+        raise SchedulerRunnerError("CONTROLLER_REBIND_NEW_REQUEST_ALREADY_STARTED")
+    return request_path, binding_path, claim_path
+
+
+def _controller_task_xml_matches(xml_text, info, request_id, binding, root, principal):
+    request_path = _controller_request_files(root, request_id)[1]
+    _validate_controller_task_xml(
+        xml_text, info, request_id, request_path, principal,
+        binding.get("resume_receipt_path"), binding.get("resume_receipt_sha256"))
+    return _controller_task_is_enabled(xml_text)
+
+
+def _journal_rebind_phase(journal_path, current, phase):
+    transitions = {
+        "PREPARED": "OLD_TASK_DISABLED",
+        "OLD_TASK_DISABLED": "NEW_TASK_DISABLED",
+        "NEW_TASK_DISABLED": "BINDING_SWITCHED",
+        "BINDING_SWITCHED": "COMPLETE",
+        "COMPLETE": None,
+    }
+    disk = _read_json(journal_path)
+    if (disk.get("schema") != "APCD_GPU_RUNNER_V1_CONTROLLER_REBIND_TRANSACTION_V1"
+            or disk.get("transaction_id") != current.get("transaction_id")
+            or disk.get("phase") != current.get("phase")):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_TRANSACTION_CONFLICT")
+    if phase == disk.get("phase"):
+        return disk
+    if phase == "PREPARED" and disk.get("phase") in transitions:
+        return disk
+    if transitions.get(disk.get("phase")) != phase:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_PHASE_TRANSITION_INVALID")
+    updated = dict(disk, phase=phase, updated_utc=_now())
+    _atomic_json(journal_path, updated)
+    return updated
+
+
+@_serialize_controller_lifecycle
+def retire_rebind_controller_task(old_request_id, new_manifest_path, retirement_receipt_path, *,
+                                  expected_old_task_binding_sha256,
+                                  expected_new_manifest_sha256,
+                                  expected_retirement_receipt_sha256,
+                                  root=PRODUCTION_ROOT, coupling_root=COUPLING_WORKTREE,
+                                  xml_query_fn=None, task_info_fn=None, create_task_fn=None,
+                                  set_enabled_fn=None, process_inventory_fn=None,
+                                  query_one_fn=None, expected_principal=None):
+    pins = (expected_old_task_binding_sha256, expected_new_manifest_sha256,
+            expected_retirement_receipt_sha256)
+    if any(not _is_sha256(value) for value in pins):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_EXPECTED_HASH_INVALID")
+    old_info, _old_request_binding, request_binding_sha, _claim = (
+        _read_retirement_controller_request(old_request_id, root=root, coupling_root=coupling_root))
+    new_info = _controller_manifest(new_manifest_path, coupling_root=coupling_root)
+    if new_info["manifest_sha256"] != expected_new_manifest_sha256.lower():
+        raise SchedulerRunnerError("CONTROLLER_REBIND_NEW_MANIFEST_HASH_MISMATCH")
+    new_request_id = new_info["manifest_sha256"][:32]
+    if new_request_id == old_request_id:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_REQUEST_ID_NOT_NEW")
+    _validate_rebind_manifest_delta(old_info["manifest"], new_info["manifest"])
+    if (old_info["queue_manifest_path"] != new_info["queue_manifest_path"]
+            or old_info["manifest"]["queue_manifest_sha256"] !=
+               new_info["manifest"]["queue_manifest_sha256"]):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_QUEUE_MANIFEST_DRIFT")
+    task_binding_path = _task_controller_binding_path(root)
+    if not task_binding_path.is_file():
+        raise SchedulerRunnerError("CONTROLLER_TASK_BINDING_MISSING")
+    current_raw = task_binding_path.read_bytes()
+    current_sha = _sha_bytes(current_raw)
+    current = _read_controller_task_binding(root)
+    old_task_sha = expected_old_task_binding_sha256.lower()
+    txid = _sha_bytes(_canonical({
+        "old_request_id": old_request_id, "old_task_binding_sha256": old_task_sha,
+        "new_request_id": new_request_id, "new_manifest_sha256": new_info["manifest_sha256"],
+        "retirement_receipt_sha256": expected_retirement_receipt_sha256.lower()}))
+    txdir = Path(root) / CONTROLLER_TASK_DIR.name / "rebind_transactions" / txid
+    journal_path = txdir / "journal.json"
+    journal_exists = journal_path.is_file()
+    if current.get("request_id") == old_request_id:
+        if current_sha != old_task_sha:
+            raise SchedulerRunnerError("CONTROLLER_REBIND_OLD_BINDING_HASH_MISMATCH")
+    elif current.get("request_id") == new_request_id:
+        if not journal_exists:
+            raise SchedulerRunnerError("CONTROLLER_REBIND_UNJOURNALED_NEW_BINDING")
+    else:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_CURRENT_BINDING_MISMATCH")
+    receipt, receipt_raw, status_raw, queue_state_raw, queue_state = _verify_controller_retirement_evidence(
+        retirement_receipt_path, expected_retirement_receipt_sha256.lower(),
+        old_request_id=old_request_id, old_info=old_info,
+        old_request_binding_sha256=request_binding_sha, old_task_binding_sha256=old_task_sha,
+        new_info=new_info, coupling_root=coupling_root)
+    if receipt["runner_request_ids"]:
+        _verify_retired_request_ids(receipt, root=root, query_one_fn=query_one_fn or query_one,
+                                    allowed_case_ids=old_info["manifest"]["case_ids"],
+                                    queue_state=queue_state)
+    task_info_fn = task_info_fn or _task_info
+    _assert_runner_slot_free(root, task_info_fn)
+    process_fn = process_inventory_fn or _controller_process_inventory
+    _assert_no_controller_or_solver_processes(process_fn(), old_request_id)
+    task = task_info_fn(CONTROLLER_TASK_NAME)
+    if _task_state_value(task) in ("running", "queued"):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_OLD_TASK_STILL_ACTIVE")
+    xml_query_fn = xml_query_fn or _query_task_xml
+    current_xml = xml_query_fn(CONTROLLER_TASK_NAME)
+    principal = _expected_principal() if expected_principal is None else expected_principal
+    new_request_path, new_binding_path, new_claim_path = _ensure_rebind_request_files(
+        root, new_info, new_request_id)
+    new_request_binding = _controller_body_with_verified_hash(
+        _read_json(new_binding_path), SCHEMA_CONTROLLER_BINDING,
+        "SCHEDULED_CONTROLLER_REQUEST_BINDING_INVALID")
+    old_xml_enabled = None
+    new_xml_enabled = None
+    try:
+        old_xml_enabled = _controller_task_xml_matches(
+            current_xml, old_info, old_request_id, current, root, principal)
+    except SchedulerRunnerError:
+        pass
+    try:
+        new_xml_enabled = _controller_task_xml_matches(
+            current_xml, new_info, new_request_id, new_request_binding, root, principal)
+    except SchedulerRunnerError:
+        pass
+    if old_xml_enabled is None and new_xml_enabled is None:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH")
+    if new_xml_enabled is not None and not journal_exists:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_UNJOURNALED_NEW_TASK")
+    if current.get("request_id") == old_request_id and new_xml_enabled is True:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_ENABLED_BEFORE_BINDING")
+    if current.get("request_id") == new_request_id and old_xml_enabled is not None:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_BINDING_XML_MISMATCH")
+    if not journal_exists:
+        txdir.mkdir(parents=True, exist_ok=True)
+        journal = {"schema": "APCD_GPU_RUNNER_V1_CONTROLLER_REBIND_TRANSACTION_V1",
+                   "transaction_id": txid, "old_request_id": old_request_id,
+                   "old_task_binding_sha256": old_task_sha, "new_request_id": new_request_id,
+                   "new_manifest_sha256": new_info["manifest_sha256"],
+                   "retirement_receipt_sha256": expected_retirement_receipt_sha256.lower(),
+                   "phase": "PREPARED", "created_utc": _now(), "updated_utc": _now()}
+        _create_exclusive_json(journal_path, journal)
+    else:
+        journal = _read_json(journal_path)
+        if (journal.get("schema") != "APCD_GPU_RUNNER_V1_CONTROLLER_REBIND_TRANSACTION_V1"
+                or journal.get("transaction_id") != txid
+                or journal.get("old_task_binding_sha256") != old_task_sha
+                or journal.get("new_manifest_sha256") != new_info["manifest_sha256"]
+                or journal.get("retirement_receipt_sha256") != expected_retirement_receipt_sha256.lower()):
+            raise SchedulerRunnerError("CONTROLLER_REBIND_TRANSACTION_CONFLICT")
+    audit = txdir / "audit"
+    audit.mkdir(parents=True, exist_ok=True)
+    old_binding_archive = audit / "old_task_binding.json"
+    if current.get("request_id") == old_request_id:
+        old_binding_raw = current_raw
+    elif old_binding_archive.is_file():
+        old_binding_raw = old_binding_archive.read_bytes()
+    else:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_OLD_BINDING_AUDIT_MISSING")
+    if _sha_bytes(old_binding_raw) != old_task_sha:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_OLD_BINDING_AUDIT_MISMATCH")
+    if not old_binding_archive.exists():
+        _write_exclusive_bytes(old_binding_archive, old_binding_raw)
+    for name, raw in (("retirement_receipt.json", receipt_raw),
+                      ("old_status.json", status_raw),
+                      ("queue_state_snapshot.json", queue_state_raw)):
+        target = audit / name
+        if target.exists() and _sha(target) != _sha_bytes(raw):
+            raise SchedulerRunnerError("CONTROLLER_REBIND_AUDIT_ARTIFACT_CONFLICT")
+        if not target.exists():
+            _write_exclusive_bytes(target, raw)
+    if old_xml_enabled is not None and not (audit / "old_task.xml").exists():
+        _write_exclusive_bytes(audit / "old_task.xml", current_xml.encode("utf-8"))
+    if journal.get("phase") != "COMPLETE":
+        journal = _journal_rebind_phase(journal_path, journal, "PREPARED")
+    new_xml_enabled_true = controller_task_xml(
+        script_path=new_info["controller_script_path"], manifest_path=new_request_path,
+        manifest_sha256=new_info["manifest_sha256"], request_id=new_request_id,
+        principal=principal)
+    new_xml_disabled = new_xml_enabled_true.replace("<Enabled>true</Enabled>",
+                                                     "<Enabled>false</Enabled>")
+    if new_xml_disabled == new_xml_enabled_true:
+        raise SchedulerRunnerError("CONTROLLER_REBIND_DISABLED_TASK_XML_INVALID")
+    create_task_fn = create_task_fn or _write_controller_task_xml
+    set_enabled_fn = set_enabled_fn or _set_controller_task_enabled
+    if current.get("request_id") == old_request_id:
+        if old_xml_enabled is not None:
+            if old_xml_enabled:
+                set_enabled_fn(False)
+                task = task_info_fn(CONTROLLER_TASK_NAME)
+                if _task_state_value(task) in ("running", "queued"):
+                    raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_BECAME_ACTIVE")
+                current_xml = xml_query_fn(CONTROLLER_TASK_NAME)
+                old_xml_enabled = _controller_task_xml_matches(
+                    current_xml, old_info, old_request_id, current, root, principal)
+            if old_xml_enabled is not False:
+                raise SchedulerRunnerError("CONTROLLER_REBIND_OLD_TASK_NOT_DISABLED")
+            journal = _journal_rebind_phase(journal_path, journal, "OLD_TASK_DISABLED")
+        elif journal.get("phase") not in ("OLD_TASK_DISABLED", "NEW_TASK_DISABLED"):
+            raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH")
+        if new_xml_enabled is None:
+            if old_xml_enabled is None:
+                raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH")
+            create_task_fn(new_xml_disabled, force=True)
+        elif new_xml_enabled:
+            raise SchedulerRunnerError("CONTROLLER_REBIND_NEW_TASK_NOT_DISABLED")
+        current_xml = xml_query_fn(CONTROLLER_TASK_NAME)
+        _controller_task_xml_matches(
+            current_xml, new_info, new_request_id, new_request_binding, root, principal)
+        if _controller_task_is_enabled(current_xml):
+            raise SchedulerRunnerError("CONTROLLER_REBIND_NEW_TASK_NOT_DISABLED")
+        task = task_info_fn(CONTROLLER_TASK_NAME)
+        if _task_state_value(task) in ("running", "queued"):
+            raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_BECAME_ACTIVE")
+        if journal.get("phase") == "OLD_TASK_DISABLED":
+            journal = _journal_rebind_phase(journal_path, journal, "NEW_TASK_DISABLED")
+        _assert_runner_slot_free(root, task_info_fn)
+        _assert_no_controller_or_solver_processes(process_fn(), old_request_id)
+        if (_sha(new_info["manifest_path"]) != new_info["manifest_sha256"]
+                or _sha(new_info["controller_script_path"]) !=
+                   new_info["manifest"]["controller_script_sha256"].lower()
+                or _sha(new_info["queue_manifest_path"]) !=
+                   new_info["manifest"]["queue_manifest_sha256"].lower()
+                or _sha(old_info["status_path"]) != _sha_bytes(status_raw)
+                or _sha(_path_within(receipt["queue_state_path"], coupling_root)) !=
+                   receipt["queue_state_sha256"].lower()
+                or _sha(_path_within(receipt["owner_decision_path"], coupling_root)) !=
+                   receipt["owner_decision_sha256"].lower()):
+            raise SchedulerRunnerError("CONTROLLER_REBIND_PREFLIGHT_DRIFT")
+        _write_controller_task_binding(root, {
+            "request_id": new_request_id, "controller_manifest_sha256": new_info["manifest_sha256"],
+            "controller_script_sha256": _sha(new_info["controller_script_path"]),
+            "queue_manifest_sha256": _sha(new_info["queue_manifest_path"]),
+            "queue_id": new_info["manifest"]["queue_id"], "resume_generation": 0,
+            "resume_receipt_path": None, "resume_receipt_sha256": None, "updated_utc": _now(),
+        })
+        journal = _journal_rebind_phase(journal_path, journal, "BINDING_SWITCHED")
+    current_xml = xml_query_fn(CONTROLLER_TASK_NAME)
+    _controller_task_xml_matches(
+        current_xml, new_info, new_request_id, new_request_binding, root, principal)
+    if not _controller_task_is_enabled(current_xml):
+        set_enabled_fn(True)
+        current_xml = xml_query_fn(CONTROLLER_TASK_NAME)
+    _controller_task_xml_matches(
+        current_xml, new_info, new_request_id, new_request_binding, root, principal)
+    if not _controller_task_is_enabled(current_xml):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_ENABLE_FAILED")
+    task = task_info_fn(CONTROLLER_TASK_NAME)
+    if _task_state_value(task) in ("running", "queued"):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_MUST_NOT_START_TASK")
+    current_binding = _read_controller_task_binding(root)
+    if (current_binding.get("request_id") != new_request_id
+            or current_binding.get("controller_manifest_sha256") != new_info["manifest_sha256"]):
+        raise SchedulerRunnerError("CONTROLLER_REBIND_NEW_BINDING_VERIFY_FAILED")
+    if journal.get("phase") == "NEW_TASK_DISABLED":
+        if current_binding.get("request_id") != new_request_id:
+            raise SchedulerRunnerError("CONTROLLER_REBIND_BINDING_SWITCH_UNRECORDED")
+        journal = _journal_rebind_phase(journal_path, journal, "BINDING_SWITCHED")
+    was_complete = journal.get("phase") == "COMPLETE"
+    _journal_rebind_phase(journal_path, journal, "COMPLETE")
+    return {"result": "ALREADY_REBOUND" if was_complete else "REBOUND",
+            "transaction_id": txid, "old_request_id": old_request_id,
+            "request_id": new_request_id, "task_name": CONTROLLER_TASK_NAME,
+            "task_enabled": True, "started": False, "solver_entries": 0,
+            "automatic_replays": 0}
+
+
 def main(argv=None):
     import argparse
     parser = argparse.ArgumentParser(description="APCD Runner V1 Task Scheduler request worker")
@@ -1198,6 +1822,13 @@ def main(argv=None):
     resume_controller.add_argument("reconciliation_receipt")
     query_controller = sub.add_parser("query-controller-task")
     query_controller.add_argument("request_id")
+    rebind_controller = sub.add_parser("retire-rebind-controller-task")
+    rebind_controller.add_argument("old_request_id")
+    rebind_controller.add_argument("new_controller_manifest")
+    rebind_controller.add_argument("retirement_receipt")
+    rebind_controller.add_argument("old_task_binding_sha256")
+    rebind_controller.add_argument("new_manifest_sha256")
+    rebind_controller.add_argument("retirement_receipt_sha256")
     args = parser.parse_args(argv)
     try:
         if args.command == "install-task":
@@ -1214,6 +1845,12 @@ def main(argv=None):
             result = resume_controller_task(args.request_id, args.reconciliation_receipt)
         elif args.command == "query-controller-task":
             result = query_controller_task(args.request_id)
+        elif args.command == "retire-rebind-controller-task":
+            result = retire_rebind_controller_task(
+                args.old_request_id, args.new_controller_manifest, args.retirement_receipt,
+                expected_old_task_binding_sha256=args.old_task_binding_sha256,
+                expected_new_manifest_sha256=args.new_manifest_sha256,
+                expected_retirement_receipt_sha256=args.retirement_receipt_sha256)
         else:
             result = query_one(args.request_id)
     except Exception as exc:
