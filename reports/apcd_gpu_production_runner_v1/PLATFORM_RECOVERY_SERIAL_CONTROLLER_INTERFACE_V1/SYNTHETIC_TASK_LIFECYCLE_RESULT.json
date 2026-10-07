@@ -1,0 +1,126 @@
+{
+  "automatic_replays": 0,
+  "controller_manifest_sha256": "be9bdb08c7c3202b2d0f07492be19618239ae200eb5ddaeed2840412046a465a",
+  "controller_script_sha256": "7ee80957545b3bbb6ea94871186432de3bfcb1458dfce86a9f5f2b3e6394137e",
+  "delete_stdout": "\u6210\u529f: \u8ba1\u5212\u7684\u4efb\u52a1 \"\\APCD_GPU_RUNNER_V1_SYNTHETIC_CONTROLLER_1787DAA4221C\" \u88ab\u6210\u529f\u5220\u9664\u3002",
+  "events": [
+    {
+      "at_utc": "2026-10-07T10:11:42.524510+00:00",
+      "event": "INITIAL_TASK_STARTED",
+      "parent_pid": 4484,
+      "pid": 6968
+    },
+    {
+      "at_utc": "2026-10-07T10:11:48.557174+00:00",
+      "event": "PROGRESS_AFTER_SSH_CLIENT_RETURN",
+      "parent_pid": 4484,
+      "pid": 6968
+    },
+    {
+      "at_utc": "2026-10-07T10:13:45.172178+00:00",
+      "event": "RESUMED_AFTER_RECONCILIATION",
+      "parent_pid": 4484,
+      "pid": 36308,
+      "receipt_sha256": "2355f9e3b55c07c484cafe5a76174d25a0fe96fa36b89728f15b3c04d3893223"
+    },
+    {
+      "at_utc": "2026-10-07T10:13:45.173177+00:00",
+      "case_id": "SYNTH_CASE_A",
+      "event": "SYNTHETIC_CASE_STARTED"
+    },
+    {
+      "at_utc": "2026-10-07T10:13:45.174180+00:00",
+      "case_id": "SYNTH_CASE_A",
+      "event": "SYNTHETIC_TRUTH_DURABLE",
+      "sha256": "f66d6116188af20c09167c3568f7a17846f78def5b845cc59456df640390071d"
+    },
+    {
+      "at_utc": "2026-10-07T10:13:45.199709+00:00",
+      "event": "TRUTH_BEFORE_NEXT_CONFIRMED",
+      "prior_sha256": "f66d6116188af20c09167c3568f7a17846f78def5b845cc59456df640390071d"
+    },
+    {
+      "at_utc": "2026-10-07T10:13:45.201723+00:00",
+      "case_id": "SYNTH_CASE_B",
+      "event": "SYNTHETIC_CASE_STARTED"
+    },
+    {
+      "at_utc": "2026-10-07T10:13:45.205722+00:00",
+      "case_id": "SYNTH_CASE_B",
+      "event": "SYNTHETIC_TRUTH_DURABLE",
+      "sha256": "5d33ae18beab6b575cc1ace05e80cd7ed1ef6560a70f8d2e2169443b5c5d08bb"
+    },
+    {
+      "at_utc": "2026-10-07T10:13:45.231947+00:00",
+      "event": "CONTROLLER_DONE",
+      "fake_runner_requests": 0,
+      "fake_solver_entries": 0
+    }
+  ],
+  "first_controller_parent_info": "{\"PID\":4484,\"Name\":\"svchost.exe\",\"Created\":\"\\/Date(1790584047527)\\/\",\"CommandLine\":\"C:\\\\WINDOWS\\\\system32\\\\svchost.exe -k netsvcs -p -s Schedule\"}",
+  "first_controller_parent_pid": 4484,
+  "first_task_crash_result": 73,
+  "initial_reconciliation_receipt_sha256": "2355f9e3b55c07c484cafe5a76174d25a0fe96fa36b89728f15b3c04d3893223",
+  "initial_start_return_utc": "recorded in Task Scheduler at 10/07/2026 18:11:40 local; start claim UTC 2026-10-07T10:11:40.705923Z",
+  "post_delete_query_returncode": 1,
+  "post_ssh_progress_utc": "2026-10-07T10:11:48.557174+00:00",
+  "previous_status_sha256": "eeebf13a6cb2aea1d2fb2593dbb0aaf831d5f41c271677b4ffcded585062c08d",
+  "queue_manifest_sha256": "62bdcec675e55b8f8453d76c0d1134920e158f5b95f2dee77c143f201e1cb2ea",
+  "request_id": "be9bdb08c7c3202b2d0f07492be19618",
+  "request_ids_sent_to_runner": [],
+  "resume_receipt_sha256": "2355f9e3b55c07c484cafe5a76174d25a0fe96fa36b89728f15b3c04d3893223",
+  "resume_request_returned_utc": "2026-10-07T10:13:43.318555+00:00",
+  "runner_api_query_state": "COMPLETED",
+  "status_sha256": "dfbf4deaf37c7bc7070287dfe1d61735f9372b0279e31428ddc2159e31a4db09",
+  "synthetic_fdt_runs": 0,
+  "synthetic_solver_entries": 0,
+  "task_deleted_after_completion": true,
+  "task_name": "\\APCD_GPU_RUNNER_V1_SYNTHETIC_CONTROLLER_1787DAA4221C",
+  "task_state_before_cleanup": {
+    "ExecutionTimeLimit": "PT72H",
+    "LastRunTime": "10/07/2026 18:13:43",
+    "LastTaskResult": 0,
+    "LogonType": 3,
+    "MultipleInstances": 2,
+    "RestartCount": 0,
+    "RunLevel": 0,
+    "State": "Ready",
+    "UserId": "DELL"
+  },
+  "truth_before_next_verified": true,
+  "truth_files": {
+    "SYNTH_CASE_A": {
+      "path": "C:\\Users\\DELL\\AppData\\Local\\Temp\\apcd_runner_controller_lifecycle_20261007T101136Z_2beca09a\\synthetic_coupling\\reports\\synthetic_queue\\truth\\SYNTH_CASE_A.json",
+      "sha256": "f66d6116188af20c09167c3568f7a17846f78def5b845cc59456df640390071d",
+      "value": {
+        "case_id": "SYNTH_CASE_A",
+        "replay_count": 0,
+        "schema": "SYNTHETIC_TRUTH_V1",
+        "solver_entered": false,
+        "solver_invocations": 0
+      }
+    },
+    "SYNTH_CASE_B": {
+      "path": "C:\\Users\\DELL\\AppData\\Local\\Temp\\apcd_runner_controller_lifecycle_20261007T101136Z_2beca09a\\synthetic_coupling\\reports\\synthetic_queue\\truth\\SYNTH_CASE_B.json",
+      "sha256": "5d33ae18beab6b575cc1ace05e80cd7ed1ef6560a70f8d2e2169443b5c5d08bb",
+      "value": {
+        "case_id": "SYNTH_CASE_B",
+        "replay_count": 0,
+        "schema": "SYNTHETIC_TRUTH_V1",
+        "solver_entered": false,
+        "solver_invocations": 0
+      }
+    }
+  },
+  "xml_settings": {
+    "arguments": "\"C:\\Users\\DELL\\AppData\\Local\\Temp\\apcd_runner_controller_lifecycle_20261007T101136Z_2beca09a\\synthetic_coupling\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py\" --runner-controller-manifest \"C:\\Users\\DELL\\AppData\\Local\\Temp\\apcd_runner_controller_lifecycle_20261007T101136Z_2beca09a\\runner_root\\requests\\scheduled_queue_controller_v1\\be9bdb08c7c3202b2d0f07492be19618\\controller_manifest.json\" --runner-controller-manifest-sha256 be9bdb08c7c3202b2d0f07492be19618239ae200eb5ddaeed2840412046a465a --runner-controller-request-id be9bdb08c7c3202b2d0f07492be19618 --runner-resume-receipt \"C:\\Users\\DELL\\AppData\\Local\\Temp\\apcd_runner_controller_lifecycle_20261007T101136Z_2beca09a\\runner_root\\requests\\scheduled_queue_controller_v1\\be9bdb08c7c3202b2d0f07492be19618\\resume\\1_2355f9e3b55c07c484cafe5a76174d25a0fe96fa36b89728f15b3c04d3893223.json\" --runner-resume-receipt-sha256 2355f9e3b55c07c484cafe5a76174d25a0fe96fa36b89728f15b3c04d3893223",
+    "automatic_restart": false,
+    "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "execution_time_limit": "PT72H",
+    "logon_type": "InteractiveToken",
+    "multiple_instances": "IgnoreNew",
+    "principal": "s-1-5-21-2958591235-2706656562-1210676212-1001",
+    "run_level": "LeastPrivilege",
+    "task_name": "\\APCD_GPU_RUNNER_V1_SYNTHETIC_CONTROLLER_1787DAA4221C"
+  }
+}

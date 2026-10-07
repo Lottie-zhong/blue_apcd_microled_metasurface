@@ -250,12 +250,13 @@ class AdapterBarrierTests(unittest.TestCase):
 
 
     def test_production_cli_uses_one_fixed_root_and_rejects_override(self):
-        with unittest.mock.patch.object(adapter_module, "run_cli", return_value={"ok": True}) as call:
+        with unittest.mock.patch.object(adapter_module, "run_one_scheduled",
+                                        return_value={"ok": True}) as call:
             with contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(main(["run-one", "manifest.json"]), 0)
         call.assert_called_once_with("manifest.json")
         self.assertEqual(PRODUCTION_RUNNER_ROOT, Path(r"D:\apcd_runtime\gpu_production_runner_v1"))
-        with unittest.mock.patch.object(adapter_module, "run_cli") as call:
+        with unittest.mock.patch.object(adapter_module, "run_one_scheduled") as call:
             with contextlib.redirect_stderr(io.StringIO()):
                 with self.assertRaises(SystemExit):
                     main(["run-one", "manifest.json", "--output-root", str(self.base / "other")])
