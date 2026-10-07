@@ -113,13 +113,13 @@
         "attempt": 1,
         "returncode": 0,
         "stderr": "",
-        "stdout": "�ɹ�: �������� \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\"��"
+        "stdout": "\ufffd\u0279\ufffd: \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\"\ufffd\ufffd"
       },
       {
         "attempt": 2,
         "returncode": 0,
         "stderr": "",
-        "stdout": "��Ϣ: �ƻ����� \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\" �������С�\n�ɹ�: �������� \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\"��"
+        "stdout": "\ufffd\ufffd\u03e2: \ufffd\u01bb\ufffd\ufffd\ufffd\ufffd\ufffd \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\" \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\u0421\ufffd\n\ufffd\u0279\ufffd: \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\"\ufffd\ufffd"
       }
     ]
   },
@@ -227,5 +227,112 @@
       "original_encoding": "UTF-16 XML from schtasks /Query /XML",
       "archived_encoding": "UTF-8 normalized XML"
     }
+  },
+  "followup_task_scheduler_recovery": {
+    "decision": "HARD_BLOCKER_NO_SAFE_FULL_QUEUE_TASK_INSTALLED",
+    "real_solver_or_fdtd_started": false,
+    "coupling_files_modified": false,
+    "reason": "The unmodified Coupling serial_queue.py has only unbounded --execute over the current remaining queue and startup reconciliation rejects the recovered P05 FAILED_PREENTRY state with ENTERED_CASE_NEEDS_AUDIT. Directly registering --execute would expose all 93 remaining cases and fail at stale P05 state; this turn is forbidden from editing Coupling files or starting a solver.",
+    "coupling_serial_queue_sha256": "87ca459881e641ab5bf026767928bc09ec6470a4a0404d886331bddab4519966",
+    "coupling_head": "bb4e105308cdb45e2a2df300cd08af3e01fdb920",
+    "coupling_git_worktree_dirty": true,
+    "p05_recovery_evidence": {
+      "runner_head": "4c0de1c613612d9e23dd1ad9d8e17023322087c9",
+      "state": "RECOVERED_FAILED_PREENTRY",
+      "solver_entered": false,
+      "solver_invocations": 0,
+      "automatic_replay_count": 0,
+      "offline_tests_passed": 26,
+      "coupling_reconcile": "ENTERED_CASE_NEEDS_AUDIT:K6LDA1_DEV_D6_P05"
+    },
+    "serial_queue_source_evidence": {
+      "run_one_subprocess_line": 1337,
+      "startup_reconcile_line": 1434,
+      "fail_closed_entered_audit_lines": [
+        949,
+        951
+      ],
+      "unbounded_execute_loop": true
+    },
+    "queue_controller_scheduled_task_registered": false,
+    "remaining_action": "Coupling owner must version the P05 pre-entry reconciliation state and supply a bounded/restartable queue-controller entrypoint; then Task Scheduler can launch that complete controller directly."
+  },
+  "synthetic_queue_lifecycle_tests": {
+    "file": "scripts/shared_fdtd/gpu_runner_v1/test_queue_controller_lifecycle_v1.py",
+    "sha256": "b6b9c9cb4e2dc440ea0aec8ac4c347ea1c580bacf05d7389205314eafac2067c",
+    "focused_regression_result": "43 passed",
+    "solver_entries": 0,
+    "fdtd_runs": 0,
+    "scenarios": [
+      "detached submit returns before worker terminal result",
+      "controller exits while separate worker continues and restarted synthetic state reconciles the same immutable request",
+      "stale failed-preentry claim returns NEEDS_RECONCILIATION without redispatch",
+      "duplicate submission maps to one request directory and one worker claim"
+    ],
+    "scope_note": "synthetic Runner API tests; they do not exercise or qualify Coupling serial_queue.py"
+  },
+  "historical_v3_runtime_provenance": {
+    "root": "D:\\apcd_runtime\\global_fdtd_control_v3",
+    "artifacts": [
+      {
+        "path": "PW_K6_SEED_DB_V1_controller.py",
+        "sha256": "275ad826bb18a36cacc64d7510eee41e27c70f0e35ec9d8b136b732050c8e1af",
+        "mtime_utc": "2026-09-29T20:55:37.819086+00:00",
+        "finding": "legacy V3 dispatch_once loop; status uses tmp+replace; JSONL is flushed; catches BaseException and loops again"
+      },
+      {
+        "path": "close_failed_retry_no_replay_v1.py",
+        "sha256": "5dc78ee75c0f15d9e07407be8f1e9f29c1d3721b94958dcc6a9ef5553178a028",
+        "mtime_utc": "2026-09-29T20:55:37.828089+00:00",
+        "finding": "holds V3 admission and reconciles dead preentry host without retry"
+      },
+      {
+        "path": "reconcile_and_retry_s35_s39_v1.py",
+        "sha256": "f416e95995de88340e1c6a094e638293044ff1fa063f6c84da0d45d4e71c7259",
+        "mtime_utc": "2026-09-29T20:55:37.834097+00:00",
+        "finding": "marks preentry retry eligible, releases V3 hold, then dispatches S35/S39; explicitly not ported"
+      },
+      {
+        "path": "APCD_V3_COUPLING_DISPATCHER_precanary.xml",
+        "sha256": "b6271295040b8a2b5d380f434dd4eef01ce57cce6a6be941550e47bd0a7e2e53",
+        "finding": "disabled XML task, InteractiveToken, IgnoreNew, PT1M trigger, --once --preentry-only"
+      },
+      {
+        "path": "APCD_V3_COUPLING_RECONCILER_precanary.xml",
+        "sha256": "5ff35bddd80bdb1ce2cd43c68f68cdf34c21edd0c7747a75981c2bab1bb191ad",
+        "finding": "disabled XML task, InteractiveToken, IgnoreNew, PT1M trigger"
+      },
+      {
+        "path": "SHARED_V3_PREENTRY_ZERO_SOLVER_VALIDATION_V1.json",
+        "sha256": "d9048e15ff4bb2486c064a3655ef643066318467f4a6fb473a57ddb842b4566a",
+        "generated_utc": "2026-09-29T04:09:29.5059117Z",
+        "status": "PASS",
+        "solver_runs": 0,
+        "scientific_solver_entries": 0,
+        "test_counts": {
+          "global": [
+            20,
+            20
+          ],
+          "branch": [
+            20,
+            20
+          ],
+          "chaos": [
+            12,
+            12
+          ],
+          "medium_pw_preentry": [
+            8,
+            8
+          ],
+          "preentry_recovery": [
+            16,
+            16
+          ]
+        }
+      }
+    ],
+    "reuse_boundary": "Only atomic status/result persistence and fail-closed dead-process reconciliation principles are retained where V1 implements them; V3 dispatch loop, automatic retry, admission hold manipulation, task triggers, allocator and multi-slot queue are not reused."
   }
 }

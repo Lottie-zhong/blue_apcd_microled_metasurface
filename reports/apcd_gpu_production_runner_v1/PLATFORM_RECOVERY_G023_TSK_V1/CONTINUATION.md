@@ -31,3 +31,12 @@ See `FINAL_REPORT.md`, `TASK_SCHEDULER_SIMULATION_EVIDENCE_V1.json`, and `SHA256
 ## Latest final host census
 
 The final read-only audit observed eight `fdtd-solutions.exe -server -hide` API processes with Python metadata/API script parents. CPU time did not materially increase over a 3-second sample. No FDTD engine, MPI process, or Runner/Coupling queue controller process was found. The API processes were not stopped. GPU showed 1% utilization and 2164/10240 MiB in use by shared desktop applications; do not treat this as proof of free GPU capacity. See `FINAL_RESOURCE_CENSUS_V1.json`.
+
+
+## Follow-up hard blocker (2026-10-07)
+
+No full Coupling queue task was installed because current Coupling `serial_queue.py` is still an unbounded `--execute` loop and its current startup reconciliation rejects P05's Runner `RECOVERED_FAILED_PREENTRY` state (`ENTERED_CASE_NEEDS_AUDIT`, serial_queue lines 949-951). The source is SHA256 `87ca459881e641ab5bf026767928bc09ec6470a4a0404d886331bddab4519966` at Coupling HEAD `bb4e105308cdb45e2a2df300cd08af3e01fdb920`; Coupling worktree was dirty and untouched. Do not register/run it until Coupling owner supplies versioned pre-entry reconciliation plus a safe bounded/restartable controller interface. No solver was started.
+
+Synthetic Runner lifecycle test module `test_queue_controller_lifecycle_v1.py` now covers detached submit, controller exit/worker continuation and stale-state reconciliation, pre-entry stale-claim fail-closed behavior, and duplicate submission. Focused tests: 43 passed. These do not qualify the real Coupling controller.
+
+Historical V3 provenance is recorded in `TASK_SCHEDULER_SIMULATION_EVIDENCE_V1.json`; only atomic persistence and fail-closed dead-process reconciliation principles are reused. No V3 loop, retry, hold release, task trigger, allocator or queue is ported.
