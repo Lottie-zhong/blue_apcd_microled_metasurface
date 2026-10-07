@@ -81,15 +81,23 @@ def _atomic_json(path, value):
 def _create_exclusive_json(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_name(path.name + ".tmp-" + uuid.uuid4().hex)
     raw = json.dumps(value, sort_keys=True, indent=2, ensure_ascii=False).encode("utf-8") + b"\n"
     try:
-        with path.open("xb") as stream:
+        with temp.open("xb") as stream:
             stream.write(raw)
             stream.flush()
             os.fsync(stream.fileno())
-    except FileExistsError:
-        return False
-    return True
+        try:
+            os.link(temp, path)
+        except FileExistsError:
+            return False
+        return True
+    finally:
+        try:
+            temp.unlink()
+        except FileNotFoundError:
+            pass
 
 
 def _read_json(path):

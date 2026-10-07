@@ -27,8 +27,8 @@ LEGACY_CASE_IDS = [
     "K6V1_S45", "K6V1_S32", "K6V1_S47", "K6V1_S33",
     "K6V1_S37", "K6V1_S48", "K6V1_S35", "K6V1_S39",
 ]
-PINNED_ADAPTER_SHA256 = "a9cfb11db584bf2ab96049b9066e198415bfba0863f29d0ed278230ffddc8579"
-PINNED_RUNNER_SHA256 = "2ac168beb55f1242b646365b5d4cd9b06926c7eb46d0d8df6cdbeb3b59a290fe"
+PINNED_HISTORICAL_ADAPTER_SHA256 = "a9cfb11db584bf2ab96049b9066e198415bfba0863f29d0ed278230ffddc8579"
+PINNED_HISTORICAL_RUNNER_SHA256 = "2ac168beb55f1242b646365b5d4cd9b06926c7eb46d0d8df6cdbeb3b59a290fe"
 PINNED_CONTROLLED_POLICY_SHA256 = "b89924544fe506f8775058730d6f491bca4206c1f5f55f7d247e338f9d04dd45"
 PINNED_CONTROLLED_AUTHORITY_SHA256 = "a78274be660abf9d112f9c4a516cb647a00ebbb65069253abf38cca2e65efa35"
 PINNED_K6_V2_BUDGET_SHA256 = "e1709cc70c28401e2dbedf4566d775609490e0f9c455830fdc7774cc32b24d7c"
@@ -325,8 +325,17 @@ class ControlledAdmissionPolicyTests(unittest.TestCase):
         budget_path = controlled_dir / "k6_v2_development_solver_budget_v1.json"
         authority = json.loads(authority_path.read_text(encoding="utf-8"))
         self.assertEqual(authority["approved_stage1_case_ids"], LEGACY_CASE_IDS)
-        self.assertEqual(file_sha256(adapter_path), PINNED_ADAPTER_SHA256)
-        self.assertEqual(file_sha256(runner_path), PINNED_RUNNER_SHA256)
+        historical_truth_path = REPO_ROOT / "reports/apcd_gpu_production_runner_v1/COUPLING_K6_V2_128_DEVELOPMENT_CASES_GENERATION_V1/FIRST_CASE_TRUTH_RECORD_V1.json"
+        historical_truth = json.loads(historical_truth_path.read_text(encoding="utf-8"))
+        self.assertEqual(historical_truth["route_adapter_sha256"], PINNED_HISTORICAL_ADAPTER_SHA256)
+        historical_inventory_path = REPO_ROOT / "reports/apcd_gpu_production_runner_v1/UNRECOVERABLE_LINEAGE_DISPOSITION_AND_CONTROLLED_RECOVERY_V1/SHA256_INVENTORY_V1.json"
+        historical_inventory = json.loads(historical_inventory_path.read_text(encoding="utf-8"))
+        historical_runner = next(item for item in historical_inventory["files"]
+                                 if item.get("label") == "scripts/shared_fdtd/gpu_runner_v1/runner.py")
+        self.assertEqual(historical_runner["sha256"], PINNED_HISTORICAL_RUNNER_SHA256)
+        runner_evidence_path = REPO_ROOT / "reports/apcd_gpu_production_runner_v1/PLATFORM_RECOVERY_G023_TSK_V1/TASK_SCHEDULER_SIMULATION_EVIDENCE_V1.json"
+        runner_evidence = json.loads(runner_evidence_path.read_text(encoding="utf-8"))
+        self.assertEqual(file_sha256(runner_path), runner_evidence["runner_source_sha256"]["scripts/shared_fdtd/gpu_runner_v1/runner.py"])
         self.assertEqual(file_sha256(policy_path), PINNED_CONTROLLED_POLICY_SHA256)
         self.assertEqual(file_sha256(route_path), PINNED_CONTROLLED_AUTHORITY_SHA256)
         self.assertEqual(file_sha256(budget_path), PINNED_K6_V2_BUDGET_SHA256)

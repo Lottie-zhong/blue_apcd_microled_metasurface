@@ -434,6 +434,33 @@ def postprocess_dependency_preflight(launcher=None):
     }
 
 
+_LICENSE_STARTUP_FAILURE_MARKERS = (
+    "ansysli exited or could not read server port",
+    "failed to set up ansys license sharing",
+    "could not connect to ansys license server",
+)
+
+
+def solver_process_observation_failure(event, run_dir):
+    """Classify a valid child-return observation without weakening entry guards."""
+    if not isinstance(event, dict):
+        return "SOLVER_PROCESS_OBSERVATION_INVALID"
+    observation = event.get("observation")
+    if observation == "new_solver_process":
+        return None
+    if observation == "standalone_child_returned":
+        log_value = event.get("child_log")
+        log_path = Path(log_value) if isinstance(log_value, str) and log_value else (Path(run_dir) / "gpu_standalone" / "child.log")
+        try:
+            child_log = log_path.read_text(encoding="utf-8", errors="replace").casefold()
+        except OSError:
+            child_log = ""
+        if any(marker in child_log for marker in _LICENSE_STARTUP_FAILURE_MARKERS):
+            return "LUMERICAL_LICENSE_STARTUP_FAILED"
+        return "SOLVER_PROCESS_NOT_OBSERVED_CHILD_RETURNED"
+    return "SOLVER_PROCESS_OBSERVATION_INVALID"
+
+
 class NativeAdapter:
     """Production callbacks over the immutable standalone GPU launcher."""
     def __init__(self, contract_path, launcher=None, fdtd_exe=None, gpu_resource_name=None):
@@ -504,8 +531,9 @@ class NativeAdapter:
             stream.flush()
         observed = []
         def on_confirmed(event):
-            if event.get("observation") != "new_solver_process":
-                raise RunnerError("SOLVER_PROCESS_OBSERVATION_INVALID")
+            observation_failure = solver_process_observation_failure(event, run_dir)
+            if observation_failure:
+                raise RunnerError(observation_failure)
             child_pid = event.get("child_pid")
             if not isinstance(child_pid, int) or child_pid <= 0:
                 raise RunnerError("SOLVER_CHILD_PID_INVALID")
