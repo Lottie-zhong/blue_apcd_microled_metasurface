@@ -18,7 +18,7 @@ The current binding still targets request f0aeb35290a77db5c05c0346f1a40f81 and q
 
 Coupling status CONTROLLER_STATUS_K6V2SERIAL20261007T105811Z_ce8009d2 remains RUNNING/current case K6GDP2_DEV_G024, with no runner request IDs. Status SHA: 0090880A1F0D5F6A34FBF1A557C0093E506276159C59C9B16C2FD89726EEE400. Runner G024 is terminal FAILED_POSTENTRY_NO_TRUTH: one entry, no truth, no physical GPU engine observation, replay 0. Runner closeout records CONTROLLER_EXITED_NEEDS_RECONCILIATION, so the Coupling status/queue snapshot is stale for retirement. No successor manifest or owner retirement receipt was found. Old binding remains and API was not called.
 
-At the live process check, Runner tasks were Ready/enabled, runner slot/lifecycle markers absent, and no fdtd-engine-msmpi.exe. Eight fdtd-solutions.exe API processes and one python.exe - PID 18936 with unidentified purpose remained; none were terminated.
+At the live process check, Runner tasks were Ready/enabled, runner slot/lifecycle markers absent, and no fdtd-engine-msmpi.exe. Eight fdtd-solutions.exe -server -hide API processes and three python.exe - processes remained: PIDs 29236 and 33316 are parents of two API instances; PID 18936 has parent PID 45704 and its script purpose is not identifiable from its command line. No fdtd-engine-msmpi.exe was present, and none of these processes were terminated.
 
 This maintenance: solver entry 0, FDTD run 0, replay 0, case launches 0. Do not replay G024 or create a replacement attempt.
 

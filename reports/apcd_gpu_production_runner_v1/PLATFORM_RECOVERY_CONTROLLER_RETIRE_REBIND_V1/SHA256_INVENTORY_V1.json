@@ -1,46 +1,57 @@
 {
-    "schema":  "APCD_GPU_RUNNER_V1_CONTROLLER_RETIRE_REBIND_CLOSEOUT_SHA256_INVENTORY_V1",
-    "generated_utc":  "2026-10-07T16:15:17Z",
-    "branch":  "codex/apcd-gpu-production-runner-v1",
-    "source_base_head":  "671745718a8d70bc5076b59a2236e8a3ea8703f3",
-    "route":  "APCD_GPU_RUNNER_V1_CONTROLLER_RETIRE_REBIND_API_V1",
-    "code_hashes":  {
-                        "scripts/shared_fdtd/gpu_runner_v1/task_scheduler_v1.py":  "8C078479623AA4250CC01A94C50700018932FD6F60C43A858DCB22641207C9DC",
-                        "scripts/shared_fdtd/gpu_runner_v1/test_queue_controller_task_scheduler_v1.py":  "2DAB5E963985A22C19A8FF942284D1C56B1C363B256AE8DB778B04A775D82706"
-                    },
-    "live_evidence":  {
-                          "runner_binding_sha256":  "1593BF3514014AAF7D3F4EA028F01AF33FB196E39EF3FE7909320996745BA5AA",
-                          "coupling_controller_status_sha256":  "0090880A1F0D5F6A34FBF1A557C0093E506276159C59C9B16C2FD89726EEE400",
-                          "g024_status_sha256":  "18E3BD3C1A40B4D839D6711802B425BE25586881813895BC212AD2A20254BB02",
-                          "g024_closeout_receipt_file_sha256":  "4E692DC1130DC70AA87F4FA0D9B8926A28CA3B06F9DA86FBF1DBD2E034478B61",
-                          "g024_closeout_receipt_self_sha256":  "7A1659AF4AC1507759C61997A9491B255C4B1A0B3766A421CFC2AE656A0DCF0E",
-                          "g024_disposition_sha256":  "82D0B5A3FEF0C9A073AD5ABFA5ACC513CF7C7561EDA2049EAEF822495ADA5A62",
-                          "g024_verification_v2_sha256":  "B1E8F22359DCE8E43B4E923C0D36C0358CEEF1C6375B9F8342E94380F0639D8D",
-                          "successor_manifest":  "not_found_at_live_search",
-                          "owner_retirement_receipt":  "not_found_at_live_search"
-                      },
-    "verification":  {
-                         "pytest_command":  "N:\\anaconda_envs\\RCP_LCP\\python.exe -m pytest scripts/shared_fdtd/gpu_runner_v1 -q",
-                         "pytest_result":  "204 passed, 50 subtests passed in 42.40s",
-                         "ruff_result":  "All checks passed",
-                         "git_diff_check":  "passed",
-                         "solver_entry":  0,
-                         "fdtd_run":  0,
-                         "replay":  0,
-                         "case_launches":  0
-                     },
-    "current_process_snapshot":  {
-                                     "runner_controller_task":  "Ready/enabled, LastTaskResult=2",
-                                     "runner_worker_task":  "Ready/enabled, LastTaskResult=0",
-                                     "runner_slot_lifecycle_markers":  "absent",
-                                     "fdtd_engine":  "not present",
-                                     "fdtd_solutions_api_processes":  8,
-                                     "unidentified_python_stdin_pid":  18936,
-                                     "processes_terminated":  0
-                                 },
-    "artifacts_sha256":  {
-                             "docs/APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF.md":  "70BDBAFB43CA6C7CE5BE5239271FF52C3FB0DAB01D5445A11018478865F33A67",
-                             "reports/apcd_gpu_production_runner_v1/PLATFORM_RECOVERY_CONTROLLER_RETIRE_REBIND_V1/FINAL_REPORT.md":  "C6711CDB93981B72BAAD53912028912881BB008B172F2248709B2197340E1884",
-                             "reports/apcd_gpu_production_runner_v1/PLATFORM_RECOVERY_CONTROLLER_RETIRE_REBIND_V1/CONTINUATION.md":  "97E4741554527122DD42118537E8CB88455ADD91E63EE80E611A0DE6A285B189"
-                         }
+  "schema": "APCD_GPU_RUNNER_V1_CONTROLLER_RETIRE_REBIND_CLOSEOUT_SHA256_INVENTORY_V1",
+  "generated_utc": "2026-10-07T16:26:05Z",
+  "branch": "codex/apcd-gpu-production-runner-v1",
+  "source_base_head": "671745718a8d70bc5076b59a2236e8a3ea8703f3",
+  "route": "APCD_GPU_RUNNER_V1_CONTROLLER_RETIRE_REBIND_API_V1",
+  "code_hashes": {
+    "scripts/shared_fdtd/gpu_runner_v1/task_scheduler_v1.py": "8C078479623AA4250CC01A94C50700018932FD6F60C43A858DCB22641207C9DC",
+    "scripts/shared_fdtd/gpu_runner_v1/test_queue_controller_task_scheduler_v1.py": "2DAB5E963985A22C19A8FF942284D1C56B1C363B256AE8DB778B04A775D82706"
+  },
+  "live_evidence": {
+    "runner_binding_sha256": "1593BF3514014AAF7D3F4EA028F01AF33FB196E39EF3FE7909320996745BA5AA",
+    "coupling_controller_status_sha256": "0090880A1F0D5F6A34FBF1A557C0093E506276159C59C9B16C2FD89726EEE400",
+    "g024_status_sha256": "18E3BD3C1A40B4D839D6711802B425BE25586881813895BC212AD2A20254BB02",
+    "g024_closeout_receipt_file_sha256": "4E692DC1130DC70AA87F4FA0D9B8926A28CA3B06F9DA86FBF1DBD2E034478B61",
+    "g024_closeout_receipt_self_sha256": "7A1659AF4AC1507759C61997A9491B255C4B1A0B3766A421CFC2AE656A0DCF0E",
+    "g024_disposition_sha256": "82D0B5A3FEF0C9A073AD5ABFA5ACC513CF7C7561EDA2049EAEF822495ADA5A62",
+    "g024_verification_v2_sha256": "B1E8F22359DCE8E43B4E923C0D36C0358CEEF1C6375B9F8342E94380F0639D8D",
+    "successor_manifest": "not_found_at_live_search",
+    "owner_retirement_receipt": "not_found_at_live_search"
+  },
+  "verification": {
+    "pytest_command": "N:\\anaconda_envs\\RCP_LCP\\python.exe -m pytest scripts/shared_fdtd/gpu_runner_v1 -q",
+    "pytest_result": "204 passed, 50 subtests passed in 42.40s",
+    "ruff_result": "All checks passed",
+    "git_diff_check": "passed",
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "replay": 0,
+    "case_launches": 0
+  },
+  "current_process_snapshot": {
+    "runner_controller_task": "Ready/enabled, LastTaskResult=2",
+    "runner_worker_task": "Ready/enabled, LastTaskResult=0",
+    "runner_slot_lifecycle_markers": "absent",
+    "fdtd_engine": "not present",
+    "fdtd_solutions_api_processes": 8,
+    "python_stdin_processes": 3,
+    "python_stdin_pids": [
+      29236,
+      33316,
+      18936
+    ],
+    "python_stdin_parent_pids": [
+      10796,
+      26492,
+      45704
+    ],
+    "unidentified_python_stdin_pid": 18936,
+    "processes_terminated": 0
+  },
+  "artifacts_sha256": {
+    "docs/APCD_GPU_PRODUCTION_RUNNER_V1_HANDOFF.md": "9C33CFE79BCA6C615D4A7100F8CC805638EF8680FFD43A17508118CF92B8FD62",
+    "reports/apcd_gpu_production_runner_v1/PLATFORM_RECOVERY_CONTROLLER_RETIRE_REBIND_V1/FINAL_REPORT.md": "2F0E6BC4FB762FC1F6AFF6165D9D9C74F26B91ACB0DE3583D2DBB119DDDC466F",
+    "reports/apcd_gpu_production_runner_v1/PLATFORM_RECOVERY_CONTROLLER_RETIRE_REBIND_V1/CONTINUATION.md": "97E4741554527122DD42118537E8CB88455ADD91E63EE80E611A0DE6A285B189"
+  }
 }
