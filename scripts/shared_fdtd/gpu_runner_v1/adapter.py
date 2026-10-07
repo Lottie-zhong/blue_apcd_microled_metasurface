@@ -15,6 +15,7 @@ import sqlite3
 import subprocess
 import sys
 import time
+import uuid
 from pathlib import Path
 
 from runner import (CONTRACT_SHA256, ENTRY_STATES, EXPANSION_SHA256, MANIFEST_KEYS,
@@ -1328,17 +1329,42 @@ def preflight_setup_cli(envelope_path, adapter_factory=NativeAdapter):
     }
 
 
+
+def run_one_scheduled(manifest_path):
+    """Submit through the fixed Windows Task Scheduler worker and query durable state."""
+    try:
+        from task_scheduler_v1 import run_one_via_task_scheduler
+    except ImportError:
+        from .task_scheduler_v1 import run_one_via_task_scheduler
+    return run_one_via_task_scheduler(manifest_path, run_cli=run_cli)
+
+
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Run one approved APCD GPU manifest")
+    parser = argparse.ArgumentParser(description="APCD GPU Runner V1 submit/query API")
     sub = parser.add_subparsers(dest="command", required=True)
-    one = sub.add_parser("run-one")
+    one = sub.add_parser("run-one", help="Submit one request and wait for its durable result")
     one.add_argument("case_manifest")
+    submit = sub.add_parser("submit-one", help="Submit one request without waiting")
+    submit.add_argument("case_manifest")
+    query = sub.add_parser("query-one", help="Read a durable request receipt")
+    query.add_argument("request_id")
     preflight_setup = sub.add_parser("preflight-setup")
     preflight_setup.add_argument("case_manifest")
     args = parser.parse_args(argv)
     try:
-        result = (preflight_setup_cli(args.case_manifest)
-                  if args.command == "preflight-setup" else run_cli(args.case_manifest))
+        if args.command == "preflight-setup":
+            result = preflight_setup_cli(args.case_manifest)
+        else:
+            try:
+                import task_scheduler_v1 as scheduler
+            except ImportError:
+                from . import task_scheduler_v1 as scheduler
+            if args.command == "run-one":
+                result = run_one_scheduled(args.case_manifest)
+            elif args.command == "submit-one":
+                result = scheduler.submit_one(args.case_manifest)
+            else:
+                result = scheduler.query_one(args.request_id)
     except Exception as exc:
         print("RUNNER_ERROR:" + str(exc), file=sys.stderr)
         return 2

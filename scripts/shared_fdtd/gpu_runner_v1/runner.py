@@ -425,10 +425,11 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
             status=_transition(run_dir,status,"DONE",done_unix=time.time())
             row["state"]="DONE"; atomic_json(root/"registry.json",registry)
             return {"run_dir":str(run_dir),"status":status,"validation":validation}
-        except Exception as exc:
+        except BaseException as exc:
             if status is not None and status["state"] not in ("FAILED_PREENTRY","FAILED_POSTENTRY"):
                 failed="FAILED_POSTENTRY" if entered else "FAILED_PREENTRY"
-                status=_transition(run_dir,status,failed,failure=str(exc),failed_unix=time.time())
+                failure=(type(exc).__name__ + (":" + str(exc) if str(exc) else ""))[:400]
+                status=_transition(run_dir,status,failed,failure=failure,failed_unix=time.time())
                 row["state"]=failed; atomic_json(root/"registry.json",registry)
             if isinstance(exc,RunnerError): raise
             raise RunnerError(str(exc)) from exc

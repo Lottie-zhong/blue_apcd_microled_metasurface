@@ -1,0 +1,231 @@
+{
+  "schema": "APCD_GPU_RUNNER_TASK_SCHEDULER_SIMULATION_EVIDENCE_V1",
+  "captured_utc": "2026-10-07T08:30:15.338366+00:00",
+  "host": "DESKTOP-NNE313K",
+  "user": "desktop-nne313k\\dell",
+  "mode": "synthetic_scheduler_lifecycle_only",
+  "solver_or_fdtd_executed": false,
+  "production_task": {
+    "name": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+    "path": "\\",
+    "user_id": "DELL",
+    "logon_type": "Interactive",
+    "run_level": "Limited",
+    "multiple_instances": "IgnoreNew",
+    "execution_time_limit": "PT72H",
+    "restart_count": 0,
+    "last_task_result": 0,
+    "last_run_utc": "2026-10-07T08:19:14.0000000Z",
+    "task_xml_sha256": "a1785f2cf2d8dd9cd08f05b7b64eecdb0f6cc557fb296e24a331033b01699b86"
+  },
+  "synthetic_tasks": {
+    "exported_xml_sha256": {
+      "APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007.xml": "0ea4094fea0bf829cdad0c8e6af715e6f9c44eaba7691e0f969d5597671f9690",
+      "APCD_RUNNER_V1_LIFECYCLE_SIM_CONTROLLER_20261007.xml": "de8c5f5666d2edc222a7c06595324477727367a80ca7ef7c7c68a5b3e5fcdd34",
+      "APCD_RUNNER_V1_LIFECYCLE_SIM_FAULT_20261007.xml": "8bc60e514652167081f5c3df908db6934492206894da2b65fda5005b70faabc5"
+    },
+    "unregistered_after_capture": [
+      {
+        "name": "APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007",
+        "unregistered": true
+      },
+      {
+        "name": "APCD_RUNNER_V1_LIFECYCLE_SIM_CONTROLLER_20261007",
+        "unregistered": true
+      },
+      {
+        "name": "APCD_RUNNER_V1_LIFECYCLE_SIM_FAULT_20261007",
+        "unregistered": true
+      }
+    ],
+    "production_worker_task_still_registered": true
+  },
+  "synthetic_runtime_artifacts": {
+    "sim_worker.py": {
+      "sha256": "810a1ab0068ff4700bcbb4430b16d41607d0bdcc8ef1badfbf138f500ccb0692",
+      "size_bytes": 2699
+    },
+    "sim_controller.py": {
+      "sha256": "3eb2e4220ff6964434f4c8e4df80b8f98adeb0e2224563595687b2d577e50cac",
+      "size_bytes": 1092
+    },
+    "worker_starts.jsonl": {
+      "sha256": "be76c9173b5503b3c69c5cf89e69bfff4f9ab12504f0e08b815bc0355c7fb2e5",
+      "size_bytes": 649
+    },
+    "simulated_durable_truth.json": {
+      "sha256": "84b0eb25cb54ac2beeda9926ef368be11d648aa317255d470e64fc4d64288599",
+      "size_bytes": 419
+    },
+    "controller_exception.json": {
+      "sha256": "3625284c979b04d1e790c502e101743d89a11e30ac04d19c28e39a3f3a75f1ed",
+      "size_bytes": 842
+    },
+    "fault_worker_claim.json": {
+      "sha256": "2f22d4ea4338812c08b4b6d7643ee9d3afa75d0ca9cd0ed410bb059b6022e09e",
+      "size_bytes": 173
+    },
+    "fault_worker_terminal.json": {
+      "sha256": "803ec276705bc04f153051c9336c628bab177243816fdb7d8265648f66494cb4",
+      "size_bytes": 275
+    }
+  },
+  "worker_starts": [
+    {
+      "mode": "normal",
+      "started_utc": "2026-10-07T08:09:20.635998+00:00",
+      "pid": 32232,
+      "ppid": 4484,
+      "task_user": "DESKTOP-NNE313K\\DELL",
+      "session_id": 1,
+      "is_process_in_job_query_ok": true,
+      "is_process_in_job": true
+    },
+    {
+      "mode": "normal",
+      "started_utc": "2026-10-07T08:10:09.892915+00:00",
+      "pid": 18000,
+      "ppid": 4484,
+      "task_user": "DESKTOP-NNE313K\\DELL",
+      "session_id": 1,
+      "is_process_in_job_query_ok": true,
+      "is_process_in_job": true
+    },
+    {
+      "mode": "fault",
+      "started_utc": "2026-10-07T08:12:48.340345+00:00",
+      "pid": 9312,
+      "ppid": 4484,
+      "task_user": "DESKTOP-NNE313K\\DELL",
+      "session_id": 1,
+      "is_process_in_job_query_ok": true,
+      "is_process_in_job": true
+    }
+  ],
+  "controller_exception": {
+    "at_utc": "2026-10-07T08:09:21.893221+00:00",
+    "controller_pid": 27140,
+    "exit_code": 23,
+    "simulated_only": true,
+    "state": "CONTROLLER_EXITED_ABNORMALLY",
+    "worker_task_trigger_results": [
+      {
+        "attempt": 1,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "�ɹ�: �������� \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\"��"
+      },
+      {
+        "attempt": 2,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "��Ϣ: �ƻ����� \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\" �������С�\n�ɹ�: �������� \"APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007\"��"
+      }
+    ]
+  },
+  "latest_simulated_durable_truth": {
+    "automatic_replay_count": 0,
+    "persisted_utc": "2026-10-07T08:10:23.991916+00:00",
+    "simulated_only": true,
+    "solver_entered": false,
+    "solver_invocations": 0,
+    "state": "SIMULATED_DURABLE_TRUTH",
+    "worker_context": {
+      "is_process_in_job": true,
+      "is_process_in_job_query_ok": true,
+      "pid": 18000,
+      "ppid": 4484,
+      "session_id": 1,
+      "task_user": "DESKTOP-NNE313K\\DELL"
+    }
+  },
+  "synthetic_fault_terminal": {
+    "automatic_replay_count": 0,
+    "reason": "SIMULATED_WORKER_EXCEPTION_AFTER_ENTRY",
+    "simulated_only": true,
+    "solver_entered": true,
+    "solver_invocations": 1,
+    "state": "FAILED_POSTENTRY_NO_TRUTH",
+    "training_admitted": false,
+    "truth_available": false
+  },
+  "interpretation": [
+    "The controller task returned exit 23 after two trigger attempts; Scheduler reported the second task invocation as already running.",
+    "A separate normal worker was observed after the controller exception and a simulated durable-result file was written; that retained file was later overwritten by a second normal simulation invocation, so the retained payload is not claimed as the first controller-triggered worker receipt.",
+    "The separate worker is a single-case Runner worker. This is not proof that Task Scheduler owns or resumes the complete Coupling serial queue controller.",
+    "The production task uses InteractiveToken. Actual desktop logoff was not exercised because the desktop session was the only active console session."
+  ],
+  "runner_source_sha256": {
+    "scripts/shared_fdtd/gpu_runner_v1/adapter.py": "d93836eb6d53095b85541912366414eaceb18800c1f506bd8d63d97dcf47f52e",
+    "scripts/shared_fdtd/gpu_runner_v1/closeout_d6_m05_orphan_v1.py": "0899be32f7f9dd69d51038bd4137fe5d7102254bab8ef6ef9ae37ada994436df",
+    "scripts/shared_fdtd/gpu_runner_v1/runner.py": "b4a949edd5fd45766330a69de5d5def2803e7809f1b7694a913cb775eaa4f792",
+    "scripts/shared_fdtd/gpu_runner_v1/closeout_g023_postentry_v1.py": "532f2c19820154ffeb53aa5cb2d2c8eaa4419928e9eca359b35c4badb780ae6d",
+    "scripts/shared_fdtd/gpu_runner_v1/task_scheduler_v1.py": "92686887e87333928dd59d306cf1a52e153f31c7d7bcb77413f3d7b7f7329578",
+    "scripts/shared_fdtd/gpu_runner_v1/test_g023_postentry_closeout_v1.py": "4e189a51612e5ef604a6f08cc1a2ec4d0252fa452386e996b92125d838c50aad",
+    "scripts/shared_fdtd/gpu_runner_v1/test_session_lifecycle_v1.py": "7cda8e8600fbc5318241d5fa4de2683cb390c129dc59396b151c8972b3c248f2",
+    "scripts/shared_fdtd/gpu_runner_v1/test_task_scheduler_v1.py": "d70efab5052292223b52024861788326be6bbc6f9ea34238d3ed4839484df68c"
+  },
+  "g023_closeout": {
+    "case_id": "K6GDP2_DEV_G023",
+    "attempt_id": "attempt_001",
+    "run_id": "K6V2_G023_20261006T144241Z_0a0cb192",
+    "disposition": "FAILED_POSTENTRY_NO_TRUTH",
+    "solver_entry_count": 1,
+    "solver_invocations": 1,
+    "automatic_replay_count": 0,
+    "truth_available": false,
+    "scientific_valid": false,
+    "training_admitted": false,
+    "receipt_sha256": "d6485fd48a875a5dadab14dd820b3ae2ad0c5819eee47197ee174d0b0faf07d3",
+    "disposition_sha256": "a529fafa81003c26f24640571388af4d195b28c17e2501a1c140bf21c0a90792",
+    "journal_sha256": "98817f534a379a196efb12bed610f24260a44c3c440b0c931754aa1182289af2",
+    "terminal_status_sha256": "e81e8e2fc2445a0bf798668c177a01b7062faef47e6e0952875cbfb240f50ab4",
+    "terminal_registry_sha256": "8beb6f9593d8783113f0411f3f2a478f75faf3fbc317c5ae70a0fad3d910c11b"
+  },
+  "coupling_controller": {
+    "worktree_head": "4c0de1c613612d9e23dd1ad9d8e17023322087c9",
+    "serial_queue_sha256": "87ca459881e641ab5bf026767928bc09ec6470a4a0404d886331bddab4519966",
+    "uses_run_one_loop": true,
+    "scheduled_full_queue_controller_task_registered": false,
+    "safe_single_case_or_bounded_resume_controller_available": false,
+    "unsafe_full_execute_remaining_case_count_at_last_audit": 93
+  },
+  "companion_preentry_recovery": {
+    "case_id": "K6LDA1_DEV_D6_P05",
+    "runner_head": "4c0de1c613612d9e23dd1ad9d8e17023322087c9",
+    "result": "RECOVERED_FAILED_PREENTRY",
+    "solver_entered": false,
+    "solver_invocations": 0,
+    "automatic_replay_count": 0,
+    "offline_tests_passed": 26,
+    "coupling_reconcile_result": "ENTERED_CASE_NEEDS_AUDIT",
+    "coupling_changes_made": false,
+    "source": "received completion evidence from Runner recovery task; not re-executed in this report turn"
+  },
+  "task_xml_archives": {
+    "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER.xml": {
+      "original_scheduler_export_sha256": "a1785f2cf2d8dd9cd08f05b7b64eecdb0f6cc557fb296e24a331033b01699b86",
+      "archived_utf8_definition_sha256": "b5d3512f649f0d50090ece799d48f194e24905b308055b28b40e4ae9d1efa638",
+      "original_encoding": "UTF-16 XML from schtasks /Query /XML",
+      "archived_encoding": "UTF-8 normalized XML"
+    },
+    "APCD_RUNNER_V1_LIFECYCLE_SIM_CONTROLLER_20261007.xml": {
+      "original_scheduler_export_sha256": "de8c5f5666d2edc222a7c06595324477727367a80ca7ef7c7c68a5b3e5fcdd34",
+      "archived_utf8_definition_sha256": "b22ddc3b7cc6384ca55bea70e677015f07c5de1e3248079b090cc188b3a222d6",
+      "original_encoding": "UTF-16 XML from schtasks /Query /XML",
+      "archived_encoding": "UTF-8 normalized XML"
+    },
+    "APCD_RUNNER_V1_LIFECYCLE_SIM_FAULT_20261007.xml": {
+      "original_scheduler_export_sha256": "8bc60e514652167081f5c3df908db6934492206894da2b65fda5005b70faabc5",
+      "archived_utf8_definition_sha256": "78970c68fb1fb7b4f0537998113568fee600ccf4bbc19237cd2c85b8e39b158f",
+      "original_encoding": "UTF-16 XML from schtasks /Query /XML",
+      "archived_encoding": "UTF-8 normalized XML"
+    },
+    "APCD_RUNNER_V1_LIFECYCLE_SIM_WORKER_20261007.xml": {
+      "original_scheduler_export_sha256": "0ea4094fea0bf829cdad0c8e6af715e6f9c44eaba7691e0f969d5597671f9690",
+      "archived_utf8_definition_sha256": "96e974c657a26446a253049d09895de6e79dfee6ef1b793aa422de08cf71c55d",
+      "original_encoding": "UTF-16 XML from schtasks /Query /XML",
+      "archived_encoding": "UTF-8 normalized XML"
+    }
+  }
+}

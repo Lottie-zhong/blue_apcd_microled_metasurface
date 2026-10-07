@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:Task xmlns:ns0="http://schemas.microsoft.com/windows/2004/02/mit/task" version="1.4">
+  <ns0:RegistrationInfo>
+    <ns0:Author>APCD GPU Runner V1</ns0:Author>
+    <ns0:Description>Single request worker; no automatic solver replay.</ns0:Description>
+    <ns0:URI>\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER</ns0:URI>
+  </ns0:RegistrationInfo>
+  <ns0:Principals>
+    <ns0:Principal id="Author">
+      <ns0:UserId>S-1-5-21-2958591235-2706656562-1210676212-1001</ns0:UserId>
+      <ns0:LogonType>InteractiveToken</ns0:LogonType>
+    </ns0:Principal>
+  </ns0:Principals>
+  <ns0:Settings>
+    <ns0:DisallowStartIfOnBatteries>false</ns0:DisallowStartIfOnBatteries>
+    <ns0:StopIfGoingOnBatteries>false</ns0:StopIfGoingOnBatteries>
+    <ns0:Hidden>true</ns0:Hidden>
+    <ns0:MultipleInstancesPolicy>IgnoreNew</ns0:MultipleInstancesPolicy>
+    <ns0:IdleSettings>
+      <ns0:StopOnIdleEnd>true</ns0:StopOnIdleEnd>
+      <ns0:RestartOnIdle>false</ns0:RestartOnIdle>
+    </ns0:IdleSettings>
+    <ns0:UseUnifiedSchedulingEngine>true</ns0:UseUnifiedSchedulingEngine>
+  </ns0:Settings>
+  <ns0:Triggers />
+  <ns0:Actions Context="Author">
+    <ns0:Exec>
+      <ns0:Command>N:\anaconda_envs\RCP_LCP\python.exe</ns0:Command>
+      <ns0:Arguments>"D:\project\worktrees\blue_apcd_gpu_production_runner_v1\scripts\shared_fdtd\gpu_runner_v1\task_scheduler_v1.py" worker-once</ns0:Arguments>
+      <ns0:WorkingDirectory>D:\project\worktrees\blue_apcd_gpu_production_runner_v1\scripts\shared_fdtd\gpu_runner_v1</ns0:WorkingDirectory>
+    </ns0:Exec>
+  </ns0:Actions>
+</ns0:Task>

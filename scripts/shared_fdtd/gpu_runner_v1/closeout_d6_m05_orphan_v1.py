@@ -617,7 +617,7 @@ def _archive_marker(src, dst, expected_sha, expected_value):
     return "ARCHIVED"
 
 
-def _closeout_one_run(root, control_path, ledger_path, *, process_probe, hold_probe, truth_probe, fault_after=None):
+def _closeout_one_run(root, control_path, ledger_path, *, process_probe, hold_probe, truth_probe, fault_after=None, authority_reference="PROJECT_OWNER_APPROVED_RECOVERY;D6_M05_FIXED_RUN_ZERO_SOLVER_CLOSEOUT"):
     root = pathlib.Path(root).resolve()
     rd = _run_dir(root)
     cd = _closeout_dir(root)
@@ -641,7 +641,7 @@ def _closeout_one_run(root, control_path, ledger_path, *, process_probe, hold_pr
             "initial_control": live["hold"],
             "initial_process_probe": live["process"],
             "initial_truth_probe": live["truth"],
-            "authority_reference": "PROJECT_OWNER_APPROVED_RECOVERY;D6_M05_FIXED_RUN_ZERO_SOLVER_CLOSEOUT",
+            "authority_reference": authority_reference,
         }
         claim = dict(body, claim_sha256=_sha_bytes(_canonical(body)))
         cd.mkdir(parents=True, exist_ok=True)
