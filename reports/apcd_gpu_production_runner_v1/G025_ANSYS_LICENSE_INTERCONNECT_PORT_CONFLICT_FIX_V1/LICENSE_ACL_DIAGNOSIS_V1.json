@@ -1,0 +1,160 @@
+{
+  "schema": "APCD_GPU_RUNNER_G025_ANSYS_ACL_PORT_DIAGNOSIS_V1",
+  "case_id": "K6GDP2_DEV_G025",
+  "attempt_id": "attempt_001",
+  "host": "DESKTOP-NNE313K",
+  "port": 61208,
+  "failed_preflight_observation": {
+    "licdebug_path": "C:\\Users\\dell\\AppData\\Local\\Temp\\.ansys\\licdebug.DESKTOP-NNE313K.LUMERICAL_GUI.251.out",
+    "observations": [
+      {
+        "time_local": "2026-10-08 13:48:29",
+        "text": "Unable to connect to ansyscl on port 61208 as ansyscl is not currently running."
+      },
+      {
+        "time_local": "2026-10-08 13:48:29",
+        "text": "Client attempted to launch ansyscl.exe with -aclport 61208."
+      },
+      {
+        "time_local": "2026-10-08 13:48:45",
+        "text": "CONNECT_ERROR for PID 42300 LUMERICAL_GUI."
+      }
+    ],
+    "ansyscl_log_path": "C:\\Users\\dell\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log",
+    "bind_observations": [
+      {
+        "time_local": "2026-10-08 13:48:30",
+        "text": "Could not bind socket on port 61208."
+      },
+      {
+        "time_local": "2026-10-08 14:03:31",
+        "text": "Failed to bind socket to port 61208. Exiting."
+      }
+    ],
+    "interpretation": "The G025 preflight licensing client could not reuse the expected ACL endpoint and attempted a second bind on the occupied default port."
+  },
+  "current_listener": {
+    "pid": 8448,
+    "exe": "N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe",
+    "command_line": [
+      "N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe",
+      "-acl",
+      "DESKTOP-NNE313K_DELL_251",
+      "-nodaemon",
+      "-aclport",
+      "61208",
+      "-log",
+      "C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log"
+    ],
+    "created_local": "2026-09-28 22:30:02",
+    "parent_chain": [
+      {
+        "pid": 31848,
+        "ppid": 30336,
+        "name": "fdtd-solutions.exe",
+        "created_local": "2026-09-28 22:30:01"
+      },
+      {
+        "pid": 30336,
+        "ppid": 21820,
+        "name": "python.exe",
+        "command_line": "N:\\anaconda_envs\\RCP_LCP\\python.exe C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_inventory.py",
+        "created_local": "2026-09-28 22:30:01"
+      }
+    ],
+    "netstat_observation": "LISTENING on 0.0.0.0:61208; eight ESTABLISHED loopback clients from fdtd-solutions.exe processes at final check.",
+    "classification": "Pre-existing shared Ansys ACL proxy serving existing Lumerical API clients; not attributable to current G025 worker.",
+    "action": "Left running; no process termination or license service restart."
+  },
+  "runner_change": {
+    "adapter_sha256": "8860254b701fe2461def30644158117bf211b826f1d3adf3e5919c02c48c550a",
+    "environment_variable": "ANSYS_LICENSING_DESKTOP_PORT_RANGE",
+    "default": "6200:6299",
+    "scope": "Runner NativeAdapter process only; os.environ.setdefault preserves explicit operator value.",
+    "external_machine_or_license_configuration_changed": false
+  },
+  "successful_preflight_observation": {
+    "result": "PASS",
+    "result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\FORMAL_PREFLIGHT_RESULT_K6GDP2_DEV_G025_A78274BE_94ab86cba4ad.json",
+    "result_sha256": "f14e809588fb3e68cacefcc277d3ae600716deb6e468add36e3b27eb7e69b786",
+    "licdebug_successful_connections": [
+      {
+        "time_local": "2026-10-08 20:26:49",
+        "endpoint": "61208@127.0.0.1"
+      },
+      {
+        "time_local": "2026-10-08 20:26:56",
+        "endpoint": "61208@127.0.0.1"
+      },
+      {
+        "time_local": "2026-10-08 20:27:02",
+        "endpoint": "61208@127.0.0.1"
+      }
+    ],
+    "new_listeners_6200_6299": [],
+    "interpretation": "This successful preflight reconnected through the existing 61208 proxy. It proves G025 setup preflight now passes, but does not empirically exercise a fresh ACL startup on 6200-6299."
+  },
+  "execution_counts": {
+    "solver_entry": 0,
+    "fdtd_run": 0,
+    "replay": 0
+  },
+  "official_vendor_reference": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v251/en/pdf/Ansys_Inc._Licensing_Guide.pdf",
+  "files": {
+    "adapter": {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py",
+      "sha256": "8860254b701fe2461def30644158117bf211b826f1d3adf3e5919c02c48c550a",
+      "size_bytes": 79315
+    },
+    "focused_test": {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\test_gpu_runner_v1_adapter.py",
+      "sha256": "0aa4c6a650c293efe5e507f3e14fbf2dad553d0e1a17e48e19b42383ec3c2a88",
+      "size_bytes": 28761
+    },
+    "formal_result": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\FORMAL_PREFLIGHT_RESULT_K6GDP2_DEV_G025_A78274BE_94ab86cba4ad.json",
+      "sha256": "f14e809588fb3e68cacefcc277d3ae600716deb6e468add36e3b27eb7e69b786",
+      "size_bytes": 17555
+    },
+    "successful_preflight_log": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\FORMAL_PREFLIGHT_LOG_K6GDP2_DEV_G025_A78274BE_94ab86cba4ad_ACL_RANGE_6200_6299_20261008.txt",
+      "sha256": "c73b98c7208ea1fbbcd4ff64918951e7f7e0c56fd6a24b3ae860c0c4b8cdac94",
+      "size_bytes": 12898
+    },
+    "original_failure_log": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\FORMAL_PREFLIGHT_LOG_K6GDP2_DEV_G025_A78274BE_94ab86cba4ad.txt",
+      "sha256": "ee13c516f7a82cb8040bf82598ae330cddc09fbd61a7c018d0cfd0f499057e43",
+      "size_bytes": 651
+    },
+    "batch_status": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\BATCH_PREPARATION_STATUS_V1.json",
+      "sha256": "ad37c27c169751acd892c7efadf6fb16136bdc3556d943cbaf69f27b991d5037",
+      "size_bytes": 79012
+    },
+    "contract": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6GDP2_DEV_G025\\attempt_001\\physical_contract.json",
+      "sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "size_bytes": 815
+    },
+    "manifest": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6GDP2_DEV_G025\\attempt_001\\source_manifest.json",
+      "sha256": "94ab86cba4ad5bff8bb55a777295cb152acb4721d23f6d307800bf505d6529b6",
+      "size_bytes": 1896
+    },
+    "load_proof": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1\\K6GDP2_DEV_G025\\attempt_001\\pre_entry_setup_load_proof_current_a78274be.json",
+      "sha256": "4e101189ea0a6e104226c3881c145266221bad6e5eab9e0dc2a774f8fc854d12",
+      "size_bytes": 18776
+    },
+    "ansyscl_log": {
+      "path": "C:\\Users\\dell\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log",
+      "sha256": "86612c7a2786b76fc13e7fbb565e37a3f99125bf864369ef18545a932dd8d305",
+      "size_bytes": 8931678
+    },
+    "licdebug_log": {
+      "path": "C:\\Users\\dell\\AppData\\Local\\Temp\\.ansys\\licdebug.DESKTOP-NNE313K.LUMERICAL_GUI.251.out",
+      "sha256": "3d31f374d728b077679927c51553ceb56598d8bbd0246e0fa1164703d3eed37c",
+      "size_bytes": 2142179
+    }
+  }
+}

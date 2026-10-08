@@ -89,6 +89,22 @@ class AdapterBarrierTests(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+    def test_native_adapter_sets_supported_acl_range_without_overriding_explicit_value(self):
+        key = adapter_module.ANSYS_ACL_PORT_RANGE_ENV
+        with unittest.mock.patch.dict(adapter_module.os.environ):
+            adapter_module.os.environ.pop(key, None)
+            with unittest.mock.patch.object(adapter_module, "_prepare_postprocess_import_paths"), \
+                 unittest.mock.patch.object(adapter_module, "load_pinned_launcher", return_value=FakeLauncher()), \
+                 unittest.mock.patch.object(adapter_module, "postprocess_dependency_preflight", return_value={"result": "PASS"}):
+                NativeAdapter(self.contract, gpu_resource_name="SETUP_PREFLIGHT_ONLY_NO_SLOT")
+            self.assertEqual(adapter_module.os.environ[key], "6200:6299")
+        with unittest.mock.patch.dict(adapter_module.os.environ, {key: "6210:6220"}):
+            with unittest.mock.patch.object(adapter_module, "_prepare_postprocess_import_paths"), \
+                 unittest.mock.patch.object(adapter_module, "load_pinned_launcher", return_value=FakeLauncher()), \
+                 unittest.mock.patch.object(adapter_module, "postprocess_dependency_preflight", return_value={"result": "PASS"}):
+                NativeAdapter(self.contract, gpu_resource_name="SETUP_PREFLIGHT_ONLY_NO_SLOT")
+            self.assertEqual(adapter_module.os.environ[key], "6210:6220")
+
     def test_postprocess_dependency_preflight_is_pinned_and_zero_solver(self):
         report = adapter_module.postprocess_dependency_preflight()
         self.assertEqual(report["result"], "PASS")

@@ -461,9 +461,17 @@ def solver_process_observation_failure(event, run_dir):
     return "SOLVER_PROCESS_OBSERVATION_INVALID"
 
 
+ANSYS_ACL_PORT_RANGE_ENV = "ANSYS_LICENSING_DESKTOP_PORT_RANGE"
+ANSYS_ACL_PORT_RANGE_DEFAULT = "6200:6299"
+
+def _configure_ansys_acl_port_range():
+    """Keep Runner-launched Ansys ACL sessions off occupied desktop ports."""
+    return os.environ.setdefault(ANSYS_ACL_PORT_RANGE_ENV, ANSYS_ACL_PORT_RANGE_DEFAULT)
+
 class NativeAdapter:
     """Production callbacks over the immutable standalone GPU launcher."""
     def __init__(self, contract_path, launcher=None, fdtd_exe=None, gpu_resource_name=None):
+        _configure_ansys_acl_port_range()
         _prepare_postprocess_import_paths()
         pinned_launcher = load_pinned_launcher()
         self.postprocess_dependency_preflight = postprocess_dependency_preflight(pinned_launcher)
