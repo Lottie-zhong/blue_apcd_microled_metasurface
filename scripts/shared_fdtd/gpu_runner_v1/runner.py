@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Filesystem-authoritative serial GPU runner core; independent of V3 control state."""
-import hashlib, json, math, os, re, shutil, time, uuid
+import hashlib, json, math, os, re, shutil, time, traceback, uuid
 from pathlib import Path
 
 PRODUCTION_RUNNER_ROOT = Path(r"D:\apcd_runtime\gpu_production_runner_v1")
@@ -257,6 +257,30 @@ def _durable(path):
     with p.open("r+b") as f: os.fsync(f.fileno())
     return True
 
+def _persist_failure_diagnostic(run_dir, status, phase, entered, exc):
+    path = Path(run_dir) / "failure_exception_v1.json"
+    if path.exists():
+        path = Path(run_dir) / ("failure_exception_" + uuid.uuid4().hex + ".json")
+    payload = {
+        "schema": "APCD_GPU_RUNNER_V1_FAILURE_EXCEPTION_V1",
+        "run_id": (status or {}).get("run_id"),
+        "case_id": (status or {}).get("case_id"),
+        "attempt_id": (status or {}).get("attempt_id"),
+        "state_at_failure": (status or {}).get("state"),
+        "phase": phase,
+        "solver_entered": bool(entered),
+        "solver_invocations": (status or {}).get("solver_invocations"),
+        "exception_type": type(exc).__name__,
+        "exception": str(exc)[:2000],
+        "traceback": traceback.format_exc()[-32000:],
+        "observed_unix": time.time(),
+    }
+    atomic_json(path, payload)
+    if not _durable(path):
+        raise RunnerError("FAILURE_EXCEPTION_DIAGNOSTIC_NOT_DURABLE")
+    return {"path": str(path), "sha256": sha256_file(path)}
+
+
 def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_probe,setup_structural_validate=None,admitted_contract_sha256=None,pre_entry_guard=None):
     """Run one manifest with injected adapters; no V3 control-state imports."""
     validate_manifest(manifest, admitted_contract_sha256=admitted_contract_sha256)
@@ -271,7 +295,7 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
     except FileExistsError: raise RunnerError("RUNNER_LOCKED")
     active=root/"active_run.json"
     run_dir=root/"runs"/manifest["case_id"]/manifest["attempt_id"]/manifest["run_id"]
-    status=registry=row=None; entered=False; active_created=False; predecessor=None
+    status=registry=row=None; entered=False; active_created=False; predecessor=None; phase="PRE_ENTRY_CHECKS"
     pre_entry_evidence=None; run_output_h5_sha256=None
     try:
         if active.exists(): raise RunnerError("ACTIVE_RUN_PRESENT")
@@ -391,7 +415,9 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
             atomic_json(active,{"run_id":manifest["run_id"],"case_id":manifest["case_id"],
                 "attempt_id":manifest["attempt_id"],"pid":os.getpid(),"state":"SOLVER_ENTERED"})
             row["state"]="SOLVER_ENTERED"; atomic_json(root/"registry.json",registry)
+            phase="SOLVER_EXECUTION"
             result=solver(manifest,run_dir)
+            phase="POST_SOLVER_BARRIER"
             if pre_entry_guard is not None:
                 h5_bundle=run_dir/"run"/"run_output.h5"
                 if not _durable(h5_bundle): raise RunnerError("RUN_OUTPUT_H5_NOT_DURABLE")
@@ -401,7 +427,9 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
             row["state"]="SOLVER_RETURNED"; atomic_json(root/"registry.json",registry)
             if not _durable(run_dir/"run.fsp"):
                 raise RunnerError("POST_FSP_NOT_DURABLE")
+            phase="FRESH_LOAD_POSTPROCESS"
             validation=fresh_load_validate(manifest,run_dir)
+            phase="TRUTH_ARTIFACT_PERSISTENCE"
             flags=("fresh_load_verified","monitors_valid","state_valid","scientific_valid")
             if not isinstance(validation,dict) or any(validation.get(k) is not True for k in flags):
                 raise RunnerError("FRESH_LOAD_TRUTH_VALIDATION_FAILED")
@@ -426,10 +454,17 @@ def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_p
             row["state"]="DONE"; atomic_json(root/"registry.json",registry)
             return {"run_dir":str(run_dir),"status":status,"validation":validation}
         except BaseException as exc:
+            diagnostic = None
+            if run_dir.is_dir():
+                try:
+                    diagnostic = _persist_failure_diagnostic(run_dir, status, phase, entered, exc)
+                except BaseException:
+                    diagnostic = None
             if status is not None and status["state"] not in ("FAILED_PREENTRY","FAILED_POSTENTRY"):
                 failed="FAILED_POSTENTRY" if entered else "FAILED_PREENTRY"
                 failure=(type(exc).__name__ + (":" + str(exc) if str(exc) else ""))[:400]
-                status=_transition(run_dir,status,failed,failure=failure,failed_unix=time.time())
+                status=_transition(run_dir,status,failed,failure=failure,failed_unix=time.time(),
+                                   exception_diagnostic=diagnostic)
                 row["state"]=failed; atomic_json(root/"registry.json",registry)
             if isinstance(exc,RunnerError): raise
             raise RunnerError(str(exc)) from exc

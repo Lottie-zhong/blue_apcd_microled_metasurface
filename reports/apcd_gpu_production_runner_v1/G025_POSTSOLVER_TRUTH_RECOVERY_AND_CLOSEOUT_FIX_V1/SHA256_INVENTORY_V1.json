@@ -1,0 +1,189 @@
+{
+  "schema": "APCD_GPU_RUNNER_V1_G025_POSTSOLVER_TRUTH_RECOVERY_SHA256_INVENTORY_V1",
+  "captured_utc": "2026-10-08T16:11:52Z",
+  "runner_baseline_head": "a87b2296e359515217e0b9f2162207437aa5fdf9",
+  "runner_branch": "codex/apcd-gpu-production-runner-v1",
+  "target": {
+    "case_id": "K6GDP2_DEV_G025",
+    "attempt_id": "attempt_001",
+    "run_id": "K6V2_G025_20261008T140327Z_454d6858",
+    "coupling_controller_request": "bb93248ca2dff9605d7885554a319394",
+    "runner_request_id": "28c992f00bb8b032ecf06f4d8e8dc431"
+  },
+  "execution_counts": {
+    "original_solver_entry": 1,
+    "original_solver_invocations": 1,
+    "recovery_solver_invocations": 0,
+    "automatic_replay_count": 0,
+    "g026_started": false
+  },
+  "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "global_control_read_only_snapshot": {
+    "health": "PASS",
+    "generation": 27,
+    "new_entry_hold": 0,
+    "db_sha256": "af802fd46c023009f0a342cfa9540990c8e3a0df9b30af09ef62deeba817d9fe"
+  },
+  "consumer_read_only_snapshot": {
+    "coupling_head": "877d62bddecbe38156ab544bc734be74353de9a5",
+    "status_fingerprint": "f913968b47e861640b11670ff41d17ebcbbe87cd373499ecdde222ee6978549f",
+    "runner_did_not_modify_coupling": true
+  },
+  "files": [
+    {
+      "role": "changed_runner_exception_diagnostics",
+      "path": "scripts/shared_fdtd/gpu_runner_v1/runner.py",
+      "sha256": "700ad5483253d1c746c89c380b9edd2824a8c7cde3ed56ad6f96bb4a1d872ff8",
+      "size_bytes": 28392
+    },
+    {
+      "role": "zero_solver_postentry_recovery_api",
+      "path": "scripts/shared_fdtd/gpu_runner_v1/postentry_recovery_v1.py",
+      "sha256": "97e3506847682bdea919ca803ce7d83daa4b1e74307f7c6fa59f9c924c9971a4",
+      "size_bytes": 36356
+    },
+    {
+      "role": "pinned_g025_recovery_invocation",
+      "path": "scripts/shared_fdtd/gpu_runner_v1/recover_g025_postsolver_truth_v1.py",
+      "sha256": "2a16690c7bcaa637772eb16383640a4de54496a8ffc9099f9690640e250315cb",
+      "size_bytes": 8074
+    },
+    {
+      "role": "focused_recovery_tests",
+      "path": "scripts/shared_fdtd/gpu_runner_v1/test_postentry_recovery_v1.py",
+      "sha256": "c0f767c125b4b605d59c322c9c9fa22e707053222f3b31af53ad22f6d80d67ca",
+      "size_bytes": 5314
+    },
+    {
+      "role": "production_adapter_unchanged",
+      "path": "scripts/shared_fdtd/gpu_runner_v1/adapter.py",
+      "sha256": "7f28045aa8e0178ce22e44c4377d02515431f4577fb8f1dbd578f58149b50173"
+    },
+    {
+      "role": "scheduler_unchanged",
+      "path": "scripts/shared_fdtd/gpu_runner_v1/task_scheduler_v1.py",
+      "sha256": "8c078479623aa4250cc01a94c50700018932fd6f60c43a858dcb22641207c9dc"
+    },
+    {
+      "role": "pre_fsp",
+      "path": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/outputs/coupling_ml/APCD_GPU_RUNNER_CONTROLLED_ADMISSION_V1/K6GDP2_DEV_G025/attempt_001/setup/runtime.fsp",
+      "sha256": "e076df25d54a5e455f24f3efdda952d17b8ca332d137f9c68abe296a6ff20646"
+    },
+    {
+      "role": "run_fsp",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/run.fsp",
+      "sha256": "be006f194b07df6d19105812ca49fdce5a8d9660fff983559f91c9d3fc948572",
+      "size_bytes": 170552540
+    },
+    {
+      "role": "native_sibling_h5",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/run/run_output.h5",
+      "sha256": "5e00289a1615d1f102cff0b7ce3fda73e00589be78371934c9c935349de3ec9c",
+      "size_bytes": 76560937
+    },
+    {
+      "role": "recovered_truth_h5",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/truth.h5",
+      "sha256": "031e519f27931439d649132899779bc932b24d2827bffb16a06c8b7fe8d81ac0",
+      "size_bytes": 670624
+    },
+    {
+      "role": "validation",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/validation.json",
+      "sha256": "6482972edae40238655ec5cda40020193fe33f8f1658bd7f58bb085b948a3490"
+    },
+    {
+      "role": "hashes",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/hashes.json",
+      "sha256": "251a8505dd30cd6e67276524dd1c6786956754effc2cd99a02107ae548888963"
+    },
+    {
+      "role": "terminal_runner_status",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/status.json",
+      "sha256": "8579a36e7d7e4a6c7d9703a2ce65f22226941de907545bd8070f3cd5d7cd0a46"
+    },
+    {
+      "role": "runner_registry",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/registry.json",
+      "sha256": "87be083bb44ed2249b2a743c5ed20a588e4eae619083d1b89b4b83ec0debe634"
+    },
+    {
+      "role": "fresh_load_proof_file",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/recovery/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/postentry_truth_recovery_20261008T155828634686Z/fresh_load_proof.json",
+      "sha256": "10b404850089929e59ec600e8e4196d6f657d15f7923a228f44ae1cc99688690",
+      "canonical_proof_sha256": "0c7f82200042da8ceb828e6959fab3421bad2e160cc0f3eb7f6c365545f0054e"
+    },
+    {
+      "role": "formal_recovery_receipt",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/recovery/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/postentry_truth_recovery_20261008T155828634686Z/recovery_receipt.json",
+      "sha256": "e547914ccceead7d761e0e9c0ca1edaa0fa0b44df7001181792db23159422ef7",
+      "embedded_self_hash_sha256": "eafe575f7d12c9ebf52a898f4638a37678414cf87e38dc3e6e428ee04ad5a24f"
+    },
+    {
+      "role": "terminal_scheduled_result",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/requests/scheduled_run_one_v1/28c992f00bb8b032ecf06f4d8e8dc431/result.json",
+      "sha256": "4b2ce650de491af681590d8eeb26bf69595742c895b5fb9ab08f40e1b33f953f"
+    },
+    {
+      "role": "original_solver_completion_log",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/run_p0.log",
+      "sha256": "c29baae70d6bfc7c69378303eaedfb54b8dc39a11ee37bacc6ca515784be6ce0"
+    },
+    {
+      "role": "raw_fields_json",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/raw/K6GDP2_DEV_G025__attempt_001_raw.json",
+      "sha256": "d692a043e60b41ef05fa2209caf4ea9566d079664fa2aa0054e8d513a1eedb9a"
+    },
+    {
+      "role": "raw_complex_fields_npz",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/raw/K6GDP2_DEV_G025__attempt_001_raw_complex_fields.npz",
+      "sha256": "ad5d80a5b77d0e9cdb96847bc589106dfbc2666a9fbcc9b70b54278ac528e51b"
+    },
+    {
+      "role": "state_metadata",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/state/K6GDP2_DEV_G025__attempt_001_pw_complex_floquet_state.json",
+      "sha256": "6644955d45e612a3f5abc60f0eb2fed1546b9ab2eb0c034c847a1cc88b934568"
+    },
+    {
+      "role": "state_npz",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/state/K6GDP2_DEV_G025__attempt_001_pw_complex_floquet_state.npz",
+      "sha256": "60cfbcfd8a849d2e6b9fe3a33741210c707c00a87f07e4ba313d2ce10c305082"
+    },
+    {
+      "role": "orders",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/orders/K6GDP2_DEV_G025__attempt_001_orders.json",
+      "sha256": "f8632c84d8d9d71de01a2cd298cc6ba962f4165bc81b99028004282561508ee1"
+    },
+    {
+      "role": "projection",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/runs/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/projection/K6GDP2_DEV_G025__attempt_001_projection.json",
+      "sha256": "1dcbbab7b4d4ad79f73197a0a7981eaf3a0f894b542471a868fe014708735f97"
+    },
+    {
+      "role": "original_runner_lock_archive",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/recovery/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/postentry_truth_recovery_20261008T155828634686Z/archived_control_markers/.runner.lock",
+      "sha256": "2856d4ab1cc04ac53b8186ce04d420a9ce5ac3b2d69a762925dec3e8e7bfa3cc"
+    },
+    {
+      "role": "original_active_run_archive",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/recovery/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/postentry_truth_recovery_20261008T155828634686Z/archived_control_markers/active_run.json",
+      "sha256": "034293528247c55a94b3a80e3c9436e624093f72fac7ec48983619bd432c7068"
+    },
+    {
+      "role": "original_worker_lock_archive",
+      "path": "D:/apcd_runtime/gpu_production_runner_v1/recovery/K6GDP2_DEV_G025/attempt_001/K6V2_G025_20261008T140327Z_454d6858/postentry_truth_recovery_20261008T155828634686Z/archived_control_markers/scheduler_worker_v1.lock",
+      "sha256": "4f74c327fd6c543aeef5e764ab7fe00c7bd98d65121b76ae59f31e5703ce761d"
+    }
+  ],
+  "report_files": [
+    {
+      "path": "reports/apcd_gpu_production_runner_v1/G025_POSTSOLVER_TRUTH_RECOVERY_AND_CLOSEOUT_FIX_V1/FINAL_REPORT.md",
+      "sha256": "fa4154c1a2f9c0c86fd1abaa9b51a1f083c40d08dc72584a868ed5d7b32b7155"
+    },
+    {
+      "path": "reports/apcd_gpu_production_runner_v1/G025_POSTSOLVER_TRUTH_RECOVERY_AND_CLOSEOUT_FIX_V1/CONTINUATION.md",
+      "sha256": "800b2e091a759cb65b17dbf08e11923b3013cfc0ca1e362893859d73e89e1afb"
+    }
+  ],
+  "inventory_file_excludes_its_own_sha256": true
+}
