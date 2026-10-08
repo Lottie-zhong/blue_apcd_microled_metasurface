@@ -25,6 +25,26 @@ from runner import (CONTRACT_SHA256, ENTRY_STATES, EXPANSION_SHA256, MANIFEST_KE
 LAUNCHER_PATH = Path(r"D:\apcd_runtime\shared_v3_backend\pw_powernorm_v1_aaaa25b53a9a3322\scripts\shared_fdtd\tools\pw_scientific_launcher.py")
 LAUNCHER_SHA256 = "7639b9d07f041d5f8af3121286f6ce5aae4d8b18b66f5368052c627da219307f"
 PINNED_BACKEND_ID = "pw_powernorm_v1_aaaa25b53a9a3322"
+# Exact, case-scoped proof that G024's unlineaged post-entry failure was closed
+# and its runner slot released. Historical status and missing lineage stay intact.
+G024_CLOSEOUT_CASE_ID = "K6GDP2_DEV_G024"
+G024_CLOSEOUT_ATTEMPT_ID = "attempt_001"
+G024_CLOSEOUT_RUN_ID = "K6V2_G024_20261007T123943Z_713590ad"
+G024_CLOSEOUT_REQUEST_ID = "cd1c1a59118d2b78510df82906e75d77"
+G024_CLOSEOUT_STATUS_SHA256 = "18e3bd3c1a40b4d839d6711802b425be25586881813895bc212ad2a20254bb02"
+G024_CLOSEOUT_RECEIPT_FILE_SHA256 = "4e692dc1130dc70aa87f4fa0d9b8926a28ca3b06f9da86fbf1dbd2e034478b61"
+G024_CLOSEOUT_RECEIPT_SELF_SHA256 = "7a1659af4ac1507759c61997a9491b255c4b1a0b3766a421cfc2ae656a0dcf0e"
+G024_CLOSEOUT_VERIFICATION_FILE_SHA256 = "b1e8f22359dce8e43b4e923c0d36c0358ceef1c6375b9f8342e94380f0639d8d"
+G024_CLOSEOUT_VERIFICATION_SELF_SHA256 = "0bd8973359384a5eac26f07c06b49bc2b3b2e5a5517aeca18528087f14611ad0"
+G024_CLOSEOUT_REGISTRY_SHA256 = "2ba5b25d6961a57296d91fc774f6d16e98ac9f270c2815cf42a9ba91306303d9"
+G024_CLOSEOUT_REQUIRED_CHECKS = frozenset({
+    "controller_stopped_for_reconciliation", "no_engine_process",
+    "no_queue_execution_process", "no_related_process", "no_truth_artifacts",
+    "one_entry_no_replay", "one_terminal_failed_postentry",
+    "receipt_closed_postentry_no_truth", "slot_markers_absent",
+    "runner_registry_unchanged", "runner_status_unchanged",
+    "global_control_read_pass",
+})
 PINNED_SCRIPTS_ROOT = LAUNCHER_PATH.parents[2]
 PINNED_TOOLS_DIR = LAUNCHER_PATH.parent
 VENDOR_DIR = Path(__file__).resolve().parent / "vendor"
@@ -1198,6 +1218,146 @@ class NativeAdapter:
             return "unknown"
 
     @staticmethod
+    def _g024_formally_closed_missing_lineage(root, status_path, status):
+        """Release only the exact G024 historical owner covered by pinned closeout evidence."""
+        try:
+            root = Path(root)
+            expected_run_dir = (root / "runs" / G024_CLOSEOUT_CASE_ID /
+                                G024_CLOSEOUT_ATTEMPT_ID / G024_CLOSEOUT_RUN_ID)
+            normalize = lambda path: os.path.normcase(os.path.abspath(str(path)))
+            if normalize(status_path) != normalize(expected_run_dir / "status.json"):
+                return False
+            if (status.get("case_id") != G024_CLOSEOUT_CASE_ID
+                    or status.get("attempt_id") != G024_CLOSEOUT_ATTEMPT_ID
+                    or status.get("run_id") != G024_CLOSEOUT_RUN_ID
+                    or status.get("state") != "FAILED_POSTENTRY"
+                    or status.get("solver_entered") is not True
+                    or status.get("solver_invocations") != 1
+                    or status.get("failure") != "RunnerError:SOLVER_PROCESS_OBSERVATION_INVALID"
+                    or isinstance(status.get("solver_process_lineage"), dict)):
+                return False
+
+            status_bytes = (expected_run_dir / "status.json").read_bytes()
+            status_sha = hashlib.sha256(status_bytes).hexdigest()
+            if status_sha != G024_CLOSEOUT_STATUS_SHA256:
+                return False
+            if json.loads(status_bytes.decode("utf-8-sig")) != status:
+                return False
+
+            registry = read_json(root / "registry.json", {})
+            rows = registry.get("runs", []) if isinstance(registry, dict) else []
+            same_attempt = [row for row in rows if isinstance(row, dict)
+                            and row.get("case_id") == G024_CLOSEOUT_CASE_ID
+                            and row.get("attempt_id") == G024_CLOSEOUT_ATTEMPT_ID]
+            if len(same_attempt) != 1:
+                return False
+            row = same_attempt[0]
+            if (row.get("run_id") != G024_CLOSEOUT_RUN_ID
+                    or row.get("state") != "FAILED_POSTENTRY"
+                    or normalize(row.get("run_dir", "")) != normalize(expected_run_dir)):
+                return False
+
+            closeout_dir = expected_run_dir / "postentry_closeout_v1"
+            receipt_path = closeout_dir / "receipt.json"
+            verification_path = closeout_dir / "post_closeout_verification_v2.json"
+            receipt_bytes = receipt_path.read_bytes()
+            receipt_file_sha = hashlib.sha256(receipt_bytes).hexdigest()
+            if receipt_file_sha != G024_CLOSEOUT_RECEIPT_FILE_SHA256:
+                return False
+            receipt = json.loads(receipt_bytes.decode("utf-8-sig"))
+            receipt_body = dict(receipt)
+            receipt_self_sha = receipt_body.pop("receipt_sha256", None)
+            canonical = lambda value: json.dumps(
+                value, sort_keys=True, separators=(",", ":"), ensure_ascii=False,
+                allow_nan=False).encode("utf-8")
+            calculated_receipt_self_sha = hashlib.sha256(canonical(receipt_body)).hexdigest()
+            if (receipt_self_sha != G024_CLOSEOUT_RECEIPT_SELF_SHA256
+                    or receipt_self_sha != calculated_receipt_self_sha
+                    or receipt.get("schema") != "APCD_GPU_RUNNER_V1_G024_POSTENTRY_CLOSEOUT_RECEIPT_V1"
+                    or receipt.get("result") != "CLOSED"
+                    or receipt.get("disposition") != "FAILED_POSTENTRY_NO_TRUTH"
+                    or receipt.get("case_id") != G024_CLOSEOUT_CASE_ID
+                    or receipt.get("attempt_id") != G024_CLOSEOUT_ATTEMPT_ID
+                    or receipt.get("run_id") != G024_CLOSEOUT_RUN_ID
+                    or receipt.get("request_id") != G024_CLOSEOUT_REQUEST_ID
+                    or receipt.get("solver_entry_count") != 1
+                    or receipt.get("solver_invocations") != 1
+                    or receipt.get("automatic_replay_count") != 0
+                    or receipt.get("runner_slot_closed") is not True
+                    or receipt.get("truth_available") is not False
+                    or receipt.get("scientific_valid") is not False
+                    or receipt.get("training_admitted") is not False
+                    or receipt.get("physical_gpu_engine_observed") is not False
+                    or receipt.get("status_sha256") != status_sha
+                    or receipt.get("registry_sha256") != G024_CLOSEOUT_REGISTRY_SHA256):
+                return False
+            input_hashes = receipt.get("input_hashes")
+            if (not isinstance(input_hashes, dict)
+                    or input_hashes.get("status") != status_sha
+                    or input_hashes.get("registry") != G024_CLOSEOUT_REGISTRY_SHA256):
+                return False
+
+            verification_bytes = verification_path.read_bytes()
+            if hashlib.sha256(verification_bytes).hexdigest() != G024_CLOSEOUT_VERIFICATION_FILE_SHA256:
+                return False
+            verification = json.loads(verification_bytes.decode("utf-8-sig"))
+            verification_body = dict(verification)
+            verification_self_sha = verification_body.pop("verification_sha256", None)
+            if (verification_self_sha != G024_CLOSEOUT_VERIFICATION_SELF_SHA256
+                    or verification_self_sha != hashlib.sha256(canonical(verification_body)).hexdigest()
+                    or verification.get("schema") != "APCD_GPU_RUNNER_V1_G024_POST_CLOSEOUT_REVERIFICATION_V2"
+                    or verification.get("receipt_path") is None
+                    or normalize(verification.get("receipt_path")) != normalize(receipt_path)
+                    or verification.get("receipt_file_sha256") != receipt_file_sha
+                    or verification.get("receipt_self_sha256") != receipt_self_sha
+                    or verification.get("runner_status_sha256") != status_sha
+                    or verification.get("runner_registry_sha256") != G024_CLOSEOUT_REGISTRY_SHA256):
+                return False
+            checks = verification.get("checks")
+            if (not isinstance(checks, dict)
+                    or not G024_CLOSEOUT_REQUIRED_CHECKS.issubset(checks)
+                    or any(value is not True for value in checks.values())):
+                return False
+            counts = verification.get("execution_counts")
+            if (not isinstance(counts, dict)
+                    or counts.get("solver_entries") != 1
+                    or counts.get("fdtd_runs_during_recovery") != 0
+                    or counts.get("solver_invocations_after_recovery") != 0
+                    or counts.get("automatic_replays") != 0):
+                return False
+            census = verification.get("process_census")
+            if (not isinstance(census, dict)
+                    or census.get("engine_processes") != []
+                    or census.get("queue_execution_processes") != []
+                    or census.get("related_processes") != []):
+                return False
+            controller = verification.get("controller_state")
+            if (not isinstance(controller, dict)
+                    or controller.get("state") != "CONTROLLER_EXITED_NEEDS_RECONCILIATION"
+                    or controller.get("status", {}).get("current_case_id") != G024_CLOSEOUT_CASE_ID):
+                return False
+            request_state = verification.get("runner_request_state")
+            request = request_state.get("request") if isinstance(request_state, dict) else None
+            result = request_state.get("result") if isinstance(request_state, dict) else None
+            run_status = result.get("run_status") if isinstance(result, dict) else None
+            if (not isinstance(request, dict) or not isinstance(result, dict)
+                    or not isinstance(run_status, dict)
+                    or request_state.get("state") != "TERMINAL"
+                    or request.get("request_id") != G024_CLOSEOUT_REQUEST_ID
+                    or request.get("identity") != {
+                        "case_id": G024_CLOSEOUT_CASE_ID,
+                        "attempt_id": G024_CLOSEOUT_ATTEMPT_ID,
+                        "run_id": G024_CLOSEOUT_RUN_ID}
+                    or result.get("solver_entered") is not True
+                    or run_status.get("state") != "FAILED_POSTENTRY"
+                    or run_status.get("solver_entered") is not True
+                    or run_status.get("solver_invocations") != 1):
+                return False
+            return True
+        except Exception:
+            return False
+
+    @staticmethod
     def runner_owner_probe(root):
         root = Path(root)
         if (root / "active_run.json").exists():
@@ -1225,6 +1385,8 @@ class NativeAdapter:
                         and status.get("state")=="FAILED_POSTENTRY"
                         and isinstance(recovered,dict)
                         and recovered.get("effective_scientific_outcome")=="RECOVERED_TRUTH_VALID"):
+                    continue
+                if NativeAdapter._g024_formally_closed_missing_lineage(root, status_path, status):
                     continue
                 return True
             if (lineage.get("run_id") != status.get("run_id")

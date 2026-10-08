@@ -1,0 +1,167 @@
+{
+  "binding_impact": {
+    "active_runner_request_exists": false,
+    "controller_manifest_pins_adapter_hash": false,
+    "g025_preflight_was_created_with_base_adapter_sha256": "8860254b701fe2461def30644158117bf211b826f1d3adf3e5919c02c48c550a",
+    "handoff_note": "The G025 setup-preflight report records the pre-fix adapter hash. This patch changes only owner-probe handling; the Coupling controller manifest is unchanged and does not bind adapter.py. Any later request will bind the new adapter hash at request creation and run current start-time revalidation.",
+    "next_runner_request_will_capture_current_adapter_sha256": true,
+    "setup_contract_or_validation_code_changed": false
+  },
+  "coupling_state": {
+    "batch_current_case": null,
+    "batch_queue_phase": "QUEUE_RECOVERY_RECONCILED_STOPPED",
+    "controller_manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\CONTROLLER_MANIFEST_COMPAT_SUCCESSOR_V1.json",
+    "controller_manifest_runner_or_adapter_sha_fields": [],
+    "controller_manifest_sha256": "bb93248ca2dff9605d7885554a31939418007dde6bfbcd007fdedbb2e7303618",
+    "controller_request_id": "bb93248ca2dff9605d7885554a319394",
+    "controller_script_sha256": "aad9813f4d45d114e81ad91920d113382d879d6eeb350b74edc4549da2f9a270",
+    "controller_state": "STOPPED_RECONCILED",
+    "controller_status_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\CONTROLLER_STATUS_K6V2SERIAL20261008T050430Z_35cd64f3.json",
+    "controller_status_sha256": "ad94d99da277b7fcc8ea232d0c57dd407590eddb8958b47cd93c517d7e6b105f",
+    "counts": {
+      "automatic_replay_count": 0,
+      "entered": 36,
+      "labels_valid": 33,
+      "remaining_unentered": 92,
+      "truth_valid": 33
+    },
+    "current_adapter_sha256": "7f28045aa8e0178ce22e44c4377d02515431f4577fb8f1dbd578f58149b50173",
+    "g025_preflight_adapter_sha256": "8860254b701fe2461def30644158117bf211b826f1d3adf3e5919c02c48c550a",
+    "g025_preflight_result": "PASS",
+    "g025_preflight_result_sha256": "f14e809588fb3e68cacefcc277d3ae600716deb6e468add36e3b27eb7e69b786",
+    "queue_manifest_sha256": "fbcac249c59e3f242e48dfa16a8e92298c98bab48f5fe7256900b8feed10bca7",
+    "runner_request_ids": [],
+    "unresolved_runner_request_ids": []
+  },
+  "fix": {
+    "evidence_requirements": [
+      "pinned status, receipt and post-closeout verification SHA256",
+      "receipt and verification self-hashes",
+      "terminal failed/no-truth/one-entry/zero-replay disposition",
+      "released-slot/process-census checks",
+      "matching current registry row"
+    ],
+    "other_unlineaged_or_active_owners": "Remain fail-closed; live markers and PID lineage checks are unchanged.",
+    "scope": "Only the exact K6GDP2_DEV_G024 / attempt_001 / run_id closeout can bypass the missing-lineage busy branch."
+  },
+  "g024_evidence": {
+    "attempt_id": "attempt_001",
+    "case_id": "K6GDP2_DEV_G024",
+    "failure": "RunnerError:SOLVER_PROCESS_OBSERVATION_INVALID",
+    "formal_closeout_automatic_replay_count": 0,
+    "formal_closeout_disposition": "FAILED_POSTENTRY_NO_TRUTH",
+    "formal_closeout_result": "CLOSED",
+    "formal_closeout_runner_slot_closed": true,
+    "formal_closeout_scientific_valid": false,
+    "formal_closeout_solver_entry_count": 1,
+    "formal_closeout_truth_available": false,
+    "historical_physical_entry_count": "ONE documented entry; missing lineage remains missing; no PID was added.",
+    "receipt_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G024\\attempt_001\\K6V2_G024_20261007T123943Z_713590ad\\postentry_closeout_v1\\receipt.json",
+    "receipt_self_sha256": "7a1659af4ac1507759c61997a9491b255c4b1a0b3766a421cfc2ae656a0dcf0e",
+    "receipt_sha256": "4e692dc1130dc70aa87f4fa0d9b8926a28ca3b06f9da86fbf1dbd2e034478b61",
+    "registry_matching_attempt_rows": 1,
+    "registry_row": {
+      "attempt_id": "attempt_001",
+      "case_id": "K6GDP2_DEV_G024",
+      "run_dir": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G024\\attempt_001\\K6V2_G024_20261007T123943Z_713590ad",
+      "run_id": "K6V2_G024_20261007T123943Z_713590ad",
+      "state": "FAILED_POSTENTRY"
+    },
+    "release_checks": {
+      "controller_status_unchanged": true,
+      "controller_stopped_for_reconciliation": true,
+      "coupling_ledger_unchanged": true,
+      "global_control_read_pass": true,
+      "no_engine_process": true,
+      "no_queue_execution_process": true,
+      "no_related_process": true,
+      "no_truth_artifacts": true,
+      "one_entry_no_replay": true,
+      "one_terminal_failed_postentry": true,
+      "receipt_closed_postentry_no_truth": true,
+      "run_fsp_sha_unchanged": true,
+      "runner_registry_unchanged": true,
+      "runner_status_unchanged": true,
+      "slot_markers_absent": true
+    },
+    "run_id": "K6V2_G024_20261007T123943Z_713590ad",
+    "solver_entered": true,
+    "solver_invocations": 1,
+    "solver_process_lineage_present": false,
+    "state": "FAILED_POSTENTRY",
+    "status_sha256": "18e3bd3c1a40b4d839d6711802b425be25586881813895bc212ad2a20254bb02",
+    "verification_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G024\\attempt_001\\K6V2_G024_20261007T123943Z_713590ad\\postentry_closeout_v1\\post_closeout_verification_v2.json",
+    "verification_self_sha256": "0bd8973359384a5eac26f07c06b49bc2b3b2e5a5517aeca18528087f14611ad0",
+    "verification_sha256": "b1e8f22359dce8e43b4e923c0d36c0358ceef1c6375b9f8342e94380f0639d8d"
+  },
+  "historical_controller_exception": {
+    "captured_field": "NOT_PERSISTED_BY_CONTROLLER",
+    "evidence_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\CONTROLLER_PREENTRY_INTERRUPTION_EVIDENCE_bb93248ca2dff9605d7885554a319394_K6GDP2_DEV_G025_RESUME_GENERATION_2.json",
+    "evidence_sha256": "1b551ddcbdd176dc511b49aacf2d217d8760daa653ae6e23a0db6a084ae9c383",
+    "interpretation": "The original controller exception is unavailable. The committed pre-fix production gate was independently replayed as a pure function against current state; its exact failure is recorded below.",
+    "operator_reported_phase": "LIVE_ENTRY_GATE",
+    "persisted": false,
+    "saved_last_persisted_phase": "LIVE_ENTRY_GATE",
+    "saved_original_exception": null
+  },
+  "post_fix_current_zero_solver_live_gate": {
+    "active_run_exists": false,
+    "checked_at_utc": "2026-10-08T13:39:12.023194+00:00",
+    "control_db_sha256": "af802fd46c023009f0a342cfa9540990c8e3a0df9b30af09ef62deeba817d9fe",
+    "control_generation": 27,
+    "control_snapshot_sha256": "1e21975955e09b43ecf34d20089e05a554e3a31862cd1e9a4b644eb5208873d5",
+    "engine_process_filter_match": false,
+    "gpu_free_mib": 8076,
+    "gpu_minimum_free_mib": 1369,
+    "gpu_snapshot_sha256": "a17f8e73703442cd68046402bb7bd678ac04cce64c4ba7982c84fa2af959b608",
+    "new_entry_hold": 0,
+    "production_function": "serial_queue.entry_gate(pack, adapter)",
+    "python_runtime": "N:/anaconda_envs/RCP_LCP/python.exe 3.10.20",
+    "result": "PASS",
+    "runner_lock_exists": false,
+    "runner_owner_busy": false,
+    "source_binding_request_id": "bb93248ca2dff9605d7885554a319394"
+  },
+  "pre_fix_zero_solver_reproduction": {
+    "entry_gate_exception": "StopQueue:RUNNER_SLOT_OR_LOCK_NOT_FREE",
+    "owner_probe_reason": "G024 status was FAILED_POSTENTRY with missing solver_process_lineage. Generic fail-closed branch returned busy after its S35-only recovery exception.",
+    "owner_probe_result": true,
+    "pre_fix_adapter_code_sha256": "8860254b701fe2461def30644158117bf211b826f1d3adf3e5919c02c48c550a",
+    "python_runtime": "N:/anaconda_envs/RCP_LCP/python.exe 3.10.20",
+    "source": "Runner adapter from committed base HEAD loaded in memory; Coupling serial_queue.entry_gate invoked directly",
+    "stack": "Traceback (most recent call last):\n  File \"<stdin>\", line 18, in <module>\n  File \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py\", line 2569, in entry_gate\n    need(busy is False and not (RUN_ROOT / \"active_run.json\").exists()\n  File \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py\", line 229, in need\n    raise StopQueue(message)\nserial_queue.StopQueue: RUNNER_SLOT_OR_LOCK_NOT_FREE"
+  },
+  "runner_source": {
+    "base_head": "dc38d0bc7efebabbfbf1a321becd06c9345d3772",
+    "branch": "codex/apcd-gpu-production-runner-v1",
+    "committed_pre_fix_adapter_sha256": "8860254b701fe2461def30644158117bf211b826f1d3adf3e5919c02c48c550a",
+    "current_adapter_sha256": "7f28045aa8e0178ce22e44c4377d02515431f4577fb8f1dbd578f58149b50173",
+    "test_file": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\test_gpu_runner_v1_adapter.py",
+    "test_file_sha256": "cd186e6b15588c797ff8e24aea75a0d57ef24247c7864746d0ac657f6b9d333b",
+    "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1"
+  },
+  "schema": "APCD_GPU_RUNNER_V1_G025_LIVE_ENTRY_GATE_DIAGNOSIS_V1",
+  "scope": {
+    "automatic_replays": 0,
+    "controller_resumed": false,
+    "controller_started": false,
+    "fdtd_runs": 0,
+    "runner_only": true,
+    "solver_entries": 0
+  },
+  "status": "PASS",
+  "validation": {
+    "actual_runner_live_gate": "PASS",
+    "failed": 0,
+    "focused_tests": 4,
+    "passed": 4,
+    "python_compile": "PASS under RCP_LCP Python 3.10.20",
+    "synthetic_fixture_tests_separate_from_production_gate": true,
+    "test_names": [
+      "test_g024_formal_closeout_releases_only_its_missing_lineage",
+      "test_g024_closeout_does_not_release_when_resource_release_check_fails",
+      "test_g024_closeout_does_not_override_a_current_runner_lock",
+      "test_missing_or_ambiguous_pid_lineage_fails_closed"
+    ]
+  }
+}

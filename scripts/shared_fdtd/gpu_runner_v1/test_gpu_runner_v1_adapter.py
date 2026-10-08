@@ -233,6 +233,111 @@ class AdapterBarrierTests(unittest.TestCase):
         self.assertEqual(row["state"], "FAILED_PREENTRY")
 
 
+    def _write_g024_closeout_fixture(self, root, failing_check=None):
+        case_id = adapter_module.G024_CLOSEOUT_CASE_ID
+        attempt_id = adapter_module.G024_CLOSEOUT_ATTEMPT_ID
+        run_id = adapter_module.G024_CLOSEOUT_RUN_ID
+        request_id = adapter_module.G024_CLOSEOUT_REQUEST_ID
+        run_dir = root / "runs" / case_id / attempt_id / run_id
+        closeout = run_dir / "postentry_closeout_v1"
+        run_dir.mkdir(parents=True)
+        status = {
+            "schema": "APCD_GPU_RUN_STATUS_V1", "case_id": case_id,
+            "attempt_id": attempt_id, "run_id": run_id,
+            "state": "FAILED_POSTENTRY", "solver_entered": True,
+            "solver_invocations": 1,
+            "failure": "RunnerError:SOLVER_PROCESS_OBSERVATION_INVALID",
+        }
+        def write_json(path, value):
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(value, sort_keys=True, ensure_ascii=False,
+                                       indent=2) + "\n", encoding="utf-8")
+            return hashlib.sha256(path.read_bytes()).hexdigest()
+        status_sha = write_json(run_dir / "status.json", status)
+        registry = {"schema": "APCD_GPU_RUNNER_REGISTRY_V1", "runs": [{
+            "case_id": case_id, "attempt_id": attempt_id, "run_id": run_id,
+            "state": "FAILED_POSTENTRY", "run_dir": str(run_dir),
+        }]}
+        registry_sha = write_json(root / "registry.json", registry)
+        receipt_body = {
+            "schema": "APCD_GPU_RUNNER_V1_G024_POSTENTRY_CLOSEOUT_RECEIPT_V1",
+            "result": "CLOSED", "disposition": "FAILED_POSTENTRY_NO_TRUTH",
+            "case_id": case_id, "attempt_id": attempt_id, "run_id": run_id,
+            "request_id": request_id, "solver_entry_count": 1,
+            "solver_invocations": 1, "automatic_replay_count": 0,
+            "runner_slot_closed": True, "truth_available": False,
+            "scientific_valid": False, "training_admitted": False,
+            "physical_gpu_engine_observed": False,
+            "status_sha256": status_sha, "registry_sha256": registry_sha,
+            "input_hashes": {"status": status_sha, "registry": registry_sha},
+        }
+        canonical = lambda value: json.dumps(
+            value, sort_keys=True, separators=(",", ":"), ensure_ascii=False,
+            allow_nan=False).encode("utf-8")
+        receipt = dict(receipt_body, receipt_sha256=hashlib.sha256(canonical(receipt_body)).hexdigest())
+        receipt_sha = write_json(closeout / "receipt.json", receipt)
+        checks = {key: True for key in adapter_module.G024_CLOSEOUT_REQUIRED_CHECKS}
+        if failing_check:
+            checks[failing_check] = False
+        verification_body = {
+            "schema": "APCD_GPU_RUNNER_V1_G024_POST_CLOSEOUT_REVERIFICATION_V2",
+            "receipt_path": str(closeout / "receipt.json"),
+            "receipt_file_sha256": receipt_sha,
+            "receipt_self_sha256": receipt["receipt_sha256"],
+            "status_sha256": status_sha, "runner_status_sha256": status_sha,
+            "runner_registry_sha256": registry_sha, "checks": checks,
+            "execution_counts": {"solver_entries": 1, "fdtd_runs_during_recovery": 0,
+                                 "solver_invocations_after_recovery": 0, "automatic_replays": 0},
+            "process_census": {"engine_processes": [], "queue_execution_processes": [],
+                               "related_processes": []},
+            "controller_state": {"state": "CONTROLLER_EXITED_NEEDS_RECONCILIATION",
+                                 "status": {"current_case_id": case_id}},
+            "runner_request_state": {
+                "state": "TERMINAL",
+                "request": {"request_id": request_id, "identity": {
+                    "case_id": case_id, "attempt_id": attempt_id, "run_id": run_id}},
+                "result": {"solver_entered": True, "solver_invocations": 1,
+                           "run_status": {"state": "FAILED_POSTENTRY", "solver_entered": True,
+                                          "solver_invocations": 1}},
+            },
+        }
+        verification = dict(
+            verification_body,
+            verification_sha256=hashlib.sha256(canonical(verification_body)).hexdigest())
+        verification_sha = write_json(closeout / "post_closeout_verification_v2.json", verification)
+        pins = {
+            "G024_CLOSEOUT_STATUS_SHA256": status_sha,
+            "G024_CLOSEOUT_RECEIPT_FILE_SHA256": receipt_sha,
+            "G024_CLOSEOUT_RECEIPT_SELF_SHA256": receipt["receipt_sha256"],
+            "G024_CLOSEOUT_VERIFICATION_FILE_SHA256": verification_sha,
+            "G024_CLOSEOUT_VERIFICATION_SELF_SHA256": verification["verification_sha256"],
+            "G024_CLOSEOUT_REGISTRY_SHA256": registry_sha,
+        }
+        return pins
+
+    def test_g024_formal_closeout_releases_only_its_missing_lineage(self):
+        root = self.base / "g024-formal-closeout"
+        pins = self._write_g024_closeout_fixture(root)
+        with unittest.mock.patch.multiple(adapter_module, **pins):
+            self.assertFalse(NativeAdapter.runner_owner_probe(root))
+        status = json.loads((root / "runs" / adapter_module.G024_CLOSEOUT_CASE_ID /
+                             adapter_module.G024_CLOSEOUT_ATTEMPT_ID /
+                             adapter_module.G024_CLOSEOUT_RUN_ID / "status.json").read_text())
+        self.assertNotIn("solver_process_lineage", status)
+
+    def test_g024_closeout_does_not_release_when_resource_release_check_fails(self):
+        root = self.base / "g024-closeout-not-released"
+        pins = self._write_g024_closeout_fixture(root, failing_check="slot_markers_absent")
+        with unittest.mock.patch.multiple(adapter_module, **pins):
+            self.assertTrue(NativeAdapter.runner_owner_probe(root))
+
+    def test_g024_closeout_does_not_override_a_current_runner_lock(self):
+        root = self.base / "g024-closeout-with-live-lock"
+        pins = self._write_g024_closeout_fixture(root)
+        (root / ".runner.lock").write_text(json.dumps({"pid": -1}), encoding="utf-8")
+        with unittest.mock.patch.multiple(adapter_module, **pins):
+            self.assertTrue(NativeAdapter.runner_owner_probe(root))
+
     def test_missing_or_ambiguous_pid_lineage_fails_closed(self):
         statuses = [
             {
