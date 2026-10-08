@@ -46,7 +46,7 @@ def validate_preentry_candidate(controller, status, ledger, batch, registry_rows
     need(isinstance(lc, dict) and isinstance(bc, dict)
          and lc.get("case_id") == cid == bc.get("case_id")
          and lc.get("phase") == "ENSURE_CURRENT_ROUTE_AND_PREFLIGHT"
-         and bc.get("phase") == "ENSURE_CURRENT_ROUTE_AND_PREFLIGHT"
+         and bc.get("phase") in {"ENSURE_CURRENT_ROUTE_AND_PREFLIGHT", "LIVE_ENTRY_GATE"}
          and lc.get("sequence_index") == bc.get("sequence_index")
          and lc.get("run_id") is None and bc.get("run_id") is None,
          "PREENTRY_QUEUE_POINTER_IDENTITY_INVALID")
@@ -141,6 +141,11 @@ def reconcile(manifest_path, manifest_sha256, request_id):
         task_result = int(raw_result)
     except (TypeError, ValueError):
         raise RuntimeError("PREENTRY_SCHEDULER_EXIT_CODE_MISSING")
+    try:
+        scheduler_event_snapshot = q._controller_task_event_snapshot(runner)
+    except Exception as exc:
+        scheduler_event_snapshot = {"available": False, "error_type": type(exc).__name__,
+                                    "error": str(exc)[:500]}
     need(str(task_state).casefold() not in {"running", "queued"}, "PREENTRY_CONTROLLER_TASK_STILL_ACTIVE")
     claim_path = request_files[3]
     need(claim_path.is_file() and not claim_path.is_symlink(), "PREENTRY_START_CLAIM_MISSING")
@@ -222,6 +227,40 @@ def reconcile(manifest_path, manifest_sha256, request_id):
                    ("could not bind socket", "ansysli exited", "no such file", "runner_error"))][-12:]
     need(q.current_proof_valid(case_dir, source_manifest, ctrl), "PREENTRY_CURRENT_ROUTE_LOAD_PROOF_INVALID")
     batch_case = batch.get("cases", {}).get(cid, {})
+    formal_preflight_result = {"path": batch_case.get("preflight_result_path"), "exists": False}
+    result_path_value = batch_case.get("preflight_result_path")
+    if result_path_value:
+        result_path = Path(result_path_value)
+        formal_preflight_result["exists"] = result_path.is_file()
+        if result_path.is_file():
+            result_value = q.read(result_path)
+            result_sha = q.sha(result_path)
+            formal_preflight_result.update({"sha256": result_sha,
+                "expected_sha256": batch_case.get("preflight_result_sha256"),
+                "hash_matches_batch_status": result_sha == batch_case.get("preflight_result_sha256"),
+                "result": result_value.get("result"),
+                "solver_run_called": result_value.get("solver_run_called"),
+                "solver_invocations": result_value.get("solver_invocations"),
+                "scientific_entry_count": result_value.get("scientific_entry_count")})
+            need(formal_preflight_result["hash_matches_batch_status"]
+                 and result_value.get("result") == "PASS"
+                 and result_value.get("solver_run_called") is False
+                 and result_value.get("solver_invocations") == 0
+                 and result_value.get("scientific_entry_count") == 0,
+                 "PREENTRY_FORMAL_PREFLIGHT_RESULT_NOT_CURRENT_ZERO_SOLVER_PASS")
+    formal_preflight_logs = []
+    for current_log in sorted(q.REPORT.glob("FORMAL_PREFLIGHT_LOG_" + cid + "_A78274BE_*.txt")):
+        formal_preflight_logs.append({"path": str(current_log), "sha256": q.sha(current_log),
+            "size_bytes": current_log.stat().st_size})
+    try:
+        post_exit_gate_snapshot = {"captured_at_utc": q.now(),
+            "global_entry_control": _adapter.read_global_entry_control(),
+            "runner_owner_probe": _adapter.NativeAdapter.runner_owner_probe(q.RUN_ROOT),
+            "active_run_exists": (q.RUN_ROOT / "active_run.json").exists(),
+            "runner_lock_exists": (q.RUN_ROOT / ".runner.lock").exists()}
+    except Exception as exc:
+        post_exit_gate_snapshot = {"captured_at_utc": q.now(),
+            "error_type": type(exc).__name__, "error": str(exc)[:500]}
     need(batch_case.get("status") in {"LOAD_PROOF_PASS", "PASS"}
          and batch_case.get("source_manifest_sha256") == q.sha(sm_path),
          "PREENTRY_BATCH_LOAD_PROOF_NOT_CURRENT")
@@ -253,7 +292,8 @@ def reconcile(manifest_path, manifest_sha256, request_id):
         "status_before_reconciliation": status, "pre_reconciliation_hashes": before,
         "pre_entry_cursor": {"case_id": cid, "attempt_id": "attempt_001",
             "sequence_index": candidate["sequence_index"], "ledger_current_case": ledger.get("current_case"),
-            "batch_current_case": batch.get("current_case"), "phase": "ENSURE_CURRENT_ROUTE_AND_PREFLIGHT"},
+            "batch_current_case": batch.get("current_case"), "ledger_phase": ledger.get("current_case", {}).get("phase"),
+            "batch_phase": batch.get("current_case", {}).get("phase"), "phase": "PRE_RUN_ONE_ENTRY_GATE"},
         "runner_evidence": {"case_registry_rows": rows, "case_attempt_directory_exists": attempt_dir.exists(),
             "active_run_exists": (q.RUN_ROOT / "active_run.json").exists(),
             "runner_lock_exists": (q.RUN_ROOT / ".runner.lock").exists(),
@@ -264,11 +304,15 @@ def reconcile(manifest_path, manifest_sha256, request_id):
             "fresh_load_readback_path": batch_case.get("fresh_load_readback_path"),
             "fresh_load_readback_sha256": batch_case.get("fresh_load_readback_sha256"),
             "legacy_routes": old_routes},
-        "failure_diagnosis": {"last_persisted_phase": "ENSURE_CURRENT_ROUTE_AND_PREFLIGHT",
+        "failure_diagnosis": {"last_persisted_phase": batch.get("current_case", {}).get("phase"),
             "exact_original_exception": None, "exception_capture_status": "NOT_PERSISTED_BY_CONTROLLER",
             "observed_boundary": "Scheduler exited nonzero before run-one request, run envelope, Runner attempt, or solver entry.",
-            "route_refresh_context": "Current-route LOAD-only proof passes. The controller exception was not persisted; the separate formal preflight log is recorded below.",
+            "route_refresh_context": "Current-route LOAD-only proof and the bound formal setup preflight both pass. The later LIVE_ENTRY_GATE exception was not persisted; the saved preflight and scheduler-event evidence are listed below.",
             "formal_preflight_log": preflight_log_evidence,
+            "formal_preflight_log_inventory": formal_preflight_logs,
+            "formal_preflight_result": formal_preflight_result,
+            "task_scheduler_event_snapshot": scheduler_event_snapshot,
+            "post_exit_current_gate_snapshot": post_exit_gate_snapshot,
             "solver_entry": False, "automatic_replay": False},
         "reconciliation": {"case_remains_unentered": True, "resume_same_attempt_allowed": True,
             "solver_entries": 0, "automatic_replays": 0, "training_fits": 0,

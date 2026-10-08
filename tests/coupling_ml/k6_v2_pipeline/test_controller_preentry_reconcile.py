@@ -43,6 +43,22 @@ def test_valid_preentry_exit_preserves_unentered_case():
         "automatic_replay_count": 0, "truth_available": False}
 
 
+def test_live_entry_gate_batch_pointer_is_still_preentry_before_run_one():
+    c, s, l, b, kw = _fixture()
+    b["current_case"]["phase"] = "LIVE_ENTRY_GATE"
+    result = helper.validate_preentry_candidate(c, s, l, b, [], **kw)
+    assert result == {"case_id": "K6GDP2_DEV_G025", "attempt_id": "attempt_001",
+        "sequence_index": 37, "entry_consumed": False, "solver_invocations": 0,
+        "automatic_replay_count": 0, "truth_available": False}
+
+
+def test_live_entry_gate_with_run_id_is_not_reconciled_as_preentry():
+    c, s, l, b, kw = _fixture()
+    b["current_case"].update({"phase": "LIVE_ENTRY_GATE", "run_id": "unexpected-run"})
+    with pytest.raises(RuntimeError, match="PREENTRY_QUEUE_POINTER_IDENTITY_INVALID"):
+        helper.validate_preentry_candidate(c, s, l, b, [], **kw)
+
+
 def test_preentry_interruptions_are_unique_per_resume_generation():
     history = [{"request_id": "a" * 32, "case_id": "K6GDP2_DEV_G025",
                 "entry_consumed": False}]
