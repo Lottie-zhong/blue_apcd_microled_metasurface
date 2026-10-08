@@ -43,6 +43,16 @@ def test_valid_preentry_exit_preserves_unentered_case():
         "automatic_replay_count": 0, "truth_available": False}
 
 
+def test_preentry_interruptions_are_unique_per_resume_generation():
+    history = [{"request_id": "a" * 32, "case_id": "K6GDP2_DEV_G025",
+                "entry_consumed": False}]
+    assert helper.has_interruption_generation(history, "a" * 32, 0)
+    assert not helper.has_interruption_generation(history, "a" * 32, 1)
+    history.append({"request_id": "a" * 32, "resume_generation": 1})
+    assert helper.has_interruption_generation(history, "a" * 32, 1)
+    assert not helper.has_interruption_generation(history, "a" * 32, 2)
+
+
 @pytest.mark.parametrize("field,value", [
     ("registry_rows", [{"case_id": "K6GDP2_DEV_G025"}]),
     ("attempt_directory_exists", True), ("active_run_exists", True),

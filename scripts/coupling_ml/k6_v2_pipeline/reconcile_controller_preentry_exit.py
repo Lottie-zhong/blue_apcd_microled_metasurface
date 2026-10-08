@@ -12,6 +12,12 @@ def need(ok, message):
         raise RuntimeError(message)
 
 
+def has_interruption_generation(history, request_id, resume_generation):
+    return any(item.get("request_id") == request_id
+               and item.get("resume_generation", 0) == resume_generation
+               for item in history if isinstance(item, dict))
+
+
 def queue_module():
     spec = importlib.util.spec_from_file_location("apcd_serial_queue_preentry_reconcile", QUEUE_SCRIPT)
     need(spec is not None and spec.loader is not None, "QUEUE_MODULE_IMPORT_FAILED")
@@ -89,8 +95,10 @@ def reconcile(manifest_path, manifest_sha256, request_id):
     status_path = controller["status_path"]
     receipt_path = q.controller_resume_receipt_path(controller)
     need(status_path.is_file() and not status_path.is_symlink(), "PREENTRY_CONTROLLER_STATUS_MISSING")
-    need(not receipt_path.exists(), "PREENTRY_STALE_RESUME_RECEIPT_PRESENT")
     status = q.read(status_path)
+    resume_generation = status.get("resume_generation", 0)
+    need(isinstance(resume_generation, int) and not isinstance(resume_generation, bool)
+         and resume_generation >= 0, "PREENTRY_RESUME_GENERATION_INVALID")
     runner = controller.get("runner_scheduler") or q._load_runner_scheduler_for_reconciliation()
     binding = runner._read_controller_task_binding(q.RUN_ROOT)
     manifest = controller["manifest"]
@@ -98,6 +106,29 @@ def reconcile(manifest_path, manifest_sha256, request_id):
          and binding.get("controller_manifest_sha256") == controller["manifest_sha256"]
          and binding.get("controller_script_sha256") == manifest["controller_script_sha256"],
          "PREENTRY_TASK_BINDING_MISMATCH")
+    archived_receipt_path = None
+    archived_receipt_sha256 = None
+    if receipt_path.exists():
+        prior_receipt_raw = receipt_path.read_bytes()
+        prior_receipt = q.read(receipt_path)
+        prior_receipt_sha256 = q.sha(receipt_path)
+        need(resume_generation > 0
+             and binding.get("resume_generation") == resume_generation
+             and binding.get("resume_receipt_sha256") == prior_receipt_sha256
+             and prior_receipt.get("resume_generation") == resume_generation,
+             "PREENTRY_PRIOR_RESUME_RECEIPT_BINDING_INVALID")
+        archived_receipt_path = receipt_path.with_name(
+            "resume_receipt_" + request_id + "_generation_" + str(resume_generation) + ".json")
+        if archived_receipt_path.exists():
+            need(q.sha(archived_receipt_path) == prior_receipt_sha256,
+                 "PREENTRY_PRIOR_RESUME_RECEIPT_ARCHIVE_CONFLICT")
+        else:
+            with archived_receipt_path.open("xb") as stream:
+                stream.write(prior_receipt_raw)
+        archived_receipt_sha256 = prior_receipt_sha256
+    else:
+        need(resume_generation == 0 and binding.get("resume_generation", 0) == 0,
+             "PREENTRY_RESUME_RECEIPT_MISSING_AFTER_RESUME")
     xml = runner._query_task_xml(runner.CONTROLLER_TASK_NAME)
     request_files = runner._controller_request_files(q.RUN_ROOT, request_id)
     runner._validate_controller_task_xml(xml, controller, request_id, request_files[1],
@@ -179,6 +210,16 @@ def reconcile(manifest_path, manifest_sha256, request_id):
     case_dir = q.CASE_ROOT / cid / "attempt_001"
     sm_path = case_dir / "source_manifest.json"
     source_manifest = q.read(sm_path)
+    source_manifest_sha256 = q.sha(sm_path)
+    preflight_log_path = q.REPORT / ("FORMAL_PREFLIGHT_LOG_" + cid + "_A78274BE_"
+        + source_manifest_sha256[:12] + ".txt")
+    preflight_log_evidence = {"path": str(preflight_log_path), "exists": preflight_log_path.is_file()}
+    if preflight_log_path.is_file():
+        preflight_log_evidence["sha256"] = q.sha(preflight_log_path)
+        log_text = preflight_log_path.read_text(encoding="utf-8", errors="replace")
+        preflight_log_evidence["error_excerpt"] = [line.strip()[:500] for line in log_text.splitlines()
+            if any(token in line.casefold() for token in
+                   ("could not bind socket", "ansysli exited", "no such file", "runner_error"))][-12:]
     need(q.current_proof_valid(case_dir, source_manifest, ctrl), "PREENTRY_CURRENT_ROUTE_LOAD_PROOF_INVALID")
     batch_case = batch.get("cases", {}).get(cid, {})
     need(batch_case.get("status") in {"LOAD_PROOF_PASS", "PASS"}
@@ -193,13 +234,17 @@ def reconcile(manifest_path, manifest_sha256, request_id):
         old_routes.append({"path": str(p), "sha256": q.sha(p),
                            "route_authority_sha256": old.get("route_authority_sha256")})
 
-    evidence_path = q.REPORT / ("CONTROLLER_PREENTRY_INTERRUPTION_EVIDENCE_" + request_id + "_" + cid + ".json")
+    evidence_suffix = ("" if resume_generation == 0 else
+                       "_RESUME_GENERATION_" + str(resume_generation))
+    evidence_path = q.REPORT / ("CONTROLLER_PREENTRY_INTERRUPTION_EVIDENCE_" + request_id + "_"
+                                + cid + evidence_suffix + ".json")
     need(not evidence_path.exists() and not evidence_path.is_symlink(), "PREENTRY_EVIDENCE_PATH_ALREADY_EXISTS")
     before = {"controller_status_sha256": q.sha(status_path), "ledger_sha256": q.sha(q.LEDGER),
         "batch_status_sha256": q.sha(q.BATCH), "runner_registry_path": str(registry_path),
         "runner_registry_sha256": q.sha(registry_path)}
     evidence = {"schema": "COUPLING_K6_V2_CONTROLLER_PREENTRY_INTERRUPTION_EVIDENCE_V1",
         "captured_at_utc": q.now(), "request_id": request_id,
+        "resume_generation": resume_generation,
         "controller_manifest_sha256": controller["manifest_sha256"],
         "controller_script_sha256": manifest["controller_script_sha256"],
         "controller_run_id": manifest["controller_run_id"], "queue_id": controller["queue_id"],
@@ -222,7 +267,8 @@ def reconcile(manifest_path, manifest_sha256, request_id):
         "failure_diagnosis": {"last_persisted_phase": "ENSURE_CURRENT_ROUTE_AND_PREFLIGHT",
             "exact_original_exception": None, "exception_capture_status": "NOT_PERSISTED_BY_CONTROLLER",
             "observed_boundary": "Scheduler exited nonzero before run-one request, run envelope, Runner attempt, or solver entry.",
-            "route_refresh_context": "Prior route proof required a current-route LOAD-only refresh, which now passes. Original exception is unavailable in saved logs/status.",
+            "route_refresh_context": "Current-route LOAD-only proof passes. The controller exception was not persisted; the separate formal preflight log is recorded below.",
+            "formal_preflight_log": preflight_log_evidence,
             "solver_entry": False, "automatic_replay": False},
         "reconciliation": {"case_remains_unentered": True, "resume_same_attempt_allowed": True,
             "solver_entries": 0, "automatic_replays": 0, "training_fits": 0,
@@ -231,12 +277,13 @@ def reconcile(manifest_path, manifest_sha256, request_id):
     evidence_sha = q.sha(evidence_path)
     interruption = {"schema": "COUPLING_K6_V2_CONTROLLER_PREENTRY_INTERRUPTION_V1",
         "request_id": request_id, "controller_manifest_sha256": controller["manifest_sha256"],
+        "resume_generation": resume_generation,
         "case_id": cid, "attempt_id": "attempt_001", "sequence_index": candidate["sequence_index"],
         "phase": "ENSURE_CURRENT_ROUTE_AND_PREFLIGHT", "entry_consumed": False,
         "solver_invocations": 0, "automatic_replay_count": 0,
         "evidence_path": str(evidence_path), "evidence_sha256": evidence_sha, "recorded_at_utc": q.now()}
     history = ledger.setdefault("controller_preentry_interruptions", [])
-    need(not any(x.get("request_id") == request_id for x in history),
+    need(not has_interruption_generation(history, request_id, resume_generation),
          "PREENTRY_INTERRUPTION_ALREADY_RECORDED")
     counts = {k: ledger.get(k) for k in ("entered_count", "truth_valid_count", "labels_valid_count",
         "remaining_unentered_count", "automatic_replay_count", "training_fits", "p_scale_fits",
@@ -255,7 +302,8 @@ def reconcile(manifest_path, manifest_sha256, request_id):
         "current_case_id": None, "unresolved_runner_request_ids": [],
         "post_entry_automatic_replays": 0, "stopped_at_utc": q.now(),
         "interrupted_preentry_case_id": cid, "preentry_interruption_evidence_path": str(evidence_path),
-        "preentry_interruption_evidence_sha256": evidence_sha})
+        "preentry_interruption_evidence_sha256": evidence_sha,
+        "interrupted_resume_generation": resume_generation})
     q.write(status_path, status)
     receipt = {"schema": q.SCHEMA_CONTROLLER_RESUME, "request_id": request_id,
         "controller_manifest_sha256": controller["manifest_sha256"], "queue_id": controller["queue_id"],
@@ -271,6 +319,9 @@ def reconcile(manifest_path, manifest_sha256, request_id):
         "case_id_retained_unentered": cid, "sequence_index": candidate["sequence_index"],
         "solver_entries_this_call": 0, "automatic_replays_this_call": 0,
         "evidence_path": str(evidence_path), "evidence_sha256": evidence_sha,
+        "archived_prior_resume_receipt_path": (str(archived_receipt_path)
+            if archived_receipt_path else None),
+        "archived_prior_resume_receipt_sha256": archived_receipt_sha256,
         "status_path": str(status_path), "status_sha256": q.sha(status_path),
         "resume_receipt_path": str(receipt_path), "resume_receipt_sha256": q.sha(receipt_path),
         "queue_checker": verified}
