@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import copy
 import hashlib
@@ -610,3 +610,54 @@ def test_fresh_run_id_is_distinct_from_recovered_run_and_uses_same_case(tmp_path
     assert candidate.startswith("K6V2_D6P05_")
     assert candidate != row["run_id"]
     assert candidate not in {x["run_id"] for x in (row,)}
+
+@pytest.mark.parametrize("case_id,history_registry_sha", [
+    ("K6GDP2_DEV_G023", "8beb6f9593d8783113f0411f3f2a478f75faf3fbc317c5ae70a0fad3d910c11b"),
+    ("K6GDP2_DEV_G024", "2ba5b25d6961a57296d91fc774f6d16e98ac9f270c2815cf42a9ba91306303d9"),
+])
+def test_historical_postentry_binding_ignores_only_later_global_registry_digest(case_id, history_registry_sha):
+    evidence = {"case_id": case_id, "attempt_id": "attempt_001", "run_id": case_id + "_run",
+        "phase": "FAILED_POSTENTRY_NO_TRUTH", "entry_consumed": True, "solver_invocations": 1,
+        "automatic_replay_count": 0, "truth_available": False,
+        "postentry_disposition_sha256": "a" * 64, "postentry_journal_sha256": "b" * 64,
+        "recovery_fence_id": "fixed-fence", "runner_registry_sha256": history_registry_sha,
+        "runner_registry_current_sha256": "c" * 64}
+    record = {"phase": evidence["phase"], "attempt_id": evidence["attempt_id"],
+        "run_id": evidence["run_id"], "entry_consumed": True,
+        "postentry_closeout_evidence": dict(evidence, runner_registry_current_sha256="d" * 64)}
+    isolated = {"case_id": case_id, "run_id": evidence["run_id"], "phase": evidence["phase"],
+        "entry_consumed": True, "solver_invocations": 1, "automatic_replay_count": 0,
+        "truth_available": False, "postentry_disposition_sha256": evidence["postentry_disposition_sha256"],
+        "postentry_journal_sha256": evidence["postentry_journal_sha256"],
+        "recovery_fence_id": evidence["recovery_fence_id"]}
+    earlier_history = {"case_id": case_id, "phase": "RUN_ONE", "run_id": "prior-unentered-run",
+        "evidence": {"solver_entered": False, "truth_valid": False}}
+    ledger = {"case_records": {case_id: record}, "entered_case_ids": [case_id],
+        "truth_valid_case_ids": [], "labels_valid_case_ids": [],
+        "failed_or_isolated_cases": [earlier_history, isolated]}
+    sq._assert_failed_postentry_recorded(ledger, evidence)
+    changed_historical_snapshot = dict(evidence, runner_registry_sha256="e" * 64)
+    with pytest.raises(sq.StopQueue, match="FAILED_POSTENTRY_LEDGER_RECORD_MISSING_OR_MISMATCH"):
+        sq._assert_failed_postentry_recorded(ledger, changed_historical_snapshot)
+
+
+def test_bootstrap_reconciliation_writes_request_scoped_stopped_receipt(tmp_path):
+    request_id = "1" * 32
+    status_path = tmp_path / "controller_status.json"
+    controller = {"request_id": request_id, "manifest_sha256": "2" * 64,
+        "queue_id": "queue-fixture", "status_path": status_path,
+        "manifest": {"controller_run_id": "controller-fixture"}}
+    evidence_path = _json(tmp_path / "bootstrap_evidence.json", {"schema": "fixture",
+        "request_id": request_id, "controller_manifest_sha256": controller["manifest_sha256"],
+        "scheduler_last_task_result": 2})
+    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+    result = sq._write_bootstrap_stopped_receipt(controller, evidence_path, sq.sha(evidence_path),
+        evidence, {"resume_generation": 0})
+    assert result["state"] == "STOPPED_RECONCILED"
+    assert result["status_missing_before_reconciliation"] is True
+    assert json.loads(status_path.read_text(encoding="utf-8"))["state"] == "STOPPED_RECONCILED"
+    receipt_path = Path(result["resume_receipt_path"])
+    assert receipt_path.name == "resume_receipt_" + request_id + ".json"
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["status_missing_before_reconciliation"] is True
+    assert sq.verify_controller_resume_receipt(controller, receipt_path, sq.sha(receipt_path))
