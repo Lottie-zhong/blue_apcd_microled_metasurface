@@ -577,6 +577,8 @@ def _rebind_fixture(tmp_path, *, postentry_failure=False, quarantined=True,
             state["xml"] = state["xml"].replace(before, after, 1)
         elif not enabled and "<Enabled>" not in state["xml"]:
             state["xml"] = state["xml"].replace("<Settings>", "<Settings><Enabled>false</Enabled>", 1)
+        elif enabled and "<Enabled>" not in state["xml"]:
+            pass  # Scheduler state is read back from task_info when XML omits this default.
         else:
             raise AssertionError("task enabled state cannot be changed")
         state["task_state"] = "Ready" if enabled else "Disabled"
@@ -731,6 +733,23 @@ def test_retire_rebind_reuses_prepared_successor_without_rewriting_binding(tmp_p
     assert result["request_id"] == prepared["request_id"]
     assert binding_path.read_bytes() == binding_before
     assert not scheduler._controller_request_files(args["root"], prepared["request_id"])[3].exists()
+
+
+
+def test_retire_rebind_accepts_scheduler_readback_when_enabled_xml_is_omitted(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    original = args["create_task"]
+    def install_without_enabled(xml, force=False):
+        result = original(xml, force=force)
+        state = args["state"]
+        state["xml"] = state["xml"].replace("<Enabled>false</Enabled>", "")
+        return result
+    result = _run_rebind(args, create_task_fn=install_without_enabled)
+    assert result["result"] == "REBOUND"
+    assert args["state"]["execution_time_limit"] == scheduler.TASK_EXECUTION_LIMIT
+    assert args["state"]["task_state"] == "Ready"
+    assert "<Enabled>" not in args["state"]["xml"]
+    assert args["state"]["start_calls"] == [scheduler.CONTROLLER_TASK_NAME]
 
 
 def test_retire_rebind_rejects_successor_without_actual_pt0s_readback(tmp_path):

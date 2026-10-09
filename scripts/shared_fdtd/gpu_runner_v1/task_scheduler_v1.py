@@ -1632,15 +1632,19 @@ def _controller_task_xml_matches(xml_text, info, request_id, binding, root, prin
         xml_text, info, request_id, request_path, principal,
         binding.get("resume_receipt_path"), binding.get("resume_receipt_sha256"),
         expected_execution_time_limit=expected_execution_time_limit)
-    enabled = _controller_task_is_enabled(xml_text, missing_default=missing_enabled_default)
     if task_info is not None:
         actual_enabled = _validate_controller_task_scheduler_info(
             task_info, expected_execution_time_limit=expected_execution_time_limit,
             expected_enabled=expected_enabled)
+        enabled = _controller_task_is_enabled(
+            xml_text, missing_default=(actual_enabled if missing_enabled_default is None
+                                       else missing_enabled_default))
         if enabled != actual_enabled:
             raise SchedulerRunnerError("CONTROLLER_REBIND_SCHEDULER_TASK_ENABLED_MISMATCH")
-    elif expected_enabled is not None and enabled is not bool(expected_enabled):
-        raise SchedulerRunnerError("CONTROLLER_REBIND_SCHEDULER_TASK_ENABLED_MISMATCH")
+    else:
+        enabled = _controller_task_is_enabled(xml_text, missing_default=missing_enabled_default)
+        if expected_enabled is not None and enabled is not bool(expected_enabled):
+            raise SchedulerRunnerError("CONTROLLER_REBIND_SCHEDULER_TASK_ENABLED_MISMATCH")
     return enabled
 
 
@@ -1910,10 +1914,10 @@ def retire_rebind_controller_task(old_request_id, new_manifest_path, retirement_
         task = task_info_fn(CONTROLLER_TASK_NAME)
         if _task_state_value(task) in ("running", "queued"):
             raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_BECAME_ACTIVE")
-        _controller_task_xml_matches(
+        new_xml_enabled = _controller_task_xml_matches(
             current_xml, new_info, new_request_id, new_request_binding, root, principal,
             task_info=task, expected_enabled=False)
-        if _controller_task_is_enabled(current_xml):
+        if new_xml_enabled:
             raise SchedulerRunnerError("CONTROLLER_REBIND_NEW_TASK_NOT_DISABLED")
         if journal.get("phase") == "OLD_TASK_DISABLED":
             journal = _journal_rebind_phase(journal_path, journal, "NEW_TASK_DISABLED")
@@ -1940,17 +1944,17 @@ def retire_rebind_controller_task(old_request_id, new_manifest_path, retirement_
         journal = _journal_rebind_phase(journal_path, journal, "BINDING_SWITCHED")
     current_xml = xml_query_fn(CONTROLLER_TASK_NAME)
     task = task_info_fn(CONTROLLER_TASK_NAME)
-    _controller_task_xml_matches(
+    new_xml_enabled = _controller_task_xml_matches(
         current_xml, new_info, new_request_id, new_request_binding, root, principal,
         task_info=task, expected_enabled=(_task_state_value(task) == "ready"))
-    if not _controller_task_is_enabled(current_xml):
+    if not new_xml_enabled:
         set_enabled_fn(True)
         current_xml = xml_query_fn(CONTROLLER_TASK_NAME)
         task = task_info_fn(CONTROLLER_TASK_NAME)
-    _controller_task_xml_matches(
+    new_xml_enabled = _controller_task_xml_matches(
         current_xml, new_info, new_request_id, new_request_binding, root, principal,
         task_info=task, expected_enabled=True)
-    if not _controller_task_is_enabled(current_xml):
+    if not new_xml_enabled:
         raise SchedulerRunnerError("CONTROLLER_REBIND_TASK_ENABLE_FAILED")
     if _task_state_value(task) in ("running", "queued"):
         raise SchedulerRunnerError("CONTROLLER_REBIND_MUST_NOT_START_TASK")
