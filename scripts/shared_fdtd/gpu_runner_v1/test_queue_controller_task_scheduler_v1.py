@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -75,7 +76,13 @@ def _save_manifest(bundle, changes=None):
 
 
 def _fake_scheduler():
-    state = {"xml": None, "task_state": "Ready", "create_calls": [], "start_calls": []}
+    state = {
+        "xml": None,
+        "task_state": "Ready",
+        "execution_time_limit": scheduler.TASK_EXECUTION_LIMIT,
+        "create_calls": [],
+        "start_calls": [],
+    }
 
     def xml_query(name):
         assert name == scheduler.CONTROLLER_TASK_NAME
@@ -85,6 +92,10 @@ def _fake_scheduler():
 
     def create_task(xml, force=False):
         state["xml"] = xml
+        match = re.search(r"<ExecutionTimeLimit>([^<]+)</ExecutionTimeLimit>", xml)
+        if match:
+            state["execution_time_limit"] = match.group(1)
+        state["task_state"] = "Disabled" if "<Enabled>false</Enabled>" in xml else "Ready"
         state["create_calls"].append({"xml": xml, "force": force})
 
     def task_info(name):
@@ -95,7 +106,7 @@ def _fake_scheduler():
             "LogonType": 3,
             "RunLevel": 0,
             "MultipleInstances": 2,
-            "ExecutionTimeLimit": scheduler.TASK_EXECUTION_LIMIT,
+            "ExecutionTimeLimit": state["execution_time_limit"],
             "RestartCount": 0,
             "LastTaskResult": 0,
         }
@@ -466,7 +477,9 @@ def test_resume_refuses_unresolved_or_nonterminal_runner_request(tmp_path):
     assert len(state["start_calls"]) == 1
 
 
-def _rebind_fixture(tmp_path, *, postentry_failure=False, quarantined=True):
+def _rebind_fixture(tmp_path, *, postentry_failure=False, quarantined=True,
+                    predecessor_execution_time_limit=scheduler.LEGACY_TASK_EXECUTION_LIMIT,
+                    predecessor_xml_limit=None, predecessor_enabled_present=False):
     bundle = _bundle(tmp_path)
     root = tmp_path / "runner"
     prepared, state, xml_query, create_task, task_info, start = _prepare_and_install(bundle, root)
@@ -475,6 +488,16 @@ def _rebind_fixture(tmp_path, *, postentry_failure=False, quarantined=True):
         xml_query_fn=xml_query, task_info_fn=task_info, start_fn=start,
         expected_principal="dell")
     state["task_state"] = "Ready"
+    state["execution_time_limit"] = predecessor_execution_time_limit
+    if predecessor_xml_limit is None:
+        state["xml"] = state["xml"].replace(
+            "<ExecutionTimeLimit>" + scheduler.TASK_EXECUTION_LIMIT + "</ExecutionTimeLimit>", "")
+    else:
+        state["xml"] = state["xml"].replace(
+            "<ExecutionTimeLimit>" + scheduler.TASK_EXECUTION_LIMIT + "</ExecutionTimeLimit>",
+            "<ExecutionTimeLimit>" + predecessor_xml_limit + "</ExecutionTimeLimit>")
+    if not predecessor_enabled_present:
+        state["xml"] = state["xml"].replace("<Enabled>true</Enabled>", "", 1)
     old_request_id = prepared["request_id"]
     old_task_sha = _sha(scheduler._task_controller_binding_path(root))
     old_request_binding_sha = _sha(scheduler._controller_request_files(root, old_request_id)[2])
@@ -550,8 +573,13 @@ def _rebind_fixture(tmp_path, *, postentry_failure=False, quarantined=True):
     def set_enabled(enabled):
         before = "<Enabled>false</Enabled>" if enabled else "<Enabled>true</Enabled>"
         after = "<Enabled>true</Enabled>" if enabled else "<Enabled>false</Enabled>"
-        assert state["xml"] and before in state["xml"]
-        state["xml"] = state["xml"].replace(before, after, 1)
+        if before in state["xml"]:
+            state["xml"] = state["xml"].replace(before, after, 1)
+        elif not enabled and "<Enabled>" not in state["xml"]:
+            state["xml"] = state["xml"].replace("<Settings>", "<Settings><Enabled>false</Enabled>", 1)
+        else:
+            raise AssertionError("task enabled state cannot be changed")
+        state["task_state"] = "Ready" if enabled else "Disabled"
     query_one_fn = None
     if postentry_failure:
         def query_one_fn(request_id, *, root, task_info_fn):
@@ -599,6 +627,111 @@ def test_retire_rebind_preserves_history_is_single_owner_and_idempotent(tmp_path
     assert repeated["result"] == "ALREADY_REBOUND"
     assert repeated["transaction_id"] == result["transaction_id"]
     assert len(args["state"]["start_calls"]) == start_count
+
+
+
+@pytest.mark.parametrize("scheduler_limit,xml_limit,enabled_present", [
+    (scheduler.LEGACY_TASK_EXECUTION_LIMIT, None, False),
+    (scheduler.LEGACY_TASK_EXECUTION_LIMIT, scheduler.LEGACY_TASK_EXECUTION_LIMIT, True),
+    (scheduler.TASK_EXECUTION_LIMIT, scheduler.TASK_EXECUTION_LIMIT, True),
+])
+def test_retire_rebind_accepts_only_approved_predecessor_execution_contracts(
+        tmp_path, scheduler_limit, xml_limit, enabled_present):
+    args = _rebind_fixture(
+        tmp_path, predecessor_execution_time_limit=scheduler_limit,
+        predecessor_xml_limit=xml_limit, predecessor_enabled_present=enabled_present)
+    result = _run_rebind(args)
+    assert result["result"] == "REBOUND"
+    assert args["state"]["execution_time_limit"] == scheduler.TASK_EXECUTION_LIMIT
+    assert args["state"]["task_state"] == "Ready"
+    assert len(args["state"]["start_calls"]) == 1
+    audit = (args["root"] / scheduler.CONTROLLER_TASK_DIR.name / "rebind_transactions" /
+             result["transaction_id"] / "audit" / "old_task_scheduler_info.json")
+    record = json.loads(audit.read_text(encoding="utf-8"))
+    assert record["scheduler_execution_time_limit"] == scheduler_limit
+    assert record["recognized_contract"] in (
+        "LEGACY_CONTROLLER_PT72H_DEFAULTED_V1",
+        "LEGACY_CONTROLLER_PT72H_EXPLICIT_V1",
+        "CONTROLLER_PT0S_EXPLICIT_V1")
+
+
+@pytest.mark.parametrize("scheduler_limit,xml_limit", [
+    ("PT48H", "PT48H"),
+    (scheduler.TASK_EXECUTION_LIMIT, None),
+    (scheduler.LEGACY_TASK_EXECUTION_LIMIT, scheduler.TASK_EXECUTION_LIMIT),
+])
+def test_retire_rebind_rejects_unknown_or_scheduler_xml_mismatched_limits(
+        tmp_path, scheduler_limit, xml_limit):
+    args = _rebind_fixture(
+        tmp_path, predecessor_execution_time_limit=scheduler_limit,
+        predecessor_xml_limit=xml_limit)
+    with pytest.raises(scheduler.SchedulerRunnerError,
+                       match="CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH"):
+        _run_rebind(args)
+    assert scheduler._read_controller_task_binding(args["root"])["request_id"] == args["old_request_id"]
+    assert args["state"]["task_state"] == "Ready"
+
+
+@pytest.mark.parametrize("mutation", ["action", "request", "manifest_sha256"])
+def test_retire_rebind_rejects_predecessor_action_request_and_sha_mismatch(tmp_path, mutation):
+    args = _rebind_fixture(tmp_path)
+    xml = args["state"]["xml"]
+    old_manifest_sha = scheduler._sha(args["bundle"]["manifest_path"])
+    if mutation == "action":
+        xml = xml.replace("serial_queue.py", "unapproved_queue.py")
+    elif mutation == "request":
+        xml = xml.replace(args["old_request_id"], "f" * 32)
+    else:
+        xml = xml.replace(old_manifest_sha, "e" * 64)
+    args["state"]["xml"] = xml
+    with pytest.raises(scheduler.SchedulerRunnerError,
+                       match="CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH"):
+        _run_rebind(args)
+    assert scheduler._read_controller_task_binding(args["root"])["request_id"] == args["old_request_id"]
+
+
+def test_retire_rebind_reuses_prepared_successor_without_rewriting_binding(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    prepared = scheduler.prepare_controller_task(
+        args["new_manifest_path"], root=args["root"],
+        coupling_root=args["bundle"]["coupling"], install_task=False)
+    assert prepared["request_id"] != args["old_request_id"]
+    binding_path = scheduler._controller_request_files(
+        args["root"], prepared["request_id"])[2]
+    binding_before = binding_path.read_bytes()
+    result = _run_rebind(args)
+    assert result["request_id"] == prepared["request_id"]
+    assert binding_path.read_bytes() == binding_before
+    assert not scheduler._controller_request_files(args["root"], prepared["request_id"])[3].exists()
+
+
+def test_retire_rebind_rejects_successor_without_actual_pt0s_readback(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    original = args["create_task"]
+    def install_with_actual_72h(xml, force=False):
+        altered = xml.replace(
+            "<ExecutionTimeLimit>" + scheduler.TASK_EXECUTION_LIMIT + "</ExecutionTimeLimit>",
+            "<ExecutionTimeLimit>" + scheduler.LEGACY_TASK_EXECUTION_LIMIT + "</ExecutionTimeLimit>")
+        return original(altered, force=force)
+    with pytest.raises(scheduler.SchedulerRunnerError,
+                       match="SCHEDULER_TASK_EXECUTION_TIME_LIMIT_INVALID"):
+        _run_rebind(args, create_task_fn=install_with_actual_72h)
+    assert scheduler._read_controller_task_binding(args["root"])["request_id"] == args["old_request_id"]
+    assert args["state"]["task_state"] == "Disabled"
+
+
+def test_retire_rebind_rejects_successor_with_unsafe_multiple_instance_policy(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    original = args["create_task"]
+    def install_unsafe(xml, force=False):
+        return original(xml.replace(
+            "<MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>",
+            "<MultipleInstancesPolicy>Parallel</MultipleInstancesPolicy>"), force=force)
+    with pytest.raises(scheduler.SchedulerRunnerError,
+                       match="SCHEDULER_TASK_MULTIPLE_INSTANCE_POLICY_INVALID"):
+        _run_rebind(args, create_task_fn=install_unsafe)
+    assert scheduler._read_controller_task_binding(args["root"])["request_id"] == args["old_request_id"]
+    assert args["state"]["task_state"] == "Disabled"
 
 
 def test_retire_rebind_resumes_interrupted_transaction_without_start(tmp_path, monkeypatch):
