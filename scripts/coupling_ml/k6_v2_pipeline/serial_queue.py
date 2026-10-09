@@ -441,8 +441,17 @@ def verify_controller_resume_receipt(controller, path, expected_sha256):
 
 
 def controller_resume_receipt_path(controller):
-    return controller["status_path"].with_name("resume_receipt_" + controller["request_id"] + ".json")
-
+    status_path = controller["status_path"]
+    request_id = controller["request_id"]
+    if not status_path.is_file() or status_path.is_symlink():
+        return status_path.with_name("resume_receipt_" + request_id + ".json")
+    status = read(status_path)
+    generation = status.get("resume_generation", 0)
+    need(isinstance(generation, int) and not isinstance(generation, bool) and generation >= 0,
+         "CONTROLLER_RESUME_GENERATION_INVALID")
+    next_generation = generation + 1
+    return status_path.with_name(
+        "resume_receipt_" + request_id + "_generation_" + str(next_generation) + ".json")
 
 def _load_runner_scheduler_for_reconciliation():
     path = RUN_DIR / "task_scheduler_v1.py"
@@ -452,6 +461,18 @@ def _load_runner_scheduler_for_reconciliation():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def _git_source_serialized_hashes(raw):
+    """Hash Git source bytes in LF or Windows CRLF checkout form without changing content."""
+    need(isinstance(raw, bytes), "CONTROLLER_BOOTSTRAP_SOURCE_BYTES_INVALID")
+    bom = b"\xef\xbb\xbf" if raw.startswith(b"\xef\xbb\xbf") else b""
+    text = raw.decode("utf-8-sig")
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    return {
+        hashlib.sha256(bom + normalized.replace("\n", newline).encode("utf-8")).hexdigest()
+        for newline in ("\n", "\r\n")
+    } | {hashlib.sha256(raw).hexdigest()}
 
 
 def _legacy_controller_manifest_for_stop_reconciliation(path, expected_sha256, request_id):
@@ -474,7 +495,7 @@ def _legacy_controller_manifest_for_stop_reconciliation(path, expected_sha256, r
     for revision in revisions.stdout.splitlines():
         show = subprocess.run(["git", "-C", str(ROOT), "show", revision + ":" + relative_script],
             capture_output=True, check=False)
-        if show.returncode == 0 and hashlib.sha256(show.stdout).hexdigest() == manifest["controller_script_sha256"]:
+        if show.returncode == 0 and manifest["controller_script_sha256"].lower() in _git_source_serialized_hashes(show.stdout):
             source_revision = revision
             break
     need(source_revision is not None, "CONTROLLER_BOOTSTRAP_OLD_SOURCE_HASH_NOT_IN_GIT_HISTORY")
@@ -742,10 +763,20 @@ def reconcile_controller_stopped_boundary(controller):
          "CONTROLLER_STOP_BOUNDARY_LEDGER_COUNTERS_INVALID")
     case_records = ledger.get("case_records", {})
     need(isinstance(case_records, dict), "CONTROLLER_STOP_BOUNDARY_CASE_RECORDS_INVALID")
+    _, live_registry = runner_registry()
     for cid in controller["case_ids"]:
         record = case_records.get(cid)
-        if record is not None:
-            need(record.get("phase") == "LABEL_PASS", "CONTROLLER_STOP_BOUNDARY_CASE_NOT_LABEL_VALID:" + cid)
+        if record is None or record.get("phase") == "LABEL_PASS":
+            continue
+        if record.get("phase") == "FAILED_POSTENTRY_NO_TRUTH":
+            rows = rows_for(live_registry, cid)
+            need(len(rows) == 1, "CONTROLLER_STOP_BOUNDARY_FAILED_CASE_REGISTRY_INVALID:" + cid)
+            fresh_evidence = verify_failed_postentry_closeout(rows[0], cid)
+            need(_postentry_evidence_matches(record.get("postentry_closeout_evidence"), fresh_evidence),
+                 "CONTROLLER_STOP_BOUNDARY_FAILED_CASE_EVIDENCE_MISMATCH:" + cid)
+            _assert_failed_postentry_recorded(ledger, fresh_evidence)
+            continue
+        raise StopQueue("CONTROLLER_STOP_BOUNDARY_CASE_NOT_TERMINAL_OR_LABEL_VALID:" + cid)
     need(not (RUN_ROOT / "active_run.json").exists() and not (RUN_ROOT / ".runner.lock").exists(),
          "CONTROLLER_STOP_BOUNDARY_RUNNER_SLOT_NOT_CLEAR")
     need(not receipt_path.exists(), "CONTROLLER_STALE_RESUME_RECEIPT_PRESENT")
@@ -1102,13 +1133,14 @@ def verify_g024_failed_postentry_closeout(row, cid):
 
 
 def verify_failed_postentry_closeout(row, cid):
-    """Allow only the fixed, separately-authorized Runner post-entry closeouts."""
+    """Verify historical pinned closeouts or the Runner's generic closeout schema."""
     if cid == G023_POSTENTRY_AUTHORITY["case_id"]:
         return verify_g023_failed_postentry_closeout(row, cid)
     if cid == G024_POSTENTRY_AUTHORITY["case_id"]:
         return verify_g024_failed_postentry_closeout(row, cid)
     expected = FAILED_POSTENTRY_AUTHORITY
-    need(cid == expected["case_id"], "UNAUTHORIZED_FAILED_POSTENTRY_CASE:" + str(cid))
+    if cid != expected["case_id"]:
+        return verify_runner_generic_postentry_closeout(row, cid)
     need(isinstance(row, dict) and row.get("case_id") == cid
          and row.get("attempt_id") == expected["attempt_id"]
          and row.get("run_id") == expected["run_id"], "FAILED_POSTENTRY_IDENTITY_MISMATCH:" + cid)
@@ -1234,6 +1266,147 @@ def verify_failed_postentry_closeout(row, cid):
     }
 
 
+def runner_generic_postentry_closeout_valid(status_path, status):
+    """Delegate receipt semantics to the exact Runner versioned validator."""
+    helper = RUN_DIR / "postentry_failure_closeout_v1.py"
+    need(helper.is_file() and not helper.is_symlink(), "RUNNER_GENERIC_CLOSEOUT_VALIDATOR_MISSING")
+    spec = importlib.util.spec_from_file_location("apcd_runner_postentry_closeout_for_coupling", helper)
+    need(spec is not None and spec.loader is not None, "RUNNER_GENERIC_CLOSEOUT_VALIDATOR_IMPORT_FAILED")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    validator = getattr(module, "validate_postentry_failure_closeout", None)
+    need(callable(validator), "RUNNER_GENERIC_CLOSEOUT_VALIDATOR_API_MISSING")
+    return validator(RUN_ROOT, status_path, status) is True
+
+
+def verify_runner_generic_postentry_closeout(row, cid):
+    """Fail-closed verification for one authorized K6 development closeout."""
+    need(re.fullmatch(r"K6GDP2_DEV_G\d{3}", str(cid)) is not None,
+         "GENERIC_POSTENTRY_CASE_ID_OUTSIDE_DEVELOPMENT_SCOPE:" + str(cid))
+    need(isinstance(row, dict) and row.get("case_id") == cid
+         and row.get("attempt_id") == "attempt_001"
+         and isinstance(row.get("run_id"), str) and row.get("run_id"),
+         "GENERIC_POSTENTRY_REGISTRY_IDENTITY_INVALID:" + cid)
+    run_id = row["run_id"]
+    run_dir_reported = Path(row.get("run_dir", ""))
+    expected_run_dir = RUN_ROOT / "runs" / cid / "attempt_001" / run_id
+    need(not run_dir_reported.is_symlink() and run_dir_reported.resolve(strict=True)
+         == expected_run_dir.resolve(strict=True) and expected_run_dir.is_dir(),
+         "GENERIC_POSTENTRY_RUN_DIRECTORY_MISMATCH:" + cid)
+    need(row.get("state") == "FAILED_POSTENTRY", "GENERIC_POSTENTRY_REGISTRY_STATE_INVALID:" + cid)
+    status_path = expected_run_dir / "status.json"
+    status = runner_status(row, cid)
+    need(status.get("state") == "FAILED_POSTENTRY" and status.get("solver_entered") is True
+         and status.get("solver_invocations") == 1 and status.get("replay_count", 0) == 0
+         and status.get("automatic_replay_count", 0) == 0
+         and isinstance(status.get("failure"), str) and status.get("failure"),
+         "GENERIC_POSTENTRY_STATUS_INVALID:" + cid)
+    need(runner_generic_postentry_closeout_valid(status_path, status),
+         "RUNNER_GENERIC_POSTENTRY_CLOSEOUT_REJECTED:" + cid)
+
+    closeout_dir = expected_run_dir / "postentry_failure_closeout_v1"
+    receipt_path = closeout_dir / "receipt.json"
+    verification_path = closeout_dir / "verification.json"
+    need(all(p.is_file() and not p.is_symlink() for p in (receipt_path, verification_path)),
+         "GENERIC_POSTENTRY_RECEIPT_FILES_INVALID:" + cid)
+    receipt, verification = read(receipt_path), read(verification_path)
+    receipt_body = dict(receipt); receipt_self_sha = receipt_body.pop("receipt_sha256", None)
+    verification_body = dict(verification); verification_self_sha = verification_body.pop("verification_sha256", None)
+    need(receipt_self_sha == runner_canonical_sha(receipt_body)
+         and verification_self_sha == runner_canonical_sha(verification_body),
+         "GENERIC_POSTENTRY_RECEIPT_SELF_HASH_INVALID:" + cid)
+    need(receipt.get("schema") == "APCD_GPU_RUNNER_V1_POSTENTRY_FAILURE_CLOSEOUT_RECEIPT_V1"
+         and receipt.get("result") == "CLOSED"
+         and receipt.get("disposition") == "FAILED_POSTENTRY_NO_TRUTH"
+         and {k: receipt.get(k) for k in ("case_id", "attempt_id", "run_id")}
+             == {"case_id": cid, "attempt_id": "attempt_001", "run_id": run_id}
+         and receipt.get("failure") == status.get("failure")
+         and receipt.get("solver_entry_count") == 1 and receipt.get("solver_invocations") == 1
+         and receipt.get("automatic_replay_count") == 0
+         and receipt.get("recovery_solver_invocations") == 0
+         and receipt.get("truth_available") is False and receipt.get("scientific_valid") is False
+         and receipt.get("training_admitted") is False and receipt.get("runner_slot_closed") is True
+         and receipt.get("lineage_disposition") == "NOT_RECONSTRUCTED",
+         "GENERIC_POSTENTRY_RECEIPT_CONTENT_INVALID:" + cid)
+    engine_entries = receipt.get("physical_gpu_engine_entry_count")
+    need(engine_entries == "UNKNOWN" or
+         (isinstance(engine_entries, int) and not isinstance(engine_entries, bool) and engine_entries >= 1),
+         "GENERIC_POSTENTRY_ENGINE_ENTRY_MUST_NOT_BE_INVENTED:" + cid)
+    evidence_files = receipt.get("evidence")
+    need(isinstance(evidence_files, dict), "GENERIC_POSTENTRY_EVIDENCE_MAP_INVALID:" + cid)
+    for name, item in evidence_files.items():
+        need(isinstance(item, dict) and isinstance(item.get("path"), str)
+             and isinstance(item.get("sha256"), str), "GENERIC_POSTENTRY_EVIDENCE_ITEM_INVALID:" + cid + ":" + name)
+        evidence_path = Path(item["path"])
+        need(evidence_path.is_file() and not evidence_path.is_symlink()
+             and sha(evidence_path) == item["sha256"],
+             "GENERIC_POSTENTRY_EVIDENCE_HASH_MISMATCH:" + cid + ":" + name)
+    need(evidence_files.get("status", {}).get("sha256") == sha(status_path)
+         and Path(evidence_files.get("status", {}).get("path", "")).resolve() == status_path.resolve()
+         and evidence_files.get("manifest", {}).get("sha256") == sha(expected_run_dir / "manifest.json")
+         and Path(evidence_files.get("manifest", {}).get("path", "")).resolve()
+             == (expected_run_dir / "manifest.json").resolve()
+         and evidence_files.get("run_fsp", {}).get("sha256") == sha(expected_run_dir / "run.fsp")
+         and Path(evidence_files.get("run_fsp", {}).get("path", "")).resolve()
+             == (expected_run_dir / "run.fsp").resolve(),
+         "GENERIC_POSTENTRY_RUN_ARTIFACT_BINDING_INVALID:" + cid)
+    request_id = receipt.get("request_id")
+    need(CONTROLLER_REQUEST_ID_RE.fullmatch(str(request_id or "")) is not None,
+         "GENERIC_POSTENTRY_RUNNER_REQUEST_ID_INVALID:" + cid)
+    request_dir = RUN_ROOT / "requests" / "scheduled_run_one_v1" / request_id
+    expected_request_paths = {"request": request_dir / "request.json",
+                              "result": request_dir / "result.json",
+                              "worker_claim": request_dir / "worker_claim.json"}
+    for name, expected_path in expected_request_paths.items():
+        item = evidence_files.get(name, {})
+        need(Path(item.get("path", "")).resolve() == expected_path.resolve()
+             and sha(expected_path) == item.get("sha256"),
+             "GENERIC_POSTENTRY_REQUEST_LINEAGE_INVALID:" + cid + ":" + name)
+    request = read(expected_request_paths["request"])
+    need(request.get("request_id") == request_id
+         and request.get("identity") == {"case_id": cid, "attempt_id": "attempt_001", "run_id": run_id}
+         and Path(request.get("manifest_path", "")).is_file()
+         and sha(Path(request["manifest_path"])) == request.get("manifest_sha256"),
+         "GENERIC_POSTENTRY_REQUEST_MANIFEST_BINDING_INVALID:" + cid)
+    controller_evidence = evidence_files.get("controller_state", {})
+    controller_state = read(Path(controller_evidence.get("path", "")))
+    need(controller_state.get("state") in {"STOPPED_RECONCILED", "CONTROLLER_EXITED_NEEDS_RECONCILIATION"}
+         and controller_state.get("current_case_id") == cid
+         and controller_state.get("current_run_id") == run_id
+         and CONTROLLER_REQUEST_ID_RE.fullmatch(str(controller_state.get("request_id", ""))) is not None,
+         "GENERIC_POSTENTRY_CONTROLLER_LINEAGE_INVALID:" + cid)
+    need(verification.get("schema") == "APCD_GPU_RUNNER_V1_POSTENTRY_FAILURE_CLOSEOUT_VERIFICATION_V1"
+         and verification.get("receipt_path") == str(receipt_path)
+         and verification.get("receipt_self_sha256") == receipt_self_sha
+         and verification.get("receipt_file_sha256") == sha(receipt_path)
+         and isinstance(verification.get("checks"), dict)
+         and verification.get("checks")
+         and all(value is True for value in verification["checks"].values())
+         and receipt.get("registry_row_sha256") == runner_canonical_sha(row),
+         "GENERIC_POSTENTRY_VERIFICATION_INVALID:" + cid)
+    return {
+        "case_id": cid, "attempt_id": "attempt_001", "run_id": run_id,
+        "phase": "FAILED_POSTENTRY_NO_TRUTH", "entry_consumed": True,
+        "solver_invocations": 1, "automatic_replay_count": 0,
+        "truth_available": False, "quarantine": True,
+        "failure": status["failure"], "runner_request_id": request_id,
+        "runner_closeout_schema": receipt["schema"],
+        "postentry_closeout_receipt_path": str(receipt_path),
+        "postentry_closeout_receipt_file_sha256": sha(receipt_path),
+        "postentry_closeout_receipt_sha256": receipt_self_sha,
+        "postentry_closeout_verification_path": str(verification_path),
+        "postentry_closeout_verification_file_sha256": sha(verification_path),
+        "runner_status_sha256": sha(status_path),
+        "runner_registry_row_sha256": runner_canonical_sha(row),
+        "physical_gpu_engine_entry_count": engine_entries,
+        "controller_request_id": controller_state["request_id"],
+        "controller_state_path": controller_evidence["path"],
+        "controller_state_sha256": controller_evidence["sha256"],
+        "run_envelope_path": request["manifest_path"],
+        "run_envelope_sha256": request["manifest_sha256"],
+    }
+
+
 def _postentry_evidence_matches(recorded, current):
     if not isinstance(recorded, dict) or not isinstance(current, dict):
         return False
@@ -1264,10 +1437,15 @@ def _assert_failed_postentry_recorded(ledger, evidence):
          and matches[0].get("solver_invocations") == 1
          and matches[0].get("automatic_replay_count") == 0
          and matches[0].get("truth_available") is False
-         and matches[0].get("postentry_disposition_sha256") == evidence["postentry_disposition_sha256"]
-         and matches[0].get("postentry_journal_sha256") == evidence["postentry_journal_sha256"]
+         and matches[0].get("postentry_disposition_sha256") == evidence.get("postentry_disposition_sha256")
+         and matches[0].get("postentry_journal_sha256") == evidence.get("postentry_journal_sha256")
          and matches[0].get("recovery_fence_id") == evidence.get("recovery_fence_id"),
          "FAILED_POSTENTRY_ISOLATION_RECORD_MISSING_OR_MISMATCH:" + cid)
+    if evidence.get("runner_closeout_schema") == "APCD_GPU_RUNNER_V1_POSTENTRY_FAILURE_CLOSEOUT_RECEIPT_V1":
+        need(matches[0].get("postentry_closeout_receipt_file_sha256")
+             == evidence.get("postentry_closeout_receipt_file_sha256")
+            and matches[0].get("runner_request_id") == evidence.get("runner_request_id"),
+             "GENERIC_POSTENTRY_ISOLATION_RECEIPT_MISMATCH:" + cid)
 def record_failed_postentry_recovery(ledger, current, evidence):
     cid = evidence["case_id"]; expected = FAILED_POSTENTRY_AUTHORITY
     need(cid == expected["case_id"] and current.get("case_id") == cid
@@ -1442,6 +1620,71 @@ def record_g024_failed_postentry_recovery(ledger, current, evidence):
         "postentry_disposition_sha256": evidence["postentry_disposition_sha256"],
         "postentry_journal_sha256": evidence["postentry_journal_sha256"],
         "truth_available": False, "automatic_replay_count": 0, "terminalized_at_utc": now()})
+    ledger["current_case"] = None
+
+
+def record_generic_failed_postentry_recovery(ledger, current, evidence):
+    """Terminalize an evidence-verified generic closeout without changing entry counts."""
+    cid = evidence.get("case_id")
+    need(evidence.get("runner_closeout_schema") ==
+         "APCD_GPU_RUNNER_V1_POSTENTRY_FAILURE_CLOSEOUT_RECEIPT_V1"
+         and evidence.get("entry_consumed") is True and evidence.get("solver_invocations") == 1
+         and evidence.get("automatic_replay_count") == 0 and evidence.get("truth_available") is False
+         and evidence.get("quarantine") is True,
+         "GENERIC_POSTENTRY_EVIDENCE_INVALID:" + str(cid))
+    need(isinstance(current, dict) and current.get("case_id") == cid
+         and current.get("run_id") == evidence.get("run_id")
+         and current.get("phase") in {"RUN_ONE_IN_PROGRESS", "FAILED_OR_ISOLATED"},
+         "GENERIC_POSTENTRY_CURRENT_CASE_MISMATCH:" + str(cid))
+    sequence = current.get("sequence_index")
+    need(isinstance(sequence, int) and not isinstance(sequence, bool),
+         "GENERIC_POSTENTRY_SEQUENCE_INVALID:" + str(cid))
+    need(ledger.get("automatic_replay_count") == 0 and ledger.get("training_fits") == 0
+         and ledger.get("p_scale_fits") == 0 and ledger.get("confirmation_response_access_count") == 0,
+         "GENERIC_POSTENTRY_EXECUTION_COUNTERS_INVALID:" + str(cid))
+    need(cid in ledger.get("entered_case_ids", [])
+         and cid not in ledger.get("truth_valid_case_ids", [])
+         and cid not in ledger.get("labels_valid_case_ids", [])
+         and cid not in ledger.get("remaining_unentered_case_ids", []),
+         "GENERIC_POSTENTRY_MEMBERSHIP_INVALID:" + str(cid))
+    record = ledger.get("case_records", {}).get(cid)
+    need(isinstance(record, dict) and record.get("attempt_id") == evidence.get("attempt_id")
+         and record.get("run_id") == evidence.get("run_id")
+         and record.get("sequence_index") == sequence
+         and record.get("phase") in {"RUN_ONE_IN_PROGRESS", "FAILED_OR_ISOLATED"}
+         and record.get("run_envelope_sha256") == evidence.get("run_envelope_sha256"),
+         "GENERIC_POSTENTRY_CASE_RECORD_MISMATCH:" + str(cid))
+    isolated = ledger.setdefault("failed_or_isolated_cases", [])
+    matches = [item for item in isolated if isinstance(item, dict)
+               and item.get("case_id") == cid and item.get("run_id") == evidence.get("run_id")]
+    need(len(matches) <= 1, "GENERIC_POSTENTRY_DUPLICATE_ISOLATION_RECORD:" + str(cid))
+    terminal = {"case_id": cid, "attempt_id": evidence["attempt_id"], "run_id": evidence["run_id"],
+        "sequence_index": sequence, "phase": evidence["phase"], "entry_consumed": True,
+        "solver_invocations": 1, "automatic_replay_count": 0, "truth_available": False,
+        "quarantine": True, "failure": evidence["failure"],
+        "runner_request_id": evidence["runner_request_id"],
+        "postentry_closeout_receipt_file_sha256": evidence["postentry_closeout_receipt_file_sha256"],
+        "postentry_closeout_receipt_sha256": evidence["postentry_closeout_receipt_sha256"],
+        "postentry_closeout_evidence": evidence, "recorded_at_utc": now()}
+    if matches:
+        old = matches[0]
+        if old.get("phase") == "FAILED_POSTENTRY_NO_TRUTH":
+            need(old.get("postentry_closeout_receipt_file_sha256")
+                 == evidence["postentry_closeout_receipt_file_sha256"]
+                 and old.get("runner_request_id") == evidence["runner_request_id"],
+                 "GENERIC_POSTENTRY_TERMINAL_RECORD_CONFLICT:" + str(cid))
+        else:
+            terminal["prior_controller_observation"] = dict(old)
+            old.clear(); old.update(terminal)
+    else:
+        isolated.append(terminal)
+    record.update({"phase": evidence["phase"], "entry_consumed": True,
+        "solver_invocations": 1, "automatic_replay_count": 0, "truth_available": False,
+        "postentry_closeout_evidence": evidence,
+        "postentry_closeout_receipt_file_sha256": evidence["postentry_closeout_receipt_file_sha256"],
+        "postentry_closeout_receipt_sha256": evidence["postentry_closeout_receipt_sha256"],
+        "runner_request_id": evidence["runner_request_id"],
+        "runner_status_sha256": evidence["runner_status_sha256"], "terminalized_at_utc": now()})
     ledger["current_case"] = None
 
 
@@ -1904,6 +2147,287 @@ def reconcile_failed_postentry(ledger, batch_status, evidence):
     else:
         need(batch_current is None, "G023_POSTENTRY_BATCH_POINTER_MISMATCH")
     return changed_ledger, changed_status
+
+
+import hashlib
+from pathlib import Path
+
+def _exclude_verified_current_reconciler_process(processes, request_id):
+    """Exclude only this exact CLI process from Runner's no-active-controller census."""
+    need(isinstance(processes, list), "GENERIC_POSTENTRY_PROCESS_CENSUS_INVALID")
+    pid = os.getpid()
+    self_rows = []
+    for item in processes:
+        if not isinstance(item, dict):
+            need(False, "GENERIC_POSTENTRY_PROCESS_CENSUS_INVALID")
+        try:
+            item_pid = int(item.get("ProcessId", item.get("process_id")))
+        except (TypeError, ValueError):
+            continue
+        if item_pid == pid:
+            self_rows.append(item)
+    need(len(self_rows) == 1, "GENERIC_POSTENTRY_SELF_PID_NOT_UNIQUE")
+    command = str(self_rows[0].get("CommandLine", self_rows[0].get("command_line", ""))).lower()
+    script_path = os.path.normcase(os.path.abspath(__file__)).lower()
+    need(script_path in command, "GENERIC_POSTENTRY_SELF_SCRIPT_IDENTITY_INVALID")
+    need("--reconcile-generic-postentry-only" in sys.argv
+         and "--runner-controller-request-id" in sys.argv
+         and request_id in sys.argv
+         and request_id.lower() in command,
+         "GENERIC_POSTENTRY_SELF_REQUEST_IDENTITY_INVALID")
+    return [item for item in processes if item is not self_rows[0]]
+
+
+def _verify_postentry_queue_manifest_binding(queue, runner_manifest, queue_path):
+    """Check the queue's canonical self-hash and Runner's raw-file hash as separate bindings."""
+    need(isinstance(queue, dict), "GENERIC_POSTENTRY_QUEUE_MANIFEST_INVALID")
+    body = dict(queue)
+    canonical_sha = body.pop("queue_manifest_sha256", None)
+    need(canonical_sha == runner_canonical_sha(body),
+         "GENERIC_POSTENTRY_QUEUE_CANONICAL_HASH_INVALID")
+    bound_path = runner_manifest.get("queue_manifest_path")
+    need(isinstance(bound_path, str) and bound_path,
+         "GENERIC_POSTENTRY_RUNNER_QUEUE_PATH_INVALID")
+    need(Path(bound_path).resolve() == Path(queue_path).resolve(),
+         "GENERIC_POSTENTRY_RUNNER_QUEUE_PATH_MISMATCH")
+    raw_sha = sha(Path(queue_path))
+    need(runner_manifest.get("queue_manifest_sha256") == raw_sha,
+         "GENERIC_POSTENTRY_RUNNER_QUEUE_FILE_HASH_MISMATCH")
+    return canonical_sha
+
+
+def reconcile_generic_postentry_controller_only(manifest_path, manifest_sha256, request_id):
+    """Reconcile one Runner-verified generic post-entry closeout; never dispatch work."""
+    need(all((manifest_path, manifest_sha256, request_id)),
+         "GENERIC_POSTENTRY_CONTROLLER_BINDING_ARGUMENTS_REQUIRED")
+    controller = verify_controller_manifest_for_stop_reconciliation(
+        manifest_path, manifest_sha256, request_id)
+    need(controller.get("request_id") == request_id,
+         "GENERIC_POSTENTRY_CONTROLLER_REQUEST_MISMATCH")
+    stop_receipt_path = controller_resume_receipt_path(controller)
+    task_report = ROOT / "reports/coupling/COUPLING_ML_G026_RECONCILE_AND_DURABLE_GPU_PRODUCTION_RESUME_V1"
+    task_report.mkdir(parents=True, exist_ok=True)
+
+    runner = _load_runner_scheduler_for_reconciliation()
+    old_info, request_binding, request_binding_sha, start_claim = (
+        runner._read_retirement_controller_request(request_id, root=RUN_ROOT, coupling_root=ROOT))
+    need(old_info["manifest_sha256"] == controller["manifest_sha256"]
+         and old_info["status_path"] == controller["status_path"],
+         "GENERIC_POSTENTRY_RUNNER_OLD_REQUEST_BINDING_MISMATCH")
+    task_binding_path = runner._task_controller_binding_path(RUN_ROOT)
+    task_binding = runner._read_controller_task_binding(RUN_ROOT)
+    need(isinstance(task_binding, dict) and task_binding.get("request_id") == request_id,
+         "GENERIC_POSTENTRY_RUNNER_TASK_BINDING_NOT_CURRENT")
+    task_binding_sha = sha(task_binding_path)
+    task = runner._task_info(runner.CONTROLLER_TASK_NAME)
+    task_state = runner._task_state_value(task)
+    need(task_state == "ready", "GENERIC_POSTENTRY_CONTROLLER_TASK_NOT_READY:" + str(task_state))
+    runner._assert_runner_slot_free(RUN_ROOT, runner._task_info)
+    process_inventory = runner._controller_process_inventory()
+    process_inventory = _exclude_verified_current_reconciler_process(process_inventory, request_id)
+    runner._assert_no_controller_or_solver_processes(process_inventory, request_id)
+    api_server_processes = [
+        item for item in process_inventory
+        if "fdtd-solutions.exe" in str(item.get("Name", "")).lower()
+        and "-server" in str(item.get("CommandLine", "")).lower()
+    ]
+
+    status_path = controller["status_path"]
+    need(status_path.is_file() and not status_path.is_symlink(),
+         "GENERIC_POSTENTRY_CONTROLLER_STATUS_MISSING")
+    controller_status = read(status_path)
+    need(controller_status.get("schema") == SCHEMA_CONTROLLER_STATUS
+         and controller_status.get("request_id") == request_id
+         and controller_status.get("controller_manifest_sha256") == controller["manifest_sha256"]
+         and controller_status.get("queue_id") == controller["queue_id"]
+         and controller_status.get("state") in {"RUNNING", "STOPPED_RECONCILED"}
+         and controller_status.get("post_entry_automatic_replays") == 0,
+         "GENERIC_POSTENTRY_CONTROLLER_STATUS_BINDING_INVALID")
+
+    queue = read(QMAN)
+    queue_sha = _verify_postentry_queue_manifest_binding(
+        queue, controller["manifest"], QMAN)
+    queue_ids = queue.get("ordered_case_ids")
+    need(isinstance(queue_ids, list) and len(queue_ids) == 128,
+         "GENERIC_POSTENTRY_QUEUE_CASES_INVALID")
+
+    ledger = read(LEDGER)
+    batch = read(BATCH)
+    need(ledger.get("queue_manifest_sha256") == queue_sha,
+         "GENERIC_POSTENTRY_LEDGER_QUEUE_SHA_MISMATCH")
+    cid = (ledger.get("current_case") or {}).get("case_id")
+    if cid is None:
+        candidates = [case_id for case_id in controller["case_ids"]
+                      if isinstance(ledger.get("case_records", {}).get(case_id), dict)
+                      and ledger["case_records"][case_id].get("phase") == "FAILED_POSTENTRY_NO_TRUTH"]
+        need(len(candidates) == 1, "GENERIC_POSTENTRY_NO_UNIQUE_RECONCILIATION_CANDIDATE")
+        cid = candidates[0]
+    need(cid in controller["case_ids"] and cid in queue_ids
+         and re.fullmatch(r"K6GDP2_DEV_G\d{3}", str(cid)) is not None,
+         "GENERIC_POSTENTRY_CURRENT_CASE_OUTSIDE_BOUND_QUEUE:" + str(cid))
+
+    coupling_receipt_path = task_report / ("COUPLING_POSTENTRY_RECONCILIATION_" + cid + "_" + request_id + ".json")
+    record = ledger.get("case_records", {}).get(cid)
+    if coupling_receipt_path.is_file():
+        prior_receipt = read(coupling_receipt_path)
+        prior_body = dict(prior_receipt)
+        prior_self_sha = prior_body.pop("receipt_sha256", None)
+        need(prior_self_sha == runner_canonical_sha(prior_body)
+             and prior_receipt.get("request_id") == request_id
+             and prior_receipt.get("case_id") == cid
+             and prior_receipt.get("run_id") == record.get("run_id"),
+             "GENERIC_POSTENTRY_EXISTING_RECONCILIATION_RECEIPT_INVALID")
+        prior_stop = reconcile_controller_stopped_boundary(controller)
+        need(prior_stop.get("state") == "STOPPED_RECONCILED"
+             and read(LEDGER).get("current_case") is None
+             and read(BATCH).get("current_case") is None,
+             "GENERIC_POSTENTRY_EXISTING_RECONCILIATION_STATE_DRIFT")
+        print(json.dumps({"mode": "RECONCILE_GENERIC_POSTENTRY_NO_SOLVER",
+            "idempotent": True, "receipt_path": str(coupling_receipt_path),
+            "receipt_file_sha256": sha(coupling_receipt_path), "case_id": cid,
+            "stop_boundary": prior_stop, "solver_entries_this_call": 0}, indent=2), flush=True)
+        return 0
+
+    registry_path, registry = runner_registry()
+    rows = rows_for(registry, cid)
+    need(len(rows) == 1, "GENERIC_POSTENTRY_REGISTRY_ROW_MISSING_OR_DUPLICATE:" + cid)
+    evidence = verify_failed_postentry_closeout(rows[0], cid)
+    need(evidence.get("runner_closeout_schema") == "APCD_GPU_RUNNER_V1_POSTENTRY_FAILURE_CLOSEOUT_RECEIPT_V1"
+         and evidence.get("entry_consumed") is True and evidence.get("solver_invocations") == 1
+         and evidence.get("automatic_replay_count") == 0 and evidence.get("truth_available") is False
+         and evidence.get("quarantine") is True,
+         "GENERIC_POSTENTRY_RUNNER_DISPOSITION_NOT_RECONCILABLE:" + cid)
+
+    ledger_current = ledger.get("current_case")
+    record = ledger.get("case_records", {}).get(cid)
+    need(isinstance(record, dict) and record.get("attempt_id") == evidence.get("attempt_id")
+         and record.get("run_id") == evidence.get("run_id")
+         and record.get("run_envelope_sha256") == evidence.get("run_envelope_sha256"),
+         "GENERIC_POSTENTRY_LEDGER_RECORD_IDENTITY_MISMATCH:" + cid)
+    if isinstance(ledger_current, dict):
+        need(ledger_current.get("case_id") == cid
+             and ledger_current.get("run_id") == evidence.get("run_id")
+             and ledger_current.get("sequence_index") == record.get("sequence_index")
+             and ledger_current.get("phase") in {"RUN_ONE_IN_PROGRESS", "FAILED_OR_ISOLATED"},
+             "GENERIC_POSTENTRY_LEDGER_CURRENT_POINTER_MISMATCH:" + cid)
+    else:
+        need(ledger_current is None and record.get("phase") == "FAILED_POSTENTRY_NO_TRUTH",
+             "GENERIC_POSTENTRY_LEDGER_NOT_IDEMPOTENTLY_CLOSED:" + cid)
+        _assert_failed_postentry_recorded(ledger, evidence)
+
+    batch_current = batch.get("current_case")
+    if isinstance(batch_current, dict):
+        need(batch_current.get("case_id") == cid
+             and batch_current.get("run_id") == evidence.get("run_id")
+             and batch_current.get("sequence_index") == record.get("sequence_index"),
+             "GENERIC_POSTENTRY_BATCH_POINTER_MISMATCH:" + cid)
+    else:
+        need(batch_current is None,
+             "GENERIC_POSTENTRY_BATCH_POINTER_INVALID:" + cid)
+
+    status_case = controller_status.get("current_case_id")
+    need(status_case in (cid, None),
+         "GENERIC_POSTENTRY_CONTROLLER_POINTER_MISMATCH:" + cid)
+    unresolved = controller_status.get("unresolved_runner_request_ids", [])
+    need(isinstance(unresolved, list)
+         and set(unresolved).issubset({evidence["runner_request_id"]}),
+         "GENERIC_POSTENTRY_CONTROLLER_HAS_OTHER_UNRESOLVED_REQUESTS")
+    existing_runner_ids = controller_status.get("runner_request_ids")
+    need(isinstance(existing_runner_ids, list)
+         and len(existing_runner_ids) == len(set(existing_runner_ids)),
+         "GENERIC_POSTENTRY_CONTROLLER_RUNNER_ID_LIST_INVALID")
+    if evidence["runner_request_id"] not in existing_runner_ids:
+        existing_runner_ids = list(existing_runner_ids) + [evidence["runner_request_id"]]
+
+    counts_before = {key: ledger.get(key) for key in (
+        "entered_count", "truth_valid_count", "labels_valid_count", "remaining_unentered_count",
+        "automatic_replay_count", "training_fits", "p_scale_fits", "confirmation_response_access_count")}
+    need(ledger.get("entered_count") == len(ledger.get("entered_case_ids", []))
+         and ledger.get("truth_valid_count") == len(ledger.get("truth_valid_case_ids", []))
+         and ledger.get("labels_valid_count") == len(ledger.get("labels_valid_case_ids", []))
+         and ledger.get("entered_count", 0) + ledger.get("remaining_unentered_count", 0) == 128
+         and cid in ledger.get("entered_case_ids", [])
+         and cid not in ledger.get("truth_valid_case_ids", [])
+         and cid not in ledger.get("labels_valid_case_ids", [])
+         and cid not in ledger.get("remaining_unentered_case_ids", [])
+         and ledger.get("automatic_replay_count") == 0 and ledger.get("training_fits") == 0
+         and ledger.get("p_scale_fits") == 0 and ledger.get("confirmation_response_access_count") == 0,
+         "GENERIC_POSTENTRY_LEDGER_COUNTERS_OR_MEMBERSHIP_INVALID")
+
+    before = {
+        "ledger_sha256": sha(LEDGER), "batch_status_sha256": sha(BATCH),
+        "controller_status_sha256": sha(status_path), "runner_registry_sha256": sha(registry_path),
+        "runner_status_sha256": evidence["runner_status_sha256"],
+        "runner_closeout_receipt_sha256": evidence["postentry_closeout_receipt_file_sha256"],
+        "runner_request_id": evidence["runner_request_id"],
+        "controller_task_binding_sha256": task_binding_sha,
+        "task_state": task_state, "task_last_result": task.get("LastTaskResult"),
+        "api_server_process_count": len(api_server_processes),
+        "start_claim_exists": start_claim.is_file(),
+        "request_binding_sha256": request_binding_sha,
+    }
+
+    if isinstance(ledger_current, dict):
+        record_generic_failed_postentry_recovery(ledger, ledger_current, evidence)
+    batch["current_case"] = None
+    batch["queue_phase"] = "QUEUE_RECOVERY_RECONCILED_STOPPED"
+    batch["last_updated_utc"] = now()
+    controller_status["current_case_id"] = None
+    controller_status["unresolved_runner_request_ids"] = []
+    controller_status["post_entry_automatic_replays"] = 0
+    controller_status["runner_request_ids"] = existing_runner_ids
+
+    counts_after_record = {key: ledger.get(key) for key in counts_before}
+    need(counts_after_record == counts_before and ledger.get("current_case") is None
+         and record.get("phase") == "FAILED_POSTENTRY_NO_TRUTH",
+         "GENERIC_POSTENTRY_RECONCILIATION_CHANGED_BUDGET_OR_COUNTERS")
+    write(LEDGER, ledger)
+    write(BATCH, batch)
+    write(status_path, controller_status)
+
+    stop_boundary = reconcile_controller_stopped_boundary(controller)
+    _assert_failed_postentry_recorded(read(LEDGER), evidence)
+    final_ledger = read(LEDGER)
+    final_batch = read(BATCH)
+    final_status = read(status_path)
+    need(final_ledger.get("current_case") is None and final_batch.get("current_case") is None
+         and final_status.get("state") == "STOPPED_RECONCILED"
+         and final_status.get("current_case_id") is None
+         and final_status.get("unresolved_runner_request_ids") == [],
+         "GENERIC_POSTENTRY_CONTROLLER_STOP_RECONCILIATION_FAILED")
+
+    result = {
+        "schema": "COUPLING_K6_V2_GENERIC_POSTENTRY_RECONCILIATION_V1",
+        "request_id": request_id, "controller_manifest_sha256": controller["manifest_sha256"],
+        "queue_manifest_sha256": queue_sha, "case_id": cid,
+        "attempt_id": evidence["attempt_id"], "run_id": evidence["run_id"],
+        "phase": "FAILED_POSTENTRY_NO_TRUTH", "entry_consumed": True,
+        "solver_invocations": 1, "automatic_replay_count": 0,
+        "physical_gpu_engine_entry_count": evidence["physical_gpu_engine_entry_count"],
+        "truth_available": False, "training_fits": 0, "p_scale_fits": 0,
+        "confirmation_response_access_count": 0,
+        "runner_request_id": evidence["runner_request_id"],
+        "runner_closeout_receipt_path": evidence["postentry_closeout_receipt_path"],
+        "runner_closeout_receipt_file_sha256": evidence["postentry_closeout_receipt_file_sha256"],
+        "runner_closeout_receipt_sha256": evidence["postentry_closeout_receipt_sha256"],
+        "runner_closeout_verification_file_sha256": evidence["postentry_closeout_verification_file_sha256"],
+        "before": before, "counts_before": counts_before, "counts_after": counts_after_record,
+        "stop_boundary": stop_boundary,
+        "after": {"ledger_sha256": sha(LEDGER), "batch_status_sha256": sha(BATCH),
+                  "controller_status_sha256": sha(status_path),
+                  "runner_resume_receipt_path": stop_boundary["resume_receipt_path"],
+                  "runner_resume_receipt_sha256": stop_boundary["resume_receipt_sha256"]},
+        "recorded_at_utc": now(),
+    }
+    result["receipt_sha256"] = runner_canonical_sha(result)
+    write(coupling_receipt_path, result)
+    result["receipt_file_sha256"] = sha(coupling_receipt_path)
+    print(json.dumps({"mode": "RECONCILE_GENERIC_POSTENTRY_NO_SOLVER",
+        "receipt_path": str(coupling_receipt_path), "receipt_sha256": result["receipt_sha256"],
+        "receipt_file_sha256": result["receipt_file_sha256"], "case_id": cid,
+        "counts_after": counts_after_record, "stop_boundary": stop_boundary,
+        "solver_entries_this_call": 0}, indent=2), flush=True)
+    return 0
 
 
 def reconcile_g023_postentry_only():
@@ -2771,6 +3295,7 @@ def main():
     group.add_argument("--reconcile-preentry-only", action="store_true")
     group.add_argument("--reconcile-g023-postentry-only", action="store_true")
     group.add_argument("--reconcile-g024-postentry-only", action="store_true")
+    group.add_argument("--reconcile-generic-postentry-only", action="store_true")
     group.add_argument("--reconcile-controller-stop-only", action="store_true")
     group.add_argument("--execute", action="store_true")
     parser.add_argument("--runner-controller-manifest")
@@ -2783,6 +3308,9 @@ def main():
         return reconcile_g023_postentry_only()
     if args.reconcile_g024_postentry_only:
         return reconcile_g024_postentry_only()
+    if args.reconcile_generic_postentry_only:
+        return reconcile_generic_postentry_controller_only(args.runner_controller_manifest,
+            args.runner_controller_manifest_sha256, args.runner_controller_request_id)
     controller_fields = (args.runner_controller_manifest, args.runner_controller_manifest_sha256,
                          args.runner_controller_request_id)
     controller_requested = any(value is not None for value in controller_fields)
