@@ -1,0 +1,15 @@
+{
+  "args": [
+    "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "-m",
+    "apcd_gpu_v2",
+    "run-fixture",
+    "--config",
+    "D:\\apcd_runtime\\gpu_platform_v2_offline_20261009_v1\\offline_config.json",
+    "--request",
+    "D:\\apcd_runtime\\gpu_platform_v2_offline_20261009_v1\\offline_request.json"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\r\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_platform_v2_cleanroom_v1\\platform_v2\\apcd_gpu_v2\\ledger.py\", line 69, in register\r\n    db.execute(\r\nsqlite3.IntegrityError: UNIQUE constraint failed: tasks.case_id, tasks.attempt_id\r\n\r\nThe above exception was the direct cause of the following exception:\r\n\r\nTraceback (most recent call last):\r\n  File \"N:\\anaconda_envs\\RCP_LCP\\lib\\runpy.py\", line 196, in _run_module_as_main\r\n    return _run_code(code, main_globals, None,\r\n  File \"N:\\anaconda_envs\\RCP_LCP\\lib\\runpy.py\", line 86, in _run_code\r\n    exec(code, run_globals)\r\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_platform_v2_cleanroom_v1\\platform_v2\\apcd_gpu_v2\\__main__.py\", line 28, in <module>\r\n    main()\r\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_platform_v2_cleanroom_v1\\platform_v2\\apcd_gpu_v2\\__main__.py\", line 22, in main\r\n    ledger.register(request, cfg)\r\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_platform_v2_cleanroom_v1\\platform_v2\\apcd_gpu_v2\\ledger.py\", line 81, in register\r\n    raise Refused(\"DUPLICATE_CASE_ATTEMPT_OR_REQUEST\") from exc\r\napcd_gpu_v2.ledger.Refused: DUPLICATE_CASE_ATTEMPT_OR_REQUEST\r\n"
+}

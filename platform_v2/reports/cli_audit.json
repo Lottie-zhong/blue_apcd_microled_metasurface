@@ -1,0 +1,60 @@
+{
+  "integrity": "ok",
+  "tasks": [
+    {
+      "case_id": "OFFLINE_CLI_ACCEPTANCE",
+      "attempt_id": "attempt_001",
+      "request_sha": "9e7678fc6abff5bc221d8b0929d0037485a3d757fd57494d8b3c417bf3b8e1e8",
+      "config_sha": "44b600af5badd619fcd19d7457155e4480a776ba19480d234db8ccb909322077",
+      "payload": "{\"schema_version\":\"APCD_GPU_PLATFORM_V2_OFFLINE_REQUEST_V1\",\"case_id\":\"OFFLINE_CLI_ACCEPTANCE\",\"attempt_id\":\"attempt_001\",\"role\":\"OFFLINE_FIXTURE\",\"pre_fsp\":\"D:\\\\apcd_runtime\\\\gpu_platform_v2_offline_20261009_v1\\\\offline_source.fsp\",\"pre_fsp_sha256\":\"94d91752f111370dbbe7bbe28fbdabb7712583f76fd34e1b3af3e9149b5801c2\",\"config_sha256\":\"44b600af5badd619fcd19d7457155e4480a776ba19480d234db8ccb909322077\",\"physical_contract_sha256\":\"32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5\",\"ordered_d_nm\":[105,105,220,105,180,135]}",
+      "state": "DONE_OFFLINE",
+      "entered": 1,
+      "entry_at": 1791550340.4800134,
+      "pre_sha": "94d91752f111370dbbe7bbe28fbdabb7712583f76fd34e1b3af3e9149b5801c2",
+      "contract_sha": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "error": null,
+      "bundle": "{\"path\": \"D:\\\\apcd_runtime\\\\gpu_platform_v2_offline_20261009_v1\\\\archives\\\\9e7678fc6abff5bc221d8b0929d0037485a3d757fd57494d8b3c417bf3b8e1e8\", \"files\": {\"run.fsp\": {\"sha256\": \"b510ee99f04b97faa61cab7ef6445e733a4daf4ca05409e25d7e9bccf4811962\", \"bytes\": 37}, \"run/run_output.h5\": {\"sha256\": \"f0ba256dfeb4650d14ee7468146f0f6f61144c44165d44e47fd992b20019e4e7\", \"bytes\": 13368}}, \"receipt_sha256\": \"a63ea2ade905e4a95b9d67c6e579231aacb3361f7a25418958b5271fcba956a5\"}",
+      "labels": "{\"shape\": [21, 7, 2], \"outputs\": 609, \"independent_p_scale\": true, \"scientific_validated\": false, \"offline_fixture\": true}"
+    }
+  ],
+  "slot": {
+    "id": 1,
+    "generation": 1,
+    "token": null,
+    "owner": null,
+    "request_sha": null
+  },
+  "events": [
+    {
+      "seq": 1,
+      "utc_unix": 1791550340.2591019,
+      "request_sha": "9e7678fc6abff5bc221d8b0929d0037485a3d757fd57494d8b3c417bf3b8e1e8",
+      "kind": "REGISTERED",
+      "payload": "{\"attempt_id\": \"attempt_001\", \"case_id\": \"OFFLINE_CLI_ACCEPTANCE\", \"config_sha256\": \"44b600af5badd619fcd19d7457155e4480a776ba19480d234db8ccb909322077\", \"ordered_d_nm\": [105, 105, 220, 105, 180, 135], \"physical_contract_sha256\": \"32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5\", \"pre_fsp\": \"D:\\\\apcd_runtime\\\\gpu_platform_v2_offline_20261009_v1\\\\offline_source.fsp\", \"pre_fsp_sha256\": \"94d91752f111370dbbe7bbe28fbdabb7712583f76fd34e1b3af3e9149b5801c2\", \"role\": \"OFFLINE_FIXTURE\", \"schema_version\": \"APCD_GPU_PLATFORM_V2_OFFLINE_REQUEST_V1\"}"
+    },
+    {
+      "seq": 2,
+      "utc_unix": 1791550340.3871706,
+      "request_sha": "9e7678fc6abff5bc221d8b0929d0037485a3d757fd57494d8b3c417bf3b8e1e8",
+      "kind": "CLAIMED",
+      "payload": "{\"owner\": {\"command\": [\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\", \"-m\", \"apcd_gpu_v2\", \"run-fixture\", \"--config\", \"D:\\\\apcd_runtime\\\\gpu_platform_v2_offline_20261009_v1\\\\offline_config.json\", \"--request\", \"D:\\\\apcd_runtime\\\\gpu_platform_v2_offline_20261009_v1\\\\offline_request.json\"], \"creation_time\": 1791550338.8712833, \"executable\": \"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\", \"pid\": 9728, \"ppid\": 29996, \"user\": \"DESKTOP-NNE313K\\\\DELL\"}, \"token\": \"5ec07a0888a84331ae2f3550e5d893fd\"}"
+    },
+    {
+      "seq": 3,
+      "utc_unix": 1791550340.4800134,
+      "request_sha": "9e7678fc6abff5bc221d8b0929d0037485a3d757fd57494d8b3c417bf3b8e1e8",
+      "kind": "ENTRY_COMMITTED_BEFORE_CALL",
+      "payload": "{\"contract_sha\": \"32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5\", \"entry_timestamp\": 1791550340.4800134, \"pre_sha\": \"94d91752f111370dbbe7bbe28fbdabb7712583f76fd34e1b3af3e9149b5801c2\", \"scientific\": false, \"token\": \"5ec07a0888a84331ae2f3550e5d893fd\"}"
+    },
+    {
+      "seq": 4,
+      "utc_unix": 1791550341.2029727,
+      "request_sha": "9e7678fc6abff5bc221d8b0929d0037485a3d757fd57494d8b3c417bf3b8e1e8",
+      "kind": "DONE_OFFLINE",
+      "payload": "{\"bundle\": {\"files\": {\"run.fsp\": {\"bytes\": 37, \"sha256\": \"b510ee99f04b97faa61cab7ef6445e733a4daf4ca05409e25d7e9bccf4811962\"}, \"run/run_output.h5\": {\"bytes\": 13368, \"sha256\": \"f0ba256dfeb4650d14ee7468146f0f6f61144c44165d44e47fd992b20019e4e7\"}}, \"path\": \"D:\\\\apcd_runtime\\\\gpu_platform_v2_offline_20261009_v1\\\\archives\\\\9e7678fc6abff5bc221d8b0929d0037485a3d757fd57494d8b3c417bf3b8e1e8\", \"receipt_sha256\": \"a63ea2ade905e4a95b9d67c6e579231aacb3361f7a25418958b5271fcba956a5\"}, \"error\": null, \"labels\": {\"independent_p_scale\": true, \"offline_fixture\": true, \"outputs\": 609, \"scientific_validated\": false, \"shape\": [21, 7, 2]}}"
+    }
+  ],
+  "scientific_solver_invocations": 0,
+  "automatic_replays": 0,
+  "mode": "OFFLINE_ONLY"
+}
