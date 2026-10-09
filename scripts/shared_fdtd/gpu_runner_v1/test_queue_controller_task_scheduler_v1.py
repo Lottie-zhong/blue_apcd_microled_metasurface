@@ -181,7 +181,7 @@ def test_controller_task_calls_coupling_directly_with_manual_single_instance_pol
         expected_manifest_sha256=request["request_manifest_sha256"],
         expected_request_id=request["request_id"], require_no_triggers=True)
     assert result["multiple_instances"] == "IgnoreNew"
-    assert result["execution_time_limit"] == "PT72H"
+    assert result["execution_time_limit"] == "PT0S"
     assert result["automatic_restart"] is False
     assert result["task_name"] == scheduler.CONTROLLER_TASK_NAME
     assert "task_scheduler_v1.py" not in result["arguments"].lower()
@@ -266,6 +266,29 @@ def test_start_controller_validates_task_xml_even_if_scheduler_reports_running(t
             coupling_root=bundle["coupling"], xml_query_fn=xml_query,
             task_info_fn=task_info, start_fn=start, expected_principal="dell")
     assert state["start_calls"] == []
+
+
+def test_stopped_legacy_controller_definition_is_readable_but_not_startable(tmp_path):
+    bundle = _bundle(tmp_path)
+    root = tmp_path / "runner"
+    prepared, state, xml_query, create_task, task_info, start = _prepare_and_install(bundle, root)
+    scheduler.start_controller_task(prepared["request_id"], root=root,
+        coupling_root=bundle["coupling"], xml_query_fn=xml_query, task_info_fn=task_info,
+        start_fn=start, expected_principal="dell")
+    state["task_state"] = "Ready"
+    state["xml"] = state["xml"].replace(
+        "<ExecutionTimeLimit>PT0S</ExecutionTimeLimit>",
+        "<ExecutionTimeLimit>PT72H</ExecutionTimeLimit>")
+    old_info = lambda _name: {"state": "Ready", "ExecutionTimeLimit": "PT72H"}
+    observed = scheduler.query_controller_task(prepared["request_id"], root=root,
+        coupling_root=bundle["coupling"], xml_query_fn=xml_query, task_info_fn=old_info,
+        expected_principal="dell")
+    assert observed["state"] == "CONTROLLER_EXITED_NEEDS_RECONCILIATION"
+    with pytest.raises(scheduler.SchedulerRunnerError, match="EXECUTION_TIME_LIMIT_INVALID"):
+        scheduler.start_controller_task(prepared["request_id"], root=root,
+            coupling_root=bundle["coupling"], xml_query_fn=xml_query, task_info_fn=old_info,
+            start_fn=start, expected_principal="dell")
+    assert state["start_calls"] == [scheduler.CONTROLLER_TASK_NAME]
 
 
 def test_controller_process_loss_is_reported_and_never_auto_restarted(tmp_path):

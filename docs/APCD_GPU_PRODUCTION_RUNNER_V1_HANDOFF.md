@@ -1,6 +1,16 @@
+## Current stabilization checkpoint — 2026-10-09
+
+Status: PARTIAL. Runner stabilization changes, focused tests, and zero-solver server probes are complete. No scientific case was run here. See reports/gpu_serial_batch_production_stabilization_v1/FINAL_REPORT.md, CONTINUATION.md, and SHA256_INVENTORY_V1.json for current evidence and exact hashes.
+
+Current queue snapshot: G026 has a formal Runner FAILED_POSTENTRY_NO_TRUTH closeout (entry 1, replay 0, truth absent); Coupling still rejects reconciliation, so the controller must not be resumed yet. Progress remains 38 entered / 34 truth-valid / 34 labels-valid / 90 unentered; G027 was not started.
+
+The current controller Task Scheduler entry is Ready but retains its old G026 request binding and PT72H limit. The updated formal resume API installs PT0S before starting after Coupling reconciliation. Both production tasks still use DELL/Interactive logon; logout/reboot persistence has not been validated. No real continuous production duration is claimed.
+
+---
+
 # APCD GPU Production Runner V1 handoff
 
-## Current maintenance checkpoint — 2026-10-08
+## Historical maintenance checkpoint (superseded) — 2026-10-08
 
 The versioned, journaled controller retirement/rebind API is implemented in the Runner worktree and passes offline validation (204 tests, 50 subtests; Ruff clean). Its production operation has not been called. Coupling status still says RUNNING for K6GDP2_DEV_G024 while Runner records that attempt as terminal FAILED_POSTENTRY_NO_TRUTH. The old controller binding remains unchanged, and no successor manifest or owner retirement receipt is present. Coupling must reconcile this mismatch before Runner can use the API.
 

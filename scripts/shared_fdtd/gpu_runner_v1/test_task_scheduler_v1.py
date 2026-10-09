@@ -163,7 +163,7 @@ def test_claimed_postentry_without_result_requires_recovery_not_replay(tmp_path)
 def _task_xml(**settings):
     logon = settings.get("logon", "InteractiveToken")
     multiple = settings.get("multiple", "IgnoreNew")
-    limit = settings.get("limit", "PT72H")
+    limit = settings.get("limit", "PT0S")
     restart = settings.get("restart", "")
     action = settings.get("action", f'"{scheduler._task_script_path()}" --worker-once')
     command = settings.get("command", scheduler.TASK_PYTHON)
@@ -171,31 +171,79 @@ def _task_xml(**settings):
     return f'''<Task xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task"><Principals><Principal><UserId>{principal}</UserId><LogonType>{logon}</LogonType><RunLevel>LeastPrivilege</RunLevel></Principal></Principals><Settings><MultipleInstancesPolicy>{multiple}</MultipleInstancesPolicy><ExecutionTimeLimit>{limit}</ExecutionTimeLimit>{restart}</Settings><Actions><Exec><Command>{command}</Command><Arguments>{action}</Arguments></Exec></Actions></Task>'''
 
 
-def test_task_definition_pins_interactive_owner_ignore_new_72h_no_restart(tmp_path):
+def test_task_definition_pins_interactive_owner_ignore_new_unlimited_no_restart(tmp_path):
     result = scheduler.validate_task_definition_xml(
         _task_xml(), expected_script=scheduler._task_script_path(),
         expected_principal="desktop-nne313k\\dell")
     assert result["multiple_instances"] == "IgnoreNew"
-    assert result["execution_time_limit"] == "PT72H"
+    assert result["execution_time_limit"] == "PT0S"
     assert result["automatic_restart"] is False
     assert result["logon_type"] == "InteractiveToken"
 
 
-def test_generated_worker_task_definition_matches_the_live_owner(tmp_path):
+def test_generated_worker_task_definition_matches_the_live_owner_and_is_unlimited(tmp_path):
     xml = scheduler.worker_task_xml(script_path=str(scheduler._task_script_path()))
     result = scheduler.validate_task_definition_xml(
         xml, expected_script=scheduler._task_script_path(), expected_principal="dell")
     assert result["principal"] == "dell"
     assert result["multiple_instances"] == "IgnoreNew"
-    assert result["execution_time_limit"] == "PT72H"
+    assert result["execution_time_limit"] == "PT0S"
+
+
+def test_install_worker_task_upgrades_exact_idle_72h_definition_to_unlimited(tmp_path, monkeypatch):
+    test_sid = "S-1-5-21-111-222-333-1001"
+    old_xml = scheduler.worker_task_xml(script_path=str(scheduler._task_script_path())).replace(
+        "<UserId>DELL</UserId>", "<UserId>" + test_sid + "</UserId>").replace(
+        "<ExecutionTimeLimit>PT0S</ExecutionTimeLimit>",
+        "<ExecutionTimeLimit>PT72H</ExecutionTimeLimit>")
+    current = {"xml": old_xml, "limit": "PT72H"}
+    calls = []
+
+    class Proc:
+        def __init__(self, returncode=0, stdout="", stderr=""):
+            self.returncode, self.stdout, self.stderr = returncode, stdout, stderr
+
+    def fake_run(args, **kwargs):
+        calls.append(list(args))
+        if args[0].lower().endswith("whoami.exe"):
+            if len(args) > 1 and args[1] == "/user":
+                return Proc(stdout='"DELL","' + test_sid + '"\n')
+            return Proc(stdout=scheduler.EXPECTED_WHOAMI + "\n")
+        if args[:3] == ["schtasks.exe", "/Query", "/TN"]:
+            return Proc(stdout=current["xml"])
+        raise AssertionError(args)
+
+    def task_info(task_name=scheduler.TASK_NAME):
+        return {"State": "Ready", "UserId": "DELL", "LogonType": 3, "RunLevel": 0,
+                "MultipleInstances": 2, "ExecutionTimeLimit": current["limit"], "RestartCount": 0}
+
+    def write_task(xml_text, *, force=False):
+        assert force is True
+        current["xml"] = xml_text.replace("<UserId>DELL</UserId>",
+                                          "<UserId>" + test_sid + "</UserId>")
+        current["limit"] = "PT0S"
+
+    monkeypatch.setattr(scheduler.subprocess, "run", fake_run)
+    monkeypatch.setattr(scheduler, "_task_info", task_info)
+    monkeypatch.setattr(scheduler, "_assert_runner_slot_free", lambda *_args: None)
+    monkeypatch.setattr(scheduler, "_controller_process_inventory", lambda: [])
+    monkeypatch.setattr(scheduler, "_assert_no_controller_or_solver_processes", lambda *_args: None)
+    monkeypatch.setattr(scheduler, "_write_worker_task_xml", write_task)
+
+    result = scheduler.install_worker_task()
+    assert result["result"] == "UPDATED_EXECUTION_TIME_LIMIT"
+    assert result["execution_time_limit"] == "PT0S"
+    assert "<ExecutionTimeLimit>PT0S</ExecutionTimeLimit>" in current["xml"]
+    assert any(args[-1] == "/XML" for args in calls)
 
 
 def test_scheduler_export_defaults_are_normalized_and_checked_from_live_settings(tmp_path):
     xml = _task_xml().replace("<RunLevel>LeastPrivilege</RunLevel>", "")
-    xml = xml.replace("<ExecutionTimeLimit>PT72H</ExecutionTimeLimit>", "")
+    xml = xml.replace("<ExecutionTimeLimit>PT0S</ExecutionTimeLimit>", "")
     result = scheduler.validate_task_definition_xml(
         xml, expected_script=scheduler._task_script_path(),
-        expected_principal="desktop-nne313k\\dell")
+        expected_principal="desktop-nne313k\\dell",
+        expected_execution_time_limit=scheduler.LEGACY_TASK_EXECUTION_LIMIT)
     assert result["run_level"] == "LeastPrivilege"
     assert result["execution_time_limit"] == "PT72H"
 
@@ -203,6 +251,7 @@ def test_scheduler_export_defaults_are_normalized_and_checked_from_live_settings
 @pytest.mark.parametrize("changes,reason", [
     ({"multiple": "Parallel"}, "MULTIPLE_INSTANCE_POLICY"),
     ({"limit": "PT48H"}, "EXECUTION_TIME_LIMIT"),
+    ({"limit": "PT72H"}, "EXECUTION_TIME_LIMIT"),
     ({"restart": "<RestartOnFailure><Interval>PT1M</Interval><Count>2</Count></RestartOnFailure>"}, "AUTOMATIC_RESTART"),
     ({"logon": "Password"}, "LOGON_TYPE"),
     ({"principal": "OTHER\\user"}, "WRONG_PRINCIPAL"),

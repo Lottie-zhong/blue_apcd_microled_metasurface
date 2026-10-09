@@ -59,6 +59,44 @@ def _policy():
     }
 
 
+class RegistryBudgetStabilityTests(unittest.TestCase):
+    def test_other_case_registry_updates_do_not_reject_next_authorized_case(self):
+        authorized = [f"K6V2_TEST_{i:03d}" for i in range(controlled.K6_V2_ENTRY_CASE_COUNT)]
+        case_id = authorized[1]
+        grant = {
+            "schema": controlled.K6_V2_SOLVER_BUDGET_SCHEMA,
+            "budget_id": "synthetic-budget",
+            "budget_path": "synthetic-budget.json",
+            "budget_sha256": "a" * 64,
+            "authorization_task_id": "synthetic-owner-authorization",
+            "case_id": case_id,
+            "attempt_id": "attempt_001",
+            "role": "DEVELOPMENT_GLOBAL",
+            "max_entries_per_case": 1,
+            "max_total_entries": controlled.K6_V2_ENTRY_CASE_COUNT,
+            "post_entry_automatic_replays": 0,
+            "authorized_case_ids": authorized,
+        }
+        registry = {
+            "schema": "APCD_GPU_RUNNER_REGISTRY_V1",
+            "runs": [{"case_id": authorized[0], "attempt_id": "attempt_001", "state": "DONE"}],
+        }
+        before_sha = controlled.canonical_sha256(registry)
+        before = controlled.validate_k6_v2_registry_entry_budget(
+            registry, grant=grant, case_id=case_id, attempt_id="attempt_001",
+            entry_states=runner.ENTRY_STATES)
+        registry["runs"].append({
+            "case_id": "UNRELATED_CASE", "attempt_id": "attempt_009", "state": "DONE"})
+        after_sha = controlled.canonical_sha256(registry)
+        after = controlled.validate_k6_v2_registry_entry_budget(
+            registry, grant=grant, case_id=case_id, attempt_id="attempt_001",
+            entry_states=runner.ENTRY_STATES)
+        self.assertNotEqual(before_sha, after_sha)
+        self.assertEqual(after, before)
+        self.assertEqual(after["total_entries_before"], 1)
+        self.assertEqual(after["case_entries_before"], 0)
+
+
 class ControlledAdmissionSyntheticTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()

@@ -234,10 +234,10 @@ class AdapterBarrierTests(unittest.TestCase):
 
 
     def _write_g024_closeout_fixture(self, root, failing_check=None):
-        case_id = adapter_module.G024_CLOSEOUT_CASE_ID
-        attempt_id = adapter_module.G024_CLOSEOUT_ATTEMPT_ID
-        run_id = adapter_module.G024_CLOSEOUT_RUN_ID
-        request_id = adapter_module.G024_CLOSEOUT_REQUEST_ID
+        case_id = "K6GDP2_DEV_G024"
+        attempt_id = "attempt_001"
+        run_id = "K6V2_G024_20261007T123943Z_713590ad"
+        request_id = "cd1c1a59118d2b78510df82906e75d77"
         run_dir = root / "runs" / case_id / attempt_id / run_id
         closeout = run_dir / "postentry_closeout_v1"
         run_dir.mkdir(parents=True)
@@ -276,7 +276,7 @@ class AdapterBarrierTests(unittest.TestCase):
             allow_nan=False).encode("utf-8")
         receipt = dict(receipt_body, receipt_sha256=hashlib.sha256(canonical(receipt_body)).hexdigest())
         receipt_sha = write_json(closeout / "receipt.json", receipt)
-        checks = {key: True for key in adapter_module.G024_CLOSEOUT_REQUIRED_CHECKS}
+        checks = {key: True for key in ("controller_stopped_for_reconciliation", "no_engine_process", "no_queue_execution_process", "no_related_process", "no_truth_artifacts", "one_entry_no_replay", "one_terminal_failed_postentry", "receipt_closed_postentry_no_truth", "slot_markers_absent", "runner_registry_unchanged", "runner_status_unchanged", "global_control_read_pass") }
         if failing_check:
             checks[failing_check] = False
         verification_body = {
@@ -317,26 +317,23 @@ class AdapterBarrierTests(unittest.TestCase):
 
     def test_g024_formal_closeout_releases_only_its_missing_lineage(self):
         root = self.base / "g024-formal-closeout"
-        pins = self._write_g024_closeout_fixture(root)
-        with unittest.mock.patch.multiple(adapter_module, **pins):
-            self.assertFalse(NativeAdapter.runner_owner_probe(root))
-        status = json.loads((root / "runs" / adapter_module.G024_CLOSEOUT_CASE_ID /
-                             adapter_module.G024_CLOSEOUT_ATTEMPT_ID /
-                             adapter_module.G024_CLOSEOUT_RUN_ID / "status.json").read_text())
+        self._write_g024_closeout_fixture(root)
+        self.assertFalse(NativeAdapter.runner_owner_probe(root))
+        status = json.loads((root / "runs" / "K6GDP2_DEV_G024" /
+                             "attempt_001" /
+                             "K6V2_G024_20261007T123943Z_713590ad" / "status.json").read_text())
         self.assertNotIn("solver_process_lineage", status)
 
     def test_g024_closeout_does_not_release_when_resource_release_check_fails(self):
         root = self.base / "g024-closeout-not-released"
-        pins = self._write_g024_closeout_fixture(root, failing_check="slot_markers_absent")
-        with unittest.mock.patch.multiple(adapter_module, **pins):
-            self.assertTrue(NativeAdapter.runner_owner_probe(root))
+        self._write_g024_closeout_fixture(root, failing_check="slot_markers_absent")
+        self.assertTrue(NativeAdapter.runner_owner_probe(root))
 
     def test_g024_closeout_does_not_override_a_current_runner_lock(self):
         root = self.base / "g024-closeout-with-live-lock"
-        pins = self._write_g024_closeout_fixture(root)
+        self._write_g024_closeout_fixture(root)
         (root / ".runner.lock").write_text(json.dumps({"pid": -1}), encoding="utf-8")
-        with unittest.mock.patch.multiple(adapter_module, **pins):
-            self.assertTrue(NativeAdapter.runner_owner_probe(root))
+        self.assertTrue(NativeAdapter.runner_owner_probe(root))
 
     def test_missing_or_ambiguous_pid_lineage_fails_closed(self):
         statuses = [

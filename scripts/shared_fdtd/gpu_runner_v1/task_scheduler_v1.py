@@ -29,7 +29,8 @@ SCHEMA_RESULT = "APCD_GPU_RUNNER_V1_SCHEDULED_RESULT_V1"
 TASK_NAME = r"\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER"
 CONTROLLER_TASK_NAME = r"\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER"
 TASK_PYTHON = r"N:\anaconda_envs\RCP_LCP\python.exe"
-TASK_EXECUTION_LIMIT = "PT72H"
+TASK_EXECUTION_LIMIT = "PT0S"
+LEGACY_TASK_EXECUTION_LIMIT = "PT72H"
 OWNER_ACCOUNT = "DELL"
 EXPECTED_WHOAMI = "desktop-nne313k\\dell"
 PRODUCTION_ROOT = Path(r"D:\apcd_runtime\gpu_production_runner_v1")
@@ -150,7 +151,8 @@ def validate_task_definition_xml(xml_text, *, expected_script=None, expected_pri
                                  task_name=TASK_NAME, expected_argument="worker-once",
                                  expected_manifest=None, expected_manifest_sha256=None,
                                  expected_request_id=None, expected_resume_receipt=None,
-                                 expected_resume_receipt_sha256=None, require_no_triggers=False):
+                                 expected_resume_receipt_sha256=None, require_no_triggers=False,
+                                 expected_execution_time_limit=TASK_EXECUTION_LIMIT):
     try:
         root = ET.fromstring(xml_text.lstrip("\ufeff"))
     except ET.ParseError as exc:
@@ -185,8 +187,8 @@ def validate_task_definition_xml(xml_text, *, expected_script=None, expected_pri
     restart = _xml_children(settings[0], "RestartOnFailure")
     if len(multiple) != 1 or multiple[0].text != "IgnoreNew":
         raise SchedulerRunnerError("SCHEDULER_TASK_MULTIPLE_INSTANCE_POLICY_INVALID")
-    limit_value = limit[0].text if limit else TASK_EXECUTION_LIMIT
-    if len(limit) > 1 or limit_value != TASK_EXECUTION_LIMIT:
+    limit_value = limit[0].text if limit else LEGACY_TASK_EXECUTION_LIMIT
+    if len(limit) > 1 or limit_value != expected_execution_time_limit:
         raise SchedulerRunnerError("SCHEDULER_TASK_EXECUTION_TIME_LIMIT_INVALID")
     if restart:
         raise SchedulerRunnerError("SCHEDULER_TASK_AUTOMATIC_RESTART_FORBIDDEN")
@@ -251,11 +253,13 @@ def _query_task_xml(task_name=TASK_NAME):
     return proc.stdout
 
 
-def verify_worker_task(*, xml_text=None, expected_script=None, expected_principal=None):
+def verify_worker_task(*, xml_text=None, expected_script=None, expected_principal=None,
+                       expected_execution_time_limit=TASK_EXECUTION_LIMIT):
     xml_text = _query_task_xml() if xml_text is None else xml_text
     principal = _expected_principal() if expected_principal is None else expected_principal
     validated = validate_task_definition_xml(
-        xml_text, expected_script=expected_script, expected_principal=principal)
+        xml_text, expected_script=expected_script, expected_principal=principal,
+        expected_execution_time_limit=expected_execution_time_limit)
     if xml_text is not None and os.name == "nt":
         info = _task_info()
         if str(info.get("UserId", "")).upper() != OWNER_ACCOUNT:
@@ -265,7 +269,7 @@ def verify_worker_task(*, xml_text=None, expected_script=None, expected_principa
         multiple = info.get("MultipleInstances")
         if multiple not in (2, "2", "IgnoreNew"):
             raise SchedulerRunnerError("SCHEDULER_TASK_MULTIPLE_INSTANCE_POLICY_INVALID")
-        if str(info.get("ExecutionTimeLimit")) != TASK_EXECUTION_LIMIT:
+        if str(info.get("ExecutionTimeLimit")) != expected_execution_time_limit:
             raise SchedulerRunnerError("SCHEDULER_TASK_EXECUTION_TIME_LIMIT_INVALID")
         if info.get("RestartCount") not in (None, 0, "0"):
             raise SchedulerRunnerError("SCHEDULER_TASK_AUTOMATIC_RESTART_FORBIDDEN")
@@ -618,10 +622,32 @@ def worker_task_xml(*, principal=None, script_path=None, python_path=TASK_PYTHON
         '<Settings><MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy><DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>'
         '<StopIfGoingOnBatteries>false</StopIfGoingOnBatteries><AllowHardTerminate>true</AllowHardTerminate>'
         '<StartWhenAvailable>false</StartWhenAvailable><Enabled>true</Enabled><Hidden>true</Hidden>'
-        '<ExecutionTimeLimit>PT72H</ExecutionTimeLimit><Priority>7</Priority></Settings>'
+        '<ExecutionTimeLimit>' + TASK_EXECUTION_LIMIT + '</ExecutionTimeLimit><Priority>7</Priority></Settings>'
         '<Actions Context="Author"><Exec><Command>' + esc(python_path) + '</Command><Arguments>"' + esc(script_path) + '" worker-once</Arguments>'
         '<WorkingDirectory>' + esc(str(Path(script_path).parent)) + '</WorkingDirectory></Exec></Actions></Task>'
     )
+
+
+def _write_worker_task_xml(xml_text, *, force=False):
+    if os.name != "nt":
+        raise SchedulerRunnerError("SCHEDULER_TASK_INSTALL_REQUIRES_WINDOWS")
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", encoding="utf-16", suffix=".xml", delete=False) as stream:
+        stream.write(xml_text)
+        xml_path = stream.name
+    try:
+        command = ["schtasks.exe", "/Create", "/TN", TASK_NAME, "/XML", xml_path]
+        if force:
+            command.append("/F")
+        proc = subprocess.run(command, text=True, capture_output=True, encoding="utf-8",
+                              errors="replace", timeout=30, check=False)
+        if proc.returncode != 0:
+            raise SchedulerRunnerError("SCHEDULER_TASK_CREATE_FAILED:" + proc.stderr.strip()[:500])
+    finally:
+        try:
+            Path(xml_path).unlink()
+        except OSError:
+            pass
 
 
 def install_worker_task(*, task_name=TASK_NAME, python_path=TASK_PYTHON,
@@ -640,24 +666,31 @@ def install_worker_task(*, task_name=TASK_NAME, python_path=TASK_PYTHON,
                               text=True, capture_output=True, encoding="utf-8", errors="replace",
                               timeout=30, check=False)
     if existing.returncode == 0:
-        verify_worker_task(xml_text=existing.stdout, expected_script=script_path,
-                           expected_principal=_expected_principal())
-        return {"result": "ALREADY_INSTALLED", "task_name": task_name}
-    import tempfile
-    with tempfile.NamedTemporaryFile("w", encoding="utf-16", suffix=".xml", delete=False) as stream:
-        stream.write(xml_text)
-        xml_path = stream.name
-    try:
-        proc = subprocess.run(["schtasks.exe", "/Create", "/TN", task_name, "/XML", xml_path],
-                              text=True, capture_output=True, encoding="utf-8", errors="replace",
-                              timeout=30, check=False)
-        if proc.returncode != 0:
-            raise SchedulerRunnerError("SCHEDULER_TASK_CREATE_FAILED:" + proc.stderr.strip()[:500])
-    finally:
         try:
-            Path(xml_path).unlink()
-        except OSError:
-            pass
+            verify_worker_task(xml_text=existing.stdout, expected_script=script_path,
+                               expected_principal=_expected_principal())
+        except SchedulerRunnerError as exc:
+            if str(exc) != "SCHEDULER_TASK_EXECUTION_TIME_LIMIT_INVALID":
+                raise
+            # Upgrade only the exact prior V1 task definition, and only while
+            # the one-slot Runner and both scheduled owners are idle.
+            verify_worker_task(
+                xml_text=existing.stdout, expected_script=script_path,
+                expected_principal=_expected_principal(),
+                expected_execution_time_limit=LEGACY_TASK_EXECUTION_LIMIT)
+            _assert_runner_slot_free(PRODUCTION_ROOT, _task_info)
+            controller = _task_info(CONTROLLER_TASK_NAME)
+            if _task_state_value(controller) in ("running", "queued"):
+                raise SchedulerRunnerError("SCHEDULER_TASK_UPGRADE_CONTROLLER_ACTIVE")
+            _assert_no_controller_or_solver_processes(
+                _controller_process_inventory(), "worker-task-time-limit-upgrade")
+            _write_worker_task_xml(xml_text, force=True)
+            verify_worker_task(expected_script=script_path,
+                               expected_principal=_expected_principal())
+            return {"result": "UPDATED_EXECUTION_TIME_LIMIT", "task_name": task_name,
+                    "execution_time_limit": TASK_EXECUTION_LIMIT}
+        return {"result": "ALREADY_INSTALLED", "task_name": task_name}
+    _write_worker_task_xml(xml_text, force=False)
     verify_worker_task(expected_script=script_path, expected_principal=_expected_principal())
     return {"result": "INSTALLED", "task_name": task_name}
 
@@ -946,14 +979,16 @@ def _assert_runner_slot_free(root, task_info_fn):
 
 
 def _validate_controller_task_xml(xml_text, info, request_id, request_path,
-                                  expected_principal, resume_path=None, resume_sha=None):
+                                  expected_principal, resume_path=None, resume_sha=None,
+                                  expected_execution_time_limit=TASK_EXECUTION_LIMIT):
     return validate_task_definition_xml(
         xml_text, expected_script=info["controller_script_path"],
         expected_principal=expected_principal, task_name=CONTROLLER_TASK_NAME,
         expected_argument="--runner-controller-manifest", expected_manifest=request_path,
         expected_manifest_sha256=info["manifest_sha256"], expected_request_id=request_id,
         expected_resume_receipt=resume_path, expected_resume_receipt_sha256=resume_sha,
-        require_no_triggers=True)
+        require_no_triggers=True,
+        expected_execution_time_limit=expected_execution_time_limit)
 
 
 def _write_controller_task_xml(xml_text, *, force=False):
@@ -1277,11 +1312,16 @@ def query_controller_task(request_id, *, root=PRODUCTION_ROOT, coupling_root=COU
     if current is None or current.get("request_id") != request_id:
         return {"state": "NOT_CURRENT_TASK_BINDING", "request_id": request_id,
                 "request_binding": request_binding}
+    task = (task_info_fn or _task_info)(CONTROLLER_TASK_NAME)
+    # Read old bindings for reconciliation, but starts require the current PT0S definition.
+    task_limit = task.get("ExecutionTimeLimit", TASK_EXECUTION_LIMIT) if isinstance(task, dict) else TASK_EXECUTION_LIMIT
+    expected_limit = (LEGACY_TASK_EXECUTION_LIMIT
+                      if str(task_limit) == LEGACY_TASK_EXECUTION_LIMIT else TASK_EXECUTION_LIMIT)
     _validate_controller_task_xml((xml_query_fn or _query_task_xml)(CONTROLLER_TASK_NAME),
         info, request_id, _controller_request_files(root, request_id)[1],
         _expected_principal() if expected_principal is None else expected_principal,
-        current.get("resume_receipt_path"), current.get("resume_receipt_sha256"))
-    task = (task_info_fn or _task_info)(CONTROLLER_TASK_NAME)
+        current.get("resume_receipt_path"), current.get("resume_receipt_sha256"),
+        expected_execution_time_limit=expected_limit)
     status = None
     if info["status_path"].is_file():
         status = _read_json(info["status_path"])
