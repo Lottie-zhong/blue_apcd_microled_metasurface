@@ -43,3 +43,5 @@ $env:APCD_TEST_COUPLING_ROOT = 'D:\project\worktrees\blue_apcd_mdc_np_coupling_m
 The already completed CLI acceptance request cannot be rerun. A fresh fixture requires a new OFFLINE identity and matching request/config/source SHA. `NativeBackend.run()` always refuses. Never enable scientific execution by modifying offline constants; qualification and explicit authorization must precede any production implementation.
 
 Read `docs/GPU_PLATFORM_AGENT_CONTEXT_V1.md`, then `docs/CONFLICT_AUDIT_AND_DECISION.md` and `reports/acceptance_summary.json`. All reports are evidence snapshots, not launch authority.
+
+Native acceptance follow-up: see `docs/NATIVE_ACCEPTANCE_DECISION_V1.md` and `reports/native_acceptance_v1`. Real LOAD/importer/systemcheck are now verified; production cutover remains BLOCKED. Historical MVP reports above retain their original offline scope.

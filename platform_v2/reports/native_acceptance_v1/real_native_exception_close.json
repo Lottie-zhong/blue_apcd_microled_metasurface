@@ -1,0 +1,67 @@
+{
+  "worker_identity": {
+    "pid": 27348,
+    "creation_time": 1791553486.814107,
+    "ppid": 18704,
+    "executable": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "command": [
+      "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "-"
+    ],
+    "user": "DESKTOP-NNE313K\\DELL"
+  },
+  "guard_source_sha256": "91a7059c3a3e4d5d44f02b5225b7cd5cdf8b24971dca262afe796ddfbc1da5a0",
+  "native_session": {
+    "started_unix": 1791553487.6496518,
+    "events": [
+      {
+        "api": "load",
+        "path": "D:\\apcd_runtime\\gpu_platform_v2_native_acceptance_20261009_v1\\g027_native_copy\\runtime.fsp",
+        "sha256": "b5c6b41d28e55984d9cebd1f15814f698b408350b2cbeac02336b200bc72271e"
+      }
+    ],
+    "before_children": [],
+    "opened_children": [
+      {
+        "pid": 24068,
+        "creation_time": 1791553487.6603518,
+        "parent_pid": 27348,
+        "executable": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "command": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    ],
+    "body_error": "RuntimeError('CONTROLLED_NATIVE_LOAD_ONLY_READ_EXCEPTION')",
+    "close_attempted": true,
+    "close_called": true,
+    "finished_unix": 1791553495.503216,
+    "after_children": [],
+    "scientific_solver_invocations": 0
+  },
+  "actual_cim_identity": [
+    {
+      "PID": 27348,
+      "CreationDate": "2026-10-09T13:44:46.8141070Z",
+      "ParentPID": 18704,
+      "CommandLine": "N:\\anaconda_envs\\RCP_LCP\\python.exe  -",
+      "SessionId": 0,
+      "Owner": "DESKTOP-NNE313K\\DELL"
+    },
+    {
+      "PID": 24068,
+      "CreationDate": "2026-10-09T13:44:47.6603510Z",
+      "ParentPID": 27348,
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "Owner": "DESKTOP-NNE313K\\DELL"
+    }
+  ],
+  "expected_error": "CONTROLLED_NATIVE_LOAD_ONLY_READ_EXCEPTION",
+  "verdict": "PASS",
+  "native_pair_unchanged": true,
+  "scientific_solver_invocations": 0
+}
