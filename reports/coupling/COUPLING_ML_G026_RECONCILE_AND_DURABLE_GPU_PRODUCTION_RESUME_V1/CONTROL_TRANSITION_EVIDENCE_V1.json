@@ -1,0 +1,1906 @@
+{
+  "coupling_head": "135d48c8becdc8c85ff45f7916372ac865ba1167",
+  "exception": "SchedulerRunnerError('CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH')",
+  "failed_utc": "2026-10-09T06:35:21.680966+00:00",
+  "ledger_sha256": "ff9f9e92904eccf76744e60c32fa143dc2a36cf900788c3c3d6be635ed5177a2",
+  "manifest_sha256": "bbb7f19186776ceff07f93a17fded92b036224eeaff9f95f0d1269347c58a87f",
+  "observed_utc": "2026-10-09T06:35:10.733547+00:00",
+  "old_task_binding_sha256": "2f4b6dcd2c82083569bbb38e4577dc43e2d16f6df6b07efb1079987df22a197b",
+  "process_inventory": [
+    {
+      "CommandLine": null,
+      "Name": "System Idle Process",
+      "ParentProcessId": 0,
+      "ProcessId": 0
+    },
+    {
+      "CommandLine": null,
+      "Name": "System",
+      "ParentProcessId": 0,
+      "ProcessId": 4
+    },
+    {
+      "CommandLine": null,
+      "Name": "Secure System",
+      "ParentProcessId": 4,
+      "ProcessId": 1304
+    },
+    {
+      "CommandLine": null,
+      "Name": "Registry",
+      "ParentProcessId": 4,
+      "ProcessId": 1352
+    },
+    {
+      "CommandLine": null,
+      "Name": "smss.exe",
+      "ParentProcessId": 4,
+      "ProcessId": 2544
+    },
+    {
+      "CommandLine": null,
+      "Name": "csrss.exe",
+      "ParentProcessId": 2792,
+      "ProcessId": 2904
+    },
+    {
+      "CommandLine": null,
+      "Name": "wininit.exe",
+      "ParentProcessId": 2792,
+      "ProcessId": 3012
+    },
+    {
+      "CommandLine": null,
+      "Name": "csrss.exe",
+      "ParentProcessId": 3004,
+      "ProcessId": 3020
+    },
+    {
+      "CommandLine": null,
+      "Name": "services.exe",
+      "ParentProcessId": 3012,
+      "ProcessId": 2736
+    },
+    {
+      "CommandLine": "winlogon.exe",
+      "Name": "winlogon.exe",
+      "ParentProcessId": 3004,
+      "ProcessId": 2516
+    },
+    {
+      "CommandLine": null,
+      "Name": "LsaIso.exe",
+      "ParentProcessId": 3012,
+      "ProcessId": 3004
+    },
+    {
+      "CommandLine": null,
+      "Name": "lsass.exe",
+      "ParentProcessId": 3012,
+      "ProcessId": 3088
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k DcomLaunch -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3236
+    },
+    {
+      "CommandLine": "\"fontdrvhost.exe\"",
+      "Name": "fontdrvhost.exe",
+      "ParentProcessId": 3012,
+      "ProcessId": 3268
+    },
+    {
+      "CommandLine": "\"fontdrvhost.exe\"",
+      "Name": "fontdrvhost.exe",
+      "ParentProcessId": 2516,
+      "ProcessId": 3276
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k RPCSS -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3392
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k DcomLaunch -p -s LSM",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3444
+    },
+    {
+      "CommandLine": "\"C:\\Windows\\System32\\WUDFHost.exe\" -HostGUID:{193a1820-d9ac-4997-8c55-be817523f6aa} -IoEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-aac93022-046c-4b26-b089-2664a35b8a66 -SystemEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-57e9011e-0641-43b2-a8bb-6b4c313617e3 -IoCancelEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-288413bd-b371-416c-9df2-42eb32c78c4e -NonStateChangingEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-c3d3a9da-face-4650-939e-e2e6b80810d1 -LifetimeId:73fbe87c-8d37-4952-b239-2351cbd8ddc4 -DeviceGroupId:IddDriverGroup -HostArg:0",
+      "Name": "WUDFHost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3556
+    },
+    {
+      "CommandLine": "\"C:\\Windows\\System32\\WUDFHost.exe\" -HostGUID:{193a1820-d9ac-4997-8c55-be817523f6aa} -IoEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-90fab3d2-ab2f-4ed5-b98f-561687ff0db2 -SystemEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-1fe7f76e-89cc-4747-9190-9d0d1e2c585c -IoCancelEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-065acfc7-7781-4d94-8744-a8a6fa94f9d5 -NonStateChangingEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-87b63510-8e09-4fc6-948a-7cfbaa930d7b -LifetimeId:07c02714-9124-47a2-b7fe-63cd7c4e8bf1 -DeviceGroupId:tdIddGroup -HostArg:0",
+      "Name": "WUDFHost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3744
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s HvHost",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3792
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p -s NcbService",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3864
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p -s TimeBrokerSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3872
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s hidserv",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3976
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s nsi",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3996
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k netprofm -p -s netprofm",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4052
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceNoNetwork -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3148
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k NetworkService -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4196
+    },
+    {
+      "CommandLine": "\"D:\\software_install_location\\huorong\\Sysdiag\\bin\\HipsDaemon.exe\" -sHipsDaemon",
+      "Name": "HipsDaemon.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4236
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k NetSvcs -p -s hns",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4380
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k UserProfileService -p -s ProfSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4428
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s Schedule",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4484
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s UserManager",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4492
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\nvdd.inf_amd64_5c270b0db658646c\\Display.NvContainer\\NVDisplay.Container.exe -arg <ExeDir>\\arguments.txt",
+      "Name": "NVDisplay.Container.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4676
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalServiceNetworkRestricted -p -s EventLog",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4732
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceRedirectionGuard -p -s EventSystem",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4904
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k netsvcs -p -s Themes",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4912
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s SysMain",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4920
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s DispBrokerDesktopSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5044
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcsRedirectionGuard -p -s SENS",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5056
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k NetworkService -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4892
+    },
+    {
+      "CommandLine": null,
+      "Name": "Memory Compression",
+      "ParentProcessId": 4,
+      "ProcessId": 4604
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p -s AudioEndpointBuilder",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5260
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5480
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p -s TextInputManagementService",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5540
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k appmodel -p -s StateRepository",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5632
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p -s Dhcp",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6116
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalServiceNetworkRestricted -p -s DusmSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6124
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceHttp -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6152
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalServiceNetworkRestricted -p -s lmhosts",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6220
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalServiceNoNetwork -p -s NcdAutoSetup",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6228
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p -s Wcmsvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6292
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s fdPHost",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6484
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceAndNoImpersonation -p -s FDResPub",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6580
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k netsvcs -p -s ShellHWDetection",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6588
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s Winmgmt",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6664
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\spoolsv.exe",
+      "Name": "spoolsv.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6704
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceNoNetworkFirewall -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6808
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k NetworkService -p -s LanmanWorkstation",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6852
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s IKEEXT",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7160
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k NetworkServiceNetworkRestricted -p -s PolicyAgent",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6540
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k NetSvcs -s nvagent",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7192
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k netsvcs -p -s SharedAccess",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7332
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s DeviceAssociationService",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7368
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s LanmanServer",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7400
+    },
+    {
+      "CommandLine": "dashost.exe {2166af52-f132-4d6f-b627490714339bd2}",
+      "Name": "dasHost.exe",
+      "ParentProcessId": 7368,
+      "ProcessId": 7524
+    },
+    {
+      "CommandLine": "dashost.exe {ba9cd2c6-7f93-405c-b0ecb5e642205718}",
+      "Name": "dasHost.exe",
+      "ParentProcessId": 7368,
+      "ProcessId": 7728
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceAndNoImpersonationRedirectionGuard -p -s SSDPSRV",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7808
+    },
+    {
+      "CommandLine": "C:\\ProgramData\\ANLicense\\lmgrd.exe",
+      "Name": "lmgrd.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8092
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k utcsvc -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8100
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Autodesk\\Autodesk CER\\service\\cer_service.exe\"",
+      "Name": "cer_service.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8108
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Common Files\\Autodesk Shared\\AdskLicensing\\Current\\AdskLicensingService\\AdskLicensingService.exe\"",
+      "Name": "AdskLicensingService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8116
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalServiceNoNetwork -p -s DPS",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8124
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\SysWOW64\\Macromed\\Flash\\FlashHelperService.exe\"",
+      "Name": "FlashHelperService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8160
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Intel MPI 4.0\\x64\\smpd-intel-4.0.3.009-x64.exe\"",
+      "Name": "smpd-intel-4.0.3.009-x64.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8168
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Common Files\\Macrovision Shared\\FlexNet Publisher\\FNPLicensingService64.exe\"",
+      "Name": "FNPLicensingService64.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8176
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k NetSvcs -p -s iphlpsvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7268
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Autodesk\\AdODIS\\V1\\Setup\\AdskAccessServiceHost.exe\"",
+      "Name": "AdskAccessServiceHost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5208
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\IntelSWToolsMPI\\compilers_and_libraries_2020.4.321\\windows\\mpi\\intel64\\bin\\hydra_service.exe\" -service",
+      "Name": "hydra_service.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5168
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\dal.inf_amd64_af50fdb80983f7bc\\jhi_service.exe",
+      "Name": "jhi_service.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4596
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\FlashCenter\\FlashCenterSvc.exe\"",
+      "Name": "FlashCenterSvc.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7636
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\OpenSSH\\sshd.exe",
+      "Name": "sshd.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6480
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Common Files\\SafeNet Sentinel\\Sentinel Keys Server\\sntlkeyssrvr.exe\"",
+      "Name": "sntlkeyssrvr.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5628
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\MasterPDF\\PDFSvr.exe\"",
+      "Name": "PDFSvr.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8196
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k imgsvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8204
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Common Files\\SafeNet Sentinel\\Sentinel Protection Server\\WinNT\\spnsrvnt.exe\"",
+      "Name": "spnsrvnt.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8212
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Ralink\\Common\\RaRegistry.exe\"",
+      "Name": "RaRegistry.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8220
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Ralink\\RT2870 Flash Install Wireless LAN Card\\AutoInstSvc\\RaAutoInstSrv.exe\"",
+      "Name": "RaAutoInstSrv.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8228
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p -s TrkWks",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8256
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s WpnService",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8276
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Common Files\\SafeNet Sentinel\\Sentinel Security Runtime\\sntlsrtsrvr.exe\"",
+      "Name": "sntlsrtsrvr.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8288
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WSL\\wslservice.exe\"",
+      "Name": "wslservice.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8296
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\ToDesk\\ToDesk.exe\" --runservice",
+      "Name": "ToDesk.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8404
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\mewmiprov.inf_amd64_53ed758d7f7447bb\\WMIRegistrationService.exe",
+      "Name": "WMIRegistrationService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8412
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netease\\GameViewer\\GameViewerService.exe\" --service",
+      "Name": "GameViewerService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8420
+    },
+    {
+      "CommandLine": "\"D:\\moldex3d\\moldex3d\\Moldex3D\\RemoteComputing R14.0\\ComputeNode\\MDXMonitorServiceR14.exe\"",
+      "Name": "MDXMonitorServiceR14.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8428
+    },
+    {
+      "CommandLine": "\"D:\\Program Files\\resources\\clash-verge-service.exe\"",
+      "Name": "clash-verge-service.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8512
+    },
+    {
+      "CommandLine": "D:\\moldex3d\\moldex3d\\Moldex3D\\LMSR\\MDX3DLMService.exe",
+      "Name": "MDX3DLMService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8576
+    },
+    {
+      "CommandLine": "\"D:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS Flow Simulation\\binCFW\\remotesolverdispatcherservice.exe\" \"SOFTWARE\\SRAC\\COSMOS_FloWorks 2024\"",
+      "Name": "remotesolverdispatcherservice.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 8684
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 8092,
+      "ProcessId": 8772
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\EM_RSM\\ansoftrsmservice.exe\"",
+      "Name": "ansoftrsmservice.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 9008
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Tailscale\\tailscaled.exe\"",
+      "Name": "tailscaled.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 9260
+    },
+    {
+      "CommandLine": "\"C:\\ProgramData\\ANLicense\\lmgrd.exe\" -c \"C:\\ProgramData\\ANLicense\\license.lic\" -l \"C:\\ProgramData\\ANLicense\\SIMULIA.log\" -z -s",
+      "Name": "lmgrd.exe",
+      "ParentProcessId": 8092,
+      "ProcessId": 9268
+    },
+    {
+      "CommandLine": "\"D:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS Flow Simulation\\binCFW\\dispatcher.exe\"",
+      "Name": "dispatcher.exe",
+      "ParentProcessId": 8684,
+      "ProcessId": 9468
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netease\\GameViewer\\crashpad_handler.exe\" --no-rate-limit \"--database=C:\\Program Files\\Netease\\GameViewer\\log\\service\\Sentry\" \"--metrics-dir=C:\\Program Files\\Netease\\GameViewer\\log\\service\\Sentry\" --url=https://sentry.netease.com:443/api/69/minidump/?sentry_client=sentry.native/0.5.0&sentry_key=cf56b89184bf48f988f05813bee25cef \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\service\\log\\log_20260928162729521_8420.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\service\\Sentry\\9414e32c-579a-4348-c375-dbc6d6779d5f.run\\__sentry-event\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\service\\Sentry\\9414e32c-579a-4348-c375-dbc6d6779d5f.run\\__sentry-breadcrumb1\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\service\\Sentry\\9414e32c-579a-4348-c375-dbc6d6779d5f.run\\__sentry-breadcrumb2\" --initial-client-data=0x350,0x354,0x358,0x34c,0x35c,0x7ff664962cb8,0x7ff664962cd8,0x7ff664962cf0",
+      "Name": "crashpad_handler.exe",
+      "ParentProcessId": 8420,
+      "ProcessId": 9584
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s WebClient",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 9896
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 9468,
+      "ProcessId": 10000
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerServer.exe\"",
+      "Name": "GameViewerServer.exe",
+      "ParentProcessId": 8420,
+      "ProcessId": 10484
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerHealthd\"",
+      "Name": "GameViewerHealthd.exe",
+      "ParentProcessId": 8420,
+      "ProcessId": 10132
+    },
+    {
+      "CommandLine": "ansyslmd.exe -T DESKTOP-NNE313K 11.19 -1 -c \";C:\\ProgramData\\ANLicense\\license.lic;\" -srv yl8mDyT44MZmh7ROU7D402YqBLkmzbLSGAr5ZJopRKmzkhR1LDXx524tbWmjQmi --lmgrd_start 6aba24f1 -vdrestart 0  -l \"C:\\ProgramData\\ANLicense\\SIMULIA.log\"",
+      "Name": "ansyslmd.exe",
+      "ParentProcessId": 9268,
+      "ProcessId": 11528
+    },
+    {
+      "CommandLine": "C:\\SolidWorks_Flexnet_Server\\lmgrd.exe",
+      "Name": "lmgrd.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 11560
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 11560,
+      "ProcessId": 12076
+    },
+    {
+      "CommandLine": "\"C:\\SolidWorks_Flexnet_Server\\lmgrd.exe\" -c \"C:\\SolidWorks_Flexnet_Server\\sw_d_SSQ.lic\" -l \"C:\\SolidWorks_Flexnet_Server\\sw_d_SSQ.log\" -z -s",
+      "Name": "lmgrd.exe",
+      "ParentProcessId": 11560,
+      "ProcessId": 12256
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netease\\GameViewer\\bin\\crashpad_handler.exe\" --no-rate-limit \"--database=C:\\Program Files\\Netease\\GameViewer\\log\\server\\Sentry\" \"--metrics-dir=C:\\Program Files\\Netease\\GameViewer\\log\\server\\Sentry\" --url=https://sentry.netease.com:443/api/69/minidump/?sentry_client=sentry.native/0.5.0&sentry_key=cf56b89184bf48f988f05813bee25cef \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\dumpfiles\\dump_lag.dmp\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\MuMuPlayer\\log_0.txt\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.10.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.9.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.8.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.7.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.6.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.5.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.4.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.3.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.2.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.1.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\connection_log_controlled_20260928162729890_10484.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.10.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.9.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.8.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.7.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.6.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.5.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.4.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.3.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.2.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.1.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\streamer_log_controlled_20260928162729890_10484.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.10.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.9.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.8.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.7.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.6.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.5.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.4.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.3.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.2.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.1.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\log\\log_20260928162729890_10484.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\Sentry\\f1d80656-c0e4-4997-1f6a-0e8a6980dac8.run\\__sentry-event\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\Sentry\\f1d80656-c0e4-4997-1f6a-0e8a6980dac8.run\\__sentry-breadcrumb1\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\server\\Sentry\\f1d80656-c0e4-4997-1f6a-0e8a6980dac8.run\\__sentry-breadcrumb2\" --initial-client-data=0x464,0x468,0x46c,0x434,0x470,0x7ff6f5dd0ad8,0x7ff6f5dd0af8,0x7ff6f5dd0b10",
+      "Name": "crashpad_handler.exe",
+      "ParentProcessId": 10484,
+      "ProcessId": 2896
+    },
+    {
+      "CommandLine": "SW_D.exe -T DESKTOP-NNE313K 11.19 -1 -c \";C:\\SolidWorks_Flexnet_Server\\sw_d_SSQ.lic;\" -srv T8d7uJeh6r881YtCGlm12We9C9ZBc5nI6G4xmlXSRhhf0WfOAjUFy6nsQkmn4wL --lmgrd_start 6aba24f1 -vdrestart 0  -l \"C:\\SolidWorks_Flexnet_Server\\sw_d_SSQ.log\"",
+      "Name": "sw_d.exe",
+      "ParentProcessId": 12256,
+      "ProcessId": 12492
+    },
+    {
+      "CommandLine": "AggregatorHost.exe",
+      "Name": "AggregatorHost.exe",
+      "ParentProcessId": 8100,
+      "ProcessId": 13236
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Tailscale\\tailscaled.exe\" /subproc a5c9cf98180d0cfc68612592118161eed651a9991698413dd1f4e8d07687c3d0",
+      "Name": "tailscaled.exe",
+      "ParentProcessId": 9260,
+      "ProcessId": 13068
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Autodesk\\AdODIS\\V1\\Setup\\AdskAccessService.exe\"",
+      "Name": "AdskAccessService.exe",
+      "ParentProcessId": 12680,
+      "ProcessId": 14012
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netease\\GameViewer\\bin\\crashpad_handler.exe\" --no-rate-limit \"--database=C:\\Program Files\\Netease\\GameViewer\\log\\Healthd\\Sentry\" \"--metrics-dir=C:\\Program Files\\Netease\\GameViewer\\log\\Healthd\\Sentry\" --url=https://sentry.netease.com:443/api/69/minidump/?sentry_client=sentry.native/0.5.0&sentry_key=cf56b89184bf48f988f05813bee25cef \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\Healthd\\log\\log_20260928162730954_10132.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\Healthd\\Sentry\\57014269-6c72-40c1-b0d0-02acf9789149.run\\__sentry-event\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\Healthd\\Sentry\\57014269-6c72-40c1-b0d0-02acf9789149.run\\__sentry-breadcrumb1\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\Healthd\\Sentry\\57014269-6c72-40c1-b0d0-02acf9789149.run\\__sentry-breadcrumb2\" --initial-client-data=0x3a8,0x3ac,0x3b0,0x380,0x3b4,0x7ff7513e4c98,0x7ff7513e4cb8,0x7ff7513e4cd0",
+      "Name": "crashpad_handler.exe",
+      "ParentProcessId": 10132,
+      "ProcessId": 5452
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k osprivacy -p -s camsvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 15476
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WindowsApps\\Microsoft.MicrosoftPCManager_3.22.6.0_x64__8wekyb3d8bbwe\\PCManager\\MSPCManagerService.exe\"",
+      "Name": "MSPCManagerService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 15704
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k WSAIFabricSvcGroup -p -s WSAIFabricSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 15780
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalServiceAndNoImpersonationRedirectionGuard -p -s upnphost",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 16428
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalServiceNetworkRestricted -s RmSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 17152
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\nvdd.inf_amd64_5c270b0db658646c\\Display.NvContainer\\NVDisplay.Container.exe\" -f %ProgramData%\\NVIDIA\\DisplaySessionContainer%d.log -d C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\nvdd.inf_amd64_5c270b0db658646c\\Display.NvContainer\\plugins\\Session -r -l 3 -p 30000 -cfg NVDisplay.ContainerLocalSystem\\Parameters\\Session /ert -c",
+      "Name": "NVDisplay.Container.exe",
+      "ParentProcessId": 4676,
+      "ProcessId": 17156
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s Appinfo",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 16560
+    },
+    {
+      "CommandLine": "sihost.exe",
+      "Name": "sihost.exe",
+      "ParentProcessId": 4492,
+      "ProcessId": 17788
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k UnistackSvcGroup -s CDPUserSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 18152
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s webthreatdefusersvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 14696
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k UnistackSvcGroup -s WpnUserService",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 14920
+    },
+    {
+      "CommandLine": "taskhostw.exe {222A245B-E637-4AE9-A93F-A59CA119A75E}",
+      "Name": "taskhostw.exe",
+      "ParentProcessId": 4484,
+      "ProcessId": 14588
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 14632
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s CDPSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 13020
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe\" /tileid MicrosoftWindows.Client.CBS_cw5n1h2txyewy!CrossDeviceResumeApp",
+      "Name": "CrossDeviceResume.exe",
+      "ParentProcessId": 17788,
+      "ProcessId": 14316
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\ToDesk\\ToDesk.exe\" --hide --localPort=35600",
+      "Name": "ToDesk.exe",
+      "ParentProcessId": 8404,
+      "ProcessId": 18600
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k ClipboardSvcGroup -p -s cbdhsvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 20096
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s DisplayEnhancementService",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 20492
+    },
+    {
+      "CommandLine": "C:\\Windows\\System32\\RuntimeBroker.exe -Embedding",
+      "Name": "RuntimeBroker.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 21220
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k UdkSvcGroup -s UdkUserSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 21376
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s PcaSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 21652
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WindowsApps\\MicrosoftWindows.CrossDevice_1.26072.116.0_x64__cw5n1h2txyewy\\CrossDeviceService.exe\" -RegisterProcessAsComServer -Embedding",
+      "Name": "CrossDeviceService.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 21684
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WindowsApps\\MicrosoftWindows.Client.WebExperience_526.21100.40.0_x64__cw5n1h2txyewy\\WidgetBoard.exe\" -RegisterProcessAsComServer -ServerName:Microsoft.Windows.WidgetBoardServer",
+      "Name": "WidgetBoard.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 22224
+    },
+    {
+      "CommandLine": "C:\\Windows\\System32\\RuntimeBroker.exe -Embedding",
+      "Name": "RuntimeBroker.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 8024
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WindowsApps\\Microsoft.WidgetsPlatformRuntime_1.6.19.0_x64__8wekyb3d8bbwe\\WidgetService\\WidgetService.exe\" -RegisterProcessAsComServer -Embedding",
+      "Name": "WidgetService.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 22632
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WindowsApps\\Microsoft.StartExperiencesApp_1.380.2.0_x64__8wekyb3d8bbwe\\MicrosoftStartFeedProvider\\MicrosoftStartFeedProvider.exe\" -Embedding",
+      "Name": "MicrosoftStartFeedProvider.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 23124
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcsRedirectionGuard -p -s lfsvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 20312
+    },
+    {
+      "CommandLine": "/QuitInfo:0000000000000374;0000000000000378; ",
+      "Name": "ctfmon.exe",
+      "ParentProcessId": 5540,
+      "ProcessId": 17140
+    },
+    {
+      "CommandLine": "/QuitInfo:000000000000038C;0000000000000380;  ",
+      "Name": "TabTip.exe",
+      "ParentProcessId": 5540,
+      "ProcessId": 12028
+    },
+    {
+      "CommandLine": "C:\\Windows\\System32\\InputMethod\\CHS\\ChsIME.exe -Embedding",
+      "Name": "ChsIME.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 25356
+    },
+    {
+      "CommandLine": "\"C:\\Windows\\System32\\SecurityHealthSystray.exe\" ",
+      "Name": "SecurityHealthSystray.exe",
+      "ParentProcessId": 6252,
+      "ProcessId": 24504
+    },
+    {
+      "CommandLine": null,
+      "Name": "SecurityHealthService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 24712
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Autodesk\\AdODIS\\V1\\Setup\\AdskAccessService.exe\" --autoLaunch",
+      "Name": "AdskAccessService.exe",
+      "ParentProcessId": 6252,
+      "ProcessId": 24036
+    },
+    {
+      "CommandLine": "\"C:\\Users\\DELL\\AppData\\Roaming\\Baidu\\BaiduNetdisk\\YunDetectService.exe\" ",
+      "Name": "YunDetectService.exe",
+      "ParentProcessId": 6252,
+      "ProcessId": 24936
+    },
+    {
+      "CommandLine": "--auto-run source=explorer.exe 4B6671A6-B8EA-4597-A9B7-3EFA8575855F",
+      "Name": "GameViewer.exe",
+      "ParentProcessId": 25292,
+      "ProcessId": 25512
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netease\\GameViewer\\bin\\crashpad_handler.exe\" --no-rate-limit \"--database=C:\\Program Files\\Netease\\GameViewer\\log\\client\\Sentry\" \"--metrics-dir=C:\\Program Files\\Netease\\GameViewer\\log\\client\\Sentry\" --url=https://sentry.netease.com:443/api/69/minidump/?sentry_client=sentry.native/0.5.0&sentry_key=cf56b89184bf48f988f05813bee25cef \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.10.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.9.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.8.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.7.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.6.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.5.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.4.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.3.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.2.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.1.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\connection_log_controller_20260928162804742_25512.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.10.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.9.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.8.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.7.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.6.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.5.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.4.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.3.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.2.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.1.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\streamer_log_controller_20260928162804742_25512.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.10.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.9.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.8.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.7.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.6.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.5.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.4.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.3.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.2.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.1.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\log\\log_20260928162804742_25512.slog\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\Sentry\\d42b65f3-2100-44ea-5e3e-bc1a26f71139.run\\__sentry-event\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\Sentry\\d42b65f3-2100-44ea-5e3e-bc1a26f71139.run\\__sentry-breadcrumb1\" \"--attachment=C:\\Program Files\\Netease\\GameViewer\\log\\client\\Sentry\\d42b65f3-2100-44ea-5e3e-bc1a26f71139.run\\__sentry-breadcrumb2\" --initial-client-data=0x6d4,0x6d8,0x6dc,0x680,0x6e0,0x7ff68b592f68,0x7ff68b592f88,0x7ff68b592fa0",
+      "Name": "crashpad_handler.exe",
+      "ParentProcessId": 25512,
+      "ProcessId": 16808
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k WebThreatDefense -p -s webthreatdefsvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 23916
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --embedded-browser-webview=1 --webview-exe-name=GameViewer.exe --webview-exe-version=4.40.1.2090 --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView\" --noerrdialogs --embedded-browser-webview-dpi-awareness=2 --mojo-named-platform-channel-pipe=25512.25364.12139981829349813402 /pfhostedapp:9243027a788b4b037f94c1674b61252219d07a7c",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 25512,
+      "ProcessId": 24080
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --type=crashpad-handler --user-data-dir=C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView /prefetch:4 /pfhostedapp:9243027a788b4b037f94c1674b61252219d07a7c --monitor-self-annotation=ptype=crashpad-handler --database=C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView\\Crashpad --metrics-dir=C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView --annotation=IsOfficialBuild=1 --annotation=channel= --annotation=chromium-version=153.0.8010.53 \"--annotation=exe=C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --annotation=plat=Win64 \"--annotation=prod=Edge WebView2\" --annotation=ver=153.0.4234.48 --initial-client-data=0x174,0x178,0x17c,0xa0,0x184,0x7ffef8543360,0x7ffef8543370,0x7ffef8543380",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 24080,
+      "ProcessId": 8360
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --type=gpu-process --noerrdialogs --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView\" --webview-exe-name=GameViewer.exe --webview-exe-version=4.40.1.2090 --embedded-browser-webview=1 --embedded-browser-webview-dpi-awareness=2 --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --startup-read-main-dll --metrics-shmem-handle=1836,i,8576464790686471517,440112678278688549,262144 --field-trial-handle=1928,i,12471964891143489103,10602579552289776821,262144 --variations-seed-version --pseudonymization-salt-handle=1944,i,8871647381166096792,8132099589200596991,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=1920 /prefetch:2 /pfhostedapp:9243027a788b4b037f94c1674b61252219d07a7c",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 24080,
+      "ProcessId": 25392
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --noerrdialogs --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView\" --webview-exe-name=GameViewer.exe --webview-exe-version=4.40.1.2090 --embedded-browser-webview=1 --embedded-browser-webview-dpi-awareness=2 --startup-read-main-dll --metrics-shmem-handle=2136,i,5599689006161975104,6230283986187552675,524288 --field-trial-handle=1928,i,12471964891143489103,10602579552289776821,262144 --variations-seed-version --pseudonymization-salt-handle=1944,i,8871647381166096792,8132099589200596991,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2152 /prefetch:11 /pfhostedapp:9243027a788b4b037f94c1674b61252219d07a7c",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 24080,
+      "ProcessId": 25316
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --type=utility --utility-sub-type=storage.mojom.StorageService --lang=zh-CN --service-sandbox-type=service --noerrdialogs --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView\" --webview-exe-name=GameViewer.exe --webview-exe-version=4.40.1.2090 --embedded-browser-webview=1 --embedded-browser-webview-dpi-awareness=2 --startup-read-main-dll --metrics-shmem-handle=2600,i,198745771177075746,13556438416314805549,524288 --field-trial-handle=1928,i,12471964891143489103,10602579552289776821,262144 --variations-seed-version --pseudonymization-salt-handle=1944,i,8871647381166096792,8132099589200596991,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=2612 /prefetch:13 /pfhostedapp:9243027a788b4b037f94c1674b61252219d07a7c",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 24080,
+      "ProcessId": 25388
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --type=renderer --noerrdialogs --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView\" --webview-exe-name=GameViewer.exe --webview-exe-version=4.40.1.2090 --embedded-browser-webview=1 --embedded-browser-webview-dpi-awareness=2 --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flags --device-scale-factor=1 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=5 --launch-time-ticks=80873605 --ssd-no-pressure-read-main-dll --metrics-shmem-handle=4064,i,3355475991217907539,7863984821912596788,1048576 --field-trial-handle=1928,i,12471964891143489103,10602579552289776821,262144 --variations-seed-version --pseudonymization-salt-handle=1944,i,8871647381166096792,8132099589200596991,4 --trace-process-track-uuid=3190708990997080739 --mojo-platform-channel-handle=4092 /pfhostedapp:9243027a788b4b037f94c1674b61252219d07a7c /prefetch:1",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 24080,
+      "ProcessId": 15036
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe\" --type=renderer --noerrdialogs --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\GameViewer\\webviewcache\\EBWebView\" --webview-exe-name=GameViewer.exe --webview-exe-version=4.40.1.2090 --embedded-browser-webview=1 --embedded-browser-webview-dpi-awareness=2 --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flags --device-scale-factor=1 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=6 --launch-time-ticks=80920282 --skip-read-main-dll --metrics-shmem-handle=4504,i,10223638568897821882,17593708490778148742,1048576 --field-trial-handle=1928,i,12471964891143489103,10602579552289776821,262144 --variations-seed-version --pseudonymization-salt-handle=1944,i,8871647381166096792,8132099589200596991,4 --trace-process-track-uuid=3190708991934122588 --mojo-platform-channel-handle=4512 /pfhostedapp:9243027a788b4b037f94c1674b61252219d07a7c /prefetch:1",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 24080,
+      "ProcessId": 4944
+    },
+    {
+      "CommandLine": "\"D:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS\\sldworks_fs.exe\" ",
+      "Name": "sldworks_fs.exe",
+      "ParentProcessId": 6252,
+      "ProcessId": 26616
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalService -p -s LicenseManager",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 20508
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k UnistackSvcGroup",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 21832
+    },
+    {
+      "CommandLine": null,
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 30880
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k InvSvcGroup -p -s InventorySvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 30244
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 30300
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s UsoSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 30956
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k whesvc -p -s whesvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 2900
+    },
+    {
+      "CommandLine": null,
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 2788
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k netsvcs -p",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4304
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\ApplicationFrameHost.exe -Embedding",
+      "Name": "ApplicationFrameHost.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 9308
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s SstpSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6288
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k netsvcs",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7024
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\MasterPDF\\PdfQuick.exe\" /servercall=true",
+      "Name": "PdfQuick.exe",
+      "ParentProcessId": 8196,
+      "ProcessId": 32260
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s NPSMSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 32072
+    },
+    {
+      "CommandLine": "taskhostw.exe",
+      "Name": "taskhostw.exe",
+      "ParentProcessId": 4484,
+      "ProcessId": 18636
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService -p -s FontCache",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 31944
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Common Files\\Microsoft Shared\\ClickToRun\\OfficeClickToRun.exe\" /service",
+      "Name": "OfficeClickToRun.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 14312
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Common Files\\Microsoft Shared\\ClickToRun\\AppVShNotify.exe\"",
+      "Name": "AppVShNotify.exe",
+      "ParentProcessId": 14312,
+      "ProcessId": 29476
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\SearchIndexer.exe /Embedding",
+      "Name": "SearchIndexer.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 3880
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p -s DsSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 14128
+    },
+    {
+      "CommandLine": null,
+      "Name": "sppsvc.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 33956
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"cmd /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_inventory.py\" > \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_inventory.json\"\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 17752,
+      "ProcessId": 32508
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 32508,
+      "ProcessId": 17680
+    },
+    {
+      "CommandLine": "cmd  /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_inventory.py\" > \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_inventory.json\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 32508,
+      "ProcessId": 21820
+    },
+    {
+      "CommandLine": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"  \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_inventory.py\" ",
+      "Name": "python.exe",
+      "ParentProcessId": 21820,
+      "ProcessId": 30336
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 30336,
+      "ProcessId": 31848
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe\" -acl DESKTOP-NNE313K_DELL_251 -nodaemon -aclport 61208 -log C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.DESKTOP-NNE313K_DELL_251.log",
+      "Name": "ansyscl.exe",
+      "ParentProcessId": 31848,
+      "ProcessId": 8448
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"C:\\Users\\DELL\\anaconda3\\envs\\my_env\\python.exe -\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 15756,
+      "ProcessId": 10796
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 10796,
+      "ProcessId": 16504
+    },
+    {
+      "CommandLine": "C:\\Users\\DELL\\anaconda3\\envs\\my_env\\python.exe  -",
+      "Name": "python.exe",
+      "ParentProcessId": 10796,
+      "ProcessId": 29236
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 29236,
+      "ProcessId": 33824
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"C:\\Users\\DELL\\anaconda3\\envs\\my_env\\python.exe -\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 31184,
+      "ProcessId": 26492
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 26492,
+      "ProcessId": 32576
+    },
+    {
+      "CommandLine": "C:\\Users\\DELL\\anaconda3\\envs\\my_env\\python.exe  -",
+      "Name": "python.exe",
+      "ParentProcessId": 26492,
+      "ProcessId": 33316
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 33316,
+      "ProcessId": 17436
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"cmd /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 14740,
+      "ProcessId": 4740
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 4740,
+      "ProcessId": 19240
+    },
+    {
+      "CommandLine": "cmd  /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 4740,
+      "ProcessId": 24336
+    },
+    {
+      "CommandLine": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"  \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"",
+      "Name": "python.exe",
+      "ParentProcessId": 24336,
+      "ProcessId": 24800
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 24800,
+      "ProcessId": 29816
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"cmd /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 33380,
+      "ProcessId": 18060
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 18060,
+      "ProcessId": 34076
+    },
+    {
+      "CommandLine": "cmd  /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 18060,
+      "ProcessId": 26540
+    },
+    {
+      "CommandLine": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"  \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"",
+      "Name": "python.exe",
+      "ParentProcessId": 26540,
+      "ProcessId": 27248
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 27248,
+      "ProcessId": 26372
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"cmd /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 24540,
+      "ProcessId": 34716
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 34716,
+      "ProcessId": 4076
+    },
+    {
+      "CommandLine": "cmd  /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 34716,
+      "ProcessId": 26976
+    },
+    {
+      "CommandLine": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"  \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"",
+      "Name": "python.exe",
+      "ParentProcessId": 26976,
+      "ProcessId": 16572
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 16572,
+      "ProcessId": 32256
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"cmd /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 31124,
+      "ProcessId": 31028
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 31028,
+      "ProcessId": 33084
+    },
+    {
+      "CommandLine": "cmd  /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 31028,
+      "ProcessId": 21640
+    },
+    {
+      "CommandLine": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"  \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"",
+      "Name": "python.exe",
+      "ParentProcessId": 21640,
+      "ProcessId": 18080
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 18080,
+      "ProcessId": 31844
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"cmd /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 30884,
+      "ProcessId": 21620
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 21620,
+      "ProcessId": 33540
+    },
+    {
+      "CommandLine": "cmd  /c \"\"N:\\anaconda_envs\\RCP_LCP\\python.exe\" \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 21620,
+      "ProcessId": 31524
+    },
+    {
+      "CommandLine": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"  \"C:\\Users\\dell\\AppData\\Local\\Temp\\mdc_complex_prior_fsp_result_meta.py\"",
+      "Name": "python.exe",
+      "ParentProcessId": 31524,
+      "ProcessId": 28420
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "Name": "fdtd-solutions.exe",
+      "ParentProcessId": 28420,
+      "ProcessId": 17576
+    },
+    {
+      "CommandLine": null,
+      "Name": "MsMpEng.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 32592
+    },
+    {
+      "CommandLine": null,
+      "Name": "MpDefenderCoreService.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 16568
+    },
+    {
+      "CommandLine": null,
+      "Name": "NisSrv.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 7076
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s seclogon",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 21608
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s SensorService",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 35764
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p -s WdiSystemHost",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 32620
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k LocalService -p -s WdiServiceHost",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 6744
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p -s DevQueryBroker",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 17128
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s AppMgmt",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 37452
+    },
+    {
+      "CommandLine": "C:\\Users\\DELL\\AppData\\Local\\MathWorks\\ServiceHost\\v2026.10.1.1\\bin\\win64\\MathWorksServiceHost.exe service --realm-id companion@prod@production ",
+      "Name": "MathWorksServiceHost.exe",
+      "ParentProcessId": 43728,
+      "ProcessId": 39224
+    },
+    {
+      "CommandLine": "C:\\Users\\DELL\\AppData\\Local\\MathWorks\\ServiceHost\\v2026.10.1.1\\bin\\win64\\MathWorksCrashReporter.exe --no-rate-limit --monitor-explicit --sanitize --database=C:\\Users\\DELL\\AppData\\Local\\MathWorks\\ServiceHost\\crash_reports --annotation=crash.handler.uuid=9930d401-27c3-4e0c-ac9f-b446cf82c1a9 --annotation=crash.mode=default;allowNativeArtifacts=0;createBugReport=1;explicit=1;hasValidDisplay=1;indirectMemoryLimit=0;sanitize=1 --annotation=format=minidump --initial-client-data=0x430,0x434,0x438,0x40c,0x43c,0x7ffec1ba3960,0x7ffec1ba3920,0x7ffec1ba3930",
+      "Name": "MathWorksCrashReporter.exe",
+      "ParentProcessId": 39224,
+      "ProcessId": 23936
+    },
+    {
+      "CommandLine": "C:\\Users\\DELL\\AppData\\Local\\MathWorks\\ServiceHost\\v2026.10.1.1\\bin\\win64\\MathWorksServiceHost-Monitor.exe --client-id 39224 --realm-id companion@prod@production --lifetime-token \"3376 0 1 0 0 0\" ",
+      "Name": "MathWorksServiceHost-Monitor.exe",
+      "ParentProcessId": 39224,
+      "ProcessId": 37344
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"powershell.exe -NoProfile -EncodedCommand JABzAGIAPQBbAFMAeQBzAHQAZQBtAC4AVABlAHgAdAAuAFMAdAByAGkAbgBnAEIAdQBpAGwAZABlAHIAXQA6ADoAbgBlAHcAKAApADsAIAB3AGgAaQBsAGUAKAAkAHQAcgB1AGUAKQB7ACQAbABpAG4AZQA9AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBJAG4ALgBSAGUAYQBkAEwAaQBuAGUAKAApADsAIABpAGYAKAAkAG4AdQBsAGwAIAAtAGUAcQAgACQAbABpAG4AZQAgAC0AbwByACAAJABsAGkAbgBlACAALQBlAHEAIAAnAEUATgBEACcAKQB7AGIAcgBlAGEAawB9ADsAIABbAHYAbwBpAGQAXQAkAHMAYgAuAEEAcABwAGUAbgBkACgAJABsAGkAbgBlACkAfQA7ACAAJABwAGEAdABjAGgAPQBbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAcwBiAC4AVABvAFMAdAByAGkAbgBnACgAKQApADsAIAAkAGcAcAA9ACgARwBlAHQALQBDAG8AbQBtAGEAbgBkACAAZwBpAHQALgBlAHgAZQApAC4AUwBvAHUAcgBjAGUAOwAgAGYAbwByAGUAYQBjAGgAKAAkAGEAcgBnACAAaQBuACAAQAAoACcAYQBwAHAAbAB5ACAALQAtAGMAaABlAGMAawAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcALAAnAGEAcABwAGwAeQAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcAKQApAHsAJABwAHMAaQA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACQAZwBwACwAJABhAHIAZwApADsAJABwAHMAaQAuAFcAbwByAGsAaQBuAGcARABpAHIAZQBjAHQAbwByAHkAPQAnAEQAOgBcAHAAcgBvAGoAZQBjAHQAXAB3AG8AcgBrAHQAcgBlAGUAcwBcAGIAbAB1AGUAXwBhAHAAYwBkAF8AbQBkAGMAXwBuAHAAXwBjAG8AdQBwAGwAaQBuAGcAXwBtAGwAXwB2ADEAJwA7ACQAcABzAGkALgBVAHMAZQBTAGgAZQBsAGwARQB4AGUAYwB1AHQAZQA9ACQAZgBhAGwAcwBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AD0AJAB0AHIAdQBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQATwB1AHQAcAB1AHQAPQAkAHQAcgB1AGUAOwAkAHAAcwBpAC4AUgBlAGQAaQByAGUAYwB0AFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIAPQAkAHQAcgB1AGUAOwAkAHAAPQBbAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAXQA6ADoAUwB0AGEAcgB0ACgAJABwAHMAaQApADsAJABwAC4AUwB0AGEAbgBkAGEAcgBkAEkAbgBwAHUAdAAuAEIAYQBzAGUAUwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHAAYQB0AGMAaAAsADAALAAkAHAAYQB0AGMAaAAuAEwAZQBuAGcAdABoACkAOwAkAHAALgBTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AC4AQwBsAG8AcwBlACgAKQA7ACQAbwA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABPAHUAdABwAHUAdAAuAFIAZQBhAGQAVABvAEUAbgBkACgAKQA7ACQAZQA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIALgBSAGUAYQBkAFQAbwBFAG4AZAAoACkAOwAkAHAALgBXAGEAaQB0AEYAbwByAEUAeABpAHQAKAApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AE8AdQB0AC4AVwByAGkAdABlAEwAaQBuAGUAKAAnAEcASQBUAF8AQQBQAFAATABZAF8ARQBYAEkAVAA9ACcAKwAkAHAALgBFAHgAaQB0AEMAbwBkAGUAKQA7AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBPAHUAdAAuAFcAcgBpAHQAZQAoACQAbwApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AEUAcgByAG8AcgAuAFcAcgBpAHQAZQAoACQAZQApADsAaQBmACgAJABwAC4ARQB4AGkAdABDAG8AZABlACAALQBuAGUAIAAwACkAewBlAHgAaQB0ACAAJABwAC4ARQB4AGkAdABDAG8AZABlAH0AfQA=\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 39996,
+      "ProcessId": 26424
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 26424,
+      "ProcessId": 40336
+    },
+    {
+      "CommandLine": "powershell.exe  -NoProfile -EncodedCommand JABzAGIAPQBbAFMAeQBzAHQAZQBtAC4AVABlAHgAdAAuAFMAdAByAGkAbgBnAEIAdQBpAGwAZABlAHIAXQA6ADoAbgBlAHcAKAApADsAIAB3AGgAaQBsAGUAKAAkAHQAcgB1AGUAKQB7ACQAbABpAG4AZQA9AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBJAG4ALgBSAGUAYQBkAEwAaQBuAGUAKAApADsAIABpAGYAKAAkAG4AdQBsAGwAIAAtAGUAcQAgACQAbABpAG4AZQAgAC0AbwByACAAJABsAGkAbgBlACAALQBlAHEAIAAnAEUATgBEACcAKQB7AGIAcgBlAGEAawB9ADsAIABbAHYAbwBpAGQAXQAkAHMAYgAuAEEAcABwAGUAbgBkACgAJABsAGkAbgBlACkAfQA7ACAAJABwAGEAdABjAGgAPQBbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAcwBiAC4AVABvAFMAdAByAGkAbgBnACgAKQApADsAIAAkAGcAcAA9ACgARwBlAHQALQBDAG8AbQBtAGEAbgBkACAAZwBpAHQALgBlAHgAZQApAC4AUwBvAHUAcgBjAGUAOwAgAGYAbwByAGUAYQBjAGgAKAAkAGEAcgBnACAAaQBuACAAQAAoACcAYQBwAHAAbAB5ACAALQAtAGMAaABlAGMAawAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcALAAnAGEAcABwAGwAeQAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcAKQApAHsAJABwAHMAaQA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACQAZwBwACwAJABhAHIAZwApADsAJABwAHMAaQAuAFcAbwByAGsAaQBuAGcARABpAHIAZQBjAHQAbwByAHkAPQAnAEQAOgBcAHAAcgBvAGoAZQBjAHQAXAB3AG8AcgBrAHQAcgBlAGUAcwBcAGIAbAB1AGUAXwBhAHAAYwBkAF8AbQBkAGMAXwBuAHAAXwBjAG8AdQBwAGwAaQBuAGcAXwBtAGwAXwB2ADEAJwA7ACQAcABzAGkALgBVAHMAZQBTAGgAZQBsAGwARQB4AGUAYwB1AHQAZQA9ACQAZgBhAGwAcwBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AD0AJAB0AHIAdQBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQATwB1AHQAcAB1AHQAPQAkAHQAcgB1AGUAOwAkAHAAcwBpAC4AUgBlAGQAaQByAGUAYwB0AFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIAPQAkAHQAcgB1AGUAOwAkAHAAPQBbAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAXQA6ADoAUwB0AGEAcgB0ACgAJABwAHMAaQApADsAJABwAC4AUwB0AGEAbgBkAGEAcgBkAEkAbgBwAHUAdAAuAEIAYQBzAGUAUwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHAAYQB0AGMAaAAsADAALAAkAHAAYQB0AGMAaAAuAEwAZQBuAGcAdABoACkAOwAkAHAALgBTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AC4AQwBsAG8AcwBlACgAKQA7ACQAbwA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABPAHUAdABwAHUAdAAuAFIAZQBhAGQAVABvAEUAbgBkACgAKQA7ACQAZQA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIALgBSAGUAYQBkAFQAbwBFAG4AZAAoACkAOwAkAHAALgBXAGEAaQB0AEYAbwByAEUAeABpAHQAKAApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AE8AdQB0AC4AVwByAGkAdABlAEwAaQBuAGUAKAAnAEcASQBUAF8AQQBQAFAATABZAF8ARQBYAEkAVAA9ACcAKwAkAHAALgBFAHgAaQB0AEMAbwBkAGUAKQA7AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBPAHUAdAAuAFcAcgBpAHQAZQAoACQAbwApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AEUAcgByAG8AcgAuAFcAcgBpAHQAZQAoACQAZQApADsAaQBmACgAJABwAC4ARQB4AGkAdABDAG8AZABlACAALQBuAGUAIAAwACkAewBlAHgAaQB0ACAAJABwAC4ARQB4AGkAdABDAG8AZABlAH0AfQA=",
+      "Name": "powershell.exe",
+      "ParentProcessId": 26424,
+      "ProcessId": 43200
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"powershell.exe -NoProfile -EncodedCommand JABzAGIAPQBbAFMAeQBzAHQAZQBtAC4AVABlAHgAdAAuAFMAdAByAGkAbgBnAEIAdQBpAGwAZABlAHIAXQA6ADoAbgBlAHcAKAApADsAIAB3AGgAaQBsAGUAKAAkAHQAcgB1AGUAKQB7ACQAbABpAG4AZQA9AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBJAG4ALgBSAGUAYQBkAEwAaQBuAGUAKAApADsAIABpAGYAKAAkAG4AdQBsAGwAIAAtAGUAcQAgACQAbABpAG4AZQAgAC0AbwByACAAJABsAGkAbgBlACAALQBlAHEAIAAnAEUATgBEACcAKQB7AGIAcgBlAGEAawB9ADsAIABbAHYAbwBpAGQAXQAkAHMAYgAuAEEAcABwAGUAbgBkACgAJABsAGkAbgBlACkAfQA7ACAAJABwAGEAdABjAGgAPQBbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAcwBiAC4AVABvAFMAdAByAGkAbgBnACgAKQApADsAIAAkAGcAcAA9ACgARwBlAHQALQBDAG8AbQBtAGEAbgBkACAAZwBpAHQALgBlAHgAZQApAC4AUwBvAHUAcgBjAGUAOwAgAGYAbwByAGUAYQBjAGgAKAAkAGEAcgBnACAAaQBuACAAQAAoACcAYQBwAHAAbAB5ACAALQAtAGMAaABlAGMAawAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcALAAnAGEAcABwAGwAeQAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcAKQApAHsAJABwAHMAaQA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACQAZwBwACwAJABhAHIAZwApADsAJABwAHMAaQAuAFcAbwByAGsAaQBuAGcARABpAHIAZQBjAHQAbwByAHkAPQAnAEQAOgBcAHAAcgBvAGoAZQBjAHQAXAB3AG8AcgBrAHQAcgBlAGUAcwBcAGIAbAB1AGUAXwBhAHAAYwBkAF8AbQBkAGMAXwBuAHAAXwBjAG8AdQBwAGwAaQBuAGcAXwBtAGwAXwB2ADEAJwA7ACQAcABzAGkALgBVAHMAZQBTAGgAZQBsAGwARQB4AGUAYwB1AHQAZQA9ACQAZgBhAGwAcwBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AD0AJAB0AHIAdQBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQATwB1AHQAcAB1AHQAPQAkAHQAcgB1AGUAOwAkAHAAcwBpAC4AUgBlAGQAaQByAGUAYwB0AFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIAPQAkAHQAcgB1AGUAOwAkAHAAPQBbAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAXQA6ADoAUwB0AGEAcgB0ACgAJABwAHMAaQApADsAJABwAC4AUwB0AGEAbgBkAGEAcgBkAEkAbgBwAHUAdAAuAEIAYQBzAGUAUwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHAAYQB0AGMAaAAsADAALAAkAHAAYQB0AGMAaAAuAEwAZQBuAGcAdABoACkAOwAkAHAALgBTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AC4AQwBsAG8AcwBlACgAKQA7ACQAbwA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABPAHUAdABwAHUAdAAuAFIAZQBhAGQAVABvAEUAbgBkACgAKQA7ACQAZQA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIALgBSAGUAYQBkAFQAbwBFAG4AZAAoACkAOwAkAHAALgBXAGEAaQB0AEYAbwByAEUAeABpAHQAKAApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AE8AdQB0AC4AVwByAGkAdABlAEwAaQBuAGUAKAAnAEcASQBUAF8AQQBQAFAATABZAF8ARQBYAEkAVAA9ACcAKwAkAHAALgBFAHgAaQB0AEMAbwBkAGUAKQA7AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBPAHUAdAAuAFcAcgBpAHQAZQAoACQAbwApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AEUAcgByAG8AcgAuAFcAcgBpAHQAZQAoACQAZQApADsAaQBmACgAJABwAC4ARQB4AGkAdABDAG8AZABlACAALQBuAGUAIAAwACkAewBlAHgAaQB0ACAAJABwAC4ARQB4AGkAdABDAG8AZABlAH0AfQA=\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 8476,
+      "ProcessId": 36800
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 36800,
+      "ProcessId": 13336
+    },
+    {
+      "CommandLine": "powershell.exe  -NoProfile -EncodedCommand JABzAGIAPQBbAFMAeQBzAHQAZQBtAC4AVABlAHgAdAAuAFMAdAByAGkAbgBnAEIAdQBpAGwAZABlAHIAXQA6ADoAbgBlAHcAKAApADsAIAB3AGgAaQBsAGUAKAAkAHQAcgB1AGUAKQB7ACQAbABpAG4AZQA9AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBJAG4ALgBSAGUAYQBkAEwAaQBuAGUAKAApADsAIABpAGYAKAAkAG4AdQBsAGwAIAAtAGUAcQAgACQAbABpAG4AZQAgAC0AbwByACAAJABsAGkAbgBlACAALQBlAHEAIAAnAEUATgBEACcAKQB7AGIAcgBlAGEAawB9ADsAIABbAHYAbwBpAGQAXQAkAHMAYgAuAEEAcABwAGUAbgBkACgAJABsAGkAbgBlACkAfQA7ACAAJABwAGEAdABjAGgAPQBbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAcwBiAC4AVABvAFMAdAByAGkAbgBnACgAKQApADsAIAAkAGcAcAA9ACgARwBlAHQALQBDAG8AbQBtAGEAbgBkACAAZwBpAHQALgBlAHgAZQApAC4AUwBvAHUAcgBjAGUAOwAgAGYAbwByAGUAYQBjAGgAKAAkAGEAcgBnACAAaQBuACAAQAAoACcAYQBwAHAAbAB5ACAALQAtAGMAaABlAGMAawAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcALAAnAGEAcABwAGwAeQAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcAKQApAHsAJABwAHMAaQA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACQAZwBwACwAJABhAHIAZwApADsAJABwAHMAaQAuAFcAbwByAGsAaQBuAGcARABpAHIAZQBjAHQAbwByAHkAPQAnAEQAOgBcAHAAcgBvAGoAZQBjAHQAXAB3AG8AcgBrAHQAcgBlAGUAcwBcAGIAbAB1AGUAXwBhAHAAYwBkAF8AbQBkAGMAXwBuAHAAXwBjAG8AdQBwAGwAaQBuAGcAXwBtAGwAXwB2ADEAJwA7ACQAcABzAGkALgBVAHMAZQBTAGgAZQBsAGwARQB4AGUAYwB1AHQAZQA9ACQAZgBhAGwAcwBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AD0AJAB0AHIAdQBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQATwB1AHQAcAB1AHQAPQAkAHQAcgB1AGUAOwAkAHAAcwBpAC4AUgBlAGQAaQByAGUAYwB0AFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIAPQAkAHQAcgB1AGUAOwAkAHAAPQBbAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAXQA6ADoAUwB0AGEAcgB0ACgAJABwAHMAaQApADsAJABwAC4AUwB0AGEAbgBkAGEAcgBkAEkAbgBwAHUAdAAuAEIAYQBzAGUAUwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHAAYQB0AGMAaAAsADAALAAkAHAAYQB0AGMAaAAuAEwAZQBuAGcAdABoACkAOwAkAHAALgBTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AC4AQwBsAG8AcwBlACgAKQA7ACQAbwA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABPAHUAdABwAHUAdAAuAFIAZQBhAGQAVABvAEUAbgBkACgAKQA7ACQAZQA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIALgBSAGUAYQBkAFQAbwBFAG4AZAAoACkAOwAkAHAALgBXAGEAaQB0AEYAbwByAEUAeABpAHQAKAApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AE8AdQB0AC4AVwByAGkAdABlAEwAaQBuAGUAKAAnAEcASQBUAF8AQQBQAFAATABZAF8ARQBYAEkAVAA9ACcAKwAkAHAALgBFAHgAaQB0AEMAbwBkAGUAKQA7AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBPAHUAdAAuAFcAcgBpAHQAZQAoACQAbwApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AEUAcgByAG8AcgAuAFcAcgBpAHQAZQAoACQAZQApADsAaQBmACgAJABwAC4ARQB4AGkAdABDAG8AZABlACAALQBuAGUAIAAwACkAewBlAHgAaQB0ACAAJABwAC4ARQB4AGkAdABDAG8AZABlAH0AfQA=",
+      "Name": "powershell.exe",
+      "ParentProcessId": 36800,
+      "ProcessId": 40816
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"powershell.exe -NoProfile -EncodedCommand JABzAGIAPQBbAFMAeQBzAHQAZQBtAC4AVABlAHgAdAAuAFMAdAByAGkAbgBnAEIAdQBpAGwAZABlAHIAXQA6ADoAbgBlAHcAKAApADsAIAB3AGgAaQBsAGUAKAAkAHQAcgB1AGUAKQB7ACQAbABpAG4AZQA9AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBJAG4ALgBSAGUAYQBkAEwAaQBuAGUAKAApADsAIABpAGYAKAAkAG4AdQBsAGwAIAAtAGUAcQAgACQAbABpAG4AZQAgAC0AbwByACAAJABsAGkAbgBlACAALQBlAHEAIAAnAEUATgBEACcAKQB7AGIAcgBlAGEAawB9ADsAIABbAHYAbwBpAGQAXQAkAHMAYgAuAEEAcABwAGUAbgBkACgAJABsAGkAbgBlACkAfQA7ACAAJABwAGEAdABjAGgAPQBbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAcwBiAC4AVABvAFMAdAByAGkAbgBnACgAKQApADsAIAAkAGcAcAA9ACgARwBlAHQALQBDAG8AbQBtAGEAbgBkACAAZwBpAHQALgBlAHgAZQApAC4AUwBvAHUAcgBjAGUAOwAgAGYAbwByAGUAYQBjAGgAKAAkAGEAcgBnACAAaQBuACAAQAAoACcAYQBwAHAAbAB5ACAALQAtAGMAaABlAGMAawAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcALAAnAGEAcABwAGwAeQAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcAKQApAHsAJABwAHMAaQA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACQAZwBwACwAJABhAHIAZwApADsAJABwAHMAaQAuAFcAbwByAGsAaQBuAGcARABpAHIAZQBjAHQAbwByAHkAPQAnAEQAOgBcAHAAcgBvAGoAZQBjAHQAXAB3AG8AcgBrAHQAcgBlAGUAcwBcAGIAbAB1AGUAXwBhAHAAYwBkAF8AbQBkAGMAXwBuAHAAXwBjAG8AdQBwAGwAaQBuAGcAXwBtAGwAXwB2ADEAJwA7ACQAcABzAGkALgBVAHMAZQBTAGgAZQBsAGwARQB4AGUAYwB1AHQAZQA9ACQAZgBhAGwAcwBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AD0AJAB0AHIAdQBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQATwB1AHQAcAB1AHQAPQAkAHQAcgB1AGUAOwAkAHAAcwBpAC4AUgBlAGQAaQByAGUAYwB0AFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIAPQAkAHQAcgB1AGUAOwAkAHAAPQBbAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAXQA6ADoAUwB0AGEAcgB0ACgAJABwAHMAaQApADsAJABwAC4AUwB0AGEAbgBkAGEAcgBkAEkAbgBwAHUAdAAuAEIAYQBzAGUAUwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHAAYQB0AGMAaAAsADAALAAkAHAAYQB0AGMAaAAuAEwAZQBuAGcAdABoACkAOwAkAHAALgBTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AC4AQwBsAG8AcwBlACgAKQA7ACQAbwA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABPAHUAdABwAHUAdAAuAFIAZQBhAGQAVABvAEUAbgBkACgAKQA7ACQAZQA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIALgBSAGUAYQBkAFQAbwBFAG4AZAAoACkAOwAkAHAALgBXAGEAaQB0AEYAbwByAEUAeABpAHQAKAApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AE8AdQB0AC4AVwByAGkAdABlAEwAaQBuAGUAKAAnAEcASQBUAF8AQQBQAFAATABZAF8ARQBYAEkAVAA9ACcAKwAkAHAALgBFAHgAaQB0AEMAbwBkAGUAKQA7AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBPAHUAdAAuAFcAcgBpAHQAZQAoACQAbwApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AEUAcgByAG8AcgAuAFcAcgBpAHQAZQAoACQAZQApADsAaQBmACgAJABwAC4ARQB4AGkAdABDAG8AZABlACAALQBuAGUAIAAwACkAewBlAHgAaQB0ACAAJABwAC4ARQB4AGkAdABDAG8AZABlAH0AfQA=\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 24508,
+      "ProcessId": 35096
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 35096,
+      "ProcessId": 16616
+    },
+    {
+      "CommandLine": "powershell.exe  -NoProfile -EncodedCommand JABzAGIAPQBbAFMAeQBzAHQAZQBtAC4AVABlAHgAdAAuAFMAdAByAGkAbgBnAEIAdQBpAGwAZABlAHIAXQA6ADoAbgBlAHcAKAApADsAIAB3AGgAaQBsAGUAKAAkAHQAcgB1AGUAKQB7ACQAbABpAG4AZQA9AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBJAG4ALgBSAGUAYQBkAEwAaQBuAGUAKAApADsAIABpAGYAKAAkAG4AdQBsAGwAIAAtAGUAcQAgACQAbABpAG4AZQAgAC0AbwByACAAJABsAGkAbgBlACAALQBlAHEAIAAnAEUATgBEACcAKQB7AGIAcgBlAGEAawB9ADsAIABbAHYAbwBpAGQAXQAkAHMAYgAuAEEAcABwAGUAbgBkACgAJABsAGkAbgBlACkAfQA7ACAAJABwAGEAdABjAGgAPQBbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAcwBiAC4AVABvAFMAdAByAGkAbgBnACgAKQApADsAIAAkAGcAcAA9ACgARwBlAHQALQBDAG8AbQBtAGEAbgBkACAAZwBpAHQALgBlAHgAZQApAC4AUwBvAHUAcgBjAGUAOwAgAGYAbwByAGUAYQBjAGgAKAAkAGEAcgBnACAAaQBuACAAQAAoACcAYQBwAHAAbAB5ACAALQAtAGMAaABlAGMAawAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcALAAnAGEAcABwAGwAeQAgAC0ALQBpAGcAbgBvAHIAZQAtAHcAaABpAHQAZQBzAHAAYQBjAGUAIAAtACcAKQApAHsAJABwAHMAaQA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACQAZwBwACwAJABhAHIAZwApADsAJABwAHMAaQAuAFcAbwByAGsAaQBuAGcARABpAHIAZQBjAHQAbwByAHkAPQAnAEQAOgBcAHAAcgBvAGoAZQBjAHQAXAB3AG8AcgBrAHQAcgBlAGUAcwBcAGIAbAB1AGUAXwBhAHAAYwBkAF8AbQBkAGMAXwBuAHAAXwBjAG8AdQBwAGwAaQBuAGcAXwBtAGwAXwB2ADEAJwA7ACQAcABzAGkALgBVAHMAZQBTAGgAZQBsAGwARQB4AGUAYwB1AHQAZQA9ACQAZgBhAGwAcwBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AD0AJAB0AHIAdQBlADsAJABwAHMAaQAuAFIAZQBkAGkAcgBlAGMAdABTAHQAYQBuAGQAYQByAGQATwB1AHQAcAB1AHQAPQAkAHQAcgB1AGUAOwAkAHAAcwBpAC4AUgBlAGQAaQByAGUAYwB0AFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIAPQAkAHQAcgB1AGUAOwAkAHAAPQBbAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAXQA6ADoAUwB0AGEAcgB0ACgAJABwAHMAaQApADsAJABwAC4AUwB0AGEAbgBkAGEAcgBkAEkAbgBwAHUAdAAuAEIAYQBzAGUAUwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHAAYQB0AGMAaAAsADAALAAkAHAAYQB0AGMAaAAuAEwAZQBuAGcAdABoACkAOwAkAHAALgBTAHQAYQBuAGQAYQByAGQASQBuAHAAdQB0AC4AQwBsAG8AcwBlACgAKQA7ACQAbwA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABPAHUAdABwAHUAdAAuAFIAZQBhAGQAVABvAEUAbgBkACgAKQA7ACQAZQA9ACQAcAAuAFMAdABhAG4AZABhAHIAZABFAHIAcgBvAHIALgBSAGUAYQBkAFQAbwBFAG4AZAAoACkAOwAkAHAALgBXAGEAaQB0AEYAbwByAEUAeABpAHQAKAApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AE8AdQB0AC4AVwByAGkAdABlAEwAaQBuAGUAKAAnAEcASQBUAF8AQQBQAFAATABZAF8ARQBYAEkAVAA9ACcAKwAkAHAALgBFAHgAaQB0AEMAbwBkAGUAKQA7AFsAQwBvAG4AcwBvAGwAZQBdADoAOgBPAHUAdAAuAFcAcgBpAHQAZQAoACQAbwApADsAWwBDAG8AbgBzAG8AbABlAF0AOgA6AEUAcgByAG8AcgAuAFcAcgBpAHQAZQAoACQAZQApADsAaQBmACgAJABwAC4ARQB4AGkAdABDAG8AZABlACAALQBuAGUAIAAwACkAewBlAHgAaQB0ACAAJABwAC4ARQB4AGkAdABDAG8AZABlAH0AfQA=",
+      "Name": "powershell.exe",
+      "ParentProcessId": 35096,
+      "ProcessId": 2960
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netbird\\Netbird.exe\" service run --log-level info --daemon-addr npipe://netbird --log-file C:\\ProgramData\\Netbird\\client.log",
+      "Name": "netbird.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 29800
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Netbird\\Netbird-ui.exe\" C:\\Users\\DELL\\Desktop\\Drawing1.dwg",
+      "Name": "netbird-ui.exe",
+      "ParentProcessId": 6252,
+      "ProcessId": 41592
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"powershell.exe -NoProfile -EncodedCommand JABwAD0AJwBDADoAXABVAHMAZQByAHMAXABEAEUATABMAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABjAG8AZABlAHgAXwBwAGkAcABlAF8AcAByAG8AYgBlAC4AdAB4AHQAJwA7ACAAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJABwACwAJwAnACkAOwAgAHcAaABpAGwAZQAoACQAdAByAHUAZQApAHsAJABsAGkAbgBlAD0AWwBDAG8AbgBzAG8AbABlAF0AOgA6AFIAZQBhAGQATABpAG4AZQAoACkAOwAgAGkAZgAoACQAbABpAG4AZQAgAC0AZQBxACAAJwBFAE4ARAAnACkAewBiAHIAZQBhAGsAfQA7ACAAWwBJAE8ALgBGAGkAbABlAF0AOgA6AEEAcABwAGUAbgBkAEEAbABsAFQAZQB4AHQAKAAkAHAALABbAFQAZQB4AHQALgBFAG4AYwBvAGQAaQBuAGcAXQA6ADoAQQBTAEMASQBJAC4ARwBlAHQAUwB0AHIAaQBuAGcAKABbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAbABpAG4AZQApACkAKQB9ADsAIABXAHIAaQB0AGUALQBPAHUAdABwAHUAdAAgACcARABPAE4ARQAnAA==\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 38532,
+      "ProcessId": 42932
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 42932,
+      "ProcessId": 14152
+    },
+    {
+      "CommandLine": "powershell.exe  -NoProfile -EncodedCommand JABwAD0AJwBDADoAXABVAHMAZQByAHMAXABEAEUATABMAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABjAG8AZABlAHgAXwBwAGkAcABlAF8AcAByAG8AYgBlAC4AdAB4AHQAJwA7ACAAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJABwACwAJwAnACkAOwAgAHcAaABpAGwAZQAoACQAdAByAHUAZQApAHsAJABsAGkAbgBlAD0AWwBDAG8AbgBzAG8AbABlAF0AOgA6AFIAZQBhAGQATABpAG4AZQAoACkAOwAgAGkAZgAoACQAbABpAG4AZQAgAC0AZQBxACAAJwBFAE4ARAAnACkAewBiAHIAZQBhAGsAfQA7ACAAWwBJAE8ALgBGAGkAbABlAF0AOgA6AEEAcABwAGUAbgBkAEEAbABsAFQAZQB4AHQAKAAkAHAALABbAFQAZQB4AHQALgBFAG4AYwBvAGQAaQBuAGcAXQA6ADoAQQBTAEMASQBJAC4ARwBlAHQAUwB0AHIAaQBuAGcAKABbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACQAbABpAG4AZQApACkAKQB9ADsAIABXAHIAaQB0AGUALQBPAHUAdABwAHUAdAAgACcARABPAE4ARQAnAA==",
+      "Name": "powershell.exe",
+      "ParentProcessId": 42932,
+      "ProcessId": 32708
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k DevicesFlow -s DevicesFlowUserSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 32616
+    },
+    {
+      "CommandLine": "\"C:\\Windows\\System32\\ShellHost.exe\"",
+      "Name": "ShellHost.exe",
+      "ParentProcessId": 17788,
+      "ProcessId": 24044
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\system32\\taskmgr.exe\" /4",
+      "Name": "Taskmgr.exe",
+      "ParentProcessId": 24568,
+      "ProcessId": 38472
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Microsoft OneDrive\\26.173.0906.0008\\OneDrive.Sync.Service.exe\"",
+      "Name": "OneDrive.Sync.Service.exe",
+      "ParentProcessId": 28956,
+      "ProcessId": 27592
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe\" \"N:\\ZBB\\ercixiaoyan\\culue100\\quancaiduidie100um.aedt\"",
+      "Name": "ansysedt.exe",
+      "ParentProcessId": 6252,
+      "ProcessId": 43840
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe\" -acl 43840.98658 -nodaemon -log C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.43840.98658.log",
+      "Name": "ansyscl.exe",
+      "ParentProcessId": 43840,
+      "ProcessId": 37056
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe\" \"N:\\ZBB\\ercixiaoyan\\culue100\\quancaiduidie100um jingangshitop1.aedt\"",
+      "Name": "ansysedt.exe",
+      "ParentProcessId": 6252,
+      "ProcessId": 43460
+    },
+    {
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\licensingclient\\winx64\\ansyscl.exe\" -acl 43460.91820 -nodaemon -log C:\\Users\\DELL\\AppData\\Local\\Temp\\.ansys\\ansyscl.DESKTOP-NNE313K.43460.91820.log",
+      "Name": "ansyscl.exe",
+      "ParentProcessId": 43460,
+      "ProcessId": 45300
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"N:\\anaconda_envs\\RCP_LCP\\python.exe -\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 37024,
+      "ProcessId": 45704
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 45704,
+      "ProcessId": 17148
+    },
+    {
+      "CommandLine": "N:\\anaconda_envs\\RCP_LCP\\python.exe  -",
+      "Name": "python.exe",
+      "ParentProcessId": 45704,
+      "ProcessId": 18936
+    },
+    {
+      "CommandLine": "ssh -i C:\\Users\\zlt\\.ssh\\lumerical_win_ed25519 -o BatchMode=yes -o IdentitiesOnly=yes HostKeyAlias=apcd-lumerical-server -o ConnectTimeout=10 dell@100.81.105.58 N:\\anaconda_envs\\RCP_LCP\\python.exe -",
+      "Name": "ssh.exe",
+      "ParentProcessId": 18936,
+      "ProcessId": 40664
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --embedded-browser-webview=1 --webview-exe-name=AweSun.exe --webview-exe-version=16.6.0+32198 --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\flutter_webview_windows\\AweSun\\EBWebView\" --noerrdialogs --mojo-named-platform-channel-pipe=37900.30748.15143160103046199100 /pfhostedapp:d7aba9f0f74db2b9cb5bc69bb1bb2bdc68b440e4",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 37900,
+      "ProcessId": 9192
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --embedded-browser-webview=1 --webview-exe-name=AweSun.exe --webview-exe-version=16.6.0+32198 --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\flutter_webview_windows\\AweSun\\EBWebView\" --noerrdialogs --mojo-named-platform-channel-pipe=44496.33564.15957499579568648283 /pfhostedapp:d7aba9f0f74db2b9cb5bc69bb1bb2bdc68b440e4",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 44496,
+      "ProcessId": 5488
+    },
+    {
+      "CommandLine": "\"dwm.exe\"",
+      "Name": "dwm.exe",
+      "ParentProcessId": 2516,
+      "ProcessId": 41260
+    },
+    {
+      "CommandLine": "\"C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe\" -ServerName:microsoft.windows.immersivecontrolpanel",
+      "Name": "SystemSettings.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 22576
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.26072.257.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe\" -ComServer:Background -Embedding",
+      "Name": "PhoneExperienceHost.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 45192
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\wbem\\wmiprvse.exe",
+      "Name": "WmiPrvSE.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 28924
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\System32\\svchost.exe -k netsvcs -p -s NetSetupSvc",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 21816
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.1002.7124.0_x64__2p2nqsd0c76g0\\app\\resources\\codex-windows-sandbox-service.exe\"",
+      "Name": "codex-windows-sandbox-service.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 44416
+    },
+    {
+      "CommandLine": "C:\\Windows\\helppane.exe -Embedding",
+      "Name": "HelpPane.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 4712
+    },
+    {
+      "CommandLine": "\"C:\\Windows\\System32\\WUDFHost.exe\" -HostGUID:{193a1820-d9ac-4997-8c55-be817523f6aa} -IoEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-3c6f7543-c950-492e-9bf3-5a14a9a1c29d -SystemEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-07666730-ad31-4209-ac82-42b4616c7970 -IoCancelEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-ebe4e00b-58de-4454-82fe-2cd5479622ef -NonStateChangingEventPortName:\\UMDFCommunicationPorts\\WUDF\\HostProcess-5c3b52e1-1479-404c-bfaf-989149407f40 -LifetimeId:174b7e0f-dd62-4699-9806-94a58f6e5b9f -DeviceGroupId:OrayIddDriverGroup -HostArg:0",
+      "Name": "WUDFHost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 39196
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\Explorer.EXE",
+      "Name": "explorer.exe",
+      "ParentProcessId": 18952,
+      "ProcessId": 39904
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe\" -ServerName:CortanaUI.AppXstmwaab17q5s3y22tp6apqz7a45vwv65.mca",
+      "Name": "SearchHost.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 38268
+    },
+    {
+      "CommandLine": "\"C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe\" -ServerName:FullTrustApp.AppXykjsye98af63ez2annt9djke8trg8stn.mca",
+      "Name": "StartMenuExperienceHost.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 35512
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe\" -ServerName:InputApp.AppXk0k6mrh4r2q0ct33a9wgbez0x7v9cz5y.mca",
+      "Name": "TextInputHost.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 27332
+    },
+    {
+      "CommandLine": "C:\\Windows\\System32\\oobe\\UserOOBEBroker.exe -Embedding",
+      "Name": "UserOOBEBroker.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 41476
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Microsoft OneDrive\\26.173.0906.0008\\FileCoAuth.exe\" -Embedding",
+      "Name": "FileCoAuth.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 19416
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe\" -ServerName:App.AppXtk181tbxbce2qsex02s8tw7hfxa9xb3t.mca",
+      "Name": "ShellExperienceHost.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 23420
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --embedded-browser-webview=1 --webview-exe-name=SearchHost.exe --webview-exe-version=2607.28006.200.0 --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView\" --noerrdialogs --disable-features=msSmartScreenProtection --edge-webview-enable-mojo-ipcz --enable-features=msEdgeFluentOverlayScrollbar --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; Cortana 1.18.9.23723; 10.0.0.0.26200.9457) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.26200 IsWebView2/True (WebView2Version 153.0.4234.48)\" --lang=zh-Hans-CN --mojo-named-platform-channel-pipe=38268.27964.5396787423804016347 /pfhostedapp:060a2b17a7cf242985511af1734e4302ecf50899",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 38268,
+      "ProcessId": 43896
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --type=crashpad-handler --user-data-dir=C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView /prefetch:4 /pfhostedapp:060a2b17a7cf242985511af1734e4302ecf50899 --monitor-self-annotation=ptype=crashpad-handler --database=C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView\\Crashpad --metrics-dir=C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView --annotation=IsOfficialBuild=1 --annotation=channel= --annotation=chromium-version=154.0.8037.98 \"--annotation=exe=C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --annotation=plat=Win64 \"--annotation=prod=Edge WebView2\" --annotation=ver=154.0.4258.62 --initial-client-data=0x17c,0x180,0x184,0x158,0x18c,0x7ffeccc683e0,0x7ffeccc683f0,0x7ffeccc68400",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 43896,
+      "ProcessId": 27240
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --type=gpu-process --gpu-recent-crash-count=0 --noerrdialogs --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; Cortana 1.18.9.23723; 10.0.0.0.26200.9457) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.26200 IsWebView2/True (WebView2Version 153.0.4234.48)\" --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView\" --webview-exe-name=SearchHost.exe --webview-exe-version=2607.28006.200.0 --embedded-browser-webview=1 --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --always-read-main-dll --metrics-shmem-handle=1904,i,18433115003600623717,16067303137305048818,262144 --field-trial-handle=2084,i,4341507231558692454,9080798240844839840,262144 --enable-features=msEdgeFluentOverlayScrollbar --disable-features=msSmartScreenProtection --variations-seed-version --pseudonymization-salt-handle=2088,i,17943104411597110755,10268464692045667166,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=2036 /prefetch:2 /pfhostedapp:060a2b17a7cf242985511af1734e4302ecf50899",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 43896,
+      "ProcessId": 41244
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --noerrdialogs --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; Cortana 1.18.9.23723; 10.0.0.0.26200.9457) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.26200 IsWebView2/True (WebView2Version 153.0.4234.48)\" --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView\" --webview-exe-name=SearchHost.exe --webview-exe-version=2607.28006.200.0 --embedded-browser-webview=1 --always-read-main-dll --metrics-shmem-handle=2276,i,9265005133483440614,4399892515699554759,524288 --field-trial-handle=2084,i,4341507231558692454,9080798240844839840,262144 --enable-features=msEdgeFluentOverlayScrollbar --disable-features=msSmartScreenProtection --variations-seed-version --pseudonymization-salt-handle=2088,i,17943104411597110755,10268464692045667166,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2268 /prefetch:11 /pfhostedapp:060a2b17a7cf242985511af1734e4302ecf50899",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 43896,
+      "ProcessId": 37496
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --type=utility --utility-sub-type=storage.mojom.StorageService --lang=zh-CN --service-sandbox-type=service --noerrdialogs --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; Cortana 1.18.9.23723; 10.0.0.0.26200.9457) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.26200 IsWebView2/True (WebView2Version 153.0.4234.48)\" --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView\" --webview-exe-name=SearchHost.exe --webview-exe-version=2607.28006.200.0 --embedded-browser-webview=1 --always-read-main-dll --metrics-shmem-handle=2652,i,10695825300132451062,3913573295721721859,524288 --field-trial-handle=2084,i,4341507231558692454,9080798240844839840,262144 --enable-features=msEdgeFluentOverlayScrollbar --disable-features=msSmartScreenProtection --variations-seed-version --pseudonymization-salt-handle=2088,i,17943104411597110755,10268464692045667166,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=2668 /prefetch:13 /pfhostedapp:060a2b17a7cf242985511af1734e4302ecf50899",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 43896,
+      "ProcessId": 39684
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe\" --type=renderer --noerrdialogs --user-agent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; Cortana 1.18.9.23723; 10.0.0.0.26200.9457) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.26200 IsWebView2/True (WebView2Version 153.0.4234.48)\" --user-data-dir=\"C:\\Users\\DELL\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\LocalState\\EBWebView\" --webview-exe-name=SearchHost.exe --webview-exe-version=2607.28006.200.0 --embedded-browser-webview=1 --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flags --device-scale-factor=1 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=5 --always-read-main-dll --launch-time-ticks=886694453207 --metrics-shmem-handle=4200,i,1520988801934040499,10040891893774165244,1048576 --field-trial-handle=2084,i,4341507231558692454,9080798240844839840,262144 --enable-features=msEdgeFluentOverlayScrollbar --disable-features=msSmartScreenProtection --variations-seed-version --pseudonymization-salt-handle=2088,i,17943104411597110755,10268464692045667166,4 --trace-process-track-uuid=3190708990997080739 --mojo-platform-channel-handle=4208 /pfhostedapp:060a2b17a7cf242985511af1734e4302ecf50899 /prefetch:1",
+      "Name": "msedgewebview2.exe",
+      "ParentProcessId": 43896,
+      "ProcessId": 15440
+    },
+    {
+      "CommandLine": "C:\\Windows\\System32\\RuntimeBroker.exe -Embedding",
+      "Name": "RuntimeBroker.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 36904
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\wbem\\wmiprvse.exe",
+      "Name": "WmiPrvSE.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 41700
+    },
+    {
+      "CommandLine": "\"D:\\software_install_location\\xiangrikui\\AweSun\\flutter\\AweSun.exe\" ",
+      "Name": "AweSun.exe",
+      "ParentProcessId": 38632,
+      "ProcessId": 31236
+    },
+    {
+      "CommandLine": "\"D:\\software_install_location\\xiangrikui\\AweSun\\AweSun.exe\" --mod=service",
+      "Name": "AweSun.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 21576
+    },
+    {
+      "CommandLine": "D:\\software_install_location\\xiangrikui\\AweSun\\AweSun.exe --mod=watch --pid=21576",
+      "Name": "AweSun.exe",
+      "ParentProcessId": 21576,
+      "ProcessId": 34992
+    },
+    {
+      "CommandLine": "\"D:\\software_install_location\\xiangrikui\\AweSun\\awesun_guard\\64\\awesun_guard.exe\" start -mode worker -server api-ti.sunlogin.oray.com -sunlogin -appname \"Global\\966DDA87-F543-42B4-B6CE-A1225068B7C7\" -client_id \"\" -uid 0 -ua \"SLRC/16.6.0.32198 (Windows,x64,10.0.26200,appname=sunloginRemoteClient)\" ",
+      "Name": "awesun_guard.exe",
+      "ParentProcessId": 21576,
+      "ProcessId": 39028
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 39028,
+      "ProcessId": 15564
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\wbem\\unsecapp.exe -Embedding",
+      "Name": "unsecapp.exe",
+      "ParentProcessId": 3236,
+      "ProcessId": 20624
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\AUDIODG.EXE 0x000000000000067C",
+      "Name": "audiodg.exe",
+      "ParentProcessId": 5480,
+      "ProcessId": 32040
+    },
+    {
+      "CommandLine": "\"D:\\software_install_location\\Origin2024\\Origin64.exe\" ",
+      "Name": "Origin64.exe",
+      "ParentProcessId": 39904,
+      "ProcessId": 21932
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\uus\\AMD64\\MoNotificationUx.exe /NotificationType Scan_Seeker_Available /FormFactor Passive /Branding Os /CV rcxHQ7obKU+JF8Xe.1.0.0",
+      "Name": "MoNotificationUx.exe",
+      "ParentProcessId": 30572,
+      "ProcessId": 20672
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --no-startup-window /prefetch:5",
+      "Name": "msedge.exe",
+      "ParentProcessId": 27896,
+      "ProcessId": 44868
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=crashpad-handler \"--user-data-dir=C:\\Users\\DELL\\AppData\\Local\\Microsoft\\Edge\\User Data\" /prefetch:4 --monitor-self-annotation=ptype=crashpad-handler \"--database=C:\\Users\\DELL\\AppData\\Local\\Microsoft\\Edge\\User Data\\Crashpad\" \"--metrics-dir=C:\\Users\\DELL\\AppData\\Local\\Microsoft\\Edge\\User Data\" --annotation=IsOfficialBuild=1 --annotation=channel= --annotation=chromium-version=154.0.8037.98 \"--annotation=exe=C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --annotation=plat=Win64 --annotation=prod=Edge --annotation=ver=154.0.4258.62 --initial-client-data=0x29c,0x2a0,0x2a4,0x298,0x2ac,0x7ffeccc683e0,0x7ffeccc683f0,0x7ffeccc68400",
+      "Name": "msedge.exe",
+      "ParentProcessId": 44868,
+      "ProcessId": 39012
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=gpu-process --gpu-recent-crash-count=0 --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --startup-read-main-dll --metrics-shmem-handle=2204,i,17774379775720102686,9633216517881116019,262144 --field-trial-handle=2272,i,2266086911464047771,1037634795108457962,262144 --variations-seed-version --pseudonymization-salt-handle=2288,i,16069295556906862542,5349338962461154481,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=2264 /prefetch:2",
+      "Name": "msedge.exe",
+      "ParentProcessId": 44868,
+      "ProcessId": 23044
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --startup-read-main-dll --metrics-shmem-handle=2536,i,13798409617420843663,7769706752153236261,524288 --field-trial-handle=2272,i,2266086911464047771,1037634795108457962,262144 --variations-seed-version --pseudonymization-salt-handle=2288,i,16069295556906862542,5349338962461154481,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2528 /prefetch:11",
+      "Name": "msedge.exe",
+      "ParentProcessId": 44868,
+      "ProcessId": 32468
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=utility --utility-sub-type=storage.mojom.StorageService --lang=zh-CN --service-sandbox-type=service --startup-read-main-dll --metrics-shmem-handle=2664,i,13944936263872672450,1133897411553471229,524288 --field-trial-handle=2272,i,2266086911464047771,1037634795108457962,262144 --variations-seed-version --pseudonymization-salt-handle=2288,i,16069295556906862542,5349338962461154481,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=2444 /prefetch:13",
+      "Name": "msedge.exe",
+      "ParentProcessId": 44868,
+      "ProcessId": 43508
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flags --device-scale-factor=1 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=7 --skip-read-main-dll --launch-time-ticks=940513909245 --metrics-shmem-handle=6140,i,9138942233293638998,13122849199971084044,1048576 --field-trial-handle=2272,i,2266086911464047771,1037634795108457962,262144 --variations-seed-version --pseudonymization-salt-handle=2288,i,16069295556906862542,5349338962461154481,4 --trace-process-track-uuid=3190708992871164437 --mojo-platform-channel-handle=5256 /prefetch:1",
+      "Name": "msedge.exe",
+      "ParentProcessId": 44868,
+      "ProcessId": 35220
+    },
+    {
+      "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flags --device-scale-factor=1 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=9 --skip-read-main-dll --launch-time-ticks=940514190492 --metrics-shmem-handle=6360,i,3265518249037339773,7980483892530747994,1048576 --field-trial-handle=2272,i,2266086911464047771,1037634795108457962,262144 --variations-seed-version --pseudonymization-salt-handle=2288,i,16069295556906862542,5349338962461154481,4 --trace-process-track-uuid=3190708994745248135 --mojo-platform-channel-handle=6616 /prefetch:1",
+      "Name": "msedge.exe",
+      "ParentProcessId": 44868,
+      "ProcessId": 22740
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s wuauserv",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 4796
+    },
+    {
+      "CommandLine": null,
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 5364
+    },
+    {
+      "CommandLine": "C:\\WINDOWS\\system32\\svchost.exe -k GPSvcGroup",
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 39220
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Autodesk\\AdskIdentityManager\\1.16.5.1/AdskIdentityManager.exe\" --process_name Autodesk.IDSDK.DefaultProcess-v2 --server_name Autodesk.IDSDK.DefaultServer-v2",
+      "Name": "AdskIdentityManager.exe",
+      "ParentProcessId": 16596,
+      "ProcessId": 18708
+    },
+    {
+      "CommandLine": "\"C:\\Program Files\\Common Files\\Autodesk\\AdpDesktopSDK\\bin\\ADPClientService.exe\" -f C:\\Users\\DELL\\AppData\\Roaming\\Autodesk\\ADPSDK\\JSON",
+      "Name": "ADPClientService.exe",
+      "ParentProcessId": 24036,
+      "ProcessId": 45604
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 45604,
+      "ProcessId": 4336
+    },
+    {
+      "CommandLine": null,
+      "Name": "svchost.exe",
+      "ParentProcessId": 2736,
+      "ProcessId": 16268
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\System32\\OpenSSH\\sshd.exe\" -R",
+      "Name": "sshd.exe",
+      "ParentProcessId": 6480,
+      "ProcessId": 7500
+    },
+    {
+      "CommandLine": "\"C:\\WINDOWS\\System32\\OpenSSH\\sshd.exe\" -z",
+      "Name": "sshd.exe",
+      "ParentProcessId": 7500,
+      "ProcessId": 41064
+    },
+    {
+      "CommandLine": "\"c:\\windows\\system32\\cmd.exe\" /c \"C:\\Users\\DELL\\anaconda3\\python.exe -\"",
+      "Name": "cmd.exe",
+      "ParentProcessId": 41064,
+      "ProcessId": 22988
+    },
+    {
+      "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4",
+      "Name": "conhost.exe",
+      "ParentProcessId": 22988,
+      "ProcessId": 43796
+    },
+    {
+      "CommandLine": "C:\\Users\\DELL\\anaconda3\\python.exe  -",
+      "Name": "python.exe",
+      "ParentProcessId": 22988,
+      "ProcessId": 28172
+    },
+    {
+      "CommandLine": "powershell.exe -NoProfile -NonInteractive -Command \"$ErrorActionPreference='Stop'; @(Get-CimInstance Win32_Process | Select-Object ProcessId,ParentProcessId,Name,CommandLine | ConvertTo-Json -Compress)\"",
+      "Name": "powershell.exe",
+      "ParentProcessId": 28172,
+      "ProcessId": 29100
+    }
+  ],
+  "readonly_preflight": "PASS",
+  "retirement_receipt_sha256": "0158543576913be51462dbce1bb61a99bbd1533a38dcfe23220a0db11fa9ae52",
+  "runner_head": "79b1f4081a3d9a0e9f287c14e88f0e5399c0d4a3",
+  "source_sha256": "93d29da19fcc5b8d5df826646683a3090f785673177ece82697be01542980947",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 39, in <module>\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py\", line 380, in wrapped\n    return function(*args, **kwargs)\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py\", line 1705, in retire_rebind_controller_task\n    raise SchedulerRunnerError(\"CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH\")\ntask_scheduler_v1.SchedulerRunnerError: CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH\n"
+}

@@ -44,3 +44,18 @@ Remote RCP_LCP validation: focused generic closeout tests `9 passed`; `serial_qu
 4. Invoke official `start_controller_task` once for new request; do not call old G026 resume or run-one manually. Let server queue dispatch G027 onward.
 5. Reconnect through a new SSH session; verify G027 actual entry, then durable native H5/FSP/provenance, Coupling truth and label validation before claiming completion or next-case dispatch. Continue observing queue autonomously; never stop it merely at 3/10-case milestones.
 6. If an entered case fails without truth, preserve evidence, keep entry consumed, reconcile through generic closeout, and continue only through official safe rebind/resume within current authorization. Do not replay.
+
+
+## Current checkpoint — rebind blocked by Runner legacy task XML compatibility
+
+Observed 2026-10-09 UTC after one official `retire_rebind_controller_task` call. The API rejected with `CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH`; direct Runner validator returns `SCHEDULER_TASK_EXECUTION_TIME_LIMIT_INVALID` because the installed old controller task has no explicit `<ExecutionTimeLimit>` element and Task Scheduler reports PT72H, while current Runner API requires PT0S. Old task XML also omits explicit `<Enabled>`. Runner's own final report documents the old task as PT72H. This is a Runner API compatibility defect at its rebind boundary.
+
+No bypass or direct Scheduler edit was performed. The call prepared only successor request manifest and binding files. It did not create a successor start claim/status or switch global task binding. Live task still points to old request `bb93248ca2dff9605d7885554a319394`, Ready/LastTaskResult 2, PT72H, IgnoreNew, InteractiveToken. Exact post-failure state is in `POST_REBIND_FAILURE_STATE_V1.json`; full call traceback in `CONTROL_TRANSITION_EVIDENCE_V1.json`.
+
+Current ledger remains 38 entered / 34 truth-valid / 34 labels-valid / 90 unentered; G027 no entry. Training=0, P_scale fits=0, confirmation access=0, replay=0. Global slot free; no controller/worker/solver active. Eight unowned FDTD API-server processes were left untouched.
+
+### Required next step
+
+Runner owner must update the official rebind API to safely recognize the installed legacy PT72H/default-field task definition (while proving old request/action/principal/IgnoreNew and stopped state), then replace it through the Runner lifecycle with the successor task under explicit PT0S. Do not manually edit Task Scheduler XML or inject a fake XML query. Once Runner reports that compatibility fix and its version pin, re-run the official read-only preflight and the single official rebind call using this same request/receipt lineage. After successful rebind, verify actual XML/binding PT0S + IgnoreNew + DELL InteractiveToken, then call `start_controller_task` exactly once and verify G027 entry through a new SSH connection.
+
+Do not retry rebind against unchanged Runner HEAD. Do not run G027 manually, replay G026, stop/kill unknown API servers, or change entry budget.

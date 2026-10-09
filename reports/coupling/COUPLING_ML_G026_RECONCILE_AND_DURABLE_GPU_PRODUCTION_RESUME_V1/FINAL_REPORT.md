@@ -2,7 +2,7 @@
 
 ## Status at saved checkpoint
 
-**PARTIAL — G026 has been reconciled and the successor passed official read-only retirement preflight. The controller has not yet been rebound or started. No G027 solver entry or new truth is present in the observed state.**
+**BLOCKED — G026 is reconciled and Runner retirement preflight passed, but the official Runner rebind API rejects the installed legacy controller Task Scheduler XML. No G027 solver entry or new truth is present.**
 
 ## Authority and current versions
 
@@ -38,3 +38,12 @@ No new training, P_scale fit, confirmation-response access, solver entry, replay
 ## Next
 
 Commit only task-owned code/test/report files by exact allowlist. Then run Runner's official `retire_rebind_controller_task`, inspect the live task XML and binding for successor + PT0S + IgnoreNew, and call `start_controller_task` once. Verify actual G027 entry in a new SSH connection, then verify durable native H5/FSP/provenance and label ingestion before the next case. Keep the queue running and update this report, continuation, and SHA inventory with observed production evidence.
+
+
+## Final formal rebind attempt — 2026-10-09 UTC
+
+The official `retire_rebind_controller_task` API was invoked once with the verified old binding SHA, successor manifest SHA, and retirement receipt SHA. It failed closed with `CONTROLLER_REBIND_TASK_DEFINITION_MISMATCH` at Runner `task_scheduler_v1.py:1705`. Direct validation of the installed old task reports `SCHEDULER_TASK_EXECUTION_TIME_LIMIT_INVALID`: Task Scheduler reports `ExecutionTimeLimit=PT72H`, and the exported old XML omits an explicit `ExecutionTimeLimit` element (it also omits an explicit `Enabled` element). Runner's current validator defaults to requiring the new `PT0S` contract, so it refuses to recognize its own prior installed task as the old side of a rebind. The Runner delivery report documents that old task as PT72H, therefore this is a compatibility gap in the Runner rebind path, not a Coupling receipt or case-lineage mismatch.
+
+The call created only the successor request's immutable manifest/binding under Runner request storage; it created no `start_claim.json` or successor controller status. The active task binding is unchanged and still points to old request `bb93248ca2dff9605d7885554a319394`; Task Scheduler remains Ready/LastTaskResult=2, PT72H, IgnoreNew, DELL/InteractiveToken. No controller, worker, or FDTD engine is active; the eight unowned `fdtd-solutions.exe -server -hide` API processes remain untouched. G027 remains unentered. Ledger is unchanged at 38 entered / 34 truth-valid / 34 labels-valid / 90 unentered; replay, training fits, P_scale fits, and confirmation-response access remain 0.
+
+The failure and state snapshot are saved in `CONTROL_TRANSITION_EVIDENCE_V1.json` and `POST_REBIND_FAILURE_STATE_V1.json`; see `SHA256_INVENTORY_V1.json`. Coupling's exact-allowlist commit `135d48c8becdc8c85ff45f7916372ac865ba1167` is pushed. A Runner-owned compatibility update is required before another official rebind attempt. No manual Scheduler XML edit or validator bypass was made.
