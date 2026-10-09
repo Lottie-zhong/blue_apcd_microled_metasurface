@@ -612,6 +612,34 @@ def _run_rebind(args, **overrides):
         args["old_request_id"], args["new_manifest_path"], args["receipt_path"], **kwargs)
 
 
+
+def test_retire_rebind_ignores_retire_cli_request_id_as_active_owner(tmp_path):
+    args = _rebind_fixture(tmp_path)
+    old_id = args["old_request_id"]
+    process_inventory = [
+        {"Name": "cmd.exe", "CommandLine":
+         r"cmd.exe /c task_scheduler_v1.py retire-rebind-controller-task " + old_id},
+        {"Name": "python.exe", "CommandLine":
+         r"N:\anaconda_envs\RCP_LCP\python.exe D:\project\worktrees\runner\task_scheduler_v1.py retire-rebind-controller-task " + old_id},
+    ]
+    result = _run_rebind(args, process_inventory_fn=lambda: process_inventory)
+    assert result["result"] == "REBOUND"
+    assert result["started"] is False
+    assert result["solver_entries"] == result["automatic_replays"] == 0
+
+
+@pytest.mark.parametrize("process", [
+    {"Name": "python.exe", "CommandLine": r"python.exe D:\coupling\serial_queue.py --runner-controller-request-id " + "b" * 32},
+    {"Name": "python.exe", "CommandLine": r"python.exe D:\runner\task_scheduler_v1.py worker-once " + "c" * 32},
+    {"Name": "fdtd-engine-msmpi.exe", "CommandLine": r"fdtd-engine-msmpi.exe -gpu"},
+])
+def test_retire_rebind_still_rejects_active_controller_worker_or_solver(tmp_path, process):
+    args = _rebind_fixture(tmp_path)
+    with pytest.raises(scheduler.SchedulerRunnerError,
+                       match="CONTROLLER_OR_SOLVER_PROCESS_STILL_ACTIVE"):
+        _run_rebind(args, process_inventory_fn=lambda: [process])
+
+
 def test_retire_rebind_preserves_history_is_single_owner_and_idempotent(tmp_path):
     args = _rebind_fixture(tmp_path)
     start_count = len(args["state"]["start_calls"])

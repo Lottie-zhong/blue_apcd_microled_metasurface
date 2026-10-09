@@ -995,11 +995,12 @@ def _assert_no_controller_or_solver_processes(processes, old_request_id):
     for process in processes:
         name = str(process.get("Name", process.get("name", ""))).lower()
         command = str(process.get("CommandLine", process.get("command_line", ""))).lower()
-        if (old_request_id.lower() in command
-                or "serial_queue.py" in command
-                or ("task_scheduler_v1.py" in command and
-                    ("worker-once" in command or old_request_id.lower() in command))
-                or "fdtd-engine" in name or "fdtd-engine" in command):
+        # A request ID is also present in the retire/rebind CLI and its shell parent.
+        # Require a controller, worker, or engine entrypoint before treating it as active work.
+        active_controller = "serial_queue.py" in command
+        active_worker = "task_scheduler_v1.py" in command and "worker-once" in command
+        active_solver = "fdtd-engine" in name or "fdtd-engine" in command
+        if active_controller or active_worker or active_solver:
             raise SchedulerRunnerError("CONTROLLER_OR_SOLVER_PROCESS_STILL_ACTIVE")
 
 
