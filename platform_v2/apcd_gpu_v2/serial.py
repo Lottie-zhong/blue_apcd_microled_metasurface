@@ -551,8 +551,9 @@ def gpu_inventory_gate(config):
     values=[int(devices[0][1].strip())]
     if values[0]<1369:raise Refused('GPU_MEMORY_NOT_QUALIFIED')
     result=subprocess.run(['nvidia-smi','--query-compute-apps=pid,process_name,used_memory','--format=csv,noheader,nounits'],capture_output=True,text=True,check=True)
-    gpu_consumers=classify_gpu_consumers(result.stdout)
-    if any(r['classification']!='DISPLAY_ACTIVITY' for r in gpu_consumers):
+    from .gpu_readonly import resolve_idle_edt
+    gpu_consumers=resolve_idle_edt(classify_gpu_consumers(result.stdout))
+    if any(r['classification'] not in ['DISPLAY_ACTIVITY','VERIFIED_IDLE_EDT_GUI'] for r in gpu_consumers):
         raise Refused('EXTERNAL_GPU_SCIENCE_OR_UNATTRIBUTED_CONSUMER')
     return dict(gpu_free_mib=values[0],gpu_consumers=gpu_consumers)
 
