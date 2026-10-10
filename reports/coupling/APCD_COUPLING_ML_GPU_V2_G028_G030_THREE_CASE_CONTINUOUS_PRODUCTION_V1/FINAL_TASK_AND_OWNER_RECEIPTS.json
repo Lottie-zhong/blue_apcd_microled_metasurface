@@ -1,0 +1,60 @@
+{
+  "schema": "COUPLING_G028_G030_OWNER_TERMINAL_AND_TASK_READBACK_V1",
+  "status": "PASS",
+  "observed_at_utc": "2026-10-10T10:36:25.887405+00:00",
+  "task": {
+    "state": 1,
+    "last_result": 0,
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\r\n<Task version=\"1.4\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">\r\n  <RegistrationInfo>\r\n    <Author>APCD GPU Platform V2</Author>\r\n    <Description>One server-owned serial GPU controller; scientific release DENY; installed disabled.</Description>\r\n    <URI>\\APCD_GPU_V2_SERIAL_CONTROLLER</URI>\r\n  </RegistrationInfo>\r\n  <Principals>\r\n    <Principal id=\"Author\">\r\n      <UserId>S-1-5-21-2958591235-2706656562-1210676212-1001</UserId>\r\n      <LogonType>InteractiveToken</LogonType>\r\n      <RunLevel>HighestAvailable</RunLevel>\r\n    </Principal>\r\n  </Principals>\r\n  <Settings>\r\n    <AllowStartOnDemand>false</AllowStartOnDemand>\r\n    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>\r\n    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>\r\n    <Enabled>false</Enabled>\r\n    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>\r\n    <Hidden>true</Hidden>\r\n    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>\r\n    <IdleSettings>\r\n      <StopOnIdleEnd>true</StopOnIdleEnd>\r\n      <RestartOnIdle>false</RestartOnIdle>\r\n    </IdleSettings>\r\n    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>\r\n  </Settings>\r\n  <Triggers />\r\n  <Actions Context=\"Author\">\r\n    <Exec>\r\n      <Command>N:\\anaconda_envs\\RCP_LCP\\python.exe</Command>\r\n      <Arguments>\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2\\tools\\serial_controller.py\" --config \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\serial_config.json\" --requests \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\requests.json\"</Arguments>\r\n      <WorkingDirectory>D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2</WorkingDirectory>\r\n    </Exec>\r\n  </Actions>\r\n</Task>",
+    "instances": 0,
+    "enabled": false
+  },
+  "task_settings": {
+    "execution_time_limit": "PT0S",
+    "multiple_instances": "IgnoreNew",
+    "allow_demand_start": "false",
+    "logon_type": "InteractiveToken",
+    "run_level": "HighestAvailable",
+    "action_command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "action_arguments": "\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2\\tools\\serial_controller.py\" --config \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\serial_config.json\" --requests \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\requests.json\""
+  },
+  "owner_receipts": [
+    {
+      "path": "D:\\apcd_runtime\\gpu_v2_g028_g030_three_case_production_20261010_v1\\TERMINAL_AUDIT.json",
+      "sha256": "35a5fdfd049380611a2258e402b25d3acabe56a6ee70c6d8cfb387d99bd74433"
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_v2_g028_g030_three_case_production_20261010_v1\\CLOSED_DISABLED_DENY_READBACK.json",
+      "sha256": "c91a9e0641d6e64f6df8190994771ebaff8e9a6b13af58de17b9cbdf62c2005c"
+    }
+  ],
+  "automatic_transitions": [
+    {
+      "previous": "K6GDP2_DEV_G028",
+      "next": "K6GDP2_DEV_G029",
+      "previous_truth_terminal": 1791626952.6503563,
+      "next_owner_claim": 1791626953.2045126,
+      "gap_seconds": 0.5541563034057617
+    },
+    {
+      "previous": "K6GDP2_DEV_G029",
+      "next": "K6GDP2_DEV_G030",
+      "previous_truth_terminal": 1791627664.0558474,
+      "next_owner_claim": 1791627664.8093426,
+      "gap_seconds": 0.7534952163696289
+    }
+  ],
+  "controller_invocations": 1,
+  "controller_exit": {
+    "controller_pid": 32848,
+    "creation_time": 1791626240.5275636,
+    "exit_code": 0,
+    "completed_unix": 1791628374.575822,
+    "method": "psutil Windows process-handle wait; no case polling; no process control"
+  },
+  "manual_science_recovery": false,
+  "dispatch_metadata_receipt_recovered": true,
+  "current_release": "DENY",
+  "current_requests": 0,
+  "G031_entry": 0
+}
