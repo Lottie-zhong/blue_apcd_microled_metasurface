@@ -527,6 +527,13 @@ def controller(config,requests,backend,validator,*,fault=lambda step:None):
             recover_load_only(config,candidate[0],ledger,validator)
         for request in requests:
             previous=[r for r in ledger.audit()['tasks'] if r['request_sha']==request.request_sha256]
+            if previous and previous[0]['state']=='REGISTERED' and not previous[0]['entered']:
+                ready=[e for e in ledger.audit()['events'] if e['request_sha']==request.request_sha256 and e['kind']=='PREENTRY_REBOUND_READY']
+                if len(ready)!=1 or json.loads(ready[0]['payload']).get('new_request_sha256')!=request.request_sha256:
+                    raise Refused('REGISTERED_RECOVERY_NOT_EXPLICITLY_REBOUND')
+                run_serial_case(config,request,ledger,backend,validator,fault=fault)
+                if ledger.audit()['slot']['token']:raise Refused('TRUTH_BEFORE_NEXT_REQUIRED')
+                continue
             if previous:
                 external=json.loads(Path(config.coupling_ledger).read_text(encoding='utf-8'))
                 if previous[0]['state']=='TRUTH_VALID' and external['case_records'].get(request.case_id,{}).get('phase')=='V2_TRUTH_VALID':
