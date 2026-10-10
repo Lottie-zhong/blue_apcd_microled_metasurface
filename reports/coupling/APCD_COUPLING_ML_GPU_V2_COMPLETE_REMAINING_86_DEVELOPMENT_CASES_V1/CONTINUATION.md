@@ -1,0 +1,3 @@
+# Recover remaining86 production here first
+
+Read SCIENCE_AUTHORIZATION.json, USER_SCIENCE_AUTHORIZATION.txt, REMAINING86_QUEUE.json, PREENTRY_SCIENTIFIC_AUDIT.json and INITIAL_STATE_AND_FOREIGN_INDEX.json. Scientific source/admission PASS86. GPU owner binding/start pending, no new entry made by this preparation. Initial42/38/38/86. Do not confuse preparation PASS with solver completion. Remote DESKTOP-NNE313K/dell LAN192.168.1.106; Python N:/anaconda_envs/RCP_LCP/python.exe. No replay, no confirmation, no fit. Preserve foreign556 dirty paths and four preexisting staged paths. Current installed a09655cd. Continue existing formal owner lifecycle, then verify actual entry and durable output; do not end at readiness.

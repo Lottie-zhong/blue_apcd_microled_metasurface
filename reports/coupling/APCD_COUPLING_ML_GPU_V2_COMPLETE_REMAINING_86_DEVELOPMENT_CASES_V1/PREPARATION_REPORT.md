@@ -1,0 +1,7 @@
+# Remaining86 production scientific admission
+
+Status: PREENTRY_PASS; production not yet claimed complete. G031-G116 frozen development attempt_001 have verified source/FSP/contract/geometry and old LOAD-only evidence. All86 scope authorized by USER_SCIENCE_AUTHORIZATION.txt. Installed V2 supports one exact immutable86 static list; finite36h owner binding chosen against measured ~711 seconds per case (~17h total). This avoids 9 client-dependent handoffs; ten-case strata remain engineering reports. Current initial42 entries/38truth/38labels/86unentered; four historical failures retained.
+
+Prior3 reports18 and externalSHA186 verified. Read-only auditor tested on already completed G028-G030, 45 scientific source/output pins, zero additional solver/LOAD/fits/confirmation. Actual owner runtime/GPU/license gate and start receipt remain mandatory. No setup regeneration, no physical changes, no fit. SixE/H/nativeFSP/H5/freshLOAD/609labels/H2/dualledger acceptance precedes each next case. Only existing ControllerHEARTBEAT monitoring; no second observer. InteractiveToken remains login-dependent.
+
+Scientific validity limits: same-run modal/native-grating comparison is diagnostic; not mesh convergence, two-plane accuracy or repeatability. Full ML160G pool remains incomplete due four consumed no-truth attempts and remaining86; this task does not authorize replacements or training. Owner final restores Disabled/DENY/requests[]/empty slot.

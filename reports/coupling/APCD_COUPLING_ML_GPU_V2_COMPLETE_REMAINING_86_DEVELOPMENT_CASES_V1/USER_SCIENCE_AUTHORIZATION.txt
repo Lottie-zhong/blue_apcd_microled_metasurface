@@ -1,0 +1,513 @@
+执行下一阶段：
+
+APCD_COUPLING_ML_GPU_V2_COMPLETE_REMAINING_86_DEVELOPMENT_CASES_V1
+
+科学授权：
+APPROVED_ALL_REMAINING_K6_V2_DEVELOPMENT_CASES
+
+授权范围：
+G031–G116，共 86 个冻结开发案例。
+
+用户已经明确批准剩余全部开发案例执行。
+本任务不需要每完成 10 案重新申请 Chat 授权。
+
+目标：
+使用 GPU V2 正式串行生产平台，
+自主完成全部剩余 K6 V2 开发案例的
+3D GPU FDTD 高保真数据生产。
+
+正常情况下：
+自动准入 → 求解 → 原生保存 → 标签验收
+→ 跨账本对账 → 下一合法案例。
+
+持续执行至全部开发案例完成，
+或者出现无法在现有授权内安全处理的硬阻塞。
+
+一、接管当前最新 authority
+
+正式 GPU V2 安装 release：
+
+a09655cd577d7618d3080d35b7a5b2a4a5fc52c5
+
+当前已完成：
+G027 单案真实科学 PASS。
+G028–G030 三案真实连续生产 PASS。
+
+三案均满足：
+- unique entry=1
+- replay=0
+- GPU engine return PASS
+- native FSP/H5 PASS
+- fresh LOAD PASS
+- 609D importer PASS
+- Coupling/V2 双账本 PASS
+- 无 postsolver failure
+- 无人工逐案启动
+
+最新交接基准：
+
+42 entered
+38 truth-valid
+38 labels-valid
+86 unentered
+
+当前：
+Controller Disabled
+science release DENY
+requests empty
+slot empty
+G031 entry=0
+
+首先读取最新科学交接、GPU V2 安装 authority、
+三案生产报告及完整 SHA inventory。
+
+重新核验现场 ledger、runtime、Git、Scheduler、
+V2 SQLite 和当前安装版本。
+
+若有新的正式生产记录，
+以可验证的最新 ledger 为准。
+
+不得重复运行已入场案例。
+
+二、完整科学授权
+
+正式批准：
+
+K6GDP2_DEV_G031
+...
+K6GDP2_DEV_G116
+
+仅限冻结开发清单内的上述案例。
+
+每案：
+attempt_001
+最多一次 scientific entry
+replay=0
+
+本次最多新增 86 次科学 entry。
+
+使用原已批准的 V2 development 预算。
+不得增加预算。
+
+明确禁止：
+
+- G001–G030 的任何重复求解
+- 新增 attempt_002
+- 32 个 confirmation 案入场
+- confirmation response access
+- EXT02 等诊断身份混入
+- queue21 隔离数据入库
+- 新增 DOE 几何
+- 修改源模型或物理合同
+- 未授权的额外 GPU benchmark
+
+若真实 ledger 表明部分 G031–G116 已经入场，
+必须从合法剩余未入场集合继续，
+不得重新执行已消耗 entry 的案例。
+
+三、科学合同保持冻结
+
+固定：
+
+MDC：
+P1_ZL1_ALTERNATIVE_G3_A3
+
+Spacer：
+237 nm
+
+NP：
+K6 六根有序 TiO2 纳米柱
+
+NP height：
+500 nm
+
+Supercell：
+1740 nm × 290 nm
+
+Source：
+3D plane wave
+
+Spectrum：
+440–460 nm，21 wavelengths
+
+Diffraction orders：
+m=-3...+3，n=0
+
+Polarization outputs：
+TE / TM
+
+标签：
+588D complex C_hat
+21D positive P_scale
+合计 609D
+
+保持：
+- 材料模型
+- source orientation
+- FDTD mesh
+- PML
+- monitor
+- 实际采样参考面
+- complex phase convention
+- source normalization
+- H1/H2 物理合同
+
+科学合同 SHA 必须现场完整核验。
+
+不得为了提高速度或成功率
+临时修改 mesh、光源、材料或数值设置。
+
+四、自动串行生产策略
+
+GPU V2 目前使用 immutable static request list，
+不是动态 enqueue API。
+
+优先采用现有 V2 正式机制，
+按有限期、精确绑定的批次持续生产。
+
+建议分批：
+
+Batch 01：G031–G040
+Batch 02：G041–G050
+Batch 03：G051–G060
+Batch 04：G061–G070
+Batch 05：G071–G080
+Batch 06：G081–G090
+Batch 07：G091–G100
+Batch 08：G101–G110
+Batch 09：G111–G116
+
+以上分批是工程执行计划，
+不是九次独立人工科学审批。
+
+所有案例已在本任务中获得明确范围授权。
+
+每批必须由 Coupling Scientific Owner
+提供当前有效的科学 admission。
+
+GPU V2 Owner 按安装版正式协议，
+生成匹配的 immutable request 和 ALLOW release。
+
+每批 release 必须包含：
+- 精确案例及 attempt 清单
+- queue SHA
+- admission digest
+- science contract SHA
+- source FSP SHA
+- installed config/code digest
+- owner_clear
+- fencing
+- 有限有效期
+- science_authorized
+
+禁止使用无限范围 ALLOW。
+
+Release 有效期应依据实际批次规模、
+历史实测耗时和当前 V2 协议确定，
+并为正常保存、验证、系统调度预留余量。
+
+不得静默修改已签发的 release。
+
+五、批次之间自动衔接
+
+本次授权允许 Codex 在前批完成后，
+自主准备、核验并启动下一批。
+
+不需要为正常批次切换再次询问 Chat。
+
+但必须严格保证：
+
+1. 前一批全部达到允许推进的正式终态。
+2. Coupling/V2 双账本完成对账。
+3. 前一批 release 已正式结束或失效。
+4. 没有活跃 controller/worker/solver。
+5. GPU slot 和 fencing 正常。
+6. 新批次全部案例科学准入合法。
+7. 新 release 独立绑定新批次。
+8. 不存在重复 entry 风险。
+
+不要两个批次同时运行。
+
+不得因为 Controller exit=0
+就跳过 truth/label/ledger 验收。
+
+使用 GPU V2 当前正式生命周期 API
+完成必要的下一批启动。
+
+不要创建第二套 GPU Runner，
+不要重写 GPU 调度系统。
+
+如果平台不具备批次自动交接接口，
+优先使用现有正式生命周期接口实现
+最小、可审计、幂等的批次续接操作。
+
+不得为了自动化而削弱安全校验。
+
+六、每案执行流程
+
+每个案例严格执行：
+
+Coupling scientific admission
+→ immutable release validation
+→ preflight
+→ unique entry evidence
+→ real GPU FDTD
+→ native FSP/H5 persistence
+→ fresh LOAD
+→ complex state extraction
+→ 609D label validation
+→ H2 consistency
+→ Coupling importer
+→ dual ledger reconciliation
+→ science terminal
+→ next authorized case
+
+必须保存：
+- 六分量 E/H
+- native FSP
+- native H5
+- C_hat_real/imag
+- P_scale
+- routing
+- absolute-order
+- scientific provenance
+- 完整 SHA
+- execution receipt
+- ingestion receipt
+
+不得用 coordinates-only H5 代替 truth。
+
+不得使用真实验证标签对预测状态进行
+oracle 相位或功率校正。
+
+七、无人逐案执行
+
+正常运行期间：
+
+不要每完成一个 case 就返回 Chat。
+不要每完成 10 案就等待人工批准。
+不要反复执行整个 setup 预处理。
+不要重复启动已经运行的 Controller。
+不要为了形成报告人为停止生产。
+
+持续监控：
+
+entered
+truth-valid
+labels-valid
+failed
+unentered
+active case
+controller state
+GPU engine state
+replay count
+
+优先使用现有低频 heartbeat。
+
+保留阶段报告节点：
+
+10 案
+30 案
+50 案
+全部完成
+
+这些只是进度和质量报告节点，
+不是自动暂停节点。
+
+长时间任务必须由服务器端正式执行机制持有，
+不能依赖本地 SSH 会话持续连接。
+
+当前 InteractiveToken 仍依赖登录状态。
+
+不得擅自注销或重启 Windows
+以测试运行可靠性。
+
+八、异常处理
+
+普通 preentry 工程问题：
+
+自主诊断、最小修复、回归并继续。
+
+但必须再次核验：
+entry=0
+无不明确的活跃 owner
+无重复执行风险。
+
+如果已经发生 post-entry failure：
+
+保护原始 entry 记录。
+保留 FSP/H5 与全部日志。
+优先进行零 solver recovery。
+
+若已存在完整 native truth：
+不得重新运行 solver。
+
+只有原案例完成正式恢复、科学验收、
+跨账本对账，且当前 V2 合同明确允许继续，
+才可恢复后续未入场案例。
+
+如果发生：
+
+- uncertain scientific entry
+- 无法恢复的 post-entry 无 truth
+- source/physics contract mismatch
+- release/admission SHA mismatch
+- ledger contradiction
+- owner/fencing conflict
+- 持续许可证故障
+- 无法合法完成的标签验收
+- 无法归属的科学引擎活动
+
+立即停止新的科学 entry。
+
+不得：
+- 自动 replay
+- 自动退款预算
+- 跳过失败案例继续下一案
+- 强制清理不明进程
+- 直接修改 SQLite 绕过安全协议
+- 使用旧 V1/Shared V3 继续求解
+
+在不可安全解决的硬阻塞下，
+保留证据并向 Chat 报告。
+
+九、生产数据质量
+
+每案检查：
+
+21 wavelength points
+7 propagating orders
+2 output polarization channels
+complete complex C_hat
+positive finite P_scale
+native E/H schema
+geometry identity
+source identity
+reference-plane convention
+normalization
+H2 decoder consistency
+truth SHA
+label SHA
+
+独立保存数值诊断。
+
+不能把 H2 与同一次 FDTD grating
+结果的接近程度，直接解释为
+跨 run 一致性或网格收敛已经证明。
+
+不允许修改冻结 H1/H2 阈值。
+
+十、与机器学习任务隔离
+
+本次只生产高保真科学数据。
+
+不自动启动：
+
+- 281-fit 完整训练计划
+- 新的 KRR/MLP 模型训练
+- NP/MDC 模型重训
+- complex residual 网络训练
+- inverse design
+- confirmation 数据访问
+
+现有 NP 88D 特征消融实验可以
+在独立工作区按其原授权执行，
+但不能干扰 GPU 数据生产或账本写入。
+
+十一、Git 与长期证据
+
+每批完成后保存：
+
+- scientific admission
+- immutable request/release SHA
+- controller lifecycle
+- per-case entry receipt
+- solver result
+- native FSP/H5 identity
+- fresh LOAD result
+- 609D label result
+- ledger reconciliation
+- batch terminal audit
+
+建立一个总汇总报告：
+
+APCD_K6_V2_REMAINING_DEVELOPMENT_PRODUCTION_FINAL_V1
+
+包含全部开发案例最终状态。
+
+保留：
+- 每案唯一 attempt 身份
+- 失败案原始证据
+- 全部 SHA inventory
+- 当前 scientific ledger
+- 可恢复的 continuation
+
+只提交本任务 allowlist 文件。
+
+保留其他任务既有 dirty/staged 内容。
+不得执行全局 reset 或 clean。
+
+原生科学文件保留在正式 runtime archive，
+不添加到 Git。
+
+十二、最终验收
+
+如果 86 个剩余案例全部成功：
+
+预期：
+
+128 entered
+124 truth-valid
+124 labels-valid
+0 unentered
+
+注意：
+已有 4 个历史 entry 未获得有效 truth。
+不得把它们计为有效案例。
+
+最终必须报告：
+
+1. PASS / PARTIAL / BLOCKED。
+2. G031–G116 逐案最终状态。
+3. 每案 entry/replay。
+4. 每案真实 GPU 耗时。
+5. 每案端到端耗时。
+6. FSP/H5/609D 标签 SHA。
+7. 各批次自动推进情况。
+8. 是否发生后处理失败或恢复。
+9. 总成功率、失败数和原因。
+10. Coupling/V2 双账本最终计数。
+11. 32 个 confirmation 是否仍然封存。
+12. 所有失败 entry 是否保留。
+13. 当前 Controller/release/slot 终态。
+14. Git HEAD、报告和 SHA inventory。
+15. 数据库是否具备开展正式 V2 ML 训练的条件。
+16. 尚未完成的物理或数值验证限制。
+
+全部完成后：
+
+Controller 恢复 Disabled。
+Science release 恢复 DENY。
+Requests 恢复安全空状态。
+GPU slot empty。
+
+不得自动开启 confirmation 仿真。
+
+自主执行原则：
+
+本任务授权范围内的普通工程问题，
+自行诊断、修复、测试并继续。
+
+正常批次推进不需要再次申请 Chat 授权。
+
+只有涉及新增预算、科学合同变化、
+已消耗 attempt 重算、确认集访问、
+或无法消除的科学安全冲突时才停止。
+
+最终目标：
+
+在严格科学预算和完整数据质量约束下，
+尽可能自主完成 G031–G116 全部剩余
+K6 V2 开发集 3D GPU FDTD 仿真，
+形成可用于后续耦合机器学习研究的
+完整高保真开发数据库。
