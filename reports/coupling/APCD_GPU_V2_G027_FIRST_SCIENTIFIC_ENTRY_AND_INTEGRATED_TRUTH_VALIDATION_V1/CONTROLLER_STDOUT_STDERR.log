@@ -1,0 +1,68 @@
+INSTALLED_DISABLED; SCIENCE_RELEASE_DENY; SCIENTIFIC_SOLVER_CALLS=0
+CONTROLLER_START 4a3eeb55d9a73382cf95666403623d3c64633dfda025f9276285ac727828505e
+Traceback (most recent call last):
+  File "N:\anaconda_envs\RCP_LCP\lib\site-packages\psutil\_pswindows.py", line 768, in cmdline
+    return cext.proc_cmdline(self.pid, use_peb=True)
+PermissionError: [WinError 5] 拒绝访问。: '(originated from OpenProcess)'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "N:\anaconda_envs\RCP_LCP\lib\site-packages\psutil\_pswindows.py", line 666, in wrapper
+    return fun(self, *args, **kwargs)
+  File "N:\anaconda_envs\RCP_LCP\lib\site-packages\psutil\_pswindows.py", line 684, in wrapper
+    return fun(self, *args, **kwargs)
+  File "N:\anaconda_envs\RCP_LCP\lib\site-packages\psutil\_pswindows.py", line 771, in cmdline
+    return cext.proc_cmdline(self.pid, use_peb=False)
+PermissionError: [WinError 5] 拒绝访问。: '(originated from OpenProcess)'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\apcd_gpu_v2\serial.py", line 590, in classify_gpu_consumers
+    pid=int(cells[0].strip());record=identity(pid)
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\apcd_gpu_v2\processes.py", line 14, in identity
+    "command": p.cmdline(),
+  File "N:\anaconda_envs\RCP_LCP\lib\site-packages\psutil\__init__.py", line 748, in cmdline
+    return self._proc.cmdline()
+  File "N:\anaconda_envs\RCP_LCP\lib\site-packages\psutil\_pswindows.py", line 668, in wrapper
+    raise convert_oserror(err, pid=self.pid, name=self._name) from err
+psutil.AccessDenied: (pid=4236)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\tools\serial_controller.py", line 37, in main
+    controller(config,requests,ProductionNativeBackend(),NativeTruthValidator(config))
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\apcd_gpu_v2\serial.py", line 539, in controller
+    run_serial_case(config,request,ledger,backend,validator,fault=fault)
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\apcd_gpu_v2\serial.py", line 461, in run_serial_case
+    preflight=native_preflight(config,request)
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\apcd_gpu_v2\serial.py", line 562, in native_preflight
+    gpu=gpu_inventory_gate(config)
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\apcd_gpu_v2\serial.py", line 555, in gpu_inventory_gate
+    gpu_consumers=resolve_idle_edt(classify_gpu_consumers(result.stdout))
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\e662a92a4485a768ffbebe56c2d759c1e416722a\platform_v2\apcd_gpu_v2\serial.py", line 592, in classify_gpu_consumers
+    raise Refused('GPU_CONSUMER_IDENTITY_UNKNOWN') from exc
+apcd_gpu_v2.ledger.Refused: GPU_CONSUMER_IDENTITY_UNKNOWN
+CONTROLLER_START e714c92cf5a8d3f4b136718f5afb3987348042799b4a64f52b50aac7f2cc5425
+Traceback (most recent call last):
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\tools\serial_controller.py", line 37, in main
+    controller(config,requests,ProductionNativeBackend(),NativeTruthValidator(config))
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\serial.py", line 534, in controller
+    run_serial_case(config,request,ledger,backend,validator,fault=fault)
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\serial.py", line 473, in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\serial.py", line 489, in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\artifacts.py", line 111, in load_only
+    return reader(Path(fsp))
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\serial.py", line 489, in <lambda>
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\serial.py", line 645, in __call__
+    raw,metrics,paths=launcher.postprocess(fd,postcfg,str(output))
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\science\postprocess.py", line 472, in postprocess
+    metrics = analyze(fd, cfg, state)
+  File "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\26106f99ace8323b1fa503eb0cbfb6058f0b45ad\platform_v2\apcd_gpu_v2\science\postprocess.py", line 358, in analyze
+    from mdc_tmm_complex_incident_power_v1 import normal_stack_power
+ModuleNotFoundError: No module named 'mdc_tmm_complex_incident_power_v1'
