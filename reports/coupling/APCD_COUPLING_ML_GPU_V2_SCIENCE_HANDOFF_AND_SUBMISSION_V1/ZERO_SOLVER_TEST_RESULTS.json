@@ -1,0 +1,64 @@
+{
+  "schema": "APCD_COUPLING_GPU_V2_ZERO_SOLVER_TEST_RESULTS_V1",
+  "observed_utc": "2026-10-10T08:03:00Z",
+  "execution_counts": {
+    "real_solver_entries": 0,
+    "real_fdtd_runs": 0,
+    "replays": 0,
+    "production_training_fits": 0,
+    "confirmation_response_access": 0,
+    "controller_dispatches": 0
+  },
+  "coupling_task_test": {
+    "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe -B -m pytest -p no:cacheprovider -q tests/coupling_ml/k6_v2_pipeline/test_gpu_v2_science_handoff.py",
+    "result": "PASS",
+    "passed": 3,
+    "failed": 0,
+    "seconds": 28.15,
+    "coverage": [
+      "read-only live G027/budget/release audit with Coupling ledger hash stability",
+      "isolated synthetic 3-case and 10-case static V2 controller fixture transactions",
+      "fake one-slot execution, truth-before-next ordering, label import, no duplicate events on repeat",
+      "native-shaped synthetic H5 with all six complex E/H arrays; artifact/archive hashes",
+      "test runtime, queue, release and ledger isolated under pytest temporary zero_solver directory"
+    ]
+  },
+  "focused_installed_v2_regression": {
+    "result": "PASS",
+    "passed": 13,
+    "failed": 0,
+    "deselected": 17,
+    "seconds": 24.19,
+    "source": "installed immutable V2 release e662a92a4485a768ffbebe56c2d759c1e416722a; no V2 file changed"
+  },
+  "ruff": {
+    "result": "PASS",
+    "scope": [
+      "scripts/coupling_ml/k6_v2_pipeline/gpu_v2_submission.py",
+      "tests/coupling_ml/k6_v2_pipeline/test_gpu_v2_science_handoff.py"
+    ]
+  },
+  "prior_install_evidence": {
+    "result": "PASS",
+    "passed": 128,
+    "failed": 0,
+    "seconds": 74.35,
+    "scope": "2026-10-10 V2 installation report; not re-run in this task",
+    "evidence_path": "D:\\apcd_runtime\\gpu_v2_zero_solver_install_20261010_v1\\installed_pytest.txt",
+    "sha256": "79b4bd72febd744051f2f3ede1a68ee48f8b59bbcf26919ff6b4d5b613be4bea"
+  },
+  "exact_g027_systemcheck": {
+    "result": "PASS",
+    "run_called": false,
+    "scope": "exact setup/systemcheck only; not a scientific solver entry and not confirmation of GPU engine license availability",
+    "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\e662a92a4485a768ffbebe56c2d759c1e416722a\\platform_v2\\reports\\native_acceptance_v1\\g027_exact_systemcheck.json",
+    "sha256": "3a17f84c0a9f8b0474cd1d2f8db3c00dea51e01cea54b94cb8aff87bf71e7a01"
+  },
+  "isolation": "Synthetic cases are explicitly NON_SCIENTIFIC. The Coupling importer is exercised on synthetic fixture records only. No sealed confirmation or diagnostic response was opened. The live G027 check is read-only and ends at the expected release denial.",
+  "live_admission": {
+    "budget_eligible": true,
+    "science_admission": "BLOCKED",
+    "refusal": "FORMAL_SCIENCE_RELEASE_MISSING_OR_UNBOUND",
+    "ledger_sha_unchanged": true
+  }
+}
