@@ -1,0 +1,586 @@
+{
+  "dataset": {
+    "total": 65,
+    "train": 52,
+    "validation": 13,
+    "validation_old": 8,
+    "validation_local": 1,
+    "validation_global": 4
+  },
+  "zero_state_relative_rmse": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "state_definition": "sqrt(sum(abs(pred-truth)^2)/sum(abs(truth)^2)) over all wavelength/order/TE-TM per geometry",
+  "models": {
+    "RBF_KRR": {
+      "per_geometry": [
+        {
+          "case_id": "K6V1_EXT14",
+          "cohort": "OLD32",
+          "norm_ratio": 0.4642606056955321,
+          "complex_cosine_real_inner_product": 0.5757485548693736,
+          "absolute_order_source_normalized_rmse": 0.07401297044170989,
+          "p_scale_relative_rmse": 0.4722844833093668,
+          "routing_eta_rmse": 0.049220908596660895,
+          "state_relative_rmse": 0.8251928043656325,
+          "thresholded_absolute_order_relative_median": 0.57853740260382,
+          "total_power_relative_rmse": 0.4722844833093668
+        },
+        {
+          "case_id": "K6V1_EXT09",
+          "cohort": "OLD32",
+          "norm_ratio": 0.4458735030974903,
+          "complex_cosine_real_inner_product": 0.02553097181815078,
+          "absolute_order_source_normalized_rmse": 0.0728981901677819,
+          "p_scale_relative_rmse": 0.6590116610193956,
+          "routing_eta_rmse": 0.25553770155215083,
+          "state_relative_rmse": 1.0844519413419589,
+          "thresholded_absolute_order_relative_median": 0.8396560122600344,
+          "total_power_relative_rmse": 0.6590116610193956
+        },
+        {
+          "case_id": "K6V1_EXT08",
+          "cohort": "OLD32",
+          "norm_ratio": 0.6040546941875677,
+          "complex_cosine_real_inner_product": 0.08767929424746432,
+          "absolute_order_source_normalized_rmse": 0.08234459113907673,
+          "p_scale_relative_rmse": 0.4683211057358061,
+          "routing_eta_rmse": 0.24069327364198206,
+          "state_relative_rmse": 1.1220320383231346,
+          "thresholded_absolute_order_relative_median": 0.8191529466500325,
+          "total_power_relative_rmse": 0.4683211057358061
+        },
+        {
+          "case_id": "K6GDP2_DEV_G017",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.6722625233357281,
+          "complex_cosine_real_inner_product": 0.6037171384721183,
+          "absolute_order_source_normalized_rmse": 0.026827972035039935,
+          "p_scale_relative_rmse": 0.20602542112872693,
+          "routing_eta_rmse": 0.10790763628965909,
+          "state_relative_rmse": 0.8001400418058939,
+          "thresholded_absolute_order_relative_median": 0.641792781637695,
+          "total_power_relative_rmse": 0.20602542112872693
+        },
+        {
+          "case_id": "K6V1_EXT13",
+          "cohort": "OLD32",
+          "norm_ratio": 0.45493564315966467,
+          "complex_cosine_real_inner_product": 0.356155899583998,
+          "absolute_order_source_normalized_rmse": 0.10227502702951383,
+          "p_scale_relative_rmse": 0.6503081640332803,
+          "routing_eta_rmse": 0.22258869436698817,
+          "state_relative_rmse": 0.9396331267746938,
+          "thresholded_absolute_order_relative_median": 0.8213804344073682,
+          "total_power_relative_rmse": 0.6503081640332803
+        },
+        {
+          "case_id": "K6GDP2_DEV_G021",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.6351168913713983,
+          "complex_cosine_real_inner_product": -0.05754845561839284,
+          "absolute_order_source_normalized_rmse": 0.06530202113589298,
+          "p_scale_relative_rmse": 0.4803661306873981,
+          "routing_eta_rmse": 0.16058646066438118,
+          "state_relative_rmse": 1.2151022418613282,
+          "thresholded_absolute_order_relative_median": 0.7909655790850546,
+          "total_power_relative_rmse": 0.4803661306873981
+        },
+        {
+          "case_id": "K6LDA1_DEV_D2_M05",
+          "cohort": "LOCAL_AXIS",
+          "norm_ratio": 0.9563835133330661,
+          "complex_cosine_real_inner_product": 0.9760309612810573,
+          "absolute_order_source_normalized_rmse": 0.009135286607045287,
+          "p_scale_relative_rmse": 0.06828179873785119,
+          "routing_eta_rmse": 0.036880623679714813,
+          "state_relative_rmse": 0.21851678386715398,
+          "thresholded_absolute_order_relative_median": 0.15576369446870955,
+          "total_power_relative_rmse": 0.06828179873785119
+        },
+        {
+          "case_id": "K6V1_S21",
+          "cohort": "OLD32",
+          "norm_ratio": 0.3688235757627921,
+          "complex_cosine_real_inner_product": 0.4293049385620995,
+          "absolute_order_source_normalized_rmse": 0.0426842867145447,
+          "p_scale_relative_rmse": 0.3945531140600215,
+          "routing_eta_rmse": 0.060260252117388495,
+          "state_relative_rmse": 0.9051824484446511,
+          "thresholded_absolute_order_relative_median": 0.5865995560551729,
+          "total_power_relative_rmse": 0.3945531140600215
+        },
+        {
+          "case_id": "K6GDP2_DEV_G018",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.5544121811947984,
+          "complex_cosine_real_inner_product": 0.4352927998251521,
+          "absolute_order_source_normalized_rmse": 0.05115113953913995,
+          "p_scale_relative_rmse": 0.1592512080492704,
+          "routing_eta_rmse": 0.1434504237076053,
+          "state_relative_rmse": 0.9081352352145947,
+          "thresholded_absolute_order_relative_median": 0.7679946940082,
+          "total_power_relative_rmse": 0.1592512080492704
+        },
+        {
+          "case_id": "K6GDP2_DEV_G015",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.8118171708180241,
+          "complex_cosine_real_inner_product": 0.2735780264797512,
+          "absolute_order_source_normalized_rmse": 0.07893942583323682,
+          "p_scale_relative_rmse": 0.3961706660398727,
+          "routing_eta_rmse": 0.20173111511086192,
+          "state_relative_rmse": 1.1022052621564826,
+          "thresholded_absolute_order_relative_median": 0.7588820310555711,
+          "total_power_relative_rmse": 0.3961706660398727
+        },
+        {
+          "case_id": "K6V1_EXT12",
+          "cohort": "OLD32",
+          "norm_ratio": 0.4658574960399788,
+          "complex_cosine_real_inner_product": 0.5130002168254433,
+          "absolute_order_source_normalized_rmse": 0.042199435855507665,
+          "p_scale_relative_rmse": 0.4636827029582525,
+          "routing_eta_rmse": 0.14743269042646448,
+          "state_relative_rmse": 0.8596820421877525,
+          "thresholded_absolute_order_relative_median": 0.8710410160496673,
+          "total_power_relative_rmse": 0.4636827029582525
+        },
+        {
+          "case_id": "K6V1_S33",
+          "cohort": "OLD32",
+          "norm_ratio": 0.6616299292034453,
+          "complex_cosine_real_inner_product": 0.3451267968569419,
+          "absolute_order_source_normalized_rmse": 0.06778634536927847,
+          "p_scale_relative_rmse": 0.20470470771904856,
+          "routing_eta_rmse": 0.1579177002938316,
+          "state_relative_rmse": 0.990485601549268,
+          "thresholded_absolute_order_relative_median": 0.9444720604412546,
+          "total_power_relative_rmse": 0.20470470771904856
+        },
+        {
+          "case_id": "K6V1_S37",
+          "cohort": "OLD32",
+          "norm_ratio": 0.46872813345792347,
+          "complex_cosine_real_inner_product": 0.22152828940203462,
+          "absolute_order_source_normalized_rmse": 0.032478277761170425,
+          "p_scale_relative_rmse": 0.4837254518100936,
+          "routing_eta_rmse": 0.11186717697949596,
+          "state_relative_rmse": 1.005998498953087,
+          "thresholded_absolute_order_relative_median": 0.6444441352690069,
+          "total_power_relative_rmse": 0.4837254518100936
+        }
+      ],
+      "cohorts": {
+        "OLD32": {
+          "count": 8,
+          "state_median": 0.9650593641619809,
+          "norm_ratio_median": 0.46505905086775545
+        },
+        "LOCAL_AXIS": {
+          "count": 1,
+          "state_median": 0.21851678386715398,
+          "norm_ratio_median": 0.9563835133330661
+        },
+        "GLOBAL": {
+          "count": 4,
+          "state_median": 1.0051702486855387,
+          "norm_ratio_median": 0.6536897073535632
+        }
+      },
+      "norm_ratio_median": 0.5544121811947984,
+      "state_sse_by_wavelength": [
+        14.875048344460849,
+        13.849689531476988,
+        13.384452287579627,
+        14.761434803213117,
+        13.849448899580755,
+        13.619927296544512,
+        13.270938253929664,
+        13.12964043922269,
+        13.53483323806665,
+        13.554701785992116,
+        13.581498531336228,
+        12.906494123855905,
+        12.083567134349497,
+        12.583381143127301,
+        13.51206957127867,
+        13.35309413556498,
+        13.036114553352148,
+        12.428510620663719,
+        12.162595368133875,
+        11.87371947256079,
+        12.635129739372374
+      ],
+      "state_sse_by_order": [
+        25.65509144995866,
+        46.21878209940688,
+        35.06100140587451,
+        63.26371352837956,
+        39.26059923978491,
+        39.80564009026851,
+        28.721461459989445
+      ],
+      "state_sse_by_TE_TM": [
+        3.1120259357629656e-07,
+        277.9862889624603
+      ],
+      "truth_energy_by_TE_TM": [
+        2.346825442823169e-07,
+        306.8499448274079
+      ],
+      "original_h1": {
+        "all_applicable_numeric_gates_attained": false,
+        "gates": {
+          "absolute_order": false,
+          "routing": false,
+          "seed_stability": null,
+          "state": false,
+          "thresholded_absolute_order": false,
+          "total_power": false
+        },
+        "seed_stability_status": "NOT_APPLICABLE_DETERMINISTIC_CANDIDATE"
+      },
+      "aggregate_metrics": {
+        "absolute_order_source_normalized_rmse": {
+          "max": 0.10227502702951383,
+          "mean": 0.057541151509918356,
+          "median": 0.06530202113589298,
+          "min": 0.009135286607045287,
+          "q95": 0.09031676549525154
+        },
+        "p_scale_relative_rmse": {
+          "max": 0.6590116610193956,
+          "mean": 0.39282204732987575,
+          "median": 0.4636827029582525,
+          "min": 0.06828179873785119,
+          "q95": 0.6537895628277264
+        },
+        "routing_eta_rmse": {
+          "max": 0.25553770155215083,
+          "mean": 0.14585189672516805,
+          "median": 0.14743269042646448,
+          "min": 0.036880623679714813,
+          "q95": 0.24663104480604955
+        },
+        "state_relative_rmse": {
+          "max": 1.2151022418613282,
+          "mean": 0.9212890820650487,
+          "median": 0.9396331267746938,
+          "min": 0.21851678386715398,
+          "q95": 1.1592601197384118
+        },
+        "thresholded_absolute_order_relative_median": {
+          "max": 0.9444720604412546,
+          "mean": 0.7092832572301221,
+          "median": 0.7679946940082,
+          "min": 0.15576369446870955,
+          "q95": 0.9004134338063021
+        },
+        "total_power_relative_rmse": {
+          "max": 0.6590116610193956,
+          "mean": 0.39282204732987575,
+          "median": 0.4636827029582525,
+          "min": 0.06828179873785119,
+          "q95": 0.6537895628277264
+        }
+      },
+      "training_loss": 0.014595935490800313,
+      "validation_loss": 1.423014431724819,
+      "updates": 0,
+      "best_update": 0
+    },
+    "CARTESIAN_MLP": {
+      "per_geometry": [
+        {
+          "case_id": "K6V1_EXT14",
+          "cohort": "OLD32",
+          "norm_ratio": 0.6717948386335849,
+          "complex_cosine_real_inner_product": 0.8369156973511446,
+          "absolute_order_source_normalized_rmse": 0.024088544239624903,
+          "p_scale_relative_rmse": 0.16940808768189441,
+          "routing_eta_rmse": 0.06059664614053032,
+          "state_relative_rmse": 0.5716966096723607,
+          "thresholded_absolute_order_relative_median": 0.5339485578885348,
+          "total_power_relative_rmse": 0.16940808768189441
+        },
+        {
+          "case_id": "K6V1_EXT09",
+          "cohort": "OLD32",
+          "norm_ratio": 0.5689681443315197,
+          "complex_cosine_real_inner_product": 0.3833372441157234,
+          "absolute_order_source_normalized_rmse": 0.09421265506857522,
+          "p_scale_relative_rmse": 0.24589702556036125,
+          "routing_eta_rmse": 0.26572293309743833,
+          "state_relative_rmse": 0.9420782283805784,
+          "thresholded_absolute_order_relative_median": 0.7853372993480302,
+          "total_power_relative_rmse": 0.24589702556036125
+        },
+        {
+          "case_id": "K6V1_EXT08",
+          "cohort": "OLD32",
+          "norm_ratio": 0.45957388016254724,
+          "complex_cosine_real_inner_product": 0.15360304184464224,
+          "absolute_order_source_normalized_rmse": 0.11162440777399112,
+          "p_scale_relative_rmse": 0.3474743726467294,
+          "routing_eta_rmse": 0.27598412415528856,
+          "state_relative_rmse": 1.034419769453888,
+          "thresholded_absolute_order_relative_median": 0.8752205244753943,
+          "total_power_relative_rmse": 0.3474743726467294
+        },
+        {
+          "case_id": "K6GDP2_DEV_G017",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.4587886895328804,
+          "complex_cosine_real_inner_product": 0.3632820198153919,
+          "absolute_order_source_normalized_rmse": 0.027605172451143467,
+          "p_scale_relative_rmse": 0.28418481372522,
+          "routing_eta_rmse": 0.10784525922449228,
+          "state_relative_rmse": 0.9365616360066082,
+          "thresholded_absolute_order_relative_median": 0.6316406489620249,
+          "total_power_relative_rmse": 0.28418481372522
+        },
+        {
+          "case_id": "K6V1_EXT13",
+          "cohort": "OLD32",
+          "norm_ratio": 0.6936476408165206,
+          "complex_cosine_real_inner_product": 0.6824250146311536,
+          "absolute_order_source_normalized_rmse": 0.03164873195550629,
+          "p_scale_relative_rmse": 0.21030650100681142,
+          "routing_eta_rmse": 0.051952209394891216,
+          "state_relative_rmse": 0.7310417544464655,
+          "thresholded_absolute_order_relative_median": 0.5904216000110593,
+          "total_power_relative_rmse": 0.21030650100681142
+        },
+        {
+          "case_id": "K6GDP2_DEV_G021",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.5047412825291352,
+          "complex_cosine_real_inner_product": 0.2910903878394791,
+          "absolute_order_source_normalized_rmse": 0.11067087581384155,
+          "p_scale_relative_rmse": 0.3598443178572497,
+          "routing_eta_rmse": 0.3121941264825122,
+          "state_relative_rmse": 0.9802617461214898,
+          "thresholded_absolute_order_relative_median": 0.9575940661401802,
+          "total_power_relative_rmse": 0.3598443178572497
+        },
+        {
+          "case_id": "K6LDA1_DEV_D2_M05",
+          "cohort": "LOCAL_AXIS",
+          "norm_ratio": 0.7275199092512861,
+          "complex_cosine_real_inner_product": 0.9535375621688925,
+          "absolute_order_source_normalized_rmse": 0.012641598888823968,
+          "p_scale_relative_rmse": 0.09694567375556327,
+          "routing_eta_rmse": 0.04651691785980284,
+          "state_relative_rmse": 0.3766299204303731,
+          "thresholded_absolute_order_relative_median": 0.24075121063120422,
+          "total_power_relative_rmse": 0.09694567375556327
+        },
+        {
+          "case_id": "K6V1_S21",
+          "cohort": "OLD32",
+          "norm_ratio": 0.5702723248606397,
+          "complex_cosine_real_inner_product": 0.4528738262727864,
+          "absolute_order_source_normalized_rmse": 0.05613429981798875,
+          "p_scale_relative_rmse": 0.24637489462466938,
+          "routing_eta_rmse": 0.12845960388234384,
+          "state_relative_rmse": 0.8992706516659644,
+          "thresholded_absolute_order_relative_median": 0.6397721925110962,
+          "total_power_relative_rmse": 0.24637489462466938
+        },
+        {
+          "case_id": "K6GDP2_DEV_G018",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.41487891992858095,
+          "complex_cosine_real_inner_product": -0.25521791030467206,
+          "absolute_order_source_normalized_rmse": 0.10110713801796954,
+          "p_scale_relative_rmse": 0.23106561105032303,
+          "routing_eta_rmse": 0.3007147598985514,
+          "state_relative_rmse": 1.1763900629248658,
+          "thresholded_absolute_order_relative_median": 0.9158782114197046,
+          "total_power_relative_rmse": 0.23106561105032303
+        },
+        {
+          "case_id": "K6GDP2_DEV_G015",
+          "cohort": "GLOBAL",
+          "norm_ratio": 0.4643592096633409,
+          "complex_cosine_real_inner_product": 0.14487520666603115,
+          "absolute_order_source_normalized_rmse": 0.0496555110190914,
+          "p_scale_relative_rmse": 0.2195592149770177,
+          "routing_eta_rmse": 0.1719511541124617,
+          "state_relative_rmse": 1.0397505482877418,
+          "thresholded_absolute_order_relative_median": 0.6782425489702846,
+          "total_power_relative_rmse": 0.2195592149770177
+        },
+        {
+          "case_id": "K6V1_EXT12",
+          "cohort": "OLD32",
+          "norm_ratio": 0.6947738228283044,
+          "complex_cosine_real_inner_product": 0.4434662566058198,
+          "absolute_order_source_normalized_rmse": 0.0843674441442908,
+          "p_scale_relative_rmse": 0.45413917542956683,
+          "routing_eta_rmse": 0.14465997714230744,
+          "state_relative_rmse": 0.9308561500536428,
+          "thresholded_absolute_order_relative_median": 0.746368079308992,
+          "total_power_relative_rmse": 0.45413917542956683
+        },
+        {
+          "case_id": "K6V1_S33",
+          "cohort": "OLD32",
+          "norm_ratio": 0.4071524627576577,
+          "complex_cosine_real_inner_product": 0.12872457972414708,
+          "absolute_order_source_normalized_rmse": 0.05933037213744782,
+          "p_scale_relative_rmse": 0.3477202215734772,
+          "routing_eta_rmse": 0.2030288336912093,
+          "state_relative_rmse": 1.0300252757216029,
+          "thresholded_absolute_order_relative_median": 0.801169972768887,
+          "total_power_relative_rmse": 0.3477202215734772
+        },
+        {
+          "case_id": "K6V1_S37",
+          "cohort": "OLD32",
+          "norm_ratio": 0.520735420897306,
+          "complex_cosine_real_inner_product": 0.44843958985944826,
+          "absolute_order_source_normalized_rmse": 0.09295469091783708,
+          "p_scale_relative_rmse": 0.533945090625097,
+          "routing_eta_rmse": 0.20735039399704916,
+          "state_relative_rmse": 0.8967321904739142,
+          "thresholded_absolute_order_relative_median": 0.8243721000145133,
+          "total_power_relative_rmse": 0.533945090625097
+        }
+      ],
+      "cohorts": {
+        "OLD32": {
+          "count": 8,
+          "state_median": 0.9150634008598035,
+          "norm_ratio_median": 0.5696202345960797
+        },
+        "LOCAL_AXIS": {
+          "count": 1,
+          "state_median": 0.3766299204303731,
+          "norm_ratio_median": 0.7275199092512861
+        },
+        "GLOBAL": {
+          "count": 4,
+          "state_median": 1.0100061472046158,
+          "norm_ratio_median": 0.4615739495981106
+        }
+      },
+      "norm_ratio_median": 0.520735420897306,
+      "state_sse_by_wavelength": [
+        12.661444415568548,
+        12.554243903720359,
+        12.801162634277363,
+        13.107211524721988,
+        12.736325887914067,
+        12.21948632738667,
+        12.200478556215266,
+        11.800275254675716,
+        11.661690814908955,
+        11.660204842259034,
+        11.612827769002912,
+        11.503826159325778,
+        11.497848354558656,
+        12.133112317297119,
+        12.171773166024757,
+        12.335134888107579,
+        12.238296911662918,
+        12.067532351096586,
+        12.296080492351207,
+        12.499176753103926,
+        12.909877020463137
+      ],
+      "state_sse_by_order": [
+        26.16742341648086,
+        38.161029302656395,
+        37.519818017186076,
+        52.188339313675314,
+        33.45158487277935,
+        40.336851698450594,
+        28.84296372341389
+      ],
+      "state_sse_by_TE_TM": [
+        0.3071047067374436,
+        256.3609056379052
+      ],
+      "truth_energy_by_TE_TM": [
+        2.346825442823169e-07,
+        306.8499448274079
+      ],
+      "original_h1": {
+        "all_applicable_numeric_gates_attained": false,
+        "gates": {
+          "absolute_order": false,
+          "routing": false,
+          "seed_stability": null,
+          "state": false,
+          "thresholded_absolute_order": false,
+          "total_power": false
+        },
+        "seed_stability_status": "NOT_APPLICABLE_DETERMINISTIC_CANDIDATE"
+      },
+      "aggregate_metrics": {
+        "absolute_order_source_normalized_rmse": {
+          "max": 0.11162440777399112,
+          "mean": 0.06584934171124092,
+          "median": 0.05933037213744782,
+          "min": 0.012641598888823968,
+          "q95": 0.11105228859790138
+        },
+        "p_scale_relative_rmse": {
+          "max": 0.533945090625097,
+          "mean": 0.28822038465492156,
+          "median": 0.24637489462466938,
+          "min": 0.09694567375556327,
+          "q95": 0.4860615415077788
+        },
+        "routing_eta_rmse": {
+          "max": 0.3121941264825122,
+          "mean": 0.17515207223683682,
+          "median": 0.1719511541124617,
+          "min": 0.04651691785980284,
+          "q95": 0.3053065065321357
+        },
+        "state_relative_rmse": {
+          "max": 1.1763900629248658,
+          "mean": 0.8881318879722688,
+          "median": 0.9365616360066082,
+          "min": 0.3766299204303731,
+          "q95": 1.0944063541425912
+        },
+        "thresholded_absolute_order_relative_median": {
+          "max": 0.9575940661401802,
+          "mean": 0.7092859240346079,
+          "median": 0.746368079308992,
+          "min": 0.24075121063120422,
+          "q95": 0.9325645533078948
+        },
+        "total_power_relative_rmse": {
+          "max": 0.533945090625097,
+          "mean": 0.28822038465492156,
+          "median": 0.24637489462466938,
+          "min": 0.09694567375556327,
+          "q95": 0.4860615415077788
+        }
+      },
+      "training_loss": 0.8189098254837865,
+      "validation_loss": 1.1410769641854785,
+      "updates": 205,
+      "best_update": 155
+    }
+  },
+  "no_oracle_alignment": true,
+  "no_prediction_changes": true
+}
