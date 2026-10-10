@@ -1,0 +1,118 @@
+{
+  "schema": "APCD_V1_INGRESS_FENCE_TRANSACTION_PREPARATION_V1",
+  "status": "FENCE_PREPARED_AWAITING_APPROVAL",
+  "executable_now": false,
+  "approved": false,
+  "authorization_literal_required": "APPROVE_V1_INGRESS_FENCE_ONLY",
+  "authorization_scope": "V1 new-ingress fence only; no V2/science/process termination/budget change/database deletion",
+  "approval_alone_resolves_shared_scope_api_blocker": false,
+  "hard_boundary": "Protected shared lifecycle scope/API qualification and Traditional invariants remain unsatisfied. This task does not patch V1 or shared control implementation.",
+  "stages": [
+    {
+      "step": 1,
+      "operation": "Formal V1-Coupling-only new-science-entry hold",
+      "status": "HARD_BLOCKED",
+      "reason": "Existing ControlDB.set_hold(scope=COUPLING_ML) sets global new_entry_hold; violates Traditional boundary. No production call permitted. Legacy hold JSON true is stale, not authoritative."
+    },
+    {
+      "step": 2,
+      "operation": "Readback qualified scoped hold and fresh admission generation with exclusive compare-and-set authority",
+      "status": "CONDITIONAL",
+      "requirements": [
+        "Audit exact API binding/source SHA",
+        "Block concurrent control mutation through existing authorized lifecycle ownership, not raw SQL",
+        "Prove Traditional active/pre-entry owners are unaffected; global generation cannot be assumed harmless"
+      ]
+    },
+    {
+      "step": 3,
+      "operation": "Disable the two exact V1 Controller/Worker definitions and AllowDemandStart without stopping existing instances",
+      "status": "OFFLINE_XML_VALIDATED_ONLY",
+      "prepared_files": [
+        {
+          "name": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+          "original_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER.xml",
+          "original_sha256": "b262c4007eeaa7a7975c1d401da7140773c9dfa3448de4a91b97ae0208b50b84",
+          "staged_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\scheduler_staging\\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER.disabled.xml",
+          "staged_sha256": "70ae4f131bfaecdbe95da6b7aceb1a1b89e83bd40f9c0f50e750af022dc1234a",
+          "actions_principal_triggers_preserved": true,
+          "enabled": false,
+          "allow_demand_start": false,
+          "registered": false,
+          "normalized_original_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\scheduler_staging\\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER.normalized_original.xml",
+          "other_effective_settings_preserved": true,
+          "xml_demand_start_element": "AllowStartOnDemand",
+          "com_property": "AllowDemandStart"
+        },
+        {
+          "name": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+          "original_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER.xml",
+          "original_sha256": "97d5157fd719ece9dcd3a82eda3e149787648a5cb93aaf3785a722d491223910",
+          "staged_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\scheduler_staging\\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER.disabled.xml",
+          "staged_sha256": "dae5cc412797769d0780f480eb2a3ce4a1298f9eb6995e402b7feb3916b8f905",
+          "actions_principal_triggers_preserved": true,
+          "enabled": false,
+          "allow_demand_start": false,
+          "registered": false,
+          "normalized_original_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\scheduler_staging\\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER.normalized_original.xml",
+          "other_effective_settings_preserved": true,
+          "xml_demand_start_element": "AllowStartOnDemand",
+          "com_property": "AllowDemandStart"
+        }
+      ],
+      "requirements": [
+        "Fresh compare against original action/principal/settings/hash",
+        "Use existing Task Scheduler update under proper InteractiveToken principal; no task Stop, End, or process termination",
+        "COM property AllowDemandStart maps to XML AllowStartOnDemand",
+        "Readback Enabled=false, AllowDemandStart=false; reject demand start without executing Worker/solver"
+      ]
+    },
+    {
+      "step": 4,
+      "operation": "Verify rejection for static/controlled CLI, worker-once, controller resume, Shared Coupling demand-start and other known ingress routes",
+      "status": "BLOCKED_BY_SCOPE_COVERAGE",
+      "requirements": [
+        "Use valid harmless admission fixtures at a fence that rejects before API/license/science entry",
+        "Never use intentionally malformed request rejection as proof",
+        "Do not invoke a production run or solver to test rejection",
+        "Cover old requests without rewriting truth, deleting databases, or resetting ledger"
+      ]
+    },
+    {
+      "step": 5,
+      "operation": "Verify existing process identities/instances remain alive and Traditional scope/readback unchanged",
+      "status": "BASELINE_PREPARED",
+      "baseline": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2.json",
+      "requirements": [
+        "Compare PID+creation time, running InstanceGuid/EnginePID, full control readback and target case metadata",
+        "No kill/suspend/logout/Job changes"
+      ]
+    },
+    {
+      "step": 6,
+      "operation": "Recheck V1 active owner/fencing/engine/ledger and truth SHA twice; certify owner-clear only with positive exclusion",
+      "status": "BASELINE_CHECKED_NOT_POST_FENCE_ACCEPTANCE",
+      "invariants": {
+        "entered": 38,
+        "valid": 34,
+        "unentered": 90,
+        "G027_entry": 0,
+        "solver_calls": 0
+      }
+    },
+    {
+      "step": 7,
+      "operation": "Keep rollback receipt and restore only same two definitions / lifecycle hold state through formal APIs",
+      "status": "CONDITIONAL_ROLLBACK_PREPARED",
+      "rules": [
+        "Rollback only under fresh exclusive lifecycle authority; generation remains monotonic",
+        "Use exact original XML and control semantic snapshot; SQLite backup is evidence, never raw overwrite rollback",
+        "Do not release any foreign hold; do not silently restore branch/global caps",
+        "Do not reenable V1 if V2 owner/admission or new science entry exists",
+        "On drift or owner uncertainty stop fail-closed with hold maintained; do not kill old processes"
+      ]
+    }
+  ],
+  "v2_kept_closed": true,
+  "cutover_eligible": false
+}

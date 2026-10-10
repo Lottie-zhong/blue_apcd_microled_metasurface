@@ -1,0 +1,1601 @@
+{
+  "paths": [
+    {
+      "entry": "V1 manual/static/controlled adapter CLI",
+      "source": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py",
+      "lines": [
+        1255,
+        1354
+      ],
+      "guard_lines": [
+        76,
+        149
+      ],
+      "scope": "V1 native Runner, filesystem authoritative",
+      "scheduler_disable_covers": false,
+      "branch_enabled_checked": false,
+      "global_hold_checked": true,
+      "production_refusal_exercised": false
+    },
+    {
+      "entry": "V1 scheduled worker-once / run-one-via-task",
+      "source": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py",
+      "lines": [
+        508,
+        608
+      ],
+      "scope": "V1 exclusive Worker task",
+      "scheduler_disable_covers": true,
+      "calls_adapter_guard": true,
+      "production_refusal_exercised": false
+    },
+    {
+      "entry": "Coupling serial controller / start / resume",
+      "source": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py",
+      "controller_api_source": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py",
+      "controller_api_lines": [
+        1187,
+        1381
+      ],
+      "scope": "V1 exclusive Controller task and manual CLI",
+      "scheduler_disable_covers": "scheduled route only; CLI still requires qualified science-admission fence",
+      "production_refusal_exercised": false
+    },
+    {
+      "entry": "Shared V3 dispatcher / v3_g2_host / real_canary_host / host wrappers",
+      "scope": "Shared V3, may span Coupling and Traditional; not automatically authorized by exclusive V1 Runner fence",
+      "dispatcher_enabled": false,
+      "historical_demand_start_tasks_present": true,
+      "branch_gate": "Allocator._admission_decision; BRANCH_DISABLED blocks Coupling but native V1 guard does not read it",
+      "production_refusal_exercised": false
+    },
+    {
+      "entry": "Shared V3 Coupling reconciler",
+      "scope": "shared maintenance/recovery; not included in the two exclusive V1 Scheduler changes",
+      "enabled": true,
+      "action_root": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob",
+      "must_preserve": true
+    }
+  ],
+  "source_files": {
+    "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py": {
+      "sha256": "defab53dbfb9796aebb93a8ced6abc8effbc12ad47357393bf98049818886260",
+      "references": [
+        {
+          "line": 76,
+          "text": "def read_global_entry_control(db_path=None):"
+        },
+        {
+          "line": 97,
+          "text": "            if not {\"admission_control\", \"hold_lifecycle\"}.issubset(tables):"
+        },
+        {
+          "line": 100,
+          "text": "                \"PRAGMA table_info(admission_control)\")}"
+        },
+        {
+          "line": 103,
+          "text": "            if not {\"control_id\", \"new_entry_hold\", \"control_generation\", \"health_status\"}.issubset(admission_columns):"
+        },
+        {
+          "line": 108,
+          "text": "                \"SELECT new_entry_hold, control_generation, health_status FROM admission_control WHERE control_id=1\""
+        },
+        {
+          "line": 138,
+          "text": "            \"control_generation\": generation,"
+        },
+        {
+          "line": 140,
+          "text": "            \"new_entry_hold\": 0,"
+        },
+        {
+          "line": 648,
+          "text": "        if generation!=initial.get(\"control_generation_sha256\"):"
+        },
+        {
+          "line": 714,
+          "text": "            \"control_generation_sha256\":generation,"
+        },
+        {
+          "line": 715,
+          "text": "            \"initial_setup_load_generation_sha256\":initial[\"control_generation_sha256\"],"
+        },
+        {
+          "line": 832,
+          "text": "                    \"control_generation_sha256\": start_generation_sha256,"
+        },
+        {
+          "line": 1255,
+          "text": "def run_cli(manifest_path, adapter_factory=NativeAdapter, test_output_root=None):"
+        },
+        {
+          "line": 1323,
+          "text": "        control_before_license = read_global_entry_control(entry_control_path)"
+        },
+        {
+          "line": 1342,
+          "text": "        global_control = read_global_entry_control(entry_control_path)"
+        },
+        {
+          "line": 1352,
+          "text": "    return run_one(manifest, output_root, adapter.solver, adapter.fresh_load_validate,"
+        },
+        {
+          "line": 1400,
+          "text": "        from task_scheduler_v1 import run_one_via_task_scheduler"
+        },
+        {
+          "line": 1402,
+          "text": "        from .task_scheduler_v1 import run_one_via_task_scheduler"
+        },
+        {
+          "line": 1403,
+          "text": "    return run_one_via_task_scheduler(manifest_path, run_cli=run_cli)"
+        }
+      ]
+    },
+    "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\runner.py": {
+      "sha256": "700ad5483253d1c746c89c380b9edd2824a8c7cde3ed56ad6f96bb4a1d872ff8",
+      "references": [
+        {
+          "line": 284,
+          "text": "def run_one(manifest,root,solver,fresh_load_validate,gpu_snapshot,runner_owner_probe,setup_structural_validate=None,admitted_contract_sha256=None,pre_entry_guard=None):"
+        },
+        {
+          "line": 405,
+          "text": "                    \"pre_entry_control_generation_sha256\":pre_entry_evidence.get(\"control_generation_sha256\")}"
+        },
+        {
+          "line": 408,
+          "text": "                    entry_fields[\"global_entry_control_generation\"] = global_entry_control.get(\"control_generation\")"
+        }
+      ]
+    },
+    "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py": {
+      "sha256": "211ff8fc49dd6dfb2fe6304e432105b6c0b4b4178552850c5be3bcce69649ab1",
+      "references": [
+        {
+          "line": 508,
+          "text": "def task_worker_once(*, root=PRODUCTION_ROOT, run_cli=None, adapter_module=None):"
+        },
+        {
+          "line": 553,
+          "text": "            result = run_cli(request[\"manifest_path\"], adapter_factory=request_bound_adapter)"
+        },
+        {
+          "line": 555,
+          "text": "            result = run_cli(request[\"manifest_path\"])"
+        },
+        {
+          "line": 576,
+          "text": "def run_one_via_task_scheduler(manifest_path, *, run_cli=None, root=PRODUCTION_ROOT,"
+        },
+        {
+          "line": 2009,
+          "text": "            result = task_worker_once()"
+        }
+      ]
+    },
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py": {
+      "sha256": "5f6aeeed4b32525f4f706d110f066292e305d1b1ad0887be9e19a9f5db38a86d",
+      "references": [
+        {
+          "line": 151,
+          "text": "    \"control_generation\": 27,"
+        },
+        {
+          "line": 1511,
+          "text": "         and release.get(\"control_snapshot\", {}).get(\"new_entry_hold\") == 0"
+        },
+        {
+          "line": 1807,
+          "text": "         and release.get(\"control_snapshot\", {}).get(\"new_entry_hold\") == 0"
+        },
+        {
+          "line": 2430,
+          "text": "         and control.get(\"new_entry_hold\") == 0 and control.get(\"active_global_hold_ids\") == []"
+        },
+        {
+          "line": 2432,
+          "text": "         and control.get(\"control_generation\") == expected[\"control_generation\"]"
+        },
+        {
+          "line": 2477,
+          "text": "         and evidence.get(\"control_generation\") == expected[\"control_generation\"]"
+        },
+        {
+          "line": 3710,
+          "text": "    control = adapter.read_global_entry_control()"
+        },
+        {
+          "line": 3800,
+          "text": "          str(gate[\"global_control\"].get(\"control_generation\")) +"
+        }
+      ]
+    }
+  },
+  "function_locations": [
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py",
+      "name": "run_cli",
+      "lines": [
+        1255,
+        1354
+      ],
+      "source_sha256": "10d5058a1deee03460edf6a2a86fdd72a3ff446752c9fca688451c862db17393"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py",
+      "name": "main",
+      "lines": [
+        1406,
+        1436
+      ],
+      "source_sha256": "bd1f15cd26306b7c35f0c3980d8a66a4df6f941c103420c309a0ede84528672e"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py",
+      "name": "controlled_pre_entry_revalidate",
+      "lines": [
+        634,
+        722
+      ],
+      "source_sha256": "593a54b672f8fd229c9310f49982421c02059ad3efd6c0a3a4574eb070f7e4b2"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\runner.py",
+      "name": "run_one",
+      "lines": [
+        284,
+        476
+      ],
+      "source_sha256": "edd1f6a4de020904b42144320b74b4baaa8b162045e706165ac3f0373cea99a1"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py",
+      "name": "task_worker_once",
+      "lines": [
+        508,
+        573
+      ],
+      "source_sha256": "085bd0140349885296f123903781e4c2fb6fb272bb04b2ccce543c3934f9c041"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py",
+      "name": "_assert_no_controller_or_solver_processes",
+      "lines": [
+        992,
+        1004
+      ],
+      "source_sha256": "5393b5391f3ac454baaf97e23718e630dd87607492f3ef14303774c1c8a830d4"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py",
+      "name": "start_controller_task",
+      "lines": [
+        1187,
+        1214
+      ],
+      "source_sha256": "6220c61e1baad80d9406155919d3de66c597c5a42b94a4dfcff2b8e4ee4044fb"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py",
+      "name": "resume_controller_task",
+      "lines": [
+        1249,
+        1341
+      ],
+      "source_sha256": "6406eae69523fceb757e99d1867eb09a378ec9c99c736cff284cdd42c9ea8942"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py",
+      "name": "main",
+      "lines": [
+        1978,
+        2032
+      ],
+      "source_sha256": "d3d7a9043a78bd96586dceb6a220ee60ad384d1959408c5e9c536575c7e96ea8"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py",
+      "name": "main",
+      "lines": [
+        3917,
+        4158
+      ],
+      "source_sha256": "bd73b4e7cca2aaba872c77c6a8bd1820211de64cea4a637f1cf569da74d10df0"
+    }
+  ],
+  "all_apcd_scheduler_inventory": [
+    {
+      "Name": "APCD_Coupling_G2_Attempt002_OneShot_W2H_06824_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T00:26:49.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "487c591c89f6e6f1c1403a21f431edc15b19e93fad8e5a6c0e8197edd426a5ca",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_06824\\attempt_002\\launch_W2H_06824_attempt_002_recovery_v1.cmd",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_Coupling_G2_Attempt002_OneShot_W2H_06824_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_Coupling_G2_Attempt002_OneShot_W2H_15294_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T00:26:49.0000000",
+      "LastTaskResult": 267014,
+      "xml_sha256": "72c48ec5076328be58718635969ca0390619e70da16f62e86476f9ab4dd89ee1",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_15294\\attempt_002\\launch_W2H_15294_attempt_002_recovery_v1.cmd",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_Coupling_G2_Attempt002_OneShot_W2H_15294_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_Coupling_G2_Detached_Smoke_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-19T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "ba16342c3007de25080cacd9db8fa9a411973128b8d205ebeab2c181acc7fdb5",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\DETACHED_EXECUTION_SMOKE_TASK.cmd",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_Coupling_G2_Detached_Smoke_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_Coupling_G2_Replay_W2H_06824_attempt_002",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-19T12:06:42.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "3d0916c78c5a18b29590516f256a7165ca40c66068d1dcf339e62cd78a127e52",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_06824\\attempt_002\\launch_W2H_06824_attempt_002.cmd",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_Coupling_G2_Replay_W2H_06824_attempt_002.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_Coupling_G2_Replay_W2H_15294_attempt_002",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-19T12:06:42.0000000",
+      "LastTaskResult": 267014,
+      "xml_sha256": "69d29c3a1a656040ee2ec9dbca6758de2c88d8d3b2966c9a0a6686fce18a90b0",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_15294\\attempt_002\\launch_W2H_15294_attempt_002.cmd",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_Coupling_G2_Replay_W2H_15294_attempt_002.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_COUPLING_ML_ATTEMPT003_CONTROLLER",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-20T11:18:46.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "0e6198a328d407d3d21ca46cf461fc57a3f8223940353e2dd7cdb154ecb3d469",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\apcd_coupling_2d3d_g2_attempt003_production_v1.py --controller",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_COUPLING_ML_ATTEMPT003_CONTROLLER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_Coupling_Traditional_Production_V1",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-13T23:25:05.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "35ea0e2dad9bed684828b6b5daf9e39152c989e08bfe7bceb9568b4ff2028ae4",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/c \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\run_traditional_production_v1.cmd\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_Coupling_Traditional_Production_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_DEBUG_FINISHER_SYSTEM",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:31:53.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "996f548801748fcdc67275b4742ba9a0e1e78f3d408cdb5e9b0d022308e49aa6",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "D:\\apcd_runtime\\bin\\APCD_DEBUG_FINISHER_SYSTEM.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_DEBUG_FINISHER_SYSTEM.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_G023_LIFECYCLE_PROBE_20261007_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-10-07T15:05:58.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "1a581f55d2eb3e1c3d8d81a6d9c9a95bd10eaaa4028ef8b2cd5fca02c367b0fe",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "\"D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\g023_task_scheduler_probe_20261007_v1\\probe_worker.py\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_G023_LIFECYCLE_PROBE_20261007_V1.xml",
+      "trigger_tags": []
+    },
+    {
+      "Name": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-10-09T19:30:47.0000000",
+      "LastTaskResult": 2,
+      "xml_sha256": "b262c4007eeaa7a7975c1d401da7140773c9dfa3448de4a91b97ae0208b50b84",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py\" --runner-controller-manifest \"D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_queue_controller_v1\\faa47cbef071544180bb7803127a4c52\\controller_manifest.json\" --runner-controller-manifest-sha256 faa47cbef071544180bb7803127a4c5276e39270937e061025dffc607618832c --runner-controller-request-id faa47cbef071544180bb7803127a4c52",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER.xml",
+      "trigger_tags": []
+    },
+    {
+      "Name": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-10-09T19:30:58.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "97d5157fd719ece9dcd3a82eda3e149787648a5cb93aaf3785a722d491223910",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py\" worker-once",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER.xml",
+      "trigger_tags": []
+    },
+    {
+      "Name": "APCD_K6_5X3_SPACER_DOE_K6_5X3_SP217_X_attempt_001",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T21:26:45.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "0629e34afd7bc00db31ec50869234cf29a0e9cac0a617a942d969d13f5aade8b",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\K6_5X3_SPACER_DOE_V1\\K6_5X3_SP217_X\\attempt_001\\run_host.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_5X3_SPACER_DOE_K6_5X3_SP217_X_attempt_001.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_5X3_SPACER_DOE_V1_CONTROLLER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T21:26:34.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "ae544d20f06d61e67f756730a5ff289e0ad7ea9b22194afc49100120e009a6ef",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\K6_5X3_SPACER_DOE_V1\\controller.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_5X3_SPACER_DOE_V1_CONTROLLER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_5X3_XPOL_SOURCE_POSITION_DIAGNOSTIC_V2_CONTROLLER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T21:42:26.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "f38b8ca16ac633831e55e0835c1f44ce1e085453b6c94ab829cb86ee2a10f5a8",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "C:\\WINDOWS\\system32\\cmd.exe",
+      "arguments": "/d /c start \"\" /b \"N:\\anaconda_envs\\RCP_LCP\\python.exe\" -u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_5x3_xpol_source_position_diagnostic_v2.py\" --controller",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_5X3_XPOL_SOURCE_POSITION_DIAGNOSTIC_V2_CONTROLLER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_FRESH_CANARY_AND_RESUME_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-16T11:45:01.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "2ca441a75ee7fd15f12c9a7c23bd29cd2062e0caf8c4e284a30209d75aa53533",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1.py\" controller",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_EXPANDED_APERTURE_FRESH_CANARY_AND_RESUME_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_RESUME_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-18T23:15:32.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "d19b6cf63aaf7626da04b30bc23ad9a7022422428bb1071cdb411b63efe78e7e",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1_resume.py\" controller",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_EXPANDED_APERTURE_PILOT_RESUME_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_V1",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-14T17:00:47.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "b0d9344df0071d70438bacdc51092362347dc32baf83a690c9763d1f19473315",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1.py controller",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_EXPANDED_APERTURE_PILOT_V1.xml",
+      "trigger_tags": [
+        "BootTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_V1_MANUAL_003",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-15T23:59:00.0000000",
+      "LastTaskResult": 2,
+      "xml_sha256": "39baaa4082ce9793bbb8c4b3db9768d6753473f1cb894e67a64c1b08e67f9e32",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_aperture_controlled_orchestrator_v1.py",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_EXPANDED_APERTURE_PILOT_V1_MANUAL_003.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_V1_MANUAL_003_USER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-15T23:59:52.0000000",
+      "LastTaskResult": 2,
+      "xml_sha256": "7340dbebdf41eb9e55075c5f7690fddd5197fe9d54ca5d2ef4f575b344b7a63d",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_aperture_controlled_orchestrator_v1.py\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_EXPANDED_APERTURE_PILOT_V1_MANUAL_003_USER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_K6_LICENSE_GUARD_TASK_SYSTEM",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-16T11:23:22.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "9190a55519ccc86730f9b955c7b38730bb5d5b1ff339522da290829e5e6b75b3",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1.py\" preflight",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_K6_LICENSE_GUARD_TASK_SYSTEM.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_LUMERICAL_LICENSE_PREFLIGHT_V1_MANUAL_SYSTEM",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-16T11:13:16.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "2bce9ada85728d5927ed77f245337a4e37842d015259dd2ff712133f79427fa5",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\license_context_preflight_v1.py\" scheduler-system",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_LUMERICAL_LICENSE_PREFLIGHT_V1_MANUAL_SYSTEM.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_LUMERICAL_LICENSE_PREFLIGHT_V1_MANUAL_SYSTEM_REPEAT",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-16T11:19:49.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "52310b5c2e47de18c89673ca1fac34cbdc9358829c612309067a2578ef1a579f",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\license_context_preflight_v1.py\" scheduler-system-repeat",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_LUMERICAL_LICENSE_PREFLIGHT_V1_MANUAL_SYSTEM_REPEAT.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_M2F_G5_ATTEMPT002_PROVIDER_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-28T18:41:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "07d10580a71d05a7a58c30073c8624179b7ec81920d8b10311811c5a422ab32c",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "powershell.exe",
+      "arguments": "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g5_attempt002_launcher_v1.ps1\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_M2F_G5_ATTEMPT002_PROVIDER_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_M2F_G5_ATTEMPT002_READONLY_MONITOR_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-28T18:43:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "1c847597a659002f116ebb57efaf44f8f836481ed943ee1d90ced0dc4c1b6786",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g5_readonly_monitor_v1.py\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_M2F_G5_ATTEMPT002_READONLY_MONITOR_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_M2F_G6_ATTEMPT001_PROVIDER_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-29T13:18:01.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "de04d3e2662b556033fcb2165ad2ac878b0ba3c1479c4db80177c49843b5d57d",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "powershell.exe",
+      "arguments": "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g6_attempt001_launcher_v1.ps1\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_M2F_G6_ATTEMPT001_PROVIDER_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_M2F_G6_ATTEMPT001_READONLY_MONITOR_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-29T13:20:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "dd9b591c4830950b7fca7a72b4dfde7210b20b809812d3eb8d5d32721da2995a",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g6_readonly_monitor_v1.py\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_M2F_G6_ATTEMPT001_READONLY_MONITOR_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_M2I_G7_G8_LEVEL2A_BLIND_PROSPECTIVE_VALIDATION_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-01T13:11:38.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "1db1a625d49400ce29e98418e9d534a2fef4864a19f2bd75cc43f23eb60c7228",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2i_level2a_scheduler_v1.py --run",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_M2I_G7_G8_LEVEL2A_BLIND_PROSPECTIVE_VALIDATION_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_MDC_FDTD_FORENSIC_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-07-29T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "82a7a6c81453cd0ba401fba7054509d62c80d202063f8655abc25ddf69d03bfc",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_ml_inverse_v1\\outputs\\mdc_fdtd_dipole_tmm_validation_v1\\fdtd-matrix-20260729T092000Z-602d89c69258\\forensic\\run_forensic.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_MDC_FDTD_FORENSIC_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_MDC_FDTD_MATRIX_AUTH_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-07-29T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "46af80466b7930c859d08bd88e241f2d1ee118bb13aa6145a6e9b59300dcd9fc",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_ml_inverse_v1\\outputs\\mdc_fdtd_dipole_tmm_validation_v1\\run_matrix_authorized.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_MDC_FDTD_MATRIX_AUTH_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_MDC_FDTD_REMAINING17_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-07-29T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "85b1601a25efbb1594bdfebd0aa1c168c8c14dfbe82b0a0fff0267cc25342509",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_ml_inverse_v1\\outputs\\mdc_fdtd_dipole_tmm_validation_v1\\fdtd-matrix-20260729T092000Z-602d89c69258\\run_remaining17.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_MDC_FDTD_REMAINING17_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_MDC_NP_COUPLING_V1_S_ATTEMPT002_DURABLE_FDTD_20260814_1227",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-08-14T20:46:17.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "897703e3c074d14277e1d1b2779fec66af2fe2c4443c25097d8a78c91fcaa242",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "cmd.exe",
+      "arguments": "/d /c \"\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\persistent_fdtd_real_task_entry_root_v1.cmd\" \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\NP_LEVEL1_S_ATTEMPT002_TASK_CONFIG.cmd\"\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_MDC_NP_COUPLING_V1_S_ATTEMPT002_DURABLE_FDTD_20260814_1227.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PaperA_LP_BalancedTruth_V1",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-08-23T15:38:22.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "607b5dccc5e5a29ad805fbdc3d573f91cb74d50457a777e71dd092bb6bfbe1f8",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\search_anisotropy_balanced_truth_v1\\launch_balanced_truth.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PaperA_LP_BalancedTruth_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_FORENSIC_BATCH1_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-18T18:06:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "4557017e8a6ad9db188091ef857bc1a3d16ceb439f9e6de351459df063f71769",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+      "arguments": "\"D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\scripts\\\\paper_a_lp_forensic_fdtd_truth_batch1_v1.py\" controller",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PAPER_A_LP_FORENSIC_BATCH1_V1.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_FORENSIC_BATCH1_X_ONLY",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-18T18:11:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "090054e5449f9a50c0e63d7fb6e02132aa7052a42aeeffb170c2e2d4df3477a7",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+      "arguments": "\"D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\scripts\\\\paper_a_lp_forensic_fdtd_truth_batch1_v1.py\" case 2",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PAPER_A_LP_FORENSIC_BATCH1_X_ONLY.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_P1_CONTROLLER_V2",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T18:53:38.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "faca1e5c1da7e2c480ccb6433eee74697d7ef71c6058519efd4c85189a7e65a1",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\reports\\\\stage_paper_a_lp_p1_native_wideband_435_465\\\\monitor\\\\run_p1_controller_v2.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PAPER_A_LP_P1_CONTROLLER_V2.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_P1_MONITOR_V2",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T14:53:42.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "c3eb9b62da305bed9110bb2924a7ae234b389cd2b895b6c870b0180d602cd236",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\reports\\\\stage_paper_a_lp_p1_native_wideband_435_465\\\\monitor\\\\run_p1_monitor_v2.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PAPER_A_LP_P1_MONITOR_V2.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PW_K6_SEED_DB_V1_CONTROLLER",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-24T15:41:54.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "36befdf7f3368deb015dc951515934140b735d23bf365f85412d6b19f6727fd1",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+      "arguments": "\"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\PW_K6_SEED_DB_V1_controller.py\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PW_K6_SEED_DB_V1_CONTROLLER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_875995e7",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T21:18:48.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "2aa7ae13ed7ffdf5e35b79cba3e680992a5ef11c4938766b52f83d43a1f2b0a8",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_875995e7.cmd\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_875995e7.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_adf44acf",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T21:19:43.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "904d732f32e0ffdc223ebf193893ac440b81cb030fd4e06f9d6c9c83bcb62df4",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_adf44acf.cmd\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_adf44acf.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_442d03d7",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T21:19:43.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "7a6172e8601fccc74642117b2de0439158d07dba4fe021835a95796f8406f420",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_442d03d7.cmd\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_442d03d7.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_827c3532",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T21:18:48.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "8f15040d763c7cae43a369baa9a97c4789169546f095e447778a646547c21796",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_827c3532.cmd\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_827c3532.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_LEVEL1_ACQUISITION_DURABLE_MONITOR",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-16T20:22:55.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "4edb5635729021f3dc6e652217e5466037066fd3379136fddae84d21c7297f30",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_acquisition_durable_monitor_v1.py",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_LEVEL1_ACQUISITION_DURABLE_MONITOR.xml",
+      "trigger_tags": [
+        "BootTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_LEVEL1_SINGLE_JOB_RESUME",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-08-16T05:04:59.0000000",
+      "LastTaskResult": 267014,
+      "xml_sha256": "13aeac9ad995b00766c43640390128ca42d616f7e90803f2d1683eba8f28b29d",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\rcwa_single_job_resume_attempt003.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_LEVEL1_SINGLE_JOB_RESUME.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_LEVEL1_TWO_WORKER_CONTROLLER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-16T18:45:41.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "5173ec57f85287e76de3dea420adfd52fcf950be429de27c0897e175f88814cb",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_two_worker_rolling_scheduler_v1.py\" --controller --sleep-seconds 600",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_LEVEL1_TWO_WORKER_CONTROLLER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "d7232d5ff5608378ed889fdc29d7a75b83e92dfe30366bfa2489f1ffa401d11d",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_task_entry_v1.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_STAGE1_ALT_NP_CONTROLLER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_001",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T23:59:00.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "f7360f2631c5543705b62dae90cfa3b4e0b3ec1fc7f39564f336758c59519577",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_recovery_001_task_entry_v1.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_001.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_002",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "75a11281d8292cc60fd749e40393848e016b6c18559c4dbdc53064e91778a1e5",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_recovery_001_task_entry_v1.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_002.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_003",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "a4ed9cd1999cf50ff2aa5c2b70645ee9d9f42538e5f03303496c6ff851b938f5",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_recovery_003_task_entry_v1.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_003.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_004",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "c7934acb3c08a20af3212354e5e5719b10838844e495b8b6e16d72978318240b",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\stage1_alt_np_rcwa_controller_recovery_004_task_entry_v1.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_004.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_MONITOR",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-08-17T23:59:00.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "5f74764fbe7dc2376658cc435ec5fc60c5c77973c77c5f01fa135da7e98917cf",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_monitor_task_entry_v1.cmd",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_RCWA_STAGE1_ALT_NP_MONITOR.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TEST_SHARED_CANARY_TMP",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:12:58.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "e2dfa8114bca926b81329ced50ba56fc0aedef0908ccfaa4d426c96169a80e61",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd",
+      "arguments": "/c D:\\apcd_runtime\\bin\\does_not_exist.cmd",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TEST_SHARED_CANARY_TMP.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRADITIONAL_T6_20260920T091611Z",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T17:16:12.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "c64438893b649d0096b0d0a8d5a2b6802c67c36cd2d8170e3428e19be0dd5bde",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T091611Z\\attempt_001\\run_host.cmd\"",
+      "arguments": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T091611Z\\attempt_001\\host_config.j",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRADITIONAL_T6_20260920T091611Z.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRADITIONAL_T6_20260920T091911Z",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T17:19:12.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "2200e39297903710a600024e7039ef910546fe939145b99edc75f2e33aaefce2",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T091911Z\\attempt_001\\run_host.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRADITIONAL_T6_20260920T091911Z.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRADITIONAL_T6_20260920T092257Z",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T17:22:58.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "6743a5702b7f71107377f5c57bbf4035a2ded5a1f0c1cfefa19da3c12e7a469e",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T092257Z\\attempt_001\\run_host.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRADITIONAL_T6_20260920T092257Z.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRADITIONAL_V3_FINAL_Z_PRODUCTION_V1_20260920T093842Z",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T17:38:42.0000000",
+      "LastTaskResult": -1073741510,
+      "xml_sha256": "eed6f99171dcbbcc869638fc8f04d77c9dd69d57f9623cbc1948ce293ba87bee",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\final_z\\K6_NX5_NY3_Z\\attempt_002\\run_host.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRADITIONAL_V3_FINAL_Z_PRODUCTION_V1_20260920T093842Z.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL5_FINISHER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:28:23.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "39af05d8989ec04b5ee195c7ebb00ad314ffd9108fc791868a2bdb838e5f770e",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final5_FINISHER.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL5_FINISHER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL5_HOST",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:28:23.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "120fdeaa5c5555ac417b60276d500621a5809533d80df38d06069c8ba4df2c13",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final5_HOST.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL5_HOST.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL6_FINISHER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:34:25.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "c06a17d0c1898d5b5121317d45e52905a3d92c30152c27d116dcd0bbbbff7bb0",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final6_FINISHER.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL6_FINISHER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL6_HOST",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:34:25.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "b4151f395939c250d663b47496ae77328fc08705672c73f433463431881d77bf",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final6_HOST.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL6_HOST.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_FINISHER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:25:55.0000000",
+      "LastTaskResult": 267014,
+      "xml_sha256": "6e192556e6dfb8e1242f828441ee374e8f3f53d0d53257851b792a0a31b4d57e",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final4_FINISHER.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C1_FINISHER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_HOST",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:25:54.0000000",
+      "LastTaskResult": 267014,
+      "xml_sha256": "8d2b94b5fc1acb737a7fdaa40e12120dd1834885753abcf29b7fce3815be283b",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final4_HOST.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C1_HOST.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_FINAL1_FINISHER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:36:10.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "195fb2dfc7d2075ddc65045b1f146f3a3d1e01102cd39611b75f1ee552d94a65",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_final1_FINISHER.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_FINAL1_FINISHER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_FINAL1_HOST",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T13:35:58.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "680d26244f3bbc1c56caf0069257964e91d3567f45bc269c487c7fd36521e65d",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_final1_HOST.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_FINAL1_HOST.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_V1_FINISHER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T19:28:02.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "226fb694d29989c90a346d96ff9c9caba2ae29077bcaacbd1d9eb5da1573b226",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_v1_FINISHER.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_V1_FINISHER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_V1_HOST",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-21T19:27:49.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "988456d392a11ec21d3aa64eead9e2e851950c7ed5d7c29124200e00c93fd92d",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_v1_HOST.cmd\"",
+      "arguments": null,
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_V1_HOST.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_COUPLING_DISPATCHER",
+      "Enabled": false,
+      "State": 1,
+      "LastRunTime": "2026-09-25T14:04:01.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "35319cb9b0b84c21bd87b14e9547f7afc9668026a7a0937e01e818ca456544e1",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+      "arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_dispatcher_service.py\" --once",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_COUPLING_DISPATCHER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_COUPLING_RECONCILER",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-10-10T11:58:01.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "5c60c7705c80524bf6a4ebb958dccdbf03ff65093e77eb42cd1f9c94c1f683b9",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+      "arguments": "\"D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_reconciler_service.py\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_COUPLING_RECONCILER.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_COUPLING_W2H06824_ATTEMPT004_HOST",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T15:28:15.0000000",
+      "LastTaskResult": 1,
+      "xml_sha256": "9a2394241b75c069de5e4f3a2435c2ec759ec1fde3c8c114e6d48436c6f26245",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\apcd_runtime\\bin\\v3g2h.cmd",
+      "arguments": "\"D:\\apcd_runtime\\fdtd_v3\\coupling_ml\\W2H_06824\\attempt_004\\host_config.json\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_COUPLING_W2H06824_ATTEMPT004_HOST.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_C_20260920T084927Z",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T16:49:31.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "4ae57dcf1fb4b208fa93b716fda970a1668db4c07e2cd0c869a35c3a09a31391",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\apcd_runtime\\bin\\v3h.cmd",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\shared_infra\\APCD_GLOBAL_FDTD_V3_ENTERED_EXCEPTION_REAL_CANARY_V1\\runtime\\20260920T084927Z\\a1\\c.json",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_C_20260920T084927Z.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_C_20260929T200647Z",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-30T04:06:50.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "f60f8f98541e127adefe448b5edb9f4b3195b98573d95092aa41e8ca3016161e",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\apcd_runtime\\bin\\v3h.cmd",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\real_infra_exception_canary_20260930_fresh\\output\\runtime\\20260929T200647Z\\a1\\c.json",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_C_20260929T200647Z.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_C_A",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-29T23:56:07.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "99fb1fc42d7e59574fb56bcbf2d2e9da18a57b3e1b9c164f8f463fe0527778ca",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\apcd_runtime\\bin\\v3h.cmd",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\A\\a1\\c.json",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_C_A.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_C_B",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-29T23:56:07.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "f8c80cc010a51dcf4c2b86e822985294ef746c8fefe002a3fbeb464ad1d04023",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\apcd_runtime\\bin\\v3h.cmd",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\B\\a1\\c.json",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_C_B.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_C_C",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-29T23:59:47.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "be9378625584e2cab2db563ee161f7c96c19d2d850b9cd4fd594177f3643fdc9",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "D:\\apcd_runtime\\bin\\v3h.cmd",
+      "arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\C\\a1\\c.json",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_C_C.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_PW_PLANAR_1472824360c2",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-20T19:46:13.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "00c1d52c840fc260d7a5393df8d536c43843434fb524c20fd28d3c97a5adbfab",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "cmd.exe",
+      "arguments": "/c \"D:\\apcd_runtime\\pw_planar_stack_host.cmd\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_PW_PLANAR_1472824360c2.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_V3_PW_PLANAR_CURRENT_fcf861bb0617",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "1999-11-30T00:00:00.0000000",
+      "LastTaskResult": 267011,
+      "xml_sha256": "1832f87bc9c67a36fcf08c36d1126a53cdff2d59b4c538e4d785ddf0d878b3ee",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-21-2958591235-2706656562-1210676212-1001",
+      "logon_type": "InteractiveToken",
+      "command": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+      "arguments": "D:\\apcd_runtime\\bin\\v3g2h.py D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_PW_PERIODIC_PLANAR_STACK_REAL_CANARY_V1\\runtime\\attempt_002\\host_config.json",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_V3_PW_PLANAR_CURRENT_fcf861bb0617.xml",
+      "trigger_tags": [
+        "TimeTrigger"
+      ]
+    },
+    {
+      "Name": "APCD_ZROK_PRIVATE_SSH_V1",
+      "Enabled": true,
+      "State": 3,
+      "LastRunTime": "2026-09-28T16:27:27.0000000",
+      "LastTaskResult": 0,
+      "xml_sha256": "c5687a182c26753ffc59825b250af431958d6f4590446542b675c3a0cdf39712",
+      "AllowDemandStart": "true (Windows default)",
+      "principal": "S-1-5-18",
+      "logon_type": null,
+      "command": "powershell.exe",
+      "arguments": "-NoProfile -ExecutionPolicy Bypass -File \"C:\\APCD\\remote_infra\\run_zrok_agent_system.ps1\"",
+      "xml_path": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\snapshot_2\\scheduler_xml\\APCD_ZROK_PRIVATE_SSH_V1.xml",
+      "trigger_tags": [
+        "BootTrigger"
+      ]
+    }
+  ],
+  "live_admission_probe_count": 0,
+  "all_entry_paths_fenced": false,
+  "all_manual_and_other_routes_refused": "NOT_DEMONSTRATED; prerequisite scoped fence absent"
+}

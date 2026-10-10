@@ -1,0 +1,533 @@
+{
+  "utc": "2026-10-10T04:03:48.048366+00:00",
+  "read_only": true,
+  "admission_control": [
+    {
+      "control_id": 1,
+      "new_entry_hold": 0,
+      "temporary_runtime_cap": null,
+      "health_status": "PASS",
+      "control_generation": 27,
+      "updated_at": "2026-10-04T12:58:00.469004+00:00"
+    }
+  ],
+  "branch_limits": [
+    {
+      "branch_id": "traditional",
+      "cap": 1,
+      "enabled": 0,
+      "preferred_slot_order": "[\"GLOBAL_SLOT_1\", \"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\"]",
+      "updated_at": "2026-09-25T04:43:12.718624+00:00"
+    },
+    {
+      "branch_id": "coupling_ml",
+      "cap": 2,
+      "enabled": 1,
+      "preferred_slot_order": "[\"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\", \"GLOBAL_SLOT_1\"]",
+      "updated_at": "2026-09-24T12:54:39.098856+00:00"
+    }
+  ],
+  "backend_capacity": [
+    {
+      "backend_type": "GPU",
+      "physical_cap": 3,
+      "updated_at": "2026-09-24T07:39:42.642887+00:00"
+    }
+  ],
+  "slots": [
+    {
+      "slot_id": "GLOBAL_SLOT_1",
+      "state": "FREE",
+      "owner_branch": null,
+      "logical_case_id": null,
+      "attempt_id": null,
+      "lease_token": null,
+      "fencing_generation": 18,
+      "acquired_at": null,
+      "solver_entered_at": null,
+      "heartbeat_at": null,
+      "updated_at": "2026-09-23T14:06:42.074589+00:00",
+      "version": 178
+    },
+    {
+      "slot_id": "GLOBAL_SLOT_2",
+      "state": "FREE",
+      "owner_branch": null,
+      "logical_case_id": null,
+      "attempt_id": null,
+      "lease_token": null,
+      "fencing_generation": 60,
+      "acquired_at": null,
+      "solver_entered_at": null,
+      "heartbeat_at": null,
+      "updated_at": "2026-09-29T04:30:39.791750+00:00",
+      "version": 1398
+    },
+    {
+      "slot_id": "GLOBAL_SLOT_3",
+      "state": "FREE",
+      "owner_branch": null,
+      "logical_case_id": null,
+      "attempt_id": null,
+      "lease_token": null,
+      "fencing_generation": 15,
+      "acquired_at": null,
+      "solver_entered_at": null,
+      "heartbeat_at": null,
+      "updated_at": "2026-09-29T04:30:44.457273+00:00",
+      "version": 91
+    }
+  ],
+  "current_active_owner_rows": {
+    "slots": [],
+    "resource_reservations": [],
+    "gpu_capacity_leases": []
+  },
+  "v1_task_readback": [
+    {
+      "Name": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+      "Enabled": true,
+      "State": 3,
+      "AllowDemandStart": true,
+      "raw_xml_utf8_sha256": "2b9ba01807f20d55d447d294b9213a391461a30f8b0915eb7ce9665538cd9397",
+      "snapshot_artifact_sha256": "b262c4007eeaa7a7975c1d401da7140773c9dfa3448de4a91b97ae0208b50b84"
+    },
+    {
+      "Name": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+      "Enabled": true,
+      "State": 3,
+      "AllowDemandStart": true,
+      "raw_xml_utf8_sha256": "c5d6c28907a19b6bb644d1c53e3f7fbdc1d09dad750e58ccdeee0435f7e4cb61",
+      "snapshot_artifact_sha256": "97d5157fd719ece9dcd3a82eda3e149787648a5cb93aaf3785a722d491223910"
+    }
+  ],
+  "controller_state": "STOPPED_RECONCILED",
+  "controller_current_case": null,
+  "v1_production_marker_presence": {
+    "active_run.json": false,
+    ".runner.lock": false,
+    "scheduler_worker_v1.lock": false,
+    "registry.json": true
+  },
+  "registry_sha256": "79f98913c1aabf815252d772a9eb2e5519fc3f94103372b08dddf52c48d766e9",
+  "registry_state_counts": {
+    "FAILED_POSTENTRY": 5,
+    "DONE": 46,
+    "FAILED_PREENTRY": 3
+  },
+  "ledger": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_EXECUTION_LEDGER_V1.json",
+    "sha256": "f6577d14941310dcd48f1393044da91fe98c93793d9d53224bb25e56a908a7cd",
+    "counters": {
+      "authorized_development_case_count": 128,
+      "automatic_replay_count": 0,
+      "confirmation_response_access_count": 0,
+      "current_case": null,
+      "entered_count": 38,
+      "labels_valid_count": 34,
+      "remaining_unentered_count": 90,
+      "truth_valid_count": 34
+    },
+    "g027": [
+      {
+        "json_path": "/case_records/K6GDP2_DEV_G027/preentry_reconciliation_evidence",
+        "record": {
+          "attempt_id": "attempt_001",
+          "automatic_replay_count": 0,
+          "case_id": "K6GDP2_DEV_G027",
+          "entry_consumed": false,
+          "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+          "failure_exception_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\failure_exception_v1.json",
+          "failure_exception_sha256": "b131de9789189e62d87355b53a4728984d25316c0715ec75acda10c7a49a026f",
+          "phase": "FAILED_PREENTRY_NO_ENTRY",
+          "query_state": "TERMINAL",
+          "run_directory": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463",
+          "run_envelope_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ENVELOPE_K6V2_G027_20261009T113052Z_f1bdd463.json",
+          "run_envelope_sha256": "a89d2cb33d16d6cde677ba86f2d8aba713866201f9f1aee6a8c1a044713d9e9f",
+          "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+          "runner_log_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUNNER_CLI_OUTPUT_K6V2_G027_20261009T113052Z_f1bdd463.log",
+          "runner_log_sha256": "a9155480901474757b8861a8d707e3bb6865c6713f95271108a1100705ff2b9b",
+          "runner_request_file_sha256": "acd1fa72f89a3508819a8b55cf35a19bd05a96465fc8a1c26bc5a19ee8e978fa",
+          "runner_request_id": "4168f60324ec723566e7193c58810024",
+          "runner_request_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\request.json",
+          "runner_request_sha256": "6b9931134b79170beab05b8a6b91167a6a016896252be1e344b16e15e7b62aad",
+          "runner_result_file_sha256": "7bccab17faea0e4d2dbc928ee5d071b965ba6b3902c1c5839ecb95753ce58249",
+          "runner_result_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\result.json",
+          "runner_result_sha256": "c8270ccea39eb024259631ba34944485da7d09475db36d14bf7e247d0986a621",
+          "runner_slot_entry": false,
+          "runner_status_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\status.json",
+          "runner_status_sha256": "c26615f8ae9c0a9c94b502a472b11c279b40956743686496b097cb78593802b0",
+          "sequence_index": 39,
+          "solver_invocations": 0,
+          "truth_available": false,
+          "worker_claim_file_sha256": "f81b7dd3ddc0cc718b75cf7cd5c9120a7d03bec0858d7e0deba56c206de0d3bb",
+          "worker_claim_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\worker_claim.json",
+          "worker_claim_sha256": "22218b5c190da432b896f48548fe56791864afacf967c77f1ae3947f76223196"
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/9",
+        "record": {
+          "case_id": "K6GDP2_DEV_G027",
+          "evidence": {
+            "registry_rows": [
+              {
+                "attempt_id": "attempt_001",
+                "case_id": "K6GDP2_DEV_G027",
+                "run_dir": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e",
+                "run_id": "K6V2_G027_20261009T092453Z_5bd7193e",
+                "state": "FAILED_PREENTRY"
+              }
+            ],
+            "returncode": 2,
+            "run_log": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUNNER_CLI_OUTPUT_K6V2_G027_20261009T092453Z_5bd7193e.log",
+            "run_log_sha256": "74eb6a944ef3a40c6049f7a202a4b940849762ac0035c02660d1c016ef8230f0",
+            "runner_status": {
+              "attempt_id": "attempt_001",
+              "case_id": "K6GDP2_DEV_G027",
+              "created_unix": 1791537901.2183828,
+              "exception_diagnostic": {
+                "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e\\failure_exception_v1.json",
+                "sha256": "2c02d0e70163e698b64cf7d82c9b32f9d18dd52307d742ef606e5b5e872e4f36"
+              },
+              "failed_unix": 1791537901.570588,
+              "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+              "run_id": "K6V2_G027_20261009T092453Z_5bd7193e",
+              "schema": "APCD_GPU_RUN_STATUS_V1",
+              "solver_entered": false,
+              "solver_invocations": 0,
+              "state": "FAILED_PREENTRY",
+              "updated_unix": 1791537901.570588
+            }
+          },
+          "failed_at_utc": "2026-10-09T09:25:01.674660+00:00",
+          "phase": "RUN_ONE",
+          "sequence_index": 39
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/9/evidence/registry_rows/0",
+        "record": {
+          "attempt_id": "attempt_001",
+          "case_id": "K6GDP2_DEV_G027",
+          "run_dir": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e",
+          "run_id": "K6V2_G027_20261009T092453Z_5bd7193e",
+          "state": "FAILED_PREENTRY"
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/9/evidence/runner_status",
+        "record": {
+          "attempt_id": "attempt_001",
+          "case_id": "K6GDP2_DEV_G027",
+          "created_unix": 1791537901.2183828,
+          "exception_diagnostic": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e\\failure_exception_v1.json",
+            "sha256": "2c02d0e70163e698b64cf7d82c9b32f9d18dd52307d742ef606e5b5e872e4f36"
+          },
+          "failed_unix": 1791537901.570588,
+          "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+          "run_id": "K6V2_G027_20261009T092453Z_5bd7193e",
+          "schema": "APCD_GPU_RUN_STATUS_V1",
+          "solver_entered": false,
+          "solver_invocations": 0,
+          "state": "FAILED_PREENTRY",
+          "updated_unix": 1791537901.570588
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/10",
+        "record": {
+          "attempt_id": "attempt_001",
+          "automatic_replay_count": 0,
+          "case_id": "K6GDP2_DEV_G027",
+          "controller_request_id": "765457a089c44d50f24aa7ca821e9fce",
+          "entry_consumed": false,
+          "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+          "phase": "FAILED_PREENTRY_NO_ENTRY",
+          "recorded_at_utc": "2026-10-09T11:16:35.565742+00:00",
+          "run_id": "K6V2_G027_20261009T092453Z_5bd7193e",
+          "runner_evidence": {
+            "attempt_id": "attempt_001",
+            "automatic_replay_count": 0,
+            "case_id": "K6GDP2_DEV_G027",
+            "entry_consumed": false,
+            "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+            "failure_exception_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e\\failure_exception_v1.json",
+            "failure_exception_sha256": "2c02d0e70163e698b64cf7d82c9b32f9d18dd52307d742ef606e5b5e872e4f36",
+            "phase": "FAILED_PREENTRY_NO_ENTRY",
+            "query_state": "TERMINAL",
+            "run_directory": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e",
+            "run_envelope_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ENVELOPE_K6V2_G027_20261009T092453Z_5bd7193e.json",
+            "run_envelope_sha256": "c4326b1be63a408b33dd55c1cdde8790d9f9337f9383553f10f542e894ade3e5",
+            "run_id": "K6V2_G027_20261009T092453Z_5bd7193e",
+            "runner_log_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUNNER_CLI_OUTPUT_K6V2_G027_20261009T092453Z_5bd7193e.log",
+            "runner_log_sha256": "74eb6a944ef3a40c6049f7a202a4b940849762ac0035c02660d1c016ef8230f0",
+            "runner_request_file_sha256": "582e59ca63bc2d7bf0e6084570c5706e46939dd50235065c87dc5752d001f22e",
+            "runner_request_id": "c8616f548daff61ce04bbca6c4f3cac5",
+            "runner_request_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\c8616f548daff61ce04bbca6c4f3cac5\\request.json",
+            "runner_request_sha256": "6d4b183f68032b0618f98cac25b0a582dd7b768a3b35a9c80648683c097aa880",
+            "runner_result_file_sha256": "32749b9dca74ca366d5945072ff00478870ffca2a090bc5acd09e3de431e832c",
+            "runner_result_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\c8616f548daff61ce04bbca6c4f3cac5\\result.json",
+            "runner_result_sha256": "8e296b3bc1d20b7e6dd25fbf10e539a93ee46fd38df45a6bee8f9c74b1d9622e",
+            "runner_slot_entry": false,
+            "runner_status_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e\\status.json",
+            "runner_status_sha256": "f98e7eaa23246edfa44b1bf5a7cd6093d5cce2687d2f5dddc2a902522c5a1430",
+            "sequence_index": 39,
+            "solver_invocations": 0,
+            "truth_available": false,
+            "worker_claim_file_sha256": "76867f772ff3f339003582c8c2042febb0ee9cce3f0664ac2a4530a10ff49185",
+            "worker_claim_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\c8616f548daff61ce04bbca6c4f3cac5\\worker_claim.json",
+            "worker_claim_sha256": "e9cd047600d65e21a3b161ed626f153731575742926554b28d6813ce54b28527"
+          },
+          "sequence_index": 39,
+          "solver_invocations": 0,
+          "truth_available": false
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/10/runner_evidence",
+        "record": {
+          "attempt_id": "attempt_001",
+          "automatic_replay_count": 0,
+          "case_id": "K6GDP2_DEV_G027",
+          "entry_consumed": false,
+          "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+          "failure_exception_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e\\failure_exception_v1.json",
+          "failure_exception_sha256": "2c02d0e70163e698b64cf7d82c9b32f9d18dd52307d742ef606e5b5e872e4f36",
+          "phase": "FAILED_PREENTRY_NO_ENTRY",
+          "query_state": "TERMINAL",
+          "run_directory": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e",
+          "run_envelope_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ENVELOPE_K6V2_G027_20261009T092453Z_5bd7193e.json",
+          "run_envelope_sha256": "c4326b1be63a408b33dd55c1cdde8790d9f9337f9383553f10f542e894ade3e5",
+          "run_id": "K6V2_G027_20261009T092453Z_5bd7193e",
+          "runner_log_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUNNER_CLI_OUTPUT_K6V2_G027_20261009T092453Z_5bd7193e.log",
+          "runner_log_sha256": "74eb6a944ef3a40c6049f7a202a4b940849762ac0035c02660d1c016ef8230f0",
+          "runner_request_file_sha256": "582e59ca63bc2d7bf0e6084570c5706e46939dd50235065c87dc5752d001f22e",
+          "runner_request_id": "c8616f548daff61ce04bbca6c4f3cac5",
+          "runner_request_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\c8616f548daff61ce04bbca6c4f3cac5\\request.json",
+          "runner_request_sha256": "6d4b183f68032b0618f98cac25b0a582dd7b768a3b35a9c80648683c097aa880",
+          "runner_result_file_sha256": "32749b9dca74ca366d5945072ff00478870ffca2a090bc5acd09e3de431e832c",
+          "runner_result_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\c8616f548daff61ce04bbca6c4f3cac5\\result.json",
+          "runner_result_sha256": "8e296b3bc1d20b7e6dd25fbf10e539a93ee46fd38df45a6bee8f9c74b1d9622e",
+          "runner_slot_entry": false,
+          "runner_status_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T092453Z_5bd7193e\\status.json",
+          "runner_status_sha256": "f98e7eaa23246edfa44b1bf5a7cd6093d5cce2687d2f5dddc2a902522c5a1430",
+          "sequence_index": 39,
+          "solver_invocations": 0,
+          "truth_available": false,
+          "worker_claim_file_sha256": "76867f772ff3f339003582c8c2042febb0ee9cce3f0664ac2a4530a10ff49185",
+          "worker_claim_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\c8616f548daff61ce04bbca6c4f3cac5\\worker_claim.json",
+          "worker_claim_sha256": "e9cd047600d65e21a3b161ed626f153731575742926554b28d6813ce54b28527"
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/11",
+        "record": {
+          "case_id": "K6GDP2_DEV_G027",
+          "evidence": {
+            "registry_rows": [
+              {
+                "attempt_id": "attempt_001",
+                "case_id": "K6GDP2_DEV_G027",
+                "run_dir": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463",
+                "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+                "state": "FAILED_PREENTRY"
+              }
+            ],
+            "returncode": 2,
+            "run_log": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUNNER_CLI_OUTPUT_K6V2_G027_20261009T113052Z_f1bdd463.log",
+            "run_log_sha256": "a9155480901474757b8861a8d707e3bb6865c6713f95271108a1100705ff2b9b",
+            "runner_status": {
+              "attempt_id": "attempt_001",
+              "case_id": "K6GDP2_DEV_G027",
+              "created_unix": 1791545459.8901389,
+              "exception_diagnostic": {
+                "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\failure_exception_v1.json",
+                "sha256": "b131de9789189e62d87355b53a4728984d25316c0715ec75acda10c7a49a026f"
+              },
+              "failed_unix": 1791545460.1838882,
+              "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+              "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+              "schema": "APCD_GPU_RUN_STATUS_V1",
+              "solver_entered": false,
+              "solver_invocations": 0,
+              "state": "FAILED_PREENTRY",
+              "updated_unix": 1791545460.1838882
+            }
+          },
+          "failed_at_utc": "2026-10-09T11:31:00.555001+00:00",
+          "phase": "RUN_ONE",
+          "sequence_index": 39
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/11/evidence/registry_rows/0",
+        "record": {
+          "attempt_id": "attempt_001",
+          "case_id": "K6GDP2_DEV_G027",
+          "run_dir": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463",
+          "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+          "state": "FAILED_PREENTRY"
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/11/evidence/runner_status",
+        "record": {
+          "attempt_id": "attempt_001",
+          "case_id": "K6GDP2_DEV_G027",
+          "created_unix": 1791545459.8901389,
+          "exception_diagnostic": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\failure_exception_v1.json",
+            "sha256": "b131de9789189e62d87355b53a4728984d25316c0715ec75acda10c7a49a026f"
+          },
+          "failed_unix": 1791545460.1838882,
+          "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+          "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+          "schema": "APCD_GPU_RUN_STATUS_V1",
+          "solver_entered": false,
+          "solver_invocations": 0,
+          "state": "FAILED_PREENTRY",
+          "updated_unix": 1791545460.1838882
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/12",
+        "record": {
+          "attempt_id": "attempt_001",
+          "automatic_replay_count": 0,
+          "case_id": "K6GDP2_DEV_G027",
+          "controller_request_id": "faa47cbef071544180bb7803127a4c52",
+          "entry_consumed": false,
+          "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+          "phase": "FAILED_PREENTRY_NO_ENTRY",
+          "recorded_at_utc": "2026-10-09T11:36:09.229545+00:00",
+          "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+          "runner_evidence": {
+            "attempt_id": "attempt_001",
+            "automatic_replay_count": 0,
+            "case_id": "K6GDP2_DEV_G027",
+            "entry_consumed": false,
+            "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+            "failure_exception_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\failure_exception_v1.json",
+            "failure_exception_sha256": "b131de9789189e62d87355b53a4728984d25316c0715ec75acda10c7a49a026f",
+            "phase": "FAILED_PREENTRY_NO_ENTRY",
+            "query_state": "TERMINAL",
+            "run_directory": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463",
+            "run_envelope_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ENVELOPE_K6V2_G027_20261009T113052Z_f1bdd463.json",
+            "run_envelope_sha256": "a89d2cb33d16d6cde677ba86f2d8aba713866201f9f1aee6a8c1a044713d9e9f",
+            "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+            "runner_log_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUNNER_CLI_OUTPUT_K6V2_G027_20261009T113052Z_f1bdd463.log",
+            "runner_log_sha256": "a9155480901474757b8861a8d707e3bb6865c6713f95271108a1100705ff2b9b",
+            "runner_request_file_sha256": "acd1fa72f89a3508819a8b55cf35a19bd05a96465fc8a1c26bc5a19ee8e978fa",
+            "runner_request_id": "4168f60324ec723566e7193c58810024",
+            "runner_request_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\request.json",
+            "runner_request_sha256": "6b9931134b79170beab05b8a6b91167a6a016896252be1e344b16e15e7b62aad",
+            "runner_result_file_sha256": "7bccab17faea0e4d2dbc928ee5d071b965ba6b3902c1c5839ecb95753ce58249",
+            "runner_result_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\result.json",
+            "runner_result_sha256": "c8270ccea39eb024259631ba34944485da7d09475db36d14bf7e247d0986a621",
+            "runner_slot_entry": false,
+            "runner_status_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\status.json",
+            "runner_status_sha256": "c26615f8ae9c0a9c94b502a472b11c279b40956743686496b097cb78593802b0",
+            "sequence_index": 39,
+            "solver_invocations": 0,
+            "truth_available": false,
+            "worker_claim_file_sha256": "f81b7dd3ddc0cc718b75cf7cd5c9120a7d03bec0858d7e0deba56c206de0d3bb",
+            "worker_claim_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\worker_claim.json",
+            "worker_claim_sha256": "22218b5c190da432b896f48548fe56791864afacf967c77f1ae3947f76223196"
+          },
+          "sequence_index": 39,
+          "solver_invocations": 0,
+          "truth_available": false
+        }
+      },
+      {
+        "json_path": "/failed_or_isolated_cases/12/runner_evidence",
+        "record": {
+          "attempt_id": "attempt_001",
+          "automatic_replay_count": 0,
+          "case_id": "K6GDP2_DEV_G027",
+          "entry_consumed": false,
+          "failure": "RunnerError:RUNNER_OWNED_ACTIVITY_PRESENT",
+          "failure_exception_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\failure_exception_v1.json",
+          "failure_exception_sha256": "b131de9789189e62d87355b53a4728984d25316c0715ec75acda10c7a49a026f",
+          "phase": "FAILED_PREENTRY_NO_ENTRY",
+          "query_state": "TERMINAL",
+          "run_directory": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463",
+          "run_envelope_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ENVELOPE_K6V2_G027_20261009T113052Z_f1bdd463.json",
+          "run_envelope_sha256": "a89d2cb33d16d6cde677ba86f2d8aba713866201f9f1aee6a8c1a044713d9e9f",
+          "run_id": "K6V2_G027_20261009T113052Z_f1bdd463",
+          "runner_log_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUNNER_CLI_OUTPUT_K6V2_G027_20261009T113052Z_f1bdd463.log",
+          "runner_log_sha256": "a9155480901474757b8861a8d707e3bb6865c6713f95271108a1100705ff2b9b",
+          "runner_request_file_sha256": "acd1fa72f89a3508819a8b55cf35a19bd05a96465fc8a1c26bc5a19ee8e978fa",
+          "runner_request_id": "4168f60324ec723566e7193c58810024",
+          "runner_request_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\request.json",
+          "runner_request_sha256": "6b9931134b79170beab05b8a6b91167a6a016896252be1e344b16e15e7b62aad",
+          "runner_result_file_sha256": "7bccab17faea0e4d2dbc928ee5d071b965ba6b3902c1c5839ecb95753ce58249",
+          "runner_result_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\result.json",
+          "runner_result_sha256": "c8270ccea39eb024259631ba34944485da7d09475db36d14bf7e247d0986a621",
+          "runner_slot_entry": false,
+          "runner_status_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G027\\attempt_001\\K6V2_G027_20261009T113052Z_f1bdd463\\status.json",
+          "runner_status_sha256": "c26615f8ae9c0a9c94b502a472b11c279b40956743686496b097cb78593802b0",
+          "sequence_index": 39,
+          "solver_invocations": 0,
+          "truth_available": false,
+          "worker_claim_file_sha256": "f81b7dd3ddc0cc718b75cf7cd5c9120a7d03bec0858d7e0deba56c206de0d3bb",
+          "worker_claim_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_run_one_v1\\4168f60324ec723566e7193c58810024\\worker_claim.json",
+          "worker_claim_sha256": "22218b5c190da432b896f48548fe56791864afacf967c77f1ae3947f76223196"
+        }
+      }
+    ]
+  },
+  "prior_hold_file": {
+    "sha256": "8d1c9aa67300e176d03cfc102b899e636afe0f6f5c673e544470a60bd5eb3ec4",
+    "record": {
+      "status": "PW_K6_PRODUCTION_NEW_ENTRY_HOLD",
+      "hold": true,
+      "branch": "coupling_ml",
+      "previous_branch_limit": {
+        "branch_id": "coupling_ml",
+        "cap": 2,
+        "enabled": 1,
+        "preferred_slot_order": "[\"GLOBAL_SLOT_2\", \"GLOBAL_SLOT_3\", \"GLOBAL_SLOT_1\"]"
+      },
+      "active_slots_before": [
+        {
+          "slot_id": "GLOBAL_SLOT_2",
+          "logical_case_id": "W2H_19451",
+          "attempt_id": "attempt_001",
+          "state": "LIVE"
+        },
+        {
+          "slot_id": "GLOBAL_SLOT_3",
+          "logical_case_id": "W2H_10588",
+          "attempt_id": "attempt_001",
+          "state": "LIVE"
+        }
+      ],
+      "queued_cases_preserved": true,
+      "created_unix": 1790236213.3450165,
+      "reversible_action": "set_branch_limit(coupling_ml, enabled=True, same cap/order)",
+      "control_generation": 23,
+      "temporary_runtime_cap": null,
+      "admission_control_authority": "control.sqlite3:admission_control",
+      "admission_control_updated_at": "2026-09-29T04:31:17.858902+00:00"
+    }
+  },
+  "permissions_gaps": {
+    "D:\\apcd_runtime\\global_fdtd_control_v3\\zero_solver_latest.json": {
+      "status": "PERMISSION_DENIED",
+      "error": "[Errno 13] Permission denied: 'D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\zero_solver_latest.json'",
+      "permission_not_bypassed": true
+    }
+  },
+  "shared_traditional_baseline_preserved": true,
+  "traditional_enabled_zero_is_preexisting": true,
+  "no_cap_modified": true,
+  "snapshot_1_2_invariants": {
+    "control_rows_unchanged": true,
+    "scheduler_tasks_unchanged": true,
+    "budget_unchanged": true,
+    "markers_unchanged": true
+  }
+}

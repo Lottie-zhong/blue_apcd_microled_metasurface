@@ -1,0 +1,31 @@
+{
+  "scope": "offline audit harness only; no V1 or production fix",
+  "observed_failures": [
+    {
+      "issue": "Python 3.10 CIM ISO fraction parsing",
+      "error": "ValueError Invalid isoformat string with 7 fractional digits",
+      "fix": "Truncate CIM fraction to 6 digits for timestamp comparison; raw CIM preserved"
+    },
+    {
+      "issue": "Shadow native guard first reader WAL lifecycle",
+      "error": "GLOBAL_ENTRY_CONTROL_CHANGED_DURING_READ; 12 pass and 4 fixture checks initially failed",
+      "fix": "Read-only anchor establishes stable WAL before exact guard; rerun 16/16 PASS",
+      "first_receipt": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\shadow_validation_first.json"
+    },
+    {
+      "issue": "Task definition BSTR XML encoding/schema/defaults",
+      "errors": [
+        "unable to switch the encoding",
+        "AllowDemandStart is not a valid XML element",
+        "Principals comparison changed because COM materializes default LeastPrivilege"
+      ],
+      "fix": "Use NewTask in-memory Settings properties and COM XML serialization; compare normalized effective originals; XML element AllowStartOnDemand vs COM property AllowDemandStart",
+      "registration_calls": 0
+    },
+    {
+      "issue": "Scheduler artifact SHA differs from raw XmlText due newline serialization",
+      "fix": "Compare raw XmlText exactly; publish both raw UTF8 SHA and saved artifact SHA"
+    }
+  ],
+  "xml_failure_details_source": "Observed tool outputs summarized here; original stdout files were overwritten by subsequent wrapper invocations, not claimed as archived raw receipts"
+}

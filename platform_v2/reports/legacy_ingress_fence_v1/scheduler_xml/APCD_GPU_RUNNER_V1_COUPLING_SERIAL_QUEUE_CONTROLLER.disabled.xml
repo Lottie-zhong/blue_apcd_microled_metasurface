@@ -1,0 +1,44 @@
+
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Author>APCD GPU Runner V1</Author>
+    <Description>Coupling-owned bounded serial queue controller; explicit reconciliation on resume.</Description>
+    <URI>\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER</URI>
+  </RegistrationInfo>
+  <Triggers />
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-21-2958591235-2706656562-1210676212-1001</UserId>
+      <LogonType>InteractiveToken</LogonType>
+      <RunLevel>LeastPrivilege</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <AllowHardTerminate>true</AllowHardTerminate>
+    <StartWhenAvailable>false</StartWhenAvailable>
+    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+    <IdleSettings>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <AllowStartOnDemand>false</AllowStartOnDemand>
+    <Enabled>false</Enabled>
+    <Hidden>true</Hidden>
+    <RunOnlyIfIdle>false</RunOnlyIfIdle>
+    <DisallowStartOnRemoteAppSession>false</DisallowStartOnRemoteAppSession>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+    <WakeToRun>false</WakeToRun>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+    <Priority>7</Priority>
+  </Settings>
+  <Actions Context="Author">
+    <Exec>
+      <Command>N:\anaconda_envs\RCP_LCP\python.exe</Command>
+      <Arguments>"D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\scripts\coupling_ml\k6_v2_pipeline\serial_queue.py" --runner-controller-manifest "D:\apcd_runtime\gpu_production_runner_v1\requests\scheduled_queue_controller_v1\faa47cbef071544180bb7803127a4c52\controller_manifest.json" --runner-controller-manifest-sha256 faa47cbef071544180bb7803127a4c5276e39270937e061025dffc607618832c --runner-controller-request-id faa47cbef071544180bb7803127a4c52</Arguments>
+      <WorkingDirectory>D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\scripts\coupling_ml\k6_v2_pipeline</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>

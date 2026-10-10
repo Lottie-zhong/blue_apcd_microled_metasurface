@@ -1,0 +1,289 @@
+{
+  "utc": "2026-10-10T03:55:21.159945+00:00",
+  "source_identity": {
+    "v1": {
+      "root": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd",
+      "db_sha256": "372a33ee95337960a62ee9f81f4ad3eacf361ea5f4bbcb7bf159bc73b6f3bd2c",
+      "allocator_sha256": "902f8588a71464fa2d9a84d499c5dcc57077814aed2899e1a292614c25a5151e",
+      "schema_sha256": "37c07cc07a9094b8bef24a232fa86539b3ba7fbb4dd0372922b652f47f401062"
+    },
+    "installed_reconciler": {
+      "root": "D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd",
+      "db_sha256": "265cef637105fc45c9fd9645fc6672a5f640c744ba3da9e85e791cf4ef0618b0",
+      "allocator_sha256": "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
+      "schema_sha256": "728cd2925780da93f6b7c449d09ae62727af176a7f8f771a871127d578bc3b00"
+    },
+    "pinned_pw_launcher": {
+      "root": "D:\\apcd_runtime\\shared_v3_backend\\pw_powernorm_v1_aaaa25b53a9a3322\\scripts\\shared_fdtd",
+      "db_sha256": "265cef637105fc45c9fd9645fc6672a5f640c744ba3da9e85e791cf4ef0618b0",
+      "allocator_sha256": "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
+      "schema_sha256": "728cd2925780da93f6b7c449d09ae62727af176a7f8f771a871127d578bc3b00"
+    },
+    "coupling": {
+      "root": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd",
+      "db_sha256": "372a33ee95337960a62ee9f81f4ad3eacf361ea5f4bbcb7bf159bc73b6f3bd2c",
+      "allocator_sha256": "4d2466b2f69c8e977eb2dcc5440f51cb3321d15e2a323dc3582da222a67de7d4",
+      "schema_sha256": "37c07cc07a9094b8bef24a232fa86539b3ba7fbb4dd0372922b652f47f401062"
+    }
+  },
+  "v1_guard_source": {
+    "path": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py",
+    "file_sha256": "defab53dbfb9796aebb93a8ced6abc8effbc12ad47357393bf98049818886260",
+    "function_sha256": "22a6b2517b7f8bbc32014e7697cf985e208ffa6ca3834475840f0f43f745ed82",
+    "lines": [
+      76,
+      149
+    ],
+    "execution": "exact AST function, explicit sandbox db argument; no adapter construction"
+  },
+  "tests": [
+    {
+      "implementation": "v1",
+      "test": "scoped_hold_is_global_and_rollback",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "traditional_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "v1_guard": "GLOBAL_NEW_ENTRY_HOLD_ACTIVE:hold_ids=none;generation=1",
+        "slots_and_limits_unchanged": true,
+        "rollback_global_hold": false,
+        "rollback_generation_monotonic": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "v1",
+      "test": "branch_disable_does_not_cover_v1_global_guard",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "BRANCH_DISABLED"
+        ],
+        "traditional_decision": true,
+        "v1_read_global_entry_control": "PASS",
+        "traditional_row_unchanged": true,
+        "formal_branch_rollback_pass": true,
+        "whole_runner_was_not_invoked": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "v1",
+      "test": "branch_generation_invalidates_traditional_reserved_lease",
+      "result": "PASS",
+      "evidence": {
+        "before_eligible": true,
+        "after_reasons": [
+          "OWNER_FENCING_OR_RESERVATION_INVALID"
+        ],
+        "owner_slot_unchanged": true,
+        "generation_invalidated": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "v1",
+      "test": "controls_preserve_live_owner_fixture",
+      "result": "PASS",
+      "evidence": {
+        "live_slot_and_owner_tokens_unchanged": true,
+        "only_fixture_db_mutated": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\shadow_validation\\11448165\\fixture_v1_live_4.sqlite3",
+        "actual_process_survival_not_tested_by_this_fixture": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "installed_reconciler",
+      "test": "scoped_hold_is_global_and_rollback",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "traditional_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "v1_guard": "GLOBAL_NEW_ENTRY_HOLD_ACTIVE:hold_ids=none;generation=1",
+        "slots_and_limits_unchanged": true,
+        "rollback_global_hold": false,
+        "rollback_generation_monotonic": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "installed_reconciler",
+      "test": "branch_disable_does_not_cover_v1_global_guard",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "BRANCH_DISABLED"
+        ],
+        "traditional_decision": true,
+        "v1_read_global_entry_control": "PASS",
+        "traditional_row_unchanged": true,
+        "formal_branch_rollback_pass": true,
+        "whole_runner_was_not_invoked": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "installed_reconciler",
+      "test": "branch_generation_invalidates_traditional_reserved_lease",
+      "result": "PASS",
+      "evidence": {
+        "before_eligible": true,
+        "after_reasons": [
+          "OWNER_FENCING_OR_RESERVATION_INVALID"
+        ],
+        "owner_slot_unchanged": true,
+        "generation_invalidated": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "installed_reconciler",
+      "test": "controls_preserve_live_owner_fixture",
+      "result": "PASS",
+      "evidence": {
+        "live_slot_and_owner_tokens_unchanged": true,
+        "only_fixture_db_mutated": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\shadow_validation\\11448165\\fixture_installed_reconciler_live_8.sqlite3",
+        "actual_process_survival_not_tested_by_this_fixture": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "pinned_pw_launcher",
+      "test": "scoped_hold_is_global_and_rollback",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "traditional_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "v1_guard": "GLOBAL_NEW_ENTRY_HOLD_ACTIVE:hold_ids=none;generation=1",
+        "slots_and_limits_unchanged": true,
+        "rollback_global_hold": false,
+        "rollback_generation_monotonic": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "pinned_pw_launcher",
+      "test": "branch_disable_does_not_cover_v1_global_guard",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "BRANCH_DISABLED"
+        ],
+        "traditional_decision": true,
+        "v1_read_global_entry_control": "PASS",
+        "traditional_row_unchanged": true,
+        "formal_branch_rollback_pass": true,
+        "whole_runner_was_not_invoked": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "pinned_pw_launcher",
+      "test": "branch_generation_invalidates_traditional_reserved_lease",
+      "result": "PASS",
+      "evidence": {
+        "before_eligible": true,
+        "after_reasons": [
+          "OWNER_FENCING_OR_RESERVATION_INVALID"
+        ],
+        "owner_slot_unchanged": true,
+        "generation_invalidated": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "pinned_pw_launcher",
+      "test": "controls_preserve_live_owner_fixture",
+      "result": "PASS",
+      "evidence": {
+        "live_slot_and_owner_tokens_unchanged": true,
+        "only_fixture_db_mutated": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\shadow_validation\\11448165\\fixture_pinned_pw_launcher_live_12.sqlite3",
+        "actual_process_survival_not_tested_by_this_fixture": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "coupling",
+      "test": "scoped_hold_is_global_and_rollback",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "traditional_reasons": [
+          "NEW_ENTRY_HOLD"
+        ],
+        "v1_guard": "GLOBAL_NEW_ENTRY_HOLD_ACTIVE:hold_ids=none;generation=1",
+        "slots_and_limits_unchanged": true,
+        "rollback_global_hold": false,
+        "rollback_generation_monotonic": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "coupling",
+      "test": "branch_disable_does_not_cover_v1_global_guard",
+      "result": "PASS",
+      "evidence": {
+        "coupling_reasons": [
+          "BRANCH_DISABLED"
+        ],
+        "traditional_decision": true,
+        "v1_read_global_entry_control": "PASS",
+        "traditional_row_unchanged": true,
+        "formal_branch_rollback_pass": true,
+        "whole_runner_was_not_invoked": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "coupling",
+      "test": "branch_generation_invalidates_traditional_reserved_lease",
+      "result": "PASS",
+      "evidence": {
+        "before_eligible": true,
+        "after_reasons": [
+          "OWNER_FENCING_OR_RESERVATION_INVALID"
+        ],
+        "owner_slot_unchanged": true,
+        "generation_invalidated": true,
+        "scientific_entries": 0
+      }
+    },
+    {
+      "implementation": "coupling",
+      "test": "controls_preserve_live_owner_fixture",
+      "result": "PASS",
+      "evidence": {
+        "live_slot_and_owner_tokens_unchanged": true,
+        "only_fixture_db_mutated": "D:\\apcd_runtime\\gpu_v2_legacy_ingress_fence_20261010_v1\\shadow_validation\\11448165\\fixture_coupling_live_16.sqlite3",
+        "actual_process_survival_not_tested_by_this_fixture": true,
+        "scientific_entries": 0
+      }
+    }
+  ],
+  "pass_count": 16,
+  "fail_count": 0,
+  "official_control_mutations": 0,
+  "solver_calls": 0,
+  "native_api_calls": 0,
+  "scheduler_mutations": 0,
+  "production_db_writes": 0,
+  "limitations": [
+    "No production admission attempts performed",
+    "No Scheduler demand-start attempts performed",
+    "Guard PASS establishes branch-control coverage gap, not whole Runner admission"
+  ]
+}
