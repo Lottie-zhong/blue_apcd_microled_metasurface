@@ -45,3 +45,5 @@ The already completed CLI acceptance request cannot be rerun. A fresh fixture re
 Read `docs/GPU_PLATFORM_AGENT_CONTEXT_V1.md`, then `docs/CONFLICT_AUDIT_AND_DECISION.md` and `reports/acceptance_summary.json`. All reports are evidence snapshots, not launch authority.
 
 Native acceptance follow-up: see `docs/NATIVE_ACCEPTANCE_DECISION_V1.md` and `reports/native_acceptance_v1`. Real LOAD/importer/systemcheck are now verified; production cutover remains BLOCKED. Historical MVP reports above retain their original offline scope.
+
+Latest owner closure: `docs/UNKNOWN_PROCESS_CLOSURE_DECISION_V1.md`, `reports/unknown_closure_v1`. Qualification remains BLOCKED_WITH_IDENTIFIED_OWNER_RISK; the cutover transaction is prepared but not executed.
