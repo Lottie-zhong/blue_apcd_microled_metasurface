@@ -458,6 +458,8 @@ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:
         if config.mode=='PRODUCTION_GPU':
             if type(backend) is not ProductionNativeBackend or not isinstance(validator,NativeTruthValidator):
                 raise Refused('FORMAL_NATIVE_IMPLEMENTATIONS_REQUIRED')
+            dependencies=validator.preflight()
+            ledger.note(request,token,'TRUTH_DEPENDENCY_PREFLIGHT',dependencies)
             preflight=native_preflight(config,request)
             ledger.note(request,token,'NATIVE_PREFLIGHT',preflight)
         fault('preflight')
@@ -609,7 +611,7 @@ class NativeTruthValidator:
     """Reuse the G025 verified LOAD/postprocess/importer contracts, never science run."""
     def __init__(self,config):self.config=config
 
-    def __call__(self,fsp,request,destination):
+    def _dependencies(self):
         import h5py
         import numpy as np
         import importlib
@@ -630,6 +632,19 @@ class NativeTruthValidator:
         lum=pinned_module(api.path,api.sha256,'lumapi')
         importer=importlib.import_module('k6_v2_pipeline.ingest')
         if sha256(importer.__file__)!=cfg.truth_toolchain['importer'].sha256:raise Refused('IMPORTER_SOURCE_PIN_CHANGED')
+        if not callable(getattr(importer,'load_verified_runner_case',None)):
+            raise Refused('IMPORTER_ENTRYPOINT_REQUIRED')
+        return h5py,np,launcher,lum,importer
+
+    def preflight(self):
+        h5py,np,launcher,lum,importer=self._dependencies()
+        return dict(verdict='PASS',numpy=np.__version__,h5py=h5py.__version__,
+                    pins={key:pin.sha256 for key,pin in self.config.truth_toolchain.items()},native_session_opened=False)
+
+    def __call__(self,fsp,request,destination):
+        from .native_readonly import native_session
+        h5py,np,launcher,lum,importer=self._dependencies()
+        cfg=self.config;post=cfg.truth_toolchain['postprocessor']
         pc=request.physical_contract.read()
         output=Path(cfg.runtime_root)/'validation'/request.request_sha256/uuid.uuid4().hex
         output.mkdir(parents=True)

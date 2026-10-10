@@ -251,6 +251,7 @@ def test_production_native_path_uses_verified_spec_but_holds_unobserved_engine(t
     monkeypatch.setattr(serial,'native_preflight',lambda *args:None)
     monkeypatch.setattr(serial,'gpu_inventory_gate',lambda config:{'test_double':True})
     validator=serial.NativeTruthValidator(config)
+    monkeypatch.setattr(validator,"preflight",lambda:dict(test_double=True))
     with pytest.raises(Refused,match='ENGINE_PID_NOT_OBSERVED'):
         run_serial_case(config,request,ledger,ProductionNativeBackend(),validator)
     assert len(captured)==1 and ledger.audit()['slot']['token']
@@ -301,6 +302,7 @@ def test_vendored_science_has_no_old_runtime_import_or_execution():
                 def visit_ImportFrom(self,node):
                     if node.module=='shared_fdtd.tools.pw_complex_floquet_state_v1':
                         node.module='pw_complex_floquet_state_v1';node.level=1
+                    if node.module=='mdc_tmm_complex_incident_power_v1':node.level=1
                     return node
             normalized=NormalizeImport().visit(old[n.name])
             assert ast.dump(n,include_attributes=False)==ast.dump(normalized,include_attributes=False)
@@ -318,6 +320,8 @@ def test_native_truth_validator_with_saved_g025_and_real_importer(tmp_path,monke
     import k6_v2_pipeline.ingest as importer
     path=Path(postprocess.__file__)
     pins=dict(postprocessor=Pin(path=str(path),sha256=sha256(path)),decoder=Pin(path=str(path.with_name('pw_complex_floquet_state_v1.py')),sha256=sha256(path.with_name('pw_complex_floquet_state_v1.py'))),lumapi=Pin(path=acceptance['lumapi_path'],sha256=acceptance['lumapi_sha256']),importer=Pin(path=str(Path(importer.__file__)),sha256=sha256(importer.__file__)))
+    helper=path.with_name('mdc_tmm_complex_incident_power_v1.py')
+    pins['incident_power_helper']=Pin(path=str(helper),sha256=sha256(helper))
     cfg=cfg.model_copy(update={'truth_toolchain':pins,'coupling_root':acceptance['coupling_root']})
     request=requests[0].model_copy(update={'case_id':'K6GDP2_DEV_G025','ordered_D_nm':tuple(receipt['input_record']['ordered_D_nm']),'config_sha256':cfg.sha256})
     fsp=tmp_path/'existing_copy.fsp';fsp.write_bytes(b'API_LOAD_FIXTURE_NOT_REAL_FSP')

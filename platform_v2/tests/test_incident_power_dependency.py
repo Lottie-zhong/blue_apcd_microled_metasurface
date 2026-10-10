@@ -41,3 +41,24 @@ def test_identical_helper_at_unbound_path_refused(tmp_path):
     cfg=SimpleNamespace(truth_toolchain={"incident_power_helper":Pin(path=str(p),sha256=sha256(p))},coupling_root=str(tmp_path))
     with pytest.raises(Refused,match="INCIDENT_POWER_HELPER_PIN_CHANGED"):
         NativeTruthValidator(cfg)(None,None,None)
+
+
+def test_production_dependency_failure_is_before_entry(tmp_path,monkeypatch):
+    from test_serial import fixture
+    from apcd_gpu_v2 import serial
+    from apcd_gpu_v2.serial import SerialLedger,ProductionNativeBackend,NativeTruthValidator
+    from apcd_gpu_v2.ledger import Refused
+    cfg,requests,_=fixture(tmp_path)
+    cfg=cfg.model_copy(update={'mode':'PRODUCTION_GPU'})
+    request=requests[0].model_copy(update={'config_sha256':cfg.sha256})
+    ledger=SerialLedger(Path(cfg.runtime_root)/'dependency_guard.sqlite3');ledger.register(request,cfg)
+    monkeypatch.setattr(serial,'validate_admission',lambda *a:None)
+    monkeypatch.setattr(serial.CouplingBudget,'validate',lambda *a:None)
+    def forbidden(*a,**kw):pytest.fail('native/entry reached after failed dependency preflight')
+    monkeypatch.setattr(serial,'native_preflight',forbidden)
+    monkeypatch.setattr(serial.CouplingBudget,'prepare_entry',forbidden)
+    before=Path(cfg.coupling_ledger).read_bytes()
+    with pytest.raises(Refused,match='INCIDENT_POWER_HELPER_PIN_REQUIRED'):
+        serial.run_serial_case(cfg,request,ledger,ProductionNativeBackend(),NativeTruthValidator(cfg))
+    assert Path(cfg.coupling_ledger).read_bytes()==before
+    assert not any(e['kind']=='LAUNCH_REQUESTED' for e in ledger.audit()['events'])
