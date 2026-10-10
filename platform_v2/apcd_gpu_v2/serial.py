@@ -617,6 +617,11 @@ class NativeTruthValidator:
         cfg=self.config
         for pin in cfg.truth_toolchain.values():
             if sha256(pin.path)!=pin.sha256:raise Refused('TRUTH_DEPENDENCY_PIN_CHANGED')
+        helper=cfg.truth_toolchain.get('incident_power_helper')
+        if helper is None:raise Refused('INCIDENT_POWER_HELPER_PIN_REQUIRED')
+        from .science import mdc_tmm_complex_incident_power_v1 as incident_power
+        if Path(incident_power.__file__).resolve()!=Path(helper.path).resolve() or sha256(incident_power.__file__)!=helper.sha256:
+            raise Refused('INCIDENT_POWER_HELPER_PIN_CHANGED')
         post=cfg.truth_toolchain['postprocessor'];api=cfg.truth_toolchain['lumapi']
         for path in [Path(cfg.coupling_root)/'scripts/coupling_ml']:
             if str(path) not in sys.path:sys.path.insert(0,str(path))

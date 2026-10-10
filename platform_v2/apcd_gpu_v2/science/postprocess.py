@@ -355,7 +355,7 @@ def analyze(fd, cfg, canonical_state=None):
     samples = {str(k): float(v) for k, v in contract["samples_nm"].items()}
     references = {str(k): float(v) for k, v in contract["references_nm"].items()}
     materials = contract["materials"]
-    from mdc_tmm_complex_incident_power_v1 import normal_stack_power
+    from .mdc_tmm_complex_incident_power_v1 import normal_stack_power
 
     native_frequencies = _freq(fd, monitors["output"])
     native_wavelengths = 299792458.0 / native_frequencies * 1e9
