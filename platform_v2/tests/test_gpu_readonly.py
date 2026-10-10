@@ -12,7 +12,11 @@ def evidence():
 
 
 def test_positive_idle_gui():
-    assert evaluate_idle_edt(*evidence())['classification']=='VERIFIED_IDLE_EDT_GUI'
+    args=evidence()
+    args[0].update(classification='SCIENCE_OR_UNATTRIBUTED',command=args[1],reported_memory='[N/A]')
+    result=evaluate_idle_edt(*args)
+    assert result['classification']=='VERIFIED_IDLE_EDT_GUI'
+    assert result['reported_memory']=='[N/A]'
 
 
 @pytest.mark.parametrize('fault',['compute','render','pid','sample','child','command','image','malformed'])

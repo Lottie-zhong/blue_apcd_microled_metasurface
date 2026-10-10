@@ -18,7 +18,7 @@ LICENSE = Path('N:/Program Files/ANSYS Inc/v251/licensingclient/winx64/ansyscl.e
 
 def snapshot():
     script = "@(Get-CimInstance Win32_PerfFormattedData_GPUPerformanceCounters_GPUEngine -ErrorAction Stop | ForEach-Object {@{name=$_.Name;utilization=$_.UtilizationPercentage}})|ConvertTo-Json -Depth 4"
-    p = subprocess.run(['powershell','-NoProfile','-EncodedCommand',base64.b64encode(script.encode('utf-16le')).decode()],capture_output=True,text=True,encoding='utf-8',check=True,timeout=30)
+    p = subprocess.run(['powershell','-NoProfile','-EncodedCommand',base64.b64encode(script.encode('utf-16le')).decode()],capture_output=True,text=True,encoding='utf-8',errors='replace',check=True,timeout=30)
     rows = json.loads(p.stdout)
     if not isinstance(rows,list) or not rows:raise Refused('WDDM_COUNTERS_UNAVAILABLE')
     return rows
@@ -36,7 +36,9 @@ def evaluate_idle_edt(record,command,children,samples):
         if not selected:raise Refused('EDT_GPU_COUNTER_COVERAGE_MISSING')
         if any(not isinstance(row.get('utilization'),(int,float)) or row['utilization']!=0 for row in selected):raise Refused('EDT_GPU_ENGINE_ACTIVITY_PRESENT')
         names.append(selected)
-    return dict(**record,classification='VERIFIED_IDLE_EDT_GUI',command=command,children=children,gpu_engine_samples=names,scope='current bounded samples only; recheck before each launch')
+    result=dict(record)
+    result.update(classification='VERIFIED_IDLE_EDT_GUI',command=command,children=children,gpu_engine_samples=names,scope='current bounded samples only; recheck before each launch')
+    return result
 
 
 def resolve_idle_edt(consumers):
