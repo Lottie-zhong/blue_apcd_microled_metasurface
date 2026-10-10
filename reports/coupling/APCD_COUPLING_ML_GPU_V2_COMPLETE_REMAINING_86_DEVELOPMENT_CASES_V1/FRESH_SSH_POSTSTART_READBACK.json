@@ -1,0 +1,65 @@
+{
+  "status": "RUNNING_VERIFIED",
+  "observed_utc_unix": 1791630535.7935894,
+  "fresh_SSH_connection": true,
+  "binding_path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\G031_G116_attempt001_20261010\\BINDING.json",
+  "binding_sha256": "176e4f4ac7bc071c4c29ef29697dcfd6d575891a63c6a8edabc43e9bc35068eb",
+  "task": {
+    "state": 4,
+    "last_result": 267009,
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\r\n<Task version=\"1.4\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">\r\n  <RegistrationInfo>\r\n    <Author>APCD GPU Platform V2</Author>\r\n    <Description>One server-owned serial GPU controller; scientific release DENY; installed disabled.</Description>\r\n    <URI>\\APCD_GPU_V2_SERIAL_CONTROLLER</URI>\r\n  </RegistrationInfo>\r\n  <Principals>\r\n    <Principal id=\"Author\">\r\n      <UserId>S-1-5-21-2958591235-2706656562-1210676212-1001</UserId>\r\n      <LogonType>InteractiveToken</LogonType>\r\n      <RunLevel>HighestAvailable</RunLevel>\r\n    </Principal>\r\n  </Principals>\r\n  <Settings>\r\n    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>\r\n    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>\r\n    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>\r\n    <Hidden>true</Hidden>\r\n    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>\r\n    <IdleSettings>\r\n      <StopOnIdleEnd>true</StopOnIdleEnd>\r\n      <RestartOnIdle>false</RestartOnIdle>\r\n    </IdleSettings>\r\n    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>\r\n  </Settings>\r\n  <Triggers />\r\n  <Actions Context=\"Author\">\r\n    <Exec>\r\n      <Command>N:\\anaconda_envs\\RCP_LCP\\python.exe</Command>\r\n      <Arguments>\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2\\tools\\serial_controller.py\" --config \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\G031_G116_attempt001_20261010\\serial_config.json\" --requests \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\G031_G116_attempt001_20261010\\requests.json\"</Arguments>\r\n      <WorkingDirectory>D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2</WorkingDirectory>\r\n    </Exec>\r\n  </Actions>\r\n</Task>",
+    "instances": [
+      {
+        "engine_pid": 35260,
+        "guid": "{5D174E3F-0C43-4C08-976D-9A4F2840B509}",
+        "state": 4
+      }
+    ],
+    "enabled": true
+  },
+  "controller": {
+    "pid": 35260,
+    "create_time": 1791630402.1793716,
+    "exe": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "command_sha256": "ebdecd38c51dbcc75a1ccb00723d4a3845084c9632984f395b55c68e29098b6b"
+  },
+  "slot": [
+    {
+      "id": 1,
+      "generation": 6,
+      "token": "76d20b48a65447f58a154d5f3c2166c5",
+      "owner": "{\"command\": [\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\", \"D:\\\\apcd_runtime\\\\gpu_platform_v2_serial_production_v1\\\\releases\\\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\\\platform_v2\\\\tools\\\\serial_controller.py\", \"--config\", \"D:\\\\apcd_runtime\\\\gpu_platform_v2_serial_production_v1\\\\science_releases\\\\G031_G116_attempt001_20261010\\\\serial_config.json\", \"--requests\", \"D:\\\\apcd_runtime\\\\gpu_platform_v2_serial_production_v1\\\\science_releases\\\\G031_G116_attempt001_20261010\\\\requests.json\"], \"creation_time\": 1791630402.1793716, \"executable\": \"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\", \"pid\": 35260, \"ppid\": 4484, \"user\": \"DESKTOP-NNE313K\\\\DELL\"}",
+      "request_sha": "95894b0e67ae8ef0200c2bd3ee2cdc358b3d130b06d3cc07b4d29ec7ca4bb7df"
+    }
+  ],
+  "new_case_rows": [
+    {
+      "case_id": "K6GDP2_DEV_G031",
+      "attempt_id": "attempt_001",
+      "request_sha": "95894b0e67ae8ef0200c2bd3ee2cdc358b3d130b06d3cc07b4d29ec7ca4bb7df",
+      "state": "LAUNCH_REQUESTED",
+      "entered": 1,
+      "entry_at": 1791630420.0266325,
+      "error": null
+    }
+  ],
+  "actual_engine_entry_evidence": [
+    {
+      "case_id": "K6GDP2_DEV_G031",
+      "first_observed_utc_unix": 1791630434.185751,
+      "pid": 20164,
+      "event_payload_sha256": "1072f62b7f9a5294f0a7a44fc052bd2ae5d5e28b8ec3d9dc41a0b4ba8ff57a4e"
+    }
+  ],
+  "counts": {
+    "entered_count": 43,
+    "truth_valid_count": 38,
+    "labels_valid_count": 38,
+    "remaining_unentered_count": 85
+  },
+  "installed_controller_sha256": "99ff12941f30663410a89564de3f44c2eded5513fbe7b40055416bd769186133",
+  "confirmation_access": 0,
+  "training_fits": 0,
+  "replay": 0,
+  "runtime_not_stopped_or_modified": true
+}

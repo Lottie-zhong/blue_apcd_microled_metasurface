@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "armed": {
+    "pid": 20048,
+    "creation_time": 1791630700.98309,
+    "controller_pid": 35260,
+    "controller_create_time": 1791630402.1793716,
+    "armed_unix": 1791630701.4905388,
+    "method": "Windows process handle wait; no polling; no scientific authority"
+  },
+  "binding": {
+    "schema": "APCD_V2_PROCESS_HANDLE_TERMINAL_FINISHER_V1",
+    "controller_start_receipt_sha256": "1ec5967af17a5edd8b6bde771d4a1725dac80a30c28b68505547f4f99d2988e7",
+    "controller_pid": 35260,
+    "controller_creation_time": 1791630402.1793716,
+    "science_binding_sha256": "176e4f4ac7bc071c4c29ef29697dcfd6d575891a63c6a8edabc43e9bc35068eb",
+    "script_pins": {
+      "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\terminal86_audit.py": "13f2fb83721314ef92024667e2d297e917111fd0b3aee80b49166c8a7e8401c7",
+      "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\close86_scope.py": "cd4bb8ac2a7558a3110a27110b504763f5bf830bbffd7bc6e29953b0d3376de1",
+      "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\finisher86.py": "da1b41cbab667a9768aeacceb3ce9945c65649447128d3567dab84b8361ba0b1",
+      "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_V2_COMPLETE_REMAINING_86_DEVELOPMENT_CASES_V1\\verify_remaining_production.py": "4c9518cce1218d1c27a524d06d199e1dd1e767fdf04acd803f1e16cc64f03062"
+    },
+    "coupling_auditor": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_V2_COMPLETE_REMAINING_86_DEVELOPMENT_CASES_V1\\verify_remaining_production.py",
+    "coupling_auditor_sha256": "4c9518cce1218d1c27a524d06d199e1dd1e767fdf04acd803f1e16cc64f03062",
+    "coupling_auditor_git_head": "d2ca63c1f9e27466adde9534703fdea65239dc49",
+    "solver_authority": false,
+    "entry_authority": false,
+    "periodic_polling": false
+  },
+  "guard_tests": {
+    "verdict": "PASS",
+    "guard_cases": 8,
+    "stdout": "FINISHER_OFFLINE_GUARDS_PASS 8\n",
+    "solver_calls": 0
+  },
+  "pins": [
+    {
+      "path": "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\FINISHER_BINDING.json",
+      "sha256": "e9bc07d150de651422d2e682600d3bcee7f1c34dcb3a9de5ff349bb7a490dd59"
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\FINISHER_ARMED.json",
+      "sha256": "4437231e90811144e28c016a967786352d1b7065fa9c1025173425791f24ab1e"
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\FINISHER_START_RECEIPT.json",
+      "sha256": "b1b86ec2e8183fd82f597cc5b02b55bf3a95295fa7f2aac39d80fb1c58a42e7e"
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\FINISHER_GUARD_TEST_RESULT.json",
+      "sha256": "b4074e5578f17176ec1c77026c9d2e284c61349405983b342e214a1107438184"
+    }
+  ],
+  "gitblob_sha_verified": true,
+  "server_owned_after_dispatch_helper_exit": true,
+  "finisher_does_not_run_solver_or_poll": true,
+  "no_production_completion_claim": true,
+  "no_solver_or_training_called_by_verification": true
+}
