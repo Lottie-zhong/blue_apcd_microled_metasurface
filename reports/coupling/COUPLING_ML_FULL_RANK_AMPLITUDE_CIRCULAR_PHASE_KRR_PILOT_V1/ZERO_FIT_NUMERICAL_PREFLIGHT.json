@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "fits": 0,
+  "raw_roundtrip_max_abs": 1.1102230246251565e-15,
+  "tolerance": 2e-15,
+  "weak_rule": "supervision canonicalization is deliberately not invertible at weak coordinates; raw full-rank representation is invertible, reliable coordinates unchanged",
+  "checks": [
+    "294/588 shapes",
+    "polar sqrt amplitude roundtrip includingzero/tiny",
+    "training-only weak canonical target",
+    "zero-vector fallback",
+    "negative sqrt squared nonnegative",
+    "2pi wrapping",
+    "head scaler inverse"
+  ]
+}
