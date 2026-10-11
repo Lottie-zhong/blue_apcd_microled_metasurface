@@ -1,0 +1,595 @@
+执行下一阶段：
+
+APCD_COUPLING_ML_156G_AMENDED_GLOBAL_FORWARD_TRAINING_V1
+
+科学裁决：
+APPROVED_156G_DEVELOPMENT_AMENDMENT
+APPROVED_268_GLOBAL_CPU_FITS_CONDITIONAL_ON_PREFLIGHT
+
+目标：
+正式将 K6 V2 integrated 3D FDTD 开发训练池
+从原计划160G修订为156G。
+
+在保留原始科学模型、H1/H2、确认集隔离和
+训练/验证独立性的基础上，
+完成正式前向代理学习曲线与全域泛化评估。
+
+本任务允许最多268次CPU模型fit。
+
+Codex应自主完成：
+版本化修订
+→ 数据接入适配
+→ fold和fit manifest验证
+→ 零fit端到端预演
+→ 正式训练
+→ H1/H2评价
+→ 科学结论与归档。
+
+普通工程问题自行修复并继续。
+不得未经准入验证直接运行训练。
+
+一、最新数据科学authority
+
+上一阶段正式结论：
+
+DATASET_READY
+AMENDMENT_REQUIRED
+
+已确认：
+
+旧integrated：
+32G
+
+新V2有效：
+124G
+
+其中：
+11个S31局部开发几何
+113个V2全域开发几何
+
+合计：
+156个独立开发几何。
+
+四个历史失败案例：
+
+K6LDA1_DEV_D6_M05
+K6GDP2_DEV_G023
+K6GDP2_DEV_G024
+K6GDP2_DEV_G026
+
+全部已消耗科学entry。
+无完整原生truth可恢复。
+不得重跑或补造标签。
+
+原128个开发attempt全部已入场。
+开发集新增科学预算=0。
+
+确认集：
+32个独立封存几何。
+不得访问其响应。
+
+最新科学审计HEAD：
+
+8b97b105d282b9ffb7750a6c45132c975a7aaed2
+
+先读取最新FINAL_SCIENTIFIC_REVIEW、
+SHA inventory、156G inventory、
+原281-fit合同、修订dry-run和CONTINUATION。
+
+核验当前Git和全部科学证据。
+
+二、冻结156G正式训练快照
+
+建立版本化：
+
+COUPLING_K6_V2_DEVELOPMENT_156G_AMENDMENT_V1
+
+必须保留原160G authority及历史文档。
+
+新快照显式记录：
+
+- 全部156个geometry ID
+- 有序D1...D6
+- 32G旧数据身份
+- 124G新增数据身份
+- 每案科学合同
+- truth / label SHA
+- wavelength / order / polarization
+- 609D标签语义
+- role
+- 来源和导入器版本
+
+不得混入：
+
+- 四个失败案的无效truth
+- EXT02
+- queue21
+- reserve身份
+- confirmation response
+- 未核验的历史标签
+
+所有数组必须有限且维度正确。
+
+保持：
+
+440–460nm
+21 wavelengths
+7 propagating orders
+2 polarization outputs
+588D Cartesian C_hat
+21D positive P_scale
+
+P_scale保持冻结log训练及物理域恢复协议。
+
+H2解码器和H1指标完全不变。
+
+三、版本化训练协议修订
+
+保留：
+
+RBF-KRR
+Cartesian MLP 6→32→32
+原H1/H2
+原geometry-grouped评估
+原seed protocol
+原train-only preprocessing
+原模型选择逻辑
+
+主要修订：
+
+development pool：
+160G → 156G
+
+learning curve：
+32/64/128 → 32/64/124
+
+local13-fit：
+暂缓，不计入本轮。
+
+必须明确记录该修订不具备
+与原160G完整训练计划的逐项同条件可比性。
+
+不得暗中修改：
+- 模型容量
+- 网络结构
+- loss定义
+- 核函数
+- 超参数候选
+- H1/H2阈值
+- 归一化方法
+- 测试指标
+
+如修订必须调整训练池索引、
+fold样本数量或fit调度结构，
+只做必要的最小兼容变更。
+
+四、严格检查fold
+
+审计实际冻结outer/inner manifest。
+
+当前审计报告显示：
+四个outer训练池规模为124–126G。
+
+必须核实原因及其与原协议的关系。
+
+重点核验：
+
+1. 旧32G在outer中的原有角色。
+2. 新124G如何按原fold分配。
+3. 缺失四案如何从对应fold排除。
+4. 每个outer验证点只出现在合法验证位置。
+5. 任何outer验证响应均未进入该fold训练。
+6. 21波长不会跨几何身份泄漏。
+7. inner只使用对应outer训练池。
+8. 标准化和敏感度只从当折训练响应计算。
+9. 原seed、fold与几何身份保留映射。
+10. 32/64/124 refit层级确实可执行。
+
+特别注意：
+
+124G是学习曲线实际refit训练规模，
+不自动等于超参数选择阶段的
+全部可见训练样本数。
+
+需如实报告各训练阶段所见样本数量。
+
+不要为了形成整齐的fold，
+重新随机抽样、复制缺失几何
+或改变validation身份。
+
+如果原协议需要修订，
+必须写入amendment并提供精确差异。
+
+五、训练fit预算
+
+正式上限：
+
+268 fits
+
+组成：
+
+108 inner KRR
+108 inner MLP
+12 curve KRR
+36 curve MLP
+4 final fits
+
+合计268。
+
+按照经过冻结的修订manifest执行。
+
+不得凭此摘要重新推测
+每种fit的模型、seed或fold含义。
+
+必须从正式计划核对268个唯一fit ID。
+
+每个fit记录：
+
+- unique fit ID
+- model identity
+- geometry identity list
+- train / validation split
+- seed
+- preprocessing identity
+- hyperparameter protocol
+- input/output SHA
+- artifact SHA
+- evaluation status
+
+不得因为某个fit性能不好
+增加隐藏的超参数搜索或新seed。
+
+失败的fit必须保留日志并正式对账，
+不得静默增加超过268次的拟合操作。
+
+六、先执行零fit完整预演
+
+在实际训练之前：
+
+完成：
+
+1. 数据读取。
+2. 全部156G标签核验。
+3. train/validation角色核验。
+4. 完整fold生成。
+5. 268-fit manifest编译。
+6. 输出标准化接口审计。
+7. KRR参数与数据维度检查。
+8. MLP参数和输出维度检查。
+9. H1/H2评价入口检查。
+10. checkpoint保存/读取协议。
+11. train-only统计量隔离。
+12. confirmation访问保护。
+13. 资源和内存估计。
+14. Git与当前工作区隔离。
+
+此阶段模型fit数量必须为0。
+
+若以上全部通过，
+自动进入正式268-fit阶段，
+不需要再返回Chat申请普通执行授权。
+
+如果存在：
+科学合同冲突、
+fold响应泄漏、
+无法确定的训练身份、
+确认集权限风险、
+268-fit manifest不一致，
+则停止训练并报告BLOCKED。
+
+七、正式CPU训练
+
+严格执行已批准的268个fit。
+
+要求：
+
+- 使用隔离的CPU科学执行资源。
+- 不调用GPU V2 FDTD backend。
+- 不新增3D FDTD案例。
+- 不改变原科学数据库。
+- 不访问confirmation response。
+- 不使用验证truth进行oracle修正。
+- 不根据outer结果新增模型搜索。
+
+如果计算任务较长，
+使用可恢复checkpoint和正式状态日志。
+
+普通路径、环境、依赖和输出保存问题
+应自主最小修复并继续。
+
+不得为了修复工程问题
+丢弃已完成的合法训练证据。
+
+八、正式模型评价
+
+沿用冻结H1/H2。
+
+必须报告：
+
+A. Complex state
+
+- Relative RMSE median
+- Relative RMSE q95
+- 每几何复数state误差
+- 预测state norm / truth norm
+- 预测相位与非零阶表现
+
+B. Routing
+
+- η RMSE median
+- η RMSE q95
+- Pearson
+- +1阶及非目标阶表现
+
+C. Absolute-order
+
+- RMSE median
+- RMSE q95
+- thresholded relative median
+- thresholded relative q95
+
+D. Power
+
+- P_scale relative error
+- total-power relative error
+- median / q95
+- Pearson
+
+E. 稳定性
+
+- 原seed协议对应的稳定性
+- 原始逐seed结果
+- 适用的聚合结果
+
+不适用的门槛必须标记N/A，
+不能把未测试项记作PASS。
+
+不得使用测试truth作：
+- complex phase alignment
+- norm rescaling
+- power correction
+- feature adjustment
+- hyperparameter reselection
+
+九、学习曲线分析
+
+分别报告：
+
+32G refit
+64G refit
+124G refit
+
+对KRR和MLP进行匹配比较。
+
+每一级必须说明：
+
+- 实际refit几何数
+- outer/inner模型选择可见样本
+- fold身份
+- 模型fit数量
+- 复杂state泛化表现
+- routing表现
+- absolute-order表现
+- power表现
+- seed稳定性
+
+重点回答：
+
+增加训练样本后，
+complex C_hat的泛化误差
+是否显著低于旧65G诊断约0.94的水平？
+
+注意：
+
+旧65G诊断与新训练的验证身份不同，
+不能把跨实验的误差变化
+直接作为严格配对因果改进。
+
+真正的数据规模效应，
+必须优先依据本轮匹配fold学习曲线判断。
+
+十、物理失败模式分析
+
+若H1仍失败：
+
+不得立即扩大网络或额外训练。
+
+先用当前模型已有预测，
+分析误差是否集中于：
+
+- 特定几何区域
+- 精确边界附近
+- 非零衍射阶
+- TM传播state
+- 相位快速变化区域
+- 输出范数收缩
+- 特定波长
+- 功率尺度
+- routing和复杂state不一致
+
+将观察结果与解释性假设分开。
+
+不能仅凭当前结果判定
+全域映射根本不可学习。
+
+如果124G曲线仍明显未收敛，
+报告后续可能的特征融合或局部建模方向，
+不要擅自增加样本或fit。
+
+十一、局部模型处置
+
+原局部12个轴向样本缺：
+
+D6_M05。
+
+因此原局部13-fit方案保持SUSPENDED。
+
+本轮：
+
+0 local model fits。
+
+可以对现有11个局部样本作
+零新增fit的物理描述性分析。
+
+不得用D6另一侧样本、
+插值、NP预测或任何代理值
+伪造缺失的HF标签。
+
+若未来要恢复完整局部诊断，
+再独立提出科学方案和额外预算。
+
+十二、NP 88D消融关系
+
+之前批准的两个匹配KRR fits：
+
+geometry-only
+geometry + NP 88D
+
+当前仍为PENDING。
+
+本轮268-fit正式全域实验
+不包含这两个额外fits。
+
+不要混在一起统计。
+不要偷偷增加270个fit。
+
+后续先根据正式全域训练结果，
+再判断是否继续进行
+固定65G的NP特征配对实验，
+或另行申请156G的特征融合实验。
+
+固定MDC无需重新训练。
+
+复数LF residual因合同缺口
+仍不允许直接实施。
+
+十三、确认集严格封存
+
+32个confirmation：
+
+4 local combo
+27 global core
+1 global stress
+
+本轮全部禁止响应访问。
+
+不得：
+- 用确认集选择模型
+- 用确认集调超参数
+- 用确认集评估中途checkpoint
+- 用确认结果决定loss权重
+- 用确认数据做额外特征融合
+
+正式开发集训练结束后，
+只能先冻结最终模型、预处理、
+预测文件和全部SHA。
+
+是否开展确认集真实HF及最终独立确认，
+另行向Chat申请科学授权。
+
+十四、最终模型状态
+
+本轮最多可以宣布：
+
+DEVELOPMENT_H1_PASS
+或
+DEVELOPMENT_H1_FAIL
+
+只有当冻结H1所有适用门槛满足时，
+才允许标记开发阶段H1通过。
+
+不能宣布：
+
+INDEPENDENT_CONFIRMATION_PASS
+PRODUCTION_SURROGATE_ADMITTED
+INVERSE_DESIGN_VALIDATED
+DIPOLE_INTEGRATED_VALIDATED
+
+这些需要后续独立证据。
+
+十五、交付
+
+生成：
+
+1. DEVELOPMENT_156G_AMENDMENT_V1
+2. FROZEN_156G_DATA_MANIFEST
+3. AMENDED_OUTER_INNER_FOLDS
+4. APPROVED_268_FIT_MANIFEST
+5. TRAINING_PREFLIGHT_REPORT
+6. KRR_LEARNING_CURVE_RESULTS
+7. MLP_LEARNING_CURVE_RESULTS
+8. H1_H2_FINAL_EVALUATION
+9. PAIRED_MODEL_COMPARISON
+10. ERROR_MODE_AND_NORM_AUDIT
+11. MODEL_ARTIFACTS_AND_SHA
+12. LOCAL13_FIT_SUSPENSION_RECORD
+13. FINAL_SCIENTIFIC_REPORT
+14. SHA_INVENTORY
+15. CONTINUATION
+
+保存全部模型checkpoint、预处理统计量、
+seed身份、预测和指标。
+
+尽量复用已有科学目录和数据格式，
+避免生成重复的权威文件。
+
+十六、Git及执行边界
+
+只提交本任务allowlist范围内文件。
+
+保持其他任务既有dirty/staged状态。
+不得全局reset/clean。
+
+原生FSP/H5不加入Git。
+
+不得：
+- 修改GPU V2平台
+- 新增FDTD solver entry
+- replay历史失败案例
+- 训练NP或MDC新代理
+- 提前使用confirmation
+- 进行联合逆向设计
+- 修改冻结H1/H2
+- 超出268次CPU fits
+
+十七、最终回传
+
+报告：
+
+1. PASS / PARTIAL / BLOCKED。
+2. 156G修订是否正式冻结。
+3. 268-fit manifest是否完全执行。
+4. 实际fit计数。
+5. KRR和MLP逐级学习曲线。
+6. 所有H1/H2指标及判定。
+7. 124G refit是否改善复数state。
+8. 输出范数收缩是否缓解。
+9. routing和power是否同步改善。
+10. 最差几何、波长和衍射阶。
+11. 局部13-fit是否保持SUSPENDED。
+12. 32 confirmation是否完全封存。
+13. Git HEAD和完整SHA inventory。
+14. 最终科学报告路径。
+15. 后续最小研究建议。
+
+执行原则：
+
+普通工程问题自主修复。
+零fit验收通过后自动继续268-fit正式训练。
+
+不要完成几个fit就返回Chat等待。
+
+如所有模型训练完成，
+正常结束并提交完整科学结论。
+
+不要自行开启确认集或逆向设计。
+
+最终目标：
+
+首次利用完整可用的156G开发数据库，
+严格验证当前KRR与MLP能否学习
+MDC–NP integrated 3D FDTD的
+完整复数光场、衍射路由与绝对功率响应。
+
+以科学证据决定下一阶段是否转向
+NP物理特征融合和更合适的网络表征。

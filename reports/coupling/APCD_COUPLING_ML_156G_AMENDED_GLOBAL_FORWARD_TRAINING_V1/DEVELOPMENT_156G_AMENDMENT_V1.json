@@ -1,0 +1,89 @@
+{
+  "status": "APPROVED_156G_DEVELOPMENT_AMENDMENT",
+  "proposal_id": "V2_PROPOSED_AMENDMENT_02_156G_CLOSURE",
+  "actual_training_sizes": [
+    32,
+    64,
+    124
+  ],
+  "fold_sizes": {
+    "1": {
+      "validation": 32,
+      "outer_train": 124,
+      "inner_validation": [
+        42,
+        42,
+        40
+      ],
+      "unconsumed_by_max_curve": 0
+    },
+    "2": {
+      "validation": 31,
+      "outer_train": 125,
+      "inner_validation": [
+        43,
+        42,
+        40
+      ],
+      "unconsumed_by_max_curve": 1
+    },
+    "3": {
+      "validation": 30,
+      "outer_train": 126,
+      "inner_validation": [
+        43,
+        43,
+        40
+      ],
+      "unconsumed_by_max_curve": 2
+    },
+    "4": {
+      "validation": 31,
+      "outer_train": 125,
+      "inner_validation": [
+        41,
+        43,
+        41
+      ],
+      "unconsumed_by_max_curve": 1
+    }
+  },
+  "fit_counts": {
+    "inner_krr": 108,
+    "inner_mlp": 108,
+    "learning_curve_krr": 12,
+    "learning_curve_mlp": 36,
+    "final_global": 4,
+    "local_affine": 0,
+    "total": 268
+  },
+  "real_training_executed": 0,
+  "final_pool": 156,
+  "deferred_local_fit_budget": 13,
+  "original_sizes_not_preserved": "128 is impossible in all four fixed validation folds; 124 is the common maximum. Retain32/64. Do not label125/126 or124 as128.",
+  "selection_scope": "Original outer-train inner selection preserved: hyperparameter/epoch selection uses124-126 groups. Curve32/64/124 counts actual refit geometries, not the total development responses consumed for selection. Not a pure total-label-budget learning curve.",
+  "comparability": "Existing32 remain train-only and historically exposed. Filter missing validation identities; original validation membership of survivors unchanged. New fold sample counts and max training size differ from160G; no unqualified paired claim of improvement over unavailable160G.",
+  "pipeline_required_change": "Approved156 collection/fold adapter with inventory+SHA gating needed; do not loosen160G loader in this audit.",
+  "local": "Defer original13 fits. One LOAO fold has rank6 vs required7 when D6_P05 is withheld; anchor alone does not supply D6 slope. No automatic reduced-axis model or pseudoinverse workaround.",
+  "unchanged": [
+    "models",
+    "588D Cartesian state",
+    "21D actual log/exp P_scale",
+    "H1/H2",
+    "geometry grouping",
+    "train-only preprocessing",
+    "seed0/1/2",
+    "complex C_hat seed mean",
+    "physical P_scale arithmetic seed mean",
+    "sealed confirmation access"
+  ],
+  "old_protocol_preserved": true,
+  "dataset_inventory_sha256": "9e2687d61496850bca4f79b5fb24d20f446f47b56944c7a69edb127757a38403",
+  "proposal_freeze_condition": "Chat scientific approval, separately committed156 adapter and all executable source hashes verified; no training authorization from audit",
+  "amendment_id": "COUPLING_K6_V2_DEVELOPMENT_156G_AMENDMENT_V1",
+  "execution_authorization": "APPROVED_268_GLOBAL_CPU_FITS_CONDITIONAL_ON_PREFLIGHT",
+  "original160_authorities_retained": true,
+  "approval_source": "current Chat task text",
+  "preflight_sha256": "74717ddee7ada8c451c407b2cb890c74c9a5d6eeef87c2a4c139a1a7a10c0225",
+  "final_identity_rename": "all160->all156; scientific templates/selection unchanged"
+}

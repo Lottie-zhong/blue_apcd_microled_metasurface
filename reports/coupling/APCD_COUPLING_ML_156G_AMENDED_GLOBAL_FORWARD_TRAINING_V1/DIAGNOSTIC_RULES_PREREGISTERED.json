@@ -1,0 +1,11 @@
+{
+  "no_oracle_alignment": true,
+  "zero_prediction_state_baseline": 1.0,
+  "significant_coordinate_mask": "truth |C|^2 / per-wavelength all14 sum >=1e-4",
+  "phase_truth_weight": "truth amplitude squared",
+  "phase_prediction_weight": "prediction amplitude squared, same truth mask; diagnostic only",
+  "prediction_phase_defined": "|C_pred| > float64 machine epsilon; report truth-weight coverage",
+  "relative_phase": "all21 order pairs separately TE/TM; truth pair-amplitude-product weights; both significant truth mask",
+  "learning_curve_statistical_unit": "geometry; folds/seeds/wavelengths correlated, no naive significance claim",
+  "failure_analysis": "descriptive only; no extra fits, test corrections or new gates"
+}
