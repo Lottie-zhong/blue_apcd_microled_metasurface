@@ -1,0 +1,462 @@
+任务：
+APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1
+
+正式科学裁决：
+
+V3_DOE56_SCIENTIFIC_BUDGET_APPROVED
+MAX_NEW_SCIENTIFIC_ENTRIES = 56
+PRODUCTION_ENTRY_CONDITIONAL_ON_ADMISSION_PASS
+
+用户已明确批准V3 DOE56全部56案的
+真实3D FDTD科学预算。
+
+不需要每完成10案重新向Chat申请授权。
+
+任务目标：
+自主完成生产准入闭环，
+然后利用正式GPU V2串行平台开展56案生产，
+尽量在次日10:00前完成并交付数据。
+
+一、最新authority
+
+Coupling branch：
+work/mdc-np-coupling-ml-v1
+
+冻结设计HEAD：
+21263d6d69a886e178262efe41993b44a80dc7d2
+
+DOE56 inventory SHA：
+6669292e1eca89d25a88bd670e229f634345cfcc7613a9af93d24ea062228241
+
+读取：
+V3 DOE56 FINAL_REPORT
+V3_DOE56_FROZEN_GEOMETRY_MANIFEST
+V3_NUMERICAL_VALIDATION_PLAN
+V3_NEW_BLIND_EVALUATION_PLAN
+V3_56CASE_GPU_BUDGET
+V3_OVERNIGHT_EXECUTION_PLAN
+V3_SCIENTIFIC_ADMISSION_AUDIT
+SHA_INVENTORY
+CONTINUATION
+
+GPU V2 Owner必须重新核验
+当前真实安装版本及运行authority。
+
+不得从旧报告假设安装版本始终不变。
+
+二、本次授权范围
+
+严格使用已冻结DOE56清单。
+
+角色：
+
+DIAGNOSTIC：
+4 cases
+
+DEVELOPMENT_LOCAL：
+24 cases
+
+DEVELOPMENT_GLOBAL：
+20 cases
+
+SEALED_EVALUATION：
+8 cases
+
+合计56 cases。
+
+每个新case最多：
+attempt_001
+scientific entry=1
+replay=0
+
+不得：
+- 改动已冻结几何
+- 新增第57案
+- 修改DOE角色
+- 重跑历史失败attempt
+- 将诊断案例冒充新开发几何
+- 访问原32个confirmation responses
+- 访问新8案的封存评估响应
+
+原156G保持不变。
+
+预期新增44个开发几何，
+全部合法验收后开发池为200G。
+
+三、先闭合四项生产准入
+
+GATE 1：
+4nm诊断合同。
+
+独立验证：
+- 4nm mesh specification
+- FDTD设置
+- 材料及几何
+- monitor
+- 参考面
+- 原生FSP/H5
+- 标签提取兼容性
+- source和physics SHA
+
+4nm结果必须带独立诊断合同身份。
+
+禁止混入canonical 5nm训练标签。
+
+GATE 2：
+封存角色隔离。
+
+8个SEALED_EVALUATION案例：
+- 独立角色
+- 独立存储及访问控制
+- 禁止自动进入开发训练入口
+- 禁止开发报告输出真值
+- 禁止模型选择访问
+- 支持仅查看执行状态、结构完整性和SHA
+
+要求使用实际访问控制测试证明隔离有效，
+不能只依赖文件命名。
+
+GATE 3：
+夜间剩余窗口入场控制。
+
+服务器时区：
+UTC+08:00
+
+默认启动：
+20:00
+
+准备完成可提前启动：
+18:00或更早。
+
+目标：
+次日10:00之前结束。
+
+每次新科学入场之前：
+- 检查剩余窗口
+- 检查最新耗时统计
+- 考虑网格/许可证/保存开销
+- 使用保守的完成时间估计
+- 预留安全缓冲
+
+如果下一案无法合理预计
+在目标窗口内完成：
+停止新增entry。
+
+已合法入场的solver
+允许安全运行至正常终态，
+不得为赶10:00强制终止。
+
+剩余未入场案例保存为PENDING，
+可在下一个合法生产窗口
+沿用本次未消耗的科学预算继续。
+
+不得因此重复入场已消耗attempt。
+
+GATE 4：
+自动晨报。
+
+要求生成：
+- 批次启动和结束时间
+- 已入场案例
+- truth-valid案例
+- labels-valid案例
+- 开发/诊断/封存各角色计数
+- 失败原因
+- replay计数
+- GPU耗时
+- FSP/H5 SHA
+- 剩余未入场案例
+- Controller/slot状态
+- 第二天可用的开发数据清单
+
+晨报必须区分：
+DEVELOPMENT_DATA_READY
+DIAGNOSTIC_ONLY
+SEALED_NO_RESPONSE_ACCESS
+
+不得将封存响应写进普通晨报。
+
+四、预检查结束后自主启动
+
+四个GATE全部通过，
+且科学合同、预算、唯一case身份、
+GPU Owner release和最终入场门槛均通过后，
+可自主启动真实GPU V2生产。
+
+无需再向Chat申请普通启动许可。
+
+如果任一准入无法闭合：
+停止新科学入场并报告BLOCKED。
+
+不得为赶夜间窗口绕过GATE。
+
+五、优先执行4个数值诊断
+
+首先生产：
+
+2个独立5nm重复性诊断
+2个4nm网格敏感性诊断
+
+对应冻结anchor：
+G001
+G004
+
+必须使用清单中的独立新case身份。
+
+它们是新的受控科学测量，
+不是对原case/attempt的replay。
+
+正式比较：
+
+- Complex C_hat相对差异
+- 幅值差异
+- 强模态相位差异
+- 各衍射阶差异
+- Routing
+- Absolute-order
+- P_scale
+- 数值能量闭合
+
+使用预先冻结的诊断指标和门槛。
+不得根据结果事后放宽阈值。
+
+重点判断：
+±5nm几何响应是否有可信的数值分辨能力。
+
+4nm/5nm差异不等于严格网格收敛误差上界。
+
+若诊断符合预注册推进条件，
+自动进入后续开发案例。
+
+若发现严重科学质量问题、
+诊断门槛不满足或无法判定：
+停止后续开发入场，保留证据。
+
+六、自动开发数据生产
+
+诊断推进门槛通过后：
+
+生产24个local案例，
+再生产20个global案例。
+
+使用冻结顺序或原正式生产协议
+定义的合法确定性顺序。
+
+每案：
+
+scientific admission
+→ preflight
+→ solver entry
+→ real 3D GPU FDTD
+→ native FSP/H5
+→ fresh LOAD
+→ 609D label importer
+→ H2 validation
+→ dual ledger reconciliation
+→ science terminal
+→ next case
+
+不得因为solver返回成功，
+就跳过真值、标签和账本验收。
+
+正常情况下自动连续推进。
+无需逐案人工启动。
+
+七、8个新增封存评估案例
+
+在开发生产阶段之后，
+按冻结清单生产8个封存评估案例。
+
+要求：
+- 允许真实solver执行
+- 允许原生科学真值安全持久化
+- 允许独立完整性和SHA检查
+- 不允许开发训练入口读取响应
+- 不允许在开发分析时查看真值
+- 不允许用于调参和模型选择
+
+封存案例的状态、身份和SHA
+可以用于生产审计。
+
+不能在晨报中公开其相位、功率、
+routing或其他标签响应。
+
+原32个confirmation仍封存。
+
+最终两套封存角色保持独立。
+
+八、GPU V2正式生产机制
+
+沿用当前唯一正式GPU V2平台：
+
+single Controller
+single Worker
+GPU scientific concurrency=1
+
+由GPU V2 Owner按正式协议生成：
+immutable request
+finite ALLOW release
+queue SHA
+scientific admission binding
+owner/fencing
+
+不得采用无限期ALLOW。
+
+如果使用多个有限批次，
+本次56案授权允许在合法终态后
+自动继续下一批。
+
+不需要重复询问Chat。
+
+但每次批次转换必须：
+- 前批完成安全终态
+- 双账本对齐
+- 没有活跃solver
+- release独立合法
+- slot为空
+- 新批次身份正确
+- 保留剩余预算
+
+禁止两个批次并发。
+
+不得为了自动化重写GPU V2控制系统。
+
+当前InteractiveToken仍依赖Windows登录状态。
+不得主动注销、重启或睡眠。
+
+九、失败处理
+
+普通工程错误：
+自主最小修复、测试、继续。
+
+preentry失败：
+确认未消耗entry和无悬挂owner后，
+才允许依正式协议重新准入。
+
+post-entry失败：
+保留entry消耗。
+禁止自动replay。
+优先保护已有FSP/H5。
+如具备完整truth，
+按正式协议零solver恢复。
+
+科学合同冲突、未知入场状态、
+双账本不一致、封存泄漏、
+数值诊断不合格：
+停止新入场。
+
+不得跳过科学失败案例，
+强行继续后续56案。
+
+十、资源与研究隔离
+
+本次允许：
+最多56个新FDTD scientific entries。
+
+本次禁止：
+- 额外DOE案例
+- 历史attempt重算
+- 新的ML training fits
+- P_scale新训练
+- NP/MDC新代理训练
+- inverse design
+- 修改H1/H2
+- 读取封存评估响应
+- 修改原156G truth
+
+暂不训练新的逐阶相位模型。
+
+后续模型研究需使用正式
+DEVELOPMENT_DATA_READY数据。
+
+十一、最终验收
+
+如果56案全部成功：
+
+4 diagnostic truth-valid
+44 development labels-valid
+8 sealed truth-valid with responses protected
+
+V3入场：
+56/56。
+
+V3未入场：
+0。
+
+开发数据：
+156G + 44G = 200G。
+
+但新8个封存案例
+不能计入开发池。
+
+旧4个历史失败案例
+不能通过本批预算自动补算。
+
+如某些案例未在本窗口完成，
+按真实状态报告PARTIAL，
+保留剩余合法队列，
+等待下一合法窗口继续。
+
+十二、交付
+
+生成：
+
+V3_DOE56_ADMISSION_CLOSURE
+V3_GPU_V2_RELEASE_BINDINGS
+V3_DIAGNOSTIC_4CASE_RESULTS
+V3_LOCAL24_RESULTS
+V3_GLOBAL20_RESULTS
+V3_SEALED8_PROTECTION_AUDIT
+V3_DEVELOPMENT_DATA_INGESTION
+V3_OVERNIGHT_RUNTIME_REPORT
+V3_MORNING_SCIENCE_BRIEF
+V3_FINAL_LEDGER_RECONCILIATION
+V3_FINAL_REPORT
+SHA_INVENTORY
+CONTINUATION
+
+所有数据保留case、attempt、
+物理合同、模型及SHA provenance。
+
+只提交本任务allowlist文件。
+
+保留无关dirty/staged。
+不得全局reset或clean。
+
+十三、最终回传
+
+1. PASS/PARTIAL/BLOCKED。
+2. 四项准入是否全部闭合。
+3. 56案实际入场数。
+4. 各角色truth-valid/labels-valid。
+5. 诊断是否满足预注册推进条件。
+6. 数值重复性与网格敏感性结果。
+7. 是否形成200G开发数据库。
+8. 新8个封存案例是否保持响应隔离。
+9. 原32个confirmation是否仍封存。
+10. 总GPU耗时及完成时间。
+11. 是否发生replay或科学恢复。
+12. 夜间时间gate是否正确执行。
+13. 次日晨报与可用数据清单。
+14. 当前Controller/release/slot状态。
+15. Git HEAD、SHA inventory及正式报告。
+16. 下一步逐阶物理相位模型的数据准备状态。
+
+执行原则：
+
+科学预算已获一次性批准。
+四项生产准入仍是必须满足的硬门槛。
+
+Codex和GPU V2 Owner自主闭合普通工程问题，
+正常情况下持续生产，不逐案请求Chat。
+
+不得扩大案例、预算、角色或物理合同。
+
+最终目标：
+
+利用18:00–次日10:00的可用窗口，
+安全完成V3 DOE56真实高保真数据库扩建，
+
+保留数值可信性证据和独立封存评估，
+使次日能够直接开展
+物理引导逐阶相干相位建模分析。

@@ -1,0 +1,41 @@
+{
+  "active_controller_worker_engine": [],
+  "current_installation": {
+    "binding_path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\BINDING.json",
+    "binding_sha256": "1b1bc759143c5b293f13c61af400a804b880ec454b8054ad4651754420a509ad",
+    "enabled": false,
+    "release": "DENY"
+  },
+  "current_science_binding": {
+    "completed_binding_path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\G031_G116_attempt001_20261010\\BINDING.json",
+    "completed_binding_sha256": "176e4f4ac7bc071c4c29ef29697dcfd6d575891a63c6a8edabc43e9bc35068eb",
+    "controller_completed": true,
+    "controller_instance": "{5D174E3F-0C43-4C08-976D-9A4F2840B509}",
+    "default_disabled_binding_path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\BINDING.json",
+    "science_authorized": false,
+    "science_release": "DENY"
+  },
+  "installed_binding_path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\BINDING.json",
+  "installed_binding_sha256": "1b1bc759143c5b293f13c61af400a804b880ec454b8054ad4651754420a509ad",
+  "installed_code_files_verified": 126,
+  "installed_code_head": "a09655cd577d7618d3080d35b7a5b2a4a5fc52c5",
+  "installed_code_root": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5",
+  "installed_source_sha256": "e65ecb7f7f729d420feeee1950ff7b9c1675905357a26df268656a4f76fce9aa",
+  "not_an_ALLOW_release": true,
+  "scheduler_readback": {
+    "LastResult": 0,
+    "State": 1,
+    "TaskXML": "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\r\n<Task version=\"1.4\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">\r\n  <RegistrationInfo>\r\n    <Author>APCD GPU Platform V2</Author>\r\n    <Description>One server-owned serial GPU controller; scientific release DENY; installed disabled.</Description>\r\n    <URI>\\APCD_GPU_V2_SERIAL_CONTROLLER</URI>\r\n  </RegistrationInfo>\r\n  <Principals>\r\n    <Principal id=\"Author\">\r\n      <UserId>S-1-5-21-2958591235-2706656562-1210676212-1001</UserId>\r\n      <LogonType>InteractiveToken</LogonType>\r\n      <RunLevel>HighestAvailable</RunLevel>\r\n    </Principal>\r\n  </Principals>\r\n  <Settings>\r\n    <AllowStartOnDemand>false</AllowStartOnDemand>\r\n    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>\r\n    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>\r\n    <Enabled>false</Enabled>\r\n    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>\r\n    <Hidden>true</Hidden>\r\n    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>\r\n    <IdleSettings>\r\n      <StopOnIdleEnd>true</StopOnIdleEnd>\r\n      <RestartOnIdle>false</RestartOnIdle>\r\n    </IdleSettings>\r\n    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>\r\n  </Settings>\r\n  <Triggers />\r\n  <Actions Context=\"Author\">\r\n    <Exec>\r\n      <Command>N:\\anaconda_envs\\RCP_LCP\\python.exe</Command>\r\n      <Arguments>\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2\\tools\\serial_controller.py\" --config \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\serial_config.json\" --requests \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\postsolver_fix_a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\requests.json\"</Arguments>\r\n      <WorkingDirectory>D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2</WorkingDirectory>\r\n    </Exec>\r\n  </Actions>\r\n</Task>"
+  },
+  "slot_readback": [
+    {
+      "generation": 91,
+      "id": 1,
+      "owner": null,
+      "request_sha": null,
+      "token": null
+    }
+  ],
+  "status": "NO_V3_OWNER_RELEASE",
+  "utc": "2026-10-11T08:51:15.876208+00:00"
+}

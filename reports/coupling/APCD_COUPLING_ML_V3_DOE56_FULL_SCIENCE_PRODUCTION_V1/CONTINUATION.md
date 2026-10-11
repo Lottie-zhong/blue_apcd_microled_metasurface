@@ -1,0 +1,11 @@
+# APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1
+
+状态BLOCKED_PREENTRY，科学budget56已批准且未消耗。先读本文件、V3_DOE56_ADMISSION_CLOSURE、ACTUAL_INSTALLED_API_REJECTION_EVIDENCE、GPU_OWNER_REQUIRED_INTERFACE_FIXES、SHA inventory。已核实 DESKTOP-NNE313K/dell，Coupling `D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1`，LAN192.168.1.106，现有key；sourceHEAD21263d6d69a886e178262efe41993b44a80dc7d2。
+
+DOE56原清单/role/几何/设计SHA不改。4diag+24local+20global+8sealed；新44dev将来最多200G；当前仍156G。原32CF与新8封存响应访问0，所有fits0，V3entry0，replay0，56未入场。旧V2128/124/124/0保留、4失败不重算。
+
+当前安装a09655…126pins匹配，SchedulerDisabled/DENY，slotgeneration91empty，无活跃controller/worker/engine。旧报告CURRENTsource/Runtimecontinuation有过时数字，现场readback/binding优先。真实SerialRequest拒绝所有56V3身份，4nm/角色/ledger/window/晨报接口需要GPUowner正式闭合；不修改Frozen平台或伪造receipt。
+
+收到owner正式交付后先验证全部4gates、安装SHA、56case/contract/预算绑定、单owner/empty slot，完整零solverdry-run；通过后按已授权范围正式启动，不再申请56预算，不等待20:00。未通过禁止entry。N1数值4推进门槛先过，再local24/global20/sealed8；未知entry/合同冲突/封存泄漏/诊断失败HOLD。有限窗口不足只停新entry，不killactivejob。
+
+保留所有foreigndirty/staged，精确allowlistcommit；本任务科学budget文本是正式审批来源，registration不是enrollment，NO_V3_OWNER_RELEASE不是恢复receipt。继续必须读取最新owner交付，不能反复调用旧入口尝试。

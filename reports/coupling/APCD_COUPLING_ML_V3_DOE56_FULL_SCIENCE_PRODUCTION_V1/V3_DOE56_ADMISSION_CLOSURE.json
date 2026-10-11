@@ -1,0 +1,38 @@
+{
+  "actual_installed_request_rejections": 56,
+  "all_four_pass": false,
+  "gates": [
+    {
+      "evidence": "SerialConfig/SerialRequest physical_contract_sha256 is Literal canonical; validate_admission rejects noncanonical; no newcanonical/meshpreFSP or LOAD proofs",
+      "id": 1,
+      "name": "4nm independent diagnostic contract and source proof",
+      "required": "Hash-pinned approved mesh-only diagnostic contract, full LOAD/schema/extraction qualification; preserveoriginalH2; nofake canonical hash",
+      "state": "BLOCKED_OWNER_INTERFACE"
+    },
+    {
+      "evidence": "SerialRequest accepts legacyIDs/two developmentroles only; validate_labels raisesSEALED_OR_UNKNOWN_ROLE for4diagnostic/sealedroles; no actualsealedcustody/ACLqualified",
+      "id": 2,
+      "name": "sealed role/storage/access control",
+      "required": "ExactV3role allowlist plus isolatedcustody validator andactualaccess-denial tests; development importer muststillrejectsealed/diagnostic; noresponseexport",
+      "state": "BLOCKED_OWNER_INTERFACE"
+    },
+    {
+      "evidence": "Onlyreleaseexpiry ischecked ininstalledvalidate_admission; controller lacks remainingwindow/casecost gate before conservativeentry",
+      "id": 3,
+      "name": "completion-aware overnight entry gate",
+      "required": "Latestvalidlatency/meshbound+license/save/LOADbuffer+30minreportmargin beforeeveryentry;WINDOW_CLOSED_NO_ENTRY mustpreservependingbudget; neverkillrunningengine",
+      "state": "NOT_IMPLEMENTED"
+    },
+    {
+      "evidence": "Existing86finisher waitscontrollerexit; noqualified10:00partial/overrunpublicstatus/sealed-safe report",
+      "id": 4,
+      "name": "10:00 morning science report",
+      "required": "ExistingV2boundedserver-owned reporting interface; noadditionalbatchlauncher; report identity/counts/SHA anddevelopmentreadylist; neversealednumericresponses",
+      "state": "NOT_QUALIFIED"
+    }
+  ],
+  "ordinary_fixture_checks_are_not_admission_pass": true,
+  "overall": "BLOCKED",
+  "production_started": false,
+  "scientific_budget": "APPROVED_56"
+}
