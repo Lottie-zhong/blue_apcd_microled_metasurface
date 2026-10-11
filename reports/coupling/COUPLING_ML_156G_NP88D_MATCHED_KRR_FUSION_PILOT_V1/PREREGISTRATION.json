@@ -1,0 +1,136 @@
+{
+  "utc_before_first_fit": "2026-10-11T06:14:03.508398+00:00",
+  "status": "FROZEN",
+  "authorized_fit_list": [
+    "NP88_outer_1",
+    "NP88_outer_2",
+    "NP88_outer_3",
+    "NP88_outer_4"
+  ],
+  "actual_planned_fits": 4,
+  "scaling_rule": "x_B=[zD/sqrt(2),sqrt(6/88)*zF/sqrt(2)]; frozen gamma and alpha unchanged. Equivalent gamma_B=gamma_A/2 on [zD,sqrt(6/88)zF]; no scale trials. Standardized train blocks each nominal energy3, total6 (constant NP columns lower actual NP energy).",
+  "bootstrap": {
+    "unit": "complete geometry, pooled124 OOF",
+    "replicates": 10000,
+    "seed": 8815601,
+    "interval": "percentile2.5..97.5% for mean and median paired delta; descriptive only, not formal significance; folds correlated",
+    "within_fold_report": true
+  },
+  "spectral_bands": {
+    "full": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ],
+    "NP_supported": [
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455
+    ],
+    "outside_low": [
+      440,
+      441,
+      442,
+      443,
+      444
+    ],
+    "outside_high": [
+      456,
+      457,
+      458,
+      459,
+      460
+    ]
+  },
+  "phase": "frozen1722nm physical reference; truth-weight significant mask>=1e-4, no oracle alignment; all order pairs same polarization. Derived phase diagnostics only.",
+  "verdict_rule": "State/routing gain if median paired delta<0 and pooledmedian andq95 decrease for both, improvement in>=3/4 fold median deltas, each>=62/124 geometry wins, and no new worst state exceeds A worst by>0.1. If only routing/power meets analogous directional rule then ROUTING_POWER_ONLY; finite validated results with neither consistent gain -> NO_CLEAR_GAIN; missing/invalid evidence -> INCONCLUSIVE. Descriptive rule not new H1 gate.",
+  "confirmation_responses": "SEALED_NO_ACCESS",
+  "frozen_H1_H2": true,
+  "source_sha256": "cd9fa1ffaec9bb4ff959fcbf129ac4a901cb277d63120e91027f893d93bf03aa",
+  "protected_files": [
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_156G_AMENDED_GLOBAL_FORWARD_TRAINING_V1\\FINAL_MODEL_AND_PREDICTION_FREEZE.json",
+      "sha256": "4cf3b1d6f46dd506d2ae7b818a6be8cd212673078f5e0ea4287710700fc8ef1d",
+      "bytes": 2625
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_156G_AMENDED_GLOBAL_FORWARD_TRAINING_V1\\FINAL_RBF_KRR_SEALED_GEOMETRY_ONLY_PREDICTIONS.npz",
+      "sha256": "1b3c63f69b60f59cdf9450354519acf3dd0996c91f07fad69919bf2fc4e47f2d",
+      "bytes": 265947
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_156G_AMENDED_GLOBAL_FORWARD_TRAINING_V1\\FINAL_CARTESIAN_MLP_SEALED_GEOMETRY_ONLY_PREDICTIONS.npz",
+      "sha256": "bb6bb76fea262031d537bf667ce9381f07bcfbf67de9763b4a0f917514350e5d",
+      "bytes": 524658
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_156G_AMENDED_GLOBAL_FORWARD_TRAINING_V1\\FIT_EXECUTION_LEDGER.json",
+      "sha256": "87f86a725b1038e1d5d596fdf096b09fbd0462af4464d7b6e3386eda525bc55f",
+      "bytes": 2344683
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_EXECUTION_LEDGER_V1.json",
+      "sha256": "a25cb5347cb97020c6abbddfdc99f669843b384c4f1932de5892fa249813572a",
+      "bytes": 9269739
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\contracts.py",
+      "sha256": "c064ea85a4c6dc94c9664cff0b8389e2975133bedc2b34a74eac7654fc420a9d",
+      "bytes": 5509
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\models.py",
+      "sha256": "a49dc6e801530cd4b6a0b8c5e8aea8520dc948d4763a0bd4dd3f0a7d1a58c7d3",
+      "bytes": 10177
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\h1.py",
+      "sha256": "8a541f7d2357a4566e1a005a0c60451454ce2f7a97ae6d9d2987f0b250a4ffff",
+      "bytes": 9065
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+      "bytes": 30321
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_H1_NUMERIC_GATE_AUTHORITY_V1.json",
+      "sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+      "bytes": 5668
+    }
+  ],
+  "foreign_index_sha256": "b8ebeccf47f668d94b60727b89b67799a78de885e252127c6988f3a8ee9d6a78",
+  "initial_status_count": 914,
+  "runtime": {
+    "python": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "numpy": "2.2.5",
+    "sklearn": "1.7.1",
+    "CPU_only": true
+  }
+}
