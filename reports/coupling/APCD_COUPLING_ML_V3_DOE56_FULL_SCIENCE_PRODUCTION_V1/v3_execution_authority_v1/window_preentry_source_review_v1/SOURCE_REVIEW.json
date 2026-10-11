@@ -1,0 +1,41 @@
+{
+  "status": "SOURCE_REVIEW_SUPPORTS_CONSTRAINED_PREENTRY_WINDOW_RECOVERY; INSTALLED_ADMISSION_PENDING",
+  "observed_utc": "2026-10-11T11:40:02.855525+00:00",
+  "gpu_head": "1d53af4fb444c17dff731dc78f76c016ae718cc3",
+  "reviewed_working_tree_files": [
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\apcd_gpu_v2\\v3.py",
+      "sha256": "1c2195fa49187cdf139c7915602dedc717e27d9f9a8a0f857bd98d3f729f0512"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\apcd_gpu_v2\\serial.py",
+      "sha256": "5d21863f956781debd09b826d55ed5365fa754299702d89709f50178d873e1a2"
+    },
+    {
+      "path": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\apcd_gpu_v2\\v3_plan.py",
+      "sha256": "3a43cacee7f40d3f775035de67ede804e7afd717f87bf33d4e51cbf03520744e"
+    }
+  ],
+  "observed_guards": [
+    "caller requires Refused exact WINDOW_INSUFFICIENT_NO_NEW_ENTRY",
+    "V3Budget verifies case unentered and no durable receipt/uncertain prior entries",
+    "staging absent or only pre-FSP with exact SHA",
+    "current owner identity and token fence",
+    "SQLite entered false, entry_at absent, HOLD_NO_REPLAY",
+    "no mirrored entry, launch, engine or returned events",
+    "preserve old task/slot/event evidence before clearing own slot",
+    "new request registered and budget revalidated, same admission digest",
+    "no active slot and exactly one old WINDOW_STOP_UNENTERED proof",
+    "attempt remains attempt_001"
+  ],
+  "limitations": [
+    "working-tree review is not final immutable installed acceptance",
+    "owner targeted tests were inspected in source; not rerun by Coupling",
+    "real post-entry recovery not authorized by this path",
+    "public morning allowlist gap remains separately open until fixed"
+  ],
+  "solver_entries": 0,
+  "training_fits": 0,
+  "replay": 0,
+  "confirmation_response_access": 0
+}

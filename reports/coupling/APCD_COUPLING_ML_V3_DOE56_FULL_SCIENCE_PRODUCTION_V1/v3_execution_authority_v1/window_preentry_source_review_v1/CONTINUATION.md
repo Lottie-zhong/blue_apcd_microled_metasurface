@@ -1,0 +1,1 @@
+Constrained pre-entry window recovery guards source-reviewed. Require final immutable installed version, regression receipts and explicit metadata allowlist fix before final admission. No budget change, no entry, no fit, no sealed response access.
