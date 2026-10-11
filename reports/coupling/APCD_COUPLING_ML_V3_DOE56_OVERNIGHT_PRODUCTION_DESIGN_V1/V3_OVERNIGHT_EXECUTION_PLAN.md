@@ -1,0 +1,13 @@
+# Formal overnight science window design
+
+APCD_GPU_V2_OVERNIGHT_SCIENCE_WINDOW_V1: serverUTC+08. Default20:00 ->next10:00,14h;18:00orearlierpermittedonceallsciencebudget/DOE/contracts/SHA/enrollment/pins ready. Do not wait artificially;nojobstartedthisround.
+
+Actual86source median712.134s/case,q95716.230s,worst718.497s; engine-returnmedian558.042s includeslifecycle/save, notpureengine. 56uniformmedian11.08h, two4nmassumed2.5x ->11.67h; q95percase+30minbuffer12.24h. 12-14hwindowplausible, notguaranteed: mesh/licensing/recovery unmeasured.20:00start target10:00;18:00start moremargin.
+
+OneController/oneWorker/GPU1,serverownedimmutablecode/config/request/release pins. PhaseN1(4numerical)->D1(24local)->D2(20global)->B1(8sealed), finiteboundedreleases approvedonce; transitions onlyexistingownerqualifiedV2interface andsignedreceipts, no newbatchplatform/noautomaticrenewal. Scientificdiagnosticconflict HOLDno newentries; healthyphase milestones donotneedChatpercaseapproval. Missingrole/mesh/windowinterfaceispre-entryblocker, notbypass.
+
+Windowpolicybeforeeverycase: computeB_i=max(measured q95 *meshfactor, newlyobserved comparablevalidcaseconservativebound) +300s recovery/save/LOADmargin; require now+B_i+1800s reportbuffer<=next10:00 and releasevalidthroughadmission. Reserve at least2091s for4nm case. Thisdynamicguard isdesignonly/currentcodeabsent; owner must qualify within existingV2 beforelaunch. Fixedreleaseexpiry alone insufficient; nofuture silent extension. Insufficienttime->WINDOW_CLOSED_NO_ENTRY, preserveallunenteredforlaterapprovedwindow. Neverkillactiveengine/controller to meetdeadline, neverlowertruthgates; overruncontinuespreserve-first andreported.
+
+PENDING->PRECHECK->SOLVER_ENTERED->RETURNED->nativeFSP/H5/EH durable SHA->freshLOAD->609Drole-isolated importer->H2consistency->dualledger->science terminal->next. SixcomplexE/H allmonitors/actualcoords mandatory. Postentryfailure preserveentry/replay0,zero-solverrecovery orformalcloseout perauthority only; ambiguousowner/license HOLD. Noforeignprocess/servicekills.
+
+Scheduleractualsnapshot Disabled,PT0S,IgnoreNew,InteractiveToken. RequiresDELLsession; do notlogout/reboot. SSHhelperexit followednewconnectioncheck,noCodexpolling;oneinlineheartbeatandapprovedprocess-handleterminalfinisher. Existingfinisher normalreport onlyatcontrollerexit:10:00partial/overrunreport capability mustbeownerqualified read-only durable trigger, notassumed orimplementedhere. Reportcases/status/entry/replay/FSP-H5-labelSHA/solveandE2E/failure/unentered/nextanalysis; sealednumericresponsesexcluded. Noactivelystophealthyproductionat3/10milestones.
