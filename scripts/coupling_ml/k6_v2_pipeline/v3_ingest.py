@@ -28,7 +28,7 @@ class V3Registry:
     production_admitted: bool
     consumer_sid: str | None = None
 
-def load_registry(path, expected_sha256, *, root=None):
+def load_registry(path, expected_sha256, *, root=None, identity_authority=None):
     """Registry is an integrity binding; installation/release checked by owner."""
     root=Path(root) if root else I.ROOT
     p=Path(path)
@@ -61,13 +61,50 @@ def load_registry(path, expected_sha256, *, root=None):
         checked[cid]=dict(row,role=role,physical_contract=desc,contract_sha256=contract,
           ordered_D_nm=tuple(f['ordered_D_nm']),ordered_geometry_sha256=f['geometry_sha256'])
     admitted=doc.get('status')=='PRODUCTION_ADMITTED' and doc.get('not_a_production_release') is False
-    return V3Registry(checked,expected_sha256,str(p),admitted,
-        doc.get('identity_boundary',{}).get('development_consumer_sid'))
+    consumer_sid=doc.get('identity_boundary',{}).get('development_consumer_sid')
+    if identity_authority is not None:
+        ip=Path(identity_authority['path'])
+        I._need(I.sha256_file(ip)==identity_authority['sha256'],'v3_identity_authority_sha')
+        identity=I._json(ip);consumer=identity.get('consumer',{})
+        I._need(identity.get('schema')=='V3_SEALED_IDENTITY_AUTHORITY_V1'
+          and identity.get('custodian','').casefold()=='desktop-nne313k\\dell'
+          and consumer.get('groups')==['S-1-5-32-545']
+          and consumer.get('enabled') is True,'v3_identity_authority_semantics')
+        sid=consumer.get('sid');I._need(isinstance(sid,str) and sid.startswith('S-1-5-21-')
+          and (consumer_sid is None or consumer_sid==sid),'v3_identity_sid_conflict')
+        consumer_sid=sid
+    return V3Registry(checked,expected_sha256,str(p),admitted,consumer_sid)
 
 def _actual_sid():
     import csv,io,subprocess
     output=subprocess.check_output(['whoami','/user','/fo','csv','/nh'],text=True)
     return next(csv.reader(io.StringIO(output)))[1]
+
+def _token_security():
+    """Read current process token; no caller-supplied elevation evidence."""
+    import ctypes as ct
+    from ctypes import wintypes as wt
+    import subprocess
+    k=ct.WinDLL('kernel32',use_last_error=True)
+    a=ct.WinDLL('advapi32',use_last_error=True)
+    k.GetCurrentProcess.restype=wt.HANDLE
+    a.OpenProcessToken.argtypes=[wt.HANDLE,wt.DWORD,ct.POINTER(wt.HANDLE)]
+    a.GetTokenInformation.argtypes=[wt.HANDLE,ct.c_int,ct.c_void_p,wt.DWORD,ct.POINTER(wt.DWORD)]
+    k.CloseHandle.argtypes=[wt.HANDLE]
+    token=wt.HANDLE()
+    if not a.OpenProcessToken(k.GetCurrentProcess(),8,ct.byref(token)):raise ct.WinError(ct.get_last_error())
+    def data(kind):
+        size=wt.DWORD();a.GetTokenInformation(token,kind,None,0,ct.byref(size))
+        buf=ct.create_string_buffer(size.value)
+        if not a.GetTokenInformation(token,kind,buf,size.value,ct.byref(size)):raise ct.WinError(ct.get_last_error())
+        return buf
+    try:
+        elevated=bool(ct.cast(data(20),ct.POINTER(wt.DWORD)).contents.value)
+        restricted=int(ct.cast(data(11),ct.POINTER(wt.DWORD)).contents.value)
+        groups=subprocess.check_output(['whoami','/groups','/fo','csv','/nh'],text=True)
+        return {'elevated':elevated,'restricted_sid_count':restricted,
+            'administrators_group_present':'S-1-5-32-544' in groups}
+    finally:k.CloseHandle(token)
 
 def _verify_access_identity(registry, access_role):
     sid=_actual_sid()
@@ -77,6 +114,10 @@ def _verify_access_identity(registry, access_role):
     elif access_role=='DEVELOPMENT_CONSUMER':
         I._need(registry.consumer_sid and registry.consumer_sid!=custodian
             and sid==registry.consumer_sid,'v3_not_registered_restricted_consumer_token')
+        security=_token_security()
+        I._need(not security['elevated'] and security['restricted_sid_count']>0
+            and not security['administrators_group_present'],
+            'v3_consumer_token_not_nonadmin_restricted')
     else:raise I.DataAccessError('v3_unknown_access_role')
 
 def _identity(record, registry, allowed):

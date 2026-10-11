@@ -1,0 +1,62 @@
+{
+  "status": "CONSUMER_INTERFACE_PASS",
+  "actual_token_test": {
+    "status": "REAL_RESTRICTED_TOKEN_V3_INTERFACE_SYNTHETIC_PASS",
+    "pid": 14584,
+    "actual_sid": "S-1-5-21-2958591235-2706656562-1210676212-1007",
+    "security": {
+      "elevated": false,
+      "restricted_sid_count": 1,
+      "administrators_group_present": false
+    },
+    "positive_development_label_read": true,
+    "training_collection_shape_check_only": true,
+    "target_shape": [
+      1,
+      609
+    ],
+    "denials": {
+      "new_importer_sealed": {
+        "rejected": true,
+        "type": "DataAccessError",
+        "reason": "v3_sealed_diagnostic_or_wrong_role_rejected_before_response_access"
+      },
+      "published_sealed_reader": {
+        "rejected": true,
+        "type": "DataAccessError",
+        "reason": "v3_sealed_diagnostic_or_wrong_role_rejected_before_response_access"
+      },
+      "custodian_impersonation": {
+        "rejected": true,
+        "type": "DataAccessError",
+        "reason": "v3_not_custodian_token"
+      },
+      "diagnostic_evaluation_reader": {
+        "rejected": true,
+        "type": "DataAccessError",
+        "reason": "v3_not_custodian_token"
+      },
+      "training_collection_sealed": {
+        "rejected": true,
+        "type": "ValueError",
+        "reason": "non_development_role_in_training_collection:K6V3_BLIND_GLOBAL_G001"
+      },
+      "publication_traversal": {
+        "rejected": true,
+        "type": "DataAccessError",
+        "reason": "v3_publication_path_escape"
+      }
+    },
+    "fixture_only": true,
+    "new_fits": 0,
+    "new_solver_entries": 0,
+    "sealed_scientific_responses_accessed": 0
+  },
+  "synthetic_only": true,
+  "solver_entry": 0,
+  "training_fits": 0,
+  "sealed_response_access": 0,
+  "importer_sha256": "b26e3966b3a415a0832ccef5ddecef20f2303100ab1d972f6d8b3ef2144841a3",
+  "installed_production_admission": "PENDING_OWNER_DELIVERY",
+  "security_model": "ordinary non-elevated consumer isolation, not malicious Windows administrator resistance"
+}
