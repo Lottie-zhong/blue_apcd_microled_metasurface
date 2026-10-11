@@ -31,6 +31,34 @@ class Pin(StrictModel):
         return json.loads(Path(self.path).read_text(encoding='utf-8'))
 
 
+def registered_config(config):
+    if config.schema_version != 'APCD_V2_REGISTERED_V3_SERIAL_V1':return False
+    from .v3 import V3Config
+    if not isinstance(config,V3Config):raise Refused('EXPLICIT_REGISTERED_CONFIG_REQUIRED')
+    return True
+
+
+def budget_for(config):
+    if registered_config(config):
+        from .v3 import V3Budget
+        return V3Budget(config)
+    return CouplingBudget(config)
+
+
+def case_storage(config,request):
+    if registered_config(config):
+        from .v3 import storage_root
+        return storage_root(config,request)
+    return Path(config.runtime_root)
+
+
+def window_admission(config,request):
+    if registered_config(config):
+        from .v3 import time_gate
+        return time_gate(config,request)
+    return None
+
+
 class SerialConfig(StrictModel):
     schema_version: Literal['APCD_V2_SERIAL_V1']
     mode: Literal['PRODUCTION_GPU', 'PRODUCTION_EQUIVALENT']
@@ -182,7 +210,7 @@ class CouplingBudget:
             record = dict(schema='APCD_V2_COUPLING_CONSERVATIVE_ENTRY_V1',case_id=request.case_id,
                           attempt_id=request.attempt_id,request_sha=request.request_sha256,
                           owner_token=token,pre_fsp_sha256=request.pre_fsp_sha256,
-                          physical_contract_sha256=CONTRACT_SHA,entered_at=time.time(),
+                          physical_contract_sha256=request.physical_contract_sha256,entered_at=time.time(),
                           ledger_before_sha256=sha256(self.path),mode=self.config.mode,
                           config_sha256=self.config.sha256,release_sha256=self.config.release.sha256,
                           solver_entered=True,physical_process_confirmed=False,automatic_replay=0)
@@ -310,7 +338,7 @@ class SerialLedger(Ledger):
             row=db.execute('SELECT * FROM tasks WHERE request_sha=?',(request.request_sha256,)).fetchone()
             if row['state']!='CLAIMED' or row['entered']: raise Refused('LOCAL_ENTRY_NOT_PREPARED')
             db.execute("UPDATE tasks SET entered=1,state='ENTRY_UNCERTAIN',entry_at=?,pre_sha=?,contract_sha=? WHERE request_sha=?",
-                (receipt['entered_at'],request.pre_fsp_sha256,CONTRACT_SHA,request.request_sha256))
+                (receipt['entered_at'],request.pre_fsp_sha256,request.physical_contract_sha256,request.request_sha256))
             self.event(db,request.request_sha256,'COUPLING_ENTRY_MIRRORED',receipt)
 
     def launch_once(self, request, token, budget):
@@ -336,6 +364,9 @@ class SerialLedger(Ledger):
 
 
 def validate_admission(config,request):
+    if registered_config(config):
+        from .v3 import validate_registered
+        return validate_registered(config,request)
     if request.config_sha256!=config.sha256: raise Refused('CONFIG_REQUEST_MISMATCH')
     queue=config.queue.read()
     exact=[r for r in queue['ordered_cases'] if r['case_id']==request.case_id]
@@ -397,6 +428,7 @@ class ProductionNativeBackend:
         ledger.launch_once(request,token,budget)
         fault('launch_requested')
         log=Path(cwd)/'native.log'
+        started=time.time()
         with log.open('xb') as output:
             p=subprocess.Popen(command,cwd=cwd,stdin=subprocess.DEVNULL,stdout=output,stderr=subprocess.STDOUT,close_fds=True)
             fault('process_started')
@@ -431,7 +463,7 @@ class ProductionNativeBackend:
                 output.flush();os.fsync(output.fileno())
                 if any(identity_state(row) not in ['dead','reused'] for pid,row in observed.items() if pid!=p.pid):
                     raise Refused('DESCENDANT_STILL_LIVE_OR_UNKNOWN')
-                result=dict(returncode=p.returncode,launcher=head,processes=list(observed.values()),log=str(log),log_sha256=sha256(log))
+                result=dict(returncode=p.returncode,launcher=head,processes=list(observed.values()),log=str(log),log_sha256=sha256(log),started_unix=started,returned_unix=time.time(),native_wall_seconds=time.time()-started)
                 ledger.note(request,token,'PROCESS_RETURNED',result)
                 if p.returncode:raise Refused('NATIVE_RETURN_OR_LICENSE_ERROR:'+str(p.returncode))
                 if config.mode=='PRODUCTION_GPU' and not any('fdtd-engine' in Path(row['executable']).name.lower() for row in observed.values()):
@@ -451,10 +483,10 @@ class EquivalentBackend(ProductionNativeBackend):
 
 
 def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:None,archive=archive_pair):
-    budget=CouplingBudget(config)
+    budget=budget_for(config)
     token=ledger.claim(request.request_sha256,identity())
     try:
-        validate_admission(config,request);budget.validate(request)
+        validate_admission(config,request);budget.validate(request);window_admission(config,request)
         if config.mode=='PRODUCTION_GPU':
             if type(backend) is not ProductionNativeBackend or not isinstance(validator,NativeTruthValidator):
                 raise Refused('FORMAL_NATIVE_IMPLEMENTATIONS_REQUIRED')
@@ -464,15 +496,16 @@ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:
             ledger.note(request,token,'NATIVE_PREFLIGHT',preflight)
         fault('preflight')
         process_gate(os.getpid())
-        folder=Path(config.runtime_root)/'attempts'/request.request_sha256
+        folder=case_storage(config,request)/'attempts'/request.request_sha256
         folder.mkdir(parents=True,exist_ok=False)
         fsp=folder/'run.fsp';shutil.copyfile(request.pre_fsp,fsp)
         if sha256(fsp)!=request.pre_fsp_sha256:raise Refused('STAGING_SHA_MISMATCH')
         receipt=budget.prepare_entry(request,token,fault)
         fault('before_local_mirror');ledger.mirror(request,token,receipt);fault('after_local_mirror')
-        backend.execute(config,request,ledger,token,budget,fsp,fault)
+        execution=backend.execute(config,request,ledger,token,budget,fsp,fault)
         fault('solver_returned')
         evidence=validate_truth(config,request,fsp,validator,archive)
+        if registered_config(config) and isinstance(execution,dict):evidence['execution']=execution
         fault('truth_valid_before_coupling');budget.finish_truth(request,evidence)
         fault('coupling_truth_before_local');ledger.terminal(request,token,evidence=evidence)
         return evidence
@@ -482,7 +515,7 @@ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:
 
 
 def validate_truth(config,request,fsp,validator,archive=archive_pair):
-    destination=Path(config.runtime_root)/'archives'/request.request_sha256
+    destination=case_storage(config,request)/'archives'/request.request_sha256
     if destination.exists():
         inventory=bundle_inventory(destination/'run.fsp',config.native_h5_name)
         if inventory!=bundle_inventory(fsp,config.native_h5_name):raise Refused('RECOVERY_ARCHIVE_CONFLICT')
@@ -507,8 +540,8 @@ def recover_load_only(config,request,ledger,validator):
     returns=[json.loads(e['payload']) for e in snapshot['events'] if e['request_sha']==request.request_sha256 and e['kind']=='PROCESS_RETURNED']
     if len(returns)!=1 or returns[0]['returncode']!=0 or any(identity_state(p) not in ['dead','reused'] for p in returns[0]['processes']):
         raise Refused('RECOVERY_PROCESS_EXIT_NOT_PROVEN')
-    evidence=validate_truth(config,request,Path(config.runtime_root)/'attempts'/request.request_sha256/'run.fsp',validator)
-    budget=CouplingBudget(config)
+    evidence=validate_truth(config,request,case_storage(config,request)/'attempts'/request.request_sha256/'run.fsp',validator)
+    budget=budget_for(config)
     record=json.loads(budget.path.read_text(encoding='utf-8'))['case_records'][request.case_id]
     if record['phase']=='V2_ENTRY_UNCERTAIN':budget.finish_truth(request,evidence)
     elif record['phase']!='V2_TRUTH_VALID' or record.get('evidence',{}).get('bundle')!=evidence['bundle']:raise Refused('RECOVERY_COUPLING_CONFLICT')
@@ -517,37 +550,42 @@ def recover_load_only(config,request,ledger,validator):
 
 
 def controller(config,requests,backend,validator,*,fault=lambda step:None):
-    # Lock anchored at the authority ledger, so alternate V2 databases cannot create a second owner.
-    with exclusive(Path(config.coupling_ledger).with_suffix('.v2_controller.lock')):
-        ledger=SerialLedger(Path(config.runtime_root)/'ledger.sqlite3')
-        slot=ledger.audit()['slot']
-        if slot['token']:
-            candidate=[r for r in requests if r.request_sha256==slot['request_sha']]
-            if len(candidate)!=1 or identity_state(json.loads(slot['owner'])) not in ['dead','reused']:
-                raise Refused('PERSISTED_OWNER_REQUIRES_REVIEW')
-            # This function has no solver/backend parameter. Only a proven returned process can recover.
-            recover_load_only(config,candidate[0],ledger,validator)
-        for request in requests:
-            previous=[r for r in ledger.audit()['tasks'] if r['request_sha']==request.request_sha256]
-            if previous and previous[0]['state']=='REGISTERED' and not previous[0]['entered']:
-                ready=[e for e in ledger.audit()['events'] if e['request_sha']==request.request_sha256 and e['kind']=='PREENTRY_REBOUND_READY']
-                if len(ready)!=1 or json.loads(ready[0]['payload']).get('new_request_sha256')!=request.request_sha256:
-                    raise Refused('REGISTERED_RECOVERY_NOT_EXPLICITLY_REBOUND')
-                run_serial_case(config,request,ledger,backend,validator,fault=fault)
-                if ledger.audit()['slot']['token']:raise Refused('TRUTH_BEFORE_NEXT_REQUIRED')
-                continue
-            if previous:
-                external=json.loads(Path(config.coupling_ledger).read_text(encoding='utf-8'))
-                if previous[0]['state']=='TRUTH_VALID' and external['case_records'].get(request.case_id,{}).get('phase')=='V2_TRUTH_VALID':
-                    evidence=json.loads(previous[0]['bundle']); bundle=evidence['bundle']
-                    if bundle_inventory(Path(bundle['path'])/'run.fsp',config.native_h5_name)!=bundle['files'] or external['case_records'][request.case_id].get('evidence',{}).get('bundle')!=bundle:
-                        raise Refused('PERSISTED_TRUTH_INTEGRITY_CONFLICT')
-                    continue
-                raise Refused('PREVIOUS_ATTEMPT_REQUIRES_REVIEW_NO_REPLAY')
-            ledger.register(request,config)
+    with exclusive(Path(config.coupling_ledger).with_suffix('.v2_controller.lock')), exclusive(Path(config.runtime_root)/'.v2_controller.lock'):
+        return controller_owned(config,requests,backend,validator,fault=fault)
+
+
+def controller_owned(config,requests,backend,validator,*,fault=lambda step:None):
+    """Existing serial loop; caller must retain both controller OS locks."""
+    ledger=SerialLedger(Path(config.runtime_root)/'ledger.sqlite3')
+    slot=ledger.audit()['slot']
+    if slot['token']:
+        candidate=[r for r in requests if r.request_sha256==slot['request_sha']]
+        if len(candidate)!=1 or identity_state(json.loads(slot['owner'])) not in ['dead','reused']:
+            raise Refused('PERSISTED_OWNER_REQUIRES_REVIEW')
+        # This function has no solver/backend parameter. Only a proven returned process can recover.
+        recover_load_only(config,candidate[0],ledger,validator)
+    for request in requests:
+        previous=[r for r in ledger.audit()['tasks'] if r['request_sha']==request.request_sha256]
+        if previous and previous[0]['state']=='REGISTERED' and not previous[0]['entered']:
+            ready=[e for e in ledger.audit()['events'] if e['request_sha']==request.request_sha256 and e['kind']=='PREENTRY_REBOUND_READY']
+            if len(ready)!=1 or json.loads(ready[0]['payload']).get('new_request_sha256')!=request.request_sha256:
+                raise Refused('REGISTERED_RECOVERY_NOT_EXPLICITLY_REBOUND')
             run_serial_case(config,request,ledger,backend,validator,fault=fault)
             if ledger.audit()['slot']['token']:raise Refused('TRUTH_BEFORE_NEXT_REQUIRED')
-        return ledger.audit()
+            continue
+        if previous:
+            external=json.loads(Path(config.coupling_ledger).read_text(encoding='utf-8'))
+            if previous[0]['state']=='TRUTH_VALID' and external['case_records'].get(request.case_id,{}).get('phase')=='V2_TRUTH_VALID':
+                evidence=json.loads(previous[0]['bundle']); bundle=evidence['bundle']
+                if bundle_inventory(Path(bundle['path'])/'run.fsp',config.native_h5_name)!=bundle['files'] or external['case_records'][request.case_id].get('evidence',{}).get('bundle')!=bundle:
+                    raise Refused('PERSISTED_TRUTH_INTEGRITY_CONFLICT')
+                continue
+            raise Refused('PREVIOUS_ATTEMPT_REQUIRES_REVIEW_NO_REPLAY')
+        validate_admission(config,request);window_admission(config,request)
+        ledger.register(request,config)
+        run_serial_case(config,request,ledger,backend,validator,fault=fault)
+        if ledger.audit()['slot']['token']:raise Refused('TRUTH_BEFORE_NEXT_REQUIRED')
+    return ledger.audit()
 
 
 def gpu_inventory_gate(config):
@@ -562,7 +600,7 @@ def gpu_inventory_gate(config):
     result=subprocess.run(['nvidia-smi','--query-compute-apps=pid,process_name,used_memory','--format=csv,noheader,nounits'],capture_output=True,text=True,check=True)
     from .gpu_readonly import resolve_idle_edt
     gpu_consumers=resolve_idle_edt(classify_gpu_consumers(result.stdout))
-    if any(r['classification'] not in ['DISPLAY_ACTIVITY','VERIFIED_IDLE_EDT_GUI'] for r in gpu_consumers):
+    if any(r['classification'] not in ['DISPLAY_ACTIVITY','VERIFIED_IDLE_EDT_GUI','VERIFIED_IDLE_DESKTOP'] for r in gpu_consumers):
         raise Refused('EXTERNAL_GPU_SCIENCE_OR_UNATTRIBUTED_CONSUMER')
     return dict(gpu_free_mib=values[0],gpu_consumers=gpu_consumers)
 
@@ -630,7 +668,7 @@ class NativeTruthValidator:
         from . import science
         launcher=pinned_module(post.path,post.sha256,'apcd_gpu_v2.science.postprocess')
         lum=pinned_module(api.path,api.sha256,'lumapi')
-        importer=importlib.import_module('k6_v2_pipeline.ingest')
+        importer=importlib.import_module(getattr(cfg,'importer_module','k6_v2_pipeline.ingest'))
         if sha256(importer.__file__)!=cfg.truth_toolchain['importer'].sha256:raise Refused('IMPORTER_SOURCE_PIN_CHANGED')
         if not callable(getattr(importer,'load_verified_runner_case',None)):
             raise Refused('IMPORTER_ENTRYPOINT_REQUIRED')
@@ -646,7 +684,7 @@ class NativeTruthValidator:
         h5py,np,launcher,lum,importer=self._dependencies()
         cfg=self.config;post=cfg.truth_toolchain['postprocessor']
         pc=request.physical_contract.read()
-        output=Path(cfg.runtime_root)/'validation'/request.request_sha256/uuid.uuid4().hex
+        output=case_storage(cfg,request)/'validation'/request.request_sha256/uuid.uuid4().hex
         output.mkdir(parents=True)
         task='V2_'+request.request_sha256[:24]
         postcfg=dict(pw_contract=pc,run_fsp=str(fsp),case=request.case_id,attempt=request.attempt_id,task=task,gpu_resource_name=cfg.gpu_resource)
@@ -673,17 +711,21 @@ class NativeTruthValidator:
             for key,value in dict(raw_json=raw,metrics_json=metrics).items():h5.create_dataset(key,data=json.dumps(value,sort_keys=True,default=str),dtype=h5py.string_dtype('utf-8'))
             h5.flush()
         manifest=output/'source_manifest.json'
-        durable_json(manifest,dict(case_id=request.case_id,attempt_id=request.attempt_id,geometry=list(request.ordered_D_nm),physical_contract_sha256=CONTRACT_SHA,pre_fsp_sha256=request.pre_fsp_sha256,run_id=task))
+        durable_json(manifest,dict(case_id=request.case_id,attempt_id=request.attempt_id,geometry=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,pre_fsp_sha256=request.pre_fsp_sha256,run_id=task))
         def descriptor(p):return dict(path=str(p),sha256=sha256(p))
-        record=dict(case_id=request.case_id,attempt_id=request.attempt_id,role=request.role,ordered_D_nm=list(request.ordered_D_nm),physical_contract_sha256=CONTRACT_SHA,status='DONE',solver_invocations=1,replay_count=0,
+        record=dict(case_id=request.case_id,attempt_id=request.attempt_id,role=request.role,ordered_D_nm=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,status='DONE',solver_invocations=1,replay_count=0,
             source_manifest=descriptor(manifest),state_npz=descriptor(paths['state_npz']),state_metadata=descriptor(paths['state_metadata']),raw_npz=descriptor(paths['raw_fields']),raw_metadata=descriptor(paths['raw_json']),orders_json=descriptor(paths['angular']),truth_h5=descriptor(truth))
-        imported=importer.load_verified_runner_case(record,expected_role=request.role,root=Path(cfg.coupling_root))
-        from .coupling import validate_labels
-        labels=validate_labels(imported.c_hat,imported.p_scale,role=request.role,physical_contract_sha256=CONTRACT_SHA)
+        if registered_config(cfg):
+            from .v3 import import_truth
+            imported,labels=import_truth(cfg,request,record,importer)
+        else:
+            imported=importer.load_verified_runner_case(record,expected_role=request.role,root=Path(cfg.coupling_root))
+            from .coupling import validate_labels
+            labels=validate_labels(imported.c_hat,imported.p_scale,role=request.role,physical_contract_sha256=CONTRACT_SHA)
         label_path=output/'labels.npz'
         with label_path.open('xb') as stream:
             np.savez_compressed(stream,case_id=np.asarray(request.case_id),attempt_id=np.asarray(request.attempt_id),role=np.asarray(request.role),ordered_D_nm=np.asarray(request.ordered_D_nm,dtype=np.int64),wavelengths_nm=np.arange(440,461),order_m=np.arange(-3,4),polarization=np.asarray(['TE','TM']),C_hat_real=imported.c_hat.real,C_hat_imag=imported.c_hat.imag,P_scale=imported.p_scale,eta=imported.eta,absolute_order=imported.absolute_order)
             stream.flush();os.fsync(stream.fileno())
-        result=dict(verdict='PASS',outputs=labels['outputs'],actual_importer='load_verified_runner_case',fresh_load_verified=True,record=record,native_session=session,labels_artifact=descriptor(label_path))
+        result=dict(verdict='PASS',outputs=labels['outputs'],actual_importer='load_verified_runner_case',fresh_load_verified=True,record=record,native_session=session,labels_artifact=descriptor(label_path),**({'registered_provenance':labels['provenance']} if registered_config(cfg) else {}))
         durable_json(output/'validation.json',result)
         return result
