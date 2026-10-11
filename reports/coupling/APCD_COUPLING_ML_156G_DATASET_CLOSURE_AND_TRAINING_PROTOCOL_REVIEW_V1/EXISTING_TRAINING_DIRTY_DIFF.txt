@@ -1,0 +1,70 @@
+diff --git a/scripts/coupling_ml/k6_v2_pipeline/training.py b/scripts/coupling_ml/k6_v2_pipeline/training.py
+index 259932c8..e72070a0 100644
+--- a/scripts/coupling_ml/k6_v2_pipeline/training.py
++++ b/scripts/coupling_ml/k6_v2_pipeline/training.py
+@@ -73,6 +73,8 @@ SYNTHETIC_TEST_ONLY = "SYNTHETIC_TEST_ONLY"
+ PRODUCTION = "PRODUCTION"
+ ENGINEERING_DIAGNOSTIC = "ENGINEERING_DIAGNOSTIC"
+ _ENGINEERING_DIAGNOSTIC_AUTHORITY = object()
++PARTIAL_DEVELOPMENT_DIAGNOSTIC = "PARTIAL_DEVELOPMENT_DIAGNOSTIC"
++_PARTIAL_DEVELOPMENT_DIAGNOSTIC_AUTHORITY = object()
+ _REAL32_DIAGNOSTIC_TRAIN_IDS = (
+     "K6V1_EXT01", "K6V1_EXT02", "K6V1_S02", "K6V1_EXT04",
+     "K6V1_S37", "K6V1_S31", "K6V1_EXT13", "K6V1_S33",
+@@ -135,6 +137,30 @@ def _validate_engineering_diagnostic_task(task: FitTask) -> None:
+         raise ValueError("real32_engineering_diagnostic_config_mismatch")
+
+
++def _validate_partial_development_diagnostic_task(task: FitTask) -> None:
++    if (task.phase != "engineering_diagnostic" or task.outer_fold is not None
++            or task.inner_fold is not None or task.training_geometry_count != 52
++            or len(task.train_case_ids) != 52 or len(set(task.train_case_ids)) != 52
++            or len(task.prediction_case_ids) != 13
++            or len(set(task.prediction_case_ids)) != 13
++            or set(task.train_case_ids) & set(task.prediction_case_ids)
++            or task.config_source != "PARTIAL_DIAGNOSTIC_CONFIG_V1.json"
++            or task.update_source != "frozen_grid_midpoint_lowest_seed"):
++        raise ValueError("partial_development_diagnostic_task_identity_mismatch")
++    if task.model_kind == "RBF_KRR":
++        valid = (task.task_id == "partial65_krr" and task.gamma == 1.0 / 3.0
++                 and task.ridge_alpha == 1e-2 and task.weight_decay is None
++                 and task.seed is None and task.fixed_updates is None)
++    elif task.model_kind == "CARTESIAN_MLP":
++        valid = (task.task_id == "partial65_mlp_s0" and task.gamma is None
++                 and task.ridge_alpha is None and task.weight_decay == 1e-4
++                 and task.seed == 0 and task.fixed_updates is None)
++    else:
++        valid = False
++    if not valid:
++        raise ValueError("partial_development_diagnostic_config_mismatch")
++
++
+ @dataclass(frozen=True)
+ class FitCounts:
+     inner_krr: int
+@@ -793,6 +819,7 @@ def _fit_arrays_impl(
+     after_optimizer_update: Optional[Callable[[int], None]] = None,
+     _scheduled_authorized: bool = False,
+     _engineering_diagnostic_authority: Any = None,
++    _partial_development_diagnostic_authority: Any = None,
+ ) -> FitRun:
+     """Internal fit implementation; production calls require scheduled authority."""
+     if (run_purpose == PRODUCTION) != bool(_scheduled_authorized):
+@@ -803,9 +830,16 @@ def _fit_arrays_impl(
+         _validate_engineering_diagnostic_task(task)
+     elif _engineering_diagnostic_authority is not None:
+         raise ValueError("engineering_diagnostic_authority_used_for_wrong_purpose")
++    if run_purpose == PARTIAL_DEVELOPMENT_DIAGNOSTIC:
++        if _partial_development_diagnostic_authority is not _PARTIAL_DEVELOPMENT_DIAGNOSTIC_AUTHORITY:
++            raise ValueError("partial_development_diagnostic_requires_scoped_authority")
++        _validate_partial_development_diagnostic_task(task)
++    elif _partial_development_diagnostic_authority is not None:
++        raise ValueError("partial_development_diagnostic_authority_used_for_wrong_purpose")
+     if task.model_kind not in ("RBF_KRR", "CARTESIAN_MLP"):
+         raise ValueError("fit_arrays_only_supports_frozen_global_models")
+-    if run_purpose not in (PRODUCTION, SYNTHETIC_TEST_ONLY, ENGINEERING_DIAGNOSTIC):
++    if run_purpose not in (PRODUCTION, SYNTHETIC_TEST_ONLY, ENGINEERING_DIAGNOSTIC,
++                           PARTIAL_DEVELOPMENT_DIAGNOSTIC):
+         raise ValueError("unknown_fit_purpose")
+     if after_optimizer_update is not None and (
+             run_purpose != SYNTHETIC_TEST_ONLY

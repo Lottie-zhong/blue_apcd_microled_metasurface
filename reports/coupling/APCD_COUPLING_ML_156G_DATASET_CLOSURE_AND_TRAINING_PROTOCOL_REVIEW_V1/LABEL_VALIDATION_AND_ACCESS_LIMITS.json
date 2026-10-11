@@ -1,0 +1,60 @@
+{
+  "EXT02_report": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_ML_EXT02_TWO_AIR_PLANES_VALIDATION_V1\\EXT02_HANDOFF_COMPARISON_20261005_V1.json",
+    "sha256": "c0a37527498857522347bfcb39307fab21779f412cb124771b59ad9982669a9f",
+    "cross_height_threshold_attainment": "NUMERICAL_THRESHOLDS_MET",
+    "thresholds": {
+      "propagating_state_relative_l2": {
+        "max": 0.02,
+        "pass": true,
+        "value": 0.007782416574834381
+      },
+      "propagating_total_power_relative_difference": {
+        "max": 0.01,
+        "pass": true,
+        "value": 7.937447148504228e-05
+      },
+      "routing_max_abs_difference": {
+        "max": 0.005,
+        "pass": true,
+        "value": 2.0107274864095137e-05
+      },
+      "significant_coordinate_amplitude_weighted_phase_rmse_rad": {
+        "max": 0.05,
+        "pass": true,
+        "value": 0.006499442211926724
+      },
+      "source_normalized_absolute_order_max_abs_difference": {
+        "max": 0.005,
+        "pass": true,
+        "value": 1.2679032219242714e-05
+      }
+    }
+  },
+  "interpretation": "SingleEXT02 cross-height comparison met thresholds; historical near-plane cross-run comparison is separately reported. Neither establishes全域 convergence orS31 +/-5nm resolution.",
+  "manufacturing_authority": "UNRESOLVED",
+  "S31_repeatability_resolution": "NOT_VALIDATED",
+  "old_provenance_aliases": [
+    {
+      "case_id": "K6V1_S16",
+      "source_attempt": "attempt_002",
+      "legacy_loader_alias": "attempt_001",
+      "source_state": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S16\\attempt_002\\state\\K6V1_S16__attempt_002_pw_complex_floquet_state.npz"
+    }
+  ],
+  "native_hash_newly_sealed_for_old11": [
+    "K6V1_S39",
+    "K6V1_S21",
+    "K6V1_S42",
+    "K6V1_S36",
+    "K6V1_S31",
+    "K6V1_S45",
+    "K6V1_S32",
+    "K6V1_S47",
+    "K6V1_S33",
+    "K6V1_S37",
+    "K6V1_S48"
+  ],
+  "native_hash_limitation": "11 Stage1 old native H5 byte hashes were newly sealed here; existing state/raw/canonicaltruth are authority-pinned. Do not pretend all had a historical per-file native SHA. S35 original PENDING/FAILED_POSTENTRY and recovery_003 remain distinct.",
+  "formal_training_adapter": "Existing immutable160 loader/fold asserts remain. New versioned156 adapter and actual-attempt provenance should be reviewed and committed before training; current audit does not weaken them."
+}

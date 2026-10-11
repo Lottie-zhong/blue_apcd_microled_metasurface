@@ -1,0 +1,13 @@
+# Proposed V2 Amendment02 — 156G closure
+
+Status: AMENDMENT_REQUIRED; proposed and hashed for Chat scientific adjudication, not activated training authority.
+
+ChooseA: freeze156 audited identities, original science, both model families, finite grid and original metrics. Keep survivor outer/inner registration. Sizes32/64/124. Size32 old32; size64 filters original IDs and replaces missing members by response-blind deterministic SHA order within the same global stratum; size124 extends size64 by deterministic SHA order within outer train. Salts and exact memberships are in compile_proposed156.py and versioned CSV. All preprocessing/currentloss scales only fit each task's training IDs. Selected hyperparameter/epoch scope is disclosed separately from refit sample count.
+
+KRR gamma{1/6,1/3,2/3} x alpha{1e-4,1e-2,1}; MLP6->32->32 with GELU,588+21 heads,21377 parameters; AdamW lr1e-3,wd{1e-5,1e-4,1e-3},seeds0/1/2,max1000 fullbatch updates,inner patience50,min_delta1e-5. Equal-weight normalized state/logP_scale losses, training-only shared state residualRMS/log statistics. Positive finite P_scale truth only; strict exp inverse, no epsilon/clipping. Both predict fullCartesian spectrum, noPCA or oracle. Original selection and per-seed floor-median innerbest epoch/refit policy retained. C_hat complex seed mean; P_scale arithmetic mean after physical-domain exp.
+
+Final fit1KRR+3MLP on all156. Freeze both candidate models, preprocessors, evaluator and27core+1stress predictions before any global confirmation response reveal. Report both candidates, core27/stress1/all28; failure cannot be excluded by stratum. No retrospective tuning. Local4 remains sealed until a scientifically valid local model/protocol is frozen. If response converted to development, log conversion and create a new sealed confirmation set.
+
+ChooseB only if complete native truth discovered and a separate authorized zero-solver recovery succeeds; current candidate list empty. ChooseC not needed to pad global count. If original bilateral six-dimensional local LOAO is indispensable, separately review one D6_M05-equivalent additional logicalHF budget and identity; never replay its consumed attempt or create attempt_002 here. Three deep missing points do not establish that full-domain learning is impossible.
+
+Before formal ML: Chat approves amendment, then versioned156 dataset/fold adapter binds this inventory and actual legacy attempt provenance; reconcile existing diagnostic-only training.py dirty changes separately. This audit does not edit those files or weaken frozen loader. Independent confirmation still required to assess generalization; dataset readiness is not forward admission.
