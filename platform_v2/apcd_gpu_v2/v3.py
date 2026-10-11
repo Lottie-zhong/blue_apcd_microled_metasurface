@@ -297,4 +297,13 @@ def morning_report(config,ledger_snapshot,*,now=None):
             published_development=rec.get('published_development') if ROLES[row['role']]=='DEVELOPMENT' else None))
     result['role_counts']={role:dict(total=sum(ROLES[x['role']]==role for x in rows.values()),
         valid=sum(ROLES[rows[cid]['role']]==role for cid in data['labels_valid_case_ids'])) for role in set(ROLES.values())}
+    result['failed_or_uncertain']=data['entered_count']-data['truth_valid_count']
+    result['development_new_valid_geometry_count']=result['role_counts']['DEVELOPMENT']['valid']
+    result['development_pool_geometry_count']=156+result['development_new_valid_geometry_count']
+    result['diagnostic_progress']={key:result['role_counts'][key] for key in ['DIAGNOSTIC_5NM','DIAGNOSTIC_4NM']}
+    result['sealed_integrity_status']='VALIDATED_AT_INGEST' if result['role_counts']['SEALED_EVALUATION']['valid']==8 else 'PARTIAL_OR_UNENTERED'
+    result['configured_release']=dict(sha256=config.release.sha256,science_authorized=config.release.read().get('science_authorized') is True,expires_unix=config.release.read()['expires_unix'])
+    state=Path(config.v3_data_root)/'V3_AUDIT_METADATA/PRODUCTION_STATE.json'
+    result['production_state']=json.loads(state.read_text()) if state.exists() else dict(status='DISABLED_NOT_STARTED')
+    result['controller']=ledger_snapshot.get('controller',{'source':'not supplied to isolated function test'})
     return result

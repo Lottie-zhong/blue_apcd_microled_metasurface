@@ -10,7 +10,7 @@ from typing import Literal
 from .artifacts import durable_json,sha256
 from .config import StrictModel
 from .ledger import Refused
-from .serial import Pin,SerialLedger,exclusive,controller_owned,ProductionNativeBackend,NativeTruthValidator
+from .serial import Pin,SerialLedger,exclusive,controller_owned,ProductionNativeBackend,NativeTruthValidator,replace_json
 from .v3 import V3Config,V3Request,V3Budget,registry_cases,ROLES,morning_report
 
 
@@ -92,8 +92,13 @@ def run_plan(plan,*,backend=None,validator_factory=None,gate_runner=diagnostic_g
     runroot=Path(config.v3_data_root)/'PRODUCTION_CUSTODIAN_PRIVATE'/'windows'/uuid.uuid4().hex
     runroot.mkdir(parents=True)
     outcome='PARTIAL'
+    state_path=Path(config.v3_data_root)/'V3_AUDIT_METADATA/PRODUCTION_STATE.json'
+    state_path.parent.mkdir(parents=True,exist_ok=True)
+    status=dict(status='CONTROLLER_STARTED',dataset_id=config.dataset_id,code_inventory_sha256=plan.code_inventory.sha256,registry_sha256=config.registry.sha256,expires_unix=plan.expires_unix)
+    owned=False
     try:
         with exclusive(Path(config.coupling_ledger).with_suffix('.v2_controller.lock')),exclusive(Path(config.runtime_root)/'.v2_controller.lock'):
+            owned=True;replace_json(state_path,status)
             ledger=SerialLedger(Path(config.runtime_root)/'ledger.sqlite3')
             if ledger.audit()['slot']['token']:raise Refused('PERSISTED_OWNER_REVIEW_OR_LOAD_ONLY_REQUIRED')
             gate=None
@@ -108,6 +113,8 @@ def run_plan(plan,*,backend=None,validator_factory=None,gate_runner=diagnostic_g
                     raise Refused('WINDOW_EXCEEDS_FINITE_PLAN')
                 impl=backend if backend is not None else ProductionNativeBackend()
                 validator=validator_factory(phase) if validator_factory is not None else NativeTruthValidator(phase)
+                status.update(status='RUNNING',phase=kind,config_sha256=phase.sha256,release_sha256=phase.release.sha256,release_expires_unix=phase.release.read()['expires_unix'],science_authorized=True)
+                replace_json(state_path,status)
                 controller_owned(phase,requests,impl,validator)
             final=json.loads(Path(config.coupling_ledger).read_text())
             if final['labels_valid_count']!=56 or final['entered_count']!=56:raise Refused('FINAL56_RECONCILIATION_INCOMPLETE')
@@ -117,8 +124,11 @@ def run_plan(plan,*,backend=None,validator_factory=None,gate_runner=diagnostic_g
         durable_json(runroot/'TERMINAL.json',dict(status=outcome,reason=str(exc),new_entry_retry_allowed=outcome=='WINDOW_STOP',automatic_replay=0))
         if outcome!='WINDOW_STOP':raise
     except BaseException as exc:
+        outcome='HOLD'
         durable_json(runroot/'TERMINAL.json',dict(status='HOLD',reason=repr(exc),automatic_replay=0));raise
     finally:
+        if owned:
+            status['status']=outcome;replace_json(state_path,status)
         report=morning_report(config,SerialLedger(Path(config.runtime_root)/'ledger.sqlite3').audit())
         report['window_outcome']=outcome
         durable_json(runroot/'SAFE_SUMMARY.json',report)
