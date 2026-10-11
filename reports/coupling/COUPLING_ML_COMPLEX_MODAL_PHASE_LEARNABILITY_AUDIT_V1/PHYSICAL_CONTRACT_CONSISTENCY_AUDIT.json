@@ -1,0 +1,187 @@
+{
+  "status": "NO_CONTRACT_CONFLICT_FOUND",
+  "scope": "156label/provenance verified bySHA-gatedloader; sourceaudit, noFSPload/solver",
+  "state": "ordered21x7x2 +z TE/TM afterinputgauge; noJonesoperator",
+  "reference": "POSTNP1722nm; actualsamplecoordinates useddeembed; IN-50nm sourceTM gauge reusedalloutputs",
+  "phase_deembed": "dz=zref-zsample; +z exp(+ikz dz), -z exp(-ikz dz)",
+  "extraction": "actualcoordinates fullperiodsixE/H Fourier trapezoid endpoints halfweight; sixfield/4channel complexLS \u00b1zTE/TM; notpointfield",
+  "C_hat": "C_PW / sqrt(sum_(7orders,TE/TM) kz/k0*|C_PW|\u00b2); positive scalar only, phasepreserved. Weightednormunit1. P_scale separatelyfromsource-normalizedPOSTNP E/H Poynting. Not generally C_PW/sqrt(P_scale).",
+  "H2": "routing proportional modal |C_hat|\u00b2; no phasecross terms; absolute=eta*predictedP_scale, total=predictedP_scale",
+  "basis_450nm": [
+    {
+      "m": -3,
+      "TM_e_hat_real": [
+        -0.6309025677079995,
+        0.0,
+        -0.7758620689655175
+      ],
+      "TE_e_hat_real": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "kz_rad_m": 8809061.652632834,
+      "propagating": true
+    },
+    {
+      "m": -2,
+      "TM_e_hat_real": [
+        -0.855839561792473,
+        0.0,
+        -0.517241379310345
+      ],
+      "TE_e_hat_real": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "kz_rad_m": 11949774.57768329,
+      "propagating": true
+    },
+    {
+      "m": -1,
+      "TM_e_hat_real": [
+        -0.9659789536435476,
+        0.0,
+        -0.2586206896551725
+      ],
+      "TE_e_hat_real": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "kz_rad_m": 13487610.59683966,
+      "propagating": true
+    },
+    {
+      "m": 0,
+      "TM_e_hat_real": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "TE_e_hat_real": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "kz_rad_m": 13962634.015954634,
+      "propagating": true
+    },
+    {
+      "m": 1,
+      "TM_e_hat_real": [
+        0.9659789536435476,
+        0.0,
+        -0.2586206896551725
+      ],
+      "TE_e_hat_real": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "kz_rad_m": 13487610.59683966,
+      "propagating": true
+    },
+    {
+      "m": 2,
+      "TM_e_hat_real": [
+        0.855839561792473,
+        0.0,
+        -0.517241379310345
+      ],
+      "TE_e_hat_real": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "kz_rad_m": 11949774.57768329,
+      "propagating": true
+    },
+    {
+      "m": 3,
+      "TM_e_hat_real": [
+        0.6309025677079995,
+        0.0,
+        -0.7758620689655175
+      ],
+      "TE_e_hat_real": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "kz_rad_m": 8809061.652632834,
+      "propagating": true
+    }
+  ],
+  "basis_effect": "negativekx modes TEandTM sign differsfromm0/+kx; fixedbyorder, notgeometry. Diagonalunitarybasis correction is invertible but cannotimproveuncompressedKRR under matchedscalaroperator/sharedRMS; no basislabels changed.",
+  "source_evidence": [
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 80,
+      "text": "s_hat = np.array([0.0, 1.0, 0.0], dtype=complex)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 82,
+      "text": "s_hat = np.array([-ky / kt, kx / kt, 0.0], dtype=complex)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 84,
+      "text": "p_hat = np.cross(s_hat, k_hat)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 87,
+      "text": "p_hat = p_hat / np.sqrt(bilinear_norm)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 205,
+      "text": "wx, wy = _trap_weights(x), _trap_weights(y)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 233,
+      "text": "sampled[component_index] = np.sum(wx[:, None] * wy[None, :] * fields[name][:, :, fi] * phase) / (period_x_m * period_y_m)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 234,
+      "text": "modal, _, rank, _ = np.linalg.lstsq(matrix, sampled, rcond=None)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 240,
+      "text": "factor = np.exp((1j if direction == 1 else -1j) * mode[\"kz_rad_m\"] * dz)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 277,
+      "text": "scale = 1.0 / np.sqrt(total_power)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\pw_complex_floquet_state_v1.py",
+      "line": 278,
+      "text": "gauge = np.conj(incident) / np.maximum(np.abs(incident), 1e-300)"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\ingest.py",
+      "line": 235,
+      "text": "den=np.sum((kz/k0[:,None])[:,:,None]*abs(coeff)**2,axis=(1,2))"
+    },
+    {
+      "file": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\ingest.py",
+      "line": 237,
+      "text": "chat=coeff/np.sqrt(den)[:,None,None]"
+    }
+  ],
+  "single_EXT02_crossheight": "allfrozenconsistencythresholdsmet; propagatingL2max0.0077824, phaseRMSEmax0.0064994rad. Noabsoluteconvergence/globalproof/controlledcrossrunrepeatability. Older monitor reportmissingsecondplane supersededbyV2savedcomparison.",
+  "remaining_uncertainty": [
+    "actualmeshtransition/PMLreadbacks missinginEXT02diagnostic",
+    "no controlledcrossrunrepeatability bound forlocal+/-5nm",
+    "one-plane/percase provenance auditdoesnotproveglobalphysicalconvergence"
+  ],
+  "original_truth_H1_H2_unchanged": true
+}

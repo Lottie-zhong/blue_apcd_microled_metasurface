@@ -1,0 +1,483 @@
+{
+  "models": {
+    "KRR": {
+      "amplitude_fraction": 0.5735129953563772,
+      "phase_fraction": 0.426487004643623,
+      "state_norm": {
+        "median": 0.5072991818417009,
+        "q95": 0.7331211484760206,
+        "worst": 0.8047321024713434,
+        "mean": 0.5134294993351247
+      },
+      "oracle_common_perlambda_SSE_fraction_explained": 0.08102205368523574,
+      "phase_routing_Pscale_relationship": {
+        "phase_SSE_vs_routing_RMSE": {
+          "count": 124,
+          "pearson": 0.41252265734214844,
+          "spearman": 0.35391345397324936,
+          "causal_or_significance_claim": false
+        },
+        "phase_angle_vs_routing_RMSE": {
+          "count": 124,
+          "pearson": 0.4651933944653693,
+          "spearman": 0.4107820613690007,
+          "causal_or_significance_claim": false
+        },
+        "state_vs_P_scale_RMSE": {
+          "count": 124,
+          "pearson": 0.21134607524147256,
+          "spearman": 0.13051770259638076,
+          "causal_or_significance_claim": false
+        },
+        "routing_vs_P_scale_RMSE": {
+          "count": 124,
+          "pearson": 0.12355376188933498,
+          "spearman": 0.09450826121164436,
+          "causal_or_significance_claim": false
+        },
+        "norm_ratio_vs_state_RMSE": {
+          "count": 124,
+          "pearson": -0.6675457037113766,
+          "spearman": -0.49170102281667977,
+          "causal_or_significance_claim": false
+        },
+        "order_norm_prediction_truth_ratio": [
+          {
+            "m": -3,
+            "ratio": {
+              "median": 0.37341205108636877,
+              "q95": 0.9327537097348966,
+              "worst": 1.2832444412863713,
+              "mean": 0.4446997556743175
+            }
+          },
+          {
+            "m": -2,
+            "ratio": {
+              "median": 0.3664851535336673,
+              "q95": 0.9981976217024372,
+              "worst": 2.039037634824682,
+              "mean": 0.45325894279314455
+            }
+          },
+          {
+            "m": -1,
+            "ratio": {
+              "median": 0.40355890631951996,
+              "q95": 1.0437163601659125,
+              "worst": 1.7339511039759374,
+              "mean": 0.48667502234121024
+            }
+          },
+          {
+            "m": 0,
+            "ratio": {
+              "median": 0.8125373550825092,
+              "q95": 1.5635110307604692,
+              "worst": 2.3797442716503707,
+              "mean": 0.8794217527031278
+            }
+          },
+          {
+            "m": 1,
+            "ratio": {
+              "median": 0.3825199612414841,
+              "q95": 0.9118868020737512,
+              "worst": 1.3609700705784509,
+              "mean": 0.4358682074070442
+            }
+          },
+          {
+            "m": 2,
+            "ratio": {
+              "median": 0.37268559329581424,
+              "q95": 1.0466861349182137,
+              "worst": 1.5825849886976509,
+              "mean": 0.4650478315482076
+            }
+          },
+          {
+            "m": 3,
+            "ratio": {
+              "median": 0.3709543141337231,
+              "q95": 0.7544884057426035,
+              "worst": 0.9886281297572785,
+              "mean": 0.41230567209299707
+            }
+          }
+        ],
+        "H2_routing_phase_independence": "H2=sum_polarization positiveweights*|C|\u00b2 normalizedperlambda; no TE/TMcross terms, phases do not directly alter routing. Correlations reflect shared geometry/amplitude effects, not phasecauses routing.",
+        "raw_predicted_power_metric_norm_not_corrected": {
+          "median": 0.2719567178014197,
+          "q95": 0.5484369388064722,
+          "worst": 0.7144813852780337,
+          "mean": 0.29192080351136623
+        }
+      },
+      "local_neighbor_error_correlation": {
+        "geometry_distance": {
+          "count": 124,
+          "pearson": 0.807473480496219,
+          "spearman": 0.31437617441731813,
+          "causal_or_significance_claim": false
+        },
+        "state_distance": {
+          "count": 124,
+          "pearson": 0.8636260258389618,
+          "spearman": 0.6628648223759295,
+          "causal_or_significance_claim": false
+        },
+        "amplitude_distance": {
+          "count": 124,
+          "pearson": 0.6437798468579248,
+          "spearman": 0.385128745170022,
+          "causal_or_significance_claim": false
+        },
+        "weighted_phase_RMSE": {
+          "count": 124,
+          "pearson": 0.8034418252173408,
+          "spearman": 0.5888497412737967,
+          "causal_or_significance_claim": false
+        },
+        "routing_RMSE": {
+          "count": 124,
+          "pearson": 0.5876975569649632,
+          "spearman": 0.3723887891310238,
+          "causal_or_significance_claim": false
+        },
+        "P_scale_symmetric_relative_RMSE": {
+          "count": 124,
+          "pearson": 0.38606965989928055,
+          "spearman": 0.22936012259240912,
+          "causal_or_significance_claim": false
+        }
+      }
+    },
+    "MLP": {
+      "amplitude_fraction": 0.6763752913353377,
+      "phase_fraction": 0.32362470866466236,
+      "state_norm": {
+        "median": 0.44857389360157984,
+        "q95": 0.5359210964604396,
+        "worst": 0.564394373137086,
+        "mean": 0.45745215598157474
+      },
+      "oracle_common_perlambda_SSE_fraction_explained": 0.10408188343121694,
+      "phase_routing_Pscale_relationship": {
+        "phase_SSE_vs_routing_RMSE": {
+          "count": 124,
+          "pearson": 0.13367119933596314,
+          "spearman": 0.11614791502753735,
+          "causal_or_significance_claim": false
+        },
+        "phase_angle_vs_routing_RMSE": {
+          "count": 124,
+          "pearson": 0.44346502447701047,
+          "spearman": 0.39103068450039336,
+          "causal_or_significance_claim": false
+        },
+        "state_vs_P_scale_RMSE": {
+          "count": 124,
+          "pearson": 0.1545661561110781,
+          "spearman": 0.05219197482297403,
+          "causal_or_significance_claim": false
+        },
+        "routing_vs_P_scale_RMSE": {
+          "count": 124,
+          "pearson": 0.12165217968730539,
+          "spearman": 0.0006357199055861526,
+          "causal_or_significance_claim": false
+        },
+        "norm_ratio_vs_state_RMSE": {
+          "count": 124,
+          "pearson": -0.5225428960752917,
+          "spearman": -0.483140833988985,
+          "causal_or_significance_claim": false
+        },
+        "order_norm_prediction_truth_ratio": [
+          {
+            "m": -3,
+            "ratio": {
+              "median": 0.20537174013279813,
+              "q95": 0.5721947143381533,
+              "worst": 1.1473089463389978,
+              "mean": 0.2559984991764988
+            }
+          },
+          {
+            "m": -2,
+            "ratio": {
+              "median": 0.2030065008883612,
+              "q95": 0.5472719971708433,
+              "worst": 1.3128290313131004,
+              "mean": 0.25038290714910993
+            }
+          },
+          {
+            "m": -1,
+            "ratio": {
+              "median": 0.2193626156144016,
+              "q95": 0.554063071120319,
+              "worst": 1.3475137023894166,
+              "mean": 0.26674735561764085
+            }
+          },
+          {
+            "m": 0,
+            "ratio": {
+              "median": 0.8991648882652851,
+              "q95": 1.7475809815672918,
+              "worst": 2.3409787927827224,
+              "mean": 0.9814351855316469
+            }
+          },
+          {
+            "m": 1,
+            "ratio": {
+              "median": 0.1397448882800003,
+              "q95": 0.3607188752533693,
+              "worst": 0.7294772772850763,
+              "mean": 0.16826621050315996
+            }
+          },
+          {
+            "m": 2,
+            "ratio": {
+              "median": 0.17810040118103068,
+              "q95": 0.5465532457015558,
+              "worst": 1.5102872254965596,
+              "mean": 0.2440172997330517
+            }
+          },
+          {
+            "m": 3,
+            "ratio": {
+              "median": 0.20526305237532166,
+              "q95": 0.5040563167344426,
+              "worst": 0.6792203464897691,
+              "mean": 0.2381603026345404
+            }
+          }
+        ],
+        "H2_routing_phase_independence": "H2=sum_polarization positiveweights*|C|\u00b2 normalizedperlambda; no TE/TMcross terms, phases do not directly alter routing. Correlations reflect shared geometry/amplitude effects, not phasecauses routing.",
+        "raw_predicted_power_metric_norm_not_corrected": {
+          "median": 0.22805296955853677,
+          "q95": 0.319451975016453,
+          "worst": 0.41501080342173935,
+          "mean": 0.23296637053482405
+        }
+      },
+      "local_neighbor_error_correlation": {
+        "geometry_distance": {
+          "count": 124,
+          "pearson": 0.5448497539411581,
+          "spearman": 0.23795515093187736,
+          "causal_or_significance_claim": false
+        },
+        "state_distance": {
+          "count": 124,
+          "pearson": 0.6487682717519897,
+          "spearman": 0.5292715284175807,
+          "causal_or_significance_claim": false
+        },
+        "amplitude_distance": {
+          "count": 124,
+          "pearson": 0.5070351571525893,
+          "spearman": 0.41657579080778634,
+          "causal_or_significance_claim": false
+        },
+        "weighted_phase_RMSE": {
+          "count": 124,
+          "pearson": 0.5760088261465955,
+          "spearman": 0.42621124419837275,
+          "causal_or_significance_claim": false
+        },
+        "routing_RMSE": {
+          "count": 124,
+          "pearson": 0.4470998984777322,
+          "spearman": 0.3868660119026126,
+          "causal_or_significance_claim": false
+        },
+        "P_scale_symmetric_relative_RMSE": {
+          "count": 124,
+          "pearson": 0.25569321855485716,
+          "spearman": 0.1627082478409506,
+          "causal_or_significance_claim": false
+        }
+      }
+    },
+    "NP88": {
+      "amplitude_fraction": 0.5589330167985866,
+      "phase_fraction": 0.4410669832014134,
+      "state_norm": {
+        "median": 0.4560281881820498,
+        "q95": 0.7921857040562836,
+        "worst": 0.8139195340775509,
+        "mean": 0.4907348313707564
+      },
+      "oracle_common_perlambda_SSE_fraction_explained": 0.11479276365258806,
+      "phase_routing_Pscale_relationship": {
+        "phase_SSE_vs_routing_RMSE": {
+          "count": 124,
+          "pearson": 0.3163748134462835,
+          "spearman": 0.19526671911880406,
+          "causal_or_significance_claim": false
+        },
+        "phase_angle_vs_routing_RMSE": {
+          "count": 124,
+          "pearson": 0.5350856444514247,
+          "spearman": 0.41396695515342247,
+          "causal_or_significance_claim": false
+        },
+        "state_vs_P_scale_RMSE": {
+          "count": 124,
+          "pearson": 0.29281007951916316,
+          "spearman": 0.2726168371361133,
+          "causal_or_significance_claim": false
+        },
+        "routing_vs_P_scale_RMSE": {
+          "count": 124,
+          "pearson": 0.31401690114861963,
+          "spearman": 0.3536113296616837,
+          "causal_or_significance_claim": false
+        },
+        "norm_ratio_vs_state_RMSE": {
+          "count": 124,
+          "pearson": -0.7948310114374628,
+          "spearman": -0.6862501966955152,
+          "causal_or_significance_claim": false
+        },
+        "order_norm_prediction_truth_ratio": [
+          {
+            "m": -3,
+            "ratio": {
+              "median": 0.33864288461190983,
+              "q95": 0.902330608989511,
+              "worst": 1.1904553487283056,
+              "mean": 0.3935477344761163
+            }
+          },
+          {
+            "m": -2,
+            "ratio": {
+              "median": 0.29116127917102197,
+              "q95": 0.7635085139686077,
+              "worst": 0.967094161102213,
+              "mean": 0.35061670058812594
+            }
+          },
+          {
+            "m": -1,
+            "ratio": {
+              "median": 0.311510984303359,
+              "q95": 0.8098842742437881,
+              "worst": 1.7352832038164288,
+              "mean": 0.3714760988570095
+            }
+          },
+          {
+            "m": 0,
+            "ratio": {
+              "median": 0.7961007422121222,
+              "q95": 1.343991026154409,
+              "worst": 1.6783606380612408,
+              "mean": 0.841983329303478
+            }
+          },
+          {
+            "m": 1,
+            "ratio": {
+              "median": 0.287387287929317,
+              "q95": 0.7255122253150292,
+              "worst": 0.8894366477318799,
+              "mean": 0.33393528178051635
+            }
+          },
+          {
+            "m": 2,
+            "ratio": {
+              "median": 0.293658051419127,
+              "q95": 0.8104201631715371,
+              "worst": 1.0389640628729426,
+              "mean": 0.36002645586630383
+            }
+          },
+          {
+            "m": 3,
+            "ratio": {
+              "median": 0.3174179714400609,
+              "q95": 0.7761750239001144,
+              "worst": 1.0373978933517853,
+              "mean": 0.3714865058553614
+            }
+          }
+        ],
+        "H2_routing_phase_independence": "H2=sum_polarization positiveweights*|C|\u00b2 normalizedperlambda; no TE/TMcross terms, phases do not directly alter routing. Correlations reflect shared geometry/amplitude effects, not phasecauses routing.",
+        "raw_predicted_power_metric_norm_not_corrected": {
+          "median": 0.22270500046792693,
+          "q95": 0.6176870414773468,
+          "worst": 0.7320258667913079,
+          "mean": 0.2738170542370485
+        }
+      },
+      "local_neighbor_error_correlation": {
+        "geometry_distance": {
+          "count": 124,
+          "pearson": 0.747165814756942,
+          "spearman": 0.20801471285901466,
+          "causal_or_significance_claim": false
+        },
+        "state_distance": {
+          "count": 124,
+          "pearson": 0.7839752920223426,
+          "spearman": 0.4935568492845393,
+          "causal_or_significance_claim": false
+        },
+        "amplitude_distance": {
+          "count": 124,
+          "pearson": 0.600139687488414,
+          "spearman": 0.3452849103247361,
+          "causal_or_significance_claim": false
+        },
+        "weighted_phase_RMSE": {
+          "count": 124,
+          "pearson": 0.7043869884441656,
+          "spearman": 0.43017358465579014,
+          "causal_or_significance_claim": false
+        },
+        "routing_RMSE": {
+          "count": 124,
+          "pearson": 0.5239001832332405,
+          "spearman": 0.3106843479006387,
+          "causal_or_significance_claim": false
+        },
+        "P_scale_symmetric_relative_RMSE": {
+          "count": 124,
+          "pearson": 0.36149114558021095,
+          "spearman": 0.19020238221760286,
+          "causal_or_significance_claim": false
+        }
+      }
+    }
+  },
+  "observed": [
+    "amplitude/phaseSSEexactdecomposition",
+    "truthweightedunitnorm and undernormpredictions",
+    "signedKRRinfluenceoperator/reloadparity",
+    "MLPtrainingandselectedcheckpointlogs",
+    "NPdescriptorcorrelations and negative matchedpilot"
+  ],
+  "supported_hypothesis": [
+    "unresolvedphysicalphase and samplevariance causeconditionalmeanvectorcancellation",
+    "sparse six-dimensionalcoverage limitsfullstateinterpolation",
+    "MLPfixedprotocol/earlyselectedupdates can constrainstatefit",
+    "NPpowerfeaturemetric does not necessarilytrackHFphase, changeskernelneighborweights"
+  ],
+  "unresolved": [
+    "uniquecausalroot ofMLPplateau",
+    "whetherstructuredphasecandidategeneralizes",
+    "controllednumericalrepeatability for\u00b15nm response",
+    "whetherdifferentlegalNPkernelweight wouldhelp; nottested"
+  ],
+  "no_new_fits": true
+}

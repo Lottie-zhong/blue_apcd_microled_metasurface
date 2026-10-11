@@ -1,0 +1,20 @@
+{
+  "reason": "git diff --check detected CSV CRLF with exact-byte attributes",
+  "repairs": [
+    {
+      "file": "ALL_GEOMETRY_PAIRS.csv",
+      "before_sha256": "cb9edcf801c1705f5d0ed6120eea197e4b9fdce25d4ad1d5194fe25b994c1073",
+      "after_sha256": "5b4a5c0631c21000d483542a84580a9bf6bb9d6833966c954b4fa2c97ad5beb8",
+      "change": "LF/line trailing whitespace only; parsed CSV exact equality; no recomputation or numeric change"
+    },
+    {
+      "file": "TEST_OUTPUT.txt",
+      "before_sha256": "63a0b9e606c716af3d71cfdaf6b40f7a2189ca03dc199cccb75072b70b7968d1",
+      "after_sha256": "63a0b9e606c716af3d71cfdaf6b40f7a2189ca03dc199cccb75072b70b7968d1",
+      "change": "LF/line trailing whitespace only; parsed CSV exact equality; no recomputation or numeric change"
+    }
+  ],
+  "source_script_protocol_pins_unchanged": true,
+  "fits": 0,
+  "source_CRLF": "Frozen script original bytes retained; task .py whitespace attributes recognize CR-at-EOL while retaining all default whitespace checks"
+}

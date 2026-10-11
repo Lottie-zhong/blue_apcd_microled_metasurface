@@ -1,0 +1,15 @@
+{
+  "status": "PROPOSAL_ONLY_NOT_EXECUTED_REQUIRES_NEXT_TASK_AUTHORITY",
+  "priority": "A: full-rank amplitude / absolute-unit-complex phase KRR pilot",
+  "reason": "Nonzero-mode contraction, amplitude bias and relative-phase dispersion coexist; common-phase correction explains little. Test target representation without adding NP inputs or optimizer confounding.",
+  "baseline": "reuse exact four n124 geometry-only KRR folds/models/P_scale; same train/heldout IDs, train-only input scaler, gamma/alpha and dtype; no search or baseline refit.",
+  "targets": "294 sqrt(A) coordinates and588 absolute cos/sin phase coordinates. Reconstruct A as square of predicted sqrt(A); normalize phase vector. All21 wavelengths,7orders,2channels retained; no full-state renormalization.",
+  "phase_rules": "Zero truth A ->unit1. Training coordinate fraction<1e-4 ->unit1 target; record frequencies and threshold sensitivity. Predicted phase norm<=64eps -> corresponding training circular mean; exact-zero circular mean ->unit1. No heldout truth fallback.",
+  "scales": "head-specific training means and shared RMS; unchanged kernel/ridge. Square and unit-vector maps are explicit candidate representation, never corrections to historical outputs.",
+  "fit_budget": "4 logical candidate fits =8 internal state-head multioutput KRR estimator fits/linear-system solves;0 baseline refits;0 new P_scale fits (reuse actually predicted frozen branches). Both fit conventions must be authorized explicitly in next task. Current execution=0.",
+  "output": "588 real reconstructed C_hat +21 independently predicted frozen P_scale =609. Same H2/H1; unchanged scale gate cannot improve.",
+  "evaluation": "one fixed candidate, original four folds, paired geometry deltas median/q95/worst, phase/norm/tails, all original conjunctive gates. No oracle H1 or confirmation response. Repeatedly analyzed heldouts are developmental.",
+  "risk": "Unit-phase projection may amplify wrong phase and worsen state. True-amplitude/pred-phase oracle already worsens KRR median to0.989. Full-rank structured prediction benefit is unproven; historical rank-2 polar POC cannot establish it.",
+  "backup": "D: restricted geometry-local surrogate only after primary review; not parallel arm. Local curvature and missingD6minus/repeatability prevent claiming complete six-dimensional affine validity.",
+  "HF": "156G suffices for this developmental pilot without new HF. Independent confirmation and controlled repeated-run/numerical error evidence need separate future authority; no broad extra HF recommended from this audit alone."
+}
