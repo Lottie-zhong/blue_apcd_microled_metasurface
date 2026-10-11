@@ -1,0 +1,26 @@
+{
+  "schema": "APCD_COUPLING_V3_SCIENTIFIC_BUDGET_AUTHORITY_V1",
+  "dataset_id": "APCD_COUPLING_V3_DOE56",
+  "scope": "V3_DOE56",
+  "scientific_budget_approved": true,
+  "max_new_entries": 56,
+  "max_entries_per_case": 1,
+  "automatic_replay": 0,
+  "allowed_attempt_id": "attempt_001",
+  "frozen_manifest_sha256": "f0231e22b169f82f9239d7e89c3455f877ea85d493c422274f664c9dd91ba667",
+  "roles": {
+    "development": 44,
+    "diagnostic": 4,
+    "sealed": 8
+  },
+  "separate_from_old128": true,
+  "not_a_gpu_release": true,
+  "required_gates": [
+    "installed_engineering_PASS",
+    "independent_scientific_admission_PASS",
+    "finite_owner_release",
+    "time_window",
+    "four_numerical_comparisons_PASS_before_development"
+  ],
+  "human_authority": "APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1; V3_DOE56_SCIENTIFIC_BUDGET_APPROVED"
+}
