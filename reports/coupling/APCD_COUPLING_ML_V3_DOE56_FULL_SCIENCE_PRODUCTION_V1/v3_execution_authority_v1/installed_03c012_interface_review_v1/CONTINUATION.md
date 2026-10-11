@@ -1,0 +1,1 @@
+Installed03c012 metadata allowlist5negative+2positive probes PASS; freshTask Disabled/S4U/PT0S/IgnoreNew/Demandfalse, gateV2pinverified. Noentry. Finalinstalledengineering/nativePASS receipt notyet delivered; scientificadmissionremainsPENDING. Previous publicmetadata gap fixed inthiscandidate; source window recovery guardsretained.

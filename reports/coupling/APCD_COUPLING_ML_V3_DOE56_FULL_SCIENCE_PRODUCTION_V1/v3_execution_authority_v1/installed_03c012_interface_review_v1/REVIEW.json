@@ -1,0 +1,78 @@
+{
+  "status": "INTERFACE_REPAIR_VERIFIED; FINAL_ENGINEERING_RECEIPT_PENDING",
+  "observed_utc": "2026-10-11T11:55:16.130075+00:00",
+  "gpu_head": "03c0125c4a6b1e9f239a694d9052cbeb3229242a",
+  "installed_inventory_sha256": "c790f70b489a95010e0bd2ae7825ee43d3402dd40273377cb6899d727e772e28",
+  "source_files_verified": 134,
+  "metadata_injection_checks": [
+    {
+      "kind": "production_state",
+      "keys": [
+        "status",
+        "raw_exception"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "production_state",
+      "keys": [
+        "status",
+        "C_hat"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "controller",
+      "keys": [
+        "enabled",
+        "raw_exception"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "controller",
+      "keys": [
+        "enabled"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "production_state",
+      "keys": [
+        "status"
+      ],
+      "rejected": true
+    }
+  ],
+  "safe_metadata_positive_checks": 2,
+  "fresh_task_readback": {
+    "State": "Disabled",
+    "Enabled": false,
+    "Limit": "PT0S",
+    "Multiple": "IgnoreNew",
+    "Logon": "S4U",
+    "Demand": false,
+    "Action": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "Arguments": "\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\serial_controller.py\" --plan \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_03c0125c4a6b1e9f239a694d9052cbeb3229242a\\PLAN_PENDING.json\" --plan-sha256 800cfc825933402a95bd08f6bb8f7b09ffda9a3a3a4b12eb8947f55bed1866e7"
+  },
+  "gate_pin": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1\\v3_execution_authority_v1\\d604_candidate_science_review_v1\\v3_diagnostic_gate_v2.py",
+    "sha256": "49eed2e1de9c581fbfa88c7f84c70a7976230226172da96380fc8907c9275d3d"
+  },
+  "ledger_counts": {
+    "entered_count": 0,
+    "truth_valid_count": 0,
+    "labels_valid_count": 0,
+    "remaining_unentered_count": 56
+  },
+  "engineering_pending": {
+    "code_inventory_sha256": "c790f70b489a95010e0bd2ae7825ee43d3402dd40273377cb6899d727e772e28",
+    "registry_sha256": "9f0c04217174ff9bd29b0cda9440f6a85f99b77b3843a8244762f257c4785cd9",
+    "science_authorized": false,
+    "verdict": "PENDING"
+  },
+  "solver_entries": 0,
+  "fits": 0,
+  "replay": 0,
+  "sealed_response_access": 0
+}
