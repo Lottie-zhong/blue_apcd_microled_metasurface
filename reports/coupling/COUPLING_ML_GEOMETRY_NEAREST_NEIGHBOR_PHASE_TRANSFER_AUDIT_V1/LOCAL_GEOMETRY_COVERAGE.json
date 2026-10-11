@@ -1,0 +1,5948 @@
+{
+  "local": {
+    "n": 11,
+    "distance": {
+      "median": 0.038461538461538464,
+      "q95": 0.038461538461538464,
+      "worst": 0.038461538461538464,
+      "mean": 0.03846153846153846
+    },
+    "state": {
+      "A": {
+        "median": 0.4011217477113832,
+        "q95": 0.5129682875233308,
+        "worst": 0.5348100740857209,
+        "mean": 0.40753684097940873
+      },
+      "B": {
+        "median": 0.3394010040304971,
+        "q95": 0.5045815906639994,
+        "worst": 0.5061141052679221,
+        "mean": 0.3541740231043702
+      },
+      "C": {
+        "median": 0.3327876395739815,
+        "q95": 0.5051244192782827,
+        "worst": 0.5069828832415189,
+        "mean": 0.34659777538333586
+      },
+      "D": {
+        "median": 0.3065935626150457,
+        "q95": 0.5185652660564084,
+        "worst": 0.5256235098583356,
+        "mean": 0.32812735537487986
+      }
+    },
+    "phase": {
+      "A": {
+        "median": 0.28059284520380223,
+        "q95": 0.44781809628905855,
+        "worst": 0.4642119564499783,
+        "mean": 0.2964602110256395
+      },
+      "B": {
+        "median": 0.2629883645472727,
+        "q95": 0.4799207244735816,
+        "worst": 0.4977770096642756,
+        "mean": 0.2903353504810147
+      },
+      "C": {
+        "median": 0.2565930663232264,
+        "q95": 0.48197075465943173,
+        "worst": 0.49905786107143135,
+        "mean": 0.2799615487504256
+      },
+      "D": {
+        "median": 0.21417899300421298,
+        "q95": 0.5073403576633406,
+        "worst": 0.5089099347083592,
+        "mean": 0.2533152374671817
+      }
+    },
+    "state_D_minus_A": {
+      "median": -0.09900394286444913,
+      "q95": 0.005596978533077723,
+      "worst": 0.020380521293540732,
+      "mean": -0.0794094856045288
+    }
+  },
+  "rows": [
+    {
+      "case_id": "K6LDA1_DEV_D1_M05",
+      "fold": 1,
+      "ordered_D_nm": [
+        215,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "DEEP_INTERIOR",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.5256235098583356,
+      "phase_error": 0.5089099347083592,
+      "state_D_minus_A": -0.009186564227385285,
+      "phase_D_minus_B": 0.04684549542547167,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D3_M05",
+      "fold": 1,
+      "ordered_D_nm": [
+        220,
+        195,
+        205,
+        150,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.29341140371633556,
+      "phase_error": 0.21417899300421298,
+      "state_D_minus_A": -0.10771034399504764,
+      "phase_D_minus_B": -0.048318577634523935,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D5_M05",
+      "fold": 1,
+      "ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        135,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.31876677052706304,
+      "phase_error": 0.1829625649036773,
+      "state_D_minus_A": -0.10345306434842372,
+      "phase_D_minus_B": -0.03662131476738931,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D1_P05",
+      "fold": 2,
+      "ordered_D_nm": [
+        225,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.5115070222544813,
+      "phase_error": 0.5057707806183219,
+      "state_D_minus_A": 0.020380521293540732,
+      "phase_D_minus_B": 0.007993770954046298,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D3_P05",
+      "fold": 2,
+      "ordered_D_nm": [
+        220,
+        195,
+        215,
+        150,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.3207387868989225,
+      "phase_error": 0.24461182005723991,
+      "state_D_minus_A": -0.05035751502644581,
+      "phase_D_minus_B": -0.030552826539845757,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D5_P05",
+      "fold": 2,
+      "ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        145,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.27856683771681423,
+      "phase_error": 0.17735862934290472,
+      "state_D_minus_A": -0.04274049259648266,
+      "phase_D_minus_B": -0.0298233410962932,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D2_M05",
+      "fold": 3,
+      "ordered_D_nm": [
+        220,
+        190,
+        210,
+        150,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.2211908007632882,
+      "phase_error": 0.141015965522501,
+      "state_D_minus_A": -0.13534626879248537,
+      "phase_D_minus_B": -0.0874410446426146,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D4_M05",
+      "fold": 3,
+      "ordered_D_nm": [
+        220,
+        195,
+        210,
+        145,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.27796496346118166,
+      "phase_error": 0.19176882748201682,
+      "state_D_minus_A": -0.14624316763307593,
+      "phase_D_minus_B": -0.09983890998450648,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D2_P05",
+      "fold": 4,
+      "ordered_D_nm": [
+        220,
+        200,
+        210,
+        150,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.3065935626150457,
+      "phase_error": 0.24429124401630734,
+      "state_D_minus_A": -0.08972630264950665,
+      "phase_D_minus_B": -0.018697120530965367,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D4_P05",
+      "fold": 4,
+      "ordered_D_nm": [
+        220,
+        195,
+        210,
+        155,
+        140,
+        210
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.24714836629765174,
+      "phase_error": 0.15402350315534694,
+      "state_D_minus_A": -0.11011720081005527,
+      "phase_D_minus_B": -0.052017616979215836,
+      "distance_bin": "<=0.1"
+    },
+    {
+      "case_id": "K6LDA1_DEV_D6_P05",
+      "fold": 4,
+      "ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        215
+      ],
+      "role": "DEVELOPMENT_LOCAL_AXIS",
+      "stratum": "NEAR_BOUNDARY_NONEXACT",
+      "nearest_train_case": "K6V1_S31",
+      "neighbor_ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "neighbor_role": "DEVELOPMENT_OLD32",
+      "normalized_distance": 0.038461538461538464,
+      "raw_distance_nm": 5.0,
+      "tie_count": 1,
+      "weak_or_zero_coordinates": 147,
+      "weak_or_zero_training_energy_fraction": 1.217968577038849e-09,
+      "neighbor_truth_provenance": {
+        "case_id": "K6V1_S31",
+        "artifacts": {
+          "state": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.npz",
+            "exists": true,
+            "sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "bytes": 353901,
+            "hash_observation": "same-task verified byte hash reused",
+            "expected_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+            "sha_matches": true
+          },
+          "state_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\state\\K6V1_S31__attempt_001_pw_complex_floquet_state.json",
+            "exists": true,
+            "sha256": "481b057f66f8ee73ea444df5f2317cb9f2e2bc78867229a4c920c9053f5e0bc4",
+            "bytes": 6729,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_metadata": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw.json",
+            "exists": true,
+            "sha256": "43b994aefbbc2c254a12da7c6c87eb8ad305d0ac8dc53cc6a123ec2c210ad242",
+            "bytes": 504013,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "raw_fields": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\raw\\K6V1_S31__attempt_001_raw_complex_fields.npz",
+            "exists": true,
+            "sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "bytes": 119064060,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "5078b2effe7c8b7ca4c7ccae62a78e00fdd05c8b541d1c8cb0b810f440e78d8d",
+            "sha_matches": true
+          },
+          "canonical_truth_h5": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\truth.h5",
+            "exists": true,
+            "sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "bytes": 650544,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "10863dffa313909f1808710742855c07c065d78d330ce33c9891d24ed8461ed2",
+            "sha_matches": true
+          },
+          "runner_status": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\status.json",
+            "exists": true,
+            "sha256": "6fd11ce98646f0e8cce9368626dac1803f5c8ddcb184f91195dc29b814342be4",
+            "bytes": 14599,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_hashes.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\hashes.json",
+            "exists": true,
+            "sha256": "17e653078d0aa139decb1ab47e446fb6ee4705b3433cb5d09a9e921c407bdb21",
+            "bytes": 545,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "extraction_validation.json": {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\validation.json",
+            "exists": true,
+            "sha256": "7f7dd738e376c738a0cf0b54495542f3b98da6152e437171a7a788278950a1ae",
+            "bytes": 550,
+            "hash_observation": "fresh byte SHA read"
+          },
+          "legacy_dataset": {
+            "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1\\dataset_truth_32g.npz",
+            "exists": true,
+            "sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "bytes": 225179,
+            "hash_observation": "fresh byte SHA read",
+            "expected_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+            "sha_matches": true
+          }
+        },
+        "issues": [],
+        "attempt_id": "attempt_001",
+        "loader_attempt_alias": "attempt_001",
+        "status": "SCIENCE_VALID_UNDER_FROZEN_CONTRACT",
+        "phase_convention": {
+          "normalization": "incident_+z_(0,0)_TM_power_at_IN_REF",
+          "incident_power_per_area": [
+            0.00783832799007858,
+            0.00783707200336619,
+            0.007836641906146018,
+            0.007839093934897436,
+            0.00784540939281079,
+            0.007857433789192786,
+            0.007845764130578692,
+            0.007871931893668768,
+            0.00789602237558456,
+            0.00793512009430318,
+            0.007976961276368513,
+            0.007992405467354472,
+            0.007969616745148327,
+            0.007956545243049033,
+            0.007935284079241711,
+            0.007916706712796285,
+            0.007902888857973156,
+            0.007893132707578302,
+            0.007886109392731034,
+            0.00788088103862916,
+            0.007876224301290886
+          ],
+          "incident_power_per_abs_e2": [
+            0.003205616360511839,
+            0.0032056248555454884,
+            0.0032056333697512815,
+            0.003205641903128453,
+            0.0032056504556762376,
+            0.003205659027393866,
+            0.0032056676182805766,
+            0.003205676228335591,
+            0.003205684857558141,
+            0.003205693505947451,
+            0.0032057021735027455,
+            0.0032057108602232477,
+            0.003205719566108179,
+            0.003205728291156758,
+            0.003205737035368202,
+            0.0032057457987417293,
+            0.0032057545812765515,
+            0.003205763382971882,
+            0.003205772203826932,
+            0.0032057810438409105,
+            0.003205789903013025
+          ],
+          "gauge": "single_global_phase_per_wavelength_from_IN_REF_+z_(0,0)_TM; reused at all planes/channels",
+          "gauge_phase_rad": [
+            -0.6019663159929914,
+            -0.5867555624987946,
+            -0.5716884421044482,
+            -0.5569198398854677,
+            -0.5420957688747677,
+            -0.5274159459241137,
+            -0.5119495012988476,
+            -0.49803130352655245,
+            -0.4835813243144258,
+            -0.46855661875714677,
+            -0.45180725425168605,
+            -0.4337065362512186,
+            -0.41634471367724857,
+            -0.4003636837099946,
+            -0.3847148225350663,
+            -0.3698204451084718,
+            -0.3552819658649843,
+            -0.3409084472405464,
+            -0.32660790395850625,
+            -0.3123588887059428,
+            -0.29814671225559464
+          ],
+          "relative_phase_preserved": true,
+          "zero_denominator_count": 0
+        },
+        "native_EH_datasets": {
+          "Monitor0/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor0/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor1/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor2/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ex": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ey": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Ez": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hx": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hy": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          },
+          "Monitor3/Hz": {
+            "shape": [
+              1,
+              59,
+              349,
+              42
+            ],
+            "dtype": "float32"
+          }
+        },
+        "run_id": "S31-20261002T110823Z-90fa3875",
+        "historical_terminal_preserved": "DONE",
+        "native_files": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "exists": true,
+            "sha256": "b914a94b7b04da9a8665c0062df5b4d62810ac85f0bbeffb2e336cb4a4b87b50",
+            "bytes": 170552540,
+            "hash_observation": "fresh byte SHA read"
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "exists": true,
+            "sha256": "674b270589b8de349e127203afe53c2ce9a847c8efcbd6625706a80b7e4c4842",
+            "bytes": 76638688,
+            "hash_observation": "fresh byte SHA read"
+          }
+        ],
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "role": "DEVELOPMENT_OLD32",
+        "geometry_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+        "stratum": "NEAR_BOUNDARY_NONEXACT",
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "reference_plane_nm": 1722.0,
+        "wavelength_points": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ],
+        "orders_mn": [
+          [
+            -3,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "polarizations": [
+          "TE",
+          "TM"
+        ],
+        "output_shape": {
+          "complex_coordinates": 294,
+          "Cartesian_reals": 588,
+          "P_scale": 21,
+          "total_target_reals": 609
+        },
+        "P_scale_min": 0.05676735001683572,
+        "P_scale_max": 0.5306332090617921,
+        "source_normalization": "positive dimensionless POSTNP transmitted power: E/H trapezoidal Poynting integral / unit-cell area / incident power per area",
+        "h2_consistency": {
+          "eta": 0.0001774342729251588,
+          "absolute_order": 7.58932358276565e-05,
+          "total_power": 0.0
+        },
+        "h2_interpretation": "same-run modal vs native power comparison; numerical consistency only, no independent label or model admission",
+        "provenance": {
+          "dataset_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+          "dataset_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+          "state_sha256": "7921fa5d5c3c56d6ed818fb84d84c07992ca0eb847c7a11ab402afc8a62de806",
+          "state_metadata_sha256": null,
+          "cohort": "STAGE1_12G"
+        },
+        "old_state_reconstruction_max_abs_delta": 0.0,
+        "native_hash_receipt_binding": [
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run.fsp",
+            "sha_found_in_saved_receipt_or_bundle": true
+          },
+          {
+            "path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6V1_S31\\attempt_001\\S31-20261002T110823Z-90fa3875\\run\\run_output.h5",
+            "sha_found_in_saved_receipt_or_bundle": false
+          }
+        ]
+      },
+      "state_error": 0.3078888850145586,
+      "phase_error": 0.22157534932811154,
+      "state_D_minus_A": -0.09900394286444913,
+      "phase_D_minus_B": -0.05874975735632551,
+      "distance_bin": "<=0.1"
+    }
+  ],
+  "global": {
+    "n": 113,
+    "distance": {
+      "median": 0.5044183480232308,
+      "q95": 0.563075956921226,
+      "worst": 0.5946009551438579,
+      "mean": 0.5090241179962881
+    },
+    "state": {
+      "A": {
+        "median": 0.8862555981902059,
+        "q95": 1.0921551748623053,
+        "worst": 1.1565640527426966,
+        "mean": 0.8939739362355871
+      },
+      "B": {
+        "median": 1.0556731232645136,
+        "q95": 1.329157163045744,
+        "worst": 1.4863584174064124,
+        "mean": 1.0694302578314212
+      },
+      "C": {
+        "median": 1.0488075593996051,
+        "q95": 1.3243036487301005,
+        "worst": 1.4737853421603522,
+        "mean": 1.070305537829398
+      },
+      "D": {
+        "median": 1.1481776234210999,
+        "q95": 1.3636126794237522,
+        "worst": 1.4836079602754682,
+        "mean": 1.1476276072836458
+      }
+    },
+    "phase": {
+      "A": {
+        "median": 1.2438678794788876,
+        "q95": 1.7849914091863486,
+        "worst": 2.3153811687028387,
+        "mean": 1.2863091801567443
+      },
+      "B": {
+        "median": 1.3593792088367913,
+        "q95": 1.8895633109160108,
+        "worst": 2.285681326175281,
+        "mean": 1.3291626861541916
+      },
+      "C": {
+        "median": 1.3253884702894911,
+        "q95": 1.9040799740476424,
+        "worst": 2.238734446364113,
+        "mean": 1.33158975820129
+      },
+      "D": {
+        "median": 1.4505686004838183,
+        "q95": 1.908502893379915,
+        "worst": 2.0542839100187575,
+        "mean": 1.4607587156501716
+      }
+    },
+    "state_D_minus_A": {
+      "median": 0.2476210820254683,
+      "q95": 0.4560781149202162,
+      "worst": 0.5407265890587917,
+      "mean": 0.25365367104805886
+    }
+  },
+  "missing": "K6LDA1_DEV_D6_M05",
+  "repeatability": "unverified +/-5nm crossrun numericalfloor; twoairplanes supports onecaseheightconsistency only"
+}
