@@ -1,0 +1,1 @@
+Server-owned controller formallybound scientificreceipt28e290 andfirstdiagnosticentryconsumed. No solverreturn/truthvalid/labelsvalid yet. Retain entry, neverreplay. Followexistingreadonlyservermonitor; do notadd agentpolling. Frozen gateV2 remains mandatorybefore44/8.
