@@ -1,0 +1,71 @@
+{
+  "schema": "V3_NUMERICAL_ADVANCEMENT_SCIENTIFIC_CLARIFICATION_V1",
+  "kind": "preentry executable clarification; frozen design and thresholds unchanged",
+  "wavelengths_nm": [
+    440,
+    441,
+    442,
+    443,
+    444,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455,
+    456,
+    457,
+    458,
+    459,
+    460
+  ],
+  "orders_m": [
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "polarization": [
+    "TE",
+    "TM"
+  ],
+  "reference_plane_nm": 1722,
+  "state_quantity": "C_hat (not C_PW); no alignment/rescaling; original IN-reference incident gauge",
+  "phase_mask": "abs(C_hat_base)^2 / sum_order_pol(abs(C_hat_base)^2) >= 1e-4 separately at each wavelength",
+  "phase_weight": "abs(C_hat_base)^2 only; circular angle(candidate * conjugate(base)); not candidate weights, not q weights",
+  "weak_coordinates": "unmasked and modal diagnostic retained; not masked phase gate; exact-zero candidate in significant base coordinate -> HOLD",
+  "numerical_limits": {
+    "state_relative_l2": 0.02,
+    "routing_max_abs": 0.005,
+    "absolute_order_max_abs": 0.005,
+    "total_power_relative": 0.01,
+    "significant_phase_rmse_rad": 0.05
+  },
+  "reduction": "all five conjunctive gates at each of all21 wavelengths for each of all4 diagnostics; full-band summaries descriptive only",
+  "pairs": {
+    "K6V3_NUM_REPEAT_A1": "K6GDP2_DEV_G001",
+    "K6V3_NUM_MESH4_A1": "K6GDP2_DEV_G001",
+    "K6V3_NUM_REPEAT_A2": "K6GDP2_DEV_G004",
+    "K6V3_NUM_MESH4_A2": "K6GDP2_DEV_G004"
+  },
+  "repeat_mesh_separate": true,
+  "decoder": "frozen h1.reconstruct_h2 with SHA-bound H2 source; total=P_scale, abs=eta*P_scale",
+  "no_new_h1_gate": true,
+  "advance_requires": "4 durable fresh-LOAD six-component truths; verified case/attempt/budget/source/contract/reference identities and SHA; all4 comparisons PASS; no unknown entry or owner",
+  "energy_boundary": "Existing extraction/source normalization/H2 consistency checks remain mandatory; H2 routing closure is algebraic, not independent electromagnetic conservation. No invented T+R=1 gate for possibly absorptive Native-M1 system. Record independent Poynting/native/modal comparisons and established tolerances.",
+  "interpretation_source": "Original frozen numerical plan and original per-wavelength two-plane diagnostic convention; explicit latest human C_hat quantity. This clarification precedes all new responses.",
+  "execution_counts": {
+    "solver_entry": 0,
+    "training_fits": 0,
+    "replay": 0,
+    "sealed_response_access": 0
+  }
+}
