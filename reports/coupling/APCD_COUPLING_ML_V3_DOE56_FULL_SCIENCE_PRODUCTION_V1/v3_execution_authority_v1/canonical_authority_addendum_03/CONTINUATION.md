@@ -1,0 +1,1 @@
+Canonical CURRENT_INSTALLATION/current sciencebinding andoldbackupsactualSHAverified. Signedscience receipt28e290 remainsunchanged. RuntimecurrentlyDisabled/DENY awaiting finalimmutable receiptbinding, notnewbudgetapproval. Noentry/fit/replay/sealedresponseaccess.
