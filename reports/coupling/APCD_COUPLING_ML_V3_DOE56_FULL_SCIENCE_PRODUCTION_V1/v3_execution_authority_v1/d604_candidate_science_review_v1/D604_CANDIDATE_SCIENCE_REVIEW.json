@@ -1,0 +1,86 @@
+{
+  "status": "CANDIDATE_INTERFACE_REVIEW_PASS_NOT_FINAL_ADMISSION",
+  "verdict": "PENDING_FINAL_INSTALLATION",
+  "observed_utc": "2026-10-11T11:27:56.617144+00:00",
+  "GPU_head": "d6046bd4efadc112acd0e26135f1f8177ac921bd",
+  "code_inventory": {
+    "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_d6046bd4efadc112acd0e26135f1f8177ac921bd\\CODE_SHA256.json",
+    "sha256": "fa850fb9d4a220bf2b3418d4b644d3349372c346ffad8d6bf31ddea167476699"
+  },
+  "installed_code_files_verified": 134,
+  "phase_results": [
+    {
+      "phase": "DIAGNOSTIC",
+      "case_count": 4,
+      "exact_requests": true,
+      "config_digest": "9eae51fcef911408ddf48014c9705b0ef5891a1584f5c88a917f174fc29f4279",
+      "config_pin": {
+        "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_d6046bd4efadc112acd0e26135f1f8177ac921bd\\phase_DIAGNOSTIC_DENY\\config.json",
+        "sha256": "52d02041f6cdd8da7b34daa3d13c0f8f0f4f2ed1b01f9179dac4e47e3e7ba1b4"
+      },
+      "release_deny": true,
+      "all_toolchain_pins_verified": true
+    },
+    {
+      "phase": "DEVELOPMENT",
+      "case_count": 44,
+      "exact_requests": true,
+      "config_digest": "d55f7305188c36ecfa450ab390d40a397f2b6063b1e62616cbfaff02a7fe69bd",
+      "config_pin": {
+        "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_d6046bd4efadc112acd0e26135f1f8177ac921bd\\phase_DEVELOPMENT_DENY\\config.json",
+        "sha256": "1470b09267c3fdbb91e366eb0854b72941ed51f3cb562064befced0ef4f9eae8"
+      },
+      "release_deny": true,
+      "all_toolchain_pins_verified": true
+    },
+    {
+      "phase": "SEALED_EVALUATION",
+      "case_count": 8,
+      "exact_requests": true,
+      "config_digest": "bd3717b9fbeb672f91850ca71c6e05c109a503ebc6a66b9eec5db674c50c65c2",
+      "config_pin": {
+        "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_d6046bd4efadc112acd0e26135f1f8177ac921bd\\phase_SEALED_EVALUATION_DENY\\config.json",
+        "sha256": "f4e27badedd3eb12a600abf7a403979bf80802dc44f2808a05a1e69fccf40570"
+      },
+      "release_deny": true,
+      "all_toolchain_pins_verified": true
+    }
+  ],
+  "controller_readback": {
+    "principal": "DELL",
+    "action": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "state": 1,
+    "arguments": "\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\d6046bd4efadc112acd0e26135f1f8177ac921bd\\platform_v2\\tools\\serial_controller.py\" --plan \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_d6046bd4efadc112acd0e26135f1f8177ac921bd\\PLAN_PENDING.json\" --plan-sha256 e85209f0fde48cf7b01989b1e1232b5db5e8ec517b497ed634cf822eb61bd640",
+    "name": "APCD_GPU_V2_SERIAL_CONTROLLER",
+    "limit": "PT0S",
+    "engine": {},
+    "enabled": false,
+    "demand": false,
+    "result": 0,
+    "logon": 2,
+    "multiple": 2,
+    "directory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_d6046bd4efadc112acd0e26135f1f8177ac921bd"
+  },
+  "scientific_findings": [
+    {
+      "id": "ENTRY_CHAIN_AUDIT_GAP_CLOSED_IN_COUPLING_GATE_V2",
+      "status": "FIXED_ZERO_ENTRY",
+      "detail": "Originalgate checked entry_consumed but not immutableentry/launch/request chain or physicalPROCESS_RETURNED; v2 verifiesfull chain andreadonly V2metadata engine/FSP/log/return binding. Originalgate/protocol/thresholds unchanged as historicalartifacts."
+    },
+    {
+      "id": "MORNING_FINAL_STATUS_PENDING",
+      "status": "OWNER_ALREADY_UPGRADING",
+      "detail": "Candidateowner reports pendingmorning controller/release/failure/pool/sealedstatus enhancement; review nextimmutableversion before admission."
+    }
+  ],
+  "gate_v2_pin": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1\\v3_execution_authority_v1\\d604_candidate_science_review_v1\\v3_diagnostic_gate_v2.py",
+    "sha256": "49eed2e1de9c581fbfa88c7f84c70a7976230226172da96380fc8907c9275d3d"
+  },
+  "no_new_scientific_contract_or_budget": true,
+  "solver_entry": 0,
+  "training_fits": 0,
+  "p_scale_fits": 0,
+  "replay": 0,
+  "sealed_scientific_response_access": 0
+}
