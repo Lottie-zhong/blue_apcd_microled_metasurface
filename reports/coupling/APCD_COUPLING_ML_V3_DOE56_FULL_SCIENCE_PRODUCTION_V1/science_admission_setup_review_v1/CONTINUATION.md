@@ -1,0 +1,5 @@
+# Resume here
+
+Read FINAL_REPORT.md and INDEPENDENT_SETUP_AND_CUSTODY_AUDIT.json. 56setupSHA/readbacks verified, actual4nmcontract exists. Both4nm setup_specs still havegeneric5nmcontract fields; actualmanifest/proofbind4nm. Awaitowner explicitlineage resolution. Realcustody gate fails sameprivilegedDELL directread syntheticfixture; nofrozenrestrictedconsumer principal supplied. Noaccount/ACL/runtimeauthorities modified.
+
+Numericalprotocol isalready frozen at science_admission_v1/NUMERICAL_ADVANCEMENT_PROTOCOL.json SHA7407bfb3df56501a4b5b178caa0b7a7777b785f34dbb4fdd6eed65f8e7272d8e; useit, donotchange thresholds. No diagnosticresults exist. OverallADMISSIONBLOCKED; budget56 approvedunconsumed. Nextreviewowner formalactual4nmbinding andrestrictedconsumernegativepermissionproof plusversion-boundinstallation/registry/window/morningreport. Do notstartsolver/readsealedtruth ormodifyGPUworktree. Preserveexistingdirty/staged. Nootherchatmessage was sent.
