@@ -1,0 +1,3 @@
+# Latest binding addendum
+
+Read ACTUAL_CONTRACT_BINDING_ADDENDUM.json after original CONTINUATION.md. GPU owner has now resolved parent-vs-actual4nm contract lineage with explicit SHA-bound records, independently verified here. Original setup/FSP/proofs/review inventory unchanged. Candidate registry remains SOURCE_VERIFIED_NOT_INSTALLED/DENY. Sealed identity/OS negative test still BLOCKED. No overall science admission, entry, fit or sealed response access. Numerical protocol remains unchanged and ready. Next: formal restricted-consumer identity and production-equivalent negative access tests plus final installed engineering delivery.
