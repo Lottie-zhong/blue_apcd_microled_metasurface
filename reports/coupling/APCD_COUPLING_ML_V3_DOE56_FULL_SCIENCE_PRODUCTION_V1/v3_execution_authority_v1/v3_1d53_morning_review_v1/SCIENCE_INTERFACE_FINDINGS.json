@@ -1,0 +1,29 @@
+{
+  "status": "MORNING_PUBLIC_METADATA_ALLOWLIST_GAP_REPRODUCED_SYNTHETIC_ONLY",
+  "GPU_candidate": "1d53af4fb444c17dff731dc78f76c016ae718cc3",
+  "observed_utc": "2026-10-11T11:35:40.765727+00:00",
+  "code_inventory_sha256": "52556f38b13d2357507336bebff03524e70a4dd38ca438c161537ab25c130050",
+  "installed_source_files_verified": 134,
+  "source": {
+    "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\1d53af4fb444c17dff731dc78f76c016ae718cc3\\platform_v2\\apcd_gpu_v2\\v3.py",
+    "sha256": "a860c0e54db8de0c837fb7183d540b65b863c21167b7e5ef725c2a601090a31c",
+    "function": "morning_report",
+    "statement": "result['production_state']=json.loads(state.read_text())"
+  },
+  "reproduction": {
+    "fixture_only": true,
+    "sealed_scientific_responses_read": 0,
+    "synthetic_response_marker_copied_to_public_report": true
+  },
+  "required_owner_fix": "Serialize production_state/controller through explicit approved metadata field+type/value allowlists; reject unknown fields and raw exception/response payloads. Preserve private evidence; publish safe failure code/receipt SHA only. Test injected production_state and controller payload, not just case_records.",
+  "confirmed_gate_v2": {
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1\\v3_execution_authority_v1\\d604_candidate_science_review_v1\\v3_diagnostic_gate_v2.py",
+    "sha256": "49eed2e1de9c581fbfa88c7f84c70a7976230226172da96380fc8907c9275d3d"
+  },
+  "owner_canonical_budget_path_fix": "reported pending nextimmutable version; reverify installed finalversion",
+  "solver_entry": 0,
+  "training_fits": 0,
+  "replay": 0,
+  "sealed_scientific_response_access": 0,
+  "final_scientific_admission": "PENDING"
+}
