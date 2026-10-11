@@ -11,7 +11,7 @@ from .artifacts import durable_json,sha256
 from .config import StrictModel
 from .ledger import Refused
 from .serial import Pin,SerialLedger,exclusive,controller_owned,ProductionNativeBackend,NativeTruthValidator,replace_json
-from .v3 import V3Config,V3Request,V3Budget,registry_cases,ROLES,morning_report
+from .v3 import V3Config,V3Request,V3Budget,registry_cases,ROLES,morning_report,rebind_proven_window
 
 
 class Plan(StrictModel):
@@ -115,6 +115,7 @@ def run_plan(plan,*,backend=None,validator_factory=None,gate_runner=diagnostic_g
                 validator=validator_factory(phase) if validator_factory is not None else NativeTruthValidator(phase)
                 status.update(status='RUNNING',phase=kind,config_sha256=phase.sha256,release_sha256=phase.release.sha256,release_expires_unix=phase.release.read()['expires_unix'],science_authorized=True)
                 replace_json(state_path,status)
+                for request in requests:rebind_proven_window(phase,request,ledger)
                 controller_owned(phase,requests,impl,validator)
             final=json.loads(Path(config.coupling_ledger).read_text())
             if final['labels_valid_count']!=56 or final['entered_count']!=56:raise Refused('FINAL56_RECONCILIATION_INCOMPLETE')

@@ -64,6 +64,13 @@ class V3Config(SerialConfig):
             if data != root/'v3_data': raise ValueError('V3_CUSTODY_ROOT_REQUIRED')
             old = Path('D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/QUEUE_EXECUTION_LEDGER_V1.json').resolve()
             if Path(self.coupling_ledger).resolve() == old: raise ValueError('OLD128_AUTHORITY_FORBIDDEN')
+            canonical_coupling=Path('D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1').resolve()
+            authority_root=canonical_coupling/'reports/coupling/APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1/v3_execution_authority_v1'
+            if Path(self.coupling_root).resolve()!=canonical_coupling or Path(self.coupling_ledger).resolve()!=authority_root/'V3_EXECUTION_LEDGER_V1.json':
+                raise ValueError('SINGLE_CANONICAL_COUPLING_V3_BUDGET_REQUIRED')
+            if Path(self.budget_authority.path).resolve()!=authority_root/'interface_amendment_01/V3_BUDGET_AUTHORITY_V1.json':
+                raise ValueError('FORMAL_STATIC_V3_BUDGET_AUTHORITY_REQUIRED')
+
             if not {'lumapi','postprocessor','decoder','importer','incident_power_helper'} <= self.truth_toolchain.keys():
                 raise ValueError('PINNED_NATIVE_TOOLCHAIN_REQUIRED')
         return self
@@ -276,6 +283,36 @@ def import_truth(config,request,record,importer):
     return imported,dict(outputs=609,provenance=imported.provenance)
 
 
+
+def public_control_metadata(kind,body):
+    """Reject extensible payloads: only explicit typed metadata may leave custody."""
+    import math,re
+    if not isinstance(body,dict):raise Refused('PUBLIC_METADATA_TYPE_REJECTED')
+    if kind=='controller':
+        if set(body)-{'enabled','state','demand_start','last_task_result'}:raise Refused('PUBLIC_METADATA_FIELDS_REJECTED')
+        for key,value in body.items():
+            good=(type(value) is bool) if key in ['enabled','demand_start'] else (type(value) is int and 0<=value<2**32 and (key!='state' or value<=4))
+            if not good:raise Refused('PUBLIC_METADATA_VALUE_REJECTED')
+    elif kind=='production_state':
+        hashes={'code_inventory_sha256','registry_sha256','config_sha256','release_sha256'}
+        allowed=hashes|{'status','dataset_id','phase','expires_unix','release_expires_unix','science_authorized'}
+        if set(body)-allowed:raise Refused('PUBLIC_METADATA_FIELDS_REJECTED')
+        for key,value in body.items():
+            if key in hashes:good=isinstance(value,str) and re.fullmatch('[a-f0-9]{64}',value) is not None
+            elif key=='status':good=value in ['CONTROLLER_STARTED','RUNNING','PARTIAL','HOLD','WINDOW_STOP','COMPLETE','DISABLED_NOT_STARTED'] if isinstance(value,str) else False
+            elif key=='dataset_id':good=value==DATASET if isinstance(value,str) else False
+            elif key=='phase':good=value in ['DIAGNOSTIC','DEVELOPMENT','SEALED_EVALUATION'] if isinstance(value,str) else False
+            elif key=='science_authorized':good=type(value) is bool
+            else:good=type(value) in [int,float] and math.isfinite(value) and value>=0
+            if not good:raise Refused('PUBLIC_METADATA_VALUE_REJECTED')
+    else:raise Refused('UNKNOWN_PUBLIC_METADATA_KIND')
+    return dict(body)
+
+
+def public_or_rejected(kind,body):
+    try:return public_control_metadata(kind,body)
+    except Refused:return dict(status='METADATA_REJECTED',failure_code='PUBLIC_METADATA_ALLOWLIST_REJECTION')
+
 def morning_report(config,ledger_snapshot,*,now=None):
     """Allowlist construction: never serialize records, raw payloads or response arrays."""
     data=json.loads(Path(config.coupling_ledger).read_text());rows=registry_cases(config);records=data.get('case_records',{})
@@ -304,6 +341,48 @@ def morning_report(config,ledger_snapshot,*,now=None):
     result['sealed_integrity_status']='VALIDATED_AT_INGEST' if result['role_counts']['SEALED_EVALUATION']['valid']==8 else 'PARTIAL_OR_UNENTERED'
     result['configured_release']=dict(sha256=config.release.sha256,science_authorized=config.release.read().get('science_authorized') is True,expires_unix=config.release.read()['expires_unix'])
     state=Path(config.v3_data_root)/'V3_AUDIT_METADATA/PRODUCTION_STATE.json'
-    result['production_state']=json.loads(state.read_text()) if state.exists() else dict(status='DISABLED_NOT_STARTED')
-    result['controller']=ledger_snapshot.get('controller',{'source':'not supplied to isolated function test'})
+    result['production_state']=public_or_rejected('production_state',json.loads(state.read_text()) if state.exists() else dict(status='DISABLED_NOT_STARTED'))
+    result['controller']=public_or_rejected('controller',ledger_snapshot['controller']) if 'controller' in ledger_snapshot else dict(status='NOT_OBSERVED')
     return result
+
+
+def close_proven_window_preentry(config,request,ledger,token):
+    """Only current owner may close its own proven no-entry time-window stop."""
+    V3Budget(config).validate(request)
+    folder=storage_root(config,request)/'attempts'/request.request_sha256
+    if folder.exists() and (sorted(x.name for x in folder.iterdir())!=['run.fsp'] or sha256(folder/'run.fsp')!=request.pre_fsp_sha256):
+        raise Refused('WINDOW_PREENTRY_NATIVE_EVIDENCE_UNKNOWN')
+    from .processes import identity
+    with ledger.transaction() as db:
+        ledger.fence(db,request.request_sha256,token)
+        slot=db.execute('select * from slot where id=1').fetchone()
+        if json.loads(slot['owner'])!=identity():raise Refused('WINDOW_PREENTRY_NOT_CURRENT_OWNER')
+        row=db.execute('select * from tasks where request_sha=?',(request.request_sha256,)).fetchone()
+        if row['entered'] or row['entry_at'] is not None or row['state']!='HOLD_NO_REPLAY':raise Refused('WINDOW_STOP_ENTRY_NOT_EXCLUDED')
+        forbidden=['COUPLING_ENTRY_MIRRORED','LAUNCH_REQUESTED','LAUNCHER_PROCESS','ENGINE_PROCESS','PROCESS_RETURNED']
+        kinds=[x[0] for x in db.execute('select kind from events where request_sha=?',(request.request_sha256,))]
+        if any(k in forbidden for k in kinds):raise Refused('WINDOW_STOP_LAUNCH_NOT_EXCLUDED')
+        ledger.event(db,request.request_sha256,'WINDOW_STOP_UNENTERED',dict(entry_consumed=False,solver_invocations=0,owner=dict(slot),old_task=dict(row),admission_sha256=request.admission_sha256,staging_sha256=request.pre_fsp_sha256 if folder.exists() else None))
+        db.execute("update tasks set state='WINDOW_STOP_UNENTERED' where request_sha=?",(request.request_sha256,))
+        db.execute('update slot set token=NULL,owner=NULL,request_sha=NULL where id=1')
+
+
+def rebind_proven_window(config,request,ledger):
+    """Preserve no-entry lineage under a new finite release; no attempt increment."""
+    validate_registered(config,request)
+    with ledger.transaction() as db:
+        row=db.execute('select * from tasks where case_id=? and attempt_id=?',(request.case_id,request.attempt_id)).fetchone()
+        if not row or row['state']!='WINDOW_STOP_UNENTERED':return False
+        V3Budget(config).validate(request)
+        old=V3Request.model_validate_json(row['payload'])
+        if row['entered'] or row['entry_at'] is not None or old.admission_sha256!=request.admission_sha256:
+            raise Refused('WINDOW_REBIND_ENTRY_OR_IDENTITY_CONFLICT')
+        slot=db.execute('select * from slot where id=1').fetchone()
+        if slot['token']:raise Refused('WINDOW_REBIND_ACTIVE_OWNER_PRESENT')
+        events=[dict(x) for x in db.execute('select * from events where request_sha=? and kind=?',(row['request_sha'],'WINDOW_STOP_UNENTERED'))]
+        if len(events)!=1:raise Refused('WINDOW_REBIND_PROOF_REQUIRED')
+        proof=dict(old_task=dict(row),window_stop_event=events[0],new_request_sha256=request.request_sha256,entry_consumed=False,solver_invocations=0,automatic_replays=0)
+        ledger.event(db,row['request_sha'],'WINDOW_PREENTRY_REBOUND',proof)
+        ledger.event(db,request.request_sha256,'PREENTRY_REBOUND_READY',proof)
+        db.execute("update tasks set request_sha=?,config_sha=?,payload=?,state='REGISTERED',error=NULL,bundle=NULL where case_id=? and attempt_id=?",(request.request_sha256,config.sha256,request.model_dump_json(),request.case_id,request.attempt_id))
+        return True

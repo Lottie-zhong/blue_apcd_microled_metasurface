@@ -511,6 +511,9 @@ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:
         return evidence
     except BaseException as exc:
         ledger.terminal(request,token,error=repr(exc))
+        if registered_config(config) and isinstance(exc,Refused) and str(exc)=='WINDOW_INSUFFICIENT_NO_NEW_ENTRY':
+            from .v3 import close_proven_window_preentry
+            close_proven_window_preentry(config,request,ledger,token)
         raise
 
 
