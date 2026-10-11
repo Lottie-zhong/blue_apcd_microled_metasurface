@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<stdin>", line 11, in <module>
+  File "N:\anaconda_envs\RCP_LCP\lib\runpy.py", line 289, in run_path
+    return _run_module_code(code, init_globals, run_name,
+  File "N:\anaconda_envs\RCP_LCP\lib\runpy.py", line 96, in _run_module_code
+    _run_code(code, mod_globals, init_globals,
+  File "N:\anaconda_envs\RCP_LCP\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\reports\coupling\COUPLING_ML_ORDER_RESOLVED_PHASE_AND_LOCAL_CONDITIONING_AUDIT_V1\order_phase_audit.py", line 159, in <module>
+    if sys.argv[1]=='prepare':prepare()
+  File "D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\reports\coupling\COUPLING_ML_ORDER_RESOLVED_PHASE_AND_LOCAL_CONDITIONING_AUDIT_V1\order_phase_audit.py", line 68, in prepare
+    put('MATHEMATICAL_TESTS.json',synthetic());print('PREREGISTERED_ZERO_FIT',len(pins),flush=True)
+  File "D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\reports\coupling\COUPLING_ML_ORDER_RESOLVED_PHASE_AND_LOCAL_CONDITIONING_AUDIT_V1\order_phase_audit.py", line 48, in synthetic
+    dec=h1.load_h2_decoder();p=np.ones((3,21));base=h1.reconstruct_h2(z,p,dec);rot=h1.reconstruct_h2(z*np.exp(.7j),p,dec)
+  File "D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\scripts\coupling_ml\k6_v2_pipeline\h1.py", line 51, in reconstruct_h2
+    if not np.isfinite(total).all() or (total<=0).any():raise ValueError("h2_modal_total_invalid")
+ValueError: h2_modal_total_invalid

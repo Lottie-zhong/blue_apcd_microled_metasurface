@@ -1,0 +1,55 @@
+{
+  "status": "PROPOSAL_ONLY_DO_NOT_EXECUTE",
+  "priority": "Geometry-neighborhood-scale conditioned circular phase KRR; reuse frozen full-rank amplitude and P_scale",
+  "choice": "one candidate, train-input-defined local kernel scale; no relative-gauge/phaseconfidence candidate appended",
+  "reason": "S31phase changes smaller; actualfold neighbor distance andneighbor phase change associated with modelphase errors. Fixedm0-relative phase not universally smoother; rawrho shrink loses amplitude/power gains. Kernel locality remains an unvalidated hypothesis.",
+  "inputs": "Ordered6D D1...D6; same original fold geometry standardizer. No HF-derived neighbor metadata, NP/MDC or testtruth inputs.",
+  "new_head": "Same588 absolute circularphase targets, training-only weakcanonicalization, separatemean/globalRMS scaling and original fallback; exactly one phase KRR per originalfold. Same deterministic unitcircle reconstruction for clean matched direction test, report rawrho too.",
+  "kernel_rule": "RBF gamma=1/(2*median_i min_j!=i ||x_i-x_j||^2), computed only from foldtrain geometry after originalstandardization. alpha=1 fixed. No kNN-label interpolation or heldout radius/threshold search. Degenerate/nonfinite/zero distance -> BLOCKED, no silentepsilon.",
+  "gamma_input_only_dry_run": [
+    {
+      "fold": 1,
+      "train_ids_sha": "2953821f7cd2507e70fa20aeb2bf2acffcc9b0900a7eff8058875ed69d1bbab6",
+      "median_train_nearest_squared_distance": 2.0380093516015108,
+      "proposed_phase_gamma": 0.245337441463205,
+      "historical_phase_gamma": 0.16666666666666666,
+      "alpha": 1.0
+    },
+    {
+      "fold": 2,
+      "train_ids_sha": "a76c92650f54452b4f0b78a19d930c4ac40592ce02b48e2eb97ed3e1e36475e7",
+      "median_train_nearest_squared_distance": 2.076499177164754,
+      "proposed_phase_gamma": 0.2407898859284397,
+      "historical_phase_gamma": 0.16666666666666666,
+      "alpha": 1.0
+    },
+    {
+      "fold": 3,
+      "train_ids_sha": "34116d44c82997be57858af84854cba7aab6f3f0e87a8a848cc255ab4f7b87fc",
+      "median_train_nearest_squared_distance": 2.093248206104333,
+      "proposed_phase_gamma": 0.2388632167661242,
+      "historical_phase_gamma": 0.16666666666666666,
+      "alpha": 1.0
+    },
+    {
+      "fold": 4,
+      "train_ids_sha": "1fea620fe3c4ee97ad22ef383f834c5f6a3051d73f7618574d88459b431663de",
+      "median_train_nearest_squared_distance": 2.0517030823691798,
+      "proposed_phase_gamma": 0.24369997993210155,
+      "historical_phase_gamma": 0.16666666666666666,
+      "alpha": 1.0
+    }
+  ],
+  "heads_reused": "4 existing amplitudehead models; existing independent baseline physicalP_scale predictions. No re-fit amplitude/P_scale.",
+  "outputs": "Ahat*predictedunitphase ->588realCartesian C_hat +same21positiveP_scale; originalH2 andallH1gates. No fullstate renormalization/oraclealignment/rho exponent or clipping.",
+  "minimum_new_CPU_fits": 4,
+  "maximum_new_CPU_fits": 4,
+  "baseline_refits": 0,
+  "hyperparameter_search": 0,
+  "strict_matching": "Same n124 train IDs/heldouts32/31/30/31, same6D scaler, phase targets/loss scales/alpha/dtype, amplitude/P_scale. Only phase kernel scale changes. Compare to savedCartesian and savedamplitude+phase.",
+  "positive_research_signal": "State median/q95 improve versus both controls; amplitude/routing gains retained without new severe tails; report everygeometry/fold andcompleteoriginalH1. This is research evidence, not new gate. OriginalH1failure staysfailure.",
+  "failure_interpretation": "If phase directions/rho do not improve or tails worsen, locality of thiskernel scale alone insufficient; does not prove localphysics unlearnable. No automaticgamma/k/alpha/search escalation.",
+  "existing_data_sufficient": "156G contains required labels/models, sufficient for this bounded development comparison; global coverage insufficient to prove true local generalization andD6minus missing. No newHF needed to execute proposed4fits.",
+  "independence": "Repeatedly vieweddevelopment; sameheldouts cannotbe independentconfirm.32confirmationresponses remainsealed and28savedpredictionSHAs untouched. Any newconfirmationmodel/forecast freeze requires futureauthority.",
+  "repeatability": "Additional controlledrepeatability needed before +/-5nm resolvability claim; not authorized here."
+}
