@@ -1,0 +1,85 @@
+{
+  "schema": "APCD_COUPLING_DIAG2_SETUP_CONTRACT_DIFF_V1",
+  "status": "PASS_SETUP_READBACK_ONLY",
+  "candidate_batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+  "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+  "case_ids": [
+    "K6V3_TIME_DIAG2_A1_5NM_6PS",
+    "K6V3_TIME_DIAG2_A2_5NM_6PS"
+  ],
+  "parent_physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "candidate_physical_contract_sha256": "afc06d29802ddae02017f967a6e4e30088fc56281e9cc4dfc20e7f519a43546f",
+  "only_authorized_difference": {
+    "field": "FDTD.simulation_time",
+    "source_value_ps": 3,
+    "candidate_value_ps": 6,
+    "verified_by": "fresh native LOAD-only semantic readback",
+    "case_results": {
+      "K6V3_TIME_DIAG2_A1_5NM_6PS": {
+        "fdtd/simulation_time_s": {
+          "source": 3e-12,
+          "candidate": 6e-12
+        }
+      },
+      "K6V3_TIME_DIAG2_A2_5NM_6PS": {
+        "fdtd/simulation_time_s": {
+          "source": 3e-12,
+          "candidate": 6e-12
+        }
+      }
+    }
+  },
+  "unchanged_readback_sections": [
+    "ordered_D_nm",
+    "geometry_hash_sha256",
+    "object_names",
+    "object_types",
+    "geometry",
+    "stack",
+    "source_names",
+    "sources",
+    "monitor_names",
+    "monitors",
+    "wavelengths_nm",
+    "sample_reference_planes",
+    "mesh_names",
+    "meshes",
+    "materials",
+    "mesh_coverage"
+  ],
+  "common_invariants": {
+    "auto_shutoff_min": 1e-06,
+    "core_mesh_override_nm": [
+      5.0,
+      5.0,
+      5.0
+    ],
+    "ordered_geometry": [
+      [
+        120,
+        160,
+        165,
+        175,
+        160,
+        195
+      ],
+      [
+        210,
+        115,
+        175,
+        115,
+        180,
+        125
+      ]
+    ],
+    "materials_sources_monitors_wavelengths_orders_polarizations_reference_planes": "unchanged per readback audit"
+  },
+  "limitations": [
+    "No solver was started; engine-generated mesh and time-step were not measured.",
+    "5 nm verification is the saved setup mesh override only, not an FDTD mesh convergence result.",
+    "No 3 ps versus 6 ps scientific output comparison exists.",
+    "This candidate contract does not constitute formal Runner registration or admission."
+  ],
+  "solver_entry_count": 0,
+  "replay_count": 0
+}

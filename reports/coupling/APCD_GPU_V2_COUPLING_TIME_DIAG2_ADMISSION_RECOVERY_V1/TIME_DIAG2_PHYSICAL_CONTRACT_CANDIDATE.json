@@ -1,0 +1,117 @@
+{
+  "schema": "APCD_COUPLING_V3_TIME_DIAG2_PHYSICAL_CONTRACT_CANDIDATE_V1",
+  "status": "CANDIDATE_ONLY_NOT_FORMAL_GPU_RUNNER_CONTRACT",
+  "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+  "scientific_role": "TIME_CONVERGENCE_DIAGNOSTIC_ONLY",
+  "parent_physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "parent_contract_id": "APCD_PW_PERIODIC_PLANAR_5NM_GPU_PRODUCTION_V3",
+  "common_physics_preserved": {
+    "dimension": "3D",
+    "period_nm": [
+      1740,
+      290
+    ],
+    "ordered_pillars": "D1...D6, fixed positions, source ordered geometry retained",
+    "pillar_height_nm": 500,
+    "mdc_layers_nm": [
+      44,
+      79,
+      44,
+      79,
+      44,
+      316,
+      44,
+      79,
+      44,
+      79,
+      44,
+      79
+    ],
+    "spacer_nm": 237,
+    "materials": "Native-M1 GaN/TiO2/SiO2 and Air superstrate per parent contract",
+    "boundary_conditions": {
+      "x": "Periodic",
+      "y": "Periodic",
+      "z_min": "PML",
+      "z_max": "PML"
+    },
+    "pml_layers": 8,
+    "mesh_accuracy": 4,
+    "mesh_refinement": "conformal variant 0",
+    "mesh_overrides_nm": {
+      "MESH_NP_MDC_SPACER_BASELINE": [
+        10,
+        10,
+        10
+      ],
+      "NP_DERIVED_BASELINE_N2": [
+        5,
+        5,
+        5
+      ]
+    },
+    "source": "GaN-to-air, +z, normal incidence, P_XLIKE, frozen dual-source objects",
+    "wavelength_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ],
+    "floquet_orders_m": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "output_polarizations": [
+      "TE",
+      "TM"
+    ],
+    "monitor_and_reference_planes": "unchanged, parent monitor authority",
+    "source_normalization": "unchanged, parent normalization",
+    "target_label_contract": "unchanged 609D C_hat plus P_scale per frozen importer/H2 path"
+  },
+  "temporal_settings": {
+    "maximum_simulation_time_s": 6e-12,
+    "auto_shutoff_min": 1e-06
+  },
+  "only_allowed_physical_difference": {
+    "field": "FDTD.simulation time",
+    "from_s": 3e-12,
+    "to_s": 6e-12
+  },
+  "prohibited_differences": [
+    "mesh",
+    "auto-shutoff threshold",
+    "source",
+    "geometry/order",
+    "materials",
+    "MDC/spacer",
+    "boundary/PML",
+    "monitor/reference/normalization",
+    "wavelength/order/polarization/label schema"
+  ],
+  "case_geometry_is_bound_in_registration_package_not_shared_contract": true,
+  "candidate_contract_sha256_canonical_json": "afc06d29802ddae02017f967a6e4e30088fc56281e9cc4dfc20e7f519a43546f",
+  "hash_method": "SHA256 over UTF-8 JSON of the object excluding candidate_contract_sha256_canonical_json, sorted keys, separators=comma/colon, ensure_ascii=False"
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "APCD_COUPLING_DIAG2_SETUP_READBACK_AUDIT_V1",
+  "status": "PASS_SETUP_ONLY",
+  "cases": [
+    {
+      "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+      "source_case_id": "K6V3_NUM_REPEAT_A1",
+      "anchor_case_id": "K6GDP2_DEV_G001",
+      "ordered_D_nm": [
+        120,
+        160,
+        165,
+        175,
+        160,
+        195
+      ],
+      "source_fsp_sha256": "0e6e522141ddbd0f9a4323cdc470293fd485af9493257a4ccd166383f6a62bb2",
+      "source_load_proof_sha256": "528d8b156a18cea2db65a094678a3df14003fd70f939998590b96f17250caa95",
+      "candidate_fsp_path": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A1_5NM_6PS\\attempt_001\\pre.fsp",
+      "candidate_fsp_sha256": "7d9f237ca3a57a2240c8a3cd3d753f8fe85f201ca132557b54336622252a3a6c",
+      "candidate_proof_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_GPU_V2_COUPLING_TIME_DIAG2_ADMISSION_RECOVERY_V1\\A1_SETUP_LOAD_PROOF.json",
+      "candidate_proof_sha256": "75c17023d2507258fdd1939c9395624da0261ef21d798d93f826e54ccd6eb1e0",
+      "only_readback_difference": {
+        "fdtd/simulation_time_s": {
+          "source": 3e-12,
+          "candidate": 6e-12
+        }
+      },
+      "unchanged_readback_sections": [
+        "ordered_D_nm",
+        "geometry_hash_sha256",
+        "object_names",
+        "object_types",
+        "geometry",
+        "stack",
+        "source_names",
+        "sources",
+        "monitor_names",
+        "monitors",
+        "wavelengths_nm",
+        "sample_reference_planes",
+        "mesh_names",
+        "meshes",
+        "materials",
+        "mesh_coverage"
+      ],
+      "auto_shutoff_min": 1e-06,
+      "core_mesh_override_nm": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "solver_entry_count": 0,
+      "replay_count": 0
+    },
+    {
+      "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+      "source_case_id": "K6V3_NUM_REPEAT_A2",
+      "anchor_case_id": "K6GDP2_DEV_G004",
+      "ordered_D_nm": [
+        210,
+        115,
+        175,
+        115,
+        180,
+        125
+      ],
+      "source_fsp_sha256": "540ec80315bcec60619afb85f60dc894d46e40bffd87d5f8c6fb38b48a2651d1",
+      "source_load_proof_sha256": "715c2c77208ef2de2af34bd0da72aae68878a1f8a1d99b5ddbc2bef57c751ac5",
+      "candidate_fsp_path": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A2_5NM_6PS\\attempt_001\\pre.fsp",
+      "candidate_fsp_sha256": "15042dc7d58eeab35ce00a900d1bb979de58c19c182b18723924c184a48c9739",
+      "candidate_proof_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_GPU_V2_COUPLING_TIME_DIAG2_ADMISSION_RECOVERY_V1\\A2_SETUP_LOAD_PROOF.json",
+      "candidate_proof_sha256": "244631fa4a5adaed9393e3c303b52c9c865b15ca940dbb838020505c33ddd40b",
+      "only_readback_difference": {
+        "fdtd/simulation_time_s": {
+          "source": 3e-12,
+          "candidate": 6e-12
+        }
+      },
+      "unchanged_readback_sections": [
+        "ordered_D_nm",
+        "geometry_hash_sha256",
+        "object_names",
+        "object_types",
+        "geometry",
+        "stack",
+        "source_names",
+        "sources",
+        "monitor_names",
+        "monitors",
+        "wavelengths_nm",
+        "sample_reference_planes",
+        "mesh_names",
+        "meshes",
+        "materials",
+        "mesh_coverage"
+      ],
+      "auto_shutoff_min": 1e-06,
+      "core_mesh_override_nm": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "solver_entry_count": 0,
+      "replay_count": 0
+    }
+  ],
+  "statement": "This verifies setup FSP readback only. It does not verify engine-generated mesh, solver output, time convergence, scientific truth, or GPU admission."
+}
