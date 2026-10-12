@@ -1,9 +1,5 @@
-# V21 closeout continuation
+# V21 final continuation
 
-Status V21_PARTIAL; no installation/science release. Read closeout report, DIAG2_CONTRACT_IDENTITY_AUDIT.json, PROFILE_INTERFACE.md, Science Owner independent review, FULL_REGRESSION.json, PRODUCTION_FINAL_V2.json, INSTALL_AND_ROLLBACK_PLAN.md and SHA_INVENTORY.json. Final Git receipt is DELIVERY_GIT.json.
+Status V21_OFFLINE_READY; NOT INSTALLED. Read final closeout report, SCIENCE_OWNER_FINAL/GPU_OWNER_OFFLINE_INTEGRATION_REVIEW_V1.json, resolver certificate/interface, PROFILE_INTERFACE.md, FULL_REGRESSION.json, SOURCE_SHA256.json, PRODUCTION_FINAL_V2.json, CANDIDATE_INSTALLATION_SMOKE.json, INSTALL_AND_ROLLBACK_PLAN.md, SHA_INVENTORY.json and DELIVERY_GIT.json.
 
-Keep existing dirty/untracked DIAG2 recovery report intact. Never reset/clean/stash/switch or overwrite scientific evidence. Keep production Scheduler and 10:00 policy unchanged. No solver, DIAG2 entry, DOE56 release, budget increase, or old V1 chain is authorized by this offline report.
-
-The remaining science gap is canonical identity inconsistency and lack of an accepted fully resolved postprocessor contract/proof with separate raw/scientific SHA binding. Full legal synthetic B/C frozen-importer positive chain and independent Science Owner PASS are still required. Do not treat queue validator test_double=True as scientific certification. Preserve exact formulas and profile authority.
-
-After any further code changes rerun the entire GPU suite; include independent Science Owner source/numeric/interop tests. Before future authorized installation capture no active owner/empty slot and all authority SHAs, publish new immutable releases, retain both ledgers and receipts, disabled task readback, zero-solver test. No scientific authorization is implied.
+237 PASS /0 SKIP on final source; Science Owner offline acceptance is independent. Historical231/234 reviews remain historical. Fresh DIAG2 6ps truth NOT_RUN and production admission NOT_ISSUED. DOE5652-case HOLD, production timing, scientific budgets and truth unchanged. Preserve all unrelated dirty/untracked files. No installation, Scheduler edit, release switch, FDTD, replay or DOE56 resume is allowed without new authorization. Next step: request formal V2.1 installation approval with disabled-release/readback plan.

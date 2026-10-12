@@ -40,24 +40,34 @@ with h5py.File(p.with_suffix('')/'run_output.h5','w') as f:
     return platform,Registry(platform),EquivalentBackend(script)
 
 
-def batch(platform,name,count=2,hold=False,entered=0,case_ids=None,simtime=6e-12,physical_identity_sha=None):
+def batch(platform,name,count=2,hold=False,entered=0,case_ids=None,simtime=6e-12,physical_identity_sha=None,contract_payload=None,role="DEVELOPMENT_GLOBAL",geometries=None):
     root=Path(platform.runtime_root);data=root/'data'/name;data.mkdir(parents=True)
     control=write(root/'science'/name/'control.json',dict(batch_id=name,hold=hold,admission_pass=True,manifest_sha='pending'))
     cases=[]
     for i,cid in enumerate(case_ids or [name+'_'+str(i) for i in range(count)]):
         fsp=data/(cid+'.fsp');fsp.write_bytes(b'SETUP_FIXTURE')
         pc=write(data/(cid+'_physics.json'),dict(simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6,monitors={'M':'M'}))
+        if contract_payload is not None:
+            Path(pc['path']).write_text(json.dumps(contract_payload,sort_keys=True,separators=(',',':'),ensure_ascii=True),encoding='utf-8')
+            pc['sha256']=sha256(pc['path'])
+        geometry=(geometries or {}).get(cid,[120]*6)
         scientific_sha=physical_identity_sha or pc['sha256']
         source=write(data/(cid+'_source.json'),dict(case_id=cid,attempt_id='attempt_001'))
         source_acceptance=write(root/'science'/name/(cid+'_source_acceptance.json'),dict(verdict='PASS',fresh_load_verified=True,
-            case_id=cid,attempt_id='attempt_001',ordered_D_nm=[120]*6,source_fsp_sha=sha256(fsp),physics_contract_sha=scientific_sha,simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6))
+            case_id=cid,attempt_id='attempt_001',ordered_D_nm=geometry,source_fsp_sha=sha256(fsp),physics_contract_sha=scientific_sha,simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6))
         source_acceptance=write(Path(source_acceptance['path']),{**json.loads(Path(source_acceptance['path']).read_text()),
-            'role':'DEVELOPMENT_GLOBAL','source_manifest_sha256':source['sha256'],'physics_contract_file_sha256':pc['sha256']})
-        cases.append(dict(case_id=cid,attempt_id='attempt_001',role='DEVELOPMENT_GLOBAL',ordered_D_nm=[120]*6,
+            'role':role,'source_manifest_sha256':source['sha256'],'physics_contract_file_sha256':pc['sha256']})
+        cases.append(dict(case_id=cid,attempt_id='attempt_001',role=role,ordered_D_nm=geometry,
             source_fsp=dict(path=str(fsp),sha256=sha256(fsp)),source_manifest=source,source_acceptance=source_acceptance,physics_contract=pc,
             physics_contract_sha=scientific_sha,simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6))
+    for row in cases:
+        projection={k:v for k,v in row.items() if k!='source_acceptance'}
+        row['case_request_sha256']=digest(dict(schema='APCD_COUPLING_CASE_REQUEST_CANON_V1',case_request=projection,source_acceptance_path=row['source_acceptance']['path']))
+        proof=json.loads(Path(row['source_acceptance']['path']).read_text())
+        proof['case_request_sha256']=row['case_request_sha256']
+        row['source_acceptance']=write(Path(row['source_acceptance']['path']),proof)
     ledger=data/'science_ledger.json'
-    body=dict(schema_version='APCD_GPU_V21_BATCH_V1',batch_id=name,science_owner='SCIENCE',case_count=count,
+    body=dict(case_request_canonicalization='APCD_COUPLING_CASE_REQUEST_CANON_V1',schema_version='APCD_GPU_V21_BATCH_V1',batch_id=name,science_owner=platform.science_owner_id,case_count=count,
         approved_entry_budget=count,solver_backend='LUMERICAL_2025R1_GPU',required_truth_artifacts=['FSP','SIBLING_H5','FRESH_LOAD'],
         label_validation_profile='coupling_609d_v1',approved_case_set=[c['case_id'] for c in cases],batch_science_hold=hold,
         science_control=control,science_ledger=str(ledger),cases=cases)
@@ -65,7 +75,7 @@ def batch(platform,name,count=2,hold=False,entered=0,case_ids=None,simtime=6e-12
     # mutable hold is owner controlled; immutable manifest only pins original identity.
     cp=Path(control['path']);write(cp,dict(batch_id=name,hold=hold,admission_pass=True,manifest_sha=body['manifest_sha']))
     admission=Pin(**write(root/'science'/name/'admission.json',dict(schema_version='APCD_GPU_V21_SCIENCE_ADMISSION_V1',
-        batch_id=name,science_owner='SCIENCE',manifest_sha=body['manifest_sha'],manifest_file_sha=manifest.sha256,
+        batch_id=name,science_owner=platform.science_owner_id,manifest_sha=body['manifest_sha'],manifest_file_sha=manifest.sha256,
         approved_case_set=body['approved_case_set'],approved_entry_budget=count,scientific_admission='PASS',engineering_admission='PASS',
         revoked=False,no_replay=True,label_validation_profile=body['label_validation_profile'],
         profile_certification_sha=platform.profiles[0].certification.sha256,science_ledger=str(ledger))))
@@ -103,6 +113,8 @@ def test_profile_owner_interface_missing_and_return_binding_fail_closed(tmp_path
     with pytest.raises(Refused,match='SCIENCE_OWNER_LABEL'):import_profile_truth(cfg,req,record,importer)
     importer.validate_authorized_labels=lambda *a,**k:dict(verdict='PASS',outputs=609,scientific_validated=True,
         profile_id='coupling_609d_v1',physical_contract_sha256=req.physical_contract_sha256,
+        case_request_sha256=req.case_request_sha256,physics_contract_file_sha256=req.physical_contract.sha256,
+        source_manifest_sha256=req.source_manifest.sha256,source_acceptance_file_sha256=req.source_acceptance.sha256,
         batch_id=cfg.batch_id,case_id=req.case_id,attempt_id=req.attempt_id,role=req.role,ordered_D_nm=list(req.ordered_D_nm),
         manifest_file_sha256=cfg.batch_manifest.sha256,admission_file_sha256=cfg.science_admission.sha256,
         certification_file_sha256=p.profiles[0].certification.sha256)
@@ -354,3 +366,142 @@ def test_registry_snapshot_loss_retains_nonreplay_evidence(tmp_path):
 
 
 
+
+
+def test_science_request_and_native_truth_bindings_are_distinct(tmp_path):
+    from apcd_gpu_v2.general import profile_native_bindings
+    import h5py
+    p,r,b=setup(tmp_path);a=batch(p,'UNSEEN_NATIVE_BINDING_BATCH')
+    _,pairs=build_requests(p,*a[:2]);cfg,req=pairs[0]
+    fsp=Path(p.runtime_root)/'saved.fsp';fsp.write_bytes(b'TEST_FIXTURE_ONLY_NOT_NATIVE')
+    fsp.with_suffix('').mkdir()
+    with h5py.File(fsp.with_suffix('')/'run_output.h5','w') as h:
+        import numpy as np
+        for component in ['Ex','Ey','Ez','Hx','Hy','Hz']:h['Monitor1/'+component]=np.ones((1,1,1,21),complex)
+    record=profile_native_bindings(cfg,req,fsp)
+    assert record['request_sha256']==req.case_request_sha256
+    assert record['execution_request_sha256']==req.request_sha256
+    assert req.case_request_sha256!=req.request_sha256
+    assert record['native_fsp']['sha256']==sha256(fsp)
+    assert record['native_h5']['sha256']==sha256(fsp.with_suffix('')/'run_output.h5')
+    assert record['physical_contract_file_sha256']==req.physical_contract.sha256
+    assert record['source_acceptance_file_sha256']==req.source_acceptance.sha256
+    (fsp.with_suffix('')/'run_output.h5').unlink()
+    with pytest.raises(Exception):profile_native_bindings(cfg,req,fsp)
+
+
+@pytest.mark.parametrize('batch_name,count', [('DIAG2_GENERIC_OFFLINE_B',2),('UNPREPARED_COUPLING_GENERIC_C',1)])
+def test_science_owner_generic_profile_through_gpu_adapter(tmp_path,monkeypatch,batch_name,count):
+    """Real profile authority/receipt checks, synthetic numeric kernel, zero solver."""
+    from dataclasses import replace
+    from apcd_gpu_v2.general import Profile, profile_native_bindings, import_profile_truth, validate_profile_admission
+    import numpy as np
+    import h5py
+    coupling=Path(os.environ['APCD_TEST_COUPLING_ROOT'])
+    sys.path.insert(0,str(coupling/'scripts/coupling_ml'))
+    from k6_v2_pipeline import generic_profile as G
+    from k6_v2_pipeline import ingest as I
+    p,registry,backend=setup(tmp_path)
+    packet=coupling/'reports/coupling/APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1'
+    cert=json.loads((packet/'fixtures/B_DIAG2_TEST_FIXTURE/SCIENCE_OWNER_PROFILE_CERTIFICATION_TEST_FIXTURE_ONLY.json').read_text())
+    cert['toolchain']={'importer':sha256(G.__file__)}
+    assert p.science_owner_id==G.SCIENCE_OWNER_ID
+    assert p.science_owner_sid!=p.science_owner_id
+    a=batch(p,batch_name,count=count)
+    manifest=json.loads(Path(a[0].path).read_text())
+    pc_sha=manifest['cases'][0]['physics_contract_sha']
+    cert['allowed_contracts']=[dict(sha256=pc_sha,allowed_roles=['DEVELOPMENT_GLOBAL'],simulation_time_s=6e-12,mesh_nm=5.0,auto_shutoff_min=1e-6)]
+    pin=Pin(**write(Path(p.runtime_root)/'science/real_profile_cert.json',cert))
+    p=p.model_copy(update={'profiles':[Profile(profile_id='coupling_609d_v1',certification=pin,truth_toolchain={'importer':Pin(path=str(Path(G.__file__)),sha256=sha256(G.__file__))})]})
+    admission=json.loads(Path(a[1].path).read_text());admission['profile_certification_sha']=pin.sha256
+    admission_pin=Pin(**write(Path(a[1].path),admission))
+    ledger=json.loads(a[2].read_text());ledger['admission_sha256']=admission_pin.sha256;write(a[2],ledger)
+    _,pairs=build_requests(p,a[0],admission_pin)
+    numeric=I.load_old32_engineering_diagnostic(root=coupling).cases[0]
+    calls=[]
+    def kernel(record,role_map,expected_roles,**kwargs):
+        calls.append(record['case_id'])
+        return replace(numeric,case_id=record['case_id'],attempt_id=record['attempt_id'],role=record['role'],ordered_D_nm=tuple(record['ordered_D_nm']),provenance={**numeric.provenance,'physical_contract_sha256':record['physical_contract_sha256'],'test_fixture_only':True})
+    monkeypatch.setattr(G,'_load_authorized_runner_truth',kernel)
+    for cfg,req in pairs:
+        assert validate_profile_admission(cfg,req,G)['scientific_admission']=='PASS'
+        fsp=Path(p.runtime_root)/(req.case_id+'.fsp');fsp.write_bytes(b'TEST_FIXTURE_ONLY_NOT_NATIVE_FSP')
+        fsp.with_suffix('').mkdir()
+        with h5py.File(fsp.with_suffix('')/cfg.native_h5_name,'w') as h:
+            for component in ['Ex','Ey','Ez','Hx','Hy','Hz']:h['Monitor1/'+component]=np.ones((1,1,1,21),complex)
+        bindings=profile_native_bindings(cfg,req,fsp)
+        run_manifest=dict(case_id=req.case_id,attempt_id=req.attempt_id,pre_fsp_sha256=req.pre_fsp_sha256,
+            source_manifest_path=req.source_manifest.path,source_manifest_sha256=req.source_manifest.sha256,
+            batch_id=req.batch_id,profile_id=cfg.validation_profile,admission_sha256=cfg.science_admission.sha256,
+            request_sha256=bindings['request_sha256'],source_acceptance_file_sha256=bindings['source_acceptance_file_sha256'],
+            native_fsp_sha256=bindings['native_fsp']['sha256'],native_h5_sha256=bindings['native_h5']['sha256'])
+        record=dict(case_id=req.case_id,attempt_id=req.attempt_id,role=req.role,ordered_D_nm=list(req.ordered_D_nm),
+            physical_contract_sha256=req.physical_contract_sha256,source_manifest=write(Path(p.runtime_root)/(req.case_id+'_run_manifest.json'),run_manifest),**bindings)
+        imported,receipt=import_profile_truth(cfg,req,record,G)
+        assert receipt['outputs']==609 and receipt['scientific_validated'] is True
+        assert receipt['case_request_sha256']==req.case_request_sha256
+        with pytest.raises(ValueError,match='runner_request_sha'):
+            import_profile_truth(cfg,req,{**record,'request_sha256':req.request_sha256},G)
+    assert len(calls)==count
+    assert json.loads(a[2].read_text())['entered_count']==0
+
+
+def test_offline_science_owner_authority_cannot_be_used_for_production(tmp_path):
+    from apcd_gpu_v2.general import require_formal_authority
+    p,registry,backend=setup(tmp_path)
+    for marker in ['test_fixture_only','fixture_only','audit_only']:
+        require_formal_authority(p,{marker:True})
+        with pytest.raises(Refused,match='OFFLINE_AUTHORITY'):
+            require_formal_authority(p.model_copy(update={'mode':'PRODUCTION_GPU'}),{marker:True})
+    require_formal_authority(p.model_copy(update={'mode':'PRODUCTION_GPU'}),{})
+
+
+@pytest.mark.parametrize('batch_name,ids,role',[
+    ('SIGNED_DIAG2_RESOLVER_B',['K6V3_TIME_DIAG2_A1_5NM_6PS','K6V3_TIME_DIAG2_A2_5NM_6PS'],'TIME_CONVERGENCE_DIAGNOSTIC_ONLY'),
+    ('NEW_RESOLVER_COUPLING_C',['NEVER_PREWIRED_COUPLING_C001'],'DEVELOPMENT_GLOBAL')])
+def test_owner_resolver_through_gpu_contract_consumer(tmp_path,monkeypatch,batch_name,ids,role):
+    from apcd_gpu_v2.general import Profile, profile_postprocess_contract
+    coupling=Path(os.environ['APCD_TEST_COUPLING_ROOT'])
+    sys.path.insert(0,str(coupling/'scripts/coupling_ml'))
+    from k6_v2_pipeline import generic_profile as G, ingest as I, postprocess_contract_resolver as R
+    p,registry,backend=setup(tmp_path)
+    packet=coupling/'reports/coupling/APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1'
+    contract=json.loads((packet/'SCIENCE_CONTRACT_6PS.json').read_text())
+    geometries={'K6V3_TIME_DIAG2_A1_5NM_6PS':[120,160,165,175,160,195],
+        'K6V3_TIME_DIAG2_A2_5NM_6PS':[210,115,175,115,180,125]}
+    a=batch(p,batch_name,count=len(ids),case_ids=ids,contract_payload=contract,role=role,geometries=geometries)
+    manifest=json.loads(Path(a[0].path).read_text());pc_sha=manifest['cases'][0]['physics_contract_sha']
+    assert pc_sha=='51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36'
+    cert=json.loads((packet/'fixtures/B_DIAG2_TEST_FIXTURE/SCIENCE_OWNER_PROFILE_CERTIFICATION_TEST_FIXTURE_ONLY.json').read_text())
+    toolchain={'importer':Pin(path=str(Path(G.__file__)),sha256=sha256(G.__file__)),
+        'postprocess_contract_resolver':Pin(path=str(Path(R.__file__)),sha256=sha256(R.__file__))}
+    cert['toolchain']={k:v.sha256 for k,v in toolchain.items()}
+    cert['allowed_contracts']=[dict(sha256=pc_sha,allowed_roles=[role],simulation_time_s=6e-12,mesh_nm=5.0,auto_shutoff_min=1e-6)]
+    cert_pin=Pin(**write(Path(p.runtime_root)/'science/certified_profile.json',cert))
+    resolver_cert=dict(schema='APCD_COUPLING_POSTPROCESS_CONTRACT_RESOLVER_CERTIFICATION_V1',verdict='PASS',
+        science_owner=G.SCIENCE_OWNER_ID,profile_id=G.PROFILE_ID,resolver_schema=R.RESOLVER_SCHEMA,
+        resolved_contract_schema=R.RESOLVED_CONTRACT_SCHEMA,resolver_module='k6_v2_pipeline.postprocess_contract_resolver',
+        resolver_entrypoint='resolve_postprocess_contract',fields=list(R.FIELDS),
+        projection_digest_rule='ingest._canon({schema:resolved_contract_schema,resolved_contract:exact_six_fields})',
+        resolver_module_sha256=sha256(R.__file__),generic_profile_sha256=sha256(G.__file__),canonicalizer_module_sha256=sha256(I.__file__),
+        source_contract_schema=contract['schema'],source_contract_sha256=pc_sha,
+        source_contract_section='parent_physical_contract_fields',test_fixture_only=True)
+    resolver_path=Path(p.runtime_root)/'science/resolver_cert_TEST_FIXTURE_ONLY.json'
+    resolver_path.write_text(json.dumps(resolver_cert,sort_keys=True,separators=(',',':'),ensure_ascii=True),encoding='utf-8')
+    resolver_pin=Pin(path=str(resolver_path),sha256=sha256(resolver_path))
+    p=p.model_copy(update={'profiles':[Profile(profile_id=G.PROFILE_ID,certification=cert_pin,
+        postprocess_resolver_certification=resolver_pin,truth_toolchain=toolchain)]})
+    admission=json.loads(Path(a[1].path).read_text());admission['profile_certification_sha']=cert_pin.sha256
+    admission_pin=Pin(**write(Path(a[1].path),admission))
+    ledger=json.loads(a[2].read_text());ledger['admission_sha256']=admission_pin.sha256;write(a[2],ledger)
+    _,pairs=build_requests(p,a[0],admission_pin)
+    for cfg,req in pairs:
+        result=profile_postprocess_contract(cfg,req)
+        assert result['entry_authorization'] is False and result['solver_entry_count']==0
+        assert result['resolved_contract']=={k:contract['parent_physical_contract_fields'][k] for k in R.FIELDS}
+        assert result['case_request_sha256']==req.case_request_sha256
+        from types import SimpleNamespace
+        with monkeypatch.context() as faults:
+            faults.setattr('apcd_gpu_v2.native_readonly.pinned_module',lambda *args:SimpleNamespace(resolve_postprocess_contract=lambda **kwargs:{**result,'resolved_contract_sha256':'0'*64}))
+            with pytest.raises(Refused,match='PROJECTION_SHA_CONFLICT'):profile_postprocess_contract(cfg,req)
+    assert json.loads(a[2].read_text())['entered_count']==0

@@ -653,6 +653,9 @@ class ProductionNativeBackend:
         validate_admission(config,request)
         ledger.note(request,token,'FINAL_GPU_REVALIDATION',gpu_inventory_gate(config))
         contract=request.physical_contract.read()
+        if config.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            from .general import profile_postprocess_contract
+            contract=profile_postprocess_contract(config,request)['resolved_contract']
         spec=launch_spec(config,fsp,list(dict.fromkeys(contract['monitors'].values())))
         Path(fsp.parent/'run_gpu.lsf').write_text(spec['script'],encoding='utf-8')
         return self._execute(config,request,ledger,token,budget,spec['command'],fsp.parent,fault)
@@ -1027,10 +1030,9 @@ class NativeTruthValidator:
             from .general import validate_profile_admission
             if request is None: raise Refused('PROFILE_PREFLIGHT_REQUEST_REQUIRED')
             science=validate_profile_admission(self.config,request,importer)
-            pc=request.physical_contract.read()
-            if any(key not in pc or pc[key] is None for key in
-                   ['materials','monitors','references_nm','samples_nm','stack_layers','wavelengths_nm']):
-                raise Refused('SCIENCE_OWNER_RESOLVED_POSTPROCESS_CONTRACT_REQUIRED')
+            from .general import profile_postprocess_contract
+            projection=profile_postprocess_contract(self.config,request)
+            science['postprocess_contract_view']={k:v for k,v in projection.items() if k!='resolved_contract'}
         return dict(verdict='PASS',numpy=np.__version__,h5py=h5py.__version__,
                     pins={key:pin.sha256 for key,pin in self.config.truth_toolchain.items()},native_session_opened=False,
                     **({'science_profile_admission':science} if science else {}))
@@ -1040,6 +1042,11 @@ class NativeTruthValidator:
         h5py,np,launcher,lum,importer=self._dependencies()
         cfg=self.config;post=cfg.truth_toolchain['postprocessor']
         pc=request.physical_contract.read()
+        projection=None
+        if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            from .general import profile_postprocess_contract
+            projection=profile_postprocess_contract(cfg,request)
+            pc=projection['resolved_contract']
         output=case_storage(cfg,request)/'validation'/request.request_sha256/uuid.uuid4().hex
         output.mkdir(parents=True)
         task='V2_'+request.request_sha256[:24]
@@ -1082,6 +1089,14 @@ class NativeTruthValidator:
         manifest=output/'source_manifest.json'
         manifest_body=dict(case_id=request.case_id,attempt_id=request.attempt_id,geometry=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,pre_fsp_sha256=request.pre_fsp_sha256,run_id=task)
         if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            from .general import profile_native_bindings
+            profile_native=profile_native_bindings(cfg,request,fsp)
+            manifest_body['postprocess_contract_view']={k:v for k,v in projection.items() if k!='resolved_contract'}
+            manifest_body.update(request_sha256=profile_native['request_sha256'],
+                execution_request_sha256=profile_native['execution_request_sha256'],
+                physical_contract_file_sha256=profile_native['physical_contract_file_sha256'],
+                source_acceptance_file_sha256=profile_native['source_acceptance_file_sha256'],
+                native_fsp_sha256=profile_native['native_fsp']['sha256'],native_h5_sha256=profile_native['native_h5']['sha256'])
             manifest_body.update(batch_id=request.batch_id,profile_id=cfg.validation_profile,
                 source_manifest_path=request.source_manifest.path,source_manifest_sha256=request.source_manifest.sha256,
                 admission_sha256=cfg.science_admission.sha256,manifest_sha256=cfg.batch_manifest.sha256,
@@ -1101,6 +1116,7 @@ class NativeTruthValidator:
         record=dict(case_id=request.case_id,attempt_id=request.attempt_id,role=request.role,ordered_D_nm=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,status='DONE',solver_invocations=1,replay_count=0,
             source_manifest=descriptor(manifest),state_npz=descriptor(paths['state_npz']),state_metadata=descriptor(paths['state_metadata']),raw_npz=descriptor(paths['raw_fields']),raw_metadata=descriptor(paths['raw_json']),orders_json=descriptor(paths['angular']),truth_h5=descriptor(truth))
         if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            record.update(profile_native)
             record.update(batch_id=request.batch_id,profile_id=cfg.validation_profile,
                 manifest_sha256=cfg.batch_manifest.sha256,admission_sha256=cfg.science_admission.sha256,
                 certification_sha256=manifest_body['certification_sha256'])

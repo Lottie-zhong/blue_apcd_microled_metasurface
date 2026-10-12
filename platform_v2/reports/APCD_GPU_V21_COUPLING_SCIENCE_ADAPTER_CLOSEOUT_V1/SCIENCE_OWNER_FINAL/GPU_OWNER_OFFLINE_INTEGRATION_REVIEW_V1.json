@@ -1,0 +1,124 @@
+{
+  "schema": "APCD_GPU_V21_COUPLING_OFFLINE_INTEGRATION_REVIEW_V1",
+  "verdict": "PASS",
+  "science_owner": "APCD_COUPLING_ML_SCIENCE_OWNER_V1",
+  "gpu_candidate": {
+    "worktree": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1",
+    "branch": "codex/apcd-gpu-v2-serial-production-v1",
+    "head": "8d5e10260c51c3ad7567ffe5a8fcb9f11c1590e2",
+    "upstream": "2294f90270d5452355dd4ca282ef582b23077f49",
+    "ahead_behind": [
+      "1",
+      "0"
+    ],
+    "working_tree": "DIRTY; integration sources remain uncommitted",
+    "tracked_source_sha256": {
+      "platform_v2/apcd_gpu_v2/general.py": "1025c5e5cfbe7815589d10bbc916d2457412f0f141a97e5e1795845e6576315d",
+      "platform_v2/apcd_gpu_v2/serial.py": "ef73acdcee5433b4c17193ed559bb6cc2b9e0352b2cf48d0c95c8527f761b30a",
+      "platform_v2/tests/test_general_runner.py": "5530cda8ade7108e0d78b2935986aa003cd3c297e871105f5aa0b716186e853e"
+    }
+  },
+  "independent_targeted_tests": {
+    "command": "python -m pytest -p no:cacheprovider -q platform_v2/tests/test_general_runner.py -k '<offline science-owner fixture guard, owner resolver consumer, science/native identity, generic profile adapter>'",
+    "result": "PASS",
+    "passed": 6,
+    "failed": 0,
+    "deselected": 30,
+    "covers": [
+      "production refusal for test_fixture_only/fixture_only/audit_only flags",
+      "B DIAG2 A1/A2 identities via actual Coupling resolver module",
+      "C new un-prewired Coupling test identity via actual Coupling resolver module",
+      "projection digest tamper rejection",
+      "science request/native truth identity separation",
+      "generic profile adapter and native label bindings"
+    ],
+    "test_authority": "temporary isolated offline fixtures; no solver or production ledger",
+    "resolver_certificate_in_GPU_tests": "TEST_FIXTURE_ONLY; not treated as formal Owner certificate"
+  },
+  "reported_full_regression": {
+    "report_json_sha256": "46b999f229d513d2206bb12aceae64d2b7a218908af08c8cefcd614e0c391009",
+    "report_xml_sha256": "5cc522ff0aae9c4bd788ec194138cc77349172389616b446d7d96023d146c86c",
+    "report_log_sha256": "392781fc9a6ea24a3646d3c3a473374531d25f8f07ab0770e329ed200f878a51",
+    "utc": "2026-10-12T12:43:46.720180+00:00",
+    "wall_seconds": 369.47856521606445,
+    "xml_tests": 237,
+    "xml_failures": 0,
+    "xml_errors": 0,
+    "xml_skipped": 0,
+    "log_summary": "237 passed, 13 warnings",
+    "runner_returncode": 0,
+    "source_unchanged": true,
+    "real_fdtd_runs": 0,
+    "replay": 0,
+    "scientific_entries": 0,
+    "production_modified": false,
+    "source_inventory_comparison": {
+      "platform_v2\\apcd_gpu_v2\\general.py": {
+        "reported_sha256": "1025c5e5cfbe7815589d10bbc916d2457412f0f141a97e5e1795845e6576315d",
+        "current_sha256": "1025c5e5cfbe7815589d10bbc916d2457412f0f141a97e5e1795845e6576315d",
+        "matches": true
+      },
+      "platform_v2\\apcd_gpu_v2\\serial.py": {
+        "reported_sha256": "ef73acdcee5433b4c17193ed559bb6cc2b9e0352b2cf48d0c95c8527f761b30a",
+        "current_sha256": "ef73acdcee5433b4c17193ed559bb6cc2b9e0352b2cf48d0c95c8527f761b30a",
+        "matches": true
+      },
+      "platform_v2\\tests\\test_general_runner.py": {
+        "reported_sha256": "5530cda8ade7108e0d78b2935986aa003cd3c297e871105f5aa0b716186e853e",
+        "current_sha256": "5530cda8ade7108e0d78b2935986aa003cd3c297e871105f5aa0b716186e853e",
+        "matches": true
+      }
+    },
+    "covers_current_uncommitted_sources": true,
+    "adjudication": "PASS: 237 tests passed, with zero failures, errors, or skips; all three recorded source hashes match the current dirty worktree."
+  },
+  "source_review": {
+    "serial_identity_fields": "case_request_sha256 is separate from execution_request_sha256; physical-contract file SHA, source-acceptance SHA, and native FSP/H5 hashes are bound in native records.",
+    "preentry_and_monitor_setup": "Resolver is called after final GPU revalidation and before launch_spec/ledger.launch_once; resolved monitor names feed launch_spec.",
+    "postprocess": "Pinned resolver is re-evaluated and its exact six-field resolved_contract mapping is passed to the existing postprocessor; resolver view and digest are included in the receipt manifest.",
+    "production_fixture_guard": "test_fixture_only, fixture_only, and audit_only are rejected by the production-mode guard; full suite and targeted tests passed.",
+    "boundary_revalidation": "Preflight, prelaunch, and postprocess re-run the resolver against the same pinned module/certificate/contract/request identity. Each result is digest-bound; callers consume the returned mapping at its boundary. This revalidation keeps values stable without trusting a mutable Consumer projection.",
+    "remaining_offline_gaps": []
+  },
+  "production_state_snapshot": {
+    "report_json_sha256": "c1b6aa99616175a372ecc6964610d18386f3b8758d220b1f551a1dda8e98f4f3",
+    "verdict": "PASS",
+    "real_fdtd_runs_this_task": 0,
+    "replay_this_task": 0,
+    "scientific_entries_this_task": 0,
+    "scheduler_xml_unchanged": true,
+    "execution_state_unchanged": true,
+    "production_markers_unchanged": {
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\CURRENT_INSTALLATION.json": true,
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\CURRENT_SCIENCE_BINDING.json": true,
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\INSTALLATION.json": true,
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\INSTALLED_CODE_SHA256.json": true,
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\serial_config.json": true
+    }
+  },
+  "formal_coupling_resolver": {
+    "module": "scripts/coupling_ml/k6_v2_pipeline/postprocess_contract_resolver.py",
+    "module_sha256": "01462d5850bbcb18fd64408e42e1fbddf8e43deb7dfbe7dfd474d6d365996536",
+    "certification": "reports/coupling/APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1/POSTPROCESS_CONTRACT_RESOLVER_CERTIFICATION_V1.json",
+    "certification_sha256": "f8a7729e786a2c4d636e6195e9d85d87ac2c848de031b9c052de84ac4a89fb59",
+    "projection_sha256": "c13356f4b4f51aabce9a82db23fdb503e6b6e159388ce7055da8c09e9cf1b75b"
+  },
+  "required_next_action": "No offline interface blocker remains. Production admission, installation, and DIAG2 entry are not authorized by this packet and require a separate explicit task.",
+  "authorization": "No production admission, solver run, GPU deployment, or Science Owner DIAG2 approval is granted.",
+  "formal_owner_certificate_GPU_wrapper_tests": {
+    "result": "PASS",
+    "cases_passed": 3,
+    "cases_failed": 0,
+    "cases": [
+      "K6V3_TIME_DIAG2_A1_5NM_6PS",
+      "K6V3_TIME_DIAG2_A2_5NM_6PS",
+      "OFFLINE_NEW_COUPLING_C001"
+    ],
+    "resolver_certificate_raw_bytes_copied_to_isolated_runtime_root": true,
+    "resolver_certificate_sha256": "f8a7729e786a2c4d636e6195e9d85d87ac2c848de031b9c052de84ac4a89fb59",
+    "resolved_contract_sha256": "c13356f4b4f51aabce9a82db23fdb503e6b6e159388ce7055da8c09e9cf1b75b",
+    "entry_authorization": false,
+    "solver_entry_count": 0,
+    "science_profile_admission_and_source_inputs": "test-only fixtures; no production authorization"
+  }
+}

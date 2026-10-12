@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "Pin": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "title": "Pin",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attempt_id": {
+      "const": "attempt_001",
+      "title": "Attempt Id",
+      "type": "string"
+    },
+    "auto_shutoff_min": {
+      "title": "Auto Shutoff Min",
+      "type": "number"
+    },
+    "batch_id": {
+      "title": "Batch Id",
+      "type": "string"
+    },
+    "case_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "case_request_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Case Request Sha256",
+      "type": "string"
+    },
+    "config_sha256": {
+      "title": "Config Sha256",
+      "type": "string"
+    },
+    "mesh_nm": {
+      "title": "Mesh Nm",
+      "type": "number"
+    },
+    "ordered_D_nm": {
+      "maxItems": 6,
+      "minItems": 6,
+      "prefixItems": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer"
+        }
+      ],
+      "title": "Ordered D Nm",
+      "type": "array"
+    },
+    "physical_contract": {
+      "$ref": "#/$defs/Pin"
+    },
+    "physical_contract_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Physical Contract Sha256",
+      "type": "string"
+    },
+    "pre_fsp": {
+      "title": "Pre Fsp",
+      "type": "string"
+    },
+    "pre_fsp_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Pre Fsp Sha256",
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "DEVELOPMENT_GLOBAL",
+        "DEVELOPMENT_LOCAL_AXIS",
+        "TIME_CONVERGENCE_DIAGNOSTIC_ONLY"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "simulation_time_s": {
+      "title": "Simulation Time S",
+      "type": "number"
+    },
+    "source_acceptance": {
+      "$ref": "#/$defs/Pin"
+    },
+    "source_manifest": {
+      "$ref": "#/$defs/Pin"
+    }
+  },
+  "required": [
+    "case_id",
+    "attempt_id",
+    "role",
+    "ordered_D_nm",
+    "pre_fsp",
+    "pre_fsp_sha256",
+    "source_manifest",
+    "physical_contract",
+    "physical_contract_sha256",
+    "config_sha256",
+    "case_request_sha256",
+    "source_acceptance",
+    "batch_id",
+    "simulation_time_s",
+    "mesh_nm",
+    "auto_shutoff_min"
+  ],
+  "title": "GeneralRequest",
+  "type": "object"
+}

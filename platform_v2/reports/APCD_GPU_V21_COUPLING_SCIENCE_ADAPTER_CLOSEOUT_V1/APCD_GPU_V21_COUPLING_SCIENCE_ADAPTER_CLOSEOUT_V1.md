@@ -1,61 +1,40 @@
 # APCD_GPU_V21_COUPLING_SCIENCE_ADAPTER_CLOSEOUT_V1
 
-Final status: **V21_PARTIAL**. Engineering regression PASS; scientific interface closeout PARTIAL. This candidate is not installed and grants no science entry.
+Final status: **V21_OFFLINE_READY**. Independent Science Owner offline profile/interface acceptance and engineering regression PASS. This is not production deployment, DIAG2 admission, or a science release.
 
-## Source and installation identity
+## Repository and release identity
 
-GPU branch codex/apcd-gpu-v2-serial-production-v1, starting HEAD 2294f90270d5452355dd4ca282ef582b23077f49. Final committed HEAD is in DELIVERY_GIT.json (kept outside the self-referencing commit inventory).
-Remote Git worktree is D:/project/worktrees/blue_apcd_gpu_v2_serial_production_v1, origin blue_apcd_microled_metasurface.git. Local delivery is an artifact copy inside a distinct local blue_plane_wave_metasurface repository, branch codex/restore-mdc-ml, HEAD 521bea90d1d4eae3a722cfa28b1ffe574584b68d. Old report/continuation/inventory copy SHAs match the remote originals. See REPOSITORY_PROVENANCE.json.
-Actual production Scheduler still binds the immutable 03c0125c4a6b1e9f239a694d9052cbeb3229242a code. No V2.1 installation, release switch, Scheduler edit, time-policy change or production ACL change occurred.
+Canonical candidate: D:/project/worktrees/blue_apcd_gpu_v2_serial_production_v1, branch codex/apcd-gpu-v2-serial-production-v1, origin blue_apcd_microled_metasurface.git. Initial HEAD 2294f90270d5452355dd4ca282ef582b23077f49; prior partial closeout 8d5e10260c51c3ad7567ffe5a8fcb9f11c1590e2. Final HEAD and exact report/inventory SHA are in ignored DELIVERY_GIT.json to avoid self-reference.
+Local D:/project/blue plane wave meta-surface is a different repository, blue_plane_wave_metasurface.git, and contains artifact copies only. REPOSITORY_PROVENANCE.json records the distinction.
+Installed immutable release remains 03c0125c4a6b1e9f239a694d9052cbeb3229242a. No V2.1 deployment, production release switch, Scheduler edit, ACL change, time-policy edit, or entry occurred.
 
-## Implemented adapter boundary
+## Stable coupling_609d_v1 interface
 
-One lowercase profile coupling_609d_v1 replaces batch-specific profile routing. Generic requests retain their own batch identity; diagnostic roles no longer select a hardcoded DIAG2 consumer. Science Owner module k6_v2_pipeline.generic_profile is selected only through the fixed certified API and pinned SHA.
-Native preflight invokes Science Owner validate_profile_admission with exact case/attempt/role/geometry/physics/source and manifest/admission/certification bindings before Coupling entry receipts. GeneralBudget revalidates it; missing or conflicting returns refuse. Nested unresolved physics contracts refuse before entry when they lack frozen postprocessor inputs.
-Native run manifest now binds the original accepted source manifest path/SHA, batch/profile/role/geometry, scientific contract identity and all three authorization SHAs. Scientific label acceptance is verified by the GPU, preserved in native validation, and rechecked before external terminal publication. This does not alter any C_hat/P_scale/reference-plane/Floquet/TE/TM/H1/H2 formulas.
-Scientific identity SHA and raw contract-file Pin SHA are independent. Signed source acceptance must bind both, plus role and original source-manifest SHA. The GPU does not invent a canonical science hash algorithm.
+Science Owner identity APCD_COUPLING_ML_SCIENCE_OWNER_V1 is distinct from the Windows ACL SID. The Consumer cannot approve itself or alter budgets/HOLD/label authority. The strict profile pins the certified Coupling module, importer, canonicalizer and optional postprocess contract resolver. Unknown profiles/cases, altered SHA, unauthorized roles and fixture/audit authority documents are refused by the production path.
+New batches add signed manifest, independent admission, source acceptance, budget/ledger and finite release data; no Consumer code, GPU software or Scheduler change is needed. No batch-specific DIAG2 consumer branch was added.
+Scientific case_request_sha256 follows APCD_COUPLING_CASE_REQUEST_CANON_V1; it is independent of execution_request_sha256. JSON int/float representation is preserved by Owner-authorized canonicalization. Native FSP/H5 SHA, raw physical-contract file SHA, science contract identity SHA, source manifest and acceptance SHA are separately bound and checked in label receipts.
+The Owner resolver projects exactly six frozen postprocessor fields from parent_physical_contract_fields, verifies its certificate and source hashes, and computes a signed-schema projection SHA. GPU consumes it at preflight, prelaunch monitor selection and postprocessing. No physics contract is rewritten, and no C_hat/P_scale/Floquet/TE/TM/reference plane/H1/H2 formula is changed. ProductionNativeBackend conservative entry protection remains active.
 
-## Authority, budgets and permissions
+## Science Owner evidence and limitations
 
-Coupling remains the only science budget authority. Candidate external ledger APCD_COUPLING_BATCH_ENTRY_LEDGER_V1 uses authorized_entry_budget and exact case sets; diagnostic entries are not relabeled development. No existing DOE56/128 ledger is migrated, cloned, reset or enlarged.
-Conservative durable ordering remains entry receipt -> Coupling entered ledger -> V2 mirror -> launch-request receipt -> process. Any partial transaction or uncertain entry blocks other batches; no replay/refund. Existing native recovery performs LOAD-only under returned-process/PID creation-time proof.
-Science Owner ACL and delete-child checks cover the external science ledger and its parent chain as well as manifests/admissions/certifications/control/LOAD proofs. Direct Registry API submit/operate/drain enforce operator identity, not merely CLI guards. A consumer cannot lift science HOLD or modify budget authority.
-Actual restricted consumer fixture denied write/delete/forged admission and denied sealed read/write/list. Production roles/ACLs were not modified.
+SCIENCE_OWNER_FINAL contains original-byte Owner reports, certification, independent GPU source review and regression verification. Resolver certificate SHA f8a7729e786a2c4d636e6195e9d85d87ac2c848de031b9c052de84ac4a89fb59; resolver module SHA 01462d5850bbcb18fd64408e42e1fbddf8e43deb7dfbe7dfd474d6d365996536.
+Accepted DIAG2 6ps science contract raw/canonical SHA 51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36. Owner-controlled diff retains 5nm mesh, 1e-6 shutoff and other settings, changes 3ps to 6ps only. Historical conflicting proposals remain evidence, not current authority.
+Historical G001/G004 native importer parity is 2/2 bit-exact. DIAG2 6ps native truth is NOT_RUN and production science admission is NOT_ISSUED. Offline readiness never substitutes for either.
 
-## Validation scope and three-batch evidence
+## Generality and full regression
 
-Final full GPU suite after all source changes: **231 PASS / 0 SKIP**, wall 360.88s; source inventory stable. Directed generic tests cover dynamic namespace, finite budget, no replay, atomic gap recovery, cross-batch uncertainty, SHA tamper, duplicate controller/owner lock, pause versus science HOLD, no 20:00/10:00 candidate cutoff, rejected old Scheduler arguments, role/authorization binding, unsupported resolved-contract inputs and direct API permissions.
-Synthetic A HOLD and independent B/C serial queue fixtures pass engineering processing and FSP/H5 fixture acceptance without changing A. Their validator test doubles are explicitly marked; they are **not** a full frozen-importer scientific positive result. No coding roundtrip or fixture receipt is reported as real science.
-Independent Science Owner work supplies a parameterized copy of the frozen importer kernel and numeric/source-equivalence tests. The current independent review does not certify the complete real DIAG2 authority. The required full synthetic B/C formal importer closeout remains unproved; it is a remaining acceptance condition.
+Final full suite: **237 PASS, 0 SKIP**, 13 existing warnings, pytest 367.58s; source unchanged before/after. FULL_REGRESSION.json/log/xml and SOURCE_SHA256.json bind the current snapshot. Independent Owner directed wrapper tests: 6 PASS, 30 deselected, with actual pinned resolver module.
+A DOE56 science HOLD rejects; B independent DIAG2 A1/A2 and C previously unknown batch/case use data-only registration and the real Coupling authority/profile/resolver. End-to-end mocked execution, isolated ledger, FSP/H5 mapping and label receipt chain are tested. GPU profile tests use actual authorization/binding validation but mock the numerical truth loader; Owner historical native parity is the separate real-data evidence. No new 6ps scientific result is claimed.
+Tests cover budget maximum, duplicate case/controller, single GPU, uncertainty/no replay, cross-batch isolation, request/SHA/profile mismatch, ACL/sealed negatives, science HOLD versus operator PAUSE, recovery, importer failure and truth-before-next. Execution SQLite mirrors state only; Coupling is the sole scientific budget authority. Durable receipt -> scientific entered ledger -> execution mirror -> launch receipt ordering is conservative; partial transactions hold and cannot replay/refund.
+Native core preservation evidence is in PRESERVED_CORE_REVIEW.json and the original source inventory. No solver implementation or scientific formula change was introduced by the final adapter closure.
 
-## Confirmed scientific evidence gap
+## Production preservation and installation preparation
 
-DIAG2 setup FSPs and their existing native LOAD proofs still match their SHA pins. CONTRACT_DIFF verifies only 3ps -> 6ps, fixed 5nm override and 1e-6 stop threshold, all other saved setup readback sections unchanged. These setup proofs do not claim new 6ps truth or time-convergence results.
-The Coupling candidate contract declares scientific SHA afc06d29802ddae02017f967a6e4e30088fc56281e9cc4dfc20e7f519a43546f; its own documented canonical algorithm recomputes **5220e0f869bcd718e0e1caf807c7d75519ef424c3a600d3ad2f28d454018928d**. Raw file SHA is **6d15721bb3d69342c1b24f4fae687efb10bc55c375b44624aec717c7b351524b**. It also lacks flat materials/monitors/reference/sample/stack/wavelength fields required by the current postprocessor.
-No historical contract was rewritten, no old 3ps identity/output was promoted into 6ps science, and no fake hash preimage or global constant monkeypatch was used. Science Owner must issue a separately versioned, internally consistent contract/accepted source bundle and finish synthetic B/C positive importer verification before SCIENTIFIC_INTERFACE_PASS. The platform rejects incomplete production admission before entry.
+PRODUCTION_FINAL_V2.json confirms installed marker/config/task XML and execution state unchanged, slot empty, no active controller/FDTD engine at readback. DOE56 remains 4 entered/4 truth/4 labels/52 unentered with FROZEN_NUMERICAL_ADVANCEMENT_HOLD. Historical128 remains128 entered/124 truth/124 labels; both authoritative ledger SHAs unchanged. DIAG2 entries0.
+Current old Scheduler remains enabled, Ready/IgnoreNew and bound to the old --plan action. Installed numerical HOLD rejection evidence is reused; no task was triggered artificially and LastTaskResult=1 is preserved. The candidate rejects old --plan, but has NOT replaced the installed task. The existing production time policy is untouched.
+Versioned candidate-only CANDIDATE_INSTALLATION_SCIENCE_CLOSEOUT matches current source byte SHAs, imports successfully and rejects the obsolete action. It is not installed. INSTALL_AND_ROLLBACK_PLAN.md governs a future separately authorized, disabled immutable release installation, strict pinned config and task rebind/readback, owner exclusion, existing ledger preservation, zero-solver installed-path tests and fail-closed rollback. Never rewind entry evidence, truth or budget, and never revive old automatic production.
 
-## Preserved core and production
+## Final gate
 
-native.py, ledger.py, artifacts.py, native_readonly.py and science/postprocess.py match installed bytes exactly. PRESERVED_CORE_REVIEW_NORMALIZED.json is authoritative; the raw Git comparison report differs only because Git LF and checkout CRLF bytes differ.
-DOE56 remains 4 entered / 4 truth / 4 labels / 52 unentered with numerical HOLD. Historical 128 ledger remains 128 entered / 124 truth / 124 labels. Final production marker, budget SHA, task XML and canonical execution state are checked in PRODUCTION_FINAL_V2.json.
-Production Scheduler is still enabled, Ready/IgnoreNew with the old daily --plan action. Existing installed numerical-HOLD rejection evidence is reused with exact SHA; no real Scheduler trigger was executed. Candidate CLI rejects old --plan, but this is not deployment or retirement of the currently installed action. LastTaskResult=1 is preserved.
-
-## Installation and rollback gate
-
-INSTALL_AND_ROLLBACK_PLAN.md describes disabled immutable release publication, separately pinned Science Owner adapter, authoritative ledger preservation, canonical config migration, exact task rebind/readback and zero-solver installed-path tests. No installation approval is requested while scientific closeout is incomplete. Rollback never rewinds entry evidence/budget/truth or revives old automatic production.
-
-## Verdict matrix
-
-| Requirement | Result |
-|---|---|
-|GPU engineering regression|PASS|
-|Generic queue/data-only batch registration|PASS under offline fixture|
-|Independent complete science profile acceptance|PARTIAL|
-|Full B/C frozen importer positive chain|NOT COMPLETED|
-|ACL/ledger isolation|PASS in directed tests and restricted-account fixtures|
-|Installation migration plan|PREPARED; execution not authorized|
-|V21_OFFLINE_READY|NO|
-
-Final counters this task: 0 scientific entries, 0 FDTD runs, 0 replay. DOE56 HOLD and production time policy remain unchanged. Next action is Science Owner resolution of canonical/resolved contract authority and legal synthetic importer positives, then another combined closeout. Stop at the installation gate.
-
-Independent final review: SCIENCE_INTERFACE_PARTIAL, 5/5 directed tests PASS, Coupling HEAD b742750418d1b99dc4b5a5c1c40d51fab3eb54bc. Exact copied report/continuation/inventory and module/test pins are in SCIENCE_OWNER_REVIEW_REFERENCE.json. This independent report confirms the B/C positive-chain acceptance gap; it is not a full scientific PASS.
+Engineering PASS; independent scientific interface OFFLINE PASS; data-only batch decoupling PASS; ACL/ledger isolation PASS; installation migration plan PREPARED/PASS. V21_OFFLINE_READY.
+Counters:0 scientific entries,0 real FDTD,0 replay;0 production modifications. Stop at formal installation approval. No DIAG2 solver or DOE56 resumption is authorized by this report.

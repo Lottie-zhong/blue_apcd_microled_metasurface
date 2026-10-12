@@ -51,6 +51,7 @@ class Profile(StrictModel):
     profile_id: Literal['coupling_609d_v1']
     truth_toolchain: dict[str, Pin]
     certification: Pin
+    postprocess_resolver_certification: Pin | None = None
 
 
 class Platform(StrictModel):
@@ -60,6 +61,7 @@ class Platform(StrictModel):
     science_root: str
     source_root: str
     coupling_root: str
+    science_owner_id: Literal['APCD_COUPLING_ML_SCIENCE_OWNER_V1'] = 'APCD_COUPLING_ML_SCIENCE_OWNER_V1'
     science_owner_sid: str
     consumer_sid: str
     operator_sids: list[str]
@@ -91,6 +93,7 @@ class Platform(StrictModel):
 
 
 class Case(StrictModel):
+    case_request_sha256: str = Field(pattern=SHA)
     case_id: str = Field(pattern=ID)
     attempt_id: Literal['attempt_001']
     role: Literal['DEVELOPMENT_GLOBAL', 'DEVELOPMENT_LOCAL_AXIS', 'TIME_CONVERGENCE_DIAGNOSTIC_ONLY']
@@ -101,11 +104,12 @@ class Case(StrictModel):
     physics_contract: Pin
     physics_contract_sha: str = Field(pattern=SHA)
     simulation_time_s: float = Field(gt=0)
-    mesh_nm: float = Field(gt=0)
+    mesh_nm: int | float = Field(gt=0)
     auto_shutoff_min: float = Field(gt=0, lt=1)
 
 
 class Manifest(StrictModel):
+    case_request_canonicalization: Literal['APCD_COUPLING_CASE_REQUEST_CANON_V1']
     schema_version: Literal['APCD_GPU_V21_BATCH_V1']
     batch_id: str = Field(pattern=ID)
     science_owner: str
@@ -201,6 +205,8 @@ class GeneralConfig(SerialConfig):
 
 
 class GeneralRequest(SerialRequest):
+    case_request_sha256: str = Field(pattern=SHA)
+    source_acceptance: Pin
     case_id: str = Field(pattern=ID)
     role: Literal['DEVELOPMENT_GLOBAL', 'DEVELOPMENT_LOCAL_AXIS', 'TIME_CONVERGENCE_DIAGNOSTIC_ONLY']
     physical_contract_sha256: str = Field(pattern=SHA)
@@ -223,10 +229,14 @@ def profile_authority(config, request):
     expected = [r for c,r in pairs if r.case_id == request.case_id]
     if len(expected) != 1 or expected[0].request_sha256 != request.request_sha256:
         raise Refused('PROFILE_REQUEST_AUTHORITY_CONFLICT')
-    return dict(schema='APCD_GPU_V21_PROFILE_AUTHORITY_V1',profile_id=profile.profile_id,
+    authority=dict(schema='APCD_GPU_V21_PROFILE_AUTHORITY_V1',profile_id=profile.profile_id,
         manifest=m.model_dump(mode='json'),admission=a.model_dump(mode='json'),
         certification=checked(profile.certification),manifest_file_sha=config.batch_manifest.sha256,
         admission_file_sha=config.science_admission.sha256,certification_file_sha=profile.certification.sha256)
+    if profile.postprocess_resolver_certification is not None:
+        authority.update(resolver_certification=checked(profile.postprocess_resolver_certification),
+            resolver_certification_file_sha=profile.postprocess_resolver_certification.sha256)
+    return authority
 
 
 def validate_profile_admission(config, request, importer=None):
@@ -266,11 +276,66 @@ def check_profile_label_acceptance(config, request, labels, authority=None):
         or labels.get('physical_contract_sha256') != request.physical_contract_sha256):
         raise Refused('SCIENCE_OWNER_LABEL_ACCEPTANCE_REQUIRED')
     bindings={'batch_id':config.batch_id,'case_id':request.case_id,'attempt_id':request.attempt_id,
+        'case_request_sha256':request.case_request_sha256,
+        'physics_contract_file_sha256':request.physical_contract.sha256,
+        'source_manifest_sha256':request.source_manifest.sha256,
+        'source_acceptance_file_sha256':request.source_acceptance.sha256,
         'role':request.role,'ordered_D_nm':list(request.ordered_D_nm),
         'manifest_file_sha256':config.batch_manifest.sha256,'admission_file_sha256':config.science_admission.sha256,
         'certification_file_sha256':authority['certification_file_sha']}
     if any(labels.get(key)!=value for key,value in bindings.items()):
         raise Refused('SCIENCE_OWNER_LABEL_BINDING_CONFLICT')
+
+
+def profile_postprocess_contract(config, request):
+    """Read a flat accepted contract or invoke the fixed, Owner-pinned resolver."""
+    fields=('materials','monitors','references_nm','samples_nm','stack_layers','wavelengths_nm')
+    raw=request.physical_contract.read()
+    if all(key in raw and raw[key] is not None for key in fields):
+        return dict(resolved_contract=raw,physical_contract_sha256=request.physical_contract_sha256,
+            physical_contract_file_sha256=request.physical_contract.sha256,view='ACCEPTED_FLAT_CONTRACT')
+    authority=profile_authority(config,request)
+    pin=config.truth_toolchain.get('postprocess_contract_resolver')
+    if pin is None or 'resolver_certification' not in authority:
+        raise Refused('SCIENCE_OWNER_RESOLVED_POSTPROCESS_CONTRACT_REQUIRED')
+    from .native_readonly import pinned_module
+    import sys
+    folder=str(Path(config.coupling_root)/'scripts/coupling_ml')
+    if folder not in sys.path:sys.path.insert(0,folder)
+    module=pinned_module(pin.path,pin.sha256,'k6_v2_pipeline.postprocess_contract_resolver')
+    callback=getattr(module,'resolve_postprocess_contract',None)
+    if not callable(callback):raise Refused('SCIENCE_RESOLVER_INTERFACE_MISSING')
+    result=callback(authority=authority,case_id=request.case_id,attempt_id=request.attempt_id)
+    bindings=dict(verdict='PASS',profile_id=config.validation_profile,batch_id=config.batch_id,
+        case_id=request.case_id,attempt_id=request.attempt_id,role=request.role,
+        case_request_sha256=request.case_request_sha256,
+        source_acceptance_file_sha256=request.source_acceptance.sha256,
+        resolver_certification_file_sha256=authority['resolver_certification_file_sha'],
+        physical_contract_sha256=request.physical_contract_sha256,
+        physical_contract_file_sha256=request.physical_contract.sha256,
+        schema='APCD_COUPLING_POSTPROCESS_CONTRACT_RESOLVER_V1',
+        resolved_contract_schema='APCD_COUPLING_RESOLVED_POSTPROCESS_CONTRACT_V1',
+        entry_authorization=False,solver_entry_count=0,native_truth_validated=False)
+    if not isinstance(result,dict) or any(result.get(k)!=v for k,v in bindings.items()):
+        raise Refused('SCIENCE_RESOLVER_BINDING_CONFLICT')
+    pc=result.get('resolved_contract')
+    if not isinstance(pc,dict) or set(pc)!=set(fields) or any(pc[key] is None for key in fields):
+        raise Refused('SCIENCE_RESOLVER_FIELDS_CONFLICT')
+    if digest(dict(schema=result['resolved_contract_schema'],resolved_contract=pc))!=result.get('resolved_contract_sha256'):
+        raise Refused('SCIENCE_RESOLVER_PROJECTION_SHA_CONFLICT')
+    return result
+
+
+def profile_native_bindings(config, request, fsp):
+    """Science request identity differs from local execution-request identity."""
+    fsp=Path(fsp);h5=fsp.with_suffix('')/config.native_h5_name
+    bundle_inventory(fsp,config.native_h5_name)
+    return dict(request_sha256=request.case_request_sha256,
+        execution_request_sha256=request.request_sha256,
+        physical_contract_file_sha256=request.physical_contract.sha256,
+        source_acceptance_file_sha256=request.source_acceptance.sha256,
+        native_fsp=dict(path=str(fsp),sha256=sha256(fsp)),
+        native_h5=dict(path=str(h5),sha256=sha256(h5)))
 
 
 def import_profile_truth(config, request, record, importer):
@@ -295,18 +360,31 @@ def import_profile_truth(config, request, record, importer):
     return imported,labels
 
 
+def require_formal_authority(platform, *documents):
+    """Offline Owner fixtures cannot become production entry authority."""
+    if platform.mode=='PRODUCTION_GPU' and any(
+        doc.get(key) is True for doc in documents
+        for key in ('test_fixture_only','fixture_only','audit_only')):
+        raise Refused('OFFLINE_AUTHORITY_CANNOT_AUTHORIZE_SCIENCE')
+
+
 def load_batch(platform, manifest_pin, admission_pin):
     for pin in [manifest_pin, admission_pin]: verify_acl(platform, pin.path)
     m = Manifest.model_validate_json(json.dumps(checked(manifest_pin))); a = Admission.model_validate(checked(admission_pin))
-    if (a.batch_id != m.batch_id or a.science_owner != m.science_owner or a.science_owner != platform.science_owner_sid
+    if (a.batch_id != m.batch_id or a.science_owner != m.science_owner or a.science_owner != platform.science_owner_id
         or a.manifest_sha != m.manifest_sha or a.manifest_file_sha != manifest_pin.sha256
         or a.approved_case_set != m.approved_case_set or a.approved_entry_budget != m.approved_entry_budget
         or a.label_validation_profile != m.label_validation_profile or a.science_ledger != m.science_ledger
         or a.revoked): raise Refused('SCIENCE_ADMISSION_UNBOUND_OR_REVOKED')
+    require_formal_authority(platform,checked(manifest_pin),checked(admission_pin))
     profiles = [p for p in platform.profiles if p.profile_id == m.label_validation_profile]
     if len(profiles) != 1: raise Refused('UNSUPPORTED_SCIENCE_PROFILE')
     profile = profiles[0]; verify_acl(platform, profile.certification.path)
+    if profile.postprocess_resolver_certification is not None:
+        verify_acl(platform,profile.postprocess_resolver_certification.path)
+        require_formal_authority(platform,checked(profile.postprocess_resolver_certification))
     certification = checked(profile.certification)
+    require_formal_authority(platform,certification)
     if (a.profile_certification_sha != profile.certification.sha256 or certification.get('verdict') != 'PASS'
         or certification.get('profile_id') != profile.profile_id
         or certification.get('toolchain') != {k: p.sha256 for k,p in profile.truth_toolchain.items()}):
@@ -323,11 +401,18 @@ def load_batch(platform, manifest_pin, admission_pin):
         if any(key in contract and contract[key] != expected for key,expected in
                [('simulation_time_s',case.simulation_time_s),('mesh_nm',case.mesh_nm),('auto_shutoff_min',case.auto_shutoff_min)]):
             raise Refused('PHYSICAL_TIME_MESH_STOP_CONTRACT_MISMATCH')
+        row=case.model_dump(mode='json')
+        declared=row.pop('case_request_sha256')
+        acceptance=row.pop('source_acceptance')
+        if digest(dict(schema='APCD_COUPLING_CASE_REQUEST_CANON_V1',case_request=row,source_acceptance_path=acceptance['path']))!=declared:
+            raise Refused('SCIENCE_CASE_REQUEST_DIGEST_MISMATCH')
         verify_acl(platform,case.source_acceptance.path)
         proof=checked(case.source_acceptance)
+        require_formal_authority(platform,proof)
         if (proof.get('verdict')!='PASS' or proof.get('fresh_load_verified') is not True
             or proof.get('case_id')!=case.case_id or proof.get('source_fsp_sha')!=case.source_fsp.sha256
             or proof.get('attempt_id')!=case.attempt_id or proof.get('ordered_D_nm')!=list(case.ordered_D_nm)
+            or proof.get('case_request_sha256')!=case.case_request_sha256
             or proof.get('role')!=case.role or proof.get('source_manifest_sha256')!=case.source_manifest.sha256
             or proof.get('physics_contract_sha')!=case.physics_contract_sha
             or proof.get('physics_contract_file_sha256')!=case.physics_contract.sha256
@@ -353,7 +438,7 @@ def build_requests(platform, manifest_pin, admission_pin):
             batch_manifest=manifest_pin, science_admission=admission_pin, science_control=m.science_control,
             platform=platform, importer_module=module, importer_entrypoint=entry,
             label_validator_entrypoint=labels, validation_profile=m.label_validation_profile)
-        req = GeneralRequest(case_id=row.case_id, attempt_id=row.attempt_id, role=row.role,
+        req = GeneralRequest(case_request_sha256=row.case_request_sha256,source_acceptance=row.source_acceptance,case_id=row.case_id, attempt_id=row.attempt_id, role=row.role,
             ordered_D_nm=row.ordered_D_nm, pre_fsp=row.source_fsp.path, pre_fsp_sha256=row.source_fsp.sha256,
             source_manifest=row.source_manifest, physical_contract=row.physics_contract,
             physical_contract_sha256=row.physics_contract_sha, config_sha256=cfg.sha256, batch_id=m.batch_id,

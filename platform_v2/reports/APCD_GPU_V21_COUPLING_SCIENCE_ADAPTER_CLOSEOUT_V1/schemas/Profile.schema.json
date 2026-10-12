@@ -1,0 +1,60 @@
+{
+  "$defs": {
+    "Pin": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "title": "Pin",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "certification": {
+      "$ref": "#/$defs/Pin"
+    },
+    "postprocess_resolver_certification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Pin"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "profile_id": {
+      "const": "coupling_609d_v1",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "truth_toolchain": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Pin"
+      },
+      "title": "Truth Toolchain",
+      "type": "object"
+    }
+  },
+  "required": [
+    "profile_id",
+    "truth_toolchain",
+    "certification"
+  ],
+  "title": "Profile",
+  "type": "object"
+}
