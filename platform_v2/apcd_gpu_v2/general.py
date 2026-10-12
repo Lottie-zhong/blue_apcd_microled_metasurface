@@ -22,8 +22,7 @@ from .artifacts import durable_json
 SHA = r'^[a-f0-9]{64}$'
 ID = r'^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$'
 PROFILES = {
-    'COUPLING_609D_V1': ('k6_v2_pipeline.ingest', 'load_verified_runner_case', None),
-    'COUPLING_DIAG2_TIME_V1': ('k6_v2_pipeline.ingest', 'load_diag2_runner_case', 'validate_diag2_labels'),
+    'coupling_609d_v1': ('k6_v2_pipeline.generic_profile', 'load_authorized_runner_case', 'validate_authorized_labels'),
 }
 
 
@@ -49,7 +48,7 @@ def under(path, root):
 
 
 class Profile(StrictModel):
-    profile_id: Literal['COUPLING_609D_V1', 'COUPLING_DIAG2_TIME_V1']
+    profile_id: Literal['coupling_609d_v1']
     truth_toolchain: dict[str, Pin]
     certification: Pin
 
@@ -114,7 +113,7 @@ class Manifest(StrictModel):
     approved_entry_budget: int = Field(gt=0)
     solver_backend: Literal['LUMERICAL_2025R1_GPU']
     required_truth_artifacts: tuple[Literal['FSP'], Literal['SIBLING_H5'], Literal['FRESH_LOAD']]
-    label_validation_profile: Literal['COUPLING_609D_V1', 'COUPLING_DIAG2_TIME_V1']
+    label_validation_profile: Literal['coupling_609d_v1']
     approved_case_set: list[str]
     batch_science_hold: bool
     science_control: Pin
@@ -132,8 +131,6 @@ class Manifest(StrictModel):
         if self.approved_entry_budget != self.case_count: raise ValueError('FINITE_APPROVED_CASE_SET_BUDGET_REQUIRED')
         if self.manifest_sha != digest(self.model_dump(exclude={'manifest_sha'})):
             raise ValueError('MANIFEST_DIGEST_MISMATCH')
-        if any(c.physics_contract.sha256 != c.physics_contract_sha for c in self.cases):
-            raise ValueError('PHYSICS_PIN_MISMATCH')
         return self
 
 
@@ -164,12 +161,12 @@ def acl_evidence(path):
     except Exception as e: raise Refused('ACL_EVIDENCE_INVALID') from e
 
 
-def verify_acl(platform, path, *, reader=acl_evidence):
+def verify_acl(platform, path, *, reader=acl_evidence, authority_root=None):
     if platform.mode == 'PRODUCTION_EQUIVALENT': under(path, platform.runtime_root); return
     allowed = {platform.science_owner_sid, 'S-1-5-18', 'S-1-5-32-544'}
     # Write data/append/attributes/delete/change DACL/take ownership, including delete-child.
     write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288
-    root = Path(platform.science_root).resolve(); p = under(path, root)
+    root = Path(authority_root or platform.science_root).resolve(); p = under(path, root)
     for target in [p] + list(p.parents)[:len(p.parents) - len(root.parents)]:
         data = reader(target)
         if data.get('owner') not in allowed: raise Refused('UNTRUSTED_AUTHORITY_OWNER')
@@ -214,10 +211,88 @@ class GeneralRequest(SerialRequest):
 
     @property
     def dataset_id(self):
-        return 'APCD_COUPLING_V3_TIME_DIAG2_V1' if self.role=='TIME_CONVERGENCE_DIAGNOSTIC_ONLY' else self.batch_id
+        return self.batch_id
 
 
 def is_general(config): return isinstance(config, GeneralConfig)
+
+
+def profile_authority(config, request):
+    m, a, profile = load_batch(config.platform, config.batch_manifest, config.science_admission)
+    _, pairs = build_requests(config.platform, config.batch_manifest, config.science_admission)
+    expected = [r for c,r in pairs if r.case_id == request.case_id]
+    if len(expected) != 1 or expected[0].request_sha256 != request.request_sha256:
+        raise Refused('PROFILE_REQUEST_AUTHORITY_CONFLICT')
+    return dict(schema='APCD_GPU_V21_PROFILE_AUTHORITY_V1',profile_id=profile.profile_id,
+        manifest=m.model_dump(mode='json'),admission=a.model_dump(mode='json'),
+        certification=checked(profile.certification),manifest_file_sha=config.batch_manifest.sha256,
+        admission_file_sha=config.science_admission.sha256,certification_file_sha=profile.certification.sha256)
+
+
+def validate_profile_admission(config, request, importer=None):
+    """Zero solver Science Owner check before any durable entry or launch."""
+    if importer is None:
+        import importlib
+        import sys
+        folder=str(Path(config.coupling_root)/'scripts/coupling_ml')
+        if folder not in sys.path: sys.path.insert(0,folder)
+        for pin in config.truth_toolchain.values():
+            if sha256(pin.path)!=pin.sha256: raise Refused('TRUTH_DEPENDENCY_PIN_CHANGED')
+        importer=importlib.import_module(config.importer_module)
+        if sha256(importer.__file__)!=config.truth_toolchain['importer'].sha256:
+            raise Refused('IMPORTER_SOURCE_PIN_CHANGED')
+    check=getattr(importer,'validate_profile_admission',None)
+    if not callable(check): raise Refused('SCIENCE_PROFILE_PREENTRY_INTERFACE_MISSING')
+    authority=profile_authority(config,request)
+    result=check(authority=authority,case_id=request.case_id,attempt_id=request.attempt_id)
+    if (not isinstance(result,dict) or result.get('scientific_admission')!='PASS'
+        or result.get('profile_id')!=config.validation_profile or result.get('case_id')!=request.case_id
+        or result.get('attempt_id')!=request.attempt_id
+        or result.get('physical_contract_sha256')!=request.physical_contract_sha256):
+        raise Refused('SCIENCE_PROFILE_PREENTRY_NOT_ACCEPTED')
+    bindings={'batch_id':config.batch_id,'role':request.role,'ordered_D_nm':list(request.ordered_D_nm),
+        'manifest_file_sha256':config.batch_manifest.sha256,'admission_file_sha256':config.science_admission.sha256,
+        'certification_file_sha256':authority['certification_file_sha'],
+        'authorized_entry_budget':authority['admission']['approved_entry_budget'],'no_replay':True}
+    if any(result.get(key)!=value for key,value in bindings.items()):
+        raise Refused('SCIENCE_PROFILE_PREENTRY_BINDING_CONFLICT')
+    return result
+
+
+def check_profile_label_acceptance(config, request, labels, authority=None):
+    authority=authority or profile_authority(config,request)
+    if (not isinstance(labels,dict) or labels.get('verdict')!='PASS' or labels.get('outputs')!=609
+        or labels.get('scientific_validated') is not True or labels.get('profile_id') != config.validation_profile
+        or labels.get('physical_contract_sha256') != request.physical_contract_sha256):
+        raise Refused('SCIENCE_OWNER_LABEL_ACCEPTANCE_REQUIRED')
+    bindings={'batch_id':config.batch_id,'case_id':request.case_id,'attempt_id':request.attempt_id,
+        'role':request.role,'ordered_D_nm':list(request.ordered_D_nm),
+        'manifest_file_sha256':config.batch_manifest.sha256,'admission_file_sha256':config.science_admission.sha256,
+        'certification_file_sha256':authority['certification_file_sha']}
+    if any(labels.get(key)!=value for key,value in bindings.items()):
+        raise Refused('SCIENCE_OWNER_LABEL_BINDING_CONFLICT')
+
+
+def import_profile_truth(config, request, record, importer):
+    """Invoke the pinned Science Owner interface, never manufacture science approval.
+
+    Terminal recovery uses immutable authority and does not request a new entry.
+    A later HOLD prevents new launches but cannot erase existing native truth.
+    """
+    authority = profile_authority(config,request)
+    if not callable(getattr(importer, config.importer_entrypoint, None)) or not callable(getattr(importer, config.label_validator_entrypoint, None)):
+        raise Refused('SCIENCE_OWNER_PROFILE_INTERFACE_MISSING')
+    for key, value in [('case_id',request.case_id),('attempt_id',request.attempt_id),('role',request.role),
+                       ('ordered_D_nm',list(request.ordered_D_nm)),('physical_contract_sha256',request.physical_contract_sha256)]:
+        if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+    imported = getattr(importer,config.importer_entrypoint)(record,expected_role=request.role,
+        root=Path(config.coupling_root),authority=authority)
+    if (imported.case_id != request.case_id or imported.attempt_id != request.attempt_id
+        or imported.role != request.role or tuple(imported.ordered_D_nm) != request.ordered_D_nm):
+        raise Refused('PROFILE_IMPORTED_IDENTITY_CONFLICT')
+    labels = getattr(importer,config.label_validator_entrypoint)(imported,authority=authority)
+    check_profile_label_acceptance(config,request,labels,authority)
+    return imported,labels
 
 
 def load_batch(platform, manifest_pin, admission_pin):
@@ -253,11 +328,14 @@ def load_batch(platform, manifest_pin, admission_pin):
         if (proof.get('verdict')!='PASS' or proof.get('fresh_load_verified') is not True
             or proof.get('case_id')!=case.case_id or proof.get('source_fsp_sha')!=case.source_fsp.sha256
             or proof.get('attempt_id')!=case.attempt_id or proof.get('ordered_D_nm')!=list(case.ordered_D_nm)
+            or proof.get('role')!=case.role or proof.get('source_manifest_sha256')!=case.source_manifest.sha256
             or proof.get('physics_contract_sha')!=case.physics_contract_sha
+            or proof.get('physics_contract_file_sha256')!=case.physics_contract.sha256
             or proof.get('simulation_time_s')!=case.simulation_time_s or proof.get('mesh_nm')!=case.mesh_nm
             or proof.get('auto_shutoff_min')!=case.auto_shutoff_min):
             raise Refused('SCIENTIFIC_SOURCE_LOAD_ACCEPTANCE_REQUIRED')
     under(m.science_ledger, platform.source_root)
+    verify_acl(platform,m.science_ledger,authority_root=platform.source_root)
     return m, a, profile
 
 
@@ -325,14 +403,39 @@ class GeneralBudget(CouplingBudget):
 
     def validate(self, request):
         validate_general(self.config, request)
+        if self.config.mode=='PRODUCTION_GPU': validate_profile_admission(self.config,request)
         m = Manifest.model_validate_json(json.dumps(checked(self.config.batch_manifest)))
-        data = super().validate(request)
+        data = self.validate_ledger(request)
         if (data.get('batch_id') != m.batch_id or data.get('admission_sha256') != self.config.science_admission.sha256
-            or data['authorized_development_case_count'] != m.approved_entry_budget
+            or data['authorized_entry_budget'] != m.approved_entry_budget
             or set(data['entered_case_ids']) | set(data['remaining_unentered_case_ids']) != set(m.approved_case_set)):
             raise Refused('SCIENCE_LEDGER_AUTHORITY_OR_CASE_SET_CONFLICT')
         if data['entered_count'] >= m.approved_entry_budget: raise Refused('BATCH_BUDGET_EXHAUSTED')
         if self.uncertainty(): raise Refused('UNCERTAIN_SCIENCE_ENTRY_HOLD')
+        return data
+
+    def validate_ledger(self, request):
+        # Coupling owns this ledger. Never translate diagnostic budgets into development.
+        data = read_json(self.path)
+        if (data.get('schema') != 'APCD_COUPLING_BATCH_ENTRY_LEDGER_V1'
+            or data.get('no_replay') is not True or data.get('replay_count') != 0):
+            raise Refused('UNSUPPORTED_SCIENCE_LEDGER_PROTOCOL')
+        entered, remaining = data['entered_case_ids'], data['remaining_unentered_case_ids']
+        if set(entered) & set(remaining): raise Refused('COUPLING_LEDGER_SET_CONFLICT')
+        for key, count in [('entered_case_ids','entered_count'), ('remaining_unentered_case_ids','remaining_unentered_count'),
+                           ('truth_valid_case_ids','truth_valid_count'), ('labels_valid_case_ids','labels_valid_count')]:
+            if len(data[key]) != len(set(data[key])) or len(data[key]) != data[count]:
+                raise Refused('COUPLING_COUNT_CONFLICT')
+        if not set(data['labels_valid_case_ids']) <= set(data['truth_valid_case_ids']) <= set(entered):
+            raise Refused('COUPLING_TRUTH_ENTRY_CONFLICT')
+        if len(entered) + len(remaining) != data['authorized_entry_budget']:
+            raise Refused('COUPLING_AUTHORIZED_TOTAL_CONFLICT')
+        if request.case_id not in remaining or request.case_id in entered or self.receipt_path(request).exists():
+            raise Refused('COUPLING_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY')
+        old = data.get('case_records', {}).get(request.case_id, {})
+        if old.get('entry_consumed') or old.get('solver_entered'):
+            raise Refused('COUPLING_PRIOR_ENTRY_PRESENT')
+        if old and old.get('phase') != 'FAILED_PREENTRY_NO_ENTRY': raise Refused('COUPLING_NONTERMINAL_RECORD')
         return data
 
     def mark_launch_request(self, request, token):
@@ -352,6 +455,7 @@ class GeneralBudget(CouplingBudget):
             if record.get('request_sha256')!=request.request_sha256 or record.get('phase') not in ['V2_ENTRY_UNCERTAIN','V2_TRUTH_VALID']:
                 raise Refused('BATCH_TERMINAL_BINDING_CONFLICT')
             if self.config.mode=='PRODUCTION_GPU':
+                check_profile_label_acceptance(self.config,request,validation.get('science_profile_acceptance'))
                 labels=validation.get('labels_artifact',{})
                 if sha256(labels.get('path',''))!=labels.get('sha256'):raise Refused('LABEL_ARTIFACT_SHA_MISMATCH')
             receipt=dict(schema='APCD_GPU_V21_SCIENCE_TERMINAL_V1',batch_id=request.batch_id,
@@ -398,6 +502,7 @@ CREATE TABLE IF NOT EXISTS v21_case_ids(case_id TEXT COLLATE NOCASE PRIMARY KEY,
             db.execute('INSERT OR IGNORE INTO v21_platform VALUES(1,?)',(platform.sha256,))
 
     def submit(self, manifest_pin, admission_pin):
+        require_operator(self.platform)
         m, pairs = build_requests(self.platform,manifest_pin,admission_pin)
         with self.ledger.transaction() as db:
             old = db.execute('SELECT * FROM v21_batches WHERE batch_id=?',(m.batch_id,)).fetchone()
@@ -429,6 +534,7 @@ CREATE TABLE IF NOT EXISTS v21_case_ids(case_id TEXT COLLATE NOCASE PRIMARY KEY,
             if GeneralBudget(pairs[0][0]).uncertainty():raise Refused('CROSS_BATCH_UNCERTAIN_ENTRY_HOLD')
 
     def operate(self, batch_id, paused):
+        require_operator(self.platform)
         with self.ledger.transaction() as db:
             row=db.execute('SELECT * FROM v21_batches WHERE batch_id=?',(batch_id,)).fetchone()
             if not row: raise Refused('UNKNOWN_BATCH')
@@ -453,6 +559,7 @@ CREATE TABLE IF NOT EXISTS v21_case_ids(case_id TEXT COLLATE NOCASE PRIMARY KEY,
                          for state in sorted({r['state'] for r in snapshot['execution']['tasks']})})
 
     def drain(self, *, backend=None, validator_factory=None, fault=lambda step:None):
+        require_operator(self.platform)
         if self.platform.mode=='PRODUCTION_GPU' and (backend is not None or validator_factory is not None):
             raise Refused('PRODUCTION_IMPLEMENTATION_OVERRIDE_FORBIDDEN')
         impl = backend if backend is not None else ProductionNativeBackend()

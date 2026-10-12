@@ -724,7 +724,7 @@ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:
         if config.mode=='PRODUCTION_GPU':
             if type(backend) is not ProductionNativeBackend or not isinstance(validator,NativeTruthValidator):
                 raise Refused('FORMAL_NATIVE_IMPLEMENTATIONS_REQUIRED')
-            dependencies=validator.preflight()
+            dependencies=validator.preflight(request) if config.schema_version=='APCD_GPU_V21_SERIAL_V1' else validator.preflight()
             ledger.note(request,token,'TRUTH_DEPENDENCY_PREFLIGHT',dependencies)
             preflight=native_preflight(config,request)
             ledger.note(request,token,'NATIVE_PREFLIGHT',preflight)
@@ -1020,10 +1020,20 @@ class NativeTruthValidator:
             raise Refused('IMPORTER_ENTRYPOINT_REQUIRED')
         return h5py,np,launcher,lum,importer
 
-    def preflight(self):
+    def preflight(self,request=None):
         h5py,np,launcher,lum,importer=self._dependencies()
+        science={}
+        if self.config.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            from .general import validate_profile_admission
+            if request is None: raise Refused('PROFILE_PREFLIGHT_REQUEST_REQUIRED')
+            science=validate_profile_admission(self.config,request,importer)
+            pc=request.physical_contract.read()
+            if any(key not in pc or pc[key] is None for key in
+                   ['materials','monitors','references_nm','samples_nm','stack_layers','wavelengths_nm']):
+                raise Refused('SCIENCE_OWNER_RESOLVED_POSTPROCESS_CONTRACT_REQUIRED')
         return dict(verdict='PASS',numpy=np.__version__,h5py=h5py.__version__,
-                    pins={key:pin.sha256 for key,pin in self.config.truth_toolchain.items()},native_session_opened=False)
+                    pins={key:pin.sha256 for key,pin in self.config.truth_toolchain.items()},native_session_opened=False,
+                    **({'science_profile_admission':science} if science else {}))
 
     def __call__(self,fsp,request,destination):
         from .native_readonly import native_session
@@ -1071,6 +1081,12 @@ class NativeTruthValidator:
             h5.flush()
         manifest=output/'source_manifest.json'
         manifest_body=dict(case_id=request.case_id,attempt_id=request.attempt_id,geometry=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,pre_fsp_sha256=request.pre_fsp_sha256,run_id=task)
+        if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            manifest_body.update(batch_id=request.batch_id,profile_id=cfg.validation_profile,
+                source_manifest_path=request.source_manifest.path,source_manifest_sha256=request.source_manifest.sha256,
+                admission_sha256=cfg.science_admission.sha256,manifest_sha256=cfg.batch_manifest.sha256,
+                certification_sha256=next(p.certification.sha256 for p in cfg.platform.profiles if p.profile_id==cfg.validation_profile),
+                role=request.role,ordered_D_nm=list(request.ordered_D_nm))
         from .diag2 import is_diag2_config
         if is_diag2_config(cfg):
             manifest_body.update(dataset_id=request.dataset_id,batch_id=request.batch_id,role=request.role,
@@ -1084,6 +1100,10 @@ class NativeTruthValidator:
         def descriptor(p):return dict(path=str(p),sha256=sha256(p))
         record=dict(case_id=request.case_id,attempt_id=request.attempt_id,role=request.role,ordered_D_nm=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,status='DONE',solver_invocations=1,replay_count=0,
             source_manifest=descriptor(manifest),state_npz=descriptor(paths['state_npz']),state_metadata=descriptor(paths['state_metadata']),raw_npz=descriptor(paths['raw_fields']),raw_metadata=descriptor(paths['raw_json']),orders_json=descriptor(paths['angular']),truth_h5=descriptor(truth))
+        if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            record.update(batch_id=request.batch_id,profile_id=cfg.validation_profile,
+                manifest_sha256=cfg.batch_manifest.sha256,admission_sha256=cfg.science_admission.sha256,
+                certification_sha256=manifest_body['certification_sha256'])
         if is_diag2_config(cfg):
             record.update(dataset_id=request.dataset_id,batch_id=request.batch_id,geometry_sha256=request.geometry_sha256,
                 simulation_time_s=request.simulation_time_s,auto_shutoff_min=request.auto_shutoff_min,
@@ -1094,10 +1114,9 @@ class NativeTruthValidator:
                 case_id=request.case_id,physical_contract_sha256=request.physical_contract_sha256)
             if not isinstance(labels,dict) or labels.get('verdict')!='PASS' or labels.get('outputs')!=609:
                 raise Refused('DIAG2_COUPLING_LABEL_VALIDATION_FAILED')
-        elif cfg.schema_version=='APCD_GPU_V21_SERIAL_V1' and cfg.validation_profile=='COUPLING_DIAG2_TIME_V1':
-            imported=importer.load_diag2_runner_case(record,expected_role=request.role,root=Path(cfg.coupling_root),registry=cfg.batch_manifest.read())
-            labels=importer.validate_diag2_labels(imported.c_hat,imported.p_scale,case_id=request.case_id,physical_contract_sha256=request.physical_contract_sha256)
-            if labels.get('verdict')!='PASS' or labels.get('outputs')!=609: raise Refused('DIAG2_COUPLING_LABEL_VALIDATION_FAILED')
+        elif cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            from .general import import_profile_truth
+            imported,labels=import_profile_truth(cfg,request,record,importer)
         elif registered_config(cfg):
             from .v3 import import_truth
             imported,labels=import_truth(cfg,request,record,importer)
@@ -1111,6 +1130,7 @@ class NativeTruthValidator:
             stream.flush();os.fsync(stream.fileno())
         actual_importer=getattr(cfg,'importer_entrypoint','load_verified_runner_case')
         result=dict(verdict='PASS',outputs=labels['outputs'],actual_importer=actual_importer,fresh_load_verified=True,record=record,native_session=session,labels_artifact=descriptor(label_path),**({'registered_provenance':labels['provenance']} if registered_config(cfg) else {}))
+        if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1': result['science_profile_acceptance']=labels
         if time_evidence is not None:
             result['time_convergence']=time_evidence
             result['time_convergence_artifact']=descriptor(time_artifact)

@@ -1,0 +1,516 @@
+diff --git a/platform_v2/apcd_gpu_v2/general.py b/platform_v2/apcd_gpu_v2/general.py
+index 873cf0c0..ada2dcc6 100644
+--- a/platform_v2/apcd_gpu_v2/general.py
++++ b/platform_v2/apcd_gpu_v2/general.py
+@@ -22,8 +22,7 @@ from .artifacts import durable_json
+ SHA = r'^[a-f0-9]{64}$'
+ ID = r'^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$'
+ PROFILES = {
+-    'COUPLING_609D_V1': ('k6_v2_pipeline.ingest', 'load_verified_runner_case', None),
+-    'COUPLING_DIAG2_TIME_V1': ('k6_v2_pipeline.ingest', 'load_diag2_runner_case', 'validate_diag2_labels'),
++    'coupling_609d_v1': ('k6_v2_pipeline.generic_profile', 'load_authorized_runner_case', 'validate_authorized_labels'),
+ }
+ 
+ 
+@@ -49,7 +48,7 @@ def under(path, root):
+ 
+ 
+ class Profile(StrictModel):
+-    profile_id: Literal['COUPLING_609D_V1', 'COUPLING_DIAG2_TIME_V1']
++    profile_id: Literal['coupling_609d_v1']
+     truth_toolchain: dict[str, Pin]
+     certification: Pin
+ 
+@@ -114,7 +113,7 @@ class Manifest(StrictModel):
+     approved_entry_budget: int = Field(gt=0)
+     solver_backend: Literal['LUMERICAL_2025R1_GPU']
+     required_truth_artifacts: tuple[Literal['FSP'], Literal['SIBLING_H5'], Literal['FRESH_LOAD']]
+-    label_validation_profile: Literal['COUPLING_609D_V1', 'COUPLING_DIAG2_TIME_V1']
++    label_validation_profile: Literal['coupling_609d_v1']
+     approved_case_set: list[str]
+     batch_science_hold: bool
+     science_control: Pin
+@@ -132,8 +131,6 @@ class Manifest(StrictModel):
+         if self.approved_entry_budget != self.case_count: raise ValueError('FINITE_APPROVED_CASE_SET_BUDGET_REQUIRED')
+         if self.manifest_sha != digest(self.model_dump(exclude={'manifest_sha'})):
+             raise ValueError('MANIFEST_DIGEST_MISMATCH')
+-        if any(c.physics_contract.sha256 != c.physics_contract_sha for c in self.cases):
+-            raise ValueError('PHYSICS_PIN_MISMATCH')
+         return self
+ 
+ 
+@@ -164,12 +161,12 @@ def acl_evidence(path):
+     except Exception as e: raise Refused('ACL_EVIDENCE_INVALID') from e
+ 
+ 
+-def verify_acl(platform, path, *, reader=acl_evidence):
++def verify_acl(platform, path, *, reader=acl_evidence, authority_root=None):
+     if platform.mode == 'PRODUCTION_EQUIVALENT': under(path, platform.runtime_root); return
+     allowed = {platform.science_owner_sid, 'S-1-5-18', 'S-1-5-32-544'}
+     # Write data/append/attributes/delete/change DACL/take ownership, including delete-child.
+     write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288
+-    root = Path(platform.science_root).resolve(); p = under(path, root)
++    root = Path(authority_root or platform.science_root).resolve(); p = under(path, root)
+     for target in [p] + list(p.parents)[:len(p.parents) - len(root.parents)]:
+         data = reader(target)
+         if data.get('owner') not in allowed: raise Refused('UNTRUSTED_AUTHORITY_OWNER')
+@@ -214,12 +211,90 @@ class GeneralRequest(SerialRequest):
+ 
+     @property
+     def dataset_id(self):
+-        return 'APCD_COUPLING_V3_TIME_DIAG2_V1' if self.role=='TIME_CONVERGENCE_DIAGNOSTIC_ONLY' else self.batch_id
++        return self.batch_id
+ 
+ 
+ def is_general(config): return isinstance(config, GeneralConfig)
+ 
+ 
++def profile_authority(config, request):
++    m, a, profile = load_batch(config.platform, config.batch_manifest, config.science_admission)
++    _, pairs = build_requests(config.platform, config.batch_manifest, config.science_admission)
++    expected = [r for c,r in pairs if r.case_id == request.case_id]
++    if len(expected) != 1 or expected[0].request_sha256 != request.request_sha256:
++        raise Refused('PROFILE_REQUEST_AUTHORITY_CONFLICT')
++    return dict(schema='APCD_GPU_V21_PROFILE_AUTHORITY_V1',profile_id=profile.profile_id,
++        manifest=m.model_dump(mode='json'),admission=a.model_dump(mode='json'),
++        certification=checked(profile.certification),manifest_file_sha=config.batch_manifest.sha256,
++        admission_file_sha=config.science_admission.sha256,certification_file_sha=profile.certification.sha256)
++
++
++def validate_profile_admission(config, request, importer=None):
++    """Zero solver Science Owner check before any durable entry or launch."""
++    if importer is None:
++        import importlib
++        import sys
++        folder=str(Path(config.coupling_root)/'scripts/coupling_ml')
++        if folder not in sys.path: sys.path.insert(0,folder)
++        for pin in config.truth_toolchain.values():
++            if sha256(pin.path)!=pin.sha256: raise Refused('TRUTH_DEPENDENCY_PIN_CHANGED')
++        importer=importlib.import_module(config.importer_module)
++        if sha256(importer.__file__)!=config.truth_toolchain['importer'].sha256:
++            raise Refused('IMPORTER_SOURCE_PIN_CHANGED')
++    check=getattr(importer,'validate_profile_admission',None)
++    if not callable(check): raise Refused('SCIENCE_PROFILE_PREENTRY_INTERFACE_MISSING')
++    authority=profile_authority(config,request)
++    result=check(authority=authority,case_id=request.case_id,attempt_id=request.attempt_id)
++    if (not isinstance(result,dict) or result.get('scientific_admission')!='PASS'
++        or result.get('profile_id')!=config.validation_profile or result.get('case_id')!=request.case_id
++        or result.get('attempt_id')!=request.attempt_id
++        or result.get('physical_contract_sha256')!=request.physical_contract_sha256):
++        raise Refused('SCIENCE_PROFILE_PREENTRY_NOT_ACCEPTED')
++    bindings={'batch_id':config.batch_id,'role':request.role,'ordered_D_nm':list(request.ordered_D_nm),
++        'manifest_file_sha256':config.batch_manifest.sha256,'admission_file_sha256':config.science_admission.sha256,
++        'certification_file_sha256':authority['certification_file_sha'],
++        'authorized_entry_budget':authority['admission']['approved_entry_budget'],'no_replay':True}
++    if any(result.get(key)!=value for key,value in bindings.items()):
++        raise Refused('SCIENCE_PROFILE_PREENTRY_BINDING_CONFLICT')
++    return result
++
++
++def check_profile_label_acceptance(config, request, labels, authority=None):
++    authority=authority or profile_authority(config,request)
++    if (not isinstance(labels,dict) or labels.get('verdict')!='PASS' or labels.get('outputs')!=609
++        or labels.get('scientific_validated') is not True or labels.get('profile_id') != config.validation_profile
++        or labels.get('physical_contract_sha256') != request.physical_contract_sha256):
++        raise Refused('SCIENCE_OWNER_LABEL_ACCEPTANCE_REQUIRED')
++    bindings={'batch_id':config.batch_id,'case_id':request.case_id,'attempt_id':request.attempt_id,
++        'role':request.role,'ordered_D_nm':list(request.ordered_D_nm),
++        'manifest_file_sha256':config.batch_manifest.sha256,'admission_file_sha256':config.science_admission.sha256,
++        'certification_file_sha256':authority['certification_file_sha']}
++    if any(labels.get(key)!=value for key,value in bindings.items()):
++        raise Refused('SCIENCE_OWNER_LABEL_BINDING_CONFLICT')
++
++
++def import_profile_truth(config, request, record, importer):
++    """Invoke the pinned Science Owner interface, never manufacture science approval.
++
++    Terminal recovery uses immutable authority and does not request a new entry.
++    A later HOLD prevents new launches but cannot erase existing native truth.
++    """
++    authority = profile_authority(config,request)
++    if not callable(getattr(importer, config.importer_entrypoint, None)) or not callable(getattr(importer, config.label_validator_entrypoint, None)):
++        raise Refused('SCIENCE_OWNER_PROFILE_INTERFACE_MISSING')
++    for key, value in [('case_id',request.case_id),('attempt_id',request.attempt_id),('role',request.role),
++                       ('ordered_D_nm',list(request.ordered_D_nm)),('physical_contract_sha256',request.physical_contract_sha256)]:
++        if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
++    imported = getattr(importer,config.importer_entrypoint)(record,expected_role=request.role,
++        root=Path(config.coupling_root),authority=authority)
++    if (imported.case_id != request.case_id or imported.attempt_id != request.attempt_id
++        or imported.role != request.role or tuple(imported.ordered_D_nm) != request.ordered_D_nm):
++        raise Refused('PROFILE_IMPORTED_IDENTITY_CONFLICT')
++    labels = getattr(importer,config.label_validator_entrypoint)(imported,authority=authority)
++    check_profile_label_acceptance(config,request,labels,authority)
++    return imported,labels
++
++
+ def load_batch(platform, manifest_pin, admission_pin):
+     for pin in [manifest_pin, admission_pin]: verify_acl(platform, pin.path)
+     m = Manifest.model_validate_json(json.dumps(checked(manifest_pin))); a = Admission.model_validate(checked(admission_pin))
+@@ -253,11 +328,14 @@ def load_batch(platform, manifest_pin, admission_pin):
+         if (proof.get('verdict')!='PASS' or proof.get('fresh_load_verified') is not True
+             or proof.get('case_id')!=case.case_id or proof.get('source_fsp_sha')!=case.source_fsp.sha256
+             or proof.get('attempt_id')!=case.attempt_id or proof.get('ordered_D_nm')!=list(case.ordered_D_nm)
++            or proof.get('role')!=case.role or proof.get('source_manifest_sha256')!=case.source_manifest.sha256
+             or proof.get('physics_contract_sha')!=case.physics_contract_sha
++            or proof.get('physics_contract_file_sha256')!=case.physics_contract.sha256
+             or proof.get('simulation_time_s')!=case.simulation_time_s or proof.get('mesh_nm')!=case.mesh_nm
+             or proof.get('auto_shutoff_min')!=case.auto_shutoff_min):
+             raise Refused('SCIENTIFIC_SOURCE_LOAD_ACCEPTANCE_REQUIRED')
+     under(m.science_ledger, platform.source_root)
++    verify_acl(platform,m.science_ledger,authority_root=platform.source_root)
+     return m, a, profile
+ 
+ 
+@@ -325,16 +403,41 @@ class GeneralBudget(CouplingBudget):
+ 
+     def validate(self, request):
+         validate_general(self.config, request)
++        if self.config.mode=='PRODUCTION_GPU': validate_profile_admission(self.config,request)
+         m = Manifest.model_validate_json(json.dumps(checked(self.config.batch_manifest)))
+-        data = super().validate(request)
++        data = self.validate_ledger(request)
+         if (data.get('batch_id') != m.batch_id or data.get('admission_sha256') != self.config.science_admission.sha256
+-            or data['authorized_development_case_count'] != m.approved_entry_budget
++            or data['authorized_entry_budget'] != m.approved_entry_budget
+             or set(data['entered_case_ids']) | set(data['remaining_unentered_case_ids']) != set(m.approved_case_set)):
+             raise Refused('SCIENCE_LEDGER_AUTHORITY_OR_CASE_SET_CONFLICT')
+         if data['entered_count'] >= m.approved_entry_budget: raise Refused('BATCH_BUDGET_EXHAUSTED')
+         if self.uncertainty(): raise Refused('UNCERTAIN_SCIENCE_ENTRY_HOLD')
+         return data
+ 
++    def validate_ledger(self, request):
++        # Coupling owns this ledger. Never translate diagnostic budgets into development.
++        data = read_json(self.path)
++        if (data.get('schema') != 'APCD_COUPLING_BATCH_ENTRY_LEDGER_V1'
++            or data.get('no_replay') is not True or data.get('replay_count') != 0):
++            raise Refused('UNSUPPORTED_SCIENCE_LEDGER_PROTOCOL')
++        entered, remaining = data['entered_case_ids'], data['remaining_unentered_case_ids']
++        if set(entered) & set(remaining): raise Refused('COUPLING_LEDGER_SET_CONFLICT')
++        for key, count in [('entered_case_ids','entered_count'), ('remaining_unentered_case_ids','remaining_unentered_count'),
++                           ('truth_valid_case_ids','truth_valid_count'), ('labels_valid_case_ids','labels_valid_count')]:
++            if len(data[key]) != len(set(data[key])) or len(data[key]) != data[count]:
++                raise Refused('COUPLING_COUNT_CONFLICT')
++        if not set(data['labels_valid_case_ids']) <= set(data['truth_valid_case_ids']) <= set(entered):
++            raise Refused('COUPLING_TRUTH_ENTRY_CONFLICT')
++        if len(entered) + len(remaining) != data['authorized_entry_budget']:
++            raise Refused('COUPLING_AUTHORIZED_TOTAL_CONFLICT')
++        if request.case_id not in remaining or request.case_id in entered or self.receipt_path(request).exists():
++            raise Refused('COUPLING_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY')
++        old = data.get('case_records', {}).get(request.case_id, {})
++        if old.get('entry_consumed') or old.get('solver_entered'):
++            raise Refused('COUPLING_PRIOR_ENTRY_PRESENT')
++        if old and old.get('phase') != 'FAILED_PREENTRY_NO_ENTRY': raise Refused('COUPLING_NONTERMINAL_RECORD')
++        return data
++
+     def mark_launch_request(self, request, token):
+         # Recheck HOLD/pause and immutable admission immediately before the original launch fence.
+         validate_general(self.config, request)
+@@ -352,6 +455,7 @@ class GeneralBudget(CouplingBudget):
+             if record.get('request_sha256')!=request.request_sha256 or record.get('phase') not in ['V2_ENTRY_UNCERTAIN','V2_TRUTH_VALID']:
+                 raise Refused('BATCH_TERMINAL_BINDING_CONFLICT')
+             if self.config.mode=='PRODUCTION_GPU':
++                check_profile_label_acceptance(self.config,request,validation.get('science_profile_acceptance'))
+                 labels=validation.get('labels_artifact',{})
+                 if sha256(labels.get('path',''))!=labels.get('sha256'):raise Refused('LABEL_ARTIFACT_SHA_MISMATCH')
+             receipt=dict(schema='APCD_GPU_V21_SCIENCE_TERMINAL_V1',batch_id=request.batch_id,
+@@ -398,6 +502,7 @@ CREATE TABLE IF NOT EXISTS v21_case_ids(case_id TEXT COLLATE NOCASE PRIMARY KEY,
+             db.execute('INSERT OR IGNORE INTO v21_platform VALUES(1,?)',(platform.sha256,))
+ 
+     def submit(self, manifest_pin, admission_pin):
++        require_operator(self.platform)
+         m, pairs = build_requests(self.platform,manifest_pin,admission_pin)
+         with self.ledger.transaction() as db:
+             old = db.execute('SELECT * FROM v21_batches WHERE batch_id=?',(m.batch_id,)).fetchone()
+@@ -429,6 +534,7 @@ CREATE TABLE IF NOT EXISTS v21_case_ids(case_id TEXT COLLATE NOCASE PRIMARY KEY,
+             if GeneralBudget(pairs[0][0]).uncertainty():raise Refused('CROSS_BATCH_UNCERTAIN_ENTRY_HOLD')
+ 
+     def operate(self, batch_id, paused):
++        require_operator(self.platform)
+         with self.ledger.transaction() as db:
+             row=db.execute('SELECT * FROM v21_batches WHERE batch_id=?',(batch_id,)).fetchone()
+             if not row: raise Refused('UNKNOWN_BATCH')
+@@ -453,6 +559,7 @@ CREATE TABLE IF NOT EXISTS v21_case_ids(case_id TEXT COLLATE NOCASE PRIMARY KEY,
+                          for state in sorted({r['state'] for r in snapshot['execution']['tasks']})})
+ 
+     def drain(self, *, backend=None, validator_factory=None, fault=lambda step:None):
++        require_operator(self.platform)
+         if self.platform.mode=='PRODUCTION_GPU' and (backend is not None or validator_factory is not None):
+             raise Refused('PRODUCTION_IMPLEMENTATION_OVERRIDE_FORBIDDEN')
+         impl = backend if backend is not None else ProductionNativeBackend()
+diff --git a/platform_v2/apcd_gpu_v2/serial.py b/platform_v2/apcd_gpu_v2/serial.py
+index 7c368241..24b0c8cc 100644
+--- a/platform_v2/apcd_gpu_v2/serial.py
++++ b/platform_v2/apcd_gpu_v2/serial.py
+@@ -724,7 +724,7 @@ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:
+         if config.mode=='PRODUCTION_GPU':
+             if type(backend) is not ProductionNativeBackend or not isinstance(validator,NativeTruthValidator):
+                 raise Refused('FORMAL_NATIVE_IMPLEMENTATIONS_REQUIRED')
+-            dependencies=validator.preflight()
++            dependencies=validator.preflight(request) if config.schema_version=='APCD_GPU_V21_SERIAL_V1' else validator.preflight()
+             ledger.note(request,token,'TRUTH_DEPENDENCY_PREFLIGHT',dependencies)
+             preflight=native_preflight(config,request)
+             ledger.note(request,token,'NATIVE_PREFLIGHT',preflight)
+@@ -1020,10 +1020,20 @@ class NativeTruthValidator:
+             raise Refused('IMPORTER_ENTRYPOINT_REQUIRED')
+         return h5py,np,launcher,lum,importer
+ 
+-    def preflight(self):
++    def preflight(self,request=None):
+         h5py,np,launcher,lum,importer=self._dependencies()
++        science={}
++        if self.config.schema_version=='APCD_GPU_V21_SERIAL_V1':
++            from .general import validate_profile_admission
++            if request is None: raise Refused('PROFILE_PREFLIGHT_REQUEST_REQUIRED')
++            science=validate_profile_admission(self.config,request,importer)
++            pc=request.physical_contract.read()
++            if any(key not in pc or pc[key] is None for key in
++                   ['materials','monitors','references_nm','samples_nm','stack_layers','wavelengths_nm']):
++                raise Refused('SCIENCE_OWNER_RESOLVED_POSTPROCESS_CONTRACT_REQUIRED')
+         return dict(verdict='PASS',numpy=np.__version__,h5py=h5py.__version__,
+-                    pins={key:pin.sha256 for key,pin in self.config.truth_toolchain.items()},native_session_opened=False)
++                    pins={key:pin.sha256 for key,pin in self.config.truth_toolchain.items()},native_session_opened=False,
++                    **({'science_profile_admission':science} if science else {}))
+ 
+     def __call__(self,fsp,request,destination):
+         from .native_readonly import native_session
+@@ -1071,6 +1081,12 @@ class NativeTruthValidator:
+             h5.flush()
+         manifest=output/'source_manifest.json'
+         manifest_body=dict(case_id=request.case_id,attempt_id=request.attempt_id,geometry=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,pre_fsp_sha256=request.pre_fsp_sha256,run_id=task)
++        if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
++            manifest_body.update(batch_id=request.batch_id,profile_id=cfg.validation_profile,
++                source_manifest_path=request.source_manifest.path,source_manifest_sha256=request.source_manifest.sha256,
++                admission_sha256=cfg.science_admission.sha256,manifest_sha256=cfg.batch_manifest.sha256,
++                certification_sha256=next(p.certification.sha256 for p in cfg.platform.profiles if p.profile_id==cfg.validation_profile),
++                role=request.role,ordered_D_nm=list(request.ordered_D_nm))
+         from .diag2 import is_diag2_config
+         if is_diag2_config(cfg):
+             manifest_body.update(dataset_id=request.dataset_id,batch_id=request.batch_id,role=request.role,
+@@ -1084,6 +1100,10 @@ class NativeTruthValidator:
+         def descriptor(p):return dict(path=str(p),sha256=sha256(p))
+         record=dict(case_id=request.case_id,attempt_id=request.attempt_id,role=request.role,ordered_D_nm=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,status='DONE',solver_invocations=1,replay_count=0,
+             source_manifest=descriptor(manifest),state_npz=descriptor(paths['state_npz']),state_metadata=descriptor(paths['state_metadata']),raw_npz=descriptor(paths['raw_fields']),raw_metadata=descriptor(paths['raw_json']),orders_json=descriptor(paths['angular']),truth_h5=descriptor(truth))
++        if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
++            record.update(batch_id=request.batch_id,profile_id=cfg.validation_profile,
++                manifest_sha256=cfg.batch_manifest.sha256,admission_sha256=cfg.science_admission.sha256,
++                certification_sha256=manifest_body['certification_sha256'])
+         if is_diag2_config(cfg):
+             record.update(dataset_id=request.dataset_id,batch_id=request.batch_id,geometry_sha256=request.geometry_sha256,
+                 simulation_time_s=request.simulation_time_s,auto_shutoff_min=request.auto_shutoff_min,
+@@ -1094,10 +1114,9 @@ class NativeTruthValidator:
+                 case_id=request.case_id,physical_contract_sha256=request.physical_contract_sha256)
+             if not isinstance(labels,dict) or labels.get('verdict')!='PASS' or labels.get('outputs')!=609:
+                 raise Refused('DIAG2_COUPLING_LABEL_VALIDATION_FAILED')
+-        elif cfg.schema_version=='APCD_GPU_V21_SERIAL_V1' and cfg.validation_profile=='COUPLING_DIAG2_TIME_V1':
+-            imported=importer.load_diag2_runner_case(record,expected_role=request.role,root=Path(cfg.coupling_root),registry=cfg.batch_manifest.read())
+-            labels=importer.validate_diag2_labels(imported.c_hat,imported.p_scale,case_id=request.case_id,physical_contract_sha256=request.physical_contract_sha256)
+-            if labels.get('verdict')!='PASS' or labels.get('outputs')!=609: raise Refused('DIAG2_COUPLING_LABEL_VALIDATION_FAILED')
++        elif cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
++            from .general import import_profile_truth
++            imported,labels=import_profile_truth(cfg,request,record,importer)
+         elif registered_config(cfg):
+             from .v3 import import_truth
+             imported,labels=import_truth(cfg,request,record,importer)
+@@ -1111,6 +1130,7 @@ class NativeTruthValidator:
+             stream.flush();os.fsync(stream.fileno())
+         actual_importer=getattr(cfg,'importer_entrypoint','load_verified_runner_case')
+         result=dict(verdict='PASS',outputs=labels['outputs'],actual_importer=actual_importer,fresh_load_verified=True,record=record,native_session=session,labels_artifact=descriptor(label_path),**({'registered_provenance':labels['provenance']} if registered_config(cfg) else {}))
++        if cfg.schema_version=='APCD_GPU_V21_SERIAL_V1': result['science_profile_acceptance']=labels
+         if time_evidence is not None:
+             result['time_convergence']=time_evidence
+             result['time_convergence_artifact']=descriptor(time_artifact)
+diff --git a/platform_v2/tests/test_general_runner.py b/platform_v2/tests/test_general_runner.py
+index 43d8dca5..83770771 100644
+--- a/platform_v2/tests/test_general_runner.py
++++ b/platform_v2/tests/test_general_runner.py
+@@ -21,12 +21,12 @@ def write(path, value):
+ 
+ def setup(tmp_path):
+     root=tmp_path/'zero_solver';root.mkdir()
+-    cert=write(root/'science/profile.json',dict(profile_id='COUPLING_609D_V1',verdict='PASS',toolchain={}))
++    cert=write(root/'science/profile.json',dict(profile_id='coupling_609d_v1',verdict='PASS',toolchain={}))
+     platform=Platform(schema_version='APCD_GPU_V21_PLATFORM_V1',mode='PRODUCTION_EQUIVALENT',
+         runtime_root=str(root),science_root=str(root/'science'),source_root=str(root/'data'),coupling_root=str(root/'coupling'),
+         science_owner_sid='SCIENCE',consumer_sid='CONSUMER',operator_sids=['OPERATOR'],fdtd_executable=sys.executable,
+         executable_sha256=sha256(sys.executable),gpu_resource='GPU license audit',native_h5_name='run_output.h5',
+-        heartbeat_seconds=0.01,profiles=[dict(profile_id='COUPLING_609D_V1',truth_toolchain={},certification=cert)])
++        heartbeat_seconds=0.01,profiles=[dict(profile_id='coupling_609d_v1',truth_toolchain={},certification=cert)])
+     script=root/'fake.py'
+     script.write_text('''# APCD_ZERO_SOLVER_FIXTURE
+ import sys,time
+@@ -40,23 +40,26 @@ with h5py.File(p.with_suffix('')/'run_output.h5','w') as f:
+     return platform,Registry(platform),EquivalentBackend(script)
+ 
+ 
+-def batch(platform,name,count=2,hold=False,entered=0,case_ids=None,simtime=6e-12):
++def batch(platform,name,count=2,hold=False,entered=0,case_ids=None,simtime=6e-12,physical_identity_sha=None):
+     root=Path(platform.runtime_root);data=root/'data'/name;data.mkdir(parents=True)
+     control=write(root/'science'/name/'control.json',dict(batch_id=name,hold=hold,admission_pass=True,manifest_sha='pending'))
+     cases=[]
+     for i,cid in enumerate(case_ids or [name+'_'+str(i) for i in range(count)]):
+         fsp=data/(cid+'.fsp');fsp.write_bytes(b'SETUP_FIXTURE')
+         pc=write(data/(cid+'_physics.json'),dict(simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6,monitors={'M':'M'}))
++        scientific_sha=physical_identity_sha or pc['sha256']
+         source=write(data/(cid+'_source.json'),dict(case_id=cid,attempt_id='attempt_001'))
+         source_acceptance=write(root/'science'/name/(cid+'_source_acceptance.json'),dict(verdict='PASS',fresh_load_verified=True,
+-            case_id=cid,attempt_id='attempt_001',ordered_D_nm=[120]*6,source_fsp_sha=sha256(fsp),physics_contract_sha=pc['sha256'],simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6))
++            case_id=cid,attempt_id='attempt_001',ordered_D_nm=[120]*6,source_fsp_sha=sha256(fsp),physics_contract_sha=scientific_sha,simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6))
++        source_acceptance=write(Path(source_acceptance['path']),{**json.loads(Path(source_acceptance['path']).read_text()),
++            'role':'DEVELOPMENT_GLOBAL','source_manifest_sha256':source['sha256'],'physics_contract_file_sha256':pc['sha256']})
+         cases.append(dict(case_id=cid,attempt_id='attempt_001',role='DEVELOPMENT_GLOBAL',ordered_D_nm=[120]*6,
+             source_fsp=dict(path=str(fsp),sha256=sha256(fsp)),source_manifest=source,source_acceptance=source_acceptance,physics_contract=pc,
+-            physics_contract_sha=pc['sha256'],simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6))
++            physics_contract_sha=scientific_sha,simulation_time_s=simtime,mesh_nm=5.0,auto_shutoff_min=1e-6))
+     ledger=data/'science_ledger.json'
+     body=dict(schema_version='APCD_GPU_V21_BATCH_V1',batch_id=name,science_owner='SCIENCE',case_count=count,
+         approved_entry_budget=count,solver_backend='LUMERICAL_2025R1_GPU',required_truth_artifacts=['FSP','SIBLING_H5','FRESH_LOAD'],
+-        label_validation_profile='COUPLING_609D_V1',approved_case_set=[c['case_id'] for c in cases],batch_science_hold=hold,
++        label_validation_profile='coupling_609d_v1',approved_case_set=[c['case_id'] for c in cases],batch_science_hold=hold,
+         science_control=control,science_ledger=str(ledger),cases=cases)
+     body['manifest_sha']=digest(body);manifest=Pin(**write(root/'science'/name/'manifest.json',body))
+     # mutable hold is owner controlled; immutable manifest only pins original identity.
+@@ -67,7 +70,7 @@ def batch(platform,name,count=2,hold=False,entered=0,case_ids=None,simtime=6e-12
+         revoked=False,no_replay=True,label_validation_profile=body['label_validation_profile'],
+         profile_certification_sha=platform.profiles[0].certification.sha256,science_ledger=str(ledger))))
+     ids=body['approved_case_set'];old=ids[:entered]
+-    write(ledger,dict(batch_id=name,admission_sha256=admission.sha256,authorized_development_case_count=count,
++    write(ledger,dict(schema='APCD_COUPLING_BATCH_ENTRY_LEDGER_V1',no_replay=True,replay_count=0,batch_id=name,admission_sha256=admission.sha256,authorized_entry_budget=count,
+         entered_case_ids=old,entered_count=entered,remaining_unentered_case_ids=ids[entered:],remaining_unentered_count=count-entered,
+         truth_valid_case_ids=old,truth_valid_count=entered,labels_valid_case_ids=old,labels_valid_count=entered,
+         case_records={cid:dict(phase='V2_TRUTH_VALID') for cid in old}))
+@@ -75,7 +78,114 @@ def batch(platform,name,count=2,hold=False,entered=0,case_ids=None,simtime=6e-12
+ 
+ 
+ def validator(cfg):
+-    return lambda fsp,req,dest:dict(verdict='PASS',outputs=609,fresh_load_verified=True,actual_importer='load_verified_runner_case',test_double=True)
++    return lambda fsp,req,dest:dict(verdict='PASS',outputs=609,fresh_load_verified=True,actual_importer='load_authorized_runner_case',test_double=True)
++
++
++def test_generic_profile_never_routes_diagnostics_by_legacy_dataset(tmp_path):
++    p,r,b=setup(tmp_path);a=batch(p,'NEW_TIME_BATCH')
++    _,pairs=build_requests(p,*a[:2])
++    req=pairs[0][1].model_copy(update={'role':'TIME_CONVERGENCE_DIAGNOSTIC_ONLY'})
++    assert req.dataset_id=='NEW_TIME_BATCH'
++    assert pairs[0][0].validation_profile=='coupling_609d_v1'
++
++
++def test_profile_owner_interface_missing_and_return_binding_fail_closed(tmp_path):
++    from types import SimpleNamespace
++    from apcd_gpu_v2.general import import_profile_truth
++    p,r,b=setup(tmp_path);a=batch(p,'UNSEEN_OWNER_BATCH');r.submit(*a[:2])
++    _,pairs=build_requests(p,*a[:2]);cfg,req=pairs[0]
++    record=dict(case_id=req.case_id,attempt_id=req.attempt_id,role=req.role,
++        ordered_D_nm=list(req.ordered_D_nm),physical_contract_sha256=req.physical_contract_sha256)
++    with pytest.raises(Refused,match='INTERFACE_MISSING'):import_profile_truth(cfg,req,record,SimpleNamespace())
++    obj=SimpleNamespace(case_id=req.case_id,attempt_id=req.attempt_id,role=req.role,ordered_D_nm=req.ordered_D_nm)
++    importer=SimpleNamespace(load_authorized_runner_case=lambda *a,**k:obj,
++        validate_authorized_labels=lambda *a,**k:dict(verdict='PASS',outputs=609))
++    with pytest.raises(Refused,match='SCIENCE_OWNER_LABEL'):import_profile_truth(cfg,req,record,importer)
++    importer.validate_authorized_labels=lambda *a,**k:dict(verdict='PASS',outputs=609,scientific_validated=True,
++        profile_id='coupling_609d_v1',physical_contract_sha256=req.physical_contract_sha256,
++        batch_id=cfg.batch_id,case_id=req.case_id,attempt_id=req.attempt_id,role=req.role,ordered_D_nm=list(req.ordered_D_nm),
++        manifest_file_sha256=cfg.batch_manifest.sha256,admission_file_sha256=cfg.science_admission.sha256,
++        certification_file_sha256=p.profiles[0].certification.sha256)
++    assert import_profile_truth(cfg,req,record,importer)[0] is obj
++    accepted=importer.validate_authorized_labels
++    importer.validate_authorized_labels=lambda *args,**kwargs:{**accepted(*args,**kwargs),'admission_file_sha256':'0'*64}
++    with pytest.raises(Refused,match='LABEL_BINDING_CONFLICT'):import_profile_truth(cfg,req,record,importer)
++    importer.validate_authorized_labels=accepted
++    obj.case_id='FOREIGN'
++    with pytest.raises(Refused,match='IMPORTED_IDENTITY'):import_profile_truth(cfg,req,record,importer)
++    assert json.loads(a[2].read_text())['entered_count']==0
++
++
++def test_generic_budget_rejects_legacy_protocol_and_replay(tmp_path):
++    p,r,b=setup(tmp_path);a=batch(p,'INDEPENDENT_BUDGET');r.submit(*a[:2]);r.operate('INDEPENDENT_BUDGET',False)
++    _,pairs=build_requests(p,*a[:2]);cfg,req=pairs[0]
++    d=json.loads(a[2].read_text());d['schema']='LEGACY_LEDGER';write(a[2],d)
++    with pytest.raises(Refused,match='PROTOCOL'):GeneralBudget(cfg).validate(req)
++    d['schema']='APCD_COUPLING_BATCH_ENTRY_LEDGER_V1';d['replay_count']=1;write(a[2],d)
++    with pytest.raises(Refused,match='PROTOCOL'):GeneralBudget(cfg).validate(req)
++
++
++def test_profile_admission_requires_science_owner_certified_case_before_entry(tmp_path):
++    from types import SimpleNamespace
++    from apcd_gpu_v2.general import validate_profile_admission
++    p,r,b=setup(tmp_path);a=batch(p,'NEW_CERTIFIED_BATCH');r.submit(*a[:2])
++    _,pairs=build_requests(p,*a[:2]);cfg,req=pairs[0]
++    with pytest.raises(Refused,match='PREENTRY_INTERFACE_MISSING'):
++        validate_profile_admission(cfg,req,SimpleNamespace())
++    service=SimpleNamespace(validate_profile_admission=lambda **k:dict(scientific_admission='PASS'))
++    with pytest.raises(Refused,match='PREENTRY_NOT_ACCEPTED'):validate_profile_admission(cfg,req,service)
++    seen=[]
++    def admit(**kwargs):
++        seen.append(kwargs)
++        return dict(scientific_admission='PASS',profile_id=cfg.validation_profile,case_id=req.case_id,
++            attempt_id=req.attempt_id,physical_contract_sha256=req.physical_contract_sha256,
++            batch_id=cfg.batch_id,role=req.role,ordered_D_nm=list(req.ordered_D_nm),
++            manifest_file_sha256=cfg.batch_manifest.sha256,admission_file_sha256=cfg.science_admission.sha256,
++            certification_file_sha256=p.profiles[0].certification.sha256,authorized_entry_budget=2,no_replay=True)
++    service.validate_profile_admission=admit
++    assert validate_profile_admission(cfg,req,service)['scientific_admission']=='PASS'
++    assert seen[0]['authority']['admission_file_sha']==a[1].sha256
++    service.validate_profile_admission=lambda **kwargs:{**admit(**kwargs),'authorized_entry_budget':3}
++    with pytest.raises(Refused,match='PREENTRY_BINDING_CONFLICT'):validate_profile_admission(cfg,req,service)
++    assert json.loads(a[2].read_text())['entered_count']==0
++    assert r.ledger.audit()['tasks']==[]
++
++
++def test_nested_physics_contract_rejected_before_native_entry(monkeypatch,tmp_path):
++    from types import SimpleNamespace
++    from apcd_gpu_v2.serial import NativeTruthValidator
++    p,r,b=setup(tmp_path);a=batch(p,'NESTED_CONTRACT_BATCH');r.submit(*a[:2])
++    _,pairs=build_requests(p,*a[:2]);cfg,req=pairs[0]
++    validator=NativeTruthValidator(cfg)
++    monkeypatch.setattr(validator,'_dependencies',lambda:(SimpleNamespace(__version__='fixture'),SimpleNamespace(__version__='fixture'),None,None,None))
++    monkeypatch.setattr('apcd_gpu_v2.general.validate_profile_admission',lambda *a,**k:{'scientific_admission':'PASS'})
++    with pytest.raises(Refused,match='RESOLVED_POSTPROCESS_CONTRACT_REQUIRED'):validator.preflight(req)
++    assert json.loads(a[2].read_text())['entered_count']==0
++    assert not list(a[2].parent.glob('V21_ENTRY_EVIDENCE_*'))
++
++
++def test_scientific_identity_and_raw_contract_pin_are_separately_bound(tmp_path):
++    p,r,b=setup(tmp_path);a=batch(p,'SEMANTIC_PIN_BATCH',physical_identity_sha='a'*64)
++    assert r.submit(*a[:2])=='SUBMITTED_PAUSED'
++    _,pairs=build_requests(p,*a[:2]);cfg,req=pairs[0]
++    assert req.physical_contract_sha256=='a'*64
++    assert req.physical_contract.sha256!='a'*64
++    proof=Manifest.model_validate_json(Path(a[0].path).read_text()).cases[0].source_acceptance
++    doc=json.loads(Path(proof.path).read_text())
++    assert doc['physics_contract_file_sha256']==req.physical_contract.sha256
++    assert doc['physics_contract_sha']=='a'*64
++    assert json.loads(a[2].read_text())['entered_count']==0
++
++
++def test_consumer_cannot_bypass_operator_guard_by_calling_registry_api(monkeypatch,tmp_path):
++    from types import SimpleNamespace
++    p,r,b=setup(tmp_path);a=batch(p,'API_GUARD_BATCH');r.submit(*a[:2])
++    r.platform=p.model_copy(update={'mode':'PRODUCTION_GPU'})
++    monkeypatch.setattr('apcd_gpu_v2.general.subprocess.run',lambda *a,**k:SimpleNamespace(returncode=0,stdout='CONSUMER'))
++    for action in [lambda:r.submit(*a[:2]),lambda:r.operate('API_GUARD_BATCH',False),lambda:r.drain()]:
++        with pytest.raises(Refused,match='OPERATOR_IDENTITY_NOT_AUTHORIZED'):action()
++    assert json.loads(a[2].read_text())['entered_count']==0
++    assert r.status()['batches'][0]['paused']==1
+ 
+ 
+ def test_two_batches_independent_hold_budget_and_third_data_only(tmp_path):
+@@ -105,7 +215,7 @@ def test_unregistered_case_profile_and_budget_tamper(tmp_path):
+     p,r,b=setup(tmp_path);a=batch(p,'A');r.submit(*a[:2]);r.operate('A',False)
+     _,pairs=build_requests(p,*a[:2]);cfg,req=pairs[0]
+     with pytest.raises(Refused,match='UNREGISTERED'):validate_general(cfg,req.model_copy(update={'case_id':'FOREIGN'}))
+-    data=json.loads(a[2].read_text());data['authorized_development_case_count']=3;write(a[2],data)
++    data=json.loads(a[2].read_text());data['authorized_entry_budget']=3;write(a[2],data)
+     with pytest.raises(Refused):GeneralBudget(cfg).validate(req)
+     with pytest.raises(Exception):p.model_copy(update={'profiles':[]}).model_validate({**p.model_dump(),'profiles':[{'profile_id':'ARBITRARY_SCRIPT'}]})
+ 
+@@ -147,7 +257,10 @@ def test_negative_consumer_acl_and_permission_unknown(tmp_path):
+     p,r,b=setup(tmp_path);a=batch(p,'A');p=p.model_copy(update={'mode':'PRODUCTION_GPU'})
+     good=lambda target:dict(owner='SCIENCE',rules=[dict(sid='SCIENCE',rights=2032127,allow=True),dict(sid='CONSUMER',rights=1179785,allow=True)])
+     verify_acl(p,a[0].path,reader=good)
++    verify_acl(p,a[2],authority_root=p.source_root,reader=good)
+     bad=lambda target:dict(owner='SCIENCE',rules=[dict(sid='CONSUMER',rights=2,allow=True)])
++    with pytest.raises(Refused,match='AUTHORITY_WRITE_ALLOWED'):
++        verify_acl(p,a[2],authority_root=p.source_root,reader=bad)
+     with pytest.raises(Refused,match='AUTHORITY_WRITE'):verify_acl(p,a[0].path,reader=bad)
+     def unavailable(target):raise Refused('ACL_EVIDENCE_UNAVAILABLE')
+     with pytest.raises(Refused,match='UNAVAILABLE'):verify_acl(p,a[0].path,reader=unavailable)

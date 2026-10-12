@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "APCD_GPU_V21_SOURCE_LOAD_ACCEPTANCE_REQUIRED_FIELDS_V1",
+  "type": "object",
+  "properties": {
+    "verdict": {
+      "const": "PASS"
+    },
+    "fresh_load_verified": {
+      "const": true
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "attempt_id": {
+      "const": "attempt_001"
+    },
+    "role": {
+      "enum": [
+        "DEVELOPMENT_GLOBAL",
+        "DEVELOPMENT_LOCAL_AXIS",
+        "TIME_CONVERGENCE_DIAGNOSTIC_ONLY"
+      ]
+    },
+    "ordered_D_nm": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "integer"
+      }
+    },
+    "simulation_time_s": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "mesh_nm": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "auto_shutoff_min": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "exclusiveMaximum": 1
+    },
+    "source_fsp_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "source_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "physics_contract_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "physics_contract_file_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "verdict",
+    "fresh_load_verified",
+    "case_id",
+    "attempt_id",
+    "role",
+    "ordered_D_nm",
+    "simulation_time_s",
+    "mesh_nm",
+    "auto_shutoff_min",
+    "source_fsp_sha",
+    "source_manifest_sha256",
+    "physics_contract_sha",
+    "physics_contract_file_sha256"
+  ],
+  "additionalProperties": true,
+  "description": "Science Owner proof binds scientific identity separately from raw file bytes. Additional native evidence is preserved, not used to manufacture entry permission."
+}

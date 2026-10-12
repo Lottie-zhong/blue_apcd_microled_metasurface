@@ -1,0 +1,228 @@
+{
+  "$defs": {
+    "Case": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt_id": {
+          "const": "attempt_001",
+          "title": "Attempt Id",
+          "type": "string"
+        },
+        "auto_shutoff_min": {
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0,
+          "title": "Auto Shutoff Min",
+          "type": "number"
+        },
+        "case_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "mesh_nm": {
+          "exclusiveMinimum": 0,
+          "title": "Mesh Nm",
+          "type": "number"
+        },
+        "ordered_D_nm": {
+          "maxItems": 6,
+          "minItems": 6,
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Ordered D Nm",
+          "type": "array"
+        },
+        "physics_contract": {
+          "$ref": "#/$defs/Pin"
+        },
+        "physics_contract_sha": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Physics Contract Sha",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "DEVELOPMENT_GLOBAL",
+            "DEVELOPMENT_LOCAL_AXIS",
+            "TIME_CONVERGENCE_DIAGNOSTIC_ONLY"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "simulation_time_s": {
+          "exclusiveMinimum": 0,
+          "title": "Simulation Time S",
+          "type": "number"
+        },
+        "source_acceptance": {
+          "$ref": "#/$defs/Pin"
+        },
+        "source_fsp": {
+          "$ref": "#/$defs/Pin"
+        },
+        "source_manifest": {
+          "$ref": "#/$defs/Pin"
+        }
+      },
+      "required": [
+        "case_id",
+        "attempt_id",
+        "role",
+        "ordered_D_nm",
+        "source_fsp",
+        "source_manifest",
+        "source_acceptance",
+        "physics_contract",
+        "physics_contract_sha",
+        "simulation_time_s",
+        "mesh_nm",
+        "auto_shutoff_min"
+      ],
+      "title": "Case",
+      "type": "object"
+    },
+    "Pin": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "title": "Pin",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "approved_case_set": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Approved Case Set",
+      "type": "array"
+    },
+    "approved_entry_budget": {
+      "exclusiveMinimum": 0,
+      "title": "Approved Entry Budget",
+      "type": "integer"
+    },
+    "batch_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$",
+      "title": "Batch Id",
+      "type": "string"
+    },
+    "batch_science_hold": {
+      "title": "Batch Science Hold",
+      "type": "boolean"
+    },
+    "case_count": {
+      "exclusiveMinimum": 0,
+      "title": "Case Count",
+      "type": "integer"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/Case"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "label_validation_profile": {
+      "const": "coupling_609d_v1",
+      "title": "Label Validation Profile",
+      "type": "string"
+    },
+    "manifest_sha": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest Sha",
+      "type": "string"
+    },
+    "required_truth_artifacts": {
+      "maxItems": 3,
+      "minItems": 3,
+      "prefixItems": [
+        {
+          "const": "FSP",
+          "type": "string"
+        },
+        {
+          "const": "SIBLING_H5",
+          "type": "string"
+        },
+        {
+          "const": "FRESH_LOAD",
+          "type": "string"
+        }
+      ],
+      "title": "Required Truth Artifacts",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "APCD_GPU_V21_BATCH_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "science_control": {
+      "$ref": "#/$defs/Pin"
+    },
+    "science_ledger": {
+      "title": "Science Ledger",
+      "type": "string"
+    },
+    "science_owner": {
+      "title": "Science Owner",
+      "type": "string"
+    },
+    "solver_backend": {
+      "const": "LUMERICAL_2025R1_GPU",
+      "title": "Solver Backend",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "science_owner",
+    "case_count",
+    "approved_entry_budget",
+    "solver_backend",
+    "required_truth_artifacts",
+    "label_validation_profile",
+    "approved_case_set",
+    "batch_science_hold",
+    "science_control",
+    "science_ledger",
+    "cases",
+    "manifest_sha"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

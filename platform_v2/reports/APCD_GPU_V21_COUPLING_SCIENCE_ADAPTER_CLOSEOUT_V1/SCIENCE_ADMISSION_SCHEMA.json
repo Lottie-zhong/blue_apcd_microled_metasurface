@@ -1,0 +1,89 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "approved_case_set": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Approved Case Set",
+      "type": "array"
+    },
+    "approved_entry_budget": {
+      "title": "Approved Entry Budget",
+      "type": "integer"
+    },
+    "batch_id": {
+      "title": "Batch Id",
+      "type": "string"
+    },
+    "engineering_admission": {
+      "const": "PASS",
+      "title": "Engineering Admission",
+      "type": "string"
+    },
+    "label_validation_profile": {
+      "title": "Label Validation Profile",
+      "type": "string"
+    },
+    "manifest_file_sha": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest File Sha",
+      "type": "string"
+    },
+    "manifest_sha": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest Sha",
+      "type": "string"
+    },
+    "no_replay": {
+      "const": true,
+      "title": "No Replay",
+      "type": "boolean"
+    },
+    "profile_certification_sha": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Profile Certification Sha",
+      "type": "string"
+    },
+    "revoked": {
+      "title": "Revoked",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "APCD_GPU_V21_SCIENCE_ADMISSION_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "science_ledger": {
+      "title": "Science Ledger",
+      "type": "string"
+    },
+    "science_owner": {
+      "title": "Science Owner",
+      "type": "string"
+    },
+    "scientific_admission": {
+      "const": "PASS",
+      "title": "Scientific Admission",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "science_owner",
+    "manifest_sha",
+    "manifest_file_sha",
+    "approved_case_set",
+    "approved_entry_budget",
+    "scientific_admission",
+    "engineering_admission",
+    "revoked",
+    "no_replay",
+    "label_validation_profile",
+    "profile_certification_sha",
+    "science_ledger"
+  ],
+  "title": "Admission",
+  "type": "object"
+}
