@@ -1,17 +1,10 @@
 {
   "COUPLING_609D_PROFILE": "PASS",
   "DIAG2_6PS_TRUTH_VALIDATION": "NOT_RUN",
-  "DIAG2_SCIENTIFIC_ADMISSION_READINESS": "BLOCKED",
+  "DIAG2_SCIENTIFIC_ADMISSION_READINESS": "READY",
   "HISTORICAL_NATIVE_IMPORTER_PARITY": "PASS",
   "NEW_BATCH_OFFLINE_LEDGER_INTEGRATION": "PASS",
   "SCIENCE_CONTRACT_IDENTITY": "PASS",
-  "blocking_interface_fields_missing_from_candidate_serial_record": [
-    "request_sha256",
-    "physical_contract_file_sha256",
-    "source_acceptance_file_sha256",
-    "native_fsp",
-    "native_h5"
-  ],
   "diag2_entered": 0,
   "doe56": {
     "entered": 4,
@@ -22,12 +15,37 @@
   "new_fdtd": 0,
   "new_ml_fits": 0,
   "new_rcwa_fmm": 0,
-  "overall": "PARTIAL",
+  "overall": "READY",
   "production_admission_issued": false,
   "production_ledger_modified": false,
   "production_science_admission_modified": false,
   "replay": 0,
   "schema": "APCD_COUPLING_V21_SCIENCE_OWNER_DECISION_V1",
   "science_owner": "APCD_COUPLING_ML_SCIENCE_OWNER_V1",
-  "sealed_response_access": 0
+  "sealed_response_access": 0,
+  "POSTPROCESS_CONTRACT_RESOLVER_CERTIFICATION": "PASS",
+  "GPU_RESOLVER_CONSUMER_TARGETED_TESTS": "PASS",
+  "GPU_CURRENT_SOURCE_FULL_REGRESSION": "PASS",
+  "initial_candidate_snapshot_missing_fields": [
+    "request_sha256",
+    "physical_contract_file_sha256",
+    "source_acceptance_file_sha256",
+    "native_fsp",
+    "native_h5"
+  ],
+  "gpu_owner_followup": {
+    "branch": "codex/apcd-gpu-v2-serial-production-v1",
+    "head": "83c4fcd1329252e069760789ef5d0e92b02a781a",
+    "ahead_behind": [
+      3,
+      0
+    ],
+    "source_state": "integration source files committed; candidate not pushed or deployed",
+    "targeted_consumer_tests": "6 PASS / 0 FAIL / 30 deselected",
+    "formal_resolver_certificate_wrapper": "3/3 PASS for B A1/A2 and C",
+    "full_current_source_regression": "237 PASS / 0 FAIL / 0 ERROR / 0 SKIP; source inventory verified against current source bytes",
+    "production_admission": "NOT_ISSUED",
+    "upstream": "2294f90270d5452355dd4ca282ef582b23077f49"
+  },
+  "GPU_FORMAL_CERTIFICATE_WRAPPER_TESTS": "PASS"
 }

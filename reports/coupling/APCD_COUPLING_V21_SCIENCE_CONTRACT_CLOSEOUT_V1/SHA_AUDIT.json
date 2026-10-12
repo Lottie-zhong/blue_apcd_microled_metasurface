@@ -60,28 +60,6 @@
     "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1\\SCIENCE_CONTRACT_6PS.json",
     "raw_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36"
   },
-  "gpu_candidate": {
-    "ahead_behind": "1\t0",
-    "branch": "codex/apcd-gpu-v2-serial-production-v1",
-    "deployed": false,
-    "head": "8d5e10260c51c3ad7567ffe5a8fcb9f11c1590e2",
-    "inventory_items": 32,
-    "inventory_mismatches": 0,
-    "inventory_sha256": "a569977470e0f6d4389bf0a6b546829a55b7feba2680fe23f111d16f79516c8c",
-    "missing_serial_fields": [
-      "request_sha256",
-      "physical_contract_file_sha256",
-      "source_acceptance_file_sha256",
-      "native_fsp",
-      "native_h5"
-    ],
-    "production_deployed": false,
-    "report_sha256": "243ba3ce730567d2033bb7e3d82665a2904f5c4b0104f6d84d72db73c3f9dd92",
-    "report_status": "V21_PARTIAL",
-    "science_interface_status": "SCIENCE_INTERFACE_PARTIAL",
-    "science_owner_targeted_tests": "5/5 PASS",
-    "upstream": "2294f90270d5452355dd4ca282ef582b23077f49"
-  },
   "gpu_flat_candidate": {
     "adopted": false,
     "declared_semantic_sha256": "d2a41f483c92577106d92f38a9e3d749b94a8cc46d767436e386968e71be4c82",
@@ -136,5 +114,159 @@
     "gpu_profile_spec": "7229cabb2f75ae7d54a98383eda2d535c9804cbc1a3929a121ff77c968e10348",
     "gpu_serial.py": "afa500e4fcf49d0534adb9f925008bd3a5e1eb94943fdcd28cfc57fba6bb6500",
     "science_ledger.py": "8e5f1c2936b2030db71684e7a17a95ef79c1380d9ea0c59188ea07555c4ced83"
+  },
+  "postprocess_contract_resolver": {
+    "schema": "APCD_COUPLING_POSTPROCESS_CONTRACT_RESOLVER_V1",
+    "resolved_contract_schema": "APCD_COUPLING_RESOLVED_POSTPROCESS_CONTRACT_V1",
+    "module_path": "scripts/coupling_ml/k6_v2_pipeline/postprocess_contract_resolver.py",
+    "module_sha256": "01462d5850bbcb18fd64408e42e1fbddf8e43deb7dfbe7dfd474d6d365996536",
+    "test_path": "scripts/coupling_ml/k6_v2_pipeline/test_postprocess_contract_resolver.py",
+    "test_sha256": "013eb8b532f478e462d19a4a8277a8d59cde7afb51c3026c7dd70bc4ffdfabf3",
+    "certification_path": "reports/coupling/APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1/POSTPROCESS_CONTRACT_RESOLVER_CERTIFICATION_V1.json",
+    "certification_raw_file_sha256": "f8a7729e786a2c4d636e6195e9d85d87ac2c848de031b9c052de84ac4a89fb59",
+    "certification_canonical_sha256": "f8a7729e786a2c4d636e6195e9d85d87ac2c848de031b9c052de84ac4a89fb59",
+    "generic_profile_sha256": "258d8170aa4153a8a71cb18db92cdaa752679f9f468cb23cb6c85b8a7b9f8bad",
+    "canonicalizer_module_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+    "source_contract_schema": "APCD_COUPLING_PHYSICS_CONTRACT_V2",
+    "source_contract_sha256_raw_and_canonical": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+    "source_contract_section": "parent_physical_contract_fields",
+    "fields": [
+      "materials",
+      "monitors",
+      "references_nm",
+      "samples_nm",
+      "stack_layers",
+      "wavelengths_nm"
+    ],
+    "projection_digest_rule": "ingest._canon({schema:resolved_contract_schema,resolved_contract:exact_six_fields})",
+    "projection_vector": {
+      "ingest_canon_sha256": "c13356f4b4f51aabce9a82db23fdb503e6b6e159388ce7055da8c09e9cf1b75b",
+      "independent_sorted_compact_ascii_sha256": "c13356f4b4f51aabce9a82db23fdb503e6b6e159388ce7055da8c09e9cf1b75b",
+      "equal": true
+    },
+    "case_request_vectors": {
+      "mesh_integer_5_sha256": "ca865c861563201bedcc638485e319cb4471a7b23a136ae4c326098398003385",
+      "mesh_float_5_0_sha256": "61fd93038102be83a381ad4f1271dac5ccdf689261c8edd9a7269ffb6b9b1bf2",
+      "types_preserved_and_hashes_differ": true
+    },
+    "coupling_regression": {
+      "resolver_tests": 6,
+      "generic_profile_tests": 5,
+      "science_closeout_tests": 4,
+      "passed": 15,
+      "failed": 0
+    },
+    "gpu_wrapper_formal_certificate_cases": {
+      "passed": 3,
+      "failed": 0,
+      "case_ids": [
+        "K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "OFFLINE_NEW_COUPLING_C001"
+      ],
+      "entry_authorized": false,
+      "solver_entry_count": 0
+    },
+    "scope": "offline profile and deterministic projection certification only; not DIAG2 6ps truth"
+  },
+  "gpu_owner_offline_integration_review": {
+    "report_path": "reports/coupling/APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1/GPU_OWNER_OFFLINE_INTEGRATION_REVIEW_V1.json",
+    "report_sha256": "96bef6dc2b7d3dcca734d9190936e521b150babfc51adb2a69c5279dc214e69b",
+    "candidate_branch": "codex/apcd-gpu-v2-serial-production-v1",
+    "candidate_head": "83c4fcd1329252e069760789ef5d0e92b02a781a",
+    "upstream_head": "2294f90270d5452355dd4ca282ef582b23077f49",
+    "ahead_behind": [
+      3,
+      0
+    ],
+    "source_worktree": "integration sources committed; no source diff",
+    "current_source_sha256": {
+      "platform_v2/apcd_gpu_v2/general.py": "1025c5e5cfbe7815589d10bbc916d2457412f0f141a97e5e1795845e6576315d",
+      "platform_v2/apcd_gpu_v2/serial.py": "ef73acdcee5433b4c17193ed559bb6cc2b9e0352b2cf48d0c95c8527f761b30a",
+      "platform_v2/tests/test_general_runner.py": "5530cda8ade7108e0d78b2935986aa003cd3c297e871105f5aa0b716186e853e"
+    },
+    "targeted_tests": {
+      "passed": 6,
+      "failed": 0,
+      "deselected": 30
+    },
+    "formal_certificate_wrapper_cases": {
+      "passed": 3,
+      "failed": 0
+    },
+    "full_regression": {
+      "json_sha256": "46b999f229d513d2206bb12aceae64d2b7a218908af08c8cefcd614e0c391009",
+      "xml_sha256": "5cc522ff0aae9c4bd788ec194138cc77349172389616b446d7d96023d146c86c",
+      "log_sha256": "392781fc9a6ea24a3646d3c3a473374531d25f8f07ab0770e329ed200f878a51",
+      "tests": 237,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "utc": "2026-10-12T12:43:46.720180+00:00",
+      "source_unchanged": true,
+      "source_inventory_matches_current": true,
+      "real_fdtd_runs": 0,
+      "replay": 0,
+      "scientific_entries": 0,
+      "production_modified": false
+    },
+    "gpu_production_final_report_sha256": "c1b6aa99616175a372ecc6964610d18386f3b8758d220b1f551a1dda8e98f4f3",
+    "production_deployed": false,
+    "science_admission_issued": false,
+    "diag2_entered": 0
+  },
+  "gpu_candidate_initial_inspection": {
+    "ahead_behind": "1\t0",
+    "branch": "codex/apcd-gpu-v2-serial-production-v1",
+    "deployed": false,
+    "head": "8d5e10260c51c3ad7567ffe5a8fcb9f11c1590e2",
+    "inventory_items": 32,
+    "inventory_mismatches": 0,
+    "inventory_sha256": "a569977470e0f6d4389bf0a6b546829a55b7feba2680fe23f111d16f79516c8c",
+    "missing_serial_fields": [
+      "request_sha256",
+      "physical_contract_file_sha256",
+      "source_acceptance_file_sha256",
+      "native_fsp",
+      "native_h5"
+    ],
+    "production_deployed": false,
+    "report_sha256": "243ba3ce730567d2033bb7e3d82665a2904f5c4b0104f6d84d72db73c3f9dd92",
+    "report_status": "V21_PARTIAL",
+    "science_interface_status": "SCIENCE_INTERFACE_PARTIAL",
+    "science_owner_targeted_tests": "5/5 PASS",
+    "upstream": "2294f90270d5452355dd4ca282ef582b23077f49"
+  },
+  "gpu_candidate": {
+    "branch": "codex/apcd-gpu-v2-serial-production-v1",
+    "head": "83c4fcd1329252e069760789ef5d0e92b02a781a",
+    "upstream": "2294f90270d5452355dd4ca282ef582b23077f49",
+    "ahead_behind": "3 0",
+    "report_status": "V21_OFFLINE_READY",
+    "production_deployed": false,
+    "integration_sources_committed": true,
+    "integration_source_sha256": {
+      "platform_v2/apcd_gpu_v2/general.py": "1025c5e5cfbe7815589d10bbc916d2457412f0f141a97e5e1795845e6576315d",
+      "platform_v2/apcd_gpu_v2/serial.py": "ef73acdcee5433b4c17193ed559bb6cc2b9e0352b2cf48d0c95c8527f761b30a",
+      "platform_v2/tests/test_general_runner.py": "5530cda8ade7108e0d78b2935986aa003cd3c297e871105f5aa0b716186e853e"
+    },
+    "full_regression": {
+      "json_sha256": "46b999f229d513d2206bb12aceae64d2b7a218908af08c8cefcd614e0c391009",
+      "xml_sha256": "5cc522ff0aae9c4bd788ec194138cc77349172389616b446d7d96023d146c86c",
+      "log_sha256": "392781fc9a6ea24a3646d3c3a473374531d25f8f07ab0770e329ed200f878a51",
+      "tests": 237,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "utc": "2026-10-12T12:43:46.720180+00:00",
+      "source_unchanged": true,
+      "source_inventory_matches_current": true,
+      "real_fdtd_runs": 0,
+      "replay": 0,
+      "scientific_entries": 0,
+      "production_modified": false
+    },
+    "science_owner_targeted_tests": "6/6 PASS; additional formal-certificate wrapper cases 3/3 PASS",
+    "unrelated_untracked_report_directory": "platform_v2/reports/APCD_GPU_V2_COUPLING_TIME_DIAG2_ADMISSION_RECOVERY_V1/"
   }
 }
