@@ -44,7 +44,7 @@ ENGINEERING_ADMISSION=**BLOCKED**；SCIENTIFIC_DATA=**PARTIAL**；TIME_CONVERGEN
 
 ## 运行状态快照
 
-截至 `2026-10-12T04:22:40.504892Z`（UTC；服务器 CST=`2026-10-12 12:22:40`）：`APCD_GPU_V2_SERIAL_CONTROLLER` 为 Scheduler `Ready`、Enabled；last task result=1；next trigger `2026-10-12 20:00 CST`。其 action 指向 DOE56 `PLAN_SCIENCE_PASS.json`（SHA-256 `cfd2456b367899ed46a46981089ee9b33c8417e55148d07b487543de17be660a`），并非本任务两案。当前没有 serial-controller 进程或 `fdtd-engine-msmpi.exe` 科学 solver；8 个较早创建的 `fdtd-solutions.exe -server -hide` API 进程保留原状，未触碰。现有 controller plan 的数值 gate fail-closed：冻结评估器不产生 `advance_to_development=true` 时会以 `FROZEN_NUMERICAL_GATE_HOLD` 拦住 DOE56 后续阶段；这不能代替新增两案的独立 release。
+截至 `2026-10-12T04:22:40.504892Z`（UTC；服务器 CST=`2026-10-12 12:22:40`）：`APCD_GPU_V2_SERIAL_CONTROLLER` 为 Scheduler `Ready`、Enabled；last task result=1；next trigger `2026-10-12 20:00 CST`。其 action 指向 DOE56 `PLAN_SCIENCE_PASS.json`（SHA-256 `cfd2456b367899ed46a46981089ee9b33c8417e55148d07b487543de17be660a`），并非本任务两案。当前没有 serial-controller 进程或 `fdtd-engine-msmpi.exe` 科学 solver；8 个较早创建的 `fdtd-solutions.exe -server -hide` API 进程保留原状，未触碰。现有 controller plan 的数值 gate fail-closed：代码分支分别以 `FROZEN_NUMERICAL_ADVANCEMENT_HOLD`（评估器非零退出）或 `FROZEN_NUMERICAL_GATE_NOT_PASS`（receipt 未给出 `advance_to_development=true`）拒绝继续；本次没有运行 gate，故不指定将触发哪个分支。这不能代替新增两案的独立 release。
 
 本任务执行计数：新 FDTD entry=0；新 solver invocation=0；replay=0；native LOAD=0；新 truth/labels=0；training/P_scale fits=0；sealed/confirmation response access=0。原 DOE56 ledger 保持 4/4/4/52、replay=0。
 
