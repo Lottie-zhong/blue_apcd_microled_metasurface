@@ -261,6 +261,7 @@ def test_production_native_path_uses_verified_spec_but_holds_unobserved_engine(t
 
 def test_real_worker_abrupt_exit_and_load_only_recovery(tmp_path):
     import subprocess
+    import os
     from apcd_gpu_v2.serial import recover_load_only
     cfg,rs,backend=fixture(tmp_path,2)
     root=Path(cfg.runtime_root)
@@ -276,7 +277,10 @@ def fault(step):
  if step=='solver_returned':os._exit(33)
 run_serial_case(cfg,r,l,EquivalentBackend(Path(cfg.runtime_root)/'fake_solver.py'),None,fault=fault)
 ''')
-    result=subprocess.run([sys.executable,str(child),str(root/'config.json'),str(root/'request.json')],capture_output=True,text=True)
+    env=os.environ.copy()
+    module_root=str(Path(__file__).resolve().parents[1])
+    env['PYTHONPATH']=module_root+os.pathsep+env.get('PYTHONPATH','')
+    result=subprocess.run([sys.executable,str(child),str(root/'config.json'),str(root/'request.json')],capture_output=True,text=True,env=env)
     assert result.returncode==33,result.stderr
     ledger=SerialLedger(root/'ledger.sqlite3');assert ledger.audit()['slot']['token']
     before=sum(e['kind']=='LAUNCH_REQUESTED' for e in ledger.audit()['events'])

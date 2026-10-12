@@ -38,7 +38,16 @@ def registered_config(config):
     return True
 
 
+def diag2_config(config):
+    from .diag2 import is_diag2_config
+    return is_diag2_config(config)
+
+
 def budget_for(config):
+    from .general import is_general, GeneralBudget
+    if is_general(config): return GeneralBudget(config)
+    if diag2_config(config):
+        return Diag2Budget(config)
     if registered_config(config):
         from .v3 import V3Budget
         return V3Budget(config)
@@ -46,6 +55,11 @@ def budget_for(config):
 
 
 def case_storage(config,request):
+    from .general import is_general
+    if is_general(config): return Path(config.runtime_root)/'batches'/config.batch_id
+    if diag2_config(config):
+        from .diag2 import case_storage as diag2_case_storage
+        return diag2_case_storage(config,request)
     if registered_config(config):
         from .v3 import storage_root
         return storage_root(config,request)
@@ -53,6 +67,8 @@ def case_storage(config,request):
 
 
 def window_admission(config,request):
+    if diag2_config(config):
+        return None
     if registered_config(config):
         from .v3 import time_gate
         return time_gate(config,request)
@@ -305,6 +321,219 @@ class CouplingBudget:
             replace_json(self.path,data)
 
 
+class Diag2Budget(CouplingBudget):
+    """Finite Coupling-owned DIAG2 ledger; isolated from DOE56 and the historical 128-case ledger."""
+    schema = 'APCD_COUPLING_DIAG2_ENTRY_LEDGER_V1'
+
+    def __init__(self, config):
+        super().__init__(config)
+        self.receipts = self.path.parent / 'V2_DIAG2_ENTRY_EVIDENCE_V1'
+
+    def receipt_path(self, request):
+        return self.receipts / (request.case_id + '__' + request.attempt_id + '.json')
+
+    def validate(self, request):
+        from .diag2 import DATASET_ID, BATCH_ID, DIAG2_CASES
+        resolved = self.path.resolve()
+        forbidden = ('DOE56', 'REMAINING127', 'V3_EXECUTION_LEDGER', 'QUEUE_EXECUTION_LEDGER')
+        if any(mark in str(resolved).upper() for mark in forbidden):
+            raise Refused('DIAG2_FORBIDDEN_COUPLING_LEDGER_PATH')
+        data = json.loads(self.path.read_text(encoding='utf-8'))
+        if data.get('schema') != self.schema or data.get('status') not in {'OPEN', 'SCIENTIFIC_ADMISSION_PASS'}:
+            raise Refused('DIAG2_COUPLING_LEDGER_SCHEMA_OR_STATUS')
+        if data.get('dataset_id') != DATASET_ID or data.get('batch_id') != BATCH_ID:
+            raise Refused('DIAG2_COUPLING_LEDGER_IDENTITY_MISMATCH')
+        if data.get('case_ids') != list(DIAG2_CASES):
+            raise Refused('DIAG2_COUPLING_LEDGER_CASE_SET_MISMATCH')
+        if (data.get('max_new_entries') != 2 or data.get('per_case_entry_limit') != 1
+                or data.get('automatic_replays') != 0):
+            raise Refused('DIAG2_COUPLING_LEDGER_BUDGET_MISMATCH')
+        if (data.get('registry_sha256') != self.config.registry.sha256
+                or data.get('scientific_admission_sha256') != self.config.scientific_admission.sha256
+                or data.get('physical_contract_sha256') != self.config.physical_contract_sha256):
+            raise Refused('DIAG2_COUPLING_LEDGER_AUTHORITY_PIN_MISMATCH')
+        entered = data.get('entered_case_ids'); remaining = data.get('remaining_case_ids')
+        truth = data.get('truth_valid_case_ids'); labels = data.get('labels_valid_case_ids')
+        if not all(isinstance(x, list) for x in (entered, remaining, truth, labels)):
+            raise Refused('DIAG2_COUPLING_LEDGER_LIST_SCHEMA')
+        if len(set(entered)) != len(entered) or len(set(remaining)) != len(remaining):
+            raise Refused('DIAG2_COUPLING_LEDGER_DUPLICATE_IDS')
+        if set(entered) & set(remaining) or set(entered) | set(remaining) != set(DIAG2_CASES):
+            raise Refused('DIAG2_COUPLING_LEDGER_PARTITION_CONFLICT')
+        if len(set(truth)) != len(truth) or len(set(labels)) != len(labels):
+            raise Refused('DIAG2_COUPLING_LEDGER_DUPLICATE_TERMINALS')
+        if not set(labels) <= set(truth) <= set(entered):
+            raise Refused('DIAG2_COUPLING_LEDGER_TRUTH_LABEL_CONFLICT')
+        for key, expected in [('entry_count', len(entered)), ('remaining_count', len(remaining)),
+                              ('truth_valid_count', len(truth)), ('labels_valid_count', len(labels))]:
+            if data.get(key) != expected:
+                raise Refused('DIAG2_COUPLING_LEDGER_COUNT_CONFLICT:' + key)
+        if data.get('entry_count', 0) > 2:
+            raise Refused('DIAG2_TOTAL_BUDGET_EXHAUSTED')
+        records = data.get('case_records')
+        if not isinstance(records, dict) or set(records) != set(DIAG2_CASES):
+            raise Refused('DIAG2_CASE_RECORD_SET_CONFLICT')
+        for cid in DIAG2_CASES:
+            row = records[cid]
+            if (row.get('attempt_id') != 'attempt_001' or row.get('max_entry_count') != 1
+                    or row.get('entry_count') not in (0, 1) or row.get('replay_count') != 0):
+                raise Refused('DIAG2_CASE_RECORD_BUDGET_CONFLICT:' + cid)
+            if (row.get('entry_count') == 1) != (cid in entered):
+                raise Refused('DIAG2_CASE_RECORD_ENTRY_CONFLICT:' + cid)
+        row = records.get(request.case_id)
+        if request.case_id not in remaining or request.case_id in entered or self.receipt_path(request).exists():
+            raise Refused('DIAG2_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY')
+        if row.get('phase') not in {'UNENTERED', 'FAILED_PREENTRY_NO_ENTRY'} or row.get('entry_count') != 0:
+            raise Refused('DIAG2_CASE_NOT_PREENTRY')
+        if row.get('request_sha256') not in (None, request.request_sha256):
+            raise Refused('DIAG2_CASE_REQUEST_SHA_CONFLICT')
+        return data
+
+    def prepare_entry(self, request, token, fault=lambda step: None):
+        with exclusive(self.path.with_suffix('.v2_writer.lock')):
+            data = self.validate(request)
+            self.receipts.mkdir(parents=True, exist_ok=True)
+            target = self.receipt_path(request)
+            if target.exists():
+                raise Refused('DIAG2_ENTRY_RECEIPT_ALREADY_EXISTS_NO_REPLAY')
+            receipt = dict(schema='APCD_V2_DIAG2_CONSERVATIVE_ENTRY_V1',
+                dataset_id=request.dataset_id, batch_id=request.batch_id,
+                case_id=request.case_id, attempt_id=request.attempt_id,
+                request_sha=request.request_sha256, admission_sha=request.admission_sha256,
+                owner_token=token, pre_fsp_sha256=request.pre_fsp_sha256,
+                source_setup_fsp_sha256=request.source_setup_fsp_sha256,
+                source_run_fsp_sha256=request.source_run_fsp_sha256,
+                physical_contract_sha256=request.physical_contract_sha256,
+                ledger_before_sha256=sha256(self.path), entered_at=time.time(),
+                config_sha256=self.config.sha256, release_sha256=self.config.release.sha256,
+                scientific_admission_sha256=self.config.scientific_admission.sha256,
+                solver_entered=True, physical_process_confirmed=False, replay_count=0)
+            durable_json(target, receipt)
+            fault('coupling_receipt_committed')
+            data['entered_case_ids'].append(request.case_id)
+            data['remaining_case_ids'].remove(request.case_id)
+            data['entry_count'] += 1
+            data['remaining_count'] -= 1
+            row = data['case_records'][request.case_id]
+            row.update(phase='V2_ENTRY_UNCERTAIN', entry_count=1, replay_count=0,
+                       solver_entered=True, request_sha256=request.request_sha256,
+                       entry_receipt=str(target), entry_receipt_sha256=sha256(target))
+            replace_json(self.path, data)
+            fault('coupling_ledger_committed')
+            return receipt
+
+    def reconcile_entry_evidence(self, request):
+        with exclusive(self.path.with_suffix('.v2_writer.lock')):
+            receipt_path = self.receipt_path(request)
+            if not receipt_path.exists():
+                raise Refused('DIAG2_ENTRY_RECONCILIATION_RECEIPT_MISSING')
+            receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
+            if receipt.get('request_sha') != request.request_sha256 or receipt.get('config_sha256') != self.config.sha256:
+                raise Refused('DIAG2_ENTRY_RECONCILIATION_BINDING_UNKNOWN')
+            data = json.loads(self.path.read_text(encoding='utf-8'))
+            if request.case_id in data['entered_case_ids']:
+                rec = data['case_records'][request.case_id]
+                if rec.get('request_sha256') != request.request_sha256 or rec.get('phase') != 'V2_ENTRY_UNCERTAIN':
+                    raise Refused('DIAG2_ENTRY_RECONCILIATION_RECORD_CONFLICT')
+                return dict(entered=True, replay_allowed=False, repaired=False)
+            if (sha256(self.path) != receipt.get('ledger_before_sha256')
+                    or request.case_id not in data['remaining_case_ids']):
+                raise Refused('DIAG2_ENTRY_RECONCILIATION_CONCURRENT_CHANGE')
+            data['entered_case_ids'].append(request.case_id)
+            data['remaining_case_ids'].remove(request.case_id)
+            data['entry_count'] += 1
+            data['remaining_count'] -= 1
+            data['case_records'][request.case_id].update(phase='V2_ENTRY_UNCERTAIN',
+                entry_count=1, replay_count=0, solver_entered=True,
+                request_sha256=request.request_sha256, entry_receipt=str(receipt_path),
+                entry_receipt_sha256=sha256(receipt_path))
+            replace_json(self.path, data)
+            return dict(entered=True, replay_allowed=False, repaired=True)
+
+    @staticmethod
+    def _arrays_equal(left, right):
+        import numpy as np
+        try:
+            with np.load(left, allow_pickle=False) as a, np.load(right, allow_pickle=False) as b:
+                return set(a.files) == set(b.files) and all(np.array_equal(a[k], b[k]) for k in a.files)
+        except Exception:
+            return False
+
+    def finish_truth(self, request, evidence):
+        with exclusive(self.path.with_suffix('.v2_writer.lock')):
+            data = json.loads(self.path.read_text(encoding='utf-8'))
+            row = data['case_records'].get(request.case_id, {})
+            if (request.case_id not in data['entered_case_ids']
+                    or row.get('phase') not in {'V2_ENTRY_UNCERTAIN', 'V2_TRUTH_VALID'}
+                    or row.get('request_sha256') != request.request_sha256):
+                raise Refused('DIAG2_TERMINAL_BINDING_CONFLICT')
+            validation = evidence.get('validation', {})
+            if (validation.get('verdict') != 'PASS' or validation.get('outputs') != 609
+                    or validation.get('fresh_load_verified') is not True
+                    or validation.get('actual_importer') != self.config.importer_entrypoint):
+                raise Refused('DIAG2_LOAD_IMPORTER_TERMINAL_REQUIRED')
+            if row.get('phase') == 'V2_TRUTH_VALID':
+                previous = row.get('evidence', {})
+                if previous.get('bundle') != evidence.get('bundle') or previous.get('validation', {}).get('outputs') != 609:
+                    raise Refused('DIAG2_IDEMPOTENT_TERMINAL_CONFLICT')
+                previous_labels = previous.get('validation', {}).get('labels_artifact', {})
+                fresh_labels = validation.get('labels_artifact', {})
+                if not self._arrays_equal(previous_labels.get('path', ''), fresh_labels.get('path', '')):
+                    raise Refused('DIAG2_IDEMPOTENT_LABEL_DATA_CONFLICT')
+                terminal_path = Path(row.get('terminal_receipt', ''))
+                if not terminal_path.is_file() or sha256(terminal_path) != row.get('terminal_receipt_sha256'):
+                    raise Refused('DIAG2_IDEMPOTENT_TERMINAL_RECEIPT_MISSING_OR_CHANGED')
+                return
+            descriptor = validation.get('labels_artifact')
+            if not isinstance(descriptor, dict) or sha256(descriptor.get('path', '')) != descriptor.get('sha256'):
+                raise Refused('DIAG2_LABEL_SHA_INVALID')
+            labels_dir = self.path.parent / 'DIAG2_LABELS'
+            labels_dir.mkdir(parents=True, exist_ok=True)
+            label_target = labels_dir / (request.case_id + '__attempt_001.npz')
+            if label_target.exists():
+                if not self._arrays_equal(label_target, descriptor['path']):
+                    raise Refused('DIAG2_LABEL_PUBLICATION_CONFLICT')
+            else:
+                stage = label_target.with_name(label_target.name + '.partial.' + uuid.uuid4().hex)
+                try:
+                    with stage.open('xb') as out:
+                        out.write(Path(descriptor['path']).read_bytes())
+                        out.flush(); os.fsync(out.fileno())
+                    if sha256(stage) != descriptor['sha256']:
+                        raise Refused('DIAG2_LABEL_COPY_SHA_MISMATCH')
+                    os.link(stage, label_target)
+                finally:
+                    if stage.exists(): stage.unlink()
+            stable_validation = {
+                'verdict': validation['verdict'], 'outputs': validation['outputs'],
+                'fresh_load_verified': True, 'actual_importer': validation['actual_importer'],
+                'labels_artifact_sha256': sha256(label_target),
+                'time_convergence': validation.get('time_convergence'),
+                'time_convergence_artifact_sha256': validation.get('time_convergence_artifact', {}).get('sha256'),
+            }
+            terminal = dict(schema='APCD_COUPLING_DIAG2_TERMINAL_RECEIPT_V1',
+                dataset_id=request.dataset_id, batch_id=request.batch_id,
+                case_id=request.case_id, attempt_id=request.attempt_id,
+                request_sha256=request.request_sha256, status='TRUTH_VALID_AND_LABELS_VALID',
+                replay_count=0, truth_bundle=evidence.get('bundle'),
+                validation=stable_validation,
+                published_labels=dict(path=str(label_target), sha256=sha256(label_target)))
+            terminal_path = self.path.parent / ('DIAG2_TERMINAL_' + request.case_id + '__attempt_001.json')
+            if terminal_path.exists():
+                if json.loads(terminal_path.read_text(encoding='utf-8')) != terminal:
+                    raise Refused('DIAG2_TERMINAL_RECEIPT_CONFLICT')
+            else:
+                durable_json(terminal_path, terminal)
+            if request.case_id not in data['truth_valid_case_ids']:
+                data['truth_valid_case_ids'].append(request.case_id); data['truth_valid_count'] += 1
+            if request.case_id not in data['labels_valid_case_ids']:
+                data['labels_valid_case_ids'].append(request.case_id); data['labels_valid_count'] += 1
+            row.update(phase='V2_TRUTH_VALID', truth_valid=True, labels_valid=True,
+                       terminal_receipt=str(terminal_path), terminal_receipt_sha256=sha256(terminal_path),
+                       evidence=evidence)
+            replace_json(self.path, data)
+
+
 class SerialLedger(Ledger):
     def register(self,request,config):
         if request.config_sha256!=config.sha256:raise Refused('CONFIG_REQUEST_MISMATCH')
@@ -364,6 +593,11 @@ class SerialLedger(Ledger):
 
 
 def validate_admission(config,request):
+    from .general import is_general, validate_general
+    if is_general(config): return validate_general(config,request)
+    if diag2_config(config):
+        from .diag2 import validate_diag2_admission
+        return validate_diag2_admission(config,request)
     if registered_config(config):
         from .v3 import validate_registered
         return validate_registered(config,request)
@@ -505,7 +739,10 @@ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:
         execution=backend.execute(config,request,ledger,token,budget,fsp,fault)
         fault('solver_returned')
         evidence=validate_truth(config,request,fsp,validator,archive)
-        if registered_config(config) and isinstance(execution,dict):evidence['execution']=execution
+        if (registered_config(config) or diag2_config(config)) and isinstance(execution,dict):
+            # Preserve launcher wall time, return code, log SHA and observed PID/create-time
+            # evidence in every terminal receipt, including the DIAG2 consumer path.
+            evidence['execution']=execution
         fault('truth_valid_before_coupling');budget.finish_truth(request,evidence)
         fault('coupling_truth_before_local');ledger.terminal(request,token,evidence=evidence)
         return evidence
@@ -525,7 +762,9 @@ def validate_truth(config,request,fsp,validator,archive=archive_pair):
         bundle=dict(path=str(destination),files=inventory,receipt_sha256=sha256(destination/'bundle_receipt.json'))
     else:bundle=archive(fsp,destination,config.native_h5_name)
     validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
-    if validated.get('verdict')!='PASS' or validated.get('outputs')!=609 or validated.get('fresh_load_verified') is not True or validated.get('actual_importer')!='load_verified_runner_case':
+    from .diag2 import is_diag2_config
+    expected_importer=getattr(config,'importer_entrypoint','load_verified_runner_case')
+    if validated.get('verdict')!='PASS' or validated.get('outputs')!=609 or validated.get('fresh_load_verified') is not True or validated.get('actual_importer')!=expected_importer:
         raise Refused('FRESH_LOAD_AND_REAL_IMPORTER_REQUIRED')
     if config.mode=='PRODUCTION_GPU' and not validated.get('labels_artifact'):
         raise Refused('DURABLE_COUPLING_LABELS_REQUIRED')
@@ -559,6 +798,9 @@ def controller(config,requests,backend,validator,*,fault=lambda step:None):
 
 def controller_owned(config,requests,backend,validator,*,fault=lambda step:None):
     """Existing serial loop; caller must retain both controller OS locks."""
+    if diag2_config(config):
+        from .diag2 import validate_diag2_batch
+        validate_diag2_batch(config,requests)
     ledger=SerialLedger(Path(config.runtime_root)/'ledger.sqlite3')
     slot=ledger.audit()['slot']
     if slot['token']:
@@ -648,6 +890,103 @@ def classify_gpu_consumers(text):
     return rows
 
 
+
+def _diag2_time_convergence_telemetry(fd, request, np):
+    """Read terminal FDTD timing only for the two frozen DIAG2 roles."""
+    if getattr(request, 'dataset_id', None) != 'APCD_COUPLING_V3_TIME_DIAG2_V1':
+        return None
+    if getattr(request, 'role', None) != 'TIME_CONVERGENCE_DIAGNOSTIC_ONLY':
+        raise Refused('DIAG2_ROLE_NOT_ALLOWLISTED')
+    if getattr(request, 'case_id', None) not in ('K6V3_TIME_DIAG2_A1_5NM_6PS', 'K6V3_TIME_DIAG2_A2_5NM_6PS'):
+        raise Refused('DIAG2_CASE_NOT_ALLOWLISTED')
+    if getattr(request, 'attempt_id', None) != 'attempt_001':
+        raise Refused('DIAG2_ATTEMPT_NOT_ALLOWLISTED')
+    max_time = float(request.simulation_time_s)
+    threshold = float(request.auto_shutoff_min)
+    if max_time != 6e-12 or threshold != 1e-6:
+        raise Refused('DIAG2_TIME_CONTRACT_NOT_6PS_1E6')
+
+    names = set(str(fd.getresult('FDTD')).splitlines())
+    required = {'status', 'autoshutoff level', 'initialization time',
+                'simulation run time', 'total gpu sms'}
+    if not required <= names:
+        raise Refused('DIAG2_FDTD_TELEMETRY_RESULT_SET_INCOMPLETE')
+    status_raw = np.asarray(fd.getresult('FDTD', 'status')).reshape(-1)
+    if status_raw.size != 1 or not np.isfinite(status_raw).all():
+        raise Refused('DIAG2_FDTD_STATUS_INVALID')
+    status_float = float(status_raw[0])
+    status = int(round(status_float))
+    if status_float != status:
+        raise Refused('DIAG2_FDTD_STATUS_NONINTEGER')
+
+    level = fd.getresult('FDTD', 'autoshutoff level')
+    if not isinstance(level, dict) or not {'t', 'wall clock time', 'autoshutoff'} <= set(level):
+        raise Refused('DIAG2_AUTOSHUTOFF_RESULT_SCHEMA_INVALID')
+    times = np.asarray(level['t'], dtype=float).reshape(-1)
+    wall = np.asarray(level['wall clock time'], dtype=float).reshape(-1)
+    values = np.asarray(level['autoshutoff'], dtype=float).reshape(-1)
+    if times.size < 2 or times.size != wall.size or times.size != values.size:
+        raise Refused('DIAG2_AUTOSHUTOFF_CURVE_LENGTH_INVALID')
+    if not all(np.isfinite(x).all() for x in (times, wall, values)):
+        raise Refused('DIAG2_AUTOSHUTOFF_CURVE_NONFINITE')
+    if np.any(times < 0) or np.any(wall < 0) or np.any(values < 0):
+        raise Refused('DIAG2_AUTOSHUTOFF_CURVE_NEGATIVE')
+    if np.any(np.diff(times) <= 0) or np.any(np.diff(wall) < 0):
+        raise Refused('DIAG2_AUTOSHUTOFF_CURVE_ORDER_INVALID')
+
+    benchmarks = {}
+    for name in ('simulation run time', 'initialization time', 'total gpu sms'):
+        value = np.asarray(fd.getresult('FDTD', name), dtype=float).reshape(-1)
+        if value.size != 1 or not np.isfinite(value).all() or float(value[0]) < 0:
+            raise Refused('DIAG2_FDTD_BENCHMARK_RESULT_INVALID:' + name)
+        benchmarks[name] = float(value[0])
+    final = float(values[-1])
+    met = final <= threshold
+    stop_reason = {1: 'SIMULATION_TIME_LIMIT', 2: 'AUTO_SHUTOFF', 3: 'DIVERGED'}.get(
+        status, 'INCOMPLETE_OR_UNKNOWN_STATUS')
+    if status == 2:
+        convergence = 'AUTO_SHUTOFF_THRESHOLD_MET' if met else 'AUTO_SHUTOFF_STATUS_THRESHOLD_CONFLICT'
+    elif status == 1:
+        convergence = 'THRESHOLD_MET_AT_TIME_LIMIT' if met else 'TIME_CONVERGENCE_UNRESOLVED'
+    elif status == 3:
+        convergence = 'DIVERGED'
+    else:
+        convergence = 'INCOMPLETE_OR_UNKNOWN_STATUS'
+    return dict(
+        schema='APCD_GPU_V2_DIAG2_FDTD_TIME_EVIDENCE_V1',
+        dataset_id=request.dataset_id, case_id=request.case_id,
+        attempt_id=request.attempt_id, role=request.role,
+        request_sha256=request.request_sha256,
+        physical_contract_sha256=request.physical_contract_sha256,
+        configured_simulation_time_s=max_time, auto_shutoff_threshold=threshold,
+        status_code=status, stop_reason=stop_reason,
+        time_convergence_status=convergence,
+        # Status 1 means the engine reached the configured time limit. The sampled
+        # curve's last point can precede that limit by one recorder interval.
+        simulation_physical_time_s=max_time if status == 1 else float(times[-1]),
+        autoshutoff_sampled_last_time_s=float(times[-1]),
+        solver_simulation_run_time_s=benchmarks['simulation run time'],
+        solver_initialization_time_s=benchmarks['initialization time'],
+        total_gpu_sms=benchmarks['total gpu sms'],
+        gpu_engine_result_confirmed=benchmarks['total gpu sms'] > 0,
+        final_autoshutoff_value=final, auto_shutoff_threshold_met_at_stop=met,
+        autoshutoff_curve=dict(simulation_time_s=times.tolist(),
+                               wall_clock_time_s=wall.tolist(),
+                               autoshutoff=values.tolist()),
+        sample_count=int(times.size))
+
+
+def _require_diag2_terminal_evidence(evidence, artifact):
+    if evidence['status_code'] == 3:
+        raise Refused('DIAG2_FDTD_DIVERGED:' + str(artifact))
+    if evidence['status_code'] not in (1, 2):
+        raise Refused('DIAG2_FDTD_TERMINAL_STATUS_INVALID:' + str(artifact))
+    if not evidence['gpu_engine_result_confirmed']:
+        raise Refused('DIAG2_GPU_ENGINE_RESULT_UNCONFIRMED:' + str(artifact))
+    if evidence['time_convergence_status'] == 'AUTO_SHUTOFF_STATUS_THRESHOLD_CONFLICT':
+        raise Refused('DIAG2_AUTO_SHUTOFF_STATUS_CONFLICT:' + str(artifact))
+
+
 class NativeTruthValidator:
     """Reuse the G025 verified LOAD/postprocess/importer contracts, never science run."""
     def __init__(self,config):self.config=config
@@ -673,7 +1012,11 @@ class NativeTruthValidator:
         lum=pinned_module(api.path,api.sha256,'lumapi')
         importer=importlib.import_module(getattr(cfg,'importer_module','k6_v2_pipeline.ingest'))
         if sha256(importer.__file__)!=cfg.truth_toolchain['importer'].sha256:raise Refused('IMPORTER_SOURCE_PIN_CHANGED')
-        if not callable(getattr(importer,'load_verified_runner_case',None)):
+        from .diag2 import is_diag2_config
+        if is_diag2_config(cfg) or cfg.schema_version=='APCD_GPU_V21_SERIAL_V1':
+            if not callable(getattr(importer,cfg.importer_entrypoint,None)) or (cfg.label_validator_entrypoint is not None and not callable(getattr(importer,cfg.label_validator_entrypoint,None))):
+                raise Refused('DIAG2_IMPORTER_ENTRYPOINTS_REQUIRED')
+        elif not callable(getattr(importer,'load_verified_runner_case',None)):
             raise Refused('IMPORTER_ENTRYPOINT_REQUIRED')
         return h5py,np,launcher,lum,importer
 
@@ -691,9 +1034,21 @@ class NativeTruthValidator:
         output.mkdir(parents=True)
         task='V2_'+request.request_sha256[:24]
         postcfg=dict(pw_contract=pc,run_fsp=str(fsp),case=request.case_id,attempt=request.attempt_id,task=task,gpu_resource_name=cfg.gpu_resource)
-        session={}
+        session={};time_evidence=None;time_artifact=None
         with native_session(lum.FDTD,{str(fsp):sha256(fsp)},session) as fd:
-            fd.load(str(fsp));launcher.load_only_validate(fd,postcfg)
+            fd.load(str(fsp))
+            if getattr(request,'dataset_id',None)=='APCD_COUPLING_V3_TIME_DIAG2_V1':
+                try:
+                    time_evidence=_diag2_time_convergence_telemetry(fd,request,np)
+                except BaseException as exc:
+                    time_artifact=output/'FDTD_TIME_DIAGNOSTICS_ERROR.json'
+                    durable_json(time_artifact,dict(schema='APCD_GPU_V2_DIAG2_FDTD_TIME_EVIDENCE_ERROR_V1',
+                        case_id=request.case_id,attempt_id=request.attempt_id,request_sha256=request.request_sha256,error=repr(exc)))
+                    raise Refused('DIAG2_TIME_TELEMETRY_INVALID:'+str(time_artifact)) from exc
+                time_artifact=output/'FDTD_TIME_DIAGNOSTICS.json'
+                durable_json(time_artifact,time_evidence)
+                _require_diag2_terminal_evidence(time_evidence, time_artifact)
+            launcher.load_only_validate(fd,postcfg)
             for monitor in dict.fromkeys(pc['monitors'].values()):
                 waves=299792458/np.asarray(fd.getdata(monitor,'f')).reshape(-1)*1e9
                 if len(waves)!=21 or not np.allclose(np.sort(waves),np.arange(440,461),atol=1e-6,rtol=0):raise Refused('NATIVE_WAVELENGTHS_INVALID')
@@ -707,6 +1062,7 @@ class NativeTruthValidator:
         for key in ['order_sign','reference_plane_deembedding','lossy_gan']:
             if metrics.get(key,{}).get('status')!='PASS':raise Refused('SCIENTIFIC_VALIDATION_FAILED:'+key)
         raw['run_id']=task
+        if time_evidence is not None:metrics['diag2_time_convergence']=time_evidence
         Path(paths['raw_json']).write_text(json.dumps(raw,sort_keys=True,indent=2),encoding='utf-8')
         truth=output/'truth.h5'
         with h5py.File(truth,'x') as h5:
@@ -714,11 +1070,35 @@ class NativeTruthValidator:
             for key,value in dict(raw_json=raw,metrics_json=metrics).items():h5.create_dataset(key,data=json.dumps(value,sort_keys=True,default=str),dtype=h5py.string_dtype('utf-8'))
             h5.flush()
         manifest=output/'source_manifest.json'
-        durable_json(manifest,dict(case_id=request.case_id,attempt_id=request.attempt_id,geometry=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,pre_fsp_sha256=request.pre_fsp_sha256,run_id=task))
+        manifest_body=dict(case_id=request.case_id,attempt_id=request.attempt_id,geometry=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,pre_fsp_sha256=request.pre_fsp_sha256,run_id=task)
+        from .diag2 import is_diag2_config
+        if is_diag2_config(cfg):
+            manifest_body.update(dataset_id=request.dataset_id,batch_id=request.batch_id,role=request.role,
+                ordered_D1_D6_nm=list(request.ordered_D_nm),geometry_sha256=request.geometry_sha256,
+                candidate_pre_fsp_sha256=request.pre_fsp_sha256,
+                source_run_fsp_sha256=request.source_run_fsp_sha256,
+                source_setup_fsp_sha256=request.source_setup_fsp_sha256,
+                simulation_time_s=request.simulation_time_s,auto_shutoff_min=request.auto_shutoff_min,
+                source_manifest_path=request.source_manifest.path,source_manifest_sha256=request.source_manifest.sha256)
+        durable_json(manifest,manifest_body)
         def descriptor(p):return dict(path=str(p),sha256=sha256(p))
         record=dict(case_id=request.case_id,attempt_id=request.attempt_id,role=request.role,ordered_D_nm=list(request.ordered_D_nm),physical_contract_sha256=request.physical_contract_sha256,status='DONE',solver_invocations=1,replay_count=0,
             source_manifest=descriptor(manifest),state_npz=descriptor(paths['state_npz']),state_metadata=descriptor(paths['state_metadata']),raw_npz=descriptor(paths['raw_fields']),raw_metadata=descriptor(paths['raw_json']),orders_json=descriptor(paths['angular']),truth_h5=descriptor(truth))
-        if registered_config(cfg):
+        if is_diag2_config(cfg):
+            record.update(dataset_id=request.dataset_id,batch_id=request.batch_id,geometry_sha256=request.geometry_sha256,
+                simulation_time_s=request.simulation_time_s,auto_shutoff_min=request.auto_shutoff_min,
+                source_run_fsp_sha256=request.source_run_fsp_sha256,source_setup_fsp_sha256=request.source_setup_fsp_sha256)
+            imported=getattr(importer,cfg.importer_entrypoint)(record,expected_role=request.role,
+                root=Path(cfg.coupling_root),registry=cfg.registry.read())
+            labels=getattr(importer,cfg.label_validator_entrypoint)(imported.c_hat,imported.p_scale,
+                case_id=request.case_id,physical_contract_sha256=request.physical_contract_sha256)
+            if not isinstance(labels,dict) or labels.get('verdict')!='PASS' or labels.get('outputs')!=609:
+                raise Refused('DIAG2_COUPLING_LABEL_VALIDATION_FAILED')
+        elif cfg.schema_version=='APCD_GPU_V21_SERIAL_V1' and cfg.validation_profile=='COUPLING_DIAG2_TIME_V1':
+            imported=importer.load_diag2_runner_case(record,expected_role=request.role,root=Path(cfg.coupling_root),registry=cfg.batch_manifest.read())
+            labels=importer.validate_diag2_labels(imported.c_hat,imported.p_scale,case_id=request.case_id,physical_contract_sha256=request.physical_contract_sha256)
+            if labels.get('verdict')!='PASS' or labels.get('outputs')!=609: raise Refused('DIAG2_COUPLING_LABEL_VALIDATION_FAILED')
+        elif registered_config(cfg):
             from .v3 import import_truth
             imported,labels=import_truth(cfg,request,record,importer)
         else:
@@ -729,6 +1109,10 @@ class NativeTruthValidator:
         with label_path.open('xb') as stream:
             np.savez_compressed(stream,case_id=np.asarray(request.case_id),attempt_id=np.asarray(request.attempt_id),role=np.asarray(request.role),ordered_D_nm=np.asarray(request.ordered_D_nm,dtype=np.int64),wavelengths_nm=np.arange(440,461),order_m=np.arange(-3,4),polarization=np.asarray(['TE','TM']),C_hat_real=imported.c_hat.real,C_hat_imag=imported.c_hat.imag,P_scale=imported.p_scale,eta=imported.eta,absolute_order=imported.absolute_order)
             stream.flush();os.fsync(stream.fileno())
-        result=dict(verdict='PASS',outputs=labels['outputs'],actual_importer='load_verified_runner_case',fresh_load_verified=True,record=record,native_session=session,labels_artifact=descriptor(label_path),**({'registered_provenance':labels['provenance']} if registered_config(cfg) else {}))
+        actual_importer=getattr(cfg,'importer_entrypoint','load_verified_runner_case')
+        result=dict(verdict='PASS',outputs=labels['outputs'],actual_importer=actual_importer,fresh_load_verified=True,record=record,native_session=session,labels_artifact=descriptor(label_path),**({'registered_provenance':labels['provenance']} if registered_config(cfg) else {}))
+        if time_evidence is not None:
+            result['time_convergence']=time_evidence
+            result['time_convergence_artifact']=descriptor(time_artifact)
         durable_json(output/'validation.json',result)
         return result

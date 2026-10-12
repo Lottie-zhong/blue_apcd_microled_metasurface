@@ -1,0 +1,170 @@
+{
+  "$defs": {
+    "Pin": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "title": "Pin",
+      "type": "object"
+    },
+    "Profile": {
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "enum": [
+            "COUPLING_609D_V1",
+            "COUPLING_DIAG2_TIME_V1"
+          ],
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "truth_toolchain": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Pin"
+          },
+          "title": "Truth Toolchain",
+          "type": "object"
+        },
+        "certification": {
+          "$ref": "#/$defs/Pin"
+        }
+      },
+      "required": [
+        "profile_id",
+        "truth_toolchain",
+        "certification"
+      ],
+      "title": "Profile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "APCD_GPU_V21_PLATFORM_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "PRODUCTION_GPU",
+        "PRODUCTION_EQUIVALENT"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "runtime_root": {
+      "title": "Runtime Root",
+      "type": "string"
+    },
+    "science_root": {
+      "title": "Science Root",
+      "type": "string"
+    },
+    "source_root": {
+      "title": "Source Root",
+      "type": "string"
+    },
+    "coupling_root": {
+      "title": "Coupling Root",
+      "type": "string"
+    },
+    "science_owner_sid": {
+      "title": "Science Owner Sid",
+      "type": "string"
+    },
+    "consumer_sid": {
+      "title": "Consumer Sid",
+      "type": "string"
+    },
+    "operator_sids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Operator Sids",
+      "type": "array"
+    },
+    "fdtd_executable": {
+      "title": "Fdtd Executable",
+      "type": "string"
+    },
+    "executable_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Executable Sha256",
+      "type": "string"
+    },
+    "gpu_resource": {
+      "const": "GPU license audit",
+      "title": "Gpu Resource",
+      "type": "string"
+    },
+    "native_h5_name": {
+      "const": "run_output.h5",
+      "title": "Native H5 Name",
+      "type": "string"
+    },
+    "heartbeat_seconds": {
+      "exclusiveMinimum": 0,
+      "maximum": 30,
+      "title": "Heartbeat Seconds",
+      "type": "number"
+    },
+    "slots": {
+      "const": 1,
+      "default": 1,
+      "title": "Slots",
+      "type": "integer"
+    },
+    "automatic_replays": {
+      "const": 0,
+      "default": 0,
+      "title": "Automatic Replays",
+      "type": "integer"
+    },
+    "run_policy": {
+      "const": "RUN_UNTIL_APPROVED_BATCH_COMPLETE",
+      "default": "RUN_UNTIL_APPROVED_BATCH_COMPLETE",
+      "title": "Run Policy",
+      "type": "string"
+    },
+    "profiles": {
+      "items": {
+        "$ref": "#/$defs/Profile"
+      },
+      "title": "Profiles",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "mode",
+    "runtime_root",
+    "science_root",
+    "source_root",
+    "coupling_root",
+    "science_owner_sid",
+    "consumer_sid",
+    "operator_sids",
+    "fdtd_executable",
+    "executable_sha256",
+    "gpu_resource",
+    "native_h5_name",
+    "heartbeat_seconds",
+    "profiles"
+  ],
+  "title": "Platform",
+  "type": "object"
+}
