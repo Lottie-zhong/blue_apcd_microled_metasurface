@@ -19,6 +19,8 @@ from .ingest import (ROOT, _ORDER, _artifact, _json, _validate_power_mapping_sup
 from .h1 import load_h2_decoder, reconstruct_h2
 
 PROFILE_ID = "coupling_609d_v1"
+SCIENCE_OWNER_ID = "APCD_COUPLING_ML_SCIENCE_OWNER_V1"
+CASE_REQUEST_CANON_SCHEMA = "APCD_COUPLING_CASE_REQUEST_CANON_V1"
 AUTHORITY_SCHEMA = "APCD_GPU_V21_PROFILE_AUTHORITY_V1"
 CERTIFICATION_SCHEMA = "APCD_COUPLING_609D_SCIENCE_PROFILE_CERTIFICATION_V1"
 LEDGER_SCHEMA = "APCD_COUPLING_BATCH_ENTRY_LEDGER_V1"
@@ -60,6 +62,9 @@ def _verified_authority(authority: Mapping[str, Any]):
     _need(authority.get("schema") == AUTHORITY_SCHEMA, "profile_authority_schema")
     _need(authority.get("profile_id") == PROFILE_ID, "profile_authority_id")
     manifest = _map(authority.get("manifest"), "manifest")
+    _need(manifest.get("science_owner") == SCIENCE_OWNER_ID, "profile_science_owner")
+    _need(manifest.get("case_request_canonicalization") == CASE_REQUEST_CANON_SCHEMA,
+          "profile_case_request_canonicalization")
     admission = _map(authority.get("admission"), "admission")
     cert = _map(authority.get("certification"), "certification")
     manifest_sha = _sha(authority.get("manifest_file_sha"), "manifest_file")
@@ -95,6 +100,7 @@ def _verified_authority(authority: Mapping[str, Any]):
 
     _need(cert.get("schema") == CERTIFICATION_SCHEMA
           and cert.get("profile_id") == PROFILE_ID
+          and cert.get("case_request_canonicalization") == CASE_REQUEST_CANON_SCHEMA
           and cert.get("verdict") == "PASS"
           and cert.get("scientific_validated") is True
           and cert.get("outputs") == C.MODEL_OUTPUTS
@@ -127,8 +133,9 @@ def _verified_authority(authority: Mapping[str, Any]):
     source_validation = _map(cert.get("source_validation"), "science_owner_source_validation")
     required_source_fields = {
         "case_id", "attempt_id", "role", "ordered_D_nm", "source_fsp_sha",
-        "source_manifest_sha", "physics_contract_sha", "simulation_time_s",
-        "mesh_nm", "auto_shutoff_min",
+        "source_manifest_sha", "physics_contract_sha", "physics_contract_file_sha256",
+        "case_request_sha256", "source_acceptance_file_sha256", "native_fsp_sha256",
+        "native_h5_sha256", "simulation_time_s", "mesh_nm", "auto_shutoff_min",
     }
     _need(source_validation.get("source_acceptance_required") is True
           and source_validation.get("verdict") == "PASS"
@@ -164,6 +171,63 @@ def _case_row(manifest: Mapping[str, Any], case_id: str, attempt_id: str):
         _sha(pin.get("sha256"), "case_" + key)
         _need(isinstance(pin.get("path"), str) and pin["path"], "case_" + key + "_path")
     return row
+
+
+def _case_request_payload(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Canonical request projection avoids a self-referential acceptance-file hash."""
+    body = dict(row)
+    body.pop("case_request_sha256", None)
+    acceptance = _map(body.pop("source_acceptance", None), "case_source_acceptance")
+    return {
+        "schema": CASE_REQUEST_CANON_SCHEMA,
+        "case_request": body,
+        "source_acceptance_path": acceptance.get("path"),
+    }
+
+
+def _case_request_digest(row: Mapping[str, Any]) -> str:
+    return I._canon(_case_request_payload(row))
+
+
+def _verify_case_request(row: Mapping[str, Any], record: Mapping[str, Any]) -> str:
+    declared = _sha(row.get("case_request_sha256"), "case_request")
+    _need(_case_request_digest(row) == declared, "profile_case_request_digest")
+    _need(record.get("request_sha256") == declared, "profile_runner_request_sha")
+    return declared
+
+
+def _verify_source_acceptance(row: Mapping[str, Any], request_sha256: str) -> str:
+    pin = _map(row.get("source_acceptance"), "case_source_acceptance")
+    path = Path(pin["path"])
+    digest = _sha(pin.get("sha256"), "case_source_acceptance")
+    _need(path.is_file() and I.sha256_file(path) == digest, "source_acceptance_file_sha_mismatch")
+    proof = I._json(path)
+    contract_pin = _map(row.get("physics_contract"), "case_physics_contract")
+    contract_sha = _sha(row.get("physics_contract_sha"), "case_physics_contract_semantic")
+    expected = {
+        "verdict": "PASS", "fresh_load_verified": True, "case_id": row["case_id"],
+        "attempt_id": row["attempt_id"], "role": row["role"],
+        "ordered_D_nm": list(row["ordered_D_nm"]),
+        "source_fsp_sha": row["source_fsp"]["sha256"],
+        "source_manifest_sha256": row["source_manifest"]["sha256"],
+        "physics_contract_sha": contract_sha,
+        "physics_contract_file_sha256": contract_pin["sha256"],
+        "case_request_sha256": request_sha256,
+        "simulation_time_s": row["simulation_time_s"],
+        "mesh_nm": row["mesh_nm"],
+        "auto_shutoff_min": row["auto_shutoff_min"],
+    }
+    _need(all(proof.get(k) == v for k, v in expected.items()), "source_acceptance_binding")
+    return digest
+
+
+def _verify_native_outputs(record: Mapping[str, Any]) -> dict[str, str]:
+    hashes = {}
+    for key, suffix in (("native_fsp", ".fsp"), ("native_h5", ".h5")):
+        path, digest = I._artifact(record, key)
+        _need(path.suffix.lower() == suffix, "native_output_extension:" + key)
+        hashes[key + "_sha256"] = digest
+    return hashes
 
 
 def _load_authorized_runner_truth(record,role_map,expected_roles,*,contract_sha256,root=None,power_supplement=None):
@@ -303,11 +367,16 @@ def load_authorized_runner_case(record: Mapping[str, Any], *, expected_role: str
                                           attempt_id=str(record.get("attempt_id", "")))
     manifest, _, _ = _verified_authority(authority)
     row = _case_row(manifest, decision["case_id"], decision["attempt_id"])
+    request_sha = _verify_case_request(row, record)
+    source_acceptance_sha = _verify_source_acceptance(row, request_sha)
+    native_hashes = _verify_native_outputs(record)
     _need(expected_role == row["role"] == record.get("role"), "profile_expected_role_mismatch")
     ordered = tuple(row["ordered_D_nm"])
     _need(tuple(record.get("ordered_D_nm", ())) == ordered
           and record.get("physical_contract_sha256") == row["physics_contract_sha"],
           "profile_runner_identity_mismatch")
+    _need(record.get("physical_contract_file_sha256") == row["physics_contract"]["sha256"],
+          "profile_runner_contract_file_sha")
     run_manifest_path, _ = I._artifact(record, "source_manifest")
     run_manifest = I._json(run_manifest_path)
     fsp_pin, source_pin = row["source_fsp"], row["source_manifest"]
@@ -316,10 +385,14 @@ def load_authorized_runner_case(record: Mapping[str, Any], *, expected_role: str
           and run_manifest.get("source_manifest_sha256") == source_pin["sha256"]
           and run_manifest.get("batch_id") == manifest["batch_id"]
           and run_manifest.get("profile_id") == PROFILE_ID
-          and run_manifest.get("admission_sha256") == authority["admission_file_sha"],
+          and run_manifest.get("admission_sha256") == authority["admission_file_sha"]
+          and run_manifest.get("request_sha256") == request_sha
+          and run_manifest.get("source_acceptance_file_sha256") == source_acceptance_sha
+          and run_manifest.get("native_fsp_sha256") == native_hashes["native_fsp_sha256"]
+          and run_manifest.get("native_h5_sha256") == native_hashes["native_h5_sha256"],
           "profile_source_binding")
-    for pin in (fsp_pin, source_pin, row["physics_contract"]):
-        _need(Path(pin["path"]).is_file() and I.sha256_file(pin["path"]) == pin["sha256"],
+    for pin in (fsp_pin, source_pin, row["physics_contract"], row["source_acceptance"]):
+        _need(Path(pin["path"]).is_file() and I.sha256_file(Path(pin["path"])) == pin["sha256"],
               "profile_source_pin")
     role = row["role"]
     registry = {row["case_id"]: {
@@ -339,6 +412,11 @@ def load_authorized_runner_case(record: Mapping[str, Any], *, expected_role: str
         "certification_file_sha256": decision["certification_file_sha256"],
         "original_source_manifest_path": source_pin["path"],
         "original_source_manifest_sha256": source_pin["sha256"],
+        "case_request_sha256": request_sha,
+        "physics_contract_file_sha256": row["physics_contract"]["sha256"],
+        "source_acceptance_file_sha256": source_acceptance_sha,
+        "native_fsp_sha256": native_hashes["native_fsp_sha256"],
+        "native_h5_sha256": native_hashes["native_h5_sha256"],
     })
     return replace(imported, provenance=provenance)
 
@@ -378,16 +456,32 @@ def validate_authorized_labels(imported: C.CaseTruth, *, authority: Mapping[str,
           and provenance.get("admission_file_sha256") == decision["admission_file_sha256"]
           and provenance.get("certification_file_sha256") == decision["certification_file_sha256"]
           and provenance.get("original_source_manifest_path") == row["source_manifest"]["path"]
-          and provenance.get("original_source_manifest_sha256") == row["source_manifest"]["sha256"],
+          and provenance.get("original_source_manifest_sha256") == row["source_manifest"]["sha256"]
+          and provenance.get("case_request_sha256") == row["case_request_sha256"]
+          and provenance.get("physics_contract_file_sha256") == row["physics_contract"]["sha256"]
+          and provenance.get("source_acceptance_file_sha256") == row["source_acceptance"]["sha256"],
           "profile_label_identity")
+    _sha(provenance.get("native_fsp_sha256"), "profile_native_fsp")
+    _sha(provenance.get("native_h5_sha256"), "profile_native_h5")
     numeric = _validate_609d_numeric_payload(imported)
-    return {"verdict":"PASS","outputs":numeric["outputs"],"scientific_validated":True,
-            "profile_id":PROFILE_ID,"physical_contract_sha256":decision["physical_contract_sha256"],
-            "batch_id":decision["batch_id"],
-            "manifest_file_sha256":decision["manifest_file_sha256"],
-            "admission_file_sha256":decision["admission_file_sha256"],
-            "certification_file_sha256":decision["certification_file_sha256"],
-            "case_id":imported.case_id,"attempt_id":imported.attempt_id,"role":imported.role,
-            "ordered_D_nm":decision["ordered_D_nm"],"target_sha256":numeric["target_sha256"],
-            "h2_eta_max_abs_delta":numeric["h2_eta_max_abs_delta"],
-            "provenance":dict(imported.provenance)}
+    body = {
+        "schema": "APCD_COUPLING_SCIENCE_VALIDITY_RECEIPT_V1",
+        "verdict": "PASS", "outputs": numeric["outputs"], "scientific_validated": True,
+        "profile_id": PROFILE_ID, "physical_contract_sha256": decision["physical_contract_sha256"],
+        "physics_contract_file_sha256": provenance["physics_contract_file_sha256"],
+        "batch_id": decision["batch_id"], "case_id": imported.case_id,
+        "attempt_id": imported.attempt_id, "role": imported.role,
+        "ordered_D_nm": decision["ordered_D_nm"],
+        "case_request_sha256": provenance["case_request_sha256"],
+        "manifest_file_sha256": decision["manifest_file_sha256"],
+        "admission_file_sha256": decision["admission_file_sha256"],
+        "certification_file_sha256": decision["certification_file_sha256"],
+        "source_manifest_sha256": provenance["original_source_manifest_sha256"],
+        "source_acceptance_file_sha256": provenance["source_acceptance_file_sha256"],
+        "native_fsp_sha256": provenance["native_fsp_sha256"],
+        "native_h5_sha256": provenance["native_h5_sha256"],
+        "target_sha256": numeric["target_sha256"],
+        "h2_eta_max_abs_delta": numeric["h2_eta_max_abs_delta"],
+    }
+    body["science_receipt_sha256"] = I._canon(body)
+    return body
