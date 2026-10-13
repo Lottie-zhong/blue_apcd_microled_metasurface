@@ -1,0 +1,3090 @@
+{
+  "utc": "2026-10-13T04:10:27.461570+00:00",
+  "action": {
+    "Command": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "Arguments": "\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\serial_controller.py\" --plan \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\V3_DOE56_attempt001_20261011\\PLAN_SCIENCE_PASS.json\" --plan-sha256 cfd2456b367899ed46a46981089ee9b33c8417e55148d07b487543de17be660a",
+    "WorkingDirectory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\V3_DOE56_attempt001_20261011"
+  },
+  "tasks": [
+    {
+      "Name": "APCD_Coupling_G2_Attempt002_OneShot_W2H_06824_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_06824\\attempt_002\\launch_W2H_06824_attempt_002_recovery_v1.cmd",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789835209000)/"
+    },
+    {
+      "Name": "APCD_Coupling_G2_Attempt002_OneShot_W2H_15294_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_15294\\attempt_002\\launch_W2H_15294_attempt_002_recovery_v1.cmd",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 267014,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789835209000)/"
+    },
+    {
+      "Name": "APCD_Coupling_G2_Detached_Smoke_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\DETACHED_EXECUTION_SMOKE_TASK.cmd",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789833540000)/"
+    },
+    {
+      "Name": "APCD_Coupling_G2_Replay_W2H_06824_attempt_002",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_06824\\attempt_002\\launch_W2H_06824_attempt_002.cmd",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789790802000)/"
+    },
+    {
+      "Name": "APCD_Coupling_G2_Replay_W2H_15294_attempt_002",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/d /c D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_2D3D_G2_PARALLEL_REPLAY_CODEX_1200S_POLLING_V2_ROLE_RECONCILED\\cases\\W2H_15294\\attempt_002\\launch_W2H_15294_attempt_002.cmd",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 267014,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789790802000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_ML_ATTEMPT003_CONTROLLER",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\apcd_coupling_2d3d_g2_attempt003_production_v1.py --controller",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789874326000)/"
+    },
+    {
+      "Name": "APCD_Coupling_Traditional_Production_V1",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\run_traditional_production_v1.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789313105000)/"
+    },
+    {
+      "Name": "APCD_DEBUG_FINISHER_SYSTEM",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\apcd_runtime\\bin\\APCD_DEBUG_FINISHER_SYSTEM.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968713000)/"
+    },
+    {
+      "Name": "APCD_G023_LIFECYCLE_PROBE_20261007_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\g023_task_scheduler_probe_20261007_v1\\probe_worker.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\g023_task_scheduler_probe_20261007_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791356758000)/"
+    },
+    {
+      "Name": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py\" --runner-controller-manifest \"D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_queue_controller_v1\\faa47cbef071544180bb7803127a4c52\\controller_manifest.json\" --runner-controller-manifest-sha256 faa47cbef071544180bb7803127a4c5276e39270937e061025dffc607618832c --runner-controller-request-id faa47cbef071544180bb7803127a4c52",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline"
+        }
+      ],
+      "LastTaskResult": 2,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791545447000)/"
+    },
+    {
+      "Name": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py\" worker-once",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791545458000)/"
+    },
+    {
+      "Name": "APCD_GPU_V2_G027_ZERO_SOLVER_ACCEPTANCE_20261010",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v2_g027_postsolver_audit_20261010_v1\\installed_zero_solver_acceptance.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791624017000)/"
+    },
+    {
+      "Name": "APCD_GPU_V2_G028_G030_PREENTRY_READONLY_20261010",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v2_g028_g030_three_case_production_20261010_v1\\readonly_preflight.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791625891000)/"
+    },
+    {
+      "Name": "APCD_GPU_V2_REMAINING86_PREENTRY_READONLY_20261010",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\readonly_preflight.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\a09655cd577d7618d3080d35b7a5b2a4a5fc52c5\\platform_v2"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791630225000)/"
+    },
+    {
+      "Name": "APCD_GPU_V2_REMAINING86_TERMINAL_FINISHER",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1\\finisher86.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v2_remaining86_production_20261010_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791630701000)/"
+    },
+    {
+      "Name": "APCD_GPU_V2_SERIAL_CONTROLLER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\serial_controller.py\" --plan \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\V3_DOE56_attempt001_20261011\\PLAN_SCIENCE_PASS.json\" --plan-sha256 cfd2456b367899ed46a46981089ee9b33c8417e55148d07b487543de17be660a",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\science_releases\\V3_DOE56_attempt001_20261011"
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(1791892800000)/",
+      "LastRunTime": "/Date(1791806400000)/"
+    },
+    {
+      "Name": "APCD_K6_5X3_SPACER_DOE_K6_5X3_SP217_X_attempt_001",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\K6_5X3_SPACER_DOE_V1\\K6_5X3_SP217_X\\attempt_001\\run_host.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789910805000)/"
+    },
+    {
+      "Name": "APCD_K6_5X3_SPACER_DOE_V1_CONTROLLER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\K6_5X3_SPACER_DOE_V1\\controller.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789910794000)/"
+    },
+    {
+      "Name": "APCD_K6_5X3_XPOL_SOURCE_POSITION_DIAGNOSTIC_V2_CONTROLLER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "C:\\WINDOWS\\system32\\cmd.exe",
+          "Arguments": "/d /c start \"\" /b \"N:\\anaconda_envs\\RCP_LCP\\python.exe\" -u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_5x3_xpol_source_position_diagnostic_v2.py\" --controller",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789998146000)/"
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_FRESH_CANARY_AND_RESUME_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1.py\" controller",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(1821066301000)/",
+      "LastRunTime": "/Date(1789530301000)/"
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_RESUME_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1_resume.py\" controller",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789744532000)/"
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_V1",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1.py controller",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789376447000)/"
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_V1_MANUAL_003",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_aperture_controlled_orchestrator_v1.py",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 2,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789487940000)/"
+    },
+    {
+      "Name": "APCD_K6_EXPANDED_APERTURE_PILOT_V1_MANUAL_003_USER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_aperture_controlled_orchestrator_v1.py\"",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 2,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789487992000)/"
+    },
+    {
+      "Name": "APCD_K6_LICENSE_GUARD_TASK_SYSTEM",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\k6_expanded_aperture_pilot_v1.py\" preflight",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(1821064907000)/",
+      "LastRunTime": "/Date(1789529002000)/"
+    },
+    {
+      "Name": "APCD_LUMERICAL_LICENSE_PREFLIGHT_V1_MANUAL_SYSTEM",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\license_context_preflight_v1.py\" scheduler-system",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(1821064395000)/",
+      "LastRunTime": "/Date(1789528396000)/"
+    },
+    {
+      "Name": "APCD_LUMERICAL_LICENSE_PREFLIGHT_V1_MANUAL_SYSTEM_REPEAT",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\license_context_preflight_v1.py\" scheduler-system-repeat",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(1821064789000)/",
+      "LastRunTime": "/Date(1789528789000)/"
+    },
+    {
+      "Name": "APCD_M2F_G5_ATTEMPT002_PROVIDER_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g5_attempt002_launcher_v1.ps1\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787913660000)/"
+    },
+    {
+      "Name": "APCD_M2F_G5_ATTEMPT002_READONLY_MONITOR_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g5_readonly_monitor_v1.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787913780000)/"
+    },
+    {
+      "Name": "APCD_M2F_G6_ATTEMPT001_PROVIDER_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g6_attempt001_launcher_v1.ps1\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787980681000)/"
+    },
+    {
+      "Name": "APCD_M2F_G6_ATTEMPT001_READONLY_MONITOR_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2f_g6_readonly_monitor_v1.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787980800000)/"
+    },
+    {
+      "Name": "APCD_M2I_G7_G8_LEVEL2A_BLIND_PROSPECTIVE_VALIDATION_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\m2i_level2a_scheduler_v1.py --run",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1788239498000)/"
+    },
+    {
+      "Name": "APCD_MDC_FDTD_FORENSIC_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_ml_inverse_v1\\outputs\\mdc_fdtd_dipole_tmm_validation_v1\\fdtd-matrix-20260729T092000Z-602d89c69258\\forensic\\run_forensic.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785340740000)/"
+    },
+    {
+      "Name": "APCD_MDC_FDTD_MATRIX_AUTH_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_ml_inverse_v1\\outputs\\mdc_fdtd_dipole_tmm_validation_v1\\run_matrix_authorized.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785340740000)/"
+    },
+    {
+      "Name": "APCD_MDC_FDTD_REMAINING17_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_ml_inverse_v1\\outputs\\mdc_fdtd_dipole_tmm_validation_v1\\fdtd-matrix-20260729T092000Z-602d89c69258\\run_remaining17.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785340740000)/"
+    },
+    {
+      "Name": "APCD_MDC_NP_COUPLING_V1_S_ATTEMPT002_DURABLE_FDTD_20260814_1227",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/d /c \"\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\persistent_fdtd_real_task_entry_root_v1.cmd\" \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\NP_LEVEL1_S_ATTEMPT002_TASK_CONFIG.cmd\"\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786711577000)/"
+    },
+    {
+      "Name": "APCD_PaperA_LP_BalancedTruth_V1",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_paper_a_lp_cp_broadband_v1\\paper_a_broadband\\runtime\\search_anisotropy_balanced_truth_v1\\launch_balanced_truth.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787470702000)/"
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_FORENSIC_BATCH1_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+          "Arguments": "\"D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\scripts\\\\paper_a_lp_forensic_fdtd_truth_batch1_v1.py\" controller",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787047560000)/"
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_FORENSIC_BATCH1_X_ONLY",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+          "Arguments": "\"D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\scripts\\\\paper_a_lp_forensic_fdtd_truth_batch1_v1.py\" case 2",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787047860000)/"
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_P1_CONTROLLER_V2",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\reports\\\\stage_paper_a_lp_p1_native_wideband_435_465\\\\monitor\\\\run_p1_controller_v2.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786964018000)/"
+    },
+    {
+      "Name": "APCD_PAPER_A_LP_P1_MONITOR_V2",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\\\project\\\\worktrees\\\\blue_apcd_lp_global_h_manifold_v1\\\\reports\\\\stage_paper_a_lp_p1_native_wideband_435_465\\\\monitor\\\\run_p1_monitor_v2.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786949622000)/"
+    },
+    {
+      "Name": "APCD_PW_K6_SEED_DB_V1_CONTROLLER",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"N:\\\\anaconda_envs\\\\RCP_LCP\\\\python.exe\"",
+          "Arguments": "\"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\PW_K6_SEED_DB_V1_controller.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1790235714000)/"
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_875995e7",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_875995e7.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789910328000)/"
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_adf44acf",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_INTEGRATED_REFINED_adf44acf.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789910383000)/"
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_442d03d7",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_442d03d7.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789910383000)/"
+    },
+    {
+      "Name": "APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_827c3532",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\apcd_runtime\\APCD_PW_MESH_GATE_W2H_15294_NP_DERIVED_BASELINE_827c3532.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789910328000)/"
+    },
+    {
+      "Name": "APCD_RCWA_LEVEL1_ACQUISITION_DURABLE_MONITOR",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_acquisition_durable_monitor_v1.py",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786882975000)/"
+    },
+    {
+      "Name": "APCD_RCWA_LEVEL1_SINGLE_JOB_RESUME",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\rcwa_single_job_resume_attempt003.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 267014,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786827899000)/"
+    },
+    {
+      "Name": "APCD_RCWA_LEVEL1_TWO_WORKER_CONTROLLER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\rcwa_level1_two_worker_rolling_scheduler_v1.py\" --controller --sleep-seconds 600",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786877141000)/"
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_task_entry_v1.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786982340000)/"
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_001",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_recovery_001_task_entry_v1.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786982340000)/"
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_002",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_recovery_001_task_entry_v1.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786982340000)/"
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_003",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_controller_recovery_003_task_entry_v1.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786982340000)/"
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_CONTROLLER_RECOVERY_004",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\stage1_alt_np_rcwa_controller_recovery_004_task_entry_v1.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786982340000)/"
+    },
+    {
+      "Name": "APCD_RCWA_STAGE1_ALT_NP_MONITOR",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\stage1_alt_np_rcwa_monitor_task_entry_v1.cmd",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1786982340000)/"
+    },
+    {
+      "Name": "APCD_TEST_SHARED_CANARY_TMP",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd",
+          "Arguments": "/c D:\\apcd_runtime\\bin\\does_not_exist.cmd",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789967578000)/"
+    },
+    {
+      "Name": "APCD_TRADITIONAL_T6_20260920T091611Z",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T091611Z\\attempt_001\\run_host.cmd\"",
+          "Arguments": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T091611Z\\attempt_001\\host_config.j",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789895772000)/"
+    },
+    {
+      "Name": "APCD_TRADITIONAL_T6_20260920T091911Z",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T091911Z\\attempt_001\\run_host.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789895952000)/"
+    },
+    {
+      "Name": "APCD_TRADITIONAL_T6_20260920T092257Z",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\t6_canary\\TRADITIONAL_V3_INFRASTRUCTURE_CANARY_20260920T092257Z\\attempt_001\\run_host.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789896178000)/"
+    },
+    {
+      "Name": "APCD_TRADITIONAL_V3_FINAL_Z_PRODUCTION_V1_20260920T093842Z",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\fdtd_v3\\traditional\\final_z\\K6_NX5_NY3_Z\\attempt_002\\run_host.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789897122000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL5_FINISHER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final5_FINISHER.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968503000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL5_HOST",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final5_HOST.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968503000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL6_FINISHER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final6_FINISHER.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968865000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_CANARY_C1_FINAL6_HOST",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final6_HOST.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968865000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_FINISHER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final4_FINISHER.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 267014,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968355000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C1_HOST",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C1_canary_c1_final4_HOST.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 267014,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968354000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_FINAL1_FINISHER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_final1_FINISHER.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968970000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_FINAL1_HOST",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_final1_HOST.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789968958000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_V1_FINISHER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_v1_FINISHER.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789990082000)/"
+    },
+    {
+      "Name": "APCD_TRAD_SHARED_CANARY_C2_CANARY_C2_V1_HOST",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"D:\\apcd_runtime\\bin\\APCD_SHARED_C2_canary_c2_v1_HOST.cmd\"",
+          "Arguments": null,
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789990069000)/"
+    },
+    {
+      "Name": "APCD_V3_COUPLING_DISPATCHER",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\shared_fdtd\\tools\\v3_dispatcher_service.py\" --once",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(1791864660000)/",
+      "LastRunTime": "/Date(1790316241000)/"
+    },
+    {
+      "Name": "APCD_V3_COUPLING_RECONCILER",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+          "Arguments": "\"D:\\apcd_runtime\\shared_v3_backend\\01e2320ebf237bdbcd52573665520d57705d2800_gitblob\\scripts\\shared_fdtd\\tools\\v3_reconciler_service.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(1791864660000)/",
+      "LastRunTime": "/Date(1791864601000)/"
+    },
+    {
+      "Name": "APCD_V3_COUPLING_W2H06824_ATTEMPT004_HOST",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\apcd_runtime\\bin\\v3g2h.cmd",
+          "Arguments": "\"D:\\apcd_runtime\\fdtd_v3\\coupling_ml\\W2H_06824\\attempt_004\\host_config.json\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789889295000)/"
+    },
+    {
+      "Name": "APCD_V3_C_20260920T084927Z",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\apcd_runtime\\bin\\v3h.cmd",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\shared_infra\\APCD_GLOBAL_FDTD_V3_ENTERED_EXCEPTION_REAL_CANARY_V1\\runtime\\20260920T084927Z\\a1\\c.json",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789894171000)/"
+    },
+    {
+      "Name": "APCD_V3_C_20260929T200647Z",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\apcd_runtime\\bin\\v3h.cmd",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\real_infra_exception_canary_20260930_fresh\\output\\runtime\\20260929T200647Z\\a1\\c.json",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1790712410000)/"
+    },
+    {
+      "Name": "APCD_V3_C_A",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\apcd_runtime\\bin\\v3h.cmd",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\A\\a1\\c.json",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1790697367000)/"
+    },
+    {
+      "Name": "APCD_V3_C_B",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\apcd_runtime\\bin\\v3h.cmd",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\B\\a1\\c.json",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1790697367000)/"
+    },
+    {
+      "Name": "APCD_V3_C_C",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "D:\\apcd_runtime\\bin\\v3h.cmd",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_shared_v3_gpu_reliability_v1\\reports\\shared_v3\\infra_canary_deployed_20260929\\runs\\C\\a1\\c.json",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1790697587000)/"
+    },
+    {
+      "Name": "APCD_V3_PW_PLANAR_1472824360c2",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\apcd_runtime\\pw_planar_stack_host.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1789904773000)/"
+    },
+    {
+      "Name": "APCD_V3_PW_PLANAR_CURRENT_fcf861bb0617",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "C:\\Users\\DELL\\anaconda3\\pythonw.exe",
+          "Arguments": "D:\\apcd_runtime\\bin\\v3g2h.py D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_PW_PERIODIC_PLANAR_STACK_REAL_CANARY_V1\\runtime\\attempt_002\\host_config.json",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 267011,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(943891200000)/"
+    },
+    {
+      "Name": "APCD_V3_SAFE_MORNING_REPORT",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_03c0125c4a6b1e9f239a694d9052cbeb3229242a\\SAFE_MONITOR_ONCE.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\installations\\v3_identity_03c0125c4a6b1e9f239a694d9052cbeb3229242a"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(1791864833000)/",
+      "LastRunTime": "/Date(1791864234000)/"
+    },
+    {
+      "Name": "APCD_V3_ZERO_SOLVER_API_PREFLIGHT",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_s4u_native\\api_preflight.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_s4u_native"
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791715839000)/"
+    },
+    {
+      "Name": "APCD_V3_ZERO_SOLVER_API_PREFLIGHT_02",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_s4u_native_02\\api_preflight.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_s4u_native_02"
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791716589000)/"
+    },
+    {
+      "Name": "APCD_V3_ZERO_SOLVER_API_PREFLIGHT_03",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_s4u_native_03\\api_preflight.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_s4u_native_03"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791716679000)/"
+    },
+    {
+      "Name": "APCD_V3_ZERO_SOLVER_INSTALLED_NATIVE",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_installed_native\\probe.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_installed_native"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791717539000)/"
+    },
+    {
+      "Name": "APCD_V3_ZERO_SOLVER_INSTALLED_NATIVE_02",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_installed_native_02\\probe.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_installed_native_02"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791718080000)/"
+    },
+    {
+      "Name": "APCD_V3_ZERO_SOLVER_INSTALLED_NATIVE_03",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_installed_native_03\\probe.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_installed_native_03"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791719626000)/"
+    },
+    {
+      "Name": "APCD_V3_ZERO_SOLVER_SERVER_OWNED",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": false,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_server_owned\\server_fixture.py\"",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_v3_identity_recovery_20261011_v1\\zero_solver_server_owned"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1791715588000)/"
+    },
+    {
+      "Name": "APCD_ZROK_PRIVATE_SSH_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -ExecutionPolicy Bypass -File \"C:\\APCD\\remote_infra\\run_zrok_agent_system.ps1\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1790584047000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_2D3D_G1_PHASE_A_RESUME_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\apcd_coupling_2d3d_g1_matched_4case_3d_cylinder_phase_a_v1.py --execute",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789660740000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_2D3D_G1_PHASE_A_TERMINAL_CONTINUATION_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\apcd_coupling_2d3d_g1_phase_a_terminal_continuation_v1.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789725012000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_2D3D_G1_W2H_19451_WORKER_V1",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:/anaconda_envs/RCP_LCP/python.exe",
+          "Arguments": "D:/project/worktrees/blue_apcd_mdc_np_coupling_ml_v1/scripts/coupling_ml/apcd_coupling_2d3d_g1_matched_4case_3d_cylinder_phase_a_v1.py --worker W2H_19451",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789625043000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_CONTROL_PLANE_MEMORY_ACCEPTANCE_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\coupling_control_plane_memory_guard_v1.py --mode acceptance --cycles 10 --interval 5",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1787687217000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_CONTROL_PLANE_MEMORY_ACCEPTANCE_V2",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\coupling_control_plane_memory_guard_v1.py --mode acceptance --cycles 10 --interval 5",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1787198577000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_MULTITARGET_M1_CONTROLLER_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\multitarget_m1_controller_v1.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789014585000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_MULTITARGET_M1_DURABLE_MONITOR_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\multitarget_m1_monitor_v1.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 3221225786,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1788953669000)/"
+    },
+    {
+      "Name": "APCD_COUPLING_V3A_W2V_STAGE1_TWO_SLOT_CONTROLLER_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "Parallel",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\apcd_coupling_v3a_w2v_server_controller_v1.py\"",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml"
+        }
+      ],
+      "LastTaskResult": 2,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1790584108000)/"
+    },
+    {
+      "Name": "APCD_GLOBAL_SCHEDULER_V1_W2W_RESUME_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\apcd_coupling_v3a_w2w_stage1_controller_v1.py\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1789553778000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2A_CAMPAIGN_DISPATCHER_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2a_campaign_dispatcher_v1.py",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787122203000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2A_DURABLE_MONITOR_V1",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\run_level2a_monitor_v1.ps1\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1787122203000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_CONTINUATION_AFTER_Z_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py\" --mode controller",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 30,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1787162703000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_CONTROL0_X_ATTEMPT002_NONCIM_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py\" --mode case --case-id L2B_CONTROL0_CENTROID_T237_X_XY0",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 20,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787469960000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_CONTROL0_Z_ATTEMPT002_NONCIM_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "\"N:\\anaconda_envs\\RCP_LCP\\python.exe\"",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py\" --mode case --case-id L2B_CONTROL0_CENTROID_T237_Z_XY0",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787470740000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_MATCHED_PAIR_NORMALIZATION_V2_COMPLETION_RECOVERY",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\MATCHED_CONTROL0_ALT1_TOP_Z_T237_XY0_EMITTED_SOURCE_V1\\execution_v2\\level2b_matched_pair_normalization_v2_completion_recovery_monitor.py\"",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787721591000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_MATCHED_PAIR_NORMALIZATION_V2_FDTD_AUTHORIZED_RUN",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\MATCHED_CONTROL0_ALT1_TOP_Z_T237_XY0_EMITTED_SOURCE_V1\\execution_v2\\level2b_matched_pair_normalization_v2_runner.py\" --controller",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 21,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787721367000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_MINIMAL_PILOT_CONTROLLER_V1",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py\" --mode controller",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 30,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787146752000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_MINIMAL_PILOT_DURABLE_MONITOR_V1",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/c \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\run_level2b_minimal_pilot_monitor_v1.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1787154199000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_001",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_production_equivalent_app_open_smoke_v1.py\" --mode dispatcher --run-dir \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\TRADITIONAL_COUPLING_LEVEL2B_MINIMAL_SOURCE_CONDITIONED_PILOT_V1\\runtime_context_v2\\production_equivalent_smoke_001\" --smoke-id smoke_001 --task-name \"\\APCD\\Coupling\\APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_001\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787146054000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_002",
+      "State": "Disabled",
+      "Enabled": false,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_production_equivalent_app_open_smoke_v1.py\" --mode dispatcher --run-dir \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\TRADITIONAL_COUPLING_LEVEL2B_MINIMAL_SOURCE_CONDITIONED_PILOT_V1\\runtime_context_v2\\production_equivalent_smoke_002\" --smoke-id smoke_002 --task-name \"\\APCD\\Coupling\\APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_002\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787146143000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_003",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_production_equivalent_app_open_smoke_v1.py\" --mode dispatcher --run-dir \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\TRADITIONAL_COUPLING_LEVEL2B_MINIMAL_SOURCE_CONDITIONED_PILOT_V1\\runtime_context_v2\\production_equivalent_smoke_003\" --smoke-id smoke_003_fresh_control0_forensic --task-name \"\\APCD\\Coupling\\APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_003\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787164958000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_004",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_production_equivalent_app_open_smoke_v1.py\" --mode dispatcher --run-dir \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\outputs\\coupling\\TRADITIONAL_COUPLING_LEVEL2B_MINIMAL_SOURCE_CONDITIONED_PILOT_V1\\runtime_context_v2\\production_equivalent_smoke_004\" --smoke-id smoke_004_fresh_control0_forensic --task-name \"\\APCD\\Coupling\\APCD_LEVEL2B_PRODUCTION_EQUIVALENT_APP_OPEN_SMOKE_V1_004\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787165016000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_X_CANARY_ATTEMPT002_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py\" --mode case --case-id \"L2B_ALT1_CENTROID_T237_X_XY0\"",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 30,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1787158248000)/"
+    },
+    {
+      "Name": "APCD_LEVEL2B_Z_CANARY_ATTEMPT002_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "Arguments": "-u \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\level2b_minimal_pilot_controller_v1.py\" --mode case --case-id \"L2B_ALT1_CENTROID_T237_Z_XY0\"",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1"
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1787162390000)/"
+    },
+    {
+      "Name": "MATCHED_CONTROL0_ALT1_TOP_Z_T237_XY0_FDTD_EXECUTION_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "cmd.exe",
+          "Arguments": "/d /c \"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_v1\\scripts\\coupling\\run_matched_pair_emitted_source_fdtd_controller_v1.cmd\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 267014,
+      "NextRunTime": "/Date(4070880000000)/",
+      "LastRunTime": "/Date(1787477363000)/"
+    },
+    {
+      "Name": "APCD_NP_PERSISTENCE_PROBE_A2_20260726",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -ExecutionPolicy Bypass -File D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\scripts\\run_np_k6_task_scheduler_supervisor_v1.ps1 -RunDir D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\runtime_logs\\np_k6_task_scheduler_preflight_v1\\probe_a2_20260726 -Mode a",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785054869000)/"
+    },
+    {
+      "Name": "APCD_NP_PERSISTENCE_PROBE_A_20260726",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -ExecutionPolicy Bypass -File D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\scripts\\run_np_k6_task_scheduler_supervisor_v1.ps1 -RunDir D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\runtime_logs\\np_k6_task_scheduler_preflight_v1\\probe_a_20260726 -Mode a",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785054792000)/"
+    },
+    {
+      "Name": "APCD_NP_PERSISTENCE_PROBE_B_20260726_V1",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\scripts\\run_np_k6_task_scheduler_supervisor_v1.ps1\" -ManifestPath \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\runtime_logs\\np_k6_task_scheduler_preflight_v1\\probe_b_20260726_v1\\manifest.json\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785055684000)/"
+    },
+    {
+      "Name": "APCD_NP_PERSISTENCE_PROBE_B_RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\scripts\\run_np_k6_task_scheduler_supervisor_v1.ps1\" -ManifestPath \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0_n2_production_mesh_v1_corrected_monitor_contract_v1\\runtime_runs\\RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE\\attempt_001\\controller_manifest.json\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785677361000)/"
+    },
+    {
+      "Name": "APCD_NP_PERSISTENCE_PROBE_B_RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE0A",
+      "State": "Ready",
+      "Enabled": true,
+      "AllowDemandStart": true,
+      "MultipleInstances": "IgnoreNew",
+      "Actions": [
+        {
+          "Execute": "powershell.exe",
+          "Arguments": "-NoProfile -ExecutionPolicy Bypass -File \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\scripts\\run_np_k6_task_scheduler_supervisor_v1.ps1\" -ManifestPath \"D:\\project\\worktrees\\blue_apcd_np_k6_mdc_v1\\outputs\\np_k6_hf_pilot_gate0a_run3c_x_n2_v1\\runtime_runs\\RUN3C_N2_NATIVE_M1_X_PRODUCTION_GATE0A\\attempt_001\\controller_manifest.json\"",
+          "WorkingDirectory": null
+        }
+      ],
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "LastRunTime": "/Date(1785730137000)/"
+    }
+  ],
+  "running_instances": [
+    {
+      "Name": "SystemSoundsService",
+      "Path": "\\Microsoft\\Windows\\Multimedia\\SystemSoundsService",
+      "InstanceGuid": "{C7365D40-9EA4-4C9C-9EC4-18AE80863FEA}",
+      "EnginePID": 14588,
+      "CurrentAction": "Microsoft PlaySoundService Class",
+      "State": 4
+    },
+    {
+      "Name": "CacheTask",
+      "Path": "\\Microsoft\\Windows\\Wininet\\CacheTask",
+      "InstanceGuid": "{A9FBF917-88F1-4460-B4D5-282DDB0E13E6}",
+      "EnginePID": 14588,
+      "CurrentAction": "Wininet Cache task object",
+      "State": 4
+    }
+  ],
+  "processes": [
+    {
+      "ProcessId": 31848,
+      "ParentProcessId": 30336,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790605801165)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790605801.1656568,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 33824,
+      "ParentProcessId": 29236,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790605930765)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790605930.7656145,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 17436,
+      "ParentProcessId": 33316,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790606661694)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790606661.694775,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 29816,
+      "ParentProcessId": 24800,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790607268680)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790607268.6805904,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 26372,
+      "ParentProcessId": 27248,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790607301221)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790607301.2214863,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 32256,
+      "ParentProcessId": 16572,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790607349837)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790607349.8376627,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 31844,
+      "ParentProcessId": 18080,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790607404225)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790607404.2256026,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 17576,
+      "ParentProcessId": 28420,
+      "Name": "fdtd-solutions.exe",
+      "CreationDate": "/Date(1790607450810)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe\"  -server -hide \"\"",
+      "SessionId": 0,
+      "psutil": {
+        "create_time": 1790607450.8102887,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+          "-server",
+          "-hide",
+          ""
+        ]
+      }
+    },
+    {
+      "ProcessId": 43840,
+      "ParentProcessId": 6252,
+      "Name": "ansysedt.exe",
+      "CreationDate": "/Date(1791375867268)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe\" \"N:\\ZBB\\ercixiaoyan\\culue100\\quancaiduidie100um.aedt\"",
+      "SessionId": 1,
+      "psutil": {
+        "create_time": 1791375867.268767,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+          "N:\\ZBB\\ercixiaoyan\\culue100\\quancaiduidie100um.aedt"
+        ]
+      }
+    },
+    {
+      "ProcessId": 43460,
+      "ParentProcessId": 6252,
+      "Name": "ansysedt.exe",
+      "CreationDate": "/Date(1791385063655)/",
+      "CommandLine": "\"N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe\" \"N:\\ZBB\\ercixiaoyan\\culue100\\quancaiduidie100um jingangshitop1.aedt\"",
+      "SessionId": 1,
+      "psutil": {
+        "create_time": 1791385063.6554282,
+        "username": "DESKTOP-NNE313K\\DELL",
+        "status": "running",
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "cmdline": [
+          "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+          "N:\\ZBB\\ercixiaoyan\\culue100\\quancaiduidie100um jingangshitop1.aedt"
+        ]
+      }
+    }
+  ],
+  "slot": [
+    {
+      "id": 1,
+      "generation": 95,
+      "token": null,
+      "owner": null,
+      "request_sha": null
+    }
+  ],
+  "states": [
+    {
+      "state": "TRUTH_VALID",
+      "entered": 1,
+      "count": 94
+    }
+  ],
+  "tables": [
+    "tasks",
+    "slot",
+    "events",
+    "sqlite_sequence"
+  ],
+  "installed_root": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a",
+  "installed_files": [
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\.gitignore",
+      "sha256": "7d5e464b3c1389d7ea7243dcf05d1dc9db2950a22ab2a822472bfd26450e1024",
+      "expected": "7d5e464b3c1389d7ea7243dcf05d1dc9db2950a22ab2a822472bfd26450e1024",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\README.md",
+      "sha256": "00ff578c3435d38b9fb5d4c9a42c8b8840abb4528c0cfca9478d5f4706fdcef1",
+      "expected": "00ff578c3435d38b9fb5d4c9a42c8b8840abb4528c0cfca9478d5f4706fdcef1",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\V3_CONTINUATION.md",
+      "sha256": "dc841316a2c3aeaa0cc597887a4a7c7b12ea3af621218a7e1c36a768cf5f6578",
+      "expected": "dc841316a2c3aeaa0cc597887a4a7c7b12ea3af621218a7e1c36a768cf5f6578",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\__init__.py",
+      "sha256": "c4603291bd97a6f424ae7517dc9c1573147aa52ae32086f35093683928b99f75",
+      "expected": "c4603291bd97a6f424ae7517dc9c1573147aa52ae32086f35093683928b99f75",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\__main__.py",
+      "sha256": "ff18fe568926b40ca427f1f71735c2f178d5ac0a96c3260690b5ec8c6170606d",
+      "expected": "ff18fe568926b40ca427f1f71735c2f178d5ac0a96c3260690b5ec8c6170606d",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\artifacts.py",
+      "sha256": "3b95f7d8ca7d1424885ea3335ef196786ae50d4d2762402aa3dfa70231cdb131",
+      "expected": "3b95f7d8ca7d1424885ea3335ef196786ae50d4d2762402aa3dfa70231cdb131",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\config.py",
+      "sha256": "1316f29351c55a6d34243ba52ba707912481242f15aeb05cbd343a804bb5443b",
+      "expected": "1316f29351c55a6d34243ba52ba707912481242f15aeb05cbd343a804bb5443b",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\coupling.py",
+      "sha256": "74aaaa1fc9017d40efaeb282718e239bf57674c2f13aacb80d5062db540cc8bf",
+      "expected": "74aaaa1fc9017d40efaeb282718e239bf57674c2f13aacb80d5062db540cc8bf",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\cutover_gate.py",
+      "sha256": "9ed0d322420577897656637cc7df8c4694a49376cc412b4b66db1755b43d5a2b",
+      "expected": "9ed0d322420577897656637cc7df8c4694a49376cc412b4b66db1755b43d5a2b",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\gpu_readonly.py",
+      "sha256": "8b37281e6cc6a973af64c9770de3d4952b98f68f2b4d527ee650277e0b65943f",
+      "expected": "8b37281e6cc6a973af64c9770de3d4952b98f68f2b4d527ee650277e0b65943f",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\ledger.py",
+      "sha256": "dd191f594bb675fc9ac9514acd71f96c72b11db2d5e83aff119258a123de3370",
+      "expected": "dd191f594bb675fc9ac9514acd71f96c72b11db2d5e83aff119258a123de3370",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\native.py",
+      "sha256": "43ce56ef85b728739325e0b375359b6bd9dc653bd65a65bb7860e4fc4dd3bd33",
+      "expected": "43ce56ef85b728739325e0b375359b6bd9dc653bd65a65bb7860e4fc4dd3bd33",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\native_readonly.py",
+      "sha256": "62e3868866754924f1cfd3fee0be13fa37f1bd23f6f2478adae8bbbaa4317f10",
+      "expected": "62e3868866754924f1cfd3fee0be13fa37f1bd23f6f2478adae8bbbaa4317f10",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\preentry.py",
+      "sha256": "d64ad000ce8ac56b119c0ee07027db7786b42adcab9a51b95b503ac55d6ed0ba",
+      "expected": "d64ad000ce8ac56b119c0ee07027db7786b42adcab9a51b95b503ac55d6ed0ba",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\processes.py",
+      "sha256": "ad99b1eaf117dd106682e430739e513e7ed0c0d62cafad60ebef6da7ac077196",
+      "expected": "ad99b1eaf117dd106682e430739e513e7ed0c0d62cafad60ebef6da7ac077196",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\science\\PROVENANCE.json",
+      "sha256": "cd360be7ac09c08195a6222e077baeb837af0a766b82136a478e8968fb6b359e",
+      "expected": "cd360be7ac09c08195a6222e077baeb837af0a766b82136a478e8968fb6b359e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\science\\__init__.py",
+      "sha256": "452360c8701c4fdfbf69bec5cdd842c45beb4d8a5f8b573c38c829e622aa85b5",
+      "expected": "452360c8701c4fdfbf69bec5cdd842c45beb4d8a5f8b573c38c829e622aa85b5",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\science\\mdc_tmm_complex_incident_power_v1.py",
+      "sha256": "12d2d95bd99fc6e18fec9ac17ab066a5a1fc4a3ddf1a6e5a8c0a625da959ff4b",
+      "expected": "12d2d95bd99fc6e18fec9ac17ab066a5a1fc4a3ddf1a6e5a8c0a625da959ff4b",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\science\\postprocess.py",
+      "sha256": "daf4086d05fed62cd94306371ca889084b366a04bd04eab2870268e2d8320d86",
+      "expected": "daf4086d05fed62cd94306371ca889084b366a04bd04eab2870268e2d8320d86",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\science\\pw_complex_floquet_state_v1.py",
+      "sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+      "expected": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\serial.py",
+      "sha256": "5d21863f956781debd09b826d55ed5365fa754299702d89709f50178d873e1a2",
+      "expected": "5d21863f956781debd09b826d55ed5365fa754299702d89709f50178d873e1a2",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\v3.py",
+      "sha256": "92e933cf20f08976607c16198cf6e07c3999fb4709f688dc501b6ee4f52cb633",
+      "expected": "92e933cf20f08976607c16198cf6e07c3999fb4709f688dc501b6ee4f52cb633",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\v3_identity.py",
+      "sha256": "5c386ab3ce846b3880bbb6843f08ddd9b6ac9e89f57ea80c2a1c16fd8e32bfff",
+      "expected": "5c386ab3ce846b3880bbb6843f08ddd9b6ac9e89f57ea80c2a1c16fd8e32bfff",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\v3_plan.py",
+      "sha256": "3a43cacee7f40d3f775035de67ede804e7afd717f87bf33d4e51cbf03520744e",
+      "expected": "3a43cacee7f40d3f775035de67ede804e7afd717f87bf33d4e51cbf03520744e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\apcd_gpu_v2\\worker.py",
+      "sha256": "d5559de967f742158cd7150faed9e4e6b85ff0db712ad2acaa6fb46490b5a5cc",
+      "expected": "d5559de967f742158cd7150faed9e4e6b85ff0db712ad2acaa6fb46490b5a5cc",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\CONFLICT_AUDIT_AND_DECISION.md",
+      "sha256": "be5d68a2016609f649ef0638fccc334696610910b46caff8ee80e903195d9667",
+      "expected": "be5d68a2016609f649ef0638fccc334696610910b46caff8ee80e903195d9667",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\CUTOVER_READINESS_TRANSACTION_V1.md",
+      "sha256": "6231e98464c6c97b7fdb7c2d449d0ebf5888e70da2ee90eec90dc379290a5707",
+      "expected": "6231e98464c6c97b7fdb7c2d449d0ebf5888e70da2ee90eec90dc379290a5707",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\CUTOVER_TRANSACTION_DRAFT_V1.md",
+      "sha256": "75787962f11aa3de34dca10482af3e27e6203cc43b0510532157687bd47acf85",
+      "expected": "75787962f11aa3de34dca10482af3e27e6203cc43b0510532157687bd47acf85",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\FDTD_MCP_PROCESS_OWNERSHIP_REVIEW_V1.md",
+      "sha256": "823742d377336fcfaef9bf360ca368c58e466ba00b2c2b9aed0128683997a907",
+      "expected": "823742d377336fcfaef9bf360ca368c58e466ba00b2c2b9aed0128683997a907",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\GPU_PLATFORM_AGENT_CONTEXT_V1.md",
+      "sha256": "14340467feabbd5ecbb8f933ca35695ce9842ca66f0b4910b551bb0cab9b90f4",
+      "expected": "14340467feabbd5ecbb8f933ca35695ce9842ca66f0b4910b551bb0cab9b90f4",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\NATIVE_ACCEPTANCE_DECISION_V1.md",
+      "sha256": "93517bfeab4d7649f6ab1769a9cd079572538756bde8618ac0dd9f0ecab0e34a",
+      "expected": "93517bfeab4d7649f6ab1769a9cd079572538756bde8618ac0dd9f0ecab0e34a",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\SERIAL_PRODUCTION_CONTINUATION_V1.md",
+      "sha256": "cab79728331f103074abd5a662b3d21dcd7064f2932476b4f8691308cd18b096",
+      "expected": "cab79728331f103074abd5a662b3d21dcd7064f2932476b4f8691308cd18b096",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\docs\\UNKNOWN_PROCESS_CLOSURE_DECISION_V1.md",
+      "sha256": "2a693a2bcde268887170426db4edf55a36ef90aaf92e3954172ce157cc57c71f",
+      "expected": "2a693a2bcde268887170426db4edf55a36ef90aaf92e3954172ce157cc57c71f",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\pytest.ini",
+      "sha256": "43acbf114b66bc5e049b20e0e3b95e98cfd99c3a02db23cf43ed0926041c7107",
+      "expected": "43acbf114b66bc5e049b20e0e3b95e98cfd99c3a02db23cf43ed0926041c7107",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\acceptance_summary.json",
+      "sha256": "afbd098083f7acd256f36d12f78eff9560e4bcb0516b6bfae4727095c36ab997",
+      "expected": "afbd098083f7acd256f36d12f78eff9560e4bcb0516b6bfae4727095c36ab997",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\cli_audit.json",
+      "sha256": "756a7c41f2d89d8e8af1dbeac98eefdefad2c9d5acdfe98ee0efb1fde0cf1bbb",
+      "expected": "756a7c41f2d89d8e8af1dbeac98eefdefad2c9d5acdfe98ee0efb1fde0cf1bbb",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\cli_duplicate_refusal.json",
+      "sha256": "d849a5bd9b11c797915a2822c34a5f71ae6ae26a37e90adba3c75532ea99d00a",
+      "expected": "d849a5bd9b11c797915a2822c34a5f71ae6ae26a37e90adba3c75532ea99d00a",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\cli_run-fixture.json",
+      "sha256": "756a7c41f2d89d8e8af1dbeac98eefdefad2c9d5acdfe98ee0efb1fde0cf1bbb",
+      "expected": "756a7c41f2d89d8e8af1dbeac98eefdefad2c9d5acdfe98ee0efb1fde0cf1bbb",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\coupling_compatibility.json",
+      "sha256": "4adf870c4dffb2bdd60a19bcf0975ba0354841e4ac4eb7cb91183276bb0eaa6d",
+      "expected": "4adf870c4dffb2bdd60a19bcf0975ba0354841e4ac4eb7cb91183276bb0eaa6d",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\final_evidence.json",
+      "sha256": "dbb9c15ce45b82630224cafd7bba43f912aee9899f5b6d02ca2d3b82af2c4574",
+      "expected": "dbb9c15ce45b82630224cafd7bba43f912aee9899f5b6d02ca2d3b82af2c4574",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\formal_config_inventory.json",
+      "sha256": "b8f0e04514d82d198067fca32e7ea446b29553e1f84647b869640fba8113abd9",
+      "expected": "b8f0e04514d82d198067fca32e7ea446b29553e1f84647b869640fba8113abd9",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\g027_preentry_token_recovery_v1\\DECISION.md",
+      "sha256": "d26aa148f505a71a86b0b64c7b09ba215977576c9817e79417b950ba54bc4271",
+      "expected": "d26aa148f505a71a86b0b64c7b09ba215977576c9817e79417b950ba54bc4271",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\g027_preentry_token_recovery_v1\\POSTSOLVER_DEPENDENCY_REPAIR.md",
+      "sha256": "034c81ca2641510634657baa5c9d4e5887048e812a9ede6ec0a950ff5d04089e",
+      "expected": "034c81ca2641510634657baa5c9d4e5887048e812a9ede6ec0a950ff5d04089e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\historical_license_preflight.json",
+      "sha256": "2c399c0040a6d7eb0910cc18ebc6343ce95d002d0bd83c923ebd49db43a60e43",
+      "expected": "2c399c0040a6d7eb0910cc18ebc6343ce95d002d0bd83c923ebd49db43a60e43",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\installed_controller_readback.json",
+      "sha256": "1981299bfebc33fd708cc21e0b47e5fcd9cb518d3876271e8bb2fcfc89e52e8c",
+      "expected": "1981299bfebc33fd708cc21e0b47e5fcd9cb518d3876271e8bb2fcfc89e52e8c",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\DECISION.md",
+      "sha256": "71f6af32feb8c610cd6ead829071e9cc2926998c3dd75e3fe61d3263a8050aa7",
+      "expected": "71f6af32feb8c610cd6ead829071e9cc2926998c3dd75e3fe61d3263a8050aa7",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\PROCESS_GROUPS.md",
+      "sha256": "a0f5cb57274b7478a71629a0a48e3e936c621adadef41ad44926823b9fd24d60",
+      "expected": "a0f5cb57274b7478a71629a0a48e3e936c621adadef41ad44926823b9fd24d60",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\SHA256SUMS.txt",
+      "sha256": "0103089d3199982bc1555cee6fea879da3e00e792cc87b3c0d2443a6f934508d",
+      "expected": "0103089d3199982bc1555cee6fea879da3e00e792cc87b3c0d2443a6f934508d",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\control_readback.json",
+      "sha256": "8c35af61b127793b2fa3e33fdf34103112fbef414bbd44ecead77b746a913c19",
+      "expected": "8c35af61b127793b2fa3e33fdf34103112fbef414bbd44ecead77b746a913c19",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\engineering_fixes.json",
+      "sha256": "18ada35d37c0290368d2265549b97d9e767cd8f5a0992b4fa537c83db2277dc7",
+      "expected": "18ada35d37c0290368d2265549b97d9e767cd8f5a0992b4fa537c83db2277dc7",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\entry_paths.json",
+      "sha256": "ecb9bc97f19416f86f8753b1ce6da6266ae8e7ae3282473e5399342a05d6236d",
+      "expected": "ecb9bc97f19416f86f8753b1ce6da6266ae8e7ae3282473e5399342a05d6236d",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\fence_shadow.py",
+      "sha256": "98518a67805280e9bf9957143408408009e0e74ab25796996c19a72c50d4901c",
+      "expected": "98518a67805280e9bf9957143408408009e0e74ab25796996c19a72c50d4901c",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\fence_stage_xml.py",
+      "sha256": "05cf55a28153e93dd87914f6f7bde2b290ace5bf969b21cc14c58072d9b9755d",
+      "expected": "05cf55a28153e93dd87914f6f7bde2b290ace5bf969b21cc14c58072d9b9755d",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\fence_transaction.json",
+      "sha256": "adc2137ffce092d30389361147d98d6798dd89755b1eac84227863e878fde116",
+      "expected": "adc2137ffce092d30389361147d98d6798dd89755b1eac84227863e878fde116",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\process_groups.json",
+      "sha256": "98ddc3ace119f54ae46e4813374bcec8baa0e2cbadc92d140d4e3f81ab75ddf0",
+      "expected": "98ddc3ace119f54ae46e4813374bcec8baa0e2cbadc92d140d4e3f81ab75ddf0",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\runtime_evidence_manifest.json",
+      "sha256": "8e21c4f46aa783ad831f221e1fc495f1b734e91bb37577ff99d2c42e1592a97a",
+      "expected": "8e21c4f46aa783ad831f221e1fc495f1b734e91bb37577ff99d2c42e1592a97a",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\scheduler_staging.json",
+      "sha256": "ef51a2f884a4d9afa079adc980ac0c82caab8deb1c9d3131a5e52326085f1135",
+      "expected": "ef51a2f884a4d9afa079adc980ac0c82caab8deb1c9d3131a5e52326085f1135",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\scheduler_xml\\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER.disabled.xml",
+      "sha256": "70ae4f131bfaecdbe95da6b7aceb1a1b89e83bd40f9c0f50e750af022dc1234a",
+      "expected": "70ae4f131bfaecdbe95da6b7aceb1a1b89e83bd40f9c0f50e750af022dc1234a",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\scheduler_xml\\APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER.xml",
+      "sha256": "b262c4007eeaa7a7975c1d401da7140773c9dfa3448de4a91b97ae0208b50b84",
+      "expected": "b262c4007eeaa7a7975c1d401da7140773c9dfa3448de4a91b97ae0208b50b84",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\scheduler_xml\\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER.disabled.xml",
+      "sha256": "dae5cc412797769d0780f480eb2a3ce4a1298f9eb6995e402b7feb3916b8f905",
+      "expected": "dae5cc412797769d0780f480eb2a3ce4a1298f9eb6995e402b7feb3916b8f905",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\scheduler_xml\\APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER.xml",
+      "sha256": "97d5157fd719ece9dcd3a82eda3e149787648a5cb93aaf3785a722d491223910",
+      "expected": "97d5157fd719ece9dcd3a82eda3e149787648a5cb93aaf3785a722d491223910",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\scope_api_validation.json",
+      "sha256": "7af0fd13c9d334b5474a671522552de831ea8602c0cbf7921695e04b906ab5dc",
+      "expected": "7af0fd13c9d334b5474a671522552de831ea8602c0cbf7921695e04b906ab5dc",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\legacy_ingress_fence_v1\\verification.json",
+      "sha256": "489324d70ee187842bd2579be67ce177d969d255e06e961fa792262ae37b5dea",
+      "expected": "489324d70ee187842bd2579be67ce177d969d255e06e961fa792262ae37b5dea",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\lint.json",
+      "sha256": "240935cb0594ae802f2ee94ad8d3b757ef40fd8fc923de854cd910dc1794391a",
+      "expected": "240935cb0594ae802f2ee94ad8d3b757ef40fd8fc923de854cd910dc1794391a",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\acceptance_summary.json",
+      "sha256": "32e62c670c60208936b506f28dfc01eddf575ab36293bcc2cc9d29198e2c07e0",
+      "expected": "32e62c670c60208936b506f28dfc01eddf575ab36293bcc2cc9d29198e2c07e0",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\baseline_git.json",
+      "sha256": "e6a3765c78f237d67ee26db48be1e184df9451b631252ef91d0f21baa0f7ad0e",
+      "expected": "e6a3765c78f237d67ee26db48be1e184df9451b631252ef91d0f21baa0f7ad0e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\g025_actual_importer.json",
+      "sha256": "6d2c8c2e6e915df3cd3f02895104d33d58ffb128efc241b18751609014a35595",
+      "expected": "6d2c8c2e6e915df3cd3f02895104d33d58ffb128efc241b18751609014a35595",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\g025_initial_load_read_error.json",
+      "sha256": "cfee5a20f4571989a14e8f0f3601059bd70144c53a89033645a7a0e8bb0e80a3",
+      "expected": "cfee5a20f4571989a14e8f0f3601059bd70144c53a89033645a7a0e8bb0e80a3",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\g025_native_load.json",
+      "sha256": "5457de5f46b930ca0de2d77d2323ba2e81c87783862035083f65202a41a5a9b5",
+      "expected": "5457de5f46b930ca0de2d77d2323ba2e81c87783862035083f65202a41a5a9b5",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\g027_exact_systemcheck.json",
+      "sha256": "3a17f84c0a9f8b0474cd1d2f8db3c00dea51e01cea54b94cb8aff87bf71e7a01",
+      "expected": "3a17f84c0a9f8b0474cd1d2f8db3c00dea51e01cea54b94cb8aff87bf71e7a01",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\license_scope.json",
+      "sha256": "bafc99c5677712d8f08544db285e09bd8d1ad33b9df344bc4a7ecfc0b49f1039",
+      "expected": "bafc99c5677712d8f08544db285e09bd8d1ad33b9df344bc4a7ecfc0b49f1039",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\native_staging.json",
+      "sha256": "fe32f88ec3ffb3c826cbee2d607e8c49bb9f8317528108c889ab53cd51f82e15",
+      "expected": "fe32f88ec3ffb3c826cbee2d607e8c49bb9f8317528108c889ab53cd51f82e15",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\p0_owner_isolation.json",
+      "sha256": "b0c199ca668cf820de63ceeb8c60abf52931cfdfe56f75b0f91e125b57ab596e",
+      "expected": "b0c199ca668cf820de63ceeb8c60abf52931cfdfe56f75b0f91e125b57ab596e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\real_native_exception_close.json",
+      "sha256": "6c28291f979347a666fde80602afa478b012487966b4970796b2b44711dabc58",
+      "expected": "6c28291f979347a666fde80602afa478b012487966b4970796b2b44711dabc58",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\regression.txt",
+      "sha256": "e6951506a4fe9d69b60cc33c21b36396f5fa60adefaf675f1413df80b6793e38",
+      "expected": "e6951506a4fe9d69b60cc33c21b36396f5fa60adefaf675f1413df80b6793e38",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\regression_junit.xml",
+      "sha256": "66f1fa1f2883ed41a840d97435e9baa9152335645d292a8e98e5a2d98cfcc3f2",
+      "expected": "66f1fa1f2883ed41a840d97435e9baa9152335645d292a8e98e5a2d98cfcc3f2",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\ssh_detached_fixture.json",
+      "sha256": "f86f0ad639fdf927a525e389e66187754cd5570b6b710c5bb6b6bb2363f58d94",
+      "expected": "f86f0ad639fdf927a525e389e66187754cd5570b6b710c5bb6b6bb2363f58d94",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\native_acceptance_v1\\ssh_plain_detach_failed.json",
+      "sha256": "77ec72a6440b5330b7d74d35c121d73104b6154ac179a94a975d601dd55cb33c",
+      "expected": "77ec72a6440b5330b7d74d35c121d73104b6154ac179a94a975d601dd55cb33c",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\offline_junit.xml",
+      "sha256": "bf934372a69086d883d7f7fa402259bc654d495e2b5bed20365158979080b2ed",
+      "expected": "bf934372a69086d883d7f7fa402259bc654d495e2b5bed20365158979080b2ed",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\pytest.txt",
+      "sha256": "b4a5d5d55ab1bf64eb8b727ba2419501bbb3ca95ed0195db5af94743aedd7809",
+      "expected": "b4a5d5d55ab1bf64eb8b727ba2419501bbb3ca95ed0195db5af94743aedd7809",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\real_g025_pair_audit.json",
+      "sha256": "3b3d4928b6fd1da55ff34a0454a60d9935c6f61da0452d1933e4a29ed4d2a9cf",
+      "expected": "3b3d4928b6fd1da55ff34a0454a60d9935c6f61da0452d1933e4a29ed4d2a9cf",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\resource_summary.json",
+      "sha256": "db9ec692b0ed4761176c32b5b80f53dfa1c8302fbff70de92627083a067724df",
+      "expected": "db9ec692b0ed4761176c32b5b80f53dfa1c8302fbff70de92627083a067724df",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\self_marker_reproduction.json",
+      "sha256": "d7e88064245fde7ab4798c3b1703427cde4971dfdb480064f2fc6bb396b2baeb",
+      "expected": "d7e88064245fde7ab4798c3b1703427cde4971dfdb480064f2fc6bb396b2baeb",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\DECISION.md",
+      "sha256": "4bdf79c3d7fa3fd91213dd5943942214000d96dd4a86f4b142168f9fcbc184ae",
+      "expected": "4bdf79c3d7fa3fd91213dd5943942214000d96dd4a86f4b142168f9fcbc184ae",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\READBACK.json",
+      "sha256": "3cf03908794f7247ab129768cf14cb4f568491410a193b521915cdf6af182257",
+      "expected": "3cf03908794f7247ab129768cf14cb4f568491410a193b521915cdf6af182257",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\SAFETY_RECEIPT.json",
+      "sha256": "3fe3048d0c6a224148c0ebdd92b985b5587bcf1c20c8c8f48c4a3d9f14aea1a6",
+      "expected": "3fe3048d0c6a224148c0ebdd92b985b5587bcf1c20c8c8f48c4a3d9f14aea1a6",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\SHA256SUMS.json",
+      "sha256": "ab181d5a3f17a267c348237803239359957210b67ad7fd6d9959a7c465c50de8",
+      "expected": "ab181d5a3f17a267c348237803239359957210b67ad7fd6d9959a7c465c50de8",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\SOURCE_SHA256.json",
+      "sha256": "f4e70c3fc8a80bd85941989b88499cbd3d781ab9dbfaa731390f4b3e90ace943",
+      "expected": "f4e70c3fc8a80bd85941989b88499cbd3d781ab9dbfaa731390f4b3e90ace943",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\TEST_RESULTS.json",
+      "sha256": "a9b96ea6b5c85b4a289f16ae8118fdf286430c3316f439858387a1d34b642fb3",
+      "expected": "a9b96ea6b5c85b4a289f16ae8118fdf286430c3316f439858387a1d34b642fb3",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\pytest.xml",
+      "sha256": "5f944ec44db62bd3aee2a81594b8ba2b36e583145eb75ec1d85c5db85276c5f6",
+      "expected": "5f944ec44db62bd3aee2a81594b8ba2b36e583145eb75ec1d85c5db85276c5f6",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\serial_production_v1\\retirement_target_binding.json",
+      "sha256": "9961d08dcdfbd06efd20de9295e0c89b199a13b919a5d54f3fd35194831ac808",
+      "expected": "9961d08dcdfbd06efd20de9295e0c89b199a13b919a5d54f3fd35194831ac808",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\closure_summary.json",
+      "sha256": "f397feacbfa46d425565e589a16743f9f9e52ee8d95919a3088db1eda4136b57",
+      "expected": "f397feacbfa46d425565e589a16743f9f9e52ee8d95919a3088db1eda4136b57",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\event_and_license_evidence.json",
+      "sha256": "221756c3f1bdaabdbf5c724bd8125911fa5084b1d2374a3bebde20966f6faa11",
+      "expected": "221756c3f1bdaabdbf5c724bd8125911fa5084b1d2374a3bebde20966f6faa11",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\fdtd_mcp_source_manifest.json",
+      "sha256": "3c82c718146b182213ac507f17f834bc1be5794e234016e83e882c85ac11b408",
+      "expected": "3c82c718146b182213ac507f17f834bc1be5794e234016e83e882c85ac11b408",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\private_evidence_manifest.json",
+      "sha256": "e2ca048d43759dd227e9fa152433be55579dad2812c0583b075e9f707a3615b3",
+      "expected": "e2ca048d43759dd227e9fa152433be55579dad2812c0583b075e9f707a3615b3",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\process_evidence_16.csv",
+      "sha256": "aecf22bf3f9265b99d4272cf8b5eb165ade507aa51eee44a74b200d6860f07d8",
+      "expected": "aecf22bf3f9265b99d4272cf8b5eb165ade507aa51eee44a74b200d6860f07d8",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\process_evidence_16.json",
+      "sha256": "dd17f801f7a6442e89874cc3abd1d15da59a3c8bbd775d266e61ce381227712b",
+      "expected": "dd17f801f7a6442e89874cc3abd1d15da59a3c8bbd775d266e61ce381227712b",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\qualification_readonly.json",
+      "sha256": "e3aceffb1c4d1c6f24f6528c715d8311d29829ee3749071865e0ad7de09f125e",
+      "expected": "e3aceffb1c4d1c6f24f6528c715d8311d29829ee3749071865e0ad7de09f125e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\regression.txt",
+      "sha256": "df888c9525c2e2d86da369fd586b01c3b5c810f42e14af504e833a8b4df363d8",
+      "expected": "df888c9525c2e2d86da369fd586b01c3b5c810f42e14af504e833a8b4df363d8",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\regression_junit.xml",
+      "sha256": "9c4d08648f9f308e8a99506bcab48b5d41d6d1c692a02851970e6c968f885eda",
+      "expected": "9c4d08648f9f308e8a99506bcab48b5d41d6d1c692a02851970e6c968f885eda",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\snapshot_1_curated.json",
+      "sha256": "ee7da91a579ce55cdedba53403420e3a10b4adc404d1de1185f7bd4b235e00d0",
+      "expected": "ee7da91a579ce55cdedba53403420e3a10b4adc404d1de1185f7bd4b235e00d0",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\snapshot_2_curated.json",
+      "sha256": "a411d2379a4591133e33a40bd03ab5b26c50d1a525e8d865663fd552e658ed8c",
+      "expected": "a411d2379a4591133e33a40bd03ab5b26c50d1a525e8d865663fd552e658ed8c",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\stdin_18936_descendant.json",
+      "sha256": "b1f3df0bec2f16eec030356134ed5cde7e1fcaf7c90701c96c9e9a65066ea40e",
+      "expected": "b1f3df0bec2f16eec030356134ed5cde7e1fcaf7c90701c96c9e9a65066ea40e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\unknown_closure_v1\\task_demand_start_readback.json",
+      "sha256": "fe43984975553ed931667d19ca96f0079bab9c371f176cf06d587d62cbe3e623",
+      "expected": "fe43984975553ed931667d19ca96f0079bab9c371f176cf06d587d62cbe3e623",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\worker_request_4168f60324ec723566e7193c58810024.json",
+      "sha256": "5f9238bed83eabdebe098185417f64738a4cccb33dd1a15a8cdd76e5bff599fb",
+      "expected": "5f9238bed83eabdebe098185417f64738a4cccb33dd1a15a8cdd76e5bff599fb",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\reports\\worker_request_c8616f548daff61ce04bbca6c4f3cac5.json",
+      "sha256": "2d9829b734ca3a00f9c7e45e477a3c34c2925e1786f55609d2c480c00c6a1066",
+      "expected": "2d9829b734ca3a00f9c7e45e477a3c34c2925e1786f55609d2c480c00c6a1066",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\requirements-offline.txt",
+      "sha256": "7e3001524666f447786aad0b17d4b9b1a742974721e54954b66b4748f0551d37",
+      "expected": "7e3001524666f447786aad0b17d4b9b1a742974721e54954b66b4748f0551d37",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_cutover_gate.py",
+      "sha256": "46ec745b2854c3ce10ce86e1ece23bb76dbebae3b6190fa40a45cc5aa5c3aa35",
+      "expected": "46ec745b2854c3ce10ce86e1ece23bb76dbebae3b6190fa40a45cc5aa5c3aa35",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_gpu_readonly.py",
+      "sha256": "b7f1432935581fb1e94d07cc5b5ec0e17011dcf8938015404d24c2524363a82e",
+      "expected": "b7f1432935581fb1e94d07cc5b5ec0e17011dcf8938015404d24c2524363a82e",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_incident_power_dependency.py",
+      "sha256": "b8f96075f3df3d38d815108f73d8a17a316c5c2b020c6b69161e6e3ae07e81a5",
+      "expected": "b8f96075f3df3d38d815108f73d8a17a316c5c2b020c6b69161e6e3ae07e81a5",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_mvp.py",
+      "sha256": "faf6b86987e4d9271833812a27c4ed36e0ef3638fb88544cb643f6c473554100",
+      "expected": "faf6b86987e4d9271833812a27c4ed36e0ef3638fb88544cb643f6c473554100",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_native_acceptance.py",
+      "sha256": "4976736be79089c02830f7e687d87ed9d7ed6a277a2982ff8d717992c968f258",
+      "expected": "4976736be79089c02830f7e687d87ed9d7ed6a277a2982ff8d717992c968f258",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_preentry_rebind.py",
+      "sha256": "53cff2e69289548c65eb2c4719be42969358a6739b1e8c4eee0338f01cefed25",
+      "expected": "53cff2e69289548c65eb2c4719be42969358a6739b1e8c4eee0338f01cefed25",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_process_ownership_evidence.py",
+      "sha256": "168537c62cadbbfbf4b04b3f11f7867eb0767fdf3d698f1c14e9859060c9529a",
+      "expected": "168537c62cadbbfbf4b04b3f11f7867eb0767fdf3d698f1c14e9859060c9529a",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_serial.py",
+      "sha256": "cc15f3201eb025a0f67af995896f355abdf31ebacbeb325d7ba05aecd9cdfac2",
+      "expected": "cc15f3201eb025a0f67af995896f355abdf31ebacbeb325d7ba05aecd9cdfac2",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_v3_plan.py",
+      "sha256": "92539e42b3150953eeac88c6769a75c20c31e609458cf569495af6c5d9035535",
+      "expected": "92539e42b3150953eeac88c6769a75c20c31e609458cf569495af6c5d9035535",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tests\\test_v3_registered.py",
+      "sha256": "dd438723be0d72dce271be7d02892493091884b8c2892fad332cf8d44dd34c84",
+      "expected": "dd438723be0d72dce271be7d02892493091884b8c2892fad332cf8d44dd34c84",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\native_acceptance\\g025_load_and_importer.py",
+      "sha256": "0b3dff4a19cdb1c6fc0461a9d04e051635d5f7915f47c44ca842fa659704c8f0",
+      "expected": "0b3dff4a19cdb1c6fc0461a9d04e051635d5f7915f47c44ca842fa659704c8f0",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\native_acceptance\\g027_systemcheck_and_license.py",
+      "sha256": "02980671d1273cd5ad2f51a777d441f256bffcbff72d56993ccf4a33e207c916",
+      "expected": "02980671d1273cd5ad2f51a777d441f256bffcbff72d56993ccf4a33e207c916",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\native_acceptance\\launch_offline_wmi_fixture.py",
+      "sha256": "3320134d755a6936102074c1944b106c050138985e4974f5f700c99cb34be4a6",
+      "expected": "3320134d755a6936102074c1944b106c050138985e4974f5f700c99cb34be4a6",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\native_acceptance\\p0_collect.py",
+      "sha256": "b6279dfc99f02e9a44c0b10a4f618d6bf55d73e632201cd0f5a5a0a77ce8cf7f",
+      "expected": "b6279dfc99f02e9a44c0b10a4f618d6bf55d73e632201cd0f5a5a0a77ce8cf7f",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\native_acceptance\\p0_finalize.py",
+      "sha256": "adbcc55f978ab62d67a231df1dd82dc04108bec4ae12930e1a030c7fb98f543d",
+      "expected": "adbcc55f978ab62d67a231df1dd82dc04108bec4ae12930e1a030c7fb98f543d",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\native_acceptance\\real_exception_close.py",
+      "sha256": "3b8b5ea6c60b7b668cce6480e9b411c190b0b4cdb55b3cb4038f0f6705d19418",
+      "expected": "3b8b5ea6c60b7b668cce6480e9b411c190b0b4cdb55b3cb4038f0f6705d19418",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\native_acceptance\\verify_offline_wmi_fixture.py",
+      "sha256": "537cdad427fad55acd790d76e30016cea0c69b571177bc209a2f6b9edd35cc94",
+      "expected": "537cdad427fad55acd790d76e30016cea0c69b571177bc209a2f6b9edd35cc94",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\process_ownership_evidence.py",
+      "sha256": "4ab5923cadb526273205d416abac1cbe4bd5fcb6240c31407e592b9d588cbde9",
+      "expected": "4ab5923cadb526273205d416abac1cbe4bd5fcb6240c31407e592b9d588cbde9",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\reproduce_v1_self_markers_readonly.py",
+      "sha256": "27bd568dd6e96785e1b1f87fa1baf7f6a6799b1b578a9b9d53f90b6f06398114",
+      "expected": "27bd568dd6e96785e1b1f87fa1baf7f6a6799b1b578a9b9d53f90b6f06398114",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\serial_controller.py",
+      "sha256": "8153023e8b50cf3006433f2f465374d6a8e18d1f05a09f9c9e343b02b89ca393",
+      "expected": "8153023e8b50cf3006433f2f465374d6a8e18d1f05a09f9c9e343b02b89ca393",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\unknown_process_closure\\collect_history.py",
+      "sha256": "0bbe803270297ce9df83018ee5fa995832fbf5dd085c8ade6453ae39ca6d8e30",
+      "expected": "0bbe803270297ce9df83018ee5fa995832fbf5dd085c8ade6453ae39ca6d8e30",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\unknown_process_closure\\collect_snapshot.py",
+      "sha256": "574a25a18db88e3f8b8b6c223fd17aebb9e44d313000eb4aec9eb097ba144ab8",
+      "expected": "574a25a18db88e3f8b8b6c223fd17aebb9e44d313000eb4aec9eb097ba144ab8",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\unknown_process_closure\\inspect_qualification.py",
+      "sha256": "7489db6ccb43228436f0f42207007b022c14f7f4ad383f3ad0bc864b5d63eee3",
+      "expected": "7489db6ccb43228436f0f42207007b022c14f7f4ad383f3ad0bc864b5d63eee3",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\unknown_process_closure\\inspect_v1_boundary.py",
+      "sha256": "99c3af16ea03b8c29537daf5e15bc5ffcb22794e03fa2bcb7508c1f65dc41c7d",
+      "expected": "99c3af16ea03b8c29537daf5e15bc5ffcb22794e03fa2bcb7508c1f65dc41c7d",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\unknown_process_closure\\recover_source_readonly.py",
+      "sha256": "7542da045c9a8d817e679c599358f54f3bca4f43814ac0a648e9139e94d1177c",
+      "expected": "7542da045c9a8d817e679c599358f54f3bca4f43814ac0a648e9139e94d1177c",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\v3_consumer.py",
+      "sha256": "ff3589109c246b995b769ed44e340ed6cc7f3581d7805b20ddc29832a3b0aece",
+      "expected": "ff3589109c246b995b769ed44e340ed6cc7f3581d7805b20ddc29832a3b0aece",
+      "match": true
+    },
+    {
+      "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\03c0125c4a6b1e9f239a694d9052cbeb3229242a\\platform_v2\\tools\\v3_morning_report.py",
+      "sha256": "4693e1404c894e8d3c86de669c8cffa6750285e49b4b12f0c62071f4933c1be0",
+      "expected": "4693e1404c894e8d3c86de669c8cffa6750285e49b4b12f0c62071f4933c1be0",
+      "match": true
+    }
+  ],
+  "installed_match_count": 134,
+  "gpu_readonly": {
+    "returncode": 0,
+    "output": "NVIDIA GeForce RTX 3080, 610.60, 1 %, 2174 MiB, 10240 MiB\n",
+    "error": ""
+  },
+  "runtime_acl": {
+    "Owner": "BUILTIN\\Administrators",
+    "AccessToString": "BUILTIN\\Administrators Allow  FullControl\nBUILTIN\\Administrators Allow  268435456\nNT AUTHORITY\\SYSTEM Allow  FullControl\nNT AUTHORITY\\SYSTEM Allow  268435456\nNT AUTHORITY\\Authenticated Users Allow  Modify, Synchronize\nNT AUTHORITY\\Authenticated Users Allow  -536805376\nBUILTIN\\Users Allow  ReadAndExecute, Synchronize\nBUILTIN\\Users Allow  -1610612736"
+  },
+  "scientific_solver_calls_this_task": 0,
+  "evidence_self_match_excluded": "Transient PowerShell CIM query matched its own search text; not a scientific process"
+}

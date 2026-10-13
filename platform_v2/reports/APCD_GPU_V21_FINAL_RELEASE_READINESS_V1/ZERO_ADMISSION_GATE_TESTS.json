@@ -1,0 +1,26 @@
+{
+  "verdict": "PASS",
+  "checks": [
+    {
+      "check": "DIAG2 missing admission refuses before registry or entry",
+      "PASS": true,
+      "fixture_only": true
+    },
+    {
+      "check": "DOE56 science HOLD survives operator resume and controller drain",
+      "PASS": true,
+      "fixture_only": true
+    },
+    {
+      "check": "Production rejects all three offline authority markers",
+      "PASS": true
+    }
+  ],
+  "scientific_entries": 0,
+  "solver_calls": 0,
+  "new_ml_fits": 0,
+  "replay": 0,
+  "actual_DIAG2_production_admission": "NOT_ISSUED",
+  "actual_DOE56_HOLD": "unchanged; actual installed terminal corroborated separately",
+  "scope": "Isolated admission/ledger fixtures; not physical truth validation"
+}

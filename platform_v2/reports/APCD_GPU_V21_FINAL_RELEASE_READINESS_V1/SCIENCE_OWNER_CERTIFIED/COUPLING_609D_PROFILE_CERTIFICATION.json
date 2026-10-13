@@ -1,0 +1,90 @@
+{
+  "DIAG2_6PS_truth_status": "NOT_RUN",
+  "batch_fixture_evidence": {
+    "evidence_sha256": "71808d8d760c44c98d1ead403ea493c6489d7d078cb25fbf024abc5b009c9bac",
+    "file": "B_C_OFFLINE_LEDGER_INTEGRATION.json",
+    "fixture_only": true,
+    "profile_call_sha256": "8e50fe7981c67fdcd5f9752e7777f6c43d10f1bacd384e97b8276fb441b002f6",
+    "profile_calls": 3,
+    "profile_calls_file": "B_C_PROFILE_CALL_VERIFICATION.json"
+  },
+  "case_request_canonicalization": {
+    "excluded": [
+      "case_request_sha256",
+      "source_acceptance.sha256"
+    ],
+    "included": [
+      "source_acceptance.path"
+    ],
+    "independent_recalculation_sha256": "94ed521d572ce8676c3d5aea99ac91ce2dcf907bdbe08ab4a7cfcd2799fe51a3",
+    "independent_repeats_equal": true,
+    "schema": "APCD_COUPLING_CASE_REQUEST_CANON_V1",
+    "serializer": "frozen ingest._canon sorted compact JSON UTF-8 ensure_ascii=True",
+    "vector_sha256": "94ed521d572ce8676c3d5aea99ac91ce2dcf907bdbe08ab4a7cfcd2799fe51a3"
+  },
+  "code_sha256": {
+    "frozen_ingest.py": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+    "generic_profile.py": "258d8170aa4153a8a71cb18db92cdaa752679f9f468cb23cb6c85b8a7b9f8bad",
+    "h1_extractor.py": "2bb4988e2324f09e4ee6710a0eb60fb38ac6e7e628c6c90a23d9a62766297416",
+    "h2_decoder.py": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "science_ledger.py": "8e5f1c2936b2030db71684e7a17a95ef79c1380d9ea0c59188ea07555c4ced83"
+  },
+  "formula_invariants": {
+    "156G_labels": "read-only preserved",
+    "C_hat": "unchanged",
+    "H1_H2": "unchanged",
+    "P_scale": "unchanged",
+    "floquet_orders_m": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "polarizations": [
+      "TE",
+      "TM"
+    ],
+    "reference_plane_nm": 1722.0
+  },
+  "historical_parity": {
+    "actual_native_fsp_h5": true,
+    "cases": 2,
+    "evidence_sha256": "4b9fbc436c7a3aad9ec486319c21040df00f4dd66b79a1ecc01c0d6a67648077",
+    "exact_arrays": [
+      "C_hat_real",
+      "C_hat_imag",
+      "P_scale",
+      "eta",
+      "absolute_order"
+    ],
+    "file": "HISTORICAL_NATIVE_IMPORTER_PARITY.json",
+    "isolated_receipt_ledger": true
+  },
+  "issuer_role": "Coupling-ML Scientific Owner",
+  "not_a_production_admission": true,
+  "outputs": 609,
+  "production_admission_status": "NOT_ISSUED",
+  "profile_id": "coupling_609d_v1",
+  "schema": "APCD_COUPLING_609D_SCIENCE_PROFILE_CLOSEOUT_CERTIFICATION_V1",
+  "science_owner": "APCD_COUPLING_ML_SCIENCE_OWNER_V1",
+  "scope": "offline identity/source acceptance, frozen 609D labels, receipts and isolated-ledger interface",
+  "tests": {
+    "command": "python -m unittest scripts.coupling_ml.k6_v2_pipeline.test_generic_profile scripts.coupling_ml.k6_v2_pipeline.test_science_contract_closeout -v",
+    "result": "9 passed, 0 failed"
+  },
+  "verdict": "PASS",
+  "verified_profile_checks": [
+    "case/attempt/role/geometry/contract binding",
+    "source acceptance byte SHA",
+    "native FSP/H5 SHA",
+    "609D label receipt",
+    "external science-owner-pinned ledger",
+    "exact-case-set budget",
+    "no replay",
+    "B/C batch isolation",
+    "sealed data denied"
+  ]
+}

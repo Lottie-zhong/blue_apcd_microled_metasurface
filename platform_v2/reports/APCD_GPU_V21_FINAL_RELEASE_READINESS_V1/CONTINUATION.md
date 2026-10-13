@@ -1,0 +1,9 @@
+# V21 final release readiness continuation
+
+Status V21_RELEASE_READY_AWAITING_AUTHORIZATION. No deployment, ACL/Scheduler edit, Admission or science entry. Reviewed GPU executable HEAD83c4fcd1329252e069760789ef5d0e92b02a781a; Coupling4bbbc7b2b87d2ef7741ca309a7b6cf56996f32db; both published and source SHA certified. Final documentation HEAD in DELIVERY_GIT.json.
+
+Read main report, SCIENCE_GPU_SHA_CROSSCHECK.json and SCIENCE_OWNER_CERTIFIED, FULL_REGRESSION.json/log/xml (237/0/0), DEPLOYMENT_TRANSACTION_TESTS.json/log (16 PASS), ZERO_ADMISSION_GATE_TESTS.json, RUNTIME_READBACK.json, CURRENT_SCHEDULER.xml, INSTALLED_HOLD_GATE_EVIDENCE.json, LEGACY_ENTRY_RETIREMENT_READBACK.json, PID_FENCING_READBACK.json, PRODUCTION_PRESERVATION_FINAL.json, PACKAGE_SHA256.json/PACKAGE_MANIFEST.json, Deploy-V21.ps1, transaction source, SHA_INVENTORY and DELIVERY_GIT.
+
+Current task is Enabled/Ready with old --plan daily20:00, but actual frozen numerical gate leaves HOLD and slot95 empty. Old timing unchanged; old historic installation markers are not live-owner proof. Current runtime Authenticated Users Modify cannot pass V2.1 canonical config ACL check; explicit root-only ACL approval is required. Never deploy/enable/harden without approval.
+
+The generated Apply installs immutable candidate with empty profiles and disabled/demand-denied task; it never registers/drains/runs science. Before first registration Science Owner must issue production-format profile and DIAG2 Admission and both Owners accept installed bindings. Stable-profile data-only new batches do not change Runner code. Do not amend platform SHA silently, reset budgets, remove receipts, replay uncertain entries, revive legacy, or restore DOE5652 HOLD. DIAG2 remains0/2,6ps truth NOT_RUN. Retain unrelated Coupling staged/dirty and GPU untracked DIAG2 report.
