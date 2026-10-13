@@ -661,6 +661,8 @@ class ProductionNativeBackend:
         return self._execute(config,request,ledger,token,budget,spec['command'],fsp.parent,fault)
 
     def _execute(self,config,request,ledger,token,budget,command,cwd,fault):
+        if config.mode=='PRODUCTION_GPU':
+            ledger.note(request,token,'PRELAUNCH_GPU_RESOURCE_GATE',gpu_inventory_gate(config))
         ledger.note(request,token,'PRELAUNCH_PROCESS_CENSUS',{'processes':process_gate(os.getpid())})
         ledger.launch_once(request,token,budget)
         fault('launch_requested')
@@ -846,11 +848,16 @@ def gpu_inventory_gate(config):
     values=[int(devices[0][1].strip())]
     if values[0]<1369:raise Refused('GPU_MEMORY_NOT_QUALIFIED')
     result=subprocess.run(['nvidia-smi','--query-compute-apps=pid,process_name,used_memory','--format=csv,noheader,nounits'],capture_output=True,text=True,check=True)
-    from .gpu_readonly import resolve_idle_edt
+    from .gpu_readonly import resolve_idle_edt, snapshot, wddm_exclusivity
+    wddm_samples=[]
+    for index in range(3):
+        wddm_samples.append(snapshot())
+        if index < 2: time.sleep(1)
+    wddm=wddm_exclusivity(wddm_samples)
     gpu_consumers=resolve_idle_edt(classify_gpu_consumers(result.stdout))
     if any(r['classification'] not in ['DISPLAY_ACTIVITY','VERIFIED_IDLE_EDT_GUI','VERIFIED_IDLE_DESKTOP'] for r in gpu_consumers):
         raise Refused('EXTERNAL_GPU_SCIENCE_OR_UNATTRIBUTED_CONSUMER')
-    return dict(gpu_free_mib=values[0],gpu_consumers=gpu_consumers)
+    return dict(gpu_free_mib=values[0],gpu_consumers=gpu_consumers,wddm_activity=wddm)
 
 
 def native_preflight(config,request):

@@ -24,6 +24,94 @@ def snapshot():
     return rows
 
 
+# Core Windows display composition is the only allowed source of non-compute
+# WDDM activity. Third-party desktop applications remain resource contenders.
+_WINDOWS_DISPLAY_IMAGES = {
+    "dwm.exe", "explorer.exe", "searchhost.exe", "startmenuexperiencehost.exe",
+    "shellexperiencehost.exe", "shellhost.exe", "applicationframehost.exe",
+    "textinputhost.exe", "systemsettings.exe", "taskmgr.exe", "tabtip.exe",
+    "phoneexperiencehost.exe", "crossdeviceresume.exe",
+}
+_WINDOWS_DISPLAY_ENGINES = {"3d", "copy", "videoencode", "videodecode", "videoprocessing"}
+
+
+def _wddm_process_identity(pid):
+    process = psutil.Process(pid)
+    return dict(pid=pid, creation_time=process.create_time(), image=process.name(), executable=process.exe())
+
+
+def wddm_exclusivity(samples, *, process_reader=None):
+    # Fail closed on non-system WDDM GPU activity, including N/A-memory apps.
+    if not isinstance(samples, list) or len(samples) < 3:
+        raise Refused("WDDM_EVIDENCE_INCOMPLETE")
+    reader = process_reader or _wddm_process_identity
+    identities = {}
+    active = {}
+    seen_counters = 0
+    for sample in samples:
+        if not isinstance(sample, list) or not sample:
+            raise Refused("WDDM_COUNTERS_UNAVAILABLE")
+        for row in sample:
+            if not isinstance(row, dict):
+                raise Refused("WDDM_COUNTER_SCHEMA_UNKNOWN")
+            name = row.get("name")
+            match = re.match(r"^pid_(\d+)_", str(name or ""), re.IGNORECASE)
+            if not match or "_engtype_" not in str(name).lower():
+                raise Refused("WDDM_COUNTER_IDENTITY_UNKNOWN")
+            try:
+                utilization = row.get("utilization")
+                if isinstance(utilization, bool):
+                    raise ValueError
+                utilization = float(utilization)
+                if not 0 <= utilization <= 100:
+                    raise ValueError
+            except (TypeError, ValueError, OverflowError) as exc:
+                raise Refused("WDDM_COUNTER_VALUE_INVALID") from exc
+            seen_counters += 1
+            if utilization <= 0:
+                continue
+            pid = int(match.group(1))
+            engine = str(name).lower().split("_engtype_", 1)[1].split("_", 1)[0]
+            try:
+                identity = reader(pid)
+            except (psutil.NoSuchProcess, psutil.AccessDenied, OSError) as exc:
+                raise Refused("WDDM_GPU_PROCESS_IDENTITY_UNKNOWN") from exc
+            image = Path(str(identity.get("image", ""))).name.lower()
+            creation = identity.get("creation_time")
+            executable = str(identity.get("executable", ""))
+            if (identity.get("pid") != pid or not image or not executable
+                or not isinstance(creation, (int, float)) or isinstance(creation, bool)):
+                raise Refused("WDDM_GPU_PROCESS_IDENTITY_UNKNOWN")
+            fingerprint = (float(creation), os.path.normcase(os.path.normpath(executable)))
+            if pid in identities and identities[pid]["fingerprint"] != fingerprint:
+                raise Refused("WDDM_GPU_PID_REUSED_DURING_SAMPLE")
+            if pid not in identities:
+                identities[pid] = dict(fingerprint=fingerprint, image=image, engines=set(), max_utilization=0.0)
+            entry = identities[pid]
+            entry["engines"].add(engine)
+            entry["max_utilization"] = max(entry["max_utilization"], utilization)
+            active[pid] = entry
+    if seen_counters == 0:
+        raise Refused("WDDM_COUNTERS_UNAVAILABLE")
+    for entry in active.values():
+        if entry["engines"] & {"compute", "cuda"}:
+            raise Refused("WDDM_COMPUTE_ACTIVITY_PRESENT")
+        if entry["image"] not in _WINDOWS_DISPLAY_IMAGES:
+            raise Refused("WDDM_NON_SYSTEM_GPU_ACTIVITY_PRESENT")
+        if not entry["engines"] <= _WINDOWS_DISPLAY_ENGINES:
+            raise Refused("WDDM_ENGINE_TYPE_UNKNOWN")
+    return dict(
+        verdict="PASS_NO_NON_SYSTEM_GPU_ACTIVITY",
+        sample_count=len(samples),
+        active_system_display=[
+            dict(pid=pid, image=row["image"], engines=sorted(row["engines"]),
+                 max_utilization=row["max_utilization"], creation_time=row["fingerprint"][0])
+            for pid, row in sorted(active.items())
+        ],
+        scope="bounded WDDM samples only; recheck immediately before scientific entry",
+    )
+
+
 def evaluate_idle_edt(record,command,children,samples):
     def same(a,b):return os.path.normcase(os.path.normpath(a))==os.path.normcase(os.path.normpath(str(b)))
     if not same(record['executable'],EDT):raise Refused('UNATTRIBUTED_GPU_CONSUMER')

@@ -233,10 +233,97 @@ def _registry_case(config, request):
     return registry, row
 
 
+def _validate_official_diag2_contract(config, request, contract):
+    # Physical-contract compatibility only; Admission is validated separately.
+    if contract.get("schema") != "APCD_COUPLING_PHYSICS_CONTRACT_V2":
+        raise Refused("DIAG2_OFFICIAL_CONTRACT_SCHEMA_MISMATCH")
+    if contract.get("status") not in {
+        "SCIENCE_OWNER_FROZEN_CONTRACT_ADMISSION_NOT_ISSUED",
+        "SCIENTIFIC_ADMISSION_PASS",
+        "FORMAL_GPU_CONTRACT",
+    }:
+        raise Refused("DIAG2_PHYSICAL_CONTRACT_NOT_FORMALLY_ACCEPTED")
+    if (contract.get("contract_id") != "APCD_PW_PERIODIC_PLANAR_5NM_GPU_PRODUCTION_V3_DIAG2_6PS"
+        or contract.get("dataset_id") != DATASET_ID
+        or contract.get("scientific_role") != DIAG2_ROLE):
+        raise Refused("DIAG2_PARENT_PHYSICS_CONTRACT_MISMATCH")
+    if contract.get("parent_contract_file_sha256") != CONTRACT_SHA:
+        raise Refused("DIAG2_PARENT_PHYSICS_CONTRACT_MISMATCH")
+
+    expected_diff = {
+        "field": "fdtd.simulation_time_s",
+        "from_s": 3e-12,
+        "to_s": 6e-12,
+    }
+    if contract.get("only_allowed_physical_difference") != expected_diff:
+        raise Refused("DIAG2_PHYSICAL_DIFF_NOT_EXACT")
+    temporal = contract.get("temporal_stop")
+    setup = contract.get("shared_6ps_actual_setup_readback")
+    fdtd = setup.get("fdtd") if isinstance(setup, dict) else None
+    if (not isinstance(temporal, dict) or not isinstance(fdtd, dict)
+        or temporal.get("fdtd_simulation_maximum_time_s") != 6e-12
+        or temporal.get("fdtd_auto_shutoff_min") != 1e-6
+        or temporal.get("scheduler_policy_changed") is not False
+        or fdtd.get("simulation_time_s") != 6e-12
+        or fdtd.get("auto_shutoff_min") != 1e-6):
+        raise Refused("DIAG2_FROZEN_TEMPORAL_CONTRACT_MISMATCH")
+    meshes = setup.get("meshes", {})
+    np_mesh = meshes.get("NP_DERIVED_BASELINE_N2") if isinstance(meshes, dict) else None
+    if not isinstance(np_mesh, dict) or np_mesh.get("step_nm") != [5.0, 5.0, 5.0]:
+        raise Refused("DIAG2_FROZEN_MESH_CONTRACT_MISMATCH")
+
+    binding = contract.get("case_geometry_binding")
+    rows = binding.get("cases") if isinstance(binding, dict) else None
+    if not isinstance(rows, list) or [row.get("case_id") for row in rows] != list(DIAG2_CASES):
+        raise Refused("DIAG2_FROZEN_CASE_SET_MISMATCH")
+    if request.case_id not in CASE_SPEC or request.attempt_id != "attempt_001":
+        raise Refused("DIAG2_CASE_NOT_ALLOWLISTED")
+    bound = rows[DIAG2_CASES.index(request.case_id)]
+    expected = CASE_SPEC[request.case_id]
+    if (bound.get("attempt_id") != request.attempt_id
+        or bound.get("anchor_case_id") != request.parent_anchor_case_id
+        or bound.get("role") != DIAG2_ROLE
+        or bound.get("ordered_D_nm") != list(request.ordered_D_nm)
+        or bound.get("geometry_sha256") != request.geometry_sha256
+        or expected["parent_anchor_case_id"] != request.parent_anchor_case_id
+        or expected["ordered_D_nm"] != tuple(request.ordered_D_nm)
+        or expected["geometry_sha256"] != request.geometry_sha256):
+        raise Refused("DIAG2_FROZEN_CASE_BINDING_MISMATCH")
+
+    label = contract.get("frozen_609d_label_contract")
+    if (not isinstance(label, dict)
+        or label.get("profile_id") != "coupling_609d_v1"
+        or label.get("outputs") != 609
+        or label.get("wavelengths_nm") != list(range(440, 461))
+        or label.get("floquet_orders_m") != list(range(-3, 4))
+        or label.get("polarizations") != ["TE", "TM"]
+        or label.get("reference_plane_nm") != 1722.0):
+        raise Refused("DIAG2_FROZEN_LABEL_CONTRACT_MISMATCH")
+    identity_rule = contract.get("identity_hash_rule")
+    if (not isinstance(identity_rule, dict)
+        or identity_rule.get("same_as") != "ingest._canon"
+        or identity_rule.get("self_hash_fields_excluded") is not True
+        or identity_rule.get("serializer") != "json.dumps(sort_keys=True,separators=(',',':'),ensure_ascii=True).encode('utf-8')"
+        or "physical_contract_sha256" in contract
+        or "candidate_contract_sha256_canonical_json" in contract):
+        raise Refused("DIAG2_CANONICAL_CONTRACT_RULE_MISMATCH")
+    # Official bytes and canonical identity remain pinned; no aliases are written back.
+    contract_sha = digest(contract)
+    pin_sha = getattr(request.physical_contract, "sha256", None)
+    if (contract_sha != config.physical_contract_sha256
+        or request.physical_contract_sha256 != config.physical_contract_sha256
+        or pin_sha != config.physical_contract_sha256):
+        raise Refused("DIAG2_CANONICAL_CONTRACT_SHA_MISMATCH")
+    return contract
+
+
 def validate_diag2_contract(config, request):
     contract = request.physical_contract.read()
     if request.physical_contract_sha256 != config.physical_contract_sha256:
         raise Refused("DIAG2_PHYSICAL_CONTRACT_CONFIG_MISMATCH")
+    if contract.get("schema") == "APCD_COUPLING_PHYSICS_CONTRACT_V2":
+        return _validate_official_diag2_contract(config, request, contract)
+    # Backward compatibility for the former GPU-owned contract schema.
     if contract.get("status") not in {"SCIENTIFIC_ADMISSION_PASS", "FORMAL_GPU_CONTRACT"}:
         raise Refused("DIAG2_PHYSICAL_CONTRACT_NOT_FORMALLY_ACCEPTED")
     if contract.get("dataset_id") != DATASET_ID or contract.get("parent_physical_contract_sha256") != CONTRACT_SHA:

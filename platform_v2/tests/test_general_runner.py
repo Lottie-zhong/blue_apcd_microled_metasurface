@@ -99,6 +99,15 @@ def test_generic_profile_never_routes_diagnostics_by_legacy_dataset(tmp_path):
     assert pairs[0][0].validation_profile=='coupling_609d_v1'
 
 
+
+def test_empty_profile_configuration_is_default_deny(tmp_path):
+    p,registry,backend=setup(tmp_path)
+    manifest,admission,ledger=batch(p,"EMPTY_PROFILE_DEFAULT_DENY")
+    disabled=p.model_copy(update={"profiles":[]})
+    with pytest.raises(Refused,match="UNSUPPORTED_SCIENCE_PROFILE"):
+        load_batch(disabled,manifest,admission)
+
+
 def test_profile_owner_interface_missing_and_return_binding_fail_closed(tmp_path):
     from types import SimpleNamespace
     from apcd_gpu_v2.general import import_profile_truth
@@ -407,10 +416,31 @@ def test_science_owner_generic_profile_through_gpu_adapter(tmp_path,monkeypatch,
     cert['toolchain']={'importer':sha256(G.__file__)}
     assert p.science_owner_id==G.SCIENCE_OWNER_ID
     assert p.science_owner_sid!=p.science_owner_id
-    a=batch(p,batch_name,count=count)
+
+    role='DEVELOPMENT_GLOBAL'
+    case_ids=None
+    geometries=None
+    contract_payload=None
+    physical_identity_sha=None
+    simtime=6e-12
+    if batch_name=='DIAG2_GENERIC_OFFLINE_B':
+        prep=coupling/'reports/coupling/APCD_COUPLING_DIAG2_V21_ADMISSION_PREPARATION_V1'
+        candidate=json.loads((prep/'DIAG2_ADMISSION_CANDIDATE_MANIFEST.json').read_text())
+        contract_path=packet/'SCIENCE_CONTRACT_6PS.json'
+        contract_payload=json.loads(contract_path.read_text())
+        physical_identity_sha=sha256(contract_path)
+        assert candidate['official_frozen_contract']['raw_sha256']==physical_identity_sha
+        case_rows=candidate['batch']['cases']
+        case_ids=[row['case_id'] for row in case_rows]
+        role='TIME_CONVERGENCE_DIAGNOSTIC_ONLY'
+        geometries={row['case_id']:row['ordered_D1_D6_nm'] for row in case_rows}
+        assert case_ids==['K6V3_TIME_DIAG2_A1_5NM_6PS','K6V3_TIME_DIAG2_A2_5NM_6PS']
+    a=batch(p,batch_name,count=count,case_ids=case_ids,simtime=simtime,
+            physical_identity_sha=physical_identity_sha,contract_payload=contract_payload,
+            role=role,geometries=geometries)
     manifest=json.loads(Path(a[0].path).read_text())
     pc_sha=manifest['cases'][0]['physics_contract_sha']
-    cert['allowed_contracts']=[dict(sha256=pc_sha,allowed_roles=['DEVELOPMENT_GLOBAL'],simulation_time_s=6e-12,mesh_nm=5.0,auto_shutoff_min=1e-6)]
+    cert['allowed_contracts']=[dict(sha256=pc_sha,allowed_roles=[role],simulation_time_s=6e-12,mesh_nm=5.0,auto_shutoff_min=1e-6)]
     pin=Pin(**write(Path(p.runtime_root)/'science/real_profile_cert.json',cert))
     p=p.model_copy(update={'profiles':[Profile(profile_id='coupling_609d_v1',certification=pin,truth_toolchain={'importer':Pin(path=str(Path(G.__file__)),sha256=sha256(G.__file__))})]})
     admission=json.loads(Path(a[1].path).read_text());admission['profile_certification_sha']=pin.sha256
@@ -472,6 +502,15 @@ def test_owner_resolver_through_gpu_contract_consumer(tmp_path,monkeypatch,batch
     a=batch(p,batch_name,count=len(ids),case_ids=ids,contract_payload=contract,role=role,geometries=geometries)
     manifest=json.loads(Path(a[0].path).read_text());pc_sha=manifest['cases'][0]['physics_contract_sha']
     assert pc_sha=='51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36'
+
+    if batch_name=='SIGNED_DIAG2_RESOLVER_B':
+        candidate=json.loads((coupling/'reports/coupling/APCD_COUPLING_DIAG2_V21_ADMISSION_PREPARATION_V1/DIAG2_ADMISSION_CANDIDATE_MANIFEST.json').read_text())
+        case_rows=candidate['batch']['cases']
+        ids=[row['case_id'] for row in case_rows]
+        geometries={row['case_id']:row['ordered_D1_D6_nm'] for row in case_rows}
+        role='TIME_CONVERGENCE_DIAGNOSTIC_ONLY'
+        assert candidate['official_frozen_contract']['raw_sha256']==sha256(packet/'SCIENCE_CONTRACT_6PS.json')
+        assert ids==['K6V3_TIME_DIAG2_A1_5NM_6PS','K6V3_TIME_DIAG2_A2_5NM_6PS']
     cert=json.loads((packet/'fixtures/B_DIAG2_TEST_FIXTURE/SCIENCE_OWNER_PROFILE_CERTIFICATION_TEST_FIXTURE_ONLY.json').read_text())
     toolchain={'importer':Pin(path=str(Path(G.__file__)),sha256=sha256(G.__file__)),
         'postprocess_contract_resolver':Pin(path=str(Path(R.__file__)),sha256=sha256(R.__file__))}
