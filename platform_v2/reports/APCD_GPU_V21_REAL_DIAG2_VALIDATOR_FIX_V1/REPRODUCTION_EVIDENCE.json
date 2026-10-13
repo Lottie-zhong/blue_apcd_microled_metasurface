@@ -1,0 +1,93 @@
+{
+  "actual_frozen_contract": {
+    "auto_shutoff_field": "fdtd_auto_shutoff_min",
+    "canonical_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+    "difference_field": "fdtd.simulation_time_s",
+    "maximum_time_field": "fdtd_simulation_maximum_time_s",
+    "only_allowed_physical_difference": {
+      "field": "fdtd.simulation_time_s",
+      "from_s": 3e-12,
+      "to_s": 6e-12
+    },
+    "parent_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "parent_sha_field": "parent_contract_file_sha256",
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1\\SCIENCE_CONTRACT_6PS.json",
+    "raw_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+    "schema": "APCD_COUPLING_PHYSICS_CONTRACT_V2",
+    "status": "SCIENCE_OWNER_FROZEN_CONTRACT_ADMISSION_NOT_ISSUED",
+    "time_container": "temporal_stop plus shared_6ps_actual_setup_readback.fdtd"
+  },
+  "baseline_commit": "a16f30d8cda254722fc77015f0cec9530b2d18c9",
+  "baseline_expected_shape": {
+    "auto_shutoff_field": "auto_shutoff_min",
+    "difference_field": "FDTD.simulation time",
+    "maximum_time_field": "maximum_simulation_time_s",
+    "parent_sha_field": "parent_physical_contract_sha256",
+    "status": [
+      "SCIENTIFIC_ADMISSION_PASS",
+      "FORMAL_GPU_CONTRACT"
+    ],
+    "temporal_object": "temporal_settings"
+  },
+  "baseline_source_sha256": "b46c8e33ac569fd0e92d0dbcb6fc430f300f37d00e341a4730c6baef2a33ab10",
+  "baseline_validator_location": "platform_v2/apcd_gpu_v2/diag2.py:240-241 at baseline commit",
+  "candidate_manifest": {
+    "cases": [
+      {
+        "attempt_id": "attempt_001",
+        "auto_shutoff_min": 1e-06,
+        "candidate_pre_fsp_sha256": "7d9f237ca3a57a2240c8a3cd3d753f8fe85f201ca132557b54336622252a3a6c",
+        "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "entry_count": 0,
+        "max_entries": 1,
+        "mesh_nm": 5,
+        "replay_count": 0,
+        "role": "TIME_CONVERGENCE_DIAGNOSTIC_ONLY",
+        "simulation_time_s": 6e-12
+      },
+      {
+        "attempt_id": "attempt_001",
+        "auto_shutoff_min": 1e-06,
+        "candidate_pre_fsp_sha256": "15042dc7d58eeab35ce00a900d1bb979de58c19c182b18723924c184a48c9739",
+        "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "entry_count": 0,
+        "max_entries": 1,
+        "mesh_nm": 5,
+        "replay_count": 0,
+        "role": "TIME_CONVERGENCE_DIAGNOSTIC_ONLY",
+        "simulation_time_s": 6e-12
+      }
+    ],
+    "doe56_unentered": 52,
+    "entries": 0,
+    "entry_authorization_issued": false,
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V21_ADMISSION_PREPARATION_V1\\DIAG2_ADMISSION_CANDIDATE_MANIFEST.json",
+    "production_admission_issued": false,
+    "remaining": 2,
+    "sha256": "8472518baf1425243b05292ac882a141bd886f91524b1f2bd664e4f4d962e5c7"
+  },
+  "candidate_source_commit": "b9abe87058d65cb2ba52c5ce1a7acb377a2ab048",
+  "classification": "contract status/schema mapping mismatch, raised before parent/temporal/difference/canonical SHA checks; no evidence of a bad SHA",
+  "first_refusal": "DIAG2_PHYSICAL_CONTRACT_NOT_FORMALLY_ACCEPTED",
+  "fix_location": "platform_v2/apcd_gpu_v2/diag2.py:236-325",
+  "fix_scope": "physical contract adapter only; original frozen bytes remain pinned and unchanged",
+  "observed_results": [
+    {
+      "baseline": "Refused:DIAG2_PHYSICAL_CONTRACT_NOT_FORMALLY_ACCEPTED",
+      "candidate": "PASS: physical contract schema/status/identity accepted; no Admission granted",
+      "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS"
+    },
+    {
+      "baseline": "Refused:DIAG2_PHYSICAL_CONTRACT_NOT_FORMALLY_ACCEPTED",
+      "candidate": "PASS: physical contract schema/status/identity accepted; no Admission granted",
+      "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS"
+    }
+  ],
+  "schema": "APCD_GPU_V21_REAL_DIAG2_VALIDATOR_REPRODUCTION_V1",
+  "separate_safety_gates": {
+    "ordinary_manifest_cannot_authorize": true,
+    "production_admission_created": false,
+    "production_admission_unissued": "DENY_SCIENTIFIC_ADMISSION_NOT_GRANTED (test_unissued_production_admission_remains_denied_after_contract_adapter)",
+    "profiles_empty": "DENY_UNSUPPORTED_SCIENCE_PROFILE (test_empty_profile_configuration_is_default_deny)"
+  }
+}
