@@ -1,0 +1,83 @@
+{
+  "acl_unchanged": false,
+  "controller_worker_matches": [],
+  "fdtd_engine_count": 0,
+  "installation_marker_sha256": "fd6f673db4f5f318421bb1842ae2ceaca3885c4b04b48eeaec5b0bc44fcbbb47",
+  "ledger_diag2_rows": 0,
+  "ledger_event_count": 216634,
+  "ledger_slot": [
+    [
+      1,
+      95,
+      0,
+      null,
+      0
+    ]
+  ],
+  "ledger_state_counts": [
+    [
+      "TRUTH_VALID",
+      94
+    ]
+  ],
+  "observed_utc": "2026-10-13T17:13:47.544078+00:00",
+  "platform_config_sha256": "575f3e853f3799d5db62574f73d21e69f7f871f5fe5a9ceb158e14beaad19e09",
+  "release_deny_sha256": "8301556cccc8c385e5ac7fae98e99ef4091f342f3a44051c0fdcfe771de16e89",
+  "runtime_ledger_sha256": "8c52bb709b7f595dd500b474c9023175889ae34551630fbce8a281dc67dc6e99",
+  "schema": "APCD_GPU_V21_FINAL_RUNTIME_READBACK_V1",
+  "science_binding_sha256": "a391904e7b9fce13e30ae04bcc83dbfde16f7af868b52ebb979146756478e530",
+  "tasks": [
+    {
+      "Actions": [
+        {
+          "Arguments": "\"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\tools\\serial_controller.py\" --platform \"D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\platform_config.json\" --platform-sha256 575f3e853f3799d5db62574f73d21e69f7f871f5fe5a9ceb158e14beaad19e09",
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "WorkingDirectory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1"
+        }
+      ],
+      "AllowDemandStart": false,
+      "Enabled": false,
+      "LastTaskResult": 1,
+      "NextRunTime": null,
+      "State": "Disabled",
+      "TaskName": "APCD_GPU_V2_SERIAL_CONTROLLER",
+      "XmlTriggerCount": 0,
+      "export_xml_sha256": "093f1f1a1bf011fe86beb1e5c6a4a483b71e455ef1ca3e254bdf8d5607baea92"
+    },
+    {
+      "Actions": [
+        {
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline\\serial_queue.py\" --runner-controller-manifest \"D:\\apcd_runtime\\gpu_production_runner_v1\\requests\\scheduled_queue_controller_v1\\faa47cbef071544180bb7803127a4c52\\controller_manifest.json\" --runner-controller-manifest-sha256 faa47cbef071544180bb7803127a4c5276e39270937e061025dffc607618832c --runner-controller-request-id faa47cbef071544180bb7803127a4c52",
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\k6_v2_pipeline"
+        }
+      ],
+      "AllowDemandStart": false,
+      "Enabled": false,
+      "LastTaskResult": 2,
+      "NextRunTime": null,
+      "State": "Disabled",
+      "TaskName": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+      "XmlTriggerCount": 0,
+      "export_xml_sha256": "1ff43cdf3c6627e9bddb4ca1d371402ad94661868e5e3abdff32e764ab1a421a"
+    },
+    {
+      "Actions": [
+        {
+          "Arguments": "\"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\task_scheduler_v1.py\" worker-once",
+          "Execute": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+          "WorkingDirectory": "D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1"
+        }
+      ],
+      "AllowDemandStart": false,
+      "Enabled": false,
+      "LastTaskResult": 0,
+      "NextRunTime": null,
+      "State": "Disabled",
+      "TaskName": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+      "XmlTriggerCount": 0,
+      "export_xml_sha256": "03d3d6c54d271f30d098f34acb7f0da05edea57563a134d2bd3f247f7e3cdd54"
+    }
+  ],
+  "v1_scheduler_unchanged": true
+}

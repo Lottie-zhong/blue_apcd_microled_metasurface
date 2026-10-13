@@ -1,0 +1,18 @@
+INTERNALERROR> Traceback (most recent call last):
+INTERNALERROR>   File "N:\anaconda_envs\RCP_LCP\lib\site-packages\_pytest\main.py", line 314, in wrap_session
+INTERNALERROR>     config._do_configure()
+INTERNALERROR>   File "N:\anaconda_envs\RCP_LCP\lib\site-packages\_pytest\config\__init__.py", line 1165, in _do_configure
+INTERNALERROR>     self.hook.pytest_configure.call_historic(kwargs=dict(config=self))
+INTERNALERROR>   File "N:\anaconda_envs\RCP_LCP\lib\site-packages\pluggy\_hooks.py", line 534, in call_historic
+INTERNALERROR>     res = self._hookexec(self.name, self._hookimpls.copy(), kwargs, False)
+INTERNALERROR>   File "N:\anaconda_envs\RCP_LCP\lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+INTERNALERROR>     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+INTERNALERROR>   File "N:\anaconda_envs\RCP_LCP\lib\site-packages\pluggy\_callers.py", line 167, in _multicall
+INTERNALERROR>     raise exception
+INTERNALERROR>   File "N:\anaconda_envs\RCP_LCP\lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+INTERNALERROR>     res = hook_impl.function(*args)
+INTERNALERROR>   File "D:\project\worktrees\blue_apcd_gpu_v2_serial_production_v1\platform_v2\reports\APCD_GPU_V21_DIAG2_VALIDATOR_PATCH_DEPLOYMENT_V1\assert_installed_origin.py", line 10, in pytest_configure
+INTERNALERROR>     actual.relative_to(expected)
+INTERNALERROR>   File "N:\anaconda_envs\RCP_LCP\lib\pathlib.py", line 818, in relative_to
+INTERNALERROR>     raise ValueError("{!r} is not in the subpath of {!r}"
+INTERNALERROR> ValueError: 'D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\apcd_gpu_v2\\__init__.py' is not in the subpath of 'D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2' OR one path is relative and the other is absolute.

@@ -1,0 +1,58 @@
+{
+  "canonical_runner": "N:\\anaconda_envs\\RCP_LCP\\python.exe -m pytest with report-local config and installed-release PYTHONPATH",
+  "contract_compatibility_installed": "PASS",
+  "default_deny_installed": "PASS",
+  "fdtd_runs": 0,
+  "fmm_rcwa_runs": 0,
+  "focused_installed": {
+    "failed": 0,
+    "log": "INSTALLED_CONTRACT_VALIDATION.log",
+    "log_sha256": "2443035621efa4928e6e615c9939b27021b2b0d7e9620c8d993a09423ffaee3c",
+    "passed": 25,
+    "skipped": 0
+  },
+  "full_regression": {
+    "failed": 0,
+    "log": "FULL_REGRESSION.log",
+    "log_sha256": "73f1db5830fde28c60979bb0d848191ca19ca331b2b39f2460862513ff63a862",
+    "module_origins_sha256": "edeeaa7fae6156d1a1ec243d38b908d52edc0b6ce319c6ce85f582a2e1fccc60",
+    "passed": 252,
+    "process_elapsed_seconds": 377.4,
+    "pytest_duration_seconds": 369.94,
+    "returncode": 0,
+    "skipped": 0,
+    "warnings": 13
+  },
+  "full_regression_installed": "PASS",
+  "installed_module_origins": {
+    "apcd_gpu_v2": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\__init__.py",
+    "apcd_gpu_v2.diag2": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\diag2.py",
+    "apcd_gpu_v2.gpu_readonly": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\gpu_readonly.py",
+    "apcd_gpu_v2.serial": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\serial.py"
+  },
+  "new_ml_fits": 0,
+  "release": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6",
+  "release_code_inventory_sha256": "ea92f62348f6d32c15bb46a992d1ca370a159c7f645808a472ae4013a6a756e1",
+  "release_manifest_sha256": "d4f37eeb249747eb07e1227ef9a64eb7a256712661a496d014e777e679a8b30a",
+  "replay": 0,
+  "schema": "APCD_GPU_V21_INSTALLED_PATCH_REGRESSION_V2",
+  "sealed_access": 0,
+  "solver_entries": 0,
+  "superseded_attempts": [
+    {
+      "attempt": 1,
+      "cause": "temporary runner lacked Windows multiprocessing main guard; two process-race cases timed out",
+      "result": "250 passed, 2 failed"
+    },
+    {
+      "attempt": 2,
+      "cause": "temporary plugin source contained escaped newline text",
+      "result": "pytest startup error before collection"
+    },
+    {
+      "attempt": 3,
+      "cause": "project pytest.ini pythonpath=. selected worktree source; installed-origin assertion failed closed",
+      "result": "pytest stopped before collection"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "active_wddm_engine_counters": {
+    "entries": [],
+    "returncode": 0,
+    "stderr": ""
+  },
+  "live_preentry": "HOLD",
+  "live_reason": "Global GPU exclusivity is not proven. GPU memory is nonzero, several Lumerical API/GUI processes remain, process-level attribution is incomplete, and two Python/SSH processes remain partially classified.",
+  "mechanism": "PASS",
+  "mechanism_evidence": {
+    "covers": [
+      "WDDM non-system activity",
+      "compute activity",
+      "PID reuse and identity loss",
+      "missing or unattributable counters",
+      "nvidia-smi N/A per-process memory"
+    ],
+    "installed_gpu_readonly_test_file": "platform_v2/tests/test_gpu_readonly.py",
+    "test_cases": 8
+  },
+  "nvidia_smi": {
+    "compute_processes": "4236, D:\\software_install_location\\huorong\\Sysdiag\\bin\\HipsDaemon.exe, [N/A]\n18600, C:\\Program Files\\ToDesk\\ToDesk.exe, [N/A]\n14316, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe, [N/A]\n12028, C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe, [N/A]\n25392, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]\n38472, C:\\Windows\\System32\\Taskmgr.exe, [N/A]\n43840, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]\n43460, N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe, [N/A]\n41260, C:\\Windows\\System32\\dwm.exe, [N/A]\n45192, C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.26072.257.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe, [N/A]\n39904, C:\\Windows\\explorer.exe, [N/A]\n38268, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe, [N/A]\n35512, C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe, [N/A]\n27332, C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe, [N/A]\n23420, C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe, [N/A]\n41244, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe, [N/A]\n31236, D:\\software_install_location\\xiangrikui\\AweSun\\flutter\\AweSun.exe, [N/A]\n9308, C:\\Windows\\System32\\ApplicationFrameHost.exe, [N/A]\n31164, C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe, [N/A]\n23040, C:\\Windows\\System32\\ShellHost.exe, [N/A]\n15308, C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.62\\msedgewebview2.exe, [N/A]\n35864, C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE, [N/A]\n41232, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n46192, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n43204, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n35556, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n22868, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n31100, C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2026.11090.22001.0_x64__8wekyb3d8bbwe\\Photos.exe, [N/A]\n38520, C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe, [N/A]",
+    "compute_query_returncode": 0,
+    "gpu": "NVIDIA GeForce RTX 3080, 610.60, 0 %, 1946 MiB, 10240 MiB",
+    "returncode": 0
+  },
+  "observed_utc": "2026-10-13T17:13:47.544078+00:00",
+  "processes": {
+    "ansysedt_count": 2,
+    "fdtd_engine_count": 0,
+    "fdtd_solutions_count": 8,
+    "images": [
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 17436
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 17576
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 26372
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 29816
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 31844
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 31848
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 32256
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\Lumerical\\bin\\fdtd-solutions.exe",
+        "name": "fdtd-solutions.exe",
+        "pid": 33824
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "name": "ansysedt.exe",
+        "pid": 43460
+      },
+      {
+        "exe": "N:\\Program Files\\ANSYS Inc\\v251\\AnsysEM\\ansysedt.exe",
+        "name": "ansysedt.exe",
+        "pid": 43840
+      }
+    ],
+    "known_controller_worker_matches": []
+  },
+  "schema": "APCD_GPU_V21_LIVE_RESOURCE_GATE_V1",
+  "science_entry_permitted": false,
+  "slot": {
+    "empty": true,
+    "rows": [
+      [
+        1,
+        95,
+        0,
+        null,
+        0
+      ]
+    ]
+  },
+  "unknown_processes": [
+    {
+      "alive": true,
+      "commandline_read": false,
+      "create_time": 1791386010.4462512,
+      "exe": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+      "name": "python.exe",
+      "parent_create_time": 1791386010.225937,
+      "pid": 18936,
+      "ppid": 45704,
+      "stdin_read": false
+    },
+    {
+      "alive": true,
+      "commandline_read": false,
+      "create_time": 1791386010.7581801,
+      "exe": "C:\\Windows\\System32\\OpenSSH\\ssh.exe",
+      "name": "ssh.exe",
+      "parent_create_time": 1791386010.4462512,
+      "pid": 40664,
+      "ppid": 18936,
+      "stdin_read": false
+    }
+  ],
+  "zero_solver_installation_not_blocked": true
+}
