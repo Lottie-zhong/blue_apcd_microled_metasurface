@@ -1,0 +1,28 @@
+{
+  "schema": "APCD_COUPLING_DIAG2_V21_WARNING_CLASSIFICATION_V1",
+  "installed_final_regression": {
+    "path": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_CONTROLLED_DISABLED_DEPLOYMENT_V1\\INSTALLED_FULL_REGRESSION.log",
+    "result": "237 passed, 13 warnings, 0 failed, 0 skipped in corrected final run",
+    "first_attempt": "Earlier environment-missing run had four failures and one skip; corrected installed run superseded it."
+  },
+  "warnings": [
+    {
+      "count": 1,
+      "category": "UserWarning",
+      "origin": "Pydantic Plan.schema shadows StrictModel.schema.",
+      "impact": "Non-fatal in offline regression; no admission effect identified."
+    },
+    {
+      "count": 12,
+      "category": "DeprecationWarning",
+      "origin": "np.trapz; six occurrences in installed GPU helper and six in Coupling helper.",
+      "impact": "Non-fatal in offline regression; future NumPy compatibility risk. Not changed by Coupling task."
+    }
+  ],
+  "regression_log_digest_discrepancy": {
+    "owner_reported_sha256": "017569c5b700b824eec91fbb94538299da23efe69262e96ba5e890afe9e21a61",
+    "independent_certutil_for_same_report_path": "1a0e86c367f28033c7bfaff285ffb86661bba68b9474c4407eeb7b5a6dff7dd4",
+    "status": "UNRESOLVED",
+    "handling": "Keep both claims visible; do not use either as an Admission or science-identity pin. Regression counts were read from the named log."
+  }
+}

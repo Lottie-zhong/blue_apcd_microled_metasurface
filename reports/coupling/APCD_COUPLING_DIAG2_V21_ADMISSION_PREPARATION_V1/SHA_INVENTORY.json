@@ -1,0 +1,103 @@
+{
+  "schema": "APCD_COUPLING_DIAG2_V21_ADMISSION_PREPARATION_SHA_INVENTORY_V1",
+  "generated_file_rule": "Raw-byte SHA-256 of the six task evidence files; this inventory excludes itself to avoid self-reference.",
+  "generated_files": [
+    {
+      "path": "DIAG2_ADMISSION_CANDIDATE_MANIFEST.json",
+      "bytes": 13654,
+      "sha256": "8472518baf1425243b05292ac882a141bd886f91524b1f2bd664e4f4d962e5c7"
+    },
+    {
+      "path": "GPU_OWNER_PREENTRY_HANDOFF.json",
+      "bytes": 6695,
+      "sha256": "96056eda3bd1f2edef5a4e9a33bd02de75f9ea0bd6b2ec36c7345855214a7d7f"
+    },
+    {
+      "path": "LEDGER_NO_REPLAY_EVIDENCE.json",
+      "bytes": 11717,
+      "sha256": "65d34009a515990bf7f11e314f1202165a9eccf7bfbf876edf00d20d2eaaba9f"
+    },
+    {
+      "path": "WARNING_CLASSIFICATION.json",
+      "bytes": 1481,
+      "sha256": "cc9213669d780b7af6b045a6c9569791530ceed963b8a06b0b34af378fce3ddb"
+    },
+    {
+      "path": "FINAL_REPORT.md",
+      "bytes": 8606,
+      "sha256": "77fa80acbafccf8da53d13cf4919fd0a16bc93ac53d18c2e33bfd3d352073151"
+    },
+    {
+      "path": "CONTINUATION.md",
+      "bytes": 1610,
+      "sha256": "b74a6c32eedd27b0ddc1311989ccb8fc5ff3e20c8b9aafbe3251b3217ad818ad"
+    }
+  ],
+  "formal_contract_sha_audit": {
+    "official_6ps_raw_and_canonical": {
+      "canonical_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+      "equal": true,
+      "parent_hash_reused": false,
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1\\SCIENCE_CONTRACT_6PS.json",
+      "raw_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36"
+    },
+    "parent_3ps": {
+      "official_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "path": "D:\\apcd_runtime\\gpu_v3_interface_audit_20261011_v1\\source_setup\\K6V3_NUM_REPEAT_A1\\attempt_001\\physical_contract.json",
+      "raw_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
+    },
+    "retired_nested_candidate": {
+      "declared_semantic_sha256": "afc06d29802ddae02017f967a6e4e30088fc56281e9cc4dfc20e7f519a43546f",
+      "discrepancy_analysis": "The declared canonical digest does not match the actual candidate content after excluding its declared self-hash under the frozen serializer. Available evidence cannot distinguish a stale declaration from changed content; fail closed and do not adopt it.",
+      "match": false,
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_GPU_V2_COUPLING_TIME_DIAG2_ADMISSION_RECOVERY_V1\\TIME_DIAG2_PHYSICAL_CONTRACT_CANDIDATE.json",
+      "raw_sha256": "6d15721bb3d69342c1b24f4fae687efb10bc55c375b44624aec717c7b351524b",
+      "recomputed_excluding_declared_hash": "5220e0f869bcd718e0e1caf807c7d75519ef424c3a600d3ad2f28d454018928d"
+    },
+    "canonical_rule": {
+      "new_physics_contract_rule": false,
+      "physics_contract": "frozen ingest._canon; sorted compact JSON ensure_ascii UTF-8",
+      "raw_file": "SHA256 exact bytes"
+    }
+  },
+  "case_artifact_pins": [
+    {
+      "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+      "anchor_run_fsp_sha256": "c8969b8234974376763787dd4f1ba5e898581e5853c85d96daed9270bd84568a",
+      "direct_setup_fsp_sha256": "0e6e522141ddbd0f9a4323cdc470293fd485af9493257a4ccd166383f6a62bb2",
+      "setup_spec_sha256": "ee201ccc8002c26091a49994cb4f09ca3b7fb8e914fa9781947428c5d9e50c21",
+      "source_manifest_sha256": "686f589cc47236d1b0dd7d27fb8d9ec100d557b883d4cdb3872361d3935d94ec",
+      "source_load_proof_sha256": "528d8b156a18cea2db65a094678a3df14003fd70f939998590b96f17250caa95",
+      "candidate_6ps_pre_fsp_sha256": "7d9f237ca3a57a2240c8a3cd3d753f8fe85f201ca132557b54336622252a3a6c",
+      "candidate_load_proof_sha256": "75c17023d2507258fdd1939c9395624da0261ef21d798d93f826e54ccd6eb1e0"
+    },
+    {
+      "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+      "anchor_run_fsp_sha256": "9de36dd97397e7215767bfa1df47d380fbaf0525aedfecf05d7b1654e542f8ac",
+      "direct_setup_fsp_sha256": "540ec80315bcec60619afb85f60dc894d46e40bffd87d5f8c6fb38b48a2651d1",
+      "setup_spec_sha256": "b7ebfec2388ec7d31332f2c3df321413714dfcb9ecec2a1848fcde91b5ab4495",
+      "source_manifest_sha256": "5af1ae7310625054db586870751d59729ca02d261b3795c4f8a6ec9f17096a79",
+      "source_load_proof_sha256": "715c2c77208ef2de2af34bd0da72aae68878a1f8a1d99b5ddbc2bef57c751ac5",
+      "candidate_6ps_pre_fsp_sha256": "15042dc7d58eeab35ce00a900d1bb979de58c19c182b18723924c184a48c9739",
+      "candidate_load_proof_sha256": "244631fa4a5adaed9393e3c303b52c9c865b15ca940dbb838020505c33ddd40b"
+    }
+  ],
+  "installed_release_pins": {
+    "release_manifest": "c6649b9c072cd92714575ad6fc067b4cbeba974531d065c5b4dc53d98ebf4406",
+    "code_inventory": "2d229e44be8c7e97a5cbc14a1e8384550a09a66c8393c27ede9d8e6a3a49d668",
+    "platform_config": "575f3e853f3799d5db62574f73d21e69f7f871f5fe5a9ceb158e14beaad19e09",
+    "science_binding": "a391904e7b9fce13e30ae04bcc83dbfde16f7af868b52ebb979146756478e530",
+    "diag2_py": "99f6c199fe077d0a2d2d5e420a9ccdda3a4c4ebc8c8eeabe5ef6419eff517a5e",
+    "gpu_readonly_py": "8b37281e6cc6a973af64c9770de3d4952b98f68f2b4d527ee650277e0b65943f",
+    "processes_py": "ad99b1eaf117dd106682e430739e513e7ed0c0d62cafad60ef6da7ac077196"
+  },
+  "profile_certification_sha256": "11ddbf2fc13e2dd34a9a4c4b07daf17c6d2c8275a64eb27fa3202e67cad204ca",
+  "regression_log_digest_discrepancy": {
+    "owner_reported_sha256": "017569c5b700b824eec91fbb94538299da23efe69262e96ba5e890afe9e21a61",
+    "independent_certutil_for_same_report_path": "1a0e86c367f28033c7bfaff285ffb86661bba68b9474c4407eeb7b5a6dff7dd4",
+    "status": "UNRESOLVED",
+    "handling": "Keep both claims visible; do not use either as an Admission or science-identity pin. Regression counts were read from the named log."
+  },
+  "request_sha256": null,
+  "inventory_self_sha256": "not included"
+}

@@ -1,0 +1,149 @@
+{
+  "schema": "APCD_COUPLING_DIAG2_V21_GPU_OWNER_READONLY_PREENTRY_HANDOFF_V1",
+  "observation_local_time": "2026-10-13 14:38:54 to 14:40:19 Asia/Shanghai",
+  "host": "DESKTOP-NNE313K",
+  "user": "desktop-nne313k\\dell",
+  "endpoint": "192.168.1.106",
+  "read_only": true,
+  "mutations": [],
+  "release_binding": {
+    "release_id": "v21_83c4fcd1329252e069760789ef5d0e92b02a781a",
+    "release_head": "83c4fcd1329252e069760789ef5d0e92b02a781a",
+    "manifest_sha256": "c6649b9c072cd92714575ad6fc067b4cbeba974531d065c5b4dc53d98ebf4406",
+    "inventory_sha256": "2d229e44be8c7e97a5cbc14a1e8384550a09a66c8393c27ede9d8e6a3a49d668",
+    "platform_config_sha256": "575f3e853f3799d5db62574f73d21e69f7f871f5fe5a9ceb158e14beaad19e09",
+    "science_binding_sha256": "a391904e7b9fce13e30ae04bcc83dbfde16f7af868b52ebb979146756478e530",
+    "profiles": [],
+    "science_authorized": false,
+    "controller_started": false,
+    "result": "Disabled; deny no profiles/no Admission."
+  },
+  "controller_scheduler": {
+    "v2_controller": "Disabled; AllowDemandStart=false; 0 triggers; action pinned to installed release/config",
+    "v1_controller_worker": "Disabled; AllowDemandStart=false; 0 triggers",
+    "v2_controller_worker_process": "NONE_OBSERVED",
+    "apcd_task_running": "NONE_OBSERVED",
+    "v3_dispatcher": "Disabled; AllowDemandStart=true",
+    "v3_reconciler": "Enabled/Ready; not running"
+  },
+  "v2_execution_mirror": {
+    "sqlite_sha256": "8c52bb709b7f595dd500b474c9023175889ae34551630fbce8a281dc67dc6e99",
+    "slot": {
+      "id": 1,
+      "generation": 95,
+      "token": null,
+      "owner": null,
+      "request_sha": null
+    },
+    "historical_rows": "94/94 TRUTH_VALID/entered",
+    "not_science_budget_authority": true
+  },
+  "diag2_authority": {
+    "registration_package_sha256": "fa06a2978a2ff2dd9c50d84c3a47ea9e0facf06ac5171046b8a80ad01ff0a168",
+    "status": "SETUP_PREPARED_FORMAL_GPU_ADMISSION_BLOCKED",
+    "formal_gpu_admission": "NOT_GRANTED",
+    "release_state": "NOT_AUTHORIZED_FOR_LAUNCH",
+    "entry_and_replay": "0/0 for each original case",
+    "zero_solver_audit_sha256": "55deebdabdeb8fe2c361d0044aa3f601826d3efdad4079f678ca6f6ba5dbf8d9",
+    "doe56": "4 entered / 52 unentered / FROZEN_NUMERICAL_ADVANCEMENT_HOLD"
+  },
+  "processes": {
+    "census_local_time": "2026-10-13 14:38:54 Asia/Shanghai",
+    "identity_count": 18,
+    "fdtd_engine_exe_count": 0,
+    "fdtd_solutions_server_count": 8,
+    "fdtd_solutions_server_pids": [
+      17436,
+      17576,
+      26372,
+      29816,
+      31844,
+      31848,
+      32256,
+      33824
+    ],
+    "api_server_scope": "fdtd-solutions.exe -server -hide, owner DELL/session 0 with Python parents, created 2026-09-28 22:30-22:57 +08; license checkout not independently established.",
+    "edt_gui": [
+      {
+        "pid": 43460,
+        "create_time": "2026-10-07 22:57:43 +08",
+        "read_only_result": "VERIFIED_IDLE_EDT_GUI"
+      },
+      {
+        "pid": 43840,
+        "create_time": "2026-10-07 20:24:27 +08",
+        "read_only_result": "VERIFIED_IDLE_EDT_GUI"
+      }
+    ],
+    "edt_check_scope": "Each GUI had three zero-engine WDDM samples at one-second intervals from 14:40:11-14:40:19; bounded evidence for the two GUI identities only."
+  },
+  "gpu": {
+    "device": "NVIDIA GeForce RTX 3080",
+    "snapshot_local_time": "2026-10-13 14:32:43 +08",
+    "utilization_percent": 1,
+    "memory_used_mib": 2226,
+    "memory_total_mib": 10240,
+    "per_process_memory": "N/A under WDDM; not accepted as idle evidence.",
+    "wddm_snapshot_local_time": "2026-10-13 14:38:54 +08",
+    "wddm_rows": 1750,
+    "nonzero_engine_pid": 10484,
+    "nonzero_engine_activity": {
+      "3D_percent": 44,
+      "VideoEncode_percent": 7
+    },
+    "identity": "GameViewerServer.exe, NT AUTHORITY\\SYSTEM, child of GameViewerService.exe; prior sample 3D 24%, VideoEncode 10%; display/encoding activity, not an observed FDTD solver.",
+    "global_idle": "NOT_CONFIRMED"
+  },
+  "shared_v3": {
+    "dispatcher_running": false,
+    "current_task_or_process_conflict_observed": false,
+    "enabled_manual_paths": [
+      "C_20260920T084927Z",
+      "C_20260929T200647Z",
+      "C_A",
+      "C_B",
+      "C_C"
+    ],
+    "state": "Enabled/Ready; AllowDemandStart=true; triggers 2099-01-01; v3h/v3g2h configs",
+    "residual_risk": "Manual alternate-entry paths remain available and were not modified."
+  },
+  "supported_read_only_api": {
+    "census": "apcd_gpu_v2.processes.census(): PID, creation_time, PPID, image, command, user; identity_state distinguishes live/dead/reused/unknown.",
+    "gpu": "apcd_gpu_v2.gpu_readonly.snapshot(): WDDM engine rows; no standalone CLI.",
+    "edt": "resolve_idle_edt(): three one-second-separated zero-activity samples for recognized EDT GUI, refuses unknown/changed identities.",
+    "gpu_readonly_py_sha256": "8b37281e6cc6a973af64c9770de3d4952b98f68f2b4d527ee650277e0b65943f",
+    "processes_py_sha256": "ad99b1eaf117dd106682e430739e513e7ed0c0d62cafad60ef6da7ac077196"
+  },
+  "contract_consumer": {
+    "path": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_83c4fcd1329252e069760789ef5d0e92b02a781a\\platform_v2\\apcd_gpu_v2\\diag2.py",
+    "sha256": "99f6c199fe077d0a2d2d5e420a9ccdda3a4c4ebc8c8eeabe5ef6419eff517a5e",
+    "validator_requires": {
+      "status": [
+        "SCIENTIFIC_ADMISSION_PASS",
+        "FORMAL_GPU_CONTRACT"
+      ],
+      "parent_hash_field": "parent_physical_contract_sha256",
+      "temporal_fields": [
+        "temporal_settings.maximum_simulation_time_s",
+        "temporal_settings.auto_shutoff_min"
+      ],
+      "difference_field": "FDTD.simulation time"
+    },
+    "official_contract_fields": {
+      "status": "SCIENCE_OWNER_FROZEN_CONTRACT_ADMISSION_NOT_ISSUED",
+      "parent_hash_field": "parent_contract_file_sha256",
+      "temporal_fields": [
+        "temporal_stop",
+        "shared_6ps_actual_setup_readback.fdtd.simulation_time_s"
+      ],
+      "difference_field": "fdtd.simulation_time_s"
+    },
+    "formal_adapter_found": false,
+    "verdict": "BLOCKED_SCHEMA_MISMATCH; validator rejects the unchanged official contract before entry."
+  },
+  "warnings": [
+    "1 UserWarning: Pydantic Plan.schema shadows StrictModel.schema.",
+    "12 DeprecationWarnings: np.trapz, six in installed GPU helper and six in Coupling helper."
+  ],
+  "final_gate": "HOLD: bounded EDT idle checks do not establish global GPU idle; WDDM memory is N/A, GameViewer engine use is active, Shared V3 manual paths remain, and installed DIAG2 contract validation rejects the frozen contract."
+}
