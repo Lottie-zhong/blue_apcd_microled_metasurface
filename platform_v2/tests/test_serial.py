@@ -234,6 +234,8 @@ def test_real_coupling_importer_reuses_g025_evidence_no_api():
 
 def test_production_native_path_uses_verified_spec_but_holds_unobserved_engine(tmp_path,monkeypatch):
     from apcd_gpu_v2 import serial
+    # This isolated dependency/native unit mocks admission; integrated trust is tested separately.
+    monkeypatch.setattr(serial,'require_trusted_production_config',lambda *args:None)
     cfg,rs,equivalent=fixture(tmp_path)
     pin=Pin(path=cfg.queue.path,sha256=cfg.queue.sha256)
     # Explicit test release for the PRODUCTION_GPU code branch; never a production approval.

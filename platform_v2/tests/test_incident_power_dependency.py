@@ -46,6 +46,8 @@ def test_identical_helper_at_unbound_path_refused(tmp_path):
 def test_production_dependency_failure_is_before_entry(tmp_path,monkeypatch):
     from test_serial import fixture
     from apcd_gpu_v2 import serial
+    # This isolated dependency/native unit mocks admission; integrated trust is tested separately.
+    monkeypatch.setattr(serial,'require_trusted_production_config',lambda *args:None)
     from apcd_gpu_v2.serial import SerialLedger,ProductionNativeBackend,NativeTruthValidator
     from apcd_gpu_v2.ledger import Refused
     cfg,requests,_=fixture(tmp_path)

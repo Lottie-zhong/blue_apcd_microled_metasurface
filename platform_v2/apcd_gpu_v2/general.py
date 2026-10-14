@@ -1,6 +1,6 @@
 """Data-driven admission and queue for the existing V2 serial execution core.
 
-No science signing, no budget creation, no scheduler, no native backend replacement.
+Science issuance is delegated to the ACL-backed adapter; no scheduler or native backend replacement.
 """
 import json
 import os
@@ -153,6 +153,7 @@ class Admission(StrictModel):
     label_validation_profile: str
     profile_certification_sha: str = Field(pattern=SHA)
     science_ledger: str
+    issuance: dict | None = None
 
 
 def acl_evidence(path):
@@ -169,7 +170,7 @@ def verify_acl(platform, path, *, reader=acl_evidence, authority_root=None):
     if platform.mode == 'PRODUCTION_EQUIVALENT': under(path, platform.runtime_root); return
     allowed = {platform.science_owner_sid, 'S-1-5-18', 'S-1-5-32-544'}
     # Write data/append/attributes/delete/change DACL/take ownership, including delete-child.
-    write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288
+    write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288 | 0x40000000 | 0x10000000
     root = Path(authority_root or platform.science_root).resolve(); p = under(path, root)
     for target in [p] + list(p.parents)[:len(p.parents) - len(root.parents)]:
         data = reader(target)
@@ -368,28 +369,23 @@ def require_formal_authority(platform, *documents):
         raise Refused('OFFLINE_AUTHORITY_CANNOT_AUTHORIZE_SCIENCE')
 
 
-def load_batch(platform, manifest_pin, admission_pin):
-    for pin in [manifest_pin, admission_pin]: verify_acl(platform, pin.path)
-    m = Manifest.model_validate_json(json.dumps(checked(manifest_pin))); a = Admission.model_validate(checked(admission_pin))
-    if (a.batch_id != m.batch_id or a.science_owner != m.science_owner or a.science_owner != platform.science_owner_id
-        or a.manifest_sha != m.manifest_sha or a.manifest_file_sha != manifest_pin.sha256
-        or a.approved_case_set != m.approved_case_set or a.approved_entry_budget != m.approved_entry_budget
-        or a.label_validation_profile != m.label_validation_profile or a.science_ledger != m.science_ledger
-        or a.revoked): raise Refused('SCIENCE_ADMISSION_UNBOUND_OR_REVOKED')
-    require_formal_authority(platform,checked(manifest_pin),checked(admission_pin))
-    profiles = [p for p in platform.profiles if p.profile_id == m.label_validation_profile]
-    if len(profiles) != 1: raise Refused('UNSUPPORTED_SCIENCE_PROFILE')
-    profile = profiles[0]; verify_acl(platform, profile.certification.path)
+def validate_batch_inputs(platform, manifest_pin, *, ledger_required=True):
+    # Reuse consumer validation before issuance; a missing ledger is not approval.
+    verify_acl(platform, manifest_pin.path)
+    raw=checked(manifest_pin)
+    m=Manifest.model_validate_json(json.dumps(raw))
+    require_formal_authority(platform,raw)
+    profiles=[p for p in platform.profiles if p.profile_id==m.label_validation_profile]
+    if len(profiles)!=1:raise Refused('UNSUPPORTED_SCIENCE_PROFILE')
+    profile=profiles[0];verify_acl(platform,profile.certification.path)
+    certification=checked(profile.certification);require_formal_authority(platform,certification)
+    if (certification.get('verdict')!='PASS' or certification.get('profile_id')!=profile.profile_id
+        or certification.get('toolchain')!={k:p.sha256 for k,p in profile.truth_toolchain.items()}):
+        raise Refused('SCIENCE_PROFILE_CERTIFICATION_REQUIRED')
     if profile.postprocess_resolver_certification is not None:
         verify_acl(platform,profile.postprocess_resolver_certification.path)
         require_formal_authority(platform,checked(profile.postprocess_resolver_certification))
-    certification = checked(profile.certification)
-    require_formal_authority(platform,certification)
-    if (a.profile_certification_sha != profile.certification.sha256 or certification.get('verdict') != 'PASS'
-        or certification.get('profile_id') != profile.profile_id
-        or certification.get('toolchain') != {k: p.sha256 for k,p in profile.truth_toolchain.items()}):
-        raise Refused('SCIENCE_PROFILE_CERTIFICATION_REQUIRED')
-    verify_acl(platform, m.science_control.path)
+    verify_acl(platform,m.science_control.path)
     for case in m.cases:
         if Path(case.source_fsp.path).suffix.lower()!='.fsp':raise Refused('ONLY_NATIVE_FSP_SOURCE_ALLOWED')
         for pin in [case.source_fsp, case.source_manifest, case.physics_contract]:
@@ -419,9 +415,27 @@ def load_batch(platform, manifest_pin, admission_pin):
             or proof.get('simulation_time_s')!=case.simulation_time_s or proof.get('mesh_nm')!=case.mesh_nm
             or proof.get('auto_shutoff_min')!=case.auto_shutoff_min):
             raise Refused('SCIENTIFIC_SOURCE_LOAD_ACCEPTANCE_REQUIRED')
-    under(m.science_ledger, platform.source_root)
-    verify_acl(platform,m.science_ledger,authority_root=platform.source_root)
-    return m, a, profile
+    under(m.science_ledger,platform.source_root)
+    target=m.science_ledger if ledger_required else str(Path(m.science_ledger).parent)
+    verify_acl(platform,target,authority_root=platform.source_root)
+    return m,profile
+
+
+def load_batch(platform, manifest_pin, admission_pin):
+    m,profile=validate_batch_inputs(platform,manifest_pin)
+    verify_acl(platform,admission_pin.path)
+    raw=checked(admission_pin);a=Admission.model_validate(raw)
+    require_formal_authority(platform,raw)
+    if (a.batch_id!=m.batch_id or a.science_owner!=m.science_owner or a.science_owner!=platform.science_owner_id
+        or a.manifest_sha!=m.manifest_sha or a.manifest_file_sha!=manifest_pin.sha256
+        or a.approved_case_set!=m.approved_case_set or a.approved_entry_budget!=m.approved_entry_budget
+        or a.label_validation_profile!=m.label_validation_profile or a.science_ledger!=m.science_ledger
+        or a.profile_certification_sha!=profile.certification.sha256 or a.revoked):
+        raise Refused('SCIENCE_ADMISSION_UNBOUND_OR_REVOKED')
+    if platform.mode=='PRODUCTION_GPU' or a.issuance is not None:
+        from .trusted_admission import verify_issued_admission
+        verify_issued_admission(platform,m,manifest_pin,a,admission_pin)
+    return m,a,profile
 
 
 def build_requests(platform, manifest_pin, admission_pin):
@@ -703,7 +717,7 @@ def load_platform(pin):
         canonical = Path('D:/apcd_runtime/gpu_platform_v2_serial_production_v1/platform_config.json').resolve()
         if Path(pin.path).resolve() != canonical: raise Refused('CANONICAL_PLATFORM_CONFIG_REQUIRED')
         allowed = {'S-1-5-18','S-1-5-32-544'}
-        write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288
+        write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288 | 0x40000000 | 0x10000000
         for target in [canonical, canonical.parent]:
             acl = acl_evidence(target)
             if acl.get('owner') not in allowed or any(r['allow'] and r['rights'] & write and r['sid'] not in allowed for r in acl.get('rules',[])):

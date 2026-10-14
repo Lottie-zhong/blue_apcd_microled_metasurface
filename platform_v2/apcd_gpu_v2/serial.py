@@ -592,7 +592,14 @@ class SerialLedger(Ledger):
             if evidence: db.execute('UPDATE slot SET token=NULL,owner=NULL,request_sha=NULL WHERE id=1')
 
 
+def require_trusted_production_config(config):
+    if config.mode=='PRODUCTION_GPU':
+        from .general import is_general
+        if not is_general(config):raise Refused('TRUSTED_V21_ADMISSION_PATH_REQUIRED')
+
+
 def validate_admission(config,request):
+    require_trusted_production_config(config)
     from .general import is_general, validate_general
     if is_general(config): return validate_general(config,request)
     if diag2_config(config):
@@ -662,6 +669,7 @@ class ProductionNativeBackend:
 
     def _execute(self,config,request,ledger,token,budget,command,cwd,fault):
         if config.mode=='PRODUCTION_GPU':
+            validate_admission(config,request)
             ledger.note(request,token,'PRELAUNCH_GPU_RESOURCE_GATE',gpu_inventory_gate(config))
         ledger.note(request,token,'PRELAUNCH_PROCESS_CENSUS',{'processes':process_gate(os.getpid())})
         ledger.launch_once(request,token,budget)
@@ -722,6 +730,7 @@ class EquivalentBackend(ProductionNativeBackend):
 
 
 def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:None,archive=archive_pair):
+    require_trusted_production_config(config)
     budget=budget_for(config)
     token=ledger.claim(request.request_sha256,identity())
     try:
