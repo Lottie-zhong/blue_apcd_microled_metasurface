@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -41,3 +42,22 @@ def test_builder_rejects_production_destination_and_existing_release(tmp_path):
         builder.isolated_destination(tmp_path)
     with pytest.raises(ValueError,match='PATH_ESCAPE'):
         builder.safe_relative(tmp_path,'../outside')
+
+
+def test_builder_preserves_tested_crlf_bytes_and_detects_dirty_git_source(tmp_path):
+    source=tmp_path/'source';source.mkdir()
+    def git(*args):return subprocess.check_output(['git','-C',str(source),*args],text=True).strip()
+    git('init');git('config','user.name','ISOLATED_OFFLINE_TEST');git('config','user.email','offline-test@invalid.example')
+    git('config','core.autocrlf','true');git('config','commit.gpgsign','false')
+    rel='platform_v2/apcd_gpu_v2/trusted_admission.py';p=source/rel;p.parent.mkdir(parents=True)
+    raw=b'# harmless isolated source fixture\r\n'
+    p.write_bytes(raw);git('add','--',rel);git('commit','-m','offline fixture')
+    cfg=tmp_path/'platform.json';builder.write(cfg,dict(mode='PRODUCTION_GPU',profiles=[]))
+    pin=dict(path=str(cfg),sha256=builder.sha(cfg));head=git('rev-parse','HEAD')
+    result=builder.build(source,tmp_path/'good',pin,head)
+    assert (tmp_path/'good'/rel).read_bytes()==raw
+    assert builder.verify_tree(tmp_path/'good',result['package_manifest_sha256'])['source_head']==head
+    p.write_bytes(b'# changed without review\r\n')
+    with pytest.raises(ValueError,match='DIRTY_RELEASE_SOURCE'):
+        builder.build(source,tmp_path/'dirty_rejected',pin,head)
+    assert not (tmp_path/'dirty_rejected').exists()

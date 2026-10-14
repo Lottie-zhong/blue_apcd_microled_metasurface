@@ -82,10 +82,13 @@ def build(source, destination, platform_pin, expected_head):
         raise ValueError('COMMITTED_TRUSTED_ADMISSION_SOURCE_REQUIRED')
     committed = {}
     for name in names:
-        data = subprocess.check_output(['git', '-C', str(source), 'show', expected_head + ':' + name])
-        if (source / name).read_bytes() != data:
+        # Windows may legitimately materialize LF Git blobs as CRLF. Validate
+        # through the repository's own clean filters, then package/hash exactly
+        # the tested worktree bytes rather than silently changing line endings.
+        blob = git('hash-object', '--path=' + name, name)
+        if blob != git('rev-parse', expected_head + ':' + name):
             raise ValueError('DIRTY_RELEASE_SOURCE:' + name)
-        committed[name] = data
+        committed[name] = (source / name).read_bytes()
     if sha(platform_pin['path']) != platform_pin['sha256']:
         raise ValueError('PLATFORM_SHA_CHANGED')
     platform = json.loads(Path(platform_pin['path']).read_text(encoding='utf-8'))
