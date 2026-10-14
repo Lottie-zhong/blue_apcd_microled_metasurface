@@ -1,0 +1,68 @@
+{
+  "scope": "offline source/test/integration/candidate closeout; not production credentials or scientific start",
+  "requirements": [
+    {
+      "requirement": "actual_issuer_verifier",
+      "status": "SATISFIED_OFFLINE",
+      "evidence": "trusted_admission.py; tests/test_trusted_admission.py; production CLI default-deny tests"
+    },
+    {
+      "requirement": "batch_case_attempt_contract_source_profile_release_binding",
+      "status": "SATISFIED_OFFLINE",
+      "evidence": "real A1/A2 packet; frozen authority pins; tamper/identity/budget negative tests"
+    },
+    {
+      "requirement": "unique_atomic_ledger_acyclic_recovery",
+      "status": "SATISFIED_OFFLINE",
+      "evidence": "six process exits, reservation tests, explicit no-reset recovery"
+    },
+    {
+      "requirement": "full_controller_fencing_entry_truth_next",
+      "status": "SATISFIED_OFFLINE",
+      "evidence": "16 END_TO_END_TEST_EVIDENCE cases; real locks/process exits, simulated science ports"
+    },
+    {
+      "requirement": "complete_final_regression",
+      "status": "SATISFIED_OFFLINE",
+      "evidence": "309 PASS/0 FAIL/0 SKIP; three candidate-origin attestations; 17 files once"
+    },
+    {
+      "requirement": "frozen_release_candidate",
+      "status": "SATISFIED_OFFLINE",
+      "evidence": "RELEASE_CANDIDATE.zip; package manifest; CODE_SHA256; six builder tests"
+    },
+    {
+      "requirement": "resource_readonly_classification",
+      "status": "SATISFIED_BOUNDED_AUDIT",
+      "evidence": "RESOURCE_READONLY_EVIDENCE; PROCESS_LINEAGE_EVIDENCE; no future clearance"
+    },
+    {
+      "requirement": "production_preservation_and_zero_solver",
+      "status": "SATISFIED_SCOPED_READBACK",
+      "evidence": "PRODUCTION_UNCHANGED PASS; default Disabled/DENY; scientific executable test guard"
+    },
+    {
+      "requirement": "deployment_backup_rollback_plan",
+      "status": "PREPARED_NOT_AUTHORIZED",
+      "evidence": "DEPLOYMENT_AND_ROLLBACK_PLAN; staged baseline/candidate Disabled XML; no apply"
+    },
+    {
+      "requirement": "genuine_production_credential_and_science_endorsement",
+      "status": "AUTHORIZATION_HARD_GATE_PENDING",
+      "evidence": "same SID; empty roots/profiles; no new identity/root/permission authorized"
+    },
+    {
+      "requirement": "production_installation_of_candidate",
+      "status": "AUTHORIZATION_HARD_GATE_PENDING",
+      "evidence": "installed b9abe unchanged; candidate source not deployed"
+    },
+    {
+      "requirement": "live_resource_and_actual_solver_entry",
+      "status": "LIVE_HARD_GATE_PENDING",
+      "evidence": "UNKNOWN/HOLD; fresh checks and separate actual-start authority required"
+    }
+  ],
+  "code_and_tests_ready": true,
+  "full_live_production_closed": false,
+  "authorization_hard_gate_pending": true
+}

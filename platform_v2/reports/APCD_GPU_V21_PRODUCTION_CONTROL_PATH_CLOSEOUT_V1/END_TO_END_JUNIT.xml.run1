@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="16" time="95.192" timestamp="2026-10-14T18:59:06.499275+08:00" hostname="DESKTOP-NNE313K"><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_issued_controller_two_case_full_chain_and_restart" time="6.909"><failure message="apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id">tests\test_trusted_control_path.py:84: in test_real_diag2_issued_controller_two_case_full_chain_and_restart
+    state = run(p, backend)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in &lt;lambda&gt;
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id</failure></testcase><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_a1_complete_a2_unentered_pause_and_resume" time="6.882"><failure message="apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id">tests\test_trusted_control_path.py:107: in test_real_diag2_a1_complete_a2_unentered_pause_and_resume
+    state = run(p, backend, pause)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in &lt;lambda&gt;
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id</failure></testcase><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_receipt_committed]" time="5.286" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_ledger_committed]" time="5.407" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[before_local_mirror]" time="5.372" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[after_local_mirror]" time="5.316" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[launch_requested]" time="5.801" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[process_started]" time="6.592" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[solver_returned]" time="6.306" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[truth_valid_before_coupling]" time="6.867"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'FIXTURE_CONTROLLER_INTERRUPTED'&#10;  Actual message: 'PROFILE_TRUTH_IDENTITY_CONFLICT:case_id'">tests\test_trusted_control_path.py:125: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    run(p, backend, crash)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in &lt;lambda&gt;
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id
+
+During handling of the above exception, another exception occurred:
+tests\test_trusted_control_path.py:124: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    with pytest.raises(RuntimeError, match='FIXTURE_CONTROLLER_INTERRUPTED'):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'FIXTURE_CONTROLLER_INTERRUPTED'
+E     Actual message: 'PROFILE_TRUTH_IDENTITY_CONFLICT:case_id'</failure></testcase><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_truth_before_local]" time="6.657"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'FIXTURE_CONTROLLER_INTERRUPTED'&#10;  Actual message: 'PROFILE_TRUTH_IDENTITY_CONFLICT:case_id'">tests\test_trusted_control_path.py:125: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    run(p, backend, crash)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in &lt;lambda&gt;
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id
+
+During handling of the above exception, another exception occurred:
+tests\test_trusted_control_path.py:124: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    with pytest.raises(RuntimeError, match='FIXTURE_CONTROLLER_INTERRUPTED'):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'FIXTURE_CONTROLLER_INTERRUPTED'
+E     Actual message: 'PROFILE_TRUTH_IDENTITY_CONFLICT:case_id'</failure></testcase><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_sqlite_entry_mirror_failure_keeps_science_consumed" time="5.027" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_two_controller_competition_actual_os_lock" time="4.440" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_controller_process_exit_recovers_truth_only_then_pauses" time="8.221"><failure message="apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id">tests\test_trusted_control_path.py:194: in test_real_diag2_controller_process_exit_recovers_truth_only_then_pauses
+    r.drain(backend=NeverRun(), validator_factory=fixture_validator)
+apcd_gpu_v2\general.py:677: in drain
+    recover_load_only(cfg,req,self.ledger,validator)
+apcd_gpu_v2\serial.py:799: in recover_load_only
+    evidence=validate_truth(config,request,case_storage(config,request)/'attempts'/request.request_sha256/'run.fsp',validator)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in &lt;lambda&gt;
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id</failure></testcase><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_accepted_science_resource_hold_before_budget" time="4.477" /><testcase classname="tests.test_trusted_control_path" name="test_real_diag2_wrong_fencing_rejects_before_entry" time="3.424" /></testsuite></testsuites>

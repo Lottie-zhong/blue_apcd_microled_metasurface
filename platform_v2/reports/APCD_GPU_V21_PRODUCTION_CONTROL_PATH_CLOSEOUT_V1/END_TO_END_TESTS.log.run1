@@ -1,0 +1,122 @@
+FF.......FF..F..                                                         [100%]
+================================== FAILURES ===================================
+______ test_real_diag2_issued_controller_two_case_full_chain_and_restart ______
+tests\test_trusted_control_path.py:84: in test_real_diag2_issued_controller_two_case_full_chain_and_restart
+    state = run(p, backend)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in <lambda>
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id
+__________ test_real_diag2_a1_complete_a2_unentered_pause_and_resume __________
+tests\test_trusted_control_path.py:107: in test_real_diag2_a1_complete_a2_unentered_pause_and_resume
+    state = run(p, backend, pause)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in <lambda>
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id
+_ test_real_diag2_interrupted_controller_never_replays_or_advances[truth_valid_before_coupling] _
+tests\test_trusted_control_path.py:125: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    run(p, backend, crash)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in <lambda>
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id
+
+During handling of the above exception, another exception occurred:
+tests\test_trusted_control_path.py:124: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    with pytest.raises(RuntimeError, match='FIXTURE_CONTROLLER_INTERRUPTED'):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'FIXTURE_CONTROLLER_INTERRUPTED'
+E     Actual message: 'PROFILE_TRUTH_IDENTITY_CONFLICT:case_id'
+_ test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_truth_before_local] _
+tests\test_trusted_control_path.py:125: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    run(p, backend, crash)
+tests\test_trusted_control_path.py:79: in run
+    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
+apcd_gpu_v2\general.py:706: in drain
+    run_serial_case(cfg,req,self.ledger,impl,validator,fault=fault)
+apcd_gpu_v2\serial.py:755: in run_serial_case
+    evidence=validate_truth(config,request,fsp,validator,archive)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in <lambda>
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id
+
+During handling of the above exception, another exception occurred:
+tests\test_trusted_control_path.py:124: in test_real_diag2_interrupted_controller_never_replays_or_advances
+    with pytest.raises(RuntimeError, match='FIXTURE_CONTROLLER_INTERRUPTED'):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'FIXTURE_CONTROLLER_INTERRUPTED'
+E     Actual message: 'PROFILE_TRUTH_IDENTITY_CONFLICT:case_id'
+___ test_real_diag2_controller_process_exit_recovers_truth_only_then_pauses ___
+tests\test_trusted_control_path.py:194: in test_real_diag2_controller_process_exit_recovers_truth_only_then_pauses
+    r.drain(backend=NeverRun(), validator_factory=fixture_validator)
+apcd_gpu_v2\general.py:677: in drain
+    recover_load_only(cfg,req,self.ledger,validator)
+apcd_gpu_v2\serial.py:799: in recover_load_only
+    evidence=validate_truth(config,request,case_storage(config,request)/'attempts'/request.request_sha256/'run.fsp',validator)
+apcd_gpu_v2\serial.py:778: in validate_truth
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+apcd_gpu_v2\artifacts.py:111: in load_only
+    return reader(Path(fsp))
+apcd_gpu_v2\serial.py:778: in <lambda>
+    validated=load_only(destination/'run.fsp',config.native_h5_name,lambda p:validator(p,request,destination))
+tests\test_trusted_control_path.py:60: in validate
+    imported, accepted = import_profile_truth(cfg, req, {}, importer)
+apcd_gpu_v2\general.py:353: in import_profile_truth
+    if record.get(key) != value: raise Refused('PROFILE_TRUTH_IDENTITY_CONFLICT:'+key)
+E   apcd_gpu_v2.ledger.Refused: PROFILE_TRUTH_IDENTITY_CONFLICT:case_id
+=========================== short test summary info ===========================
+FAILED tests/test_trusted_control_path.py::test_real_diag2_issued_controller_two_case_full_chain_and_restart
+FAILED tests/test_trusted_control_path.py::test_real_diag2_a1_complete_a2_unentered_pause_and_resume
+FAILED tests/test_trusted_control_path.py::test_real_diag2_interrupted_controller_never_replays_or_advances[truth_valid_before_coupling]
+FAILED tests/test_trusted_control_path.py::test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_truth_before_local]
+FAILED tests/test_trusted_control_path.py::test_real_diag2_controller_process_exit_recovers_truth_only_then_pauses
+5 failed, 11 passed in 95.22s (0:01:35)
+

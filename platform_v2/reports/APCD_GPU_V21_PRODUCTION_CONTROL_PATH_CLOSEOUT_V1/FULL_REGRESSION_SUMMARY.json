@@ -1,0 +1,73 @@
+{
+  "tests": 309,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 309,
+  "wall_seconds": 217.98499999986961,
+  "groups": [
+    {
+      "group": 1,
+      "files": [
+        "test_v3_plan.py"
+      ],
+      "returncode": 0,
+      "seconds": 119.32799999997951,
+      "tail": "..................                                                       [100%]\n============================== warnings summary ===============================\napcd_gpu_v2\\v3_plan.py:17\n  D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_PRODUCTION_CONTROL_PATH_CLOSEOUT_V1\\RELEASE_CANDIDATE\\platform_v2\\apcd_gpu_v2\\v3_plan.py:17: UserWarning: Field name \"schema\" in \"Plan\" shadows an attribute in parent \"StrictModel\"\n    class Plan(StrictModel):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n18 passed, 1 warning in 116.75s (0:01:56)\n"
+    },
+    {
+      "group": 2,
+      "files": [
+        "test_general_runner.py",
+        "test_trusted_admission.py",
+        "test_trusted_control_path.py",
+        "test_trusted_release.py"
+      ],
+      "returncode": 0,
+      "seconds": 217.875,
+      "tail": "........................................................................ [ 76%]\n......................                                                   [100%]\n94 passed in 215.33s (0:03:35)\n"
+    },
+    {
+      "group": 3,
+      "files": [
+        "test_cutover_gate.py",
+        "test_diag2_admission_budget.py",
+        "test_diag2_contract_compatibility.py",
+        "test_diag2_time_telemetry.py",
+        "test_gpu_readonly.py",
+        "test_incident_power_dependency.py",
+        "test_mvp.py",
+        "test_native_acceptance.py",
+        "test_preentry_rebind.py",
+        "test_process_ownership_evidence.py",
+        "test_serial.py",
+        "test_v3_registered.py"
+      ],
+      "returncode": 0,
+      "seconds": 106.32799999997951,
+      "tail": "_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity\ntests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity\ntests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity\n  D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\mdc_tmm_complex_incident_power_v1.py:52: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.\n    integrated += float(np.trapz(-np.gradient(flux,z),z))\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n197 passed, 12 warnings in 102.69s (0:01:42)\n"
+    }
+  ],
+  "all_files_once": [
+    "test_cutover_gate.py",
+    "test_diag2_admission_budget.py",
+    "test_diag2_contract_compatibility.py",
+    "test_diag2_time_telemetry.py",
+    "test_general_runner.py",
+    "test_gpu_readonly.py",
+    "test_incident_power_dependency.py",
+    "test_mvp.py",
+    "test_native_acceptance.py",
+    "test_preentry_rebind.py",
+    "test_process_ownership_evidence.py",
+    "test_serial.py",
+    "test_trusted_admission.py",
+    "test_trusted_control_path.py",
+    "test_trusted_release.py",
+    "test_v3_plan.py",
+    "test_v3_registered.py"
+  ],
+  "source_module_origins": "CANDIDATE_ORIGINS_1/2/3.json",
+  "environment_fixture": "foreign process census stubbed to prevent sensitive argv collection; owned fixture PID/fencing real",
+  "scientific_executable_guard": true
+}

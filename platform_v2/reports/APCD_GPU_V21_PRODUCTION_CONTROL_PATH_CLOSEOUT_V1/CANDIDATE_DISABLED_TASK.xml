@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Task xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task" version="1.4">
+  <RegistrationInfo>
+    <Author>APCD GPU Platform V2</Author>
+    <Description>One server-owned serial GPU controller; scientific release DENY; installed disabled.</Description>
+    <URI>\APCD_GPU_V2_SERIAL_CONTROLLER</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-21-2958591235-2706656562-1210676212-1001</UserId>
+      <LogonType>S4U</LogonType>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <AllowStartOnDemand>false</AllowStartOnDemand>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <Enabled>false</Enabled>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+    <Hidden>true</Hidden>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <IdleSettings>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+  </Settings>
+  <Triggers />
+  <Actions Context="Author">
+    <Exec>
+      <Command>N:\anaconda_envs\RCP_LCP\python.exe</Command>
+      <Arguments>"D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\v21_trusted_admission_44bee753f34c\platform_v2\tools\serial_controller.py" --platform "D:\apcd_runtime\gpu_platform_v2_serial_production_v1\platform_config.json" --platform-sha256 575f3e853f3799d5db62574f73d21e69f7f871f5fe5a9ceb158e14beaad19e09</Arguments>
+      <WorkingDirectory>D:\apcd_runtime\gpu_platform_v2_serial_production_v1</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>

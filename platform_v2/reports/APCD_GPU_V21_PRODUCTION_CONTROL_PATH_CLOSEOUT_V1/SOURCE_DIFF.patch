@@ -1,0 +1,1230 @@
+diff --git a/platform_v2/apcd_gpu_v2/general.py b/platform_v2/apcd_gpu_v2/general.py
+index 9f12603f..3690e207 100644
+--- a/platform_v2/apcd_gpu_v2/general.py
++++ b/platform_v2/apcd_gpu_v2/general.py
+@@ -1,6 +1,6 @@
+ """Data-driven admission and queue for the existing V2 serial execution core.
+ 
+-No science signing, no budget creation, no scheduler, no native backend replacement.
++Science issuance is delegated to the ACL-backed adapter; no scheduler or native backend replacement.
+ """
+ import json
+ import os
+@@ -153,6 +153,7 @@ class Admission(StrictModel):
+     label_validation_profile: str
+     profile_certification_sha: str = Field(pattern=SHA)
+     science_ledger: str
++    issuance: dict | None = None
+ 
+ 
+ def acl_evidence(path):
+@@ -169,7 +170,7 @@ def verify_acl(platform, path, *, reader=acl_evidence, authority_root=None):
+     if platform.mode == 'PRODUCTION_EQUIVALENT': under(path, platform.runtime_root); return
+     allowed = {platform.science_owner_sid, 'S-1-5-18', 'S-1-5-32-544'}
+     # Write data/append/attributes/delete/change DACL/take ownership, including delete-child.
+-    write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288
++    write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288 | 0x40000000 | 0x10000000
+     root = Path(authority_root or platform.science_root).resolve(); p = under(path, root)
+     for target in [p] + list(p.parents)[:len(p.parents) - len(root.parents)]:
+         data = reader(target)
+@@ -368,28 +369,23 @@ def require_formal_authority(platform, *documents):
+         raise Refused('OFFLINE_AUTHORITY_CANNOT_AUTHORIZE_SCIENCE')
+ 
+ 
+-def load_batch(platform, manifest_pin, admission_pin):
+-    for pin in [manifest_pin, admission_pin]: verify_acl(platform, pin.path)
+-    m = Manifest.model_validate_json(json.dumps(checked(manifest_pin))); a = Admission.model_validate(checked(admission_pin))
+-    if (a.batch_id != m.batch_id or a.science_owner != m.science_owner or a.science_owner != platform.science_owner_id
+-        or a.manifest_sha != m.manifest_sha or a.manifest_file_sha != manifest_pin.sha256
+-        or a.approved_case_set != m.approved_case_set or a.approved_entry_budget != m.approved_entry_budget
+-        or a.label_validation_profile != m.label_validation_profile or a.science_ledger != m.science_ledger
+-        or a.revoked): raise Refused('SCIENCE_ADMISSION_UNBOUND_OR_REVOKED')
+-    require_formal_authority(platform,checked(manifest_pin),checked(admission_pin))
+-    profiles = [p for p in platform.profiles if p.profile_id == m.label_validation_profile]
+-    if len(profiles) != 1: raise Refused('UNSUPPORTED_SCIENCE_PROFILE')
+-    profile = profiles[0]; verify_acl(platform, profile.certification.path)
++def validate_batch_inputs(platform, manifest_pin, *, ledger_required=True):
++    # Reuse consumer validation before issuance; a missing ledger is not approval.
++    verify_acl(platform, manifest_pin.path)
++    raw=checked(manifest_pin)
++    m=Manifest.model_validate_json(json.dumps(raw))
++    require_formal_authority(platform,raw)
++    profiles=[p for p in platform.profiles if p.profile_id==m.label_validation_profile]
++    if len(profiles)!=1:raise Refused('UNSUPPORTED_SCIENCE_PROFILE')
++    profile=profiles[0];verify_acl(platform,profile.certification.path)
++    certification=checked(profile.certification);require_formal_authority(platform,certification)
++    if (certification.get('verdict')!='PASS' or certification.get('profile_id')!=profile.profile_id
++        or certification.get('toolchain')!={k:p.sha256 for k,p in profile.truth_toolchain.items()}):
++        raise Refused('SCIENCE_PROFILE_CERTIFICATION_REQUIRED')
+     if profile.postprocess_resolver_certification is not None:
+         verify_acl(platform,profile.postprocess_resolver_certification.path)
+         require_formal_authority(platform,checked(profile.postprocess_resolver_certification))
+-    certification = checked(profile.certification)
+-    require_formal_authority(platform,certification)
+-    if (a.profile_certification_sha != profile.certification.sha256 or certification.get('verdict') != 'PASS'
+-        or certification.get('profile_id') != profile.profile_id
+-        or certification.get('toolchain') != {k: p.sha256 for k,p in profile.truth_toolchain.items()}):
+-        raise Refused('SCIENCE_PROFILE_CERTIFICATION_REQUIRED')
+-    verify_acl(platform, m.science_control.path)
++    verify_acl(platform,m.science_control.path)
+     for case in m.cases:
+         if Path(case.source_fsp.path).suffix.lower()!='.fsp':raise Refused('ONLY_NATIVE_FSP_SOURCE_ALLOWED')
+         for pin in [case.source_fsp, case.source_manifest, case.physics_contract]:
+@@ -419,9 +415,27 @@ def load_batch(platform, manifest_pin, admission_pin):
+             or proof.get('simulation_time_s')!=case.simulation_time_s or proof.get('mesh_nm')!=case.mesh_nm
+             or proof.get('auto_shutoff_min')!=case.auto_shutoff_min):
+             raise Refused('SCIENTIFIC_SOURCE_LOAD_ACCEPTANCE_REQUIRED')
+-    under(m.science_ledger, platform.source_root)
+-    verify_acl(platform,m.science_ledger,authority_root=platform.source_root)
+-    return m, a, profile
++    under(m.science_ledger,platform.source_root)
++    target=m.science_ledger if ledger_required else str(Path(m.science_ledger).parent)
++    verify_acl(platform,target,authority_root=platform.source_root)
++    return m,profile
++
++
++def load_batch(platform, manifest_pin, admission_pin):
++    m,profile=validate_batch_inputs(platform,manifest_pin)
++    verify_acl(platform,admission_pin.path)
++    raw=checked(admission_pin);a=Admission.model_validate(raw)
++    require_formal_authority(platform,raw)
++    if (a.batch_id!=m.batch_id or a.science_owner!=m.science_owner or a.science_owner!=platform.science_owner_id
++        or a.manifest_sha!=m.manifest_sha or a.manifest_file_sha!=manifest_pin.sha256
++        or a.approved_case_set!=m.approved_case_set or a.approved_entry_budget!=m.approved_entry_budget
++        or a.label_validation_profile!=m.label_validation_profile or a.science_ledger!=m.science_ledger
++        or a.profile_certification_sha!=profile.certification.sha256 or a.revoked):
++        raise Refused('SCIENCE_ADMISSION_UNBOUND_OR_REVOKED')
++    if platform.mode=='PRODUCTION_GPU' or a.issuance is not None:
++        from .trusted_admission import verify_issued_admission
++        verify_issued_admission(platform,m,manifest_pin,a,admission_pin)
++    return m,a,profile
+ 
+ 
+ def build_requests(platform, manifest_pin, admission_pin):
+@@ -703,7 +717,7 @@ def load_platform(pin):
+         canonical = Path('D:/apcd_runtime/gpu_platform_v2_serial_production_v1/platform_config.json').resolve()
+         if Path(pin.path).resolve() != canonical: raise Refused('CANONICAL_PLATFORM_CONFIG_REQUIRED')
+         allowed = {'S-1-5-18','S-1-5-32-544'}
+-        write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288
++        write = 2 | 4 | 16 | 64 | 256 | 65536 | 262144 | 524288 | 0x40000000 | 0x10000000
+         for target in [canonical, canonical.parent]:
+             acl = acl_evidence(target)
+             if acl.get('owner') not in allowed or any(r['allow'] and r['rights'] & write and r['sid'] not in allowed for r in acl.get('rules',[])):
+diff --git a/platform_v2/apcd_gpu_v2/serial.py b/platform_v2/apcd_gpu_v2/serial.py
+index d96a8491..215b455f 100644
+--- a/platform_v2/apcd_gpu_v2/serial.py
++++ b/platform_v2/apcd_gpu_v2/serial.py
+@@ -592,7 +592,14 @@ class SerialLedger(Ledger):
+             if evidence: db.execute('UPDATE slot SET token=NULL,owner=NULL,request_sha=NULL WHERE id=1')
+ 
+ 
++def require_trusted_production_config(config):
++    if config.mode=='PRODUCTION_GPU':
++        from .general import is_general
++        if not is_general(config):raise Refused('TRUSTED_V21_ADMISSION_PATH_REQUIRED')
++
++
+ def validate_admission(config,request):
++    require_trusted_production_config(config)
+     from .general import is_general, validate_general
+     if is_general(config): return validate_general(config,request)
+     if diag2_config(config):
+@@ -662,6 +669,7 @@ class ProductionNativeBackend:
+ 
+     def _execute(self,config,request,ledger,token,budget,command,cwd,fault):
+         if config.mode=='PRODUCTION_GPU':
++            validate_admission(config,request)
+             ledger.note(request,token,'PRELAUNCH_GPU_RESOURCE_GATE',gpu_inventory_gate(config))
+         ledger.note(request,token,'PRELAUNCH_PROCESS_CENSUS',{'processes':process_gate(os.getpid())})
+         ledger.launch_once(request,token,budget)
+@@ -722,6 +730,7 @@ class EquivalentBackend(ProductionNativeBackend):
+ 
+ 
+ def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:None,archive=archive_pair):
++    require_trusted_production_config(config)
+     budget=budget_for(config)
+     token=ledger.claim(request.request_sha256,identity())
+     try:
+diff --git a/platform_v2/apcd_gpu_v2/trusted_admission.py b/platform_v2/apcd_gpu_v2/trusted_admission.py
+new file mode 100644
+index 00000000..c644e88a
+--- /dev/null
++++ b/platform_v2/apcd_gpu_v2/trusted_admission.py
+@@ -0,0 +1,304 @@
++"""ACL-backed issuance adapter for the existing Coupling batch ledger protocol.
++
++No keys, signing root, budget authority, scheduler or solver is created here.
++Production uses the installer-pinned Windows identity/DACL boundary. Fixtures
++are explicitly scoped to PRODUCTION_EQUIVALENT and cannot authorize production.
++"""
++import json
++import os
++import subprocess
++import uuid
++from dataclasses import dataclass
++from pathlib import Path
++from typing import Literal
++
++from pydantic import Field
++
++from .config import StrictModel, digest
++from .artifacts import sha256
++from .ledger import Refused
++from .general import (Admission, Manifest, Pin, checked, read_json, under, verify_acl,
++                      validate_batch_inputs, load_platform)
++from .serial import exclusive
++
++
++class Provenance(StrictModel):
++    case_id: str
++    attempt_id: Literal['attempt_001']
++    source_run_truth: Pin
++    setup_input: Pin
++    candidate_setup: Pin
++    source_manifest: Pin
++    auxiliary: list[Pin] = Field(default_factory=list)
++
++
++class OwnerIntent(StrictModel):
++    schema_version: Literal['APCD_GPU_V21_SCIENCE_OWNER_ISSUANCE_INTENT_V1']
++    intent_id: str = Field(pattern=r'^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$')
++    science_owner: str
++    science_owner_sid: str
++    batch_id: str
++    manifest_file_sha256: str = Field(pattern=r'^[a-f0-9]{64}$')
++    manifest_sha256: str = Field(pattern=r'^[a-f0-9]{64}$')
++    approved_case_set: list[str]
++    approved_entry_budget: int = Field(gt=0)
++    per_case_entry_limit: Literal[1]
++    no_replay: Literal[True]
++    profile_id: Literal['coupling_609d_v1']
++    profile_certification_sha256: str = Field(pattern=r'^[a-f0-9]{64}$')
++    release_inventory: Pin
++    scientific_evidence: dict[str, Pin]
++    case_provenance: list[Provenance]
++    scope: Literal['SCIENCE_ADMISSION_AND_LEDGER_GENESIS_ONLY']
++    solver_entry_authorized: Literal[False]
++    fixture_only: bool = False
++
++
++@dataclass(frozen=True)
++class FixturePrincipal:
++    sid: str
++    root: str
++
++
++def authority_policy(platform):
++    """Verifier may run as GPU Owner; only issuance requires the Science token."""
++    if platform.mode == 'PRODUCTION_EQUIVALENT':
++        if 'zero_solver' not in str(Path(platform.runtime_root)).lower():
++            raise Refused('FIXTURE_AUTHORITY_ROOT_REQUIRED')
++        canonical=Path('D:/apcd_runtime/gpu_platform_v2_serial_production_v1').resolve()
++        root=Path(platform.runtime_root).resolve()
++        if root==canonical or canonical in root.parents or root in canonical.parents:
++            raise Refused('FIXTURE_OUTSIDE_PRODUCTION_REQUIRED')
++        for path in [platform.science_root,platform.source_root,platform.coupling_root]:
++            under(path,root)
++        return
++    canonical = Path('D:/apcd_runtime/gpu_platform_v2_serial_production_v1/platform_config.json')
++    installed = load_platform(Pin(path=str(canonical), sha256=sha256(canonical)))
++    if installed.model_dump() != platform.model_dump():
++        raise Refused('ISSUER_PLATFORM_NOT_INSTALLER_BOUND')
++    if platform.science_owner_sid == platform.consumer_sid or platform.science_owner_sid in platform.operator_sids:
++        raise Refused('SCIENCE_GPU_PRINCIPAL_SEPARATION_REQUIRED')
++    for root in [platform.science_root, platform.source_root]:
++        verify_acl(platform, root, authority_root=root)
++
++
++def require_science_owner(platform, fixture_principal=None):
++    if platform.mode == 'PRODUCTION_GPU' and fixture_principal is not None:
++        raise Refused('FIXTURE_CREDENTIAL_FORBIDDEN_IN_PRODUCTION')
++    authority_policy(platform)
++    if platform.mode == 'PRODUCTION_EQUIVALENT':
++        if (not isinstance(fixture_principal, FixturePrincipal)
++            or Path(fixture_principal.root).resolve() != Path(platform.runtime_root).resolve()
++            or fixture_principal.sid != platform.science_owner_sid):
++            raise Refused('FIXTURE_SCIENCE_OWNER_IDENTITY_REQUIRED')
++        return fixture_principal.sid
++    if fixture_principal is not None:
++        raise Refused('FIXTURE_CREDENTIAL_FORBIDDEN_IN_PRODUCTION')
++    result = subprocess.run(['powershell', '-NoProfile', '-NonInteractive', '-Command',
++        '[System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value'],
++        capture_output=True, text=True, timeout=15)
++    if result.returncode or result.stdout.strip() != platform.science_owner_sid:
++        raise Refused('AUTHENTICATED_SCIENCE_OWNER_REQUIRED')
++    return result.stdout.strip()
++
++
++def _release_binding(platform, pin):
++    inventory = checked(pin)
++    if platform.mode == 'PRODUCTION_EQUIVALENT':
++        under(pin.path, platform.runtime_root)
++        return
++    root = Path(__file__).resolve().parents[2]
++    if (Path(pin.path).resolve() != root/'CODE_SHA256.json'
++        or root.parent != Path(platform.runtime_root).resolve()/'releases'):
++        raise Refused('ISSUER_MUST_RUN_FROM_PINNED_INSTALLED_RELEASE')
++    verify_acl(platform, pin.path, authority_root=root)
++    files = inventory.get('files', {})
++    for name in ['trusted_admission.py', 'general.py']:
++        p = Path(__file__).parent/name
++        row = files.get('platform_v2/apcd_gpu_v2/'+name, {})
++        if row.get('sha256') != sha256(p):
++            raise Refused('TRUSTED_ISSUER_CODE_NOT_IN_RELEASE_INVENTORY')
++
++
++def _paths(platform, batch_id):
++    base = Path(platform.science_root)/'_admissions'/batch_id
++    return {name:under(base/(name+'.json'),platform.science_root) for name in ['reservation', 'genesis', 'admission', 'activation']}
++
++
++def _plan(platform, manifest_pin, intent_pin, *, issuing=False):
++    authority_policy(platform)
++    verify_acl(platform, intent_pin.path)
++    intent = OwnerIntent.model_validate(checked(intent_pin))
++    if intent.fixture_only != (platform.mode == 'PRODUCTION_EQUIVALENT'):
++        raise Refused('ISSUANCE_FIXTURE_PRODUCTION_SCOPE_MISMATCH')
++    m, profile = validate_batch_inputs(platform, manifest_pin, ledger_required=False)
++    if (intent.science_owner != platform.science_owner_id or intent.science_owner_sid != platform.science_owner_sid
++        or intent.batch_id != m.batch_id or intent.manifest_file_sha256 != manifest_pin.sha256
++        or intent.manifest_sha256 != m.manifest_sha or intent.approved_case_set != m.approved_case_set
++        or intent.approved_entry_budget != m.approved_entry_budget
++        or intent.profile_id != profile.profile_id or intent.profile_certification_sha256 != profile.certification.sha256):
++        raise Refused('SCIENCE_OWNER_INTENT_BINDING_CONFLICT')
++    expected_ledger = Path(platform.source_root)/m.batch_id/'science_ledger.json'
++    if Path(m.science_ledger).resolve() != expected_ledger.resolve():
++        raise Refused('ONE_CANONICAL_BATCH_LEDGER_REQUIRED')
++    control = read_json(m.science_control.path)
++    if (m.batch_science_hold or control.get('batch_id') != m.batch_id or control.get('manifest_sha') != m.manifest_sha
++        or (issuing and (control.get('hold') is not False or control.get('admission_pass') is not True))):
++        raise Refused('BATCH_SCIENCE_HOLD')
++    if [r.case_id for r in intent.case_provenance] != m.approved_case_set:
++        raise Refused('EXACT_CASE_PROVENANCE_REQUIRED')
++    for case, provenance in zip(m.cases, intent.case_provenance):
++        if provenance.attempt_id != case.attempt_id or provenance.candidate_setup.sha256 != case.source_fsp.sha256:
++            raise Refused('CASE_SOURCE_SETUP_BINDING_CONFLICT')
++        if issuing:
++            for pin in [provenance.source_run_truth, provenance.setup_input, provenance.candidate_setup,
++                        provenance.source_manifest]+provenance.auxiliary:
++                if sha256(pin.path) != pin.sha256: raise Refused('SOURCE_SETUP_SHA_MISMATCH')
++    for pin in intent.scientific_evidence.values():
++        if sha256(pin.path) != pin.sha256: raise Refused('SCIENTIFIC_EVIDENCE_SHA_MISMATCH')
++    if not intent.scientific_evidence: raise Refused('SCIENTIFIC_EVIDENCE_REQUIRED')
++    _release_binding(platform, intent.release_inventory)
++    paths = _paths(platform, m.batch_id)
++    genesis = dict(schema='APCD_GPU_V21_COUPLING_LEDGER_GENESIS_V1', batch_id=m.batch_id,
++        manifest=manifest_pin.model_dump(), intent=intent_pin.model_dump(),
++        profile_id=profile.profile_id, certification_sha256=profile.certification.sha256,
++        release_inventory=intent.release_inventory.model_dump(), platform_sha256=platform.sha256,
++        case_attempts=[dict(case_id=r.case_id,attempt_id=r.attempt_id,case_request_sha256=r.case_request_sha256,
++            physics_contract_sha256=r.physics_contract_sha,physics_contract_file_sha256=r.physics_contract.sha256,
++            source_fsp_sha256=r.source_fsp.sha256,source_manifest_sha256=r.source_manifest.sha256) for r in m.cases],
++        approved_entry_budget=m.approved_entry_budget,per_case_entry_limit=1,no_replay=True,
++        science_ledger=str(expected_ledger),fixture_only=intent.fixture_only)
++    genesis_sha = digest(genesis)
++    issuance = dict(schema='APCD_GPU_V21_ACL_ISSUANCE_V1',genesis_sha256=genesis_sha,
++        intent=intent_pin.model_dump(),release_inventory=intent.release_inventory.model_dump(),
++        issuer_sid=platform.science_owner_sid,fixture_only=intent.fixture_only)
++    admission = Admission(schema_version='APCD_GPU_V21_SCIENCE_ADMISSION_V1',batch_id=m.batch_id,
++        science_owner=platform.science_owner_id,manifest_sha=m.manifest_sha,manifest_file_sha=manifest_pin.sha256,
++        approved_case_set=m.approved_case_set,approved_entry_budget=m.approved_entry_budget,
++        scientific_admission='PASS',engineering_admission='PASS',revoked=False,no_replay=True,
++        label_validation_profile=profile.profile_id,profile_certification_sha=profile.certification.sha256,
++        science_ledger=str(expected_ledger),issuance=issuance).model_dump(mode='json')
++    admission_sha = digest(admission)
++    ledger = dict(schema='APCD_COUPLING_BATCH_ENTRY_LEDGER_V1',batch_id=m.batch_id,no_replay=True,replay_count=0,
++        admission_sha256=admission_sha,genesis_sha256=genesis_sha,authorized_entry_budget=m.approved_entry_budget,
++        entered_case_ids=[],entered_count=0,remaining_unentered_case_ids=m.approved_case_set,
++        remaining_unentered_count=m.approved_entry_budget,truth_valid_case_ids=[],truth_valid_count=0,
++        labels_valid_case_ids=[],labels_valid_count=0,case_records={})
++    reservation = dict(schema='APCD_GPU_V21_BATCH_RESERVATION_V1',batch_id=m.batch_id,
++        genesis_sha256=genesis_sha,admission_sha256=admission_sha,science_ledger=str(expected_ledger),
++        case_attempts=[dict(case_id=r.case_id,attempt_id=r.attempt_id) for r in m.cases])
++    activation = dict(reservation,
++        manifest_file_sha256=manifest_pin.sha256,fixture_only=intent.fixture_only,
++        status='SCIENCE_READY_NOT_SOLVER_AUTHORIZATION',solver_entry_authorized=False)
++    activation['schema']='APCD_GPU_V21_SCIENCE_ACTIVATION_V1'
++    return m, paths, genesis, admission, ledger, reservation, activation
++
++
++def atomic_new_json(path, value, fault=lambda step:None):
++    """No-overwrite atomic publication on NTFS; incomplete temp files are inert."""
++    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
++    payload=json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=True).encode('utf-8')
++    if path.exists():
++        if path.read_bytes()!=payload:raise Refused('IMMUTABLE_ISSUANCE_ARTIFACT_CONFLICT')
++        return
++    temporary=path.parent/('.'+path.name+'.'+uuid.uuid4().hex+'.tmp')
++    try:
++        with temporary.open('xb') as stream:
++            stream.write(payload[:len(payload)//2]);stream.flush();fault('partial_temporary_write')
++            stream.write(payload[len(payload)//2:]);stream.flush();os.fsync(stream.fileno())
++        try:os.link(temporary,path)
++        except FileExistsError:
++            if path.read_bytes()!=payload:raise Refused('CONCURRENT_ISSUANCE_ARTIFACT_CONFLICT')
++    finally:
++        if temporary.exists():temporary.unlink()
++
++
++def issue_and_initialize(platform, manifest_pin, intent_pin, *, fixture_principal=None,
++                         recover=False, fault=lambda step:None):
++    """Science Owner only. Does not touch V2 SQLite, PAUSE, Scheduler or a solver."""
++    issuer=require_science_owner(platform,fixture_principal)
++    with exclusive(Path(platform.science_root)/'.v21_admission.lock'):
++        raw_manifest=Manifest.model_validate_json(json.dumps(checked(manifest_pin)))
++        already_active=_paths(platform,raw_manifest.batch_id)['activation'].exists()
++        m,paths,genesis,admission,ledger,reservation,activation=_plan(platform,manifest_pin,intent_pin,issuing=not already_active)
++        identities={(r.case_id.casefold(),r.attempt_id) for r in m.cases}
++        for prior in (Path(platform.science_root)/'_admissions').glob('*/reservation.json'):
++            old=read_json(prior)
++            if prior.resolve()!=paths['reservation'].resolve() and identities & {
++                (r['case_id'].casefold(),r['attempt_id']) for r in old['case_attempts']}:
++                raise Refused('CROSS_BATCH_ATTEMPT_ALREADY_RESERVED')
++        if paths['activation'].exists():
++            verify_issued_admission(platform,m,manifest_pin,Admission.model_validate(admission),
++                Pin(path=str(paths['admission']),sha256=digest(admission)))
++            if not recover:raise Refused('ALREADY_ISSUED_NO_NEW_AUTHORITY')
++            return dict(status='ALREADY_ACTIVE_NO_MUTATION',admission=Pin(path=str(paths['admission']),sha256=digest(admission)).model_dump(),genesis_sha256=digest(genesis))
++        if paths['reservation'].exists() and not recover:raise Refused('ISSUANCE_RECOVERY_REQUIRED')
++        atomic_new_json(paths['reservation'],reservation,fault);fault('reservation_committed')
++        atomic_new_json(paths['genesis'],genesis,fault);fault('genesis_committed')
++        atomic_new_json(paths['admission'],admission,fault);fault('admission_committed')
++        atomic_new_json(Path(m.science_ledger),ledger,fault);fault('ledger_committed')
++        # Revalidate pins while holding the issuer lock, before the only activation point.
++        if require_science_owner(platform,fixture_principal)!=issuer or _plan(platform,manifest_pin,intent_pin,issuing=True)[2]!=genesis:
++            raise Refused('ISSUANCE_INPUT_CHANGED_BEFORE_ACTIVATION')
++        atomic_new_json(paths['activation'],activation,fault);fault('activation_committed')
++        return dict(status='SCIENCE_READY_NOT_SOLVER_AUTHORIZATION',
++            admission=Pin(path=str(paths['admission']),sha256=sha256(paths['admission'])).model_dump(),
++            science_ledger=str(m.science_ledger),genesis_sha256=digest(genesis),fixture_only=platform.mode!='PRODUCTION_GPU')
++
++
++def verify_issued_admission(platform, manifest, manifest_pin, admission, admission_pin):
++    if not admission.issuance:raise Refused('TRUSTED_ISSUANCE_REQUIRED')
++    issuance=admission.issuance
++    if set(issuance)!=set(['schema','genesis_sha256','intent','release_inventory','issuer_sid','fixture_only']):
++        raise Refused('UNSUPPORTED_ISSUANCE_BINDING')
++    if issuance['schema']!='APCD_GPU_V21_ACL_ISSUANCE_V1':raise Refused('UNSUPPORTED_ISSUANCE_PROTOCOL')
++    if issuance['fixture_only']!=(platform.mode=='PRODUCTION_EQUIVALENT'):
++        raise Refused('FIXTURE_CREDENTIAL_FORBIDDEN_IN_PRODUCTION')
++    result=_plan(platform,manifest_pin,Pin.model_validate(issuance['intent']))
++    m,paths,genesis,expected,ledger,reservation,activation=result
++    if admission.model_dump(mode='json')!=expected or admission_pin.sha256!=digest(expected):
++        raise Refused('ISSUED_ADMISSION_BINDING_CONFLICT')
++    if Path(admission_pin.path).resolve()!=paths['admission'].resolve():raise Refused('NONCANONICAL_ISSUED_ADMISSION')
++    if sha256(admission_pin.path)!=admission_pin.sha256:raise Refused('ISSUED_ADMISSION_SHA_MISMATCH')
++    for name,value in [('reservation',reservation),('genesis',genesis),('admission',expected),('activation',activation)]:
++        verify_acl(platform,paths[name])
++        if not paths[name].is_file():raise Refused('ISSUANCE_NOT_ATOMICALLY_ACTIVE')
++        if read_json(paths[name])!=value:raise Refused('ISSUANCE_COMMIT_EVIDENCE_CONFLICT')
++    actual=read_json(m.science_ledger)
++    if any(actual.get(key)!=ledger[key] for key in ['schema','batch_id','no_replay','replay_count','admission_sha256','genesis_sha256','authorized_entry_budget']):
++        raise Refused('LEDGER_GENESIS_IDENTITY_CONFLICT')
++    return dict(verdict='PASS',genesis_sha256=digest(genesis),fixture_only=platform.mode!='PRODUCTION_GPU',solver_entry_authorized=False)
++
++
++def main(argv=None):
++    """Production-only CLI: there is deliberately no fixture credential option."""
++    import argparse
++    parser=argparse.ArgumentParser(description='Protected Science Owner Admission/genesis transaction; never starts a solver')
++    parser.add_argument('operation',choices=['check','issue','recover','verify'])
++    for name in ['platform','manifest','intent']:
++        parser.add_argument('--'+name,required=True)
++        parser.add_argument('--'+name+'-sha256',required=True)
++    args=parser.parse_args(argv)
++    try:
++        platform=load_platform(Pin(path=args.platform,sha256=args.platform_sha256))
++        if platform.mode!='PRODUCTION_GPU':raise Refused('FIXTURE_CREDENTIALS_HAVE_NO_PRODUCTION_CLI')
++        manifest=Pin(path=args.manifest,sha256=args.manifest_sha256)
++        intent=Pin(path=args.intent,sha256=args.intent_sha256)
++        if args.operation=='check':
++            require_science_owner(platform);m,paths,*_=_plan(platform,manifest,intent,issuing=True)
++            result=dict(status='INPUTS_VERIFIED_NO_ISSUANCE',batch_id=m.batch_id,solver_entry_authorized=False)
++        elif args.operation=='verify':
++            m,paths,genesis,admission,*_=_plan(platform,manifest,intent)
++            result=verify_issued_admission(platform,m,manifest,Admission.model_validate(admission),
++                Pin(path=str(paths['admission']),sha256=digest(admission)))
++        else:
++            result=issue_and_initialize(platform,manifest,intent,recover=args.operation=='recover')
++        print(json.dumps(result,sort_keys=True));return 0
++    except Refused as exc:
++        print(json.dumps(dict(status='REFUSED',reason=str(exc),solver_entry_authorized=False)));return 2
++    except (OSError,ValueError,KeyError) as exc:
++        print(json.dumps(dict(status='REFUSED',reason='ISSUANCE_INPUT_OR_STORAGE_UNAVAILABLE',error_type=type(exc).__name__,solver_entry_authorized=False)));return 2
++
++
++if __name__=='__main__':
++    raise SystemExit(main())
+diff --git a/platform_v2/tests/test_trusted_admission.py b/platform_v2/tests/test_trusted_admission.py
+new file mode 100644
+index 00000000..dfed2fcd
+--- /dev/null
++++ b/platform_v2/tests/test_trusted_admission.py
+@@ -0,0 +1,320 @@
++import json
++import os
++import sqlite3
++import subprocess
++import sys
++from pathlib import Path
++
++import pytest
++
++from apcd_gpu_v2.artifacts import sha256
++from apcd_gpu_v2.config import digest
++from apcd_gpu_v2.general import (Admission, Pin, Platform, Registry, GeneralBudget,
++    build_requests, load_batch, read_json, verify_acl)
++from apcd_gpu_v2.ledger import Refused
++from apcd_gpu_v2.trusted_admission import (OwnerIntent, FixturePrincipal, _paths,
++    issue_and_initialize, require_science_owner, verify_issued_admission)
++from test_general_runner import setup, batch, write
++
++
++FAULTS=['partial_temporary_write','reservation_committed','genesis_committed',
++        'admission_committed','ledger_committed','activation_committed']
++
++
++def packet(tmp_path,name='UNSEEN_ADMISSION_BATCH',hold=False,real=False):
++    platform,registry,_=setup(tmp_path)
++    source_rows=None
++    evidence={}
++    if real:
++        from test_diag2_contract_compatibility import frozen_inputs
++        mp,_,original,cp,_,contract,contract_sha=frozen_inputs()
++        source_rows=original['batch']['cases']
++        ids=[r['case_id'] for r in source_rows]
++        geom={r['case_id']:r['ordered_D1_D6_nm'] for r in source_rows}
++        manifest,old_admission,ledger=batch(platform,original['batch']['batch_id'],hold=hold,
++            case_ids=ids,contract_payload=contract,physical_identity_sha=contract_sha,
++            role='TIME_CONVERGENCE_DIAGNOSTIC_ONLY',geometries=geom)
++        cert=Path(os.environ['APCD_TEST_COUPLING_ROOT'])/'reports/coupling/APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1/COUPLING_609D_PROFILE_CERTIFICATION.json'
++        binding=Path(os.environ['APCD_TEST_COUPLING_ROOT'])/'reports/coupling/APCD_COUPLING_DIAG2_FINAL_ADMISSION_BINDING_V1/FINAL_ADMISSION_BINDING_CHECK.json'
++        evidence={k:dict(path=str(p),sha256=sha256(p)) for k,p in [('frozen_manifest',mp),('frozen_contract',cp),('frozen_profile_certification',cert),('final_science_binding',binding)]}
++    else:
++        manifest,old_admission,ledger=batch(platform,name,hold=hold)
++    # Only the old isolated helper's fabricated authority is removed, never production data.
++    ledger.unlink();Path(old_admission.path).unlink()
++    doc=read_json(manifest.path)
++    provenance=[]
++    for i,row in enumerate(doc['cases']):
++        if source_rows:
++            source=source_rows[i]
++            Path(row['source_fsp']['path']).write_bytes(Path(source['candidate_pre_fsp_path']).read_bytes())
++            row['source_fsp']['sha256']=sha256(row['source_fsp']['path'])
++            Path(row['source_manifest']['path']).write_bytes(Path(source['setup_input']['source_manifest_path']).read_bytes())
++            row['source_manifest']['sha256']=sha256(row['source_manifest']['path'])
++            project={k:v for k,v in row.items() if k not in ['case_request_sha256','source_acceptance']}
++            row['case_request_sha256']=digest(dict(schema='APCD_COUPLING_CASE_REQUEST_CANON_V1',case_request=project,source_acceptance_path=row['source_acceptance']['path']))
++            proof=read_json(row['source_acceptance']['path'])
++            proof.update(source_fsp_sha=row['source_fsp']['sha256'],source_manifest_sha256=row['source_manifest']['sha256'],case_request_sha256=row['case_request_sha256'])
++            row['source_acceptance']=write(Path(row['source_acceptance']['path']),proof)
++            run=dict(path=source['source_run_truth']['source_run_fsp_path'],sha256=source['source_run_truth']['source_run_fsp_sha256'])
++            pre=dict(path=source['setup_input']['source_setup_pre_fsp_path'],sha256=source['setup_input']['source_setup_pre_fsp_sha256'])
++            original_manifest=dict(path=source['setup_input']['source_manifest_path'],sha256=source['setup_input']['source_manifest_sha256'])
++        else:
++            folder=Path(row['source_fsp']['path']).parent
++            prefile=folder/(row['case_id']+'_prior_setup.fsp');prefile.write_bytes(b'ISOLATED_3PS_INPUT_FIXTURE')
++            runfile=folder/(row['case_id']+'_prior_run.fsp');runfile.write_bytes(b'ISOLATED_PRIOR_TRUTH_FIXTURE')
++            pre=dict(path=str(prefile),sha256=sha256(prefile));run=dict(path=str(runfile),sha256=sha256(runfile));original_manifest=row['source_manifest']
++        auxiliary=[]
++        if source_rows:
++            auxiliary=[dict(path=source['setup_input']['source_setup_spec_path'],sha256=source['setup_input']['source_setup_spec_sha256']),
++                dict(path=source['setup_input']['source_load_proof_path'],sha256=source['setup_input']['source_load_proof_sha256']),
++                dict(path=source['candidate_setup_load_proof_path'],sha256=source['candidate_setup_load_proof_sha256']),
++                dict(path=source['setup_readback_audit_path'],sha256=source['setup_readback_audit_sha256'])]
++        provenance.append(dict(case_id=row['case_id'],attempt_id=row['attempt_id'],source_run_truth=run,
++            setup_input=pre,candidate_setup=row['source_fsp'],source_manifest=original_manifest,auxiliary=auxiliary))
++    doc['manifest_sha']=digest({k:v for k,v in doc.items() if k!='manifest_sha'})
++    manifest=Pin(**write(Path(manifest.path),doc))
++    control=read_json(doc['science_control']['path']);control['manifest_sha']=doc['manifest_sha'];write(Path(doc['science_control']['path']),control)
++    release=write(Path(platform.runtime_root)/'science/fixture_release_inventory.json',dict(fixture_only=True,code_inventory_is_test_evidence=True))
++    if not evidence:evidence={'test_evidence':release}
++    intent=OwnerIntent(schema_version='APCD_GPU_V21_SCIENCE_OWNER_ISSUANCE_INTENT_V1',intent_id=doc['batch_id']+'_INTENT',
++        science_owner=platform.science_owner_id,science_owner_sid=platform.science_owner_sid,
++        batch_id=doc['batch_id'],manifest_file_sha256=manifest.sha256,manifest_sha256=doc['manifest_sha'],
++        approved_case_set=doc['approved_case_set'],approved_entry_budget=2,per_case_entry_limit=1,no_replay=True,
++        profile_id='coupling_609d_v1',profile_certification_sha256=platform.profiles[0].certification.sha256,
++        release_inventory=release,scientific_evidence=evidence,case_provenance=provenance,
++        scope='SCIENCE_ADMISSION_AND_LEDGER_GENESIS_ONLY',solver_entry_authorized=False,fixture_only=True)
++    intent_pin=Pin(**write(Path(platform.science_root)/doc['batch_id']/'intent.json',intent.model_dump(mode='json')))
++    actor=FixturePrincipal(platform.science_owner_sid,platform.runtime_root)
++    return platform,registry,manifest,intent_pin,ledger,actor
++
++
++def issue(p):return issue_and_initialize(p[0],p[2],p[3],fixture_principal=p[5])
++
++
++def test_atomic_genesis_no_circular_sha_and_registry_starts_paused(tmp_path):
++    p=packet(tmp_path);result=issue(p);ad=Pin(**result['admission']);m,a,_=load_batch(p[0],p[2],ad)
++    ledger=read_json(p[4]);genesis=read_json(_paths(p[0],m.batch_id)['genesis'])
++    assert ledger['entered_count']==0 and ledger['remaining_unentered_count']==2
++    assert ledger['admission_sha256']==ad.sha256 and digest(genesis)==ledger['genesis_sha256']
++    assert 'admission_sha256' not in genesis and 'activation' not in genesis
++    assert a.issuance['fixture_only'] is True
++    assert p[1].submit(p[2],ad)=='SUBMITTED_PAUSED'
++    assert p[1].status()['batches'][0]['paused']==1 and p[1].ledger.audit()['tasks']==[]
++
++
++@pytest.mark.parametrize('sid',['CONSUMER','OPERATOR','FOREIGN'])
++def test_unauthorized_identity_cannot_issue(tmp_path,sid):
++    p=packet(tmp_path)
++    with pytest.raises(Refused,match='IDENTITY_REQUIRED'):
++        issue_and_initialize(p[0],p[2],p[3],fixture_principal=FixturePrincipal(sid,p[0].runtime_root))
++    assert not p[4].exists() and not (Path(p[0].science_root)/'_admissions').exists()
++
++
++def test_fixture_never_authorizes_production_and_ordinary_json_is_not_admission(tmp_path):
++    p=packet(tmp_path);ad=Pin(**issue(p)['admission']);m,a,_=load_batch(p[0],p[2],ad)
++    production=p[0].model_copy(update={'mode':'PRODUCTION_GPU'})
++    with pytest.raises(Refused,match='FIXTURE_CREDENTIAL'):
++        verify_issued_admission(production,m,p[2],a,ad)
++    with pytest.raises(Refused,match='FIXTURE_CREDENTIAL'):
++        require_science_owner(production,p[5])
++    with pytest.raises(Refused,match='TRUSTED_ISSUANCE_REQUIRED'):
++        verify_issued_admission(p[0],m,p[2],a.model_copy(update={'issuance':None}),ad)
++
++
++@pytest.mark.parametrize('mutation',['manifest_sha256','manifest_file_sha256','profile_certification_sha256','batch_id','approved_case_set','approved_entry_budget'])
++def test_intent_tamper_fail_closed(tmp_path,mutation):
++    p=packet(tmp_path);intent=read_json(p[3].path)
++    intent[mutation]=('0'*64 if 'sha256' in mutation else ['UNKNOWN'] if mutation=='approved_case_set' else 3 if mutation=='approved_entry_budget' else 'FOREIGN_BATCH')
++    bad=Pin(**write(Path(p[3].path),intent))
++    with pytest.raises(Refused,match='INTENT_BINDING_CONFLICT'):issue_and_initialize(p[0],p[2],bad,fixture_principal=p[5])
++    assert not p[4].exists()
++
++
++@pytest.mark.parametrize('which',['source_fsp','setup_input','physics_contract'])
++def test_source_setup_contract_sha_tamper_denied(tmp_path,which):
++    p=packet(tmp_path);m=read_json(p[2].path);intent=read_json(p[3].path)
++    path=m['cases'][0][which]['path'] if which!='setup_input' else intent['case_provenance'][0]['setup_input']['path']
++    Path(path).write_bytes(b'CORRUPTION_FIXTURE')
++    with pytest.raises(Refused,match='SHA_MISMATCH'):issue(p)
++    assert not p[4].exists()
++
++
++def test_missing_profile_and_admission_deny(tmp_path):
++    p=packet(tmp_path)
++    with pytest.raises(Refused,match='UNSUPPORTED_SCIENCE_PROFILE'):
++        issue_and_initialize(p[0].model_copy(update={'profiles':[]}),p[2],p[3],fixture_principal=p[5])
++    with pytest.raises((Refused,FileNotFoundError)):
++        load_batch(p[0],p[2],Pin(path=str(Path(p[0].science_root)/'missing.json'),sha256='0'*64))
++    assert not p[4].exists()
++
++
++@pytest.mark.parametrize('point',FAULTS)
++def test_real_process_exit_atomic_activation_and_explicit_recovery(tmp_path,point):
++    p=packet(tmp_path)
++    child="""import json,os,sys
++from apcd_gpu_v2.general import Platform,Pin
++from apcd_gpu_v2.trusted_admission import issue_and_initialize,FixturePrincipal
++d=json.load(sys.stdin);p=Platform.model_validate(d['platform'])
++def fault(step):
++ if step==d['point']:os._exit(73)
++issue_and_initialize(p,Pin(**d['manifest']),Pin(**d['intent']),fixture_principal=FixturePrincipal(p.science_owner_sid,p.runtime_root),fault=fault)
++"""
++    payload=dict(platform=p[0].model_dump(mode='json'),manifest=p[2].model_dump(),intent=p[3].model_dump(),point=point)
++    stopped=subprocess.run([sys.executable,'-c',child],input=json.dumps(payload),capture_output=True,text=True,timeout=25)
++    assert stopped.returncode==73,stopped.stderr
++    paths=_paths(p[0],read_json(p[2].path)['batch_id'])
++    if point!='activation_committed':
++        with pytest.raises((Refused,FileNotFoundError)):
++            load_batch(p[0],p[2],Pin(path=str(paths['admission']),sha256=sha256(paths['admission']) if paths['admission'].exists() else '0'*64))
++    result=issue_and_initialize(p[0],p[2],p[3],fixture_principal=p[5],recover=True)
++    load_batch(p[0],p[2],Pin(**result['admission']))
++    assert read_json(p[4])['entered_count']==0 and read_json(p[4])['remaining_unentered_count']==2
++    assert p[1].status()['batches']==[] and p[1].ledger.audit()['tasks']==[]
++
++
++def test_duplicate_issuance_and_entry_no_replay_no_refund(tmp_path):
++    p=packet(tmp_path);result=issue(p);ad=Pin(**result['admission'])
++    before=p[4].read_bytes()
++    with pytest.raises(Refused,match='ALREADY_ISSUED'):issue(p)
++    assert issue_and_initialize(p[0],p[2],p[3],fixture_principal=p[5],recover=True)['status']=='ALREADY_ACTIVE_NO_MUTATION'
++    assert p[4].read_bytes()==before
++    p[1].submit(p[2],ad);p[1].operate(read_json(p[2].path)['batch_id'],False)
++    _,pairs=build_requests(p[0],p[2],ad);cfg,req=pairs[0]
++    GeneralBudget(cfg).prepare_entry(req,'FIXTURE_OWNER',lambda _:None)
++    with pytest.raises(Refused,match='NO_REPLAY|PRIOR_ENTRY'):GeneralBudget(cfg).prepare_entry(req,'OTHER_FIXTURE_OWNER',lambda _:None)
++    issue_and_initialize(p[0],p[2],p[3],fixture_principal=p[5],recover=True)
++    assert read_json(p[4])['entered_count']==1 and read_json(p[4])['remaining_unentered_count']==1
++
++
++def test_coupling_genesis_commit_sqlite_registration_rollback(tmp_path):
++    p=packet(tmp_path);ad=Pin(**issue(p)['admission'])
++    with p[1].ledger.transaction() as db:db.execute("CREATE TRIGGER reject_batch BEFORE INSERT ON v21_batches BEGIN SELECT RAISE(ABORT,'fixture crash'); END")
++    with pytest.raises(sqlite3.IntegrityError):p[1].submit(p[2],ad)
++    assert p[1].status()['batches']==[] and read_json(p[4])['entered_count']==0
++    with p[1].ledger.transaction() as db:db.execute('DROP TRIGGER reject_batch')
++    assert p[1].submit(p[2],ad)=='SUBMITTED_PAUSED'
++    assert read_json(p[4])['authorized_entry_budget']==2
++
++
++def test_doe56_hold_cross_batch_and_existing_records_never_overwritten(tmp_path):
++    p=packet(tmp_path,name='DOE56',hold=True)
++    with pytest.raises(Refused,match='BATCH_SCIENCE_HOLD'):issue(p)
++    assert not p[4].exists()
++    (tmp_path/'other').mkdir();q=packet(tmp_path/'other',name='DIAG2_ONLY');p[4].parent.mkdir(exist_ok=True);p[4].write_text('{"historical":true}')
++    old=p[4].read_bytes();issue(q);assert p[4].read_bytes()==old
++
++
++def test_generic_write_acl_is_not_mistaken_for_read_only(tmp_path):
++    p=packet(tmp_path);prod=p[0].model_copy(update={'mode':'PRODUCTION_GPU'})
++    reader=lambda _:dict(owner=p[0].science_owner_sid,rules=[dict(sid='FOREIGN',rights=0x40000000,allow=True)])
++    with pytest.raises(Refused,match='FOREIGN_AUTHORITY_WRITE'):verify_acl(prod,p[3].path,reader=reader)
++
++
++def test_gpu_hold_blocks_before_entry_even_after_science_issuance(monkeypatch,tmp_path):
++    from apcd_gpu_v2 import serial,general
++    p=packet(tmp_path);ad=Pin(**issue(p)['admission']);p[1].submit(p[2],ad)
++    p[1].operate(read_json(p[2].path)['batch_id'],False)
++    _,pairs=build_requests(p[0],p[2],ad);cfg,req=pairs[0]
++    # Unreachable fixture-only production-branch injection: never a production credential.
++    cfg=cfg.model_copy(update={'mode':'PRODUCTION_GPU'});req=req.model_copy(update={'config_sha256':cfg.sha256})
++    monkeypatch.setattr(serial,'validate_admission',lambda *a:None)
++    monkeypatch.setattr(general,'validate_general',lambda *a:None)
++    monkeypatch.setattr(general,'validate_profile_admission',lambda *a:dict(fixture_only=True))
++    monkeypatch.setattr(serial.NativeTruthValidator,'preflight',lambda *a:dict(fixture_only=True))
++    def resource_hold(*a):raise Refused('GPU_RESOURCE_HOLD_FIXTURE')
++    monkeypatch.setattr(serial,'native_preflight',resource_hold)
++    monkeypatch.setattr(serial.subprocess,'Popen',lambda *a,**k:pytest.fail('solver launch attempted'))
++    p[1].ledger.register(req,cfg)
++    with pytest.raises(Refused,match='GPU_RESOURCE_HOLD'):
++        serial.run_serial_case(cfg,req,p[1].ledger,serial.ProductionNativeBackend(),serial.NativeTruthValidator(cfg))
++    assert read_json(p[4])['entered_count']==0
++
++
++def test_real_a1_a2_contract_and_source_pins_through_trusted_fixture_genesis(tmp_path):
++    p=packet(tmp_path,real=True);intent=read_json(p[3].path)
++    before={pin['path']:sha256(pin['path']) for pin in intent['scientific_evidence'].values()}
++    for row in intent['case_provenance']:
++        for key in ['source_run_truth','setup_input','candidate_setup','source_manifest']:before[row[key]['path']]=sha256(row[key]['path'])
++    ad=Pin(**issue(p)['admission']);m,a,profile=load_batch(p[0],p[2],ad)
++    assert m.batch_id=='K6V3_TIME_DIAG2_V1_BATCH_001' and m.approved_entry_budget==2
++    assert len(m.cases)==2 and all(x.simulation_time_s==6e-12 and x.mesh_nm==5 and x.auto_shutoff_min==1e-6 for x in m.cases)
++    assert all(x.physics_contract.sha256=='51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36' for x in m.cases)
++    assert before=={path:sha256(path) for path in before}
++    assert p[1].submit(p[2],ad)=='SUBMITTED_PAUSED' and read_json(p[4])['entered_count']==0
++
++
++def test_activation_corruption_and_ledger_genesis_mismatch_fail_closed(tmp_path):
++    p=packet(tmp_path);ad=Pin(**issue(p)['admission']);m,a,_=load_batch(p[0],p[2],ad)
++    row=read_json(p[4]);row['genesis_sha256']='0'*64;write(p[4],row)
++    with pytest.raises(Refused,match='GENESIS_IDENTITY_CONFLICT'):load_batch(p[0],p[2],ad)
++
++
++def test_later_science_hold_blocks_entry_but_keeps_authority_readable_for_recovery(tmp_path):
++    p=packet(tmp_path);ad=Pin(**issue(p)['admission']);m,a,_=load_batch(p[0],p[2],ad)
++    p[1].submit(p[2],ad);p[1].operate(m.batch_id,False)
++    control=read_json(m.science_control.path);control['hold']=True;write(Path(m.science_control.path),control)
++    _,pairs=build_requests(p[0],p[2],ad)
++    with pytest.raises(Refused,match='BATCH_SCIENCE_HOLD'):GeneralBudget(pairs[0][0]).validate(pairs[0][1])
++    assert read_json(p[4])['entered_count']==0
++
++
++def test_same_case_attempt_cannot_get_a_second_batch_budget(tmp_path):
++    p=packet(tmp_path);issue(p);first=read_json(p[3].path)
++    m,ad,ledger=batch(p[0],'ANOTHER_BATCH',case_ids=first['approved_case_set']);ledger.unlink();Path(ad.path).unlink()
++    doc=read_json(m.path)
++    second={**first,'intent_id':'OTHER_INTENT','batch_id':doc['batch_id'],'manifest_file_sha256':m.sha256,'manifest_sha256':doc['manifest_sha']}
++    second['case_provenance']=[{**old,'candidate_setup':new['source_fsp']} for old,new in zip(first['case_provenance'],doc['cases'])]
++    ip=Pin(**write(Path(p[0].science_root)/'other_intent.json',second))
++    with pytest.raises(Refused,match='CROSS_BATCH_ATTEMPT_ALREADY_RESERVED'):
++        issue_and_initialize(p[0],m,ip,fixture_principal=p[5])
++    assert not ledger.exists()
++
++
++def test_installed_old_admission_schema_refuses_new_fixture_envelope(tmp_path):
++    p=packet(tmp_path);ad=Pin(**issue(p)['admission'])
++    installed=Path(r'D:\apcd_runtime\gpu_platform_v2_serial_production_v1\releases\v21_diag2_validator_b9abe87058d6\platform_v2')
++    assert installed.is_dir()
++    child="from apcd_gpu_v2.general import Admission; import pathlib,sys; Admission.model_validate_json(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'))"
++    env=dict(os.environ,PYTHONPATH=str(installed))
++    result=subprocess.run([sys.executable,'-c',child,ad.path],env=env,cwd=p[0].runtime_root,capture_output=True,text=True,timeout=20)
++    assert result.returncode!=0 and 'extra_forbidden' in result.stderr
++
++
++def test_production_cli_cannot_be_used_with_fixture_authority(tmp_path):
++    from apcd_gpu_v2.trusted_admission import main
++    p=packet(tmp_path);pp=write(Path(p[0].runtime_root)/'platform.json',p[0].model_dump(mode='json'))
++    args=['check','--platform',pp['path'],'--platform-sha256',pp['sha256'],'--manifest',p[2].path,'--manifest-sha256',p[2].sha256,'--intent',p[3].path,'--intent-sha256',p[3].sha256]
++    assert main(args)==2 and not p[4].exists()
++
++
++def test_fixture_root_smuggling_is_rejected_before_any_writer_lock(tmp_path):
++    p=packet(tmp_path);outside=tmp_path/'outside_not_authorized'
++    forged=p[0].model_copy(update={'science_root':str(outside)})
++    with pytest.raises(Refused,match='AUTHORITY_PATH_ESCAPE'):
++        issue_and_initialize(forged,p[2],p[3],fixture_principal=p[5])
++    assert not outside.exists()
++
++
++def test_partial_activation_recovery_never_overwrites_existing_science_records(tmp_path):
++    p=packet(tmp_path)
++    def stop(step):
++        if step=='ledger_committed':raise RuntimeError('fixture stop')
++    with pytest.raises(RuntimeError):issue_and_initialize(p[0],p[2],p[3],fixture_principal=p[5],fault=stop)
++    value=read_json(p[4]);value['case_records']={'FOREIGN':{'solver_entered':True}};write(p[4],value)
++    before=p[4].read_bytes()
++    with pytest.raises(Refused,match='IMMUTABLE_ISSUANCE_ARTIFACT_CONFLICT'):
++        issue_and_initialize(p[0],p[2],p[3],fixture_principal=p[5],recover=True)
++    assert p[4].read_bytes()==before
++    assert not _paths(p[0],value['batch_id'])['activation'].exists()
++
++
++def test_non_general_production_paths_cannot_bypass_trusted_admission():
++    from types import SimpleNamespace
++    from apcd_gpu_v2 import serial
++    cfg=SimpleNamespace(mode='PRODUCTION_GPU')
++    with pytest.raises(Refused,match='TRUSTED_V21_ADMISSION_PATH_REQUIRED'):
++        serial.run_serial_case(cfg,None,None,None,None)
++    with pytest.raises(Refused,match='TRUSTED_V21_ADMISSION_PATH_REQUIRED'):
++        serial.ProductionNativeBackend().execute(cfg,None,None,None,None,None)
++    with pytest.raises(Refused,match='TRUSTED_V21_ADMISSION_PATH_REQUIRED'):
++        serial.ProductionNativeBackend()._execute(cfg,None,None,None,None,None,None,None)
+diff --git a/platform_v2/tests/test_trusted_control_path.py b/platform_v2/tests/test_trusted_control_path.py
+new file mode 100644
+index 00000000..a1d8fc27
+--- /dev/null
++++ b/platform_v2/tests/test_trusted_control_path.py
+@@ -0,0 +1,223 @@
++"""Full existing Controller path with real DIAG2 pins and inert test authority.
++
++The only executable is a marker-checked Python H5 fixture; importer/native LOAD
++are explicitly simulated ports. No production credential or physics result.
++"""
++import json
++import os
++import sqlite3
++import subprocess
++import sys
++from pathlib import Path
++from types import SimpleNamespace
++
++import pytest
++
++from apcd_gpu_v2 import serial
++from apcd_gpu_v2.artifacts import sha256
++from apcd_gpu_v2.general import (Registry, Pin, GeneralBudget, build_requests,
++    import_profile_truth, read_json)
++from apcd_gpu_v2.ledger import Refused
++from apcd_gpu_v2.serial import EquivalentBackend, exclusive
++from apcd_gpu_v2.trusted_admission import issue_and_initialize
++from test_trusted_admission import packet, issue
++
++
++@pytest.fixture(autouse=True)
++def isolated_census(monkeypatch):
++    # Unit/integration fixtures must not collect foreign command lines. All
++    # PID/create-time handling of the fixture launcher remains the real code.
++    monkeypatch.setattr(serial, 'process_gate', lambda *a: [])
++
++
++def fixture_validator(cfg):
++    def validate(fsp, req, dest):
++        import h5py
++        import numpy as np
++        with h5py.File(fsp.with_suffix('') / cfg.native_h5_name, 'r') as h5:
++            for key in ['Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz']:
++                data = h5['Monitor1/' + key][...]
++                assert data.shape[-1] == 21 and np.iscomplexobj(data)
++        obj = SimpleNamespace(case_id=req.case_id, attempt_id=req.attempt_id,
++            role=req.role, ordered_D_nm=req.ordered_D_nm,
++            c_hat=np.ones((21, 7, 2), dtype=complex), p_scale=np.ones(21))
++        def accept(*args, **kwargs):
++            return dict(verdict='PASS', outputs=609, scientific_validated=True,
++                fixture_only=True, profile_id=cfg.validation_profile,
++                physical_contract_sha256=req.physical_contract_sha256,
++                case_request_sha256=req.case_request_sha256,
++                physics_contract_file_sha256=req.physical_contract.sha256,
++                source_manifest_sha256=req.source_manifest.sha256,
++                source_acceptance_file_sha256=req.source_acceptance.sha256,
++                batch_id=cfg.batch_id, case_id=req.case_id,
++                attempt_id=req.attempt_id, role=req.role,
++                ordered_D_nm=list(req.ordered_D_nm),
++                manifest_file_sha256=cfg.batch_manifest.sha256,
++                admission_file_sha256=cfg.science_admission.sha256,
++                certification_file_sha256=cfg.platform.profiles[0].certification.sha256)
++        importer = SimpleNamespace(load_authorized_runner_case=lambda *a, **k: obj,
++            validate_authorized_labels=accept)
++        record = dict(case_id=req.case_id, attempt_id=req.attempt_id,
++            role=req.role, ordered_D_nm=list(req.ordered_D_nm),
++            physical_contract_sha256=req.physical_contract_sha256)
++        imported, accepted = import_profile_truth(cfg, req, record, importer)
++        assert imported is obj and accepted['outputs'] == 609
++        return dict(verdict='PASS', outputs=609, fresh_load_verified=True,
++            actual_importer=cfg.importer_entrypoint, fixture_only=True,
++            science_profile_acceptance=accepted)
++    return validate
++
++
++def prepared(tmp_path):
++    p = packet(tmp_path, real=True)
++    ad = Pin(**issue(p)['admission'])
++    assert p[1].submit(p[2], ad) == 'SUBMITTED_PAUSED'
++    bid = read_json(p[2].path)['batch_id']
++    p[1].operate(bid, False)  # isolated operator action, not production start
++    backend = EquivalentBackend(Path(p[0].runtime_root) / 'fake.py')
++    return p, ad, bid, backend
++
++
++def run(p, backend, fault=lambda step: None):
++    return p[1].drain(backend=backend, validator_factory=fixture_validator, fault=fault)
++
++
++def test_real_diag2_issued_controller_two_case_full_chain_and_restart(tmp_path):
++    p, ad, bid, backend = prepared(tmp_path)
++    state = run(p, backend)
++    sci = read_json(p[4])
++    assert sci['entered_count'] == sci['truth_valid_count'] == sci['labels_valid_count'] == 2
++    assert sci['remaining_unentered_count'] == 0 and sci['replay_count'] == 0
++    assert all(t['state'] == 'TRUTH_VALID' for t in state['execution']['tasks'])
++    assert state['execution']['slot']['token'] is None
++    events = state['execution']['events']
++    entered = [e['seq'] for e in events if e['kind'] == 'COUPLING_ENTRY_MIRRORED']
++    finished = [e['seq'] for e in events if e['kind'] == 'TRUTH_VALID']
++    assert entered[0] < finished[0] < entered[1] < finished[1]
++    assert len([e for e in events if e['kind'] == 'LAUNCH_REQUESTED']) == 2
++    before = p[4].read_bytes()
++    restarted = Registry(p[0])
++    restarted.drain(backend=backend, validator_factory=fixture_validator)
++    assert p[4].read_bytes() == before
++    assert restarted.status()['execution']['conservative_scientific_entries'] == 0
++    assert issue_and_initialize(p[0], p[2], p[3], fixture_principal=p[5], recover=True)['status'] == 'ALREADY_ACTIVE_NO_MUTATION'
++
++
++def test_real_diag2_a1_complete_a2_unentered_pause_and_resume(tmp_path):
++    p, ad, bid, backend = prepared(tmp_path)
++    def pause(step):
++        if step == 'solver_returned': p[1].operate(bid, True)
++    state = run(p, backend, pause)
++    assert read_json(p[4])['entered_count'] == read_json(p[4])['truth_valid_count'] == 1
++    assert len(state['execution']['tasks']) == 1 and not state['execution']['slot']['token']
++    assert len(read_json(p[4])['remaining_unentered_case_ids']) == 1
++    r = Registry(p[0]); r.operate(bid, False)
++    r.drain(backend=backend, validator_factory=fixture_validator)
++    assert read_json(p[4])['labels_valid_count'] == 2
++
++
++@pytest.mark.parametrize('point', ['coupling_receipt_committed', 'coupling_ledger_committed',
++    'before_local_mirror', 'after_local_mirror', 'launch_requested',
++    'process_started', 'solver_returned', 'truth_valid_before_coupling',
++    'coupling_truth_before_local'])
++def test_real_diag2_interrupted_controller_never_replays_or_advances(tmp_path, point):
++    p, ad, bid, backend = prepared(tmp_path)
++    def crash(step):
++        if step == point: raise RuntimeError('FIXTURE_CONTROLLER_INTERRUPTED')
++    with pytest.raises(RuntimeError, match='FIXTURE_CONTROLLER_INTERRUPTED'):
++        run(p, backend, crash)
++    # A process-start fault can leave only the owned harmless fixture running.
++    # It exits by itself; no terminate/kill is used.
++    if point == 'process_started':
++        import time
++        time.sleep(1)
++    before = read_json(p[4])
++    assert before['entered_count'] <= 1
++    assert len(p[1].status()['execution']['tasks']) == 1
++    assert p[1].status()['execution']['slot']['token']
++    r = Registry(p[0])
++    with pytest.raises(Refused): r.drain(backend=backend, validator_factory=fixture_validator)
++    assert read_json(p[4]) == before
++    assert len(r.status()['execution']['tasks']) == 1
++
++
++def test_real_diag2_sqlite_entry_mirror_failure_keeps_science_consumed(tmp_path):
++    p, ad, bid, backend = prepared(tmp_path)
++    with p[1].ledger.transaction() as db:
++        db.execute("CREATE TRIGGER fail_entry BEFORE UPDATE OF entered ON tasks WHEN NEW.entered=1 BEGIN SELECT RAISE(ABORT,'fixture entry persist failure'); END")
++    with pytest.raises(sqlite3.IntegrityError): run(p, backend)
++    assert read_json(p[4])['entered_count'] == 1
++    assert read_json(p[4])['remaining_unentered_count'] == 1
++    assert p[1].status()['execution']['tasks'][0]['entered'] == 0
++    with pytest.raises(Refused): Registry(p[0]).drain(backend=backend, validator_factory=fixture_validator)
++    assert read_json(p[4])['entered_count'] == 1
++
++
++def test_real_diag2_two_controller_competition_actual_os_lock(tmp_path):
++    p, ad, bid, backend = prepared(tmp_path)
++    child = """import json,sys
++from pathlib import Path
++from apcd_gpu_v2.general import Platform,Registry
++from apcd_gpu_v2.serial import EquivalentBackend
++from apcd_gpu_v2.ledger import Refused
++p=Platform.model_validate_json(sys.stdin.read())
++try: Registry(p).drain(backend=EquivalentBackend(Path(p.runtime_root)/'fake.py'))
++except Refused as e:
++ print(str(e));sys.exit(42)
++raise SystemExit(99)
++"""
++    with exclusive(Path(p[0].runtime_root) / '.v2_controller.lock'):
++        result = subprocess.run([sys.executable, '-c', child],
++            input=p[0].model_dump_json(), text=True, capture_output=True, timeout=20)
++        assert result.returncode == 42 and 'OWNER_LOCK' in result.stdout
++    assert read_json(p[4])['entered_count'] == 0
++    assert not p[1].status()['execution']['tasks']
++
++
++def test_real_diag2_controller_process_exit_recovers_truth_only_then_pauses(tmp_path):
++    p, ad, bid, backend = prepared(tmp_path)
++    child = """import json,os,sys
++from pathlib import Path
++from apcd_gpu_v2.general import Platform,Registry
++from apcd_gpu_v2.serial import EquivalentBackend
++from apcd_gpu_v2 import serial
++serial.process_gate=lambda *a:[]
++p=Platform.model_validate_json(sys.stdin.read());r=Registry(p)
++def stop(step):
++ if step=='solver_returned':os._exit(74)
++r.drain(backend=EquivalentBackend(Path(p.runtime_root)/'fake.py'),fault=stop)
++"""
++    result = subprocess.run([sys.executable, '-c', child], input=p[0].model_dump_json(),
++        text=True, capture_output=True, timeout=35)
++    assert result.returncode == 74, result.stderr
++    assert read_json(p[4])['entered_count'] == 1 and read_json(p[4])['labels_valid_count'] == 0
++    r = Registry(p[0]); r.operate(bid, True)
++    class NeverRun:
++        def execute(self, *a, **k): pytest.fail('recovery tried executable')
++    r.drain(backend=NeverRun(), validator_factory=fixture_validator)
++    assert read_json(p[4])['entered_count'] == 1 and read_json(p[4])['labels_valid_count'] == 1
++    assert not r.status()['execution']['slot']['token']
++    assert len(r.status()['execution']['tasks']) == 1
++    # New entry remains under an independent operator action; no recovery replay.
++    r.operate(bid, False); r.drain(backend=backend, validator_factory=fixture_validator)
++    assert read_json(p[4])['entered_count'] == read_json(p[4])['labels_valid_count'] == 2
++
++
++def test_real_diag2_accepted_science_resource_hold_before_budget(tmp_path, monkeypatch):
++    p, ad, bid, backend = prepared(tmp_path)
++    def resource_hold(*a): raise Refused('LIVE_GPU_RESOURCE_HOLD_FIXTURE')
++    monkeypatch.setattr(serial, 'process_gate', resource_hold)
++    with pytest.raises(Refused, match='LIVE_GPU_RESOURCE_HOLD_FIXTURE'): run(p, backend)
++    assert read_json(p[4])['entered_count'] == 0
++    assert not list(p[4].parent.glob('V21_ENTRY_EVIDENCE_*'))
++    assert p[1].status()['execution']['slot']['token']  # no unsafe automatic reset
++
++
++def test_real_diag2_wrong_fencing_rejects_before_entry(tmp_path):
++    p, ad, bid, backend = prepared(tmp_path)
++    _, pairs = build_requests(p[0], p[2], ad); cfg, req = pairs[0]
++    p[1].ledger.register(req, cfg)
++    token = p[1].ledger.claim(req.request_sha256, serial.identity())
++    with pytest.raises(Refused, match='FENCING_MISMATCH'):
++        p[1].ledger.note(req, token + 'wrong', 'FORGED', {})
++    assert read_json(p[4])['entered_count'] == 0
+diff --git a/platform_v2/tests/test_trusted_release.py b/platform_v2/tests/test_trusted_release.py
+new file mode 100644
+index 00000000..4f405aa2
+--- /dev/null
++++ b/platform_v2/tests/test_trusted_release.py
+@@ -0,0 +1,63 @@
++import importlib.util
++import json
++import subprocess
++from pathlib import Path
++
++import pytest
++
++spec=importlib.util.spec_from_file_location('trusted_release_builder',Path(__file__).parents[1]/'tools/build_trusted_release.py')
++builder=importlib.util.module_from_spec(spec);spec.loader.exec_module(builder)
++
++
++def fixture(tmp_path):
++    root=tmp_path/'candidate';root.mkdir()
++    (root/'DISABLED_PLATFORM.json').write_text(json.dumps(dict(mode='PRODUCTION_GPU',profiles=[])))
++    data=dict(schema='APCD_GPU_V21_TRUSTED_ADMISSION_DISABLED_CANDIDATE_V1',
++        deployment_authorized=False,solver_entry_authorized=False,
++        files={'DISABLED_PLATFORM.json':dict(sha256=builder.sha(root/'DISABLED_PLATFORM.json'),bytes=(root/'DISABLED_PLATFORM.json').stat().st_size)})
++    builder.write(root/'PACKAGE_MANIFEST.json',data)
++    return root,builder.sha(root/'PACKAGE_MANIFEST.json')
++
++
++def test_candidate_package_verify_and_deterministic_zip(tmp_path):
++    root,pin=fixture(tmp_path)
++    assert builder.verify_tree(root,pin)['solver_entry_authorized'] is False
++    a=tmp_path/'a.zip';b=tmp_path/'b.zip';builder.zip_tree(root,a);builder.zip_tree(root,b)
++    assert a.read_bytes()==b.read_bytes()
++
++
++@pytest.mark.parametrize('fault',['file','extra','manifest'])
++def test_candidate_package_drift_fails_closed(tmp_path,fault):
++    root,pin=fixture(tmp_path)
++    if fault=='file':(root/'DISABLED_PLATFORM.json').write_text('{}')
++    if fault=='extra':(root/'UNREVIEWED.py').write_text('')
++    if fault=='manifest':(root/'PACKAGE_MANIFEST.json').write_text('{}')
++    with pytest.raises(ValueError):builder.verify_tree(root,pin)
++
++
++def test_builder_rejects_production_destination_and_existing_release(tmp_path):
++    with pytest.raises(ValueError,match='CANNOT_WRITE_PRODUCTION'):
++        builder.isolated_destination(builder.RUNTIME/'releases/new')
++    with pytest.raises(ValueError,match='ALREADY_EXISTS'):
++        builder.isolated_destination(tmp_path)
++    with pytest.raises(ValueError,match='PATH_ESCAPE'):
++        builder.safe_relative(tmp_path,'../outside')
++
++
++def test_builder_preserves_tested_crlf_bytes_and_detects_dirty_git_source(tmp_path):
++    source=tmp_path/'source';source.mkdir()
++    def git(*args):return subprocess.check_output(['git','-C',str(source),*args],text=True).strip()
++    git('init');git('config','user.name','ISOLATED_OFFLINE_TEST');git('config','user.email','offline-test@invalid.example')
++    git('config','core.autocrlf','true');git('config','commit.gpgsign','false')
++    rel='platform_v2/apcd_gpu_v2/trusted_admission.py';p=source/rel;p.parent.mkdir(parents=True)
++    raw=b'# harmless isolated source fixture\r\n'
++    p.write_bytes(raw);git('add','--',rel);git('commit','-m','offline fixture')
++    cfg=tmp_path/'platform.json';builder.write(cfg,dict(mode='PRODUCTION_GPU',profiles=[]))
++    pin=dict(path=str(cfg),sha256=builder.sha(cfg));head=git('rev-parse','HEAD')
++    result=builder.build(source,tmp_path/'good',pin,head)
++    assert (tmp_path/'good'/rel).read_bytes()==raw
++    assert builder.verify_tree(tmp_path/'good',result['package_manifest_sha256'])['source_head']==head
++    p.write_bytes(b'# changed without review\r\n')
++    with pytest.raises(ValueError,match='DIRTY_RELEASE_SOURCE'):
++        builder.build(source,tmp_path/'dirty_rejected',pin,head)
++    assert not (tmp_path/'dirty_rejected').exists()
+diff --git a/platform_v2/tools/build_trusted_release.py b/platform_v2/tools/build_trusted_release.py
+new file mode 100644
+index 00000000..6db8b303
+--- /dev/null
++++ b/platform_v2/tools/build_trusted_release.py
+@@ -0,0 +1,143 @@
++"""Build/verify a frozen Disabled candidate. This tool has no install operation."""
++import argparse
++import hashlib
++import json
++import subprocess
++import zipfile
++from pathlib import Path
++
++RUNTIME = Path('D:/apcd_runtime/gpu_platform_v2_serial_production_v1')
++
++
++def sha(path):
++    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
++
++
++def write(path, value):
++    Path(path).write_text(json.dumps(value, sort_keys=True, indent=2), encoding='utf-8')
++
++
++def isolated_destination(path):
++    path = Path(path).resolve()
++    canonical = RUNTIME.resolve()
++    if path == canonical or canonical in path.parents or path in canonical.parents:
++        raise ValueError('CANDIDATE_BUILD_CANNOT_WRITE_PRODUCTION')
++    if path.exists():
++        raise ValueError('IMMUTABLE_CANDIDATE_ALREADY_EXISTS')
++    return path
++
++
++def safe_relative(root, name):
++    path = (root / name).resolve()
++    if Path(name).is_absolute() or path == root.resolve() or root.resolve() not in path.parents:
++        raise ValueError('PACKAGE_PATH_ESCAPE')
++    return path
++
++
++def verify_tree(root, expected_manifest_sha):
++    root = Path(root)
++    manifest = root / 'PACKAGE_MANIFEST.json'
++    if sha(manifest) != expected_manifest_sha:
++        raise ValueError('PACKAGE_MANIFEST_SHA_CHANGED')
++    data = json.loads(manifest.read_text(encoding='utf-8'))
++    if (data.get('schema') != 'APCD_GPU_V21_TRUSTED_ADMISSION_DISABLED_CANDIDATE_V1'
++        or data.get('deployment_authorized') is not False
++        or data.get('solver_entry_authorized') is not False):
++        raise ValueError('DISABLED_CANDIDATE_REQUIRED')
++    for name, pin in data['files'].items():
++        path = safe_relative(root, name)
++        if sha(path) != pin['sha256'] or path.stat().st_size != pin['bytes']:
++            raise ValueError('PACKAGE_FILE_CHANGED:' + name)
++    actual = {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file()}
++    if actual != set(data['files']) | {'PACKAGE_MANIFEST.json'}:
++        raise ValueError('UNDECLARED_PACKAGE_FILE')
++    platform = json.loads((root / 'DISABLED_PLATFORM.json').read_text(encoding='utf-8'))
++    if platform.get('profiles') != [] or platform.get('mode') != 'PRODUCTION_GPU':
++        raise ValueError('DEFAULT_DENY_PLATFORM_REQUIRED')
++    return data
++
++
++def zip_tree(root, output):
++    with zipfile.ZipFile(output, 'x', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
++        for p in sorted(Path(root).rglob('*')):
++            if not p.is_file():
++                continue
++            row = zipfile.ZipInfo(p.relative_to(root).as_posix(), date_time=(1980, 1, 1, 0, 0, 0))
++            row.compress_type = zipfile.ZIP_DEFLATED
++            row.external_attr = 0o100644 << 16
++            z.writestr(row, p.read_bytes())
++
++
++def build(source, destination, platform_pin, expected_head):
++    source = Path(source).resolve()
++    destination = isolated_destination(destination)
++    def git(*args):
++        return subprocess.check_output(['git', '-C', str(source), *args], text=True).strip()
++    if git('rev-parse', 'HEAD') != expected_head:
++        raise ValueError('SOURCE_HEAD_CHANGED')
++    names = git('ls-files', '--', 'platform_v2/apcd_gpu_v2',
++        'platform_v2/tools/general_runner.py', 'platform_v2/tools/serial_controller.py',
++        'platform_v2/tools/build_trusted_release.py').splitlines()
++    if not names or 'platform_v2/apcd_gpu_v2/trusted_admission.py' not in names:
++        raise ValueError('COMMITTED_TRUSTED_ADMISSION_SOURCE_REQUIRED')
++    committed = {}
++    for name in names:
++        # Windows may legitimately materialize LF Git blobs as CRLF. Validate
++        # through the repository's own clean filters, then package/hash exactly
++        # the tested worktree bytes rather than silently changing line endings.
++        blob = git('hash-object', '--path=' + name, name)
++        if blob != git('rev-parse', expected_head + ':' + name):
++            raise ValueError('DIRTY_RELEASE_SOURCE:' + name)
++        committed[name] = (source / name).read_bytes()
++    if sha(platform_pin['path']) != platform_pin['sha256']:
++        raise ValueError('PLATFORM_SHA_CHANGED')
++    platform = json.loads(Path(platform_pin['path']).read_text(encoding='utf-8'))
++    if platform.get('profiles') != [] or platform.get('mode') != 'PRODUCTION_GPU':
++        raise ValueError('DEFAULT_DENY_PLATFORM_REQUIRED')
++    destination.mkdir(parents=True, exist_ok=False)
++    release_name = 'v21_trusted_admission_' + expected_head[:12]
++    for name, data in committed.items():
++        path = safe_relative(destination, name)
++        path.parent.mkdir(parents=True, exist_ok=True)
++        path.write_bytes(data)
++    rows = {n:dict(sha256=sha(destination/n), bytes=(destination/n).stat().st_size) for n in names}
++    write(destination/'CODE_SHA256.json', dict(code_root=str(RUNTIME/'releases'/release_name), files=rows))
++    (destination/'DISABLED_PLATFORM.json').write_bytes(Path(platform_pin['path']).read_bytes())
++    payload_names = names + ['CODE_SHA256.json', 'DISABLED_PLATFORM.json']
++    manifest = dict(schema='APCD_GPU_V21_TRUSTED_ADMISSION_DISABLED_CANDIDATE_V1',
++        source_head=expected_head, release_name=release_name,
++        deployment_authorized=False, solver_entry_authorized=False,
++        production_credential_ready=False, science_owner_endorsement='PENDING',
++        original_platform_pin=platform_pin,
++        files={n:dict(sha256=sha(destination/n), bytes=(destination/n).stat().st_size) for n in payload_names})
++    write(destination/'PACKAGE_MANIFEST.json', manifest)
++    manifest_sha = sha(destination/'PACKAGE_MANIFEST.json')
++    verify_tree(destination, manifest_sha)
++    archive = destination.with_name(destination.name + '.zip')
++    zip_tree(destination, archive)
++    return dict(release_name=release_name, source_head=expected_head,
++        package_root=str(destination), archive=str(archive), archive_sha256=sha(archive),
++        package_manifest_sha256=manifest_sha, code_inventory_sha256=sha(destination/'CODE_SHA256.json'),
++        deployment_authorized=False, solver_entry_authorized=False)
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    sub = parser.add_subparsers(dest='operation', required=True)
++    cmd = sub.add_parser('build')
++    for name in ['source', 'destination', 'platform', 'platform-sha256', 'source-head']:
++        cmd.add_argument('--' + name, required=True)
++    cmd = sub.add_parser('verify')
++    cmd.add_argument('--package', required=True)
++    cmd.add_argument('--manifest-sha256', required=True)
++    args = parser.parse_args(argv)
++    if args.operation == 'build':
++        result = build(args.source, args.destination,
++            dict(path=args.platform, sha256=args.platform_sha256), args.source_head)
++    else:
++        result = verify_tree(args.package, args.manifest_sha256)
++    print(json.dumps(result, sort_keys=True))
++
++
++if __name__ == '__main__':
++    main()

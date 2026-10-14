@@ -1,0 +1,256 @@
+{
+  "status": "OFFLINE_END_TO_END_PASS",
+  "source_head": "44bee753f34cb01b308dc8975a84537b8cfead35",
+  "package": {
+    "archive": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_PRODUCTION_CONTROL_PATH_CLOSEOUT_V1\\RELEASE_CANDIDATE.zip",
+    "archive_sha256": "42026ee620d26abb8f06394374d0657b80d1cf03f55b9ce476d755df0b576542",
+    "code_inventory_sha256": "08c1a1009d873a0903577e7c13e233413cce879ddb05bdcf3d9c57d793288330",
+    "deployment_authorized": false,
+    "package_manifest_sha256": "8244f26ad29d9b508bd19e353510b2a7ac930ed5133595838904bf18942ad8e1",
+    "package_root": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_PRODUCTION_CONTROL_PATH_CLOSEOUT_V1\\RELEASE_CANDIDATE",
+    "release_name": "v21_trusted_admission_44bee753f34c",
+    "solver_entry_authorized": false,
+    "source_head": "44bee753f34cb01b308dc8975a84537b8cfead35"
+  },
+  "batch": "K6V3_TIME_DIAG2_V1_BATCH_001",
+  "cases": [
+    "K6V3_TIME_DIAG2_A1_5NM_6PS",
+    "K6V3_TIME_DIAG2_A2_5NM_6PS"
+  ],
+  "attempt": "attempt_001",
+  "authority": {
+    "frozen_manifest": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V21_ADMISSION_PREPARATION_V1\\DIAG2_ADMISSION_CANDIDATE_MANIFEST.json",
+      "sha256": "8472518baf1425243b05292ac882a141bd886f91524b1f2bd664e4f4d962e5c7"
+    },
+    "physics_6ps": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1\\SCIENCE_CONTRACT_6PS.json",
+      "sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36"
+    },
+    "profile_certification": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1\\COUPLING_609D_PROFILE_CERTIFICATION.json",
+      "sha256": "11ddbf2fc13e2dd34a9a4c4b07daf17c6d2c8275a64eb27fa3202e67cad204ca"
+    },
+    "final_admission_binding": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_FINAL_ADMISSION_BINDING_V1\\FINAL_ADMISSION_BINDING_CHECK.json",
+      "sha256": "355a968ff4386fd60ea21829eceb3e430bdd3a012b7e898f250b5b7b20973d3a"
+    },
+    "science_issuance_hold": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V21_FORMAL_ADMISSION_ISSUANCE_V1\\FINAL_REPORT.md",
+      "sha256": "00839d55e33d9510d575993f8e82854f3fa56ef7e085e8eb19b605b8f3d93df2"
+    }
+  },
+  "physics": "frozen 5nm/6ps/1e-6 unchanged",
+  "chain": [
+    "isolated Science token fixture",
+    "profile/source pin validation",
+    "atomic Coupling genesis",
+    "issued Admission verifier",
+    "Registry SUBMITTED_PAUSED",
+    "isolated operator resume",
+    "actual Controller OS lock",
+    "single SQLite slot/fencing",
+    "write-ahead conservative entry fixture",
+    "launch-once marker",
+    "owned Python H5 executable fixture",
+    "FSP/sibling-H5 SHA archive",
+    "simulated LOAD/importer port via actual adapter",
+    "Coupling terminal",
+    "local terminal/release",
+    "next case"
+  ],
+  "actual_ports": [
+    "issuer/activation/verifier",
+    "Controller/Registry",
+    "SQLite transactions",
+    "Coupling JSON ledger transactions",
+    "OS locks",
+    "PID/create_time for owned fake processes",
+    "archive SHA and receipt handling",
+    "import_profile_truth binding checks"
+  ],
+  "simulated_ports": [
+    "Science actor/source acceptance enrollment",
+    "native FDTD executable",
+    "native LOAD/EH extraction",
+    "609D scientific importer result"
+  ],
+  "credential_scope": "fixture_only PRODUCTION_EQUIVALENT under zero_solver; production rejects",
+  "tests": [
+    {
+      "name": "test_real_diag2_issued_controller_two_case_full_chain_and_restart",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 11.063,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_a1_complete_a2_unentered_pause_and_resume",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 11.543,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_receipt_committed]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 4.831,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_ledger_committed]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 5.014,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[before_local_mirror]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 5.164,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[after_local_mirror]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 5.213,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[launch_requested]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 5.382,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[process_started]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 6.83,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[solver_returned]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 6.239,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[truth_valid_before_coupling]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 6.925,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_interrupted_controller_never_replays_or_advances[coupling_truth_before_local]",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 6.93,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_sqlite_entry_mirror_failure_keeps_science_consumed",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 5.106,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_two_controller_competition_actual_os_lock",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 4.671,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_controller_process_exit_recovers_truth_only_then_pauses",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 12.978,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_accepted_science_resource_hold_before_budget",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 4.375,
+      "verdict": "PASS"
+    },
+    {
+      "name": "test_real_diag2_wrong_fencing_rejects_before_entry",
+      "classname": "tests.test_trusted_control_path",
+      "seconds": 3.357,
+      "verdict": "PASS"
+    }
+  ],
+  "full_regression": {
+    "tests": 309,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 309,
+    "wall_seconds": 217.98499999986961,
+    "groups": [
+      {
+        "group": 1,
+        "files": [
+          "test_v3_plan.py"
+        ],
+        "returncode": 0,
+        "seconds": 119.32799999997951,
+        "tail": "..................                                                       [100%]\n============================== warnings summary ===============================\napcd_gpu_v2\\v3_plan.py:17\n  D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_PRODUCTION_CONTROL_PATH_CLOSEOUT_V1\\RELEASE_CANDIDATE\\platform_v2\\apcd_gpu_v2\\v3_plan.py:17: UserWarning: Field name \"schema\" in \"Plan\" shadows an attribute in parent \"StrictModel\"\n    class Plan(StrictModel):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n18 passed, 1 warning in 116.75s (0:01:56)\n"
+      },
+      {
+        "group": 2,
+        "files": [
+          "test_general_runner.py",
+          "test_trusted_admission.py",
+          "test_trusted_control_path.py",
+          "test_trusted_release.py"
+        ],
+        "returncode": 0,
+        "seconds": 217.875,
+        "tail": "........................................................................ [ 76%]\n......................                                                   [100%]\n94 passed in 215.33s (0:03:35)\n"
+      },
+      {
+        "group": 3,
+        "files": [
+          "test_cutover_gate.py",
+          "test_diag2_admission_budget.py",
+          "test_diag2_contract_compatibility.py",
+          "test_diag2_time_telemetry.py",
+          "test_gpu_readonly.py",
+          "test_incident_power_dependency.py",
+          "test_mvp.py",
+          "test_native_acceptance.py",
+          "test_preentry_rebind.py",
+          "test_process_ownership_evidence.py",
+          "test_serial.py",
+          "test_v3_registered.py"
+        ],
+        "returncode": 0,
+        "seconds": 106.32799999997951,
+        "tail": "_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity\ntests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity\ntests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity\n  D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\mdc_tmm_complex_incident_power_v1.py:52: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.\n    integrated += float(np.trapz(-np.gradient(flux,z),z))\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n197 passed, 12 warnings in 102.69s (0:01:42)\n"
+      }
+    ],
+    "all_files_once": [
+      "test_cutover_gate.py",
+      "test_diag2_admission_budget.py",
+      "test_diag2_contract_compatibility.py",
+      "test_diag2_time_telemetry.py",
+      "test_general_runner.py",
+      "test_gpu_readonly.py",
+      "test_incident_power_dependency.py",
+      "test_mvp.py",
+      "test_native_acceptance.py",
+      "test_preentry_rebind.py",
+      "test_process_ownership_evidence.py",
+      "test_serial.py",
+      "test_trusted_admission.py",
+      "test_trusted_control_path.py",
+      "test_trusted_release.py",
+      "test_v3_plan.py",
+      "test_v3_registered.py"
+    ],
+    "source_module_origins": "CANDIDATE_ORIGINS_1/2/3.json",
+    "environment_fixture": "foreign process census stubbed to prevent sensitive argv collection; owned fixture PID/fencing real",
+    "scientific_executable_guard": true
+  },
+  "actual_new_solver_entries": 0,
+  "production_diag2_entered": 0,
+  "production_diag2_budget": 2,
+  "production_credential_ready": false,
+  "live_gpu_resource_ready": false,
+  "live_solver_authorized": false
+}
