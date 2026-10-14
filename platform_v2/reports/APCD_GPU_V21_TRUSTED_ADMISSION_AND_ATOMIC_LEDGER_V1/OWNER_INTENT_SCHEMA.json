@@ -1,0 +1,188 @@
+{
+  "$defs": {
+    "Pin": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "title": "Pin",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "attempt_id": {
+          "const": "attempt_001",
+          "title": "Attempt Id",
+          "type": "string"
+        },
+        "source_run_truth": {
+          "$ref": "#/$defs/Pin"
+        },
+        "setup_input": {
+          "$ref": "#/$defs/Pin"
+        },
+        "candidate_setup": {
+          "$ref": "#/$defs/Pin"
+        },
+        "source_manifest": {
+          "$ref": "#/$defs/Pin"
+        },
+        "auxiliary": {
+          "items": {
+            "$ref": "#/$defs/Pin"
+          },
+          "title": "Auxiliary",
+          "type": "array"
+        }
+      },
+      "required": [
+        "case_id",
+        "attempt_id",
+        "source_run_truth",
+        "setup_input",
+        "candidate_setup",
+        "source_manifest"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "APCD_GPU_V21_SCIENCE_OWNER_ISSUANCE_INTENT_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "intent_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,95}$",
+      "title": "Intent Id",
+      "type": "string"
+    },
+    "science_owner": {
+      "title": "Science Owner",
+      "type": "string"
+    },
+    "science_owner_sid": {
+      "title": "Science Owner Sid",
+      "type": "string"
+    },
+    "batch_id": {
+      "title": "Batch Id",
+      "type": "string"
+    },
+    "manifest_file_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest File Sha256",
+      "type": "string"
+    },
+    "manifest_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest Sha256",
+      "type": "string"
+    },
+    "approved_case_set": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Approved Case Set",
+      "type": "array"
+    },
+    "approved_entry_budget": {
+      "exclusiveMinimum": 0,
+      "title": "Approved Entry Budget",
+      "type": "integer"
+    },
+    "per_case_entry_limit": {
+      "const": 1,
+      "title": "Per Case Entry Limit",
+      "type": "integer"
+    },
+    "no_replay": {
+      "const": true,
+      "title": "No Replay",
+      "type": "boolean"
+    },
+    "profile_id": {
+      "const": "coupling_609d_v1",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "profile_certification_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Profile Certification Sha256",
+      "type": "string"
+    },
+    "release_inventory": {
+      "$ref": "#/$defs/Pin"
+    },
+    "scientific_evidence": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Pin"
+      },
+      "title": "Scientific Evidence",
+      "type": "object"
+    },
+    "case_provenance": {
+      "items": {
+        "$ref": "#/$defs/Provenance"
+      },
+      "title": "Case Provenance",
+      "type": "array"
+    },
+    "scope": {
+      "const": "SCIENCE_ADMISSION_AND_LEDGER_GENESIS_ONLY",
+      "title": "Scope",
+      "type": "string"
+    },
+    "solver_entry_authorized": {
+      "const": false,
+      "title": "Solver Entry Authorized",
+      "type": "boolean"
+    },
+    "fixture_only": {
+      "default": false,
+      "title": "Fixture Only",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "intent_id",
+    "science_owner",
+    "science_owner_sid",
+    "batch_id",
+    "manifest_file_sha256",
+    "manifest_sha256",
+    "approved_case_set",
+    "approved_entry_budget",
+    "per_case_entry_limit",
+    "no_replay",
+    "profile_id",
+    "profile_certification_sha256",
+    "release_inventory",
+    "scientific_evidence",
+    "case_provenance",
+    "scope",
+    "solver_entry_authorized"
+  ],
+  "title": "OwnerIntent",
+  "type": "object"
+}

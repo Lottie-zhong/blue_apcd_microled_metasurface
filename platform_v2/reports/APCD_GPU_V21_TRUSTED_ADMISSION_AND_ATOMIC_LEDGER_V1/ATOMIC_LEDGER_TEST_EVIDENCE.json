@@ -1,0 +1,253 @@
+{
+  "schema": "APCD_GPU_V21_ATOMIC_LEDGER_OFFLINE_TEST_EVIDENCE_V1",
+  "source_commit": "d2613bb5d877198409281a94b53ee0864fcbf7c2",
+  "scope": "ISOLATED_PRODUCTION_EQUIVALENT_FIXTURES_ONLY_NOT_ADMISSION",
+  "scientific_ledger_protocol": "APCD_COUPLING_BATCH_ENTRY_LEDGER_V1",
+  "no_new_sqlite_science_budget": true,
+  "full_regression": {
+    "tests": 287,
+    "passed": 287,
+    "failed": 0,
+    "skipped": 0
+  },
+  "new_interface_test_count": 35,
+  "fault_injection": [
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[partial_temporary_write]",
+      "outcome": "PASS",
+      "seconds": 2.119
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[reservation_committed]",
+      "outcome": "PASS",
+      "seconds": 2.257
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[genesis_committed]",
+      "outcome": "PASS",
+      "seconds": 2.114
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[admission_committed]",
+      "outcome": "PASS",
+      "seconds": 2.352
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[ledger_committed]",
+      "outcome": "PASS",
+      "seconds": 2.224
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[activation_committed]",
+      "outcome": "PASS",
+      "seconds": 2.268
+    }
+  ],
+  "interface_test_results": [
+    {
+      "name": "test_atomic_genesis_no_circular_sha_and_registry_starts_paused",
+      "outcome": "PASS",
+      "seconds": 0.848
+    },
+    {
+      "name": "test_unauthorized_identity_cannot_issue[CONSUMER]",
+      "outcome": "PASS",
+      "seconds": 0.328
+    },
+    {
+      "name": "test_unauthorized_identity_cannot_issue[OPERATOR]",
+      "outcome": "PASS",
+      "seconds": 0.297
+    },
+    {
+      "name": "test_unauthorized_identity_cannot_issue[FOREIGN]",
+      "outcome": "PASS",
+      "seconds": 0.354
+    },
+    {
+      "name": "test_fixture_never_authorizes_production_and_ordinary_json_is_not_admission",
+      "outcome": "PASS",
+      "seconds": 0.758
+    },
+    {
+      "name": "test_intent_tamper_fail_closed[manifest_sha256]",
+      "outcome": "PASS",
+      "seconds": 0.353
+    },
+    {
+      "name": "test_intent_tamper_fail_closed[manifest_file_sha256]",
+      "outcome": "PASS",
+      "seconds": 0.331
+    },
+    {
+      "name": "test_intent_tamper_fail_closed[profile_certification_sha256]",
+      "outcome": "PASS",
+      "seconds": 0.422
+    },
+    {
+      "name": "test_intent_tamper_fail_closed[batch_id]",
+      "outcome": "PASS",
+      "seconds": 0.479
+    },
+    {
+      "name": "test_intent_tamper_fail_closed[approved_case_set]",
+      "outcome": "PASS",
+      "seconds": 0.435
+    },
+    {
+      "name": "test_intent_tamper_fail_closed[approved_entry_budget]",
+      "outcome": "PASS",
+      "seconds": 0.414
+    },
+    {
+      "name": "test_source_setup_contract_sha_tamper_denied[source_fsp]",
+      "outcome": "PASS",
+      "seconds": 0.339
+    },
+    {
+      "name": "test_source_setup_contract_sha_tamper_denied[setup_input]",
+      "outcome": "PASS",
+      "seconds": 0.343
+    },
+    {
+      "name": "test_source_setup_contract_sha_tamper_denied[physics_contract]",
+      "outcome": "PASS",
+      "seconds": 0.417
+    },
+    {
+      "name": "test_missing_profile_and_admission_deny",
+      "outcome": "PASS",
+      "seconds": 0.327
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[partial_temporary_write]",
+      "outcome": "PASS",
+      "seconds": 2.119
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[reservation_committed]",
+      "outcome": "PASS",
+      "seconds": 2.257
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[genesis_committed]",
+      "outcome": "PASS",
+      "seconds": 2.114
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[admission_committed]",
+      "outcome": "PASS",
+      "seconds": 2.352
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[ledger_committed]",
+      "outcome": "PASS",
+      "seconds": 2.224
+    },
+    {
+      "name": "test_real_process_exit_atomic_activation_and_explicit_recovery[activation_committed]",
+      "outcome": "PASS",
+      "seconds": 2.268
+    },
+    {
+      "name": "test_duplicate_issuance_and_entry_no_replay_no_refund",
+      "outcome": "PASS",
+      "seconds": 2.225
+    },
+    {
+      "name": "test_coupling_genesis_commit_sqlite_registration_rollback",
+      "outcome": "PASS",
+      "seconds": 0.952
+    },
+    {
+      "name": "test_doe56_hold_cross_batch_and_existing_records_never_overwritten",
+      "outcome": "PASS",
+      "seconds": 1.051
+    },
+    {
+      "name": "test_generic_write_acl_is_not_mistaken_for_read_only",
+      "outcome": "PASS",
+      "seconds": 0.273
+    },
+    {
+      "name": "test_gpu_hold_blocks_before_entry_even_after_science_issuance",
+      "outcome": "PASS",
+      "seconds": 1.113
+    },
+    {
+      "name": "test_real_a1_a2_contract_and_source_pins_through_trusted_fixture_genesis",
+      "outcome": "PASS",
+      "seconds": 5.283
+    },
+    {
+      "name": "test_activation_corruption_and_ledger_genesis_mismatch_fail_closed",
+      "outcome": "PASS",
+      "seconds": 0.834
+    },
+    {
+      "name": "test_later_science_hold_blocks_entry_but_keeps_authority_readable_for_recovery",
+      "outcome": "PASS",
+      "seconds": 1.331
+    },
+    {
+      "name": "test_same_case_attempt_cannot_get_a_second_batch_budget",
+      "outcome": "PASS",
+      "seconds": 0.762
+    },
+    {
+      "name": "test_installed_old_admission_schema_refuses_new_fixture_envelope",
+      "outcome": "PASS",
+      "seconds": 1.903
+    },
+    {
+      "name": "test_production_cli_cannot_be_used_with_fixture_authority",
+      "outcome": "PASS",
+      "seconds": 0.346
+    },
+    {
+      "name": "test_fixture_root_smuggling_is_rejected_before_any_writer_lock",
+      "outcome": "PASS",
+      "seconds": 0.339
+    },
+    {
+      "name": "test_partial_activation_recovery_never_overwrites_existing_science_records",
+      "outcome": "PASS",
+      "seconds": 0.629
+    },
+    {
+      "name": "test_non_general_production_paths_cannot_bypass_trusted_admission",
+      "outcome": "PASS",
+      "seconds": 0.001
+    }
+  ],
+  "asserted_properties": [
+    "partial temporary file is never active",
+    "reservation/genesis/admission/ledger remain inert until activation",
+    "explicit recovery preserves identity and cannot reset consumed entries",
+    "duplicate issuance denied; active recovery read-only",
+    "same case/attempt cannot obtain a second batch reservation",
+    "SQLite registration abort leaves science budget untouched and submit paused",
+    "source/setup/contract tamper denied",
+    "missing profile/admission denied",
+    "wrong actor denied before writer lock",
+    "fixture path smuggling and production CLI fixture credentials denied",
+    "valid fixture admission plus resource HOLD yields zero entries",
+    "later science HOLD blocks new entry but preserves zero-solver authority inspection"
+  ],
+  "real_diag2_evidence": {
+    "case_count": 2,
+    "source_setup_pins_checked": 16,
+    "contract_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+    "original_manifest_sha256": "8472518baf1425243b05292ac882a141bd886f91524b1f2bd664e4f4d962e5c7",
+    "original_profile_certification_sha256": "11ddbf2fc13e2dd34a9a4c4b07daf17c6d2c8275a64eb27fa3202e67cad204ca",
+    "actor_and_profile_enrollment": "EXPLICIT_OFFLINE_FIXTURE; original evidence files unchanged; not a new Science Owner acceptance"
+  },
+  "production_unchanged": true,
+  "production_science_authority_file_count": 0,
+  "junit_sha256": "11b534b45dc5b9b74cf28d79cf088f6d37c997cef39cdd024ef418b04b66a7df",
+  "production_admission_issued": false,
+  "production_ledger_initialized": false,
+  "new_solver_entries": 0,
+  "ml_fits": 0,
+  "replay": 0
+}

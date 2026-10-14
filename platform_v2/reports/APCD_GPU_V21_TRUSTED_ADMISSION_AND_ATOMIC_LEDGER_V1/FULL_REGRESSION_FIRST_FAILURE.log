@@ -1,0 +1,176 @@
+........................................................................ [ 25%]
+..............F......................................................... [ 50%]
+..............................................................F......... [ 76%]
+....................................................................     [100%]
+================================== FAILURES ===================================
+_____________ test_production_dependency_failure_is_before_entry ______________
+
+tmp_path = WindowsPath('C:/Users/DELL/AppData/Local/Temp/pytest-of-dell/pytest-859/test_production_dependency_fai0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002A431946F20>
+
+    def test_production_dependency_failure_is_before_entry(tmp_path,monkeypatch):
+        from test_serial import fixture
+        from apcd_gpu_v2 import serial
+        from apcd_gpu_v2.serial import SerialLedger,ProductionNativeBackend,NativeTruthValidator
+        from apcd_gpu_v2.ledger import Refused
+        cfg,requests,_=fixture(tmp_path)
+        cfg=cfg.model_copy(update={'mode':'PRODUCTION_GPU'})
+        request=requests[0].model_copy(update={'config_sha256':cfg.sha256})
+        ledger=SerialLedger(Path(cfg.runtime_root)/'dependency_guard.sqlite3');ledger.register(request,cfg)
+        monkeypatch.setattr(serial,'validate_admission',lambda *a:None)
+        monkeypatch.setattr(serial.CouplingBudget,'validate',lambda *a:None)
+        def forbidden(*a,**kw):pytest.fail('native/entry reached after failed dependency preflight')
+        monkeypatch.setattr(serial,'native_preflight',forbidden)
+        monkeypatch.setattr(serial.CouplingBudget,'prepare_entry',forbidden)
+        before=Path(cfg.coupling_ledger).read_bytes()
+        with pytest.raises(Refused,match='INCIDENT_POWER_HELPER_PIN_REQUIRED'):
+>           serial.run_serial_case(cfg,request,ledger,ProductionNativeBackend(),NativeTruthValidator(cfg))
+
+platform_v2\tests\test_incident_power_dependency.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+config = SerialConfig(schema_version='APCD_V2_SERIAL_V1', mode='PRODUCTION_GPU', runtime_root='C:\\Users\\DELL\\AppData\\Local\...be9a1d82ebe97f97be995dea5', slots=1, automatic_replays=0, heartbeat_seconds=0.05, truth_toolchain={}, coupling_root='')
+request = SerialRequest(case_id='K6GDP2_DEV_G027', attempt_id='attempt_001', role='DEVELOPMENT_GLOBAL', ordered_D_nm=(105, 105, ...1f4f22b297be9a1d82ebe97f97be995dea5', config_sha256='ef9ad870413c851bb60e44b3e5dd3e7f6385f699f6dc7c7d70eb8e9c04bfabe3')
+ledger = <apcd_gpu_v2.serial.SerialLedger object at 0x000002A431946B30>
+backend = <apcd_gpu_v2.serial.ProductionNativeBackend object at 0x000002A431947FA0>
+validator = <apcd_gpu_v2.serial.NativeTruthValidator object at 0x000002A431947E80>
+
+    def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:None,archive=archive_pair):
+        if config.mode=='PRODUCTION_GPU':
+            from .general import is_general
+>           if not is_general(config):raise Refused('TRUSTED_V21_ADMISSION_PATH_REQUIRED')
+E           apcd_gpu_v2.ledger.Refused: TRUSTED_V21_ADMISSION_PATH_REQUIRED
+
+platform_v2\apcd_gpu_v2\serial.py:727: Refused
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = WindowsPath('C:/Users/DELL/AppData/Local/Temp/pytest-of-dell/pytest-859/test_production_dependency_fai0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002A431946F20>
+
+    def test_production_dependency_failure_is_before_entry(tmp_path,monkeypatch):
+        from test_serial import fixture
+        from apcd_gpu_v2 import serial
+        from apcd_gpu_v2.serial import SerialLedger,ProductionNativeBackend,NativeTruthValidator
+        from apcd_gpu_v2.ledger import Refused
+        cfg,requests,_=fixture(tmp_path)
+        cfg=cfg.model_copy(update={'mode':'PRODUCTION_GPU'})
+        request=requests[0].model_copy(update={'config_sha256':cfg.sha256})
+        ledger=SerialLedger(Path(cfg.runtime_root)/'dependency_guard.sqlite3');ledger.register(request,cfg)
+        monkeypatch.setattr(serial,'validate_admission',lambda *a:None)
+        monkeypatch.setattr(serial.CouplingBudget,'validate',lambda *a:None)
+        def forbidden(*a,**kw):pytest.fail('native/entry reached after failed dependency preflight')
+        monkeypatch.setattr(serial,'native_preflight',forbidden)
+        monkeypatch.setattr(serial.CouplingBudget,'prepare_entry',forbidden)
+        before=Path(cfg.coupling_ledger).read_bytes()
+>       with pytest.raises(Refused,match='INCIDENT_POWER_HELPER_PIN_REQUIRED'):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'INCIDENT_POWER_HELPER_PIN_REQUIRED'
+E         Actual message: 'TRUSTED_V21_ADMISSION_PATH_REQUIRED'
+
+platform_v2\tests\test_incident_power_dependency.py:61: AssertionError
+_ test_production_native_path_uses_verified_spec_but_holds_unobserved_engine __
+
+tmp_path = WindowsPath('C:/Users/DELL/AppData/Local/Temp/pytest-of-dell/pytest-859/test_production_native_path_us0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002A431964A00>
+
+    def test_production_native_path_uses_verified_spec_but_holds_unobserved_engine(tmp_path,monkeypatch):
+        from apcd_gpu_v2 import serial
+        cfg,rs,equivalent=fixture(tmp_path)
+        pin=Pin(path=cfg.queue.path,sha256=cfg.queue.sha256)
+        # Explicit test release for the PRODUCTION_GPU code branch; never a production approval.
+        release=json.loads(Path(cfg.release.path).read_text());release.update(mode='PRODUCTION_GPU',science_authorized=True,legacy_ingress_closed=True,owner_clear=True)
+        Path(cfg.release.path).write_text(json.dumps(release))
+        config=cfg.model_copy(update={'mode':'PRODUCTION_GPU','release':Pin(path=cfg.release.path,sha256=sha256(cfg.release.path)),'truth_toolchain':dict(lumapi=pin,postprocessor=pin,decoder=pin,importer=pin),'coupling_root':str(tmp_path)})
+        request=rs[0].model_copy(update={'config_sha256':config.sha256})
+        ledger=SerialLedger(Path(cfg.runtime_root)/'production_branch_test.sqlite3');ledger.register(request,config)
+        original=serial.subprocess.Popen;captured=[]
+        def launch(command,**kwargs):
+            captured.append(command)
+            assert command[1:5]==['-nw','-hide','-trust-script','-run']
+            return original([sys.executable,str(equivalent.script),command[-1]],**kwargs)
+        monkeypatch.setattr(serial.subprocess,'Popen',launch)
+        monkeypatch.setattr(serial,'native_preflight',lambda *args:None)
+        monkeypatch.setattr(serial,'gpu_inventory_gate',lambda config:{'test_double':True})
+        validator=serial.NativeTruthValidator(config)
+        monkeypatch.setattr(validator,"preflight",lambda:dict(test_double=True))
+        with pytest.raises(Refused,match='ENGINE_PID_NOT_OBSERVED'):
+>           run_serial_case(config,request,ledger,ProductionNativeBackend(),validator)
+
+platform_v2\tests\test_serial.py:256: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+config = SerialConfig(schema_version='APCD_V2_SERIAL_V1', mode='PRODUCTION_GPU', runtime_root='C:\\Users\\DELL\\AppData\\Local\...)}, coupling_root='C:\\Users\\DELL\\AppData\\Local\\Temp\\pytest-of-dell\\pytest-859\\test_production_native_path_us0')
+request = SerialRequest(case_id='K6GDP2_DEV_G027', attempt_id='attempt_001', role='DEVELOPMENT_GLOBAL', ordered_D_nm=(105, 105, ...1f4f22b297be9a1d82ebe97f97be995dea5', config_sha256='0dbefc2216603b2da659a1732e529ea0dc2ff216247e46260c02cb996d9577f0')
+ledger = <apcd_gpu_v2.serial.SerialLedger object at 0x000002A431967D60>
+backend = <apcd_gpu_v2.serial.ProductionNativeBackend object at 0x000002A431964AC0>
+validator = <apcd_gpu_v2.serial.NativeTruthValidator object at 0x000002A431966FE0>
+
+    def run_serial_case(config,request,ledger,backend,validator,*,fault=lambda step:None,archive=archive_pair):
+        if config.mode=='PRODUCTION_GPU':
+            from .general import is_general
+>           if not is_general(config):raise Refused('TRUSTED_V21_ADMISSION_PATH_REQUIRED')
+E           apcd_gpu_v2.ledger.Refused: TRUSTED_V21_ADMISSION_PATH_REQUIRED
+
+platform_v2\apcd_gpu_v2\serial.py:727: Refused
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = WindowsPath('C:/Users/DELL/AppData/Local/Temp/pytest-of-dell/pytest-859/test_production_native_path_us0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002A431964A00>
+
+    def test_production_native_path_uses_verified_spec_but_holds_unobserved_engine(tmp_path,monkeypatch):
+        from apcd_gpu_v2 import serial
+        cfg,rs,equivalent=fixture(tmp_path)
+        pin=Pin(path=cfg.queue.path,sha256=cfg.queue.sha256)
+        # Explicit test release for the PRODUCTION_GPU code branch; never a production approval.
+        release=json.loads(Path(cfg.release.path).read_text());release.update(mode='PRODUCTION_GPU',science_authorized=True,legacy_ingress_closed=True,owner_clear=True)
+        Path(cfg.release.path).write_text(json.dumps(release))
+        config=cfg.model_copy(update={'mode':'PRODUCTION_GPU','release':Pin(path=cfg.release.path,sha256=sha256(cfg.release.path)),'truth_toolchain':dict(lumapi=pin,postprocessor=pin,decoder=pin,importer=pin),'coupling_root':str(tmp_path)})
+        request=rs[0].model_copy(update={'config_sha256':config.sha256})
+        ledger=SerialLedger(Path(cfg.runtime_root)/'production_branch_test.sqlite3');ledger.register(request,config)
+        original=serial.subprocess.Popen;captured=[]
+        def launch(command,**kwargs):
+            captured.append(command)
+            assert command[1:5]==['-nw','-hide','-trust-script','-run']
+            return original([sys.executable,str(equivalent.script),command[-1]],**kwargs)
+        monkeypatch.setattr(serial.subprocess,'Popen',launch)
+        monkeypatch.setattr(serial,'native_preflight',lambda *args:None)
+        monkeypatch.setattr(serial,'gpu_inventory_gate',lambda config:{'test_double':True})
+        validator=serial.NativeTruthValidator(config)
+        monkeypatch.setattr(validator,"preflight",lambda:dict(test_double=True))
+>       with pytest.raises(Refused,match='ENGINE_PID_NOT_OBSERVED'):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'ENGINE_PID_NOT_OBSERVED'
+E         Actual message: 'TRUSTED_V21_ADMISSION_PATH_REQUIRED'
+
+platform_v2\tests\test_serial.py:255: AssertionError
+============================== warnings summary ===============================
+platform_v2\apcd_gpu_v2\v3_plan.py:17
+  D:\project\worktrees\blue_apcd_gpu_v2_serial_production_v1\platform_v2\apcd_gpu_v2\v3_plan.py:17: UserWarning: Field name "schema" in "Plan" shadows an attribute in parent "StrictModel"
+    class Plan(StrictModel):
+
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+  D:\project\worktrees\blue_apcd_gpu_v2_serial_production_v1\platform_v2\apcd_gpu_v2\science\mdc_tmm_complex_incident_power_v1.py:52: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+    integrated += float(np.trapz(-np.gradient(flux,z),z))
+
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+  D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\scripts\mdc_tmm_complex_incident_power_v1.py:52: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+    integrated += float(np.trapz(-np.gradient(flux,z),z))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED platform_v2\tests\test_incident_power_dependency.py::test_production_dependency_failure_is_before_entry
+FAILED platform_v2\tests\test_serial.py::test_production_native_path_uses_verified_spec_but_holds_unobserved_engine
+2 failed, 282 passed, 13 warnings in 406.79s (0:06:46)
+

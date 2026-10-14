@@ -1,0 +1,141 @@
+{
+  "unchanged": true,
+  "before": {
+    "file_sha256": {
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\platform_config.json": "575f3e853f3799d5db62574f73d21e69f7f871f5fe5a9ceb158e14beaad19e09",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\CURRENT_SCIENCE_BINDING.json": "a391904e7b9fce13e30ae04bcc83dbfde16f7af868b52ebb979146756478e530",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\SCIENCE_RELEASE_DENY.json": "8301556cccc8c385e5ac7fae98e99ef4091f342f3a44051c0fdcfe771de16e89",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\CODE_SHA256.json": "ea92f62348f6d32c15bb46a992d1ca370a159c7f645808a472ae4013a6a756e1",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\PATCH_RELEASE_MANIFEST.json": "d4f37eeb249747eb07e1227ef9a64eb7a256712661a496d014e777e679a8b30a",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\general.py": "1025c5e5cfbe7815589d10bbc916d2457412f0f141a97e5e1795845e6576315d",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\serial.py": "9904157276c93aba0982c62311590eddee57017916f76df57ca2a4f274c37468",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\diag2.py": "1c0e6bbe5c4506e58eb6bba9948b79df850057662fbb5652ee5652c08b500b4a",
+      "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1\\v3_execution_authority_v1\\V3_EXECUTION_LEDGER_V1.json": "9e277f111f3ba6e7399d74e730f05a1f0a69388be8e40506135b28d8ffc84367",
+      "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_EXECUTION_LEDGER_V1.json": "a25cb5347cb97020c6abbddfdc99f669843b384c4f1932de5892fa249813572a"
+    },
+    "science_authority_files": [],
+    "slot": [
+      [
+        1,
+        95,
+        null,
+        null,
+        null
+      ]
+    ],
+    "tasks": [
+      [
+        "TRUTH_VALID",
+        1,
+        94
+      ]
+    ],
+    "tables": [
+      [
+        "tasks",
+        "CREATE TABLE tasks (\n case_id TEXT, attempt_id TEXT, request_sha TEXT UNIQUE NOT NULL,\n config_sha TEXT NOT NULL, payload TEXT NOT NULL,\n state TEXT NOT NULL, entered INTEGER NOT NULL DEFAULT 0 CHECK(entered IN (0,1)),\n entry_at REAL, pre_sha TEXT, contract_sha TEXT, error TEXT,\n bundle TEXT, labels TEXT, PRIMARY KEY(case_id,attempt_id))"
+      ],
+      [
+        "slot",
+        "CREATE TABLE slot (\n id INTEGER PRIMARY KEY CHECK(id=1), generation INTEGER NOT NULL,\n token TEXT, owner TEXT, request_sha TEXT)"
+      ],
+      [
+        "events",
+        "CREATE TABLE events (\n seq INTEGER PRIMARY KEY AUTOINCREMENT, utc_unix REAL NOT NULL,\n request_sha TEXT, kind TEXT NOT NULL, payload TEXT NOT NULL)"
+      ],
+      [
+        "sqlite_sequence",
+        "CREATE TABLE sqlite_sequence(name,seq)"
+      ]
+    ],
+    "scheduler": [
+      {
+        "xml_sha256": "093f1f1a1bf011fe86beb1e5c6a4a483b71e455ef1ca3e254bdf8d5607baea92",
+        "enabled": false,
+        "name": "APCD_GPU_V2_SERIAL_CONTROLLER",
+        "state": "Disabled"
+      },
+      {
+        "xml_sha256": "1ff43cdf3c6627e9bddb4ca1d371402ad94661868e5e3abdff32e764ab1a421a",
+        "enabled": false,
+        "name": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+        "state": "Disabled"
+      },
+      {
+        "xml_sha256": "03d3d6c54d271f30d098f34acb7f0da05edea57563a134d2bd3f247f7e3cdd54",
+        "enabled": false,
+        "name": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+        "state": "Disabled"
+      }
+    ]
+  },
+  "after": {
+    "file_sha256": {
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\platform_config.json": "575f3e853f3799d5db62574f73d21e69f7f871f5fe5a9ceb158e14beaad19e09",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\CURRENT_SCIENCE_BINDING.json": "a391904e7b9fce13e30ae04bcc83dbfde16f7af868b52ebb979146756478e530",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\SCIENCE_RELEASE_DENY.json": "8301556cccc8c385e5ac7fae98e99ef4091f342f3a44051c0fdcfe771de16e89",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\CODE_SHA256.json": "ea92f62348f6d32c15bb46a992d1ca370a159c7f645808a472ae4013a6a756e1",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\PATCH_RELEASE_MANIFEST.json": "d4f37eeb249747eb07e1227ef9a64eb7a256712661a496d014e777e679a8b30a",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\general.py": "1025c5e5cfbe7815589d10bbc916d2457412f0f141a97e5e1795845e6576315d",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\serial.py": "9904157276c93aba0982c62311590eddee57017916f76df57ca2a4f274c37468",
+      "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\releases\\v21_diag2_validator_b9abe87058d6\\platform_v2\\apcd_gpu_v2\\diag2.py": "1c0e6bbe5c4506e58eb6bba9948b79df850057662fbb5652ee5652c08b500b4a",
+      "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_V3_DOE56_FULL_SCIENCE_PRODUCTION_V1\\v3_execution_authority_v1\\V3_EXECUTION_LEDGER_V1.json": "9e277f111f3ba6e7399d74e730f05a1f0a69388be8e40506135b28d8ffc84367",
+      "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\QUEUE_EXECUTION_LEDGER_V1.json": "a25cb5347cb97020c6abbddfdc99f669843b384c4f1932de5892fa249813572a"
+    },
+    "science_authority_files": [],
+    "slot": [
+      [
+        1,
+        95,
+        null,
+        null,
+        null
+      ]
+    ],
+    "tasks": [
+      [
+        "TRUTH_VALID",
+        1,
+        94
+      ]
+    ],
+    "tables": [
+      [
+        "tasks",
+        "CREATE TABLE tasks (\n case_id TEXT, attempt_id TEXT, request_sha TEXT UNIQUE NOT NULL,\n config_sha TEXT NOT NULL, payload TEXT NOT NULL,\n state TEXT NOT NULL, entered INTEGER NOT NULL DEFAULT 0 CHECK(entered IN (0,1)),\n entry_at REAL, pre_sha TEXT, contract_sha TEXT, error TEXT,\n bundle TEXT, labels TEXT, PRIMARY KEY(case_id,attempt_id))"
+      ],
+      [
+        "slot",
+        "CREATE TABLE slot (\n id INTEGER PRIMARY KEY CHECK(id=1), generation INTEGER NOT NULL,\n token TEXT, owner TEXT, request_sha TEXT)"
+      ],
+      [
+        "events",
+        "CREATE TABLE events (\n seq INTEGER PRIMARY KEY AUTOINCREMENT, utc_unix REAL NOT NULL,\n request_sha TEXT, kind TEXT NOT NULL, payload TEXT NOT NULL)"
+      ],
+      [
+        "sqlite_sequence",
+        "CREATE TABLE sqlite_sequence(name,seq)"
+      ]
+    ],
+    "scheduler": [
+      {
+        "xml_sha256": "093f1f1a1bf011fe86beb1e5c6a4a483b71e455ef1ca3e254bdf8d5607baea92",
+        "enabled": false,
+        "name": "APCD_GPU_V2_SERIAL_CONTROLLER",
+        "state": "Disabled"
+      },
+      {
+        "xml_sha256": "1ff43cdf3c6627e9bddb4ca1d371402ad94661868e5e3abdff32e764ab1a421a",
+        "enabled": false,
+        "name": "APCD_GPU_RUNNER_V1_COUPLING_SERIAL_QUEUE_CONTROLLER",
+        "state": "Disabled"
+      },
+      {
+        "xml_sha256": "03d3d6c54d271f30d098f34acb7f0da05edea57563a134d2bd3f247f7e3cdd54",
+        "enabled": false,
+        "name": "APCD_GPU_RUNNER_V1_SINGLE_CASE_WORKER",
+        "state": "Disabled"
+      }
+    ]
+  }
+}

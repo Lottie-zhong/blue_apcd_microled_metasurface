@@ -1,0 +1,179 @@
+{
+  "schema": "APCD_GPU_V21_TRUSTED_ADMISSION_SHA_INVENTORY_V1",
+  "status": "V21_TRUSTED_ADMISSION_LEDGER_HOLD",
+  "source_commit": "d2613bb5d877198409281a94b53ee0864fcbf7c2",
+  "source_push": {
+    "status": "PUSHED_VERIFIED",
+    "source_commit": "d2613bb5d877198409281a94b53ee0864fcbf7c2",
+    "branch": "codex/apcd-gpu-v2-serial-production-v1",
+    "remote_head": "d2613bb5d877198409281a94b53ee0864fcbf7c2",
+    "ahead_behind": "0\t0",
+    "checked_utc": "2026-10-14T10:44:42.630658+00:00",
+    "force_push": false
+  },
+  "source_locations": {
+    "trusted_admission.py": {
+      "class OwnerIntent": 35,
+      "def require_science_owner": 85,
+      "def _plan": 128,
+      "def atomic_new_json": 197,
+      "def issue_and_initialize": 216,
+      "def verify_issued_admission": 249,
+      "def main": 273
+    },
+    "general.py": {
+      "def validate_batch_inputs": 372,
+      "def load_batch": 424,
+      "def verify_acl": 169
+    },
+    "serial.py": {
+      "def require_trusted_production_config": 595,
+      "def validate_admission": 601,
+      "def run_serial_case": 732
+    }
+  },
+  "source_sha256": {
+    "platform_v2/apcd_gpu_v2/general.py": "3e28db3d4181b39a7f0bc77c7bc2dbfc6ea51682edd95d48393c70df05438269",
+    "platform_v2/apcd_gpu_v2/serial.py": "7a041dab5bdb232487e2260882cc9f04bb9c1328042ddc029875f6ab8bef4e72",
+    "platform_v2/apcd_gpu_v2/trusted_admission.py": "ca91d9c79a519efe1a0aba4cf8c01587dc82673544be2df6b14e014e28ceb39b",
+    "platform_v2/tests/test_incident_power_dependency.py": "24f7db6c74a2e8e0bdb40c1227955da10a1cb667ba32ebb43b953f2293b9bd46",
+    "platform_v2/tests/test_serial.py": "d078aa8a5d0b47a393a1fa99005da9f594ede449b2743f0bffcbabe50f821415",
+    "platform_v2/tests/test_trusted_admission.py": "7d3455e9cf921a9e2cf9653759f7c4dbff30e792f154752b112866332c39b488"
+  },
+  "installed_release": "v21_diag2_validator_b9abe87058d6",
+  "installed_code_inventory_sha256": "ea92f62348f6d32c15bb46a992d1ca370a159c7f645808a472ae4013a6a756e1",
+  "frozen_scientific_evidence": {
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V21_ADMISSION_PREPARATION_V1\\DIAG2_ADMISSION_CANDIDATE_MANIFEST.json": "8472518baf1425243b05292ac882a141bd886f91524b1f2bd664e4f4d962e5c7",
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1\\SCIENCE_CONTRACT_6PS.json": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_V21_SCIENCE_CONTRACT_CLOSEOUT_V1\\COUPLING_609D_PROFILE_CERTIFICATION.json": "11ddbf2fc13e2dd34a9a4c4b07daf17c6d2c8275a64eb27fa3202e67cad204ca",
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_FINAL_ADMISSION_BINDING_V1\\FINAL_ADMISSION_BINDING_CHECK.json": "355a968ff4386fd60ea21829eceb3e430bdd3a012b7e898f250b5b7b20973d3a"
+  },
+  "input_owner_reports": {
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V21_FORMAL_ADMISSION_ISSUANCE_V1\\FINAL_REPORT.md": "00839d55e33d9510d575993f8e82854f3fa56ef7e085e8eb19b605b8f3d93df2",
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V21_FORMAL_ADMISSION_ISSUANCE_V1\\CONTINUATION.md": "71be0f3ccc99a075fde368354a1857881521de1591f14ece7ba3542b6e56d3cd",
+    "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V21_FORMAL_ADMISSION_ISSUANCE_V1\\SHA_INVENTORY.json": "0f3040bc6a08fcac6062c321e4605d27540708e76a949886b6f14bde6dd11a38"
+  },
+  "report_artifacts": {
+    "ATOMIC_LEDGER_TEST_EVIDENCE.json": {
+      "sha256": "8c0402b1fedc1d282c3191cb8a0e62a6ec6858f032b901f6653ad8794c79f4c4",
+      "bytes": 8317
+    },
+    "AUTHORITY_CAPABILITY_READBACK.json": {
+      "sha256": "cb9336cbecde4e395ffe580dc2853a3bbae07316265d8ae028e0403fb48cc244",
+      "bytes": 3055
+    },
+    "CONTINUATION.md": {
+      "sha256": "f1191748a373ecb6288a8bbdac026c38b1c5a1592dafd1a9eee0372f016ec1e9",
+      "bytes": 3268
+    },
+    "FINAL_REPORT.md": {
+      "sha256": "968415fa2dae27539c8f3bf762d3582a26a8cad3973a3f6336d4face43f9b5e6",
+      "bytes": 8435
+    },
+    "FULL_GROUP_1.log": {
+      "sha256": "ee4d1e8258a5157c7c78d18fd325f741f37426c128e779bb3fb62a62a88da956",
+      "bytes": 538
+    },
+    "FULL_GROUP_1.xml": {
+      "sha256": "461d9a87e0731fb1c513e2eb1718bf5305ec1914df67c1a3b8c8a28c2155ba00",
+      "bytes": 2380
+    },
+    "FULL_GROUP_2.log": {
+      "sha256": "88ee73359c1216b9ddac2e27529427d46571d69b140ff958f519cd7c7cf56add",
+      "bytes": 2265
+    },
+    "FULL_GROUP_2.xml": {
+      "sha256": "5c6a1a52aad23bd020891d3710d4d2fc2c0b0bc63f954a30486d3ffc07a2493a",
+      "bytes": 21070
+    },
+    "FULL_GROUP_3.log": {
+      "sha256": "604952190db96a1cbfbd0f6a7abf9841290b86fd79afae6ddebe9bbefd778dad",
+      "bytes": 195
+    },
+    "FULL_GROUP_3.xml": {
+      "sha256": "582cc999ea44b214da032257371d06ec641dbc9f8fc6bcc61000eb53f5549c0d",
+      "bytes": 13581
+    },
+    "FULL_JUNIT.xml": {
+      "sha256": "11b534b45dc5b9b74cf28d79cf088f6d37c997cef39cdd024ef418b04b66a7df",
+      "bytes": 36847
+    },
+    "FULL_JUNIT_FIRST_FAILURE.xml": {
+      "sha256": "f161c238836428c5f6824da5518e5951cbdcbe07af91e3990f15505a36411abe",
+      "bytes": 46557
+    },
+    "FULL_REGRESSION.log": {
+      "sha256": "4319f2065515e5b653c68e4850ed5e0ef7f32d3f390df0ec9ac3803d90332552",
+      "bytes": 6423
+    },
+    "FULL_REGRESSION_FIRST_FAILURE.log": {
+      "sha256": "a990475d807e1eaa117a45a964b643e1d11c336e6ca83bbeb06d3a465b7aac60",
+      "bytes": 13166
+    },
+    "FULL_REGRESSION_SUMMARY.json": {
+      "sha256": "5d53f3314667f087fdc39f984333662dd878a02d9d0d0d21de94c8af4d9223e7",
+      "bytes": 3413
+    },
+    "GIT_SOURCE_COMMIT.json": {
+      "sha256": "99f8ee9e1eeee73fe32495d7261ac019cb12ced0a5796a1238a70f3f36e3612b",
+      "bytes": 1348
+    },
+    "GIT_SOURCE_PUSH.json": {
+      "sha256": "e115627a395a58d236b84b7cda3e1bce98c28704ad5b216e9cbe8de71246b3c9",
+      "bytes": 321
+    },
+    "INTERFACE_CONTRACT.md": {
+      "sha256": "5532b920e4b7591bd27019d933fe4a86f85bb499e8c9625075be338e5cf6f41c",
+      "bytes": 10000
+    },
+    "LIVE_RESOURCE_EVIDENCE.json": {
+      "sha256": "678018dcc142cca610d6d0c07ec47756eae1451059cca68faf37d752356a9889",
+      "bytes": 7716
+    },
+    "OWNER_INTENT_SCHEMA.json": {
+      "sha256": "7d8bce393a5f1e1fe2023960a011d52e9c2661fe473692deb9d8164deaf3c3e3",
+      "bytes": 4430
+    },
+    "PRODUCTION_AFTER.json": {
+      "sha256": "4655d1f86136bd476f279e8be9d028b3d0640c3396430d44bbd4c28dd169da86",
+      "bytes": 3752
+    },
+    "PRODUCTION_BEFORE.json": {
+      "sha256": "4655d1f86136bd476f279e8be9d028b3d0640c3396430d44bbd4c28dd169da86",
+      "bytes": 3752
+    },
+    "PRODUCTION_UNCHANGED.json": {
+      "sha256": "92dade5c0650b014cb9222d8f41bcbd680eab78f386d2dcc8b46be79cbf419a7",
+      "bytes": 7830
+    },
+    "PRODUCTION_UNCHANGED_FIRST_RUN.json": {
+      "sha256": "92dade5c0650b014cb9222d8f41bcbd680eab78f386d2dcc8b46be79cbf419a7",
+      "bytes": 7830
+    },
+    "SOURCE_DIFF.patch": {
+      "sha256": "15fdac4796abd68de8693ee42cbb9855c38e787d64bea291f844ad8010a39b5c",
+      "bytes": 51349
+    },
+    "TARGETED_JUNIT.xml": {
+      "sha256": "78ee0f5443aafb43baf6dcfea06154fb8e11b72cc3724051a173c0d878f4d037",
+      "bytes": 8946
+    },
+    "TARGETED_REGRESSION.log": {
+      "sha256": "97d723b01905666e8d5cc0c431ea771dae0c49064451406baca63816d1defb49",
+      "bytes": 115
+    }
+  },
+  "self_hash": "excluded",
+  "task_counts": {
+    "diag2_entered": 0,
+    "diag2_max_entries": 2,
+    "doe56_entered": 4,
+    "doe56_unentered_held": 52,
+    "new_solver_entries": 0,
+    "fdtd": 0,
+    "fmm_rcwa": 0,
+    "ml_fits": 0,
+    "replay": 0,
+    "sealed_access": 0
+  }
+}

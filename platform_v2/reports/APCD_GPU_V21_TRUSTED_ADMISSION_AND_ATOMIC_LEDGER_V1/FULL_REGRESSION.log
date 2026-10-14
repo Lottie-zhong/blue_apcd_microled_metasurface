@@ -1,0 +1,136 @@
+{
+  "tests": 287,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 287,
+  "seconds": 169.976,
+  "groups": [
+    {
+      "group": 1,
+      "files": [
+        "platform_v2\\tests\\test_v3_plan.py"
+      ],
+      "command": [
+        "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+        "-m",
+        "pytest",
+        "platform_v2\\tests\\test_v3_plan.py",
+        "-q",
+        "--junitxml=D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_TRUSTED_ADMISSION_AND_ATOMIC_LEDGER_V1\\FULL_GROUP_1.xml"
+      ],
+      "returncode": 0,
+      "seconds": 169.931,
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "group": 2,
+      "files": [
+        "platform_v2\\tests\\test_general_runner.py",
+        "platform_v2\\tests\\test_trusted_admission.py",
+        "platform_v2\\tests\\test_preentry_rebind.py",
+        "platform_v2\\tests\\test_diag2_admission_budget.py",
+        "platform_v2\\tests\\test_incident_power_dependency.py",
+        "platform_v2\\tests\\test_native_acceptance.py",
+        "platform_v2\\tests\\test_diag2_contract_compatibility.py",
+        "platform_v2\\tests\\test_gpu_readonly.py",
+        "platform_v2\\tests\\test_diag2_time_telemetry.py",
+        "platform_v2\\tests\\test_process_ownership_evidence.py",
+        "platform_v2\\tests\\test_cutover_gate.py"
+      ],
+      "command": [
+        "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+        "-m",
+        "pytest",
+        "platform_v2\\tests\\test_general_runner.py",
+        "platform_v2\\tests\\test_trusted_admission.py",
+        "platform_v2\\tests\\test_preentry_rebind.py",
+        "platform_v2\\tests\\test_diag2_admission_budget.py",
+        "platform_v2\\tests\\test_incident_power_dependency.py",
+        "platform_v2\\tests\\test_native_acceptance.py",
+        "platform_v2\\tests\\test_diag2_contract_compatibility.py",
+        "platform_v2\\tests\\test_gpu_readonly.py",
+        "platform_v2\\tests\\test_diag2_time_telemetry.py",
+        "platform_v2\\tests\\test_process_ownership_evidence.py",
+        "platform_v2\\tests\\test_cutover_gate.py",
+        "-q",
+        "--junitxml=D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_TRUSTED_ADMISSION_AND_ATOMIC_LEDGER_V1\\FULL_GROUP_2.xml"
+      ],
+      "returncode": 0,
+      "seconds": 132.277,
+      "tests": 158,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "group": 3,
+      "files": [
+        "platform_v2\\tests\\test_serial.py",
+        "platform_v2\\tests\\test_v3_registered.py",
+        "platform_v2\\tests\\test_mvp.py"
+      ],
+      "command": [
+        "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+        "-m",
+        "pytest",
+        "platform_v2\\tests\\test_serial.py",
+        "platform_v2\\tests\\test_v3_registered.py",
+        "platform_v2\\tests\\test_mvp.py",
+        "-q",
+        "--junitxml=D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\platform_v2\\reports\\APCD_GPU_V21_TRUSTED_ADMISSION_AND_ATOMIC_LEDGER_V1\\FULL_GROUP_3.xml"
+      ],
+      "returncode": 0,
+      "seconds": 134.72,
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "all_test_files_covered_once": true,
+  "production_unchanged": true
+}
+
+..................                                                       [100%]
+============================== warnings summary ===============================
+platform_v2\apcd_gpu_v2\v3_plan.py:17
+  D:\project\worktrees\blue_apcd_gpu_v2_serial_production_v1\platform_v2\apcd_gpu_v2\v3_plan.py:17: UserWarning: Field name "schema" in "Plan" shadows an attribute in parent "StrictModel"
+    class Plan(StrictModel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+18 passed, 1 warning in 167.86s (0:02:47)
+
+
+........................................................................ [ 45%]
+........................................................................ [ 91%]
+..............                                                           [100%]
+============================== warnings summary ===============================
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+  D:\project\worktrees\blue_apcd_gpu_v2_serial_production_v1\platform_v2\apcd_gpu_v2\science\mdc_tmm_complex_incident_power_v1.py:52: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+    integrated += float(np.trapz(-np.gradient(flux,z),z))
+
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+tests/test_incident_power_dependency.py::test_helper_has_frozen_source_bytes_and_numerical_parity
+  D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1\scripts\mdc_tmm_complex_incident_power_v1.py:52: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+    integrated += float(np.trapz(-np.gradient(flux,z),z))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+158 passed, 12 warnings in 125.50s (0:02:05)
+
+
+........................................................................ [ 64%]
+.......................................                                  [100%]
+111 passed in 128.14s (0:02:08)
