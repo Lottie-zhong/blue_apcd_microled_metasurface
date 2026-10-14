@@ -221,4 +221,3 @@ def test_real_diag2_wrong_fencing_rejects_before_entry(tmp_path):
     with pytest.raises(Refused, match='FENCING_MISMATCH'):
         p[1].ledger.note(req, token + 'wrong', 'FORGED', {})
     assert read_json(p[4])['entered_count'] == 0
-
