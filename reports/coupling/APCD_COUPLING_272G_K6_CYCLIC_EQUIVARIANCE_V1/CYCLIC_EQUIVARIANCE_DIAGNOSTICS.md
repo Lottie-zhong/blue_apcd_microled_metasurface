@@ -44,3 +44,7 @@ New fits: 12 independent augmented NN3 fits (4 folds × 3 seeds), 903.1 s total;
 Every candidate has `production_admission=false`; H1 remains **HOLD**. B and D clear the state gate, but routing, thresholded absolute order, and total power gates remain failed. These results are still development evidence only; the 124 development cases are not an independent final test.
 
 The per-seed frozen-H1 replay is in `CYCLIC_H1_PER_SEED_GATE_RESULTS.json`: the same gate pattern holds across all three seeds for each of A–D, and production admission is false for all 12 model/seed combinations.
+
+## H2 order metrics and high-P_scale audit
+
+All saved OOF predictions were replayed through the pinned frozen H2: stored and recomputed eta/absolute-order arrays matched exactly. D reduces mean per-order eta and order-power MAE relative to A for all seven orders, with `m=0` still the largest-error order. For validation points above the training-fold `P_scale` q75, D lowers mean absolute error versus A, but its mean signed bias remains negative and high-region underprediction remains common. Full fold/seed results and the q75 rule are in `CYCLIC_H2_PSCALE_DIAGNOSTICS.md`, `CYCLIC_H2_ORDER_METRICS.csv`, and `CYCLIC_PSCALE_HIGH_REGION_DIAGNOSTICS.csv`.
