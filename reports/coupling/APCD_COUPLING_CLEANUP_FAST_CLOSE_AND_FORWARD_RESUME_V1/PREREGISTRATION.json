@@ -1,0 +1,13 @@
+{
+  "task": "APCD_COUPLING_CLEANUP_FAST_CLOSE_AND_FORWARD_RESUME_V1",
+  "solver_invocations": 0,
+  "dataset": "272G COMPLEX_DATASET.npz; existing labels only; no FDTD, Runner, sealed data, or validation-based tuning",
+  "primary_validation": "fixed124 geometry IDs and original four old-train-only fold mapping; all 21 wavelengths remain per geometry",
+  "outer_split": "existing STAGE_50/FOLDS.json train IDs plus AL16 ML_UPDATE/FOLDS.json heldout_old_ids; existing family_overlap must be zero",
+  "inner_split": "GroupShuffleSplit over outer-train geometry IDs only; four frozen local connected family components preserved; 18% groups, deterministic fold/seed-specific split",
+  "NN29": "7-64-64-29 tanh Adam; train-fold StandardScaler for X/Y; inner MSE early stop, min improvement 1e-4, patience60, max800 epochs; refit fresh on full outer train for selected epoch; seeds17/29/43",
+  "P_scale": "logP common wavelength mean from outer train only; residual targets logP-mu(lambda); Ridge alpha1 on standardized D, lambda, lambda^2 and D*lambda (14 features); MLP 7-32-32-1 tanh with same inner-group early-stop, seeds17/29/43",
+  "baseline_reuse": "previous fold OOF from APCD_COUPLING_272G_PSCALE_DECOUPLING_V1 only; no baseline retraining",
+  "aggregation": "complex Cartesian arithmetic mean; P_scale arithmetic mean of each seed prediction after exp; Frozen H2 decoder and original normalization; no direct eta/Pplus regression",
+  "evidence_scope": "development OOF only; repeated 124 set and adaptive dataset prevent final generalization certification; H1 remains HOLD"
+}
