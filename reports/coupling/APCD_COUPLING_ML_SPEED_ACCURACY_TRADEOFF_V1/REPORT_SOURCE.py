@@ -1,0 +1,131 @@
+from pathlib import Path
+import json,csv,subprocess,shutil,base64
+R=Path(r'D:\project\worktrees\blue_apcd_mdc_np_coupling_ml_v1');Q=R/'reports/coupling';D=Q/'APCD_COUPLING_ML_SPEED_ACCURACY_TRADEOFF_V1';B=Q/'APCD_COUPLING_DIAG2_V31_CONTROLLED_REAL_EXECUTION_V1';A=Q/'APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1'
+def j(p):return json.loads(p.read_text(encoding='utf-8'))
+def put(n,v):(D/n).write_text(json.dumps(v,ensure_ascii=False,indent=2),encoding='utf-8')
+s=j(D/'A1_TRAINING_VALUE_METRICS.json');rs=list(csv.DictReader((D/'A1_21_POINT_TRADEOFF.csv').open(encoding='utf-8')))
+shutil.copyfile(B/'A1_science/ALL_ORDER_ROUTING_3PS_6PS.csv',D/'ALL_ORDER_ROUTING_EXISTING_COMPARISON.csv')
+report='''# APCD_COUPLING_ML_SPEED_ACCURACY_TRADEOFF_V1
+
+## 裁决摘要
+
+**规划交付 READY；快速生产尚未授权。** 本轮 NEW_FDTD=0、NEW_ENTRY=0、NEW_ML_FITS=0、REPLAY=0。DIAG2=1/2，A2=HOLD，DOE56=HOLD，AL16=NOT_AUTHORIZED。
+
+1. **A1 3ps具备有条件的 ML_TRAINING_GRADE 使用资格**：用于当前数值合同下探索性训练、趋势学习；不作为最终物理真值、不证明未知几何排序可靠。资格范围仅为此锚点及明确标记风险的既有开发集，不给整个六维空间背书。
+2. **5nm/3ps值得作为快速合同首选候选**：保留合法156G同合同训练价值，优先通过少量配对锚点量化偏差，而不是要求所有训练标签先满足最终收敛门槛。当前不签发生产Admission。
+3. **严格收敛 HOLD 不变**：446nm P_scale相对变化2.434002%>冻结1%；6ps以最大时间结束，非已证明收敛。两种时长不是一对精确真值与近似值。
+4. **数值稳定性只获局部支持**：有限值、标签完整、重复性和大部分目标趋势有证据；网格敏感性仍明显，未排除空间/时间耦合。
+
+最新用户裁决允许训练等级与最终等级分开。本报告覆盖旧规划中“必须先全部严格收敛才能扩充训练数据”的前置政策；不修改旧门槛/历史HOLD，不撤销制造、预算、资源、身份和数据权限门禁。旧主线报告的0/2与平台缺陷为历史状态，已由正式交接和A1实跑证据替代。
+
+## 1. A1的训练价值：全21点而非只看最大值
+
+以下按原已验收21点CSV重新统计，无新提取、无拟合、无阈值调节。差值为6ps−3ps；相对差分母为对应3ps原值。21个波长不是21个独立几何样本。
+
+|指标|全谱MAE|全谱RMSE|最大绝对差及波长|相对差中位数|最大相对差|全谱Pearson|
+|---|---:|---:|---|---:|---:|---:|
+'''
+for k in ['eta_plus1','Pplus1','P_scale']:
+ v=s[k];report+=f"|{k}|{v['MAE']:.9f}|{v['RMSE']:.9f}|{v['max_abs']:.9f} @ {v['max_abs_wavelength_nm']}nm|{100*v['median_relative']:.5f}%|{100*v['max_relative']:.5f}%|{v['Pearson_spectral']:.8f}|\n"
+report+='''
+P(+1) 的最大差为0.26114个百分点入射功率，发生在446nm；该点参考值0.114405896，新值0.111794526，相对变化−2.28255%。P_scale参考0.280030787，新值0.273214831，绝对差−0.006815956。η(+1)该点0.408547563→0.409181762，微增约0.06342个百分点；因此目标功率下降主要表现为总透射尺度变化，并非+1路由明显恶化。这是P=η×P_scale的代数分解，不替代原始场因果诊断。
+
+P(+1)全谱峰位均450nm，η(+1)均442nm，P_scale均450nm；21点谱形高度相似不等于解析出1nm以下窄峰或高Q尾部。P(+1)参考范围0.0200579…0.255267，P_scale0.0985226…0.698203，当前这两个标量不存在接近零分母；弱衍射阶/TE复态则不能只用相对误差评价，必须同时保留绝对差及参考量。
+
+冻结五项门槛保持：P_scale>1%为1/21点(446nm)；状态L2>2%、全阶Routing差>0.005、全阶绝对功率差>0.005、有效模态相位RMSE>0.05rad均0/21。全七阶Routing最大差0.002277335在457nm，绝对阶功率最大差0.002611370在446nm。复态最大L2为1.419397%，相位RMSE最大0.0137662rad。完整147条阶路由记录直接复用，不改H2定义。
+
+446nm总功率偏差局部突出：445nm为0.46206%、447nm为0.49889%；457nm虽不超严格路由阈值，却有η(+1)相对差约1.01327%，故不能称“只有446nm有风险”。450nm P(+1)绝对差0.000196026、P_scale相对差0.07631%。单几何谱内相关不能推断跨几何排序；若两个候选功率差接近数值偏差，应视为排序不确定。
+
+### 21点目标与尺度差异
+
+|nm|P_scale 3ps|6ps|有符号变化%|η(+1)绝对差|P(+1)绝对差|
+|---:|---:|---:|---:|---:|---:|
+'''
+for r in rs:
+ report+=f"|{float(r['wavelength_nm']):.0f}|{float(r['P_scale_3ps']):.8f}|{float(r['P_scale_6ps']):.8f}|{100*float(r['P_scale_signed_delta'])/float(r['P_scale_3ps']):+.5f}|{float(r['eta_plus1_abs_delta']):.8f}|{float(r['Pplus1_abs_delta']):.8f}|\n"
+report+='''
+## 2. 现有网格/时间证据与主要风险
+
+|对照|状态L2最大|Routing最大绝对差|全阶功率最大绝对差|P_scale最大相对差|
+|---|---:|---:|---:|---:|
+|A1 5nm，3→6ps|1.4194%|0.002277|0.002611|2.4340%|
+|旧A1，5→4nm，均3ps|13.0251%|0.045038|0.016211|16.0485%|
+|旧A2，5→4nm，均3ps|19.2538%|0.116551|0.031465|32.2073%|
+
+旧A2网格诊断不是尚未运行的DIAG2 A2/6ps。这里只复用已授权旧报告中的汇总，不读取DOE56新增响应、不合并DOE56训练数据。
+
+观察到的网格相关变化更大；尚不能证明纯空间误差普遍大于纯时间误差，因为所有旧网格实验也在3ps截止，网格可改变共振及尾部。4nm不是已收敛标准，不自动替换5nm。已有原生E/H独立恢复与H5标签一致性证据排除了已知提取/归一化错配，未证明全部误差源已排尽；缺少全体积共形系数和高场时间演化。A1网格最坏446nm，旧A2最坏460nm且446nm有显著变化，需关注窄谱结构、谱边界和几何邻域，而不能给全部K6贴相同误差界。
+
+6ps使已保存末端日志残余由约6.7674e-5降至4.4505e-6，但两者是99%附近采样，非精确终点；6ps最大时间停止，auto-shutoff设定1e-6。没有收敛极限参考，不能说目标指标“改善了2.434%”；正确表述为改变了，且时域残余降低。当前报告不新读取原生FSP、不生成时间曲线。
+
+训练误差和数值误差分开：既有ExtraTrees P(+1)谱MAE约0.03152，明显大于A1时间配对MAE0.000318，但两者样本范围不同，不能据此声称数值误差对所有数据可忽略。当前未知K6排序不可靠，现有KRR/MLP/ExtraTrees并未稳定超过Mean的η/P+表现；增数据不会自动改善，必须看独立学习曲线。
+
+## 3. 双等级、三角色合同
+
+**Level A / ML_TRAINING_GRADE**：首选5nm/最大3ps，auto-shutoff仍1e-6；Native-M1、源、结构、monitor、参考面、21波长、609D/H1/H2保持原冻结合同。最大物理时长与调度walltime分开。有限值/原生持久化/身份/功率归一化/标签合法性必须验收；严格收敛标记独立保存，不能以训练可用追认严格PASS。当前仅支持带风险标注的探索性训练资格，未拟造全空间误差上限。
+
+**Level B / FINAL_VALIDATION_GRADE**：配置UNDETERMINED，待网格和时间的独立数值研究；不能预设6ps或4nm为高精度最终标准。保留旧严格门槛并在后续代表性关键候选上验证。6ps数据暂标更长时间的诊断锚点，不因名字HIGH_FIDELITY就自动获得最终等级。
+
+三角色：FAST_DATASET为主要训练集；HIGH_FIDELITY_ANCHORS为同几何偏差与高风险侦测配对表；FINAL_VALIDATION仅用于最终关键候选及对照。元数据强制记录numerical_grade、fidelity_status、role、合同及case/attempt/entry、源文件及标签路径、停止状态、成对身份。不同精度不直接无版本混合；同几何跨精度始终同一group，锚点不是新增独立几何。历史156G继续合法开发训练，标记5nm3ps及数值风险；609D/H1/H2不变，sealed32不开放，DOE56不入训练。
+
+## 4. 经济的代表性锚点方案（建议，非授权）
+
+优先复用A1的3/6ps、G004旧网格及已有历史同几何证据。最小新增探测块建议2个已有FAST几何：一个具有尖锐谱/尾部风险、一个平滑宽谱/不同覆盖区，各做同5nm的6ps对照，共2个另外申请的entry；只检验训练合同敏感性，不称最终收敛。
+
+若时间差对任务可接受，再在这两个几何做4nm/6ps，共另2个entry，分离固定时长网格敏感度；若时间仍敏感，先只在最坏锚点做更长时间研究，随后才考虑更细网格。更长时长具体上限须依据已保存衰减证据及有界成本另冻结，不能凭空指定为已收敛。后续每32–64个FAST几何建议配对检查1个风险/覆盖锚点，比例按实测偏差和排序翻转调整，逐批单独批准预算。
+
+A2剩余1次仍HOLD。可单独提交用户裁决：把原“必须A1严格PASS才可A2”的条件改为“仅为第二几何训练偏差诊断而运行原A2”，保持原G004、5nm/6ps和原身份/预算不变。此建议不等于条件已改变，不自动启动、不将该预算挪作别的案例。不Replay A1；未来任何同几何新诊断也须独立目的、身份和预算批准。
+
+## 5. 每个有效几何的计算成本
+
+既有计时元数据：5nm3ps solver9.40–9.48min，端到端11.66–11.73min；4nm3ps solver18.92–18.99min，端到端22.13–22.19min。已实跑A1 5nm6ps从入场到CLI返回约18.69min，不含本轮科学分析；这些不是统一口径的V31全链路性能基准，不直接据此宣称提速倍数。V31 3ps有效吞吐与导出成本尚待首批实测，不能沿用旧文档“6ps未运行”。
+
+有效成本=总串行服务GPU小时（含失败和导出/验收占用）/新增唯一labels-valid几何数；队列等待、人工延迟另列。以11.7min/attempt仅作规划：成功率100%/90%/80%对应11.7/13.0/14.625min/有效几何。一个失败entered attempt依然消耗预算，不自动补跑。没有电价/租价，不能报货币成本。
+
+16次FAST约3.12 GPUh，按历史区间3.11–3.13h；90%产出率期望14.4个有效几何，不能称保证16个。若要求期望16个有效几何，所需attempt预算必须另议，不能自动增加。30min/attempt保守排程预留约8h，非测得成本，也非无限walltime。锚点/最终验证单独计费计entry，不包含在16次FAST内。
+
+## 6. 首批16G正式生产合同候选
+
+保留8192池、现有16提案和原选择理由：8覆盖+4模型分歧+4分层随机。旧核验16唯一、已知263保护几何无冲突，最小归一化对距0.45508，最小周期X/Y gap62.5/60nm、halfcell30nm；这些是现有证据，不冒充最新全局队列扫描。现有制造权威文件仍未识别，ordered100–230nm/5nm网格仅是观察域，不能宣布整个27^6笛卡尔空间合法。
+
+准入前必须：独立制造域批准→逐案合法性→最新科学registry/Job全空间去重→原3ps合同和每案source/setup身份绑定→明确16个新FAST entries批准→资源安全门禁。**本轮不提交Job、不生成可执行Admission、不新建额度。** Source/setup/physics引用在制造域与科学身份批准后冻结，不能用复制DIAG2/6ps SHA替代。
+
+复用现有Coupling选样、原生验收及轻量训练脚本和通用V31接口，不开发平台。闭环：选样→受授权的串行GPU run→native FSP/H5→冻结609D→truth/labels与entry对账→版本化FAST数据→整轮grouped模型评估/重训→再选样。原子entry-before-launch、No Replay、失败不退预算、资源未知failclosed。每轮持久化OOF后再做reload检查，避免既有OOF丢失重演。
+
+有效标签与严格数值结果分别存储；出现明显不合理功率/归一化、无穷值或身份冲突先隔离。数值差异大的原生数据保留；是否参与训练采用预声明版本化资格，不能按CV好坏事后删除样本。不得把代数A=1−R−T闭合当独立吸收验证。发生真正平台故障才联系维护者，其他科学数据环节由Coupling负责。
+
+## 7. 250G / 500G / 1000G路线
+
+从156唯一FAST几何起，16次若全有效到172，再需78到250、250到500、500到1000。对应从156的累计新增94/344/844个；按11.7min与100%产出率约18.33/67.08/164.58GPUh，90%产出率约20.37/74.53/182.87h。均为规划，不是已授权或保证有效数量；不包含独立锚点、最终验证、队列和未测V31开销。
+
+初期每16–32新增几何检查数据质量、覆盖与学习曲线，继续覆盖为主；只有分歧与实际误差关联被grouped验证后，才增加不确定性选样比例。250阶段重点检验是否超过Mean及粗排有用；500阶段检验边际收益、风险区锚点和top-k稳定性；1000仅在学习曲线仍有边际价值时扩充。若不改善，诊断特征/目标/覆盖/数值偏差，不自动堆数据或换复杂平台。不启动正式逆向生产。
+
+## 8. 两份独立可信度报告
+
+数值报告：同几何跨时长/网格21λ、全7阶、η/P+/P_scale、绝对和相对差、参考量、峰位、原始通量/入射归一化、停止状态；按尖锐/平滑谱和覆盖区域分层，不隐去失败或缺失数据，不把少量锚点界推广到全空间。
+
+学习报告：old32 train-only，new124及后续数据geometry-grouped，预处理仅训练折拟合；固定训练规模和随机种子，不将锚点跨精度拆折。复用Mean/kNN/KRR/GPR/MLP/ExtraTrees，报告450nm及光谱MAE/RMSE、Spearman、预先定义k与ties的top-k precision/recall/regret、不确定性校准、训练时间、每GPUh收益。主线旧学习曲线56/88/full未显示稳定η/P+提升，未知K6排序仍不可靠。既有OOF丢失处继续标记不可用，不伪造pooled相关。
+
+FAST heldout学习误差与高精度配对偏差单独列；最终候选验证不用于反向挑选训练模型。学习曲线仅画实测数据量点，未来172/250/500/1000不虚构曲线。本轮新fit=0。
+
+## 文件、来源与恢复
+
+A1_21_POINT_TRADEOFF.csv / A1_TRAINING_VALUE_METRICS.json；ALL_ORDER_ROUTING_EXISTING_COMPARISON.csv；REUSED_MESH_EVIDENCE.json；DATA_ROLE_CONTRACT_V1.json；AL16_PRODUCTION_PLAN_V1.json；COST_AND_GROWTH_PLAN.json；LEARNING_AND_NUMERICAL_REPORTING_V1.json；SOURCE_REFERENCES.json；ZERO_SOLVER_AUDIT.json；CONTINUATION.md。SOURCE_REFERENCES复用既有身份inventory，不做全量或无必要新hash。
+
+科学权威位于远端正式Coupling worktree。本轮无Native LOAD、无Runner调用、无生产SQLite/Science Ledger写入；旧证据不改。分析仅核对21λ完整、16提案计数及派生公式，未执行全量回归、模型训练或模型比较。
+'''
+(D/'FINAL_REPORT.md').write_text(report,encoding='utf-8')
+(D/'CONTINUATION.md').write_text('''# CONTINUATION
+
+Latest user task: APCD_COUPLING_ML_SPEED_ACCURACY_TRADEOFF_V1.
+Read FINAL_REPORT.md, DATA_ROLE_CONTRACT_V1.json and AL16_PRODUCTION_PLAN_V1.json.
+A1 locally provisionally training-usable; strict1%Pscale HOLD unchanged,6ps not convergence-certified. Preferred FAST candidate5nm3ps.156G preserved with fidelity tags. Manufacturing approval missing, AL16 NOT_AUTHORIZED; no executable admission created.
+DIAG2 used1/2; A2 HOLD; DOE56 HOLD; no replay. This round FDTD0, entries0, fits0, sealed0. Original ledger unchanged. Original4 staged paths preserved.
+Next priority: resolve independent manufacturing authority and review proposed16-entry FAST budget and separate bounded anchor plan. No solver without separate authorization. Optional A2 prerequisite change requires explicit scientific ruling.
+''',encoding='utf-8')
+git=lambda *a:subprocess.check_output(['git','-C',str(R),*a],text=True).strip()
+base=j(D/'GIT_BASELINE.json');audit={'branch':git('branch','--show-current'),'HEAD':git('rev-parse','HEAD'),'ahead_behind':git('rev-list','--left-right','--count','HEAD...@{u}'),'dirty_count':len(git('status','--short').splitlines()),'staged_unchanged':git('diff','--cached','--name-only')==base['staged'],'commit':False,'push':False};put('FINAL_GIT_AUDIT.json',audit)
+(D/'TASK_ALLOWLIST.txt').write_text('\n'.join(str(p.relative_to(R)).replace('\\','/') for p in sorted(D.iterdir()) if p.is_file())+'\n',encoding='utf-8')
+print('FINAL',json.dumps(audit));print('DELIVERY_BEGIN')
+for p in sorted(D.iterdir()):
+ if p.is_file(): print(json.dumps({'name':p.name,'base64':base64.b64encode(p.read_bytes()).decode()}))
