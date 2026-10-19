@@ -29,3 +29,10 @@ Outgoing-object scan 覆盖当前待推送历史：3,703 Git objects、2,886 blo
 三项定向零求解测试：18 passed。随后对包含 V2 最终报告提交的当前分支执行普通 fast-forward `git push origin work/mdc-np-coupling-ml-v1`，并以本地 HEAD 与 `refs/remotes/origin/work/mdc-np-coupling-ml-v1` 对账；不使用 force push。最终执行结果在 closeout 中记录。
 
 本文件随 V2 最终报告组提交；避免自引用，此处不列该报告组自身 commit hash。
+
+## Actual push result
+
+- `git push origin work/mdc-np-coupling-ml-v1` exited 0 and fast-forwarded origin from `2cc68702` to `97b69b23`.
+- Immediately after that push, local HEAD and `refs/remotes/origin/work/mdc-np-coupling-ml-v1` both equaled `97b69b2386ada0286f94c2f933ad39cca9e7a14d`; ahead/behind was `0/0`.
+- Receipt: `D:\project\_codex_worktree_snapshots\APCD_COUPLING_ML_WORKTREE_CLEANUP_V1_20261019T041627Z\V2_PUSH_RESULT.json`.
+- This push-result record update is committed and sent with a follow-up ordinary fast-forward push; no force push is used. The final ref equality is checked again after the update.
