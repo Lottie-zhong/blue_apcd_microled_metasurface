@@ -1,0 +1,31 @@
+# K6 cyclic symmetry contract
+
+Status: **PASS for the ideal, periodic K6 label transform used in this zero-solver study.** This is an algebraic and code-path validation; no independent rotated-geometry FDTD pair exists in the 272G table, so it is not a new physical-solver parity claim.
+
+## Geometry action
+
+The frozen builder places ordered `D1…D6` at ascending x centers `[-725,-435,-145,145,435,725] nm` in a `1740 nm` x-periodic cell. The generator's `T(D)=roll(D,+1)=[D6,D1,D2,D3,D4,D5]` moves each pillar center by `+290 nm` modulo `1740 nm`. Thus `T^6(D)=D`. It preserves pillar order around the periodic cell, x/y axes, normal incidence, and TE/TM channel labels; it is a translation, not a mirror, reversal, or 60-degree physical rotation. The exact 5 nm mesh divides both the shift (58 cells) and the superperiod (348 cells).
+
+Implementation evidence: `scripts/coupling_ml/build_pw_k6_5nm_full_period_prefsp_v1.py`, `pillar_centers_nm` lines 51–52, periodic x/y boundaries lines 158–162, and ordered `NP_D1…NP_D6` construction lines 171–174. The frozen full-cell contract retains the 290 nm pitch and 1740 nm x period.
+
+## 609D complex-state action
+
+The production projector uses the negative Fourier kernel `exp(-i G_m x)` (`scripts/shared_fdtd/tools/pw_complex_floquet_state_v1.py`, line 230). Translating a field by `+k·290 nm` therefore gives:
+
+`C_hat(T^k D)[λ,m,pol] = C_hat(D)[λ,m,pol] · exp(-i·2π·m·k/6)` for `m=-3,…,+3`.
+
+Both TE and TM receive the same order-dependent phase. `m=0` is unchanged. Complex magnitudes are unchanged for every order and polarization. `P_scale` is unchanged because the incident normal-incidence reference and global phase gauge are unchanged under lateral translation. No independent channel phase rotation, magnitude normalization, or label modification is applied.
+
+The frozen H2 decoder (`scripts/coupling_ml/k6_v2_pipeline/h1.py`, lines 41–53) constructs modal power from fixed TE/TM modal weights times `abs(C_hat)**2`, normalizes across the seven orders, and multiplies by `P_scale`. It is therefore invariant under this phase action. The decoder identity used in this study is `b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15`; the H1 authority identity is `8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd`.
+
+## Authorized use in this experiment
+
+1. **Training augmentation:** for training-only unique rotations `D_k=roll(D,k)`, transform the complex target by the formula above and keep `P_scale` unchanged. All 21 wavelengths of a geometry remain together. Deduplicate identical views within each geometry before expansion.
+2. **Six-view inference:** evaluate all six rotated inputs, multiply each predicted complex response back by `exp(+i·2π·m·k/6)`, and take the arithmetic mean of aligned complex responses; average positive-domain `P_scale` predictions arithmetically.
+3. **H2 decoding:** decode the final aligned response with the existing frozen H2. The symmetry transform does not change the H2 definition or any truth label.
+
+The 272G table contains 272 distinct canonical cyclic orbits, and each checked training geometry has six distinct rotations. Synthetic rotations are training views, not additional physical geometries or FDTD labels.
+
+## Scope boundary
+
+This contract applies to the normal-incidence, x-periodic, ordered six-pillar supercell and its frozen global incident-phase gauge. It does not authorize reordering labels arbitrarily, reversing the sequence, changing the period or reference plane, or treating symmetry-generated copies as independently measured truth. FAST data remain `ML_TRAINING_GRADE`; H1 remains a development-only gate and final generalization remains uncertified.

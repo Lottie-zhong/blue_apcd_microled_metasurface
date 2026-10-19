@@ -1,0 +1,25 @@
+{
+  "frozen_before_new_fits": true,
+  "config": "CYCLIC_MODEL_CONFIG.json",
+  "compare": [
+    "A_original_NN3_no_augmentation",
+    "B_train_only_six_cycle_augmentation",
+    "C_original_NN3_six_view_inference_ensemble",
+    "D_augmented_NN3_plus_six_view_inference_ensemble"
+  ],
+  "primary_metrics": [
+    "609D_complex_NRMSE",
+    "TM_magnitude_MAE",
+    "routing_MAE",
+    "weighted_relative_phase_deg",
+    "P_scale_MAE",
+    "eta_plus_MAE",
+    "Pplus_MAE",
+    "450nm_Spearman",
+    "Top20_recall",
+    "equivariance_relative_L2"
+  ],
+  "fixed_evaluation": "same original primary124 IDs, same per-fold train lists, family/cyclic purge; no validation use in fitting or preprocessing",
+  "stopping": "fixed 300 epochs; no early stopping or tuning; all folds/seeds reported",
+  "fit_budget": "12 augmented NN3 fits total; baseline A/C are inference only and reuse saved checkpoints"
+}

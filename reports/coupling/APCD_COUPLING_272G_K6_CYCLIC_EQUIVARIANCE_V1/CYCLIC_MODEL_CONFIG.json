@@ -1,0 +1,66 @@
+{
+  "schema": "K6_CYCLIC_AUGMENTATION_CONFIG_V1",
+  "dataset": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_AL50_COMPLEX_AWARE_PRODUCTION_V1\\STAGE_50\\COMPLEX_DATASET.npz",
+  "dataset_cases": 272,
+  "validation_manifest": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_CLEANUP_FAST_CLOSE_AND_FORWARD_RESUME_V1\\FOLD_IDENTITY.csv",
+  "validation_ids": "original fixed primary124; four folds; family purges retained",
+  "architecture": "MLPRegressor 7-64-64-29, tanh, Adam, StandardScaler(X/Y) fit on training fold only",
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "max_iter": 300,
+  "batch_size": 256,
+  "tol": 0,
+  "early_stopping": false,
+  "n_iter_no_change": 301,
+  "rotation": {
+    "T_D": "np.roll(D,+1)",
+    "k_views": "0..5",
+    "input_transform": "D_k=np.roll(D,k)",
+    "C_label_transform": "C_k[m,pol]=C[m,pol]*exp(-i*2*pi*m*k/6)",
+    "P_scale_invariant": true,
+    "augmentation": "unique D rotations per training geometry; all 21 wavelengths retained per view",
+    "inference": "all six views, phase-align C back by exp(+i*2*pi*m*k/6), arithmetic mean for C and P"
+  },
+  "seed_model_provenance": "A/C reuse saved NN3 seeds 17/29 and saved seed43 checkpoints; B/D use 12 fresh independent augmentation fits; no baseline refit",
+  "orbit_dedup": {
+    "1": {
+      "train_geometry_count": 216,
+      "unique_rotation_histogram": {
+        "6": 216
+      },
+      "augmented_train_geometry_views": 1296,
+      "original_train_geometry_views": 216
+    },
+    "2": {
+      "train_geometry_count": 217,
+      "unique_rotation_histogram": {
+        "6": 217
+      },
+      "augmented_train_geometry_views": 1302,
+      "original_train_geometry_views": 217
+    },
+    "3": {
+      "train_geometry_count": 208,
+      "unique_rotation_histogram": {
+        "6": 208
+      },
+      "augmented_train_geometry_views": 1248,
+      "original_train_geometry_views": 208
+    },
+    "4": {
+      "train_geometry_count": 217,
+      "unique_rotation_histogram": {
+        "6": 217
+      },
+      "augmented_train_geometry_views": 1302,
+      "original_train_geometry_views": 217
+    }
+  },
+  "h2_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+  "NEW_FDTD": 0,
+  "NEXT_BATCH_AUTHORIZED": 0,
+  "disclaimer": "Four folds and three seeds are repeated development evaluation, not an independent final test; existing 124 development geometries have been repeatedly used for model selection."
+}
