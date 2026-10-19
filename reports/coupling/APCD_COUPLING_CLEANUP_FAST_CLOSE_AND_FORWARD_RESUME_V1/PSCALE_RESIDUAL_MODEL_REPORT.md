@@ -17,7 +17,7 @@ The study reuses the existing 272G FAST complex dataset and the same fixed 124 d
 |JointNN3|0.06002|0.00447|0.313|0.09298|0.11462 / -0.11431|
 |FrozenLeaf1P|0.05312|-0.00015|0.067|0.07457|0.11635 / -0.11635|
 
-`geometry variance ratio` is predicted between-geometry variance divided by true between-geometry variance over wavelengths. The high-value region is defined by each fold's **training-only** q90 threshold; its validation subset is reported as a diagnostic. All four methods still underestimate that region.
+`geometry variance ratio` is predicted between-geometry variance divided by true between-geometry variance over wavelengths. The high-value region is defined by each fold's **training-only** q90 threshold; its validation subset is reported as a diagnostic. All compared methods still underestimate that region.
 
 The residual Ridge lowers Pscale MAE from the log trend's 0.05309 to 0.05223 (about 1.6%), but retains only 3.9% of true between-geometry variance and has q90-region bias −0.1121. The residual MLP retains more variance (13.1%) but does not beat the log trend's Pscale MAE, has worse true-peak MAE, and its selected epochs vary from 1 to 115. It does not show repeatable improvement over a simple trend.
 
