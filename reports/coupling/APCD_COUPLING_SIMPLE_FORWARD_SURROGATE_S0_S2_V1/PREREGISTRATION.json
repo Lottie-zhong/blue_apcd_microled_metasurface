@@ -1,0 +1,86 @@
+{
+  "authority": "User task APCD_COUPLING_SIMPLE_FORWARD_SURROGATE_S0_S2_V1, 2026-10-17",
+  "data": "Only existing frozen development 156G; old32 train-only; no confirmation or DOE56",
+  "validation": "Existing frozen 4 outer folds, 124 distinct new geometries held out exactly once; 3 inner folds on new training geometries; old32 always training-only",
+  "grid": {
+    "Mean": [
+      null
+    ],
+    "kNN": [
+      3,
+      7,
+      15
+    ],
+    "KRR": [
+      [
+        0.041666666666666664,
+        0.01
+      ],
+      [
+        0.041666666666666664,
+        0.1
+      ],
+      [
+        0.041666666666666664,
+        1.0
+      ],
+      [
+        0.16666666666666666,
+        0.01
+      ],
+      [
+        0.16666666666666666,
+        0.1
+      ],
+      [
+        0.16666666666666666,
+        1.0
+      ],
+      [
+        0.6666666666666666,
+        0.01
+      ],
+      [
+        0.6666666666666666,
+        0.1
+      ],
+      [
+        0.6666666666666666,
+        1.0
+      ]
+    ],
+    "GPR": [
+      [
+        1.0,
+        0.01
+      ],
+      [
+        1.0,
+        0.1
+      ],
+      [
+        3.0,
+        0.01
+      ],
+      [
+        3.0,
+        0.1
+      ]
+    ],
+    "MLP": [
+      1.0,
+      10.0
+    ]
+  },
+  "selection": "mean inner validation MSE standardized by inner-training target std; equal output weights; no outer response selection",
+  "MLP": "6-32-32-3 scalar or 6-32-32-42 spectra; tanh/LBFGS; max600 iterations; alpha1 or10; outer seeds17,29,43",
+  "spectral_output": "21 native eta(+1) then21 physical P_scale; P(+1) prediction=eta_hat*P_scale_hat compared to frozen H2 truth",
+  "scalar_output": "450nm native eta(+1), P_scale, frozen H2 P(+1); joint 3-output regression",
+  "rank": "Within each outer fold primary; pooled OOF descriptive. Top20% recall/precision; no wavelength pseudoreplication",
+  "GPR": "Scalar only, fixed RBF length scales/noises selected inner; optimizer disabled",
+  "final_models": "All156 using modal inner-selected hyperparameters; no sealed predictions",
+  "limits": "Task learnability only;5nm/3ps HF numerical reliability unresolved; H1/H2 unchanged; no scientific final admission",
+  "CPU_threads": 2,
+  "new_solver_budget": 0,
+  "finite_estimator_fit_calls": 449
+}

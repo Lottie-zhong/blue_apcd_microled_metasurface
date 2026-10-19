@@ -1,0 +1,25 @@
+{
+  "installed_sha256": "9d380e62f265cb7ca3d4398a9831dd8358362223d09fc5476a436b4f2582be33",
+  "guide_source": "D:\\project\\worktrees\\blue_apcd_gpu_v2_serial_production_v1\\minimal_runner_candidate\\USER_GUIDE_V3.1_CN.md",
+  "guide_missing_from_install": true,
+  "CLI": [
+    "submit",
+    "run",
+    "status"
+  ],
+  "fake_flag": "--fake-solver",
+  "isolation": "explicit --db and cwd isolate lock/outputs",
+  "problems": [
+    "input SHA stored but not verified",
+    "no science case/contract/budget validation",
+    "generated attempt_id differs from frozen attempt_001",
+    "No Replay by job_id only; cross-batch scientific duplicate accepted",
+    "resource gate only local mutex; no external solver/GPU ownership checks",
+    "no native H5/EH export or609D record construction",
+    "CLI run exits0 even when failed>0; status must be reconciled"
+  ],
+  "formal_callability": "PASS",
+  "scientific_production_readiness": "HOLD",
+  "runner_internal_edits": 0,
+  "scope": "Coupling retains science sidecar, native extraction and data responsibilities; platform maintainer receives only Runner-internal defects"
+}

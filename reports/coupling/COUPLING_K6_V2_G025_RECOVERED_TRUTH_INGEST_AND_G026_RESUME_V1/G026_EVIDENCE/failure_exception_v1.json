@@ -1,0 +1,14 @@
+{
+  "attempt_id": "attempt_001",
+  "case_id": "K6GDP2_DEV_G026",
+  "exception": "LUMERICAL_LICENSE_STARTUP_FAILED",
+  "exception_type": "RunnerError",
+  "observed_unix": 1791514515.558066,
+  "phase": "SOLVER_EXECUTION",
+  "run_id": "K6V2_G026_20261009T025353Z_06303b44",
+  "schema": "APCD_GPU_RUNNER_V1_FAILURE_EXCEPTION_V1",
+  "solver_entered": true,
+  "solver_invocations": 1,
+  "state_at_failure": "SOLVER_ENTERED",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\runner.py\", line 419, in run_one\n    result=solver(manifest,run_dir)\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py\", line 616, in solver\n    result=self.launcher.run_standalone_gpu_and_confirm_completion(\n  File \"D:\\apcd_runtime\\shared_v3_backend\\pw_powernorm_v1_aaaa25b53a9a3322\\scripts\\shared_fdtd\\tools\\pw_scientific_launcher.py\", line 390, in run_standalone_gpu_and_confirm_completion\n    on_confirmed({\n  File \"D:\\project\\worktrees\\blue_apcd_gpu_production_runner_v1\\scripts\\shared_fdtd\\gpu_runner_v1\\adapter.py\", line 564, in on_confirmed\n    raise RunnerError(observation_failure)\nrunner.RunnerError: LUMERICAL_LICENSE_STARTUP_FAILED\n"
+}

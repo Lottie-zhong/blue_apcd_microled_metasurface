@@ -1,0 +1,83 @@
+{
+  "G025": {
+    "attempt_id": "attempt_001",
+    "case_id": "K6GDP2_DEV_G025",
+    "entry_count": 1,
+    "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G025_V1.json",
+    "ingest_result_sha256": "2c7044570915be258b7819402de8eef7074339a6b2752e977a5694ea2f19f0be",
+    "ingest_truth_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G025_V1.npz",
+    "ingest_truth_sha256": "09b8953c10d7ce9f35bc33c8fa0d1f3239e5c593a1d070837dfb18381e74cfa8",
+    "phase": "LABEL_PASS",
+    "recovery_solver_invocations": 0,
+    "replay_count": 0,
+    "run_id": "K6V2_G025_20261008T140327Z_454d6858",
+    "runner_recovery_receipt_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\recovery\\K6GDP2_DEV_G025\\attempt_001\\K6V2_G025_20261008T140327Z_454d6858\\postentry_truth_recovery_20261008T155828634686Z\\recovery_receipt.json",
+    "runner_recovery_receipt_sha256": "e547914ccceead7d761e0e9c0ca1edaa0fa0b44df7001181792db23159422ef7",
+    "runner_scheduled_request_id": "28c992f00bb8b032ecf06f4d8e8dc431",
+    "runner_scheduled_result_sha256": "4b2ce650de491af681590d8eeb26bf69595742c895b5fb9ab08f40e1b33f953f",
+    "truth_h5_sha256": "031e519f27931439d649132899779bc932b24d2827bffb16a06c8b7fe8d81ac0"
+  },
+  "G026": {
+    "G027_started": false,
+    "attempt_id": "attempt_001",
+    "case_id": "K6GDP2_DEV_G026",
+    "failure": "RunnerError:LUMERICAL_LICENSE_STARTUP_FAILED",
+    "failure_exception_path": "D:\\apcd_runtime\\gpu_production_runner_v1\\runs\\K6GDP2_DEV_G026\\attempt_001\\K6V2_G026_20261009T025353Z_06303b44\\failure_exception_v1.json",
+    "failure_exception_sha256": "4e398be7eb859476a6479b0ad91fd3d78c4a4d79462d27dcc6b07ddd368fcd13",
+    "hash_manifest_state": "PENDING",
+    "phase": "FAILED_POSTENTRY_UNRECONCILED",
+    "pre_fsp_sha256": "dc4da57c6261c17f705ada787334b2223f7f9653953e184be44e31d0d65fcf63",
+    "preflight_result": "PASS",
+    "queue_reconciliation_error": "StopQueue: UNAUTHORIZED_FAILED_POSTENTRY_CASE:K6GDP2_DEV_G026",
+    "replay_count": 0,
+    "run_id": "K6V2_G026_20261009T025353Z_06303b44",
+    "solver_entered": true,
+    "solver_invocations": 1,
+    "truth_h5_exists": false,
+    "underlying_license_server_root_cause": "NOT_RESOLVED",
+    "validation_state": "PENDING"
+  },
+  "access_counts": {
+    "G025_truth_recovery_solver_entries": 0,
+    "automatic_replays": 0,
+    "confirmation_response_access": 0,
+    "p_scale_fits": 0,
+    "solver_entries_this_task": 1,
+    "training_fits": 0
+  },
+  "captured_at_utc": "2026-10-09T03:00:28.075173+00:00",
+  "controller_manifest_sha256": "bb93248ca2dff9605d7885554a31939418007dde6bfbcd007fdedbb2e7303618",
+  "controller_request_id": "bb93248ca2dff9605d7885554a319394",
+  "controller_resume_api_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_G025_RECOVERED_TRUTH_INGEST_AND_G026_RESUME_V1\\FORMAL_RESUME_CALL_RESULT_V1.json",
+  "controller_resume_api_result_sha256": "f4e916223d5992c31c7f6429e7fafe4b6a4ecd130ce9f052d504db770d7594fc",
+  "controller_resume_generation": 4,
+  "controller_resume_receipt_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\resume_receipt_bb93248ca2dff9605d7885554a319394.json",
+  "controller_resume_receipt_sha256": "fc830ba47b18d3c75592d6cbbc78e902f2555b14f97dfb950957244a213983b4",
+  "counts": {
+    "entered": 38,
+    "labels_valid": 34,
+    "truth_valid": 34,
+    "unentered": 90
+  },
+  "coupling_branch": "work/mdc-np-coupling-ml-v1",
+  "coupling_head": "877d62bddecbe38156ab544bc734be74353de9a5",
+  "host": "DESKTOP-NNE313K",
+  "limitations": {
+    "G026_logical_entry_consumed_even_though_license_startup_failed": true,
+    "no_G026_retry_or_G027_dispatch": true,
+    "original_G025_interrupted_substep": "UNKNOWN_NO_RAW_EXCEPTION_OR_RESULT_RECORD",
+    "original_G025_worker_exit": "0xC000013A"
+  },
+  "runner_head": "661fa47274d796f98322ff56a9914776042b3cef",
+  "scheduler": {
+    "controller_status_current_case_id": "K6GDP2_DEV_G026",
+    "controller_status_state": "RUNNING",
+    "last_task_result": 2,
+    "query_state": "CONTROLLER_EXITED_NEEDS_RECONCILIATION",
+    "runner_active_pointer": false,
+    "runner_lock": false,
+    "task_state": "Ready"
+  },
+  "schema": "COUPLING_K6_V2_G025_G026_RECOVERY_AND_RESUME_FINAL_STATE_V1",
+  "user": "desktop-nne313k\\dell"
+}

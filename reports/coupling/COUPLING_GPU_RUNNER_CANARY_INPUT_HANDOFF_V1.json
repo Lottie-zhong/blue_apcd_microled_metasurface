@@ -1,0 +1,258 @@
+{
+  "schema": "COUPLING_GPU_RUNNER_CANARY_INPUT_HANDOFF_V1",
+  "status": "PARTIAL",
+  "canary_input_handoff_ready": false,
+  "generated_utc": "2026-10-01T15:47:48.561237+00:00",
+  "scientific_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "scientific_entry_count_during_task": 0,
+  "solver_invocations": 0,
+  "gpu_dispatches": 0,
+  "shared_v3_production_db_mutations": 0,
+  "fsp_writes": 0,
+  "cases": [
+    {
+      "case_id": "K6V1_S35",
+      "ordered_geometry": [
+        110,
+        145,
+        225,
+        105,
+        185,
+        215
+      ],
+      "geometry_hash": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+      "manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_FIXED_MDC_UNBIASED_EXPANSION_MANIFEST_V1.json",
+      "manifest_hash": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "scientific_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\setup\\runtime.fsp",
+      "pre_fsp_filename": "runtime.fsp",
+      "pre_fsp_sha256": "dc1abfd755d443ed16fe0a6c0771f8aa3ce2700a3c999bb0cd77a7caa799378a",
+      "pre_fsp_size": 522322,
+      "pre_fsp_authority_class": "C",
+      "pre_fsp_generation_commit": null,
+      "creation_provenance": {
+        "case_manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\case.json",
+        "case_manifest_sha256": "b32735253bda74b4b6d09745e9b4cb9a69adeea289951ecf5cdbdaac0c41327c",
+        "historical_setup_readback_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S35\\attempt_001\\setup_readback.json",
+        "historical_setup_readback_sha256": "d896c2eac54713c865bc24a4e7debc80c980f11a643e29685d06926cc21917fe",
+        "historical_preentry_audit_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\STAGE1_PREENTRY_AUDIT.json",
+        "historical_preentry_audit_sha256": "eb0e86d086edb5acbeb8da51de43b797feba1916db155878551f6c35110e47d8",
+        "report_associated_commit": "f0cd93d1407d080bf93259fd1153cb664235e8c8",
+        "report_commit_is_not_verified_fsp_generation_commit": true
+      },
+      "solver_entry_count_associated_with_creation": 0,
+      "load_only_validation_status": "NOT_PASSED_MESH_AUTHORITY_UNRESOLVED",
+      "fresh_load_status": "PASS",
+      "load_only_validation_report_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_GPU_RUNNER_CANARY_INPUT_HANDOFF_V1_LOAD_ONLY_AUDIT.json",
+      "load_only_validation_report_sha256": "32da8bee19316f7c37a3bb23e5d53beac9261840f992f0b66328fbcad4e6fcfc",
+      "expected_truth_schema": "PW_GPU_MONITOR_TRUTH_SCHEMA_V1",
+      "expected_monitor_set": [
+        "MON_IN",
+        "MON_PRENP",
+        "MON_POSTNP",
+        "MON_REFLECTION"
+      ],
+      "sample_planes_nm": {
+        "MON_IN": -100,
+        "MON_PRENP": 1150,
+        "MON_POSTNP": 1800,
+        "MON_REFLECTION": -400
+      },
+      "reference_planes_nm": {
+        "MON_IN": -50,
+        "MON_PRENP": 1202,
+        "MON_POSTNP": 1722
+      },
+      "provenance_gap": "Exact FSP-generating code and commit are not recoverable from the examined records; no frozen S35/S39 regeneration builder was established.",
+      "mesh_fidelity_status": "NOT_ESTABLISHED_FROZEN_5NM_AUTHORITY",
+      "mesh_observed": "Mixed local overrides: MDC/spacer 10 nm, GaN 15 nm, air 20 nm, interfaces/pillars 5 nm; pillar override widths remain historical W2H geometry widths.",
+      "canonical_pre_fsp_available": false,
+      "existing_candidate_pre_fsp_available": true,
+      "approved_for_runner_input": false,
+      "readback_checks": {
+        "ordered_geometry": true,
+        "pillar_height_and_material": true,
+        "mdc_stack": true,
+        "spacer_237nm": true,
+        "sample_planes_and_monitors": true,
+        "complex_field_output_configuration": true
+      },
+      "pillar_mesh_coverage": [
+        {
+          "pillar": 1,
+          "diameter_nm": 110,
+          "override_x_span_nm": 175.00000000000003,
+          "override_y_span_nm": 175.00000000000003,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 2,
+          "diameter_nm": 145,
+          "override_x_span_nm": 125.00000000000001,
+          "override_y_span_nm": 125.00000000000001,
+          "full_xy_pillar_coverage": false
+        },
+        {
+          "pillar": 3,
+          "diameter_nm": 225,
+          "override_x_span_nm": 215.0,
+          "override_y_span_nm": 215.0,
+          "full_xy_pillar_coverage": false
+        },
+        {
+          "pillar": 4,
+          "diameter_nm": 105,
+          "override_x_span_nm": 170.0,
+          "override_y_span_nm": 170.0,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 5,
+          "diameter_nm": 185,
+          "override_x_span_nm": 200.00000000000003,
+          "override_y_span_nm": 200.00000000000003,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 6,
+          "diameter_nm": 215,
+          "override_x_span_nm": 165.0,
+          "override_y_span_nm": 165.0,
+          "full_xy_pillar_coverage": false
+        }
+      ]
+    },
+    {
+      "case_id": "K6V1_S39",
+      "ordered_geometry": [
+        175,
+        100,
+        125,
+        120,
+        100,
+        230
+      ],
+      "geometry_hash": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729",
+      "manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_FIXED_MDC_UNBIASED_EXPANSION_MANIFEST_V1.json",
+      "manifest_hash": "4cf521c18576c34407c158a20f748fe560910909728bed5cdadf53ec9fbe2e7f",
+      "scientific_contract_hash": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "pre_fsp_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\setup\\runtime.fsp",
+      "pre_fsp_filename": "runtime.fsp",
+      "pre_fsp_sha256": "5e7beeeaa5d87b11f687efd279b10cdcf5eb054bea6c8ace9863f660f9c476c2",
+      "pre_fsp_size": 522322,
+      "pre_fsp_authority_class": "C",
+      "pre_fsp_generation_commit": null,
+      "creation_provenance": {
+        "case_manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\case.json",
+        "case_manifest_sha256": "02171fd0fb45e6d2d604e8c99b73024ef22dcb426faa9f0109fb90e985ed8891",
+        "historical_setup_readback_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\K6V1_S39\\attempt_001\\setup_readback.json",
+        "historical_setup_readback_sha256": "e2f61db7595fd54dcc0d36875c40c5fc2b9cc7c0c85a7277cbdd9c89a0095a85",
+        "historical_preentry_audit_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1\\STAGE1_PREENTRY_AUDIT.json",
+        "historical_preentry_audit_sha256": "eb0e86d086edb5acbeb8da51de43b797feba1916db155878551f6c35110e47d8",
+        "report_associated_commit": "f0cd93d1407d080bf93259fd1153cb664235e8c8",
+        "report_commit_is_not_verified_fsp_generation_commit": true
+      },
+      "solver_entry_count_associated_with_creation": 0,
+      "load_only_validation_status": "NOT_PASSED_MESH_AUTHORITY_UNRESOLVED",
+      "fresh_load_status": "PASS",
+      "load_only_validation_report_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_GPU_RUNNER_CANARY_INPUT_HANDOFF_V1_LOAD_ONLY_AUDIT.json",
+      "load_only_validation_report_sha256": "32da8bee19316f7c37a3bb23e5d53beac9261840f992f0b66328fbcad4e6fcfc",
+      "expected_truth_schema": "PW_GPU_MONITOR_TRUTH_SCHEMA_V1",
+      "expected_monitor_set": [
+        "MON_IN",
+        "MON_PRENP",
+        "MON_POSTNP",
+        "MON_REFLECTION"
+      ],
+      "sample_planes_nm": {
+        "MON_IN": -100,
+        "MON_PRENP": 1150,
+        "MON_POSTNP": 1800,
+        "MON_REFLECTION": -400
+      },
+      "reference_planes_nm": {
+        "MON_IN": -50,
+        "MON_PRENP": 1202,
+        "MON_POSTNP": 1722
+      },
+      "provenance_gap": "Exact FSP-generating code and commit are not recoverable from the examined records; no frozen S35/S39 regeneration builder was established.",
+      "mesh_fidelity_status": "NOT_ESTABLISHED_FROZEN_5NM_AUTHORITY",
+      "mesh_observed": "Mixed local overrides: MDC/spacer 10 nm, GaN 15 nm, air 20 nm, interfaces/pillars 5 nm; pillar override widths remain historical W2H geometry widths.",
+      "canonical_pre_fsp_available": false,
+      "existing_candidate_pre_fsp_available": true,
+      "approved_for_runner_input": false,
+      "readback_checks": {
+        "ordered_geometry": true,
+        "pillar_height_and_material": true,
+        "mdc_stack": true,
+        "spacer_237nm": true,
+        "sample_planes_and_monitors": true,
+        "complex_field_output_configuration": true
+      },
+      "pillar_mesh_coverage": [
+        {
+          "pillar": 1,
+          "diameter_nm": 175,
+          "override_x_span_nm": 175.00000000000003,
+          "override_y_span_nm": 175.00000000000003,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 2,
+          "diameter_nm": 100,
+          "override_x_span_nm": 125.00000000000001,
+          "override_y_span_nm": 125.00000000000001,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 3,
+          "diameter_nm": 125,
+          "override_x_span_nm": 215.0,
+          "override_y_span_nm": 215.0,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 4,
+          "diameter_nm": 120,
+          "override_x_span_nm": 170.0,
+          "override_y_span_nm": 170.0,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 5,
+          "diameter_nm": 100,
+          "override_x_span_nm": 200.00000000000003,
+          "override_y_span_nm": 200.00000000000003,
+          "full_xy_pillar_coverage": true
+        },
+        {
+          "pillar": 6,
+          "diameter_nm": 230,
+          "override_x_span_nm": 165.0,
+          "override_y_span_nm": 165.0,
+          "full_xy_pillar_coverage": false
+        }
+      ]
+    }
+  ],
+  "git": {
+    "branch": {
+      "exit_code": 0,
+      "stdout": "work/mdc-np-coupling-ml-v1",
+      "stderr": ""
+    },
+    "head": {
+      "exit_code": 0,
+      "stdout": "defae390edf4335595897ece5b1cbaba850f429a",
+      "stderr": ""
+    },
+    "ahead_behind": {
+      "exit_code": 0,
+      "stdout": "0\t0",
+      "stderr": ""
+    }
+  },
+  "next": "HANDOFF_TO_APCD_GPU_PRODUCTION_RUNNER_V1",
+  "next_executed": false,
+  "next_blocked_until_authoritative_inputs": true
+}

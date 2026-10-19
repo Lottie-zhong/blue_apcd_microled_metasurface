@@ -1,0 +1,108 @@
+{
+  "schema": "GPU_BUNDLE_DIRTY_DIFF_FORENSIC_V1",
+  "created_utc": "2026-09-29T09:47:29.985990+00:00",
+  "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1",
+  "branch": "work/mdc-np-coupling-ml-v1",
+  "head": "f0cd93d1407d080bf93259fd1153cb664235e8c8",
+  "path": "scripts/shared_fdtd/engine/gpu_bundle.py",
+  "source_classification": "UNKNOWN",
+  "classification_basis": "No source/author provenance for the one-line change was found. The supplied SHARED_V3_GLOBAL_HOLD_RELEASE_AUTHORITY_V1 explicitly marks it unauthorized for production.",
+  "original_dirty_file_sha256": "4dc467624bd4e987701034a3ff3ded1492a45693cea7511a416d16e8593f5c91",
+  "original_dirty_file_mtime_utc": "2026-09-25T22:25:30.528076+00:00",
+  "authoritative_commit": "c63b6631b0e5968c0d14e20f80447ffa5d8ff66e",
+  "authoritative_git_blob": "e015de47fb93d0dfadbe1ef37c455e18e0340c92",
+  "authoritative_file_sha256": "53cc5cf157953a960c9d588b3a56a3e32666acdcbc1a52b4bf057af6883546a1",
+  "exact_diff": "diff --git a/scripts/shared_fdtd/engine/gpu_bundle.py b/scripts/shared_fdtd/engine/gpu_bundle.py\nindex e015de4..8052f0d 100644\n--- a/scripts/shared_fdtd/engine/gpu_bundle.py\n+++ b/scripts/shared_fdtd/engine/gpu_bundle.py\n@@ -188,7 +188,7 @@ def persist_gpu_bundle(\n         staging_root = final_dir.parent.parent / \"native_staging\" / final_dir.name\n     staging_parent = Path(staging_root)\n     staging_parent.mkdir(parents=True, exist_ok=True)\n-    stage_dir = staging_parent / (uuid.uuid4().hex + \".staging\")\n+    stage_dir = staging_parent / (f\"stage-{uuid.uuid4().hex[:16]}.staging\")\n     stage_dir.mkdir(parents=True, exist_ok=False)\n     try:\n         for index, record in enumerate(source_manifest[\"files\"], start=1):\n",
+  "scientific_run_authorized_using_dirty_version": "NO_AUTHORIZATION_FOUND",
+  "dirty_version_actual_runtime_import": "UNKNOWN",
+  "runtime_use_caveat": "The runtime control plane has scientific-entry events after this file's mtime, including K6V1_EXT03-EXT14. No per-run imported-module hash is recorded, so this artifact does not claim those runs did or did not load the dirty file.",
+  "no_scientific_run_authorized_statement": "No scientific run was authorized specifically to use this dirty version; the current authority states this production-path modification was unauthorized. This is not a claim that no process may have imported it.",
+  "post_mtime_scientific_entries_observed": [
+    {
+      "case_id": "K6V1_S14",
+      "attempt_id": "attempt_004",
+      "timestamp": "2026-09-25T02:27:15.068670+00:00"
+    },
+    {
+      "case_id": "K6V1_S15",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T04:26:02.924109+00:00"
+    },
+    {
+      "case_id": "K6V1_S16",
+      "attempt_id": "attempt_002",
+      "timestamp": "2026-09-25T05:49:22.660638+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT01",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T07:08:37.820685+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT02",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T07:08:37.882954+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT03",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T22:36:54.853133+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT04",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T22:39:43.286853+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT05",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T22:57:14.008086+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT06",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T23:00:05.830771+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT07",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T23:17:20.394695+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT08",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T23:20:07.142098+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT09",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T23:37:43.870003+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT10",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T23:40:40.435331+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT11",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-25T23:57:59.981000+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT12",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-26T00:00:45.572543+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT14",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-26T00:18:22.825114+00:00"
+    },
+    {
+      "case_id": "K6V1_EXT13",
+      "attempt_id": "attempt_001",
+      "timestamp": "2026-09-26T00:21:03.435498+00:00"
+    }
+  ],
+  "preserved_before_restore": true
+}

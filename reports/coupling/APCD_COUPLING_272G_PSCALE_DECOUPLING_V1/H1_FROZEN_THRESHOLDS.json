@@ -1,0 +1,184 @@
+{
+  "schema": "PW_K6_H1_NUMERIC_GATE_AUTHORITY_V1",
+  "status": "PASS_WITH_REVIEW",
+  "solver_invocations": 0,
+  "truth_modified": false,
+  "model": {
+    "primary": "PW_K6_STRUCTURED_FORWARD_MODEL_V1",
+    "architecture": "M5 structured cross-order",
+    "width": 32,
+    "parameter_count": 2684,
+    "scale_model": "PW_K6_PSCALE_MODEL_V1",
+    "scale_family": "RBF Kernel Ridge",
+    "comparator": "PW_K6_KERNEL_BASELINE_V1"
+  },
+  "chart_numeric_authority": {
+    "state_relative_rmse": {
+      "median_max": 0.5,
+      "q95_max": 0.8
+    },
+    "routing_eta_rmse": {
+      "median_max": 0.05,
+      "q95_max": 0.1,
+      "pearson_min": 0.95
+    },
+    "absolute_order_source_normalized_rmse": {
+      "median_max": 0.05,
+      "q95_max": 0.1
+    },
+    "thresholded_absolute_order_relative": {
+      "median_max": 0.3,
+      "q95_max": 0.75,
+      "significance_threshold": 0.0009885656815447454
+    },
+    "total_power_relative": {
+      "median_max": 0.15,
+      "q95_max": 0.3,
+      "pearson_min": 0.95
+    },
+    "seed_state_median_std_max": 0.03,
+    "conjunctive": true
+  },
+  "retrospective_application": {
+    "classification": "RETROSPECTIVE_H1_GATE_FAIL",
+    "evidence_scope": "existing strict 20G LOGO summary only; no retraining",
+    "known_gate_results": [
+      {
+        "metric": "state_relative_rmse_median",
+        "value": 0.8016045199078281,
+        "limit": 0.5,
+        "status": "FAIL",
+        "note": "saved width-32 state_relative summary; exact RMSE array was not persisted"
+      },
+      {
+        "metric": "state_relative_rmse_q95",
+        "value": 0.988565174466983,
+        "limit": 0.8,
+        "status": "FAIL",
+        "note": "saved width-32 state_relative summary; exact RMSE array was not persisted"
+      },
+      {
+        "metric": "thresholded_absolute_order_relative_median",
+        "value": 0.9015247196804357,
+        "limit": 0.3,
+        "status": "FAIL"
+      },
+      {
+        "metric": "thresholded_absolute_order_relative_q95",
+        "value": 0.9990809443999455,
+        "limit": 0.75,
+        "status": "FAIL"
+      },
+      {
+        "metric": "total_power_relative_median",
+        "value": 0.5016159935013451,
+        "limit": 0.15,
+        "status": "FAIL"
+      },
+      {
+        "metric": "total_power_relative_q95",
+        "value": 0.667452197600681,
+        "limit": 0.3,
+        "status": "FAIL"
+      }
+    ],
+    "unverified_gate_results": [
+      {
+        "metric": "routing_eta_rmse_median",
+        "limit": 0.05,
+        "status": "UNVERIFIED",
+        "reason": "raw frozen routing predictions were not persisted"
+      },
+      {
+        "metric": "routing_eta_rmse_q95",
+        "limit": 0.1,
+        "status": "UNVERIFIED",
+        "reason": "raw frozen routing predictions were not persisted"
+      },
+      {
+        "metric": "routing_pearson",
+        "limit": 0.95,
+        "status": "UNVERIFIED",
+        "reason": "width-32 exact raw routing predictions were not persisted"
+      },
+      {
+        "metric": "absolute_order_source_normalized_rmse_median",
+        "limit": 0.05,
+        "status": "UNVERIFIED",
+        "reason": "raw frozen absolute-order predictions were not persisted"
+      },
+      {
+        "metric": "absolute_order_source_normalized_rmse_q95",
+        "limit": 0.1,
+        "status": "UNVERIFIED",
+        "reason": "raw frozen absolute-order predictions were not persisted"
+      },
+      {
+        "metric": "total_power_pearson",
+        "limit": 0.95,
+        "status": "UNVERIFIED",
+        "reason": "raw frozen total-power predictions were not persisted"
+      },
+      {
+        "metric": "fixed_width32_seed_state_median_std",
+        "limit": 0.03,
+        "status": "UNVERIFIED",
+        "reason": "only mixed-width M5 seed summary was persisted"
+      }
+    ],
+    "diagnostic_only_saved_values": {
+      "routing_relative_median": 0.8616011511407433,
+      "routing_relative_q95": 3.750759082606964,
+      "routing_relative_pearson": 0.8007831465890215,
+      "mixed_width_m5_seed_state_median_std": 0.016192667124698853
+    },
+    "production_h1_pass": false
+  },
+  "prospective_validation_contract": {
+    "geometry_count": 6,
+    "classification_before_solver_entry": "PROSPECTIVE_VALIDATION",
+    "sequence": [
+      "geometry identity/hash freeze",
+      "frozen V1 prediction persist",
+      "prediction hash freeze",
+      "only then reveal/generate HF truth"
+    ],
+    "forbidden_before_prediction_freeze": [
+      "architecture changes",
+      "hyperparameter selection",
+      "PCA refit",
+      "preprocessing redesign",
+      "model refit",
+      "NP-prior tuning"
+    ],
+    "pooled_gate": "same retrospective H1 gates",
+    "individual_catastrophic_limits": {
+      "state_relative_rmse_max": 1.0,
+      "routing_eta_rmse_max": 0.15,
+      "absolute_order_source_normalized_rmse_max": 0.15,
+      "total_power_relative_median_max": 0.4
+    },
+    "catastrophic_rule": "any single failure => PROSPECTIVE_H1_FAIL"
+  },
+  "admission_logic": {
+    "RESEARCH_USEFUL": "useful predictive structure but formal H1 gates not passed",
+    "RETROSPECTIVE_H1_GATE_PASS": "all retrospective numerical gates pass",
+    "PROSPECTIVE_H1_GATE_PASS": "pooled gates and every individual catastrophic gate pass",
+    "PRODUCTION_H1_PASS": "RETROSPECTIVE_H1_GATE_PASS AND PROSPECTIVE_H1_GATE_PASS",
+    "current_status": "RESEARCH_USEFUL; H1_CAPACITY_SUPPORTED; H1 production NOT ADMITTED"
+  },
+  "active_learning": "DISABLED",
+  "next_route": "RECOVER_FROZEN_NP_PROVIDER_AND_RUN_MATCHED_PRIOR_ABLATION",
+  "next_route_executed": false,
+  "np_provider": "NP_PROVIDER_ARTIFACT_MISSING",
+  "source_hashes": {
+    "dataset_freeze_manifest": "e17a22cc34b7f0390fb272ded5245a61b52edbfff215d7ba83799e25a7c8570c",
+    "source_provenance": "e32d72cd0898d17dad0f0fb7cf2879e514139cafe1d2b5328f1fbbe229f20d5d",
+    "v2_truth": "4f894932b14be549a5483f3a3731a1e71869759357d4eddeb7ba4dc0d5108408",
+    "state_code": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "launcher_code": "48d3c332fde679a9d8dc991a5ba8cd75aecdcb54750d7ec1774f732203ef08be",
+    "geometry_domain_authority": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+    "capacity_analysis": "dfb65f4b70567ffbf3f33036a605b9ace3ebfb405551d79c8b59f088e694b41e",
+    "structured_freeze_report": "8a4680008870ba4cba0f2ca22e59cee93f6d31a375c7d81087d2dfa6edda4228"
+  }
+}

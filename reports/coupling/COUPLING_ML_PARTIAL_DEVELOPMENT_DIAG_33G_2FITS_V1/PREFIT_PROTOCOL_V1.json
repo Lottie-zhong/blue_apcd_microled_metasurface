@@ -1,0 +1,59 @@
+{
+  "authority": {
+    "h1_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+    "h2_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+    "old32_authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "old32_npz_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5"
+  },
+  "checkpoint_rule": "frozen validation loss, patience=50, min_delta=1e-5, max 1000 MLP updates",
+  "config_sha256": "c6db08492b9020276cec08eb840b3385767e5d668c0686d2fae8af8348e16b76",
+  "fit_budget": {
+    "confirmation_access": 0,
+    "current_task_max": 2,
+    "current_task_started_at_freeze": 0,
+    "krr": 1,
+    "mlp": 1,
+    "p_scale_only": 0,
+    "prior_real32_fits_preserved": 2,
+    "replay": 0,
+    "solver": 0
+  },
+  "fit_device": "cpu",
+  "frozen_at_utc": "2026-10-07T09:06:19.857607+00:00",
+  "implementation_sha256": {
+    "reports\\coupling\\COUPLING_ML_PARTIAL_DEVELOPMENT_DIAG_33G_2FITS_V1\\RUN_PARTIAL_DIAGNOSTIC_V1.py": "7c4c275837fa097cd3e3950794d7b605cbc30679276c61d5685592fb730465fc",
+    "scripts/coupling_ml/k6_v2_pipeline/contracts.py": "c064ea85a4c6dc94c9664cff0b8389e2975133bedc2b34a74eac7654fc420a9d",
+    "scripts/coupling_ml/k6_v2_pipeline/h1.py": "8a541f7d2357a4566e1a005a0c60451454ce2f7a97ae6d9d2987f0b250a4ffff",
+    "scripts/coupling_ml/k6_v2_pipeline/ingest.py": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+    "scripts/coupling_ml/k6_v2_pipeline/models.py": "a49dc6e801530cd4b6a0b8c5e8aea8520dc948d4763a0bd4dd3f0a7d1a58c7d3",
+    "scripts/coupling_ml/k6_v2_pipeline/real32_diagnostic.py": "4fc24e1c90d995941e9ff16bee9a0051ccf1a34695a611cb5d86fdd52f337271",
+    "scripts/coupling_ml/k6_v2_pipeline/training.py": "182221bbabf1d081c1c94a33385425720ab7e4930a9496135a48dbee7ee2b88c"
+  },
+  "response_blind_inputs": {
+    "dataset_audit_sha256": "49ab0cab851faa79c5944791fbc96dd875305b2344380ee2bb93b8124b27bb2c",
+    "dataset_sha_manifest_sha256": "784cbb53eac9c744e9b4d351d773b87d52bfc99a8b4812aabc187a320d470d2f",
+    "response_values_read_before_freeze": false
+  },
+  "response_bundle_sha256": "6424fa508f682a2710974aade15079d33cff19e5cbbd89868eed85590020f7c6",
+  "runtime": {
+    "cuda_available": true,
+    "cuda_devices": [
+      "NVIDIA GeForce RTX 3080"
+    ],
+    "environment_name": "RCP_LCP",
+    "fit_device": "cpu",
+    "numpy": "2.2.5",
+    "python_executable": "N:\\anaconda_envs\\RCP_LCP\\python.exe",
+    "python_version": "3.10.20",
+    "scikit_learn": "1.7.1",
+    "scipy": "1.15.3",
+    "torch": "2.5.1+cu121",
+    "torch_cuda_runtime": "12.1"
+  },
+  "schema": "COUPLING_ML_PARTIAL_DEVELOPMENT_DIAG_PREFIT_PROTOCOL_V1",
+  "scope": "old32 reused development plus 33 newly audited development geometries; fixed 52/13 split; one KRR and one MLP fit",
+  "scope_limit": "diagnostic only; no production admission or independent confirmation",
+  "split_sha256": "7ac34c2ce8c2877cddb0eca61cfabd04a482aa680aeb26be130350a68e9b6b18",
+  "status": "FROZEN_BEFORE_RESPONSE_VALUE_ACCESS_AND_FITS"
+}

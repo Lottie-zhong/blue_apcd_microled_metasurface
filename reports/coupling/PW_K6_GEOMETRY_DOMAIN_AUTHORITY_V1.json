@@ -1,0 +1,62 @@
+{
+  "schema_version": "PW_K6_GEOMETRY_DOMAIN_AUTHORITY_V1",
+  "status": "PASS_RECOVERED_CLOSED_CANDIDATE_DOMAIN",
+  "generated_utc": "2026-09-25T06:45:20.928673+00:00",
+  "historical_commit": "8bb3e918b7f1d5085cacec5db7691b286f62647b",
+  "historical_builder_path": "scripts/shared_fdtd/tools/build_pw_k6_seed_db_v1_manifest.py",
+  "historical_builder_sha256": "35d8b7818064b0934676ccd33ecb30fb30c788564d90ca9fd21effb4ed9edf72",
+  "historical_zero_solver_test_path": "scripts/shared_fdtd/tests/run_pw_k6_seed_manifest_zero_solver_tests.py",
+  "historical_zero_solver_test_sha256": "a1bef21abd4bc36eefad737b280d6dbdad1f78df6fa9fdb49528ecc4802c4942",
+  "geometry_grammar": {
+    "K": 6,
+    "ordered_parameters": [
+      "D1_nm",
+      "D2_nm",
+      "D3_nm",
+      "D4_nm",
+      "D5_nm",
+      "D6_nm"
+    ],
+    "observed_bounds_nm": [
+      100,
+      230
+    ],
+    "grid_step_nm": 5,
+    "position_sensitive": true,
+    "sorting_forbidden": true,
+    "pitch_nm": 290,
+    "height_nm": 500
+  },
+  "candidate_construction": {
+    "historical_origin": "deterministic_halton_maximin_on_observed_candidate_grid",
+    "halton_primes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13
+    ],
+    "space_filling_count": 48,
+    "historical_generation_start_index": 101,
+    "original_selection": "Core4 plus first 16 unique rows of frozen S01-S48 order; no reranking",
+    "extension_selection": "sequential maximin over remaining frozen S01-S48 candidates seeded by all protected ordered geometries"
+  },
+  "distance_convention": "sqrt(sum(((x-y)/130.0)^2 for x,y in zip(a,b)))",
+  "canonical_hash": "sha256(comma-joined integer D1..D6)",
+  "fabrication_constraint_authority": "UNRESOLVED_INDEPENDENT_FILE_NOT_IDENTIFIED; no manufacturing acceptance inferred; extension restricted to frozen candidate pool",
+  "source_artifacts": {
+    "primary_candidate_pool": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\APCD_COUPLING_V2_2_DATABASE_AUTHORITY_AUDIT_AND_2D_ML_SPACE_FREEZE_PREP_V1\\K6_V1_64G_DOE_CANDIDATES.csv",
+      "sha256": "a623d61b1d5e0fdec7ee7cbd006b816ad00f4a8a35298cd12bb0e41afccbd2a1"
+    },
+    "deterministic_generator": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\scripts\\coupling_ml\\apcd_database_authority_audit_v1.py",
+      "sha256": "8102abb05b8a44a9a28d762054b73ce0ea66564080929cc9c27d604a40024aed"
+    },
+    "original_manifest": {
+      "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_SEED_DB_V1_GEOMETRY_MANIFEST.json",
+      "sha256": "463ceaece52121b1a968d22881944c082a26041c16b4489c25b6a0b8f44db62b"
+    }
+  }
+}

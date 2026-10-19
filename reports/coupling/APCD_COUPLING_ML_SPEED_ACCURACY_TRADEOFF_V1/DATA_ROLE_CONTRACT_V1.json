@@ -1,0 +1,52 @@
+{
+  "version": "speed_accuracy_roles_v1",
+  "status": "REVIEWABLE_DESIGN_NOT_EXECUTION_AUTHORITY",
+  "Level_A": {
+    "name": "ML_TRAINING_GRADE",
+    "preferred_configuration": "5nm / maximum3ps / autoshutoff1e-6",
+    "qualification": "A1 local pair supports provisional training use, not global qualification; 156G provenance-valid development training, numerical risk flagged",
+    "required": "original Native-M1, structure/source/monitor/reference/21lambda/609D/H1/H2 unchanged; native FSP/H5 finite EH and labels receipts; actual stop status saved",
+    "strict_convergence_required": false,
+    "numerical_bias": "paired anchors, report absolute and relative target differences, no inferred global bound"
+  },
+  "Level_B": {
+    "name": "FINAL_VALIDATION_GRADE",
+    "configuration": "UNDETERMINED_PENDING_SPACE_TIME_CONVERGENCE",
+    "6ps_converged": false,
+    "strict_thresholds": "Retain historical plan unchanged; do not retroactively pass HOLD"
+  },
+  "roles": {
+    "FAST_DATASET": "156G plus future authorized same-contract fast labels; primary training",
+    "HIGH_FIDELITY_ANCHORS": "paired diagnostic geometries, fidelity candidate until convergence confirmed; separate paired table, not extra independent training geometries",
+    "FINAL_VALIDATION": "key candidates and reference controls after converged configuration frozen; independent from acquisition evaluation"
+  },
+  "required_metadata": [
+    "geometry_ordered_D1_D6",
+    "case_id",
+    "attempt_id",
+    "external_execution_id",
+    "entry_id",
+    "dataset_version",
+    "role",
+    "numerical_grade",
+    "fidelity_status",
+    "source_setup_physics_references",
+    "mesh_nm",
+    "maximum_physical_time_s",
+    "actual_stop",
+    "shutoff_setting_and_observed",
+    "importer_version",
+    "native_and_labels_paths",
+    "anchor_pair_id",
+    "eligibility_flags"
+  ],
+  "mixing_rule": "No unversioned concatenation of different fidelity labels; same geometry grouped across all roles/folds; do not fit correction on evaluation anchors; no fidelity bias fit now",
+  "authorization": {
+    "new_entries": 0,
+    "DIAG2_used": 1,
+    "DIAG2_total": 2,
+    "A2": "HOLD",
+    "DOE56": "HOLD",
+    "AL16": "NOT_AUTHORIZED"
+  }
+}

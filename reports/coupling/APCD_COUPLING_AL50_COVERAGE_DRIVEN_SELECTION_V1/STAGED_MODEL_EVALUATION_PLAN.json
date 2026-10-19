@@ -1,0 +1,32 @@
+{
+  "current_new_fits": 0,
+  "checkpoints_new_labels_valid": [
+    16,
+    32,
+    50
+  ],
+  "prospective_dataset_sizes": [
+    188,
+    204,
+    222
+  ],
+  "final_if_failures": "At50enteredclose evaluate actualvalidcount; no newentries to fill missing50valid",
+  "GPU_solver_calls_during_evaluation": 0,
+  "base172_split": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_AL16_FAST_GPU_PRODUCTION_V1\\ML_UPDATE\\FOLDS.json",
+  "preserve": "old32train-only; base140geometryheldoutIDs/folds unchanged; assignnew50caseordinalmod4, no geometry acrossfolds; preprocessing/trainonly",
+  "comparability": "same140baseline172holdouts forbeforeafter; old124also separate continuitytable; newAL50OOF separate; keep activelysampledcohort bias visible",
+  "models": "Reuse fixedMean/KRR/ExtraTrees128leaf3/6-32-32-42MLP andseeds17/29/43, no hyperparamselection onheldout",
+  "metrics": [
+    "spectralP+MAE/RMSE",
+    "nativeeta+MAE/RMSE",
+    "PscaleMAE/RMSE",
+    "samegeometrygroupedOOF",
+    "450nmP+meanfoldSpearman andseparatepooled",
+    "top20percentceil(n*.2)recall/regret withfrozenIDtiebreak;constantpredictionundefined",
+    "coverageall6marginalcounts+jointdistances",
+    "validuniquegeometries/GPUhour,failedentriescost"
+  ],
+  "baseline": "Useexisting172OOF tocompute matched140baseline withoutrefitting previousmodels; checkpoint newOOF beforemodelreload",
+  "authority": "Futurewhole50budget permitsstagedexecution, model-no-gain alone does notchange frozenphysics; no currentexecutionauthorization",
+  "safety": "Pause newentry forsystemiccontract/native/normalization/resourceerror; do notabortcurrentlyrunningFDTD forclockdeadline; no solverreplay"
+}

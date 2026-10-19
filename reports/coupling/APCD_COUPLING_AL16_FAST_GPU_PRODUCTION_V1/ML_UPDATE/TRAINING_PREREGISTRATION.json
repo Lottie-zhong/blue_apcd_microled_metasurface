@@ -1,0 +1,10 @@
+{
+  "fit_limit": 40,
+  "models": "Original make() hyperparameters unchanged; Mean,KRR,ET128leaf3,6-32-32-42MLP seeds17/29/43",
+  "folds": "original124 heldout frozen fourfold IDs; new16 deterministic roundrobin4folds, old32train-only",
+  "targets": "21nativeeta +21logP_scale; Ppluspredictioneta_hat*exp(logP_hat), compared to unchangedH2 truth",
+  "before_after": "before historical156 saved metrics, after compare exactlysame124holdouts; new16 separatelyOOF; no baseline refit",
+  "ranking": "Meanfold Spearman for comparablebefore; pooled after separately; top20percent ceil(n*.2),stablecaseID ties, constantpredundefined",
+  "no_tuning_or_new_architecture": true,
+  "OOF_checkpoint_before_reload": true
+}

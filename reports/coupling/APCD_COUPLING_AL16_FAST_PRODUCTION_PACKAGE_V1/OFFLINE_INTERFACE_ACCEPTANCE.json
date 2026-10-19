@@ -1,0 +1,105 @@
+{
+  "tests": [
+    {
+      "test": "K6AL_FAST_R01_G001_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G002_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G003_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G004_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G005_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G006_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G007_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G008_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G009_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G010_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G011_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G012_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G013_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G014_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G015_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "K6AL_FAST_R01_G016_installed_submit_schema",
+      "pass": true
+    },
+    {
+      "test": "duplicate_external_identity_rejected_across_batches",
+      "pass": true,
+      "message": "UNIQUE constraint failed: jobs.external_execution_id"
+    },
+    {
+      "test": "wrong_input_sha_rejected",
+      "pass": true,
+      "message": "source FSP SHA256 mismatch or malformed hash"
+    },
+    {
+      "test": "offline_extractor_import_and_no_solver_calls_AST",
+      "pass": true
+    },
+    {
+      "test": "sixteen_unique_cases_zero_authorized_budget",
+      "pass": true
+    },
+    {
+      "test": "fixture_solver_entries_zero",
+      "pass": true
+    }
+  ],
+  "passed": 21,
+  "failed": 0,
+  "real_run_called": false,
+  "fake_run_called": false,
+  "fixture_jobs": 16,
+  "fixture_entries": 0,
+  "production_jobs_unchanged": true,
+  "production_entries_unchanged": true,
+  "native_pipeline_scope": "Reuse proven G001/G004 native parity and completed A1 FSP/H5/609D evidence; new16 geometry outputs not available before future solves. Extractor uses same frozen post/H1/H2/GPnumeric routines, no new normalization. Import/AST checked; future actual output acceptance required.",
+  "CLI": "submit <batch_name> --manifest <percase.json>; run <batch_name>; status <batch_name>",
+  "do_not_run_aggregate": "Per-case batches retain scientific truth-before-next control; source Runner unmodified.",
+  "post_import_patch_check": {
+    "scope": "GPU log and stop evidence requirement added; AST/compile checked only, no repeated16submit or historical extraction",
+    "pass": true
+  }
+}

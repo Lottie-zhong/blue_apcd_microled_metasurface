@@ -1,0 +1,96 @@
+{
+  "observed": {
+    "historical_DIAGNOSTIC_timings": [
+      {
+        "case_id": "K6V3_NUM_MESH4_A1",
+        "solver_call_seconds_found": [
+          1135.4857149124146
+        ],
+        "end_to_end_seconds": 1327.5489661693573,
+        "source": "read existing DOE56 ledger timing metadata only; responses not accessed"
+      },
+      {
+        "case_id": "K6V3_NUM_MESH4_A2",
+        "solver_call_seconds_found": [
+          1139.2943141460419
+        ],
+        "end_to_end_seconds": 1331.2764122486115,
+        "source": "read existing DOE56 ledger timing metadata only; responses not accessed"
+      },
+      {
+        "case_id": "K6V3_NUM_REPEAT_A1",
+        "solver_call_seconds_found": [
+          568.9012970924377
+        ],
+        "end_to_end_seconds": 703.7636063098907,
+        "source": "read existing DOE56 ledger timing metadata only; responses not accessed"
+      },
+      {
+        "case_id": "K6V3_NUM_REPEAT_A2",
+        "solver_call_seconds_found": [
+          563.9651005268097
+        ],
+        "end_to_end_seconds": 699.3532178401947,
+        "source": "read existing DOE56 ledger timing metadata only; responses not accessed"
+      }
+    ],
+    "DIAG2_6ps_measured": "NOT_RUN",
+    "V31_real_K6_baseline": "NOT_ESTABLISHED_IN_THIS_TASK",
+    "tariff": "UNKNOWN; GPU-hours only, no currency claim"
+  },
+  "update": "Old COST_EVIDENCE DIAG2 NOT_RUN is historical, superseded by measured A1 CLI ~18.69min; full V31 3ps end-to-end and valid yield not measured",
+  "planning_3ps_minutes_per_attempt": [
+    11.66,
+    11.73
+  ],
+  "per_valid_geometry_formula": "sum(serial service hours including solve/export/validation and failures)/number(unique labels-valid admitted geometries); queue wait reported separately",
+  "illustrative_yield": {
+    "1.0_minutes": 11.7,
+    "0.9_minutes": 13.0,
+    "0.8_minutes": 14.625
+  },
+  "milestones": [
+    {
+      "total_fast_unique": 172,
+      "additional_from156": 16,
+      "additional_after_previous": 16,
+      "GPU_hours_at11_7min_yield1": 3.1199999999999997,
+      "GPU_hours_at11_7min_yield0_9": 3.4666666666666663,
+      "status": "PLANNING_NOT_AUTHORIZED"
+    },
+    {
+      "total_fast_unique": 250,
+      "additional_from156": 94,
+      "additional_after_previous": 78,
+      "GPU_hours_at11_7min_yield1": 18.33,
+      "GPU_hours_at11_7min_yield0_9": 20.366666666666664,
+      "status": "PLANNING_NOT_AUTHORIZED"
+    },
+    {
+      "total_fast_unique": 500,
+      "additional_from156": 344,
+      "additional_after_previous": 250,
+      "GPU_hours_at11_7min_yield1": 67.08,
+      "GPU_hours_at11_7min_yield0_9": 74.53333333333333,
+      "status": "PLANNING_NOT_AUTHORIZED"
+    },
+    {
+      "total_fast_unique": 1000,
+      "additional_from156": 844,
+      "additional_after_previous": 500,
+      "GPU_hours_at11_7min_yield1": 164.57999999999998,
+      "GPU_hours_at11_7min_yield0_9": 182.86666666666665,
+      "status": "PLANNING_NOT_AUTHORIZED"
+    }
+  ],
+  "excludes": "queue, downtime, unmeasured V31 export/validation differences, higher-fidelity anchors/final-validation costs; no currency tariff known",
+  "scaling_rule": "Inspect every16-32 new geometries initially; retain/explore coverage, only increase uncertainty-driven share after calibration; do not promise learning-curve gains",
+  "anchor_proposal": {
+    "stage1": "2 representative already-fast geometries: one sharp-spectrum/high-delay-risk, one smooth broad-spectrum; one matched-mesh6ps diagnostic each =2 separately requested entries, NOT final-grade truth",
+    "stage2": "if time stable enough for intended use, matched4nm6ps at same2 =2 separately requested entries; if unstable prioritize longer5nm before mesh",
+    "convergence_extension": "Additional duration/resolution only on worst-risk anchor if needed; cost/budget separately approved, no automatic expansion",
+    "periodic": "Propose one paired check per32-64 new fast geometries, adapt to measured bias/rank reversals; explicit bounded budget required each round",
+    "existing_A1": "Reuse paired3/6ps; no A1 replay; any further A1 diagnostic needs distinct approved scientific purpose and new authorization",
+    "A2": "Original G0045nm6ps remaining1 entry stays HOLD; separate user ruling could remove A1 strictPASS prerequisite only for diagnostic comparison, not automatic execution"
+  }
+}

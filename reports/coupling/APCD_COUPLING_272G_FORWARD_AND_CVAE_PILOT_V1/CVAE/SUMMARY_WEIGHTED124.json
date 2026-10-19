@@ -1,0 +1,157 @@
+{
+  "CVAE_prior": {
+    "posterior_reconstruction_MAE_nm": 26.30258305354785,
+    "posterior_quantized_MAE_nm": 26.26680107526882,
+    "train_posterior_MAE_nm": 17.993955167681555,
+    "posterior_KL_mean": 3.360524882231989,
+    "posterior_std_mean": 0.32380389265956416,
+    "condition_shuffle_geometry_shift_nm": 15.833333261551395,
+    "legal_fraction": 1.0,
+    "minimum_periodic_gap_nm": 60.0,
+    "unique_fraction": 1.0,
+    "training_exact_duplicate_fraction": 0.0,
+    "all272_exact_overlap_fraction": 0.0,
+    "within_target_pairwise_RMS_nm": 42.85358335125831,
+    "proxy_condition_RMSE_standardized_all": 1.0423401788157154,
+    "proxy_best_of_16_RMSE_standardized": 0.600637090561644,
+    "active_latent_dims_threshold_0_01": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "posterior_KL_per_run": [
+      3.254622459411621,
+      3.328098773956299,
+      3.572458505630493,
+      3.717777729034424,
+      3.1756789684295654,
+      3.334125518798828,
+      3.305081844329834,
+      3.194003105163574
+    ],
+    "proxy_best_of16_by_fold_seed": [
+      0.5663130190034162,
+      0.5253560370512393,
+      0.5796927505101107,
+      0.5490577720034896,
+      0.6031491039529158,
+      0.5807933570876468,
+      0.6926841131714359,
+      0.7110271331640564
+    ]
+  },
+  "uniform_random": {
+    "posterior_reconstruction_MAE_nm": 26.30258305354785,
+    "posterior_quantized_MAE_nm": 26.26680107526882,
+    "train_posterior_MAE_nm": 17.993955167681555,
+    "posterior_KL_mean": 3.360524882231989,
+    "posterior_std_mean": 0.32380389265956416,
+    "condition_shuffle_geometry_shift_nm": 15.833333261551395,
+    "legal_fraction": 1.0,
+    "minimum_periodic_gap_nm": 60.0,
+    "unique_fraction": 1.0,
+    "training_exact_duplicate_fraction": 0.0,
+    "all272_exact_overlap_fraction": 0.0,
+    "within_target_pairwise_RMS_nm": 53.480546934056115,
+    "proxy_condition_RMSE_standardized_all": 1.0896755068153108,
+    "proxy_best_of_16_RMSE_standardized": 0.6424432077852561,
+    "active_latent_dims_threshold_0_01": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "posterior_KL_per_run": [
+      3.254622459411621,
+      3.328098773956299,
+      3.572458505630493,
+      3.717777729034424,
+      3.1756789684295654,
+      3.334125518798828,
+      3.305081844329834,
+      3.194003105163574
+    ],
+    "proxy_best_of16_by_fold_seed": [
+      0.5603042201258577,
+      0.5633204784812759,
+      0.5881334987936201,
+      0.5941754382608645,
+      0.6292081187079367,
+      0.6760895156612696,
+      0.765475123471105,
+      0.7686996860627671
+    ]
+  },
+  "training_retrieval": {
+    "posterior_reconstruction_MAE_nm": 26.30258305354785,
+    "posterior_quantized_MAE_nm": 26.26680107526882,
+    "train_posterior_MAE_nm": 17.993955167681555,
+    "posterior_KL_mean": 3.360524882231989,
+    "posterior_std_mean": 0.32380389265956416,
+    "condition_shuffle_geometry_shift_nm": 15.833333261551395,
+    "legal_fraction": 1.0,
+    "minimum_periodic_gap_nm": 60.0,
+    "unique_fraction": 0.35836693548387094,
+    "training_exact_duplicate_fraction": 1.0,
+    "all272_exact_overlap_fraction": 1.0,
+    "within_target_pairwise_RMS_nm": 61.412327356964205,
+    "proxy_condition_RMSE_standardized_all": 0.52108509233302,
+    "proxy_best_of_16_RMSE_standardized": 0.2797975096399305,
+    "retrieval_oracle_true_best_of16_condition_RMSE": 0.21675527041380044,
+    "retrieval_true_error_of_proxy_selected": 0.32656641547830423,
+    "active_latent_dims_threshold_0_01": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "posterior_KL_per_run": [
+      3.254622459411621,
+      3.328098773956299,
+      3.572458505630493,
+      3.717777729034424,
+      3.1756789684295654,
+      3.334125518798828,
+      3.305081844329834,
+      3.194003105163574
+    ],
+    "proxy_best_of16_by_fold_seed": [
+      0.2680219387099876,
+      0.26802193870998764,
+      0.2637382924416842,
+      0.2637382924416842,
+      0.243949556585115,
+      0.243949556585115,
+      0.34270372236729413,
+      0.34270372236729424
+    ]
+  },
+  "_contract": {
+    "primary": "124 distinct fixed heldout geometries, pooled with heldout_count weights, then average seeds17/29",
+    "fold_counts": [
+      32,
+      31,
+      30,
+      31
+    ],
+    "independent_geometries": 124,
+    "seeds": 2,
+    "query_seed_replicates": 248,
+    "macro_SUMMARY_preserved": true,
+    "KL_note": "weighted heldout mean and eight raw run values provided",
+    "minimum_gap": "global minimum; not mean of per-run minima"
+  }
+}

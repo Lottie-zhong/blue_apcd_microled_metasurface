@@ -1,0 +1,40 @@
+{
+  "schema": "APCD_COUPLING_FLEXIBLE_OVERNIGHT_POLICY_V1",
+  "authority": "Direct user APCD_COUPLING_AL16_CLOSEOUT_AND_FLEXIBLE_OVERNIGHT_POLICY",
+  "timezone": "Asia/Shanghai",
+  "PREFERRED_GPU_WINDOW": {
+    "start": "21:00",
+    "end_next_day": "10:00",
+    "semantics": "preferred_only",
+    "hard_start_gate": false,
+    "hard_stop_gate": false
+  },
+  "running_solver": "Allow normal completion across10:00; never kill solver to meet window",
+  "daytime": "May start remaining explicitly authorized work when actual GPU/CPU/RAM/license/disk resources and ownership are safe; actual conflict delays new admission",
+  "others": "CPU FDTD/EDT/GUI permitted unless actual measured shared-resource conflict; never terminate others",
+  "execution": "Existing frozenV31 submit/run/status; no new scheduler/platform or Runner changes",
+  "budget": "Window never creates or extends solver budget; enteredattempt counts even onfailure; no replay",
+  "cross_window_batches": true,
+  "future_regular_batch_target_geometries": 50,
+  "target_is_hard_requirement": false,
+  "adaptive_inputs": [
+    "measuredserviceGPUtime",
+    "validlabels_yield",
+    "coverage",
+    "learningcurve",
+    "actualserveravailability"
+  ],
+  "future_AL50_required": [
+    "selection",
+    "protected/history/queue dedup",
+    "unique science/execution identities",
+    "frozen manifests and FSP/SHA",
+    "boundedentrybudget",
+    "explicit human realsolverauthorization"
+  ],
+  "current_AL50_authorized_entries": 0,
+  "AL16_remaining_authorized_entries": 0,
+  "DIAG2": "1/2",
+  "A2": "HOLD",
+  "DOE56": "HOLD"
+}

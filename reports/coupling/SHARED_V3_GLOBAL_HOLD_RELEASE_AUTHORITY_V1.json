@@ -1,0 +1,407 @@
+{
+  "schema": "SHARED_V3_GLOBAL_HOLD_RELEASE_AUTHORITY_V1",
+  "status": "BLOCKED_BEFORE_RELEASE",
+  "release_gate": "NOT_APPROVED",
+  "created_utc": "2026-09-29T10:27:52.154076+00:00",
+  "gpu_bundle_forensic_preservation": {
+    "status": "PASS",
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\GPU_BUNDLE_DIRTY_DIFF_FORENSIC_V1.json",
+    "source_classification": "UNKNOWN",
+    "dirty_sha256": "4dc467624bd4e987701034a3ff3ded1492a45693cea7511a416d16e8593f5c91",
+    "authoritative_commit": "c63b6631b0e5968c0d14e20f80447ffa5d8ff66e",
+    "authoritative_blob": "e015de47fb93d0dfadbe1ef37c455e18e0340c92",
+    "restored_target_only": true,
+    "current_blob_matches_authority": true,
+    "current_worktree_raw_sha256": "589364c8b5ce99ef46be8958b570d4758cd2837d532d583969247a8c2fc950bc",
+    "historical_runtime_import": "UNKNOWN"
+  },
+  "zero_solver_regression": {
+    "status": "PASS",
+    "solver_invocations": 0,
+    "test_count": 10,
+    "tests": [
+      {
+        "name": "run_gpu_native_bundle_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_gpu_completion_barrier_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_postentry_runtime_supervision_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_external_process_watcher_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_preentry_host_liveness_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_pw_contract_schema_accessor_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_medium_pw_mon_in_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_pw_launcher_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_pw_k6_seed_manifest_zero_solver_tests.py",
+        "status": "PASS"
+      },
+      {
+        "name": "run_exact_permit_zero_solver_tests.py",
+        "status": "PASS"
+      }
+    ],
+    "evidence_path": "D:\\apcd_runtime\\global_fdtd_control_v3\\audits\\SHARED_V3_GLOBAL_HOLD_RELEASE_AUTHORITY_V1\\zero_solver_regression_after_restore.json",
+    "evidence_sha256": "adc1178242affd83671acbd493bc629b9285ad8b16681a88e4c111e53d318af0"
+  },
+  "incidents": [
+    {
+      "case_id": "GPU_CPU_PARITY_AND_RUNTIME_CANARY_V1",
+      "attempt_id": "attempt_001",
+      "task": "GPU_CPU_PARITY_AND_RUNTIME_CANARY_V1",
+      "queue_id": 26,
+      "branch": "coupling_ml",
+      "entry_timestamp_utc": "2026-09-23T14:17:27.663165+00:00",
+      "scientific_entry_count": 1,
+      "solver_return_status": "attempt ledger says return=true; no durable return control event",
+      "fsp_status": "native/run FSP exists; fresh LOAD-only check missing MON_IN/Ex",
+      "h5_status": "H5 absent",
+      "truth_recovery_status": "not recoverable from current raw/native/H5 evidence",
+      "failure_signature": "MON_IN/Ex missing after load; truth barrier rejected output",
+      "terminal_classification": "POSTENTRY_NO_TRUTH",
+      "unresolved_scientific_truth": true,
+      "active_process": false,
+      "active_slot_or_lease": false,
+      "resource_or_provenance_conflict": false,
+      "current_backend_failure_class": "COVERED_BY_CURRENT_BACKEND"
+    },
+    {
+      "case_id": "K6V1_S12",
+      "attempt_id": "attempt_001",
+      "task": "PW_K6_SEED_DB_V1_PRODUCTION_V1",
+      "queue_id": 42,
+      "branch": "coupling_ml",
+      "entry_timestamp_utc": "2026-09-24T12:10:20.153088+00:00",
+      "scientific_entry_count": 1,
+      "solver_return_status": "false; no durable return event",
+      "fsp_status": "setup/run FSP only; no accepted native result",
+      "h5_status": "H5 absent",
+      "truth_recovery_status": "not recoverable from available artifacts",
+      "failure_signature": "p0 log stopped during initialization/meshing; no durable host return",
+      "terminal_classification": "POSTENTRY_NO_TRUTH",
+      "unresolved_scientific_truth": true,
+      "active_process": false,
+      "active_slot_or_lease": false,
+      "resource_or_provenance_conflict": false,
+      "current_backend_failure_class": "COVERED_BY_CURRENT_BACKEND"
+    },
+    {
+      "case_id": "K6V1_S13",
+      "attempt_id": "attempt_001",
+      "task": "PW_K6_SEED_DB_V1_PRODUCTION_V1",
+      "queue_id": 43,
+      "branch": "coupling_ml",
+      "entry_timestamp_utc": "2026-09-24T12:55:02.583172+00:00",
+      "scientific_entry_count": 1,
+      "solver_return_status": "false; no durable return event",
+      "fsp_status": "setup/run FSP only; no accepted native result",
+      "h5_status": "H5 absent",
+      "truth_recovery_status": "not recoverable from available artifacts",
+      "failure_signature": "p0 log stopped during initialization/meshing; no durable host return",
+      "terminal_classification": "POSTENTRY_NO_TRUTH",
+      "unresolved_scientific_truth": true,
+      "active_process": false,
+      "active_slot_or_lease": false,
+      "resource_or_provenance_conflict": false,
+      "current_backend_failure_class": "COVERED_BY_CURRENT_BACKEND"
+    },
+    {
+      "case_id": "W2H_06824",
+      "attempt_id": "attempt_001",
+      "task": "PW_K6_SEED_DB_V1_PRODUCTION_V1",
+      "queue_id": 28,
+      "branch": "coupling_ml",
+      "entry_timestamp_utc": "2026-09-24T07:34:50.582414+00:00",
+      "scientific_entry_count": 1,
+      "solver_return_status": "false in ledger although child exit code 0; no accepted return event",
+      "fsp_status": "setup/run FSP only; no post/native truth",
+      "h5_status": "H5 absent",
+      "truth_recovery_status": "not recoverable from available artifacts",
+      "failure_signature": "Ansys license-sharing startup error and MON_IN/Ex unavailable",
+      "terminal_classification": "POSTENTRY_NO_TRUTH",
+      "unresolved_scientific_truth": true,
+      "active_process": false,
+      "active_slot_or_lease": false,
+      "resource_or_provenance_conflict": false,
+      "current_backend_failure_class": "COVERED_BY_CURRENT_BACKEND"
+    },
+    {
+      "case_id": "W2H_15294_INTEGRATED_REFINED",
+      "attempt_id": "attempt_001",
+      "task": "PW_PERIODIC_W2H15294_NP_DERIVED_MESH_CALIBRATION_GATE_A_V1",
+      "queue_id": 10,
+      "branch": "coupling_ml",
+      "entry_timestamp_utc": "2026-09-20T13:20:20.516277+00:00",
+      "scientific_entry_count": 1,
+      "solver_return_status": "false; no durable return event",
+      "fsp_status": "run FSP hash equals pre-FSP; no accepted native result",
+      "h5_status": "H5 absent",
+      "truth_recovery_status": "not recoverable from available artifacts",
+      "failure_signature": "log stopped at 53.5551%; heartbeat/process disappeared",
+      "terminal_classification": "POSTENTRY_NO_TRUTH",
+      "unresolved_scientific_truth": true,
+      "active_process": false,
+      "active_slot_or_lease": false,
+      "resource_or_provenance_conflict": false,
+      "current_backend_failure_class": "COVERED_BY_CURRENT_BACKEND"
+    },
+    {
+      "case_id": "W2H_15294_NP_DERIVED_BASELINE",
+      "attempt_id": "attempt_001",
+      "task": "PW_PERIODIC_W2H15294_NP_DERIVED_MESH_CALIBRATION_GATE_A_V1",
+      "queue_id": 9,
+      "branch": "coupling_ml",
+      "entry_timestamp_utc": "2026-09-20T13:20:06.407008+00:00",
+      "scientific_entry_count": 1,
+      "solver_return_status": "false; no durable return event despite ~29625.9s log completion",
+      "fsp_status": "run FSP hash equals pre-FSP; no accepted native result",
+      "h5_status": "H5 absent",
+      "truth_recovery_status": "not recoverable from available artifacts",
+      "failure_signature": "no post-FSP/H5/raw truth after long reported completion",
+      "terminal_classification": "POSTENTRY_NO_TRUTH",
+      "unresolved_scientific_truth": true,
+      "active_process": false,
+      "active_slot_or_lease": false,
+      "resource_or_provenance_conflict": false,
+      "current_backend_failure_class": "COVERED_BY_CURRENT_BACKEND"
+    }
+  ],
+  "failure_class_coverage": [
+    {
+      "failure_class": "missing/early sidecar readiness",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "preentry host-liveness; same-launcher handshake"
+    },
+    {
+      "failure_class": "FSP/H5 persistence sequencing",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "GPU native bundle persistence; completion barrier; LOAD-only validation"
+    },
+    {
+      "failure_class": "MON_IN / monitor readiness",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "Medium PW MON_IN A-L; PW launcher; contract schema"
+    },
+    {
+      "failure_class": "solver-return/completion barrier",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "GPU completion barrier; post-entry runtime supervision 12/12"
+    },
+    {
+      "failure_class": "post-entry truth-before-release",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "completion barrier and post-entry supervision"
+    },
+    {
+      "failure_class": "host liveness / stale HOST_STARTED",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "preentry host-liveness; external process watcher; post-entry supervision"
+    },
+    {
+      "failure_class": "scientific-entry provenance",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "exact-permit regression 14/14; durable lease events"
+    },
+    {
+      "failure_class": "canonical PW contract validation",
+      "status": "COVERED_BY_CURRENT_BACKEND",
+      "evidence": "schema accessor 6/6; PW launcher"
+    }
+  ],
+  "control_plane": {
+    "hold_scope": "GLOBAL",
+    "new_entry_hold": true,
+    "control_generation": 23,
+    "updated_at": "2026-09-29T04:31:17.858902+00:00",
+    "health_status": "PASS",
+    "health_metrics": {
+      "FOREIGN_MUTATION_COUNT": 0,
+      "DUPLICATE_SCIENTIFIC_ENTRY_COUNT": 0,
+      "GLOBAL_CAPACITY_VIOLATION_COUNT": 0,
+      "BRANCH_CAP_VIOLATION_COUNT": 0,
+      "SCIENTIFIC_VALID_REPLAY_COUNT": 0,
+      "TRUTH_LOSS_AFTER_SOLVER_RETURN_COUNT": 0,
+      "AUTO_REFILL_COUNT": 0,
+      "PENDING_RECONCILE_COUNT": 0,
+      "PENDING_RECONCILE_RECOVERED_COUNT": 0,
+      "DISPATCHER_CRASH_RECOVERY_COUNT": 0,
+      "SCIENTIFIC_HOST_CRASH_COUNT": 0,
+      "CONTROL_PLANE_DEFERRED_COUNT": 0,
+      "DISPATCHER_CRASH_KILLED_SOLVER_COUNT": 0,
+      "SCHEDULER_FAILURE_KILLED_SOLVER_COUNT": 0,
+      "SSH_DISCONNECT_KILLED_SOLVER_COUNT": 0
+    },
+    "capacities": {
+      "global": 3,
+      "traditional": 1,
+      "coupling_ml": 2,
+      "gpu_physical": 3
+    },
+    "branch_limits": [
+      {
+        "branch_id": "coupling_ml",
+        "cap": 2,
+        "enabled": 1
+      },
+      {
+        "branch_id": "traditional",
+        "cap": 1,
+        "enabled": 0
+      }
+    ],
+    "all_slots_free": true,
+    "active_reservations": 0,
+    "active_gpu_leases": 0,
+    "reserve_case_queue_rows": {
+      "K6V1_S22": 0,
+      "K6V1_S40": 0,
+      "K6V1_S24": 0,
+      "K6V1_S43": 0,
+      "K6V1_S44": 0,
+      "K6V1_S46": 0
+    }
+  },
+  "legacy_hold_provenance_limitation": "Original setter, reason and formal incident links were not recorded; this report does not claim to reconstruct them.",
+  "unmet_release_condition": {
+    "section": "6 duplicate scientific attempt audit / control-plane health evidence reconciliation",
+    "classification": "DUPLICATE_ENTRY_EVENT_UNRESOLVED",
+    "case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+    "branch": "traditional",
+    "attempt_id": "attempt_001",
+    "task_id": "K6_CYCLIC_REGISTRATION_CONTROLLED_EXPERIMENT_V1",
+    "queue_id": 21,
+    "queue_state": "RELEASED",
+    "payload_state": "SOLVER_RETURNED",
+    "entry_events": [
+      {
+        "event_id": 1499,
+        "timestamp": "2026-09-23T00:39:11.269437+00:00",
+        "slot_id": "GLOBAL_SLOT_1",
+        "branch_id": "traditional",
+        "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+        "attempt_id": "attempt_001",
+        "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+        "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+        "fencing_generation": 14,
+        "metadata_json": "{}"
+      },
+      {
+        "event_id": 1506,
+        "timestamp": "2026-09-23T02:38:41.983302+00:00",
+        "slot_id": "GLOBAL_SLOT_1",
+        "branch_id": "traditional",
+        "logical_case_id": "K6_5X3_SP237_X_CENTER_ORIGIN_PLUS1",
+        "attempt_id": "attempt_001",
+        "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+        "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+        "fencing_generation": 14,
+        "metadata_json": "{}"
+      }
+    ],
+    "all_lease_events": [
+      {
+        "event_id": 1498,
+        "timestamp": "2026-09-23T00:36:49.842184+00:00",
+        "event_type": "LEASE_ACQUIRED",
+        "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+        "fencing_generation": 14,
+        "metadata_json": "{}"
+      },
+      {
+        "event_id": 1499,
+        "timestamp": "2026-09-23T00:39:11.269437+00:00",
+        "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+        "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+        "fencing_generation": 14,
+        "metadata_json": "{}"
+      },
+      {
+        "event_id": 1506,
+        "timestamp": "2026-09-23T02:38:41.983302+00:00",
+        "event_type": "SCIENTIFIC_SOLVER_ENTERED",
+        "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+        "fencing_generation": 14,
+        "metadata_json": "{}"
+      },
+      {
+        "event_id": 1507,
+        "timestamp": "2026-09-23T02:39:55.566139+00:00",
+        "event_type": "RELEASE_PENDING",
+        "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+        "fencing_generation": 14,
+        "metadata_json": "{\"reason\": \"FINISHER_TRUTH_BEFORE_RELEASE\"}"
+      },
+      {
+        "event_id": 1508,
+        "timestamp": "2026-09-23T02:39:55.629076+00:00",
+        "event_type": "LEASE_RELEASED",
+        "lease_token_hash": "069b8f59a5b008b4eae31f340f383dd52a2ec2afb7145c4773c65a3302c5dbac",
+        "fencing_generation": 14,
+        "metadata_json": "{\"scientific_terminal\": \"SCIENTIFIC_VALID\"}"
+      }
+    ],
+    "lease_event_identity": "Both entry rows share one lease token hash and fencing generation; metadata_json has no process identity.",
+    "stored_metric": {
+      "metric_name": "DUPLICATE_SCIENTIFIC_ENTRY_COUNT",
+      "metric_value": 0,
+      "updated_at": "2026-09-20T07:21:55.767045+00:00"
+    },
+    "assessment": "Two durable SCIENTIFIC_SOLVER_ENTERED records exist for one queue attempt, but available records do not establish whether they represent two solver launches or duplicate event emission. Stored duplicate metric is zero but predates the two records."
+  },
+  "postentry_no_truth_active_count": 6,
+  "duplicate_attempt_scope_note": "W2H_06824 attempt_004 is a distinct prior G2 task, queue_id=1, and RELEASED; it is not the PW_K6 attempt_001 incident.",
+  "S35_S39": [
+    {
+      "case_id": "K6V1_S35",
+      "attempt_id": "attempt_001",
+      "state": "WAIT_RESOURCE_CAPACITY",
+      "slot_id": null,
+      "scientific_entry_count": 0,
+      "task": "PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1"
+    },
+    {
+      "case_id": "K6V1_S39",
+      "attempt_id": "attempt_001",
+      "state": "WAIT_RESOURCE_CAPACITY",
+      "slot_id": null,
+      "scientific_entry_count": 0,
+      "task": "PW_K6_FIXED_MDC_12G_STAGE1_HF_EXECUTION_V1"
+    }
+  ],
+  "scheduled_task_note": "Dormant enabled APCD_PW_K6_SEED_DB_V1_CONTROLLER action points to PW_K6_SEED_DB_V1_controller.py, not the approved current 12G controller; next run 2099-01-01; not running or invoked.",
+  "git": {
+    "branch": "work/mdc-np-coupling-ml-v1",
+    "head": "f0cd93d1407d080bf93259fd1153cb664235e8c8",
+    "ahead_behind": "0\t0",
+    "status": "dirty/untracked pre-existing state preserved; no commit or push; gpu_bundle target clean"
+  },
+  "actions_not_taken": [
+    "hold setter not called",
+    "no scientific solver launched",
+    "no POSTENTRY_NO_TRUTH record changed",
+    "Traditional untouched",
+    "no attempt_002 created",
+    "no controller or scheduled task invoked"
+  ],
+  "next": "Read-only forensic reconciliation of the Traditional duplicate-entry event and stale health metric; Chart review required if existing evidence cannot classify the event."
+}

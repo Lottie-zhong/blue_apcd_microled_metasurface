@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "forward_NRMSE_independent_recompute": {
+    "Mean": {
+      "independent_complex_NRMSE": 0.942921261512439,
+      "supplementary_cos_theta_flux_weighted_relative_phase_MAE_deg": 90.72406063793117,
+      "primary_relative_phase_weight_convention": "original frozen evaluation |C_hat|^2, retained without changing H1",
+      "supplementary_weight": "cos(theta_m)*|C_hat_m,pol|^2, true modal energy; train-only reference",
+      "phase_scored_components": 15624,
+      "TM_scored": 15624,
+      "TE_scored": 0
+    },
+    "KRR": {
+      "independent_complex_NRMSE": 0.8624133875826021,
+      "supplementary_cos_theta_flux_weighted_relative_phase_MAE_deg": 62.262893283919354,
+      "primary_relative_phase_weight_convention": "original frozen evaluation |C_hat|^2, retained without changing H1",
+      "supplementary_weight": "cos(theta_m)*|C_hat_m,pol|^2, true modal energy; train-only reference",
+      "phase_scored_components": 15624,
+      "TM_scored": 15624,
+      "TE_scored": 0
+    },
+    "ExtraTrees": {
+      "independent_complex_NRMSE": 0.7685569110801548,
+      "supplementary_cos_theta_flux_weighted_relative_phase_MAE_deg": 48.667866573039205,
+      "primary_relative_phase_weight_convention": "original frozen evaluation |C_hat|^2, retained without changing H1",
+      "supplementary_weight": "cos(theta_m)*|C_hat_m,pol|^2, true modal energy; train-only reference",
+      "phase_scored_components": 15624,
+      "TM_scored": 15624,
+      "TE_scored": 0
+    },
+    "Balanced": {
+      "independent_complex_NRMSE": 0.7657039052159474,
+      "supplementary_cos_theta_flux_weighted_relative_phase_MAE_deg": 48.361191682463314,
+      "primary_relative_phase_weight_convention": "original frozen evaluation |C_hat|^2, retained without changing H1",
+      "supplementary_weight": "cos(theta_m)*|C_hat_m,pol|^2, true modal energy; train-only reference",
+      "phase_scored_components": 15624,
+      "TM_scored": 15624,
+      "TE_scored": 0
+    },
+    "Leaf1": {
+      "independent_complex_NRMSE": 0.754711829859512,
+      "supplementary_cos_theta_flux_weighted_relative_phase_MAE_deg": 48.20435450227769,
+      "primary_relative_phase_weight_convention": "original frozen evaluation |C_hat|^2, retained without changing H1",
+      "supplementary_weight": "cos(theta_m)*|C_hat_m,pol|^2, true modal energy; train-only reference",
+      "phase_scored_components": 15624,
+      "TM_scored": 15624,
+      "TE_scored": 0
+    }
+  },
+  "CVAE_candidate_and_proxy_recompute": {
+    "CVAE_prior": {
+      "independently_recomputed_weighted124_best16_proxy_error": 0.6006370905616442,
+      "generated_count": 3968,
+      "global_unique_count": 3968,
+      "all272_overlap_count": 0
+    },
+    "uniform_random": {
+      "independently_recomputed_weighted124_best16_proxy_error": 0.6424432077852561,
+      "generated_count": 3968,
+      "global_unique_count": 3968,
+      "all272_overlap_count": 0
+    },
+    "training_retrieval": {
+      "independently_recomputed_weighted124_best16_proxy_error": 0.2797975096399305,
+      "generated_count": 3968,
+      "global_unique_count": 255,
+      "all272_overlap_count": 3968
+    }
+  },
+  "known_library_true_error": {
+    "known_truth_NN_error": 0.21675527041380044,
+    "known_truth_error_after_proxy_selection": 0.32656641547830423
+  },
+  "independent_heldout_geometries": 124,
+  "seeds": 2,
+  "no_new_models_or_forward_predictions": true,
+  "new_solver_calls": 0,
+  "no_new_hash": true
+}

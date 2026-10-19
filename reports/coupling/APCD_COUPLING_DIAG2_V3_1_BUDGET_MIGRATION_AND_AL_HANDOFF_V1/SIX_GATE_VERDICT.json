@@ -1,0 +1,47 @@
+{
+  "status": "DIAG2_V3_1_MIGRATION_HOLD",
+  "gates": [
+    {
+      "gate": 1,
+      "item": "Original budget/science identity",
+      "status": "PASS",
+      "evidence": "User principle carryover approved; original A1/A2 attempt_001,1entry/case,total2;newbudget0; exact original batch/dataset retained. Not execution authority."
+    },
+    {
+      "gate": 2,
+      "item": "V2.1/V3.1 entry reconciliation and immutable job mapping",
+      "status": "PARTIAL",
+      "evidence": "81 discovered DBs read-only;0DIAG2 matches/errors; historical0/2 retained; no live V3.1 job/attempt binding or single-owner budget handover transaction has been activated. No production ledger created."
+    },
+    {
+      "gate": 3,
+      "item": "physics_contract_sha",
+      "status": "PASS",
+      "evidence": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36"
+    },
+    {
+      "gate": 4,
+      "item": "Original FSP and6ps input semantics",
+      "status": "PASS",
+      "evidence": "16source/setup pins match; frozen load-readback proof retained; only3ps\u21926ps maximum physical time,auto-shutoff1e-6 unchanged. No scheduler/physical-time conflation."
+    },
+    {
+      "gate": 5,
+      "item": "Native E/H\u2192H5\u2192609D",
+      "status": "PARTIAL",
+      "evidence": "Fresh read-only re-extraction of historical G001/G004 nativeFSP/H5, fullcomplexE/H,raw/state/truthH5, frozenimporter609D and label parity PASS.6ps resolver6tests PASS. V3.1 postsolve outputFSP/nativeH5 pair capture, immutable authorized sidecar and DIAG2 time telemetry integration are not yet proven; no6ps truth exists."
+    },
+    {
+      "gate": 6,
+      "item": "V3.1 resources/No Replay/reported defects",
+      "status": "BLOCKED",
+      "evidence": "Installed runner unchanged; prior isolated wrongSHA and crossbatchduplicate acceptance remain relevant. Local mutex cannot prove externalownership; freshWDDM snapshot0%/1805MiB withN/A consumers. CLIrun failed>0 returns0. ScienceID mapping and nativepair durability require failclosed bridge; RunnerCOMPLETED notlabelsvalid."
+    }
+  ],
+  "current_task_execution_authorization": 0,
+  "new_budget": 0,
+  "historical_DIAG2_entered": 0,
+  "historical_DIAG2_ceiling": 2,
+  "DOE56": "4entered/52HOLD",
+  "confirmation_response_access": 0
+}

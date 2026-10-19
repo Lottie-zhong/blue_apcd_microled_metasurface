@@ -1,0 +1,26 @@
+{
+  "label": "TEST_FIXTURE_ONLY_NOT_NATIVE_OR_SCIENTIFIC",
+  "status": {
+    "args": [
+      "status",
+      "COUPLING_BINDING_FIXTURE",
+      "--db",
+      "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_V31_FINAL_HANDOFF_AND_DIAG2_BINDING\\TEST_FIXTURE_ONLY\\isolated.db",
+      "--output-dir",
+      "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_V31_FINAL_HANDOFF_AND_DIAG2_BINDING\\TEST_FIXTURE_ONLY\\outputs"
+    ],
+    "rc": 0,
+    "out": "{\n  \"batch_id\": 1,\n  \"batch_name\": \"COUPLING_BINDING_FIXTURE\",\n  \"total\": 1,\n  \"jobs\": [\n    {\n      \"id\": 1,\n      \"batch_id\": 1,\n      \"input_fsp_path\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\reports\\\\coupling\\\\APCD_COUPLING_ML_GPU_V31_FINAL_HANDOFF_AND_DIAG2_BINDING\\\\TEST_FIXTURE_ONLY\\\\TEST_ONLY_NOT_NATIVE.fsp\",\n      \"input_fsp_sha256\": \"f7eedc63156c45aee8371f389ef3387e76aea122c6f0e1a0ad31840ffb490adf\",\n      \"status\": \"COMPLETED\",\n      \"created_at\": \"2026-10-17 12:42:53\",\n      \"started_at\": \"2026-10-17T12:42:54.984003+00:00\",\n      \"completed_at\": \"2026-10-17T12:42:55.140516+00:00\",\n      \"output_fsp_path\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\reports\\\\coupling\\\\APCD_COUPLING_ML_GPU_V31_FINAL_HANDOFF_AND_DIAG2_BINDING\\\\TEST_FIXTURE_ONLY\\\\outputs\\\\batch_1\\\\job_1\\\\output.fsp\",\n      \"error_message\": null,\n      \"external_execution_id\": \"fixture:coupling-diag2-binding/a1\",\n      \"external_job_id\": \"fixture:coupling-diag2-binding\",\n      \"attempt_id\": \"attempt_001\",\n      \"case_id\": \"TEST_ONLY_NOT_SCIENCE\",\n      \"physical_contract_sha256\": \"51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36\",\n      \"log_path\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\reports\\\\coupling\\\\APCD_COUPLING_ML_GPU_V31_FINAL_HANDOFF_AND_DIAG2_BINDING\\\\TEST_FIXTURE_ONLY\\\\outputs\\\\batch_1\\\\job_1\\\\runner.log\",\n      \"output_sha256\": \"f7eedc63156c45aee8371f389ef3387e76aea122c6f0e1a0ad31840ffb490adf\",\n      \"execution_mode\": \"FAKE\",\n      \"resource_requirements\": \"null\",\n      \"manifest_json\": \"{\\\"batch_name\\\": \\\"COUPLING_BINDING_FIXTURE\\\", \\\"description\\\": \\\"DIAG2 original budget registration only; no launch authorization; resources must be qualified before separately authorized start\\\", \\\"jobs\\\": [{\\\"input_fsp\\\": \\\"D:\\\\\\\\project\\\\\\\\worktrees\\\\\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\\\\\reports\\\\\\\\coupling\\\\\\\\APCD_COUPLING_ML_GPU_V31_FINAL_HANDOFF_AND_DIAG2_BINDING\\\\\\\\TEST_FIXTURE_ONLY\\\\\\\\TEST_ONLY_NOT_NATIVE.fsp\\\", \\\"source_fsp_sha256\\\": \\\"f7eedc63156c45aee8371f389ef3387e76aea122c6f0e1a0ad31840ffb490adf\\\", \\\"external_execution_id\\\": \\\"fixture:coupling-diag2-binding/a1\\\", \\\"external_job_id\\\": \\\"fixture:coupling-diag2-binding\\\", \\\"attempt_id\\\": \\\"attempt_001\\\", \\\"case_id\\\": \\\"TEST_ONLY_NOT_SCIENCE\\\", \\\"physical_contract_sha256\\\": \\\"51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36\\\", \\\"resource_requirements\\\": null}], \\\"science_dataset_id\\\": \\\"APCD_COUPLING_V3_TIME_DIAG2_V1\\\", \\\"science_batch_id\\\": \\\"K6V3_TIME_DIAG2_V1_BATCH_001\\\", \\\"science_case_request_sha256\\\": \\\"7a850ee7eecbdbdb697a02915f70efb4389f17ada01e60624890557768021e81\\\", \\\"science_entry_authorized\\\": false}\",\n      \"internal_job_id\": 1,\n      \"attempt\": {\n        \"id\": 1,\n        \"job_id\": 1,\n        \"attempt_id\": \"attempt_001\",\n        \"entered_at\": \"2026-10-17T12:42:54.984003+00:00\",\n        \"external_execution_id\": \"fixture:coupling-diag2-binding/a1\",\n        \"solver_entered\": 0,\n        \"pre_fsp_sha256\": \"f7eedc63156c45aee8371f389ef3387e76aea122c6f0e1a0ad31840ffb490adf\",\n        \"physical_contract_sha256\": \"51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36\",\n        \"case_id\": \"TEST_ONLY_NOT_SCIENCE\",\n        \"execution_mode\": \"FAKE\"\n      }\n    }\n  ],\n  \"completed\": 1,\n  \"pending\": 0,\n  \"running\": 0,\n  \"failed\": 0,\n  \"recovery_rule\": \"Any existing attempt reservation forbids automatic replay, including stale RUNNING and FAKE attempts.\"\n}\n",
+    "err": ""
+  },
+  "solver_entries": 0,
+  "fake_reservations": 1,
+  "previous_passed_checks": [
+    "cross-batch/attempt same identity UNIQUE rejection",
+    "wrong SHA rejected",
+    "Fake completed",
+    "repeat Fake run zero new entries"
+  ],
+  "recovered_after_assertion": "Incorrect test expected /outputs/isolated; explicit --output-dir is used directly. Corrected only expectation, Runner unchanged.",
+  "original_failure": "AssertionError: new_output_layout"
+}

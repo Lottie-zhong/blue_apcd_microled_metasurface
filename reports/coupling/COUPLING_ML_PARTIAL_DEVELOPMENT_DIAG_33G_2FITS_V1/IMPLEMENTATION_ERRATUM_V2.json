@@ -1,0 +1,56 @@
+{
+  "adapter": {
+    "accepted_audited_shapes": [
+      "full_identity_plus_descriptors",
+      "descriptors_only",
+      "legacy_no_block"
+    ],
+    "artifact_binding": "Each supplied descriptor must match the audit path and SHA; loader revalidates official artifacts and physical state.",
+    "canonical_identity_source": "DATASET_AUDIT_33G row, cross-checked against ingest result and hashed Runner status.json",
+    "metadata_only_check": "Three representative schema shapes; no fit and no response-array access."
+  },
+  "base_executor_sha256": "7c4c275837fa097cd3e3950794d7b605cbc30679276c61d5685592fb730465fc",
+  "base_protocol_sha256": "1af072609b1edb134473941f1b53d7dcedb0c122d6d407a59549b0e528446305",
+  "created_utc": "2026-10-07T09:20:51.923644+00:00",
+  "effective_implementation_sha256": {
+    "reports\\coupling\\COUPLING_ML_PARTIAL_DEVELOPMENT_DIAG_33G_2FITS_V1\\RUN_PARTIAL_DIAGNOSTIC_V1.py": "ab9f9a8d28f6a3ffedac7840db2507e6aa8139f70c02126a9df57dc895c65d15",
+    "scripts/coupling_ml/k6_v2_pipeline/contracts.py": "c064ea85a4c6dc94c9664cff0b8389e2975133bedc2b34a74eac7654fc420a9d",
+    "scripts/coupling_ml/k6_v2_pipeline/h1.py": "8a541f7d2357a4566e1a005a0c60451454ce2f7a97ae6d9d2987f0b250a4ffff",
+    "scripts/coupling_ml/k6_v2_pipeline/ingest.py": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+    "scripts/coupling_ml/k6_v2_pipeline/models.py": "a49dc6e801530cd4b6a0b8c5e8aea8520dc948d4763a0bd4dd3f0a7d1a58c7d3",
+    "scripts/coupling_ml/k6_v2_pipeline/real32_diagnostic.py": "4fc24e1c90d995941e9ff16bee9a0051ccf1a34695a611cb5d86fdd52f337271",
+    "scripts/coupling_ml/k6_v2_pipeline/training.py": "182221bbabf1d081c1c94a33385425720ab7e4930a9496135a48dbee7ee2b88c"
+  },
+  "fit_ledger_counts_at_amendment": {
+    "automatic_replay": 0,
+    "completed": 0,
+    "confirmation_response_access": 0,
+    "solver_entries": 0,
+    "started": 0
+  },
+  "ledger_sha256_before_amendment": "895e825514fd2e895c9178500868c752b641b894a95b65d9d1c6207d5383de48",
+  "parent_erratum_path": "reports\\coupling\\COUPLING_ML_PARTIAL_DEVELOPMENT_DIAG_33G_2FITS_V1\\IMPLEMENTATION_ERRATUM_V1.json",
+  "parent_erratum_sha256": "d303eb3f7773c7b20fa084684b68050be08fd2be2f315972b76bb3b760f24a98",
+  "pre_fit_attempt": {
+    "failure": "Descriptors-only input_artifacts was mistaken for a full identity record.",
+    "metrics_or_errors_used_for_selection": false,
+    "model_fits_started": 0,
+    "response_values_used_for_model_selection": false,
+    "status": "STOPPED_BEFORE_FIT",
+    "stopped_case_id": "K6LDA1_DEV_D2_M05"
+  },
+  "preserved_science": {
+    "config_sha256": "c6db08492b9020276cec08eb840b3385767e5d668c0686d2fae8af8348e16b76",
+    "data_allowlist_changed": false,
+    "fit_budget_changed": false,
+    "hyperparameters_changed": false,
+    "model_candidates_changed": false,
+    "split_file_sha256": "7ac34c2ce8c2877cddb0eca61cfabd04a482aa680aeb26be130350a68e9b6b18",
+    "split_sha256": "",
+    "truth_or_H1_H2_changed": false
+  },
+  "prior_effective_executor_sha256": "55a5f076bbc57c42662d833cc3f7adcfbf56cb6f5dd78e59288550d40f67a9f8",
+  "schema": "COUPLING_ML_PARTIAL_DIAGNOSTIC_IMPLEMENTATION_ERRATUM_V2",
+  "status": "PRE_FIT_NONSCIENTIFIC_SCHEMA_ADAPTER",
+  "updated_executor_sha256": "ab9f9a8d28f6a3ffedac7840db2507e6aa8139f70c02126a9df57dc895c65d15"
+}

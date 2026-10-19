@@ -1,0 +1,11 @@
+{
+  "authority": "latest user APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1",
+  "estimator_fit_limit": 104,
+  "targets": "21 native eta(+1),21 natural log(P_scale); reduced H2 power factorization eta*exp(logP), no complex reconstruction claim",
+  "split": "frozen four geometry folds;old32 train-only;124 distinct heldout",
+  "learning_train_sizes": "old32 + 24,56,all available new; nested seeded subsets",
+  "hyperparameters": "fixed before new fits: KRR alpha.1 gamma1/6;ET128 leaf3;MLP6-32-32-42 tanh Adam1000 alpha1 lr.003 seeds17,29,43; no validation selection",
+  "uncertainty": "raw ensemble dispersion; heldout error association, not calibrated confidence",
+  "sealed_response_access": 0,
+  "real_solver_budget": 0
+}

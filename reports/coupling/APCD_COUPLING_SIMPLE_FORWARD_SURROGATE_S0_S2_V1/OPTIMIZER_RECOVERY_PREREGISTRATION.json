@@ -1,0 +1,24 @@
+{
+  "reason": "Observed LBFGS ABNORMAL termination, retained as original evidence. Fixed Adam sensitivity comparison; not selected on recovery outer results.",
+  "original_abnormal_fits": 57,
+  "original_estimator_fits": 449,
+  "config": {
+    "architecture": "6-32-32-3 or 6-32-32-42",
+    "activation": "tanh",
+    "solver": "adam",
+    "alpha": 0.001,
+    "lr": 0.003,
+    "epochs": 1500,
+    "batch": "full train split",
+    "shuffle": false,
+    "early_stopping": false
+  },
+  "folds": "unchanged frozen4; old32 train-only; no added hyperparameter search",
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "finite_extra_fit_calls": 30,
+  "reporting": "keep both optimizers; exploratory post-failure extension, not independent confirmation"
+}

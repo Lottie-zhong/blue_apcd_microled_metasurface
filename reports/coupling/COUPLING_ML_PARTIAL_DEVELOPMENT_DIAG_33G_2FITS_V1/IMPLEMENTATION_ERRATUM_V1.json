@@ -1,0 +1,47 @@
+{
+  "base_executor_sha256": "7c4c275837fa097cd3e3950794d7b605cbc30679276c61d5685592fb730465fc",
+  "base_ledger_sha256": "ea75b863f38f1fa2ba637aa517f1a30ca2408c028c0b4c0f9c6754ffe0a735d8",
+  "base_protocol_sha256": "1af072609b1edb134473941f1b53d7dcedb0c122d6d407a59549b0e528446305",
+  "changed_files": [
+    "reports\\coupling\\COUPLING_ML_PARTIAL_DEVELOPMENT_DIAG_33G_2FITS_V1\\RUN_PARTIAL_DIAGNOSTIC_V1.py"
+  ],
+  "created_utc": "2026-10-07",
+  "effective_implementation_sha256": {
+    "reports\\coupling\\COUPLING_ML_PARTIAL_DEVELOPMENT_DIAG_33G_2FITS_V1\\RUN_PARTIAL_DIAGNOSTIC_V1.py": "55a5f076bbc57c42662d833cc3f7adcfbf56cb6f5dd78e59288550d40f67a9f8",
+    "scripts/coupling_ml/k6_v2_pipeline/contracts.py": "c064ea85a4c6dc94c9664cff0b8389e2975133bedc2b34a74eac7654fc420a9d",
+    "scripts/coupling_ml/k6_v2_pipeline/h1.py": "8a541f7d2357a4566e1a005a0c60451454ce2f7a97ae6d9d2987f0b250a4ffff",
+    "scripts/coupling_ml/k6_v2_pipeline/ingest.py": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+    "scripts/coupling_ml/k6_v2_pipeline/models.py": "a49dc6e801530cd4b6a0b8c5e8aea8520dc948d4763a0bd4dd3f0a7d1a58c7d3",
+    "scripts/coupling_ml/k6_v2_pipeline/real32_diagnostic.py": "4fc24e1c90d995941e9ff16bee9a0051ccf1a34695a611cb5d86fdd52f337271",
+    "scripts/coupling_ml/k6_v2_pipeline/training.py": "182221bbabf1d081c1c94a33385425720ab7e4930a9496135a48dbee7ee2b88c"
+  },
+  "fit_ledger_counts_at_amendment": {
+    "automatic_replay": 0,
+    "completed": 0,
+    "confirmation_response_access": 0,
+    "solver_entries": 0,
+    "started": 0
+  },
+  "pre_fit_attempt": {
+    "metrics_or_errors_used_for_selection": false,
+    "model_fits_started": 0,
+    "new_development_cases_loaded_before_legacy_row": 21,
+    "old32_cases_loaded": 32,
+    "status": "STOPPED_BEFORE_FIT",
+    "stopped_case_id": "K6LDA1_DEV_D1_M05"
+  },
+  "preserved_science": {
+    "config_sha256": "c6db08492b9020276cec08eb840b3385767e5d668c0686d2fae8af8348e16b76",
+    "data_allowlist_changed": false,
+    "fit_budget_changed": false,
+    "hyperparameters_changed": false,
+    "model_candidates_changed": false,
+    "split_sha256": "7ac34c2ce8c2877cddb0eca61cfabd04a482aa680aeb26be130350a68e9b6b18",
+    "truth_or_H1_H2_changed": false,
+    "unchanged": true
+  },
+  "reason": "The audited historical K6LDA1_DEV_D1_M05 first-case ingest result predates the input_artifacts block used by newer rows. Adapt the already audited artifact descriptors from DATASET_AUDIT_33G.json into the frozen loader record and validate identity, source manifest, H5 binding, entry count, and replay count. Add a metadata-only check for one modern and one legacy record.",
+  "schema": "COUPLING_ML_PARTIAL_DIAGNOSTIC_IMPLEMENTATION_ERRATUM_V1",
+  "status": "PRE_FIT_NONSCIENTIFIC_SCHEMA_ADAPTER",
+  "updated_executor_sha256": "55a5f076bbc57c42662d833cc3f7adcfbf56cb6f5dd78e59288550d40f67a9f8"
+}

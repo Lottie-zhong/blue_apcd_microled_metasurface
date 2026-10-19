@@ -1,0 +1,154 @@
+{
+  "traditional_fold_leakage": "NOT_DETECTED",
+  "adaptive_validation_feedback": "PRESENT",
+  "local_family_train_validation_crossings": 0,
+  "local_families": 4,
+  "local_pair_edges": 23,
+  "interaction_groups": [
+    {
+      "group_id": "INTERACTION_01",
+      "anchor": "K6GDP2_DEV_G059",
+      "family_id": "LOCAL_FAMILY_04:K6GDP2_DEV_G059",
+      "four_corners_present_in_272": true,
+      "reported_truth_complete": true,
+      "fold_roles": {
+        "1": [
+          "TRAIN",
+          "TRAIN",
+          "TRAIN",
+          "TRAIN"
+        ],
+        "2": [
+          "TRAIN",
+          "TRAIN",
+          "TRAIN",
+          "TRAIN"
+        ],
+        "3": [
+          "PRIMARY_VALIDATION",
+          "OTHER_HELDOUT",
+          "OTHER_HELDOUT",
+          "OTHER_HELDOUT"
+        ],
+        "4": [
+          "TRAIN",
+          "TRAIN",
+          "TRAIN",
+          "TRAIN"
+        ]
+      },
+      "family_leakage": false
+    },
+    {
+      "group_id": "INTERACTION_02",
+      "anchor": "K6V1_S31",
+      "family_id": "LOCAL_FAMILY_03:K6V1_S31",
+      "four_corners_present_in_272": true,
+      "reported_truth_complete": true,
+      "fold_roles": {
+        "1": [
+          "PURGED",
+          "PURGED",
+          "PURGED",
+          "PURGED"
+        ],
+        "2": [
+          "PURGED",
+          "PURGED",
+          "PRIMARY_VALIDATION",
+          "PURGED"
+        ],
+        "3": [
+          "PURGED",
+          "PURGED",
+          "PURGED",
+          "PURGED"
+        ],
+        "4": [
+          "PURGED",
+          "PRIMARY_VALIDATION",
+          "PURGED",
+          "PURGED"
+        ]
+      },
+      "family_leakage": false
+    }
+  ],
+  "primary_validation_geometry_count": 124,
+  "primary_validation_ids_once": true,
+  "fold_identity_156_172_222_272": [
+    {
+      "fold": 1,
+      "primary_count": 32,
+      "legacy156_same": true,
+      "al16_172_same": true,
+      "matched156_222_same": true,
+      "current272_in_holdout": true
+    },
+    {
+      "fold": 2,
+      "primary_count": 31,
+      "legacy156_same": true,
+      "al16_172_same": true,
+      "matched156_222_same": true,
+      "current272_in_holdout": true
+    },
+    {
+      "fold": 3,
+      "primary_count": 30,
+      "legacy156_same": true,
+      "al16_172_same": true,
+      "matched156_222_same": true,
+      "current272_in_holdout": true
+    },
+    {
+      "fold": 4,
+      "primary_count": 31,
+      "legacy156_same": true,
+      "al16_172_same": true,
+      "matched156_222_same": true,
+      "current272_in_holdout": true
+    }
+  ],
+  "checkpoint_count_pass": 52,
+  "NN2_metric_reproduced": {
+    "Pplus_MAE": 0.021560397886806547,
+    "reported_Pplus_MAE": 0.021560397886806547,
+    "rho450": 0.6796984022651431,
+    "reported_rho450": 0.6796984022651431
+  },
+  "fit_counts": {
+    "simple_156_exploration_initial": 449,
+    "simple_156_optimizer_recovery": 30,
+    "AL16_172_fixed_model_update": 40,
+    "272_forward_ET_comparison": 24,
+    "272_609D_A_B_diagnostic": 40,
+    "272_complex_ensemble_new_NN": 8,
+    "272_Pscale_new_fits": 20,
+    "matched156_comparison_on_fixed124": 32
+  },
+  "sealed_confirmation_access": 0,
+  "new_fdtd": 0,
+  "next_batch_authorized": 0,
+  "git": {
+    "branch": "work/mdc-np-coupling-ml-v1",
+    "head": "2cc687020e90ec4397e6cd4ed31efed59aaaf386",
+    "ahead_behind": "0\t0",
+    "staged_unchanged": true,
+    "prior_status_unchanged_outside_audit_folder": true,
+    "status_before_lines": 975,
+    "status_after_lines": 976,
+    "staged_before": [
+      "reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/CONTINUATION.md",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/SHA256_INVENTORY_V1.json",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/STARTUP_AUDIT_V1.json",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/STARTUP_BLOCKER_20261005.md"
+    ],
+    "staged_after": [
+      "reports/coupling/COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1/CONTINUATION.md",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/SHA256_INVENTORY_V1.json",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/STARTUP_AUDIT_V1.json",
+      "reports/coupling/COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1/STARTUP_BLOCKER_20261005.md"
+    ]
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "tests": [
+    {
+      "test": "same_original_two_budget_semantics",
+      "status": "PASS",
+      "result": {
+        "status": "PASS_IDENTITY_AND_BUDGET_SEMANTICS_ONLY",
+        "production_admission": false,
+        "entry_record_created": false
+      }
+    },
+    {
+      "test": "third_science_identity",
+      "status": "PASS",
+      "rejection": "only_original_two_science_identities"
+    },
+    {
+      "test": "budget3",
+      "status": "PASS",
+      "rejection": "no_budget_expansion"
+    },
+    {
+      "test": "new_budget2",
+      "status": "PASS",
+      "rejection": "no_budget_expansion"
+    },
+    {
+      "test": "attempt002",
+      "status": "PASS",
+      "rejection": "original_attempt_required"
+    },
+    {
+      "test": "entered_attempt",
+      "status": "PASS",
+      "rejection": "entry_or_replay_conflict"
+    },
+    {
+      "test": "replay",
+      "status": "PASS",
+      "rejection": "entry_or_replay_conflict"
+    },
+    {
+      "test": "geometry_permutation",
+      "status": "PASS",
+      "rejection": "ordered_geometry_conflict"
+    },
+    {
+      "test": "old3psSHA",
+      "status": "PASS",
+      "rejection": "original_six_ps_contract_required"
+    },
+    {
+      "test": "time3ps",
+      "status": "PASS",
+      "rejection": "physical_contract_conflict"
+    },
+    {
+      "test": "shutoff_relaxed",
+      "status": "PASS",
+      "rejection": "physical_contract_conflict"
+    },
+    {
+      "test": "premature_enable",
+      "status": "PASS",
+      "rejection": "zero_solver_task"
+    },
+    {
+      "test": "completed_not_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "test": "six_gate_fail_closed",
+      "status": "PASS"
+    }
+  ],
+  "pass": 14,
+  "fail": 0,
+  "solver_calls": 0,
+  "model_fits": 0,
+  "scope": "new migration identity policy only; existing model comparisons not rerun"
+}

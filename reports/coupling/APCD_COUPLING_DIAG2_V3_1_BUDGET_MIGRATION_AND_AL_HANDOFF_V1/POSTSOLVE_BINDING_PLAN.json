@@ -1,0 +1,41 @@
+{
+  "state": "PREPARATION_ONLY_NOT_EXECUTABLE",
+  "batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+  "case_attempts": [
+    {
+      "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+      "science_attempt": "attempt_001",
+      "runner_job_id": null,
+      "runner_attempt_tag": null
+    },
+    {
+      "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+      "science_attempt": "attempt_001",
+      "runner_job_id": null,
+      "runner_attempt_tag": null
+    }
+  ],
+  "physics_contract_sha": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+  "owner": "Coupling-ML Codex",
+  "official_execution_CLI": [
+    "submit",
+    "run",
+    "status"
+  ],
+  "production_submission_now": false,
+  "mandatory_bindings": [
+    "immutable originalsciencecase/attempt\u2194RunnerDBabsolute path,batch_id,job_id beforelaunch",
+    "executiontoken is subordinate tag, never a newscienceattempt",
+    "sourceFSP/currentSHA + full6ps contract/readback + requestsourcepins",
+    "independentresourceowner/fencing and nohistoricalentry",
+    "prelaunchbudgetentryevent must reconcile Runner atomicentry and original2entryceiling; noentry onWAIT",
+    "captureoutputFSP andactualnativeH5 pair plusfullEH before importing",
+    "read-onlysession disallowsrun/save/layout and bindsloadedFSP",
+    "frozen6psresolver andpostprocessor; no physicaldefaults",
+    "originalidentity,request/provenance andH5/609D receipt",
+    "A1sciencevalidation andtimeconvergenceclassification beforeA2; enteredfailures requiretruthonlyrecovery, notrerun"
+  ],
+  "original_sidecars_modified": false,
+  "release_or_scheduler_changes": false,
+  "COMPLETED_is_labels_valid": false
+}

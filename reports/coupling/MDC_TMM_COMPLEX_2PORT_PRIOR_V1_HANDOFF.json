@@ -1,0 +1,140 @@
+{
+  "schema": "MDC_TMM_COMPLEX_2PORT_PRIOR_V1_HANDOFF_V1",
+  "status": "FROZEN_INTERFACE_ONLY",
+  "source_authority": {
+    "model_id": "MDC_TMM_COMPLEX_2PORT_PRIOR_V1",
+    "worktree": "D:\\project\\worktrees\\blue_apcd_mdc_hf_surrogate_v2",
+    "branch": "work/mdc-hf-surrogate-v2",
+    "commit": "7f34bd767adee8ed37c2d907ac0546d47430631e",
+    "artifact_path": "reports\\MDC_TMM_COMPLEX_2PORT_PRIOR_V1.json",
+    "artifact_sha256": "b8e856fed0c7859b6ce3d1aa7d40549f40720b0c317b6f3dbf362e62c7e37a38",
+    "report_path": "reports\\MDC_TMM_COMPLEX_2PORT_PRIOR_V1.md",
+    "report_sha256": "f05dcc5bcbb64734cc1e6d355482b57ac9609b2a58db7124f639d6dca2091419",
+    "source_code": "scripts\\mdc_tmm_complex_2port_prior_v1.py",
+    "source_code_sha256": "a7d618b697a71ed59bf8b56d9d5239b570f0cb03f9f650497fa49ce37a5a6a00",
+    "hash_verification": "PASS"
+  },
+  "physical_contract": {
+    "mdc_structure_id": "P1_ZL1_ALTERNATIVE_G3_A3",
+    "mdc_thickness_nm": 975.0,
+    "spacer_material": "APCD_SIO2_NATIVE_M1",
+    "spacer_thickness_nm": 237.0,
+    "spacer_included_in_prior": false,
+    "left_port": {
+      "medium": "APCD_GAN_NATIVE_M1",
+      "role": "incident_side"
+    },
+    "right_port": {
+      "medium": "APCD_SIO2_NATIVE_M1",
+      "role": "coupling_spacer_side"
+    },
+    "right_medium_is_air": false,
+    "fixed_mdc_across_k6_geometries": true
+  },
+  "wavelength_support": {
+    "wavelength_nm_start": 440.0,
+    "wavelength_nm_stop": 460.0,
+    "step_nm": 1.0,
+    "count": 21,
+    "angle_deg": 0.0,
+    "wavelength_convention": "vacuum_wavelength_nm",
+    "extrapolation": "forbidden"
+  },
+  "polarization_mapping": {
+    "coupling_primary_labels": ["P", "XLIKE"],
+    "mdc_prior_label": "P_XLIKE_NORMAL_DEGENERATE_TE_TM",
+    "mapping": "Coupling P/XLIKE at normal incidence maps to the frozen MDC normal-incidence TE/TM-compatible channel.",
+    "te_tm_degeneracy": "exact at normal incidence; max_abs_difference = 0.0",
+    "convention_source": "frozen MDC prior; no new Coupling convention introduced"
+  },
+  "complex_coefficients": {
+    "primary_fields": ["r_L", "t_LR", "r_R", "t_RL"],
+    "representation": "complex electric-field amplitudes stored as Re/Im with magnitude and phase diagnostics",
+    "direction_semantics": {
+      "r_L": "reflection for left/GaN incidence",
+      "t_LR": "forward transmission from left/GaN to right/APCD_SIO2_NATIVE_M1",
+      "r_R": "reflection for right/APCD_SIO2_NATIVE_M1 incidence",
+      "t_RL": "forward transmission from right/APCD_SIO2_NATIVE_M1 to left/GaN"
+    },
+    "scalar_reconstruction": "forbidden; preserve complex Re/Im as primary truth",
+    "power_diagnostics": "R/T fields are diagnostics derived from the complex coefficients and port media; do not replace complex truth with scalar R/T"
+  },
+  "reference_plane_mapping": {
+    "phase_origin": "left GaN/MDC first-layer interface, z=0 nm",
+    "left_reference_plane": "GaN/MDC first-layer interface, z=0 nm",
+    "right_reference_plane": "MDC top / extra-spacer entrance, z=975 nm",
+    "included_thickness_nm": 975.0,
+    "excluded_thickness_nm": 237.0,
+    "mapping_to_coupling": "The MDC right reference plane is the origin of the Coupling extra-spacer propagation before the NP component."
+  },
+  "spacer_phase_contract": {
+    "formula": "P_spacer = exp(+i*kz_spacer*d)",
+    "thickness_nm": 237.0,
+    "propagation_sign": "+i*kz*z",
+    "time_convention": "exp(-i omega t)",
+    "apply_count": 1,
+    "double_counting": "forbidden",
+    "port_medium": "APCD_SIO2_NATIVE_M1",
+    "passive_branch": "Im(n) >= 0"
+  },
+  "current_role": {
+    "role": "frozen fixed-MDC plane-wave complex prior",
+    "allowed": [
+      "spectral amplitude conditioning",
+      "phase conditioning",
+      "cavity/reference response",
+      "composition with spacer and NP",
+      "future residual-model baseline"
+    ],
+    "geometry_discrimination": false,
+    "not_allowed": [
+      "K6 geometry discrimination",
+      "absolute power claim",
+      "LEE",
+      "Level-1 coupling truth"
+    ]
+  },
+  "v3_c_role": {
+    "MDC_V3_C_DIPOLE_PROFILE_ROLE": "DIPOLE_PROFILE_AUXILIARY_ONLY",
+    "allowed_for": ["future emitter-side / final dipole analysis"],
+    "not_allowed_for": [
+      "plane-wave t/r",
+      "current PW component input",
+      "replacement of MDC_TMM_COMPLEX_2PORT_PRIOR_V1"
+    ]
+  },
+  "future_component_interface": {
+    "baseline_name": "C_component_singlepass",
+    "status": "PRE_REGISTERED_NOT_EXECUTED",
+    "conceptual_expression": "MDC forward complex transfer × analytic spacer propagation × NP normal-incidence complex scattering response",
+    "inputs": [
+      "MDC two-port complex response at (lambda, kx=0, pol)",
+      "P_spacer = exp(+i*kz_spacer*d)",
+      "NP normal-incidence complex scattering response"
+    ],
+    "output": "C_component",
+    "full_multiple_reflection": "not implemented or executed by this handoff"
+  },
+  "multiple_reflection_limitation": {
+    "np_provider_scope": "normal-incidence incident m=0 column for P/S",
+    "complete_arbitrary_input_floquet_matrix": false,
+    "unsupported_exact_loop": "NP m!=0 reflection → MDC → NP m!=0 re-incidence",
+    "initial_treatment": "Delta C_coupling",
+    "claim_boundary": "Do not claim exact full-stack scattering composition from the component providers alone."
+  },
+  "np_dependency": {
+    "required_handoff": "NP complex forward provider formal handoff",
+    "primary_component_residual_poc_band_nm": [445.0, 455.0],
+    "authoritative_np_mask": "445–455 nm only",
+    "unsupported_np_wavelengths_nm": ["440–444", "456–460"],
+    "extrapolation": "forbidden",
+    "next_gate": "WAIT_FOR_NP_K6_COMPLEX_FORWARD_PROVIDER_HANDOFF"
+  },
+  "execution_boundary": {
+    "fdtd_solver_launched": false,
+    "residual_training_run": false,
+    "mdc_v3_c_retrained": false,
+    "prior_regenerated": false,
+    "interface_freeze_only": true
+  }
+}

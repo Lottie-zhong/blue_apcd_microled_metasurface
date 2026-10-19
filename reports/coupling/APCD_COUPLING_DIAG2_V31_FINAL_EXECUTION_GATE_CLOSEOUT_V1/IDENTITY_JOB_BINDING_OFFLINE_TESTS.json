@@ -1,0 +1,181 @@
+{
+  "status": "PASS_FOR_ISOLATED_INTERFACE",
+  "tests": [
+    {
+      "name": "A1_A2_science_to_real_Runner_SQLite_rows_positive_simulation",
+      "pass": true
+    },
+    {
+      "name": "independent_SQLite_JSON_WAL_reconciliation",
+      "pass": true
+    },
+    {
+      "name": "legacy_V2_adapter_rejects_case_consumed_by_V31_K6V3_TIME_DIAG2_A1_5NM_6PS",
+      "pass": true,
+      "reason": "DIAG2_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY"
+    },
+    {
+      "name": "legacy_V2_adapter_rejects_case_consumed_by_V31_K6V3_TIME_DIAG2_A2_5NM_6PS",
+      "pass": true,
+      "reason": "DIAG2_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY"
+    },
+    {
+      "name": "V31_repeat_rejected",
+      "pass": true,
+      "reason": "DIAG2_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY"
+    },
+    {
+      "name": "binding_overwrite_rejected",
+      "pass": true,
+      "reason": "[Errno 17] File exists: 'D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\reports\\\\coupling\\\\APCD_COUPLING_DIAG2_V31_FINAL_EXECUTION_GATE_CLOSEOUT_V1\\\\identity_fixture\\\\K6V3_TIME_DIAG2_A1_5NM_6PS_BINDING_TEST_FIXTURE_ONLY.json'"
+    },
+    {
+      "name": "wrong_inputSHA_rejected_in_science_binding",
+      "pass": true,
+      "reason": "job_source_sha_mismatch"
+    },
+    {
+      "name": "new_adapter_rejects_original_identity_after_old_entry",
+      "pass": true,
+      "reason": "DIAG2_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY"
+    },
+    {
+      "name": "crash_after_entry_receipt",
+      "pass": true,
+      "reason": "SIMULATED_CRASH_NO_SOLVER"
+    },
+    {
+      "name": "uncertain_receipt_blocks_retry",
+      "pass": true,
+      "reason": "DIAG2_ENTRY_CONSUMED_OR_UNCERTAIN_NO_REPLAY"
+    },
+    {
+      "name": "existing_conservative_reconciliation_no_refund",
+      "pass": true
+    }
+  ],
+  "pass": 11,
+  "fail": 0,
+  "actual_launches": 0,
+  "fixture_Runner_entry_rows": 2,
+  "fixture_budget_entry_rows_total_across_independent_scenarios": 4,
+  "real_DIAG2_entry_count": 0,
+  "new_budget_authority": false,
+  "source_authority": "frozen existing B test authority only; not productionapproval",
+  "bindings": [
+    {
+      "science_identity": {
+        "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+        "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "attempt_id": "attempt_001"
+      },
+      "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+      "attempt_id": "attempt_001",
+      "batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+      "runner_database": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V31_FINAL_EXECUTION_GATE_CLOSEOUT_V1\\identity_fixture\\runner_fixture.db",
+      "runner_batch_row_id": 1,
+      "runner_job_id": 1,
+      "physics_contract_sha": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+      "source_fsp_sha": "7d9f237ca3a57a2240c8a3cd3d753f8fe85f201ca132557b54336622252a3a6c",
+      "source_fsp": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A1_5NM_6PS\\attempt_001\\pre.fsp",
+      "case_request_sha": "ca865c861563201bedcc638485e319cb4471a7b23a136ae4c326098398003385",
+      "inherited_budget_ceiling": 2,
+      "per_case_ceiling": 1,
+      "new_budget": 0,
+      "runner_attempt_tag": null
+    },
+    {
+      "science_identity": {
+        "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+        "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "attempt_id": "attempt_001"
+      },
+      "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+      "attempt_id": "attempt_001",
+      "batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+      "runner_database": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V31_FINAL_EXECUTION_GATE_CLOSEOUT_V1\\identity_fixture\\runner_fixture.db",
+      "runner_batch_row_id": 1,
+      "runner_job_id": 2,
+      "physics_contract_sha": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+      "source_fsp_sha": "15042dc7d58eeab35ce00a900d1bb979de58c19c182b18723924c184a48c9739",
+      "source_fsp": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A2_5NM_6PS\\attempt_001\\pre.fsp",
+      "case_request_sha": "bcca635b22bb0479ddedbd2e7316279bdab13ad055803b373f0a50f5aac74581",
+      "inherited_budget_ceiling": 2,
+      "per_case_ceiling": 1,
+      "new_budget": 0,
+      "runner_attempt_tag": null
+    }
+  ],
+  "launch_order_evidence": [
+    {
+      "binding": {
+        "science_identity": {
+          "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+          "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+          "attempt_id": "attempt_001"
+        },
+        "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "attempt_id": "attempt_001",
+        "batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+        "runner_database": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V31_FINAL_EXECUTION_GATE_CLOSEOUT_V1\\identity_fixture\\runner_fixture.db",
+        "runner_batch_row_id": 1,
+        "runner_job_id": 1,
+        "physics_contract_sha": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+        "source_fsp_sha": "7d9f237ca3a57a2240c8a3cd3d753f8fe85f201ca132557b54336622252a3a6c",
+        "source_fsp": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A1_5NM_6PS\\attempt_001\\pre.fsp",
+        "case_request_sha": "ca865c861563201bedcc638485e319cb4471a7b23a136ae4c326098398003385",
+        "inherited_budget_ceiling": 2,
+        "per_case_ceiling": 1,
+        "new_budget": 0,
+        "runner_attempt_tag": "TEST_EXECUTION_TAG_JOB_1"
+      },
+      "science_entry_before_mock_launch": true,
+      "Runner_entry_before_mock_launch": true,
+      "actual_solver_called": false
+    },
+    {
+      "binding": {
+        "science_identity": {
+          "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+          "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+          "attempt_id": "attempt_001"
+        },
+        "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "attempt_id": "attempt_001",
+        "batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+        "runner_database": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V31_FINAL_EXECUTION_GATE_CLOSEOUT_V1\\identity_fixture\\runner_fixture.db",
+        "runner_batch_row_id": 1,
+        "runner_job_id": 2,
+        "physics_contract_sha": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+        "source_fsp_sha": "15042dc7d58eeab35ce00a900d1bb979de58c19c182b18723924c184a48c9739",
+        "source_fsp": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A2_5NM_6PS\\attempt_001\\pre.fsp",
+        "case_request_sha": "bcca635b22bb0479ddedbd2e7316279bdab13ad055803b373f0a50f5aac74581",
+        "inherited_budget_ceiling": 2,
+        "per_case_ceiling": 1,
+        "new_budget": 0,
+        "runner_attempt_tag": "TEST_EXECUTION_TAG_JOB_2"
+      },
+      "science_entry_before_mock_launch": true,
+      "Runner_entry_before_mock_launch": true,
+      "actual_solver_called": false
+    }
+  ],
+  "independent_SQLite_rows": [
+    [
+      1,
+      "TEST_EXECUTION_TAG_JOB_1"
+    ],
+    [
+      2,
+      "TEST_EXECUTION_TAG_JOB_2"
+    ]
+  ],
+  "shared_adapter": "unmodified apcd_gpu_v2.serial.Diag2Budget",
+  "shared_writer_lock": "existing .v2_writer.lock",
+  "receipt_crash_recovery": {
+    "entered": true,
+    "replay_allowed": false,
+    "repaired": true
+  },
+  "production_binding": "HOLD: no actual production job rows; V2/V3 shared activation/fencing enforcement not independently attested"
+}

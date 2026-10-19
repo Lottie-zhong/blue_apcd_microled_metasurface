@@ -1,0 +1,17 @@
+{
+  "claim": "Measure actual complex-state learning gains and remaining amplitude/routing/local limitations under fixed validation",
+  "backend": "Python",
+  "archetype": "quantitative grid",
+  "width_mm": 183,
+  "minimum_target_font_pt": 8,
+  "evaluation_geometries": 124,
+  "folds": 4,
+  "ET_seeds": 3,
+  "errorbars": "fourfold range, not confidence intervals; local test one family without pseudo-replicate CI",
+  "wavelengths": 21,
+  "no_interpolation_or_clipping": true,
+  "best_median_worst_rule": "B_ET Pplus per-geometry MAE sorted, positions0,62,123, examples only; primary metrics all124",
+  "new_fourcorner_groups": "truth-only old32train-only anchors; no in-sample generalization claim",
+  "not_final_convergence": true,
+  "sources": "MODEL_LEARNING_CURVE.json, STAGE_*/OOF and complex truth, original222diagnostic"
+}

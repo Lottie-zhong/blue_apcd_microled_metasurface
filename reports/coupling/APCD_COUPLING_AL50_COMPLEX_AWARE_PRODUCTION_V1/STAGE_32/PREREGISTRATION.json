@@ -1,0 +1,28 @@
+{
+  "architectures": {
+    "A": "6 geometry -> official609",
+    "B": "6 geometry+wavelength ->29; official609 reconstruction"
+  },
+  "models": [
+    "Mean per wavelength",
+    "RBF-KRR alpha.1 gamma1/n_input",
+    "ExtraTrees128 minleaf3 seeds17,29,43"
+  ],
+  "fit_limit": 40,
+  "preprocessing": "train-only StandardScaler inputs, raw frozen Cartesian+logP targets, no per-channel whitening",
+  "lambda": 21,
+  "effective_geometry_count": 254,
+  "primary_eval": "same124 old validation geometries; samefolds; familypurged",
+  "phase_mask_relative_magnitude_thresholds": [
+    0.001,
+    0.01,
+    0.05
+  ],
+  "primary_phase_threshold": 0.001,
+  "phase_reference": "dominant training-only channel for each wavelength; absolute IN_REF gauge preserved",
+  "ensemble": "complex arithmetic mean and physical P_scale arithmetic mean after seed inverse-log, matching H1",
+  "no_hyperparameter_search": true,
+  "NEW_FDTD": 0,
+  "NEXT_BATCH_AUTHORIZED": 0,
+  "cpu_threads": 2
+}

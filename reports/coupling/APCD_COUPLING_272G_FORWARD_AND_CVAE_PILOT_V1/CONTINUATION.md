@@ -1,0 +1,9 @@
+# Continuation —272G forward and CVAE pilot CLOSED
+
+Task offlinecompletePASS; rootFINAL_REPORT andCURRENT_AUTHORITY govern. FormalGeometry+lambda->ComplexFloquet+Pscale->FrozenH2 unchanged. Dataset272; original124heldout with familyguard preserved. NEW_FDTD0,nextbatch0,DIAG21/2,A2HOLD,DOE56HOLD. No Runner/nativeFSP/H5/sealed operations or entry identities.117canonicalentriesunchanged,protectedledgerscontentunchanged.
+
+Forward:24newETfits (Balanced/Leaf1,4fold3seed); baselineMean/KRR/ET predictions reused. Leaf1complexNRMSE.75471 vs.76856,PplusMAE.028486 vs.029191,rho.4992 vs.4690 butTop20recallworse. TMvariance14.18%oftruth; shrinkage not solved. Singlefold32G/seed17/tree128 norm1->forest.457 directlyobserved. H1allmainFAIL,seedstabilityPASS. No frozenmodelreplacement. No newfits needed to inspect reports/checkpoints.
+
+CVAE:8CPUtorchmodels,64/32latent3,400epochs,4trainfold-onlyETcheckers. Prior3968uniquelegalgeometries,zero272duplicates, geometrylegalityprojectionnotfabrication. Heldoutposteriorrecon26.30nm is not priorgeneration. Weighted124proxybest16 .60064 CVAE,.64244random,.27980library. KnowntrueNN .21676 vsproxyselectedtrue .32657 warnschecker. Conditionshuffle8/8proxyworse; latent3active, no overallcollapse seen. Reliable inverse unproved, only lightweightauxiliary; no nextbudget, no CVAE-ledproduction. CandidatesEXPLORATORY_ONLY, noFDTDvalidation.
+
+Fourfigures visuallyQA PASS,minPDF7pt; scientificsource/CSV/checkpoints saved. Do not retrain completedfits, rerun SELECT/PRODUCTION or promoteH1 via alteredthresholds. LargeETjoblib staysremote, not Git/deliverybulk. Nextpriority zero-solver complexamplitude/circularphase andcross-treeaggregation diagnosis; next50recommendationonly28coverage10response-disagreement6random6smalllocal, CVAE-led0currently. Git original4staged preserved,branchwork/mdc-np-coupling-ml-v1,HEAD2cc687020e90ec4397e6cd4ed31efed59aaaf386,0/0,no commit/push.

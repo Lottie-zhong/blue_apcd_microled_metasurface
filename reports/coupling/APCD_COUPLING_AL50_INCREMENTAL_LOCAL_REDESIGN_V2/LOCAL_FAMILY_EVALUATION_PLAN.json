@@ -1,0 +1,32 @@
+{
+  "new_fits_now": 0,
+  "original124heldout_IDs_preserved": true,
+  "original_metric_definitions_preserved": true,
+  "tracks": {
+    "legacy": "Reportunchanged124heldoutprotocol forcontinuity; not claimlocalfamilyindependence ofhistoricS31family",
+    "strict_family_guard": "Keep124heldoutIDs, purge ALLtrainingmembers ofanyconnectedfamily touchingvalidation(includingS31old32anchor); purgedold32never movedintoevaluation. Futurematched172baseline mustuseSAMEpurgingbeforeV2comparison, so oldpublishedbeforeisnotmixedwithguardedafter.",
+    "new_local_family": "K6GDP2_DEV_G059 andall9newfamilymembers assignfold3; entirefamilyheldouttogether",
+    "old32_boundary_family": "S31family old32anchor remainsnot-test; physicalinteractioncanbecomputedoncealllabelsvalid; doNOTclaimheldoutlocalmodelskillforthisfamily. UseG059familyforstrictpairedpredictionmetrics; familyguardedglobaloldarmmetricsseparate."
+  },
+  "existingS31legacy_family_touches_folds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "metrics": [
+    "localdifferenceMAE:meanabs((Yhat_neighbor-Yhat_anchor)-(Y_neighbor-Y_anchor))",
+    "signaccuracy:sign(delta_prediction)==sign(delta_truth),exacttiesseparate; do notinventnoise-floor",
+    "localrankingagreement pairwiseSpearman/wins onheldoutfamily, tied/constantundefined",
+    "nonadditivityI=Yij-Yi-Yj+YD forP+,eta,Pscale all21lambda; absolutevaluesandreferencepowers; relativeinteractionundefinednearzero",
+    "modelinteractionerror abs(Ihat-I) only ifentireexperimentalgroupeligibleheldout"
+  ],
+  "leakage_unit": "connectedgeometryfamily, notcaseIDonly; no crossfidelity/geometricduplicate splits",
+  "sample_limit": "2designgroups/2anchors, onlyoneeligibleanchorforstrictlocalpredictivegeneralization; noclaimlocalguaranteedimprovement",
+  "stage_checkpoints_new_valid": [
+    16,
+    32,
+    50
+  ],
+  "contract_immutable_if_model_no_gain": true
+}

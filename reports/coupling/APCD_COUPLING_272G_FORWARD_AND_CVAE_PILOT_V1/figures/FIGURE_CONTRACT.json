@@ -1,0 +1,18 @@
+{
+  "claim": "Compare small complex-state contrasts and bounded generative feasibility; preserve remaining failures and proxy/truth distinctions",
+  "archetype": "quantitative grid",
+  "backend": "Python",
+  "width_mm": 183,
+  "font_pt": 8,
+  "n_geometries": 124,
+  "CVAE_seeds": 2,
+  "forward_seeds": 3,
+  "all_wavelengths": 21,
+  "forward_errorbars": "range of4fixedfolds, not CI",
+  "CVAE_errorbars": "range of8foldseedruns, not CI or8independentdatasets; pooled124 geometry-weighted means",
+  "inverse_condition_error": "4D condition RMSE standardized by trainingfold s.d.; all newgeometry optical values are proxy only",
+  "posterior_reconstruction": "uses geometryinput, not prior inverse generation",
+  "geometry_legal": "100..230,5nm rounding, periodicgap>=60 by construction, no manufacturingcertification",
+  "no_smoothing_or_excluded_queries": true,
+  "tree_diagnostic_scope": "fold1seed17,32geometries,128trees; not entire domain"
+}

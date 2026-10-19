@@ -1,0 +1,15 @@
+{
+  "host": "DESKTOP-NNE313K",
+  "validation": "same primary124 IDs, original family-purged four train folds; all wavelength rows of a geometry grouped",
+  "reuse": "8 saved NN29 seeds17/29; baseline Mean/KRR/ET and Leaf1 predictions; no CVAE fits",
+  "additional_joint": "same7-64-64-29 tanh StandardScaler X/Y Adam300epochs seed43 each fold only (4fits)",
+  "independent_P": "7-32-32-1 tanh StandardScaler X/logP Adam300epochs seeds17/29/43 (12fits)",
+  "baselines": "wavelength-conditioned training-geometry physical mean; Ridge alpha1 lnP with6 geometry + centered wavelength + squared wavelength, train-only scaling (4fits); frozen ETleaf1 and ETleaf3",
+  "all_MLP": "batch256 tol0 n_iter_no_change301; no early stopping/tuning; CPU2threads",
+  "combination": "same NN3 complex state plus each independent P; no truth as model input",
+  "oracle": "trueC/trueP, predC/trueP, trueC/predP, predC/predP all frozenH2; explicitly diagnostic",
+  "seed_aggregation": "Cartesian complex arithmetic mean; P arithmetic physical mean after inverse-log per seed",
+  "selection": "report all preregistered variants; heldout model choice remains development evidence, not nested test",
+  "NEW_FDTD": 0,
+  "NEXT_BATCH_AUTHORIZED": 0
+}

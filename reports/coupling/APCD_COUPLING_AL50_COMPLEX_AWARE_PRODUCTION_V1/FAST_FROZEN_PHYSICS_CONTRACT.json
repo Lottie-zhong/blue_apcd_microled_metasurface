@@ -1,0 +1,139 @@
+{
+  "contract_id": "APCD_PW_PERIODIC_PLANAR_5NM_GPU_PRODUCTION_V3",
+  "contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "K": 6,
+  "p_nm": 290,
+  "Lambda_x_nm": 1740,
+  "Lambda_y_nm": 290,
+  "H_nm": 500,
+  "spacer_nm": 237,
+  "source": "GaN to air +z normal-incidence X-pol",
+  "wavelengths_nm": [
+    440,
+    441,
+    442,
+    443,
+    444,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451,
+    452,
+    453,
+    454,
+    455,
+    456,
+    457,
+    458,
+    459,
+    460
+  ],
+  "boundary_contract": {
+    "x": "Periodic",
+    "y": "Periodic",
+    "z_min": "PML",
+    "z_max": "PML"
+  },
+  "modal_normalization": "PW_COMPLEX_FLOQUET_STATE_V1 complex lossy local-medium forward/backward amplitudes",
+  "energy_accounting": "R/T/A with complex incident-power proxy and existing admitted 5nm production TMM stack",
+  "mesh_convergence": "5NM_GPU_PRODUCTION_SCHEMA_V3 admitted seed contract; no contract changes",
+  "contract": {
+    "monitors": {
+      "input": "MON_IN",
+      "pre": "MON_PRENP",
+      "output": "MON_POSTNP"
+    },
+    "samples_nm": {
+      "MON_IN": -100.0,
+      "MON_PRENP": 1150.0,
+      "MON_POSTNP": 1800.0
+    },
+    "references_nm": {
+      "MON_IN": -50.0,
+      "MON_PRENP": 1202.0,
+      "MON_POSTNP": 1722.0
+    },
+    "materials": {
+      "substrate": "APCD_GAN_NATIVE_M1",
+      "mdc_tio2": "APCD_TIO2_NATIVE_M1",
+      "mdc_sio2": "APCD_SIO2_NATIVE_M1",
+      "superstrate": "Air"
+    },
+    "stack_layers": [
+      [
+        "APCD_TIO2_NATIVE_M1",
+        44.0
+      ],
+      [
+        "APCD_SIO2_NATIVE_M1",
+        79.0
+      ],
+      [
+        "APCD_TIO2_NATIVE_M1",
+        44.0
+      ],
+      [
+        "APCD_SIO2_NATIVE_M1",
+        79.0
+      ],
+      [
+        "APCD_TIO2_NATIVE_M1",
+        44.0
+      ],
+      [
+        "APCD_SIO2_NATIVE_M1",
+        316.0
+      ],
+      [
+        "APCD_TIO2_NATIVE_M1",
+        44.0
+      ],
+      [
+        "APCD_SIO2_NATIVE_M1",
+        79.0
+      ],
+      [
+        "APCD_TIO2_NATIVE_M1",
+        44.0
+      ],
+      [
+        "APCD_SIO2_NATIVE_M1",
+        79.0
+      ],
+      [
+        "APCD_TIO2_NATIVE_M1",
+        44.0
+      ],
+      [
+        "APCD_SIO2_NATIVE_M1",
+        79.0
+      ]
+    ],
+    "wavelengths_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "CVAE_fits": 8,
+  "checker_fits": 4,
+  "geometry_queries": 124,
+  "seed_replicates": 2,
+  "query_seed_replicates": 248,
+  "candidate_budget_each_method_each_query_seed": 16,
+  "candidate_count_each_method": 3968,
+  "CVAE_unique_global": 3968,
+  "CVAE_duplicates_global": 0,
+  "random_unique_global": 3968,
+  "CVAE_prior_min_diameter_nm": 100.0,
+  "CVAE_prior_max_diameter_nm": 230.0,
+  "CVAE_periodic_gap_min_global_nm": 60.0,
+  "CVAE_vs_random_better_runs": 7,
+  "condition_shuffle_worse_proxy_runs": 8,
+  "pooled_query_weighted_scores": {
+    "CVAE_prior": {
+      "proxy_condition_RMSE_standardized_all": 1.0423401788157154,
+      "proxy_best_of_16_RMSE_standardized": 0.600637090561644,
+      "within_target_pairwise_RMS_nm": 42.85358335125831
+    },
+    "uniform_random": {
+      "proxy_condition_RMSE_standardized_all": 1.0896755068153108,
+      "proxy_best_of_16_RMSE_standardized": 0.6424432077852561,
+      "within_target_pairwise_RMS_nm": 53.480546934056115
+    },
+    "training_retrieval": {
+      "proxy_condition_RMSE_standardized_all": 0.52108509233302,
+      "proxy_best_of_16_RMSE_standardized": 0.2797975096399305,
+      "within_target_pairwise_RMS_nm": 61.412327356964205
+    }
+  },
+  "CVAE_parameter_count": 5740,
+  "raw_geometry_variance_std_summary": {
+    "generated_std_mean_across_positions_runs_nm": 33.82531623045603,
+    "training_std_mean_across_positions_runs_nm": 45.55734023067291
+  },
+  "NEW_FDTD": 0,
+  "NEXT_BATCH_AUTHORIZED": 0,
+  "no_production_identity_created": true,
+  "sealed_response_access": 0,
+  "native_FSP_H5_access": 0,
+  "runner_edits": 0,
+  "truth_validation_generated_candidates": "NOT_RUN",
+  "manufacturing_qualification": "UNRESOLVED",
+  "formal_609D_H2_unchanged": true,
+  "condition_diagnostics_weighted124": {
+    "same_z_condition_shuffle_geometry_MAE_nm": 16.38146827297826,
+    "same_condition_prior_proxy_error_mean": 1.0423401788157154,
+    "shuffled_condition_prior_proxy_error_mean": 1.096324423730945,
+    "same_condition_best16_proxy_error_mean": 0.600637090561644,
+    "shuffled_condition_best16_proxy_error_mean": 0.665586950744166,
+    "condition_dependence_is_proxy_evidence_only": 1.0,
+    "CVAE_nearest_training_geometry_RMS_nm_mean": 18.017388322976835,
+    "CVAE_nearest_training_geometry_RMS_nm_min": 5.429734148021711,
+    "CVAE_raw_diameter_min_nm": 100.24863073902745,
+    "CVAE_raw_diameter_max_nm": 229.71419937379898,
+    "validation_condition_outside_training_range_fraction": 0.024193548387096774,
+    "nearest_condition_training_retrieval_TRUE_error": 0.21675527041380044,
+    "nearest_condition_training_retrieval_PROXY_error": 0.3820402066804623,
+    "proxy_selected_training_retrieval_TRUE_error": 0.32656641547830423,
+    "proxy_selected_training_retrieval_PROXY_error": 0.2797975096399305,
+    "candidate_proxy_condition_error_at_known_library_geometry": 0.3127371108587413
+  }
+}

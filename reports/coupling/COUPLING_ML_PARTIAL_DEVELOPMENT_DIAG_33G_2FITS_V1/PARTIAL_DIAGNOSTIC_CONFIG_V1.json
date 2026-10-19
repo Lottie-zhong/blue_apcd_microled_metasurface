@@ -1,0 +1,38 @@
+{
+  "models": {
+    "CARTESIAN_MLP": {
+      "architecture": "6-32-32-609; GELU; Cartesian C_hat head 588 and log-P_scale head 21",
+      "batch": "full batch",
+      "early_stop": {
+        "min_delta": 1e-05,
+        "patience": 50
+      },
+      "fits": 1,
+      "learning_rate": 0.001,
+      "max_updates": 1000,
+      "optimizer": "AdamW",
+      "parameters": 21377,
+      "seed": 0,
+      "task_id": "partial65_mlp_s0",
+      "task_sha256": "651a4664e56d617088c753411af977f6eee241ecf134101f9b9feaa7c3966f74",
+      "weight_decay": 0.0001
+    },
+    "RBF_KRR": {
+      "fits": 1,
+      "gamma": 0.3333333333333333,
+      "ridge_alpha": 0.01,
+      "task_id": "partial65_krr",
+      "task_sha256": "69095ffafcf229a203d9f79def8e7a1c5aa3880d45606872a01c2082b9a05c5f"
+    }
+  },
+  "schema": "COUPLING_ML_PARTIAL_DIAGNOSTIC_CONFIG_V1",
+  "selection": "one fixed config per candidate; midpoint frozen KRR grid and midpoint MLP decay, lowest frozen seed; no search",
+  "split_sha256": "7ac34c2ce8c2877cddb0eca61cfabd04a482aa680aeb26be130350a68e9b6b18",
+  "target": {
+    "C_hat": "full 21x7xTE/TM Cartesian complex state; 588 reals",
+    "P_scale": "separate log target; exp inverse; strict finite and positive; no epsilon/clipping",
+    "compression": "none",
+    "loss_source": "frozen k6_v2_pipeline models/training implementations",
+    "scalers": "fit on the 52 training geometries only"
+  }
+}

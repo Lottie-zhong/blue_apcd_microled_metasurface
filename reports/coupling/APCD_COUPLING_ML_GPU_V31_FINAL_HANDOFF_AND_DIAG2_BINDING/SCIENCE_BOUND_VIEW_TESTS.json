@@ -1,0 +1,61 @@
+{
+  "pass_count": 8,
+  "fail_count": 0,
+  "checks": [
+    {
+      "name": "K6V3_TIME_DIAG2_A1_5NM_6PS_original_mapping",
+      "passed": true
+    },
+    {
+      "name": "K6V3_TIME_DIAG2_A2_5NM_6PS_original_mapping",
+      "passed": true
+    },
+    {
+      "name": "reject_external_execution_id",
+      "passed": true,
+      "reason": "UNBOUND_EXECUTION_ID"
+    },
+    {
+      "name": "reject_attempt_id",
+      "passed": true,
+      "reason": "SCIENCE_BINDING_MISMATCH:attempt_id"
+    },
+    {
+      "name": "reject_physical_contract_sha256",
+      "passed": true,
+      "reason": "SCIENCE_BINDING_MISMATCH:physical_contract_sha256"
+    },
+    {
+      "name": "reject_source_fsp_sha256",
+      "passed": true,
+      "reason": "SCIENCE_BINDING_MISMATCH:source_fsp_sha256"
+    },
+    {
+      "name": "reject_legacy_executor_for_original_budget",
+      "passed": true,
+      "reason": "UNSUPPORTED_LEGACY_EXECUTOR"
+    },
+    {
+      "name": "independent_canonical_db_reconciliation",
+      "passed": true
+    }
+  ],
+  "reconciliation": {
+    "entered_total": 0,
+    "cases": [
+      {
+        "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "entered_count": 0,
+        "entry": null,
+        "status": "PENDING"
+      },
+      {
+        "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "entered_count": 0,
+        "entry": null,
+        "status": "PENDING"
+      }
+    ],
+    "rule": "REAL reservation consumes even FAILED; never Runner COMPLETED => labels-valid"
+  }
+}

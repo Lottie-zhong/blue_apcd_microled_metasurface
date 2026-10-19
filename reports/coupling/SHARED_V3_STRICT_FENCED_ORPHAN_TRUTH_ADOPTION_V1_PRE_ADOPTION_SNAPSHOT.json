@@ -1,0 +1,120 @@
+{
+  "created_utc": "2026-09-25T03:54:43.417187+00:00",
+  "manifest_sha256": "75e71812b670c5d09ff332aecf982ac3292a7278b97003867f8296e10ed16e92",
+  "artifact_hashes": {
+    "fsp": "20bbf75e8be30bcbd06d6389f02e0294e09a7d204b9df7af194b26cef54244ee",
+    "h5": "ea20f121640054d3e2ecbfc43b3e95ebc97cef95b837162e6e041b7c127b8a36",
+    "raw": "3e6a1ce481f01bcd7c8f67ca8368a5f94d089622b753a48145de07e14793e8ed",
+    "projection": "f0111a7f950f792be6278ef9a2ef74d69ff09c586cb7d8fdb2bff64a98871c4d",
+    "hf_archive": "f58282197126264f36eb336f4877d4f1339904fb4a792e67adced00cc8d5fe3f",
+    "setup": "4b355a9b736020e4ea0c4a9bf8efbd6bd1e1369f19f748745c12da415aa1bb4f",
+    "solver_entry": "be382965bf1a62462a7cac34cedb5228acfb539c6e1ff507860883b3a8eb5bda",
+    "provenance": "7307ab274e29992c3b5dee8921a77a29a112c7379c9754c3763dc1d982515099"
+  },
+  "artifact_identity_sha256": "bc0f63800b89de40b8dc103bdac289252d3cfca3c508a921d23a21aa0d9494a9",
+  "fresh_load_only_native": {
+    "passed": true,
+    "mode": "LOAD_ONLY",
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S14\\attempt_004\\native\\K6V1_S14__attempt_004_runtime.fsp"
+  },
+  "fresh_load_only_post": {
+    "passed": true,
+    "mode": "LOAD_ONLY",
+    "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\outputs\\coupling_ml\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\K6V1_S14\\attempt_004\\post\\K6V1_S14__attempt_004_runtime.fsp"
+  },
+  "attempt_ledger": {
+    "solver_entered": true,
+    "solver_returned": true,
+    "run_invocation_count": 1,
+    "replay": false
+  },
+  "event_counts": {
+    "HOST_STARTED": 1,
+    "SLOT_ACQUIRED": 1,
+    "PERSISTENCE_PATH_PREFLIGHT": 1,
+    "SOLVER_ENTRY_INTENT": 1,
+    "GPU_ENGINE_ENTRY_CONFIRMED": 1,
+    "SCIENTIFIC_SOLVER_ENTERED": 1,
+    "SCIENTIFIC_SOLVER_RUNNING": 1,
+    "POSTENTRY_NO_TRUTH": 1,
+    "TERMINAL_QUARANTINED": 1,
+    "POSTENTRY_NO_TRUTH_RELEASED": 1,
+    "NATIVE_TRUTH_DURABLE": 1,
+    "NATIVE_TRUTH_LOAD_ONLY_VALIDATED": 1,
+    "SOLVER_RETURNED": 1,
+    "POSTPROCESSING": 1,
+    "POST_FSP_VALID": 1,
+    "RAW_VALID": 1,
+    "SCIENTIFIC_VALID": 1,
+    "HF_ARCHIVED": 1,
+    "SOLVER_COMPLETED_TRUTH_PERSISTENCE_FAILED": 1,
+    "CONTROL_PLANE_DEGRADED": 1
+  },
+  "queue": {
+    "queue_id": 49,
+    "branch_id": "coupling_ml",
+    "logical_case_id": "K6V1_S14",
+    "attempt_id": "attempt_004",
+    "state": "AMBIGUOUS_QUARANTINED",
+    "payload_json": "{\"attempt_root\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S14\\\\attempt_004\", \"backend_type\": \"GPU\", \"entry_confirmation_poll_s\": 0.5, \"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"fresh_attempt_identity\": \"K6V1_S14/attempt_004\", \"geometry_hash_sha256\": \"2ca095e5b5a51691d08b5abb46866e6d67b29ff591ef902988e0ff1cea377b3d\", \"gpu_resource_name\": \"GPU license audit\", \"integrated_pw\": true, \"manifest_authority\": \"PW_K6_SEED_DB_V1_GEOMETRY_MANIFEST_AUTHORITY\", \"manifest_index\": 18, \"mpi_ranks\": 1, \"ordered_D_nm\": [230, 140, 230, 110, 230, 210], \"output_root\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\", \"physical_contract_hash\": \"32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5\", \"pre_fsp\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S14\\\\attempt_004\\\\setup\\\\runtime.fsp\", \"pre_fsp_sha256\": \"4b355a9b736020e4ea0c4a9bf8efbd6bd1e1369f19f748745c12da415aa1bb4f\", \"production_science\": true, \"pw_contract\": {\"materials\": {\"mdc_sio2\": \"APCD_SIO2_NATIVE_M1\", \"mdc_tio2\": \"APCD_TIO2_NATIVE_M1\", \"substrate\": \"APCD_GAN_NATIVE_M1\", \"superstrate\": \"Air\"}, \"monitors\": {\"input\": \"MON_IN\", \"output\": \"MON_POSTNP\", \"pre\": \"MON_PRENP\"}, \"references_nm\": {\"MON_IN\": -50.0, \"MON_POSTNP\": 1722.0, \"MON_PRENP\": 1202.0}, \"samples_nm\": {\"MON_IN\": -100.0, \"MON_POSTNP\": 1800.0, \"MON_PRENP\": 1150.0}, \"stack_layers\": [[\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 316.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0]], \"wavelengths_nm\": [440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460]}, \"resource_class\": \"HEAVY\", \"resource_monitor_interval_s\": 30.0, \"resource_policy\": {\"gpu_physical_concurrency_cap\": 3, \"pw_integrated_max_concurrent\": 2}, \"resource_request\": {\"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"integrated_pw\": true, \"mpi_ranks\": 1, \"resource_class\": \"HEAVY\", \"safety_margin_ratio\": 0.25, \"threads\": 1}, \"runtime\": \"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\cases\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S14\\\\attempt_004\", \"safety_margin_ratio\": 0.25, \"scientific_launcher\": \"PW_PERIODIC_PLANAR\", \"task\": \"PW_K6_SEED_DB_V1_PRODUCTION_V1\", \"task_name\": \"APCD_PW_K6_K6V1_S14_attempt_004\", \"threads\": 1, \"attempt_id\": \"attempt_004\", \"attempt\": \"attempt_004\", \"case_id\": \"K6V1_S14\", \"exact_launch_permit_id\": \"R1v7kBxQW5Th6y3qDfkodVRb7AL3TI7U\"}",
+    "slot_id": "GLOBAL_SLOT_2",
+    "lease_token_hash": "09f239d01f47058dc8f9b8deaa0caa66a4e9fc38c33d567763db272bc113a56b",
+    "fencing_generation": 47,
+    "created_at": "2026-09-25T02:26:51.450619+00:00",
+    "updated_at": "2026-09-25T02:38:35.031754+00:00"
+  },
+  "control": {
+    "control_id": 1,
+    "new_entry_hold": 1,
+    "temporary_runtime_cap": 1,
+    "health_status": "PASS",
+    "control_generation": 15,
+    "updated_at": "2026-09-24T16:46:43.014065+00:00"
+  },
+  "slot": {
+    "slot_id": "GLOBAL_SLOT_2",
+    "state": "FREE",
+    "owner_branch": null,
+    "logical_case_id": null,
+    "attempt_id": null,
+    "lease_token": null,
+    "fencing_generation": 47,
+    "acquired_at": null,
+    "solver_entered_at": null,
+    "heartbeat_at": null,
+    "updated_at": "2026-09-25T02:28:08.266844+00:00",
+    "version": 1353
+  },
+  "s15": {
+    "queue_id": 45,
+    "branch_id": "coupling_ml",
+    "logical_case_id": "K6V1_S15",
+    "attempt_id": "attempt_001",
+    "state": "WAIT_RESOURCE_CAPACITY",
+    "payload_json": "{\"_v3_admission\": {\"backend\": {\"BACKEND_PREFLIGHT\": \"PASS\", \"RESOURCE_PREFLIGHT\": \"PASS\", \"active_backend_owners\": [], \"attempt_id\": \"\", \"branch\": \"coupling_ml\", \"logical_case_id\": \"\", \"reasons\": [], \"requested_backend\": \"GPU\", \"status\": \"PASS\"}, \"branch_active_count\": 0, \"branch_enabled\": true, \"control_generation\": 15, \"effective_branch_entry_limit\": 1, \"eligible\": false, \"exact_launch_permit\": {\"reason\": \"EXACT_PERMIT_NOT_REQUESTED\", \"valid\": false}, \"final_recheck\": false, \"formal_branch_cap\": 2, \"global_active_count\": 0, \"global_cap\": 3, \"gpu_active_owner_count\": 0, \"gpu_physical_concurrency_cap\": 3, \"health_blockers\": [], \"health_status\": \"PASS\", \"new_entry_hold\": true, \"owner_fencing_reservation\": null, \"reasons\": [\"NEW_ENTRY_HOLD\"], \"resource\": {\"RESOURCE_PREFLIGHT\": \"PASS\", \"active_integrated_pw_count\": 0, \"active_reservation_count\": 0, \"branch\": \"coupling_ml\", \"projected_commit_bytes\": 15000000000, \"projected_peak_ram_bytes\": 10000000000, \"pw_integrated_max_concurrent\": 2, \"reasons\": [], \"request\": {\"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"integrated_pw\": true, \"mpi_ranks\": 1, \"resource_class\": \"HEAVY\", \"safety_margin_ratio\": 0.25, \"threads\": 1}, \"reserved_commit_bytes\": 0, \"reserved_peak_ram_bytes\": 0, \"safety_margin_ratio\": 0.25, \"snapshot\": {\"available_commit_bytes\": 261686054912, \"available_physical_bytes\": 248985399296, \"captured_utc\": \"2026-09-25T03:54:01.529738+00:00\", \"current_commit_bytes\": 30001655808, \"engine_process_count\": 0, \"engine_working_set_bytes\": 0, \"mpiexec_process_count\": 0, \"pagefile_headroom_bytes\": 261686054912, \"process_count\": 299, \"process_errors\": [], \"smpd_process_count\": 1, \"status\": \"PASS\", \"total_commit_bytes\": 291687710720, \"total_physical_bytes\": 274506870784}, \"status\": \"PASS\", \"unknown_active_slot_count\": 0}, \"temporary_runtime_cap\": 1, \"updated_utc\": \"2026-09-25T03:54:01.560214+00:00\"}, \"attempt_root\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S15\\\\attempt_001\", \"backend_type\": \"GPU\", \"entry_confirmation_poll_s\": 0.5, \"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"geometry_hash_sha256\": \"44ce888fac542b11c7a88046c937e9bb189cb1b7352c6153e97dee844a274ac1\", \"gpu_resource_name\": \"GPU license audit\", \"integrated_pw\": true, \"manifest_authority\": \"PW_K6_SEED_DB_V1_GEOMETRY_MANIFEST_AUTHORITY\", \"manifest_index\": 19, \"mpi_ranks\": 1, \"ordered_D_nm\": [110, 135, 180, 230, 230, 100], \"output_root\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\", \"physical_contract_hash\": \"32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5\", \"pre_fsp\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S15\\\\attempt_001\\\\setup\\\\runtime.fsp\", \"pre_fsp_sha256\": \"4a374af152eef7485d979710842c21e195689afa791971cca6cc4ce582914e30\", \"production_science\": true, \"pw_contract\": {\"materials\": {\"mdc_sio2\": \"APCD_SIO2_NATIVE_M1\", \"mdc_tio2\": \"APCD_TIO2_NATIVE_M1\", \"substrate\": \"APCD_GAN_NATIVE_M1\", \"superstrate\": \"Air\"}, \"monitors\": {\"input\": \"MON_IN\", \"output\": \"MON_POSTNP\", \"pre\": \"MON_PRENP\"}, \"references_nm\": {\"MON_IN\": -50.0, \"MON_POSTNP\": 1722.0, \"MON_PRENP\": 1202.0}, \"samples_nm\": {\"MON_IN\": -100.0, \"MON_POSTNP\": 1800.0, \"MON_PRENP\": 1150.0}, \"stack_layers\": [[\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 316.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0]], \"wavelengths_nm\": [440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460]}, \"resource_class\": \"HEAVY\", \"resource_monitor_interval_s\": 30.0, \"resource_policy\": {\"gpu_physical_concurrency_cap\": 3, \"pw_integrated_max_concurrent\": 2}, \"resource_request\": {\"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"integrated_pw\": true, \"mpi_ranks\": 1, \"resource_class\": \"HEAVY\", \"safety_margin_ratio\": 0.25, \"threads\": 1}, \"runtime\": \"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\cases\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S15\\\\attempt_001\", \"safety_margin_ratio\": 0.25, \"scientific_launcher\": \"PW_PERIODIC_PLANAR\", \"task\": \"PW_K6_SEED_DB_V1_PRODUCTION_V1\", \"task_name\": \"APCD_PW_K6_K6V1_S15_attempt_001\", \"threads\": 1}",
+    "slot_id": null,
+    "lease_token_hash": null,
+    "fencing_generation": null,
+    "created_at": "2026-09-24T07:33:24.761718+00:00",
+    "updated_at": "2026-09-25T03:54:01.562215+00:00"
+  },
+  "s16": {
+    "queue_id": 46,
+    "branch_id": "coupling_ml",
+    "logical_case_id": "K6V1_S16",
+    "attempt_id": "attempt_001",
+    "state": "WAIT_RESOURCE_CAPACITY",
+    "payload_json": "{\"_v3_admission\": {\"backend\": {\"BACKEND_PREFLIGHT\": \"PASS\", \"RESOURCE_PREFLIGHT\": \"PASS\", \"active_backend_owners\": [], \"attempt_id\": \"\", \"branch\": \"coupling_ml\", \"logical_case_id\": \"\", \"reasons\": [], \"requested_backend\": \"GPU\", \"status\": \"PASS\"}, \"branch_active_count\": 0, \"branch_enabled\": true, \"control_generation\": 15, \"effective_branch_entry_limit\": 1, \"eligible\": false, \"exact_launch_permit\": {\"reason\": \"EXACT_PERMIT_NOT_REQUESTED\", \"valid\": false}, \"final_recheck\": false, \"formal_branch_cap\": 2, \"global_active_count\": 0, \"global_cap\": 3, \"gpu_active_owner_count\": 0, \"gpu_physical_concurrency_cap\": 3, \"health_blockers\": [], \"health_status\": \"PASS\", \"new_entry_hold\": true, \"owner_fencing_reservation\": null, \"reasons\": [\"NEW_ENTRY_HOLD\"], \"resource\": {\"RESOURCE_PREFLIGHT\": \"PASS\", \"active_integrated_pw_count\": 0, \"active_reservation_count\": 0, \"branch\": \"coupling_ml\", \"projected_commit_bytes\": 15000000000, \"projected_peak_ram_bytes\": 10000000000, \"pw_integrated_max_concurrent\": 2, \"reasons\": [], \"request\": {\"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"integrated_pw\": true, \"mpi_ranks\": 1, \"resource_class\": \"HEAVY\", \"safety_margin_ratio\": 0.25, \"threads\": 1}, \"reserved_commit_bytes\": 0, \"reserved_peak_ram_bytes\": 0, \"safety_margin_ratio\": 0.25, \"snapshot\": {\"available_commit_bytes\": 261850017792, \"available_physical_bytes\": 249142755328, \"captured_utc\": \"2026-09-25T03:54:01.674918+00:00\", \"current_commit_bytes\": 29837692928, \"engine_process_count\": 0, \"engine_working_set_bytes\": 0, \"mpiexec_process_count\": 0, \"pagefile_headroom_bytes\": 261850017792, \"process_count\": 298, \"process_errors\": [], \"smpd_process_count\": 1, \"status\": \"PASS\", \"total_commit_bytes\": 291687710720, \"total_physical_bytes\": 274506870784}, \"status\": \"PASS\", \"unknown_active_slot_count\": 0}, \"temporary_runtime_cap\": 1, \"updated_utc\": \"2026-09-25T03:54:01.713132+00:00\"}, \"attempt_root\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S16\\\\attempt_001\", \"backend_type\": \"GPU\", \"entry_confirmation_poll_s\": 0.5, \"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"geometry_hash_sha256\": \"909d242ab2c06ff40f591603f19a546423cdf12a38e05459e99ff336ef6e69af\", \"gpu_resource_name\": \"GPU license audit\", \"integrated_pw\": true, \"manifest_authority\": \"PW_K6_SEED_DB_V1_GEOMETRY_MANIFEST_AUTHORITY\", \"manifest_index\": 20, \"mpi_ranks\": 1, \"ordered_D_nm\": [175, 230, 230, 230, 100, 220], \"output_root\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\", \"physical_contract_hash\": \"32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5\", \"pre_fsp\": \"D:\\\\project\\\\worktrees\\\\blue_apcd_mdc_np_coupling_ml_v1\\\\outputs\\\\coupling_ml\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S16\\\\attempt_001\\\\setup\\\\runtime.fsp\", \"pre_fsp_sha256\": \"641d0fdb57b6c5ecf1267841a41d6edbfd0ca13e38f068fc1611ae1a18b7ac08\", \"production_science\": true, \"pw_contract\": {\"materials\": {\"mdc_sio2\": \"APCD_SIO2_NATIVE_M1\", \"mdc_tio2\": \"APCD_TIO2_NATIVE_M1\", \"substrate\": \"APCD_GAN_NATIVE_M1\", \"superstrate\": \"Air\"}, \"monitors\": {\"input\": \"MON_IN\", \"output\": \"MON_POSTNP\", \"pre\": \"MON_PRENP\"}, \"references_nm\": {\"MON_IN\": -50.0, \"MON_POSTNP\": 1722.0, \"MON_PRENP\": 1202.0}, \"samples_nm\": {\"MON_IN\": -100.0, \"MON_POSTNP\": 1800.0, \"MON_PRENP\": 1150.0}, \"stack_layers\": [[\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 316.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0], [\"APCD_TIO2_NATIVE_M1\", 44.0], [\"APCD_SIO2_NATIVE_M1\", 79.0]], \"wavelengths_nm\": [440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460]}, \"resource_class\": \"HEAVY\", \"resource_monitor_interval_s\": 30.0, \"resource_policy\": {\"gpu_physical_concurrency_cap\": 3, \"pw_integrated_max_concurrent\": 2}, \"resource_request\": {\"estimated_commit_bytes\": 12000000000, \"estimated_peak_ram_bytes\": 8000000000, \"integrated_pw\": true, \"mpi_ranks\": 1, \"resource_class\": \"HEAVY\", \"safety_margin_ratio\": 0.25, \"threads\": 1}, \"runtime\": \"D:\\\\apcd_runtime\\\\global_fdtd_control_v3\\\\cases\\\\PW_K6_SEED_DB_V1_PRODUCTION_V1\\\\K6V1_S16\\\\attempt_001\", \"safety_margin_ratio\": 0.25, \"scientific_launcher\": \"PW_PERIODIC_PLANAR\", \"task\": \"PW_K6_SEED_DB_V1_PRODUCTION_V1\", \"task_name\": \"APCD_PW_K6_K6V1_S16_attempt_001\", \"threads\": 1}",
+    "slot_id": null,
+    "lease_token_hash": null,
+    "fencing_generation": null,
+    "created_at": "2026-09-24T07:33:24.876879+00:00",
+    "updated_at": "2026-09-25T03:54:01.715145+00:00"
+  },
+  "live_attempt_processes": [],
+  "persistence_active": false,
+  "autofill_disabled": true,
+  "solver_invocations": 0,
+  "scientific_entries": 0,
+  "recovery_transaction_count_before": 0
+}

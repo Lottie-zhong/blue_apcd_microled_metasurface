@@ -1,0 +1,251 @@
+{
+  "status": "PARTIAL",
+  "runner_fake_transport": "PASS",
+  "test_fixture_only": true,
+  "real_solver_entries": 0,
+  "fake_database_entries": 2,
+  "same_job_no_replay": "PASS",
+  "cross_batch_scientific_duplicate_rejection": "FAIL: same input submitted under third batch; job_id No Replay misses scientific identity",
+  "incorrect_declared_SHA_rejection": "FAIL: all fake submissions accepted deliberately wrong SHA",
+  "mutex_HOLD_no_entry": "PASS",
+  "no_authority_profile_rejection": "PASS",
+  "mock_609D_numeric_core": "PASS",
+  "isolated_fixture_ledger_reconciliation": "PASS",
+  "states": {
+    "AL_FAKE_B": {
+      "schema": "APCD_COUPLING_BATCH_ENTRY_LEDGER_V1",
+      "batch_id": "AL_FAKE_B",
+      "admission_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "authorized_entry_budget": 1,
+      "no_replay": true,
+      "replay_count": 0,
+      "entered_case_ids": [
+        "AL_FAKE_1"
+      ],
+      "entered_count": 1,
+      "remaining_unentered_case_ids": [],
+      "remaining_unentered_count": 0,
+      "truth_valid_case_ids": [
+        "AL_FAKE_1"
+      ],
+      "truth_valid_count": 1,
+      "labels_valid_case_ids": [
+        "AL_FAKE_1"
+      ],
+      "labels_valid_count": 1,
+      "case_records": {
+        "AL_FAKE_1": {
+          "attempt_id": "attempt_001",
+          "phase": "OFFLINE_FIXTURE_VALIDATED",
+          "entry_count": 1,
+          "replay_count": 0,
+          "truth_valid": true,
+          "labels_valid": true,
+          "solver_entered": false,
+          "fixture_only": true,
+          "science_receipt_sha256": "181dc493291099f9d04562ce2b967c36ed7a779d57f21edef71658ffb66373d8"
+        }
+      }
+    },
+    "AL_FAKE_C": {
+      "schema": "APCD_COUPLING_BATCH_ENTRY_LEDGER_V1",
+      "batch_id": "AL_FAKE_C",
+      "admission_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "authorized_entry_budget": 1,
+      "no_replay": true,
+      "replay_count": 0,
+      "entered_case_ids": [
+        "AL_FAKE_2"
+      ],
+      "entered_count": 1,
+      "remaining_unentered_case_ids": [],
+      "remaining_unentered_count": 0,
+      "truth_valid_case_ids": [
+        "AL_FAKE_2"
+      ],
+      "truth_valid_count": 1,
+      "labels_valid_case_ids": [
+        "AL_FAKE_2"
+      ],
+      "labels_valid_count": 1,
+      "case_records": {
+        "AL_FAKE_2": {
+          "attempt_id": "attempt_001",
+          "phase": "OFFLINE_FIXTURE_VALIDATED",
+          "entry_count": 1,
+          "replay_count": 0,
+          "truth_valid": true,
+          "labels_valid": true,
+          "solver_entered": false,
+          "fixture_only": true,
+          "science_receipt_sha256": "9ee8d05c035fb5fed127517d1fc180a8b25cfc778a29a639508b81d498eb258d"
+        }
+      }
+    }
+  },
+  "receipts": {
+    "AL_FAKE_B": {
+      "schema": "APCD_COUPLING_SCIENCE_VALIDITY_RECEIPT_V1",
+      "verdict": "PASS",
+      "outputs": 609,
+      "scientific_validated": true,
+      "batch_id": "AL_FAKE_B",
+      "case_id": "AL_FAKE_1",
+      "attempt_id": "attempt_001",
+      "admission_file_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "science_receipt_sha256": "181dc493291099f9d04562ce2b967c36ed7a779d57f21edef71658ffb66373d8",
+      "TEST_FIXTURE_ONLY": true,
+      "native_truth_validated": false,
+      "numeric_core": {
+        "outputs": 609,
+        "target_sha256": "39f497a4aaf008bea2a6934306d685b234401dfd9752b0e234fdec6f017628ab",
+        "h2_eta_max_abs_delta": 0.0
+      }
+    },
+    "AL_FAKE_C": {
+      "schema": "APCD_COUPLING_SCIENCE_VALIDITY_RECEIPT_V1",
+      "verdict": "PASS",
+      "outputs": 609,
+      "scientific_validated": true,
+      "batch_id": "AL_FAKE_C",
+      "case_id": "AL_FAKE_2",
+      "attempt_id": "attempt_001",
+      "admission_file_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "science_receipt_sha256": "9ee8d05c035fb5fed127517d1fc180a8b25cfc778a29a639508b81d498eb258d",
+      "TEST_FIXTURE_ONLY": true,
+      "native_truth_validated": false,
+      "numeric_core": {
+        "outputs": 609,
+        "target_sha256": "39f497a4aaf008bea2a6934306d685b234401dfd9752b0e234fdec6f017628ab",
+        "h2_eta_max_abs_delta": 0.0
+      }
+    }
+  },
+  "positive_pipeline": "official CLI fake copy -> synthetic numeric 609D injected fixture -> mock receipt -> existing isolated ledger; no native H5 or physical-label validity asserted",
+  "native_H5_to_609D": "BLOCKED: deployed Runner only saves FSP; separate native E/H exporter and authorized record sidecar not wired",
+  "production_ledger_modified": false,
+  "logs": [
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "submit",
+        "AL_FAKE_B",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db",
+        "--manifest",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\AL_FAKE_B.json"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 0,
+      "stdout": "Batch AL_FAKE_B submitted\n",
+      "stderr": "[2026-10-17 14:13:31,493] INFO: Batch AL_FAKE_B submitted (ID 1)\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "submit",
+        "AL_FAKE_C",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db",
+        "--manifest",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\AL_FAKE_C.json"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 0,
+      "stdout": "Batch AL_FAKE_C submitted\n",
+      "stderr": "[2026-10-17 14:13:32,053] INFO: Batch AL_FAKE_C submitted (ID 2)\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "submit",
+        "AL_FAKE_CROSS_BATCH_DUP",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db",
+        "--manifest",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\AL_FAKE_CROSS_BATCH_DUP.json"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 0,
+      "stdout": "Batch AL_FAKE_CROSS_BATCH_DUP submitted\n",
+      "stderr": "[2026-10-17 14:13:32,619] INFO: Batch AL_FAKE_CROSS_BATCH_DUP submitted (ID 3)\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "submit",
+        "AL_FAKE_B",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db",
+        "--manifest",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\AL_FAKE_B.json"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 1,
+      "stdout": "Submit failed: UNIQUE constraint failed: batches.name\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "run",
+        "AL_FAKE_B",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db",
+        "--fake-solver"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 0,
+      "stdout": "Running batch AL_FAKE_B\nCompleted: 1, Failed: 0\n",
+      "stderr": "[2026-10-17 14:13:33,379] INFO: Starting job 1\n[2026-10-17 14:13:33,380] INFO: GPU lock acquired\n[2026-10-17 14:13:33,451] INFO: Solver entry recorded atomically for job 1 (attempt attempt_1_17613)\n[2026-10-17 14:13:34,087] INFO: Job 1 completed. Output: 53 bytes\n[2026-10-17 14:13:34,087] INFO: GPU lock released\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "status",
+        "AL_FAKE_B",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 0,
+      "stdout": "Batch: AL_FAKE_B\n  Total: 1\n  Completed: 1\n  Pending: 0\n  Failed: 0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "run",
+        "AL_FAKE_C",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db",
+        "--fake-solver"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 0,
+      "stdout": "Running batch AL_FAKE_C\nCompleted: 1, Failed: 0\n",
+      "stderr": "[2026-10-17 14:13:34,857] INFO: Starting job 2\n[2026-10-17 14:13:34,861] INFO: GPU lock acquired\n[2026-10-17 14:13:34,960] INFO: Solver entry recorded atomically for job 2 (attempt attempt_2_17614)\n[2026-10-17 14:13:35,570] INFO: Job 2 completed. Output: 53 bytes\n[2026-10-17 14:13:35,571] INFO: GPU lock released\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\DELL\\anaconda3\\python.exe",
+        "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+        "status",
+        "AL_FAKE_C",
+        "--db",
+        "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture\\TEST_ONLY_runner.db"
+      ],
+      "cwd": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_ACTIVE_LEARNING_MAINLINE_V1\\fake_runner_fixture",
+      "returncode": 0,
+      "stdout": "Batch: AL_FAKE_C\n  Total: 1\n  Completed: 1\n  Pending: 0\n  Failed: 0\n",
+      "stderr": ""
+    }
+  ]
+}
