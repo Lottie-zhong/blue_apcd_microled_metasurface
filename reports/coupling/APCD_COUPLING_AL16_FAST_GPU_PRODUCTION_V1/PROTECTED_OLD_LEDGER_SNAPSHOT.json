@@ -1,0 +1,113 @@
+{
+  "path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_ML_GPU_V31_FINAL_HANDOFF_AND_DIAG2_BINDING\\DIAG2_SCIENCE_LEDGER.json",
+  "content": {
+    "schema": "APCD_COUPLING_DIAG2_V31_SCIENCE_BINDING_LEDGER_V1",
+    "authority": "User APCD_COUPLING_DIAG2_V31_CONTROLLED_REAL_EXECUTION_V1: original2 budget, A1 then scientific acceptance PASS then A2; no replay",
+    "budget_source": "Original DIAG2, not additional allocation",
+    "inherited_total_limit": 2,
+    "new_budget": 0,
+    "per_case_limit": 1,
+    "entered_total": 1,
+    "execution_authorized": false,
+    "sole_supported_executor": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\minimal_batch_runner_v3.1_final.py",
+    "sole_entry_evidence_db": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\data\\runner_v31.db",
+    "consumption_rule": "Conservatively count every REAL reservation in canonical solver_entries for the fixed external identities, regardless backend success. SQLite reservation is authoritative entry event; this science ledger is its bound scientific projection. Reconcile before and after every command; mismatch HOLD, no refund/re-ID/replay.",
+    "legacy_entry_policy": "V2.1/V1 disabled, DENY_NO_PROFILES_NO_ADMISSION; never authorize them or issue another DIAG2 ledger. No software fencing claim for unsupported manual scripts.",
+    "cases": [
+      {
+        "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+        "science_batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+        "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "attempt_id": "attempt_001",
+        "external_execution_id": "coupling:K6V3_TIME_DIAG2_A1_5NM_6PS/attempt_001",
+        "external_job_id": "coupling:K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "runner_batch_name": "K6V3_TIME_DIAG2_V1_BATCH_001__EXEC__K6V3_TIME_DIAG2_A1_5NM_6PS",
+        "runner_batch_id": 1,
+        "runner_job_id": 1,
+        "runner_db": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\data\\runner_v31.db",
+        "source_fsp": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A1_5NM_6PS\\attempt_001\\pre.fsp",
+        "source_fsp_sha256": "7d9f237ca3a57a2240c8a3cd3d753f8fe85f201ca132557b54336622252a3a6c",
+        "physical_contract_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+        "case_request_sha256": "7a850ee7eecbdbdb697a02915f70efb4389f17ada01e60624890557768021e81",
+        "entry_id": 1,
+        "solver_entered": true,
+        "entered_count": 1,
+        "max_entries": 1,
+        "status": "HOLD_NUMERICAL_REVIEW",
+        "output_directory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\data\\outputs\\runner_v31\\batch_1\\job_1",
+        "resource_requirements": {
+          "gpu_free_mib": 2048,
+          "ram_free_mib": 8192,
+          "disk_free_gib": 10,
+          "cpu_threads": 1,
+          "license_features": {
+            "lumerical_gui": 1,
+            "lumerical_solve": 1,
+            "anshpc": 64
+          }
+        },
+        "entry": {
+          "id": 1,
+          "job_id": 1,
+          "attempt_id": "attempt_001",
+          "entered_at": "2026-10-17T13:03:54.821103+00:00",
+          "external_execution_id": "coupling:K6V3_TIME_DIAG2_A1_5NM_6PS/attempt_001",
+          "solver_entered": 1,
+          "pre_fsp_sha256": "7d9f237ca3a57a2240c8a3cd3d753f8fe85f201ca132557b54336622252a3a6c",
+          "physical_contract_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+          "case_id": "K6V3_TIME_DIAG2_A1_5NM_6PS",
+          "execution_mode": "REAL"
+        },
+        "runner_status": "COMPLETED",
+        "truth_valid": true,
+        "labels_valid": true,
+        "scientific_acceptance": "HOLD_NUMERICAL_REVIEW",
+        "science_receipt": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V31_CONTROLLED_REAL_EXECUTION_V1\\A1_science\\SCIENCE_RECEIPT.json"
+      },
+      {
+        "dataset_id": "APCD_COUPLING_V3_TIME_DIAG2_V1",
+        "science_batch_id": "K6V3_TIME_DIAG2_V1_BATCH_001",
+        "case_id": "K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "attempt_id": "attempt_001",
+        "external_execution_id": "coupling:K6V3_TIME_DIAG2_A2_5NM_6PS/attempt_001",
+        "external_job_id": "coupling:K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "runner_batch_name": "K6V3_TIME_DIAG2_V1_BATCH_001__EXEC__K6V3_TIME_DIAG2_A2_5NM_6PS",
+        "runner_batch_id": 2,
+        "runner_job_id": 2,
+        "runner_db": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\data\\runner_v31.db",
+        "source_fsp": "D:\\apcd_runtime\\coupling_v3_time_diag2_v1\\candidate_setups\\K6V3_TIME_DIAG2_A2_5NM_6PS\\attempt_001\\pre.fsp",
+        "source_fsp_sha256": "15042dc7d58eeab35ce00a900d1bb979de58c19c182b18723924c184a48c9739",
+        "physical_contract_sha256": "51212d0c69f2112add3ee4008eb51a8aa94e380c39624d93d31e5f75e7be0e36",
+        "case_request_sha256": "8b067085b1a2af1af48877e1fc9eef85e045301e7b3d741a59b31f8e082f891a",
+        "entry_id": null,
+        "solver_entered": false,
+        "entered_count": 0,
+        "max_entries": 1,
+        "status": "HOLD_NOT_ENTERED",
+        "output_directory": "D:\\apcd_runtime\\gpu_platform_v2_serial_production_v1\\minimal_runner_v3\\data\\outputs\\runner_v31\\batch_2\\job_2",
+        "resource_requirements": {
+          "gpu_free_mib": 2048,
+          "ram_free_mib": 8192,
+          "disk_free_gib": 10,
+          "cpu_threads": 1,
+          "license_features": {
+            "lumerical_gui": 1,
+            "lumerical_solve": 1,
+            "anshpc": 64
+          }
+        },
+        "entry": null,
+        "runner_status": "PENDING",
+        "truth_valid": false,
+        "labels_valid": false
+      }
+    ],
+    "DOE56": "HOLD",
+    "AL16": "NOT_AUTHORIZED",
+    "execution_authority_record": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\APCD_COUPLING_DIAG2_V31_CONTROLLED_REAL_EXECUTION_V1\\CONTROLLED_REAL_EXECUTION_AUTHORITY.json",
+    "remaining_total": 1,
+    "truth_valid_total": 1,
+    "labels_valid_total": 1,
+    "current_task_closed": true
+  }
+}

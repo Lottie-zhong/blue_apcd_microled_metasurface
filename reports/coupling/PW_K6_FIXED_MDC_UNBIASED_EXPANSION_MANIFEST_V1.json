@@ -1,0 +1,1291 @@
+{
+  "schema": "PW_K6_FIXED_MDC_UNBIASED_EXPANSION_MANIFEST_V1",
+  "status": "DESIGN_ONLY_CHART_REVIEW_PENDING",
+  "generated_at_utc": "2026-09-28T14:04:22.773361+00:00",
+  "solver_invocations_actual": 0,
+  "queue_mutations_actual": 0,
+  "label_blind": true,
+  "integrated_pw_labels_used_for_selection": false,
+  "surrogate_or_active_learning_used": false,
+  "np_prior_used_for_selection": false,
+  "np_prior_closeout": {
+    "NP_V1_SCIENTIFIC_EVIDENCE": "VALID",
+    "NP_V2_SCIENTIFIC_PRIOR": "NOT_ACCEPTED",
+    "NP_PRIOR_FOR_CURRENT_H1_MAINLINE": "CLOSED",
+    "NP_RANKING_PROVIDER_FUTURE_SCREENING_ROLE": "RETAINED"
+  },
+  "geometry_domain_authority": {
+    "path": "reports/coupling/PW_K6_GEOMETRY_DOMAIN_AUTHORITY_V1.json",
+    "sha256": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+    "status": "PASS_RECOVERED_CLOSED_CANDIDATE_DOMAIN",
+    "grammar": {
+      "K": 6,
+      "ordered_parameters": [
+        "D1_nm",
+        "D2_nm",
+        "D3_nm",
+        "D4_nm",
+        "D5_nm",
+        "D6_nm"
+      ],
+      "observed_bounds_nm": [
+        100,
+        230
+      ],
+      "grid_step_nm": 5,
+      "position_sensitive": true,
+      "sorting_forbidden": true,
+      "pitch_nm": 290,
+      "height_nm": 500
+    },
+    "distance_convention": "sqrt(sum(((x-y)/130.0)^2 for x,y in zip(a,b)))",
+    "fabrication_constraint_status": "UNRESOLVED_INDEPENDENT_FILE_NOT_IDENTIFIED; no manufacturing acceptance inferred; extension restricted to frozen candidate pool"
+  },
+  "exclusion_registry": {
+    "path": "reports/coupling/PW_K6_GEOMETRY_EXCLUSION_REGISTRY_V1.json",
+    "sha256": "78f48a4400d5ab469a2054a8ad849d5cae16cb4bee042e2b542529a78973bb80",
+    "status": "FROZEN_PRE_SOLVER",
+    "protected_geometry_count": 25,
+    "reused_unchanged": true
+  },
+  "candidate_pool": {
+    "path": "reports/coupling/PW_K6_EXTENSION_ELIGIBLE_CANDIDATE_POOL_V1.json",
+    "sha256": "387112fda12b2fbee0b2e6e4185014e0fad4bbb825b2d9e6cded865b4988073d",
+    "source_path": null,
+    "source_sha256": null,
+    "origin": null,
+    "candidate_count": 48,
+    "eligible_count": 32,
+    "constraint_fail_count": 0,
+    "selection_uses_only_geometry_domain_constraints": true
+  },
+  "frozen_physical_contract": {
+    "source_path": "reports/coupling/PW_K6_SEED_DB_V1_GEOMETRY_MANIFEST.json",
+    "sha256": "463ceaece52121b1a968d22881944c082a26041c16b4489c25b6a0b8f44db62b",
+    "contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+    "contract": {
+      "contract_id": "APCD_PW_PERIODIC_PLANAR_5NM_GPU_PRODUCTION_V3",
+      "contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+      "K": 6,
+      "p_nm": 290,
+      "Lambda_x_nm": 1740,
+      "Lambda_y_nm": 290,
+      "H_nm": 500,
+      "spacer_nm": 237,
+      "source": "GaN to air +z normal-incidence X-pol",
+      "wavelengths_nm": [
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460
+      ],
+      "boundary_contract": {
+        "x": "Periodic",
+        "y": "Periodic",
+        "z_min": "PML",
+        "z_max": "PML"
+      },
+      "modal_normalization": "PW_COMPLEX_FLOQUET_STATE_V1 complex lossy local-medium forward/backward amplitudes",
+      "energy_accounting": "R/T/A with complex incident-power proxy and existing admitted 5nm production TMM stack",
+      "mesh_convergence": "5NM_GPU_PRODUCTION_SCHEMA_V3 admitted seed contract; no contract changes",
+      "contract": {
+        "monitors": {
+          "input": "MON_IN",
+          "pre": "MON_PRENP",
+          "output": "MON_POSTNP"
+        },
+        "samples_nm": {
+          "MON_IN": -100.0,
+          "MON_PRENP": 1150.0,
+          "MON_POSTNP": 1800.0
+        },
+        "references_nm": {
+          "MON_IN": -50.0,
+          "MON_PRENP": 1202.0,
+          "MON_POSTNP": 1722.0
+        },
+        "materials": {
+          "substrate": "APCD_GAN_NATIVE_M1",
+          "mdc_tio2": "APCD_TIO2_NATIVE_M1",
+          "mdc_sio2": "APCD_SIO2_NATIVE_M1",
+          "superstrate": "Air"
+        },
+        "stack_layers": [
+          [
+            "APCD_TIO2_NATIVE_M1",
+            44.0
+          ],
+          [
+            "APCD_SIO2_NATIVE_M1",
+            79.0
+          ],
+          [
+            "APCD_TIO2_NATIVE_M1",
+            44.0
+          ],
+          [
+            "APCD_SIO2_NATIVE_M1",
+            79.0
+          ],
+          [
+            "APCD_TIO2_NATIVE_M1",
+            44.0
+          ],
+          [
+            "APCD_SIO2_NATIVE_M1",
+            316.0
+          ],
+          [
+            "APCD_TIO2_NATIVE_M1",
+            44.0
+          ],
+          [
+            "APCD_SIO2_NATIVE_M1",
+            79.0
+          ],
+          [
+            "APCD_TIO2_NATIVE_M1",
+            44.0
+          ],
+          [
+            "APCD_SIO2_NATIVE_M1",
+            79.0
+          ],
+          [
+            "APCD_TIO2_NATIVE_M1",
+            44.0
+          ],
+          [
+            "APCD_SIO2_NATIVE_M1",
+            79.0
+          ]
+        ],
+        "wavelengths_nm": [
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460
+        ]
+      }
+    },
+    "fixed_mdc": "P1_ZL1_ALTERNATIVE_G3_A3",
+    "spacer_nm": 237,
+    "pitch_nm": 290,
+    "lambda_x_nm": 1740,
+    "lambda_y_nm": 290,
+    "height_nm": 500,
+    "wavelengths_nm": [
+      440,
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460
+    ]
+  },
+  "selection_algorithm": {
+    "name": "deterministic_sequential_maximin",
+    "training_seed_set": "existing_frozen_20G",
+    "reserve_seed_set": "existing_frozen_20G_plus_training_12G",
+    "distance_metric": "sqrt(sum(((x-y)/130.0)^2 for x,y in zip(a,b)))",
+    "random_seed": null,
+    "tie_break": "lexicographically smallest ordered D1..D6 tuple",
+    "ordered_geometry_is_position_sensitive": true,
+    "sorting_or_permutation_equivalence": false,
+    "candidate_pool_order_used_for_tie_break": false
+  },
+  "existing_20G": [
+    {
+      "case_id": "K6V1_S02",
+      "ordered_D_nm": [
+        215,
+        105,
+        215,
+        230,
+        105,
+        130
+      ],
+      "geometry_hash_sha256": "947cf4b1a3b31e4bb4f5733805286f68335fc5caa2cdf244ad58b4b16312e2d3",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_S03",
+      "ordered_D_nm": [
+        230,
+        100,
+        130,
+        120,
+        230,
+        100
+      ],
+      "geometry_hash_sha256": "5383cc1b85e33126508aaff6f550b9138b83d145c539b919327ecbd3cb266263",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_S04",
+      "ordered_D_nm": [
+        205,
+        215,
+        105,
+        225,
+        180,
+        100
+      ],
+      "geometry_hash_sha256": "269db32fc25f6a85ff9d934aab5c99627265a9f87d8b2ba4b3887c8770a114a9",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_S05",
+      "ordered_D_nm": [
+        215,
+        225,
+        100,
+        125,
+        110,
+        220
+      ],
+      "geometry_hash_sha256": "c9214e73410f695ba239c80b39638afa2796b085e3efb062cbd34b6b11c6bd6b",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_S15",
+      "ordered_D_nm": [
+        110,
+        135,
+        180,
+        230,
+        230,
+        100
+      ],
+      "geometry_hash_sha256": "44ce888fac542b11c7a88046c937e9bb189cb1b7352c6153e97dee844a274ac1",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_S16",
+      "ordered_D_nm": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "geometry_hash_sha256": "909d242ab2c06ff40f591603f19a546423cdf12a38e05459e99ff336ef6e69af",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT01",
+      "ordered_D_nm": [
+        220,
+        210,
+        230,
+        225,
+        205,
+        105
+      ],
+      "geometry_hash_sha256": "f80b416b2794336a00873f440c4091fcbd940618fe11f9cf10f8e9a78985252f",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT02",
+      "ordered_D_nm": [
+        220,
+        120,
+        155,
+        100,
+        105,
+        110
+      ],
+      "geometry_hash_sha256": "b4413c3e5bf0203fdec29a2d468e4f59b4dc13160a90137211a9421c0201b56c",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT03",
+      "ordered_D_nm": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "geometry_hash_sha256": "604933a97fe3ecc2ae06531bdb3aab4713ec68c0d9d199a3f85c8321e7c70c12",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT04",
+      "ordered_D_nm": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "geometry_hash_sha256": "eecdbefc7ea91f551832695f16bee24e8fc75dd7a1d0531ffedbe0ee1e24c589",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT05",
+      "ordered_D_nm": [
+        210,
+        220,
+        100,
+        230,
+        195,
+        225
+      ],
+      "geometry_hash_sha256": "ec006f107038b5c8e51b994822679d974e5f54fa76eb2e5bbb2e062b3fc5485a",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT06",
+      "ordered_D_nm": [
+        165,
+        110,
+        115,
+        230,
+        155,
+        115
+      ],
+      "geometry_hash_sha256": "ba1a57e8c76f266871ef0f762ecca8d59db926ac495205deda700e83eeb10897",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT07",
+      "ordered_D_nm": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "geometry_hash_sha256": "b450ae6aa3f086cdbdd9f3c3908e3abe30384a426860e2d8f06d97ae94267765",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT08",
+      "ordered_D_nm": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "geometry_hash_sha256": "997a6002e429cf2246ee640c5680edb72e653b052f69e1a5b88cd772a5673518",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT09",
+      "ordered_D_nm": [
+        110,
+        225,
+        125,
+        210,
+        200,
+        145
+      ],
+      "geometry_hash_sha256": "826412effb8c3fff846db9d61c6bd6b22524c4ca3fe8f10a44557bb378b3a749",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT10",
+      "ordered_D_nm": [
+        230,
+        225,
+        190,
+        225,
+        105,
+        135
+      ],
+      "geometry_hash_sha256": "c44ce83df5c29d98f03a243ac3ff11e3f8211da0e1f95d48c8209fe1df26357d",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT11",
+      "ordered_D_nm": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "geometry_hash_sha256": "616cc661ef0a6ffca34d71da5afa4c7c01a1fec677302205fdd0eebcda7cb561",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT12",
+      "ordered_D_nm": [
+        100,
+        230,
+        230,
+        185,
+        225,
+        120
+      ],
+      "geometry_hash_sha256": "d172f4895359a2d29f5feb8a65f51b56ddb6c1b27ec712329d3b61ab5b0964a1",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT13",
+      "ordered_D_nm": [
+        100,
+        110,
+        115,
+        120,
+        225,
+        100
+      ],
+      "geometry_hash_sha256": "65493812dc8103a02b7ecf74fe915ba913a2d96bf04d09999bf69fcc0fd1bc36",
+      "role": "frozen_integrated_truth"
+    },
+    {
+      "case_id": "K6V1_EXT14",
+      "ordered_D_nm": [
+        110,
+        120,
+        100,
+        225,
+        105,
+        190
+      ],
+      "geometry_hash_sha256": "e17accef6e9fa3ff4d5a887a35d00c358dac04c7cdda60fc4ae3504c828bbb6d",
+      "role": "frozen_integrated_truth"
+    }
+  ],
+  "training_expansion_stage1": [
+    {
+      "candidate_id": "K6V1_S35",
+      "geometry_id": "K6V1_S35",
+      "ordered_D_nm": [
+        110,
+        145,
+        225,
+        105,
+        185,
+        215
+      ],
+      "geometry_hash_sha256": "bd6fb9a41c003910eeda456315bafb1962dd4335d1ec64ec055322e2f4a19276",
+      "normalized_geometry": [
+        0.076923076923,
+        0.346153846154,
+        0.961538461538,
+        0.038461538462,
+        0.653846153846,
+        0.884615384615
+      ],
+      "nearest_existing_20G_distance": 1.1678635731299214,
+      "nearest_existing_20G_geometry": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "nearest_other_candidate_pool_distance": 0.8104349040655953,
+      "selection_min_distance": 1.1678635731299214,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S39",
+      "geometry_id": "K6V1_S39",
+      "ordered_D_nm": [
+        175,
+        100,
+        125,
+        120,
+        100,
+        230
+      ],
+      "geometry_hash_sha256": "7c582e2c53da5394d6cdf446a1ee9e16a970264b1fc78312d3f304df52403729",
+      "normalized_geometry": [
+        0.576923076923,
+        0.0,
+        0.192307692308,
+        0.153846153846,
+        0.0,
+        1.0
+      ],
+      "nearest_existing_20G_distance": 1.029160627712281,
+      "nearest_existing_20G_geometry": [
+        110,
+        120,
+        100,
+        225,
+        105,
+        190
+      ],
+      "nearest_other_candidate_pool_distance": 0.7418192893071504,
+      "selection_min_distance": 1.029160627712281,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S21",
+      "geometry_id": "K6V1_S21",
+      "ordered_D_nm": [
+        120,
+        115,
+        230,
+        140,
+        110,
+        115
+      ],
+      "geometry_hash_sha256": "b76cc20026b4a260e3de72e55be3f4bb1e2665cb11a98c8d6f6d362088ac4bca",
+      "normalized_geometry": [
+        0.153846153846,
+        0.115384615385,
+        1.0,
+        0.307692307692,
+        0.076923076923,
+        0.115384615385
+      ],
+      "nearest_existing_20G_distance": 0.9569119465095944,
+      "nearest_existing_20G_geometry": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "nearest_other_candidate_pool_distance": 0.7975554366664508,
+      "selection_min_distance": 0.9569119465095944,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S42",
+      "geometry_id": "K6V1_S42",
+      "ordered_D_nm": [
+        195,
+        210,
+        165,
+        130,
+        230,
+        230
+      ],
+      "geometry_hash_sha256": "21f4de41082451078a32548654f1cefbd658317aa1144e596dc7d942fd9b6cee",
+      "normalized_geometry": [
+        0.730769230769,
+        0.846153846154,
+        0.5,
+        0.230769230769,
+        1.0,
+        1.0
+      ],
+      "nearest_existing_20G_distance": 0.9011826549123063,
+      "nearest_existing_20G_geometry": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "nearest_other_candidate_pool_distance": 0.7644079582442996,
+      "selection_min_distance": 0.9011826549123063,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S36",
+      "geometry_id": "K6V1_S36",
+      "ordered_D_nm": [
+        115,
+        210,
+        220,
+        100,
+        150,
+        100
+      ],
+      "geometry_hash_sha256": "1d0aee7a987b83b4a87c09484e1c2108032d08230176e1ee01219101e967296a",
+      "normalized_geometry": [
+        0.115384615385,
+        0.846153846154,
+        0.923076923077,
+        0.0,
+        0.384615384615,
+        0.0
+      ],
+      "nearest_existing_20G_distance": 0.871983388365741,
+      "nearest_existing_20G_geometry": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "nearest_other_candidate_pool_distance": 0.7975554366664508,
+      "selection_min_distance": 0.8626023650771463,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S31",
+      "geometry_id": "K6V1_S31",
+      "ordered_D_nm": [
+        220,
+        195,
+        210,
+        150,
+        140,
+        210
+      ],
+      "geometry_hash_sha256": "844bdc1487875afcf2b87400be032845f58e4647d29a91e9b41ee55c3cf1f765",
+      "normalized_geometry": [
+        0.923076923077,
+        0.730769230769,
+        0.846153846154,
+        0.384615384615,
+        0.307692307692,
+        0.846153846154
+      ],
+      "nearest_existing_20G_distance": 0.8338262841799539,
+      "nearest_existing_20G_geometry": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "nearest_other_candidate_pool_distance": 0.7682686290553146,
+      "selection_min_distance": 0.8338262841799539,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S45",
+      "geometry_id": "K6V1_S45",
+      "ordered_D_nm": [
+        195,
+        120,
+        105,
+        210,
+        220,
+        215
+      ],
+      "geometry_hash_sha256": "4651179bfda51ae9bbe48aa50cf6909acf29030ca192dd485a2e2b99daee5d7a",
+      "normalized_geometry": [
+        0.730769230769,
+        0.153846153846,
+        0.038461538462,
+        0.846153846154,
+        0.923076923077,
+        0.884615384615
+      ],
+      "nearest_existing_20G_distance": 0.8195106058716353,
+      "nearest_existing_20G_geometry": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "nearest_other_candidate_pool_distance": 0.7605276897417379,
+      "selection_min_distance": 0.8195106058716353,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S32",
+      "geometry_id": "K6V1_S32",
+      "ordered_D_nm": [
+        105,
+        190,
+        105,
+        115,
+        105,
+        225
+      ],
+      "geometry_hash_sha256": "e1b63a72b5157e5260a8243216e86f9d6e3e39ebb49d662c17eafced8a7fd18a",
+      "normalized_geometry": [
+        0.038461538462,
+        0.692307692308,
+        0.038461538462,
+        0.115384615385,
+        0.038461538462,
+        0.961538461538
+      ],
+      "nearest_existing_20G_distance": 0.8158924398306318,
+      "nearest_existing_20G_geometry": [
+        115,
+        230,
+        125,
+        105,
+        100,
+        130
+      ],
+      "nearest_other_candidate_pool_distance": 0.7984822881548729,
+      "selection_min_distance": 0.8158924398306318,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S47",
+      "geometry_id": "K6V1_S47",
+      "ordered_D_nm": [
+        165,
+        160,
+        105,
+        100,
+        230,
+        170
+      ],
+      "geometry_hash_sha256": "d35bc9a3166051ba8a68f8c7afe63b6a8a88e8a668abfe75a7957a56da77fa89",
+      "normalized_geometry": [
+        0.5,
+        0.461538461538,
+        0.038461538462,
+        0.0,
+        1.0,
+        0.538461538462
+      ],
+      "nearest_existing_20G_distance": 0.8076923076923077,
+      "nearest_existing_20G_geometry": [
+        105,
+        230,
+        100,
+        100,
+        230,
+        220
+      ],
+      "nearest_other_candidate_pool_distance": 0.7358125565272688,
+      "selection_min_distance": 0.8076923076923077,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S33",
+      "geometry_id": "K6V1_S33",
+      "ordered_D_nm": [
+        170,
+        175,
+        155,
+        150,
+        190,
+        105
+      ],
+      "geometry_hash_sha256": "4e075a6a18a4fb86d7cf0d12fe7dff4423dc5d33c3a76e70e2d2be49e1fabe84",
+      "normalized_geometry": [
+        0.538461538462,
+        0.576923076923,
+        0.423076923077,
+        0.384615384615,
+        0.692307692308,
+        0.038461538462
+      ],
+      "nearest_existing_20G_distance": 0.8049403667867827,
+      "nearest_existing_20G_geometry": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "nearest_other_candidate_pool_distance": 0.8049403667867827,
+      "selection_min_distance": 0.8049403667867827,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S37",
+      "geometry_id": "K6V1_S37",
+      "ordered_D_nm": [
+        215,
+        170,
+        110,
+        180,
+        105,
+        130
+      ],
+      "geometry_hash_sha256": "e0bb66317b39068c22e4ef3d8b4a6d4eca1da3188032583f4f9225b9780a6bd3",
+      "normalized_geometry": [
+        0.884615384615,
+        0.538461538462,
+        0.076923076923,
+        0.615384615385,
+        0.038461538462,
+        0.230769230769
+      ],
+      "nearest_existing_20G_distance": 0.7956984948298923,
+      "nearest_existing_20G_geometry": [
+        205,
+        215,
+        105,
+        225,
+        180,
+        100
+      ],
+      "nearest_other_candidate_pool_distance": 0.7956984948298923,
+      "selection_min_distance": 0.7956984948298923,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S48",
+      "geometry_id": "K6V1_S48",
+      "ordered_D_nm": [
+        110,
+        100,
+        225,
+        205,
+        195,
+        175
+      ],
+      "geometry_hash_sha256": "8c57542c2a7f609bf03d3b379662e4eaf7b39bbcc881e174f5d2480b9828f894",
+      "normalized_geometry": [
+        0.076923076923,
+        0.0,
+        0.961538461538,
+        0.807692307692,
+        0.730769230769,
+        0.576923076923
+      ],
+      "nearest_existing_20G_distance": 0.789164789564738,
+      "nearest_existing_20G_geometry": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "nearest_other_candidate_pool_distance": 0.7759323462243083,
+      "selection_min_distance": 0.7891647895647381,
+      "source_pool_index": null
+    }
+  ],
+  "prospective_reserve_only": [
+    {
+      "candidate_id": "K6V1_S22",
+      "geometry_id": "K6V1_S22",
+      "ordered_D_nm": [
+        230,
+        130,
+        105,
+        120,
+        180,
+        220
+      ],
+      "geometry_hash_sha256": "6dcb4c15db3adc8c09c143132e4c3aae14b2918540b00a2f6284091e591d158c",
+      "normalized_geometry": [
+        1.0,
+        0.230769230769,
+        0.038461538462,
+        0.153846153846,
+        0.615384615385,
+        0.923076923077
+      ],
+      "nearest_existing_20G_distance": 0.9166442529086911,
+      "nearest_existing_20G_geometry": [
+        215,
+        225,
+        100,
+        125,
+        110,
+        220
+      ],
+      "nearest_other_candidate_pool_distance": 0.7891647895647381,
+      "selection_min_distance": 0.7891647895647381,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S40",
+      "geometry_id": "K6V1_S40",
+      "ordered_D_nm": [
+        230,
+        110,
+        205,
+        230,
+        150,
+        225
+      ],
+      "geometry_hash_sha256": "782239abf6931883ae452beaeff945f106dc97158a52606fd5ffd7281921995b",
+      "normalized_geometry": [
+        1.0,
+        0.076923076923,
+        0.807692307692,
+        1.0,
+        0.384615384615,
+        0.961538461538
+      ],
+      "nearest_existing_20G_distance": 0.7816308243423683,
+      "nearest_existing_20G_geometry": [
+        230,
+        115,
+        185,
+        220,
+        220,
+        155
+      ],
+      "nearest_other_candidate_pool_distance": 0.7816308243423683,
+      "selection_min_distance": 0.7816308243423683,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S24",
+      "geometry_id": "K6V1_S24",
+      "ordered_D_nm": [
+        180,
+        230,
+        225,
+        130,
+        225,
+        155
+      ],
+      "geometry_hash_sha256": "ae06e5e4c4c73d67e2cad92db6844b0fe3a5bca1070e7a70bf1f63d2e22af90d",
+      "normalized_geometry": [
+        0.615384615385,
+        1.0,
+        0.961538461538,
+        0.230769230769,
+        0.961538461538,
+        0.423076923077
+      ],
+      "nearest_existing_20G_distance": 0.794768396914301,
+      "nearest_existing_20G_geometry": [
+        100,
+        230,
+        230,
+        185,
+        225,
+        120
+      ],
+      "nearest_other_candidate_pool_distance": 0.7644079582442996,
+      "selection_min_distance": 0.7644079582442996,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S43",
+      "geometry_id": "K6V1_S43",
+      "ordered_D_nm": [
+        190,
+        105,
+        215,
+        140,
+        165,
+        165
+      ],
+      "geometry_hash_sha256": "9baad77600b1a1c37be48a13536a2a5cb767b5dd170e89ba41d75331870540fc",
+      "normalized_geometry": [
+        0.692307692308,
+        0.038461538462,
+        0.884615384615,
+        0.307692307692,
+        0.5,
+        0.5
+      ],
+      "nearest_existing_20G_distance": 0.7624702923691927,
+      "nearest_existing_20G_geometry": [
+        230,
+        150,
+        225,
+        110,
+        205,
+        105
+      ],
+      "nearest_other_candidate_pool_distance": 0.7624702923691927,
+      "selection_min_distance": 0.7624702923691927,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S44",
+      "geometry_id": "K6V1_S44",
+      "ordered_D_nm": [
+        150,
+        180,
+        230,
+        200,
+        150,
+        165
+      ],
+      "geometry_hash_sha256": "240f40a30fdd1c6233947db0c61a11529539ac27b4f456f5668891bd8ff892c8",
+      "normalized_geometry": [
+        0.384615384615,
+        0.615384615385,
+        1.0,
+        0.769230769231,
+        0.384615384615,
+        0.5
+      ],
+      "nearest_existing_20G_distance": 0.7517238571420024,
+      "nearest_existing_20G_geometry": [
+        175,
+        230,
+        230,
+        230,
+        100,
+        220
+      ],
+      "nearest_other_candidate_pool_distance": 0.7517238571420024,
+      "selection_min_distance": 0.7517238571420024,
+      "source_pool_index": null
+    },
+    {
+      "candidate_id": "K6V1_S46",
+      "geometry_id": "K6V1_S46",
+      "ordered_D_nm": [
+        150,
+        160,
+        170,
+        175,
+        105,
+        230
+      ],
+      "geometry_hash_sha256": "2f4c318614c5e9b5de149f21946d4fa4719e20472c49f91495831c62c4ffc562",
+      "normalized_geometry": [
+        0.384615384615,
+        0.461538461538,
+        0.538461538462,
+        0.576923076923,
+        0.038461538462,
+        1.0
+      ],
+      "nearest_existing_20G_distance": 0.7527071457992663,
+      "nearest_existing_20G_geometry": [
+        120,
+        110,
+        225,
+        225,
+        100,
+        205
+      ],
+      "nearest_other_candidate_pool_distance": 0.7418192893071504,
+      "selection_min_distance": 0.7418192893071504,
+      "source_pool_index": null
+    }
+  ],
+  "coverage_metrics": {
+    "base20_nearest_neighbor": {
+      "count": 20,
+      "min": 0.8249080995972006,
+      "median": 0.8895417970912811,
+      "mean": 0.9144927455782592,
+      "max": 1.068649537649985
+    },
+    "expanded32_nearest_neighbor": {
+      "count": 32,
+      "min": 0.789164789564738,
+      "median": 0.8226603768697838,
+      "mean": 0.8349696011915617,
+      "max": 0.9365996662989168
+    },
+    "base20_pairwise": {
+      "count": 190,
+      "min": 0.8249080995972006,
+      "median": 1.3851444262052215,
+      "mean": 1.4016098480028008,
+      "max": 2.1970259618227264
+    },
+    "expanded32_pairwise": {
+      "count": 496,
+      "min": 0.789164789564738,
+      "median": 1.3524577394736892,
+      "mean": 1.3486889794946413,
+      "max": 2.1970259618227264
+    },
+    "training12_pairwise": {
+      "count": 66,
+      "min": 0.8095217376865073,
+      "median": 1.238254105752742,
+      "mean": 1.2311768329632202,
+      "max": 1.8517543257247264
+    },
+    "reserve6_pairwise": {
+      "count": 15,
+      "min": 0.8021789851774697,
+      "median": 1.0313144367532248,
+      "mean": 1.093030968926418,
+      "max": 1.496050026059748
+    },
+    "training_to_existing20": {
+      "count": 12,
+      "min": 0.789164789564738,
+      "median": 0.8266684450257946,
+      "mean": 0.8828189566154822,
+      "max": 1.1678635731299214
+    },
+    "reserve_to_existing20": {
+      "count": 6,
+      "min": 0.7517238571420024,
+      "median": 0.7720505583557805,
+      "mean": 0.7933241282459703,
+      "max": 0.9166442529086911
+    },
+    "reserve_to_training12": {
+      "count": 6,
+      "min": 0.7418192893071504,
+      "median": 0.7820716578517899,
+      "mean": 0.7967544681626144,
+      "max": 0.9126008090542056
+    },
+    "covering_radius_over_all48_candidates": {
+      "base20": 1.1678635731299214,
+      "expanded32": 0.93580962004588,
+      "base20_median": 0.7853978069535532,
+      "expanded32_median": 0.0
+    },
+    "coverage_gain": {
+      "covering_radius_reduction": 0.23205395308404142,
+      "covering_radius_relative_reduction": 0.19869953856179234,
+      "candidate_nearest_distance_median_reduction": 0.7853978069535532
+    },
+    "marginals": {
+      "base20": [
+        [
+          100,
+          230,
+          170.75
+        ],
+        [
+          100,
+          230,
+          170.75
+        ],
+        [
+          100,
+          230,
+          159
+        ],
+        [
+          100,
+          230,
+          183.5
+        ],
+        [
+          100,
+          230,
+          166.5
+        ],
+        [
+          100,
+          225,
+          146.5
+        ]
+      ],
+      "expanded32": [
+        [
+          100,
+          230,
+          165.9375
+        ],
+        [
+          100,
+          230,
+          165.78125
+        ],
+        [
+          100,
+          230,
+          161.25
+        ],
+        [
+          100,
+          230,
+          167.96875
+        ],
+        [
+          100,
+          230,
+          165.3125
+        ],
+        [
+          100,
+          230,
+          157.8125
+        ]
+      ]
+    },
+    "duplicate_audit": {
+      "base20_ordered_duplicates": 0,
+      "expanded32_ordered_duplicates": 0,
+      "candidate_ordered_duplicates": 0,
+      "candidate_sorted_permutation_collision_groups": 0,
+      "candidate_sorted_permutation_collision_pairs": 0
+    }
+  },
+  "proposed_hf_budget": {
+    "new_integrated_k6_geometries": 12,
+    "scientific_entry_count_proposed": 12,
+    "wavelengths_per_geometry": 21,
+    "wavelength_rows_proposed": 252,
+    "wavelength_range_nm": [
+      440,
+      460
+    ],
+    "shared_v3_contract": true,
+    "physics_changes": false,
+    "queue_mutation_performed": false,
+    "admission_performed": false,
+    "solver_launch_performed": false
+  },
+  "post32_analysis_contract": {
+    "dataset": "32G = frozen existing 20G + exactly 12 Stage-1 training geometries",
+    "forward_model": "PW_K6_STRUCTURED_FORWARD_MODEL_V1",
+    "validation": "grouped geometry-held-out validation",
+    "state_branch": "same frozen state representation and branch contract",
+    "P_scale": "same frozen P_scale contract",
+    "H2": "same deterministic H2 contract",
+    "H1": "complete frozen H1 metrics and gates, evaluated without architecture/threshold/gate changes",
+    "pre_evaluation_changes_allowed": false
+  },
+  "artifacts": {
+    "report_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_FIXED_MDC_UNBIASED_GEOMETRY_EXPANSION_DESIGN_V1.md",
+    "manifest_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\PW_K6_FIXED_MDC_UNBIASED_EXPANSION_MANIFEST_V1.json",
+    "source_hashes": {
+      "reports/coupling/PW_K6_GEOMETRY_DOMAIN_AUTHORITY_V1.json": "93915ffad1159517895f28e8258d3c2341e371cfab1d139a7872f287b919a31f",
+      "reports/coupling/PW_K6_GEOMETRY_EXCLUSION_REGISTRY_V1.json": "78f48a4400d5ab469a2054a8ad849d5cae16cb4bee042e2b542529a78973bb80",
+      "reports/coupling/PW_K6_EXTENSION_ELIGIBLE_CANDIDATE_POOL_V1.json": "387112fda12b2fbee0b2e6e4185014e0fad4bbb825b2d9e6cded865b4988073d",
+      "reports/coupling/PW_K6_SEED_DB_V1_GEOMETRY_MANIFEST.json": "463ceaece52121b1a968d22881944c082a26041c16b4489c25b6a0b8f44db62b",
+      "reports/coupling/PW_K6_SEED_DB_V1_EXTENSION_20G_V1.json": "e8083cac9a22080558376e02a97c0a599f48084cb6eb0af2980c07a6e01185fe"
+    }
+  }
+}

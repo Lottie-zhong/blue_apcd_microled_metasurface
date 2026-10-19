@@ -1,0 +1,1654 @@
+{
+  "case_count": 65,
+  "combined_ordered_case_ids": [
+    "K6GDP2_DEV_G001",
+    "K6GDP2_DEV_G002",
+    "K6GDP2_DEV_G003",
+    "K6GDP2_DEV_G004",
+    "K6GDP2_DEV_G005",
+    "K6GDP2_DEV_G006",
+    "K6GDP2_DEV_G007",
+    "K6GDP2_DEV_G008",
+    "K6GDP2_DEV_G009",
+    "K6GDP2_DEV_G010",
+    "K6GDP2_DEV_G011",
+    "K6GDP2_DEV_G012",
+    "K6GDP2_DEV_G013",
+    "K6GDP2_DEV_G014",
+    "K6GDP2_DEV_G015",
+    "K6GDP2_DEV_G016",
+    "K6GDP2_DEV_G017",
+    "K6GDP2_DEV_G018",
+    "K6GDP2_DEV_G019",
+    "K6GDP2_DEV_G020",
+    "K6GDP2_DEV_G021",
+    "K6GDP2_DEV_G022",
+    "K6LDA1_DEV_D1_M05",
+    "K6LDA1_DEV_D1_P05",
+    "K6LDA1_DEV_D2_M05",
+    "K6LDA1_DEV_D2_P05",
+    "K6LDA1_DEV_D3_M05",
+    "K6LDA1_DEV_D3_P05",
+    "K6LDA1_DEV_D4_M05",
+    "K6LDA1_DEV_D4_P05",
+    "K6LDA1_DEV_D5_M05",
+    "K6LDA1_DEV_D5_P05",
+    "K6LDA1_DEV_D6_P05",
+    "K6V1_EXT01",
+    "K6V1_EXT02",
+    "K6V1_EXT03",
+    "K6V1_EXT04",
+    "K6V1_EXT05",
+    "K6V1_EXT06",
+    "K6V1_EXT07",
+    "K6V1_EXT08",
+    "K6V1_EXT09",
+    "K6V1_EXT10",
+    "K6V1_EXT11",
+    "K6V1_EXT12",
+    "K6V1_EXT13",
+    "K6V1_EXT14",
+    "K6V1_S02",
+    "K6V1_S03",
+    "K6V1_S04",
+    "K6V1_S05",
+    "K6V1_S15",
+    "K6V1_S16",
+    "K6V1_S21",
+    "K6V1_S31",
+    "K6V1_S32",
+    "K6V1_S33",
+    "K6V1_S35",
+    "K6V1_S36",
+    "K6V1_S37",
+    "K6V1_S39",
+    "K6V1_S42",
+    "K6V1_S45",
+    "K6V1_S47",
+    "K6V1_S48"
+  ],
+  "combined_snapshot_sha256": "51b5fd84dc619ecd91d4702942dc08b5ef031bf81a1df4c9a185421e3bc9f5a5",
+  "excluded": {
+    "EXT02_diagnostic_data_included": false,
+    "G023_failed_postentry": true,
+    "confirmation_responses_read": 0,
+    "failed_D6_M05": true
+  },
+  "frozen_physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+  "generated_utc": "2026-10-07T08:36:23Z",
+  "h1_authority_sha256": "8cf71239757e70eb75fbbf858a82c12f8af8d03c0892b99ff4ffce6a959fcdbd",
+  "h2_decoder_sha256": "b6873c1fc9df447de16b62e60da9d0b4c978934d7d02db283ddb5713f2024d15",
+  "new33": {
+    "cases": [
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G001",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G001_V1.json",
+        "ingest_result_sha256": "5e1c74e8959f55c1af11157c3436e9324933db91ecfd8e90511e6b5d06d7269f",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G001_V1.npz",
+        "label_npz_sha256": "36254fe15b10d4eeace4ebc18cb96386eed3456de0b54474fd4546a812358704",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G001_20261006T101303Z_8c6a3a8e.json",
+          "run_one_result_sha256": "d2d23d1173f388c88c202a3caf1941116af248c3e0c467cabd4223cef39209fb",
+          "runner_status_sha256_recorded": "aa1b2f497fee38fa7d50a39760017cb1acaa09a843bcfb7128ea5c40005cbc00",
+          "sequence_index": 13,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "81fbf3c0650d88ee746f8f0802c14f8532aeadcbca2f5a5d37353920434a4723"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          120,
+          160,
+          165,
+          175,
+          160,
+          195
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G001_20261006T101303Z_8c6a3a8e",
+        "runner_status": "DONE",
+        "runner_status_sha256": "aa1b2f497fee38fa7d50a39760017cb1acaa09a843bcfb7128ea5c40005cbc00",
+        "source_manifest_sha256": "3f3ed977d5f267b00d8de3f415947ff4f3b9e3f9e337400f6bf674bb77d3df26",
+        "truth_h5_sha256": "81fbf3c0650d88ee746f8f0802c14f8532aeadcbca2f5a5d37353920434a4723",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G002",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G002_V1.json",
+        "ingest_result_sha256": "74d453e5f45b9563168c365861abc803759459789f826f94ba811c8395b9b95c",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G002_V1.npz",
+        "label_npz_sha256": "e5eb26858be79c488ac357eb3a3e1f0746bae370b960cade833a770deefc8762",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G002_20261006T102501Z_f2db26ad.json",
+          "run_one_result_sha256": "41ac22e51619711d6f503dcedbaf2f9c1e95f08ac25f94495028502411a84ac6",
+          "runner_status_sha256_recorded": "f527949da1e228d67c3ecf899314fcfa3647ed61fb301d2d21c2948ea00e0d14",
+          "sequence_index": 14,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "f5ac8b1425d41d863fe1651638055cf9b53aa3d9a23d3e527bf298cb6cf72cf5"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          210,
+          165,
+          165,
+          115,
+          120,
+          190
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G002_20261006T102501Z_f2db26ad",
+        "runner_status": "DONE",
+        "runner_status_sha256": "f527949da1e228d67c3ecf899314fcfa3647ed61fb301d2d21c2948ea00e0d14",
+        "source_manifest_sha256": "4101660ded06663fbe9a2a3663277a8e99e93f00ca50154734ec0c5972398325",
+        "truth_h5_sha256": "f5ac8b1425d41d863fe1651638055cf9b53aa3d9a23d3e527bf298cb6cf72cf5",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G003",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G003_V1.json",
+        "ingest_result_sha256": "191a39b5cc8c540e333e6ba5bd383dc4563108cc8f3aa47c2e32d8b6e222a781",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G003_V1.npz",
+        "label_npz_sha256": "5b2c002b74222b3b59bf6954ec318f77c283b9adfb7b8c6eeae56f218cf851eb",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G003_20261006T103704Z_329c8231.json",
+          "run_one_result_sha256": "01b4a5ab50e51d8582589ab84ad2ff6867befd0b8efa98d1374ef551c2e07aa1",
+          "runner_status_sha256_recorded": "7e3cde2df9a821345665cbe3769e1020838a2fd534983eb0ec8934a799d6e7c9",
+          "sequence_index": 15,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "3b45f9b3cae0ed978492aa4dbe0bdc41362e8913216cab928b469e1ef408c4f8"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          215,
+          160,
+          140,
+          155,
+          210,
+          200
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G003_20261006T103704Z_329c8231",
+        "runner_status": "DONE",
+        "runner_status_sha256": "7e3cde2df9a821345665cbe3769e1020838a2fd534983eb0ec8934a799d6e7c9",
+        "source_manifest_sha256": "1d8fc0593a6f66a26fca78a879ed213dc8e22a6c22e2efe79d056df748dde15a",
+        "truth_h5_sha256": "3b45f9b3cae0ed978492aa4dbe0bdc41362e8913216cab928b469e1ef408c4f8",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G004",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G004_V1.json",
+        "ingest_result_sha256": "aa54237aed05cf26efa8df624714d5afd0effbdebe1a96adeb5f0fffea3ca65b",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G004_V1.npz",
+        "label_npz_sha256": "4d3c90922bfcd9f59f00330f1f55394eb85d93fbcfd334e6682edfd9544fe403",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G004_20261006T104909Z_e6ab3a07.json",
+          "run_one_result_sha256": "701da08f067603e0f432619b4c17b62f68a5f64695fecd0fe606535c3c11b8f3",
+          "runner_status_sha256_recorded": "7c6dd55e8dd9d43beb259f4db8cbcc619decc083502a90313c6c6559ef85b51b",
+          "sequence_index": 16,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "3e563f65276f9551612bec180a6e27945715ee5f3688bd5d9b0b08c4d0d82063"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          210,
+          115,
+          175,
+          115,
+          180,
+          125
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G004_20261006T104909Z_e6ab3a07",
+        "runner_status": "DONE",
+        "runner_status_sha256": "7c6dd55e8dd9d43beb259f4db8cbcc619decc083502a90313c6c6559ef85b51b",
+        "source_manifest_sha256": "e950588e099509583f69cb0878a57ef17137a91a59681581b1c7c060b1a189f7",
+        "truth_h5_sha256": "3e563f65276f9551612bec180a6e27945715ee5f3688bd5d9b0b08c4d0d82063",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G005",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G005_V1.json",
+        "ingest_result_sha256": "b9f2d7d9bfb130101654458cdcbdf2978ce3bf1bfeb5252d13bff4269140879e",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G005_V1.npz",
+        "label_npz_sha256": "959a587851449d528873881b624de2fdd96a2d1d545628ca7829af5eedf474d4",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G005_20261006T110118Z_a17d0b6b.json",
+          "run_one_result_sha256": "dd81525fdca309975ed0973b154269307ed626ee2b82724f1c2014c98cde65d2",
+          "runner_status_sha256_recorded": "957e0f4830f49b4d52bae0e337a93251fa7512dd38a6979ae4aad3b3f4ba70a3",
+          "sequence_index": 17,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "e2a2a5dd09c5383d5b575495b207a851d4fcc568fe70dc02673aa86504b63c8d"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          200,
+          175,
+          130,
+          200,
+          165,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G005_20261006T110118Z_a17d0b6b",
+        "runner_status": "DONE",
+        "runner_status_sha256": "957e0f4830f49b4d52bae0e337a93251fa7512dd38a6979ae4aad3b3f4ba70a3",
+        "source_manifest_sha256": "2c51d3596bc8fe8d789d9059e8fd1b468c80a8b4e6ba433973f37abbc7da5566",
+        "truth_h5_sha256": "e2a2a5dd09c5383d5b575495b207a851d4fcc568fe70dc02673aa86504b63c8d",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G006",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G006_V1.json",
+        "ingest_result_sha256": "359baea7f3fdfb1fa1a751bdd292a6ac545673185f721c6105195b8b03061d0f",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G006_V1.npz",
+        "label_npz_sha256": "349ded4f1e9a9e471ef5176a9cfb40e6512d7b855464813ebeba1d3c3cf01db2",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G006_20261006T111321Z_e2485e97.json",
+          "run_one_result_sha256": "3728abe7b11c6dc2d7110a25dc6c616b63515c108033715f6d5b5c20f1838ab5",
+          "runner_status_sha256_recorded": "3deb931d40b83940504fd98d01b23acb9b5154a3f9e685fdd3d562c885cdd378",
+          "sequence_index": 18,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "98bb0e2795f72844c9a9c290662abf686dd5f074fa5fec9659ccc32e337fc541"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          140,
+          120,
+          200,
+          145,
+          155,
+          215
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G006_20261006T111321Z_e2485e97",
+        "runner_status": "DONE",
+        "runner_status_sha256": "3deb931d40b83940504fd98d01b23acb9b5154a3f9e685fdd3d562c885cdd378",
+        "source_manifest_sha256": "d1c4d2dc43376819ed3e34ea8ffef89fb97c9eb9fd02de6613afa912510c4496",
+        "truth_h5_sha256": "98bb0e2795f72844c9a9c290662abf686dd5f074fa5fec9659ccc32e337fc541",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G007",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G007_V1.json",
+        "ingest_result_sha256": "f793682d3dca46560d53ccaf60e90196b2d38984b4a23f7148fe9186f8d90d54",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G007_V1.npz",
+        "label_npz_sha256": "5901cb69ee0b0576584cec074ad67846e0c95fb36ec0e2723bb7b17882834673",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G007_20261006T112529Z_567abb5d.json",
+          "run_one_result_sha256": "9b9e9061157931fec6058edee920972874f1b41220e40d6e53b0a6b5a75dea80",
+          "runner_status_sha256_recorded": "4c05a15f840e27975a34b2cbd44d16b80034cbfff6b3f6725ffc2dc3504cef89",
+          "sequence_index": 19,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "6d0d094caffade7507565248ccc099d235588897e151942321e8356a4424ebce"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          120,
+          115,
+          140,
+          185,
+          210,
+          180
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G007_20261006T112529Z_567abb5d",
+        "runner_status": "DONE",
+        "runner_status_sha256": "4c05a15f840e27975a34b2cbd44d16b80034cbfff6b3f6725ffc2dc3504cef89",
+        "source_manifest_sha256": "9aee50c0ca014d42846bc5af7078f35ed8f71c652097a8234af227142fb2b288",
+        "truth_h5_sha256": "6d0d094caffade7507565248ccc099d235588897e151942321e8356a4424ebce",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G008",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G008_V1.json",
+        "ingest_result_sha256": "8ea9f6be8fd4ac6039546a01737acc45f29b37688337356fb64aa3f46ade3c6b",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G008_V1.npz",
+        "label_npz_sha256": "1c977c857522aba718083036b2fed8ff1c6e48a9773143885911ad3cb93bf7a6",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G008_20261006T113717Z_c596fcbd.json",
+          "run_one_result_sha256": "1a7b8db24218d7bc5c18faae61f322f3013f09a83e0bc621427b462b44f91c51",
+          "runner_status_sha256_recorded": "66efb9d7e2d816c7f9913a534ff6d604474cca31972ae0e93600a85717d2fb22",
+          "sequence_index": 20,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "866d8516d5b7de8167f8d1ff183121238321b124799c49875865c528c1aeb8f9"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          160,
+          195,
+          215,
+          135,
+          180,
+          120
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G008_20261006T113717Z_c596fcbd",
+        "runner_status": "DONE",
+        "runner_status_sha256": "66efb9d7e2d816c7f9913a534ff6d604474cca31972ae0e93600a85717d2fb22",
+        "source_manifest_sha256": "3aa04d4b87ce12f2bfc00f7c8c6c70eeba47d6c9ab3acfcd5f189958d04f18e3",
+        "truth_h5_sha256": "866d8516d5b7de8167f8d1ff183121238321b124799c49875865c528c1aeb8f9",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G009",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G009_V1.json",
+        "ingest_result_sha256": "37ef3baeb9e672e2e36164da63e612f9b0fed365a5e7929de34d5f0e76eedf50",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G009_V1.npz",
+        "label_npz_sha256": "9e44b7f01c3f33d9ab4c0dfcd0efac8b7fd6ea89772d2ec052d7784b83f18019",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G009_20261006T114922Z_ef1917c2.json",
+          "run_one_result_sha256": "712f02cb736bf2c6a5e7c2a3a9e3d4bc046cfba8c636f6740e85acc35a742a79",
+          "runner_status_sha256_recorded": "454fd9ecaf61ab5c73f1ca27fa49c375599d13790d8e50785ad7e1cf26a9799e",
+          "sequence_index": 21,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "ff68bfb15888dea80c35a60569dfac8e2dc1d7b914e918ed5b241461e768b47b"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          150,
+          125,
+          135,
+          140,
+          200,
+          135
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G009_20261006T114922Z_ef1917c2",
+        "runner_status": "DONE",
+        "runner_status_sha256": "454fd9ecaf61ab5c73f1ca27fa49c375599d13790d8e50785ad7e1cf26a9799e",
+        "source_manifest_sha256": "d40db7dfc3ef107c9a1cc15dd1fb38303714624a1a943ef4fbde913f68b47381",
+        "truth_h5_sha256": "ff68bfb15888dea80c35a60569dfac8e2dc1d7b914e918ed5b241461e768b47b",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G010",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G010_V1.json",
+        "ingest_result_sha256": "b03c88082402d8fb4af341cb51239d7ee1a999fb79273dd65beec13c6d69e826",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G010_V1.npz",
+        "label_npz_sha256": "087727da372030e258ce7ae8847b2fad7140d804a791a80d87377113d116736c",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G010_20261006T120117Z_567406fd.json",
+          "run_one_result_sha256": "b666d9c47c4b889b047ef09890f586f6e3993fdde395216aa4327611c7e0ca8f",
+          "runner_status_sha256_recorded": "46eb349cf4d828b474759af7d1133093434495dc650641adcfe4192cb9815207",
+          "sequence_index": 22,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "9f64668db3b47efa40138fc5833f4bb105e83dab71b0186cf84bb0626383e11e"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          165,
+          155,
+          185,
+          200,
+          210,
+          115
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G010_20261006T120117Z_567406fd",
+        "runner_status": "DONE",
+        "runner_status_sha256": "46eb349cf4d828b474759af7d1133093434495dc650641adcfe4192cb9815207",
+        "source_manifest_sha256": "7a70b4461f5573f6e2efe541162403a79ec452bc571dd7e8629d1c437c88f9df",
+        "truth_h5_sha256": "9f64668db3b47efa40138fc5833f4bb105e83dab71b0186cf84bb0626383e11e",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G011",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G011_V1.json",
+        "ingest_result_sha256": "51622c7691f2fb25cfa0b83c93c5739e93409fc74c8ded54fe5c03b052e3ea05",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G011_V1.npz",
+        "label_npz_sha256": "b55f44340de6e0dc40885782049de7a8e59ad54ae1d8b57c105fbf8aa3ceddff",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G011_20261006T121323Z_7cfc6fd2.json",
+          "run_one_result_sha256": "098484945668e7d0be21b2c7a7d4dba4b1ab7b6ec135a86bab20fc471a590b3a",
+          "runner_status_sha256_recorded": "5ca766f1af13d40326389998146490b5f3042963f45ef20b35a6d4235845d14e",
+          "sequence_index": 23,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "638aa9f9a7cc4fa19dc066a31a8c844aaa6dd99628c2f8f3b8f393c57d6cf849"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          180,
+          145,
+          190,
+          200,
+          200,
+          190
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G011_20261006T121323Z_7cfc6fd2",
+        "runner_status": "DONE",
+        "runner_status_sha256": "5ca766f1af13d40326389998146490b5f3042963f45ef20b35a6d4235845d14e",
+        "source_manifest_sha256": "4b9fd2bfc70e260a6634db4c4ebcffd52d71d3ac25196f955007cfea92180ba7",
+        "truth_h5_sha256": "638aa9f9a7cc4fa19dc066a31a8c844aaa6dd99628c2f8f3b8f393c57d6cf849",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G012",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G012_V1.json",
+        "ingest_result_sha256": "8eae03500c45e099d33baf190715f89e6d09053e27cdf1f91427dc602ebaa6c3",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G012_V1.npz",
+        "label_npz_sha256": "1c819c12ee05622bfb597c659b040b6f90eeeb465934568b336ce1b4f8a1c735",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G012_20261006T122523Z_5e9d93c8.json",
+          "run_one_result_sha256": "868b2aeb16f707fd1c2a820b73211d8d230f76f9a3d18e07504be8df8f26a3ea",
+          "runner_status_sha256_recorded": "495020402b2ad3203c94a4da4c1b79022ec9b5960abe3d281d0b261b6f4f80f9",
+          "sequence_index": 24,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "0a29803051203ca294990cbce10cc509cdc73623eb5cbfa245a227af247df242"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          180,
+          205,
+          175,
+          215,
+          115,
+          190
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G012_20261006T122523Z_5e9d93c8",
+        "runner_status": "DONE",
+        "runner_status_sha256": "495020402b2ad3203c94a4da4c1b79022ec9b5960abe3d281d0b261b6f4f80f9",
+        "source_manifest_sha256": "8f0b314ba5de6c4c6f54b404603cfa9ff3348531fef4c7b7cc48d2d3b7921397",
+        "truth_h5_sha256": "0a29803051203ca294990cbce10cc509cdc73623eb5cbfa245a227af247df242",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G013",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G013_V1.json",
+        "ingest_result_sha256": "3d89205c4641600b18a68e1211c2921c638b5927c1fb85eda1e575ed98328bd2",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G013_V1.npz",
+        "label_npz_sha256": "1600568159a3b828c7fa81a41a9b4186553592f6869cf34c00351c93e068c0c4",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G013_20261006T123719Z_011c43eb.json",
+          "run_one_result_sha256": "5e807cf4b7859a1b4a8c7c8553512ae365ff1ba3f35ee19a45293e9d7a245b80",
+          "runner_status_sha256_recorded": "289c1ba165f8062a8225583c72fff932d0daa2d5299dfb01f10a0bd8ac2a12f2",
+          "sequence_index": 25,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "ba1d23da53f315a5d3470eba4f9c981fcdf6e0ea1f2b35450275434142cd95f8"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          155,
+          200,
+          195,
+          140,
+          115,
+          205
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G013_20261006T123719Z_011c43eb",
+        "runner_status": "DONE",
+        "runner_status_sha256": "289c1ba165f8062a8225583c72fff932d0daa2d5299dfb01f10a0bd8ac2a12f2",
+        "source_manifest_sha256": "f9b593d0251b8bf631ffdf46077250d990f39145e2063afc1cbf90994c976f3e",
+        "truth_h5_sha256": "ba1d23da53f315a5d3470eba4f9c981fcdf6e0ea1f2b35450275434142cd95f8",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G014",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G014_V1.json",
+        "ingest_result_sha256": "fc4b1b66d7d648654e9a6f4fff3d44d80c7b74dbfcd266c614e355901e0e3520",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G014_V1.npz",
+        "label_npz_sha256": "33be08f4f6aea75623972baf2e87ee75aac2294e0438f87553c5d35b8ad3e08b",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G014_20261006T124847Z_b0763c64.json",
+          "run_one_result_sha256": "8894bf84523147be1c367dae979d8062632bd623c907e2fc6b25f2836c8eb182",
+          "runner_status_sha256_recorded": "bf1b3721d3321237cb609624fc8b0390fb639b0ebbccbf605cfc3813b468d48a",
+          "sequence_index": 26,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "7e1b65573d0f0e550b2cb5524eaf07b88d1e915fc39560884e4d01ab22d93333"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          200,
+          195,
+          160,
+          115,
+          130,
+          115
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G014_20261006T124847Z_b0763c64",
+        "runner_status": "DONE",
+        "runner_status_sha256": "bf1b3721d3321237cb609624fc8b0390fb639b0ebbccbf605cfc3813b468d48a",
+        "source_manifest_sha256": "80bbc8e145624a82bb68ca4ad553901b26d293d3b7d32f805cca958c63c0ea12",
+        "truth_h5_sha256": "7e1b65573d0f0e550b2cb5524eaf07b88d1e915fc39560884e4d01ab22d93333",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G015",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G015_V1.json",
+        "ingest_result_sha256": "c903a47ffd9ff98e250561a426d179585f8428565b5f732b611b28b6bea10c20",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G015_V1.npz",
+        "label_npz_sha256": "403d2f57424ca57a7699c5b257c76ded160df40222e623c01efd4282de4cd40a",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G015_20261006T130117Z_50bf9c5e.json",
+          "run_one_result_sha256": "89a7ce21fd284d38c0e14f9a5a4ea8db57b9afc4d3cc8f1a406493989961835e",
+          "runner_status_sha256_recorded": "b778d5007c6cf0d6c892d87dff24803e0ad71e7033760b10a339694d7d638383",
+          "sequence_index": 27,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "403d3feaaa21b5212d528430f6b11bf7e8bc2f69e0f626726239db7e700ed41b"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          215,
+          190,
+          210,
+          185,
+          145,
+          145
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G015_20261006T130117Z_50bf9c5e",
+        "runner_status": "DONE",
+        "runner_status_sha256": "b778d5007c6cf0d6c892d87dff24803e0ad71e7033760b10a339694d7d638383",
+        "source_manifest_sha256": "d1e48bc3cfbc74cad65b0c608fc3dcd7679ec032fdb6b990d98ec6026e35b96a",
+        "truth_h5_sha256": "403d3feaaa21b5212d528430f6b11bf7e8bc2f69e0f626726239db7e700ed41b",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G016",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G016_V1.json",
+        "ingest_result_sha256": "8d79a5bf5af74466a5a44a375def61a0ad79d6546036c10579cd688ad0150b94",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G016_V1.npz",
+        "label_npz_sha256": "ffe85e7583691e3001dded10eec7825490d2c4ea773387b51282c7dfda798c49",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G016_20261006T131336Z_5fd7ddbc.json",
+          "run_one_result_sha256": "4fee81d67f04b5f95936185c8253845ff27f9736c7eb241bb5bbfa5293b62ec2",
+          "runner_status_sha256_recorded": "f312342cf85724791385ce5e09fb03cecec1b127287ad3125dce6d9edfd421d5",
+          "sequence_index": 28,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "2919cfef446dc025cfcf5c193c9977f8a67fc4e0de1bea3a2f787932a245dc18"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          165,
+          215,
+          115,
+          150,
+          120,
+          115
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G016_20261006T131336Z_5fd7ddbc",
+        "runner_status": "DONE",
+        "runner_status_sha256": "f312342cf85724791385ce5e09fb03cecec1b127287ad3125dce6d9edfd421d5",
+        "source_manifest_sha256": "57badae4cd133611add33624cb4c1096d06c47e1a56c8f3bc67cdb9e52e466eb",
+        "truth_h5_sha256": "2919cfef446dc025cfcf5c193c9977f8a67fc4e0de1bea3a2f787932a245dc18",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G017",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G017_V1.json",
+        "ingest_result_sha256": "6fb798e6dde864e192ec19807104569efebd63b5a262367923bee7ad9643da0a",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G017_V1.npz",
+        "label_npz_sha256": "a14a0dbe9858b4c1b2f486da1a3efd4549e22fa7dc2d09a6a4f3f65bbc055773",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G017_20261006T132608Z_37d31c68.json",
+          "run_one_result_sha256": "2f1294bb15b8bce81f92ca1ae729e829c9e3dde8ccea67773a142ececbd8a4fd",
+          "runner_status_sha256_recorded": "1e45403b250e0a2ab68eed007178516aaefd438c7f45f9d77faacca0d5fc17f9",
+          "sequence_index": 29,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "968c454048391fdbe53a2925761454408457b9deff04ae3ce9749df869460052"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          175,
+          200,
+          165,
+          195,
+          210,
+          215
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G017_20261006T132608Z_37d31c68",
+        "runner_status": "DONE",
+        "runner_status_sha256": "1e45403b250e0a2ab68eed007178516aaefd438c7f45f9d77faacca0d5fc17f9",
+        "source_manifest_sha256": "65dd381099aa20ad1a652ba50ba8c2ace1180c3ee10ff307fe4b962614b499b8",
+        "truth_h5_sha256": "968c454048391fdbe53a2925761454408457b9deff04ae3ce9749df869460052",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G018",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G018_V1.json",
+        "ingest_result_sha256": "9df69fabdbff862b44422c4a3f4a9524a040e1003016b44779d046596c0d5a5d",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G018_V1.npz",
+        "label_npz_sha256": "6343582567201ce95708b1800d76bc424acb7229189f8b52f7c7e3548e62b1ed",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G018_20261006T133838Z_04ef6013.json",
+          "run_one_result_sha256": "fb9aa03001486fa272ef43047a55fd7e6030f9a1f773ef7b2a169b7e5692c8b3",
+          "runner_status_sha256_recorded": "0d37c3d4a6dc8adb3f8dc322150c32572c0c1fbc45fdd33d78b437dc5d1a01ba",
+          "sequence_index": 30,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "7b6e012e31c549db21949029823f98a295ca0b179db05e6e2bb44784f3e0b90b"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          135,
+          125,
+          135,
+          200,
+          145,
+          165
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G018_20261006T133838Z_04ef6013",
+        "runner_status": "DONE",
+        "runner_status_sha256": "0d37c3d4a6dc8adb3f8dc322150c32572c0c1fbc45fdd33d78b437dc5d1a01ba",
+        "source_manifest_sha256": "b4e3e8eea89d417968928001239565504299a19f58ed0ec3c1ad22279b529dc8",
+        "truth_h5_sha256": "7b6e012e31c549db21949029823f98a295ca0b179db05e6e2bb44784f3e0b90b",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G019",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G019_V1.json",
+        "ingest_result_sha256": "53a58258e6212406f9d05306957d8a8a92d28364013c443640c16c91d9f6ebb2",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G019_V1.npz",
+        "label_npz_sha256": "d6dc3b5f23328e553675602288459e2a749694adacdeed7b4fe12293aa4ec5b4",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G019_20261006T135111Z_b7a264b0.json",
+          "run_one_result_sha256": "b94172e1f61d4c05589228c0822511493d053ca387faa183773ad877bd38e75c",
+          "runner_status_sha256_recorded": "c01b3168fd576e7b1f3dbdc08e3793934a5a53b4c4c0458c6bf63427bac7634f",
+          "sequence_index": 31,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "1d75427ad2730e535964940e2fffdbf3b9ae823b6c7cc77146c8790d490003b7"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          155,
+          160,
+          165,
+          180,
+          140,
+          115
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G019_20261006T135111Z_b7a264b0",
+        "runner_status": "DONE",
+        "runner_status_sha256": "c01b3168fd576e7b1f3dbdc08e3793934a5a53b4c4c0458c6bf63427bac7634f",
+        "source_manifest_sha256": "444f4bd13cd4847be2273bd5c400b63e6a6060609d32837a8243f58510c3d12e",
+        "truth_h5_sha256": "1d75427ad2730e535964940e2fffdbf3b9ae823b6c7cc77146c8790d490003b7",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G020",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G020_V1.json",
+        "ingest_result_sha256": "092a4524c7f1eda9b11aa7edf0a8557b6be0a9fb9ea55c286d02f3ec99cbd8df",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G020_V1.npz",
+        "label_npz_sha256": "5608cfae762b81dae0fe78da63d833818c5f4a8d70029fca31135dfdc9185230",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G020_20261006T140529Z_042ffde5.json",
+          "run_one_result_sha256": "c1551f3fcbb07767451f5053836b8458e7190034fd3495b355c1521ea07da3d1",
+          "runner_status_sha256_recorded": "5fe6ae51663cca4b201acc53327d85adeea4ac8a75c7381e58dc6bb54cb978b6",
+          "sequence_index": 32,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "756a6d1627dbe517a9e7fe431b3fbc8f3fc22c2eedd1e86d8690ffc580a882e3"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          180,
+          145,
+          205,
+          140,
+          215,
+          115
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G020_20261006T140529Z_042ffde5",
+        "runner_status": "DONE",
+        "runner_status_sha256": "5fe6ae51663cca4b201acc53327d85adeea4ac8a75c7381e58dc6bb54cb978b6",
+        "source_manifest_sha256": "8974bdf7f5f5a325df454c254b40d3e228f8fd3ab8a74e497654f37eadfb49eb",
+        "truth_h5_sha256": "756a6d1627dbe517a9e7fe431b3fbc8f3fc22c2eedd1e86d8690ffc580a882e3",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G021",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G021_V1.json",
+        "ingest_result_sha256": "477f8b70595794b239ee55e68f89287266195a15647dbee629b5ae14a20b86e9",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G021_V1.npz",
+        "label_npz_sha256": "e03f4578fb7e68aad0a13530625e0f176f029bb59791ca40254cdb2a6fe0c4c9",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G021_20261006T141745Z_b0920692.json",
+          "run_one_result_sha256": "057b00beaf368f470d6561e96c06ab6fe8dfc9ef75ac81754cd6b34162dcf1fd",
+          "runner_status_sha256_recorded": "27a907c3e1b6833c51e3cec259053ea18ed12f7a14a5406b38f479d73c7bfe5f",
+          "sequence_index": 33,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "5d3a611873a3ad03ce2ddd137f41bc362b0fb2477c63cc4da75c0ce46f05160a"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          165,
+          210,
+          115,
+          200,
+          130,
+          200
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G021_20261006T141745Z_b0920692",
+        "runner_status": "DONE",
+        "runner_status_sha256": "27a907c3e1b6833c51e3cec259053ea18ed12f7a14a5406b38f479d73c7bfe5f",
+        "source_manifest_sha256": "e978e5d90049ec8cbe83a2a4e3aab1f627bb76f52231af2b1ef63085ba2dcc1c",
+        "truth_h5_sha256": "5d3a611873a3ad03ce2ddd137f41bc362b0fb2477c63cc4da75c0ce46f05160a",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6GDP2_DEV_G022",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6GDP2_DEV_G022_V1.json",
+        "ingest_result_sha256": "c204a4ee06e379e7feb4f48e39f4bb88a7e202b10efef7165feab6624e9bdc5e",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6GDP2_DEV_G022_V1.npz",
+        "label_npz_sha256": "a3da183e4746a9f0f2dab8b2ce69a800533e5dbf6dbeb2fee3c0456f0a0f03d1",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_G022_20261006T143009Z_4bcd5001.json",
+          "run_one_result_sha256": "c045208326a9155718dbfe175d7dc3be3248e28cc6f4a2442629a4c987f97c75",
+          "runner_status_sha256_recorded": "3aaac1b6172d04bc4e0c02bd5c5976693be8e0ebe30d08a67c94c1319e7aa3b6",
+          "sequence_index": 34,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "00e900ee1cd237d04107cd929b1bedfa19acb809519d2896a7e1f65d8009becc"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          210,
+          215,
+          150,
+          165,
+          115,
+          200
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_GLOBAL",
+        "run_id": "K6V2_G022_20261006T143009Z_4bcd5001",
+        "runner_status": "DONE",
+        "runner_status_sha256": "3aaac1b6172d04bc4e0c02bd5c5976693be8e0ebe30d08a67c94c1319e7aa3b6",
+        "source_manifest_sha256": "eb0de465d81efae3fe9f010055f8452ce5e8df8fa20d7d807a30c7a61232e0b9",
+        "truth_h5_sha256": "00e900ee1cd237d04107cd929b1bedfa19acb809519d2896a7e1f65d8009becc",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D1_M05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\FIRST_CASE_INGEST_RESULT_V1.json",
+        "ingest_result_sha256": "854323ba73823932abdb0e5f10322ba75a85bc4d88e4544a3579acf2e02bca87",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_POWER_NORMALIZATION_REPAIR_V1\\FIRST_CASE_INGEST_TRUTH_V1.npz",
+        "label_npz_sha256": "69f8f5e7d852863f73d9c3de60799e1eaed5ca350dcc525be6d4039690eb113d",
+        "ledger_binding": {
+          "result_sha256_recorded": "854323ba73823932abdb0e5f10322ba75a85bc4d88e4544a3579acf2e02bca87",
+          "source": "initial_label_evidence",
+          "truth_label_sha256_recorded": "69f8f5e7d852863f73d9c3de60799e1eaed5ca350dcc525be6d4039690eb113d"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          215,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D1M05_20261004T175055Z_449c4f94",
+        "runner_status": "DONE",
+        "runner_status_sha256": "74df479b3c965919048349f23074c2681059f5b439bd8b07ae84f0b12a84fa92",
+        "source_manifest_sha256": "b80a2cee0e546826ad8271c1be5287274c52d457ce65ccff6ed817dd6e7ae047",
+        "truth_h5_sha256": "a51d51793a17ea6028e8d2ced4e8ff9a7b5b85cf997ab8456256075e7db1da64",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D1_P05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D1_P05_V1.json",
+        "ingest_result_sha256": "a70a36d521110c30ad2046e7911f8ceaa6c75075b56908de578f1457828a7076",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D1_P05_V1.npz",
+        "label_npz_sha256": "af5ee4c0489794249ffdc729c35d10fa695c5e744b835c46974c9d67ccce9ba4",
+        "ledger_binding": {
+          "result_sha256_recorded": "a70a36d521110c30ad2046e7911f8ceaa6c75075b56908de578f1457828a7076",
+          "source": "initial_label_evidence",
+          "truth_label_sha256_recorded": "af5ee4c0489794249ffdc729c35d10fa695c5e744b835c46974c9d67ccce9ba4"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          225,
+          195,
+          210,
+          150,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D1P05_20261005T134615Z_ba6b6c46",
+        "runner_status": "DONE",
+        "runner_status_sha256": "a6b83d8d832000fc69355267e2cb28523b6e909e50b573196af775d8d83259be",
+        "source_manifest_sha256": "b00288801c4b718f1db3c686a51cfd89e62c3262f625530c482ece5398a887f2",
+        "truth_h5_sha256": "333a590055c1954bbef9e208df3754f27cc7b7c0115bb6d14a01751b45e14bd3",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D2_M05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D2_M05_V1.json",
+        "ingest_result_sha256": "3efc98a562e515758359955bc3b47b787b95e812821df27d974cacc2f1ca1a15",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D2_M05_V1.npz",
+        "label_npz_sha256": "13cd84d25e0d19db5e6db727927115d0dd68d0022eee29d3dc773cf2aa52d0c6",
+        "ledger_binding": {
+          "result_sha256_recorded": "3efc98a562e515758359955bc3b47b787b95e812821df27d974cacc2f1ca1a15",
+          "source": "initial_label_evidence",
+          "truth_label_sha256_recorded": "13cd84d25e0d19db5e6db727927115d0dd68d0022eee29d3dc773cf2aa52d0c6"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          190,
+          210,
+          150,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D2M05_20261005T143145Z_68c91452",
+        "runner_status": "DONE",
+        "runner_status_sha256": "906d31918aafec5beffa64f8999bb2be6a490db6a50f2254c27236a9654333bd",
+        "source_manifest_sha256": "9e713045e7857ddddada16920ab8724a05243fa47a42b21ab4f0f1a933eafb03",
+        "truth_h5_sha256": "888c01cca9050a3ce4b664f6b2b9434e7f861b2bd41bd321e0a3e52df53b31fd",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D2_P05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D2_P05_V1.json",
+        "ingest_result_sha256": "4862a9a1c260590ac63ca3174f31840ed85bcff3589d9d8ba8123c36de814ac5",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D2_P05_V1.npz",
+        "label_npz_sha256": "f7f475d3054892e0ef0510af643e7efc47bdbd7b6f3ba373c541be363d716f2e",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D2P05_20261005T170314Z_d24728f8.json",
+          "run_one_result_sha256": "30bde9cdffa940b1aebd99aa573d2101ffdbb739aee4262e957887c89bb87426",
+          "runner_status_sha256_recorded": "9ac56223f75f39e7b1ab18bf62f904a2148e5d3784a23fe28ac1499f93b8e9ee",
+          "sequence_index": 4,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "b4146dcf44e3d110630fed2b86c1a8c41fb28b43f6283e000388cfdfba864683"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          200,
+          210,
+          150,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D2P05_20261005T170314Z_d24728f8",
+        "runner_status": "DONE",
+        "runner_status_sha256": "9ac56223f75f39e7b1ab18bf62f904a2148e5d3784a23fe28ac1499f93b8e9ee",
+        "source_manifest_sha256": "efda63a0bca680616776279116db5c4047102db941a8d927b7c78e1f07636365",
+        "truth_h5_sha256": "b4146dcf44e3d110630fed2b86c1a8c41fb28b43f6283e000388cfdfba864683",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D3_M05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D3_M05_V1.json",
+        "ingest_result_sha256": "aa7eb2a76b4a0d300a38108b845b1894cc2557150c0b60ab7552bcfb5c7ecefe",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D3_M05_V1.npz",
+        "label_npz_sha256": "214bdd5ab7d0e3072589edb0ec3c56c45a3db53432a9d985058e2a84189d5f7f",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D3M05_20261005T171524Z_76271eae.json",
+          "run_one_result_sha256": "1c052efeb7aa6e41e1f3a9276798480425b8a5deb00d954adb5e92075248e22a",
+          "runner_status_sha256_recorded": "79f097f1590631cc1b750392ae110ab274cdd2367395cd7869f290029a29ae52",
+          "sequence_index": 5,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "5aea99f5e9f5debc0a38dbd660cf908f04f13e74a4467632117415c8ca157726"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          195,
+          205,
+          150,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D3M05_20261005T171524Z_76271eae",
+        "runner_status": "DONE",
+        "runner_status_sha256": "79f097f1590631cc1b750392ae110ab274cdd2367395cd7869f290029a29ae52",
+        "source_manifest_sha256": "65d93043a48729b59666bffa2a84205dc0ca91b5692b9a7a42f8da175953674c",
+        "truth_h5_sha256": "5aea99f5e9f5debc0a38dbd660cf908f04f13e74a4467632117415c8ca157726",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D3_P05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D3_P05_V1.json",
+        "ingest_result_sha256": "eb741d70f7cc0618d4f511427ac87e38b8da01429c263974178fbc3a1b9067a8",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D3_P05_V1.npz",
+        "label_npz_sha256": "4199d2d9b1b8a8636c4f64eae60078b93d612c6e3178f1839f0511f0c8dfb40e",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D3P05_20261005T172725Z_0b8a594f.json",
+          "run_one_result_sha256": "425b4608cdf29e8b58788f8a12e70044c9fd6a321f866e7d9af56e3a0fa1885e",
+          "runner_status_sha256_recorded": "258d292446a8906941395628f755211d7499a816703f062970caac234b98037a",
+          "sequence_index": 6,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "ee2eadf76dac4225205ea8b2ce08149258a3c4c0e54b35f06876f105518a776d"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          195,
+          215,
+          150,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D3P05_20261005T172725Z_0b8a594f",
+        "runner_status": "DONE",
+        "runner_status_sha256": "258d292446a8906941395628f755211d7499a816703f062970caac234b98037a",
+        "source_manifest_sha256": "ce688aebb58ee4665df85ad6938d42c4fd8b7adfb13cf512b6267bc7fbcb800e",
+        "truth_h5_sha256": "ee2eadf76dac4225205ea8b2ce08149258a3c4c0e54b35f06876f105518a776d",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D4_M05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D4_M05_V1.json",
+        "ingest_result_sha256": "d50e68051bf3c9090c004de3d30bde29bbee4edca17adf1c70d1474ac427ed52",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D4_M05_V1.npz",
+        "label_npz_sha256": "1f5f2e00e7cc659719ebafaf7fcbeeb5537bf45b457887b5f395d0dad7a46b64",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D4M05_20261005T173925Z_abe99c6d.json",
+          "run_one_result_sha256": "533743bf93c863b29f22d4311056150d67b67906a60ede44d2d7330795bc88c8",
+          "runner_status_sha256_recorded": "45c8b6c174a5be53ee9ed415d4b40521ec098a1c314838f2ce3a8c07e68272ea",
+          "sequence_index": 7,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "73d6a18ee3eafe10ca5d76d3f92a1134644d169f0c71edad5a65c218e85ae5c4"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          145,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D4M05_20261005T173925Z_abe99c6d",
+        "runner_status": "DONE",
+        "runner_status_sha256": "45c8b6c174a5be53ee9ed415d4b40521ec098a1c314838f2ce3a8c07e68272ea",
+        "source_manifest_sha256": "693fe52292e8f4430b45c4335ea794d683763fc5e7f92c645d709c09871405c5",
+        "truth_h5_sha256": "73d6a18ee3eafe10ca5d76d3f92a1134644d169f0c71edad5a65c218e85ae5c4",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D4_P05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D4_P05_V1.json",
+        "ingest_result_sha256": "4991fc58d755efd9471e3fcf0e9f0cb57499d969c81919d332b68541403235ea",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D4_P05_V1.npz",
+        "label_npz_sha256": "bd43fba4a1d653aebc87a6bbaf4ee932c6e4ffbbe1ebddd785bd387005a40d4d",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D4P05_20261005T175129Z_34db2f1a.json",
+          "run_one_result_sha256": "d1e6997ef4aba0b94e19110fa244a29106ca383edde0d1cbd73f5936ff323a23",
+          "runner_status_sha256_recorded": "04c89c3e5c5bbe9eb20aa9d7ffa27e147b5eb4bce9b01bb02004e865aa84d457",
+          "sequence_index": 8,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "81e04bb4c1a0fb87ca1c2c9ee6750a6e573d9706ebe79f566b3e69b7d52f4300"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          155,
+          140,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D4P05_20261005T175129Z_34db2f1a",
+        "runner_status": "DONE",
+        "runner_status_sha256": "04c89c3e5c5bbe9eb20aa9d7ffa27e147b5eb4bce9b01bb02004e865aa84d457",
+        "source_manifest_sha256": "e5613e3f696b04141aa9d5aaff7eb66a156d0584e78b96eec040c64c6687666c",
+        "truth_h5_sha256": "81e04bb4c1a0fb87ca1c2c9ee6750a6e573d9706ebe79f566b3e69b7d52f4300",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D5_M05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D5_M05_V1.json",
+        "ingest_result_sha256": "c38a1f495e863108f9144371b446c91d59b28c1812f1c6e63cdbfcc4510a5483",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D5_M05_V1.npz",
+        "label_npz_sha256": "9f640b6ec75c690f40c1160289b5e7fa6f71f73983a02d623815cbd3c20adac4",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D5M05_20261005T180326Z_d02bc677.json",
+          "run_one_result_sha256": "6e6c1614e5a0414d77604495488018d85a88f5633c519a657cc8f57fcca4ab7e",
+          "runner_status_sha256_recorded": "29641502bdd1bb95ba64509fdffb765bac9807cad7f7ad6878d9ef95da24ccc5",
+          "sequence_index": 9,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "3c1c6b4209511b22d65798617c0b22ce792f08cd39836886c693f69e81749b17"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          135,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D5M05_20261005T180326Z_d02bc677",
+        "runner_status": "DONE",
+        "runner_status_sha256": "29641502bdd1bb95ba64509fdffb765bac9807cad7f7ad6878d9ef95da24ccc5",
+        "source_manifest_sha256": "35c865a100894b618dced159ab028d05f0276dcc76c562fb4d73868fc3cc0f0e",
+        "truth_h5_sha256": "3c1c6b4209511b22d65798617c0b22ce792f08cd39836886c693f69e81749b17",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D5_P05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D5_P05_V1.json",
+        "ingest_result_sha256": "23d1d14988f25a0773e7f2c21a7226053fc30e89fc5ef52a24b7a39aae0d252b",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D5_P05_V1.npz",
+        "label_npz_sha256": "bfc7f5cdc73e2729163cf75fbbf1182bcb74e8b51d961fa8dfbd9c8ee46680e8",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D5P05_20261005T181528Z_c856e7de.json",
+          "run_one_result_sha256": "77bdfec6403b4939e9da58243264abe1cd345667f0b51d14fe390fa8836a81d2",
+          "runner_status_sha256_recorded": "23ebb4a2f3371fba72a466e18fb24c650c46490fbe3f320daee536eaf6e0e5b6",
+          "sequence_index": 10,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "67c2d6166f6f71ee580558a114b2d3d466e72de764f2ce2304b090b33fb84524"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          145,
+          210
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D5P05_20261005T181528Z_c856e7de",
+        "runner_status": "DONE",
+        "runner_status_sha256": "23ebb4a2f3371fba72a466e18fb24c650c46490fbe3f320daee536eaf6e0e5b6",
+        "source_manifest_sha256": "e3ac6597c62c9ae06623d626eb20b28eb9a3b476051b46f39e9e583b5057c32b",
+        "truth_h5_sha256": "67c2d6166f6f71ee580558a114b2d3d466e72de764f2ce2304b090b33fb84524",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      },
+      {
+        "attempt_id": "attempt_001",
+        "case_id": "K6LDA1_DEV_D6_P05",
+        "ingest_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGEST_RESULT_K6LDA1_DEV_D6_P05_V1.json",
+        "ingest_result_sha256": "debdfa03e2c43245c1d33891762bf8992b09a2dd34b8b1cd3ffff724e0c1c058",
+        "ingest_status": "PASS",
+        "label_npz_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\INGESTED_TRUTH_K6LDA1_DEV_D6_P05_V1.npz",
+        "label_npz_sha256": "b557ff403e9effac9fdfeb2eef2f77c430b51d33772f81a3b81718840272745b",
+        "ledger_binding": {
+          "phase": "LABEL_PASS",
+          "run_one_result_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_K6_V2_REMAINING127_STARTUP_REVALIDATION_V1\\RUN_ONE_RESULT_K6V2_D6P05_20261006T091843Z_db4d8e8c.json",
+          "run_one_result_sha256": "d870a3ed8cd0799051f686ba6c0eeacda20195ab3d23f08287f46fabf2ccbceb",
+          "runner_status_sha256_recorded": "ff632c442a1255eaa3892f13fd37e98c61134a245291ce4157996c49055ca07d",
+          "sequence_index": 12,
+          "source": "case_records",
+          "truth_h5_sha256_recorded": "04061593b5561e94507e2f86f6ccd480d63525427963ba70418241cb4c8b017b"
+        },
+        "official_loader_reextraction": {
+          "array_max_abs_delta": {
+            "C_hat": 0.0,
+            "P_scale": 0.0,
+            "absolute_order": 0.0,
+            "eta": 0.0
+          },
+          "function": "load_verified_runner_case",
+          "source_path": "scripts/coupling_ml/k6_v2_pipeline/ingest.py",
+          "source_sha256": "9ba93a5d658e202f36bb67f7ba8150ebfcd6b586b04820f166aca29ef275a7d6",
+          "status": "PASS"
+        },
+        "ordered_D_nm": [
+          220,
+          195,
+          210,
+          150,
+          140,
+          215
+        ],
+        "physical_contract_sha256": "32e60a7830a449f2268356db5ffd41f4f22b297be9a1d82ebe97f97be995dea5",
+        "role": "DEVELOPMENT_LOCAL_AXIS",
+        "run_id": "K6V2_D6P05_20261006T091843Z_db4d8e8c",
+        "runner_status": "DONE",
+        "runner_status_sha256": "ff632c442a1255eaa3892f13fd37e98c61134a245291ce4157996c49055ca07d",
+        "source_manifest_sha256": "c7b5c5e61eac5a803c6e3e5c3c8440828b4a062b2e9cc55e4811d851013e79cc",
+        "truth_h5_sha256": "04061593b5561e94507e2f86f6ccd480d63525427963ba70418241cb4c8b017b",
+        "truth_h5_sha_source": "bound ingest input descriptor and matching Runner status.json; H5 bytes not reread"
+      }
+    ],
+    "count": 33,
+    "dataset_audit_path": "D:\\project\\worktrees\\blue_apcd_mdc_np_coupling_ml_v1\\reports\\coupling\\COUPLING_ML_PARTIAL_DEVELOPMENT_DIAG_33G_2FITS_V1\\DATASET_AUDIT_33G.json",
+    "dataset_audit_sha256": "49ab0cab851faa79c5944791fbc96dd875305b2344380ee2bb93b8124b27bb2c",
+    "role_counts": {
+      "DEVELOPMENT_GLOBAL": 22,
+      "DEVELOPMENT_LOCAL_AXIS": 11
+    }
+  },
+  "old32": {
+    "authority_path": "reports/coupling/PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1/PW_K6_32G_DATASET_AUTHORITY_V1.json",
+    "authority_sha256": "0fae0577247866549cf85db88ab5d6f924795423adca4b8cf2742449736f6f2e",
+    "case_ids": [
+      "K6V1_EXT01",
+      "K6V1_EXT02",
+      "K6V1_EXT03",
+      "K6V1_EXT04",
+      "K6V1_EXT05",
+      "K6V1_EXT06",
+      "K6V1_EXT07",
+      "K6V1_EXT08",
+      "K6V1_EXT09",
+      "K6V1_EXT10",
+      "K6V1_EXT11",
+      "K6V1_EXT12",
+      "K6V1_EXT13",
+      "K6V1_EXT14",
+      "K6V1_S02",
+      "K6V1_S03",
+      "K6V1_S04",
+      "K6V1_S05",
+      "K6V1_S15",
+      "K6V1_S16",
+      "K6V1_S21",
+      "K6V1_S31",
+      "K6V1_S32",
+      "K6V1_S33",
+      "K6V1_S35",
+      "K6V1_S36",
+      "K6V1_S37",
+      "K6V1_S39",
+      "K6V1_S42",
+      "K6V1_S45",
+      "K6V1_S47",
+      "K6V1_S48"
+    ],
+    "count": 32,
+    "dataset_path": "reports/coupling/PW_K6_STAGE1_32G_FROZEN_FORWARD_H1_V1/dataset_truth_32g.npz",
+    "dataset_sha256": "fefc09bbd06d0da06664105540c4f5e0659a51b68b06a07df8c44ed413891d28",
+    "prior_exposure_note": "Old32 has been repeatedly used in prior development analyses and is not independent validation or confirmation.",
+    "prior_validation_ids": [
+      "K6V1_S45",
+      "K6V1_S16",
+      "K6V1_S05",
+      "K6V1_EXT07",
+      "K6V1_EXT05",
+      "K6V1_EXT11",
+      "K6V1_S42",
+      "K6V1_S03"
+    ],
+    "role": "OLD32_DEVELOPMENT_REUSED"
+  },
+  "purpose": "Engineering-only, development-data compatibility snapshot; not formal V2 training and not independent confirmation.",
+  "schema": "COUPLING_ML_PARTIAL_DEVELOPMENT_65G_DATASET_SHA256_MANIFEST_V1",
+  "unique_ordered_geometry_count": 65
+}
